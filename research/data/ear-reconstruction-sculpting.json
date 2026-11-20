@@ -129,14 +129,14 @@
      "coarse ear",
      "CC BY 4.0",
      "yes, attributed",
-     "allowed"
+     "user-supplied; extensions.blender.org bundles CC0 assets only"
     ],
     [
      "ICT-FaceKit",
      "scan-derived head with ears",
-     "MIT",
-     "yes (verify)",
-     "allowed"
+     "MIT file in repo vs USC \"contact for commercial use\" (contested)",
+     "unresolved",
+     "not until resolved"
     ],
     [
      "MPFB2 / MakeHuman",
@@ -170,7 +170,7 @@
    "population": "n/a",
    "source_urls": [],
    "status": "contested",
-   "notes": "No permissively licensed ear-specific 3DMM is known to the author. MPFB2 licence and FLAME 2023 Open are sourced in sibling notes (blender/blender-face-addons.md, reconstruction/flame-model.md); the rest is recalled."
+   "notes": "No permissively licensed ear-specific 3DMM is known to the author. MPFB2 licence and FLAME 2023 Open are sourced in sibling notes (blender/blender-face-addons.md, reconstruction/flame-model.md); the rest is recalled. extensions.blender.org accepts only CC0 bundled assets (lib blender/open-template-head-kit.md), so CC BY sources stay user-supplied."
   },
   {
    "name": "ear_subfeature_dimensions",

@@ -2,7 +2,7 @@
 
 > Generic photo-to-3D tools handle the ear badly: face 3DMMs carry coarse, averaged ears, face landmarkers stop at the tragus, recognition crops leave the ear out, and hair hides it. The route that works is to fit each ear as its own part, hinged on the otobasion line and anchored at tragion in a Frankfort-horizontal (FH) frame, with its own tilt, protrusion and twist. Fit it to profile, near-profile, rear-oblique and back photos taken with the hair clipped away and a raking light, then sculpt the folds by hand. As far as recalled, the ear-specific landmark sets and statistical models (iBUG 55-point, York Ear Model, UHM) are research-only, so a shippable tool needs a CC0 ear plus its own ear modes. With no harvest or draft, every claim is expert knowledge or a pointer to a sibling library note.
 >
-> Evidence status: 0 ✅ / 0 📄 / 66 🧠 / 33 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 0 📄 / 64 🧠 / 35 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 

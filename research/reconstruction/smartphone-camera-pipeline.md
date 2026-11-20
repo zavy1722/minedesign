@@ -16,7 +16,7 @@
 - **Beauty:** China-market Android phones (Xiaomi, Oppo, Vivo, Honor, Huawei) often default front-camera beauty on, with *geometric* sliders (face slimming, eye enlargement, nose, chin) 🧠; Samsung "face effects" smooth skin, older models reshaped 🧠; Google made Pixel face retouching off by default around 2020 ↔️; Apple has no beauty mode ("Beautygate", iPhone XS 2018, was Smart HDR noise reduction, changed in iOS 12.1) 🧠
 - **Multi-frame fusion** (HDR+, Deep Fusion, Night mode, Super Res Zoom) aligns tiles to a reference frame, preserving geometry to about a pixel; motion in night exposures softens lids, lips and hair 🧠. Pixel 6 "Face Unblur" warps a sharper face in from a second module 🧠
 - **Generative zoom** (Samsung AI high zoom; Pixel 10 Pro "Pro Res Zoom", diffusion-based, ~30–100×) synthesises detail; nothing beyond optical zoom is identity evidence ↔️
-- **Portrait mode** blurs ears, hair and the jaw/neck silhouette, and segmentation fails around hair, glasses and ears 🧠. On iPhone it is non-destructive (Photos → Edit → Portrait off keeps the depth map); iPhone 15+ records depth in Photo mode when a person is detected 🧠
+- **Portrait mode** blurs ears, hair and the jaw/neck silhouette; segmentation fails around hair and glasses 🧠. On iPhone it is non-destructive (Photos → Edit → Portrait off keeps the depth map); iPhone 15+ records depth in Photo mode when a person is detected 🧠
 
 **What EXIF says**
 - `FocalLength` (0x920A) is the physical module's focal length (iPhone main ≈5.7–6.9 mm, ultra-wide ≈1.5–2.2 mm, tele ≈6–16 mm), unchanged by digital zoom, so it identifies the module 🧠
@@ -121,7 +121,7 @@
   4. Known calibration (Apple inverse LUT, Android `LENS_DISTORTION`, DNG warp, Dynamic Depth) on an uncorrected image: undistort landmarks, then k = 0.
 - **Mirror hypothesis:** fit front-camera views both ways; keep the lower cost if the margin is > 10%, else ask the user 🧠
 - **Distance priors (σ on log z)** 🧠: SubjectDistance 0.5; Apple FocusDistanceRange log-uniform over the range widened ×1.5; Android focus distance CALIBRATED 0.2, APPROXIMATE 0.4, UNCALIBRATED ignored; median face depth from TrueDepth 0.05–0.1, from rear disparity 0.2–0.3.
-- **Gravity:** Apple `AccelerationVector` → camera pitch/roll prior, σ 5° on pitch because head tilt is unknown 🧠
+- **Gravity:** Apple `AccelerationVector` → camera pitch/roll prior (pitch σ 5°; head tilt unknown) 🧠
 - **Processing-risk score** per view (front, Portrait, night, beyond-optical zoom, non-native size, editor, C2PA AI-edit marker) sets robust weights and warnings. Geometric beauty is invisible in pixels: flag a view whose eye-width/IOD or bigonial/IOD departs > 3σ from the multi-view consensus 🧠
 - **Line-straightness QA:** fit curvature of long background edges; bending beyond Table 3's residual means uncorrected distortion or a content-aware warp 🧠
 - **Tests:** synthetic k1 sweep, stereographic face warp, static-tag 16:9 crop and mirror; assert the right model is chosen and shape error < 1 mm 🧠
@@ -143,8 +143,6 @@ None (no harvest or draft existed). Related sourced claims: `reconstruction/came
 - Hasinoff et al., HDR+ burst photography, SIGGRAPH Asia 2016; Wronski et al., "Handheld multi-frame super-resolution", SIGGRAPH 2019
 - Apple Developer Documentation: AVCameraCalibrationData, AVDepthData, AVCapturePhotoSettings; WWDC 2017 "Capturing Depth in iPhone Photography"
 - Android Developers: CameraCharacteristics, DngCreator; Android Dynamic Depth 1.0 specification (2019)
-- Adobe, Digital Negative (DNG) Specification 1.4–1.7
-- CIPA DC-008 (Exif); ISO/IEC 23008-12 (HEIF)
-- Phil Harvey, ExifTool tag documentation (Apple MakerNotes, CustomRendered)
-- Lensfun documentation; pillow-heif, rawpy and LibRaw licence documentation
+- Adobe DNG Specification 1.4–1.7; CIPA DC-008 (Exif); ISO/IEC 23008-12 (HEIF)
+- ExifTool tag documentation (Apple MakerNotes); Lensfun, pillow-heif, rawpy and LibRaw documentation
 - Brown, "Decentering distortion of lenses", 1966; Zhang, "A flexible new technique for camera calibration", TPAMI 2000

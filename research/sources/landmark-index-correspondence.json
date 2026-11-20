@@ -1,0 +1,267 @@
+{
+ "topic": "landmark-index-correspondence",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Google AI Edge - Face Landmarker documentation",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "MediaPipe FaceLandmarkerResult API",
+   "url": "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "MediaPipe 3D Face Transform (Google Developers Blog)",
+   "url": "https://developers.googleblog.com/en/mediapipe-3d-face-transform/",
+   "kind": "official-blog",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "MediaPipe Face Mesh docs (google-ai-edge/mediapipe)",
+   "url": "https://github.com/google-ai-edge/mediapipe/blob/master/docs/solutions/face_mesh.md?plain=1",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "MediaPipe Face Mesh (legacy docs mirror)",
+   "url": "https://mediapipe.readthedocs.io/en/latest/solutions/face_mesh.html",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "yakhyo/mediapipe-face-mesh-onnx README",
+   "url": "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "cornpip/mediapipe_face_mesh",
+   "url": "https://github.com/cornpip/mediapipe_face_mesh",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "MediaPipe Face Mesh: All 478 Landmark Points (DEV Community)",
+   "url": "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8",
+   "kind": "blog",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "MediaPipe face-mesh constants mp_constants.py (Hugging Face Space)",
+   "url": "https://huggingface.co/spaces/Akjava/mediapipe-face-skin-transform/blob/refs%2Fpr%2F1/mp_constants.py",
+   "kind": "code",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "MediaPipe face mesh landmark indices cheat sheet (HackerNoon)",
+   "url": "https://hackernoon.com/mediapipe-face-mesh-landmark-indices-cheat-sheet",
+   "kind": "developer-guide",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research blog)",
+   "url": "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/",
+   "kind": "official-blog",
+   "year": "2020"
+  },
+  {
+   "n": 12,
+   "title": "google-ai-edge/mediapipe issue #6204 (mp.solutions missing from 0.10.30)",
+   "url": "https://github.com/google-ai-edge/mediapipe/issues/6204",
+   "kind": "issue-tracker",
+   "year": "2026"
+  },
+  {
+   "n": 13,
+   "title": "PeizhiYan/Mediapipe_2_Dlib_Landmarks",
+   "url": "https://github.com/PeizhiYan/Mediapipe_2_Dlib_Landmarks/",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "iBUG facial point annotations",
+   "url": "https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "300 Faces In-the-Wild Challenge (300-W)",
+   "url": "https://ibug.doc.ic.ac.uk/resources/300-W",
+   "kind": "official-docs",
+   "year": "2013"
+  },
+  {
+   "n": 16,
+   "title": "PyImageSearch: Detect eyes, nose, lips, and jaw with dlib",
+   "url": "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/",
+   "kind": "blog",
+   "year": "2017"
+  },
+  {
+   "n": 17,
+   "title": "PyImageSearch: (Faster) facial landmark detector with dlib",
+   "url": "https://pyimagesearch.com/2018/04/02/faster-facial-landmark-detector-with-dlib/",
+   "kind": "blog",
+   "year": "2018"
+  },
+  {
+   "n": 18,
+   "title": "librealsense2 markup_68.h source",
+   "url": "https://docs.ros.org/en/kinetic/api/librealsense2/html/markup__68_8h_source.html",
+   "kind": "code-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 19,
+   "title": "davisking/dlib-models README",
+   "url": "https://github.com/davisking/dlib-models",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "NeoLoc-68: 68-point neonatal facial landmark localisation",
+   "url": "https://arxiv.org/pdf/2606.20823",
+   "kind": "preprint",
+   "year": "2026"
+  },
+  {
+   "n": 21,
+   "title": "Infinite 3D Landmarks: Improving Continuous 2D Facial Landmark Detection",
+   "url": "https://arxiv.org/pdf/2405.20117",
+   "kind": "preprint",
+   "year": "2024"
+  },
+  {
+   "n": 22,
+   "title": "FLAME project site",
+   "url": "https://flame.is.tue.mpg.de/",
+   "kind": "official-site",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "FLAME model licence",
+   "url": "https://flame.is.tue.mpg.de/modellicense.html",
+   "kind": "licence",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "Zielon/MICA",
+   "url": "https://github.com/Zielon/MICA",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 25,
+   "title": "Zielon/MICA demo.py",
+   "url": "https://www.github.com/Zielon/MICA/blob/master/demo.py",
+   "kind": "source-code",
+   "year": "n.d."
+  },
+  {
+   "n": 26,
+   "title": "peizhiyan/flame-head-tracker",
+   "url": "https://github.com/peizhiyan/flame-head-tracker",
+   "kind": "repo",
+   "year": "2025"
+  },
+  {
+   "n": 27,
+   "title": "VGCLUB/facefit-mpfb",
+   "url": "https://github.com/VGCLUB/facefit-mpfb",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 28,
+   "title": "Apple ARKit: ARFaceAnchor.blendShapes",
+   "url": "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "Columbia University craniology slides (landmark definitions)",
+   "url": "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+   "kind": "lecture-slides",
+   "year": "n.d."
+  },
+  {
+   "n": 30,
+   "title": "Grand Valley State, Introduction to Human Osteology",
+   "url": "https://pressbooks.gvsu.edu/introhumanosteology/?p=60",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 31,
+   "title": "Nobel Biocare: Definition of 3D cephalometric soft tissue landmarks",
+   "url": "https://nobellicense.nobelbiocare.com/help/d3d046fb-52e8-4b33-9f51-d3fd98ca3ed4/2.0/EN/3D_cephalometric_soft_tissue_landmarks.htm",
+   "kind": "commercial-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 32,
+   "title": "Clinical Equivalence of a CNN-Based Automated Soft Tissue Landmark Detection System on 2D Facial Images",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13205844/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 33,
+   "title": "Facial Anthropometry and Analysis in Egyptian Women",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 34,
+   "title": "Facial Landmarks Determination with Different Digital Scanners: An In Vivo Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 35,
+   "title": "Accuracy and reliability of automated landmark identification on CBCT using Invivo software",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12418967/",
+   "kind": "paper",
+   "year": "2025"
+  }
+ ],
+ "references_by_name": [
+  "MediaPipe source files face_mesh_connections.py, canonical_face_model.obj, canonical_face_model_uv_visualization.png, geometry_pipeline_metadata_landmarks.pbtxt (google-ai-edge/mediapipe)",
+  "Kartynnik, Ablavatski, Grishchenko, Grundmann, Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs, CVPR Workshops 2019",
+  "Grishchenko et al., Attention Mesh: High-fidelity Face Mesh Prediction in Real-time, CVPR Workshops 2020",
+  "Sagonas et al., 300 Faces In-The-Wild Challenge: database and results, Image and Vision Computing 2016",
+  "Wu et al., Look at Boundary: A Boundary-Aware Face Alignment Algorithm (WFLW), CVPR 2018",
+  "Zhu et al., Face Alignment Across Large Poses: A 3D Solution (300W-LP, AFLW2000-3D), CVPR 2016",
+  "Bulat & Tzimiropoulos, How far are we from solving the 2D & 3D Face Alignment problem? (LS3D-W), ICCV 2017",
+  "Li, Bolkart, Black, Li, Romero, Learning a model of facial shape and expression from 4D scans (FLAME), SIGGRAPH Asia 2017",
+  "Sanyal et al., Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision (RingNet), CVPR 2019",
+  "Feng, Feng, Black, Bolkart, Learning an Animatable Detailed 3D Face Model from In-The-Wild Images (DECA), SIGGRAPH 2021",
+  "Zielonka, Bolkart, Thies, Towards Metrical Reconstruction of Human Faces (MICA), ECCV 2022",
+  "Apple Developer documentation: ARFaceAnchor, ARFaceGeometry",
+  "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Bookstein, Morphometric Tools for Landmark Data, 1991",
+  "Gunz & Mitteroecker, Semilandmarks: a method for quantifying curves and surfaces, Hystrix 2013"
+ ]
+}

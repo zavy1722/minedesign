@@ -266,6 +266,36 @@ Legacy Python OBJ/PLY importers were removed in 4.0 📄; the STL add-on was onl
 | 5.2 | Principled BSDF Thin Wall input | never enable on skin | 📄 | [skin](./skin-shading.md) |
 | 5.3 | Multires shows textures in Sculpt Mode; paint settings stored per brush | — | 📄 | [sculpt features](./blender-sculpt-features-5x.md) |
 
+### R12 — Template kit (all design defaults to assert on import)
+
+| Item | Value | Badge | Src |
+|---|---|---|---|
+| CC0 sources allowed in a listed extension | Blender Studio Human Base Meshes (2023); MakeHuman/MPFB2 hm08 head and targets | 🧠 (source-checked in sibling notes) | [template kit](./open-template-head-kit.md) |
+| Off-platform only, with notice or attribution | FLAME 2023 Open (CC BY 4.0); MediaPipe canonical mesh (Apache-2.0); ICT-FaceKit (MIT claimed, contested) | 🧠 / ↔️ | [template kit](./open-template-head-kit.md) |
+| Skin budget | 8,000–12,000 vertices; closed scalp, open neck, exact x = 0 midline | 🧠 | [template kit](./open-template-head-kit.md) |
+| Sub-meshes | lid tuck 2–3 loops at ≤1.5 mm; mouth bag 300–800 vertices, ≈30–40 mm deep; eyeballs 500–1,000 each; teeth and gums 600–3,000; tongue 300–800 | 🧠 | [template kit](./open-template-head-kit.md) |
+| Mirror map | KD-tree match at 1e-5 m; a bijection with M(M(i)) = i; midline vertices map to themselves | 🧠 | [template kit](./open-template-head-kit.md) |
+| Landmark conventions in the sidecar | MediaPipe 478 (36 face-oval points semi-contour); iBUG-68 (51 surface + 17 contour); WFLW-98 (65 + 33); FLAME 51 + 17; Farkas ≈40 | 🧠 | [template kit](./open-template-head-kit.md) |
+| MediaPipe canonical mesh | 468 vertices; 898 triangles closed (852 open); believed cm | 🧠 / ↔️ | [template kit](./open-template-head-kit.md) |
+| Per-region offset σ after the basis fit (1 SD) | lids 1–1.5 mm; lips 1.5–2.5; nose 2–3; brow 2–3; cheek 2.5–4; jaw 2–4; ears 3–5; scalp 3–6; neck 5–10 | 🧠 | [template kit](./open-template-head-kit.md) |
+| Barycentric basis transfer | U′ = (W ⊗ I₃)U, prior stays N(0, I); accept projections < 2–3 mm with cos(normals) > 0.5; fill the rest harmonically | 🧠 | [template kit](./open-template-head-kit.md) |
+| hm08 face targets | piecewise linear incr/decr, so split into two non-negative columns in [0, 1]; optional mass-weighted SVD to K ≈ 40–80 | 🧠 | [template kit](./open-template-head-kit.md) |
+
+### R13 — Guided workflow: photo checks, pin σ, pose coverage
+
+| Check | Warn | Block / exclude | Badge |
+|---|---|---|---|
+| Resolution (outer IOD in px) | < 250 | < 100 | ↔️ |
+| Sharpness (variance of Laplacian at IOD = 256 px) | < 0.6 × set median | < 0.3 × median | 🧠 |
+| Clipped highlights / crushed shadows (% face px) | > 1 % / > 2 % | > 5 % / > 10 % | 🧠 |
+| Camera distance, Z ≈ f_px · 88 mm / IOD_px | < 1.2 m | < 0.7 m | 🧠 |
+| EXIF focal (35 mm-eq) | < 35 mm | < 28 mm | 🧠 |
+| eyeBlink / jawOpen / mouthSmile score | > 0.4 / > 0.10 / > 0.25 | > 0.6 / > 0.25 / > 0.5 (drop from identity) | 🧠 |
+| Mirrored photo | x-flip lowers RMSE > 30 % | — (never auto-flip) | 🧠 |
+| Over-pinning | > 3–5 user pins per feature per view, or > 60 % of pins in one view | — | 🧠 |
+
+User-pin σ (normal direction, mm): crisp corners 0.8 expert / 1.2 novice; vermilion midline, contours and profile silhouettes 1.0; alar base 1.8; nose tip 2.0 ↔️; soft-tissue nasion 1.0 across / 3.5 vertical; ear points 2.5; palpation-defined points (go, zy, me) 4–5 or curve only ↔️; hair-defined points 5 and never for the skull. Combine with a motor term: σ = √(σ_class² + σ_motor²). Pose coverage: frontal 0 ± 5° and both ¾ at ±30–45° required; profiles at ±80–90° strongly advised; a low view (pitch −15 to −25°) advised. Overlays: Okabe–Ito colours plus distinct shapes, targets ≥ 24 px, WCAG contrast 3:1 for graphics. Live re-solve: 2–5 warm-started LM iterations per mouse event at ≥ 20 fps; solve on release if an iteration exceeds ~50 ms. All 🧠 — [guided workflow](./guided-workflow-accessibility.md)
+
 ## Practical checklist for an artist working in Blender
 
 **Before the shoot** ([reference](./reference-camera-setup.md), [hair](./hair-blender.md), [skin](./skin-shading.md))
@@ -274,6 +304,8 @@ Legacy Python OBJ/PLY importers were removed in 4.0 📄; the STL add-on was onl
 - [ ] Views: front, ±25°, ±45°, ±90°, plus slightly high and low; one extra low view for chin and nostrils.
 - [ ] Neutral expression, eyes on the lens, no glasses; ears and hairline clear (hair back or under a cap); a second set with hair as worn plus top and back views.
 - [ ] A scale reference: ruler in the face plane or a measured IPD. Optional colour chart and cross-polarised flat-lit set for albedo.
+
+- [ ] Run the add-on's photo checks (R13) and fill the pose ring; retake rather than click "use anyway" when a check blocks.
 
 **Files** ([texture](./texture-projection-painting.md), [ML deps](./blender-python-ml-deps.md))
 - [ ] Keep originals with EXIF; bake EXIF orientation into the pixels; convert HEIC to PNG/JPEG.
@@ -290,6 +322,11 @@ Legacy Python OBJ/PLY importers were removed in 4.0 📄; the STL add-on was onl
 - [ ] Photo as camera background (Front, alpha 0.3–0.5), offset/scale/rotation left at identity.
 - [ ] Lock camera transforms; Lock Camera to View off; bind cameras to markers and switch resolution with the camera.
 - [ ] Check reprojected landmarks: a median above ~1 px with a good fit means a convention bug, not a likeness problem.
+
+**Landmarks and pins** ([guided workflow](./guided-workflow-accessibility.md), [FaceBuilder](./facebuilder-blender.md))
+- [ ] Place the first pins in each view blind (model overlay hidden), then review the residual queue worst first.
+- [ ] Pin forms, never highlights or shadow edges; use few pins per feature and spread them across views.
+- [ ] Check each pin against its epipolar line from the other views; a pin far off the line marks a different point.
 
 **Fit and imports** ([import](./import-export-scans.md), [face add-ons](./blender-face-addons.md), [FaceBuilder](./facebuilder-blender.md))
 - [ ] Engine result lands as a `likeness`/`ID_fit` shape key on the fixed template.
@@ -356,6 +393,7 @@ Legacy Python OBJ/PLY importers were removed in 4.0 📄; the STL add-on was onl
 | 21 | **User-pin σ:** 0.75 % IOD (≈0.66 mm) for every user pin (FaceBuilder, face add-ons) vs class- and expertise-dependent σ of 0.8–5 mm (guided workflow), which says 0.75 % over-weights novices or soft points 3–30× ↔️. | [FaceBuilder](./facebuilder-blender.md), [face add-ons](./blender-face-addons.md), [guided workflow](./guided-workflow-accessibility.md) | Use the class table (R13) with σ = √(σ_class² + σ_motor²), defaulting to the novice column; keep ≈0.75 % IOD only for expert pins on crisp corners. Calibrate with a short repeat-placement test. |
 | 22 | **Camera-distance warning:** below 1 m (reference cameras) vs 0.8 m (FaceBuilder) vs warn below 1.2 m and block below 0.7 m (guided workflow). | [reference](./reference-camera-setup.md), [FaceBuilder](./facebuilder-blender.md), [guided workflow](./guided-workflow-accessibility.md) | Different jobs: coach capture at 1.2 m (the R3 excess is still ≈8 % at 1.2 m for tragion); flag solved cameras below 0.8–1 m; keep the solver's hard bound at 0.25 m. All 🧠. |
 | 23 | **Mirror detection:** flag a mesh when reflected Umeyama RMS < 0.5 × proper (import) vs flag a photo when an x-flip lowers its RMSE by > 30 % while other views are unchanged (guided workflow). | [import](./import-export-scans.md), [guided workflow](./guided-workflow-accessibility.md) | Not a conflict: one tests meshes, the other photos. Keep both, report in plain words, and never auto-flip (both agree). |
+| 25 | **Mirror-map tolerance:** 1e-5 · s ≈ 1.4 µm (bpy API) vs 1e-5 m = 10 µm (template kit). | [bpy API](./bpy-mesh-api.md), [template kit](./open-template-head-kit.md) | Both sit far above float32 noise (≈7.5e-9 m at 0.1 m). Use the tight value for templates modelled symmetric; for scan-derived topologies match on the mean shape at 1e-5 m, then repair one-to-one with an assignment solve. |
 | 24 | **Contour landmark σ:** 2.5 % IOD for lid/lip contours and 4 % for the face oval (face add-ons) vs 3–5 % for all contour points (template kit) vs 6–8 % (sculpting). | [face add-ons](./blender-face-addons.md), [template kit](./open-template-head-kit.md), [sculpting](./sculpting-likeness-workflow.md) | Fit contours as point-to-curve or silhouette terms, where the normal σ matters more than the % IOD value; use the curve normals in R7 (0.5–2.5 mm) and let points slide along the contour. |
 
 ## Index of topic notes
@@ -370,12 +408,14 @@ Evidence counts are ✅ / 📄 / 🧠 / ↔️ from each note's header.
 | [blender-python-ml-deps](./blender-python-ml-deps.md) | Running MediaPipe, OpenCV and ONNX Runtime with Blender: wheel tags, worker processes, detector contract, landmark noise priors | 1 / 25 / 64 / 8 |
 | [blender-face-addons](./blender-face-addons.md) | Ecosystem map: MediaPipe, MPFB2, FLAME, Faceit, Face Shape Key Rig, CaptureForge, licences and version support, solver defaults | 4 / 34 / 49 / 4 |
 | [facebuilder-blender](./facebuilder-blender.md) | How KeenTools FaceBuilder works in practice, pin σ, focal observability, QA gates, pricing and trial | 1 / 15 / 47 / 23 |
+| [guided-workflow-accessibility](./guided-workflow-accessibility.md) | Guided, accessible add-on UX: where novices fail, plain-language photo checks, pin σ by class and expertise, pose coverage, colour-safe overlays, user testing | 0 / 0 / 62 / 10 |
 | [reference-camera-setup](./reference-camera-setup.md) | Rebuilding each photo's camera, perspective vs distance tables, scale anchors, solver priors, fSpy limits | 2 / 25 / 47 / 11 |
 | [portrait-lighting-compare](./portrait-lighting-compare.md) | Matching photo lighting (SH9, key patterns), compositor comparison graph, verification gates G1–G4 | 1 / 21 / 39 / 12 |
 | [import-export-scans](./import-export-scans.md) | Units, axes, mirroring and vertex order across formats; scan cleanup; landmark-anchored NICP; accuracy references | 6 / 19 / 57 / 5 |
 | [sculpting-likeness-workflow](./sculpting-likeness-workflow.md) | Coarse-to-fine likeness process, resolution per stage, symmetry, camera-matched checks, likeness tolerances | 0 / 1 / 77 / 15 |
 | [blender-sculpt-features-5x](./blender-sculpt-features-5x.md) | Sculpt mode in 4.x–5.x: brush assets, masks, face sets, filters, Multires, real-scale defaults, engine–artist interface | 1 / 9 / 51 / 8 |
 | [face-retopology](./face-retopology.md) | Loop systems, pole placement, budgets and edge lengths, retopology tools, template sidecar and curve terms | 0 / 3 / 73 / 12 |
+| [open-template-head-kit](./open-template-head-kit.md) | Choosing and packaging a CC0 template head: candidates and licences, sidecar schema, landmark conventions, region σ, barycentric basis transfer, axis conversions | 0 / 0 / 93 / 27 |
 | [shapekeys-blendshapes](./shapekeys-blendshapes.md) | Shape-key data model and pitfalls, ARKit 52 and MediaPipe naming, correctives, priors, delta transfer | 0 / 16 / 64 / 11 |
 | [face-rigging](./face-rigging.md) | Rigify, Auto-Rig Pro, ARKit rigs, capture paths, pivot priors, weight QA, personalisation and mocap filtering | 9 / 22 / 70 / 13 |
 | [metahuman-cc-bridges](./metahuman-cc-bridges.md) | Getting a likeness into MetaHuman, Character Creator and Daz: doors, units and axes, wrap defaults, licences | 2 / 9 / 60 / 12 |
@@ -392,4 +432,6 @@ Totals: 47 ✅ / 296 📄 / 1,184 🧠 / 227 ↔️.
 - **Blender 5.x behaviour is mostly unverified** for sculpt changes after 4.3, EXIF handling, `paint.project_image`, the Curves API, internal attribute names (`.sculpt_mask`, `.sculpt_face_set`) and multires write paths ([sculpt features](./blender-sculpt-features-5x.md), [bpy API](./bpy-mesh-api.md), [hair](./hair-blender.md), [texture](./texture-projection-painting.md)).
 - **No numeric perceptual tolerance** for 3D likeness error in mm; all gates are engineering heuristics to calibrate on consented portraits ([sculpting](./sculpting-likeness-workflow.md), [lighting](./portrait-lighting-compare.md)).
 - **Names still unconfirmed:** the full ARKit 52 raw strings, MediaPipe category order and `_neutral` semantics, and the MediaPipe iris left/right index split ([shape keys](./shapekeys-blendshapes.md), [face add-ons](./blender-face-addons.md)).
+- **No study of novice pin accuracy** in photo-to-head tools; the user-pin σ table is a design default to test on synthetic renders ([guided workflow](./guided-workflow-accessibility.md)).
+- **FLAME 2023 Open contents** (component counts, masks, UVs, landmark files and their licences) are unknown, and the ICT-FaceKit licence is contested ([template kit](./open-template-head-kit.md)).
 - **Licence terms not captured:** MediaPipe model card, community ONNX conversions, ICT-FaceKit, Basel Face Model, FaceBuilder EULA on exported meshes ([ML deps](./blender-python-ml-deps.md), [face add-ons](./blender-face-addons.md)).
