@@ -1,0 +1,37 @@
+{
+ "id": "metric-3d-landmark-reference",
+ "area": "anatomy",
+ "title": "Metric 3D mean landmark configuration and covariance",
+ "queue": [
+  {
+   "claim": "Adult pronasale lies about 119 mm (male) / 111 mm (female) in front of tragion along FH. The implied tragion chords are t\u2013n\u2032 \u2248 121/113, t\u2013sn \u2248 129/121 and t\u2013gn\u2032 \u2248 150/139 mm. The library elsewhere uses 100 mm for this depth.",
+   "query": "Farkas upper face depth t-n middle face depth t-sn lower face depth t-gn adult mm norms",
+   "domains": "pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Bitragion breadth is about 145 mm (M) / 137 mm (F), and tragion-to-vertex height is about 130 / 126 mm, in adults.",
+   "query": "bitragion breadth tragion to top of head mean mm male female anthropometric survey",
+   "domains": ""
+  },
+  {
+   "claim": "The ANSUR II public CSV has these head columns in millimetres: headlength, headbreadth, headcircumference, bizygomaticbreadth, mentonsellionlength, interpupillarybreadth, earlength, earbreadth, earprotrusion, tragiontopofhead, bitragionchinarc and bitragionsubmandibulararc. The public release has 4,082 men and 1,986 women.",
+   "query": "ANSUR II public data column list tragiontopofhead mentonsellionlength interpupillarybreadth units",
+   "domains": "openlab.psu.edu"
+  },
+  {
+   "claim": "FLAME 2023 Open is licensed CC BY 4.0. It ships a mean template that includes ears and occiput, plus a shape basis with \u03b2 ~ N(0,1), from which the landmark mean and covariance can be derived and shipped with attribution. Its training data are unconfirmed.",
+   "query": "FLAME 2023 Open CC-BY-4.0 model contents shape components training data",
+   "domains": "flame.is.tue.mpg.de"
+  },
+  {
+   "claim": "The 3DFN summary-level downloads include mean landmark coordinates by age and sex, possibly including tragion. The database has 2,454 participants aged 3\u201340.",
+   "query": "3D Facial Norms FaceBase summary landmark coordinates download tragion age sex",
+   "domains": "facebase.org"
+  },
+  {
+   "claim": "Arnett's true-vertical-line soft-tissue norms put nasal projection about 16\u201317 mm ahead of subnasale, soft pogonion about 3.5 mm (M) / 2.6 mm (F) behind it, and the orbital rims about 19\u201322 mm behind it.",
+   "query": "Arnett 1999 soft tissue cephalometric analysis true vertical line norms nasal projection soft tissue pogonion orbital rim mm",
+   "domains": ""
+  }
+ ]
+}
