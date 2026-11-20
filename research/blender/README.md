@@ -177,7 +177,7 @@ Single-view relative error of z is about 11 % at 0.5 m, 15–20 % at 2 m and ≥
 
 | Term | Value / σ | Badge | Src |
 |---|---|---|---|
-| Landmarks by class (% IOD) | anchors 1.5; lid/lip contours 2.5 (sliding); face oval 4 (silhouette); iris centre 1; user pins 0.75 | 🧠 | [face add-ons](./blender-face-addons.md), [FaceBuilder](./facebuilder-blender.md) |
+| Landmarks by class (% IOD) | anchors 1.5; lid/lip contours 2.5 (sliding); face oval 4 (silhouette); iris centre 1; user pins 0.75 (expert crisp corners only; see R13) | 🧠 / ↔️ | [face add-ons](./blender-face-addons.md), [FaceBuilder](./facebuilder-blender.md) |
 | Detector noise floor (u = face width px / 256) | inner 0.6u; iris 0.4u; brows 1.0u; contour normal 1.5u, tangent ≥ 5u | 🧠 | [ML deps](./blender-python-ml-deps.md) |
 | Robust loss | Huber δ = 2σ; drop points beyond 4σ after the first solve | 🧠 | [face add-ons](./blender-face-addons.md) |
 | Feature curves, normal σ | lid margin, vermilion 0.5–1.0 mm; alar rim 1–1.5; nasolabial 2–3; jaw silhouette 1.5–2.5 | 🧠 | [retopology](./face-retopology.md) |
@@ -236,7 +236,9 @@ Legacy Python OBJ/PLY importers were removed in 4.0 📄; the STL add-on was onl
 | MPFB2 | code GPL-3.0-or-later; base mesh, targets, system assets CC0; asset packs CC0 or CC-BY | ✅ code, 📄 assets | [face add-ons](./blender-face-addons.md) |
 | FLAME 2017/2019/2020/2023 | non-commercial research | 📄 | [face add-ons](./blender-face-addons.md) |
 | FLAME 2023 Open | CC-BY-4.0, commercial use with attribution | 📄 | [face add-ons](./blender-face-addons.md) |
-| Basel Face Model; ICT-FaceKit | research licence; MIT (verify) | 🧠 | [face add-ons](./blender-face-addons.md) |
+| Basel Face Model | research licence | 🧠 | [face add-ons](./blender-face-addons.md) |
+| ICT-FaceKit | MIT file recalled, but the USC page says to contact it for commercial use: treat as not commercially clean | ↔️ | [template kit](./open-template-head-kit.md) |
+| Blender Studio Human Base Meshes | CC0 (2023) | ✅ | [template kit](./open-template-head-kit.md) |
 | InsightFace pretrained models | reported non-commercial | 📄 / ↔️ | [packaging](./blender-extensions-packaging.md) |
 | MediaPipe | Apache-2.0 code 🧠; model-card terms not captured | 🧠 | [ML deps](./blender-python-ml-deps.md) |
 | MetaHuman | UE EULA since UE 5.6 (Jun 2025): other engines and DCCs allowed, no engine royalty outside UE | ✅ | [bridges](./metahuman-cc-bridges.md) |
@@ -305,7 +307,6 @@ User-pin σ (normal direction, mm): crisp corners 0.8 expert / 1.2 novice; vermi
 - [ ] Views: front, ±25°, ±45°, ±90°, plus slightly high and low; one extra low view for chin and nostrils.
 - [ ] Neutral expression, eyes on the lens, no glasses; ears and hairline clear (hair back or under a cap); a second set with hair as worn plus top and back views.
 - [ ] A scale reference: ruler in the face plane or a measured IPD. Optional colour chart and cross-polarised flat-lit set for albedo.
-
 - [ ] Run the add-on's photo checks (R13) and fill the pose ring; retake rather than click "use anyway" when a check blocks.
 
 **Files** ([texture](./texture-projection-painting.md), [ML deps](./blender-python-ml-deps.md))
@@ -388,7 +389,7 @@ User-pin σ (normal direction, mm): crisp corners 0.8 expert / 1.2 novice; vermi
 | 15 | **NICP settings:** stiffness {100…1} normalised by mean edge length, reject beyond max(3·MAD, 5 mm) (import) vs {100…2} relative to the data term, reject beyond 8 mm (bridges); both reject normals > 60°. | [import](./import-export-scans.md), [bridges](./metahuman-cc-bridges.md) | Same schedule shape; normalise stiffness by mean edge length; use the MAD rule with a 5 mm floor for scans and the 8 mm cut for cross-vendor wraps with larger starting misfit. Both are 🧠 and untuned. |
 | 16 | **Voxel sizes:** 1–2 mm blockout (sculpt features) vs 3–5 mm blockout and 1.5–2 mm primaries (sculpting) vs 0.5–1.5 mm for scans (import). | [sculpt features](./blender-sculpt-features-5x.md), [sculpting](./sculpting-likeness-workflow.md), [import](./import-export-scans.md) | Not a real conflict: they serve different purposes (sphere blockout, template-scale concepts, scan targets). Pick by purpose (R5); never the 0.1 default. |
 | 17 | **Mesh density for projection:** ≤ 2–3 mm edges (reconstruction/texture-extraction) vs ≈10 mm from interpolation error alone (texture painting). | [texture](./texture-projection-painting.md) | Flagged ↔️ in the note. 10 mm bounds texture misplacement only; denser meshes still help normals and silhouettes. For per-vertex projection use L ≤ √(4ez); the per-pixel shader route has no limit. |
-| 18 | **FLAME licence:** "research-only" in several notes vs FLAME 2023 Open under CC-BY-4.0 (face-add-ons verification). | [face add-ons](./blender-face-addons.md), [packaging](./blender-extensions-packaging.md), [retopology](./face-retopology.md) | FLAME 2017–2023 non-commercial; FLAME 2023 Open allowed with attribution. Default to the CC0 MPFB2 base; load any FLAME from a user path. |
+| 18 | **FLAME licence:** "research-only" in several notes vs FLAME 2023 Open under CC-BY-4.0 (face-add-ons verification). | [face add-ons](./blender-face-addons.md), [packaging](./blender-extensions-packaging.md), [retopology](./face-retopology.md) | FLAME 2017–2023 non-commercial; FLAME 2023 Open allowed with attribution, off-platform only (not CC0). Default to the project-owned CC0 template (R12); load any FLAME from a user path. |
 | 19 | **Jaw kinematics:** rotation first, translation after w0 ≈ 0.4–0.5 (rigging model) vs combined rotation and translation from the start and max rotation ≈20–34° (rigging verification, ↔️). | [rigging](./face-rigging.md), [shape keys](./shapekeys-blendshapes.md) | Keep the piecewise model as a provisional default but expose w0 (allow 0) and θmax, and fit them per subject from jaw-open photos. |
 | 20 | **Cornea IOR:** 1.376 tissue vs 1.336–1.3375 effective single surface vs 1.4–1.5 glass presets. | [eyes](./eyes-modeling-blender.md) | Single cornea shell: 1.336–1.3375 reproduces corneal power; 1.376 over-magnifies slightly. |
 | 21 | **MPFB2 latest version:** 2.0.18 (MakeHuman page) vs 2.0.16 (one Extensions listing view). | [face add-ons](./blender-face-addons.md), [version](./blender-version-status-2026.md) | Unresolved ↔️; version correspondence tables by base and release, and check vertex count and a topology hash at load. |
@@ -431,9 +432,9 @@ Totals: 53 ✅ / 344 📄 / 1,340 🧠 / 260 ↔️ (recounted from the note hea
 ## Largest gaps
 
 - **No millimetre benchmark** exists in the library for any Blender photo→head route (FaceBuilder, Mesh to MetaHuman, Headshot) or for this project's fitter ([FaceBuilder](./facebuilder-blender.md), [bridges](./metahuman-cc-bridges.md)).
-- **Blender 5.x behaviour is mostly unverified** for sculpt changes after 4.3, EXIF handling, `paint.project_image`, the Curves API, internal attribute names (`.sculpt_mask`, `.sculpt_face_set`) and multires write paths ([sculpt features](./blender-sculpt-features-5x.md), [bpy API](./bpy-mesh-api.md), [hair](./hair-blender.md), [texture](./texture-projection-painting.md)).
+- **Blender 5.x behaviour is mostly unverified** for sculpt changes after 4.3, EXIF handling, `paint.project_image`, the Curves API, internal attribute names (`.sculpt_mask` is confirmed only from 4.1; `.sculpt_face_set` not at all) and multires write paths ([sculpt features](./blender-sculpt-features-5x.md), [bpy API](./bpy-mesh-api.md), [hair](./hair-blender.md), [texture](./texture-projection-painting.md)).
 - **No numeric perceptual tolerance** for 3D likeness error in mm; all gates are engineering heuristics to calibrate on consented portraits ([sculpting](./sculpting-likeness-workflow.md), [lighting](./portrait-lighting-compare.md)).
-- **Names still unconfirmed:** the full ARKit 52 raw strings, MediaPipe category order and `_neutral` semantics, and the MediaPipe iris left/right index split ([shape keys](./shapekeys-blendshapes.md), [face add-ons](./blender-face-addons.md)).
+- **Names still unconfirmed:** the full ARKit 52 raw strings (Apple defines left/right relative to the face 📄, but community reports differ), MediaPipe category order and `_neutral` semantics, and the MediaPipe iris left/right index split ([shape keys](./shapekeys-blendshapes.md), [face add-ons](./blender-face-addons.md)).
 - **No study of novice pin accuracy** in photo-to-head tools; the user-pin σ table is a design default to test on synthetic renders ([guided workflow](./guided-workflow-accessibility.md)).
 - **FLAME 2023 Open contents** (component counts, masks, UVs, landmark files and their licences) are unknown, and the ICT-FaceKit licence is contested ([template kit](./open-template-head-kit.md)).
 - **Licence terms not captured:** MediaPipe model card, community ONNX conversions, ICT-FaceKit, Basel Face Model, FaceBuilder EULA on exported meshes ([ML deps](./blender-python-ml-deps.md), [face add-ons](./blender-face-addons.md)).

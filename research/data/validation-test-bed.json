@@ -1,0 +1,738 @@
+{
+ "topic": "validation-test-bed",
+ "tables": [
+  {
+   "name": "engine_parameter_catalogue",
+   "units": "mm, px, log-units, fractions as stated per row",
+   "columns": [
+    "parameter",
+    "module",
+    "default",
+    "calibrate_against",
+    "sweep_range",
+    "acceptance_criterion"
+   ],
+   "rows": [
+    [
+     "Priors.sigma",
+     "face3d/solve/bundle.py",
+     "8.0 mm iid isotropic",
+     "per-landmark population SD after Procrustes (~2-4 mm in-plane, 3-6 mm depth)",
+     "2-12 mm",
+     "aligned 1-view coverage |z|<1 in 0.60-0.75"
+    ],
+    [
+     "scale prior (missing)",
+     "face3d/solve/bundle.py",
+     "none; iid sigma 8 mm with 32 landmarks implies ~2 % scale SD",
+     "head-size coefficient of variation ~4-5 % (verify)",
+     "log-sigma 0.02-0.08",
+     "scale z RMS 0.8-1.25"
+    ],
+    [
+     "Priors.sigma_sym",
+     "face3d/solve/bundle.py",
+     "2.0 mm (tests use 3.0)",
+     "measured bilateral asymmetry of landmark pairs",
+     "0.5-5 mm",
+     "held-out asymmetry error does not rise"
+    ],
+    [
+     "Priors.sigma_mid",
+     "face3d/solve/bundle.py",
+     "1.5 mm (tests use 2.0)",
+     "measured midline deviation (pronasale, pogonion)",
+     "0.5-4 mm",
+     "held-out asymmetry error does not rise"
+    ],
+    [
+     "f_prior_log_sigma",
+     "face3d/solve/{pnp,bundle,reconstruct}.py",
+     "0.35 (0.05 with trusted EXIF)",
+     "log(f_EXIF / f_ChArUco) per phone and lens",
+     "0.01-0.6",
+     "focal z RMS ~1"
+    ],
+    [
+     "AUTO_SIGMA_FRACTION_OF_DIAG",
+     "face3d/solve/reconstruct.py",
+     "0.006 x landmark bbox diagonal (~2.5 % IOD)",
+     "residuals on renders with known projections; reduced chi-square on real sets",
+     "0.003-0.015",
+     "median NEES/dof or reduced chi-square 0.8-1.25"
+    ],
+    [
+     "huber_sigmas / huber_px",
+     "face3d/solve/reconstruct.py, bundle.py, pnp.py",
+     "3.0 sigma",
+     "outlier rate of real detections; 1.1 % inlier downweighting at 3 sigma",
+     "1.5-5",
+     "S2M flat under 0-20 % outliers"
+    ],
+    [
+     "irls_rounds",
+     "face3d/solve/bundle.py",
+     "3",
+     "convergence",
+     "1-10",
+     "change in X < 0.05 mm"
+    ],
+    [
+     "min visible landmarks per photo",
+     "face3d/solve/reconstruct.py",
+     "6",
+     "PnP stability",
+     "6-20",
+     "failure rate"
+    ],
+    [
+     "silhouette max_dist_px",
+     "face3d/fit/silhouette.py",
+     "60 px absolute",
+     "should scale with face size",
+     "0.1-0.3 IOD",
+     "held-out silhouette error"
+    ],
+    [
+     "silhouette weight / fixed_weight / step / iterations / n_centers / smoothness",
+     "face3d/fit/silhouette.py",
+     "200 / 1e3 / 0.7 / 10 / 600 / 1e-2",
+     "per-region S2M on tier-2 to tier-4 data",
+     "x0.25-4 each",
+     "no region worsens; held-out silhouette improves"
+    ],
+    [
+     "template refine_weight / rbf_smoothing",
+     "face3d/fit/template.py",
+     "1e3 / 0",
+     "oracle-landmark template-warp floor (S2M)",
+     "x0.1-10 / 0-1",
+     "per-region S2M"
+    ],
+    [
+     "sigma_def floor (missing)",
+     "face3d/solve/bundle.py",
+     "none",
+     "per-landmark definition bias measured on renders and real captures",
+     "0.5-2 mm",
+     "9-view aligned coverage |z|<1 >= 0.6"
+    ]
+   ],
+   "population": "engine defaults as of repo commit 6e27bd6 (2026-11-20)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Defaults read from the repository; calibration targets and sweep ranges are expert proposals."
+  },
+  {
+   "name": "coverage_check_face3d",
+   "units": "mm; coverage fractions; NEES per degree of freedom; scale SD in %",
+   "columns": [
+    "scenario",
+    "views_yaw_deg",
+    "noise_px",
+    "declared_sigma_px",
+    "prior_sigma_mm",
+    "definition_bias_mm_per_axis",
+    "outlier_fraction",
+    "shape_rmse_mm_median",
+    "coverage_abs_z_lt_1",
+    "coverage_abs_z_lt_2",
+    "nees_per_dof",
+    "scale_posterior_sd_pct",
+    "scale_actual_sd_pct",
+    "raw_frame_z_rms"
+   ],
+   "rows": [
+    [
+     "R1 5 views, realistic noise, sigma correct",
+     "-60,-30,0,30,60",
+     8.0,
+     8.0,
+     8.0,
+     0,
+     0,
+     1.32,
+     0.69,
+     0.96,
+     0.98,
+     2.1,
+     4.7,
+     1.68
+    ],
+    [
+     "R2 3 views",
+     "-30,0,30",
+     8.0,
+     8.0,
+     8.0,
+     0,
+     0,
+     1.7,
+     0.73,
+     0.97,
+     0.9,
+     2.1,
+     3.7,
+     1.3
+    ],
+    [
+     "R3 1 frontal view",
+     "0",
+     8.0,
+     8.0,
+     8.0,
+     0,
+     0,
+     2.65,
+     0.9,
+     0.99,
+     0.61,
+     2.1,
+     4.1,
+     0.97
+    ],
+    [
+     "R5 5 views, prior 4 mm",
+     "-60,-30,0,30,60",
+     8.0,
+     8.0,
+     4.0,
+     0,
+     0,
+     1.23,
+     0.69,
+     0.96,
+     0.96,
+     1.1,
+     4.7,
+     2.69
+    ],
+    [
+     "R4 5 views, definition bias",
+     "-60,-30,0,30,60",
+     8.0,
+     8.0,
+     8.0,
+     1.0,
+     0,
+     2.07,
+     0.44,
+     0.74,
+     3.63,
+     2.1,
+     4.0,
+     1.86
+    ],
+    [
+     "A 5 views, low noise, sigma correct",
+     "-60,-30,0,30,60",
+     0.8,
+     0.8,
+     8.0,
+     0,
+     0,
+     0.15,
+     0.68,
+     0.95,
+     1.02,
+     2.1,
+     4.5,
+     1.73
+    ],
+    [
+     "B declared sigma 0.5x",
+     "-60,-30,0,30,60",
+     0.8,
+     0.4,
+     8.0,
+     0,
+     0,
+     0.15,
+     0.37,
+     0.68,
+     4.03,
+     2.1,
+     4.5,
+     1.73
+    ],
+    [
+     "C declared sigma 2x",
+     "-60,-30,0,30,60",
+     0.8,
+     1.6,
+     8.0,
+     0,
+     0,
+     0.15,
+     0.95,
+     1.0,
+     0.26,
+     2.1,
+     4.5,
+     1.72
+    ],
+    [
+     "D 3 views, low noise",
+     "-30,0,30",
+     0.8,
+     0.8,
+     8.0,
+     0,
+     0,
+     0.51,
+     0.88,
+     1.0,
+     0.98,
+     2.1,
+     3.6,
+     1.44
+    ],
+    [
+     "E 1 frontal, low noise",
+     "0",
+     0.8,
+     0.8,
+     8.0,
+     0,
+     0,
+     2.34,
+     0.97,
+     1.0,
+     0.94,
+     2.1,
+     4.3,
+     1.01
+    ],
+    [
+     "G 1 frontal, low noise, prior 4 mm",
+     "0",
+     0.8,
+     0.8,
+     4.0,
+     0,
+     0,
+     2.35,
+     0.82,
+     0.98,
+     1.0,
+     1.1,
+     4.3,
+     1.89
+    ],
+    [
+     "H 5 views, strong definition bias",
+     "-60,-30,0,30,60",
+     0.8,
+     0.8,
+     8.0,
+     1.5,
+     0,
+     2.54,
+     0.04,
+     0.09,
+     612.45,
+     2.2,
+     3.6,
+     2.29
+    ],
+    [
+     "I 9 views, strong definition bias",
+     "-80..80 step 20",
+     0.8,
+     0.8,
+     8.0,
+     1.5,
+     0,
+     2.47,
+     0.03,
+     0.06,
+     974.06,
+     2.2,
+     4.6,
+     2.35
+    ],
+    [
+     "J 5 views, 5 % outliers N(0,25 px)",
+     "-60,-30,0,30,60",
+     0.8,
+     0.8,
+     8.0,
+     0,
+     0.05,
+     0.36,
+     0.48,
+     0.75,
+     4.61,
+     2.1,
+     4.2,
+     1.66
+    ]
+   ],
+   "population": "synthetic subjects from face3d.synthetic.random_subject (1.9 mm per-coordinate shape spread after similarity alignment, 4.4 % scale SD, measured over 400 draws)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Computed for this note with the repository's face3d.solve.reconstruct_landmarks on face3d.synthetic data: 32 illustrative landmarks, random_subject generator (identity_sd 4, asym_sd 1, scale_sd 0.04), 26 mm-eq at 420 mm, 3000x4000 px, pitch U(-8,8) deg, prior sigma 8 mm unless noted, sigma_sym 3, sigma_mid 2, Huber 3 sigma, seed 123, 30-40 trials per row. z and NEES computed after linearised similarity alignment: e_P = P e, Sigma_P = P Sigma P, P = I - G(G^T G)^-1 G^T with G the 3N x 7 similarity tangent at the estimate; full 3N x 3N covariance captured from the Gauss-Newton inverse. Scale columns: posterior SD of the similarity-scale direction vs SD of actual scale error. Inverse-crime caveat: the generator is a smooth warp of the prior template, so real errors will be larger."
+  },
+  {
+   "name": "statistical_yardsticks",
+   "units": "probabilities, quantiles (dimensionless)",
+   "columns": [
+    "quantity",
+    "condition",
+    "value"
+   ],
+   "rows": [
+    [
+     "per-axis coverage",
+     "|z|<1",
+     0.6827
+    ],
+    [
+     "per-axis coverage",
+     "|z|<2",
+     0.9545
+    ],
+    [
+     "per-axis coverage",
+     "|z|<3",
+     0.9973
+    ],
+    [
+     "2D radial residual tail P(r>k sigma)=exp(-k^2/2)",
+     "k=2.448",
+     0.05
+    ],
+    [
+     "2D radial residual tail",
+     "k=3.0",
+     0.0111
+    ],
+    [
+     "2D radial residual tail",
+     "k=3.035",
+     0.01
+    ],
+    [
+     "2D radial residual tail",
+     "k=3.717",
+     0.001
+    ],
+    [
+     "chi2(3) quantile",
+     "p=0.50",
+     2.366
+    ],
+    [
+     "chi2(3) quantile",
+     "p=0.6827",
+     3.525
+    ],
+    [
+     "chi2(3) quantile",
+     "p=0.95",
+     7.815
+    ],
+    [
+     "chi2(3) quantile",
+     "p=0.99",
+     11.345
+    ],
+    [
+     "per-view reduced chi2 99% upper bound (dof=2n, Wilson-Hilferty)",
+     "n=32 landmarks",
+     1.47
+    ],
+    [
+     "per-view reduced chi2 99% upper bound",
+     "n=68",
+     1.3
+    ],
+    [
+     "per-view reduced chi2 99% upper bound",
+     "n=478",
+     1.11
+    ],
+    [
+     "standard error of coverage estimate",
+     "p=0.683, n_eff=100",
+     0.047
+    ],
+    [
+     "standard error of coverage estimate",
+     "p=0.683, n_eff=400",
+     0.023
+    ],
+    [
+     "Huber tuning constant for 95% Gaussian efficiency",
+     "scalar residual",
+     1.345
+    ],
+    [
+     "half-normal mean / sigma",
+     "|e| for Gaussian e",
+     0.798
+    ]
+   ],
+   "population": "mathematical (Gaussian noise model)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Computed (closed form or 4M-sample Monte Carlo); reduced chi2 bound ignores the parameter-count reduction of dof."
+  },
+  {
+   "name": "phone_render_ranges",
+   "units": "mm 35mm-equivalent focal; m distance; px; degrees; Kelvin",
+   "columns": [
+    "parameter",
+    "range",
+    "sampling",
+    "notes"
+   ],
+   "rows": [
+    [
+     "main camera focal",
+     "23-28 mm-eq",
+     "uniform",
+     "most phones 24-26"
+    ],
+    [
+     "telephoto focal",
+     "48-125 mm-eq",
+     "discrete 2x/3x/5x",
+     "2x may be a main-sensor crop"
+    ],
+    [
+     "front camera focal",
+     "22-30 mm-eq",
+     "uniform",
+     "may apply face unwarping on wide modules"
+    ],
+    [
+     "selfie distance",
+     "0.25-0.45 m",
+     "uniform",
+     "arm's length"
+    ],
+    [
+     "helper-shot distance",
+     "0.6-1.5 m",
+     "uniform",
+     ""
+    ],
+    [
+     "tele distance",
+     "1.5-3 m",
+     "uniform",
+     ""
+    ],
+    [
+     "frame",
+     "4032x3024 (12 MP, 4:3)",
+     "both orientations",
+     "24-50 MP modes exist"
+    ],
+    [
+     "yaw / pitch / roll",
+     "0-90 / +-15 / +-10 deg",
+     "uniform",
+     ""
+    ],
+    [
+     "sensor noise",
+     "Poisson-Gaussian",
+     "shot gain log-uniform over ~2 decades",
+     "read noise tied to shot gain (Brooks et al. 2019 style)"
+    ],
+    [
+     "sharpening",
+     "unsharp radius 0.8-2 px, amount 0.3-1.5",
+     "uniform",
+     ""
+    ],
+    [
+     "compression",
+     "JPEG q 70-95, 4:2:0",
+     "uniform",
+     "HEIC default on iPhone"
+    ],
+    [
+     "residual distortion",
+     "<~1 % radial at corners (main)",
+     "uniform",
+     "contested; front/ultrawide may be strongly unwarped"
+    ],
+    [
+     "lighting",
+     "indoor/outdoor/flash HDRIs, 2700-6500 K, key:fill 1:1-8:1",
+     "categorical + uniform",
+     ""
+    ]
+   ],
+   "population": "consumer smartphones c. 2020-2026",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert ranges; verify against current phone specifications before freezing a render set."
+  },
+  {
+   "name": "face_size_and_perspective",
+   "units": "pixels (inter-pupillary distance) and magnification ratio",
+   "columns": [
+    "focal_35mm_eq",
+    "distance_m",
+    "ipd_px_12MP_4x3",
+    "nose_vs_ear_plane_magnification"
+   ],
+   "rows": [
+    [
+     26,
+     0.3,
+     636,
+     1.5
+    ],
+    [
+     26,
+     0.45,
+     424,
+     1.29
+    ],
+    [
+     26,
+     1.0,
+     191,
+     1.11
+    ],
+    [
+     26,
+     1.5,
+     127,
+     1.07
+    ],
+    [
+     52,
+     0.3,
+     1272,
+     1.5
+    ],
+    [
+     52,
+     0.45,
+     848,
+     1.29
+    ],
+    [
+     52,
+     1.0,
+     382,
+     1.11
+    ],
+    [
+     52,
+     1.5,
+     254,
+     1.07
+    ],
+    [
+     77,
+     0.45,
+     1256,
+     1.29
+    ],
+    [
+     77,
+     1.0,
+     565,
+     1.11
+    ],
+    [
+     77,
+     1.5,
+     377,
+     1.07
+    ]
+   ],
+   "population": "adult IPD 63 mm; 4032x3024 sensor; focal from diagonal 35 mm equivalence; distance measured to the ear (tragion) plane, nose tip 100 mm nearer",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Pinhole arithmetic computed for this note; magnification ratio = d/(d-0.1 m)."
+  },
+  {
+   "name": "ground_truth_sources",
+   "units": "text",
+   "columns": [
+    "source",
+    "geometry",
+    "matching_photos",
+    "terms_to_verify",
+    "test_bed_role"
+   ],
+   "rows": [
+    [
+     "Smithsonian 3D life masks (Lincoln, Volk 1860 and Mills 1865)",
+     "face-only plaster cast, eyes closed",
+     "none",
+     "CC0 flagged per item",
+     "tier 2 renders, tier 3 prints"
+    ],
+    [
+     "Sketchfab / Fab CC0 and CC BY head scans",
+     "photogrammetry, often decimated, hair as surface",
+     "rarely",
+     "CC0/CC BY; ND and NC restrict; personality rights not licensed",
+     "tier 2 diversity"
+    ],
+    [
+     "3D Scan Store and Triplegangers free samples",
+     "cleaned studio scans with textures",
+     "no",
+     "vendor EULA; no redistribution; AI-training restrictions",
+     "private tier 2"
+    ],
+    [
+     "NoW validation split",
+     "20 neutral 3dMD scans",
+     "iPhone photos (neutral, expression, occlusion, selfie)",
+     "MPI account, non-commercial research",
+     "tier 4 proxy; NoW protocol"
+    ],
+    [
+     "FaceScape",
+     "DSLR multi-view meshes",
+     "calibrated DSLR images (subset)",
+     "non-commercial, signed agreement",
+     "solver on real images"
+    ],
+    [
+     "REALY",
+     "about 100 Headspace scans, 4 regions",
+     "images",
+     "application",
+     "region-wise protocol parity"
+    ],
+    [
+     "Stirling/ESRC 3D",
+     "Di3D scans",
+     "2D images",
+     "research request",
+     "FG 2018 protocol"
+    ],
+    [
+     "3D-printed CC0 head",
+     "1:1 print, re-scanned",
+     "real phone photos",
+     "CC0 source",
+     "tier 3"
+    ],
+    [
+     "Own consenting sitter",
+     "two reference scans",
+     "same-session phone photos",
+     "written informed consent",
+     "tier 4"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Licence and availability terms are time-sensitive; check each before use."
+  }
+ ]
+}

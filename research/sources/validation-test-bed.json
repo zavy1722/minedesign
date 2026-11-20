@@ -1,0 +1,31 @@
+{
+ "topic": "validation-test-bed",
+ "sources": [],
+ "references_by_name": [
+  "Sanyal, Bolkart, Feng & Black, RingNet / NoW benchmark, CVPR 2019",
+  "Chai et al., \"REALY: Rethinking the Evaluation of 3D Face Reconstruction\", ECCV 2022",
+  "Yang et al., FaceScape, CVPR 2020",
+  "Feng, Huber, Kittler, Hancock et al., \"Evaluation of Dense 3D Reconstruction from 2D Face Images in the Wild\", FG 2018",
+  "Feng et al., DECA, SIGGRAPH 2021",
+  "Zielonka, Bolkart & Thies, MICA (\"Towards Metrical Reconstruction of Human Faces\"), ECCV 2022",
+  "Huber et al., \"A Multiresolution 3D Morphable Face Model and Fitting Framework\" (eos), VISAPP 2016",
+  "Qian et al., VHAP (Versatile Head Alignment with Adaptive Appearance Priors), 2024",
+  "Kirschstein et al., NeRSemble, ACM TOG 2023",
+  "Kartynnik et al., \"Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs\", CVPR Workshops 2019",
+  "Wood et al., \"Fake It Till You Make It: Face analysis in the wild using synthetic data alone\", ICCV 2021",
+  "Brooks et al., \"Unprocessing Images for Learned Raw Denoising\", CVPR 2019",
+  "Foi et al., \"Practical Poissonian-Gaussian Noise Modeling and Fitting for Single-Image Raw-Data\", IEEE TIP 2008",
+  "Shih, Lai & Liang, \"Distortion-free Wide-angle Portraits on Camera Phones\", ACM TOG (SIGGRAPH) 2019",
+  "Zhang, \"A Flexible New Technique for Camera Calibration\", IEEE TPAMI 2000",
+  "Triggs, McLauchlan, Hartley & Fitzgibbon, \"Bundle Adjustment - A Modern Synthesis\", 2000",
+  "Förstner & Wrobel, Photogrammetric Computer Vision, Springer 2016",
+  "Bar-Shalom, Li & Kirubarajan, Estimation with Applications to Tracking and Navigation, 2001 (NEES)",
+  "Kaipio & Somersalo, Statistical and Computational Inverse Problems, Springer 2005 (inverse crime)",
+  "Bland & Altman, \"Statistical methods for assessing agreement between two methods of clinical measurement\", Lancet 1986",
+  "Efron & Tibshirani, An Introduction to the Bootstrap, 1993",
+  "Morris, \"Factorial Sampling Plans for Preliminary Computational Experiments\", Technometrics 1991",
+  "Saltelli et al., Global Sensitivity Analysis: The Primer, Wiley 2008",
+  "Huber, \"Robust Estimation of a Location Parameter\", Annals of Mathematical Statistics 1964",
+  "Farkas, Anthropometry of the Head and Face, 1994"
+ ]
+}

@@ -1,14 +1,14 @@
 # Ground-truth test bed and threshold calibration for the fitting engine
 
-> Accuracy can only be measured against heads whose shape is known independently, and σ values, gates and thresholds can only be tuned on images that behave like users' phone photos. A four-tier test bed covers both: numpy synthetic scenes in CI; Blender renders of CC0/CC-BY scans through a simulated phone pipeline and MediaPipe; a 3D-printed CC0 head shot with real phones; consenting sitters with a reference scan plus same-session photos. Licensed research sets (NoW, FaceScape, REALY, Stirling/ESRC) serve private benchmarking only. A coverage check on the repo's own bundle adjuster (Table 5) finds its posterior σ honest for shape when σ_px is right, pessimistic where the 8 mm prior dominates, 2–4× overconfident for absolute scale, and badly overconfident under landmark-definition bias.
+> Accuracy needs heads whose shape is known independently; σ values, gates and thresholds need images that behave like users' phone photos. A four-tier test bed covers both: numpy synthetic scenes in CI; Blender renders of CC0/CC-BY scans through a simulated phone pipeline and MediaPipe; a 3D-printed CC0 head shot with real phones; consenting sitters with a reference scan plus same-session photos. Licensed research sets (NoW, FaceScape, REALY, Stirling/ESRC) serve private benchmarking only. A coverage check on the repo's own bundle adjuster (Table 5) finds its posterior σ honest for shape when σ_px is right, pessimistic where the 8 mm prior dominates, 2–4× overconfident for absolute scale, and badly overconfident under landmark-definition bias.
 >
-> Evidence status: 0 ✅ / 0 📄 / 61 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 0 📄 / 64 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Ground truth you can actually get**
 - Smithsonian Open Access (Feb 2020) put ≈2.8 M 2D/3D items under CC0; its 3D portal holds scans of Lincoln's life masks (Volk 1860, Mills 1865), featured since the 2013 "Smithsonian X 3D" launch. Rights are flagged per item. 🧠 CC0 download of each mask ↔️
-- Life masks are face-only plaster casts: eyes closed, tissue loaded by plaster, no hair, no matching photos. Good for nose, lips, chin, forehead; useless for lids, ears, cranium. 🧠
+- Life masks are face-only plaster casts (eyes closed, tissue loaded by plaster, no photos): good for nose, lips, chin, forehead; useless for lids, ears, cranium. 🧠
 - Sketchfab uploaders pick CC0, BY, BY-SA, BY-ND, BY-NC, BY-NC-SA or BY-NC-ND. CC0 and BY suit fixtures; ND blocks publishing renders; NC assets stay out of the repo. Sketchfab's store moved into Epic's Fab (launched Oct 2024), which mixes Fab licences with CC listings. 🧠 Current state ↔️
 - CC 4.0 licences expressly exclude publicity, privacy and personality rights, and CC0 cannot waive the sitter's. A CC scan of a living person is not consent and stays personal data under GDPR (`ethics/consent-likeness-law.md`). 🧠
 - 3D Scan Store (Ten24) and Triplegangers sell model-released scans and have offered free samples; as I recall their EULAs allow project use, forbid redistributing the scan, and Triplegangers forbids scraping and AI training. Keep samples private, never in git. ↔️
@@ -22,16 +22,15 @@
 - Main cameras correct distortion in-pipeline to a small residual; some wide front/ultrawide pipelines apply face-preserving unwarping (Shih, Lai & Liang 2019) that no global camera model represents. 🧠 Which phones ↔️
 - Blender traps: 35 mm-equivalence is diagonal-based (4:3 equivalent width 34.6 mm, not 36); `sensor_fit = AUTO` applies the sensor to the longer side, changing focal in portrait renders; cameras look down −Z, +Y up. `face3d/geometry/camera.py` handles all three; a render round-trip test should prove it. 🧠
 - MediaPipe Face Landmarker: 478 points from a ≈256 px crop, so error scales with face size, not megapixels (the rationale for `AUTO_SIGMA_FRACTION_OF_DIAG`); 3–4.5 % IOD NME class, reliable to ≈±45° yaw, no visibility flags, far-side oval hallucinated (`landmark-detection.md`). ↔️
-- **Domain gap:** no published figure for MediaPipe on renders of scans is known to me. Photoreal synthetic faces with hair and eyes train detectors to real-data accuracy (Wood et al. 2021), so good renders can be close; bare-scan or plaster renders degrade lids, brows and lips. Measure it (Applying, step 3). ↔️
+- **Domain gap:** no published figure for MediaPipe on renders of scans is known to me. Photoreal synthetic faces train detectors to real-data accuracy (Wood et al. 2021), so good renders can be close; bare-scan renders degrade lids, brows and lips. Measure it (Applying, step 3). ↔️
 
 **Reference capture**
-- 3dMD/Di3D: nominal ≈0.2 mm, live repeat ≈0.2–0.5 mm (verified in `benchmarks-metrics.md`). Handheld structured light (Artec, EinScan, Revopoint): ≈0.05–0.1 mm claimed on rigid targets, but 20–90 s sweeps let a face move, ≈0.3–1 mm. TrueDepth apps ≈0.5–2 mm, face only. Rear LiDAR is centimetre-class. Walk-around single-camera photogrammetry of a person: 1–3 mm motion error. ↔️
-- Two scans ten minutes apart give the floor; differences below ≈1.5× it are unresolvable. 🧠
+- 3dMD/Di3D: nominal ≈0.2 mm, live repeat ≈0.2–0.5 mm (verified in `benchmarks-metrics.md`). Handheld structured light (Artec, EinScan, Revopoint): ≈0.05–0.1 mm claimed on rigid targets, but 20–90 s sweeps let a face move, ≈0.3–1 mm. TrueDepth apps ≈0.5–2 mm, face only. Rear LiDAR is centimetre-class. Walk-around photogrammetry of a person: 1–3 mm motion error. Two scans ten minutes apart give the floor. ↔️
 
 **Statistics**
 - Test σ in a gauge-free frame. Photos fix a head only up to similarity; the prior picks one, so raw-frame z mixes in unobservable error (RMS 1.7–3.2 here). Similarity-align, then project the covariance with P = I − G(GᵀG)⁻¹Gᵀ, G the 3N×7 similarity tangent. 🧠
 - Correctly specified, aligned 5-view coverage is 0.69/0.96 at 1σ/2σ with NEES/dof 0.98: the Gauss–Newton covariance is honest, and NEES/dof scales as (true/declared σ_px)², so it calibrates σ_px directly. 🧠
-- The subject (and session) is the unit of independence: bootstrap over subjects; compare settings with common random numbers and paired tests. 🧠
+- The subject is the unit of independence: bootstrap over subjects; compare settings with common random numbers and paired tests. 🧠
 - Without a scan, two photo sessions give test–retest precision, and Bland–Altman agreement with caliper distances gives bias and limits of agreement. 🧠
 
 **How open projects evaluate**
@@ -112,13 +111,13 @@
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Tiers answer different questions.** Tier 1: is the solver mathematically right? Tier 2: which σ_px and gates suit MediaPipe under phone optics? Tier 3: what do real lenses and ISPs add, geometry known exactly? Tier 4: what does a living, moving person add? Freeze each tier's tuning before moving up. 🧠
-2. **Render recipe.** `blender -b -P render_set.py`; Cycles, clean render plus OpenImageDenoise, saved as linear EXR. Export K, the OpenCV-convention pose, projected GT landmarks with `BVHTree` ray-cast visibility, an object-index silhouette and depth. Add noise, ISP and JPEG in numpy afterwards, so one render yields many degradations. Give scans eyeballs, brows and lashes: MediaPipe reads texture. 🧠
+1. **Tiers answer different questions:** solver correctness (1); σ_px and gates for MediaPipe under phone optics (2); real lenses and ISPs with exact geometry (3); a living, moving person (4). Freeze each tier's tuning before moving up. 🧠
+2. **Render recipe.** `blender -b -P render_set.py`; Cycles, clean render plus OpenImageDenoise, saved as linear EXR. Export K, the OpenCV-convention pose, projected GT landmarks with `BVHTree` ray-cast visibility, an object-index silhouette and depth. Add noise, ISP and JPEG in numpy afterwards, so one render yields many degradations. Give scans eyes, brows and lashes. 🧠
 3. **Measure the domain gap.** Solve the camera on a real tier-3/4 photo, render the scan from that camera, run MediaPipe on both, and report paired per-landmark differences in % IOD. Where the gap exceeds ≈0.5 % IOD, tune on real data only. 🧠
 4. **Print-in-the-loop.** Print a CC0 head at 1:1, paint it matte skin tone with iris decals, re-scan the print (prints warp), photograph it with real phones: real optics, no motion, no consent issue. 🧠
 5. **Sitter protocol** (signed consent covering scans, photos, retention, deletion, publication of aggregates), all within 30 minutes: swim cap, no glasses; two reference scans; caliper zy–zy, eu–eu, g–op, n–gn; ChArUco calibration of every lens at locked focus; 9 yaws −90…+90° at 1–1.5 m on main and 2× lenses, three selfies, two lighting setups, both orientations; portrait mode, beauty filters and front-camera mirroring off; originals kept with EXIF. Two annotators mark scan landmarks twice each. 🧠
 6. **Report** per-region signed scan-to-mesh after landmark-only, NoW-style and REALY-style alignment (`benchmarks-metrics.md`); leave-one-view-out reprojection (re-solve without view k, pose k by PnP on canthi, nasion and subnasale, score the other landmarks and silhouette in % IOD); scale error; test–retest RMS; Bland–Altman on caliper distances. Ablate by oracle substitution (true 3D landmarks → template-warp floor; true 2D projections → solver floor; detections → full pipeline). 🧠
-7. **What goes wrong:** unit or axis mismatch; mirrored selfies; HEIC conversion dropping EXIF; phones serving "2×" as a main-sensor crop; scan hair and closed eyes scored as error; tuning and testing on the same people. 🧠
+7. **What goes wrong:** unit or axis mismatch; mirrored selfies; EXIF lost in HEIC conversion; "2×" served as a main-sensor crop; scan hair scored as error; tuning and testing on the same people. 🧠
 
 ## Algorithmic implications
 
@@ -126,28 +125,27 @@
 - **Add a scale parameter** with a log-normal prior (σ ≈ 0.045 until verified). An iid isotropic prior leaves ≈σ/(√N·r̄) scale freedom (≈2 % at 8 mm, 32 points), half the real spread (Table 5). Long term: a low-rank covariance from licensed scans. 🧠
 - **σ_def floor:** add per-landmark definition-bias variance (0.5–2 mm) to the covariance, or model a per-landmark offset shared across views; otherwise σ shrinks as 1/√views while bias stays. 🧠
 - **σ_px:** report reduced χ² = 2·cost/(m − n) per fit; calibrate `AUTO_SIGMA_FRACTION_OF_DIAG` so its median over tier-2/4 sets is ≈1, with per-landmark multipliers (inner anchors ≈0.5–0.7×, oval ≈1.5–2×); inflate reported covariance by max(1, χ²_red). 🧠
-- **Gates from quantiles:** landmark outlier at 3.03σ (1 % false alarm in 2D); view rejected above its 99 % reduced-χ² bound (Table 4); a final redescending round (Geman–McClure or Tukey) or hard rejection, since Huber leaves gross outliers bounded influence (Table 5, last row). 🧠
-- **Units:** pixel thresholds such as `max_dist_px` belong in IOD or σ_px units, as `huber_sigmas` already is. 🧠
+- **Gates from quantiles:** landmark outlier at 3.03σ (1 % false alarm in 2D); view rejected above its 99 % reduced-χ² bound (Table 4); a final redescending round (Geman–McClure or Tukey) or hard rejection, since Huber leaves gross outliers bounded influence (Table 5, last row). Express pixel thresholds such as `max_dist_px` in IOD or σ_px units. 🧠
 - **Tuning order:** σ ratios set the MAP estimate, the global σ scale only the error bars; tune ratios for accuracy, then scale for coverage. Screen ≈12 parameters with Morris elementary effects (≈20 trajectories, 260 runs), Sobol' indices on the top 4–5, validate leave-one-subject-out. 🧠
 - **CI:** tier 1 on every push (numpy, fixed seeds, medians vs stored baselines ± 3 MAD over 30 seeds, paired); tier 2 nightly from cached detection JSON of CC0 renders committed with licence files; tiers 3–4 on a private machine before release, aggregates only. Store protocol version, licence hashes and engine SHA with every result. 🧠
 
 ## Disagreements, myths & open questions
 
-- **Myth: "more views always shrink error bars honestly."** Only if landmark semantics match anatomy; bias makes more views more confidently wrong. 🧠
+- **Myth: "more views shrink error bars honestly."** Bias makes more views more confidently wrong. 🧠
 - **Myth: "a CC0 scan is free to use as a face."** Copyright yes; personality and data-protection rights no. ↔️
 - **Renders vs reality** ↔️: synthetic-only training works (Wood et al.), yet off-the-shelf detectors on bare scans fail; the gap is per-region and unmeasured publicly.
-- **Prior σ** ↔️: 8 mm protects unusual faces but over-covers; 2–4 mm population values pull distinctive features toward the mean (`face-perception-likeness.md`).
+- **Prior σ** ↔️: 8 mm protects unusual faces but over-covers; 2–4 mm pulls distinctive features toward the mean.
 - **Open:** MediaPipe error on renders; current Smithsonian, Fab and vendor terms; whether NoW validation images keep EXIF; the head-size CV for the scale prior; a permissive phone-photo + scan set.
 
 ## Sources
 
-No harvest or earlier draft existed, so no URLs are cited. Table 5 and the generator spread were computed for this note with the repository's `face3d` code. Related verified material: `reconstruction/benchmarks-metrics.md`, `face-scan-datasets.md`, `landmark-detection.md`, `camera-perspective-distortion.md`.
+No harvest or draft existed, so no URLs are cited; Table 5 was computed with the repository's `face3d` code. Related verified material: `reconstruction/benchmarks-metrics.md`, `face-scan-datasets.md`, `landmark-detection.md`, `camera-perspective-distortion.md`.
 
 **Further reading (by name, not yet linked)**
-- Sanyal et al., RingNet/NoW, CVPR 2019; Chai et al., REALY, ECCV 2022; Yang et al., FaceScape, CVPR 2020; Feng, Huber, Kittler, Hancock et al., FG 2018 dense-reconstruction challenge
+- Sanyal et al., RingNet/NoW, CVPR 2019; Chai et al., REALY, ECCV 2022; Yang et al., FaceScape, CVPR 2020; Feng et al., FG 2018 challenge
 - Feng et al., DECA, SIGGRAPH 2021; Zielonka, Bolkart & Thies, MICA, ECCV 2022; Huber et al., eos, VISAPP 2016; Qian et al., VHAP, 2024; Kirschstein et al., NeRSemble, TOG 2023
-- Kartynnik et al., MediaPipe face mesh, CVPRW 2019; Wood et al., "Fake It Till You Make It", ICCV 2021
-- Brooks et al., "Unprocessing Images for Learned Raw Denoising", CVPR 2019; Foi et al., Poissonian-Gaussian noise, IEEE TIP 2008; Shih, Lai & Liang, wide-angle portraits, ACM TOG 2019; Zhang, camera calibration, TPAMI 2000
-- Triggs et al., "Bundle Adjustment — A Modern Synthesis", 2000; Förstner & Wrobel, *Photogrammetric Computer Vision*, 2016; Bar-Shalom, Li & Kirubarajan, 2001 (NEES)
-- Kaipio & Somersalo, *Statistical and Computational Inverse Problems*, 2005; Bland & Altman, Lancet 1986; Efron & Tibshirani, bootstrap, 1993
-- Morris, Technometrics 1991; Saltelli et al., *Global Sensitivity Analysis: The Primer*, 2008; Huber, 1964; Farkas, *Anthropometry of the Head and Face*, 1994
+- Kartynnik et al., CVPRW 2019; Wood et al., ICCV 2021
+- Brooks et al., "Unprocessing", CVPR 2019; Foi et al., IEEE TIP 2008; Shih, Lai & Liang, ACM TOG 2019; Zhang, TPAMI 2000
+- Triggs et al., bundle adjustment, 2000; Förstner & Wrobel, 2016; Bar-Shalom, Li & Kirubarajan, 2001
+- Kaipio & Somersalo, 2005; Bland & Altman, Lancet 1986; Efron & Tibshirani, 1993
+- Morris, 1991; Saltelli et al., 2008; Huber, 1964; Farkas, *Anthropometry of the Head and Face*, 1994
