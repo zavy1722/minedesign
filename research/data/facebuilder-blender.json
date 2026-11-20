@@ -4,12 +4,32 @@
     {
       "name": "release_timeline_sourced",
       "units": "approximate year",
-      "columns": ["milestone", "approx_year", "change"],
+      "columns": [
+        "milestone",
+        "approx_year",
+        "change"
+      ],
       "rows": [
-        ["KeenTools for Blender 2.8 (FaceBuilder beta)", "~2019", "Nuke tool ported to Blender"],
-        ["First stable FaceBuilder for Blender", "~2020", "stable release"],
-        ["Revamped FaceBuilder", "~2020", "focal length and sensor size set automatically per photo; facial expressions supported (neutral photos still fit better)"],
-        ["FaceBuilder 2021.1", "2021", "neural auto-alignment places pins; vendor says not always 100% accurate"]
+        [
+          "KeenTools for Blender 2.8 (FaceBuilder beta)",
+          "~2019",
+          "Nuke tool ported to Blender"
+        ],
+        [
+          "First stable FaceBuilder for Blender",
+          "~2020",
+          "stable release"
+        ],
+        [
+          "Revamped FaceBuilder",
+          "~2020",
+          "focal length and sensor size set automatically per photo; facial expressions supported (neutral photos still fit better)"
+        ],
+        [
+          "FaceBuilder 2021.1",
+          "2021",
+          "neural auto-alignment places pins; vendor says not always 100% accurate"
+        ]
       ],
       "population": "n/a (product history)",
       "source_urls": [
@@ -24,27 +44,86 @@
     {
       "name": "release_timeline_recalled",
       "units": "approximate year",
-      "columns": ["approx_period", "change"],
+      "columns": [
+        "approx_period",
+        "change"
+      ],
       "rows": [
-        ["2021-2022", "ARKit-named blendshapes (recalled 51, no tongueOut) and Live Link Face CSV import"],
-        ["2022-2023", "GeoTracker for Blender added to the KeenTools add-on"],
-        ["~2024", "FaceTracker for Blender"],
-        ["2025-2026", "current version, Blender 4.2+ extension packaging and Blender 5.2 LTS / 5.3 support: unknown"]
+        [
+          "2020-12 (2021.1)",
+          "51 ARKit-compatible blendshapes and Live Link Face CSV import (verified)"
+        ],
+        [
+          "2022-2023",
+          "GeoTracker for Blender added to the KeenTools add-on"
+        ],
+        [
+          "~2024",
+          "FaceTracker for Blender"
+        ],
+        [
+          "2025-2026",
+          "2025.3 (Dec 2025) added Blender 5.0; 2026.1.0 (Apr 2026) adds Blender 5.1; 5.2 LTS / 5.3 support unconfirmed"
+        ]
       ],
       "population": "n/a",
-      "source_urls": [],
-      "status": "contested",
+      "source_urls": [
+        "https://keentools.io/news/2021-1",
+        "https://keentools.io/news/2026-1",
+        "https://keentools.io/news/2025-3"
+      ],
+      "status": "partially verified 2026-11-20",
       "notes": "Expert recollection; verify every row against KeenTools release notes before encoding."
     },
     {
       "name": "recommended_view_set",
       "units": "degrees (yaw 0 = frontal; pitch + = camera above)",
-      "columns": ["view", "yaw_deg_min", "yaw_deg_max", "pitch_deg_min", "pitch_deg_max", "pin_first", "focal_estimation"],
+      "columns": [
+        "view",
+        "yaw_deg_min",
+        "yaw_deg_max",
+        "pitch_deg_min",
+        "pitch_deg_max",
+        "pin_first",
+        "focal_estimation"
+      ],
       "rows": [
-        ["front", 0, 0, 0, 0, "canthi, mouth corners, pronasale, subnasale, menton", "fix from EXIF"],
-        ["three_quarter_left_right", 30, 45, 0, 0, "front set + far cheek contour + ear attachment", "best-conditioned view"],
-        ["profile_left_right", 90, 90, 0, 0, "silhouette: glabella, nasion, pronasale, subnasale, lips, pogonion; tragus", "rarely"],
-        ["low_high", 0, 30, -20, 20, "chin underside, brow ridge, nostrils", "optional"]
+        [
+          "front",
+          0,
+          0,
+          0,
+          0,
+          "canthi, mouth corners, pronasale, subnasale, menton",
+          "fix from EXIF"
+        ],
+        [
+          "three_quarter_left_right",
+          30,
+          45,
+          0,
+          0,
+          "front set + far cheek contour + ear attachment",
+          "best-conditioned view"
+        ],
+        [
+          "profile_left_right",
+          90,
+          90,
+          0,
+          0,
+          "silhouette: glabella, nasion, pronasale, subnasale, lips, pogonion; tragus",
+          "rarely"
+        ],
+        [
+          "low_high",
+          0,
+          30,
+          -20,
+          20,
+          "chin underside, brow ridge, nostrils",
+          "optional"
+        ]
       ],
       "population": "adult heads; 5-9 views total, 4-8 confident pins per view",
       "source_urls": [],
@@ -54,14 +133,56 @@
     {
       "name": "pin_sigma_defaults",
       "units": "percent of inter-ocular distance (IOD) in image",
-      "columns": ["feature_class", "user_sigma_pct_iod", "auto_sigma_pct_iod", "residual_type", "auto_pin_quality"],
+      "columns": [
+        "feature_class",
+        "user_sigma_pct_iod",
+        "auto_sigma_pct_iod",
+        "residual_type",
+        "auto_pin_quality"
+      ],
       "rows": [
-        ["canthi, mouth corners, subnasale", 0.75, 1.5, "point", "good in front and 3/4"],
-        ["lid and lip contours", 0.75, 2.5, "point-to-curve", "fair; slides along contour"],
-        ["jaw and cheek outline", 1.0, 4.0, "silhouette", "slides with yaw"],
-        ["profile silhouette", 1.0, null, "silhouette", "poor auto; pin by hand"],
-        ["ears", 3.0, 5.0, "point; drop when occluded", "poor; often hidden by hair"],
-        ["hair outline (cranium)", null, null, "never pinned; prior only", "wrong by 5-20+ mm"]
+        [
+          "canthi, mouth corners, subnasale",
+          0.75,
+          1.5,
+          "point",
+          "good in front and 3/4"
+        ],
+        [
+          "lid and lip contours",
+          0.75,
+          2.5,
+          "point-to-curve",
+          "fair; slides along contour"
+        ],
+        [
+          "jaw and cheek outline",
+          1.0,
+          4.0,
+          "silhouette",
+          "slides with yaw"
+        ],
+        [
+          "profile silhouette",
+          1.0,
+          null,
+          "silhouette",
+          "poor auto; pin by hand"
+        ],
+        [
+          "ears",
+          3.0,
+          5.0,
+          "point; drop when occluded",
+          "poor; often hidden by hair"
+        ],
+        [
+          "hair outline (cranium)",
+          null,
+          null,
+          "never pinned; prior only",
+          "wrong by 5-20+ mm"
+        ]
       ],
       "population": "n/a (solver design defaults)",
       "source_urls": [],
@@ -71,13 +192,49 @@
     {
       "name": "focal_observability_single_view",
       "units": "camera-to-nose distance m; sigma of log focal (fraction); nose-width error mm",
-      "columns": ["distance_m", "d_over_Z", "sigma_log_f_ideal", "sigma_log_f_realistic", "nose_width_error_mm_from_20pct_focal_error"],
+      "columns": [
+        "distance_m",
+        "d_over_Z",
+        "sigma_log_f_ideal",
+        "sigma_log_f_realistic",
+        "nose_width_error_mm_from_20pct_focal_error"
+      ],
       "rows": [
-        [0.5, 0.20, 0.0125, 0.04, 1.4],
-        [1.0, 0.10, 0.025, 0.05, 0.7],
-        [2.0, 0.05, 0.05, 0.065, 0.35],
-        [3.0, 0.033, 0.075, 0.085, 0.23],
-        [5.0, 0.02, 0.125, 0.13, 0.14]
+        [
+          0.5,
+          0.2,
+          0.0125,
+          0.04,
+          1.4
+        ],
+        [
+          1.0,
+          0.1,
+          0.025,
+          0.05,
+          0.7
+        ],
+        [
+          2.0,
+          0.05,
+          0.05,
+          0.065,
+          0.35
+        ],
+        [
+          3.0,
+          0.033,
+          0.075,
+          0.085,
+          0.23
+        ],
+        [
+          5.0,
+          0.02,
+          0.125,
+          0.13,
+          0.14
+        ]
       ],
       "population": "derived; assumes nose-tip-to-ear depth d = 0.10 m, face 800 px wide, pin noise 2 px, ~4 independent pins, nose width 35 mm",
       "source_urls": [],
@@ -87,13 +244,37 @@
     {
       "name": "focal_prior_log_sigma",
       "units": "sigma of natural-log focal length",
-      "columns": ["condition", "log_sigma", "init"],
+      "columns": [
+        "condition",
+        "log_sigma",
+        "init"
+      ],
       "rows": [
-        ["uncropped original with EXIF 35mm-equivalent focal", 0.03, "EXIF FocalLengthIn35mmFormat via diagonal conversion"],
-        ["EXIF present but crop, digital zoom or resize suspected", 0.08, "EXIF"],
-        ["no EXIF (web image, video frame)", 0.4, "50 mm equivalent; range 0.35-0.5"],
-        ["tie between views of one camera group (same body and zoom)", 0.02, "shared"],
-        ["estimation gate: estimate only if posterior sigma below", 0.10, "else hold prior and report not observable"]
+        [
+          "uncropped original with EXIF 35mm-equivalent focal",
+          0.03,
+          "EXIF FocalLengthIn35mmFormat via diagonal conversion"
+        ],
+        [
+          "EXIF present but crop, digital zoom or resize suspected",
+          0.08,
+          "EXIF"
+        ],
+        [
+          "no EXIF (web image, video frame)",
+          0.4,
+          "50 mm equivalent; range 0.35-0.5"
+        ],
+        [
+          "tie between views of one camera group (same body and zoom)",
+          0.02,
+          "shared"
+        ],
+        [
+          "estimation gate: estimate only if posterior sigma below",
+          0.1,
+          "else hold prior and report not observable"
+        ]
       ],
       "population": "n/a (solver design defaults)",
       "source_urls": [],
@@ -103,32 +284,79 @@
     {
       "name": "commercial_and_output_contract",
       "units": "mixed (USD per seat-year; counts; pixels)",
-      "columns": ["item", "value"],
+      "columns": [
+        "item",
+        "value"
+      ],
       "rows": [
-        ["pricing", "subscription; ~100-300 USD per seat-year; studio/floating tiers higher"],
-        ["trial", "30 days per one forum user; current length unverified"],
-        ["licence", "GPL Python front end + proprietary core; outputs owned by user under EULA"],
-        ["platforms", "Windows, macOS (Apple Silicon recalled), Linux; CPU only"],
-        ["blendshapes", "51 ARKit names, no tongueOut (recalled)"],
-        ["texture_size", "user-set; 2048 typical; up to 8192"],
-        ["uv_layouts", "Butterfly, Legacy, Spherical, Maxface (recalled)"],
-        ["camera_model", "pinhole, centred principal point, no radial distortion (believed)"]
+        [
+          "pricing",
+          "Freelancer Monthly 19.99 USD/mo; Freelancer Annual 191.88 USD/yr; Studio Annual 699 USD/yr; bundles 29.99-39.99 USD/mo; per-platform licence (vendor page, may be stale)"
+        ],
+        [
+          "trial",
+          "15 days per add-on from first Blender launch (corrected; one forum user said 30)"
+        ],
+        [
+          "licence",
+          "GPL Python front end + proprietary core; outputs owned by user under EULA"
+        ],
+        [
+          "platforms",
+          "Windows, macOS (Apple Silicon recalled), Linux; CPU only"
+        ],
+        [
+          "blendshapes",
+          "51 ARKit-compatible FACS blendshapes (2021.1); tongueOut absence unconfirmed"
+        ],
+        [
+          "texture_size",
+          "user-set; 2048 typical; up to 8192"
+        ],
+        [
+          "uv_layouts",
+          "Butterfly, Legacy, Spherical, Maxface (recalled)"
+        ],
+        [
+          "camera_model",
+          "pinhole, centred principal point, no radial distortion (believed)"
+        ]
       ],
       "population": "n/a (product specifications as recalled)",
       "source_urls": [
         "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243",
-        "https://blenderartists.org/t/keentools-for-blender-2-8/1173005"
+        "https://blenderartists.org/t/keentools-for-blender-2-8/1173005",
+        "https://keentools.io/products/facebuilder-for-blender",
+        "https://keentools.io/news/2021-1"
       ],
-      "status": "contested",
+      "status": "partially verified 2026-11-20",
       "notes": "Only 'paid' and the 30-day trial mention come from the forum URLs; everything else is recollection. Prices, tiers, trial length and Blender 5.x support are time-sensitive."
     },
     {
       "name": "accuracy_expectations",
       "units": "mm surface error vs reference scan (adult faces)",
-      "columns": ["route", "face_region_mm_low", "face_region_mm_high", "profile_nasal_tip_mm_low", "profile_nasal_tip_mm_high"],
+      "columns": [
+        "route",
+        "face_region_mm_low",
+        "face_region_mm_high",
+        "profile_nasal_tip_mm_low",
+        "profile_nasal_tip_mm_high"
+      ],
       "rows": [
-        ["FaceBuilder-class multi-view pin fit, 5-9 views with profiles", 0.8, 2.0, 1.0, 3.0],
-        ["single-photo template fit", 1.2, 3.0, 2.0, 6.0]
+        [
+          "FaceBuilder-class multi-view pin fit, 5-9 views with profiles",
+          0.8,
+          2.0,
+          1.0,
+          3.0
+        ],
+        [
+          "single-photo template fit",
+          1.2,
+          3.0,
+          2.0,
+          6.0
+        ]
       ],
       "population": "estimate; no published benchmark exists",
       "source_urls": [],
@@ -138,18 +366,62 @@
     {
       "name": "qa_thresholds",
       "units": "mixed",
-      "columns": ["check", "threshold", "unit"],
+      "columns": [
+        "check",
+        "threshold",
+        "unit"
+      ],
       "rows": [
-        ["per-pin reprojection residual", 1.0, "% IOD (max)"],
-        ["per-view RMS reprojection", 0.5, "% IOD (max)"],
-        ["solved focal spread within one camera group", 5, "% (max)"],
-        ["solved focal vs EXIF", 10, "% (warn above; 10-15)"],
-        ["model IPD plausible range low", 55, "mm"],
-        ["model IPD plausible range high", 72, "mm"],
-        ["camera-to-nose distance warning", 0.8, "m (warn below)"],
-        ["head length g-op adult gate low", 182, "mm"],
-        ["head length g-op adult gate high", 200, "mm"],
-        ["cranium vertex prior sigma when hair-covered", 6.5, "mm (range 5-8)"]
+        [
+          "per-pin reprojection residual",
+          1.0,
+          "% IOD (max)"
+        ],
+        [
+          "per-view RMS reprojection",
+          0.5,
+          "% IOD (max)"
+        ],
+        [
+          "solved focal spread within one camera group",
+          5,
+          "% (max)"
+        ],
+        [
+          "solved focal vs EXIF",
+          10,
+          "% (warn above; 10-15)"
+        ],
+        [
+          "model IPD plausible range low",
+          55,
+          "mm"
+        ],
+        [
+          "model IPD plausible range high",
+          72,
+          "mm"
+        ],
+        [
+          "camera-to-nose distance warning",
+          0.8,
+          "m (warn below)"
+        ],
+        [
+          "head length g-op adult gate low",
+          182,
+          "mm"
+        ],
+        [
+          "head length g-op adult gate high",
+          200,
+          "mm"
+        ],
+        [
+          "cranium vertex prior sigma when hair-covered",
+          6.5,
+          "mm (range 5-8)"
+        ]
       ],
       "population": "adults; design defaults",
       "source_urls": [],

@@ -1,6 +1,32 @@
 {
   "topic": "awesome-lists-resources",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "url": "https://flame.is.tue.mpg.de/modellicense.html",
+      "title": "FLAME model licence"
+    },
+    {
+      "n": 2,
+      "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+      "title": "Z-Anatomy models"
+    },
+    {
+      "n": 3,
+      "url": "https://vgl.ict.usc.edu/Data/ICTFaceModel",
+      "title": "ICT Face Model"
+    },
+    {
+      "n": 4,
+      "url": "https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/",
+      "title": "CG Channel MetaHuman licence"
+    },
+    {
+      "n": 5,
+      "url": "https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters",
+      "title": "Creative Bloq MetaHuman"
+    }
+  ],
   "references_by_name": [
     "Blanz V, Vetter T. A Morphable Model for the Synthesis of 3D Faces. SIGGRAPH 1999",
     "Paysan P, Knothe R, Amberg B, Romdhani S, Vetter T. A 3D Face Model for Pose and Illumination Invariant Face Recognition (Basel Face Model), 2009",

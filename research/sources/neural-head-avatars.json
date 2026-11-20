@@ -1,31 +1,56 @@
-{"topic":"neural-head-avatars","sources":[],"references_by_name":[
-"Gafni, Thies, Zollhoefer, Niessner, Dynamic Neural Radiance Fields for Monocular 4D Facial Avatar Reconstruction (NeRFace), CVPR 2021",
-"Grassal et al., Neural Head Avatars from Monocular RGB Videos, CVPR 2022",
-"Zheng et al., I M Avatar: Implicit Morphable Head Avatars from Videos, CVPR 2022",
-"Zheng et al., PointAvatar: Deformable Point-based Head Avatars from Videos, CVPR 2023",
-"Zielonka, Bolkart, Thies, Instant Volumetric Head Avatars (INSTA), CVPR 2023",
-"Kirschstein et al., NeRSemble: Multi-view Radiance Field Reconstruction of Human Heads, ACM TOG (SIGGRAPH) 2023",
-"Qian et al., GaussianAvatars: Photorealistic Head Avatars with Rigged 3D Gaussians, CVPR 2024",
-"Chen et al., MonoGaussianAvatar: Monocular Gaussian Point-based Head Avatar, SIGGRAPH 2024",
-"Xiang et al., FlashAvatar: High-fidelity Head Avatar with Efficient Gaussian Embedding, CVPR 2024",
-"Shao et al., SplattingAvatar: Realistic Real-Time Human Avatars with Mesh-Embedded Gaussian Splatting, CVPR 2024",
-"Xu et al., Gaussian Head Avatar: Ultra High-fidelity Head Avatar via Dynamic Gaussians, CVPR 2024",
-"Ma et al., 3D Gaussian Blendshapes for Head Avatar Animation, SIGGRAPH 2024",
-"Giebenhain et al., Learning Neural Parametric Head Models (NPHM), CVPR 2023",
-"Giebenhain et al., MonoNPHM: Dynamic Head Reconstruction from Monocular Videos, CVPR 2024",
-"Giebenhain et al., NPGA: Neural Parametric Gaussian Avatars, SIGGRAPH Asia 2024",
-"Saito et al., Relightable Gaussian Codec Avatars, CVPR 2024",
-"Li et al., URAvatar: Universal Relightable Gaussian Codec Avatars, SIGGRAPH Asia 2024",
-"Lee et al., SurFhead: Affine Rig Blending for Geometrically Accurate 2D Gaussian Surfel Head Avatars, ICLR 2025 (verify)",
-"Taubner et al., CAP4D: Creating Animatable 4D Portrait Avatars with Morphable Multi-View Diffusion Models, CVPR 2025",
-"Kirschstein et al., Avat3r: Large Animatable Gaussian Reconstruction Model for High-fidelity 3D Head Avatars, 2025",
-"Chu and Harada, Generalizable and Animatable Gaussian Head Avatar (GAGAvatar), NeurIPS 2024",
-"LAM: Large Avatar Model for One-shot Animatable Gaussian Head, SIGGRAPH 2025",
-"Tang et al., GAF: Gaussian Avatar Reconstruction from Monocular Videos via Multi-view Diffusion, CVPR 2025 (sourced in multi-view-fitting note)",
-"Kerbl et al., 3D Gaussian Splatting for Real-Time Radiance Field Rendering, SIGGRAPH 2023",
-"Huang et al., 2D Gaussian Splatting for Geometrically Accurate Radiance Fields, SIGGRAPH 2024",
-"Guedon and Lepetit, SuGaR: Surface-Aligned Gaussian Splatting, CVPR 2024",
-"Yu, Sattler, Geiger, Gaussian Opacity Fields, SIGGRAPH Asia 2024",
-"Mueller et al., Instant Neural Graphics Primitives with a Multiresolution Hash Encoding, SIGGRAPH 2022",
-"Li, Bolkart, Black, Li, Romero, Learning a model of facial shape and expression from 4D scans (FLAME), SIGGRAPH Asia 2017"
-]}
+{
+ "topic": "neural-head-avatars",
+ "sources": [
+  {
+   "id": 1,
+   "title": "FLAME model license",
+   "url": "https://flame.is.tue.mpg.de/modellicense.html"
+  },
+  {
+   "id": 2,
+   "title": "GaussianAvatars repository",
+   "url": "https://github.com/ShenhanQian/GaussianAvatars"
+  },
+  {
+   "id": 3,
+   "title": "VHAP repository",
+   "url": "https://github.com/ShenhanQian/VHAP"
+  },
+  {
+   "id": 4,
+   "title": "GaussianAvatars (arXiv 2312.02069)",
+   "url": "https://arxiv.org/html/2312.02069"
+  }
+ ],
+ "references_by_name": [
+  "Gafni, Thies, Zollhoefer, Niessner, Dynamic Neural Radiance Fields for Monocular 4D Facial Avatar Reconstruction (NeRFace), CVPR 2021",
+  "Grassal et al., Neural Head Avatars from Monocular RGB Videos, CVPR 2022",
+  "Zheng et al., I M Avatar: Implicit Morphable Head Avatars from Videos, CVPR 2022",
+  "Zheng et al., PointAvatar: Deformable Point-based Head Avatars from Videos, CVPR 2023",
+  "Zielonka, Bolkart, Thies, Instant Volumetric Head Avatars (INSTA), CVPR 2023",
+  "Kirschstein et al., NeRSemble: Multi-view Radiance Field Reconstruction of Human Heads, ACM TOG (SIGGRAPH) 2023",
+  "Qian et al., GaussianAvatars: Photorealistic Head Avatars with Rigged 3D Gaussians, CVPR 2024",
+  "Chen et al., MonoGaussianAvatar: Monocular Gaussian Point-based Head Avatar, SIGGRAPH 2024",
+  "Xiang et al., FlashAvatar: High-fidelity Head Avatar with Efficient Gaussian Embedding, CVPR 2024",
+  "Shao et al., SplattingAvatar: Realistic Real-Time Human Avatars with Mesh-Embedded Gaussian Splatting, CVPR 2024",
+  "Xu et al., Gaussian Head Avatar: Ultra High-fidelity Head Avatar via Dynamic Gaussians, CVPR 2024",
+  "Ma et al., 3D Gaussian Blendshapes for Head Avatar Animation, SIGGRAPH 2024",
+  "Giebenhain et al., Learning Neural Parametric Head Models (NPHM), CVPR 2023",
+  "Giebenhain et al., MonoNPHM: Dynamic Head Reconstruction from Monocular Videos, CVPR 2024",
+  "Giebenhain et al., NPGA: Neural Parametric Gaussian Avatars, SIGGRAPH Asia 2024",
+  "Saito et al., Relightable Gaussian Codec Avatars, CVPR 2024",
+  "Li et al., URAvatar: Universal Relightable Gaussian Codec Avatars, SIGGRAPH Asia 2024",
+  "Lee et al., SurFhead: Affine Rig Blending for Geometrically Accurate 2D Gaussian Surfel Head Avatars, ICLR 2025 (verify)",
+  "Taubner et al., CAP4D: Creating Animatable 4D Portrait Avatars with Morphable Multi-View Diffusion Models, CVPR 2025",
+  "Kirschstein et al., Avat3r: Large Animatable Gaussian Reconstruction Model for High-fidelity 3D Head Avatars, 2025",
+  "Chu and Harada, Generalizable and Animatable Gaussian Head Avatar (GAGAvatar), NeurIPS 2024",
+  "LAM: Large Avatar Model for One-shot Animatable Gaussian Head, SIGGRAPH 2025",
+  "Tang et al., GAF: Gaussian Avatar Reconstruction from Monocular Videos via Multi-view Diffusion, CVPR 2025 (sourced in multi-view-fitting note)",
+  "Kerbl et al., 3D Gaussian Splatting for Real-Time Radiance Field Rendering, SIGGRAPH 2023",
+  "Huang et al., 2D Gaussian Splatting for Geometrically Accurate Radiance Fields, SIGGRAPH 2024",
+  "Guedon and Lepetit, SuGaR: Surface-Aligned Gaussian Splatting, CVPR 2024",
+  "Yu, Sattler, Geiger, Gaussian Opacity Fields, SIGGRAPH Asia 2024",
+  "Mueller et al., Instant Neural Graphics Primitives with a Multiresolution Hash Encoding, SIGGRAPH 2022",
+  "Li, Bolkart, Black, Li, Romero, Learning a model of facial shape and expression from 4D scans (FLAME), SIGGRAPH Asia 2017"
+ ]
+}

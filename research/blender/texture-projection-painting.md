@@ -2,7 +2,7 @@
 
 > Texturing a likeness head is two jobs: a UV layout fixed once on the template topology (the face as one upright, centred island; seams hidden at the back midline, behind the ears, inside mouth, lids and nostrils, and around the neck), and projecting the solved photos through their cameras into that layout. Blender projects natively in three ways: **Apply Camera Image** (`paint.project_image`, which projects from the active scene camera using Texture Paint's occlusion, backface and normal settings), **UV Project modifier or Project From View UVs plus an Emit bake**, and a **per-pixel camera-projection shader** built from the camera's Object texture coordinates. None of them blends several photos with visibility-aware weights and gain matching, so the numpy engine (`reconstruction/texture-extraction.md`) should make the albedo, while Blender, Substance or ArmorPaint handle preview, seam cleanup and detail. Per-vertex projections interpolate affinely with error ≈ L·Δz/(4z), negligible with edges ≤10 mm at 0.5 m. No harvest or earlier draft existed, so every item is expert knowledge; UI locations, defaults, licences and prices are time-sensitive and must be checked against Blender 5.2 LTS and 5.3.
 >
-> Evidence status: 0 ✅ / 0 📄 / 73 🧠 / 18 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 3 📄 / 70 🧠 / 18 ↔️ — 🧠 items remain unverified (2026-11-20 pass: Texture Paint option names exist per the 2.82 manual, but project_image behaviour, the 80° Normal default [3.2 API says 80, 2.58 API said 0], Screen Grab Size, Unwrap margin and Smart UV angle stayed unconfirmed; bake margin type default conflicts between API pages).
 
 ## Key facts
 
@@ -40,7 +40,7 @@
   - camera projectors use lens and shift;
   - each face takes the projector it faces most, but all projectors write one UV map.
 
-  So use one modifier and UV map per photo 🧠
+  So use one modifier and UV map per photo 📄 [3] (limit of 10 projectors, closest-aligned projector per face and camera-only Aspect/Scale confirmed; lens/shift use and the single-UV-map consequence not confirmed)
 - **Per-vertex projections are affine inside each face**, exact only at vertices (Table 3) 🧠
 - **The camera-projection shader is per-pixel exact.**
   - Feed Texture Coordinate ▸ *Object* (object = the camera) into Separate XYZ.
@@ -48,7 +48,7 @@
   - Set the image to *Clip* and mask z < 0.
   - It serves any number of cameras at once. *Window* coordinates only serve the active camera 🧠
 - **Blender cameras have no lens distortion,** so undistort the photos first 🧠
-- **Blender is believed to ignore JPEG EXIF orientation,** so portrait phone shots can load rotated. Bake the rotation into the pixels before solving 🧠
+- **Blender is believed to ignore JPEG EXIF orientation,** so portrait phone shots can load rotated. Bake the rotation into the pixels before solving 📄 [2] (a bug report documents EXIF rotation being ignored for JPG image textures; current status in 5.x not verified)
 - **Judge alignment under the *Standard* view transform.** AgX (default since 4.0) flattens the photo 🧠
 
 **Baking**
@@ -72,7 +72,7 @@
 | Paint Bleed | 2 px | 4 (2K), 8 (4K), 16 (8K) px | 🧠 |
 | Paint Normal angle | ≈80° | 70° per-view layer (60–75°) | 🧠 |
 | Screen Grab Size | 512×512 | viewport size, ≤4096 | 🧠 |
-| Bake Margin | 16 px | N/256 px | 🧠 |
+| Bake Margin | 16 px [1] | N/256 px | 📄 |
 | Bake Extrusion | 0 | 0.001–0.003 | 🧠 |
 | Bake Max Ray Distance | 0 (unlimited) | 0.005–0.01 | 🧠 |
 | Emit bake samples | scene samples | 1–4, denoise off | 🧠 |
@@ -207,7 +207,11 @@ Add a low view (20–30° below) for the chin, columella and nostrils, which sit
 
 ## Sources
 
-No harvest file or earlier draft existed for this topic, so no URL can be cited. Every item is expert knowledge or arithmetic awaiting verification.
+1. Blender Python API, BakeSettings: https://docs.blender.org/api/current/bpy.types.BakeSettings.html (bake margin default 16 px; see also https://docs.blender.org/manual/en/3.6/render/cycles/baking.html)
+2. Blender issue #92977, Exif metadata rotation in jpg is ignored in image texture: https://projects.blender.org/blender/blender-manual/issues/92977
+3. UV Project Modifier, Blender 5.3 Manual: https://docs.blender.org/manual/en/latest/modeling/modifiers/modify/uv_project.html
+
+All other items are expert knowledge or arithmetic awaiting verification.
 
 **Further reading (by name, not yet linked)**
 - Blender Manual: Texture Paint (Options, Texture Slots, External), UV Unwrapping, Cycles Baking, UV Project modifier, Texture Coordinate node
@@ -221,3 +225,10 @@ No harvest file or earlier draft existed for this topic, so no URL can be cited.
 - Waechter, Moehrle, Goesele, Let There Be Color! Large-Scale Texturing of 3D Reconstructions (ECCV 2014)
 - Prada, Kazhdan, Chuang, Hoppe, Gradient-Domain Processing within a Texture Atlas (SIGGRAPH 2018)
 - Adobe Substance 3D Painter docs (Projection tool); ArmorPaint/ArmorTools manual; Foundry Mari docs (Projectors); Ucupaint repository
+
+## Verification log (2026-11-20)
+
+- paint.project_image / Apply Camera Image behaviour and presence in 5.2/5.3: unconfirmed (searches returned only older Texture Paint option pages; Occlude, Backface Culling, Normal and Bleed options exist per https://docs.blender.org/manual/en/2.82/sculpt_paint/texture_paint/tool_settings/options.html).
+- EXIF orientation ignored: confirmed (one source, a bug report; current status unknown) - https://projects.blender.org/blender/blender-manual/issues/92977
+- UV Project modifier: partly confirmed (10 projectors, closest aligned projector per face, camera-only Aspect/Scale); lens shift/sensor fit unconfirmed - https://docs.blender.org/manual/en/latest/modeling/modifiers/modify/uv_project.html
+- Defaults bundle: bake margin 16 px confirmed (https://docs.blender.org/api/current/bpy.types.BakeSettings.html); bake margin type default contested (Adjacent Faces on render settings page vs EXTEND on bake operator page, https://docs.blender.org/api/current/bpy_types_enum_items/bake_margin_type_items.html); Normal angle default 80 appears in the 3.2 API (https://docs.blender.org/api/3.2/bpy.types.ImagePaint.html) but was 0 in 2.58, not settled; Bleed 2 px, Screen Grab 512, Unwrap margin 0.001, Smart UV 66 deg: unconfirmed.

@@ -1,0 +1,671 @@
+{
+ "topic": "muscles-mid-face",
+ "tables": [
+  {
+   "name": "midface_muscle_map",
+   "units": "categorical (Freilinger layer 1 = most superficial, 4 = deepest)",
+   "columns": [
+    "muscle",
+    "origin",
+    "insertion",
+    "freilinger_layer",
+    "surface_pull",
+    "facs_au",
+    "arkit_blendshape",
+    "attachment_status"
+   ],
+   "rows": [
+    [
+     "LLSAN",
+     "frontal process of maxilla (contested: medial orbital wall)",
+     "alar cartilage/skin + lateral upper lip",
+     2,
+     "ala up-out, lip up, nose wrinkle",
+     "AU9",
+     "noseSneerLeft/Right",
+     "verified (insertion); contested (origin)"
+    ],
+    [
+     "LLS",
+     "infraorbital margin above infraorbital foramen",
+     "upper lip between LLSAN and ZMn",
+     3,
+     "lip up + evert, upper-mid NLF deepens",
+     "AU10",
+     "mouthUpperUpLeft/Right",
+     "knowledge"
+    ],
+    [
+     "ZMn",
+     "zygomatic bone, superomedial to ZMj",
+     "upper lip lateral to LLS (contested: angle of mouth)",
+     1,
+     "lip up-lateral, mid NLF deepens",
+     "AU11",
+     null,
+     "verified (origin); contested (insertion, presence)"
+    ],
+    [
+     "ZMj",
+     "lateral zygomatic bone near zygomaticotemporal suture",
+     "modiolus (blends with LAO, orbicularis oris)",
+     2,
+     "commissure up, out, back",
+     "AU12",
+     "mouthSmileLeft/Right",
+     "verified"
+    ],
+    [
+     "LAO",
+     "canine fossa below infraorbital foramen",
+     "modiolus",
+     4,
+     "commissure up (near-vertical)",
+     "AU13",
+     null,
+     "verified"
+    ],
+    [
+     "risorius",
+     "parotid/masseteric fascia, platysma or SMAS (variable)",
+     "modiolus",
+     2,
+     "commissure lateral",
+     "AU20",
+     "mouthStretchLeft/Right",
+     "sourced (single publisher); presence variable"
+    ],
+    [
+     "buccinator",
+     "maxillary + mandibular alveolar processes, pterygomandibular raphe (+ pterygoid hamulus, 2026)",
+     "modiolus / orbicularis oris (contested)",
+     4,
+     "commissure back, cheek against teeth",
+     "AU14",
+     "mouthDimpleLeft/Right",
+     "verified (origin); contested (insertion)"
+    ],
+    [
+     "nasalis",
+     "maxilla over incisors/canine",
+     "transverse: dorsal aponeurosis with procerus; alar: alar cartilage",
+     null,
+     "nostril compress (transverse) / dilate (alar)",
+     "AU39 / AU38",
+     null,
+     "verified (function)"
+    ]
+   ],
+   "population": "Adult gross anatomy (atlas and dissection descriptions)",
+   "source_urls": [
+    "https://www.kenhub.com/en/library/anatomy/zygomaticus-major-muscle",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8846390/",
+    "https://kenhub.com:443/en/library/anatomy/zygomaticus-minor-muscle",
+    "https://pubmed.ncbi.nlm.nih.gov/25006853",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12641590/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9951819/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8887774/",
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/",
+    "https://statpearls.com/sp/al/48/24224/",
+    "https://pubmed.ncbi.nlm.nih.gov/41945314/",
+    "https://statpearls.com/sp/al/48/36306/",
+    "https://www.ncbi.nlm.nih.gov/books/NBK493209/",
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK546678/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12864571/",
+    "https://my.clevelandclinic.org/health/body/21672-facial-muscles"
+   ],
+   "status": "knowledge",
+   "notes": "Mixed table: attachments marked verified/sourced/contested per row; Freilinger layers (1987), FACS AU and ARKit mappings are expert knowledge pending verification. ARKit names are Apple's 52-blendshape set; MediaPipe Face Landmarker exposes similar names (version-sensitive)."
+  },
+  {
+   "name": "midface_variation_sourced",
+   "units": "percent / count",
+   "columns": [
+    "quantity",
+    "value",
+    "sample",
+    "notes"
+   ],
+   "rows": [
+    [
+     "most common midface pattern: LLSAN + LLS + ZMj (implies no separate ZMn)",
+     44,
+     "50 hemifacial cadaver dissections",
+     "ZMn-absence reading is an inference from the pattern name"
+    ],
+    [
+     "bifid or double zygomaticus major",
+     34,
+     "cadavers; cited secondhand by a 2025 review, primary 1998",
+     "primary sample size not confirmed; the two sources are not independent"
+    ],
+    [
+     "zygomaticus morphological types proposed",
+     5,
+     "2025 review",
+     "by belly number, accessory structures, insertion pattern"
+    ],
+    [
+     "nasolabial-fold muscle height study specimens",
+     56,
+     "56 specimens from 34 embalmed Korean adults",
+     "numeric heights not extracted; year unconfirmed (2024 per harvest, ~2020 per PMC ID)"
+    ]
+   ],
+   "population": "Cadaver series (ancestry mostly unreported; [17] Korean)",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/9810983/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565131/",
+    "https://pubmed.ncbi.nlm.nih.gov/9725574/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499"
+   ],
+   "status": "sourced",
+   "notes": "Snippet-level facts; full texts not opened."
+  },
+  {
+   "name": "zygomaticus_major_activation",
+   "units": "percent, newtons",
+   "columns": [
+    "quantity",
+    "mean",
+    "sd",
+    "units",
+    "sample",
+    "notes"
+   ],
+   "rows": [
+    [
+     "ZMj activation, device-free vs device-held (Smile Stick/chopsticks) smile",
+     40,
+     null,
+     "% more",
+     "experimental smile study",
+     "orbicularis oculi about +15 %"
+    ],
+    [
+     "ZMj max sEMG-based contraction during smiling",
+     9.8,
+     3.1,
+     "%",
+     "33 healthy adults (2026)",
+     "unclear whether strain or %MVC"
+    ],
+    [
+     "ZMj force during smiling",
+     0.93,
+     0.48,
+     "N",
+     "33 healthy adults (2026)",
+     "abstract-level value"
+    ],
+    [
+     "primary facial muscle pairs in a face-head-neck biomechanical model",
+     26,
+     null,
+     "pairs",
+     "model",
+     "FACS-driven activations"
+    ]
+   ],
+   "population": "Healthy adults / computational model",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6803527/",
+    "https://pubmed.ncbi.nlm.nih.gov/42040515/",
+    "https://arxiv.org/pdf/2111.06517"
+   ],
+   "status": "sourced",
+   "notes": "Useful only as relative weights (ZMj dominates the smile), not as geometry."
+  },
+  {
+   "name": "smile_kinematics_priors",
+   "units": "mm, degrees, percent",
+   "columns": [
+    "quantity",
+    "low",
+    "high",
+    "units",
+    "notes"
+   ],
+   "rows": [
+    [
+     "commissure excursion, full smile, per side",
+     7,
+     15,
+     "mm",
+     "Paletz/Manktelow-type facial-reanimation measurements"
+    ],
+    [
+     "commissure direction above horizontal, frontal view",
+     20,
+     50,
+     "deg",
+     "plus 3-6 mm posterior travel around the dental arch"
+    ],
+    [
+     "commissure posterior travel",
+     3,
+     6,
+     "mm",
+     "heuristic"
+    ],
+    [
+     "intercommissure width gain, broad smile",
+     15,
+     35,
+     "%",
+     "relative to neutral"
+    ],
+    [
+     "upper-lip elevation, rest to posed smile",
+     4,
+     9,
+     "mm",
+     "spontaneous smiles larger"
+    ],
+    [
+     "gingival display threshold for 'gummy smile'",
+     2,
+     4,
+     "mm",
+     "definitions vary"
+    ]
+   ],
+   "population": "Adults; mostly Western clinical samples",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Expert knowledge, not yet sourced in this library; ranges deliberately wide. Use as weak priors on AU12 amplitude and direction, overridden by the subject's own smile frames."
+  },
+  {
+   "name": "smile_population_frequencies",
+   "units": "percent",
+   "columns": [
+    "classification",
+    "category",
+    "percent",
+    "reference"
+   ],
+   "rows": [
+    [
+     "Rubin smile type",
+     "commissure (zygomaticus major)",
+     67,
+     "Rubin 1974"
+    ],
+    [
+     "Rubin smile type",
+     "canine (LAO/LLS)",
+     31,
+     "Rubin 1974"
+    ],
+    [
+     "Rubin smile type",
+     "full denture (complex)",
+     2,
+     "Rubin 1974"
+    ],
+    [
+     "Tjan smile line",
+     "low",
+     20,
+     "Tjan, Miller, The 1984"
+    ],
+    [
+     "Tjan smile line",
+     "average",
+     69,
+     "Tjan, Miller, The 1984"
+    ],
+    [
+     "Tjan smile line",
+     "high (gummy)",
+     11,
+     "Tjan, Miller, The 1984"
+    ]
+   ],
+   "population": "US clinical / dental patient samples",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Widely quoted percentages, recalled from training; verify before use. Rubin percentages are contested by later classifications."
+  },
+  {
+   "name": "midface_muscle_dimensions_weak_priors",
+   "units": "mm",
+   "columns": [
+    "muscle",
+    "length_low",
+    "length_high",
+    "width_low",
+    "width_high",
+    "thickness_low",
+    "thickness_high"
+   ],
+   "rows": [
+    [
+     "zygomaticus major",
+     50,
+     75,
+     7,
+     15,
+     1.5,
+     4
+    ],
+    [
+     "zygomaticus minor / LLSAN",
+     25,
+     45,
+     5,
+     15,
+     1,
+     2
+    ],
+    [
+     "levator labii superioris",
+     25,
+     40,
+     15,
+     25,
+     1.5,
+     3
+    ],
+    [
+     "levator anguli oris",
+     25,
+     35,
+     8,
+     12,
+     2,
+     3
+    ],
+    [
+     "buccinator",
+     40,
+     60,
+     25,
+     35,
+     2,
+     4
+    ]
+   ],
+   "population": "Adults, unspecified",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Low confidence; for ecorche reference or muscle-actuator scale only, never for identity geometry. Thickness varies with sex, age and measurement method (cadaver vs ultrasound)."
+  },
+  {
+   "name": "expression_direction_priors",
+   "units": "unit vector in head frame (+x subject-left lateral, +y up, +z forward); left side, mirror x for right",
+   "columns": [
+    "au",
+    "muscle",
+    "moved_point",
+    "dir_x",
+    "dir_y",
+    "dir_z",
+    "angular_sigma_deg"
+   ],
+   "rows": [
+    [
+     "AU12",
+     "zygomaticus major",
+     "commissure",
+     0.702,
+     0.551,
+     -0.451,
+     15
+    ],
+    [
+     "AU13",
+     "levator anguli oris",
+     "commissure",
+     0.351,
+     0.902,
+     -0.251,
+     20
+    ],
+    [
+     "AU10",
+     "levator labii superioris",
+     "upper lip above canine",
+     0.151,
+     0.956,
+     0.252,
+     20
+    ],
+    [
+     "AU11",
+     "zygomaticus minor",
+     "upper lip lateral third",
+     0.467,
+     0.883,
+     0.052,
+     25
+    ],
+    [
+     "AU9",
+     "LLSAN",
+     "alar base / paranasal skin",
+     0.205,
+     0.973,
+     0.102,
+     20
+    ],
+    [
+     "AU14",
+     "buccinator",
+     "commissure",
+     0.404,
+     0.101,
+     -0.909,
+     25
+    ],
+    [
+     "AU20",
+     "risorius (+platysma)",
+     "commissure",
+     0.913,
+     -0.203,
+     -0.355,
+     20
+    ]
+   ],
+   "population": "Generic adult; heuristic",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Hand-derived from muscle lines of action; frame matches face3d/synthetic.py. Use as direction priors (von Mises-Fisher or angular penalty) on AU displacement fields, not as exact values."
+  },
+  {
+   "name": "midface_fitting_priors",
+   "units": "mm",
+   "columns": [
+    "parameter",
+    "mean",
+    "sigma_or_range",
+    "reference_point",
+    "notes"
+   ],
+   "rows": [
+    [
+     "modiolus lateral offset",
+     12,
+     4,
+     "cheilion",
+     "matches anatomy/muscles-lower-face.md"
+    ],
+    [
+     "modiolus vertical offset",
+     -3,
+     5,
+     "cheilion",
+     "matches anatomy/muscles-lower-face.md"
+    ],
+    [
+     "ZMj origin anterior offset",
+     12.5,
+     "5-20",
+     "zygion (on bone surface)",
+     "sigma ~6 mm"
+    ],
+    [
+     "ZMj origin inferior offset",
+     5,
+     "0-10",
+     "zygion",
+     "sigma ~6 mm"
+    ],
+    [
+     "NLF upper end lateral offset",
+     4,
+     "2-6",
+     "alar crease point (ac)",
+     "heuristic"
+    ],
+    [
+     "NLF upper end superior offset",
+     2.5,
+     "0-5",
+     "alar crease point (ac)",
+     "heuristic"
+    ],
+    [
+     "NLF lower end lateral offset",
+     11,
+     4,
+     "cheilion",
+     "ends higher in youth, toward marionette line with age"
+    ],
+    [
+     "NLF lower end vertical offset",
+     0,
+     6,
+     "cheilion",
+     "heuristic"
+    ],
+    [
+     "NLF length",
+     40,
+     "30-50",
+     "fold polyline",
+     "heuristic"
+    ],
+    [
+     "NLF rest depth, age < 30 (half-normal scale)",
+     0.75,
+     "0.5-1",
+     "local surface",
+     "see anatomy/fat-compartments.md"
+    ],
+    [
+     "NLF rest depth, age > 55 (half-normal scale)",
+     3,
+     "2-4",
+     "local surface",
+     "see anatomy/fat-compartments.md"
+    ],
+    [
+     "neutral NLF endpoint L/R symmetry",
+     0,
+     1.5,
+     "mirror pair",
+     "soft symmetry prior"
+    ],
+    [
+     "L/R shape-key blend width at philtrum",
+     12.5,
+     "10-15",
+     "midline",
+     "vertex-group falloff"
+    ],
+    [
+     "neutral-frame AU weight (half-normal sigma)",
+     0.05,
+     null,
+     "AU weight, unitless",
+     "identity/expression separation"
+    ]
+   ],
+   "population": "Adults, ancestry unspecified; widen sigmas if ancestry unknown",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering heuristics derived from anatomy; no sourced NLF geometry norms exist in the library yet."
+  },
+  {
+   "name": "midface_warp_stiffness",
+   "units": "relative weight (unitless)",
+   "columns": [
+    "region",
+    "weight",
+    "notes"
+   ],
+   "rows": [
+    [
+     "upper lip (tethered by dermal insertions)",
+     0.3,
+     "consistent with lower-face note lip weight"
+    ],
+    [
+     "cheek fat (nasolabial / medial cheek)",
+     0.5,
+     "mobile"
+    ],
+    [
+     "zygomatic body over bone",
+     1.75,
+     "range 1.5-2.0"
+    ],
+    [
+     "NLF loop bending weight",
+     0.25,
+     "range 0.2-0.3; keep positional anchor to traced curve"
+    ]
+   ],
+   "population": "n/a (algorithm tuning)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Starting values for Laplacian/ARAP template warps; tune on data."
+  },
+  {
+   "name": "variation_switch_priors",
+   "units": "probability",
+   "columns": [
+    "switch",
+    "prior_p_low",
+    "prior_p_high",
+    "affects",
+    "evidence"
+   ],
+   "rows": [
+    [
+     "zmj_bifid",
+     0.25,
+     0.35,
+     "dynamic cheek dimple in AU12 basis only",
+     "~34 % cadaver figure (sourced, secondhand)"
+    ],
+    [
+     "zmn_present",
+     0.5,
+     0.9,
+     "AU11 basis amplitude",
+     "44 % pattern without separate ZMn in one series; other series differ"
+    ],
+    [
+     "risorius_present",
+     0.6,
+     0.95,
+     "AU20 basis only",
+     "presence not universal; rates vary widely by series"
+    ]
+   ],
+   "population": "Mixed cadaver series; ancestry differences likely",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565131/",
+    "https://pubmed.ncbi.nlm.nih.gov/9725574/",
+    "https://pubmed.ncbi.nlm.nih.gov/9810983/",
+    "https://www.ncbi.nlm.nih.gov/books/NBK493209/",
+    "https://statpearls.com/sp/al/48/36306/"
+   ],
+   "status": "contested",
+   "notes": "None of these switches may alter neutral (identity) geometry. Risorius range is expert guesswork."
+  }
+ ]
+}

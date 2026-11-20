@@ -2,20 +2,132 @@
  "topic": "scan-cleanup-wrapping",
  "note": "This topic's own harvest and earlier draft did not exist; every URL is borrowed from a sibling harvest in research/_raw/harvests/ (deformation-fitting-math, craniometric-landmarks, anthropometric-norms, facial-asymmetry, skin-shading, blenderartists-forum).",
  "sources": [
-  {"n": 1, "title": "Amberg, Romdhani, Vetter, Optimal Step Nonrigid ICP Algorithms for Surface Registration (CVPR 2007)", "url": "https://shapemodelling.cs.unibas.ch/gravis-literature/publications/2007/CVPR07_Amberg.pdf", "kind": "paper", "year": "2007"},
-  {"n": 2, "title": "Densely tracking sequences of 3D face scans", "url": "https://arxiv.org/pdf/1709.04295", "kind": "paper", "year": "2017"},
-  {"n": 3, "title": "Face-capture paper describing decreasing stiffness and landmark weights (title not recorded in the harvest)", "url": "https://arxiv.org/pdf/2003.08583", "kind": "paper", "year": "2020"},
-  {"n": 4, "title": "Bookstein, Principal Warps: thin-plate splines and the decomposition of deformations", "url": "https://members.cbio.mines-paristech.fr/~jvert/svn/bibli/local/Bookstein1989Principal.pdf", "kind": "paper", "year": "1989"},
-  {"n": 5, "title": "BrainMorph: A Foundational Keypoint Model for Robust and Flexible Brain MRI Registration (TPS usage)", "url": "https://arxiv.org/pdf/2405.14019", "kind": "paper", "year": "2024"},
-  {"n": 6, "title": "Sorkine & Alexa, As-Rigid-As-Possible Surface Modeling (SGP 2007)", "url": "https://diglib.eg.org/handle/10.2312/SGP.SGP07.109-116", "kind": "paper", "year": "2007"},
-  {"n": 7, "title": "Comparison Study of Extraction Accuracy of 3D Facial Anatomical Landmarks Based on Non-Rigid Registration of Face Template", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10047049/", "kind": "paper", "year": "n.d."},
-  {"n": 8, "title": "Accuracy and reliability of 3D stereophotogrammetry: a comparison to direct anthropometry and 2D photogrammetry", "url": "https://pubmed.ncbi.nlm.nih.gov/26267357", "kind": "paper", "year": "2015"},
-  {"n": 9, "title": "Reproducibility and Accuracy of Facial Soft Tissue Landmarks Across 3D Face Scanning Modalities: Systematic Review", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/", "kind": "paper", "year": "n.d."},
-  {"n": 10, "title": "Accuracy of Facial Digitization Using a New Mobile Device-Compatible 3D Scanner for Malocclusion", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13117559/", "kind": "paper", "year": "n.d."},
-  {"n": 11, "title": "Facial asymmetry assessment in adults using three-dimensional surface imaging", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/", "kind": "paper", "year": "2015"},
-  {"n": 12, "title": "Principled BSDF - Blender 4.3 Manual", "url": "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2024"},
-  {"n": 13, "title": "Generating metahuman based on a single image blender ue5 tutorial (Blender Artists)", "url": "https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052", "kind": "forum", "year": "n.d."},
-  {"n": 14, "title": "Statistical non-rigid ICP (ibug)", "url": "https://ibug.doc.ic.ac.uk/media/uploads/documents/statistical_non_rigid_icp.pdf", "kind": "paper", "year": "n.d."}
+  {
+   "n": 1,
+   "title": "Amberg, Romdhani, Vetter, Optimal Step Nonrigid ICP Algorithms for Surface Registration (CVPR 2007)",
+   "url": "https://shapemodelling.cs.unibas.ch/gravis-literature/publications/2007/CVPR07_Amberg.pdf",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "n": 2,
+   "title": "Densely tracking sequences of 3D face scans",
+   "url": "https://arxiv.org/pdf/1709.04295",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 3,
+   "title": "Face-capture paper describing decreasing stiffness and landmark weights (title not recorded in the harvest)",
+   "url": "https://arxiv.org/pdf/2003.08583",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 4,
+   "title": "Bookstein, Principal Warps: thin-plate splines and the decomposition of deformations",
+   "url": "https://members.cbio.mines-paristech.fr/~jvert/svn/bibli/local/Bookstein1989Principal.pdf",
+   "kind": "paper",
+   "year": "1989"
+  },
+  {
+   "n": 5,
+   "title": "BrainMorph: A Foundational Keypoint Model for Robust and Flexible Brain MRI Registration (TPS usage)",
+   "url": "https://arxiv.org/pdf/2405.14019",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 6,
+   "title": "Sorkine & Alexa, As-Rigid-As-Possible Surface Modeling (SGP 2007)",
+   "url": "https://diglib.eg.org/handle/10.2312/SGP.SGP07.109-116",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "n": 7,
+   "title": "Comparison Study of Extraction Accuracy of 3D Facial Anatomical Landmarks Based on Non-Rigid Registration of Face Template",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10047049/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Accuracy and reliability of 3D stereophotogrammetry: a comparison to direct anthropometry and 2D photogrammetry",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/26267357",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 9,
+   "title": "Reproducibility and Accuracy of Facial Soft Tissue Landmarks Across 3D Face Scanning Modalities: Systematic Review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Accuracy of Facial Digitization Using a New Mobile Device-Compatible 3D Scanner for Malocclusion",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13117559/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "Facial asymmetry assessment in adults using three-dimensional surface imaging",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 12,
+   "title": "Principled BSDF - Blender 4.3 Manual",
+   "url": "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html",
+   "kind": "official-docs",
+   "year": "2024"
+  },
+  {
+   "n": 13,
+   "title": "Generating metahuman based on a single image blender ue5 tutorial (Blender Artists)",
+   "url": "https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Statistical non-rigid ICP (ibug)",
+   "url": "https://ibug.doc.ic.ac.uk/media/uploads/documents/statistical_non_rigid_icp.pdf",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "Faceform releases Wrap 2024.11 and Wrap4D 2024.11 (CG Channel)",
+   "url": "https://www.cgchannel.com/2024/12/faceform-releases-wrap-2024-11-and-wrap4d-2024-11",
+   "kind": "news",
+   "year": "2024"
+  },
+  {
+   "n": 16,
+   "title": "Faceform / ZWrap for ZBrush page (Pixologic)",
+   "url": "https://pixologic.com/zbrushlive-test/faceform/",
+   "kind": "vendor page",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "Multiresolution Modifier - Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html",
+   "kind": "official docs",
+   "year": "2026"
+  },
+  {
+   "n": 18,
+   "title": "Shrinkwrap Modifier - Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/modeling/modifiers/deform/shrinkwrap.html",
+   "kind": "official docs",
+   "year": "2026"
+  }
  ],
  "references_by_name": [
   "Faceform (R3DS) Wrap and ZWrap user documentation (RigidAlignment, Wrapping, OpticalFlowWrapping, TransferTexture, BlendShapes nodes)",

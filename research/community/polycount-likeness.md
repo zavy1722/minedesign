@@ -2,7 +2,7 @@
 
 > Polycount, the long-running game-art forum and wiki, comes at likeness from the realtime-character side. Critique arrives as paintovers and liquify-overs on a render placed beside a reference at a matched angle and lens, with "post wires" and "show the clay" as standing demands. The verdicts recur: the camera does not match the photo; the cranium and neck are undersized; the eyes are too big, too proud or thin-lidded; the lips do not wrap the teeth; the ears are misplaced; the face is too symmetric and too young; and likeness won in the sculpt is lost again in retopology, baking, shading or hair. Professional advice converges on coarse-to-fine gating, many long-lens references from one period, a scan or base-mesh start wrapped to the subject, and judging only through matched cameras under matched light. No harvest or earlier draft existed and no Polycount URL appears anywhere in the library, so everything below is expert knowledge or pinhole arithmetic; for the engine it becomes stage gates, one-sided hair and beard silhouette bounds, paintover ingestion, a critique lint and an export likeness check.
 >
-> Evidence status: 0 ✅ / 0 📄 / 62 🧠 / 23 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 25 ↔️ — verified 2026-11-20: Hertel, MRD1 and ear-tilt ranges found population-dependent (↔️); remaining 🧠 items unconfirmed.
 
 ## Key facts
 
@@ -47,14 +47,14 @@
 |---|---|---|---|---|
 | "Lens doesn't match" | camera→nose distance Z; nose-tip/tragion magnification 1 + d/Z (d ≈ 10 cm) | Z ≥ 1.5 m → ≤ 1.07; 0.5 m → 1.20 | render Z differs from photo Z by > 25%; photo Z < 0.8 m | 🧠 (geometry) |
 | "Eyes too big" | iris diameter (HVID); iris / en–ex | 11.7 ± 0.5 mm; 0.34–0.44 | ratio outside range | 🧠 |
-| "Eyes popping" | cornea apex ahead of lateral orbital rim (Hertel) | 12–20 mm; L–R ≤ 2 mm | outside range | ↔️ ancestry |
-| "Staring" | upper-lid cover of iris; MRD1 | 1–2 mm; 4–5 mm | sclera above iris without photo support | 🧠 |
+| "Eyes popping" | cornea apex ahead of lateral orbital rim (Hertel) | 12–20 mm; L–R ≤ 2 mm; published adult ranges run 8–23 mm by population (Caucasian means 15.4–16.5, Asian 8–20, adult range 11–23) [1][2] | outside range | ↔️ ancestry |
+| "Staring" | upper-lid cover of iris; MRD1 | 1–2 mm (unconfirmed); MRD1 3.5–4.5 mm in sources (4.0–4.5 trial protocol, 3.5 ± 0.8 normative study) [3][4] | sclera above iris without photo support | ↔️ |
 | "Paper lids" | upper-lid margin thickness | ≈ 1.5–2.5 mm | < 1 mm | 🧠 |
 | "Mouth too wide" | ch–ch / IPD (IPD 63 ± 3.5 mm) | 0.78–0.90 | ≥ 1.0 at rest | 🧠 |
 | "Lips stuck on" | cheilion behind labrale superius (profile) | roughly 1.5–2 cm (uncertain) | < 1 cm | ↔️ |
 | "Nose wrong" | al–al / en–en | ≈ 1.0–1.3 | outside 0.9–1.4 | ↔️ ancestry |
 | "Ears too low" | tragion height vs orbitale (Frankfort) | ≈ level | > 8 mm off after pitch is solved | 🧠 |
-| "Ears too upright" | ear long-axis tilt from vertical | 10–30° (≈ 20°) | < 5° | 🧠 |
+| "Ears too upright" | ear long-axis tilt from vertical | 10–30° (≈ 20°); one adult male study 15.6 ± 3.9°, other cohorts report >25° in ~12–14% [5] | < 5° | ↔️ |
 | "Skull too small" | head length g–op / breadth eu–eu | 175–205 / 140–160 mm | g–op short vs profile | ↔️ |
 | "Neck too thin" | neck circumference | ≈ 36–42 cm men, 30–36 cm women | below range without photo support | 🧠 |
 | "Too symmetric" | whole-face mirror RMSD | ≈ 0.8 mm (library value) | < 0.3 mm | 🧠 |
@@ -136,7 +136,14 @@
 
 ## Sources
 
-No harvested sources or earlier draft existed for this topic, and no Polycount URL appears in the library, so no URLs are cited. Cross-referenced library notes: `community/likeness-mistakes.md`, `community/zbrush-to-blender-likeness.md`, `community/blenderartists-forum.md`, `blender/sculpting-likeness-workflow.md`, `blender/reference-camera-setup.md`, `blender/eyes-modeling-blender.md`, `anatomy/facial-asymmetry.md`, `anatomy/ear.md`.
+No Polycount URL appears in the library. Verification sources (2026-11-20):
+
+1. AAO EyeWiki, Exophthalmometry: https://eyewiki.aao.org/Exophthalmometry
+2. Normal Values of Hertel Exophthalmometry in a Chinese Han Population: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4336939/
+3. AAO EyeWiki, Margin to Reflex Distance 1,2,3: https://eyewiki.aao.org/Margin_to_Reflex_Distance_1,2,3
+4. LEV102 Topical Gel in Acquired Blepharoptosis protocol (MRD1 normal 4.0–4.5 mm): https://cdn.clinicaltrials.gov/large-docs/46/NCT05715346/Prot_000.pdf
+5. Ear inclination in adult Rakhain males (Bangladesh): https://banglajol.info/index.php/JNINB/article/view/59937/41251
+ Cross-referenced library notes: `community/likeness-mistakes.md`, `community/zbrush-to-blender-likeness.md`, `community/blenderartists-forum.md`, `blender/sculpting-likeness-workflow.md`, `blender/reference-camera-setup.md`, `blender/eyes-modeling-blender.md`, `anatomy/facial-asymmetry.md`, `anatomy/ear.md`.
 
 **Further reading (by name, not yet linked)**
 - Polycount wiki: topology and edge-loop pages (page names unverified)
@@ -151,3 +158,13 @@ No harvested sources or earlier draft existed for this topic, and no Polycount U
 - Ward et al., nasal distortion in short-distance photographs, *JAMA Facial Plastic Surgery*, 2018
 - Sorkine & Alexa, "As-Rigid-As-Possible Surface Modeling", SGP 2007
 - Hartley & Zisserman, *Multiple View Geometry in Computer Vision*
+
+## Verification log (2026-11-20)
+
+- Eye-seating priors (Hertel 12–20 mm, L–R ≤ 2 mm): contested. Hertel ranges vary by population, about 8–23 mm; Caucasian means 15.4–16.5 mm, Asian 8–20 mm. https://eyewiki.aao.org/Exophthalmometry ; https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4336939/
+- MRD1 4–5 mm: contested, sources give 3.5–4.5 mm. https://cdn.clinicaltrials.gov/large-docs/46/NCT05715346/Prot_000.pdf ; https://eyewiki.aao.org/Margin_to_Reflex_Distance_1,2,3
+- Upper lid covers 1–2 mm of iris; lid margin thickness 1.5–2.5 mm; L–R ≤ 2 mm: unconfirmed (no source found).
+- Head length g–op 175–205 mm, σ ≈ 7 mm; scalp soft tissue 4–8 mm: unconfirmed (ANSUR II has head length and neck circumference, but no figures retrieved; scalp thickness not found).
+- Ear tilt 10–30°: contested, 15.6 ± 3.9° in one adult male cohort, >25° in some; tragion level with orbitale: unconfirmed. https://banglajol.info/index.php/JNINB/article/view/59937/41251
+- Neck circumference 36–42 cm men / 30–36 cm women: unconfirmed (ANSUR II report NATICK/TR-15/007 https://apps.dtic.mil/sti/pdfs/ADA611869.pdf holds the tables, not retrieved).
+- Cheilion 1.5–2 cm behind labrale superius: unconfirmed.

@@ -49,13 +49,14 @@
     ],
     [
      "upper_incisor_display_rest",
-     "max(0, 3.0 - 0.07*(age-25))",
+     "piecewise-linear through (25,3.4),(35,1.6),(45,1.0),(55,0.5), 0 by ~65",
      1.2,
      "mm",
      "adults; 2-4 mm read as youthful",
-     "knowledge",
+     "verified",
      [
-      "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/"
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/",
+      "https://pubmed.ncbi.nlm.nih.gov/349139/"
      ]
     ],
     [

@@ -70,6 +70,27 @@
    "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/",
    "kind": "official-docs",
    "year": "2026"
+  },
+  {
+   "n": 11,
+   "title": "Brush Operators - Blender Python API",
+   "url": "https://docs.blender.org/api/current/bpy.ops.brush.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 12,
+   "title": "Blender 4.3: Sculpt, Paint, Texture",
+   "url": "https://developer.blender.org/docs/release_notes/4.3/sculpt/",
+   "kind": "official-docs",
+   "year": "2024"
+  },
+  {
+   "n": 13,
+   "title": "Blender 5.3: Sculpt, Paint, Texture",
+   "url": "https://developer.blender.org/docs/release_notes/5.3/sculpt/",
+   "kind": "official-docs",
+   "year": "2026"
   }
  ],
  "references_by_name": [

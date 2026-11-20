@@ -1,74 +1,464 @@
-{"topic":"smas-ligaments","tables":[
-{"name":"facial_skin_thickness","units":"mm","columns":["site","sex","value_low_mm","value_high_mm","measure"],
- "rows":[["mid-cheek","male",1.877,1.877,"dermal thickness, ultrasound"],["mid-cheek","female",1.580,1.580,"dermal thickness, ultrasound"],["zygomatic, oral commissure, mandibular angle, supraorbital, infraorbital","pooled",1.1,1.6,"median skin thickness, high-frequency ultrasound"]],
- "population":"Ultrasound cohorts; sample sizes and ancestry not extracted from snippets",
- "source_urls":["https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/","https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/"],
- "status":"verified",
- "notes":"Two independent sources agree that facial skin is about 1-2 mm thick; the per-row numbers are single-source snippet values. The two sources measure slightly different things (dermis vs whole skin). Skin is the outermost layer only, not total soft-tissue depth."},
-{"name":"layer_stack_midcheek_prior","units":"mm","columns":["order","layer","thickness_low_mm","thickness_high_mm","mobility","status"],
- "rows":[[1,"skin",1.1,1.9,"follows all layers","verified"],[2,"superficial fat (compartmented)",3,12,"high over glide spaces; most BMI/age variable","knowledge"],[3,"SMAS / platysma",0.5,3,"fixed over parotid, mobile anteriorly","contested"],[4,"sub-SMAS plane + deep fat (SOOF, deep medial cheek, buccal)",0,10,"deflates with age","knowledge"],[5,"deep fascia / periosteum",0,1,"fixed","knowledge"],[0,"total cheek soft tissue",15,25,"n/a","knowledge"]],
- "population":"Adult, unspecified; expert-knowledge ranges except skin",
- "source_urls":["https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/","https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/"],
- "status":"knowledge",
- "notes":"Use as broad priors for a layered model, not as measurements. Order 0 is the total. Replace with values from the 1174-adult layer-specific CT study (https://pubmed.ncbi.nlm.nih.gov/42385786/) once extracted. CT/cadaver data are supine and under-represent upright sag over the spaces."},
-{"name":"retaining_ligaments","units":"categorical","columns":["ligament","type","bony_or_fascial_origin","surface_feature","template_anchor_rule","status"],
- "rows":[
-  ["temporal ligamentous adhesion / superior temporal septum","adhesion","superior temporal line (frontal bone)","temporal ridge; lateral brow hinge","bone layer along temporal line, ending at lateral brow","knowledge"],
-  ["lateral orbital thickening","adhesion","lateral orbital rim","lateral canthal anchor","bone layer, lateral rim","knowledge"],
-  ["tear trough ligament","true (osteocutaneous)","maxilla, medial infraorbital rim","tear trough","curve from 3-6 mm below endocanthion to pupil x, 14-18 mm below pupil centre","knowledge"],
-  ["orbicularis retaining ligament (orbitomalar)","true (osteocutaneous)","periosteum just outside the orbital rim","lid-cheek junction (palpebromalar groove)","ring along infraorbital/lateral rim; tight medially, lax laterally","knowledge"],
-  ["zygomatic ligament (McGregor's patch)","true (osteocutaneous)","lower border of zygomatic body-arch junction","lower edge of malar mound","place on fitted bone; often quoted ~4.5 cm anterior to tragus (unverified)","contested"],
-  ["zygomaticocutaneous ligament / midcheek septum","septum","zygoma","midcheek groove","inferolateral limb of lid-cheek Y between medial and middle cheek fat","knowledge"],
-  ["masseteric cutaneous ligaments","false (fasciocutaneous)","masseteric fascia, anterior masseter border","posterior limit of jowl; buccal hollow line","line from below malar body to jaw contour arc fraction 0.6-0.75 (menton=0, gonion=1)","knowledge"],
-  ["mandibular ligament","true (Furnas) vs sub-platysmal muscular attachment (Minelli 2022)","anterior third of mandible, ~1 cm above lower border","prejowl sulcus; lower end of marionette fold","jaw contour arc fraction 0.25 +/- 0.07, ~10 mm above border","contested"],
-  ["parotid-cutaneous / platysma-auricular","false (fasciocutaneous)","parotid fascia; posterior platysma","immobile preauricular and infra-auricular face","high stiffness region, mobility m=0","knowledge"],
-  ["ligament of the modiolus / modiolus false ligament","contested","modiolus","commissure anchor","optional anchor lateral to cheilion","contested"]],
- "population":"Cadaver anatomy literature (adult); positions are heuristics",
- "source_urls":["https://pubmed.ncbi.nlm.nih.gov/36050569/","https://pubmed.ncbi.nlm.nih.gov/30091282/","https://link.springer.com/article/10.1007/s00266-025-04696-0","https://pubmed.ncbi.nlm.nih.gov/39900721/"],
- "status":"knowledge",
- "notes":"Classification after Furnas 1989 and Stuzin 1992 (by name, not linked). Template anchor rules are engineering heuristics in the face3d head frame (mm, +x subject's left, +y up) and need calibration on 3D scans. Source URLs support only the mandibular-ligament and modiolus rows."},
-{"name":"groove_tether_map","units":"categorical","columns":["groove_or_bulge","tether","mobile_mass","age_driver","status"],
- "rows":[
-  ["tear trough","tear trough ligament","orbital fat above; SOOF and deep medial cheek below","fat prolapse, deep fat loss, rim recession","knowledge"],
-  ["palpebromalar groove","orbicularis retaining ligament","malar mound (prezygomatic space)","ORL laxity, oedema","knowledge"],
-  ["midcheek groove","zygomaticocutaneous septum","medial vs middle cheek fat","uneven deflation","knowledge"],
-  ["nasolabial fold","lip-elevator dermal insertions (type 2 SMAS), not osteocutaneous","nasolabial fat compartment","descent, deep fat loss, maxillary retrusion","contested"],
-  ["marionette (labiomandibular) fold","DAO insertion, modiolus, mandibular ligament","jowl fat","depressor pull, modiolus descent","sourced"],
-  ["jowl / prejowl sulcus","masseteric ligaments (posterior), mandibular ligament (anterior)","jowl fat, platysma","platysma laxity, anterior mandible resorption","contested"],
-  ["temporal hollow","superior temporal septum","temporal fat pads, temporalis","fat and muscle atrophy","sourced"]],
- "population":"n/a (structural map)",
- "source_urls":["https://pubmed.ncbi.nlm.nih.gov/39806136","https://pubmed.ncbi.nlm.nih.gov/41433716/","https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499","https://link.springer.com/article/10.1007/s00266-017-0889-9","https://link.springer.com/article/10.1007/s00266-019-01555-7","https://pubmed.ncbi.nlm.nih.gov/36050569/","https://pubmed.ncbi.nlm.nih.gov/30091282/","https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11856534/"],
- "status":"knowledge",
- "notes":"Use to build Face Sets and the mobility field. Row status gives the evidence per groove."},
-{"name":"mimetic_muscle_depth_layers","units":"layer index (1 = most superficial)","columns":["layer","muscles","nerve_entry_surface"],
- "rows":[[1,"depressor anguli oris; zygomaticus minor; orbicularis oculi","deep"],[2,"depressor labii inferioris; risorius; platysma; zygomaticus major; levator labii superioris alaeque nasi","deep"],[3,"orbicularis oris; levator labii superioris","deep"],[4,"mentalis; levator anguli oris; buccinator","superficial"]],
- "population":"Cadaver dissection (Freilinger et al. 1987, by name)",
- "source_urls":[],
- "status":"knowledge",
- "notes":"Use for draw order in a layered muscle model. Not yet checked against the paper."},
-{"name":"infraorbital_foramen_below_rim","units":"mm","columns":["measure","low_mm","high_mm","population"],
- "rows":[["distance from infraorbital rim to foramen",5.0,8.5,"Indian skulls (5.8 R / 6.2 L) and cadavers (8.5 M / 7.8 F)"]],
- "population":"Mixed: North Indian dry skulls; cadaver series",
- "source_urls":["https://pubmed.ncbi.nlm.nih.gov/10981979/","https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/"],
- "status":"verified",
- "notes":"Bony check point just below the tear trough / ORL origin line. Attribution of each value set to a specific paper was not confirmed in the harvest."},
-{"name":"engine_defaults_ligament_model","units":"mixed (see column)","columns":["parameter","default","sigma_or_range","units","notes"],
- "rows":[
-  ["sigma_thickness_at_ligament",1.0,"0.7-1.5","mm","sigma_t(x) = sigma_lig + (sigma_space - sigma_lig) * m(x)"],
-  ["sigma_thickness_over_space",3.5,"3-5","mm","prezygomatic, premasseter/jowl, nasolabial, malar compartments"],
-  ["laplacian_row_weight_ligament_strip",4.0,"3-5","x base","per-vertex weight on Laplacian rows (W^0.5 L)"],
-  ["laplacian_row_weight_space",0.6,"0.5-0.7","x base",""],
-  ["laplacian_row_weight_lips",0.3,"","x base","matches lower-face note"],
-  ["ligament_strip_width",4.5,"3-6","mm","1-2 edge rings at 2-3 mm edge length"],
-  ["laxity",0.0,"[0,1]; prior N(f(age), 0.2) when age known","unitless","displacement d = laxity * D * m(x) * g(x)"],
-  ["laxity_max_displacement_D",5.0,"uncalibrated","mm","g inferomedial in midface, inferior at jowl"],
-  ["deep_cheek_volume",0.0,"+/-3","mm along normal","masked to deep medial cheek + SOOF"],
-  ["groove_depth_per_grade",1.0,"placeholder","mm per grade","calibrate on scans; tear trough 0-3, NLF/marionette 0-4"],
-  ["groove_position_symmetry_sigma",1.5,"1-2","mm","soft left/right prior"],
-  ["mandibular_ligament_arc_fraction",0.25,"0.07","fraction menton->gonion","~10 mm above border"],
-  ["masseteric_line_arc_fraction",0.675,"0.6-0.75","fraction menton->gonion","facial-artery notch"]],
- "population":"n/a (engineering heuristics)",
- "source_urls":[],
- "status":"knowledge",
- "notes":"All values are design heuristics to tune on real data, not anatomical measurements."}
-]}
+{
+ "topic": "smas-ligaments",
+ "tables": [
+  {
+   "name": "facial_skin_thickness",
+   "units": "mm",
+   "columns": [
+    "site",
+    "sex",
+    "value_low_mm",
+    "value_high_mm",
+    "measure"
+   ],
+   "rows": [
+    [
+     "mid-cheek",
+     "male",
+     1.877,
+     1.877,
+     "dermal thickness, ultrasound"
+    ],
+    [
+     "mid-cheek",
+     "female",
+     1.58,
+     1.58,
+     "dermal thickness, ultrasound"
+    ],
+    [
+     "zygomatic, oral commissure, mandibular angle, supraorbital, infraorbital",
+     "pooled",
+     1.1,
+     1.6,
+     "median skin thickness, high-frequency ultrasound"
+    ]
+   ],
+   "population": "Ultrasound cohorts; sample sizes and ancestry not extracted from snippets",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/"
+   ],
+   "status": "verified",
+   "notes": "Two independent sources agree that facial skin is about 1-2 mm thick; the per-row numbers are single-source snippet values. The two sources measure slightly different things (dermis vs whole skin). Skin is the outermost layer only, not total soft-tissue depth."
+  },
+  {
+   "name": "layer_stack_midcheek_prior",
+   "units": "mm",
+   "columns": [
+    "order",
+    "layer",
+    "thickness_low_mm",
+    "thickness_high_mm",
+    "mobility",
+    "status"
+   ],
+   "rows": [
+    [
+     1,
+     "skin",
+     1.1,
+     1.9,
+     "follows all layers",
+     "verified"
+    ],
+    [
+     2,
+     "superficial fat (compartmented)",
+     3,
+     12,
+     "high over glide spaces; most BMI/age variable",
+     "knowledge"
+    ],
+    [
+     3,
+     "SMAS / platysma",
+     0.5,
+     3,
+     "fixed over parotid, mobile anteriorly",
+     "contested"
+    ],
+    [
+     4,
+     "sub-SMAS plane + deep fat (SOOF, deep medial cheek, buccal)",
+     0,
+     10,
+     "deflates with age",
+     "knowledge"
+    ],
+    [
+     5,
+     "deep fascia / periosteum",
+     0,
+     1,
+     "fixed",
+     "knowledge"
+    ],
+    [
+     0,
+     "total cheek soft tissue",
+     15,
+     25,
+     "n/a",
+     "knowledge"
+    ]
+   ],
+   "population": "Adult, unspecified; expert-knowledge ranges except skin",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/",
+    "https://pubmed.ncbi.nlm.nih.gov/18333409/"
+   ],
+   "status": "knowledge",
+   "notes": "Use as broad priors for a layered model, not as measurements. Order 0 is the total. Replace with values from the 1174-adult layer-specific CT study (https://pubmed.ncbi.nlm.nih.gov/42385786/) once extracted. CT/cadaver data are supine and under-represent upright sag over the spaces. Verification 2026-11-20: SMAS 0.5-3 mm range is consistent with one cadaver CT/MRI study (0.76 parotid, 1.69 cheek, 2.41 NLF; https://pubmed.ncbi.nlm.nih.gov/18333409/), but that gradient contradicts 'thickest over parotid'; row stays contested. The 1174-adult study abstract was confirmed but no per-layer values were obtained."
+  },
+  {
+   "name": "retaining_ligaments",
+   "units": "categorical",
+   "columns": [
+    "ligament",
+    "type",
+    "bony_or_fascial_origin",
+    "surface_feature",
+    "template_anchor_rule",
+    "status"
+   ],
+   "rows": [
+    [
+     "temporal ligamentous adhesion / superior temporal septum",
+     "adhesion",
+     "superior temporal line (frontal bone)",
+     "temporal ridge; lateral brow hinge",
+     "bone layer along temporal line, ending at lateral brow",
+     "knowledge"
+    ],
+    [
+     "lateral orbital thickening",
+     "adhesion",
+     "lateral orbital rim",
+     "lateral canthal anchor",
+     "bone layer, lateral rim",
+     "knowledge"
+    ],
+    [
+     "tear trough ligament",
+     "true (osteocutaneous)",
+     "maxilla, medial infraorbital rim",
+     "tear trough",
+     "curve from 3-6 mm below endocanthion to pupil x, 14-18 mm below pupil centre",
+     "knowledge"
+    ],
+    [
+     "orbicularis retaining ligament (orbitomalar)",
+     "true (osteocutaneous)",
+     "periosteum just outside the orbital rim",
+     "lid-cheek junction (palpebromalar groove)",
+     "ring along infraorbital/lateral rim; tight medially, lax laterally",
+     "knowledge"
+    ],
+    [
+     "zygomatic ligament (McGregor's patch)",
+     "true (osteocutaneous)",
+     "lower border of zygomatic body-arch junction",
+     "lower edge of malar mound",
+     "place on fitted bone; often quoted ~4.5 cm anterior to tragus (unverified)",
+     "contested"
+    ],
+    [
+     "zygomaticocutaneous ligament / midcheek septum",
+     "septum",
+     "zygoma",
+     "midcheek groove",
+     "inferolateral limb of lid-cheek Y between medial and middle cheek fat",
+     "knowledge"
+    ],
+    [
+     "masseteric cutaneous ligaments",
+     "false (fasciocutaneous)",
+     "masseteric fascia, anterior masseter border",
+     "posterior limit of jowl; buccal hollow line",
+     "line from below malar body to jaw contour arc fraction 0.6-0.75 (menton=0, gonion=1)",
+     "knowledge"
+    ],
+    [
+     "mandibular ligament",
+     "true (Furnas) vs sub-platysmal muscular attachment (Minelli 2022)",
+     "anterior third of mandible, ~1 cm above lower border",
+     "prejowl sulcus; lower end of marionette fold",
+     "jaw contour arc fraction 0.25 +/- 0.07, ~10 mm above border",
+     "contested"
+    ],
+    [
+     "parotid-cutaneous / platysma-auricular",
+     "false (fasciocutaneous)",
+     "parotid fascia; posterior platysma",
+     "immobile preauricular and infra-auricular face",
+     "high stiffness region, mobility m=0",
+     "knowledge"
+    ],
+    [
+     "ligament of the modiolus / modiolus false ligament",
+     "contested",
+     "modiolus",
+     "commissure anchor",
+     "optional anchor lateral to cheilion",
+     "contested"
+    ]
+   ],
+   "population": "Cadaver anatomy literature (adult); positions are heuristics",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/36050569/",
+    "https://pubmed.ncbi.nlm.nih.gov/30091282/",
+    "https://link.springer.com/article/10.1007/s00266-025-04696-0",
+    "https://pubmed.ncbi.nlm.nih.gov/39900721/",
+    "https://journals.lww.com/plasreconsurg/abstract/2012/06000/the_tear_trough_ligament__anatomical_basis_for_the.30.aspx",
+    "https://pubmed.ncbi.nlm.nih.gov/27427339/"
+   ],
+   "status": "knowledge",
+   "notes": "Classification after Furnas 1989 and Stuzin 1992 (by name, not linked). Template anchor rules are engineering heuristics in the face3d head frame (mm, +x subject's left, +y up) and need calibration on 3D scans. Source URLs support only the mandibular-ligament and modiolus rows. Verification 2026-11-20: tear trough ligament maxillary origin and continuity with the ORL confirmed (https://journals.lww.com/plasreconsurg/abstract/2012/06000/the_tear_trough_ligament__anatomical_basis_for_the.30.aspx); mandibular ligament height 9.1 +/- 3.1 mm above the border supported by https://pubmed.ncbi.nlm.nih.gov/27427339/ (still contested vs Minelli 2022); template anchor rules remain heuristics."
+  },
+  {
+   "name": "groove_tether_map",
+   "units": "categorical",
+   "columns": [
+    "groove_or_bulge",
+    "tether",
+    "mobile_mass",
+    "age_driver",
+    "status"
+   ],
+   "rows": [
+    [
+     "tear trough",
+     "tear trough ligament",
+     "orbital fat above; SOOF and deep medial cheek below",
+     "fat prolapse, deep fat loss, rim recession",
+     "knowledge"
+    ],
+    [
+     "palpebromalar groove",
+     "orbicularis retaining ligament",
+     "malar mound (prezygomatic space)",
+     "ORL laxity, oedema",
+     "knowledge"
+    ],
+    [
+     "midcheek groove",
+     "zygomaticocutaneous septum",
+     "medial vs middle cheek fat",
+     "uneven deflation",
+     "knowledge"
+    ],
+    [
+     "nasolabial fold",
+     "lip-elevator dermal insertions (type 2 SMAS), not osteocutaneous",
+     "nasolabial fat compartment",
+     "descent, deep fat loss, maxillary retrusion",
+     "contested"
+    ],
+    [
+     "marionette (labiomandibular) fold",
+     "DAO insertion, modiolus, mandibular ligament",
+     "jowl fat",
+     "depressor pull, modiolus descent",
+     "sourced"
+    ],
+    [
+     "jowl / prejowl sulcus",
+     "masseteric ligaments (posterior), mandibular ligament (anterior)",
+     "jowl fat, platysma",
+     "platysma laxity, anterior mandible resorption",
+     "contested"
+    ],
+    [
+     "temporal hollow",
+     "superior temporal septum",
+     "temporal fat pads, temporalis",
+     "fat and muscle atrophy",
+     "sourced"
+    ]
+   ],
+   "population": "n/a (structural map)",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/39806136",
+    "https://pubmed.ncbi.nlm.nih.gov/41433716/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499",
+    "https://link.springer.com/article/10.1007/s00266-017-0889-9",
+    "https://link.springer.com/article/10.1007/s00266-019-01555-7",
+    "https://pubmed.ncbi.nlm.nih.gov/36050569/",
+    "https://pubmed.ncbi.nlm.nih.gov/30091282/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11856534/"
+   ],
+   "status": "knowledge",
+   "notes": "Use to build Face Sets and the mobility field. Row status gives the evidence per groove."
+  },
+  {
+   "name": "mimetic_muscle_depth_layers",
+   "units": "layer index (1 = most superficial)",
+   "columns": [
+    "layer",
+    "muscles",
+    "nerve_entry_surface"
+   ],
+   "rows": [
+    [
+     1,
+     "depressor anguli oris; zygomaticus minor; orbicularis oculi",
+     "deep"
+    ],
+    [
+     2,
+     "depressor labii inferioris; risorius; platysma; zygomaticus major; levator labii superioris alaeque nasi",
+     "deep"
+    ],
+    [
+     3,
+     "orbicularis oris; levator labii superioris",
+     "deep"
+    ],
+    [
+     4,
+     "mentalis; levator anguli oris; buccinator",
+     "superficial"
+    ]
+   ],
+   "population": "Cadaver dissection (Freilinger et al. 1987, by name)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Use for draw order in a layered muscle model. Not yet checked against the paper."
+  },
+  {
+   "name": "infraorbital_foramen_below_rim",
+   "units": "mm",
+   "columns": [
+    "measure",
+    "low_mm",
+    "high_mm",
+    "population"
+   ],
+   "rows": [
+    [
+     "distance from infraorbital rim to foramen",
+     5.0,
+     8.5,
+     "Indian skulls (5.8 R / 6.2 L) and cadavers (8.5 M / 7.8 F)"
+    ]
+   ],
+   "population": "Mixed: North Indian dry skulls; cadaver series",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/10981979/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/"
+   ],
+   "status": "verified",
+   "notes": "Bony check point just below the tear trough / ORL origin line. Attribution of each value set to a specific paper was not confirmed in the harvest."
+  },
+  {
+   "name": "engine_defaults_ligament_model",
+   "units": "mixed (see column)",
+   "columns": [
+    "parameter",
+    "default",
+    "sigma_or_range",
+    "units",
+    "notes"
+   ],
+   "rows": [
+    [
+     "sigma_thickness_at_ligament",
+     1.0,
+     "0.7-1.5",
+     "mm",
+     "sigma_t(x) = sigma_lig + (sigma_space - sigma_lig) * m(x)"
+    ],
+    [
+     "sigma_thickness_over_space",
+     3.5,
+     "3-5",
+     "mm",
+     "prezygomatic, premasseter/jowl, nasolabial, malar compartments"
+    ],
+    [
+     "laplacian_row_weight_ligament_strip",
+     4.0,
+     "3-5",
+     "x base",
+     "per-vertex weight on Laplacian rows (W^0.5 L)"
+    ],
+    [
+     "laplacian_row_weight_space",
+     0.6,
+     "0.5-0.7",
+     "x base",
+     ""
+    ],
+    [
+     "laplacian_row_weight_lips",
+     0.3,
+     "",
+     "x base",
+     "matches lower-face note"
+    ],
+    [
+     "ligament_strip_width",
+     4.5,
+     "3-6",
+     "mm",
+     "1-2 edge rings at 2-3 mm edge length"
+    ],
+    [
+     "laxity",
+     0.0,
+     "[0,1]; prior N(f(age), 0.2) when age known",
+     "unitless",
+     "displacement d = laxity * D * m(x) * g(x)"
+    ],
+    [
+     "laxity_max_displacement_D",
+     5.0,
+     "uncalibrated",
+     "mm",
+     "g inferomedial in midface, inferior at jowl"
+    ],
+    [
+     "deep_cheek_volume",
+     0.0,
+     "+/-3",
+     "mm along normal",
+     "masked to deep medial cheek + SOOF"
+    ],
+    [
+     "groove_depth_per_grade",
+     1.0,
+     "placeholder",
+     "mm per grade",
+     "calibrate on scans; tear trough 0-3, NLF/marionette 0-4"
+    ],
+    [
+     "groove_position_symmetry_sigma",
+     1.5,
+     "1-2",
+     "mm",
+     "soft left/right prior"
+    ],
+    [
+     "mandibular_ligament_arc_fraction",
+     0.25,
+     "0.07",
+     "fraction menton->gonion",
+     "~10 mm above border"
+    ],
+    [
+     "masseteric_line_arc_fraction",
+     0.675,
+     "0.6-0.75",
+     "fraction menton->gonion",
+     "facial-artery notch"
+    ]
+   ],
+   "population": "n/a (engineering heuristics)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "All values are design heuristics to tune on real data, not anatomical measurements."
+  }
+ ]
+}

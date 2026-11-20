@@ -2,7 +2,7 @@
 
 > Blender stores every shape key as an absolute copy of all vertex positions and, in relative mode, mixes them as Basis + Σ valueᵢ·maskᵢ·(keyᵢ − relative_keyᵢ) before any modifier runs, which makes keys the natural non-destructive container for a photo-fitted likeness, artist passes and an expression set on one frozen topology. The de facto expression vocabulary is Apple's ARKit 52 coefficients in [0, 1]; MediaPipe Face Landmarker emits 52 scores under the same camelCase names (minus `tongueOut`, plus `_neutral`), so a clone keyed with exact ARKit names can be driven and audited by phone or webcam capture. Linear deltas fail on arcs (eyelids, jaw) and on combinations, so a usable set adds in-betweens and product-driven correctives, and after an identity fit the template's deltas must be transferred, not copied. No harvest or earlier draft existed: 📄 facts come from sibling harvests in this library; everything else is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 14 📄 / 66 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 16 📄 / 64 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -13,7 +13,7 @@
 - `obj.shape_key_add(name="Basis", from_mix=False)`: defaults are `name="Key"`, `from_mix=True`, so pass both. Fill with `kb.data.foreach_set("co", f32)` (or the optimised `kb.points` in recent versions), then `me.update()` 🧠.
 
 **Editing semantics (where likeness work goes wrong)**
-- Edit and Sculpt modes write into the **active** key. Interactive edits to the reference key propagate the same offset to dependent keys, preserving their deltas 🧠. A **Python write to Basis does not propagate**: dependents keep absolute positions, so each delta silently becomes (old delta − Δ) 🧠. The engine must add Δ to dependents itself.
+- Edit and Sculpt modes write into the **active** key. Interactive edits to the reference key propagate the same offset to dependent keys, preserving their deltas [13] 📄. A **Python write to Basis does not propagate**: dependents keep absolute positions, so each delta silently becomes (old delta − Δ) 🧠. The engine must add Δ to dependents itself.
 - Sculpting into a key whose value ≠ 1, or while other keys are active, gives unpredictable strokes; pin it (`show_only_shape_key`) or solo it at 1 🧠.
 - Apply is refused on meshes with keys; `object.modifier_apply_as_shapekey(keep_modifier=True)` captures a modifier result as a key 🧠. Multires detail and Dyntopo/Remesh output cannot live in keys (`blender-sculpt-features-5x.md`) 🧠.
 - Operators 🧠: `shape_key_remove(all=True, apply_mix=True)` (apply all); `shape_key_mirror(use_topology=…)`; `shape_key_transfer` and `join_shapes` (same vertex count); `shape_key_move(type='TOP')` (makes a new reference); Edit-mode `mesh.blend_from_shape` and `mesh.shape_propagate_to_all`.
@@ -21,7 +21,7 @@
 
 **Drivers**
 - `kb.driver_add("value")`; read keys with `SINGLE_PROP` variables (`id_type='KEY'`, `id=me.shape_keys`, `data_path='key_blocks["jawOpen"].value'`) and bones with `TRANSFORMS`/`ROTATION_DIFF` (Swing/Twist modes isolate a hinge angle). Use ID pointers, not names 🧠.
-- **Simple expressions** (arithmetic, comparisons, conditionals, whitelisted `min`/`max`/`abs`/`clamp`…) run natively; anything else, or "Use Self", needs Python and fails while Auto Run Python Scripts is off, the default 🧠.
+- **Simple expressions** (arithmetic, comparisons, conditionals, whitelisted `min`/`max`/`abs`/`clamp`…) run natively; anything else, or "Use Self", needs Python and fails while Auto Run Python Scripts is off, the default [14][15] 📄.
 
 **ARKit 52**
 - `blendShapes` are named coefficients from 0 (neutral) to 1 (maximum), updated live [1][3] 📄; the set is known as "ARKit 52" [11] 📄. The harvest could not confirm the full list; a forum list starts `jawOpen`, `eyeLookDown` [4] 📄.
@@ -153,6 +153,9 @@ URLs [1]–[7] come from the facs-expressions harvest, [8]–[12] from the blend
 [10] Fragid/face-shapekey-rig — https://github.com/Fragid/face-shapekey-rig — repository — n.d.
 [11] H0wZy/captureforge — https://github.com/H0wZy/captureforge — repository — n.d.
 [12] mozi1924/mediapipe-facecap-for-blender — https://github.com/mozi1924/mediapipe-facecap-for-blender — repository — n.d.
+[13] Blender issue #44415 (shape keys vs Basis edits) — https://projects.blender.org/blender/blender/issues/44415 — bug tracker — n.d.
+[14] Blender Manual: Drivers Panel — https://docs.blender.org/manual/en/latest/animation/drivers/drivers_panel.html — official docs — n.d.
+[15] Blender Manual: Scripting & Security — https://docs.blender.org/manual/en/latest/advanced/scripting/security.html — official docs — n.d.
 
 **Further reading (by name, not yet linked)**
 - Lewis et al., "Practice and Theory of Blendshape Facial Models", Eurographics STAR 2014
@@ -165,3 +168,10 @@ URLs [1]–[7] come from the facs-expressions harvest, [8]–[12] from the blend
 - Rhodes, Brennan & Carey, "Identification and ratings of caricatures", 1987
 - Cosker, Krumhuber & Hilton, D3DFACS, ICCV 2011
 - Blender Manual and Python API: Shape Keys, Drivers (Simple Expressions), `bpy.types.ShapeKey`
+
+## Verification log (2026-11-20)
+
+- ARKit raw strings (`eyeBlink_L`) and 14/5/3/2/4/23/1 split: unconfirmed; search found the Apple page [2] and Unity/Unreal enums listing the camelCase names, but no rawValue or category counts. Stays 🧠. https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation
+- MediaPipe `_neutral` at index 0 + 51 alphabetical ARKit names: unconfirmed; docs confirm 52 scores and camelCase names like browDownLeft only. Stays 🧠. https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker
+- Basis edit propagation: edit-mode propagation to dependent keys confirmed (📄) by the Blender tracker [13]; the Python-write non-propagation half is only indirectly supported (reporter asks how to propagate from script), stays 🧠. https://projects.blender.org/blender/blender/issues/44415
+- Simple-expression drivers run without Python; others need Auto Run (off by default): confirmed 📄 [14][15]; min, max, abs, clamp in the supported list. https://docs.blender.org/manual/en/latest/animation/drivers/drivers_panel.html , https://docs.blender.org/manual/en/latest/advanced/scripting/security.html

@@ -174,3 +174,12 @@ None: no harvest existed, so no URLs are cited; cross-references are to sibling 
 - Caroline Wilkinson, *Forensic Facial Reconstruction* (2004)
 - John Asaro planar head (commercial cast)
 - François Willème, photosculpture (1860s)
+
+## Verification log (2026-11-20)
+
+All four claims stayed unconfirmed after 4 searches (badges unchanged, 🧠). Search results gave no usable numbers.
+
+1. Tragion depths t–n, t–sn, t–gn (Table 1): unconfirmed. No Farkas values surfaced. Candidate for follow-up: https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015 (3D vs Farkas norms; lists t_l–n, t_l–sn, t_l–gn measures).
+2. Live caliper repeatability 1–2 mm bony, 2–4 mm soft: unconfirmed. Partial hint only: https://pmc.ncbi.nlm.nih.gov/articles/PMC6669702 (random error mostly about 1 mm, soft pogonion 3–4 mm); not specific to the claimed landmarks.
+3. Pressed zy–zy, go–go, eu–eu offsets of +2 to +5 mm: unconfirmed. No study quantified compression. A 2D-photo study (https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2021.813058/full) found bizygomatic and bigonial breadth differ between direct and photogrammetric methods, but gave no usable offset.
+4. Bitragion breadth 140–150 mm M / 132–142 mm F: unconfirmed. ANSUR II pages found (https://ph.health.mil/topics/workplacehealth/ergo/Pages/Anthropometric-Database.aspx) but no value retrieved.

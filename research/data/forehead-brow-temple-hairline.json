@@ -99,30 +99,30 @@
     ],
     [
      "supraglabella_mid_forehead",
-     4,
-     6,
-     5.0,
+     3.5,
+     5.1,
+     4.5,
      0.2,
      "M",
-     "direction sourced [9]"
+     "verified/corrected 2026-11-20 [10][44]; direction [9]"
     ],
     [
      "frontal_eminence",
-     4,
-     6,
-     5.0,
+     4.2,
+     4.8,
+     4.5,
      0.2,
      "M",
-     ""
+     "verified/corrected 2026-11-20 [44][45][46]"
     ],
     [
      "supraorbital_mid_brow",
-     6,
-     9,
-     7.5,
+     5.7,
+     6.7,
+     6.2,
      0.2,
      "",
-     "ROOF under lateral brow"
+     "corrected 2026-11-20 [44][45][46]; ROOF under lateral brow"
     ],
     [
      "mid_temple_skin_to_bone",
@@ -144,8 +144,13 @@
     ]
    ],
    "population": "Adult, mixed; expert ranges",
-   "source_urls": [],
-   "status": "knowledge",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12170741/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/"
+   ],
+   "status": "partially verified (mid_temple, scalp_vertex remain knowledge)",
    "notes": "Use as log-normal priors; needs verification against pooled FSTT tables (e.g. Stephan T-tables)."
   },
   {

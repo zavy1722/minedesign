@@ -2,7 +2,7 @@
 
 > Human faces vary continuously, and mostly within populations. For genetic markers and for whole-skull shape, roughly 85–95% of variance lies among individuals of the same population and roughly 5–15% between continental regions 🧠. A few facial features break that pattern, with group means several within-group SDs apart: nose width, nasal-root height, midface projection ("facial flatness"), lip fullness and protrusion, the epicanthal fold and lid crease, and head shape 🧠. Most of these are depth and projection features, which a frontal photo constrains least. A photo→3D fit that leans on a 3D morphable model (3DMM) prior trained mostly on European-ancestry scans therefore pulls other faces toward European proportions 🧠. Ethnic templates are not the fix, because they replace the individual with a stereotype. The fix is to measure first, use balanced and widened priors, treat folds and creases as discrete states, take profile views, and audit errors per group 🧠.
 >
-> Evidence status: 0 ✅ / 0 📄 / 84 🧠 / 27 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 1 📄 / 88 🧠 / 27 ↔️ — verified 2026-11-20 (1 of 4 queued claims partly confirmed; the rest remain 🧠).
 
 EUR, EAS and AFR-W label European-ancestry, East Asian, and West African or African-American samples. They name samples, not types.
 
@@ -92,7 +92,7 @@ EUR, EAS and AFR-W label European-ancestry, East Asian, and West African or Afri
 |---|---|---|---|
 | BFM 2009/2017 | 200, ages ~8–62 | mostly European (Basel) | 🧠 |
 | FLAME identity space (2017) | ~3,800 CAESAR scans | North America, Netherlands, Italy | 🧠 |
-| LSFM (2016/18) | ~9,700, London | large White majority; per-group sub-models | 🧠 ↔️ |
+| LSFM (2016/18) | ~9,700 (9,663 identities) [1], London | large White majority (unverified); per-group sub-models [1] | 📄 ↔️ |
 | LYHM / Headspace (2017) | ~1,200 of ~1,500 | UK, mostly White | 🧠 |
 | FaceScape (2020) | ~900+ | Chinese | 🧠 |
 | FaceWarehouse (2014) | 150, ages 7–80 | captured in China | 🧠 |
@@ -199,7 +199,9 @@ EUR, EAS and AFR-W label European-ancestry, East Asian, and West African or Afri
 
 ## Sources
 
-No harvest file or earlier draft existed for this topic, so no URLs are cited. Sourced population values elsewhere in the library: `anatomy/anthropometric-norms.md` (Tables 2 and 5), `anatomy/forensic-reconstruction.md`, `anatomy/mouth-lips-teeth.md`, `anatomy/face-perception-likeness.md`.
+1. Booth et al., "Large Scale 3D Morphable Models", IJCV 2018. https://pmc.ncbi.nlm.nih.gov/articles/PMC6953995
+
+Most other facts have no linked source yet. Sourced population values elsewhere in the library: `anatomy/anthropometric-norms.md` (Tables 2 and 5), `anatomy/forensic-reconstruction.md`, `anatomy/mouth-lips-teeth.md`, `anatomy/face-perception-likeness.md`.
 
 **Further reading (by name, not yet linked)**
 - Lewontin 1972, "The apportionment of human diversity", *Evol Biol*.
@@ -239,3 +241,10 @@ No harvest file or earlier draft existed for this topic, so no URLs are cited. S
 - Koppen et al. 2018, "Gaussian mixture 3D morphable face model", *Pattern Recognit*.
 - Zielonka, Bolkart & Thies 2022, MICA, ECCV.
 - Feng, Bolkart, Tesch, Black & Abrevaya 2022, "Towards racially unbiased skin tone estimation via scene disambiguation" (TRUST), ECCV.
+
+## Verification log (2026-11-20)
+
+- **Alar width / nasal index ranges (EUR 33–36, EAS 37–41, AFR-W 40–46 mm; SD 2–2.5)**: unconfirmed. Search found only summaries of Farkas et al. 2005 (direction: Asian and Black nose significantly wider than North American White); no per-group mm values. Stays 🧠. https://pmc.ncbi.nlm.nih.gov/articles/PMC2884921
+- **3DMM training populations**: partly confirmed. LSFM uses 9,663 MeIn3D identities, with demographic labels used for group-specific models [1]. "Large White majority", BFM 200, FLAME ~3,800 CAESAR, FaceScape ~900+ and licence terms were not found: unconfirmed. https://pmc.ncbi.nlm.nih.gov/articles/PMC6953995
+- **Lip/profile norms (E-line, nasolabial angle by group)**: unconfirmed. Results show only directional support (Korean and Japanese samples with more lip protrusion than European-American; no comparable numeric values for all three groups). https://media.dent.umich.edu/labs/mcnamara/files/Ethnic%20Differences%20in%20the%20Soft%20Tissue%20Profile%20of%20Korean%20and%20European-American%20Adults%20with%20Normal%20Occlusions%20and%20Well-Balanced%20Faces.pdf
+- **Lid crease absent 40–60% / crease 4–7 mm; epicanthal fold 40–90% vs <5%**: unconfirmed. Review snippets say ~50% of Asians lack a crease and fold incidence 40–90% in Asia vs 2–5% non-Asian, but they could not be tied to a specific reliable URL, and another source cites 17–18% single lids in Japanese women (contested). https://pmc.ncbi.nlm.nih.gov/articles/PMC4536062

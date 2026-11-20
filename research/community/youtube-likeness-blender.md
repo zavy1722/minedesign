@@ -2,7 +2,7 @@
 
 > YouTube teaches five routes from photos to a real person's head in Blender: a KeenTools FaceBuilder pin fit, modelling over front and side image planes, sculpting by eye from a sphere or base mesh, photogrammetry (Meshroom, RealityCapture/RealityScan, phone apps) followed by cleanup or wrapping, and, since about 2024, AI image-to-3D or vendor bridges (MetaHuman, Character Creator Headshot). The best videos treat any automatic result as a base that still needs a camera-matched sculpting pass. Most popular tutorials skip the step that decides likeness: rebuilding the camera behind each photo (distance, focal length, principal point). Sculpting against orthographic planes or a 50 mm viewport bakes selfie perspective, mirroring and head tilt into the mesh. No harvest or draft existed, so channels are named from expert knowledge only and no video titles are asserted.
 >
-> Evidence status: 0 ✅ / 0 📄 / 61 🧠 / 20 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 2 📄 / 61 🧠 / 19 ↔️ — verified 2026-11-20 (see Verification log); remaining 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -22,7 +22,7 @@
 
 **Channels worth knowing** (names only; activity, titles and versions are time-sensitive)
 - **KeenTools** (official): FaceBuilder, FaceTracker and GeoTracker walkthroughs; the reference for the pin-fit route 🧠.
-- **Blender** / **Blender Studio**: Julien Kaspar's Sculpt Mode videos; Blender Studio's free **Human Base Meshes** bundle (2023, believed CC0) is a clean by-eye start 🧠.
+- **Blender** / **Blender Studio**: Julien Kaspar's Sculpt Mode videos; Blender Studio's free **Human Base Meshes** bundle (2023, CC0 [3][4]) is a clean by-eye start ✅.
 - **YanSculpts** (Blender anatomy, heads, portraits), **Grant Abbitt** (beginner head-sculpt and retopology series), **Danny Mac 3D** and **Zacharias Reinhardt** (realistic character heads; moderate confidence) 🧠.
 - **FlippedNormals**, **Pablo Muñoz Gómez** (ZBrushGuides): mostly ZBrush, but their likeness method (proportions first, overlay, flip, judge in perspective) transfers directly 🧠.
 - **Anatomy for Sculptors** (Uldis Zarins) and **Proko**: skull, muscle and head-plane anatomy 🧠.
@@ -59,7 +59,7 @@
 | AI image-to-3D | 1–4 | minutes | untopologised, non-metric | blockout only | hallucinated profile, averaged features | ↔️ |
 | MetaHuman / Headshot bridge | 1–9 or a mesh | 1–3 h | vendor rig topology | as good as the input mesh minus conform drift | vendor drift at nose, lips, lids | ↔️ |
 
-**Table 2. Perspective error that ortho-plane tutorials ignore** (pinhole model; nose tip ~0.10 m in front of the ear plane; magnification ratio = (d+0.10)/d)
+**Table 2. Perspective error that ortho-plane tutorials ignore** (Ward et al. 2018 report the nasal base looking about 30% wider at ~30 cm than at 1.5 m or infinity, consistent with the 1.33 ratio below [5] 📄; pinhole model; nose tip ~0.10 m in front of the ear plane; magnification ratio = (d+0.10)/d)
 
 | Camera–nose distance d (m) | Nose : ear magnification | Typical source | Usable as shape cue? | Badge |
 |---|---|---|---|---|
@@ -144,7 +144,7 @@
 - **"Blender can't sculpt at ZBrush resolution."** Partly true: Blender stays fluid at a few million faces, ZBrush far beyond. Likeness lives in low frequencies, so it rarely matters ↔️.
 - **"Push it a little" (caricature).** Some likeness teachers exaggerate distinctive traits slightly. The recognition advantage is robust in 2D and unproven for realistic 3D ↔️.
 - **Pricing and terms.**
-  - FaceBuilder: paid subscription with a trial (a forum user mentions 30 days); seat price roughly 100–300 USD per year as recalled; Blender 5.x support not checked ↔️.
+  - FaceBuilder: paid subscription (the Core library needs it; the add-on is free) with a 15-day free trial per add-on, not 30 days [1]; 2024 Freelancer price was 18 USD/month or 179 USD/year, floating Studio 499 USD/year [2] (corrected in verification) 📄. Current prices and Blender 5.x support not confirmed (the FAQ says only Blender 2.80+).
   - RealityCapture: free for small studios since 2024 and since renamed RealityScan, per moderate-confidence recollection ↔️.
   - Meshroom: free (MPL-2.0); historically needs an NVIDIA CUDA GPU for depth maps ↔️.
 - **Open questions:**
@@ -156,7 +156,14 @@
 
 ## Sources
 
-No harvest or draft existed, so no URLs are cited. Related notes: `blender/reference-camera-setup.md`, `blender/sculpting-likeness-workflow.md`, `blender/blender-face-addons.md`, `reconstruction/commercial-head-tools.md`, `reconstruction/photogrammetry-heads.md`, `community/blenderartists-forum.md`, `community/reddit-face-from-photos.md`, `community/likeness-mistakes.md`.
+Numbered sources (added in verification, 2026-11-20):
+1. KeenTools, FaceBuilder for Blender (trial, licensing FAQ) — https://keentools.io/products/facebuilder-for-blender
+2. CG Channel, KeenTools ships FaceBuilder 2024.1 for Blender (pricing) — https://www.cgchannel.com/2024/03/keentools-ships-facebuilder-2024-1-for-blender/
+3. CG Channel, Download Blender Studio's free Human Base Meshes (CC0) — https://www.cgchannel.com/2023/06/download-blender-studios-free-human-base-meshes
+4. Blender, Asset Bundles (Human Base Meshes, CC0) — https://www.blender.org/download/demo
+5. Ward et al., Nasal Distortion in Short-Distance Photographs: The Selfie Effect, JAMA Facial Plast Surg 2018 — https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805
+
+Related notes: `blender/reference-camera-setup.md`, `blender/sculpting-likeness-workflow.md`, `blender/blender-face-addons.md`, `reconstruction/commercial-head-tools.md`, `reconstruction/photogrammetry-heads.md`, `community/blenderartists-forum.md`, `community/reddit-face-from-photos.md`, `community/likeness-mistakes.md`.
 
 **Further reading (by name, not yet linked)**
 - KeenTools FaceBuilder for Blender documentation and the KeenTools YouTube channel
@@ -172,3 +179,10 @@ No harvest or draft existed, so no URLs are cited. Related notes: `blender/refer
 - Uldis Zarins & Sandis Kondrats, *Anatomy for Sculptors* (2014)
 - John Asaro, "Planes of the Head" model
 - Rhodes, Brennan & Carey, "Identification and ratings of caricatures", Cognitive Psychology (1987)
+
+## Verification log (2026-11-20)
+
+- FaceBuilder pricing/trial/Blender 5.x: corrected (trial is 15 days, not 30; 2024 price 179 USD/yr Freelancer, within the recalled range). Blender 5.x support unconfirmed. Sources: https://keentools.io/products/facebuilder-for-blender ; https://www.cgchannel.com/2024/03/keentools-ships-facebuilder-2024-1-for-blender/
+- Human Base Meshes licence: confirmed CC0 (two sources). https://www.cgchannel.com/2023/06/download-blender-studios-free-human-base-meshes ; https://www.blender.org/download/demo
+- Ward et al. 2018 selfie effect: confirmed (about 30% wider nasal base at ~30 cm; reference distance varies by report, 1.5 m or infinity; a published letter disputes that it is physical distortion). https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805
+- FaceBuilder EULA on exported heads: unconfirmed. The vendor FAQ says users own what they create and may sell models made with FaceBuilder, but the EULA text was not read; the GPL front end and closed core library split was not checked. https://keentools.io/products/facebuilder-for-blender

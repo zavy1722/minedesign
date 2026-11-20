@@ -2,7 +2,7 @@
 
 > The ZBrush likeness tradition (Scott Spencer, Rafael Grassetti, Pablo Muñoz Gómez, Ryan Kingslien and peers) is one loop: collect many long-lens photos, block primary forms at low resolution, match a perspective camera to each photo, overlay it (Spotlight, See-through, grid images), and move big masses until silhouette and features agree in every view at once, then break symmetry, test changes on Layers, and judge with hair and matched light. Blender has every ingredient plus one structural advantage: each photo keeps its own persistent camera object with the photo as a front-depth background image, so you flip between solved views instead of re-matching ZBrush's single canvas camera. Its weak spots are sculpt layers and a morph brush (shape keys and Geometry Nodes only partly replace them) and a default viewport whose "50 mm" is, we believe, wide-angle. No harvest or earlier draft existed, so everything here is expert knowledge or pinhole arithmetic. For the fitting engine this becomes a joint multi-view perspective solve, coarse-to-fine stages exported as dialable shape keys, and a symmetry prior relaxed late.
 >
-> Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 20 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 1 📄 / 59 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -11,7 +11,7 @@
 - **Teachers (roles only).** Spencer: Sybex ZBrush books, likeness collectibles, film creatures. Grassetti: character art director, *God of War* (2018). Muñoz Gómez: ZBrushGuides and courses. Kingslien: early Pixologic evangelist, ZBrush Workshops founder. 🧠
 - **Reference first.** Many photos from one age and weight window, neutral face, teeth together: front, both ¾, both profiles, slightly high and low; known lenses, long distances. Film grabs are secondary (unknown lens, varying expression). 🧠
 - **Primary forms at low resolution.** Block the cranium, jaw width and angle, brow mass, cheek mass, nose block and ear position on a low DynaMesh or subdivision level 1–2. The common rule: if it does not read as the person when blurred, detail will not save it. 🧠
-- **Camera match, then overlay.** Perspective on (P), set angle of view or focal length, load the photo into Spotlight (Texture → Add To Spotlight; Shift+Z shows/hides, Z toggles the dial; lower its opacity), or raise the **See-through** slider to see a photo viewer behind the translucent ZBrush window. Place the model until stable landmarks (canthi, alar base, tragus, menton) align, then fix silhouette and placement with a large **Move** brush. 🧠
+- **Camera match, then overlay.** Perspective on (P), set angle of view or focal length, load the photo into Spotlight (Texture → Add To Spotlight; Shift+Z shows/hides, Z toggles the dial; lower its opacity) [2], or raise the **See-through** slider to see a photo viewer behind the translucent ZBrush window. Place the model until stable landmarks (canthi, alar base, tragus, menton) align, then fix silhouette and placement with a large **Move** brush. 📄 (Spotlight shortcuts only, [2]; rest unverified)
 - **Spotlight is screen-space**: you move the *model* into the photo, and any view rotation breaks the match, so artists store views (timeline keys, ImagePlane plugin views). 🧠
 - **Whack-a-mole across views.** A front-view fix moves the ¾ and profile, so cycle all views until they agree; fitting one "hero" photo is the classic failure. 🧠
 - **Profile is most diagnostic**: forehead slope, nasion depth, nose projection and tip angle, lip protrusion, chin projection read unambiguously in silhouette; front widths come next. 🧠
@@ -22,7 +22,7 @@
 **ZBrush camera specifics**
 
 - ZBrush opens in a non-perspective (orthographic-like) view; P toggles perspective; the Draw palette holds Angle of View. 🧠
-- ZBrush 4R8 (2017) added a "Universal Camera" with a real focal length in mm and stored or exportable cameras. Before that, perspective did not map cleanly to a physical lens, so many artists matched by eye. ↔️ (exact feature set and defaults to verify)
+- ZBrush 4R8 (2017) added a "Universal Camera" with a real focal length in mm and stored or exportable cameras. Before that, perspective did not map cleanly to a physical lens, so many artists matched by eye. ↔️ (Universal Camera with real focal length confirmed by Maxon [1]; the 4R8/2017 date, storable cameras and defaults remain unverified)
 - Orthographic grid images (Draw palette Front-Back/Left-Right maps, the ImagePlane plugin) suit blueprint-style long-lens references only. 🧠
 
 **Blender equivalents**
@@ -37,7 +37,7 @@
 - **Flip check:** tick the background image's Flip Horizontally and set the camera's X scale to −1 to mirror both (community trick; verify on current versions). 🧠
 - **Matcaps:** Workbench MatCap/Studio for form; Eevee or Cycles with lights matched to the photo's catchlights and shadows for likeness judgement. 🧠
 - **Bridge:** GoZ-to-Blender works through the open-source **GoB** add-on. ↔️ (compatibility with current ZBrush and Blender releases unverified)
-- **Viewport lens trap:** viewport Focal Length defaults to 50 mm, but we believe the view uses a doubled sensor (perspective zoom factor 2, ≈72 mm), so viewport 50 mm ≈ 25 mm full-frame, ≈71° horizontal on a wide window. Set ≈150–200 mm, or sculpt through a matched camera (Lock Camera to View). 🧠 (high-priority verification)
+- **Viewport lens trap:** viewport Focal Length defaults to 50 mm, but we believe the view uses a doubled sensor (perspective zoom factor 2, ≈72 mm), so viewport 50 mm ≈ 25 mm full-frame, ≈71° horizontal on a wide window. Set ≈150–200 mm, or sculpt through a matched camera (Lock Camera to View). ↔️ (contested: one tracker report says viewport and camera 50 mm do not match [3], another could not reproduce [4]; no source states the 72 mm doubled sensor)
 
 **Camera physics both programs rely on**
 
@@ -152,7 +152,15 @@ Badge 🧠. Matches the library's Instagram-sculptors note and the reported "sel
 
 ## Sources
 
-No web harvest or earlier draft existed for this topic, so no URLs are cited. Related notes in this library: `research/blender/reference-camera-setup.md`, `research/community/instagram-social-sculptors.md`, `research/anatomy/facial-asymmetry.md`, `research/blender/blender-face-addons.md`.
+Numbered sources (added in verification):
+
+1. Maxon, ZBrush Universal Camera: https://www.maxon.net/en/zbrush/features/universal-camera
+2. Maxon, ZBrush Shortcuts: https://help.maxon.net/zbr/en-us/Content/Resources/Uploads/ZBrush-Shortcuts.pdf
+3. Blender tracker T78320: https://developer.blender.org/T78320
+4. Blender tracker T43039: https://developer.blender.org/T43039
+5. Review citing Dodgson (2004) mean IPD 63.36 mm: https://pmc.ncbi.nlm.nih.gov/articles/PMC5497600
+
+Related notes in this library: `research/blender/reference-camera-setup.md`, `research/community/instagram-social-sculptors.md`, `research/anatomy/facial-asymmetry.md`, `research/blender/blender-face-addons.md`.
 
 **Further reading (by name, not yet linked)**
 
@@ -171,3 +179,10 @@ No web harvest or earlier draft existed for this topic, so no URLs are cited. Re
 - Rhodes, Brennan & Carey, "Identification and ratings of caricatures" (Cognitive Psychology, 1987)
 - Haig, "The effect of feature displacement on face recognition" (Perception, 1984)
 - Hartley & Zisserman, *Multiple View Geometry in Computer Vision* (2nd ed., 2004)
+
+## Verification log (2026-11-20)
+
+- Viewport focal length doubled sensor (about 72 mm; 50 mm viewport about 25 mm full-frame): CONTESTED. Tracker reports disagree on whether a mismatch exists [3][4]; no source gives the 72 mm figure. Badge changed to ↔️.
+- Blender camera export conventions (lens, shift_x/shift_y, OpenCV axis flip): UNCONFIRMED. Search found only a loosely related conversion script (https://jsan3386.github.io/avatar/camera.html) giving c_x = w(0.5 - shift_x); no source states the max(W,H) normalisation. Stays 🧠.
+- Adult IPD mean about 63 mm, SD 3.5-4 mm, near PD 3 mm less: PARTLY CONFIRMED. A secondary review attributes a 63.36 mm mean to Dodgson [5]; SD and near-PD offset unconfirmed. Row stays 🧠.
+- ZBrush Universal Camera and Spotlight shortcuts: Universal Camera with real focal length CONFIRMED [1]; Shift+Z (Spotlight) and Z (dial) CONFIRMED [2] (badge 📄). 4R8/2017 date, storable cameras, and perspective-off default UNCONFIRMED.

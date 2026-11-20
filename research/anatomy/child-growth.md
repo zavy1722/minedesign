@@ -2,7 +2,7 @@
 
 > A child's head is not a scaled-down adult head. The brain case follows the fast "neural" curve and reaches ~90–95 % of adult size by age 6–7. The face follows the slower "somatic" curve, growing down and forward from under the cranium into the late teens (girls) or early twenties (boys). The younger the subject, the bigger the cranium relative to the face, the lower the eye line, the larger the eyes relative to the face, and the smaller and more upturned the nose, over a short lower face and a soft chin. A child-likeness pipeline needs age-conditioned priors, a scale anchor that stops growing early (the cornea), a short capture window and hard safeguards for minors.
 >
-> Evidence status: 0 ✅ / 16 📄 / 81 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 17 📄 / 81 🧠 / 14 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -21,7 +21,7 @@ This topic had no harvest or draft of its own. 📄 items cite URLs from sibling
 
 **Eyes**
 - The globe is ~70–75 % of adult axial length at birth (~17 mm), grows fastest over the first 2–3 years and is near adult size by ~10–13 y 🧠. Adult endpoint: ~24.2 × 23.7 mm, with no sex or age-group difference [12] 📄.
-- The cornea is adult-sized by ~2–3 y 🧠. The adult pooled mean is 11.84 mm (SD 0.79), proposed as a photo scale [13] 📄. Infant eyes look big only relative to the eye opening and the face 🧠.
+- The cornea is adult-sized by ~1 y to ~2–3 y: one biometry study reports corneal diameter growth stops within 1 y of birth, against the ~2–3 y assumed here; term newborn horizontal diameter ~9.0–10.5 mm, mean 9.8 [19] ↔️. The adult pooled mean is 11.84 mm (SD 0.79), proposed as a photo scale [13] 📄. Infant eyes look big only relative to the eye opening and the face 🧠.
 - Short, relatively tall fissures make the eyes rounder. Intercanthal width is large relative to the face and the bridge low, so children look wide-set. Epicanthal folds are common in infants of all ancestries and recede as the bridge rises 🧠.
 - The eye line sits below the head's midpoint in infants (~0.60–0.70 of vertex–menton from the top) and rises to ~0.48–0.53 in adults 🧠 ↔️.
 
@@ -48,12 +48,12 @@ This topic had no harvest or draft of its own. 📄 items cite URLs from sibling
 
 **Data resources**
 - Farkas norms: direct anthropometry, 2,326 North American White adults and children [3] 📄; Kolar criticised their protocols (relayed by [1]) 📄.
-- 3D Facial Norms (3DFN): 2,454 people aged 3–40 (952 M, 1,502 F), cross-sectional stereophotogrammetry, with sex-specific growth curves and a MATLAB toolbox. Summary data are open; individual data need a FaceBase request [1][2] 📄. It differs considerably from Farkas (method, secular trend, ethnic mix) [3] 📄.
+- 3D Facial Norms (3DFN): 2,454 people aged 3–40 (952 M, 1,502 F), cross-sectional stereophotogrammetry, with sex-specific growth curves and a MATLAB toolbox. Summary data are open; individual data need a FaceBase request [1][2][17][18] ✅. It differs considerably from Farkas (method, secular trend, ethnic mix) [3] 📄.
 - Most 3D morphable models (3DMMs) are adult-trained (FLAME; the Basel model from ~200 mostly young adults). The Large Scale Facial Model (LSFM) reportedly includes children and age-specific models 🧠 (verify the age range and licence).
 
 ## Numbers & reference tables
 
-**Table 1: approximate % of the same-sex young-adult mean.** Expert synthesis of Farkas-type cross-sectional data and WHO/CDC charts, ±~5 percentage points. At 14 y, girls sit near the top of each range and boys near the bottom. Replace with 3DFN curves [1][2] for priors.
+**Table 1: approximate % of the same-sex young-adult mean.** Expert synthesis of Farkas-type cross-sectional data and WHO/CDC charts, ±~5 percentage points. At 14 y, girls sit near the top of each range and boys near the bottom. Replace with 3DFN curves [1][2] for priors. The Farkas 1992 abstract [15] puts facial maturity at ~12–15 y in males and ~2 y earlier in females, earlier than the ≈Adult-by column below ↔️.
 
 | Dimension | Birth | 1 y | 3 y | 6 y | 10 y | 14 y | ≈Adult by (F / M) | Status |
 |---|---|---|---|---|---|---|---|---|
@@ -77,7 +77,7 @@ This topic had no harvest or draft of its own. 📄 items cite URLs from sibling
 |---|---|---|---|---|
 | Birth | 16.5–17.5 | 9.5–10.5 | 37–42 | 🧠 |
 | 1 y | 20–21 | 11.0–11.5 | 42–46 | 🧠 |
-| 3 y | 21.5–22.3 | 11.3–11.8 | 46–50 | 🧠 |
+| 3 y | 21.5–22.3 (meta-analysis mean 21.8 [16]) | 11.3–11.8 | 46–50 | 📄 (axial length) / 🧠 |
 | 6 y | 22.3–23.0 | 11.5–12.0 | 49–53 | 🧠 |
 | 10 y | 23.0–23.6 | 11.5–12.0 | 53–57 | 🧠 |
 | 14 y | 23.3–24.0 | 11.5–12.0 | 56–61 | 🧠 |
@@ -160,6 +160,11 @@ These URLs come from sibling harvests in `research/_raw/harvests/` (child-growth
 [12] Variations in Eyeball Diameters of the Healthy Adults — https://pmc.ncbi.nlm.nih.gov/articles/PMC4238270/ — paper — 2014
 [13] Mean human corneal diameter and palpebral fissure lengths as scales for forensic analysis of photographed faces: an analytical review — https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/ — review — n.d.
 [14] Ear Recognition (Anagnostopoulos), Introduction to Biometrics — https://arxiv.org/pdf/2101.10540 — chapter/preprint — n.d.
+[15] Farkas LG, Posnick JC, Hreczko TM, Growth patterns of the face: a morphometric study (Cleft Palate Craniofac J) — https://pubmed.ncbi.nlm.nih.gov/1643058/ — paper — 1992
+[16] Meta-analysis of ocular axial length in newborns and infants up to 3 years of age — https://pubmed.ncbi.nlm.nih.gov/34116120/ — meta-analysis — 2022
+[17] FaceBase 3D Facial Norms Summary Statistics — https://www.facebase.org/resources/human/facial_norms/summary/ — official docs — n.d.
+[18] Large-scale open-source three-dimensional growth curves for clinical facial assessment and objective description of facial dysmorphism — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8190313/ — paper — 2021
+[19] Human ocular biometry (corneal and globe growth) — https://scholarship.miami.edu/esploro/outputs/journalArticle/Human-ocular-biometry/991031597091702976 — paper — n.d.
 
 **Further reading (by name, not yet linked)**
 - Farkas LG (ed.), *Anthropometry of the Head and Face*, 2nd ed., 1994; Farkas, Posnick & Hreczko, 1992 growth-pattern series, *Cleft Palate–Craniofacial Journal*.
@@ -171,3 +176,10 @@ These URLs come from sibling harvests in `research/_raw/harvests/` (child-growth
 - Stephan CN, 2018 tallied soft tissue thicknesses for adults and sub-adults, *Forensic Sci Int*; Wilkinson CM, in vivo tissue depths in white British children, *J Forensic Sci*, 2002.
 - Todd JT, Mark LS, Shaw RE & Pittenger JB, "The perception of human growth", *Scientific American*, 1980; Glocker ML et al., baby schema, *Ethology*, 2009.
 - Taylor KT, *Forensic Art and Illustration*, 2001; Booth J et al., LSFM, CVPR 2016; NIST IR 8280, 2019; WHO Child Growth Standards.
+
+## Verification log (2026-11-20)
+
+- **Cornea adult size by ~2–3 y; 9.5–10.5 mm at birth** — contested. One biometry study says corneal diameter growth stops within 1 y of birth; a clinical review gives term newborn 9.0–10.5 mm (mean 9.8). Adult value 11.5–12 mm and the prior N(11.8, ·) not confirmed by this search. https://scholarship.miami.edu/esploro/outputs/journalArticle/Human-ocular-biometry/991031597091702976
+- **Farkas percent-of-adult values and maturation ages** — contested/unconfirmed. Abstract gives maturity ~12–15 y in males and ~2 y earlier in females (note says 13–15 F / 15–18+ M); percentage values not found (full text not reachable). https://pubmed.ncbi.nlm.nih.gov/1643058/
+- **Eyeball axial length and IPD by age** — partly confirmed. Mean 21.8 mm at 3 y (inside the note's 21.5–22.3) confirmed [16]; search summaries also gave 20.6 mm at 1 y and 23.1 mm at 10 y (a 2023 normative study, no URL tied), consistent with the table. Birth, 6 y and IPD values unconfirmed. https://pubmed.ncbi.nlm.nih.gov/34116120/
+- **FaceBase 3DFN growth curves, open summary data, controlled individual data** — confirmed (two sources). https://www.facebase.org/resources/human/facial_norms/summary/ and https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8190313/

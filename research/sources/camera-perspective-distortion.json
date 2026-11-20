@@ -1,0 +1,153 @@
+{
+ "topic": "camera-perspective-distortion",
+ "sources": [
+  {
+   "n": 1,
+   "title": "PhotographyLife: does focal length distort subjects",
+   "url": "https://photographylife.com/does-focal-length-distort-subjects",
+   "kind": "blog",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "Digital Trends: lens geometry for portraits",
+   "url": "https://www.digitaltrends.com/photography/lens-geometry-portraits/",
+   "kind": "blog",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Valente et al., Perspective Distortion Modeling (CVPR Workshops 2015)",
+   "url": "https://openaccess.thecvf.com/content_cvpr_workshops_2015/W02/papers/Valente_Perspective_Distortion_Modeling_2015_CVPR_paper.pdf",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 4,
+   "title": "Learning Perspective Undistortion of Portraits",
+   "url": "https://arxiv.org/abs/1905.07515",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "n": 5,
+   "title": "PMC article surfaced for focal-length/portrait perception (content not read; identity unconfirmed)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/3440305",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Perspective Reconstruction of Human Faces by Joint Mesh and Landmark Regression",
+   "url": "https://arxiv.org/pdf/2208.07142",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 7,
+   "title": "What does 2D geometric information really tell us about 3D face shape?",
+   "url": "https://arxiv.org/html/1708.06703.pdf",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 8,
+   "title": "Bengal-HP_RU: A Dataset of Bengal People For Head Pose Estimation",
+   "url": "https://arxiv.org/pdf/2606.24122",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 9,
+   "title": "OpenCV calib3d solvePnP (4.x docs)",
+   "url": "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 10,
+   "title": "Towards Metrical Reconstruction of Human Faces",
+   "url": "https://arxiv.org/pdf/2204.06607",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 11,
+   "title": "Cameras - Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/render/cameras.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 12,
+   "title": "Blender's camera focal length / sensor size values inaccurate? (Blender Artists)",
+   "url": "https://blenderartists.org/t/blenders-camera-focal-length-sensor-size-values-inaccurate/1271788",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "fSpy - still-image camera matching app (GitHub)",
+   "url": "https://github.com/stuffmatic/fSpy",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Retiring BLAM and announcing fSpy (Blender Artists)",
+   "url": "https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "Revamped FaceBuilder for Blender (Blender Artists)",
+   "url": "https://blenderartists.org/t/revamped-facebuilder-for-blender/1245723",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "GeoCalib: single-image calibration (arXiv 2409.06704v2)",
+   "url": "https://arxiv.org/html/2409.06704v2",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 17,
+   "title": "Perspective Fields for Single Image Camera Calibration (CVPR 2023)",
+   "url": "https://openaccess.thecvf.com/content/CVPR2023/papers/Jin_Perspective_Fields_for_Single_Image_Camera_Calibration_CVPR_2023_paper.pdf",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 18,
+   "title": "Proko - How to Draw the Head from Any Angle",
+   "url": "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle",
+   "kind": "blog",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Ward, Ward, Fried & Paskhover, 'Nasal distortion in short-distance photographs: the selfie effect', JAMA Facial Plastic Surgery, 2018",
+  "Třebický, Fialová, Kleisner & Havlíček, 'Focal length affects depicted shape and perception of facial images', PLoS ONE, 2016",
+  "Noyes & Jenkins, 'Camera-to-subject distance affects face configuration and perceived identity', Cognition, 2017",
+  "Bryan, Perona & Adolphs, 'Perspective distortion from interpersonal distance is an implicit visual cue for social judgments of faces', PLoS ONE, 2012",
+  "Burgos-Artizzu, Ronchi & Perona, 'Distance estimation of an unknown person from a portrait', ECCV, 2014",
+  "Fried, Shechtman, Goldman & Finkelstein, 'Perspective-aware manipulation of portrait photos', ACM TOG (SIGGRAPH), 2016",
+  "Shih, Lai & Liang, 'Distortion-free wide-angle portraits on camera phones', ACM TOG (SIGGRAPH), 2019",
+  "Aloimonos, 'Perspective approximations', Image and Vision Computing, 1990",
+  "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+  "Brown, 'Decentering distortion of lenses', Photogrammetric Engineering, 1966",
+  "Zhang, 'A flexible new technique for camera calibration', IEEE TPAMI, 2000",
+  "Ettorre et al., standards for digital photography in cranio-maxillo-facial surgery, J Cranio-Maxillofacial Surgery, 2006",
+  "Yavuzer, Smirnes & Jackson, 'Guidelines for standard photography in plastic surgery', Annals of Plastic Surgery, 2001",
+  "Galdino et al., on standardising digital photography, Plastic and Reconstructive Surgery, 2001",
+  "CIPA DC-008, Exif standard (FocalLengthIn35mmFilm tag)",
+  "ISO/IEC 19794-5 and ISO/IEC 39794-5 (face image data); ICAO portrait-quality guidance for travel documents",
+  "ISO 517, photographic lens focal-length designation and tolerances",
+  "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Dodgson, 'Variation and extrema of human interpupillary distance', Proc. SPIE, 2004",
+  "Google MediaPipe Iris (2020)"
+ ]
+}

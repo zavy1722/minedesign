@@ -1,6 +1,13 @@
 {
   "topic": "population-variation",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "Booth et al., Large Scale 3D Morphable Models, IJCV 2018",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6953995",
+      "supports": "LSFM built from 9,663 MeIn3D identities; group-specific models built from age/gender/ethnicity labels"
+    }
+  ],
   "references_by_name": [
     "Lewontin RC 1972, The apportionment of human diversity, Evolutionary Biology 6",
     "Rosenberg NA et al. 2002, Genetic structure of human populations, Science",

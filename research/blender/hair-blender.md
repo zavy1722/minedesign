@@ -2,18 +2,18 @@
 
 > Hair hides the cranium and moves between shots, yet the hairline, parting, brows and lashes carry much of recognition. Since 3.3 Blender's tool is the *Curves* object: strands rooted on a surface mesh through its UV map and combed in Curves Sculpt mode. Since 3.5 they are shaped by bundled geometry-nodes hair assets and shaded with the Principled Hair BSDF (Chiang model, plus Huang from 4.0). For a photo→head tool the robust split is to fit skin and skull *under* the hair from priors, take only the envelope, hairline, parting, whorl and flow from the photos, and grow guides procedurally for the artist to comb; strand-accurate capture from photos is still research code, mostly under non-commercial licences. No harvest or earlier draft existed for this topic, so everything is expert knowledge awaiting verification. Version-specific API names were written against 3.3–4.x and are the riskiest items for 5.2 LTS and 5.3.
 >
-> Evidence status: 0 ✅ / 0 📄 / 96 🧠 / 29 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 3 📄 / 91 🧠 / 30 ↔️ — 🧠 items remain unverified.
 
 ## Key facts
 
 **Curves hair system (3.3+)**
-- **Data model.** A `Curves` ID (`bpy.data.hair_curves`) stores everything as attributes: `position` and `radius` on points; `curve_type`, `resolution` and `surface_uv_coordinate` (float2) on curves. The object holds `surface` (a mesh object) and `surface_uv_map` (a name). 🧠
+- **Data model.** A `Curves` ID (`bpy.data.hair_curves`) stores everything as attributes: `position` and `radius` on points; `curve_type`, `resolution` and `surface_uv_coordinate` (float2) on curves. The object holds `surface` (a mesh object) and `surface_uv_map` (a name) [1][3]. The UV attribute is named `surface_uv_coordinate` in the manual but `surface_uv_coords` in the developer docs, so probe the name at runtime. ↔️
 - **Roots attach by UV.** The hair region needs **non-overlapping, non-mirrored UVs**. Many head templates mirror their UVs, so add a dedicated "HairUV" map. 🧠
-- **Deformation.** *Deform Curves on Surface* (in the modifier Add ▸ Curve ▸ Empty Hair creates) carries roots through shape keys and armatures. It needs the surface's **Add Rest Position** (`Object.add_rest_position_attribute`). Remeshing or re-UVing breaks attachment; re-snap with `curves.snap_curves_to_surface` (Nearest / Deform). `curves.surface_set` binds and parents. 🧠
+- **Deformation.** *Deform Curves on Surface* (in the modifier Add ▸ Curve ▸ Empty Hair creates) carries roots through shape keys and armatures. It needs the surface's **Add Rest Position** (`Object.add_rest_position_attribute`). Remeshing or re-UVing breaks attachment; re-snap with `curves.snap_curves_to_surface` (Nearest / Deform) 📄 [1]. `curves.surface_set` binds and parents. 🧠
 - **Curves Sculpt brushes:** Selection Paint, Add, Delete, Density, Comb, Snake Hook, Grow/Shrink, Pinch, Puff, Smooth and Slide. Add interpolates length, shape and point count from neighbours, and X-symmetry exists. Brushes edit the *original* curves (the guides); children appear only in the evaluated result. 🧠
 - **Edit mode** began as selection only and gained transform, duplicate, extrude, subdivide and draw tools across 4.x. The per-version list is unverified. 🧠
 - **Legacy particle hair** survived through 4.x. `curves.convert_from_particle_system` / `convert_to_particle_system` convert either way. Its 5.x status is unverified. 🧠 ↔️
-- **Python.** 4.x has `Curves.add_curves(sizes)`, `remove_curves`, `resize_curves`, `set_types` and bulk attribute access; the exact versions are unverified. In 3.x the dependable route is a polyline mesh → *Mesh to Curve* nodes → convert. Probe with `hasattr`. 🧠
+- **Python.** 4.x has `Curves.add_curves(sizes)` 📄 [2], `remove_curves`, `resize_curves`, `set_types` and bulk attribute access; the exact versions are unverified. In 3.x the dependable route is a polyline mesh → *Mesh to Curve* nodes → convert. Probe with `hasattr`. 🧠
 
 **Geometry-nodes hair assets (Essentials library, 3.5+)**
 - **About two dozen node groups.**
@@ -36,8 +36,8 @@
   Clump before curling, or the curls de-correlate. 🧠
 
 **Shading and rendering**
-- **Principled Hair BSDF.** It uses the Chiang et al. 2016 model in Cycles and EEVEE. From 4.0 it adds the Huang et al. 2022 microfacet model, with an elliptical cross-section (*Aspect Ratio*) and per-lobe weights; Huang is Cycles-only. 🧠 ↔️
-- **Parametrize by Melanin + Melanin Redness** (0 = eumelanin, 1 = pheomelanin), not Direct Coloring, so colour stays coupled to scattering depth. 🧠
+- **Principled Hair BSDF.** It uses the Chiang et al. 2016 model in Cycles and EEVEE. From 4.0 it adds the Huang et al. 2022 microfacet model, with an elliptical cross-section (*Aspect Ratio*, defined as minor/major axis; the manual recommends 0.8–1 Asian, 0.65–0.9 Caucasian, 0.5–0.65 African) [4] and per-lobe weights; Huang is Cycles-only. 🧠 ↔️
+- **Parametrize by Melanin + Melanin Redness** (0 = eumelanin, 1 = pheomelanin; eumelanin = Melanin×(1−Redness), pheomelanin = Melanin×Redness) 📄 [4], not Direct Coloring, so colour stays coupled to scattering depth.
 - **Lobes.** Keratin IOR is ≈1.55. Cuticle tilt (≈2–3°, the *Offset* input) shifts the white primary highlight (R) toward the root and the coloured secondary (TRT) toward the tip (Marschner et al. 2003). 🧠
 - **Bounces.** Blond colour comes from multiple scattering, so light hair needs far more bounces than black, or it renders dark and grey. 🧠
 - **Per-strand inputs.** Hair Info gives Intercept (0 at the root, 1 at the tip), Length, Thickness and Random. The Attribute node reads per-curve masks such as grey strands. 🧠
@@ -61,10 +61,10 @@
 | Quantity | Typical | Range | Units | Population / note | Badge |
 |---|---|---|---|---|---|
 | Total scalp hairs | 100k–120k | 80k–150k | hairs | blond > brown/black > red | 🧠 ↔️ |
-| Density, non-balding | ~200 | 120–300 | hairs/cm² | European high; East Asian, African lower | 🧠 ↔️ |
+| Density, non-balding | ~200 | 120–300 | hairs/cm² | European high; East Asian, African lower; studies report 190 (African) vs 227 (Caucasian) [5] and median 330, range 113–660 in Nigeria [5] | ↔️ |
 | Hairs per follicular unit | 2–2.5 | 1–4 | hairs | singles at hairline | 🧠 |
 | Shaft diameter | 70–80 | 50–120 | µm | East Asian 80–120; European 60–90; fine blond 50–60 | 🧠 ↔️ |
-| Cross-section min/max | — | 0.5–0.9 | ratio | East Asian 0.8–0.9; European 0.65–0.8; African 0.5–0.65 | 🧠 ↔️ |
+| Cross-section min/max | — | 0.5–1.0 | ratio | Blender manual: East Asian 0.8–1; European 0.65–0.9; African 0.5–0.65 [4] | ↔️ |
 | Emergence angle to skin | 30–45 | 15–60 | ° | flattest at hairline, temples, nape | 🧠 |
 | Hairline transition zone | 5 | 3–10 | mm | non-balding | 🧠 |
 | Trichion above glabella | 6 | 5–7 | cm | adults; more with recession | 🧠 ↔️ |
@@ -75,12 +75,12 @@
 |---|---|---|---|
 | Hairs per brow | 250–350 typical; 200–600 reported | n | ↔️ |
 | Brow hair length | 6–10 (4–15; long in older men) | mm | 🧠 |
-| Brow density | 40–120 | hairs/cm² | 🧠 ↔️ |
+| Brow density | 40–120 | hairs/cm² | ↔️ (one burn-study control: 134 ± 38 terminal hairs/cm² [6]) |
 | Lift from skin | 5–20 | ° | 🧠 |
 | Vertical height, head / tail | 10–15 / 3–5 | mm | 🧠 |
 | Direction, head / body / tail | +60…+90 / 0…+20 (lower rows 0…−15) / −10…−40 | ° from horizontal | 🧠 |
 | Position vs supraorbital rim | men on rim, flatter; women medial on rim, peak 5–10 mm above | mm | ↔️ |
-| Peak position | lateral limbus (Westmore) to lateral canthus (later studies) | — | ↔️ |
+| Peak position | lateral limbus (Westmore) to lateral canthus (later studies); most common in women between the two (58%) [7] | — | ↔️ |
 | Upper / lower lashes | 90–160 at 8–12 / 50–80 at 6–8 | n at mm | 🧠 (as eyes note) |
 | Lash base diameter; clump size | 0.06–0.12; 3–6 | mm; n | 🧠 |
 
@@ -239,7 +239,13 @@
 
 ## Sources
 
-No harvest or earlier draft existed for this topic, so no URL is cited.
+1. Curves Operators, Blender Python API. https://docs.blender.org/api/current/bpy.ops.curves.html
+2. Curves(ID), Blender Python API. https://docs.blender.org/api/current/bpy.types.Curves.html
+3. Deform Curves on Surface Node, Blender 5.2 LTS Manual. https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/curve/operations/deform_curves_on_surface.html
+4. Principled Hair BSDF, Blender 5.3 Manual. https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/hair_principled.html
+5. Hair density in different ethnicities (PMC6219221) https://pmc.ncbi.nlm.nih.gov/articles/PMC6219221/ ; Nigerian trichoscopy https://pubmed.ncbi.nlm.nih.gov/40231658/
+6. Eyebrow restoration in deep facial burn. https://pmc.ncbi.nlm.nih.gov/articles/PMC10567046/
+7. Determinative factors in surgical planning of eyebrow surgery. https://pmc.ncbi.nlm.nih.gov/articles/PMC5533483/
 
 **Further reading (by name, not yet linked)**
 - Blender Manual: Curves, Curves Sculpt, Hair node-group assets, Principled Hair BSDF, Hair Info; release notes 3.3, 3.5, 4.0
@@ -262,3 +268,10 @@ No harvest or earlier draft existed for this topic, so no URL is cited.
 - Na et al., "Ethnic characteristics of eyelashes", Br J Dermatol 2006
 - Gunter & Antrobus, "Aesthetic analysis of the eyebrows", Plast Reconstr Surg 1997
 - Farkas, *Anthropometry of the Head and Face*, 1994
+
+## Verification log (2026-11-20)
+
+- Curves API (add_curves, snap_curves_to_surface NEAREST/DEFORM, surface_uv_map): partly confirmed; `snap_curves_to_surface` and `add_curves` exist in the current API. UV attribute name contested (`surface_uv_coordinate` manual vs `surface_uv_coords` dev docs). remove/resize_curves, rest-position operator name and 5.0-5.3 changes unconfirmed. https://docs.blender.org/api/current/bpy.ops.curves.html ; https://docs.blender.org/api/current/bpy.types.Curves.html ; https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/curve/operations/deform_curves_on_surface.html
+- Principled Hair BSDF: Melanin/Redness definition confirmed; Aspect Ratio recommended values differ slightly from the note (Asian 0.8-1, Caucasian 0.65-0.9), marked contested; Huang in 4.0, Cycles-only, and the default values unconfirmed. https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/hair_principled.html
+- Scalp density/diameter/total count: contested (190 vs 227 /cm2; Nigerian median 330, range 113-660); total count and diameters unconfirmed. https://pmc.ncbi.nlm.nih.gov/articles/PMC6219221/ ; https://pubmed.ncbi.nlm.nih.gov/40231658/
+- Brows: peak between lateral limbus and canthus supported in women (58%); density contested (134 +/- 38 terminal/cm2 in one control group); hair count and 5-10 mm female peak height unconfirmed. https://pmc.ncbi.nlm.nih.gov/articles/PMC5533483/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC10567046/

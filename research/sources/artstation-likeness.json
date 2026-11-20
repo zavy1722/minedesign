@@ -1,20 +1,49 @@
 {
-  "topic": "artstation-likeness",
-  "sources": [],
-  "references_by_name": [
-    "ArtStation Learning; ArtStation Magazine / blog 'making of' features; ArtStation Marketplace tutorials",
-    "80 Level artist breakdown interviews; 3dtotal making-of articles; The Gnomon Workshop likeness and portrait courses (titles unverified)",
-    "KeenTools FaceBuilder documentation",
-    "Faceform (formerly R3DS) Wrap documentation",
-    "PureRef reference-board software",
-    "Texturing XYZ multichannel face maps; 3D Scan Store and Triplegangers head scans (licence terms to check)",
-    "Scott Spencer, ZBrush Digital Sculpting Human Anatomy (2010)",
-    "Uldis Zarins & Sandis Kondrats, Anatomy for Sculptors (2014)",
-    "Philippe Faraut, Mastering Portraiture",
-    "Farkas, Anthropometry of the Head and Face, 2nd ed. (1994)",
-    "Ward et al., selfie nasal distortion, JAMA Facial Plastic Surgery (2018)",
-    "Sinha & Poggio, 'I think I know that face...', Nature (1996)",
-    "Jenkins, White, Van Montfort & Burton, 'Variability in photos of the same face', Cognition (2011)",
-    "Rhodes, Brennan & Carey, caricature identification, Cognitive Psychology (1987)"
-  ]
+ "topic": "artstation-likeness",
+ "sources": [
+  {
+   "n": 1,
+   "url": "https://people.csail.mit.edu/yichangshih/wide_angle_portrait/shih_sig19.pdf"
+  },
+  {
+   "n": 2,
+   "url": "https://www.samsung.com/in/support/mobile-devices/taking-pic-via-front-camera-in-s7-edge-the-image-on-screen-side-looks-distorted-help-me/"
+  },
+  {
+   "n": 3,
+   "url": "https://www.dxomark.com/expanding-the-dxomark-camera-protocol-the-wide-score/"
+  },
+  {
+   "n": 4,
+   "url": "https://www.rutgers.edu/index%2Ephp/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery"
+  },
+  {
+   "n": 5,
+   "url": "https://www.sciencedaily.com/releases/2018/03/180301115349.htm"
+  },
+  {
+   "n": 6,
+   "url": "https://www.popphoto.com/Agostini"
+  },
+  {
+   "n": 7,
+   "url": "https://withinhealth.com/explore-articles/perfecting-perfection-uncovering-problematic-celebrity-photoshopping"
+  }
+ ],
+ "references_by_name": [
+  "ArtStation Learning; ArtStation Magazine / blog 'making of' features; ArtStation Marketplace tutorials",
+  "80 Level artist breakdown interviews; 3dtotal making-of articles; The Gnomon Workshop likeness and portrait courses (titles unverified)",
+  "KeenTools FaceBuilder documentation",
+  "Faceform (formerly R3DS) Wrap documentation",
+  "PureRef reference-board software",
+  "Texturing XYZ multichannel face maps; 3D Scan Store and Triplegangers head scans (licence terms to check)",
+  "Scott Spencer, ZBrush Digital Sculpting Human Anatomy (2010)",
+  "Uldis Zarins & Sandis Kondrats, Anatomy for Sculptors (2014)",
+  "Philippe Faraut, Mastering Portraiture",
+  "Farkas, Anthropometry of the Head and Face, 2nd ed. (1994)",
+  "Ward et al., selfie nasal distortion, JAMA Facial Plastic Surgery (2018)",
+  "Sinha & Poggio, 'I think I know that face...', Nature (1996)",
+  "Jenkins, White, Van Montfort & Burton, 'Variability in photos of the same face', Cognition (2011)",
+  "Rhodes, Brennan & Carey, caricature identification, Cognitive Psychology (1987)"
+ ]
 }

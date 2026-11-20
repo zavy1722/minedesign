@@ -173,6 +173,7 @@ All URLs come from this library's harvests for the sibling topics *facial-propor
 16. Holland, Marquardt's Phi Mask — https://link.springer.com/doi/10.1007/s00266-007-9080-z — paper — 2008
 17. Expanding the Classic Facial Canons: intercanthal distance — https://pmc.ncbi.nlm.nih.gov/articles/PMC9029890/ — paper — n.d.
 18. Weinberg et al., 3D Facial Norms vs Farkas — https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015 — paper — 2019
+19. Do the neoclassical canons still describe the beauty of faces? 50 Caucasian models — https://pubmed.ncbi.nlm.nih.gov/20529624/ — paper — 2010
 
 **Further reading (by name, not yet linked)**
 - Loomis, *Drawing the Head and Hands* (1956)
@@ -190,3 +191,12 @@ All URLs come from this library's harvests for the sibling topics *facial-propor
 - Ekman, Friesen and Hager, *Facial Action Coding System* (2002)
 - Farkas, *Anthropometry of the Head and Face* (1994)
 - Ricketts's E-line
+
+## Verification log (2026-11-20)
+
+Search budget used: 3 of 4 calls. No badge changes; no data-table values changed.
+
+1. Measured vertical levels (eye line 0.48-0.53, brow 0.42-0.46, subnasale 0.69-0.73, stomion 0.78-0.82): unconfirmed. No result gave vertex-menton proportions. Searches: https://pmc.ncbi.nlm.nih.gov/articles/PMC8783922 (irrelevant to the ratio).
+2. Loomis 3.5-unit head (crown-hairline 1/2, then three 1-unit thirds): unconfirmed. Results describe equal thirds from hairline only (https://finearttutorials.com/guide/loomis-method/); one tutorial says hairline is halfway between brow and crown, which conflicts with a 1/2-unit forehead top. The book (Drawing the Head and Hands, plates 18-19 per Proko) was not accessible.
+3. Mouth width 0.78-0.88 of interpupillary distance; al-al/en-en 1.0-1.12 and higher in African/East Asian samples: unconfirmed. No ch-ch/IPD ratio found. Related but different canon: Chinese mouths were narrower than 1.5x nose width more often than Caucasian (https://pubmed.ncbi.nlm.nih.gov/9263550/).
+4. Ear length 1.10-1.25x nose height; square profile 0.9-1.0: unconfirmed numerically. Direction only: in 50 Caucasian models nose height was smaller than ear height [19] (https://pubmed.ncbi.nlm.nih.gov/20529624/). The study also appears in the nasoaural-canon results at https://pubmed.ncbi.nlm.nih.gov/27830884/ (Turkish adults). Badge left at 🧠 ↔️.

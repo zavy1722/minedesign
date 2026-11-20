@@ -1,0 +1,815 @@
+{
+ "topic": "camera-perspective-distortion",
+ "tables": [
+  {
+   "name": "distance_effects_frontal_proportions",
+   "units": "z in m; effects in percent (pinhole arithmetic); weak-perspective residual in percent of IPD (63 mm)",
+   "columns": [
+    "z_m_camera_to_nose_tip",
+    "nose_tip_excess_over_ear_plane_pct_delta100",
+    "nose_to_face_width_ratio_inflation_vs_infinity_pct_delta20_vs_70",
+    "ipd_to_face_width_ratio_inflation_vs_infinity_pct_delta40_vs_70",
+    "weak_perspective_residual_ear_pct_ipd_X70_D60",
+    "weak_perspective_residual_interior_pct_ipd_X35_D30"
+   ],
+   "rows": [
+    [
+     0.25,
+     40.0,
+     18.5,
+     10.3,
+     26.7,
+     6.7
+    ],
+    [
+     0.3,
+     33.3,
+     15.6,
+     8.8,
+     22.2,
+     5.6
+    ],
+    [
+     0.4,
+     25.0,
+     11.9,
+     6.8,
+     16.7,
+     4.2
+    ],
+    [
+     0.5,
+     20.0,
+     9.6,
+     5.6,
+     13.3,
+     3.3
+    ],
+    [
+     1.0,
+     10.0,
+     4.9,
+     2.9,
+     6.7,
+     1.7
+    ],
+    [
+     1.5,
+     6.7,
+     3.3,
+     1.9,
+     4.4,
+     1.1
+    ],
+    [
+     2.0,
+     5.0,
+     2.5,
+     1.5,
+     3.3,
+     0.8
+    ],
+    [
+     3.0,
+     3.3,
+     1.7,
+     1.0,
+     2.2,
+     0.6
+    ],
+    [
+     5.0,
+     2.0,
+     1.0,
+     0.6,
+     1.3,
+     0.3
+    ]
+   ],
+   "population": "generic adult head; depths behind pronasale assumed alar 20, eyes 40, contour 70, tragion 100 mm (approximate, +/-15 mm)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Exact pinhole ratios (1+D/z). 0.3 m vs 1.5 m nose/face change = 12% (16% from 0.25 m); Ward et al. 2018 report ~30% (contested). Detector noise ~2-3% of inter-ocular distance."
+  },
+  {
+   "name": "selfie_effect_reported_vs_geometric",
+   "units": "percent apparent increase",
+   "columns": [
+    "measure",
+    "near_m",
+    "far_m",
+    "value_pct",
+    "basis"
+   ],
+   "rows": [
+    [
+     "nasal base width (men), Ward et al. 2018 as recalled",
+     0.3,
+     1.52,
+     30,
+     "computational head model"
+    ],
+    [
+     "nasal base width (women), Ward et al. 2018 as recalled",
+     0.3,
+     1.52,
+     29,
+     "computational head model"
+    ],
+    [
+     "nose/face width ratio, pure magnification",
+     0.3,
+     1.5,
+     12,
+     "pinhole arithmetic, alar 20 vs contour 70 mm"
+    ],
+    [
+     "nose/face width ratio, pure magnification",
+     0.25,
+     1.5,
+     16,
+     "pinhole arithmetic"
+    ]
+   ],
+   "population": "model adult heads",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Ward figures from memory, verify; discrepancy likely from width definition and occluding-contour shift at close range."
+  },
+  {
+   "name": "distance_from_head_fraction_of_frame",
+   "units": "m; h = head height (menton-vertex 0.235 m) / image long side",
+   "columns": [
+    "f35_mm",
+    "camera",
+    "z_at_h_0.75",
+    "z_at_h_0.50",
+    "z_at_h_0.33",
+    "z_at_h_0.25",
+    "z_at_h_0.15"
+   ],
+   "rows": [
+    [
+     24,
+     "phone front camera",
+     0.22,
+     0.33,
+     0.49,
+     0.65,
+     1.09
+    ],
+    [
+     26,
+     "phone main",
+     0.24,
+     0.35,
+     0.54,
+     0.71,
+     1.18
+    ],
+    [
+     48,
+     "phone 2x",
+     0.43,
+     0.65,
+     0.99,
+     1.3,
+     2.17
+    ],
+    [
+     77,
+     "phone 3x",
+     0.7,
+     1.05,
+     1.58,
+     2.09,
+     3.49
+    ],
+    [
+     120,
+     "phone 5x",
+     1.09,
+     1.63,
+     2.47,
+     3.26,
+     5.43
+    ],
+    [
+     85,
+     "full frame 3:2",
+     0.74,
+     1.11,
+     1.68,
+     2.22,
+     3.7
+    ]
+   ],
+   "population": "adult head height 0.21-0.25 m",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "z = 0.235*f35/(L*h); L = 34.6 mm (4:3, diagonal convention) or 36 mm (3:2). Uncropped images only. +/-10-15%."
+  },
+  {
+   "name": "off_axis_rectilinear_stretch",
+   "units": "degrees; percent radial elongation",
+   "columns": [
+    "theta_deg",
+    "stretch_pct"
+   ],
+   "rows": [
+    [
+     5,
+     0.4
+    ],
+    [
+     10,
+     1.5
+    ],
+    [
+     15,
+     3.5
+    ],
+    [
+     20,
+     6.4
+    ],
+    [
+     25,
+     10.3
+    ],
+    [
+     30,
+     15.5
+    ],
+    [
+     40,
+     30.5
+    ]
+   ],
+   "population": "n/a (geometry)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Reproduced by a matched pinhole camera with correct principal point; breaks weak-perspective/ortho tracing."
+  },
+  {
+   "name": "half_diagonal_fov_by_f35",
+   "units": "mm; degrees",
+   "columns": [
+    "f35_mm",
+    "half_diagonal_fov_deg"
+   ],
+   "rows": [
+    [
+     13,
+     59.0
+    ],
+    [
+     24,
+     42.0
+    ],
+    [
+     26,
+     39.8
+    ],
+    [
+     35,
+     31.7
+    ],
+    [
+     50,
+     23.4
+    ],
+    [
+     77,
+     15.7
+    ],
+    [
+     85,
+     14.3
+    ],
+    [
+     120,
+     10.2
+    ],
+    [
+     135,
+     9.1
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Face at the frame corner sits at this off-axis angle."
+  },
+  {
+   "name": "unit_focus_effective_focal_gain",
+   "units": "mm; m; percent",
+   "columns": [
+    "lens",
+    "actual_f_mm",
+    "focus_distance_m",
+    "gain_pct"
+   ],
+   "rows": [
+    [
+     "phone main",
+     6.9,
+     0.35,
+     2.0
+    ],
+    [
+     "phone 5x tele",
+     15.7,
+     2.5,
+     0.6
+    ],
+    [
+     "full frame 50 mm",
+     50,
+     0.5,
+     11.1
+    ],
+    [
+     "full frame 85 mm",
+     85,
+     1.0,
+     9.3
+    ],
+    [
+     "full frame 85 mm",
+     85,
+     1.5,
+     6.0
+    ],
+    [
+     "full frame 135 mm",
+     135,
+     3.0,
+     4.7
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Thin-lens (1+m), m=f/(s-f); internal-focus lenses may instead shorten (focus breathing). Phone actual focal lengths approximate."
+  },
+  {
+   "name": "f35_integer_rounding",
+   "units": "mm; percent",
+   "columns": [
+    "f35_mm",
+    "max_rounding_pct"
+   ],
+   "rows": [
+    [
+     13,
+     3.85
+    ],
+    [
+     24,
+     2.08
+    ],
+    [
+     26,
+     1.92
+    ],
+    [
+     48,
+     1.04
+    ],
+    [
+     77,
+     0.65
+    ],
+    [
+     120,
+     0.42
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "FocalLengthIn35mmFilm is an integer SHORT."
+  },
+  {
+   "name": "capture_by_purpose",
+   "units": "m; mm (35 mm equivalent); percent",
+   "columns": [
+    "purpose",
+    "distance_min_m",
+    "distance_max_m",
+    "lens_f35",
+    "nose_over_ear_excess_pct",
+    "status"
+   ],
+   "rows": [
+    [
+     "likeness/identity set",
+     1.5,
+     3.0,
+     "85-135 or phone 3-5x tele",
+     "3-7",
+     "knowledge"
+    ],
+    [
+     "clinical standard",
+     1.0,
+     1.5,
+     "90-105 macro (85-135 seen)",
+     "<=10",
+     "contested"
+    ],
+    [
+     "ID/passport standard",
+     1.2,
+     2.5,
+     "not lens-specific",
+     "4-8",
+     "knowledge"
+    ],
+    [
+     "focal-identification shot (known intrinsics only)",
+     0.4,
+     0.6,
+     "phone main",
+     "17-25",
+     "knowledge"
+    ],
+    [
+     "ortho tracing",
+     3.0,
+     null,
+     "tele",
+     "<=3.3",
+     "knowledge"
+    ],
+    [
+     "not for proportions: front camera / ultrawide",
+     0.25,
+     0.5,
+     "13-30",
+     "20-40",
+     "knowledge"
+    ]
+   ],
+   "population": "adult subjects",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "ID distance from ICAO/ISO recollection; verify."
+  },
+  {
+   "name": "exif_tags_for_intrinsics",
+   "units": "n/a",
+   "columns": [
+    "tag",
+    "id_hex",
+    "use",
+    "pitfall"
+   ],
+   "rows": [
+    [
+     "FocalLength",
+     "0x920A",
+     "actual focal length mm",
+     "needs real sensor width; nominal at infinity focus"
+    ],
+    [
+     "FocalLengthIn35mmFilm",
+     "0xA405",
+     "f35 -> f_px",
+     "integer; 0 = unknown; diagonal vs width convention; crop/zoom updates vary"
+    ],
+    [
+     "FocalPlaneXResolution",
+     "0xA20E",
+     "sensor width from native pixels",
+     "often missing/unreliable on phones"
+    ],
+    [
+     "FocalPlaneYResolution",
+     "0xA20F",
+     "sensor height",
+     "as above"
+    ],
+    [
+     "FocalPlaneResolutionUnit",
+     "0xA210",
+     "unit for the above",
+     ""
+    ],
+    [
+     "DigitalZoomRatio",
+     "0xA404",
+     "digital crop zoom",
+     "vendor-specific"
+    ],
+    [
+     "LensSpecification",
+     "0xA432",
+     "lens focal/aperture range",
+     ""
+    ],
+    [
+     "LensMake",
+     "0xA433",
+     "module maker",
+     ""
+    ],
+    [
+     "LensModel",
+     "0xA434",
+     "which module (front/main/tele)",
+     "intrinsics-group key"
+    ],
+    [
+     "Orientation",
+     "0x0112",
+     "rotation",
+     "apply before landmarking"
+    ],
+    [
+     "SubjectDistance",
+     "0x9206",
+     "distance prior",
+     "rare and coarse"
+    ],
+    [
+     "Make",
+     "0x010F",
+     "grouping",
+     ""
+    ],
+    [
+     "Model",
+     "0x0110",
+     "grouping",
+     ""
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Tag IDs from Exif 2.3x (CIPA DC-008) as recalled."
+  },
+  {
+   "name": "landmark_depth_behind_pronasale",
+   "units": "mm (adult, approximate)",
+   "columns": [
+    "landmark_group",
+    "typical_mm",
+    "range_min",
+    "range_max"
+   ],
+   "rows": [
+    [
+     "alar base",
+     20,
+     15,
+     25
+    ],
+    [
+     "eye corners",
+     40,
+     35,
+     45
+    ],
+    [
+     "cheek contour",
+     70,
+     60,
+     80
+    ],
+    [
+     "tragion",
+     100,
+     90,
+     120
+    ]
+   ],
+   "population": "adults; consistent with data/reference-camera-setup.json",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Farkas-type norms as recalled; individual variation large."
+  },
+  {
+   "name": "solver_priors_perspective",
+   "units": "log-space sigma unless noted",
+   "columns": [
+    "parameter",
+    "condition",
+    "center",
+    "sigma"
+   ],
+   "rows": [
+    [
+     "log f",
+     "EXIF f35, uncropped original",
+     "f_px from f35",
+     "0.04"
+    ],
+    [
+     "log f",
+     "EXIF present, crop unknown",
+     "f_px from f35",
+     "0.35"
+    ],
+    [
+     "log f",
+     "no EXIF",
+     "hypotheses 13,24,26,35,50,77,85,120,135,200 mm f35",
+     "0.5-0.7"
+    ],
+    [
+     "log f tie",
+     "same intrinsics group",
+     "shared",
+     "0.02"
+    ],
+    [
+     "log z",
+     "front-camera selfie, f unknown",
+     "0.35 m",
+     "0.3"
+    ],
+    [
+     "log z",
+     "handheld rear main, f unknown",
+     "0.8 m",
+     "0.4"
+    ],
+    [
+     "log z",
+     "tele portrait, f unknown",
+     "2.0 m",
+     "0.4"
+    ],
+    [
+     "z",
+     "tape-measured",
+     "measured",
+     "0.05 m (absolute)"
+    ],
+    [
+     "rho = 1/z",
+     "bounds",
+     "0.1-5 m^-1",
+     "hard"
+    ],
+    [
+     "IPD",
+     "population",
+     "63 mm",
+     "3.5-4 mm"
+    ],
+    [
+     "iris diameter",
+     "per eye",
+     "11.7 mm",
+     "0.5 mm"
+    ],
+    [
+     "perspective strength P = 100 mm / z",
+     "label",
+     "strong >0.1; near-affine <0.03",
+     "n/a"
+    ]
+   ],
+   "population": "engineering defaults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Tune on real captures."
+  },
+  {
+   "name": "camera_models",
+   "units": "n/a",
+   "columns": [
+    "model",
+    "free_parameters",
+    "valid_when",
+    "role"
+   ],
+   "rows": [
+    [
+     "orthographic",
+     "R, t_xy",
+     "drawings; photos >=3-5 m",
+     "blueprint tracing"
+    ],
+    [
+     "weak perspective (scaled orthographic)",
+     "R, t_xy, s",
+     "D/z <~2-3% (whole head >=3 m; interior >=1 m)",
+     "initialisation; many monocular regressors"
+    ],
+    [
+     "paraperspective",
+     "R, t_xy, s, off-axis position",
+     "off-centre faces at moderate z",
+     "initialisation"
+    ],
+    [
+     "full perspective",
+     "R, t, f (c fixed)",
+     "always",
+     "final fit and Blender export"
+    ],
+    [
+     "perspective + k1,k2",
+     "+ radial distortion",
+     "uncorrected, ultrawide or webcam lenses",
+     "rare for phone JPEG/HEIC"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": ""
+  },
+  {
+   "name": "perspective_studies",
+   "units": "n/a",
+   "columns": [
+    "study",
+    "year",
+    "design",
+    "distances_or_lenses",
+    "finding",
+    "status"
+   ],
+   "rows": [
+    [
+     "Ward, Ward, Fried & Paskhover (JAMA FPS)",
+     "2018",
+     "computational head model",
+     "12 in vs 5 ft",
+     "nasal base ~30% (M) / 29% (F) wider at 12 in",
+     "knowledge"
+    ],
+    [
+     "Trebicky et al. (PLoS ONE)",
+     "2016",
+     "photos at several focal lengths, constant framing",
+     "50 mm and longer",
+     "shape change; 50 mm rated less sex-typical, attractive, dominant (snippet [5])",
+     "contested"
+    ],
+    [
+     "Noyes & Jenkins (Cognition)",
+     "2017",
+     "photos at two distances, matching task",
+     "~0.3 m vs ~2.7 m",
+     "configuration change impairs unfamiliar-face matching",
+     "knowledge"
+    ],
+    [
+     "Bryan, Perona & Adolphs (PLoS ONE)",
+     "2012",
+     "near vs far photos, ratings",
+     "near vs far",
+     "perspective shifts social judgements implicitly",
+     "knowledge"
+    ],
+    [
+     "Burgos-Artizzu, Ronchi & Perona (ECCV)",
+     "2014",
+     "multi-distance portrait dataset",
+     "several distances",
+     "distance regressable from landmarks; humans poor",
+     "knowledge"
+    ],
+    [
+     "Fried et al. (SIGGRAPH)",
+     "2016",
+     "3D head fit and re-render",
+     "arbitrary",
+     "perspective-aware portrait manipulation",
+     "knowledge"
+    ],
+    [
+     "Valente et al. (CVPRW)",
+     "2015",
+     "modelling and compensation",
+     "near range",
+     "distortion modelled as function of distance [3]",
+     "sourced"
+    ],
+    [
+     "Zhao et al. (Learning Perspective Undistortion of Portraits)",
+     "2019",
+     "learned undistortion",
+     "near range",
+     "distance estimation and undistortion [4]",
+     "sourced"
+    ]
+   ],
+   "population": "various adult samples (sizes not recalled)",
+   "source_urls": [
+    "https://openaccess.thecvf.com/content_cvpr_workshops_2015/W02/papers/Valente_Perspective_Distortion_Modeling_2015_CVPR_paper.pdf",
+    "https://arxiv.org/abs/1905.07515",
+    "https://pmc.ncbi.nlm.nih.gov/articles/3440305"
+   ],
+   "status": "knowledge",
+   "notes": "Sample sizes intentionally omitted; verify."
+  }
+ ]
+}

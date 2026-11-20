@@ -1,6 +1,37 @@
 {
   "topic": "flame-model",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "url": "https://flame.is.tue.mpg.de/",
+      "title": "FLAME project site"
+    },
+    {
+      "n": 2,
+      "url": "https://flame.is.tue.mpg.de/modellicense.html",
+      "title": "FLAME model licence"
+    },
+    {
+      "n": 3,
+      "url": "https://github.com/HavenFeng/photometric_optimization/blob/master/models/FLAME.py",
+      "title": "photometric_optimization FLAME.py"
+    },
+    {
+      "n": 4,
+      "url": "https://github.com/philgras/neural-head-avatars/blob/main/nha/models/flame.py",
+      "title": "neural-head-avatars flame.py"
+    },
+    {
+      "n": 5,
+      "url": "https://github.com/chrisbennight/mcp-printable-rs/issues/89",
+      "title": "mcp-printable-rs issue 89 (third-party)"
+    },
+    {
+      "n": 6,
+      "url": "https://github.com/soubhiksanyal/FLAME_PyTorch/blob/master/main.py",
+      "title": "FLAME_PyTorch main.py"
+    }
+  ],
   "references_by_name": [
     "Li, Bolkart, Black, Li, Romero, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), ACM TOG / SIGGRAPH Asia 2017",
     "Loper et al., \"SMPL: A Skinned Multi-Person Linear Model\", SIGGRAPH Asia 2015",

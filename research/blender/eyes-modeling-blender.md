@@ -2,7 +2,7 @@
 
 > A believable eye is a small optical system, not a textured ball. It has a ~24 mm globe, a steeper corneal cap (anterior radius ~7.8 mm) that stands ~2.5 mm proud of the limbus, a near-planar iris ~3 mm behind the corneal apex that is always seen through refraction, and wet adnexa (tear meniscus, caruncle, a ~2 mm lid margin, lashes) that hide the lid–globe seam. In Blender the robust build is an opaque sclera/iris/pupil mesh inside a transparent cornea shell (single-surface IOR ~1.336–1.376) whose shadow is switched off or rendered as shadow caustics. For photo→3D likeness, the visible iris/corneal diameter (~11.8 mm, SD ~0.5–0.8) is the best metric ruler on the face and a strong gaze cue. Globe size should almost never be fitted, because "big eyes" come from the lids. Globe and cornea geometry is sourced. Adnexa numbers and Blender settings are expert knowledge awaiting verification.
 >
-> Evidence status: 5 ✅ / 19 📄 / 65 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 8 ✅ / 17 📄 / 62 🧠 / 10 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -17,11 +17,12 @@
 **Expert knowledge**
 - **Cornea:** central thickness is ~0.50–0.58 mm, rising to ~0.7 mm at the periphery. The anterior surface is prolate, with asphericity Q ≈ −0.25 (−0.1 to −0.4). 🧠
 - **Indices** (Gullstrand/Le Grand): tear film ≈ aqueous ≈ vitreous 1.336, cornea 1.376, lens 1.386–1.406. The keratometric index 1.3375 gives whole-cornea power 337.5/R ≈ 43 D. 🧠
-- **Anterior chamber depth** (epithelium→lens) is ~2.8–3.6 mm. The pupil margin rests on the lens, so the iris is near-planar, often *slightly convex forward*. A concave iris occurs (some myopes) but is atypical. 🧠
+- **Anterior chamber depth** (epithelium→lens) is ~2.8–3.6 mm (means 2.78–3.64 by method; shallower with age) [20][21][27][28]. ✅ (corrected in verification: range confirmed, mean ~3.1 mm is a mid-value.)
+- **Iris shape:** the pupil margin rests on the lens, so the iris is near-planar, often *slightly convex forward*. A concave iris occurs (some myopes) but is atypical. 🧠
 - **Iris:** the true diameter is ~12–13 mm, with the root hidden under the limbus. The stroma is 0.4–0.6 mm thick. The pupil is 2–4 mm in bright light and 4–8 mm in the dark, decentred ~0.1–0.4 mm nasally. The visible pupil is the *entrance* pupil, ~13 % larger and ~0.5 mm anterior to the real one. 🧠
 - **Rotation centre:** ~13–14 mm behind the apex, ~1–1.5 mm behind mid-axial length. 🧠
 - **Angle kappa/alpha ~+3–6°:** the pupillary axis points temporal to the line of sight. Eyes aimed exactly at a target therefore look faintly cross-eyed. 🧠
-- **Placement:** the globe sits nearer the orbital roof and lateral wall. The corneal apex lies ~12–20 mm (typically 15–17 mm) ahead of the lateral orbital rim (Hertel), with L–R difference ≤ 2 mm. Norms vary by population. 🧠 ↔️
+- **Placement:** the globe sits nearer the orbital roof and lateral wall. The corneal apex lies ahead of the lateral orbital rim (Hertel) by a population-dependent amount: means ~14.4–16.5 mm in Asian/Iranian/white adults (Greek 15.8 ± 1.7, range 12–22) and ~17.5–18.5 mm in black adults, with upper normal limits ~19.3 mm (Chinese Han) to ~24.7 mm (black men) [22][23][24][25][26]. The L–R ≤ 2 mm figure was not verified. ↔️
 - **Lids in primary gaze:** the upper margin covers 1–2 mm of the superior limbus. The lower margin sits at, or up to ~1 mm below, the inferior limbus. MRD1 ≈ 4–5 mm and MRD2 ≈ 5 mm. The upper-lid peak lies slightly nasal to the pupil. 🧠
 - **The lid margin is a 1.5–2 mm flat band.** Lashes sit at its anterior edge and the meibomian orifices behind them, while the posterior edge rides on the globe. Paper-thin lids are the commonest CG error. 🧠
 - **Caruncle:** a pink, wet, ~3–5 mm nodule with fine hairs, in the lacrimal lake. The plica semilunaris fold lies lateral to it. The medial ~5–7 mm of each lid margin (the punctal part) has no lashes. 🧠
@@ -61,7 +62,7 @@
 | Central corneal thickness | 0.50–0.58 | mm | clinical norms | 🧠 |
 | Anterior asphericity Q | −0.1 to −0.4 | — | clinical norms | 🧠 |
 | Corneal sag, 11.7 mm chord | 2.64 (sphere) / 2.49 (Q −0.25) | mm | computed, R 7.8 | 🧠 |
-| Anterior chamber depth | 2.8–3.6 | mm | shallower with age | 🧠 |
+| Anterior chamber depth | 2.8–3.6 | mm | shallower with age; [20][21][27][28] | ✅ |
 | Iris diameter / stroma | 12–13 / 0.4–0.6 | mm | — | 🧠 |
 | Pupil diameter | 2–4 bright, 4–8 dark | mm | — | 🧠 |
 | Entrance-pupil magnification | ~1.13 | × | schematic eye | 🧠 |
@@ -87,7 +88,7 @@
 | Upper lashes: count / length | 90–160 / 8–12 | n / mm | 🧠 |
 | Lower lashes: count / length | 50–80 / 6–8 | n / mm | 🧠 |
 | Lash base diameter | 0.06–0.12 | mm | 🧠 |
-| Apex ahead of lateral rim (Hertel) | 12–20; L–R ≤ 2 | mm | 🧠 ↔️ ethnicity |
+| Apex ahead of lateral rim (Hertel) | means 14.4–18.5 by population; upper limit 19.3–24.7; L–R ≤ 2 unverified | mm | ↔️ ethnicity [22][23][24][25][26] |
 | Far interpupillary distance | ≈63 (SD ~3.5–4) | mm | 🧠 |
 
 **D. Blender starting values (practice, not measurement)** 🧠
@@ -130,7 +131,7 @@
 
 **Measure from each photo**
 - **Limbus ellipse:** fit the medial and lateral arcs, because the lids hide the top and bottom. The minor/major ratio ≈ cos(gaze-to-camera angle). Refraction at the limbus is negligible. 🧠
-- **Scale:** depth Z ≈ f_px × 11.8 mm / HVID_px. A SD of 0.5–0.8 mm gives ±4–7 % depth error [10]. 📄
+- **Scale:** depth Z ≈ f_px × 11.8 mm / HVID_px. Mean 11.8 mm is confirmed by several studies (11.65–11.92) [17][18][19]; reported SD is 0.3–0.43 in single-device studies but 0.79 in the pooled review, so SD 0.3–0.8 mm gives ±3–7 % depth error [10]. ↔️
 - **Pupil:** the photo shows the entrance pupil. If you render refraction, model the true pupil as measured/1.13. 🧠
 - **Lid coverage:** convert the upper-lid cover, lower-lid show, MRD1/2, canthi and tilt to mm using the HVID scale. 🧠
 - **Catchlights:** they give the light direction and, with R 7.8, the corneal centre. Paint them out of any iris texture taken from photos. 🧠
@@ -171,7 +172,7 @@
 | Outer axial length (unobservable; fix it) | 24.0 mm | 1.0 | 21–30 | [8] 📄 |
 | R anterior / posterior | 7.8 / 6.45 mm | 0.27 / 0.30 | 7.0–8.7 / 5.6–7.3 | ✅ |
 | Q anterior | −0.25 | 0.12 | −0.6 to 0.1 | 🧠 |
-| HVID | 11.8 mm | 0.6 | 10.5–13.0 | [10] 📄 |
+| HVID | 11.8 mm | 0.6 (single studies 0.3–0.43; pooled 0.79) | 10.5–13.0 | [10][17][18] ✅ |
 | Corneal V diameter | HVID − 1.0 | 0.5 | 9–11 | [10] 📄 |
 | Limbus centre → rotation centre | 10.7 mm | 0.6 | 9–12.5 | 🧠 |
 | Iris plane behind limbus plane | 0.6 mm | 0.3 | 0–1.2 | 🧠 |
@@ -226,6 +227,18 @@
 14. Curvature analyses of the corneal front and back surface — https://pubmed.ncbi.nlm.nih.gov/23841132/ — paper — 2013
 15. Radius of curvature of the posterior surface of the cornea — https://pubmed.ncbi.nlm.nih.gov/9293516/ — paper — 1997
 16. The shape of the anterior and posterior surface of the aging human cornea — https://pubmed.ncbi.nlm.nih.gov/16266736/ — paper — 2005
+17. Corneal white-to-white distance and mesopic pupil diameter (WTW 11.79 ± 0.43 mm) — https://pmc.ncbi.nlm.nih.gov/articles/PMC3428550 — paper
+18. A deep learning framework to scale linear facial measurements using horizontal visible iris diameter, Iranian population (mean 11.80 mm) — https://pmc.ncbi.nlm.nih.gov/articles/PMC10447546/ — paper
+19. Ocular biometrics in eyes with different white-to-white corneal diameter in young myopic adults (11.65 ± 0.38 mm) — https://pmc.ncbi.nlm.nih.gov/articles/PMC10899605/ — paper
+20. Slit-lamp measurement of anterior chamber depth vs AS-OCT and Lenstar (normal ACD 2.78–2.95 mm) — https://pmc.ncbi.nlm.nih.gov/articles/PMC8544031/ — paper
+21. Measurement of the internal diameter and depth of the anterior chamber: IOLMaster versus AC-OCT (ACD 3.53 / 3.64 mm) — https://pubmed.ncbi.nlm.nih.gov/16246775 — paper — 2005
+22. Normal Values of Hertel Exophthalmometry in a Chinese Han Population from Shenyang — https://pmc.ncbi.nlm.nih.gov/articles/PMC4336939/ — paper
+23. Normative data for Hertel exophthalmometry in a normal adult black population — https://pubmed.ncbi.nlm.nih.gov/1635761/ — paper — 1992
+24. Hertel Exophthalmometry Values in a Greek Adult Outpatient Population — https://pmc.ncbi.nlm.nih.gov/articles/PMC10023137/ — paper
+25. Normal Exophthalmometry Values in Iranian Population: A Meta-analysis — https://pmc.ncbi.nlm.nih.gov/articles/PMC8358757/ — meta-analysis
+26. Determination of the normal range of exophthalmometric values for black and white adults — https://pubmed.ncbi.nlm.nih.gov/6486215/ — paper — 1984
+27. Anterior chamber width measurement by high-speed optical coherence tomography (mean ACD 2.99 mm) — https://pubmed.ncbi.nlm.nih.gov/15691557 — paper — 2005
+28. Validation of an AI-based anterior chamber depth estimation (ACD generally 2.79–3.26 mm) — https://pmc.ncbi.nlm.nih.gov/articles/PMC12475843/ — paper
 
 **Further reading (by name, not yet linked)**
 - Bérard et al. — "High-Quality Capture of Eyes" (SIGGRAPH Asia 2014); "Lightweight Eye Capture Using a Parametric Model" (SIGGRAPH 2016); "Practical Person-Specific Eye Rigging" (Eurographics 2019)
@@ -240,3 +253,14 @@
 - Peshek et al. — limbal ring and attractiveness (*Evolutionary Psychology* 2011)
 - MediaPipe Iris (Google, 2020; Ablavatski et al.)
 - Blender Manual: Principled BSDF, Light Paths, Visibility, Shadow Caustics; 3.2 and 3.5 release notes
+
+## Verification log (2026-11-20)
+
+| Claim | Outcome | Sources |
+|---|---|---|
+| HVID/WTW mean ~11.7–11.8 mm, SD 0.5–0.8, prior mu 11.8 / sigma 0.6 | Mean confirmed (11.65–11.92 across studies). SD contested: 0.32–0.43 per study vs 0.79 pooled [10]; kept sigma 0.6 as a compromise. | https://pmc.ncbi.nlm.nih.gov/articles/PMC3428550 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC10447546/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC10899605/ |
+| ACD 2.8–3.6 mm (mean ~3.1) | Confirmed (range of method means 2.78–3.64; mean ~3.1 plausible, not directly stated). | https://pmc.ncbi.nlm.nih.gov/articles/PMC8544031/ ; https://pubmed.ncbi.nlm.nih.gov/16246775 ; https://pubmed.ncbi.nlm.nih.gov/15691557 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC12475843/ |
+| Iris near-planar/slightly convex; entrance pupil ~13 % larger, ~0.5 mm anterior | Unconfirmed (no usable evidence returned). | none |
+| Rotation centre 13–14 mm behind apex (13.3 default) | Unconfirmed from reliable sources (only patent text gave ~13.5 mm, not clinical). | none |
+| Angle kappa +3 to +6 deg | Unconfirmed (nothing returned). | none |
+| Hertel 12–20 mm (typ. 15–17), L–R ≤ 2 mm, ethnic variation | Contested: ethnic variation confirmed; means 14.4–18.5 mm, upper limits 19.3–24.7 mm; L–R ≤ 2 mm unverified. | https://pmc.ncbi.nlm.nih.gov/articles/PMC4336939/ ; https://pubmed.ncbi.nlm.nih.gov/1635761/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC10023137/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC8358757/ ; https://pubmed.ncbi.nlm.nih.gov/6486215/ |

@@ -116,19 +116,19 @@
    "rows": [
     [
      "Average FLAME, no scale fit",
-     "not stated",
+     1.49,
      null,
      1.92,
      null,
-     "knowledge"
+     "confirmed"
     ],
     [
      "Average FLAME, scale fitted",
-     "not stated",
+     1.21,
      null,
      1.53,
      0.0,
-     "knowledge"
+     "confirmed"
     ],
     [
      "DECA",
@@ -144,7 +144,7 @@
      0.9,
      1.11,
      0.27,
-     "knowledge"
+     "confirmed"
     ],
     [
      "Best 2023-25 entries (e.g. TokenFace)",
@@ -165,7 +165,7 @@
    ],
    "population": "NoW subjects (100 adults; test split 80)",
    "source_urls": [],
-   "status": "knowledge",
+   "status": "partially verified (scaled mean face and MICA confirmed 2026-11-20; DECA and best-entry rows unverified)",
    "notes": "Skill = 1 - mean/1.53. Same figures are sourced in research/data/single-image-regression.json; here they are carried as expert knowledge. Best-entry median is the midpoint of a recalled 0.75-0.8 range. Differences < 0.1 mm are within protocol noise."
   },
   {

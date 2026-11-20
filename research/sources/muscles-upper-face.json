@@ -322,6 +322,41 @@
    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11635371/",
    "kind": "paper",
    "year": "n.d."
+  },
+  {
+   "n": 47,
+   "title": "Eyelid anthropometry review tables (upper eyelid crease height by ethnicity; cites Cartwright et al.)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5665901/table/Tab2",
+   "kind": "paper table",
+   "year": "n.d."
+  },
+  {
+   "n": 48,
+   "title": "MediaPipe face-mesh constants (Hugging Face mp_constants.py)",
+   "url": "https://huggingface.co/spaces/Akjava/mediapipe-face-skin-transform/blob/refs%2Fpr%2F1/mp_constants.py",
+   "kind": "code",
+   "year": "n.d."
+  },
+  {
+   "n": 49,
+   "title": "MediaPipe face mesh landmark indices cheat sheet (HackerNoon)",
+   "url": "https://hackernoon.com/mediapipe-face-mesh-landmark-indices-cheat-sheet",
+   "kind": "developer guide",
+   "year": "n.d."
+  },
+  {
+   "n": 50,
+   "title": "Anatomy of the Corrugator Supercilii Muscle: Part I. Corrugator Topography (Janis et al., 2007; record)",
+   "url": "https://bvbvf1.bib-bvb.de/vufind/PrimoRecord/cdi_proquest_miscellaneous_68538918",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "n": 51,
+   "title": "Corrugator supercilii cadaver study (Yang & Kim 2013)",
+   "url": "https://link.springer.com/article/10.1007/s00276-013-1174-5",
+   "kind": "paper",
+   "year": "2013"
   }
  ],
  "references_by_name": [

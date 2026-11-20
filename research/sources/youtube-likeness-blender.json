@@ -1,19 +1,45 @@
 {
-  "topic": "youtube-likeness-blender",
-  "sources": [],
-  "references_by_name": [
-    "KeenTools FaceBuilder for Blender documentation and the KeenTools YouTube channel",
-    "Blender Manual: Sculpt Mode (Multiresolution, Dynamic Topology, Voxel Remesh, Brushes); Cameras and Background Images; Image empties",
-    "Blender Studio, Human Base Meshes asset bundle (2023)",
-    "Julien Kaspar, Blender Studio sculpting training",
-    "YouTube channels (names only): YanSculpts; Grant Abbitt; Danny Mac 3D; Zacharias Reinhardt; FlippedNormals; Pablo Munoz Gomez (ZBrushGuides); Anatomy for Sculptors; Proko; CG Geek; Creative Shrimp; Reallusion; Unreal Engine",
-    "AliceVision/Meshroom documentation; fSpy documentation and the fSpy-Blender importer",
-    "CC/iC Blender Tools add-on (Character Creator to Blender); Epic Games, Mesh to MetaHuman documentation",
-    "Leslie G. Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
-    "Ward et al., Nasal distortion in short-distance photographs: the selfie effect, JAMA Facial Plastic Surgery, 2018",
-    "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
-    "Uldis Zarins & Sandis Kondrats, Anatomy for Sculptors, 2014",
-    "John Asaro, Planes of the Head model",
-    "Rhodes, Brennan & Carey, Identification and ratings of caricatures, Cognitive Psychology, 1987"
-  ]
+ "topic": "youtube-likeness-blender",
+ "sources": [
+  {
+   "n": 1,
+   "url": "https://keentools.io/products/facebuilder-for-blender",
+   "title": "KeenTools FaceBuilder for Blender"
+  },
+  {
+   "n": 2,
+   "url": "https://www.cgchannel.com/2024/03/keentools-ships-facebuilder-2024-1-for-blender/",
+   "title": "CG Channel: FaceBuilder 2024.1 pricing"
+  },
+  {
+   "n": 3,
+   "url": "https://www.cgchannel.com/2023/06/download-blender-studios-free-human-base-meshes",
+   "title": "CG Channel: Human Base Meshes CC0"
+  },
+  {
+   "n": 4,
+   "url": "https://www.blender.org/download/demo",
+   "title": "Blender Asset Bundles"
+  },
+  {
+   "n": 5,
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805",
+   "title": "Ward et al. 2018 selfie effect"
+  }
+ ],
+ "references_by_name": [
+  "KeenTools FaceBuilder for Blender documentation and the KeenTools YouTube channel",
+  "Blender Manual: Sculpt Mode (Multiresolution, Dynamic Topology, Voxel Remesh, Brushes); Cameras and Background Images; Image empties",
+  "Blender Studio, Human Base Meshes asset bundle (2023)",
+  "Julien Kaspar, Blender Studio sculpting training",
+  "YouTube channels (names only): YanSculpts; Grant Abbitt; Danny Mac 3D; Zacharias Reinhardt; FlippedNormals; Pablo Munoz Gomez (ZBrushGuides); Anatomy for Sculptors; Proko; CG Geek; Creative Shrimp; Reallusion; Unreal Engine",
+  "AliceVision/Meshroom documentation; fSpy documentation and the fSpy-Blender importer",
+  "CC/iC Blender Tools add-on (Character Creator to Blender); Epic Games, Mesh to MetaHuman documentation",
+  "Leslie G. Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Ward et al., Nasal distortion in short-distance photographs: the selfie effect, JAMA Facial Plastic Surgery, 2018",
+  "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+  "Uldis Zarins & Sandis Kondrats, Anatomy for Sculptors, 2014",
+  "John Asaro, Planes of the Head model",
+  "Rhodes, Brennan & Carey, Identification and ratings of caricatures, Cognitive Psychology, 1987"
+ ]
 }

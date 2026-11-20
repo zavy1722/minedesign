@@ -2,7 +2,7 @@
 
 > Neural head avatars (NeRF, point and Gaussian-splat families) are optimised to *re-render* a person under new expressions and views, not to recover a sculptable surface. Their output is a radiance field or 10⁴–10⁵ semi-transparent primitives, almost always driven by a tracked FLAME mesh. For a Blender likeness workflow they are worth three things: the refined FLAME fit and cameras; a camera-registered renderer that produces neutral reference views from any virtual camera; and a mid-frequency point and depth signal usable as a robust, confidence-weighted data term. GaussianAvatars (multi-view, mesh-bound) is the best template for engine design. Only the surfel (2DGS/SurFhead) and SDF (IMavatar, MonoNPHM) branches produce geometry close to sculpt quality. No harvest or earlier draft existed for this topic, so every claim is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 0 📄 / 56 🧠 / 14 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 2 📄 / 56 🧠 / 14 ↔️ — verified 2026-11-20 against the FLAME site and the GaussianAvatars/VHAP repos; remaining 🧠 items are still unverified.
 
 ## Key facts
 
@@ -72,8 +72,9 @@
 - **Licences:**
   - Inria's 3DGS rasteriser is non-commercial, while nerfstudio **gsplat** is Apache-2.0.
   - instant-ngp is NVIDIA non-commercial.
-  - FLAME is research-licensed, and "FLAME 2023 Open" is reportedly CC-BY-4.0.
-  - The GaussianAvatars and VHAP licences are unverified, and NeRSemble is research-only.
+  - FLAME versions before 2023 are non-commercial research-only, while "FLAME 2023 Open" is CC-BY-4.0 as a separate download (the FLAME texture is CC BY-NC-SA 4.0, and misuse for fake or misleading content is barred) [1] 📄
+  - GaussianAvatars and VHAP are both CC-BY-NC-SA-4.0, and the GaussianAvatars README adds a Toyota Motor Europe notice barring commercial use without a separate licence [2][3] 📄
+  - NeRSemble is research-only (unverified).
 
   ↔️
 
@@ -125,7 +126,7 @@
 |---|---|---|---|
 | World position | μ′ = k·R·μ + T | T = centroid; R = frame from an edge, the normal and their cross product; k = mean of an edge length and its perpendicular | 🧠 |
 | Rotation / scale | r′ = R·r ; s′ = k·s | Gaussians stretch with the triangle | 🧠 |
-| ε_pos / λ_pos | ≈ 1 / ≈ 0.01 | penalise offsets beyond 1 local unit | ↔️ |
+| ε_pos / λ_pos | ≈ 1 / ≈ 0.01 | penalise offsets beyond 1 local unit (ε_pos = 1 confirmed in the paper [4]; λ_pos not verified) | ↔️ |
 | ε_s / λ_s | ≈ 0.6 / ≈ 1 | penalise large Gaussians | ↔️ |
 | FLAME face edge length | ~2–6 mm (scalp larger) | 1 local unit ≈ a few mm | 🧠 |
 
@@ -215,7 +216,13 @@
 
 ## Sources
 
-No harvest file or earlier draft existed for this topic, so no URLs are cited. Sourced VHAP and GAF facts are in `reconstruction/multi-view-fitting.md`.
+No harvest file or earlier draft existed for this topic; sources below were added in the 2026-11-20 verification.
+
+1. FLAME model license: https://flame.is.tue.mpg.de/modellicense.html (and https://flame.is.tue.mpg.de/)
+2. GaussianAvatars repository: https://github.com/ShenhanQian/GaussianAvatars
+3. VHAP repository: https://github.com/ShenhanQian/VHAP
+4. Qian et al., GaussianAvatars (arXiv 2312.02069): https://arxiv.org/html/2312.02069
+ Sourced VHAP and GAF facts are in `reconstruction/multi-view-fitting.md`.
 
 **Further reading (by name, not yet linked)**
 - Gafni et al., NeRFace, CVPR 2021; Grassal et al., "Neural Head Avatars from Monocular RGB Videos", CVPR 2022; Zheng et al., IMavatar, CVPR 2022
@@ -229,3 +236,10 @@ No harvest file or earlier draft existed for this topic, so no URLs are cited. S
 - Taubner et al., "CAP4D", CVPR 2025; Kirschstein et al., "Avat3r", 2025; Chu & Harada, "GAGAvatar", NeurIPS 2024; "LAM: Large Avatar Model", SIGGRAPH 2025
 - Kerbl et al., "3D Gaussian Splatting", SIGGRAPH 2023; Huang et al., "2D Gaussian Splatting", SIGGRAPH 2024; Guédon & Lepetit, "SuGaR", CVPR 2024; Yu et al., "Gaussian Opacity Fields", SIGGRAPH Asia 2024
 - Müller et al., "Instant Neural Graphics Primitives", SIGGRAPH 2022; Li et al., FLAME, SIGGRAPH Asia 2017
+
+## Verification log (2026-11-20)
+
+- **FLAME licensing** — confirmed. FLAME 2023 Open is CC-BY-4.0; earlier models are non-commercial research-only; texture is CC BY-NC-SA 4.0. https://flame.is.tue.mpg.de/modellicense.html
+- **3DGS PLY layout (62 properties, logit/log encodings, quaternion order, 0.28209479 constant)** — unconfirmed. Search found only forks confirming the f_dc/f_rest/opacity/scale/rot naming and the f_rest count of 3(deg+1)²−3 = 45 (https://github.com/autonomousvision/mip-splatting/blob/main/scene/gaussian_model.py); the upstream file and activations were not seen.
+- **Code licences** — partly confirmed. GaussianAvatars and VHAP are CC-BY-NC-SA-4.0: https://github.com/ShenhanQian/GaussianAvatars, https://github.com/ShenhanQian/VHAP. Inria 3DGS, gsplat and instant-ngp licences remain unconfirmed.
+- **GaussianAvatars binding and regularisers** — unconfirmed overall. The paper confirms triangle-local binding with the triangle centroid as origin and ε_position = 1 (https://arxiv.org/html/2312.02069); the exact k formula, ε_s ≈ 0.6 and λ values were not visible in the snippets.

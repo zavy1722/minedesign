@@ -2,7 +2,7 @@
 
 > Hair, eyes and teeth break photo→3D face pipelines first: hair is a fibre volume whose interior is never seen, the cornea is a transparent refractor on a rotating globe, and teeth are translucent and visible only when the mouth moves. The dependable route is **model-based**: a fixed-size parametric eye with per-view gaze fitted to limbus edges; a dental arch of per-tooth templates fitted to smile photos, or better, the person's own intraoral scan registered to the face; and hair as envelope + hairline + parting + flow field driving a procedural groom. Strand reconstruction from phone video or one image (Neural Haircut, GaussianHaircut, MonoHair, DiffLocks) works in research but is slow, scored on synthetic data and mostly non-commercial: an optional source of guide curves to re-comb. No harvest or draft existed: this is author knowledge (to about mid-2025) cross-checked against sibling notes marked "(lib: file)"; 2025–26 names, licences and runtimes need verification.
 >
-> Evidence status: 0 ✅ / 0 📄 / 52 🧠 / 27 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 1 📄 / 52 🧠 / 27 ↔️ — 🧠 items are queued for web verification; 2026-11-20 pass checked 4 claims (1 confirmed, 1 partly confirmed, 2 unconfirmed; see Verification log).
 
 ## Key facts
 
@@ -13,7 +13,7 @@
   - *One image:* database retrieval (Hu et al. 2015, USC-HairSalon, ~343 styles, recalled; AutoHair 2016) → HairNet (2018), NeuralHDHair (CVPR 2022), HairStep (CVPR 2023; a strand-map + depth-map intermediate narrows the synthetic→real gap).
   - *Calibrated rigs:* Paris 2004/2008, Luo 2013, Neural Strands and DeepMVSHair (2022).
   - *Phone video, per-subject optimisation:* Neural Haircut (ICCV 2023), MonoHair and Dr.Hair (CVPR 2024), strand-aligned 3D Gaussians "GaussianHaircut" (ECCV 2024).
-  - *Generative priors:* GroomGen (2023), HAAR (CVPR 2024, text→strands), Perm (ICLR 2025, strands in scalp-UV texture space), DiffLocks (CVPR 2025, one image → strands by diffusion; trained on ~40k Blender-generated styles, recalled; aimed at curly/coily hair).
+  - *Generative priors:* GroomGen (2023), HAAR (CVPR 2024, text→strands), Perm (ICLR 2025, strands in scalp-UV texture space), DiffLocks (CVPR 2025, one image → strands by diffusion; trained on ~40k Blender-rendered synthetic styles; first method to recover highly curled/afro hair from one image, per its authors) 📄 [1][2].
 - **Neural Haircut:** stage 1 fits an implicit hair-and-bust volume with a 3D orientation field supervised by 2D orientation maps and masks (bust from FLAME); stage 2 fits strands under a pretrained strand/hairstyle prior via differentiable strand rendering. 🧠
 - **GaussianHaircut** binds thin Gaussians to polyline segments, so the photometric loss moves strands directly; reported faster and sharper than Neural Haircut. 🧠 **GaussianHair** (Luo et al. 2024; venue unverified) targets relightable rendering more than grooming. ↔️
 - **2025–26, low-confidence recall:** Im2Haircut (single-view strands), TANGLED, StrandHead, SimAvatar (text→simulation-ready layered hair), Digital Salon. 2026 venues not reviewed. ↔️
@@ -21,7 +21,7 @@
 - **Weak cases:** curly/coily hair (curl period ≈ filter wavelength; data skews straight), the back of the head. ↔️
 - **Facial hair:** Beeler et al. 2012 captured it with skin on a rig; practical pipelines mask beard and brows and fit skin beneath. 🧠
 - **Products (2025):** FaceBuilder, Headshot and Mesh to MetaHuman reconstruct no strands (groom/card libraries instead); image-to-3D generators fuse hair into a shell and Gaussian avatars into uncombable splats (lib: community/ai-assisted-sculpting.md, neural-head-avatars.md). Hairmony (SIGGRAPH Asia 2024) classifies hairstyles to pick library assets. 🧠
-- **Licences:** most strand code and priors are research or non-commercial; exact terms unverified. ↔️
+- **Licences:** most strand code and priors are research or non-commercial; exact terms unverified. DiffLocks' official licence is confirmed non-commercial (research, education, artistic projects; commercial licences via Meshcapade) [3]; Neural Haircut, GaussianHaircut, MonoHair, Perm and HAAR licences were not found. ↔️
 
 **Eyes**
 - **Fit a near-rigid eye with tight size priors:** globe ≈24 mm, corneal radius ≈7.8 mm, visible iris (HVID) ≈11.8 mm, rotation centre 13–14 mm behind the apex (lib: blender/eyes-modeling-blender.md, sourced there). 🧠
@@ -180,7 +180,11 @@
 
 ## Sources
 
-No harvest or draft existed, so no URL is cited; "(lib: …)" sibling notes hold sourced versions of shared figures.
+Numbered sources below were added in the 2026-11-20 verification; most facts remain unsourced; "(lib: …)" sibling notes hold sourced versions of shared figures.
+
+1. Rosu et al., DiffLocks, arXiv 2505.06166 — https://arxiv.org/abs/2505.06166v1
+2. DiffLocks, CVPR 2025 open access — https://openaccess.thecvf.com/content/CVPR2025/html/Rosu_DiffLocks_Generating_3D_Hair_from_a_Single_Image_using_Diffusion_CVPR_2025_paper.html
+3. DiffLocks software licence — https://difflocks.is.tue.mpg.de/license.html
 
 **Further reading (by name, not yet linked)**
 - Hair capture: Paris, Briceño & Sillion, SIGGRAPH 2004; Paris et al., "Hair Photobooth", 2008; Luo, Li & Rusinkiewicz, "Structure-Aware Hair Capture", 2013; Beeler et al., facial hair and skin, SIGGRAPH 2012; Shen et al., "CT2Hair", 2023
@@ -189,3 +193,10 @@ No harvest or draft existed, so no URL is cited; "(lib: …)" sibling notes hold
 - Hair priors: "GroomGen", 2023; Sklyarova et al., "HAAR", CVPR 2024; He et al., "Perm", ICLR 2025; Meishvili et al., "Hairmony", 2024
 - Eyes: Bérard et al., eye capture (2014), parametric eye (2016), eye rigging (2019); Li et al., "EyeNeRF", 2022; Wood et al., eye-region morphable model, ECCV 2016; Safaee-Rad et al., IEEE T-RA 1992; Wang, Sung & Venkateswarlu, ICCV 2003; MPIIGaze, ETH-XGaze, Gaze360, L2CS-Net; Ablavatski et al., MediaPipe Iris, 2020
 - Teeth: Wu et al., "Model-Based Teeth Reconstruction", SIGGRAPH Asia 2016; Velinov et al., teeth appearance, 2018; *Wheeler's Dental Anatomy, Physiology and Occlusion*; Kokich et al., 1999; Bishara et al., arch-width studies
+
+## Verification log (2026-11-20)
+
+- **Strand code/priors mostly research or non-commercial licences:** partly confirmed. DiffLocks licence is non-commercial, commercial via Meshcapade [3]. Neural Haircut, GaussianHaircut, MonoHair, Perm, HAAR licences: unconfirmed (no usable evidence found). Stays ↔️.
+- **Wheeler-type crown sizes and intercanine widths (Table 5):** unconfirmed; searches found only book listings (https://shop.elsevier.com/books/wheelers-dental-anatomy-physiology-and-occlusion/nelson/978-0-323-63878-4), no values. Stays 🧠.
+- **Upper-lid gain 0.6–1.0, g ~ N(0.8, 0.2²):** unconfirmed. Only qualitative downgaze lid-lowering and mm-scale changes found (https://pubmed.ncbi.nlm.nih.gov/8090463/); no degrees-per-degree gain. Stays ↔️.
+- **DiffLocks CVPR 2025, single image, curly hair, ~40K Blender-rendered styles:** confirmed (one source family: paper/arXiv/CVPR page) 📄 [1][2]. "Strongest single-image prior" is a judgment, kept ↔️ in Table 1. Im2Haircut, TANGLED, StrandHead, SimAvatar: unconfirmed.

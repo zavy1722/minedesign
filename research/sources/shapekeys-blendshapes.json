@@ -84,6 +84,27 @@
    "url": "https://github.com/mozi1924/mediapipe-facecap-for-blender",
    "kind": "repo",
    "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "Blender issue #44415 (shape keys vs Basis edits)",
+   "url": "https://projects.blender.org/blender/blender/issues/44415",
+   "kind": "bug-tracker",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Blender Manual: Drivers Panel",
+   "url": "https://docs.blender.org/manual/en/latest/animation/drivers/drivers_panel.html",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "Blender Manual: Scripting & Security",
+   "url": "https://docs.blender.org/manual/en/latest/advanced/scripting/security.html",
+   "kind": "official-docs",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

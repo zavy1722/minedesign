@@ -1,0 +1,187 @@
+{
+  "topic": "nose",
+  "tables": [
+    {
+      "name": "adult_nasal_linear_norms_naw",
+      "units": "mm (nasal_index dimensionless x100)",
+      "columns": ["measure", "landmarks", "men_low", "men_high", "women_low", "women_high", "sd_men", "sd_women"],
+      "rows": [
+        ["nose_height", "n-sn", 53, 56, 49, 52, 3.3, 3.1],
+        ["nasal_bridge_length", "n-prn", 47, 53, 43, 48, 3.5, 3.5],
+        ["nose_width", "al-al", 34.9, 34.9, 31.4, 31.4, 2.1, 2.0],
+        ["tip_protrusion", "sn-prn", 18, 22, 17, 20, 2.0, 2.0],
+        ["alar_flare_excess", "al-al minus ac-ac", 2, 6, 2, 6, null, null],
+        ["columellar_show_profile", "alar rim to columella rim", 2, 4, 2, 4, null, null],
+        ["ac_behind_sn_profile", "horizontal ac to sn", 10, 15, 9, 14, null, null],
+        ["nasal_index", "al-al / n-sn x100", 64, 64, 62, 62, 8, 8]
+      ],
+      "population": "Young adult North American White (Farkas-type caliper norms) as carried in this library; not a single verified source",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Expert ranges consistent with anthropometric-norms.md Table values; al-al means consistent with doubling the sourced alare-midline values (PMC12500730). Population-unknown fits should widen al-al sigma to ~4 mm. Verify against Farkas 1994."
+    },
+    {
+      "name": "sourced_nasal_width_measurements",
+      "units": "mm, or ratio",
+      "columns": ["population", "method", "n", "measure", "men", "women"],
+      "rows": [
+        ["Adults aged 19-42 (hand-preference asymmetry study)", "linear measurement", 297, "alare to midline (right)", 17.34, 15.39],
+        ["Southern Spain European adults, normal occlusion", "3D photography", null, "en-en / al-al ratio", 0.89, 1.01],
+        ["Malay adults", "3D stereophotogrammetry", null, "nose width (definition unconfirmed)", 39.59, 36.67]
+      ],
+      "population": "Mixed; see rows",
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12500730/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/"
+      ],
+      "status": "sourced",
+      "notes": "Each row is single-source from harvest summaries. Malay width is much larger than typical al-al and may use a different landmark definition (contested)."
+    },
+    {
+      "name": "nasal_skeleton_measurements",
+      "units": "mm or ratio",
+      "columns": ["measure", "value", "population", "n", "status"],
+      "rows": [
+        ["nasal_bone_length", 21, "Korean adults, 3D-CT", 75, "sourced"],
+        ["piriform_index_width_over_height", 0.79, "Indian dry skulls", 40, "sourced"],
+        ["piriform_aperture_width_range", "22-26", "adults, expert range", null, "knowledge"],
+        ["piriform_aperture_height_range", "30-35", "adults, expert range", null, "knowledge"]
+      ],
+      "population": "See rows",
+      "source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/17929046/",
+        "https://pubmed.ncbi.nlm.nih.gov/26894050/"
+      ],
+      "status": "sourced",
+      "notes": "Sourced rows reused from anatomy/skull-osteology.md. Aperture predicts external nose poorly (PMC7527952: 26 of 76 relations significant; PMC10557396: RV < 0.4); use only as a soft consistency check."
+    },
+    {
+      "name": "profile_angles_and_projection_ratios",
+      "units": "degrees or dimensionless ratio",
+      "columns": ["quantity", "definition", "low", "high", "ideal_or_mean_men", "ideal_or_mean_women", "prior_sigma"],
+      "rows": [
+        ["nasofrontal_angle", "g'-n'-prn interior angle", 115, 135, 125, 130, 7],
+        ["nasolabial_angle", "columella tangent, sn, upper-lip tangent", 90, 120, 100, 105, 9],
+        ["nasofacial_angle", "n'-prn dorsal line vs facial plane g'-pg'", 30, 40, 36, 36, 4],
+        ["nasomental_angle", "n'-prn vs prn-pg'", 120, 132, null, null, 5],
+        ["columella_lobule_angle", "columella vs infratip lobule", 30, 45, null, null, 7],
+        ["goode_ratio", "ac-prn (perpendicular to n'-ac line) / n'-prn", 0.55, 0.60, 0.57, 0.57, 0.04],
+        ["crumley_projection_over_length", "3:4:5 triangle projection/length", 0.60, 0.60, 0.60, 0.60, null],
+        ["byrd_tip_projection_over_length", "alar-cheek junction to tip / radix to tip", 0.67, 0.67, 0.67, 0.67, null],
+        ["byrd_radix_projection_over_length", "radix in front of corneal plane / radix to tip", 0.28, 0.28, 0.28, 0.28, null],
+        ["simons_ratio", "sn-prn / sn-ls", 1.0, 1.0, 1.0, 1.0, 0.15],
+        ["baum_ratio", "n-sn / sn-prn", 2.8, 2.8, 2.8, 2.8, null]
+      ],
+      "population": "Rhinoplasty aesthetic references, derived mostly from European-descent 'attractive' samples; population means differ",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Goode, Crumley and nasofacial angle encode one right triangle (asin(0.55-0.60) = 33-37 deg); use only one as a prior. Use aesthetic values as UI warnings (weight <= 0.1 of population prior). Definitions of nasolabial angle vary and shift values by up to ~10 deg. Verify against Powell & Humphreys 1984, Byrd & Hobar 1993, Crumley & Lanser 1988."
+    },
+    {
+      "name": "nasal_soft_tissue_cover",
+      "units": "mm",
+      "columns": ["site", "mean", "low", "high", "population", "status"],
+      "rows": [
+        ["nasion", 6.0, 5.57, 8.25, "pooled review; Iranian MRI range across BMI groups (low to high BMI)", "verified"],
+        ["rhinion", 3.0, 2.0, 4.0, "pooled review", "sourced"],
+        ["supratip_thin_skin", 3.0, 2.5, 4.0, "expert", "knowledge"],
+        ["supratip_thick_skin", 5.0, 4.0, 6.5, "expert", "knowledge"],
+        ["tip", 3.0, 2.0, 4.0, "expert", "knowledge"],
+        ["columella", 2.5, 2.0, 3.0, "expert", "knowledge"]
+      ],
+      "population": "Adults; see rows",
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/"
+      ],
+      "status": "sourced",
+      "notes": "Men thicker at nasion and rhinion (PMC3762959) and in nasal region (pubmed 41701465). Hard floor for fitting: skin >= 1.5 mm over nasal bones. BMI slope smallest on the nasal dorsum."
+    },
+    {
+      "name": "nasal_index_classes_living",
+      "units": "al-al / n-sn x 100",
+      "columns": ["class", "low", "high"],
+      "rows": [
+        ["leptorrhine", null, 69.9],
+        ["mesorrhine", 70, 84.9],
+        ["platyrrhine", 85, null]
+      ],
+      "population": "General anthropological convention",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Cut-offs differ between authors and between skull and living-nose indices; some schemes add hyperleptorrhine and hyperplatyrrhine classes."
+    },
+    {
+      "name": "perspective_magnification_nose",
+      "units": "ratio (d + delta) / d; d = camera to nose tip in m",
+      "columns": ["depth_lever", "delta_mm", "d_0.35m", "d_0.5m", "d_1m", "d_1.5m", "d_3m"],
+      "rows": [
+        ["prn vs alar base", 30, 1.086, 1.060, 1.030, 1.020, 1.010],
+        ["prn vs tragion", 100, 1.286, 1.200, 1.100, 1.067, 1.033]
+      ],
+      "population": "Geometric model, adult head",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Pure point-depth magnification; clinical selfie-effect reports (~30% wider nasal base at 12 in vs 5 ft, Ward et al. 2018) exceed geometry, likely via occluding-contour shift and width definitions. Perspective depends on distance, not focal length (practitioner sources digitaltrends.com, photographylife.com)."
+    },
+    {
+      "name": "pose_error_nose",
+      "units": "mm or percent",
+      "columns": ["effect", "lever", "deg_5", "deg_10", "deg_15"],
+      "rows": [
+        ["pitch: prn vertical shift vs n' and alar base", "dz 30 mm, dz*sin", 2.6, 5.2, 7.8],
+        ["off-profile yaw: alar crease shift", "x 16 mm, x*sin", 1.4, 2.8, 4.1],
+        ["off-profile yaw: midline projection loss (percent)", "1-cos", 0.4, 1.5, 3.4]
+      ],
+      "population": "Geometric model, adult head",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Use midline points for profile ratios; alar points move with yaw. Half-width 16 mm from sourced alare-midline 15.4-17.3 mm."
+    },
+    {
+      "name": "nose_fit_priors",
+      "units": "mm or degrees",
+      "columns": ["parameter", "mu_men", "mu_women", "sigma_men", "sigma_women", "lower", "upper", "distribution"],
+      "rows": [
+        ["radix_depth_vs_corneal_plane_mm", 12, 11, 3, 3, 4, 20, "gaussian"],
+        ["n_sn_mm", 54.5, 50.5, 3.3, 3.1, null, null, "gaussian"],
+        ["n_prn_mm", 50, 45.5, 3.5, 3.5, null, null, "gaussian"],
+        ["sn_prn_mm", 20, 18.5, 2.0, 2.0, 12, 28, "gaussian"],
+        ["al_al_mm_known_naw", 34.9, 31.4, 2.1, 2.0, 26, 50, "gaussian"],
+        ["al_al_mm_population_unknown", 36, 33, 4, 4, 26, 50, "gaussian"],
+        ["al_al_minus_ac_ac_mm", 4, 4, 1.5, 1.5, 0, 9, "gaussian"],
+        ["nasolabial_angle_deg", 100, 105, 9, 9, 70, 135, "gaussian"],
+        ["nasofrontal_angle_deg", 125, 130, 7, 7, 100, 155, "gaussian"],
+        ["dorsal_hump_signed_mm", 1.0, 0.0, 1.5, 1.5, -4, 6, "gaussian"],
+        ["supratip_break_depth_mm", 0.5, 1.0, 0.7, 0.7, 0, 3, "truncated_gaussian"],
+        ["columellar_show_mm", 3, 3, 1.2, 1.2, 0, 7, "truncated_gaussian"],
+        ["tip_lateral_deviation_mm", 0, 0, 1.2, 1.2, -5, 5, "laplace"],
+        ["nostril_lr_asymmetry_mm", 0, 0, 0.8, 0.8, -3, 3, "gaussian"]
+      ],
+      "population": "Young adults; design defaults",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Engine design defaults, not measured norms. Landmark observation sigma (library landmark-detection.md): prn 2.5% IOD, sn 1.5% IOD; allow 1-2 mm prn bias toward specular highlight. Hard constraints: skin >= 1.5 mm over nasal bones; ac 8-16 mm behind sn; columella below alar rim."
+    },
+    {
+      "name": "detector_index_map_nose",
+      "units": "landmark index",
+      "columns": ["anatomical_point", "dlib68_0based", "mediapipe_468", "status"],
+      "rows": [
+        ["nose block", "27-35", null, "verified"],
+        ["sellion / upper bridge", "27", "168", "knowledge"],
+        ["pronasale", "30", "1 (4 just above)", "knowledge"],
+        ["subnasale", "33", "2 (94 columella, 164 philtrum)", "knowledge"],
+        ["alar base region R / L", "31 / 35", "129/358, 64/294 or 48/278", "contested"]
+      ],
+      "population": "n/a",
+      "source_urls": [
+        "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/",
+        "https://pyimagesearch.com/2018/04/02/faster-facial-landmark-detector-with-dlib/"
+      ],
+      "status": "sourced",
+      "notes": "dlib nose block is sourced by two tutorials; individual index-to-anatomy mappings and all MediaPipe indices are from library notes (craniometric-landmarks.md, landmark-detection.md) and need verification. Detector 'alar' points sit near ac/sbal, not anatomical al."
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 > GitHub "awesome" lists for 3D faces, 3DMMs, talking heads and Gaussian avatars are discovery indexes, not vetted catalogues. They give the paper, venue and code link, almost never the licence, weight terms, benchmark protocol or whether the code still installs, and many freeze when the maintainer graduates. Nearly every listed method reuses upstream assets from about a dozen labs, and most of those assets are licensed for non-commercial research. That licence, not the method's code licence, decides what an open-source add-on may ship. For artists the lasting resources are anatomy references (Anatomy For Sculptors, Complete Anatomy, the open Blender-native Z-Anatomy), licensed scan heads (3D Scan Store, Texturing.XYZ, Triplegangers) and searchable forums. No harvest or earlier draft existed for this topic, so everything below is expert knowledge awaiting verification, and every name, licence and status is time-sensitive.
 >
-> Evidence status: 0 ✅ / 0 📄 / 76 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 2 ✅ / 3 📄 / 75 🧠 / 22 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -18,7 +18,7 @@
 
 **Labs and the assets everyone reuses** (Table 3)
 - **The shared base.** Most listed methods rest on FLAME (MPI-IS), BFM (Basel), LSFM and 300-W (Imperial iBUG), LYHM and Headspace (York), FaceScape (Nanjing), MediaPipe (Google) and, for avatars, NeRSemble (TUM). 🧠
-- **Commercial routes.** FLAME is licensed commercially through Meshcapade and BFM by agreement with Basel. Terms change, so check them first. ↔️
+- **Commercial routes.** FLAME is licensed commercially through Meshcapade and BFM by agreement with Basel. Terms change, so check them first. The FLAME 2023 Open release is CC BY 4.0 and covers only that model; earlier versions stay non-commercial [1]. ↔️
 - **Issue trackers are the real forums.** The issue trackers of FLAME, DECA, MICA and 3DDFA_V2 hold most of the fitting lore: coordinate conventions, metre versus millimetre scale, landmark-embedding files and camera models. 🧠
 
 **Code to read before writing a numpy fitter**
@@ -52,14 +52,14 @@
 - **Smithsonian Open Access 3D** (CC0, 2020) includes the Lincoln life masks: real-scale faces cast from life. 🧠
 - **Sketchfab:** a Download button is not a commercial licence, so filter by licence. Its store moved into Epic's Fab, launched in October 2024. ↔️
 - **Photo turnarounds** (3d.sk, Anatomy 360, Ten24) show one sitter in one session from many angles. That is ideal solver test data, but the licences rarely allow ML or test use. 🧠
-- **MetaHuman** is free; a 2025 licence update reportedly allows use outside Unreal. ↔️
+- **MetaHuman** is free; a June 2025 licence update (UE 5.6) allows use outside Unreal, in other engines and 3D apps such as Blender, under the Unreal Engine EULA [4][5]. ✅
 
 **Anatomy references**
 - **Complete Anatomy** (3D4Medical, owned by Elsevier since 2019) gives a layered skull, muscles and attachments. It is a subscription product and its EULA forbids extracting meshes. 🧠
 - **Zygote Body** (from Google Body, 2010), **BioDigital Human** and **Visible Body:** browser and app atlases; free tiers vary. 🧠
 - **Anatomy For Sculptors** (Uldis Zarins with Sandis Kondrats, Riga) offers *Anatomy for Sculptors* (2014), *Anatomy of Facial Expression*, *Form of the Head and Neck*, free infographics and paid 3D models. The approach is artist planes, not dissection. 🧠
-- **Z-Anatomy** is an open atlas shipped as a .blend file, built from BodyParts3D and other open data, reportedly CC BY-SA 4.0. ↔️ It is the only free Blender-native skull-and-muscle set I know. 🧠
-- **BodyParts3D** (DBCLS, Japan) is CC BY-SA 2.1 Japan. 🧠
+- **Z-Anatomy** is an open atlas shipped as a .blend file, built from BodyParts3D and other open data, under CC BY-SA 4.0 [2]; some bundled models carry CC BY-NC(-SA) terms [2]. 📄 It is the only free Blender-native skull-and-muscle set I know. 🧠
+- **BodyParts3D** (DBCLS, Japan) is CC BY-SA 2.1 Japan in older attribution text; a newer source says the current official licence is CC BY 4.0 [2]. ↔️
 - **CT-derived skulls:** NIH 3D (formerly NIH 3D Print Exchange), MorphoSource, University of Dundee models on Sketchfab, NLM Visible Human. The licence differs per item. 🧠
 - **No variance.** Each atlas is one specimen or an idealised composite, with no population variance. 🧠
 
@@ -69,14 +69,14 @@
 
 | Asset (lab) | Population / size | Geometry | Licence posture | Badge |
 |---|---|---|---|---|
-| FLAME (MPI-IS, 2017; 2020/2023 releases) | identity from ~3,800 CAESAR scans | 5,023 vertices; 300 shape + 100 expression components | non-commercial research; "FLAME 2023 Open" possibly CC BY 4.0 | ↔️ |
+| FLAME (MPI-IS, 2017; 2020/2023 releases) | identity from ~3,800 CAESAR scans | 5,023 vertices; 300 shape + 100 expression components | non-commercial research for earlier releases; "FLAME 2023 Open" is CC BY 4.0 (commercial use allowed with attribution) [1] | 📄 |
 | BFM 2009 (Basel) | 200 adults (100 f / 100 m), mostly European | 53,490 vertices; 199 components | non-commercial, registration | 🧠 |
 | BFM 2017 (Basel) | same identity base plus an expression model | face and full-head variants | non-commercial | 🧠 |
 | LSFM (Imperial) | ~9,700 subjects | face | non-commercial | 🧠 |
 | LYHM / Headspace (York) | ~1,200 (model) / ~1,500 (dataset) | full head with cranium | academic | ↔️ |
 | FaceWarehouse (Zhejiang) | 150 people aged 7–80, 20 expressions | Kinect RGB-D | research | 🧠 |
 | FaceScape (Nanjing) | 938 subjects × 20 expressions ≈ 18,700 models, mostly East Asian | textured, uniform topology | research, non-commercial | 🧠 |
-| ICT-FaceKit (USC ICT) | ~100 identity, ~53 expression shapes | ARKit-like | MIT | ↔️ |
+| ICT-FaceKit (USC ICT) | ~100 identity (Light; 200+ in Full), 53 expression shapes [3] | ARKit-like | MIT unverified; VGL says contact it for commercial use [3] | ↔️ |
 | NoW (MPI-IS) | 100 subjects, ~2,050 images | hidden-truth scans | research | 🧠 |
 | NeRSemble (TUM) | >220 subjects; 16 cameras, ~73 fps, ~7 MP | multi-view video | on request, non-commercial | ↔️ |
 | Ava-256 (Meta) | 256 subjects | multi-view capture | non-commercial | ↔️ |
@@ -115,7 +115,7 @@
 
 | Resource | Cost | Can ship in a GPL add-on? | Best use | Badge |
 |---|---|---|---|---|
-| Z-Anatomy / BodyParts3D | free | yes with attribution, if BY-SA (BY-SA 4.0 → GPLv3 one-way compatible) | skull/muscle underlay, region labels | ↔️ |
+| Z-Anatomy / BodyParts3D | free | yes with attribution, if BY-SA (BY-SA 4.0 → GPLv3 one-way compatible) | skull/muscle underlay, region labels (check NC-licensed components) [2] | ↔️ |
 | Smithsonian life masks | free, CC0 | yes | real-scale test surfaces | 🧠 |
 | Lee Perry-Smith head | free, CC BY? | probably, with attribution | regression test head | ↔️ |
 | 3D Scan Store, Triplegangers | paid per asset | no | plane/volume reference, wrap practice | 🧠 |
@@ -123,7 +123,7 @@
 | Complete Anatomy, Visible Body | subscription | no (EULA) | layered study, attachments | 🧠 |
 | Anatomy For Sculptors | paid; infographics free | no | planes, expression | 🧠 |
 | 3d.sk, Anatomy 360 | paid | no | multi-angle photo reference | 🧠 |
-| MetaHuman | free (EULA) | no | rig and topology reference | ↔️ |
+| MetaHuman | free (EULA) | no | rig and topology reference | ✅ |
 
 **Table 5: List-health heuristics** (my thresholds, not a standard)
 
@@ -182,7 +182,7 @@
 - **Myth: "on an awesome list = vetted".** Lists are self-submitted indexes that check neither reproducibility nor licences. 🧠
 - **Myth: "stars = quality".** Stars follow demo videos. NoW and REALY errors and issue-tracker health are better signals. 🧠
 - **Myth: "free download = free use".** It is not: Sketchfab models, GitHub weights (InsightFace, dlib-68) and research datasets all carry terms. 🧠
-- **FLAME 2023 "Open":** is it CC BY 4.0, and does it include the expression basis? ↔️
+- **FLAME 2023 "Open":** CC BY 4.0 confirmed [1]; the changelog provides conversion code for expression parameters, implying an expression basis is included, but check the download page. 📄
 - **MetaHuman 2025 EULA:** does "use outside Unreal" cover test data for an open-source tool? ↔️
 - **Unverified closures and moves:** Papers with Code shutting down, CGSociety closing, and the Sketchfab store moving to Fab are all reported but not confirmed. ↔️
 - **Medical atlases against artist references.** Medical apps are right about attachments but show lean, idealised surfaces; artist sites stylise plane breaks and fat pads. Neither gives variance; anthropometric tables do (Farkas). ↔️
@@ -194,7 +194,13 @@
 
 ## Sources
 
-No harvested sources or earlier draft exist for this topic, so no URLs are cited. Repository names (`owner/repo`) are from memory and need checking.
+Only the sources below were checked (2026-11-20). Repository names (`owner/repo`) elsewhere are from memory and need checking.
+
+1. FLAME model licence and changelog, MPI-IS: https://flame.is.tue.mpg.de/modellicense.html and https://flame.is.tue.mpg.de/
+2. Z-Anatomy GitHub (licence README): https://github.com/Z-Anatomy/Models-of-human-anatomy ; https://github.com/Z-Anatomy/The-blend ; BodyParts3D licence note: https://raw.githubusercontent.com/ashemag/human-atlas/master/public/ATTRIBUTION.md
+3. USC ICT Vision and Graphics Lab, ICT Face Model: https://vgl.ict.usc.edu/Data/ICTFaceModel
+4. CG Channel, "You can now sell MetaHumans or use them in Unity or Godot", 2025-06-04: https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/
+5. Creative Bloq, MetaHuman and Unreal Engine 5: https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters ; MetaHuman licence: https://www.metahuman.com/license
 
 **Further reading (by name, not yet linked)**
 - Blanz & Vetter, "A Morphable Model for the Synthesis of 3D Faces", SIGGRAPH 1999
@@ -215,3 +221,10 @@ No harvested sources or earlier draft exist for this topic, so no URLs are cited
 - Huber et al., "A Multiresolution 3D Morphable Face Model and Fitting Framework" (eos), VISAPP 2016
 - Zarins & Kondrats, *Anatomy for Sculptors: Understanding the Human Figure*, 2014
 - Farkas, *Anthropometry of the Head and Face*, 1994
+
+## Verification log (2026-11-20)
+
+- FLAME non-commercial, with "FLAME 2023 Open" under CC BY 4.0: confirmed (📄). Open model licence applies only to that release; expression basis implied by the expression-parameter conversion code, not stated outright. https://flame.is.tue.mpg.de/modellicense.html
+- Z-Anatomy CC BY-SA 4.0 Blender file: confirmed (📄); some bundled models are CC BY-NC(-SA) (added caveat). BodyParts3D licence: contested, CC BY-SA 2.1 Japan in older text versus CC BY 4.0 in a newer attribution file (↔️). The BY-SA to GPLv3 one-way compatibility was not checked (unconfirmed). https://github.com/Z-Anatomy/Models-of-human-anatomy ; https://raw.githubusercontent.com/ashemag/human-atlas/master/public/ATTRIBUTION.md
+- ICT-FaceKit MIT licence: unconfirmed (no licence text found; VGL says contact it for commercial use). Counts: 53 expression shapes confirmed; identity modes 100 in Light and 200+ in Full (corrected in verification). https://vgl.ict.usc.edu/Data/ICTFaceModel
+- MetaHuman use outside Unreal (June 2025, UE 5.6): confirmed by two sources (✅). Later Epic update (Oct 2026) on AI training under the UE EULA noted, wording not checked. https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/ ; https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters

@@ -1,53 +1,215 @@
-{"topic":"smas-ligaments","sources":[
-{"n":1,"title":"The Surgical Anatomy of the Jowl and the Mandibular Ligament Reassessed (Minelli et al.)","url":"https://pubmed.ncbi.nlm.nih.gov/36050569/","kind":"paper","year":"2022"},
-{"n":2,"title":"Aesthetic Plastic Surgery s00266-022-02996-3 (Minelli et al.; probably the same paper as [1])","url":"https://link.springer.com/article/10.1007/s00266-022-02996-3","kind":"paper","year":"2022"},
-{"n":3,"title":"The layered anatomy of the jawline","url":"https://pubmed.ncbi.nlm.nih.gov/30091282/","kind":"paper","year":"2018"},
-{"n":4,"title":"Platysma anatomy (PMC10702465, as surfaced)","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC10702465","kind":"paper","year":"2023"},
-{"n":5,"title":"The Labiomandibular Fold Anatomy for Comprehensive Lower Facial Rejuvenation: A Micro-Computed Tomography Investigation","url":"https://pubmed.ncbi.nlm.nih.gov/39806136","kind":"paper","year":"2025"},
-{"n":6,"title":"A key of facial muscle aging: locational changes in modiolus measured with ultrasonography","url":"https://pubmed.ncbi.nlm.nih.gov/41433716/","kind":"paper","year":"2025"},
-{"n":7,"title":"Aesthetic Plastic Surgery s00266-025-04696-0 (modiolus 'false ligament' cadaver study)","url":"https://link.springer.com/article/10.1007/s00266-025-04696-0","kind":"paper","year":"2025"},
-{"n":8,"title":"Discovery of the Ligament of Modiolus: Anatomical Insights and Clinical Relevance","url":"https://pubmed.ncbi.nlm.nih.gov/39900721/","kind":"paper","year":"2025"},
-{"n":9,"title":"Heights and spatial relationships of the facial muscles acting on the nasolabial fold by dissection and 3D microCT","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499","kind":"paper","year":"unconfirmed (harvest says 2024; PMC ID suggests ~2020)"},
-{"n":10,"title":"Nasolabial fold dissection study (Snider et al.), Aesthetic Plastic Surgery","url":"https://link.springer.com/article/10.1007/s00266-017-0889-9","kind":"paper","year":"2017"},
-{"n":11,"title":"Nasolabial fold article, Aesthetic Plastic Surgery","url":"https://link.springer.com/article/10.1007/s00266-019-01555-7","kind":"paper","year":"2019"},
-{"n":12,"title":"The Aging Process of Facial Muscles","url":"https://pubmed.ncbi.nlm.nih.gov/41413726/","kind":"review","year":"2025"},
-{"n":13,"title":"The Aging Process of Facial Muscles (PMC record; probably the same review as [12])","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12715075/","kind":"review","year":"2025"},
-{"n":14,"title":"Anatomy, Head and Neck: Orbicularis Oculi Muscle (StatPearls)","url":"https://www.ncbi.nlm.nih.gov/books/NBK441907/","kind":"medical-reference","year":"n.d."},
-{"n":15,"title":"Anatomy of the Orbit","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/","kind":"paper","year":"n.d."},
-{"n":16,"title":"Ultrasonographic analysis of facial skin thickness in relation to age, site, sex, and body mass index","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/","kind":"paper","year":"n.d."},
-{"n":17,"title":"Quantitative Analysis of the Human Face Skin Thickness: A High-Frequency Ultrasound Study","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/","kind":"paper","year":"n.d."},
-{"n":18,"title":"Layer-specific facial soft-tissue thickness in 1174 Chinese adults","url":"https://pubmed.ncbi.nlm.nih.gov/42385786/","kind":"paper","year":"n.d."},
-{"n":19,"title":"The facial soft tissue thickness related facial reconstruction by ultrasonographic imaging: A review","url":"https://www.sciencedirect.com/science/article/abs/pii/S0379073822001955","kind":"review","year":"n.d."},
-{"n":20,"title":"An Expert Guide to Anatomy-Based Filler Injection for the Temple","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11856534/","kind":"paper","year":"2025"},
-{"n":21,"title":"The Deep Fascia of the Head and Neck Revisited: Relationship with the Facial Nerve (surfaced, not read)","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC11104498/","kind":"paper","year":"2024"},
-{"n":22,"title":"Anatomic characteristics of the infraorbital foramen: a cadaver study","url":"https://pubmed.ncbi.nlm.nih.gov/10981979/","kind":"paper","year":"n.d."},
-{"n":23,"title":"Morphological and Morphometric Relations of Infraorbital Foramen in North Indian Population","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/","kind":"paper","year":"n.d."}
-],
-"provenance_note":"This topic's own harvest (_raw/harvests/smas-ligaments.json) and earlier draft were absent; all URLs were taken from sibling harvests in this library (muscles-lower-face, muscles-mid-face, muscles-upper-face, muscles-mastication-jaw, skull-osteology, soft-tissue-thickness). Facts rest on search snippets.",
-"references_by_name":[
-"Mitz V, Peyronie M, the SMAS in the parotid and cheek area, Plast Reconstr Surg, 1976",
-"Jost G, Levet Y, Parotid fascia and face lifting: a critical evaluation of the SMAS concept, Plast Reconstr Surg, 1984",
-"Freilinger G et al., surgical anatomy of the mimic muscle system and the facial nerve, Plast Reconstr Surg, 1987",
-"Furnas DW, The retaining ligaments of the cheek, Plast Reconstr Surg, 1989",
-"Stuzin JM, Baker TJ, Gordon HL, the relationship of the superficial and deep facial fascias, Plast Reconstr Surg, 1992",
-"Kikkawa DO, Lemke BN, Dortzbach RK, SMAS relations to the orbit and the orbitomalar ligament, Ophthal Plast Reconstr Surg, 1996",
-"Knize DM, an anatomically based study of the mechanism of eyebrow ptosis, Plast Reconstr Surg, 1996",
-"Moss CJ, Mendelson BC, Taylor GI, ligamentous attachments of the temple and periorbital regions, Plast Reconstr Surg, 2000",
-"Mendelson BC, Muzaffar AR, Adams WP, surgical anatomy of the midcheek and malar mounds, Plast Reconstr Surg, 2002",
-"Ghassemi A, Prescher A, Riediger D, Axer H, Anatomy of the SMAS revisited, Aesthetic Plast Surg, 2003",
-"Gardetto A et al., tissue-plastination study of the SMAS, Plast Reconstr Surg, 2003",
-"Rohrich RJ, Pessa JE, The fat compartments of the face, Plast Reconstr Surg, 2007",
-"Rohrich RJ, Pessa JE, Ristow B, The youthful cheek and the deep medial fat compartment, Plast Reconstr Surg, 2008",
-"Lambros V, Observations on periorbital and midface aging, Plast Reconstr Surg, 2007",
-"Shaw RB, Kahn DM, Aging of the midface bony elements: a three-dimensional computed tomographic study, Plast Reconstr Surg, 2007",
-"Reece EM, Pessa JE, Rohrich RJ, The mandibular septum: anatomy of the jowl in aging, Plast Reconstr Surg, 2008",
-"Mendelson BC et al., Surgical anatomy of the lower face: the premasseter space, the jowl, and the labiomandibular fold, Aesthetic Plast Surg, 2008",
-"Mendelson BC, Jacobson SR, Surgical anatomy of the midcheek: facial layers, spaces, and the midcheek segments, Clin Plast Surg, 2008",
-"Haddock NT et al., The tear trough and lid/cheek junction: anatomy and implications for surgical correction, Plast Reconstr Surg, 2009",
-"Hirmand H, Anatomy and nonsurgical correction of the tear trough deformity, Plast Reconstr Surg, 2010",
-"Wong CH, Hsieh MKH, Mendelson B, The tear trough ligament: anatomical basis for the tear trough deformity, Plast Reconstr Surg, 2012",
-"Gierloff M et al., CT study of aging of the midfacial fat compartments, Plast Reconstr Surg, 2012",
-"Mendelson B, Wong CH, Changes in the facial skeleton with aging, Aesthetic Plast Surg, 2012",
-"Alghoul M, Codner MA, Retaining ligaments of the face: review of anatomy and clinical applications, Aesthet Surg J, 2013",
-"Pessa JE, Rohrich RJ, Facial Topography: Clinical Anatomy of the Face, 2012"
-]}
+{
+ "topic": "smas-ligaments",
+ "sources": [
+  {
+   "n": 1,
+   "title": "The Surgical Anatomy of the Jowl and the Mandibular Ligament Reassessed (Minelli et al.)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36050569/",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 2,
+   "title": "Aesthetic Plastic Surgery s00266-022-02996-3 (Minelli et al.; probably the same paper as [1])",
+   "url": "https://link.springer.com/article/10.1007/s00266-022-02996-3",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 3,
+   "title": "The layered anatomy of the jawline",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30091282/",
+   "kind": "paper",
+   "year": "2018"
+  },
+  {
+   "n": 4,
+   "title": "Platysma anatomy (PMC10702465, as surfaced)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10702465",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 5,
+   "title": "The Labiomandibular Fold Anatomy for Comprehensive Lower Facial Rejuvenation: A Micro-Computed Tomography Investigation",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39806136",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 6,
+   "title": "A key of facial muscle aging: locational changes in modiolus measured with ultrasonography",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41433716/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 7,
+   "title": "Aesthetic Plastic Surgery s00266-025-04696-0 (modiolus 'false ligament' cadaver study)",
+   "url": "https://link.springer.com/article/10.1007/s00266-025-04696-0",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 8,
+   "title": "Discovery of the Ligament of Modiolus: Anatomical Insights and Clinical Relevance",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39900721/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 9,
+   "title": "Heights and spatial relationships of the facial muscles acting on the nasolabial fold by dissection and 3D microCT",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499",
+   "kind": "paper",
+   "year": "unconfirmed (harvest says 2024; PMC ID suggests ~2020)"
+  },
+  {
+   "n": 10,
+   "title": "Nasolabial fold dissection study (Snider et al.), Aesthetic Plastic Surgery",
+   "url": "https://link.springer.com/article/10.1007/s00266-017-0889-9",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 11,
+   "title": "Nasolabial fold article, Aesthetic Plastic Surgery",
+   "url": "https://link.springer.com/article/10.1007/s00266-019-01555-7",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "n": 12,
+   "title": "The Aging Process of Facial Muscles",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41413726/",
+   "kind": "review",
+   "year": "2025"
+  },
+  {
+   "n": 13,
+   "title": "The Aging Process of Facial Muscles (PMC record; probably the same review as [12])",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12715075/",
+   "kind": "review",
+   "year": "2025"
+  },
+  {
+   "n": 14,
+   "title": "Anatomy, Head and Neck: Orbicularis Oculi Muscle (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK441907/",
+   "kind": "medical-reference",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "Anatomy of the Orbit",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Ultrasonographic analysis of facial skin thickness in relation to age, site, sex, and body mass index",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "Quantitative Analysis of the Human Face Skin Thickness: A High-Frequency Ultrasound Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 18,
+   "title": "Layer-specific facial soft-tissue thickness in 1174 Chinese adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42385786/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 19,
+   "title": "The facial soft tissue thickness related facial reconstruction by ultrasonographic imaging: A review",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0379073822001955",
+   "kind": "review",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "An Expert Guide to Anatomy-Based Filler Injection for the Temple",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11856534/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 21,
+   "title": "The Deep Fascia of the Head and Neck Revisited: Relationship with the Facial Nerve (surfaced, not read)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11104498/",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 22,
+   "title": "Anatomic characteristics of the infraorbital foramen: a cadaver study",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10981979/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "Morphological and Morphometric Relations of Infraorbital Foramen in North Indian Population",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "The Tear Trough Ligament: Anatomical Basis for the Tear Trough Deformity (Wong, Hsieh, Mendelson)",
+   "url": "https://journals.lww.com/plasreconsurg/abstract/2012/06000/the_tear_trough_ligament__anatomical_basis_for_the.30.aspx",
+   "kind": "paper",
+   "year": "2012"
+  },
+  {
+   "n": 25,
+   "title": "Detailed anatomy of the retaining ligaments of the mandible for facial rejuvenation",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/27427339/",
+   "kind": "paper",
+   "year": "2016"
+  },
+  {
+   "n": 26,
+   "title": "Anatomo-radiological study of the superficial musculo-aponeurotic system of the face",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/18333409/",
+   "kind": "paper",
+   "year": "2008"
+  }
+ ],
+ "provenance_note": "This topic's own harvest (_raw/harvests/smas-ligaments.json) and earlier draft were absent; all URLs were taken from sibling harvests in this library (muscles-lower-face, muscles-mid-face, muscles-upper-face, muscles-mastication-jaw, skull-osteology, soft-tissue-thickness). Facts rest on search snippets.",
+ "references_by_name": [
+  "Mitz V, Peyronie M, the SMAS in the parotid and cheek area, Plast Reconstr Surg, 1976",
+  "Jost G, Levet Y, Parotid fascia and face lifting: a critical evaluation of the SMAS concept, Plast Reconstr Surg, 1984",
+  "Freilinger G et al., surgical anatomy of the mimic muscle system and the facial nerve, Plast Reconstr Surg, 1987",
+  "Furnas DW, The retaining ligaments of the cheek, Plast Reconstr Surg, 1989",
+  "Stuzin JM, Baker TJ, Gordon HL, the relationship of the superficial and deep facial fascias, Plast Reconstr Surg, 1992",
+  "Kikkawa DO, Lemke BN, Dortzbach RK, SMAS relations to the orbit and the orbitomalar ligament, Ophthal Plast Reconstr Surg, 1996",
+  "Knize DM, an anatomically based study of the mechanism of eyebrow ptosis, Plast Reconstr Surg, 1996",
+  "Moss CJ, Mendelson BC, Taylor GI, ligamentous attachments of the temple and periorbital regions, Plast Reconstr Surg, 2000",
+  "Mendelson BC, Muzaffar AR, Adams WP, surgical anatomy of the midcheek and malar mounds, Plast Reconstr Surg, 2002",
+  "Ghassemi A, Prescher A, Riediger D, Axer H, Anatomy of the SMAS revisited, Aesthetic Plast Surg, 2003",
+  "Gardetto A et al., tissue-plastination study of the SMAS, Plast Reconstr Surg, 2003",
+  "Rohrich RJ, Pessa JE, The fat compartments of the face, Plast Reconstr Surg, 2007",
+  "Rohrich RJ, Pessa JE, Ristow B, The youthful cheek and the deep medial fat compartment, Plast Reconstr Surg, 2008",
+  "Lambros V, Observations on periorbital and midface aging, Plast Reconstr Surg, 2007",
+  "Shaw RB, Kahn DM, Aging of the midface bony elements: a three-dimensional computed tomographic study, Plast Reconstr Surg, 2007",
+  "Reece EM, Pessa JE, Rohrich RJ, The mandibular septum: anatomy of the jowl in aging, Plast Reconstr Surg, 2008",
+  "Mendelson BC et al., Surgical anatomy of the lower face: the premasseter space, the jowl, and the labiomandibular fold, Aesthetic Plast Surg, 2008",
+  "Mendelson BC, Jacobson SR, Surgical anatomy of the midcheek: facial layers, spaces, and the midcheek segments, Clin Plast Surg, 2008",
+  "Haddock NT et al., The tear trough and lid/cheek junction: anatomy and implications for surgical correction, Plast Reconstr Surg, 2009",
+  "Hirmand H, Anatomy and nonsurgical correction of the tear trough deformity, Plast Reconstr Surg, 2010",
+  "Wong CH, Hsieh MKH, Mendelson B, The tear trough ligament: anatomical basis for the tear trough deformity, Plast Reconstr Surg, 2012",
+  "Gierloff M et al., CT study of aging of the midfacial fat compartments, Plast Reconstr Surg, 2012",
+  "Mendelson B, Wong CH, Changes in the facial skeleton with aging, Aesthetic Plast Surg, 2012",
+  "Alghoul M, Codner MA, Retaining ligaments of the face: review of anatomy and clinical applications, Aesthet Surg J, 2013",
+  "Pessa JE, Rohrich RJ, Facial Topography: Clinical Anatomy of the Face, 2012"
+ ]
+}

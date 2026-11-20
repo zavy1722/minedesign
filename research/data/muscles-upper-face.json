@@ -36,7 +36,7 @@
    "columns": ["quantity", "low", "high", "typical", "notes", "status"],
    "rows": [
     ["frontalis thickness", 1.0, 2.5, null, "ultrasound; identity of hypoechoic layer disputed (PMC11635371)", "contested"],
-    ["corrugator lateral reach from midline", 25, 45, 35, "approx. mid-pupillary line; insertion variants across references", "contested"],
+    ["corrugator lateral reach from midline", 25, 45, 35, "approx. mid-pupillary line; insertion variants across references; Janis 2007 lateralmost insertion 43.3 mm from nasion [50]; Yang & Kim 2013 basal point 35.3 mm from midline [51]", "contested"],
     ["corrugator belly thickness", 1, 3, null, "thickest medially", "knowledge"],
     ["forehead horizontal line count", 2, 6, null, "count, not mm", "contested"],
     ["forehead line spacing", 6, 15, null, "consistent with skin-wrinkles-microdetail data", "contested"],

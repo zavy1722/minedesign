@@ -1,0 +1,294 @@
+{
+ "topic": "nose",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Nobel Biocare: Definition of 3D cephalometric soft tissue landmarks",
+   "url": "https://nobellicense.nobelbiocare.com/help/d3d046fb-52e8-4b33-9f51-d3fd98ca3ed4/2.0/EN/3D_cephalometric_soft_tissue_landmarks.htm",
+   "kind": "commercial docs",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "Facial Anthropometry and Analysis in Egyptian Women",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Clinical Equivalence of a CNN-Based Automated Soft Tissue Landmark Detection System on 2D Facial Images",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13205844/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "Facial Landmarks Determination with Different Digital Scanners: An In Vivo Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "PMC12334920 Table 1 (landmark definitions)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Columbia anatomy craniology slides",
+   "url": "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+   "kind": "teaching slides",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Taylor & Francis chapter on frontal bone (search snippet)",
+   "url": "https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Piriform aperture / nasal study (PMC)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/5017614",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "USP thesis: CBCT study of piriform aperture and nasal breadth",
+   "url": "https://teses.usp.br/teses/disponiveis/23/23153/tde-24052016-115026/fr.php",
+   "kind": "thesis",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Appraisal of traditional and recently proposed relationships between the hard and soft dimensions of the nose in profile (LJMU)",
+   "url": "https://researchonline.ljmu.ac.uk/id/eprint/5340/3/Appraisal%20of%20traditional%20and%20recently%20proposed%20relationships%20between%20the%20hard%20and%20soft%20dimensions%20of%20the%20nose%20in%20profile.pdf",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "A computerized facial approximation method based on facial soft tissue thickness depths and geometric morphometrics",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10557396/",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 12,
+   "title": "Global facial soft tissue thicknesses for craniofacial identification (2023) (via `skull-osteology.md`)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/",
+   "kind": "review",
+   "year": "2023"
+  },
+  {
+   "n": 13,
+   "title": "Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Sex, age, and BMI influence on facial soft tissue thickness in a Thai population above middle age (ultrasound)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 15,
+   "title": "Analysis of the nasal bone and nasal pyramid by three-dimensional computed tomography (via `skull-osteology.md`)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/17929046/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Craniofacial anthropometric investigation of relationships between the nose and nasal aperture using 3D CT of Korean subjects (via `skull-osteology.md`)",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7527952/",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 17,
+   "title": "Regression analysis of nasal shape from juvenile to adult ages for forensic facial reconstruction (via `skull-osteology.md`)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38065055/",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 18,
+   "title": "Evaluation of Facial Asymmetry Determined by Linear Measurements According to Hand Preference and Gender",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12500730/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 19,
+   "title": "Three-dimensional photographic analysis of the face in European adults from southern Spain with normal occlusion",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "Anthropometric Study of Three-Dimensional Facial Morphology in Malay Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "Evaluation of soft-tissue morphology of the face in 1,050 young adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10096619/",
+   "kind": "paper",
+   "year": "1999"
+  },
+  {
+   "n": 22,
+   "title": "Al-Sebaei, validity of three neo-classical facial canons in young adults from the Arabian Peninsula (full text)",
+   "url": "https://head-face-med.biomedcentral.com/articles/10.1186/s13005-015-0064-y",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 23,
+   "title": "Same study, PubMed record (not independent of [22])",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25889948/",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 24,
+   "title": "StatPearls: Anatomy, Head and Neck: Facial Muscles",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK493209/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 25,
+   "title": "Cleveland Clinic: Facial muscles",
+   "url": "https://my.clevelandclinic.org/health/body/21672-facial-muscles",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 26,
+   "title": "Accessing the LLSAN Muscle for the Treatment of Infraorbital Dimples: Case Report",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12641590/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 27,
+   "title": "Correction of Alar Base Retraction by LLSAN Dissection and Alar Rim Grafting",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9951819/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 28,
+   "title": "Procerus muscle (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Procerus_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "Procerus muscle (Elsevier anatomy)",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/procerus-muscle/18373",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 30,
+   "title": "Procerus muscle (Kenhub)",
+   "url": "https://www.kenhub.com/en/library/anatomy/procerus-muscle",
+   "kind": "educational",
+   "year": "n.d."
+  },
+  {
+   "n": 31,
+   "title": "StatPearls: Anatomy, Head and Neck: Glabella",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK555993/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 32,
+   "title": "PyImageSearch: Detect eyes, nose, lips, and jaw with dlib",
+   "url": "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/",
+   "kind": "blog",
+   "year": "2017"
+  },
+  {
+   "n": 33,
+   "title": "PyImageSearch: (Faster) facial landmark detector with dlib",
+   "url": "https://pyimagesearch.com/2018/04/02/faster-facial-landmark-detector-with-dlib/",
+   "kind": "blog",
+   "year": "2018"
+  },
+  {
+   "n": 34,
+   "title": "Digital Trends: lens geometry for portraits",
+   "url": "https://www.digitaltrends.com/photography/lens-geometry-portraits/",
+   "kind": "blog",
+   "year": "n.d."
+  },
+  {
+   "n": 35,
+   "title": "PhotographyLife: does focal length distort subjects",
+   "url": "https://photographylife.com/does-focal-length-distort-subjects",
+   "kind": "blog",
+   "year": "n.d."
+  },
+  {
+   "n": 36,
+   "title": "Bengal-HP_RU: A Dataset of Bengal People For Head Pose Estimation",
+   "url": "https://arxiv.org/pdf/2606.24122",
+   "kind": "preprint",
+   "year": "2026"
+  },
+  {
+   "n": 37,
+   "title": "NIH Elements of Morphology: Anatomy of the Philtrum",
+   "url": "https://elementsofmorphology.nih.gov/anatomy-philtrum.shtml",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 38,
+   "title": "Soft-tissue thickness of South Korean adults with normal facial profiles (via `skull-osteology.md`)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 39,
+   "title": "Morphometric Study of Nasal Bone and Piriform Aperture in Human Dry Skull of Indian Origin (via `skull-osteology.md`)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/26894050/",
+   "kind": "paper",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994; Farkas LG, Kolar JC & Munro IR, \"Geography of the nose: a morphometric study\", *Aesthetic Plast Surg*, 1986; Farkas LG et al., international anthropometric study of facial morphology across ethnic groups, *J Craniofac Surg*, 2005.",
+  "Powell N & Humphreys B, *Proportions of the Aesthetic Face*, 1984.",
+  "Crumley RL & Lanser M, \"Quantitative analysis of nasal tip projection\", *Laryngoscope*, 1988.",
+  "Byrd HS & Hobar PC, \"Rhinoplasty: a practical guide for surgical planning\", *Plast Reconstr Surg*, 1993.",
+  "Gunter JP, Rohrich RJ & Friedman RM, \"Classification and correction of alar–columellar discrepancies in rhinoplasty\", *Plast Reconstr Surg*, 1996.",
+  "Sheen JH & Sheen AP, *Aesthetic Rhinoplasty*, 1987; Toriumi DM, \"New concepts in nasal tip contouring\", *Arch Facial Plast Surg*, 2006.",
+  "Rohrich RJ, Adams WP, Ahmad J & Gunter JP (eds), *Dallas Rhinoplasty: Nasal Surgery by the Masters*; Daniel RK, *Mastering Rhinoplasty*.",
+  "Lessard ML & Daniel RK, \"Surgical anatomy of septorhinoplasty\", *Arch Otolaryngol*, 1985.",
+  "Leong SC & White PS, comparison of the healthy Caucasian nose with aesthetic ideals, *J Plast Reconstr Aesthet Surg*, 2006.",
+  "Ward B, Ward M, Fried O & Paskhover B, \"Nasal distortion in short-distance photographs: the selfie effect\", *JAMA Facial Plast Surg*, 2018.",
+  "Adhikari K et al., \"A genome-wide association scan implicates DCHS2, RUNX2, GLI3, PAX1 and EDAR in human facial variation\", *Nat Commun*, 2016; Zaidi AA et al., \"Investigating the case of human nose shape and climate adaptation\", *PLoS Genet*, 2017.",
+  "Rynn C, Wilkinson CM & Peters HL, \"Prediction of nasal morphology from the skull\", *Forensic Sci Med Pathol*, 2010; Stephan CN, Henneberg M & Sampson W, pronasale prediction, *Am J Phys Anthropol*, 2003.",
+  "Ekman P, Friesen WV & Hager JC, *Facial Action Coding System* manual, 2002."
+ ],
+ "notes": "No nose-specific harvest or earlier draft existed; URLs are reused from sibling harvests in research/_raw/harvests and from anatomy/skull-osteology.md (marked 'via' in titles). [22] and [23] are the same study."
+}

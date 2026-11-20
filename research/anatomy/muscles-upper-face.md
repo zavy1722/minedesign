@@ -1,7 +1,7 @@
 # Muscles of the upper face
 
 > Frontalis, anchored to the galea with no bony attachment, is the only brow elevator; corrugator, depressor supercilii, procerus and orbital orbicularis oculi all lower the brow, and levator palpebrae superioris (with Müller's muscle) opens the lid against palpebral orbicularis. For likeness their balance sets resting brow and lid position, their fibre directions predict every dynamic line, and their activity (compensatory brow raising, squint, gaze-dependent lid height) is the main contaminant of a "neutral" photo. Attachments are stable except in details that are still disputed. Measured muscle dimensions are scarce, so most numeric priors here are expert knowledge.
-Evidence status: 13 ✅ / 25 📄 / 57 🧠 / 25 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 13 ✅ / 26 📄 / 56 🧠 / 25 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -71,7 +71,7 @@ Evidence status: 13 ✅ / 25 📄 / 57 🧠 / 25 ↔️ — 🧠 items are queue
 | Quantity | Typical | Notes | Status |
 |---|---|---|---|
 | Frontalis thickness | ≈ 1–2.5 mm | ultrasound; layer identity disputed [46] | ↔️ |
-| Corrugator lateral reach from midline | ≈ 25–45 mm (≈ mid-pupil) | insertion variants [9][11][12] | ↔️ |
+| Corrugator lateral reach from midline | ≈ 25–45 mm (≈ mid-pupil) | insertion variants [9][11][12]; Janis 2007 lateralmost insertion ≈ 43.3 mm from nasion, 7.6 mm medial to lateral orbital rim [50]; Yang & Kim 2013 basal point ≈ 35.3 mm from midline [51] | ↔️ |
 | Corrugator belly thickness | ≈ 1–3 mm, thickest medially | | 🧠 |
 | Forehead lines | 2–6 lines, 6–15 mm apart | as `skin-wrinkles-microdetail.md` | ↔️ |
 | Glabellar vertical lines | 1–3 per side, pair 8–15 mm apart | | ↔️ |
@@ -82,7 +82,7 @@ Evidence status: 13 ✅ / 25 📄 / 57 🧠 / 25 ↔️ — 🧠 items are queue
 | Levator excursion (lid travel down-gaze → up-gaze) | 12–18 mm normal; < 5 mm poor | | 🧠 |
 | Müller's contribution | ≈ 2 mm (Horner ptosis 1–2 mm) | | 🧠 |
 | Upper / lower tarsus height | ≈ 8–12 / 3.5–5 mm | upper shorter in East Asian lids | 🧠 |
-| Upper-lid crease above lashes | European women ≈ 8–11, men ≈ 6–9 mm; East Asian ≈ 2–6 mm or absent | | ↔️ |
+| Upper-lid crease above lashes | European women ≈ 8–11, men ≈ 6–9 mm; East Asian ≈ 2–6 mm or absent | contested: Caucasian 7.3 (F) / 6.9 (M) mm (Cartwright, secondary table [47]); Chinese ≈ 4.0–6.1 mm [47]; women range ≈ 7–11, men ≈ 6–9 | ↔️ |
 | MRD1 / MRD2 | 4–5 / ≈ 5 mm | as `eyes-modeling-blender.md` | 🧠 |
 | Lateral canthus above medial | ≈ 1–3 mm | varies with ancestry, age | ↔️ |
 
@@ -131,7 +131,7 @@ Mappings agree with `anatomy/facs-expressions.md`.
 
 - **Landmarks.** Extend `face3d/synthetic.py` (`brow_inner`, `brow_outer`, `glabella`, `nasion`, canthi, `pupil`) with `brow_peak_L/R`, `upper_lid_apex_L/R`, `lower_lid_nadir_L/R`, `crease_apex_L/R` and a bone-layer `supraorbitale_L/R`.
   - Treat brows as hair: σ 3–5 mm for bone, as in `forehead-brow-temple-hairline.md`.
-  - MediaPipe indices (0-based, verify): brows 70/63/105/66/107 and 300/293/334/296/336; lids 159/145 and 386/374; iris 468/473 🧠.
+  - MediaPipe indices (0-based, verify): lids 159/145 and 386/374 [48][49] 📄 (eye-contour points; left/right labelling conventions differ between sources); brows 70/63/105/66/107 and 300/293/334/296/336 and iris 468/473 🧠 (brow set 70/63/105/66/107 appears in a developer guide, side labelling conflicts; print `FACEMESH_*` constants in the installed version).
 - **Expression basis along fibres.** Give each AU a vertex mask plus a displacement field along its muscle line (Table 3) 🧠:
   - frontalis: +y, peaking at the brow and falling to zero at a per-subject `galea_junction_height`, with `frontalis_upper_mobility` ∈ [0, 1] and a prior skewed low [5];
   - corrugator: insertion moves toward origin, ≈ (−0.93, −0.34, +0.1) on the left side;
@@ -216,6 +216,11 @@ Mappings agree with `anatomy/facs-expressions.md`.
 [44] Facial Muscles – Upper Group (Physiopedia) — https://www.physio-pedia.com/Facial_Muscles_-_Upper_Group — educational reference — n.d.
 [45] Muscle- and Gland-Specific Dosing of Botulinum Toxin in Facial Aesthetics (dosing review) — https://pmc.ncbi.nlm.nih.gov/articles/PMC13709392 — review — n.d. (2026 per muscles-lower-face harvest)
 [46] Forehead ultrasound layer study (title not captured) — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11635371/ — paper — n.d.
+[47] Eyelid anthropometry review tables (upper eyelid crease height by ethnicity; cites Cartwright et al.) — https://pmc.ncbi.nlm.nih.gov/articles/PMC5665901/table/Tab2 — paper table — n.d.
+[48] MediaPipe face-mesh constants (Hugging Face mp_constants.py) — https://huggingface.co/spaces/Akjava/mediapipe-face-skin-transform/blob/refs%2Fpr%2F1/mp_constants.py — code — n.d.
+[49] MediaPipe face mesh landmark indices cheat sheet (HackerNoon) — https://hackernoon.com/mediapipe-face-mesh-landmark-indices-cheat-sheet — developer guide — n.d.
+[50] Anatomy of the Corrugator Supercilii Muscle: Part I. Corrugator Topography (Janis et al., 2007; record) — https://bvbvf1.bib-bvb.de/vufind/PrimoRecord/cdi_proquest_miscellaneous_68538918 — paper — 2007
+[51] Corrugator supercilii cadaver study (Yang & Kim 2013) — https://link.springer.com/article/10.1007/s00276-013-1174-5 — paper — 2013
 
 **Further reading (by name, not yet linked)**
 - Standring S (ed.), *Gray's Anatomy: The Anatomical Basis of Clinical Practice*, recent editions.
@@ -233,3 +238,10 @@ Mappings agree with `anatomy/facs-expressions.md`.
 - Borges AF, work on relaxed skin tension lines, 1980s.
 - Faigin G, *The Artist's Complete Guide to Facial Expression*, 1990.
 - Zarins U, *Anatomy of Facial Expression* (Anatomy for Sculptors), 2017.
+
+## Verification log (2026-11-20)
+
+- **Upper-lid crease heights** — contested. Caucasian 7.3 mm (F) / 6.9 mm (M) from Cartwright via a secondary table; Chinese ≈ 4.0–6.1 mm; no source found for 8–11 mm women. Priors left as is, flagged ↔️. https://pmc.ncbi.nlm.nih.gov/articles/PMC5665901/table/Tab2
+- **Max brow raise 5–15 mm / AU4 travel 2–6 mm** — unconfirmed. No source gave frontalis excursion in mm (Guihard et al. PMC8890869 full text is the lead; not read). Stays 🧠. https://pmc.ncbi.nlm.nih.gov/articles/PMC8890869
+- **MediaPipe indices** — lid points 159/145 and 386/374 confirmed as eye-contour points (📄); brow, canthi and iris indices not confirmed by a citable source. https://huggingface.co/spaces/Akjava/mediapipe-face-skin-transform/blob/refs%2Fpr%2F1/mp_constants.py ; https://hackernoon.com/mediapipe-face-mesh-landmark-indices-cheat-sheet
+- **Corrugator lateral reach 25–45 mm** — contested. Janis 2007: lateralmost insertion ≈ 43.3 mm from nasion; Yang & Kim 2013: basal point ≈ 35.3 mm from midline; mid-pupillary claim not confirmed. https://bvbvf1.bib-bvb.de/vufind/PrimoRecord/cdi_proquest_miscellaneous_68538918 ; https://link.springer.com/article/10.1007/s00276-013-1174-5

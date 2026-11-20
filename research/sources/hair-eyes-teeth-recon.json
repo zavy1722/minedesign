@@ -1,6 +1,22 @@
 {
  "topic": "hair-eyes-teeth-recon",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "title": "DiffLocks: Generating 3D Hair from a Single Image using Diffusion Models (arXiv 2505.06166)",
+   "url": "https://arxiv.org/abs/2505.06166v1"
+  },
+  {
+   "n": 2,
+   "title": "DiffLocks, CVPR 2025 open access page",
+   "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Rosu_DiffLocks_Generating_3D_Hair_from_a_Single_Image_using_Diffusion_CVPR_2025_paper.html"
+  },
+  {
+   "n": 3,
+   "title": "DiffLocks software licence (non-commercial; commercial via Meshcapade)",
+   "url": "https://difflocks.is.tue.mpg.de/license.html"
+  }
+ ],
  "references_by_name": [
   "Paris, Briceno & Sillion, 'Capture of Hair Geometry from Multiple Images', SIGGRAPH 2004",
   "Paris et al., 'Hair Photobooth: Geometric and Photometric Acquisition of Real Hairstyles', SIGGRAPH 2008",

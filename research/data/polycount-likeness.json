@@ -4,40 +4,196 @@
     {
       "name": "critique_verdict_to_measurable_check",
       "units": "mm unless stated; ratios dimensionless; angles in degrees; neck circumference in cm",
-      "columns": ["verdict", "measure", "typical_low", "typical_high", "typical_note", "flag_rule", "row_status"],
+      "columns": [
+        "verdict",
+        "measure",
+        "typical_low",
+        "typical_high",
+        "typical_note",
+        "flag_rule",
+        "row_status"
+      ],
       "rows": [
-        ["lens_mismatch", "nose_tip_vs_tragion_magnification (1 + d/Z, d ~ 100 mm)", 1.0, 1.07, "Z >= 1.5 m gives <= 1.07; Z = 0.5 m gives 1.20", "render Z differs from photo Z by > 25%, or photo Z < 0.8 m", "knowledge"],
-        ["eyes_too_big", "iris_diameter_HVID_mm", 11.2, 12.2, "11.7 +/- 0.5 mm", "iris / en-ex outside 0.34-0.44", "knowledge"],
-        ["eyes_popping", "cornea_apex_ahead_of_lateral_orbital_rim_mm (Hertel)", 12, 20, "L-R difference <= 2 mm", "outside range or L-R > 2 mm", "contested"],
-        ["staring", "upper_lid_cover_of_iris_mm", 1, 2, "MRD1 4-5 mm", "sclera visible above iris without photo support", "knowledge"],
-        ["paper_lids", "upper_lid_margin_thickness_mm", 1.5, 2.5, "", "< 1 mm", "knowledge"],
-        ["mouth_too_wide", "ch_ch_over_IPD", 0.78, 0.90, "IPD 63 +/- 3.5 mm", ">= 1.0 at rest", "knowledge"],
-        ["lips_stuck_on", "cheilion_behind_labrale_superius_mm (profile)", 15, 20, "uncertain value", "< 10 mm", "contested"],
-        ["nose_wrong", "al_al_over_en_en", 1.0, 1.3, "strongly ancestry-dependent", "outside 0.9-1.4", "contested"],
-        ["ears_too_low", "tragion_height_minus_orbitale_height_mm (Frankfort)", -8, 8, "approximately level", "|offset| > 8 mm after pitch solved", "knowledge"],
-        ["ears_too_upright", "ear_long_axis_tilt_from_vertical_deg", 10, 30, "mean ~20 deg", "< 5 deg", "knowledge"],
-        ["skull_too_small", "head_length_g_op_mm", 175, 205, "breadth eu-eu 140-160 mm", "g-op short vs profile photo", "contested"],
-        ["neck_too_thin_male", "neck_circumference_cm", 36, 42, "", "below range without photo support", "knowledge"],
-        ["neck_too_thin_female", "neck_circumference_cm", 30, 36, "", "below range without photo support", "knowledge"],
-        ["too_symmetric", "whole_face_mirror_RMSD_mm", 0.8, 0.8, "library value from anatomy/facial-asymmetry.md", "< 0.3 mm", "knowledge"]
+        [
+          "lens_mismatch",
+          "nose_tip_vs_tragion_magnification (1 + d/Z, d ~ 100 mm)",
+          1.0,
+          1.07,
+          "Z >= 1.5 m gives <= 1.07; Z = 0.5 m gives 1.20",
+          "render Z differs from photo Z by > 25%, or photo Z < 0.8 m",
+          "knowledge"
+        ],
+        [
+          "eyes_too_big",
+          "iris_diameter_HVID_mm",
+          11.2,
+          12.2,
+          "11.7 +/- 0.5 mm",
+          "iris / en-ex outside 0.34-0.44",
+          "knowledge"
+        ],
+        [
+          "eyes_popping",
+          "cornea_apex_ahead_of_lateral_orbital_rim_mm (Hertel)",
+          12,
+          20,
+          "L-R difference <= 2 mm",
+          "outside range or L-R > 2 mm",
+          "contested"
+        ],
+        [
+          "staring",
+          "upper_lid_cover_of_iris_mm",
+          1,
+          2,
+          "MRD1 3.5-4.5 mm in sources",
+          "sclera visible above iris without photo support",
+          "contested"
+        ],
+        [
+          "paper_lids",
+          "upper_lid_margin_thickness_mm",
+          1.5,
+          2.5,
+          "",
+          "< 1 mm",
+          "knowledge"
+        ],
+        [
+          "mouth_too_wide",
+          "ch_ch_over_IPD",
+          0.78,
+          0.9,
+          "IPD 63 +/- 3.5 mm",
+          ">= 1.0 at rest",
+          "knowledge"
+        ],
+        [
+          "lips_stuck_on",
+          "cheilion_behind_labrale_superius_mm (profile)",
+          15,
+          20,
+          "uncertain value",
+          "< 10 mm",
+          "contested"
+        ],
+        [
+          "nose_wrong",
+          "al_al_over_en_en",
+          1.0,
+          1.3,
+          "strongly ancestry-dependent",
+          "outside 0.9-1.4",
+          "contested"
+        ],
+        [
+          "ears_too_low",
+          "tragion_height_minus_orbitale_height_mm (Frankfort)",
+          -8,
+          8,
+          "approximately level",
+          "|offset| > 8 mm after pitch solved",
+          "knowledge"
+        ],
+        [
+          "ears_too_upright",
+          "ear_long_axis_tilt_from_vertical_deg",
+          10,
+          30,
+          "mean ~20 deg",
+          "< 5 deg",
+          "contested"
+        ],
+        [
+          "skull_too_small",
+          "head_length_g_op_mm",
+          175,
+          205,
+          "breadth eu-eu 140-160 mm",
+          "g-op short vs profile photo",
+          "contested"
+        ],
+        [
+          "neck_too_thin_male",
+          "neck_circumference_cm",
+          36,
+          42,
+          "",
+          "below range without photo support",
+          "knowledge"
+        ],
+        [
+          "neck_too_thin_female",
+          "neck_circumference_cm",
+          30,
+          36,
+          "",
+          "below range without photo support",
+          "knowledge"
+        ],
+        [
+          "too_symmetric",
+          "whole_face_mirror_RMSD_mm",
+          0.8,
+          0.8,
+          "library value from anatomy/facial-asymmetry.md",
+          "< 0.3 mm",
+          "knowledge"
+        ]
       ],
       "population": "adults, neutral face; mostly European-derived norms; broad ranges",
-      "source_urls": [],
+      "source_urls": [
+        "https://eyewiki.aao.org/Exophthalmometry",
+        "https://eyewiki.aao.org/Margin_to_Reflex_Distance_1,2,3",
+        "https://banglajol.info/index.php/JNINB/article/view/59937/41251"
+      ],
       "status": "knowledge",
-      "notes": "Synthesis of recurring Polycount-style likeness critiques mapped to measurable checks. Values aligned with community/likeness-mistakes.md Table A. Use as lint thresholds, not as priors for a specific person; flag only deviations not supported by photos."
+      "notes": "Synthesis of recurring Polycount-style likeness critiques mapped to measurable checks. Values aligned with community/likeness-mistakes.md Table A. Use as lint thresholds, not as priors for a specific person; flag only deviations not supported by photos. Verified 2026-11-20: Hertel (8-23 mm), MRD1 (3.5-4.5 mm) and ear tilt (15-25 deg) are population-dependent; other rows unconfirmed."
     },
     {
       "name": "subdivision_ladder",
       "units": "quad face counts (exact arithmetic, x4 per level from a 2000-quad base)",
-      "columns": ["level", "quads", "fix_at_this_level"],
+      "columns": [
+        "level",
+        "quads",
+        "fix_at_this_level"
+      ],
       "rows": [
-        [0, 2000, "cranium length and breadth, face height, jaw width, neck"],
-        [1, 8000, "placement: orbits, nose mass, mouth barrel, ear position"],
-        [2, 32000, "feature shapes: lids, alae, vermilion border, helix"],
-        [3, 128000, "soft tissue: nasolabial fold, malar fat, tear trough, lid folds, age"],
-        [4, 512000, "wrinkles and creases"],
-        [5, 2048000, "pores and micro-skin"],
-        [6, 8192000, "pores and micro-skin (often from scans or tiling skin maps)"]
+        [
+          0,
+          2000,
+          "cranium length and breadth, face height, jaw width, neck"
+        ],
+        [
+          1,
+          8000,
+          "placement: orbits, nose mass, mouth barrel, ear position"
+        ],
+        [
+          2,
+          32000,
+          "feature shapes: lids, alae, vermilion border, helix"
+        ],
+        [
+          3,
+          128000,
+          "soft tissue: nasolabial fold, malar fat, tear trough, lid folds, age"
+        ],
+        [
+          4,
+          512000,
+          "wrinkles and creases"
+        ],
+        [
+          5,
+          2048000,
+          "pores and micro-skin"
+        ],
+        [
+          6,
+          8192000,
+          "pores and micro-skin (often from scans or tiling skin maps)"
+        ]
       ],
       "population": "n/a (workflow guidance)",
       "source_urls": [],
@@ -47,12 +203,37 @@
     {
       "name": "realtime_head_budgets",
       "units": "triangles at LOD0 (head); texture resolution in pixels",
-      "columns": ["use", "tris_low", "tris_high", "texturing"],
+      "columns": [
+        "use",
+        "tris_low",
+        "tris_high",
+        "texturing"
+      ],
       "rows": [
-        ["PS3/360-era hero head", 3000, 8000, "1-2k maps"],
-        ["PS4/XB1-era hero head", 10000, 30000, "2-4k plus detail normal"],
-        ["current-gen hero / cinematic head", 30000, 100000, "4k-8k or UDIMs plus tiling micro-normal"],
-        ["MetaHuman LOD0 face", null, null, "tens of thousands of vertices; exact count to verify"]
+        [
+          "PS3/360-era hero head",
+          3000,
+          8000,
+          "1-2k maps"
+        ],
+        [
+          "PS4/XB1-era hero head",
+          10000,
+          30000,
+          "2-4k plus detail normal"
+        ],
+        [
+          "current-gen hero / cinematic head",
+          30000,
+          100000,
+          "4k-8k or UDIMs plus tiling micro-normal"
+        ],
+        [
+          "MetaHuman LOD0 face",
+          null,
+          null,
+          "tens of thousands of vertices; exact count to verify"
+        ]
       ],
       "population": "game-art practice; orders of magnitude only",
       "source_urls": [],
@@ -62,12 +243,32 @@
     {
       "name": "retopo_bake_likeness_tolerances",
       "units": "mm, maximum per-vertex deviation sculpt -> game mesh + normal map",
-      "columns": ["region", "max_deviation_mm_low", "max_deviation_mm_high"],
+      "columns": [
+        "region",
+        "max_deviation_mm_low",
+        "max_deviation_mm_high"
+      ],
       "rows": [
-        ["lid margins, vermilion border, alar rim", 0.2, 0.3],
-        ["nose tip, ear rims, chin", 0.5, 0.5],
-        ["cheeks, forehead, cranium front", 1.0, 1.0],
-        ["back of head, neck", 1.5, 2.0]
+        [
+          "lid margins, vermilion border, alar rim",
+          0.2,
+          0.3
+        ],
+        [
+          "nose tip, ear rims, chin",
+          0.5,
+          0.5
+        ],
+        [
+          "cheeks, forehead, cranium front",
+          1.0,
+          1.0
+        ],
+        [
+          "back of head, neck",
+          1.5,
+          2.0
+        ]
       ],
       "population": "n/a (engineering suggestion)",
       "source_urls": [],
@@ -77,29 +278,139 @@
     {
       "name": "stage_gates_and_solver_defaults",
       "units": "mixed (see unit column)",
-      "columns": ["parameter", "value", "unit", "rationale"],
+      "columns": [
+        "parameter",
+        "value",
+        "unit",
+        "rationale"
+      ],
       "rows": [
-        ["gate_A_silhouette_chamfer_max", 0.02, "fraction of face height n-gn", "masses must match before features"],
-        ["gate_A_landmark_rms_max", 0.04, "x IOD (IOD = interpupillary ~63 mm)", "masses stage"],
-        ["gate_B_detector_landmark_rms_max", 0.03, "x IOD", "all views incl. one held-out photo"],
-        ["gate_B_user_pin_rms_max", 0.015, "x IOD", "user-checked pins"],
-        ["gate_C_max_landmark_drift", 0.5, "mm", "detail passes must not move landmarks"],
-        ["sigma_sym_stage_A", 1.0, "mm", "strong symmetry for blockout"],
-        ["sigma_sym_stage_B", 2.0, "mm", "engine default Priors.sigma_sym"],
-        ["sigma_sym_stage_C", 4.0, "mm", "release symmetry for real asymmetry"],
-        ["sigma_mid", 1.5, "mm", "engine default, all stages"],
-        ["hair_beard_hinge_margin", 1.5, "mm (range 0-3)", "hair/beard silhouette is an outer bound, not a target"],
-        ["cranial_length_prior_sigma", 7, "mm", "g-op within a sex-specific population"],
-        ["scalp_soft_tissue_thickness", 6, "mm (range 4-8)", "skin surface over cranial bone"],
-        ["paintover_flow_sigma", 2, "px at paintover resolution", "2D liquify/paintover flow residual"],
-        ["paintover_reject_other_view_rms_rise", 0.005, "x IOD", "reject edit if another view worsens by more"],
-        ["caricature_handle_weight_multiplier", 2.0, "x", "user-tagged distinctive regions, excluded from shrinkage"],
-        ["region_slider_limit", 3, "mm", "reversible sitter-approval shape keys"],
-        ["arap_switch_scale_change", 0.10, "fraction", "prefer ARAP over plain Laplacian above this cranium/jaw scale change"],
-        ["sigma_hairline_trichion", 4, "mm (range 3-5)", "soft landmark; never for camera solving"],
-        ["sigma_brow", 2, "mm", "soft landmark; never for camera solving"],
-        ["lint_photo_support_sigma_multiple", 2.0, "x sigma_photo", "flag model-photo disagreement"],
-        ["lint_population_z_unseen", 2.5, "z", "flag only where no photo sees the feature"]
+        [
+          "gate_A_silhouette_chamfer_max",
+          0.02,
+          "fraction of face height n-gn",
+          "masses must match before features"
+        ],
+        [
+          "gate_A_landmark_rms_max",
+          0.04,
+          "x IOD (IOD = interpupillary ~63 mm)",
+          "masses stage"
+        ],
+        [
+          "gate_B_detector_landmark_rms_max",
+          0.03,
+          "x IOD",
+          "all views incl. one held-out photo"
+        ],
+        [
+          "gate_B_user_pin_rms_max",
+          0.015,
+          "x IOD",
+          "user-checked pins"
+        ],
+        [
+          "gate_C_max_landmark_drift",
+          0.5,
+          "mm",
+          "detail passes must not move landmarks"
+        ],
+        [
+          "sigma_sym_stage_A",
+          1.0,
+          "mm",
+          "strong symmetry for blockout"
+        ],
+        [
+          "sigma_sym_stage_B",
+          2.0,
+          "mm",
+          "engine default Priors.sigma_sym"
+        ],
+        [
+          "sigma_sym_stage_C",
+          4.0,
+          "mm",
+          "release symmetry for real asymmetry"
+        ],
+        [
+          "sigma_mid",
+          1.5,
+          "mm",
+          "engine default, all stages"
+        ],
+        [
+          "hair_beard_hinge_margin",
+          1.5,
+          "mm (range 0-3)",
+          "hair/beard silhouette is an outer bound, not a target"
+        ],
+        [
+          "cranial_length_prior_sigma",
+          7,
+          "mm",
+          "g-op within a sex-specific population"
+        ],
+        [
+          "scalp_soft_tissue_thickness",
+          6,
+          "mm (range 4-8)",
+          "skin surface over cranial bone"
+        ],
+        [
+          "paintover_flow_sigma",
+          2,
+          "px at paintover resolution",
+          "2D liquify/paintover flow residual"
+        ],
+        [
+          "paintover_reject_other_view_rms_rise",
+          0.005,
+          "x IOD",
+          "reject edit if another view worsens by more"
+        ],
+        [
+          "caricature_handle_weight_multiplier",
+          2.0,
+          "x",
+          "user-tagged distinctive regions, excluded from shrinkage"
+        ],
+        [
+          "region_slider_limit",
+          3,
+          "mm",
+          "reversible sitter-approval shape keys"
+        ],
+        [
+          "arap_switch_scale_change",
+          0.1,
+          "fraction",
+          "prefer ARAP over plain Laplacian above this cranium/jaw scale change"
+        ],
+        [
+          "sigma_hairline_trichion",
+          4,
+          "mm (range 3-5)",
+          "soft landmark; never for camera solving"
+        ],
+        [
+          "sigma_brow",
+          2,
+          "mm",
+          "soft landmark; never for camera solving"
+        ],
+        [
+          "lint_photo_support_sigma_multiple",
+          2.0,
+          "x sigma_photo",
+          "flag model-photo disagreement"
+        ],
+        [
+          "lint_population_z_unseen",
+          2.5,
+          "z",
+          "flag only where no photo sees the feature"
+        ]
       ],
       "population": "n/a (engineering defaults)",
       "source_urls": [],

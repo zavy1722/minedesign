@@ -1,6 +1,27 @@
 {
   "topic": "polycount-likeness",
-  "sources": [],
+  "sources": [
+    {
+      "title": "EyeWiki Exophthalmometry",
+      "url": "https://eyewiki.aao.org/Exophthalmometry"
+    },
+    {
+      "title": "Hertel values Chinese Han",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4336939/"
+    },
+    {
+      "title": "EyeWiki MRD 1,2,3",
+      "url": "https://eyewiki.aao.org/Margin_to_Reflex_Distance_1,2,3"
+    },
+    {
+      "title": "LEV102 protocol",
+      "url": "https://cdn.clinicaltrials.gov/large-docs/46/NCT05715346/Prot_000.pdf"
+    },
+    {
+      "title": "Ear inclination Rakhain males",
+      "url": "https://banglajol.info/index.php/JNINB/article/view/59937/41251"
+    }
+  ],
   "references_by_name": [
     "Polycount wiki: topology and edge-loop pages (page names unverified)",
     "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",

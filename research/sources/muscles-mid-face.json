@@ -1,0 +1,305 @@
+{
+ "topic": "muscles-mid-face",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Elsevier Anatomy: Zygomaticus major muscle (surfaced, no fact extracted)",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/zygomaticus-major-muscle/21402",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "Elsevier Anatomy: Zygomaticus minor muscle (surfaced, no fact extracted)",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/zygomaticus-minor-muscle/21818",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Clinical anatomic considerations of the zygomaticus minor muscle based on the morphology and insertion pattern",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25006853",
+   "kind": "paper",
+   "year": "2014"
+  },
+  {
+   "n": 4,
+   "title": "Kenhub: Zygomaticus major muscle",
+   "url": "https://www.kenhub.com/en/library/anatomy/zygomaticus-major-muscle",
+   "kind": "educational reference",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Kenhub: Zygomaticus minor muscle",
+   "url": "https://kenhub.com:443/en/library/anatomy/zygomaticus-minor-muscle",
+   "kind": "educational reference",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Accessing the Levator Labii Superioris Alaeque Nasi (LLSAN) Muscle for the Treatment of Infraorbital Dimples: Case Report",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12641590/",
+   "kind": "case report",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Correction of Alar Base Retraction by Levator Labii Alaeque Nasi Muscle Dissection and Alar Rim Grafting: A Clinical Prospective Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9951819/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Anatomical connections among the depressor supercilii, levator labii superioris alaeque nasi, and inferior fibers of orbicularis oculi",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8887774/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "StatPearls: Anatomy, Head and Neck: Face",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Are We Underestimating Zygomaticus Variability in Midface Surgery?",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565131/",
+   "kind": "review",
+   "year": "2025"
+  },
+  {
+   "n": 11,
+   "title": "An Interdisciplinary Review of the Zygomaticus Muscles: Anatomical Variability, Imaging Modalities, and Clinical Implications (surfaced, not read)",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12194095/",
+   "kind": "review",
+   "year": "n.d."
+  },
+  {
+   "n": 12,
+   "title": "Double or bifid zygomaticus major muscle: anatomy, incidence, and clinical correlation",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/9725574/",
+   "kind": "paper",
+   "year": "1998"
+  },
+  {
+   "n": 13,
+   "title": "A structural analysis of the facial muscle modiolus: using a three-dimensional reconstruction system",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41945314/",
+   "kind": "paper",
+   "year": "n.d. (≈2025, unconfirmed)"
+  },
+  {
+   "n": 14,
+   "title": "Discovery of the Ligament of Modiolus: Anatomical Insights and Clinical Relevance",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39900721/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 15,
+   "title": "Growth patterns of facial muscles at the angle of the mouth: histological study using midterm and near-term human fetuses",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11424822/",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 16,
+   "title": "The Anatomy of Facial Muscles Revisited: High-Resolution MRI and CT Studies on Body Donors",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13608583",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "Heights and spatial relationships of the facial muscles acting on the nasolabial fold by dissection and 3D microCT",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499",
+   "kind": "paper",
+   "year": "year unconfirmed (harvest 2024; PMC ID suggests ≈2020)"
+  },
+  {
+   "n": 18,
+   "title": "Aesthetic Plastic Surgery 2017 nasolabial fold dissection study (Snider et al., per harvest)",
+   "url": "https://link.springer.com/article/10.1007/s00266-017-0889-9",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 19,
+   "title": "Aesthetic Plastic Surgery 2019 nasolabial fold article (title not captured)",
+   "url": "https://link.springer.com/article/10.1007/s00266-019-01555-7",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "n": 20,
+   "title": "Identification of the Peri-oral Mimic Muscles on Cadaver Slices and 3 and 7 Tesla MRI Scans",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8846390/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "StatPearls: Anatomy, Head and Neck: Buccinator Muscle",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK546678/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 22,
+   "title": "Dual attachment of the buccinator muscle at the pterygoid hamulus",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12864571/",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 23,
+   "title": "Contrasting Experimentally Device-Manipulated and Device-Free Smiles",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6803527/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "Multimodal Assessment of Biomechanical and Neuromuscular Characteristics of Zygomaticus Major in Healthy Participants",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42040515/",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 25,
+   "title": "A Wearable High-Resolution Facial Electromyography for Long Term Recordings in Freely Behaving Humans",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5794977/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 26,
+   "title": "Perception of activity in the Zygomaticus major and Corrugator supercilii muscle regions (surfaced, not read)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/2339189/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 27,
+   "title": "The Aging Process of Facial Muscles (J Cosmet Dermatol review; also https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12715075/)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12715075/",
+   "kind": "review",
+   "year": "2025"
+  },
+  {
+   "n": 28,
+   "title": "Three Key Submuscular Points for Nonsurgical Rejuvenation of the Midface Using HA Fillers",
+   "url": "https://link.springer.com/article/10.1007/s00266-024-03921-6",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 29,
+   "title": "Variability of the midfacial muscles: analysis of 50 hemifacial cadaver dissections",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/9810983/",
+   "kind": "paper",
+   "year": "n.d. (probably 1998)"
+  },
+  {
+   "n": 30,
+   "title": "A 3D Finite Element model of the face for simulation in plastic and maxillo-facial surgery",
+   "url": "https://arxiv.org/pdf/physics/0606222",
+   "kind": "preprint",
+   "year": "2006 (from arXiv ID)"
+  },
+  {
+   "n": 31,
+   "title": "Neuromuscular Control of the Face-Head-Neck",
+   "url": "https://arxiv.org/pdf/2111.06517",
+   "kind": "preprint",
+   "year": "2021 (from arXiv ID)"
+  },
+  {
+   "n": 32,
+   "title": "Electromyography-Informed Facial Expression Reconstruction",
+   "url": "https://arxiv.org/pdf/2503.09556",
+   "kind": "preprint",
+   "year": "2025"
+  },
+  {
+   "n": 33,
+   "title": "facemotion.js",
+   "url": "https://github.com/paulmand3l/facemotion",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 34,
+   "title": "PMC3498722 (buccinator fibre insertion; title not captured)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3498722/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 35,
+   "title": "PMC7773723 (Duchenne marker in posed smiles; title not captured)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7773723/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 36,
+   "title": "StatPearls: Anatomy, Head and Neck: Facial Muscles",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK493209/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 37,
+   "title": "StatPearls: risorius article",
+   "url": "https://statpearls.com/sp/al/48/36306/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 38,
+   "title": "StatPearls: levator anguli oris article",
+   "url": "https://statpearls.com/sp/al/48/24224/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 39,
+   "title": "Cleveland Clinic: Facial muscles",
+   "url": "https://my.clevelandclinic.org/health/body/21672-facial-muscles",
+   "kind": "patient education",
+   "year": "n.d."
+  },
+  {
+   "n": 40,
+   "title": "Ultrasound study of a facial-exercise device (title not captured)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5888959/",
+   "kind": "paper",
+   "year": "n.d. (≈ a decade old)"
+  }
+ ],
+ "references_by_name": [
+  "Standring S (ed.), *Gray's Anatomy: The Anatomical Basis of Clinical Practice*, recent editions (elevators, buccinator, modiolus).",
+  "Freilinger G et al., \"Surgical anatomy of the mimic muscle system and the facial nerve\", Plast Reconstr Surg, 1987.",
+  "Pessa JE et al., the 1998 zygomaticus-variability and bifid-zygomaticus papers (probably [12] and [29]; authorship unconfirmed).",
+  "Rubin LR, \"The anatomy of a smile: its importance in the treatment of facial paralysis\", Plast Reconstr Surg, 1974.",
+  "Paletz JL, Manktelow RT, Chaban R, \"The shape of a normal smile: implications for facial paralysis reconstruction\", Plast Reconstr Surg, 1994.",
+  "Tjan AH, Miller GD, The JG, \"Some esthetic factors in a smile\", J Prosthet Dent, 1984.",
+  "Hwang WS et al., surface anatomy of the lip elevators for gummy-smile toxin (the \"Yonsei point\"), Angle Orthod, 2009.",
+  "Ekman P, Friesen WV, Hager JC, *Facial Action Coding System* manual, 2002.",
+  "Duchenne de Boulogne GB, *Mécanisme de la physionomie humaine*, 1862.",
+  "Ekman P, Davidson RJ, Friesen WV, \"The Duchenne smile: emotional expression and brain physiology II\", J Pers Soc Psychol, 1990.",
+  "Rohrich RJ, Pessa JE, \"The fat compartments of the face\", Plast Reconstr Surg, 2007.",
+  "Le Louarn C, Buthiau D, Buis J, \"Structural aging: the facial recurve concept\", Aesthetic Plast Surg, 2007.",
+  "Waters K, \"A muscle model for animating three-dimensional facial expression\", SIGGRAPH 1987.",
+  "Terzopoulos D, Waters K, \"Physically-based facial modelling, analysis, and animation\", J Visualization and Computer Animation, 1990.",
+  "Sifakis E, Neverov I, Fedkiw R, \"Automatic determination of facial muscle activations from sparse motion capture marker data\", SIGGRAPH 2005.",
+  "Ichim AE, Kadleček P, Kavan L, Pauly M, \"Phace: physics-based face modeling and animation\", ACM TOG (SIGGRAPH), 2017.",
+  "Faigin G, *The Artist's Complete Guide to Facial Expression*, 1990.",
+  "Zarins U, *Anatomy of Facial Expression* (Anatomy for Sculptors), 2017."
+ ]
+}

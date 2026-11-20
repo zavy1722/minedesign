@@ -1,7 +1,20 @@
 {
  "topic": "texture-projection-painting",
  "note": "No harvest file or earlier draft existed for this topic; no URL is cited. All claims are expert knowledge or arithmetic awaiting verification.",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "url": "https://docs.blender.org/api/current/bpy.types.BakeSettings.html"
+  },
+  {
+   "n": 2,
+   "url": "https://projects.blender.org/blender/blender-manual/issues/92977"
+  },
+  {
+   "n": 3,
+   "url": "https://docs.blender.org/manual/en/latest/modeling/modifiers/modify/uv_project.html"
+  }
+ ],
  "references_by_name": [
   "Blender Manual: Texture Paint (Tool Settings > Options, Texture Slots, External panel), UV Editor > Unwrapping, Cycles > Baking, UV Project modifier, Texture Coordinate node",
   "Levy, Petitjean, Ray, Maillot, Least Squares Conformal Maps for Automatic Texture Atlas Generation (SIGGRAPH 2002)",

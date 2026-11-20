@@ -4,16 +4,52 @@
     {
       "name": "flame_mesh_counts",
       "units": "count",
-      "columns": ["element", "count", "notes"],
+      "columns": [
+        "element",
+        "count",
+        "notes"
+      ],
       "rows": [
-        ["vertices", 5023, "head + neck surface plus two eyeball shells"],
-        ["triangles", 9976, "all-triangle mesh"],
-        ["joints_including_root", 5, "root(global), neck, jaw, left eye, right eye"],
-        ["pose_params", 15, "axis-angle, 3 per joint incl. root"],
-        ["shape_components_released", 300, "FLAME 2017/2020; 2023 assumed same"],
-        ["expression_components_released", 100, "FLAME 2017/2020; 2023 assumed same"],
-        ["pose_corrective_features", 36, "vec(R - I) for 4 non-root joints"],
-        ["eyeball_vertices_each_approx", 546, "approximate; read FLAME_masks.pkl, do not hard-code"]
+        [
+          "vertices",
+          5023,
+          "head + neck surface plus two eyeball shells"
+        ],
+        [
+          "triangles",
+          9976,
+          "all-triangle mesh"
+        ],
+        [
+          "joints_including_root",
+          5,
+          "root(global), neck, jaw, left eye, right eye"
+        ],
+        [
+          "pose_params",
+          15,
+          "axis-angle, 3 per joint incl. root"
+        ],
+        [
+          "shape_components_released",
+          300,
+          "FLAME 2017/2020; 2023 assumed same"
+        ],
+        [
+          "expression_components_released",
+          100,
+          "FLAME 2017/2020; 2023 assumed same"
+        ],
+        [
+          "pose_corrective_features",
+          36,
+          "vec(R - I) for 4 non-root joints"
+        ],
+        [
+          "eyeball_vertices_each_approx",
+          546,
+          "approximate; read FLAME_masks.pkl, do not hard-code"
+        ]
       ],
       "population": "FLAME model definition (generic/female/male share topology)",
       "source_urls": [],
@@ -23,32 +59,116 @@
     {
       "name": "flame_pkl_arrays",
       "units": "array shape",
-      "columns": ["array", "shape", "meaning"],
+      "columns": [
+        "array",
+        "shape",
+        "meaning"
+      ],
       "rows": [
-        ["v_template", "5023x3", "mean head in metres"],
-        ["f", "9976x3", "triangle vertex indices"],
-        ["shapedirs", "5023x3x400", "first 300 columns shape, last 100 expression"],
-        ["posedirs", "5023x3x36", "pose-corrective blendshapes"],
-        ["J_regressor", "5x5023", "sparse joint regressor"],
-        ["weights", "5023x5", "LBS skinning weights"],
-        ["kintree_table", "2x5", "parents [-1,0,1,1,1]"]
+        [
+          "v_template",
+          "5023x3",
+          "mean head in metres"
+        ],
+        [
+          "f",
+          "9976x3",
+          "triangle vertex indices"
+        ],
+        [
+          "shapedirs",
+          "5023x3x400",
+          "first 300 columns shape, last 100 expression"
+        ],
+        [
+          "posedirs",
+          "5023x3x36",
+          "pose-corrective blendshapes"
+        ],
+        [
+          "J_regressor",
+          "5x5023",
+          "sparse joint regressor"
+        ],
+        [
+          "weights",
+          "5023x5",
+          "LBS skinning weights"
+        ],
+        [
+          "kintree_table",
+          "2x5",
+          "parents [-1,0,1,1,1]"
+        ]
       ],
       "population": "FLAME 2020 generic_model.pkl (chumpy pickle, latin1 encoding)",
-      "source_urls": [],
-      "status": "knowledge",
-      "notes": "Check shapes on load and refuse mismatches; FLAME 2023 layout assumed identical but unverified."
+      "source_urls": [
+        "https://github.com/chrisbennight/mcp-printable-rs/issues/89",
+        "https://github.com/HavenFeng/photometric_optimization/blob/master/models/FLAME.py"
+      ],
+      "status": "partially_verified",
+      "notes": "Check shapes on load and refuse mismatches; FLAME 2023 layout assumed identical but unverified. 2026-11-20: shapedirs and posedirs shapes seen in a third-party issue; other arrays unconfirmed."
     },
     {
       "name": "flame_parameter_ranges",
       "units": "SD units for beta/psi; radians for rotations",
-      "columns": ["parameter", "dims", "unit", "range_min", "range_max", "notes"],
+      "columns": [
+        "parameter",
+        "dims",
+        "unit",
+        "range_min",
+        "range_max",
+        "notes"
+      ],
       "rows": [
-        ["beta_shape", 300, "SD", -3.0, 3.0, "flag |beta_i| > 3"],
-        ["psi_expression", 100, "SD", -3.0, 3.0, "neutral faces |psi_i| <~ 0.5"],
-        ["neck", 3, "rad", -0.6, 0.6, "fix to 0 for stills"],
-        ["jaw_x", 1, "rad", -0.05, 0.5, "+x assumed to open mouth; confirm sign"],
-        ["jaw_yz", 2, "rad", -0.1, 0.1, "lateral/roll jaw"],
-        ["eye", 3, "rad", -0.5, 0.5, "per eye"]
+        [
+          "beta_shape",
+          300,
+          "SD",
+          -3.0,
+          3.0,
+          "flag |beta_i| > 3"
+        ],
+        [
+          "psi_expression",
+          100,
+          "SD",
+          -3.0,
+          3.0,
+          "neutral faces |psi_i| <~ 0.5"
+        ],
+        [
+          "neck",
+          3,
+          "rad",
+          -0.6,
+          0.6,
+          "fix to 0 for stills"
+        ],
+        [
+          "jaw_x",
+          1,
+          "rad",
+          -0.05,
+          0.5,
+          "+x assumed to open mouth; confirm sign"
+        ],
+        [
+          "jaw_yz",
+          2,
+          "rad",
+          -0.1,
+          0.1,
+          "lateral/roll jaw"
+        ],
+        [
+          "eye",
+          3,
+          "rad",
+          -0.5,
+          0.5,
+          "per eye"
+        ]
       ],
       "population": "Design defaults for a fitting engine, not published limits",
       "source_urls": [],
@@ -58,26 +178,79 @@
     {
       "name": "flame_versions",
       "units": "categorical",
-      "columns": ["release", "shape_components", "expression_components", "used_by", "licence"],
+      "columns": [
+        "release",
+        "shape_components",
+        "expression_components",
+        "used_by",
+        "licence"
+      ],
       "rows": [
-        ["2017", 300, 100, "legacy (TF_FLAME era)", "non-commercial research"],
-        ["2020", 300, 100, "DECA, EMOCA, MICA, SMIRK, SPECTRE", "non-commercial research"],
-        ["2023", "300 (assumed)", "100 (assumed)", "VHAP, GaussianAvatars family", "non-commercial research"],
-        ["2023 Open", "unknown", "unknown", "unknown", "CC BY 4.0 (reported, unverified)"]
+        [
+          "2017",
+          300,
+          100,
+          "legacy (TF_FLAME era)",
+          "non-commercial research"
+        ],
+        [
+          "2020",
+          300,
+          100,
+          "DECA, EMOCA, MICA, SMIRK, SPECTRE",
+          "non-commercial research"
+        ],
+        [
+          "2023",
+          "300 (assumed)",
+          "100 (assumed)",
+          "VHAP, GaussianAvatars family",
+          "non-commercial research"
+        ],
+        [
+          "2023 Open",
+          "unknown",
+          "unknown",
+          "unknown",
+          "CC BY 4.0 (confirmed)"
+        ]
       ],
       "population": "MPI FLAME releases",
-      "source_urls": [],
-      "status": "contested",
-      "notes": "Topology believed constant across versions; coefficients are NOT portable between versions. 2023 Open licence and contents are the top verification item. Commercial licensing via MPI/Meshcapade."
+      "source_urls": [
+        "https://flame.is.tue.mpg.de/",
+        "https://flame.is.tue.mpg.de/modellicense.html"
+      ],
+      "status": "partially_verified",
+      "notes": "Topology believed constant across versions; coefficients are NOT portable between versions. 2023 Open licence and contents are the top verification item. Commercial licensing via MPI/Meshcapade. 2026-11-20: 2023 Open licence CC BY 4.0 confirmed; contents and 2023 topology/jaw variants unconfirmed."
     },
     {
       "name": "flame_landmark_embeddings",
       "units": "count",
-      "columns": ["embedding", "points", "type", "origin"],
+      "columns": [
+        "embedding",
+        "points",
+        "type",
+        "origin"
+      ],
       "rows": [
-        ["static iBUG inner", 51, "barycentric on triangles", "RingNet/DECA/FLAME_PyTorch"],
-        ["dynamic jaw contour", 17, "barycentric, 79 yaw bins from -39 to +39 deg", "RingNet/DECA"],
-        ["MediaPipe", 105, "barycentric", "MICA (approximate count)"]
+        [
+          "static iBUG inner",
+          51,
+          "barycentric on triangles",
+          "RingNet/DECA/FLAME_PyTorch"
+        ],
+        [
+          "dynamic jaw contour",
+          17,
+          "barycentric, 79 yaw bins from -39 to +39 deg",
+          "RingNet/DECA"
+        ],
+        [
+          "MediaPipe",
+          105,
+          "barycentric",
+          "MICA (approximate count)"
+        ]
       ],
       "population": "FLAME 2020 topology",
       "source_urls": [],
@@ -87,12 +260,37 @@
     {
       "name": "downstream_component_usage",
       "units": "count",
-      "columns": ["method", "shape", "expression", "extras"],
+      "columns": [
+        "method",
+        "shape",
+        "expression",
+        "extras"
+      ],
       "rows": [
-        ["DECA/EMOCA", 100, 50, "global+jaw 6, weak-perspective cam 3, albedo 50, SH 27"],
-        ["MICA", 300, 0, "metric neutral identity"],
-        ["SMIRK", null, 50, "2 eyelid blendshapes, jaw; shape from external identity"],
-        ["metrical-tracker/VHAP", 300, 100, "per-frame pose, eyes, intrinsics"]
+        [
+          "DECA/EMOCA",
+          100,
+          50,
+          "global+jaw 6, weak-perspective cam 3, albedo 50, SH 27"
+        ],
+        [
+          "MICA",
+          300,
+          0,
+          "metric neutral identity"
+        ],
+        [
+          "SMIRK",
+          null,
+          50,
+          "2 eyelid blendshapes, jaw; shape from external identity"
+        ],
+        [
+          "metrical-tracker/VHAP",
+          300,
+          100,
+          "per-frame pose, eyes, intrinsics"
+        ]
       ],
       "population": "Method defaults as recalled",
       "source_urls": [],
@@ -102,13 +300,43 @@
     {
       "name": "flame_multires_face_counts",
       "units": "faces; mm edge length",
-      "columns": ["level", "faces", "edge_mm_min", "edge_mm_max"],
+      "columns": [
+        "level",
+        "faces",
+        "edge_mm_min",
+        "edge_mm_max"
+      ],
       "rows": [
-        [0, 9976, 3.0, 6.0],
-        [1, 29928, 1.5, 3.0],
-        [2, 119712, 0.75, 1.5],
-        [3, 478848, 0.4, 0.75],
-        [4, 1915392, 0.2, 0.4]
+        [
+          0,
+          9976,
+          3.0,
+          6.0
+        ],
+        [
+          1,
+          29928,
+          1.5,
+          3.0
+        ],
+        [
+          2,
+          119712,
+          0.75,
+          1.5
+        ],
+        [
+          3,
+          478848,
+          0.4,
+          0.75
+        ],
+        [
+          4,
+          1915392,
+          0.2,
+          0.4
+        ]
       ],
       "population": "Arithmetic from 9,976 triangles (each tri -> 3 quads at level 1, x4 per level); edge lengths estimated for the face region",
       "source_urls": [],
@@ -118,17 +346,67 @@
     {
       "name": "flame_fitting_priors",
       "units": "SD units for beta/psi; radians for rotations; mm for offsets",
-      "columns": ["term", "prior", "sigma_or_setting", "notes"],
+      "columns": [
+        "term",
+        "prior",
+        "sigma_or_setting",
+        "notes"
+      ],
       "rows": [
-        ["beta", "N(0,1)", 1.0, "shared across views; K_beta schedule 20->50->100 for sparse landmarks"],
-        ["psi_neutral_view", "N(0,sigma^2)", 0.3, "zeroed at hand-off; K_psi 10-20"],
-        ["psi_expressive_view", "N(0,sigma^2)", 1.0, "per view"],
-        ["jaw_neutral_view", "N(0,sigma^2)", 0.04, "rad (2-3 deg); box x in [-0.05,0.6]"],
-        ["eyes", "exclude or N(0,sigma^2)", 0.3, "rad; fit to iris points only"],
-        ["neck_stills", "fixed", 0.0, "absorbed by camera extrinsics"],
-        ["neck_video", "N(0,sigma^2)", 0.15, "rad, plus temporal smoothness"],
-        ["global_scale_no_metric_anchor", "lognormal", 0.075, "sigma_log 0.05-0.1; label proportions-only"],
-        ["per_vertex_offsets", "Laplacian-regularised", 4.0, "mm, typically <= 3-5"]
+        [
+          "beta",
+          "N(0,1)",
+          1.0,
+          "shared across views; K_beta schedule 20->50->100 for sparse landmarks"
+        ],
+        [
+          "psi_neutral_view",
+          "N(0,sigma^2)",
+          0.3,
+          "zeroed at hand-off; K_psi 10-20"
+        ],
+        [
+          "psi_expressive_view",
+          "N(0,sigma^2)",
+          1.0,
+          "per view"
+        ],
+        [
+          "jaw_neutral_view",
+          "N(0,sigma^2)",
+          0.04,
+          "rad (2-3 deg); box x in [-0.05,0.6]"
+        ],
+        [
+          "eyes",
+          "exclude or N(0,sigma^2)",
+          0.3,
+          "rad; fit to iris points only"
+        ],
+        [
+          "neck_stills",
+          "fixed",
+          0.0,
+          "absorbed by camera extrinsics"
+        ],
+        [
+          "neck_video",
+          "N(0,sigma^2)",
+          0.15,
+          "rad, plus temporal smoothness"
+        ],
+        [
+          "global_scale_no_metric_anchor",
+          "lognormal",
+          0.075,
+          "sigma_log 0.05-0.1; label proportions-only"
+        ],
+        [
+          "per_vertex_offsets",
+          "Laplacian-regularised",
+          4.0,
+          "mm, typically <= 3-5"
+        ]
       ],
       "population": "Design defaults for this project's numpy fitter",
       "source_urls": [],
@@ -138,14 +416,35 @@
     {
       "name": "flame_region_weights",
       "units": "relative weight",
-      "columns": ["mask_region", "weight"],
+      "columns": [
+        "mask_region",
+        "weight"
+      ],
       "rows": [
-        ["face", 1.0],
-        ["ears", 0.4],
-        ["scalp", 0.1],
-        ["neck", 0.15],
-        ["eyeballs", 0.0],
-        ["boundary", 0.0]
+        [
+          "face",
+          1.0
+        ],
+        [
+          "ears",
+          0.4
+        ],
+        [
+          "scalp",
+          0.1
+        ],
+        [
+          "neck",
+          0.15
+        ],
+        [
+          "eyeballs",
+          0.0
+        ],
+        [
+          "boundary",
+          0.0
+        ]
       ],
       "population": "Design defaults keyed to FLAME_masks.pkl region names",
       "source_urls": [],

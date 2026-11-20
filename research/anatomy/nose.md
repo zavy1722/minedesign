@@ -1,7 +1,7 @@
 # Nose anatomy and morphology
 
 > The external nose has three tiers: bony (paired nasal bones), cartilaginous (upper lateral cartilages fused to the dorsal septum) and mobile (alar cartilages, fibrofatty alae, columella), under skin thinnest at rhinion (≈3 mm) and thick at nasion and over a sebaceous tip. Only the upper third follows the skull; tip, alae and columella are weakly predictable from bone, so photos must supply them. Width reads in frontal views; projection, rotation and dorsal profile read almost only in profile, ¾ and basal views, and camera distance, pitch and lighting distort the nose more than any other feature. Surgical "ideal" angles and ratios (nasofrontal, nasolabial, nasofacial, Goode) are measurement frames and warnings, not population priors.
-> Evidence status: 12 ✅ / 13 📄 / 62 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 15 ✅ / 13 📄 / 74 🧠 / 19 ↔️ — 🧠 items are queued for web verification.
 
 No nose-specific harvest or earlier draft existed. Every URL below already appears in a sibling harvest (`_raw/harvests/*.json`) or library note (marked "via").
 
@@ -110,7 +110,7 @@ Goode, Crumley and the nasofacial angle are one right triangle: asin(0.55–0.60
 
 | Pose error | 5° | 10° | 15° | Status |
 |---|---|---|---|---|
-| Pitch: prn vertical shift vs n′/sn (Δz ≈ 30 mm) | 2.6 mm | 5.2 mm | 7.8 mm | 🧠 |
+| Pitch: prn vertical shift vs n′ and alar base (Δz ≈ 30 mm) | 2.6 mm | 5.2 mm | 7.8 mm | 🧠 |
 | Off-profile yaw: alar crease shift (x ≈ 16 mm) | 1.4 mm | 2.8 mm | 4.1 mm | 🧠 |
 | Off-profile yaw: midline projection loss | 0.4% | 1.5% | 3.4% | 🧠 |
 
@@ -131,7 +131,7 @@ Goode, Crumley and the nasofacial angle are one right triangle: asin(0.55–0.60
 
 | Parameter | μ M / F | σ | Bounds |
 |---|---|---|---|
-| n′ depth in front of corneal plane (mm) | 13 / 12 | 2.5 | 6–20 |
+| n′ depth in front of corneal plane (mm) | 12 / 11 | 3 | 4–20 |
 | n–sn (mm) | 54.5 / 50.5 | 3.3 / 3.1 | ±4σ |
 | n–prn (mm) | 50 / 45.5 | 3.5 | ±4σ |
 | sn–prn (mm) | 20 / 18.5 | 2.0 | 12–28 |

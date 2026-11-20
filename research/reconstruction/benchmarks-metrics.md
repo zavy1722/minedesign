@@ -2,14 +2,14 @@
 
 > Every published face-reconstruction error rests on three choices: alignment (landmarks, ICP, with or without scale), distance (scan-to-surface, Chamfer, nearest vertex) and crop; change one and numbers stop being comparable. NoW, the de facto identity-shape benchmark, is near saturation: a correctly scaled *average* FLAME face scores ≈1.5 mm mean, MICA ≈1.1 mm and the best entries ≈0.95 mm, so single-image methods remove only a quarter to two fifths of the mean face's error. REALY re-aligns each region and reorders methods, FaceScape adds yaw and focal-length sweeps, and Florence/MICC and Stirling/ESRC are older protocols whose numbers do not transfer. None scores absolute size, inter-feature configuration, lids, ears or likeness, so our tool reports a NoW-compatible number plus metric scale, regional signed error, configuration, profile and held-out-view checks. No harvest or draft existed: everything is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 6 📄 / 54 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Benchmarks**
 - **NoW** (Sanyal, Bolkart, Feng & Black, CVPR 2019, with RingNet): ≈2,054 iPhone images of 100 adults in four conditions (neutral, expression, occlusion, selfie), with one neutral active-stereo (3dMD-type) scan per subject. Validation has 20 subjects; test has 80, with ground truth hidden behind a submission server. Expression images are scored against the *neutral* scan, so NoW measures expression-invariant identity shape. 🧠
-- **NoW protocol.** The submitter supplies 7 landmarks on the prediction (4 eye corners, a nose point, 2 mouth corners). A similarity fit on these seeds a rigid refinement minimising scan-to-mesh distance. Each scan vertex is measured to the nearest point on the predicted *surface*; median, mean, std and a cumulative curve are reported. Scale is solved ("non-metrical"); MICA (ECCV 2022) added a metrical track without it. The procedure follows Feng et al., FG 2018. 🧠
-- **REALY** (Chai et al., ECCV 2022): ≈100 Headspace/LYHM subjects, frontal and multi-view images, scans masked into nose, mouth, forehead and cheek. After a keypoint global alignment it re-aligns *each region* (region-aware ICP) and reports per-region mean nearest-point error and the average, arguing that whole-face ICP lets one region's error shift another's alignment. It also released the HIFI3D++ morphable model. 🧠 Exact correspondence rule ↔️.
+- **NoW protocol.** The submitter supplies 7 landmarks on the prediction (4 eye corners, a nose point, 2 mouth corners). A similarity fit on these seeds a rigid refinement minimising scan-to-mesh distance. Each scan vertex is measured to the nearest point on the predicted *surface*; median, mean, std and a cumulative curve are reported. Scale is solved ("non-metrical"); MICA (ECCV 2022) added a metrical track without it. The procedure follows Feng et al., FG 2018. 📄 [1][2] (7 landmarks, rigid alignment, scan-to-surface distance and scale handling confirmed; landmark identities and the similarity-seed step not checked)
+- **REALY** (Chai et al., ECCV 2022): ≈100 Headspace/LYHM subjects, frontal and multi-view images, scans masked into nose, mouth, forehead and cheek. After a keypoint global alignment it re-aligns *each region* (region-aware ICP) and reports per-region mean nearest-point error and the average, arguing that whole-face ICP lets one region's error shift another's alignment. It also released the HIFI3D++ morphable model. 📄 [3] (100 scans and four regions confirmed; region-wise alignment confirmed; the report's units are mm/10 in its table header, so check scaling) Exact correspondence rule ↔️.
 - **Stirling/ESRC**: Di3D stereophotogrammetry scans (neutral and expressions, research licence) behind the FG 2018 in-the-wild reconstruction challenge (Feng, Huber, Kittler, Hancock et al.), with high- and low-quality image subsets scored as 3D-RMSE after landmark + ICP alignment. Recalled size ≈2,000 test images of ≈130 subjects ↔️.
 - **FaceScape** (Yang et al., CVPR 2020): ≈938 subjects × 20 expressions (≈18,760 textured models) from a dense DSLR rig. Its benchmark extension (Zhu et al., IEEE TPAMI) scores Chamfer distance (mm), complete rate (%) and mean normal error, binned by **yaw and focal length**, the only major benchmark that probes perspective. Mostly East Asian subjects; research-only, by application. 🧠 Bin edges and set sizes ↔️.
 - **Florence/MICC** (Bagdanov, Del Bimbo & Masi, 2011): 53 subjects, 3dMD scans, cooperative, PTZ and outdoor video. Two incompatible protocols: Tran et al. 2017 / Genova et al. 2018 crop ground truth to ≈95 mm around the nose tip and report point-to-plane error after ICP (≈1.5–2 mm for 2018-era methods) ↔️; VRN/PRNet/3DDFA-style papers report NME in % of outer inter-ocular distance (≈3–6 %) ↔️.
@@ -26,9 +26,9 @@
 - **Identity-embedding similarity** is a texture-dominated, scale-blind likeness proxy (`identity-embeddings.md`). 🧠
 
 **State of the art and noise floor**
-- NoW (non-metrical): scaled mean face ≈1.53 mm mean; DECA ≈1.09/1.38 mm median/mean; MICA ≈0.90/1.11; best 2023–25 entries ≈0.75–0.8/≈0.95. Gaps under ≈0.1 mm are protocol noise. 🧠 (sourced in `single-image-regression.md`)
+- NoW (non-metrical): scaled mean face ≈1.53 mm mean; DECA ≈1.09/1.38 mm median/mean; MICA ≈0.90/1.11; best 2023–25 entries ≈0.75–0.8/≈0.95. Gaps under ≈0.1 mm are protocol noise. 📄 [1] (scaled FLAME template 1.21/1.53 and MICA 0.90/1.11 confirmed on the leaderboard; DECA and best-entry figures remain unverified 🧠) (sourced in `single-image-regression.md`)
 - REALY method averages run ≈1.5–2.2 mm; the mouth varies most between methods. ↔️
-- Stereophotogrammetry vendors (3dMD, Di3D) claim sub-0.5 mm accuracy on rigid targets; repeat captures of a live face differ by ≈0.3–1 mm RMS (micro-expression, breathing, lip seal, hair), so ground truth itself is uncertain by ≈0.3–0.5 mm. ↔️
+- Stereophotogrammetry vendors (3dMD, Di3D) claim sub-0.5 mm accuracy on rigid targets; repeat captures of a live face differ by ≈0.3–1 mm RMS (micro-expression, breathing, lip seal, hair), so ground truth itself is uncertain by ≈0.3–0.5 mm. ↔️ Verification found the 3dMD nominal accuracy is 0.2 mm RMS and live-subject repeat reliability about 0.23 mm (Artec 0.15, 0.07 on a mannequin) [5], with a further study reporting about 0.5 mm within-system RMSE (not tied to a URL); so the repeat range is ≈0.2–0.5 mm, below the recalled 0.3–1 mm.
 - **No public benchmark** scores few-photo multi-view consumer capture, absolute size, lids and ears, or perceived likeness. 🧠
 
 ## Numbers & reference tables
@@ -48,10 +48,10 @@
 
 | Entry | Median | Mean | Skill vs mean face | Status |
 |---|---|---|---|---|
-| Average FLAME, no scale fit | – | ≈1.92 | – | 🧠 |
-| Average FLAME, scale fitted | – | ≈1.53 | 0 % | 🧠 |
+| Average FLAME, no scale fit | 1.49 | ≈1.92 | – | 📄 [4] |
+| Average FLAME, scale fitted | 1.21 | ≈1.53 | 0 % | 📄 [1] |
 | DECA (test) | ≈1.09 | ≈1.38 | ≈10 % | 🧠 |
-| MICA | ≈0.90 | ≈1.11 | ≈27 % | 🧠 |
+| MICA | ≈0.90 | ≈1.11 | ≈27 % | 📄 [1] |
 | Best 2023–25 (e.g. TokenFace) | ≈0.75–0.8 | ≈0.95 | ≈38 % | ↔️ |
 | Late-2026 leader | unknown | unknown | – | ↔️ |
 
@@ -138,7 +138,13 @@
 
 ## Sources
 
-No input files existed, so no URLs are cited. Sourced versions of the overlapping NoW numbers live in `reconstruction/single-image-regression.md` and `reconstruction/generative-3d-heads.md`.
+Sources added in verification are numbered below; the rest of the note is expert knowledge. Sourced versions of the overlapping NoW numbers live in `reconstruction/single-image-regression.md` and `reconstruction/generative-3d-heads.md`.
+
+1. NoW non-metrical leaderboard, https://now.is.tue.mpg.de/nonmetricalevaluation.html
+2. NoW evaluation code (soubhiksanyal/now_evaluation mirror), https://gitee.com/hu-ruigang/now_evaluation ; Zielonka et al. MICA, https://arxiv.org/pdf/2204.06607
+3. Chai et al., REALY, https://arxiv.org/pdf/2203.09729
+4. NoW metrical leaderboard, https://now.is.tuebingen.mpg.de/metricalevaluation.html
+5. Scientific Reports 2024 scanner comparison, https://www.nature.com/articles/s41598-024-57370-x.pdf
 
 **Further reading (by name, not yet linked)**
 - Sanyal, Bolkart, Feng & Black, RingNet and the NoW benchmark ("Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision"), CVPR 2019
@@ -155,3 +161,10 @@ No input files existed, so no URLs are cited. Sourced versions of the overlappin
 - Besl & McKay, ICP, 1992; Chetverikov et al., trimmed ICP, 2002; Umeyama, TPAMI 1991
 - Ericson, *Real-Time Collision Detection*, 2004; Bærentzen & Aanæs, angle-weighted pseudonormal, IEEE TVCG 2005
 - Haig, "The effect of feature displacement on face recognition", Perception 1984
+
+## Verification log (2026-11-20)
+
+- NoW non-metrical numbers: partly confirmed. Scaled FLAME template 1.21/1.53 and MICA 0.90/1.11 confirmed, and the metrical page gives FLAME 1.49/1.92; best 2023-25 entries (0.75-0.8/0.95) not seen, so unconfirmed. https://now.is.tue.mpg.de/nonmetricalevaluation.html , https://now.is.tuebingen.mpg.de/metricalevaluation.html
+- NoW protocol: confirmed (7 landmarks, rigid alignment, scan-to-surface distance, scale in non-metrical only). Landmark identities not seen. https://gitee.com/hu-ruigang/now_evaluation , https://arxiv.org/pdf/2204.06607
+- Scanner accuracy and live repeat variation: contested. Nominal 0.2 mm RMS; live repeats about 0.2-0.5 mm, lower than the recalled 0.3-1 mm. https://www.nature.com/articles/s41598-024-57370-x.pdf
+- REALY: protocol confirmed (100 scans, four regions, region-wise alignment). Average of 1.5-2.2 mm and mouth spread unconfirmed; table units are mm/10. https://arxiv.org/pdf/2203.09729

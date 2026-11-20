@@ -1,7 +1,7 @@
 # Facial aging mechanics
 
 > The face ages in layers, and each layer changes on its own schedule. Bone recedes at the orbital rims, the maxilla, the pyriform aperture and, after tooth loss, the mandible. Fat compartments deflate or grow unevenly. Retaining ligaments hold their lines while the tissue between them loosens. Skin thins, loses elasticity and keeps the creases of repeated expressions. Likeness depends on getting this order right: an older face is a different volume and contour first and a wrinkle texture second, so age is best modelled as a few anatomical parameters (bone, deflation, laxity, skin) rather than one "old" shape. For a consenting subject, chronological age, dental status and cosmetic history should be asked; photo-based age estimation is a fallback prior.
-Evidence status: 3 ✅ / 14 📄 / 55 🧠 / 29 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 3 ✅ / 18 📄 / 51 🧠 / 29 ↔️ — 🧠 items remaining are unverified; 4 queued claims checked on 2026-11-20.
 
 Ligament detail: `anatomy/smas-ligaments.md`; mandible norms: `anatomy/jaw-chin-neck.md`.
 
@@ -11,9 +11,9 @@ Ligament detail: `anatomy/smas-ligaments.md`; mandible norms: `anatomy/jaw-chin-
 - Orbit: the aperture widens and its area grows with age. Resorption concentrates in the superomedial and inferolateral rim, so the medial upper lid hollows and the lateral lower lid loses support 🧠 (Kahn and Shaw 2008).
 - Maxilla: cross-sectional CT shows the glabellar, pyriform and maxillary angles decreasing (the midface retrudes and rotates clockwise relative to the cranial base). The cheek and the top of the nasolabial fold lose their bony platform 🧠 (Shaw and Kahn 2007; Pessa 2000). Magnitudes are reported in single-digit degrees between young and old cohorts ↔️ (verify).
 - Pyriform aperture: it enlarges, mostly inferolaterally. The alar base sets back, the columella–lip angle closes and the tip droops 🧠.
-- Mandible: ramus height, body height and body length fall and the gonial angle opens a few degrees; most change follows tooth loss ↔️ (Shaw et al. 2010; see jaw-chin-neck note). After extraction, the mandibular residual ridge loses height several times faster than the maxillary one 🧠 (Tallgren 1972). Edentulous faces shorten, lips invert, and the chin swings forward and up 🧠.
+- Mandible: ramus height, body height and body length fall and the gonial angle opens (significant in Shaw's 120-subject CT cohort [23], though another study found the body-height and angle changes not significant), and most change is said to follow tooth loss ↔️ (Shaw et al. 2010; see jaw-chin-neck note). After extraction, the mandibular residual ridge loses height several times faster than the maxillary one 🧠 (Tallgren 1972). Edentulous faces shorten, lips invert, and the chin swings forward and up 🧠.
 - Not all adult bone shrinks: longitudinal cephalometry found slight continued craniofacial enlargement in adults ↔️ (Behrents 1985).
-- Resting upper-incisor display falls with age (≈3 mm in the 20s to ≈0–1 mm by 60) while lower-incisor display rises 🧠 (Vig and Brundo 1978). Too little upper display reads as aged [2] 📄. Incisor display has been studied directly as a perceived-age cue [22] 📄.
+- Resting upper-incisor display falls with age (≈3.4 mm under 30, ≈1.6 mm in the 30s, ≈1.0 mm in the 40s, ≈0.5 mm in the 50s; the steepest drop is the first decade after 30) while lower-incisor display rises (≈0.5 → ≈2.4 mm) [24] 📄 (Vig and Brundo 1978; corrected in verification). Too little upper display reads as aged [2] 📄. Incisor display has been studied directly as a perceived-age cue [22] 📄.
 
 **Fat**
 - The superficial and deep fat compartments age separately. Deep medial cheek fat and SOOF lose volume, which removes support under the tear trough and nasolabial fold 🧠 (Rohrich, Pessa and Ristow 2008). CT shows superficial midface compartments sitting lower in older people ↔️ (Gierloff 2012; some of this may be deflation that only looks like descent).
@@ -39,7 +39,7 @@ Ligament detail: `anatomy/smas-ligaments.md`; mandible norms: `anatomy/jaw-chin-
 - Sleep lines run obliquely across the forehead, cheek or chest, ignore muscle direction and are often one-sided 🧠. Horizontal neck "necklace" lines can appear in the 20s 🧠.
 - Photoaging (sun, smoking) adds coarse wrinkles, elastosis, lentigines and uneven colour. Darker skin types tend to show wrinkles a decade or more later and age more through volume and pigment change 🧠 ↔️.
 - Upper vermilion height falls from ≈8.1 mm (20–29) to ≈6.6 mm (50–59) [1] 📄; the skin lip lengthens, the bow flattens and the corners turn down 🧠.
-- Ears lengthen ≈0.2 mm a year 🧠 (Heathcote 1995), against an ear-biometrics claim that ear size and shape hold steady until about 70 [21] ↔️. Lobe ptosis adds to the length 🧠.
+- Ears lengthen ≈0.22 mm a year [25] 📄 (Heathcote 1995, cross-sectional, 206 patients aged 30–93), against an ear-biometrics claim that ear size and shape hold steady until about 70 [21] ↔️. Lobe ptosis adds to the length 🧠.
 - Facial asymmetry rises with age (mean RMSD 0.8 ± 0.2 mm in 191 people aged 0.3–88) [3] 📄.
 
 **Perceived age**
@@ -54,7 +54,7 @@ Ligament detail: `anatomy/smas-ligaments.md`; mandible norms: `anatomy/jaw-chin-
 | 20s | Peak projection | Full high cheek; single smooth lid–cheek convexity | Glogau I | Unbroken ogee curve in 3/4; crisp jawline; upper vermilion ≈8 mm [1] | 🧠 / 📄 |
 | 30s | Little change | Tear trough shows in many; early temporal and upper-sulcus hollow if lean | Glogau II begins; crow's feet persist briefly after a smile | Hint NLF and tear trough only | 🧠 |
 | 40s | Orbital and maxillary changes start (cross-sectional) | Upper-lid hooding; lower-lid bags; double convexity; jowl onset; early marionette | II–III; static glabella and forehead lines | Lengthen lower lid; break the jawline at the prejowl | 🧠 ↔️ |
-| 50s | Maxillary/pyriform retrusion; mandible loss if teeth lost | Midface deflation, malar mounds, established jowl, prejowl sulcus, platysmal bands | III; menopausal thinning; perioral lines | Upper vermilion ≈6.6 mm [1]; incisor display ≈1 mm; cervicomental angle opens | 📄 / 🧠 |
+| 50s | Maxillary/pyriform retrusion; mandible loss if teeth lost | Midface deflation, malar mounds, established jowl, prejowl sulcus, platysmal bands | III; menopausal thinning; perioral lines | Upper vermilion ≈6.6 mm [1]; incisor display ≈0.5 mm [24]; cervicomental angle opens | 📄 / 🧠 |
 | 60s | Orbit visibly larger (superomedial hollow, inferolateral rim recession) | Temporal hollow; jowl meets submental fat | III–IV; crepey lids and neck; lentigines | Nose longer, tip lower; ears longer | 🧠 |
 | 70s+ | Edentulous collapse if no dentures | Lean: skeletonised. Heavy: ptotic masses | IV; fine cross-hatching; thin, translucent skin | Inverted lips, forward-up chin, sparse lateral brow | 🧠 |
 
@@ -63,11 +63,11 @@ Ligament detail: `anatomy/smas-ligaments.md`; mandible norms: `anatomy/jaw-chin-
 | Quantity | Value | Population | Status |
 |---|---|---|---|
 | Upper vermilion ls–sto | 8.1 mm (20–29) → 6.6 mm (50–59); μ ≈ 8.0 − 0.05·(age−25) mm | Adults 20–59, cohort unconfirmed [1] | 📄 |
-| Resting upper-incisor display | ≈3 mm (20s) → ≈0–1 mm (60s); falls ≈0.5–1 mm per decade | Adults | 🧠 |
+| Resting upper-incisor display | ≈3.4 mm (<30) → ≈1.6 (30s) → ≈1.0 (40s) → ≈0.5 (50s); nonlinear, steepest 30s (corrected in verification) | Adults, Vig and Brundo 1978 [24] (values via OCR of a reprint) | 📄 |
 | Skin (dermis) thickness | 1.1–1.9 mm by region; men thicker | Ultrasound cohorts [15][16] | ✅ |
 | Dermal collagen loss | ≈1% per year in adults | Shuster 1975 | 🧠 |
 | Soft-tissue age effect | 0 to >2 mm by landmark (zygion, gonion largest) | CT/US cohorts [10]–[13] | ↔️ |
-| Ear length growth | ≈0.2 mm per year | Adult men, Heathcote 1995 | 🧠 ↔️ [21] |
+| Ear length growth | ≈0.22 mm per year (cross-sectional) | 206 patients aged 30–93, Heathcote 1995 [25] | 📄 ↔️ [21] |
 | Facial asymmetry | RMSD 0.8 ± 0.2 mm, rising with age | n = 191, 0.3–88 y [3] | 📄 |
 | Cervicomental angle, youthful | ≈105–120° | Ellenbogen and Karlin 1980 criteria | 🧠 |
 | Maxillary/glabellar/pyriform angle decrease | single-digit degrees, young vs old | Cross-sectional CT, mostly Caucasian | ↔️ |
@@ -106,7 +106,7 @@ Ligament detail: `anatomy/smas-ligaments.md`; mandible norms: `anatomy/jaw-chin-
   - `mandible_loss`: ramus and body height, gonial opening 0–5°, σ 2°; gated by `dental_status`.
   - `alveolar_collapse_mm`: 0 for dentate subjects; several mm to >10 mm in edentulous subjects without dentures ↔️.
   - `skin_age` ∈ [0,1]: texture and displacement only, never in the mesh fit.
-- **Landmark priors that move with age:** ls–sto μ = 8.0 − 0.05·(age−25) mm, σ 1.5 [1]; upper-incisor display μ = max(0, 3 − 0.07·(age−25)) mm, σ 1.2; ear length + 0.2·(age−25) mm, σ 3 ↔️; lid–cheek junction distance growing with age at σ 3 mm ↔️; lateral brow height N(young value, 4 mm), with no forced descent ↔️.
+- **Landmark priors that move with age:** ls–sto μ = 8.0 − 0.05·(age−25) mm, σ 1.5 [1]; upper-incisor display μ interpolated through (25, 3.4), (35, 1.6), (45, 1.0), (55, 0.5), 0 from about 65, σ 1.2 mm [24] (corrected in verification; the earlier linear 3 − 0.07·(age−25) fit the data poorly); ear length + 0.2·(age−25) mm, σ 3 ↔️; lid–cheek junction distance growing with age at σ 3 mm ↔️; lateral brow height N(young value, 4 mm), with no forced descent ↔️.
 - **Thickness model:** keep the age term on total soft-tissue depth small and site-specific, N(0, 1.5 mm), larger at zygion and gonion [10]; put age into redistribution (the basis above), not net loss ↔️.
 - **Symmetry:** loosen the symmetry prior with age, e.g. σ_sym = σ₀·(1 + 0.01·(age−25)) [3] (scaling heuristic 🧠).
 - **Wrinkles in fitting:** fit the mesh on contours and landmarks; down-weight photometric terms over fold and wrinkle regions; detect fine lines with a ridge filter only in raking-light frames. Split detail into static (present in neutral) and expression-dependent (DECA-style) layers and store dynamic lines as per-AU corrective maps 🧠.
@@ -151,6 +151,9 @@ This topic's own harvest and earlier draft did not exist. All URLs come from sib
 [20] The influence of repeated frowning and smiling on corrugator muscle activity and wrinkles between eyebrows — https://pubmed.ncbi.nlm.nih.gov/39789039/ — paper — 2025
 [21] Ear Recognition (Anagnostopoulos), Introduction to Biometrics — https://arxiv.org/pdf/2101.10540 — book chapter — n.d.
 [22] Influence of incisor display and lower lip height on smile esthetics and perceived age — https://pmc.ncbi.nlm.nih.gov/articles/PMC13316878/ — paper — n.d.
+[23] Aging of the mandible and its aesthetic implications (Shaw et al. 2010) — https://pubmed.ncbi.nlm.nih.gov/20048624/ — paper — 2010
+[24] The kinetics of anterior tooth display (Vig and Brundo 1978) — https://pubmed.ncbi.nlm.nih.gov/349139/ — paper — 1978 (age-group values read from an OCR'd reprint: https://www.scribd.com/document/447112379/vig1978-pdf)
+[25] Why do old men have big ears? (Heathcote, BMJ 1995; 0.22 mm/yr as reported in) — https://www.discovermagazine.com/british-ears-39808 — secondary report — 1995
 
 **Further reading (by name, not yet linked)**
 - Shaw RB Jr, Kahn DM, "Aging of the midface bony elements: a three-dimensional computed tomographic study", Plast Reconstr Surg, 2007.
@@ -184,3 +187,10 @@ This topic's own harvest and earlier draft did not exist. All URLs come from sib
 - Rothe R, Timofte R, Van Gool L, DEX and the IMDB-WIKI dataset, 2015/2018.
 - Paysan P et al., the Basel Face Model, AVSS, 2009.
 - Feng Y et al., DECA: learning an animatable detailed 3D face model from in-the-wild images, ACM ToG (SIGGRAPH), 2021.
+
+## Verification log (2026-11-20)
+
+1. Skeletal angles and orbit (Shaw and Kahn 2007; Kahn and Shaw 2008): **unconfirmed**. Search summaries said the maxillary angle falls significantly, but the pyriform angle showed no significant change between age groups (only pyriform aperture area rose), which conflicts with the note's "pyriform angle decreasing"; the glabellar angle result and the orbit figures were not retrieved. Badges left unchanged (🧠 / ↔️); treat the pyriform-angle claim with caution. Related URLs seen: https://pubmed.ncbi.nlm.nih.gov/9655429/ (not tied to specific text).
+2. Mandible (Shaw et al. 2010): **confirmed** in direction (ramus height, body height and body length fall; gonial angle rises; 120 Caucasian subjects) [23] https://pubmed.ncbi.nlm.nih.gov/20048624/. Another study (https://3dj.gums.ac.ir/article-1-38-fa.pdf) found some of these changes non-significant, so the line stays ↔️. "A few degrees", "most change follows tooth loss" and Tallgren 1972: unconfirmed.
+3. Upper-incisor display (Vig and Brundo 1978): **corrected**. Display falls with age (https://pubmed.ncbi.nlm.nih.gov/349139/), but not as 3 mm to 0–1 mm linearly: about 3.4 / 1.6 / 1.0 / 0.5 mm for <30 / 30s / 40s / 50s, from an OCR'd reprint (https://www.scribd.com/document/447112379/vig1978-pdf); JCO review https://www.jco-online.com/archive/1998/07/432-esthetic-factors-involved-in-anterior-tooth-display-and-the-smile-vertical-dimension/ confirms the gradual decrease. Prior reworked as an interpolation. Women about 3.4 mm vs men about 1.9 mm in the adult sample.
+4. Ear growth (Heathcote 1995): **confirmed** at about 0.22 mm a year, cross-sectional, 206 patients aged 30–93, both sexes (not only men) [25] https://www.discovermagazine.com/british-ears-39808. The conflict with the ear-biometrics claim [21] is unresolved, so ↔️ stays.

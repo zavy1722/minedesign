@@ -260,6 +260,27 @@
    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532767/",
    "kind": "paper",
    "year": "n.d."
+  },
+  {
+   "n": 38,
+   "title": "Using data-driven phenotyping to investigate the impact of sex on 3D human facial surface morphology",
+   "url": "https://scholarworks.indianapolis.iu.edu/items/f5dfa487-8bd0-4118-aefb-fa5929e6007c",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 39,
+   "title": "FLAME: Faces Learned with an Articulated Model and Expressions",
+   "url": "https://flame.is.tue.mpg.de/",
+   "kind": "project page",
+   "year": "n.d."
+  },
+  {
+   "n": 40,
+   "title": "Basel Face Model non-commercial licence agreement",
+   "url": "https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf",
+   "kind": "licence",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

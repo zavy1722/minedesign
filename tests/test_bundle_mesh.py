@@ -74,7 +74,7 @@ def _scene(n_views=5, f35=26.0, dist=420.0, noise=0.8, yaws=(-60, -30, 0, 30, 60
         hidden = np.einsum("ij,ij->i", n_dir / np.linalg.norm(n_dir, axis=1, keepdims=True),
                            facing / np.linalg.norm(facing, axis=1, keepdims=True)) < -0.1
         uv[hidden] = np.nan
-        photos.append(PhotoLandmarks(uv, c.width, c.height))
+        photos.append(PhotoLandmarks(uv, c.width, c.height, sigma_px=noise))
     pri = Priors(mean=T, sigma=8.0, pairs=mirror_pairs(names), sigma_sym=3.0,
                  midline=midline_indices(names), sigma_mid=2.0)
     return names, T, subj, cams, photos, pri
@@ -142,3 +142,38 @@ def test_point_uncertainty_reflects_coverage():
     res1 = reconstruct_landmarks(photos, pri)
     s1 = res1.point_sigma_mm
     assert np.median(s1[:, 2]) > 2 * np.median(s1[:, 0])
+
+
+def test_shared_focal_group_and_exif_strength():
+    # Same phone, same zoom: one shared focal. A tight EXIF prior that is 3 % off
+    # must hold the focal nearer the prior than a loose prior does; with the loose
+    # prior the five close views recover the true focal.
+    def run(log_sigma):
+        global rng
+        rng = np.random.default_rng(11)
+        names, T, subj, cams, photos, pri = _scene(f35=26.0, dist=450.0)
+        for ph in photos:
+            ph.focal_group = "phone"
+            ph.f_prior_px = cams[0].f * 1.03
+            ph.f_prior_log_sigma = log_sigma
+        res = reconstruct_landmarks(photos, pri)
+        return res, cams[0].f, subj
+    tight, true_f, subj = run(0.005)
+    mid, _, _ = run(0.05)
+    loose, _, _ = run(0.6)
+    fs = [c.f for c in tight.cameras]
+    assert np.ptp(fs) < 1e-9                                   # one shared value
+    r_t, r_m, r_l = (x.cameras[0].f / true_f for x in (tight, mid, loose))
+    assert abs(r_l - 1) < 0.01                                 # data decides
+    assert r_t > r_m >= r_l - 1e-4                             # monotone pull toward prior
+    assert r_t - r_l > 0.008
+    assert procrustes_rmse(tight.X, subj) < 1.5
+
+
+def test_auto_sigma_scales_with_face_size():
+    names, T, subj, cams, photos, pri = _scene()
+    ph = photos[2]
+    auto = PhotoLandmarks(ph.uv, ph.width, ph.height).resolved_sigma_px()
+    big = PhotoLandmarks(ph.uv * 2.0, ph.width * 2, ph.height * 2).resolved_sigma_px()
+    assert np.isclose(big, 2 * auto)
+    assert 1.0 < auto < 50.0

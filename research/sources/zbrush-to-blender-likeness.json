@@ -1,6 +1,32 @@
 {
  "topic": "zbrush-to-blender-likeness",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "url": "https://www.maxon.net/en/zbrush/features/universal-camera",
+   "title": "Maxon ZBrush Universal Camera"
+  },
+  {
+   "n": 2,
+   "url": "https://help.maxon.net/zbr/en-us/Content/Resources/Uploads/ZBrush-Shortcuts.pdf",
+   "title": "ZBrush Shortcuts"
+  },
+  {
+   "n": 3,
+   "url": "https://developer.blender.org/T78320",
+   "title": "Blender tracker T78320"
+  },
+  {
+   "n": 4,
+   "url": "https://developer.blender.org/T43039",
+   "title": "Blender tracker T43039"
+  },
+  {
+   "n": 5,
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5497600",
+   "title": "Review citing Dodgson 2004 IPD"
+  }
+ ],
  "references_by_name": [
   "Scott Spencer, ZBrush Character Creation: Advanced Digital Sculpting (Sybex, 2008; 2nd ed. 2011)",
   "Scott Spencer, ZBrush Digital Sculpting Human Anatomy (Sybex, 2010)",

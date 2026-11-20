@@ -2,47 +2,377 @@
  "topic": "eye-region",
  "note": "No eye-region harvest or earlier draft existed; all URLs come from sibling-topic harvests in research/_raw/harvests (eyes-modeling-blender, anthropometric-norms, craniometric-landmarks, muscles-upper-face, skull-osteology, facial-asymmetry, facial-proportions-canons, facs-expressions) and were cited only for the atomic facts those harvests attach to them.",
  "sources": [
-  {"n": 1, "title": "Variations in Eyeball Diameters of the Healthy Adults", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4238270/", "kind": "paper", "year": "2014"},
-  {"n": 2, "title": "Mean human corneal diameter and palpebral fissure lengths as scales for forensic analysis of photographed faces: an analytical review", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/", "kind": "review", "year": "n.d."},
-  {"n": 3, "title": "Anatomy of cornea and ocular surface", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5819093/", "kind": "review", "year": "2017"},
-  {"n": 4, "title": "Radius and asphericity of the posterior corneal surface determined by corrected Scheimpflug photography", "url": "https://pubmed.ncbi.nlm.nih.gov/12190779/", "kind": "paper", "year": "2002"},
-  {"n": 5, "title": "Curvature analyses of the corneal front and back surface", "url": "https://pubmed.ncbi.nlm.nih.gov/23841132/", "kind": "paper", "year": "2013"},
-  {"n": 6, "title": "Radius of curvature of the posterior surface of the cornea", "url": "https://pubmed.ncbi.nlm.nih.gov/9293516/", "kind": "paper", "year": "1997"},
-  {"n": 7, "title": "The shape of the anterior and posterior surface of the aging human cornea", "url": "https://pubmed.ncbi.nlm.nih.gov/16266736/", "kind": "paper", "year": "2005"},
-  {"n": 8, "title": "Levator palpebrae superioris (Elsevier anatomy)", "url": "https://www.elsevier.com/resources/anatomy/eye-accessory-visual-structures/extraocular-muscles/levator-palpebrae-superioris/16321", "kind": "reference", "year": "n.d."},
-  {"n": 9, "title": "Levator palpebrae superioris (StatPearls)", "url": "https://www.ncbi.nlm.nih.gov/books/NBK536921/", "kind": "medical reference", "year": "n.d."},
-  {"n": 10, "title": "Levator palpebrae superioris muscle (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Levator_palpebrae_superioris_muscle", "kind": "encyclopedia", "year": "n.d."},
-  {"n": 11, "title": "Anatomy, Head and Neck: Orbicularis Oculi Muscle (StatPearls)", "url": "https://www.ncbi.nlm.nih.gov/books/NBK441907/", "kind": "medical reference", "year": "n.d."},
-  {"n": 12, "title": "Orbicularis oculi muscle (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Orbicularis_oculi_muscle", "kind": "encyclopedia", "year": "n.d."},
-  {"n": 13, "title": "Palpebral part of orbicularis oculi (Elsevier anatomy)", "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/palpebral-part-of-orbicularis-oculi/21807", "kind": "reference", "year": "n.d."},
-  {"n": 14, "title": "The severity of wrinkling at the forehead is related to the degree of ptosis of the upper eyelid", "url": "https://pubmed.ncbi.nlm.nih.gov/20456101/", "kind": "paper", "year": "n.d."},
-  {"n": 15, "title": "Discriminative Thresholds in Facial Asymmetry: A Review of the Literature", "url": "https://pubmed.ncbi.nlm.nih.gov/28200081/", "kind": "review", "year": "2017"},
-  {"n": 16, "title": "Threshold of visual perception of facial asymmetry in a facial paralysis model", "url": "https://pubmed.ncbi.nlm.nih.gov/21242426/", "kind": "paper", "year": "2011"},
-  {"n": 17, "title": "Facial Anthropometric Norms among Kosovo-Albanian Adults", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/", "kind": "paper", "year": "2017"},
-  {"n": 18, "title": "Normative Findings for Periocular Anthropometric Measurements among Chinese Young Adults in Hong Kong", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/", "kind": "paper", "year": "n.d."},
-  {"n": 19, "title": "Anthropometric Study of Three-Dimensional Facial Morphology in Malay Adults", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/", "kind": "paper", "year": "n.d."},
-  {"n": 20, "title": "Expanding the Classic Facial Canons: Quantifying Intercanthal Distance in a Diverse Patient Population", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9029890/", "kind": "paper", "year": "n.d."},
-  {"n": 21, "title": "Exploring Causes of Demographic Variations In Face Recognition Accuracy (reproduces Farkas SDs)", "url": "https://arxiv.org/pdf/2304.07175", "kind": "paper", "year": "2023"},
-  {"n": 22, "title": "Anatomy of the Orbit", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/", "kind": "paper", "year": "n.d."},
-  {"n": 23, "title": "Anatomic characteristics of the infraorbital foramen: a cadaver study", "url": "https://pubmed.ncbi.nlm.nih.gov/10981979/", "kind": "paper", "year": "n.d."},
-  {"n": 24, "title": "Morphological and Morphometric Relations of Infraorbital Foramen in North Indian Population", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/", "kind": "paper", "year": "n.d."},
-  {"n": 25, "title": "Columbia anatomy craniology slides (orbitale, Frankfort horizontal)", "url": "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html", "kind": "lecture", "year": "n.d."},
-  {"n": 26, "title": "Landmark definitions table (orbitale variants)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1", "kind": "paper", "year": "n.d."},
-  {"n": 27, "title": "Facial Anthropometry and Analysis in Egyptian Women", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/", "kind": "paper", "year": "n.d."},
-  {"n": 28, "title": "Facial Landmarks Determination with Different Digital Scanners: An In Vivo Study", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/", "kind": "paper", "year": "n.d."},
-  {"n": 29, "title": "yakhyo/mediapipe-face-mesh-onnx README", "url": "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md", "kind": "repo", "year": "n.d."},
-  {"n": 30, "title": "cornpip/mediapipe_face_mesh", "url": "https://github.com/cornpip/mediapipe_face_mesh", "kind": "repo", "year": "n.d."},
-  {"n": 31, "title": "PyImageSearch: Detect eyes, nose, lips, and jaw with dlib", "url": "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/", "kind": "blog", "year": "2017"},
-  {"n": 32, "title": "MediaPipe Face Landmarker (Google AI Edge)", "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker", "kind": "official docs", "year": "n.d."},
-  {"n": 33, "title": "Depressor supercilii muscle: anatomy, histology and cosmetic implications (Cook et al.)", "url": "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications", "kind": "paper abstract", "year": "2001"},
-  {"n": 34, "title": "Quantitative Analysis of the Human Face Skin Thickness: A High-Frequency Ultrasound Study", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/", "kind": "paper", "year": "n.d."},
-  {"n": 35, "title": "Anthropometric facial analysis of the African American woman", "url": "https://pubmed.ncbi.nlm.nih.gov/11497505/", "kind": "paper", "year": "2001"},
-  {"n": 36, "title": "Evaluation of soft-tissue morphology of the face in 1,050 young adults", "url": "https://pubmed.ncbi.nlm.nih.gov/10096619/", "kind": "paper", "year": "1999"},
-  {"n": 37, "title": "Proko - How to Draw the Head from Any Angle", "url": "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle", "kind": "tutorial", "year": "n.d."},
-  {"n": 38, "title": "Fine Art Tutorials - Loomis Method", "url": "https://finearttutorials.com/guide/loomis-method/", "kind": "tutorial", "year": "n.d."},
-  {"n": 39, "title": "The Role of Facial Action Units in Investigating Facial Movements During Speech", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13229553/", "kind": "paper", "year": "n.d."},
-  {"n": 40, "title": "Taylor & Francis chapter on frontal bone / supraorbital notch", "url": "https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29", "kind": "textbook", "year": "n.d."},
-  {"n": 41, "title": "Kenhub: The frontal bone", "url": "https://www.kenhub.com/en/library/anatomy/the-frontal-bone", "kind": "reference", "year": "n.d."}
+  {
+   "n": 1,
+   "title": "Variations in Eyeball Diameters of the Healthy Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4238270/",
+   "kind": "paper",
+   "year": "2014"
+  },
+  {
+   "n": 2,
+   "title": "Mean human corneal diameter and palpebral fissure lengths as scales for forensic analysis of photographed faces: an analytical review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/",
+   "kind": "review",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Anatomy of cornea and ocular surface",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5819093/",
+   "kind": "review",
+   "year": "2017"
+  },
+  {
+   "n": 4,
+   "title": "Radius and asphericity of the posterior corneal surface determined by corrected Scheimpflug photography",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12190779/",
+   "kind": "paper",
+   "year": "2002"
+  },
+  {
+   "n": 5,
+   "title": "Curvature analyses of the corneal front and back surface",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/23841132/",
+   "kind": "paper",
+   "year": "2013"
+  },
+  {
+   "n": 6,
+   "title": "Radius of curvature of the posterior surface of the cornea",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/9293516/",
+   "kind": "paper",
+   "year": "1997"
+  },
+  {
+   "n": 7,
+   "title": "The shape of the anterior and posterior surface of the aging human cornea",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/16266736/",
+   "kind": "paper",
+   "year": "2005"
+  },
+  {
+   "n": 8,
+   "title": "Levator palpebrae superioris (Elsevier anatomy)",
+   "url": "https://www.elsevier.com/resources/anatomy/eye-accessory-visual-structures/extraocular-muscles/levator-palpebrae-superioris/16321",
+   "kind": "reference",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "Levator palpebrae superioris (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK536921/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Levator palpebrae superioris muscle (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Levator_palpebrae_superioris_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "Anatomy, Head and Neck: Orbicularis Oculi Muscle (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK441907/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 12,
+   "title": "Orbicularis oculi muscle (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Orbicularis_oculi_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "Palpebral part of orbicularis oculi (Elsevier anatomy)",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/palpebral-part-of-orbicularis-oculi/21807",
+   "kind": "reference",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "The severity of wrinkling at the forehead is related to the degree of ptosis of the upper eyelid",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20456101/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "Discriminative Thresholds in Facial Asymmetry: A Review of the Literature",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28200081/",
+   "kind": "review",
+   "year": "2017"
+  },
+  {
+   "n": 16,
+   "title": "Threshold of visual perception of facial asymmetry in a facial paralysis model",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/21242426/",
+   "kind": "paper",
+   "year": "2011"
+  },
+  {
+   "n": 17,
+   "title": "Facial Anthropometric Norms among Kosovo-Albanian Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 18,
+   "title": "Normative Findings for Periocular Anthropometric Measurements among Chinese Young Adults in Hong Kong",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 19,
+   "title": "Anthropometric Study of Three-Dimensional Facial Morphology in Malay Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "Expanding the Classic Facial Canons: Quantifying Intercanthal Distance in a Diverse Patient Population",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9029890/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "Exploring Causes of Demographic Variations In Face Recognition Accuracy (reproduces Farkas SDs)",
+   "url": "https://arxiv.org/pdf/2304.07175",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 22,
+   "title": "Anatomy of the Orbit",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "Anatomic characteristics of the infraorbital foramen: a cadaver study",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10981979/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "Morphological and Morphometric Relations of Infraorbital Foramen in North Indian Population",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 25,
+   "title": "Columbia anatomy craniology slides (orbitale, Frankfort horizontal)",
+   "url": "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+   "kind": "lecture",
+   "year": "n.d."
+  },
+  {
+   "n": 26,
+   "title": "Landmark definitions table (orbitale variants)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 27,
+   "title": "Facial Anthropometry and Analysis in Egyptian Women",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 28,
+   "title": "Facial Landmarks Determination with Different Digital Scanners: An In Vivo Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "yakhyo/mediapipe-face-mesh-onnx README",
+   "url": "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 30,
+   "title": "cornpip/mediapipe_face_mesh",
+   "url": "https://github.com/cornpip/mediapipe_face_mesh",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 31,
+   "title": "PyImageSearch: Detect eyes, nose, lips, and jaw with dlib",
+   "url": "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/",
+   "kind": "blog",
+   "year": "2017"
+  },
+  {
+   "n": 32,
+   "title": "MediaPipe Face Landmarker (Google AI Edge)",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 33,
+   "title": "Depressor supercilii muscle: anatomy, histology and cosmetic implications (Cook et al.)",
+   "url": "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications",
+   "kind": "paper abstract",
+   "year": "2001"
+  },
+  {
+   "n": 34,
+   "title": "Quantitative Analysis of the Human Face Skin Thickness: A High-Frequency Ultrasound Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 35,
+   "title": "Anthropometric facial analysis of the African American woman",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11497505/",
+   "kind": "paper",
+   "year": "2001"
+  },
+  {
+   "n": 36,
+   "title": "Evaluation of soft-tissue morphology of the face in 1,050 young adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10096619/",
+   "kind": "paper",
+   "year": "1999"
+  },
+  {
+   "n": 37,
+   "title": "Proko - How to Draw the Head from Any Angle",
+   "url": "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle",
+   "kind": "tutorial",
+   "year": "n.d."
+  },
+  {
+   "n": 38,
+   "title": "Fine Art Tutorials - Loomis Method",
+   "url": "https://finearttutorials.com/guide/loomis-method/",
+   "kind": "tutorial",
+   "year": "n.d."
+  },
+  {
+   "n": 39,
+   "title": "The Role of Facial Action Units in Investigating Facial Movements During Speech",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13229553/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 40,
+   "title": "Taylor & Francis chapter on frontal bone / supraorbital notch",
+   "url": "https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 41,
+   "title": "Kenhub: The frontal bone",
+   "url": "https://www.kenhub.com/en/library/anatomy/the-frontal-bone",
+   "kind": "reference",
+   "year": "n.d."
+  },
+  {
+   "n": 42,
+   "title": "Normative data for Hertel exophthalmometry in a normal adult black population",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/1635761/",
+   "kind": "paper",
+   "year": "1992"
+  },
+  {
+   "n": 43,
+   "title": "Determination of the normal range of exophthalmometric values for black and white adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/6486215/",
+   "kind": "paper",
+   "year": "1984"
+  },
+  {
+   "n": 44,
+   "title": "Normal Values of Hertel Exophthalmometry in a Chinese Han Population from Shenyang",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4336939/",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 45,
+   "title": "Normal Exophthalmometry Values in Iranian Population: A Meta-analysis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8358757/",
+   "kind": "review",
+   "year": "n.d."
+  },
+  {
+   "n": 46,
+   "title": "White-to-white corneal diameter: normal values in healthy Iranian population (Orbscan II)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4003087/",
+   "kind": "paper",
+   "year": "2014"
+  },
+  {
+   "n": 47,
+   "title": "Ocular biometrics in eyes with different white-to-white corneal diameter in young myopic adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10899605/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 48,
+   "title": "Corneal white-to-white distance and mesopic pupil diameter",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3428550",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 49,
+   "title": "White-to-white corneal diameter, Pentacam AXL Wave, adult Saudi population",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11970417/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 50,
+   "title": "Using AI to Quantify Sexual Dimorphism in Aesthetic Faces",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10335162/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 51,
+   "title": "Upper eyelid contour measurement in an Asian population using Bezier curve analysis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12132956/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 52,
+   "title": "A novel standardized distraction test to evaluate lower eyelid tension using 3D stereophotogrammetry",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8245927/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 53,
+   "title": "Internal cantholysis for full thickness eyelid defects",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3729649/",
+   "kind": "paper",
+   "year": "n.d."
+  }
  ],
  "references_by_name": [
   "Farkas LG, Anthropometry of the Head and Face, 2nd ed., 1994",

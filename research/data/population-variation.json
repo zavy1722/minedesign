@@ -595,9 +595,9 @@
         ]
       ],
       "population": "3D face datasets",
-      "source_urls": [],
-      "status": "knowledge",
-      "notes": "Time-sensitive; counts, composition and licences need verification."
+      "source_urls": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC6953995"],
+      "status": "partially_verified",
+      "notes": "Time-sensitive. LSFM size (9,663 identities from MeIn3D, ~9,700) confirmed in verification 2026-11-20 (Booth et al. 2018 IJCV); composition, other datasets and licences unverified."
     },
     {
       "name": "bias_audit_targets",

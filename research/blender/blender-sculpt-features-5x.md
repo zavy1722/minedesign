@@ -1,14 +1,15 @@
 # Blender sculpt mode feature set (4.x-5.x)
 
-> Sculpt mode in 4.x–5.x is a mature toolset that keeps topology intact: per-vertex masks, per-face face sets, auto-masking, Expand, mesh/cloth/mask filters, gesture tools, transform tools and Multires. Three tools rebuild topology (Dyntopo, voxel remesh, QuadriFlow) and must stay off the delivery mesh. Two changes since 4.0 dominate: brushes became assets in 4.3 (the Essentials library, the asset shelf, `brush.asset_activate`), which broke older brush scripts, tutorials and keymaps; and a C++ rewrite of the sculpt internals across roughly 4.2–4.4 made dense meshes much faster. The current releases are 5.3 (10 Nov 2026) and 5.2 LTS [1][2][3], but no source in this library describes a 5.x sculpt feature, so anything dated after 4.3 is low-confidence and every brush name, hotkey and operator signature must be probed at runtime.
+> Sculpt mode in 4.x–5.x is a mature toolset that keeps topology intact: per-vertex masks, per-face face sets, auto-masking, Expand, mesh/cloth/mask filters, gesture tools, transform tools and Multires. Three tools rebuild topology (Dyntopo, voxel remesh, QuadriFlow) and must stay off the delivery mesh. Two changes since 4.0 dominate: brushes became assets in 4.3 (the Essentials library, the asset shelf, `brush.asset_activate`), which broke older brush scripts, tutorials and keymaps; and a C++ rewrite of the sculpt internals across roughly 4.2–4.4 made dense meshes much faster. The current releases are 5.3 (10 Nov 2026) and 5.2 LTS [1][2][3], and only a few 5.x sculpt changes are sourced (see Release context), so anything else dated after 4.3 is low-confidence and every brush name, hotkey and operator signature must be probed at runtime.
 >
-> Evidence status: 1 ✅ / 5 📄 / 54 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 9 📄 / 51 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Release context**
 - 5.3 is the current feature release, dated 10 Nov 2026 [1][2] ✅ (the exact date is 📄). 5.2 LTS came out on 14 Jul 2026 and is supported until Jul 2028 [3][4] 📄. 4.5 LTS is supported until Jul 2027 [5] 📄. 5.0 was released on 18 Nov 2025 [6][7] 📄.
 - Sculpt features ship in feature releases; LTS lines get fixes 🧠. The 2026 plan was 5.1 (Mar), 5.2 LTS (Jul) and 5.3 (Nov) [10] 📄.
+- 5.3 sculpt notes: Sculpt Mode now shows textures and colour attributes on Multires meshes (black in 5.2); Vertex and Weight Paint gain auto-masking; unified paint settings (size, strength, colour) are stored per brush instead of per scene [13] 📄.
 - Since 5.0, `np.asarray()` on a mathutils Vector or Matrix returns a float32, non-contiguous view [8] 📄.
 
 **Brushes as assets (4.3)**
@@ -16,9 +17,9 @@
 - **Edits stay in the file.** Editing an Essentials brush changes a local copy in the current .blend. "Save as Asset" or duplicating writes it to a user library, and "Revert" restores it 🧠.
 - **One Brush tool.** The per-brush tools collapsed into a single Brush tool. Gesture, filter, Edit Face Set, Mask by Color and transform tools stay in the toolbar 🧠 (moderate).
 - **Python changes:**
-  - Brushes are activated with `bpy.ops.brush.asset_activate(asset_library_type, asset_library_identifier, relative_asset_identifier)`, with an identifier such as `brushes/essentials_brushes-mesh_sculpt.blend/Brush/Draw` 🧠 (moderate).
-  - Assigning `tool_settings.sculpt.brush` and calling `paint.brush_select` no longer select a brush the old way 🧠.
-  - `Brush.sculpt_tool` → `sculpt_brush_type` 🧠 (moderate).
+  - Brushes are activated with `bpy.ops.brush.asset_activate(asset_library_type, asset_library_identifier, relative_asset_identifier)`, with an identifier such as `brushes/essentials_brushes-mesh_sculpt.blend/Brush/Draw` [11][12] 📄.
+  - `paint.brush_set` was removed in 4.3 and replaced by `brush.asset_activate` [12] 📄 (corrected in verification; the note's `paint.brush_select` and `tool_settings.sculpt.brush` claims are unconfirmed).
+  - `Brush.sculpt_tool` → `sculpt_brush_type` happened in 5.0, not 4.3 [8] 📄 (corrected in verification).
   - Brush hotkeys are keymap items that call `brush.asset_activate`; right-click a brush in the shelf and choose "Assign Shortcut" 🧠.
 - **Presets.** Essentials adds Crease, Grab, Pose/Boundary and Cloth variants whose names differ from older tutorials 🧠.
 - **Plane brush.** A brush type that unifies Flatten, Fill and Scrape is reported for 4.5 or 5.0 ↔️ (low confidence).
@@ -71,9 +72,9 @@
 | 3.2 / 3.5 | colour painting / cavity, view-normal and area-normal auto-masking, Alt+A pie | moderate |
 | 4.0 / 4.1 | node tools in sculpt mode / mask stored as `.sculpt_mask` | moderate / low |
 | 4.2 LTS | line/polyline hide, mask, face-set and trim tools; random mask; refactor begins | moderate |
-| 4.3 | brush assets, Essentials, asset shelf, `sculpt_brush_type`, large speed-ups | high (assets) |
+| 4.3 | brush assets, Essentials, asset shelf, `brush.asset_activate`, large speed-ups | high (assets) |
 | 4.4–4.5 LTS | refactor continues; Plane brush type? | low ↔️ |
-| 5.0–5.3 | only the mathutils→NumPy float32 view [8] is established | 📄 / open |
+| 5.0–5.3 | `sculpt_tool`→`sculpt_brush_type` (5.0) [8]; mathutils→NumPy float32 view [8]; 5.3 items above [13] | 📄 / open |
 
 **Table 2 — Resolution arithmetic** 🧠
 
@@ -130,7 +131,7 @@ Multires: faces = base × 4^L, edge = base edge ÷ 2^L.
 | Hidden | `.hide_vert`, `.hide_edge`, `.hide_poly` | BOOLEAN |
 | Remesh | `Mesh.remesh_voxel_size`, `remesh_voxel_adaptivity` | float |
 | Symmetry | `Mesh.use_mirror_x/y/z` | bool |
-| Brush type | `sculpt_brush_type` (4.3+) / `sculpt_tool` (≤4.2) | enum |
+| Brush type | `sculpt_brush_type` (5.0+) / `sculpt_tool` (≤4.5) (corrected in verification) | enum |
 
 **Table 6 — Practical budgets** ↔️ (32–64 GB desktop; hardware-dependent)
 
@@ -172,7 +173,7 @@ Multires: faces = base × 4^L, edge = base edge ÷ 2^L.
 - **"Blender now matches ZBrush on polycount."** ↔️ Closer, but ZBrush's ceiling (HD Geometry, tens of millions per SubTool) is higher 🧠.
 - **"Use the cloth brush for skin wrinkles."** ↔️ It works for neck and eyelid folds but is slow and non-deterministic. Crease, Draw Sharp and Layer give more control 🧠.
 - **"Brush assets broke old files."** Old brushes survive and can be marked as assets; scripts and keymaps break 🧠.
-- **Open questions:** (1) sculpt items in 5.0–5.3 (Plane brush, new filters); (2) are `.sculpt_mask`/`.sculpt_face_set` still the names in 5.3; (3) did `brush.asset_activate` change in 5.x; (4) can extensions register asset libraries; (5) any Python access to Multires displacement; (6) did unified paint settings move per mode?
+- **Open questions:** (1) sculpt items in 5.0–5.3 (Plane brush, new filters); (2) are `.sculpt_mask`/`.sculpt_face_set` still the names in 5.3; (3) did `brush.asset_activate` change in 5.x; (4) can extensions register asset libraries; (5) any Python access to Multires displacement; (6) unified paint settings: 5.3 stores them per brush, not per scene [13] (answered; per-mode was wrong).
 
 ## Sources
 
@@ -186,6 +187,9 @@ Multires: faces = base × 4^L, edge = base edge ÷ 2^L.
 [8] Blender 5.0: Python API — https://developer.blender.org/docs/release_notes/5.0/python_api/ — official-docs — 2025
 [9] Index – Blender Developer Documentation (compatibility) — https://developer.blender.org/docs/release_notes/compatibility/ — official-docs — n.d. (lists breaking API changes; no sculpt facts extracted)
 [10] Projects to Look Forward to in 2026 — Blender — https://www.blender.org/development/projects-to-look-forward-to-in-2026/ — official-docs — 2026
+[11] Brush Operators — Blender Python API — https://docs.blender.org/api/current/bpy.ops.brush.html — official-docs — 2026
+[12] Blender 4.3: Sculpt, Paint, Texture — https://developer.blender.org/docs/release_notes/4.3/sculpt/ — official-docs — 2024
+[13] Blender 5.3: Sculpt, Paint, Texture — https://developer.blender.org/docs/release_notes/5.3/sculpt/ — official-docs — 2026
 
 [1] and [3]–[10] come from the blender-version-status-2026 harvest; this topic has no harvest, so no sculpt-feature fact is sourced.
 
@@ -196,3 +200,10 @@ Multires: faces = base × 4^L, edge = base edge ÷ 2^L.
 - de Goes & James, "Regularized Kelvinlets", SIGGRAPH 2017 (basis of Elastic Deform)
 - Vollmer, Mencl & Müller, "Improved Laplacian Smoothing of Noisy Surface Meshes", 1999 (HC smoothing)
 - Huang et al., "QuadriFlow", SGP 2018
+
+## Verification log (2026-11-20)
+
+- Brush assets / `brush.asset_activate`: confirmed (📄). Corrected: `paint.brush_set` was removed in 4.3 [12]; `Brush.sculpt_tool` → `sculpt_brush_type` is a 5.0 change, not 4.3 [8]. `paint.brush_select` / `tool_settings.sculpt.brush` claim: unconfirmed. Sources: https://docs.blender.org/api/current/bpy.ops.brush.html , https://developer.blender.org/docs/release_notes/4.3/sculpt/ , https://developer.blender.org/docs/release_notes/5.0/python_api/
+- `.sculpt_mask` / `.sculpt_face_set` names, `.hide_vert`/`.hide_poly`: unconfirmed (no release note names them; only the 5.4 sculpt notes mention the mesh `.sculpt_mask` value). Sources seen: https://developer.blender.org/docs/release_notes/5.4/sculpt/
+- 5.x sculpt changes: partly confirmed. 5.3 notes sourced (Multires texture display, paint auto-masking, per-brush unified paint settings; the "per mode" guess was corrected to per brush). Plane brush type: unconfirmed. Source: https://developer.blender.org/docs/release_notes/5.3/sculpt/
+- Voxel size default 0.1 and clip start 0.01 m: unconfirmed (manual Remesh page found but the search text did not state the default). Source seen: https://docs.blender.org/manual/en/latest/sculpt_paint/sculpting/tool_settings/remesh.html

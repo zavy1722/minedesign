@@ -2,7 +2,7 @@
 
 > VFX, game and Blender/ZBrush practice converges on one pipeline: keep the raw scan untouched as the bake source, clean a decimated, masked copy into a *fitting target*, wrap a known-topology base onto it (point pairs, then coarse-to-fine non-rigid fitting), recover detail by projection (Multires Reshape or ZBrush Project All), and bake colour, normal and displacement from the raw scan. R3DS Wrap/ZWrap (now sold as Faceform, to verify) is the community reference; Blender's Shrinkwrap, Surface Deform and Data Transfer are building blocks, not a wrap, because without landmark terms or a stiffness schedule correspondence slides and lips and lids fuse. Likeness lives in forms of 2 mm wavelength and up, so cleaning must never smooth or symmetrise at radii that move lid, lip, alar or jaw contours. This topic had no harvest or earlier draft: linked sources are borrowed from sibling harvests and the rest is expert knowledge.
 >
-> Evidence status: 4 ✅ / 9 📄 / 53 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 5 ✅ / 13 📄 / 51 🧠 / 8 ↔️ — verified 2026-11-20; remaining 🧠 items are still queued for web verification.
 
 ## Key facts
 
@@ -44,12 +44,12 @@
 - **Symmetric topology, asymmetric shape.** Healthy faces differ from their mirror image by 0.80 ± 0.24 mm RMS [11] 📄 (attribution inferred from excerpts), so never symmetrise the fitted shape.
 
 **Detail, texture and blendshape transfer**
-- **Multires Reshape** (the Blender analogue of stepwise Project All) 🧠:
+- **Multires Reshape** (the Blender analogue of stepwise Project All; still in the 5.3 manual, copies vertex positions from a same-topology object [17]) 📄:
   1. Duplicate the base and apply its Multires at level N.
   2. Shrinkwrap the duplicate to `scan_raw` (Project, both directions, Limit 1–2 mm) and apply.
   3. Select the duplicate, make the original active, and Reshape.
   4. Repeat per level.
-- **Bake from Multires** (Normals or Displacement) skips the second object 🧠 (verify for 5.x).
+- **Bake from Multires** (Normals or Displacement) skips the second object [17] 📄 (present in the 5.3 manual; Viewport Levels 0 = base, Render Levels = detail).
 - **Selected-to-Active bakes** (Cycles) from `scan_raw` to the base UVs 🧠:
   - Colour: use the **Emit trick** (scan texture or Color Attribute → Emission), or Diffuse with only Color contributing. Neither bakes in lighting.
   - Save with **Save as Render off**, or the view transform (AgX, the default since 4.0) is burned into the albedo.
@@ -110,8 +110,8 @@
 
 | Tool | Keeps your topology | Landmarks + annealing | Cost | Badge |
 |---|---|---|---|---|
-| Faceform/R3DS Wrap | yes | yes | commercial, trial | ↔️ (licence and price) |
-| ZWrap (ZBrush plug-in) | yes | yes | commercial | ↔️ |
+| Faceform/R3DS Wrap | yes | yes | commercial; perpetual + maintenance, Indie ≈$570 / Pro ≈$1,070 node-locked in 2024 (trial not confirmed) [15][16] | ✅ |
+| ZWrap (ZBrush plug-in) | yes | yes | commercial; annual subscription, price not found [16] | 📄 |
 | Shrinkwrap / Laplacian Deform / GN | yes | none / anchors / smoothing only | free | 🧠 |
 | Mesh to MetaHuman | no | marker curves | UE EULA, Epic login | ↔️ |
 | Reallusion Headshot (mesh mode) | no (CC3+) | alignment points | commercial | 🧠 |
@@ -174,7 +174,7 @@
 - **"Symmetrise the scan to clean it."** That erases ≈0.8 mm of real asymmetry [11].
 - **Open questions:**
   - Mesh to MetaHuman fidelity and texture transfer after 5.6 ↔️.
-  - Faceform's current licences and prices, and ZWrap support for current ZBrush ↔️.
+  - Faceform's licences and prices (2024 figures only, see Table 5) and ZWrap support for current ZBrush (vendor page claims "latest version") [15][16] 📄.
   - Whether Bake from Multires and Reshape are unchanged in 5.x.
   - Whether any maintained open-source Wrap-grade tool exists for Blender (none known to me).
   - Whether statistical, shape-model-regularised NICP [14] beats smoothness-only regularisers on partial scans.
@@ -197,6 +197,10 @@ No harvest existed for this topic. Every URL is borrowed from a sibling harvest 
 [12] Principled BSDF – Blender 4.3 Manual — https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html — official docs — 2024 (skin-shading)
 [13] Generating metahuman based on a single image (Blender Artists) — https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052 — forum — n.d. (blenderartists-forum)
 [14] Statistical non-rigid ICP (ibug) — https://ibug.doc.ic.ac.uk/media/uploads/documents/statistical_non_rigid_icp.pdf — paper — n.d. (deformation-fitting-math; listed, contents not harvested)
+[15] Faceform releases Wrap 2024.11 and Wrap4D 2024.11 (CG Channel) — https://www.cgchannel.com/2024/12/faceform-releases-wrap-2024-11-and-wrap4d-2024-11 — news — 2024 (verification)
+[16] Faceform / ZWrap for ZBrush (Pixologic) — https://pixologic.com/zbrushlive-test/faceform/ — vendor page — n.d. (verification)
+[17] Multiresolution Modifier, Blender 5.3 Manual — https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html — official docs — 2026 (verification)
+[18] Shrinkwrap Modifier, Blender 5.3 Manual — https://docs.blender.org/manual/en/latest/modeling/modifiers/deform/shrinkwrap.html — official docs — 2026 (verification)
 
 **Further reading (by name, not yet linked)**
 - Faceform (R3DS) Wrap and ZWrap documentation (RigidAlignment, Wrapping, OpticalFlowWrapping, TransferTexture, BlendShapes)
@@ -211,3 +215,10 @@ No harvest existed for this topic. Every URL is borrowed from a sibling harvest 
 - Vollmer, Mencl & Müller, "Improved Laplacian Smoothing of Noisy Surface Meshes", Eurographics 1999
 - Jakob et al., "Instant Field-Aligned Meshes", SIGGRAPH Asia 2015
 - Huang et al., "QuadriFlow: A Scalable and Robust Method for Quadrangulation", SGP 2018
+
+## Verification log (2026-11-20)
+
+- **Faceform Wrap / ZWrap commercial licensing** — confirmed. Wrap is perpetual + maintenance (2024.11: Indie ≈$570, Pro ≈$1,070 node-locked, $1,470 floating); ZWrap is an annual subscription and the vendor page claims compatibility with the latest ZBrush. The free trial and current prices were not confirmed. Sources: https://www.cgchannel.com/2024/12/faceform-releases-wrap-2024-11-and-wrap4d-2024-11 ; https://pixologic.com/zbrushlive-test/faceform/
+- **Wrap node set and Wrapping node annealing of smoothness / control-point weight** — unconfirmed. No Faceform documentation appeared in the results; stays 🧠.
+- **Blender 5.x Multires Reshape and Bake from Multires** — confirmed in the 5.3 manual. Source: https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html
+- **Shrinkwrap Limit only in Project mode; Target Normal Project has no Limit** — unconfirmed. The 5.3 manual and API describe a Limit (project_limit) for Project mode, but nothing states that other modes lack it; the Target Normal Project description was not found in the current manual. Stays 🧠. Source: https://docs.blender.org/manual/en/latest/modeling/modifiers/deform/shrinkwrap.html

@@ -47,7 +47,7 @@
  "rows":[
   ["world position","mu' = k*R*mu + T","T = triangle centroid; R = edge/normal/cross frame; k = mean of an edge length and its perpendicular","knowledge"],
   ["world rotation / scale","r' = R*r ; s' = k*s","Gaussians stretch with triangle","knowledge"],
-  ["epsilon_pos / lambda_pos","~1 / ~0.01","penalise offsets beyond 1 local unit","contested"],
+  ["epsilon_pos / lambda_pos","~1 / ~0.01","penalise offsets beyond 1 local unit (epsilon_pos=1 confirmed in paper, lambda_pos unverified)","contested"],
   ["epsilon_s / lambda_s","~0.6 / ~1","penalise large Gaussians","contested"],
   ["FLAME face triangle edge","~2-6 mm (scalp larger)","1 local unit ~ a few mm","knowledge"]
  ],

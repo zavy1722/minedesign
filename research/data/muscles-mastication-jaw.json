@@ -77,9 +77,10 @@
    ],
    "population": "Young Korean adults (ultrasound)",
    "source_urls": [
-    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6148042/"
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6148042/",
+    "https://pubmed.ncbi.nlm.nih.gov/30276158/"
    ],
-   "status": "sourced",
+   "status": "verified",
    "notes": "Deltas and gains derived here. Bilateral soft-tissue width change upper bound = 2x delta (assumes fully lateral thickening)."
   },
   {

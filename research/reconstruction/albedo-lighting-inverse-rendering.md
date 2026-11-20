@@ -2,7 +2,7 @@
 
 > A face pixel is albedo × shading (+ specular) times unknown exposure and white balance, bent by a tone curve; from one uncalibrated photo the split is ambiguous (albedo-vs-light scale, light colour vs skin hue, bas-relief shape-vs-light). Order-2 spherical harmonics (SH: 9 coefficients per channel, 27 in RGB) hold ≈99 % of Lambertian shading and are the standard lighting model in BFM/FLAME fitting, but encode no cast shadows, specular or light sharpness. "Albedo" models (BFM, FLAME's BFM-derived space, AlbedoMM, TRUST's BalancedAlb) differ in what they really contain, and priors learned from light-skinned data pull skin tone toward the training mean, which TRUST showed hurts darker skin most. The robust fix is capture-side: RAW + colour chart + cross-polarised or soft distant light, then divide the projected photo texture by the fitted mesh's rendered shading, with tone set by the chart, not a PCA prior. No harvest or earlier draft existed, so every item is expert knowledge pending verification.
 >
-> Evidence status: 0 ✅ / 0 📄 / 76 🧠 / 18 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 2 📄 / 74 🧠 / 17 ↔️ — 2026-11-20 verification pass covered 4 claims; remaining 🧠 items still unverified.
 
 ## Key facts
 
@@ -25,7 +25,7 @@
 - **BFM colour is not physical albedo:** flash-captured, residual shading in concavities, display-encoded. 🧠 ↔️
 - **Deep3DFaceRecon** (Deng et al. 2019): 80 identity + 64 expression + 80 BFM texture + 3 rotation + 27 SH + 3 translation = 257 coefficients. **DECA**: 50 BFM-derived albedo coefficients in FLAME UV + 27 SH. 🧠
 - **AlbedoMM** (Smith et al., CVPR 2020): first statistical diffuse *and* specular albedo model, from polarised light-stage captures (3DRFE), linear colour, BFM2017 and FLAME topologies; small, narrow sample. 🧠
-- **TRUST** (Feng, Bolkart, Tesch, Black & Abrevaya, ECCV 2022): showed earlier regressors' albedo tracks the training mean; contributed the synthetic FAIR benchmark (ground-truth albedo, ITA error per skin group), a tone-balanced albedo space (BalancedAlb), and *scene disambiguation*: light is estimated from the whole image, not the face crop. 🧠
+- **TRUST** (Feng, Bolkart, Tesch, Black & Abrevaya, ECCV 2022): showed earlier regressors' albedo tracks the training mean; contributed the synthetic FAIR benchmark (ground-truth albedo, ITA error per skin group), a tone-balanced albedo space (BalancedAlb), and *scene disambiguation*: light is estimated from the whole image, not the face crop. 📄 [1][2]
 - **Learned high-res reflectance** (AvatarMe++, FitMe; Lattas et al.) and **FFHQ-UV** (GAN-normalised evenly lit UV maps) are sharper, but plausible rather than measured. 🧠
 - **Biophysical alternative:** in optical-density (−log) space skin colour is roughly spanned by melanin and haemoglobin (Tsumura et al. 2003; BioFaceNet, Alotaibi & Smith). Two chromophore maps give a compact albedo prior that is neutral across tones. 🧠
 
@@ -141,7 +141,7 @@ Real skin spans well beyond these patches: ≈0.55–0.65 linear red for very li
 - **SH→Blender world:** radiance L(ω) = Σ L_lm Y_lm(ω); divide irradiance coefficients by Â_l first. Write an equirect float EXR ≥64 × 32 in Blender's z-up axes, clamp negatives and log the clamped energy. Cycles diffuse returns a·E/π, so a uniform world of radiance 1 renders white Lambertian at 1. 🧠
 - **Exports:** albedo EXR; SH JSON stating its convention (radiance/irradiance, basis order, frame, units); world EXR; AO; specular mask; per-view gains; ITA report; confidence map (views × cos). 🧠
 - **Fairness tests:** synthetic renders sweeping melanin over all six ITA groups × 5 light rigs × with/without chart; assert no monotone ITA bias and |ΔITA| ≤ 5° per group (engineering target); report stratified. 🧠
-- **Licensing:** ship no BFM/FLAME assets; per-texel delighting plus a chromophore prior avoids both the licences and the light-skinned PCA mean. 🧠 ↔️
+- **Licensing:** ship no BFM or original FLAME (2017–2023) assets, which are non-commercial only; FLAME 2023 Open is CC-BY-4.0 and may be shipped with attribution (corrected in verification). Per-texel delighting plus a chromophore prior avoids both the licences and the light-skinned PCA mean. 📄 [3]
 
 ## Disagreements, myths & open questions
 
@@ -154,7 +154,9 @@ Real skin spans well beyond these patches: ≈0.55–0.65 linear red for very li
 
 ## Sources
 
-No input sources existed for this topic (no harvest file, no earlier draft), so no URLs are cited.
+1. Feng et al., TRUST, arXiv 2205.03962: https://arxiv.org/abs/2205.03962
+2. TRUST project page: https://trust.is.tue.mpg.de/
+3. FLAME model license: https://flame.is.tue.mpg.de/modellicense.html
 
 **Further reading (by name, not yet linked)**
 - Ramamoorthi & Hanrahan, "An Efficient Representation for Irradiance Environment Maps", SIGGRAPH 2001; "A Signal-Processing Framework for Inverse Rendering", SIGGRAPH 2001
@@ -173,3 +175,10 @@ No input sources existed for this topic (no harvest file, no earlier draft), so 
 - Pandey et al., Total Relighting, SIGGRAPH 2021; Kim et al., SwitchLight, CVPR 2024; Zeng et al., RGB↔X, SIGGRAPH 2024
 - Chardon et al., ITA skin colour typology, Int J Cosmet Sci 1991; Del Bino et al., Pigment Cell Research 2006 (title not confirmed)
 - Monk Skin Tone scale (Ellis Monk; released with Google, 2022)
+
+## Verification log (2026-11-20)
+
+- SH band factors and Ramamoorthi constants c1..c5: unconfirmed (search found the paper, https://cseweb.ucsd.edu/~ravir/papers/envmap/, but not the numeric values); stays 🧠.
+- ITA formula and category cut-offs: unconfirmed (no source listed the thresholds; https://pubmed.ncbi.nlm.nih.gov/34796498/ only supports ITA not equalling Fitzpatrick); stays 🧠.
+- TRUST (FAIR benchmark with ITA scoring, scene-level light, light-skewed priors): confirmed 📄, https://arxiv.org/abs/2205.03962 and https://trust.is.tue.mpg.de/ (project page lists "BalanceAlb"; exact BalancedAlb naming not confirmed).
+- Licences: corrected. FLAME 2017/2019/2020/2023 are non-commercial; FLAME 2023 Open is CC-BY-4.0 and commercial-permitted, https://flame.is.tue.mpg.de/modellicense.html. BFM, FFHQ texture, AlbedoMM, BalancedAlb terms not verified.

@@ -2,7 +2,7 @@
 
 > Likeness breakdowns on ArtStation (project posts, "making of" articles, Learning courses, Marketplace tutorials, and the interviews that republish them) describe one process. Curate many photos from one age window, rank them by lens, distance and retouching, block primary forms at low resolution, compare through a matched camera per hero photo (or by eye), cycle every view until silhouette and features agree, then add asymmetry, eyes, identity marks, brows and hair, and judge under light matched to the photos. The most repeated lessons: likeness lives in head shape and primary forms, telephoto event photos beat selfies, retouched covers and film stills mislead in predictable ways, and brows and hair make a likeness "click". Reported timelines run from weeks to months part-time, with groom and texture taking as long as the sculpt. No harvest or earlier draft existed, so everything here is expert knowledge or pinhole arithmetic awaiting verification; platform facts are time-sensitive.
 >
-> Evidence status: 0 ✅ / 0 📄 / 57 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 2 ✅ / 0 📄 / 57 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -29,7 +29,7 @@
 - **Covers and studio portraits are often liquified:** jaw slimmed, eyes enlarged, neck lengthened, skin smoothed. Cross-check proportions against untouched photos ↔️
 - **Film and TV stills** carry makeup, prosthetics, wigs, grading and unknown lenses; a grab never desqueezed from anamorphic (usually 2×) is horizontally squeezed 🧠
 - **Interview video** gives same-day yaw sweeps but low resolution, compression and blur: good for understanding form, not measurement 🧠
-- **Phone photos:** selfies at 0.3–0.6 m enlarge the nose; front cameras often mirror; beauty modes smooth and reshape; ultra-wide "face distortion correction" warps edge faces away from a pinhole projection ↔️
+- **Phone photos:** selfies at 0.3–0.6 m enlarge the nose; front cameras often mirror; beauty modes smooth and reshape; ultra-wide "face distortion correction" warps edge faces away from a pinhole projection [1][2][3] ✅; the nose enlargement at selfie distance is quantified at ≈30% nasal-base widening (12 in vs 5 ft) [4][5]
 - **Body changes:** role weight changes alter buccal fat, jowl and neck; makeup moves lip and brow borders; contouring fakes planes; glasses rescale the eyes 🧠
 
 **Camera matching as practised**
@@ -59,7 +59,7 @@
 | Film/TV still | 0.6–3 | 25–150 (unknown) | 1.03–1.17 | makeup, anamorphic, grade | 3/4 form, expression | 1.5–2 | 🧠 |
 | Interview video frame | 1–3 | 35–100 | 1.03–1.10 | compression, blur, low resolution | yaw coverage | 1.5–2.5 | 🧠 |
 | Phone rear camera | 0.8–2 | 24–120 (multi-lens) | 1.05–1.13 | HDR, sharpening, lens correction | general | 1.2 | 🧠 |
-| Phone selfie | 0.3–0.6 | 22–30 | 1.17–1.33 | perspective, mirroring, beauty filters, face warping | colour, hairline only | 3 or exclude | ↔️ |
+| Phone selfie | 0.3–0.6 | 22–30 | 1.17–1.33 | perspective [4][5], mirroring, beauty filters, face warping [1][2] | colour, hairline only | 3 or exclude (σ multiplier is a design choice, not sourced) | ↔️ |
 
 **Table 2 — Reference set composition recommended in breakdowns**
 
@@ -144,7 +144,7 @@
 - **Robust per-view down-weighting.** Estimate a per-view noise scale (IRLS or Cauchy loss). Flag a view whose jaw-contour and eye-size residuals show a consistent signed pattern not explained by pose: likely liquify. Cap any single view at ≤ 40% of the total data weight (no "hero photo") 🧠
 - **Coverage gate:** require ≥ 3 yaw bins and ≥ 1 view with |yaw| ≥ 60°; otherwise warn that depth comes from the prior 🧠
 - **Pixel aspect:** fixed at 1.0 (σ 0.01) unless flagged anamorphic; never estimate it freely from faces 🧠
-- **Phone lens correction:** in shots with f35 ≤ 16 mm, or when the face lies beyond ~60% of the half-diagonal, inflate σ ×2 or exclude the photo, because the image may not be pinhole ↔️
+- **Phone lens correction:** in shots with f35 ≤ 16 mm, or when the face lies beyond ~60% of the half-diagonal, inflate σ ×2 or exclude the photo, because the image may not be pinhole [1][2][3] ✅ (the phenomenon is confirmed; the 16 mm and 60% thresholds are design heuristics, unsourced)
 - **Age-window check:** compare age-sensitive ratios across views solved at the same yaw (lower-face height, nasolabial depth proxies); warn about outliers > 3 robust SD ↔️
 - **Brows and hairline as first-class targets.** Fit brow curves (≥ 5 points each) and a hairline polyline. Export them as Blender curves (groom guides) and keep them out of the skin-shape loss for the brow ridge 🧠
 - **Identity marks as tie points.** User-clicked moles, scars and freckles seen in ≥ 2 views become extra bundle-adjustment correspondences and texture anchors 🧠
@@ -167,7 +167,15 @@
 
 ## Sources
 
-No web harvest or earlier draft existed for this topic, so no URLs are cited and every item is 🧠 or ↔️ pending verification. Cross-referenced library notes: `community/zbrush-to-blender-likeness.md`, `community/likeness-mistakes.md`, `community/reddit-face-from-photos.md`, `community/instagram-social-sculptors.md`, `community/ai-assisted-sculpting.md`, `blender/sculpting-likeness-workflow.md`, `blender/reference-camera-setup.md`, `blender/eyes-modeling-blender.md`.
+Numbered sources below come from the 2026-11-20 verification pass; all other items remain 🧠 or ↔️ pending verification.
+
+1. Shih et al., "Distortion-Free Wide-Angle Portraits on Camera Phones", SIGGRAPH 2019 (Google/MIT): https://people.csail.mit.edu/yichangshih/wide_angle_portrait/shih_sig19.pdf
+2. Samsung support, front-camera "shape correction" for edge distortion: https://www.samsung.com/in/support/mobile-devices/taking-pic-via-front-camera-in-s7-edge-the-image-on-screen-side-looks-distorted-help-me/
+3. DXOMARK, "Expanding the DXOMARK Camera protocol: The Wide score": https://www.dxomark.com/expanding-the-dxomark-camera-protocol-the-wide-score/
+4. Rutgers news summary of Ward et al. 2018, JAMA Facial Plastic Surgery (nasal base ≈30% wider at 12 in than at 5 ft): https://www.rutgers.edu/index%2Ephp/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
+5. ScienceDaily, same study, 2018-03-01: https://www.sciencedaily.com/releases/2018/03/180301115349.htm
+6. Evan Agostini red carpet gallery (70-200 mm frames ≈90-200 mm): https://www.popphoto.com/Agostini
+7. Within Health, Face-Aware Liquify analysis of celebrity covers (non-academic, about 20 covers per celebrity): https://withinhealth.com/explore-articles/perfecting-perfection-uncovering-problematic-celebrity-photoshopping Cross-referenced library notes: `community/zbrush-to-blender-likeness.md`, `community/likeness-mistakes.md`, `community/reddit-face-from-photos.md`, `community/instagram-social-sculptors.md`, `community/ai-assisted-sculpting.md`, `blender/sculpting-likeness-workflow.md`, `blender/reference-camera-setup.md`, `blender/eyes-modeling-blender.md`.
 
 **Further reading (by name, not yet linked)**
 - ArtStation Learning; ArtStation Magazine / blog "making of" features; ArtStation Marketplace tutorials
@@ -182,3 +190,10 @@ No web harvest or earlier draft existed for this topic, so no URLs are cited and
 - Sinha & Poggio, "I think I know that face…", *Nature* (1996)
 - Jenkins, White, Van Montfort & Burton, "Variability in photos of the same face", *Cognition* (2011)
 - Rhodes, Brennan & Carey, caricature identification, *Cognitive Psychology* (1987)
+
+## Verification log (2026-11-20)
+
+1. Smartphone edge-face warping and lens/shape correction: confirmed (✅). Sources [1][2][3]. The f35 ≤ 16 mm and 60% half-diagonal thresholds are unsourced design heuristics.
+2. Selfie nose enlargement (Ward et al. 2018): confirmed (✅) via press and university summaries [4][5]: about 30% wider nasal base at 12 in versus 5 ft (nasal tip ≈7%). Original paper not opened; a 2018 letter (Cooper et al.) argues the effect depends on viewing habits. The σ multiplier 3 and the 26 mm / σ_log 0.1 prior are design choices, not sourced; left 🧠/↔️.
+3. Event/press photos at 3–10 m with 70–300 mm: unconfirmed. Only that 70-200 mm lenses are common on red carpets and sample frames span ≈90–200 mm [6]; no subject distances found. Left 🧠.
+4. Magazine/studio retouching with liquify: unconfirmed as a general prevalence claim. Only a small non-academic analysis [7] found Face-Aware Liquify in about half of sampled covers for two celebrities, mostly jaw and chin. Left ↔️ (2–3× σ is a design choice).

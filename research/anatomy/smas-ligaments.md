@@ -1,13 +1,13 @@
 # SMAS and facial retaining ligaments
 
 > Facial soft tissue is a five-layer laminate: skin, subcutaneous fat divided into compartments, the superficial musculoaponeurotic system (SMAS, continuous with platysma below and temporoparietal fascia above), a sub-SMAS plane of glide spaces, and deep fascia or periosteum. Retaining ligaments cross the laminate from bone or deep fascia to the dermis along the edges of the glide spaces, giving the face fixed lines (orbital rim, zygomatic body, anterior masseter border, anterior mandible) with mobile masses between them. Tear trough, lid–cheek junction, midcheek groove, jowl and prejowl sulcus appear where a tethered line meets a mass that bulges, sags or deflates. The nasolabial and marionette folds are partly muscle-insertion and fat-boundary folds, not pure ligament grooves. A fitter should therefore treat ligament lines as low-variance anchors and the spaces between them as high-variance regions that respond to gravity, expression and age.
-Evidence status: 5 ✅ / 12 📄 / 55 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 5 ✅ / 15 📄 / 54 🧠 / 18 ↔️ — 🧠 items remain unverified; 4 queued claims were checked on 2026-11-20.
 
 ## Key facts
 
 **Layers**
 - From the surface: (1) skin; (2) subcutaneous fat, split into compartments by septa; (3) the musculoaponeurotic layer (SMAS, continuous with platysma, temporoparietal fascia and galea/frontalis); (4) a loose plane holding the glide spaces, the deep fat, the ligaments' passage and the facial-nerve branches; (5) deep fascia or periosteum 🧠 (Mendelson's layered model; Stuzin 1992).
-- The SMAS (Mitz and Peyronie 1976) is a fibromuscular sheet that links the mimetic muscles and carries their pull to the skin through septa 🧠. Ghassemi's type 1, lateral to the nasolabial fold, is septa around fat lobules adherent to parotid fascia; type 2, in the fold and lip, is a dense collagen–elastin–muscle mesh inserting into dermis 🧠. It is thick and fixed over the parotid, thin and fragmented over the anterior cheek; continuation medial to the fold is ↔️.
+- The SMAS (Mitz and Peyronie 1976) is a fibromuscular sheet that links the mimetic muscles and carries their pull to the skin through septa 🧠. Ghassemi's type 1, lateral to the nasolabial fold, is septa around fat lobules adherent to parotid fascia; type 2, in the fold and lip, is a dense collagen–elastin–muscle mesh inserting into dermis 🧠. It is classically described as thick and fixed over the parotid and thin and fragmented over the anterior cheek, but one cadaver CT/MRI study found the opposite gradient (0.76 ± 0.43 mm near the parotid, 1.69 ± 0.52 mm over the cheek, 2.41 ± 0.05 mm at the nasolabial fold) [26] ↔️; continuation medial to the fold is also ↔️.
 - Temple: the temporoparietal fascia is the SMAS of the temple. Beneath it lie the deep temporal fascia around the superficial temporal fat pad, then the deep temporal fat pad between the deep fascia and temporalis, which sits in its own fascial envelope [20] 📄.
 - Mimetic muscle depth (Freilinger 1987), superficial to deep: (1) DAO, zygomaticus minor, orbicularis oculi; (2) DLI, risorius, platysma, zygomaticus major, LLSAN; (3) orbicularis oris, LLS; (4) mentalis, levator anguli oris, buccinator. Nerves enter layers 1–3 from their deep surface 🧠.
 - Platysma, the lower-face SMAS, covers the lower third of masseter; its *pars labialis* crosses the mandible into the lower-lip dermis [4] 📄.
@@ -19,7 +19,7 @@ Evidence status: 5 ✅ / 12 📄 / 55 🧠 / 17 ↔️ — 🧠 items are queued
 
 **Periorbit**
 - The ORL (orbitomalar ligament, Kikkawa 1996) arises just outside the orbital rim and inserts through orbicularis at the lid–cheek junction. It is short and tight medially and longer and laxer laterally, so the lateral junction descends more and malar bags form there 🧠.
-- The tear trough ligament (Wong, Hsieh and Mendelson 2012) runs from the maxilla at the medial infraorbital rim, from about the medial canthus to the mid-pupil, and continues laterally as the ORL. The skin over it has almost no fat 🧠.
+- The tear trough ligament (Wong, Hsieh and Mendelson 2012) is a true osteocutaneous ligament arising from the maxilla at the medial infraorbital rim, between the palpebral and orbital parts of orbicularis, and continuous laterally with the ORL [24] 📄. Its exact span (about the medial canthus to the mid-pupil) was not confirmed in verification 🧠. The skin over it has almost no fat 🧠.
 - The infraorbital rim is maxilla medially and zygoma laterally [15][22] ✅. The infraorbital foramen lies ≈5–8.5 mm below the rim [22][23] ✅, a bony check below the ligament line.
 - The prezygomatic space is a triangle over the zygomatic body. Orbital orbicularis is its roof and SOOF its floor; the ORL bounds it above and the zygomatic ligaments below. Oedema or fat collecting there, plus ORL laxity, gives the malar mound or festoon 🧠 (Mendelson 2002).
 - The lid–cheek "Y" has three limbs: the tear trough (tear trough ligament), the palpebromalar groove (ORL), and the midcheek groove (the "Indian band"), which runs inferolaterally along the zygomaticocutaneous septum between medial and middle cheek fat 🧠 (Haddock 2009; Mendelson and Jacobson 2008).
@@ -33,7 +33,7 @@ Evidence status: 5 ✅ / 12 📄 / 55 🧠 / 17 ↔️ — 🧠 items are queued
 **Lower face**
 - Masseteric cutaneous ligaments run along the anterior masseter border. The upper ones are strong and merge with the zygomatic ligaments; the lower ones weaken with age, and the jowl forms in front of them over the premasseter space, a glide plane under platysma/SMAS 🧠 (Mendelson 2008).
 - Jowling reflects loose platysma adherence to the mandible behind the mandibular ligament, not in front of it [3] 📄. The jowl is a local excess of skin and subcutaneous fat [1] 📄 ([1] and [2] are probably one paper), bounded below by a "mandibular septum" 🧠 (Reece 2008).
-- The mandibular ligament is classically a true ligament on the anterior third of the mandible, ≈1 cm above the border 🧠 (Furnas). Minelli 2022 found it only below platysma, as the combined attachment of the lip depressors and platysma, with no osteocutaneous structure at the jowl's front edge [1] ↔️. The prejowl sulcus lies there in either case and deepens with anterior mandibular bone loss 🧠.
+- The mandibular ligament is classically a true ligament on the anterior third of the mandible, ≈1 cm above the border (Furnas); a 10-cadaver study measured an osteocutaneous mandibular ligament 9.1 ± 3.1 mm above the inferior border and 51.1 ± 4.5 mm lateral to the midline [25] 📄. Minelli 2022 (49 cadaver heads) found the true ligament only below platysma, as the combined attachment of the lip depressors and platysma, with no osteocutaneous structure at the jowl's front edge; its mean extent was 63.1 mm (men) / 59.3 mm (women) from the midline, matching maximal jowl fullness rather than the front edge [1] ↔️. The prejowl sulcus lies there in either case and deepens with anterior mandibular bone loss 🧠.
 - Depressor pull (DAO, platysma, buccinator) accentuates the marionette fold with age [5] 📄. The modiolus moves down and inward with age (ultrasound, 45 young vs 45 older Asian adults) [6] 📄. 2025 cadaver studies describe a "ligament of the modiolus" [8] and a modiolus-to-dermis "false ligament" [7] ↔️ (small studies).
 - The parotid-cutaneous and platysma-auricular ligaments fix the preauricular skin, so the lateral face barely moves 🧠.
 
@@ -52,7 +52,7 @@ Evidence status: 5 ✅ / 12 📄 / 55 🧠 / 17 ↔️ — 🧠 items are queued
 |---|---|---|---|
 | Skin | ≈1.1–1.9 mm | follows all | ✅ [16][17] |
 | Superficial fat | ≈3–12 mm; most BMI- and age-variable | high over spaces | 🧠 |
-| SMAS | ≈0.5–3 mm; thickest over parotid | fixed laterally, mobile anteriorly | 🧠 ↔️ |
+| SMAS | ≈0.5–3 mm (one study: 0.76 parotid, 1.69 cheek, 2.41 NLF); regional gradient disputed | fixed laterally, mobile anteriorly | ↔️ [26] |
 | Deep fat (SOOF, deep medial cheek, buccal) | 0–10 mm by region | deflates with age | 🧠 |
 | Deep fascia / periosteum | <1 mm | fixed | 🧠 |
 | Total cheek soft tissue | ≈15–25 mm | — | 🧠 (skull-osteology note) |
@@ -63,12 +63,12 @@ Evidence status: 5 ✅ / 12 📄 / 55 🧠 / 17 ↔️ — 🧠 items are queued
 |---|---|---|---|---|
 | Temporal adhesion / superior temporal septum | adhesion | superior temporal line | temporal ridge; lateral-brow hinge | 🧠 |
 | Lateral orbital thickening | adhesion | lateral orbital rim | lateral canthal anchor | 🧠 |
-| Tear trough ligament | true | medial infraorbital rim (maxilla) | tear trough | 🧠 |
+| Tear trough ligament | true | medial infraorbital rim (maxilla) | tear trough | 📄 [24] (span 🧠) |
 | Orbicularis retaining ligament | true | just outside the rim | lid–cheek junction | 🧠 |
 | Zygomatic (McGregor's patch) | true | lower border of the body–arch junction | lower edge of the malar mound | 🧠 ↔️ (position) |
 | Zygomaticocutaneous septum | septum | zygoma | midcheek groove | 🧠 |
 | Masseteric cutaneous | false | anterior masseter fascia | jowl's posterior limit | 🧠 |
-| Mandibular | true or sub-platysmal | anterior third of mandible, ≈1 cm above the border | prejowl sulcus | ↔️ [1][3] |
+| Mandibular | true or sub-platysmal | anterior third of mandible, ≈1 cm above the border [25] | prejowl sulcus | ↔️ [1][3][25] |
 | Parotid-cutaneous, platysma-auricular | false | parotid fascia / platysma | immobile lateral face | 🧠 |
 | Modiolus ligament | contested | modiolus | commissure anchor | ↔️ [7][8] |
 
@@ -123,7 +123,7 @@ Evidence status: 5 ✅ / 12 📄 / 55 🧠 / 17 ↔️ — 🧠 items are queued
 - **NLF cause:** [9] vs [10] vs [11] ↔️. Myth: the NLF is a ligament line or a wrinkle. It is a boundary fold, present from youth, that deepens with age.
 - **Myth: ageing is gravity.** Photo series, deep-fat CT and skeletal CT support deflation and bone change alongside descent ↔️.
 - **Myth: carve the grooves.** Volume on each side of the tether matters more than the cut.
-- **Recalled numbers to check:** zygomatic ligament ≈4.5 cm from tragus; youthful lower-lid height ≈11–12 mm; SMAS thickness.
+- **Recalled numbers to check:** zygomatic ligament ≈4.5 cm from tragus; youthful lower-lid height ≈11–12 mm. (SMAS thickness checked in verification: ≈0.6–2.4 mm, gradient disputed [26].)
 - **Open:** regional SMAS thickness from MRI/ultrasound; any population dataset of 3D ligament positions (none known); the layer values in [18]; whether [7] and [8] describe one structure; the role of muscle tone [12][13]; the deep-fascia review [21] (surfaced, not read).
 
 ## Sources
@@ -147,12 +147,15 @@ This topic's own harvest and draft were absent. All URLs come from sibling harve
 [15] Anatomy of the Orbit — https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/ — paper — n.d.
 [16] Ultrasonographic analysis of facial skin thickness in relation to age, site, sex, and body mass index — https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/ — paper — n.d.
 [17] Quantitative Analysis of the Human Face Skin Thickness: A High-Frequency Ultrasound Study — https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/ — paper — n.d.
-[18] Layer-specific facial soft-tissue thickness in 1174 Chinese adults — https://pubmed.ncbi.nlm.nih.gov/42385786/ — paper — n.d.
+[18] Layer-specific facial soft-tissue thickness in 1174 Chinese adults: Implications for finite-element headforms and ergonomic design (abstract confirmed in verification: 18–90 years, 33 landmarks, CT skin/fat/muscle compartments; numeric values not seen) — https://pubmed.ncbi.nlm.nih.gov/42385786/ — paper — 2026
 [19] The facial soft tissue thickness related facial reconstruction by ultrasonographic imaging: A review — https://www.sciencedirect.com/science/article/abs/pii/S0379073822001955 — review — n.d.
 [20] An Expert Guide to Anatomy-Based Filler Injection for the Temple — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11856534/ — paper — 2025
 [21] The Deep Fascia of the Head and Neck Revisited: Relationship with the Facial Nerve (surfaced, not read) — https://pmc.ncbi.nlm.nih.gov/articles/PMC11104498/ — paper — 2024
 [22] Anatomic characteristics of the infraorbital foramen: a cadaver study — https://pubmed.ncbi.nlm.nih.gov/10981979/ — paper — n.d.
 [23] Morphological and Morphometric Relations of Infraorbital Foramen in North Indian Population — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/ — paper — n.d.
+[24] The Tear Trough Ligament: Anatomical Basis for the Tear Trough Deformity (Wong, Hsieh, Mendelson) — https://journals.lww.com/plasreconsurg/abstract/2012/06000/the_tear_trough_ligament__anatomical_basis_for_the.30.aspx — paper — 2012
+[25] Detailed anatomy of the retaining ligaments of the mandible for facial rejuvenation — https://pubmed.ncbi.nlm.nih.gov/27427339/ — paper — 2016
+[26] Anatomo-radiological study of the superficial musculo-aponeurotic system of the face — https://pubmed.ncbi.nlm.nih.gov/18333409/ — paper — 2008
 
 **Further reading (by name, not yet linked)**
 - Mitz V, Peyronie M, the SMAS in the parotid and cheek area, Plast Reconstr Surg, 1976.
@@ -179,3 +182,10 @@ This topic's own harvest and draft were absent. All URLs come from sibling harve
 - Mendelson B, Wong CH, changes in the facial skeleton with aging, Aesthetic Plast Surg, 2012.
 - Alghoul M, Codner MA, retaining ligaments of the face (review), Aesthet Surg J, 2013.
 - Pessa JE, Rohrich RJ, *Facial Topography: Clinical Anatomy of the Face*, 2012.
+
+## Verification log (2026-11-20)
+
+- **Tear trough ligament span and ORL (claim 1): partly confirmed.** Reliable source: osteocutaneous ligament from the maxilla between palpebral and orbital orbicularis, continuous with the ORL. The medial-canthus-to-mid-pupil span, the tight-medial/lax-lateral ORL wording and the placement priors (3–6 mm / 14–18 mm) were not confirmed (stay 🧠). https://journals.lww.com/plasreconsurg/abstract/2012/06000/the_tear_trough_ligament__anatomical_basis_for_the.30.aspx
+- **Mandibular ligament (claim 2): contested, with values.** Osteocutaneous ligament 9.1 ± 3.1 mm above the inferior border, 51.1 ± 4.5 mm from the midline (10 fresh cadavers) vs Minelli 2022: true ligament only sub-platysmal, extent 63.1 / 59.3 mm from midline (men/women). Arc fraction 0.25 ± 0.07 unconfirmed. https://pubmed.ncbi.nlm.nih.gov/27427339/ ; https://pubmed.ncbi.nlm.nih.gov/36050569/
+- **SMAS thickness (claim 3): contested.** One cadaver CT/MRI study: 0.76 ± 0.43 mm (parotid), 1.69 ± 0.52 mm (cheek), 2.41 ± 0.05 mm (NLF), opposite to the "thickest over parotid" convention; overall 0.5–3 mm range is consistent. MRI after microfocused ultrasound gave ≈0.6–0.94 mm (weak, from search summary). Sigma values 1.0/3.5 mm remain heuristics. https://pubmed.ncbi.nlm.nih.gov/18333409/
+- **1174-adult CT layer study (claim 4): confirmed as existing; values not obtained.** Abstract confirms 18–90 years, 33 landmarks, skin/fat/muscle compartments (published 2026, for finite-element headforms); no numbers in search results, so the layer prior is unchanged. https://pubmed.ncbi.nlm.nih.gov/42385786/

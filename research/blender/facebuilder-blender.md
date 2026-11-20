@@ -1,16 +1,16 @@
 # KeenTools FaceBuilder for Blender in practice
 
-> FaceBuilder is a pin-driven template fitter. Each photo becomes a view with its own camera, and dragging points of a fixed KeenTools head onto the photo makes a closed-source core re-solve head shape, per-view pose, optional per-view expression and, if allowed, focal length. Since 2021.1 neural auto-alignment drafts the pins, which the vendor says can need manual correction [1]; since the ~2020 revamp focal length and sensor size are set per photo [2]. In practice it is the fastest route in Blender to matched cameras plus a plausible, textured, ARKit-ready base head, but likeness stops at its shape space: lids, alae, vermilion, ears and the hair-covered cranium must be sculpted, and pinhole-only cameras, cropped photos and mirrored selfies quietly corrupt the fit. No vendor or independent millimetre benchmark exists, and version, Blender 5.x support, price and trial terms are perishable and unverified here; for this project FaceBuilder sets the UX bar (surface pins, live re-solve, rigidity sliders, per-view cameras) and supplies an external observation, not ground truth.
-> Evidence status: 1 ✅ / 10 📄 / 47 🧠 / 28 ↔️ — 🧠 items are queued for web verification.
+> FaceBuilder is a pin-driven template fitter. Each photo becomes a view with its own camera, and dragging points of a fixed KeenTools head onto the photo makes a closed-source core re-solve head shape, per-view pose, optional per-view expression and, if allowed, focal length. Since 2021.1 neural auto-alignment drafts the pins, which the vendor says can need manual correction [1]; since the ~2020 revamp focal length and sensor size are set per photo [2]. In practice it is the fastest route in Blender to matched cameras plus a plausible, textured, ARKit-ready base head, but likeness stops at its shape space: lids, alae, vermilion, ears and the hair-covered cranium must be sculpted, and pinhole-only cameras, cropped photos and mirrored selfies quietly corrupt the fit. No vendor or independent millimetre benchmark exists, and version, Blender support, price and trial terms are perishable (verified 2026-11-20 only against vendor pages: 2026.1.0 supports Blender 5.1; 15-day trial; Freelancer Annual 191.88 USD/yr) [5][7]; for this project FaceBuilder sets the UX bar (surface pins, live re-solve, rigidity sliders, per-view cameras) and supplies an external observation, not ground truth.
+> Evidence status: 1 ✅ / 15 📄 / 47 🧠 / 23 ↔️ — verification pass 2026-11-20 (see log); remaining 🧠 items are unconfirmed.
 
 ## Key facts
 
 **Sourced (BlenderArtists release threads; see Sources for provenance)**
 - KeenTools announced each Blender milestone in its own BlenderArtists thread: the 2.8 beta, the first stable release, the "Revamped" FaceBuilder and 2021.1 [1][2][3][4] ✅ (the threads exist; dates are inferred from topic IDs).
 - 2021.1 added auto-alignment: "a couple of neural networks" find the face and set up the pins; the developers say results are not always 100% accurate and manual adjustment is sometimes needed [1] 📄.
-- The revamp sets focal length and sensor size automatically for each photo [2] 📄. Pixels constrain only the ratio focal/sensor, so the two are not separately observable 🧠.
+- The revamp sets focal length and sensor size automatically for each photo, using EXIF when present [2][9] 📄. Pixels constrain only the ratio focal/sensor, so the two are not separately observable 🧠.
 - Expressions are supported, so neutral photos are not strictly required, but neutral photos give better quality [1][2] 📄 (both vendor statements, so not independent).
-- Users call it paid, and one mentions a 30-day trial [1][4] 📄 (time-sensitive).
+- Users call it paid, and one mentioned a 30-day trial [1][4]; the vendor now states a 15-day per-add-on trial [7] 📄 (corrected in verification; time-sensitive).
 - Topic IDs put the revamp (1245723) before 2021.1 (1294243), contradicting the harvester's phrase "later revamp" ↔️.
 
 **How it works (expert knowledge)**
@@ -23,7 +23,7 @@
 - **Expressions:** when on, each view gets its own expression coefficients over one shared identity; when off, every view is fitted as neutral 🧠.
 - **Camera model:** pinhole with the principal point at the image centre; I know of no radial-distortion term in FaceBuilder ↔️.
 - **Texture:** projects selected views into the head's UVs with angle-weighted blending (an "angle strictness"-type control), optional brightness and colour equalisation and gap filling; several UV layouts (recalled: Butterfly, Legacy, Spherical, Maxface) ↔️. Lighting, specular and shadows are baked in 🧠.
-- **Blendshapes:** generates ARKit-named shape keys (recalled as 51, no `tongueOut`) and imports Live Link Face CSV animation ↔️.
+- **Blendshapes:** 51 built-in ARKit-compatible FACS blendshapes and Live Link Face CSV import, both introduced in 2021.1 [8] 📄; whether `tongueOut` is among the 51 is unconfirmed.
 - **Siblings:** GeoTracker (object and camera tracking) and FaceTracker (facial performance on a FaceBuilder head) ship in the same add-on; FaceTracker for Blender arrived around 2024 ↔️.
 - **Mesh ownership:** the head mesh is regenerated from the model, so Edit-mode or sculpt edits on the FaceBuilder object are overwritten or break it. Sculpt on a duplicate 🧠.
 
@@ -41,10 +41,10 @@
 | First stable FaceBuilder | ~2020 | stable release | 📄 | [3] |
 | Revamped FaceBuilder | ~2020 | per-photo focal and sensor; expressions | 📄 | [2] |
 | 2021.1 | 2021 | neural auto-alignment | 📄 | [1] |
-| 2021–2022 | — | ARKit-style blendshapes, Live Link Face CSV | ↔️ | — |
+| 2021.1 (22 Dec 2020) | Dec 2020 | 51 ARKit-compatible blendshapes, Live Link Face CSV (corrected in verification: 2021.1, not 2021–2022) | 📄 | [8] |
 | 2022–2023 | — | GeoTracker for Blender | ↔️ | — |
 | ~2024 | — | FaceTracker for Blender | ↔️ | — |
-| 2025–2026 | — | current version, 4.2+ extension packaging, Blender 5.2 LTS / 5.3 support | ↔️ unknown | — |
+| 2025.3 (4 Dec 2025); 2026.1.0 (9 Apr 2026) | 2025–2026 | 2025.3 first added Blender 5.0; 2026.1.0 adds Blender 5.1 (latest found); installable from the Blender extensions menu; Blender 5.2 LTS / 5.3 support not confirmed | 📄 | [5][6][7] |
 
 **Table B — View set that FaceBuilder fits well** (adults; yaw 0° = frontal)
 
@@ -83,11 +83,11 @@ The rule that falls out: focal error is self-limiting. It matters at selfie rang
 
 | Item | Value | Badge |
 |---|---|---|
-| Pricing | subscription; ~100–300 USD per seat-year; studio and floating tiers higher | ↔️ |
-| Trial | 30 days per one forum user [1][4]; current length unverified | 📄 |
+| Pricing | Freelancer Monthly 19.99 USD/mo; Freelancer Annual 191.88 USD/yr; Studio Annual 699 USD/yr; bundles 29.99–39.99 USD/mo; per-platform licence (corrected in verification; vendor page may be dated) [7] | 📄 |
+| Trial | 15 days per add-on, starting at first Blender launch [7] (corrected in verification; one forum user said 30 days [1][4]) | 📄 |
 | Licence | GPL front end plus closed core; outputs belong to the user under the EULA | ↔️ |
 | Platforms | Windows, macOS (Apple Silicon support recalled), Linux; CPU only | ↔️ |
-| Blendshapes | 51 ARKit names, no tongue | ↔️ |
+| Blendshapes | 51 ARKit-compatible FACS shapes [8]; tongue absence unconfirmed | 📄 |
 | Texture | user-set size, 2048² typical, up to 8K | ↔️ |
 | Expected accuracy | 0.8–2 mm face, 1–3 mm profile (estimate, multi-view) | ↔️ |
 
@@ -163,7 +163,7 @@ The rule that falls out: focal error is self-limiting. It matters at selfie rang
 - **Lens distortion:** I believe FaceBuilder has no distortion model, and newer releases or GeoTracker may differ ↔️.
 - **Licence legitimacy:** a GPL front end that loads a closed core is contested under the Blender Foundation and FSF reading (`blender/blender-extensions-packaging.md`) ↔️. Whether the add-on is on extensions.blender.org is unknown to me ↔️.
 - **Thread order:** topic IDs say the revamp came before 2021.1 ↔️.
-- **Open questions:** current version and Blender 5.2 LTS / 5.3 support; current price, tiers and trial; blendshape count; EULA terms for commercial reuse of exported heads; whether neutral views can be expression-locked individually; any mm-level benchmark against scans ↔️.
+- **Open questions:** Blender 5.2 LTS / 5.3 support (latest confirmed: 5.1 in 2026.1.0); EULA terms and GPL/closed-core split; blendshape count; EULA terms for commercial reuse of exported heads; whether neutral views can be expression-locked individually; any mm-level benchmark against scans ↔️.
 
 ## Sources
 
@@ -173,6 +173,12 @@ No topic harvest or earlier draft existed. The four URLs below are reused from t
 2. Revamped FaceBuilder for Blender — https://blenderartists.org/t/revamped-facebuilder-for-blender/1245723 — forum (vendor announcement) — n.d. (~2020 by topic ID)
 3. The first-stable FaceBuilder release for Blender — https://blenderartists.org/t/the-first-stable-facebuilder-release-for-blender/1210803 — forum — n.d. (~2020)
 4. KeenTools For Blender 2.8 — https://blenderartists.org/t/keentools-for-blender-2-8/1173005 — forum (Blender Development Discussion) — n.d. (~2019)
+
+5. KeenTools 2026.1.0 (9 April, 2026) release notes — https://keentools.io/news/2026-1 — vendor — 2026
+6. KeenTools 2025.3.0 (4 December, 2025) release notes — https://keentools.io/news/2025-3 — vendor — 2025
+7. FaceBuilder for Blender product page (pricing, trial, extensions-menu install) — https://keentools.io/products/facebuilder-for-blender — vendor — undated, possibly stale
+8. KeenTools version 2021.1 (22 Dec 2020) release notes — https://keentools.io/news/2021-1 — vendor — 2020
+9. Revamped FaceBuilder and other improvements in KeenTools 2.1.0 — https://link.keentools.io/210-post — vendor — n.d.
 
 Related notes: `reconstruction/commercial-head-tools.md`, `community/blenderartists-forum.md`, `blender/blender-face-addons.md`, `blender/reference-camera-setup.md`, `community/reference-photography-protocol.md`, `anatomy/anthropometric-norms.md`, `blender/blender-version-status-2026.md`.
 
@@ -185,3 +191,10 @@ Related notes: `reconstruction/commercial-head-tools.md`, `community/blenderarti
 - Blanz & Vetter, "A Morphable Model for the Synthesis of 3D Faces", SIGGRAPH 1999
 - Ward et al., "Nasal distortion in short-distance photographs: the selfie effect", *JAMA Facial Plastic Surgery* (2018)
 - Farkas, *Anthropometry of the Head and Face* (2nd ed., 1994)
+
+## Verification log (2026-11-20)
+
+- **Current version / Blender support / extension packaging** — corrected/partly confirmed. Latest found: 2026.1.0 (9 Apr 2026) supports Blender 5.1; 2025.3 first added 5.0; Blender 5.2 LTS / 5.3 support not found (unconfirmed); installable via the Blender extensions menu per the product page. https://keentools.io/news/2026-1 , https://keentools.io/news/2025-3 , https://keentools.io/products/facebuilder-for-blender
+- **Pricing / trial / licence** — corrected. Trial is 15 days per add-on (not 30); Freelancer Annual 191.88 USD/yr, Monthly 19.99, Studio Annual 699 (a bundle exists); subscription confirmed; EULA exists but its terms and the GPL-front-end-plus-closed-core claim were not found (unconfirmed). Product page may be stale. https://keentools.io/products/facebuilder-for-blender
+- **Pinhole camera, centred principal point, no distortion model; focal from EXIF/manual/estimate** — partly confirmed: v2.1.0 sets focal and sensor per photo from EXIF [https://link.keentools.io/210-post]; typed or estimated focal confirmed for FaceTracker only. Pinhole/no-distortion unconfirmed (stays 🧠/↔️).
+- **51 ARKit blendshapes, Live Link Face CSV** — confirmed (one vendor source): both in 2021.1 (22 Dec 2020). tongueOut absence unconfirmed. https://keentools.io/news/2021-1

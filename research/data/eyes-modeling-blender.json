@@ -25,9 +25,9 @@
         ["corneal_diameter_pooled", 11.84, null, null, 0.79]
       ],
       "population": "Pooled estimate across studies (analytical review, forensic scaling of photographed faces).",
-      "source_urls": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/"],
-      "status": "sourced",
-      "notes": "Use as the metric scale prior (HVID). Expert knowledge (MediaPipe Iris) commonly quotes 11.7 +/- 0.5 mm; not yet verified."
+      "source_urls": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/", "https://pmc.ncbi.nlm.nih.gov/articles/PMC3428550", "https://pmc.ncbi.nlm.nih.gov/articles/PMC10447546/"],
+      "status": "verified",
+      "notes": "Use as the metric scale prior (HVID). Verified 2026-11-20: mean 11.65-11.92 mm across studies (PMC3428550 11.79+/-0.43; PMC10447546 11.80; PMC10899605 11.65+/-0.38). Per-study SD 0.32-0.43 vs pooled 0.79, so SD is contested (0.3-0.8)."
     },
     {
       "name": "corneal_radii",

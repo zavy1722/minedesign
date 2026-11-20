@@ -1,12 +1,12 @@
 # Sexual dimorphism of the face and skull
 
-> Adult men's faces average about 5–9% larger than women's on most linear dimensions (Cohen's d ≈ 1.3–1.8 for face height, nose width, bizygomatic and jaw width), but differ by only d ≈ 0–0.5 on eye-region measures, and eyeball size does not differ. Every single measure overlaps: at d = 1.5 the two distributions share about 45% of their area. Beyond size, men have a projecting glabella and medial brow ridge, a sloping forehead, a larger nose, a taller lower face and chin, bigger masseters and thicker midline soft tissue, while women have a vertical forehead with frontal eminences, relatively larger-looking orbits, more lateral-cheek fat and lips that are fuller relative to the face. These moderate differences add up to ≈90–96% whole-face separability, so a fitter should treat sex as one continuous latent axis with overlapping priors, never as a template switch or a hard constraint. No harvest or draft existed for this topic; the sourced facts come from sibling-topic harvests.
+> Adult men's faces average about 5–9% larger than women's on most linear dimensions (Cohen's d ≈ 1.3–1.8 for face height, nose width, bizygomatic and jaw width), but differ by only d ≈ 0–0.5 on eye-region measures, and eyeball size does not differ. Every single measure overlaps: at d = 1.5 the two distributions share about 45% of their area. Beyond size, men have a projecting glabella and medial brow ridge, a sloping forehead, a larger nose, a taller lower face and chin, bigger masseters and thicker midline soft tissue, while women have a vertical forehead with frontal eminences, relatively larger-looking orbits, more lateral-cheek fat and lips that are fuller relative to the face. These moderate differences add up to ≈90–97% whole-face separability, so a fitter should treat sex as one continuous latent axis with overlapping priors, never as a template switch or a hard constraint. No harvest or draft existed for this topic; the sourced facts come from sibling-topic harvests.
 >
-> Evidence status: 10 ✅ / 40 📄 / 88 🧠 / 23 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 10 ✅ / 43 📄 / 87 🧠 / 23 ↔️ — verification pass of 2026-11-20 done; remaining 🧠 items are unconfirmed.
 
 ## Key facts
 
-No verification pass has run on this note yet. The harvested facts come from search snippets, not full texts.
+A partial verification pass ran on 2026-11-20 (see the log at the end). The harvested facts come from search snippets, not full texts.
 
 **Size, overlap, separability**
 - Men are larger on nearly every linear facial dimension [1][2][4][5][6] ✅. Face height n–gn differs by 8–10 mm, d ≈ 1.4–1.8 (Table 1) [1][2][3] ✅. Male SDs are larger in mm, but CVs are similar 🧠.
@@ -121,7 +121,7 @@ No verification pass has run on this note yet. The harvested facts come from sea
 | Single trait (glabella, mental eminence, mastoid score) | ≈70–85% | 🧠 |
 | Five visual cranial traits (Walker 2008) | ≈85–90% | 🧠 |
 | Mandible alone (metric) | ≈75–85% | 🧠 |
-| Whole 3D face surface (geometric morphometrics) | ≈90–96% | 🧠 |
+| Whole 3D face surface (geometric morphometrics) | ≈90–97% (97% full face, Matthews 2023 [38]; 91–95.5% in other 3D studies) (corrected in verification) | 📄 |
 | Human raters, hair hidden | ≈95% | 🧠 |
 | Ear metrics | modest; absolute > indices | 📄 [31][32] |
 
@@ -164,7 +164,7 @@ No verification pass has run on this note yet. The harvested facts come from sea
 - **Diagnostics.** Report posterior s and its σ. Warn, without erroring, when |s − s₀| > 2σ_s: the cause is usually a lens or pitch error, a beard or makeup, or a wrong prior. Output per-region residuals against both sex-conditional means 🧠.
 - **Where to get Δ_sex.**
   - 3DFN sex-specific summary landmarks and growth curves [8][9] 📄 (European-ancestry US sample 🧠).
-  - Regressing a 3DMM's shape coefficients on sex labels. The Basel Face Model 2009 shipped attribute directions including gender, and FLAME releases have included gendered variants 🧠. Licences, versions and access terms are time-sensitive: verify before use.
+  - Regressing a 3DMM's shape coefficients on sex labels. The Basel Face Model 2009 shipped attribute directions including gender, and FLAME releases have included male, female and generic variants [39] 📄. The BFM 2009 licence is non-commercial research only [40] 📄; the BFM 2009 gender attribute directions remain 🧠. Licences, versions and access terms are time-sensitive: verify before use.
 
 ## Disagreements, myths & open questions
 
@@ -224,6 +224,9 @@ Sourced facts come from sibling-topic harvests in `research/_raw/harvests` (anth
 [35] Systematic review on forensic craniofacial reconstruction. I. Facial soft-tissue thickness — https://pubmed.ncbi.nlm.nih.gov/37531497/ — review — 2023
 [36] Facial soft tissue thickness, Yangtze River delta Han, CBCT (424 adults; sex, age, BMI) — https://pubmed.ncbi.nlm.nih.gov/32217445 — paper — n.d.
 [37] Assessing the contribution of orthodontic profiles in predicting facial soft tissue thickness for forensic facial approximation — https://pmc.ncbi.nlm.nih.gov/articles/PMC12532767/ — paper — n.d.
+[38] Using data-driven phenotyping to investigate the impact of sex on 3D human facial surface morphology (Matthews et al., J Anat) — https://scholarworks.indianapolis.iu.edu/items/f5dfa487-8bd0-4118-aefb-fa5929e6007c — paper — 2023
+[39] FLAME: Faces Learned with an Articulated Model and Expressions (male, female, generic models; licences) — https://flame.is.tue.mpg.de/ — project page — n.d.
+[40] Basel Face Model non-commercial licence agreement — https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf — licence — n.d.
 
 **Further reading (by name, not yet linked)**
 - Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994.
@@ -242,3 +245,10 @@ Sourced facts come from sibling-topic harvests in `research/_raw/harvests` (anth
 - Ousterhout DK, "Feminization of the forehead: contour changing to improve female aesthetics", Plast Reconstr Surg, 1987.
 - Enlow DH & Hans MG, *Essentials of Facial Growth*, 1996.
 - Paysan P et al., "A 3D Face Model for Pose and Illumination Invariant Face Recognition" (Basel Face Model), AVSS, 2009.
+
+## Verification log (2026-11-20)
+
+- Farkas NAW default norms (n-gn, al-al, zy-zy means and SDs): unconfirmed. Search returned only unrelated US anthropometric surveys. Values stay unverified.
+- Whole-face 3D sex classification about 90-96%, raters about 95%, D about 3-3.5: corrected/partly confirmed. Full-face geometric morphometrics reached 97% (Matthews 2023); other 3D studies gave 91.4% and 95.5%, so the range is now about 90-97%. Mahalanobis D and Bruce et al. 1993 figure unconfirmed. Source: https://scholarworks.indianapolis.iu.edu/items/f5dfa487-8bd0-4118-aefb-fa5929e6007c
+- Regional soft-tissue sex differences (gamma values, women thicker at malar, gonion): unconfirmed. Results only support that men are generally thicker with differences often under 1 mm (https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959, https://pubmed.ncbi.nlm.nih.gov/36758899/).
+- BFM 2009 attributes and FLAME variants: partly confirmed. FLAME offers male, female and generic models (https://flame.is.tue.mpg.de/); BFM 2009 is non-commercial (https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf). BFM 2009 gender attribute directions unconfirmed.

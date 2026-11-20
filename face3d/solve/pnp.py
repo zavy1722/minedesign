@@ -18,9 +18,9 @@ from ..geometry.camera import Camera, focal_px_from_35mm
 from ..geometry.rotations import nearest_rotation, rodrigues, rotation_to_rvec
 from .lm import levenberg_marquardt
 
-# 35 mm-equivalent focal lengths tried when focal length is unknown: phone wide,
+# 35 mm-equivalent focal lengths tried when focal length is unknown: phone ultrawide, phone wide,
 # phone tele, normal, portrait and long portrait lenses.
-DEFAULT_F35_HYPOTHESES = (24.0, 35.0, 50.0, 85.0, 135.0, 200.0)
+DEFAULT_F35_HYPOTHESES = (13.0, 24.0, 35.0, 50.0, 85.0, 135.0, 200.0)
 
 
 @dataclass

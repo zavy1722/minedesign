@@ -62,7 +62,7 @@
     ],
     [
      "4.3",
-     "brush assets; Essentials library; asset shelf; single Brush tool; brush.asset_activate; sculpt_tool->sculpt_brush_type; large performance gains",
+     "brush assets; Essentials library; asset shelf; single Brush tool; brush.asset_activate (replaces paint.brush_set); large performance gains",
      "high for assets, moderate otherwise"
     ],
     [
@@ -72,20 +72,23 @@
     ],
     [
      "5.0",
-     "mathutils buffer protocol: np.asarray gives float32 non-contiguous view",
+     "mathutils buffer protocol: np.asarray gives float32 non-contiguous view; Brush.sculpt_tool renamed sculpt_brush_type (corrected in verification)",
      "sourced"
     ],
     [
      "5.1-5.3",
-     "sculpt changes not established in library",
-     "open"
+     "5.3: Multires texture/colour display in sculpt mode; paint auto-masking; unified paint settings per brush",
+     "sourced (5.3)"
     ]
    ],
    "population": "Blender releases",
    "source_urls": [
-    "https://developer.blender.org/docs/release_notes/5.0/python_api/"
+    "https://developer.blender.org/docs/release_notes/5.0/python_api/",
+    "https://docs.blender.org/api/current/bpy.ops.brush.html",
+    "https://developer.blender.org/docs/release_notes/4.3/sculpt/",
+    "https://developer.blender.org/docs/release_notes/5.3/sculpt/"
    ],
-   "status": "knowledge",
+   "status": "partially verified 2026-11-20",
    "notes": "All rows expert knowledge except 5.0 row (sourced). Verify each against per-release notes."
   },
   {

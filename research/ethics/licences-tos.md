@@ -12,7 +12,7 @@
 - **BFM 2009 / 2017 / 2019 (University of Basel).** A signed agreement for non-commercial research only, no redistribution, and a separate agreement for commercial use. 🧠
 - **Other 3D morphable models** (LSFM, LYHM/Headspace, FaceScape, FaceWarehouse, UHM, HIFI3D++) are application-gated and academic. 🧠 FaceScape also limits which subjects may appear in publications. ↔️
 - **Permissive bases are scarce.**
-  - MPFB2/MakeHuman: GPL-3.0-or-later code, a CC0 base mesh and targets, and some CC-BY packs. ↔️
+  - MPFB2/MakeHuman: GPL-3.0-or-later code, a CC0 base mesh and targets (CC0 since the 2020 licence change), system assets CC0, and some packs (e.g. certain animal target packs) CC-BY, so check each pack. 📄 [1][2]
   - ICT-FaceKit: MIT. ↔️
   - MediaPipe's canonical face OBJ (468 vertices with UVs): Apache-2.0. 🧠
 - **Landmark detectors.**
@@ -48,7 +48,7 @@
   - AGPL-3.0 combines with GPLv3 under §13.
   - Non-commercial terms are "further restrictions", so NC *code* can never be merged in.
 - **Correction to `blender/blender-extensions-packaging.md`.** Separate data files on the same medium count as GPL "mere aggregation", so the GPL alone does not bar bundling NC weights. Three other things do: the assets' own no-redistribution clauses, the Extensions free-content policy, and the trap it sets for downstream commercial users. ↔️
-- **Extensions platform.** The manifest declares SPDX licences, with GPL-3.0-or-later recommended. Bundled assets must be free, wheels must be bundled rather than pip-installed at runtime, and network use needs a declared permission. The rules on downloading model weights at runtime are unconfirmed. ↔️
+- **Extensions platform.** The manifest declares SPDX licences. The current Blender manual requires GPL-3.0-or-later for add-ons rather than merely recommending it, and requires assets bundled in add-ons to be CC0 (corrected in verification). 📄 [3] Wheels must be bundled rather than pip-installed at runtime, and network use needs a declared permission; the rules on downloading model weights at runtime are unconfirmed. 🧠
 - **Closed native cores** (FaceBuilder-style) rely on a "separate program" argument. The FSF treats a plugin that shares the host's address space as one combined work. ↔️
 - **Split licensing.** A numpy engine with no `bpy` import can be MIT or Apache-2.0 (with a patent grant) and reused outside Blender. The Blender glue is GPL-3.0-or-later, and the extension ships under GPL with the engine's notice kept. 🧠
 - **Selling.** Licence keys and paid support are fine, but no term may bar buyers from redistributing. 🧠 Blender Market was reportedly renamed Superhive in 2025. ↔️
@@ -97,7 +97,7 @@
 | FLAME 2020/2023 | n/a | MPI non-commercial | via licence | no | 🧠 |
 | "FLAME 2023 Open" | n/a | CC BY 4.0? | maybe | maybe | ↔️ |
 | BFM 2009/2017/2019 | n/a | Basel non-commercial | via agreement | no | 🧠 |
-| MPFB2 / MakeHuman | GPL-3.0+ | CC0 base; some CC-BY | yes | yes | ↔️ |
+| MPFB2 / MakeHuman | GPL-3.0+ | CC0 base; some CC-BY | yes | yes | 📄 |
 | ICT-FaceKit | MIT | MIT | yes? | after check | ↔️ |
 | BiSeNet face-parsing | MIT | CelebAMask-HQ, non-commercial | no | no | 🧠 |
 | SAM / SAM 2 | Apache-2.0 | Apache-2.0 | yes | download | 🧠 |
@@ -183,7 +183,11 @@ Policy defaults, not statistical priors; sigmas do not apply. 🧠
 
 ## Sources
 
-No harvest or draft existed, so no URLs are cited. Sibling harvests' licence URLs: `blender/blender-extensions-packaging.md`, `reconstruction/multi-view-fitting.md`, `reconstruction/identity-embeddings.md`.
+1. MakeHuman Community, licence page. https://static.makehumancommunity.org/about/license.html
+2. MakeHuman Community, Asset Packs. https://static.makehumancommunity.org/assets/assetpacks.html
+3. Blender Manual, Extension Licenses. https://docs.blender.org/manual/en/dev/extensions/licenses.html
+
+Sibling harvests' licence URLs: `blender/blender-extensions-packaging.md`, `reconstruction/multi-view-fitting.md`, `reconstruction/identity-embeddings.md`.
 
 **Further reading (by name, not yet linked)**
 - FLAME licence (MPI-IS); Basel Face Model licence agreement; InsightFace README; MediaPipe Face Landmarker model card; dlib 68-point model notes

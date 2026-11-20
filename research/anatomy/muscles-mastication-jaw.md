@@ -2,7 +2,7 @@
 
 > Lower-face width, the apparent jaw angle and temple fullness depend on two chewing muscles laid over bone: the masseter on the ramus and the temporalis in the temporal fossa, each under fat, fascia and (for the masseter) the parotid gland. Relaxed adult masseter thickness is roughly 10-15 mm per side by ultrasound and rises about 27-30% on clenching. It is greater in men, in low-angle (short) faces and, on average, in bruxers. The adult temporalis is larger in men and shrinks with age. Botulinum toxin cuts masseter bulk by about 25-30% for months, but whether it changes bone is contested. For photo-to-3D the core problem is identifiability: a frontal photo confounds bone, muscle, gland and fat, so a fitter needs separate layers, a per-photo clench state and profile or 3/4 contour evidence.
 
-Evidence status: 15 ✅ / 34 📄 / 35 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 18 ✅ / 31 📄 / 33 🧠 / 20 ↔️ — 🧠 items are queued for web verification.
 
 *Notes on the evidence:* "(summary)" marks a number taken from a search-result summary rather than from the paper itself. "Derived" marks a value computed from cited numbers.
 
@@ -16,7 +16,7 @@ Evidence status: 15 ✅ / 34 📄 / 35 🧠 / 17 ↔️ — 🧠 items are queue
 
 **Masseter size**
 - **Thickness.** A systematic review gives male relaxed thickness as 10-15 mm and contracted as 14-19 mm, with study means of 12.0-17.2 mm. Probe, measurement site, sex and population all shift these values [1]. Primary studies fall inside the range [2][3]. ✅
-- **Sex.** Men are thicker both relaxed and contracted [2][18][48]. ✅ Korean young adults measured 9.8 ± 1.3 (F) and 11.3 ± 1.2 mm (M) relaxed, and 12.4 ± 1.4 and 14.7 ± 1.4 mm clenched, which is +27% and +30% (derived) [2]. 📄
+- **Sex.** Men are thicker both relaxed and contracted [2][18][48]. ✅ Korean young adults measured 9.8 ± 1.3 (F) and 11.3 ± 1.2 mm (M) relaxed, and 12.4 ± 1.4 and 14.7 ± 1.4 mm clenched, which is +27% and +30% (derived) [2][51]. ✅ The review's sex-specific ranges are consistent [1].
 - **Vertical facial pattern.** Relaxed thickness was 13.94 mm in hypodivergent faces, 12.53 mm in normodivergent and 11.13 mm in hyperdivergent [3]. 📄 The direction is confirmed elsewhere [4][5][8]. ✅
 - **Width, angle and occlusion.** Thickness correlates positively with bigonial and bizygomatic width and negatively with anterior face height and mandibular length (Raadsheer, cited secondhand) [8]. 📄 It correlates inversely with gonial angle and positively with ramus height [5]. 📄 It is greater in men and with normal occlusion [49]. 📄 All of this evidence is cross-sectional.
 - **Volume.** In the Bunkyo older-adult MRI cohort, volume was about 35 mL (M) and 25 mL (F) (summary). Whether that is per side is unclear. Low volume tracks sarcopenia and osteoporosis risk [24][25]. 📄 (both papers come from the same cohort)
@@ -51,8 +51,8 @@ Evidence status: 15 ✅ / 34 📄 / 35 🧠 / 17 ↔️ — 🧠 items are queue
 |---|---|---|---|---|
 | Systematic review [1] | M | 10-15 | 14-19 | ✅ [1][2][3] |
 | Review [1], range of study means | mixed | 12.0-17.2 | — | 📄 |
-| Korean young adults [2] | F | 9.8 ± 1.3 | 12.4 ± 1.4 | 📄 |
-| Korean young adults [2] | M | 11.3 ± 1.2 | 14.7 ± 1.4 | 📄 |
+| Korean young adults [2][51] | F | 9.8 ± 1.3 | 12.4 ± 1.4 | ✅ |
+| Korean young adults [2][51] | M | 11.3 ± 1.2 | 14.7 ± 1.4 | ✅ |
 | Hypo / normo / hyperdivergent [3] | mixed | 13.94 ± 1.51 / 12.53 ± 1.21 / 11.13 ± 1.18 | — | 📄 |
 | TMD myalgia vs control [11] | F | 12.91 vs 13.07 (n.s.) | — | 📄 (summary) |
 | Clench delta, derived from [2] | F / M | +2.6 / +3.4 mm per side; bilateral width at most +5.2 / +6.8 mm | | 📄 |
@@ -92,12 +92,12 @@ Evidence status: 15 ✅ / 34 📄 / 35 🧠 / 17 ↔️ — 🧠 items are queue
 
 | Quantity | Typical adult range | Status |
 |---|---|---|
-| Gonial angle, cephalometric | mean ≈ 120-125°, normal ≈ 110-135°; men a few degrees smaller | 🧠 |
+| Gonial angle, cephalometric | mean ≈ 120-125°, normal ≈ 110-135°; men a few degrees smaller. A CBCT sample gives means of about 125-126° (M) and 129° (F) [52] (corrected range 120-129°) | ↔️ |
 | SN-MP angle (Steiner) | ≈ 32 ± 5°; < 27° hypodivergent, > 37° hyperdivergent | 🧠 |
 | Bony bigonial width | M ≈ 90-105 mm, F ≈ 84-97 mm | 🧠 ↔️ |
 | Bizygomatic width, soft tissue | M ≈ 130-145 mm, F ≈ 122-137 mm | 🧠 |
 | Go-go / zy-zy | ≈ 0.70-0.80 | 🧠 |
-| Soft tissue, skin to bone, at gonion | ≈ 8-18 mm | 🧠 |
+| Soft tissue, skin to bone, at gonion | ≈ 8-18 mm; Nigerian CT adults 16.6 (M) and 15.2 (F) mm [53][54]; other conventions differ | ↔️ |
 | Soft tissue at mid-ramus, over the masseter | ≈ 14-26 mm | 🧠 |
 | Skin plus fat over the masseter | ≈ 4-10 mm, rises with BMI | 🧠 (derived) |
 | Temple soft tissue, skin to bone | ≈ 9-18 mm | 🧠 |
@@ -130,7 +130,7 @@ Caliper gonion-to-gonion width (palpated bone, as in Farkas) is far smaller than
 - **Masseter prior (relaxed, per side).** The Korean sample gives F N(9.8, 1.3²) and M N(11.3, 1.2²) mm [2]. Cross-population defaults are F N(10, 1.8²), M N(12, 2.0²) and unknown-sex N(11, 2.3²). The widening is a design choice anchored on [1][3]. Bounds 6-20 mm.
 - **Clench.** c ∈ [0, 1] is set per image: Beta(1, 4) for rest captures, fixed at 1 for the clench shot. κ ~ N(0.28, 0.05²), clipped to 0.15-0.40 [2] (derived). Temporalis κ_t ≈ 0-0.1 [18][29].
 - **Couplings.** Shift the mean of t_m by about −0.14 mm per degree of SN-MP above 32°. This is derived from the 1.4 mm step between groups about 10° apart [3] 🧠. Use weak covariances with θ_go (negative) and ramus height (positive) [5], ρ ≈ 0.2-0.3 and tunable 🧠.
-- **Skeleton and fat.** θ_go ~ N(122°, 7²), bounds 105-145°. Bony go-go M N(97, 6²) mm, F N(90, 5²) mm. s_f ~ N(6, 2.5²) mm, scaled by BMI. Temple offset d_t ~ N(13, 3²) mm, shrinking about 0.6%/yr (M) and 1%/yr (F) after 30, derived from [21] 🧠.
+- **Skeleton and fat.** θ_go ~ N(122°, 7²), bounds 105-145° (CBCT means run higher, about 125-129° [52]; contested, so consider 124°). Bony go-go M N(97, 6²) mm, F N(90, 5²) mm. s_f ~ N(6, 2.5²) mm, scaled by BMI. Temple offset d_t ~ N(13, 3²) mm, shrinking about 0.6%/yr (M) and 1%/yr (F) after 30, derived from [21] 🧠.
 - **Symmetry.** t_m,L − t_m,R ~ Laplace(0, 0.8 mm). Allow large one-sided temple deficits only when the user flags them. 🧠
 - **Identifiability.** The frontal silhouette gives one equation, W_sil = W_bone + 2(t_m + s_f) + parotid. Profile pins θ_go and the ramus. The far-side 3/4 silhouette pins the belly. A clench pair gives Δ = κ·t_m directly. Use occluding-contour residuals with correspondences recomputed every iteration ("landmark marching"), never fixed jaw landmarks. Report the posterior covariance of the bone/muscle split. 🧠
 - **Unknown-subject defaults.** c = 0, a normodivergent skeleton, t_m = 11-12.5 mm [2][3], symmetric.
@@ -205,6 +205,10 @@ Caliper gonion-to-gonion width (palpated bone, as in Farkas) is far smaller than
 48. [Masseter thickness by sex, orthodontic sample n = 70] — https://doaj.org/article/bee473398a794b4b9acfdd1affa15fec — paper — n.d.
 49. [Masseter thickness vs sex, occlusion, facial form, 140 patients] — https://pmc.ncbi.nlm.nih.gov/articles/PMC7609929 — paper — harvest says 2024; the PMC ID suggests about 2020 ↔️
 50. [Masseter thickness by age group, 18-35 vs 55+] — https://doaj.org/article/a02f971250a04a81b2bf64a6cd7b3186 — paper — n.d.
+51. The relationship between masseter muscle thickness measured by ultrasonography and facial profile in young Korean adults (PubMed record of [2]) — https://pubmed.ncbi.nlm.nih.gov/30276158/ — paper — ~2018
+52. A Morphometric Evaluation of the Mandibular Condyle, Coronoid Process, and Gonial Angle: Age and Gender Differences in CBCT Imaging — https://pmc.ncbi.nlm.nih.gov/articles/PMC12191486/ — paper — ~2025
+53. Forensic facial reconstruction: A computer tomography study of facial soft tissue thickness in Nigerian adult male multi-ethnic population — https://pmc.ncbi.nlm.nih.gov/articles/PMC12170741/ — paper — ~2025
+54. A preliminary study of facial soft tissue thickness for forensic facial reconstruction in a Nigerian adult female community — https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/ — paper — ~2025
 
 **Further reading (by name, not yet linked)**
 - Farkas, *Anthropometry of the Head and Face*, 2nd ed., 1994
@@ -223,3 +227,12 @@ Caliper gonion-to-gonion width (palpated bone, as in Farkas) is far smaller than
 - Zhu et al., 2015, high-fidelity pose and expression normalization ("landmark marching")
 - Faigin, *The Artist's Complete Guide to Facial Expression*
 - Zarins, *Anatomy of Facial Expression*
+
+## Verification log (2026-11-20)
+
+- **Masseter thickness, Korean adults and review ranges** — confirmed. PubMed record gives 9.8 / 11.3 mm relaxed and 12.4 / 14.7 mm clenched; the systematic review gives 10-15 and 14-19 mm for men. Badge ✅. The F N(10,1.8²), M N(12,2²) priors and κ≈0.28 are design choices and stay 🧠/derived. https://pubmed.ncbi.nlm.nih.gov/30276158/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC5606285/
+- **Gonial angle prior N(122°, 7²)** — contested. A CBCT sample (n = 141) gives about 125.7° (M) and 128.7° (F) on the right; the "men smaller" direction holds. https://pmc.ncbi.nlm.nih.gov/articles/PMC12191486/
+- **Bony bigonial width and go-go/zy-zy** — unconfirmed. Search found dry-mandible and panoramic values but no usable URL-tied CBCT norms, and nothing for the ratio. Left 🧠.
+- **Soft-tissue depth at gonion 8-18 mm** — contested. Nigerian CT samples give 16.6 mm (M) and 15.2 mm (F); other conventions differ, and a global review says 2023 values rose about 2.5 mm over 2008. https://pmc.ncbi.nlm.nih.gov/articles/PMC12170741/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/
+- **Mid-ramus 14-26 mm and temple 9-18 mm** — unconfirmed (no adult value retrieved). Left 🧠.
+- **Taiwanese temporalis volumes (36.9 mL M at 20-29, 27.9 mL F at 30-39, −38% / −60%)** — confirmed by the PubMed record (320 adults, eight age groups; the abstract summary says the sexes converge after about 65). Whether volumes are per side is unconfirmed. Badge stays 📄 (one source). https://pubmed.ncbi.nlm.nih.gov/42373791/

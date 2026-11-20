@@ -1,6 +1,42 @@
 {
  "topic": "hair-blender",
- "sources": [],
+ "sources": [
+  {
+   "id": 1,
+   "url": "https://docs.blender.org/api/current/bpy.ops.curves.html",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 2,
+   "url": "https://docs.blender.org/api/current/bpy.types.Curves.html",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 3,
+   "url": "https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/curve/operations/deform_curves_on_surface.html",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 4,
+   "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/hair_principled.html",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 5,
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6219221/",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 6,
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10567046/",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 7,
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5533483/",
+   "verified": "2026-11-20"
+  }
+ ],
  "references_by_name": [
   "Blender Manual: Curves objects, Curves Sculpt mode, Hair node-group assets, Principled Hair BSDF, Hair Info node; release notes 3.3, 3.5, 4.0",
   "Marschner, Jensen, Cammarano, Worley & Hanrahan, 'Light Scattering from Human Hair Fibers', SIGGRAPH 2003",

@@ -1,7 +1,7 @@
 # FLAME head model in depth
 
-> FLAME (Li, Bolkart, Black, Li and Romero, SIGGRAPH Asia 2017) is an articulated head-and-neck model with 5,023 vertices and 9,976 triangles: a mean template plus linear identity, expression and pose-corrective blendshapes, driven by linear blend skinning (LBS) over a root and four joints (neck, jaw, two eyeballs). Nearly every open photo→3D face method from 2019 to 2026 targets it, so trackers and regressors usually emit FLAME *parameters* rather than meshes. For this project it is a fitting cage and interchange format, not a likeness: its identity space comes mostly from about 3,800 North American and European adults (CAESAR), so ears, the nose tip and asymmetry are under-modelled, and it has no mouth interior, teeth or hair. Its licence decides what can ship, and the reported CC BY 4.0 "FLAME 2023 Open" release is the fact most worth verifying. In Blender, protect three things: metres, the Y-up frame and vertex order.
-> Evidence status: 0 ✅ / 0 📄 / 85 🧠 / 12 ↔️ — 🧠 items are queued for web verification. This step had no harvest file and no earlier draft, so no URL is cited. Where a sibling note already cites a related fact, it is named inline as (lib: path).
+> FLAME (Li, Bolkart, Black, Li and Romero, SIGGRAPH Asia 2017) is an articulated head-and-neck model with 5,023 vertices and 9,976 triangles: a mean template plus linear identity, expression and pose-corrective blendshapes, driven by linear blend skinning (LBS) over a root and four joints (neck, jaw, two eyeballs). Nearly every open photo→3D face method from 2019 to 2026 targets it, so trackers and regressors usually emit FLAME *parameters* rather than meshes. For this project it is a fitting cage and interchange format, not a likeness: its identity space comes mostly from about 3,800 North American and European adults (CAESAR), so ears, the nose tip and asymmetry are under-modelled, and it has no mouth interior, teeth or hair. Its licence decides what can ship, and the CC BY 4.0 "FLAME 2023 Open" release (confirmed on the official site) is the exception to the non-commercial rule. In Blender, protect three things: metres, the Y-up frame and vertex order.
+> Evidence status: 0 ✅ / 9 📄 / 80 🧠 / 8 ↔️ — verified 2026-11-20 (see Verification log); remaining 🧠 items are unconfirmed. Where a sibling note already cites a related fact, it is named inline as (lib: path).
 
 ## Key facts
 
@@ -10,8 +10,8 @@
 - **Eyeballs:** in the releases I know, the eyeballs are the last ≈1,092 vertices, ≈546 each. Read the indices from `FLAME_masks.pkl` rather than hard-coding them. 🧠
 - **Model equation:** M(β, θ, ψ) = W(T_P, J(β), θ, 𝒲), with T_P = T̄ + B_S(β) + B_E(ψ) + B_P(θ) (β shape, ψ expression, θ pose, 𝒲 skinning weights): SMPL's formulation transplanted to the head. 🧠
 - **Kinematic tree:** joint 0 is the root (global rotation). Joint 1 is the neck, and joints 2–4 are the jaw, left eye and right eye. Parents are [−1, 0, 1, 1, 1]. θ ∈ ℝ¹⁵ in axis-angle: global 3, neck 3, jaw 3, eyes 3 + 3. 🧠
-- **Joint regression:** J = 𝒥·(T̄ + B_S·β). The reference PyTorch layer concatenates shape and expression into one 400-column `shapedirs` before regressing joints, so expression moves the joints slightly. A re-implementation must copy this or its output will differ. 🧠
-- **Pose correctives:** the input features are vec(R_k − I) for the four non-root joints, giving 4 × 9 = 36 features, so `posedirs` is 5,023 × 3 × 36. The root is excluded, so global rotation never deforms the mesh. 🧠
+- **Joint regression:** J = 𝒥·(T̄ + B_S·β). The reference PyTorch layer concatenates shape and expression into one 400-column `shapedirs` before regressing joints, so expression moves the joints slightly. A re-implementation must copy this or its output will differ. 📄 [3][4]
+- **Pose correctives:** the input features are vec(R_k − I) for the four non-root joints, giving 4 × 9 = 36 features, so `posedirs` is 5,023 × 3 × 36. The root is excluded, so global rotation never deforms the mesh. 📄 [5]
 - **Skinning:** plain LBS with dense 5,023 × 5 weights, not dual-quaternion skinning. 🧠
 - **Basis scaling:** shape and expression bases are scaled so that β, ψ ≈ N(0, 1) per component. The FLAME 2017 and 2020 releases ship 300 shape and 100 expression components. 🧠 (lib: reconstruction/multi-view-fitting.md)
 - **Frame and units:** coordinates are in **metres**, Y is up, the face looks toward +Z, and +X points to the subject's left. The origin is not an anatomical landmark. 🧠 (lib: blender/import-export-scans.md)
@@ -22,8 +22,8 @@
 - **Topology is constant across 2017, 2020 and 2023,** so masks, landmark embeddings and UVs carry over between them. **Coefficients do not:** the bases differ, so β fitted on 2020 is meaningless on 2023. 🧠 ↔️ (Confirm that the 2023 topology is identical.)
 - **FLAME 2020** ("fixed mouth, improved expressions, more data", as I recall the download page) is the file DECA, EMOCA, MICA, SMIRK and SPECTRE expect. 🧠
 - **FLAME 2023** revises the eye and eyelid region and the expression space. VHAP and GaussianAvatars-family code ask for it, reportedly the "with jaw rotation" variant. ↔️ (lib: reconstruction/multi-view-fitting.md)
-- **FLAME 2023 Open** is reportedly released under CC BY 4.0. Its exact contents are not established: the full 300/100 bases, which training data, and whether it includes masks and UVs. This is the single most consequential fact for a shippable tool, and it is unverified. ↔️
-- **Standard licence:** free for non-commercial scientific research after registration on the FLAME website, with no redistribution, so code repositories make you download the files yourself (lib: reconstruction/multi-view-fitting.md). Commercial licences go through MPI or Meshcapade. Treat fitted meshes as derived from the model, and read the prohibited-use clauses: they cover more than commercial use. 🧠 ↔️
+- **FLAME 2023 Open** is released under CC BY 4.0 (the official site lists it as the only CC-BY model; earlier versions, including the original FLAME 2023, stay non-commercial). Sign-up and licence agreement are still required to download, and a conversion script maps expression parameters from `flame2023.pkl` to `flame2023_Open.pkl`. The site lists it with a date of 11/25, which I read as November 2025. 📄 [1][2] Its exact contents are not established: the full 300/100 bases, which training data, and whether it includes masks and UVs. 🧠
+- **Standard licence:** free for non-commercial scientific research after registration on the FLAME website, with no redistribution, so code repositories make you download the files yourself (lib: reconstruction/multi-view-fitting.md). Commercial licences go through MPI or Meshcapade. Treat fitted meshes as derived from the model, and read the prohibited-use clauses: they cover more than commercial use. 📄 [2] (Commercial requests go to ps-license@tue.mpg.de per the licence page; the Meshcapade route was not confirmed.)
 
 **Texture spaces.** The core model has no albedo.
 - **MPI FLAME texture space** (`FLAME_texture.npz`): a PCA built from FLAME fits to FFHQ, on the order of 200 components at 512² in FLAME UV. Its lighting is baked in. 🧠
@@ -47,8 +47,8 @@
 |---|---|---|---|
 | `v_template` | 5023 × 3 | mean head, m | 🧠 |
 | `f` | 9976 × 3 | triangle indices | 🧠 |
-| `shapedirs` | 5023 × 3 × 400 | 300 shape + 100 expression columns | 🧠 |
-| `posedirs` | 5023 × 3 × 36 | pose correctives, 4 joints × 9 | 🧠 |
+| `shapedirs` | 5023 × 3 × 400 | 300 shape + 100 expression columns | 📄 [3][5] |
+| `posedirs` | 5023 × 3 × 36 | pose correctives, 4 joints × 9 | 📄 [5] |
 | `J_regressor` | 5 × 5023 (sparse) | joint locations from vertices | 🧠 |
 | `weights` | 5023 × 5 | LBS weights | 🧠 |
 | `kintree_table` | 2 × 5 | parents [−1, 0, 1, 1, 1] | 🧠 |
@@ -72,7 +72,7 @@
 | 2017 (initial) | 300 / 100 | legacy (TF_FLAME era) | research, non-commercial | 🧠 |
 | 2020 | 300 / 100 | DECA, EMOCA, MICA, SMIRK, SPECTRE | research, non-commercial | 🧠 |
 | 2023 | 300 / 100 (assumed) | VHAP, GaussianAvatars family | research, non-commercial | ↔️ |
-| 2023 Open | unknown | — | CC BY 4.0 (reported) | ↔️ |
+| 2023 Open | unknown (contents unconfirmed) | — | CC BY 4.0 [1][2] | 📄 |
 
 **Table 4: how many components common tools use.** Population: method defaults as I recall them.
 
@@ -97,7 +97,7 @@
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Decide the licence route first.** For research or private study, FLAME 2020 or 2023 is fine. For commercial or shipped output, use the MPFB base (lib: blender/blender-face-addons.md), a Meshcapade licence, or FLAME 2023 Open once its terms and contents are verified. 🧠
+1. **Decide the licence route first.** For research or private study, FLAME 2020 or 2023 is fine. For commercial or shipped output, use the MPFB base (lib: blender/blender-face-addons.md), a Meshcapade licence, or FLAME 2023 Open (CC BY 4.0, terms confirmed [2]; check its contents first). 🧠
 2. **Download a matched set:** the model `.pkl` in the version your tracker expects, `FLAME_masks.pkl`, the landmark embeddings, the UV template OBJ and, optionally, a texture space. Keep all of it outside the project repository. 🧠
 3. **Convert once, outside Blender.** chumpy is unmaintained and fails on modern NumPy and Python, and Blender 4.x and 5.x bundle Python 3.11 or later. Unpickle in a throwaway venv, or with a stub `chumpy` module, then save a plain `.npz`. The `.npz` is still licensed data, so never commit it. 🧠
 4. **Choose an import path:** (a) the MPI add-on, for slider exploration; (b) an OBJ written by a numpy evaluator, imported as Wavefront with the defaults (Forward −Z, Up Y, which stands the head upright facing −Y) and "split by object/group" off; or (c) a bpy builder: mesh from `v_template`/`f`, a Basis key plus one key per component (`foreach_set("co", …)`, slider range −3 to 3, inside the API limit of ±10), five vertex groups from `weights`, and a five-bone armature whose Armature modifier has Preserve Volume **off**. 🧠
@@ -134,12 +134,12 @@
 | region weights | face 1; ears 0.3–0.5; scalp 0.1; neck 0.1–0.2; eyeballs, boundary and mouth interior 0 | taken from `FLAME_masks.pkl` | 🧠 |
 
 - **Version safety.** Every saved coefficient vector carries `{model, version, basis_sha256, K_β, K_ψ}`. The loader refuses mismatches and never zero-pads silently between versions. 🧠
-- **Licence as data.** `commercial_ok = false` for FLAME 2017, 2020 and 2023, and "unknown" for 2023 Open until verified. Export refuses unless the user overrides with an explicit research flag. Load models only from a user-supplied path. 🧠
+- **Licence as data.** `commercial_ok = false` for FLAME 2017, 2020 and 2023, and true (attribution required, CC BY 4.0) for 2023 Open, whose contents are still unverified. 📄 [2] Export refuses unless the user overrides with an explicit research flag. Load models only from a user-supplied path. 🧠
 - **Delivery topology.** Embed the project's quad template in FLAME once (barycentric) and push every subject through that map. 🧠
 
 ## Disagreements, myths & open questions
 
-- **"FLAME is free."** ↔️ It is free for research, not for commercial use. FLAME 2023 Open may change this; that is unverified.
+- **"FLAME is free."** 📄 [2] It is free for research, not for commercial use, except FLAME 2023 Open, which is CC BY 4.0 (attribution required).
 - **Myth: "FLAME coefficients are portable across versions."** They are not; only the topology carries over. 🧠
 - **Myth: "Fitting all 300 components to landmarks gives more likeness."** With 68–105 points it fits noise and the contour bias of landmark detectors. 🧠
 - **Myth: "FLAME output is metric."** The template is; DECA-type regressors (weak perspective) are not; MICA is trained to be. 🧠
@@ -147,14 +147,21 @@
 - **Population bias** ↔️: CAESAR adults of mostly European descent. Widening σ_β for other groups is a heuristic, not a validated fix.
 - **Back of the head:** photos with hair barely constrain it, so the prior dominates. Treat the scalp as plausible, not measured. 🧠
 - **Open questions:**
-  - the exact contents and licence of 2023 Open;
+  - the exact contents of 2023 Open (its CC BY 4.0 licence is confirmed);
   - whether 2023 changed the UVs or eyeball vertices;
   - which Blender versions the add-on supports in late 2026;
   - whether the 2023 "jaw" and "no jaw" files differ only in the expression basis. ↔️
 
 ## Sources
 
-No URL-bearing input existed for this step: the harvest file and the earlier draft were both absent. No URLs are cited. Related URLs are already cited in the sibling notes named inline.
+1. FLAME project site, https://flame.is.tue.mpg.de/ (FLAME 2023 Open under CC-BY-4.0; conversion script)
+2. FLAME model licence page, https://flame.is.tue.mpg.de/modellicense.html (CC-BY applies only to 2023 Open; others non-commercial; commercial via ps-license@tue.mpg.de)
+3. HavenFeng/photometric_optimization, models/FLAME.py, https://github.com/HavenFeng/photometric_optimization/blob/master/models/FLAME.py (pose concatenation, betas = shape+expression)
+4. philgras/neural-head-avatars, nha/models/flame.py, https://github.com/philgras/neural-head-avatars/blob/main/nha/models/flame.py
+5. chrisbennight/mcp-printable-rs issue #89, https://github.com/chrisbennight/mcp-printable-rs/issues/89 (third-party; array shapes 5023x3x400, 5023x3x36, five joints)
+6. soubhiksanyal/FLAME_PyTorch main.py, https://github.com/soubhiksanyal/FLAME_PyTorch/blob/master/main.py
+
+Related URLs are also cited in the sibling notes named inline.
 
 **Further reading (by name, not yet linked)**
 - Li, Bolkart, Black, Li, Romero, "Learning a model of facial shape and expression from 4D scans" (FLAME), ACM TOG / SIGGRAPH Asia 2017
@@ -170,3 +177,10 @@ No URL-bearing input existed for this step: the harvest file and the earlier dra
 - Cosker, Krumhuber, Hilton, D3DFACS, ICCV 2011
 - Robinette et al., CAESAR final report, 2002
 - Code by name: TimoBolkart/FLAME-Universe, TimoBolkart/TF_FLAME, Rubikplayer/flame-fitting, soubhiksanyal/FLAME_PyTorch, TimoBolkart/BFM_to_FLAME, HavenFeng/photometric_optimization, the MPI FLAME Blender add-on (FLAME website)
+
+## Verification log (2026-11-20)
+
+- **FLAME 2023 Open is CC BY 4.0; 2017/2020/2023 non-commercial; commercial via MPI or Meshcapade.** Confirmed for CC BY 4.0 and non-commercial status; commercial contact is ps-license@tue.mpg.de (MPI), Meshcapade route unconfirmed; 2023 Open contents (bases, training data, masks/UVs) unconfirmed. https://flame.is.tue.mpg.de/ , https://flame.is.tue.mpg.de/modellicense.html
+- **pkl layout and pose order.** Partly confirmed: shapedirs 5023x3x400 (300/100), posedirs 5023x3x36 and five joints (third-party issue), full pose order global, neck, jaw, eyes, and shape+expression concatenation in code. Not seen: parents [-1,0,1,1,1], J_regressor 5x5023, weights shape (unconfirmed). https://github.com/HavenFeng/photometric_optimization/blob/master/models/FLAME.py , https://github.com/philgras/neural-head-avatars/blob/main/nha/models/flame.py , https://github.com/chrisbennight/mcp-printable-rs/issues/89
+- **Topology identical across 2017/2020/2023; 2023 eyelid revision; jaw/no-jaw variants; VHAP and GaussianAvatars need the jaw file.** Unconfirmed. Only indirect evidence: CAP4D and Loki papers say FLAME 2023 folds jaw rotation into the expression basis (https://arxiv.org/pdf/2412.12093 , https://arxiv.org/pdf/2605.24176); no source found for VHAP/GaussianAvatars.
+- **MPI FLAME Blender add-on features and supported Blender versions.** Unconfirmed; search returned unrelated add-ons (a third-party add-on exists at https://github.com/hannesdelbeke/FLAME-Blender-Add-on but is not the MPI one).
