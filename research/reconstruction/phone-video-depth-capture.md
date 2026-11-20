@@ -2,7 +2,7 @@
 
 > A 10–20 s head-turn video gives dense yaw coverage through one lens, so every frame can share one unknown focal while the turn supplies the parallax. The costs are lossy, often HDR, often stabilised frames whose intrinsics differ from the still camera's and may wander per frame, plus motion blur; rolling shutter is second-order at sensible turn speeds. Front TrueDepth (structured light, VGA-class, best at 25–50 cm) is the only phone sensor that resolves facial shape at the 1–5 mm scale with metric scale; rear LiDAR and Android ToF give scale and gross size only, and ARKit's 1,220-vertex face mesh is a fitted model, not a measurement. The robust pipeline: record SDR, unstabilised, lens-locked video (or raw RGB-D with intrinsics), decode outside Blender's Python, pick 12–24 sharp neutral frames across yaw bins, solve them with one focal group, and add depth as a robust point-to-plane term with a distance-dependent σ.
 >
-> Evidence status: 0 ✅ / 0 📄 / 73 🧠 / 30 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 0 📄 / 73 🧠 / 30 ↔️ — verification 2026-11-20 found only partial support (see log); no badge changed.
 
 ## Key facts
 
@@ -10,13 +10,13 @@
 - Blender links FFmpeg into its binary (Movie Clip Editor, VSE, video render) but ships no `ffmpeg` executable or Python binding; `bpy.app.ffmpeg` only reports `supported` and library versions 🧠.
 - `bpy.data.movieclips.load(path)` opens a video or image sequence, but there is no supported per-frame pixel read (`Image.pixels` on a MOVIE image yields one cached frame). The dependency-free route is a background job rendering a VSE movie strip to images with View Transform = Standard 🧠. The VSE API renamed `sequences` → `strips` (old name gone in 5.0, as I recall): probe with `hasattr` ↔️.
 - Clip-editor operators (`clip.track_markers`, `clip.solve_camera`) need a Clip Editor area, so they fail under `blender -b`; libmv has no Python module 🧠.
-- **PyAV** is BSD-3-Clause; its wheels bundle FFmpeg libraries built, to my knowledge, as LGPL. Either way it can ship in a GPL extension; codec patents are the open question ↔️. Blender 5.1+ bundles Python 3.13, so cp313 wheels are needed (`blender/blender-version-status-2026.md`) 🧠.
+- **PyAV** is BSD-3-Clause; its wheels bundle FFmpeg libraries built, to my knowledge, as LGPL. Either way it can ship in a GPL extension; codec patents are the open question ↔️ (a PyAV fork documents LGPLv3 wheels in contrast to upstream's GPLv3 wheels [4]; PyPI `av` requires Python ≥3.12 [3]). Blender 5.1+ bundles Python 3.13, so cp313 wheels are needed (`blender/blender-version-status-2026.md`) 🧠.
 - **OpenCV** `VideoCapture` is already a dependency but returns 8-bit BGR, truncating 10-bit HDR 🧠.
 - **YUV→RGB matrix bugs:** swscale-style conversion falls back to BT.601 when untagged; phone HD is BT.709, HDR BT.2020. Decode to `yuv420p10le` and convert in NumPy with the tagged matrix and range 🧠.
 - Phone video is stored landscape plus a rotation matrix that PyAV and older Blender builds ignore ↔️, and is often variable-frame-rate: index frames by PTS 🧠.
 
 **Intrinsics in video**
-- iPhone `.mov` files carry `mdta` keys (`com.apple.quicktime.make`, `.model`) and, on recent iOS, `com.apple.quicktime.camera.lens_model` and `com.apple.quicktime.camera.focal_length.35mm_equivalent`; whether the latter describes the stabilised video crop or the still frame is unclear ↔️.
+- iPhone `.mov` files carry `mdta` keys (`com.apple.quicktime.make`, `.model`) and, on recent iOS, `com.apple.quicktime.camera.lens_model` and `com.apple.quicktime.camera.focal_length.35mm_equivalent` (ExifTool exposes both as Keys:CameraLensModel and CameraFocalLength35mmEquivalent [1]); whether the latter describes the stabilised video crop or the still frame is unclear ↔️.
 - Android camera MP4s carry no focal tag in my experience. Use a still from the same lens and zoom (EXIF, scaled per Table 1), Camera2 (`LENS_INTRINSIC_CALIBRATION` = [fx, fy, cx, cy, s], `LENS_DISTORTION`) in a capture app, or self-calibration 🧠.
 - **Video is a crop of the photo frame.** A 16:9 readout of a 4:3 sensor shortens the diagonal, so a 26 mm-equivalent main camera is ≈28 mm on the video diagonal before stabilisation and ≈31–35 mm with a 10–20 % EIS margin (Table 1): reusing the photo's f35 is an 8–25 % focal error 🧠.
 - **EIS** warps each frame (usually a gyro rotation homography plus rolling-shutter correction) and crops. A pure-rotation warp keeps a constant-f pinhole, but crop-window translation moves the principal point by up to the margin (≈5–10 % of width) and decentres distortion ↔️.
@@ -26,7 +26,7 @@
 **HDR**
 - iPhone 12+ records HDR by default as Dolby Vision Profile 8.4: 10-bit HEVC with an HLG/BT.2020 base layer. Android uses HLG (e.g., Pixel) or HDR10/HDR10+ PQ (e.g., Samsung) 🧠.
 - HLG/PQ read as Rec.709 looks flat and desaturated: detectors cope, sharpness scores and texture do not 🧠. HLG is nearly scene-referred, so a static path works: inverse OETF → optional OOTF → BT.2020→709 matrix → exposure normalisation → soft clip → sRGB (Table 6). PQ needs real tone mapping (BT.2390 EETF; FFmpeg `zscale`+`tonemap` or `libplacebo`) 🧠. Best: record SDR.
-- Blender added 10-bit/HDR video handling during 4.x–5.x as I recall; test each build ↔️.
+- Blender added 10-bit/HDR video handling during 4.x–5.x as I recall (5.0 adds HDR video export with PQ/HLG and HDR in the sequencer [7]); test each build ↔️.
 
 **Motion**
 - Face blur = ω·r·t_exp, camera-independent: a 30°/s turn at 1/60 s smears the nose tip (≈100 mm from the yaw axis) ≈0.9 mm, ≈3 px at 1080p selfie scale (Table 2) 🧠.
@@ -36,10 +36,10 @@
 - **TrueDepth** (front): IR dot projector (Apple: >30,000 dots), flood illuminator, IR camera; absolute depth registered to colour; ≈640×480 at ≤30 fps in video; best ≈25–50 cm, poor beyond ≈1 m 🧠.
 - **`AVDepthData`:** depth or disparity (1/m, not pixels); `depthDataAccuracy` absolute (TrueDepth, LiDAR) or relative (dual camera); `isDepthDataFiltered` = holes filled, smoothed; `intrinsicMatrix` refers to `intrinsicMatrixReferenceDimensions`: rescale it to the depth map 🧠.
 - Portrait HEIC stills embed disparity plus portrait, hair, skin and teeth mattes (free masks) 🧠; rear-camera portrait depth is relative ↔️.
-- **ARKit `ARFaceAnchor`:** pose at ≤60 Hz; `ARFaceGeometry` 1,220 vertices, 2,304 triangles, fixed topology, metres, +x = subject's left, +y up, +z out of the face (the engine's head frame); 52 blend shapes 🧠. `capturedDepthData` arrives at ≈15 Hz 🧠. The mesh is a smooth low-dimensional fit without ears, eyeballs or mouth interior: an initialiser, not a scan 🧠. `capturedImage` is landscape and unmirrored, and the intrinsics refer to it 🧠.
+- **ARKit `ARFaceAnchor`:** pose at ≤60 Hz; `ARFaceGeometry` 1,220 vertices [2], 2,304 triangles, fixed topology, metres, +x = subject's left, +y up, +z out of the face (the engine's head frame); 52 blend shapes 🧠. `capturedDepthData` arrives at ≈15 Hz 🧠. The mesh is a smooth low-dimensional fit without ears, eyeballs or mouth interior: an initialiser, not a scan 🧠. `capturedImage` is landscape and unmirrored, and the intrinsics refer to it 🧠.
 - **LiDAR** (rear dToF): `sceneDepth` 256×192 at 60 Hz with confidence, densified from a sparse emitter grid; ≈1 cm error at 1–2 m. Good for scale (σ 2–3 %, as in `blender/import-export-scans.md`), useless for nose or lips 🧠.
 - **Android:** no app-accessible front face depth. Rear ToF (Galaxy S10 5G–S20, Huawei P30/Mate Pro) largely vanished after ≈2021, with flying pixels at silhouettes. ARCore Depth (16-bit mm) uses ToF or depth-from-motion; Augmented Faces gives a 468-vertex RGB-only mesh without true scale 🧠.
-- **Face accuracy:** fused TrueDepth scans versus clinical stereophotogrammetry: ≈0.5–1.5 mm mean deviation centrally, 2–3+ mm laterally and at the ears; single raw frames ≈0.5–2 mm at 30–40 cm, with a systematic floor averaging cannot remove ↔️.
+- **Face accuracy:** fused TrueDepth scans versus clinical stereophotogrammetry: ≈0.5–1.5 mm mean deviation centrally, 2–3+ mm laterally and at the ears; single raw frames ≈0.5–2 mm at 30–40 cm, with a systematic floor averaging cannot remove ↔️ (an EM3D TrueDepth app measured 0.387 mm mean against CBCT, a different reference [8]; lateral and raw-frame figures unverified).
 
 **Apps** (Table 5; terms change)
 - Per-frame depth + intrinsics + poses: Record3D, Stray Scanner, Polycam raw export. Fused meshes: Heges, Scaniverse, KIRI Engine, Polycam, RealityScan Mobile 🧠.
@@ -91,7 +91,7 @@
 
 | App | Sensors | Output | Depth + K + pose per frame | Terms | Badge |
 |---|---|---|---|---|---|
-| Record3D (iOS) | LiDAR or TrueDepth | `.r3d` zip (JSON with K and poses, LZFSE float32 depth, JPG), EXR+JPG, PLY, live stream | yes | paid unlocks | ↔️ |
+| Record3D (iOS) | LiDAR or TrueDepth | `.r3d` zip (JSON with K and poses, LZFSE float32 depth, JPG [5][6]), EXR+JPG, PLY, live stream | yes | paid unlocks | ↔️ |
 | Stray Scanner (iOS) | LiDAR | `rgb.mp4`, 16-bit PNG depth (mm), `camera_matrix.csv`, `odometry.csv` | yes | open source | 🧠 |
 | Polycam | LiDAR, cloud photos, splats | meshes; developer-mode raw data (images, per-frame fx, fy, cx, cy, pose, `blur_score`, depth) | yes (raw) | freemium | ↔️ |
 | Heges (iOS) | TrueDepth, LiDAR | fused coloured mesh (PLY, STL, OBJ) | no | paid unlock | ↔️ |
@@ -150,7 +150,14 @@
 
 ## Sources
 
-No web harvest or earlier draft existed for this topic, so no URLs are cited.
+1. ExifTool forum, Keys:CameraLensModel / CameraFocalLength35mmEquivalent: https://exiftool.org/forum/index.php?msg=92681
+2. Kodeco, AR Face Tracking Tutorial (1,220 vertices): https://www.kodeco.com/5491-ar-face-tracking-tutorial-for-ios-getting-started?page=2
+3. PyPI `av` (PyAV): https://pypi.org/project/av/
+4. WyattBlue/pyav fork (LGPLv3 wheels vs upstream GPLv3 wheels): https://github.com/WyattBlue/pyav
+5. record3d GitHub issue 7 (.r3d metadata, LZFSE depth): https://github.com/marek-simonik/record3d/issues/7
+6. instant-ngp `record3d2nerf.py` (metadata K, poses): https://huggingface.co/camenduit/instant-ngp/blob/main/scripts/record3d2nerf.py
+7. heise, Blender 5.0 HDR video: https://heise.de/-11084290
+8. PMC11592646, EM3D TrueDepth app vs CBCT: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11592646/
 
 **Further reading (by name, not yet linked)**
 - ITU-R BT.2100, BT.2020, BT.709, BT.2087, BT.2390; SMPTE ST 2084
@@ -164,3 +171,12 @@ No web harvest or earlier draft existed for this topic, so no URLs are cited.
 - Pertuz, Puig & Garcia, "Analysis of focus measure operators for shape-from-focus", Pattern Recognition 2013
 
 **Related library notes:** `reconstruction/camera-pose-solving.md`, `reconstruction/camera-perspective-distortion.md`, `reconstruction/photogrammetry-heads.md`, `reconstruction/expression-neutralization.md`, `blender/import-export-scans.md`, `blender/blender-python-ml-deps.md`, `ethics/biometric-privacy.md`.
+
+## Verification log (2026-11-20)
+
+1. TrueDepth vs stereophotogrammetry accuracy (0.5–1.5 mm central, 2–3+ mm lateral, raw 0.5–2 mm): unconfirmed. Searches showed studies around 0.8–1.1 mm vs 3dMD/Vectra (small studies, not tied to a retrievable URL) and 0.387 mm vs CBCT; no lateral or ear figure found. Badge stays ↔️. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11592646/
+2. iPhone mdta lens_model / focal_length.35mm_equivalent keys; Android MP4 no focal tag: partially confirmed. ExifTool lists CameraLensModel and CameraFocalLength35mmEquivalent for iPhone MOV (value 25 on iPhone 16 Pro Max); the exact key string and stabilised-crop meaning not documented; Android claim unconfirmed. Badge stays ↔️. https://exiftool.org/forum/index.php?msg=92681
+3. ARFaceGeometry 1,220 vertices / 2,304 triangles / 60 Hz / 15 Hz depth: partially confirmed. 1,220 vertices from a tutorial (secondary); 2,304, axes, 60 Hz and 15 Hz not found in results. Badge stays 🧠. https://www.kodeco.com/5491-ar-face-tracking-tutorial-for-ios-getting-started?page=2
+4. PyAV BSD-3 / LGPL wheels / cp313: contested. BSD-3-Clause is metadata for PyPI av; a fork says its wheels are LGPLv3 versus upstream's GPLv3 wheels; cp313 for upstream not confirmed (requires Python ≥3.12). Badge stays ↔️. https://pypi.org/project/av/ , https://github.com/WyattBlue/pyav
+5. Blender 5.x strips rename, HDR reading, rotation metadata, no per-frame pixel access: unconfirmed. Only HDR export (PQ/HLG) and sequencer HDR support found. https://heise.de/-11084290
+6. Record3D .r3d (JSON K, poses, LZFSE float32 depth, JPG) confirmed by community issue and converter script (single non-official sources); paid unlocks and Polycam raw export fields unconfirmed. Badge stays ↔️. https://github.com/marek-simonik/record3d/issues/7 , https://huggingface.co/camenduit/instant-ngp/blob/main/scripts/record3d2nerf.py

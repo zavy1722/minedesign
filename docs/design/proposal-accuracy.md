@@ -141,7 +141,7 @@ The MediaPipe anatomical map is 🧠 [anat R2.4]. It is verified by rendering la
 - `tools/build_priors.py` converts `research/data/*.json` rows into prior tables, carrying each row's badge and source.
 
 **Results.**
-- `fit.npz`: stage vertices, `β`, `c`, `ψ_v`, `θ_v`, σ_n, evidence k.
+- `fit.npz`: stage vertices, `β`, `c`, `ψ_v`, `θ_v`, σ_n, evidence e.
 - `fit.json`: cameras (OpenCV and Blender form), scale mode (`measured|iris|prior`) and σ, focal status per group, flags, QA tables, provenance [bl D6], licence taint.
 
 ### 2.5 Coordinate conventions
@@ -178,7 +178,7 @@ Each view v has rotation ω_v, offset τ_v ∈ ℝ², a_v = log s_v (px/mm) and 
 
 The dolly-zoom direction is now one coordinate, and the weak-perspective limit ρ → 0 stays regular.
 
-- **Focal groups:** the tie residual (a_v − ℓ_v − φ_g)/σ_tie, with the focal prior on φ_g.
+- **Focal groups:** the tie residual (a_v − ℓ_v − φ_G)/σ_tie for focal group G, with the focal prior on φ_G.
 - **PnP initialisation:**
   - f35 hypotheses {13, 24, 26, 35, 50, 77, 85, 120, 135, 200} mm (the code has 7 of these);
   - pitch-flip and yaw-mirror restarts;
@@ -187,7 +187,7 @@ The dolly-zoom direction is now one coordinate, and the weak-perspective limit �
 
 ### 3.3 Observation model
 
-  r_vi = L_vi⁻¹(û_vi(θ) − u_vi),  L L ᵀ = Σ_vi = IOD_v²·σ²_cls,i·R_i diag(1, κ_i²) R_iᵀ·η + P_vi Σ_expr,vi P_viᵀ
+  r_vi = L_vi⁻¹(û_vi(θ) − u_vi),  L_vi L_viᵀ = Σ_vi = IOD_v²·σ²_cls,i·R_i diag(1, κ_i²) R_iᵀ·η + P_vi Σ_expr,vi P_viᵀ
 
 - **IOD_v** := s_v·63 mm. It is defined once and is not foreshortened by yaw [bl table P].
 - **σ_cls** in % IOD: anchors 1.5, lid and lip contours 2.5, oval 4, iris 1, user pin 0.75 [bl table P 🧠].
@@ -201,7 +201,7 @@ The dolly-zoom direction is now one coordinate, and the weak-perspective limit �
 
 ### 3.4 Shape model and priors
 
-  V(g, β, c) = e^g·(T̄ + S·β + Φ·Πc)
+  V(ζ, β, c) = e^ζ·(T̄ + S·β + Φ·Πc),  ζ = global log-scale
 
 - **T̄** is evaluated through limit stencils when the delivery is Multires [bl W4].
 - **Φ** is the existing Gaussian-RBF reduced basis.
@@ -209,7 +209,7 @@ The dolly-zoom direction is now one coordinate, and the weak-perspective limit �
 
 | Adapter | S | Prior | Licence |
 |---|---|---|---|
-| `template_rbf` (default) | none | Anisotropic landmark prior on X_i/e^g: sharp junctions 1–1.5 mm; prn and pg′ 1–2 mm normal, 2–4 mm tangential; g and n (3, 4, 2); zy and go (6, 8, 8); 8 mm fallback [anat R4.1, `craniometric-landmarks.json` 🧠]. Log-ratio priors at σ×2 [anat R4.3]. Ordering hinges [anat R5.2]. RKHS ½λ_c cᵀK_cc c. | CC0 |
+| `template_rbf` (default) | none | Anisotropic landmark prior on X_i/e^ζ: sharp junctions 1–1.5 mm; prn and pg′ 1–2 mm normal, 2–4 mm tangential; glabella and nasion (3, 4, 2); zygion and gonion (6, 8, 8); 8 mm fallback [anat R4.1, `craniometric-landmarks.json` 🧠]. Log-ratio priors at σ×2 [anat R4.3]. Ordering hinges [anat R5.2]. RKHS ½λ_c cᵀK_cc c. | CC0 |
 | `mpfb_targets` | User's MPFB2 face targets | N(0, 0.5²), clipped to ±1; macros σ 0.15 [bl table P 🧠]. A *plausibility* prior, not a covariance. | CC0 📄 |
 | `flame_open` | FLAME 2023 Open, transferred locally as U′ = (W ⊗ I₃)U and never shipped [rec MM-7] | β ~ N(0, I); K_β 20 → 50 [rec MM-3 🧠]; Student-t ν = 4 option [anat §4] | CC-BY-4.0, contents unverified 📄 |
 
@@ -217,22 +217,22 @@ The dolly-zoom direction is now one coordinate, and the weak-perspective limit �
 
 **Symmetry** d = X_l − M·X_r, per-pair σ [anat R4.2 🧠]:
 - canthi and lids 0.7–1.0 mm; alare and zygion 1.0–1.5 mm; cheilion 1.5–2.0 mm; gonion 2.5–3.0 mm; ears 3–4 mm;
-- midline x: n and g 0.75–1.0 mm, prn and sn 1.5–2.0 mm, pg 2–3 mm.
+- midline x: nasion and glabella 0.75–1.0 mm, prn and sn 1.5–2.0 mm, pg 2–3 mm.
 
 The output is never symmetrised; asymmetry is exported as its own key [anat R5.9].
 
 ### 3.5 Joint estimation
 
-The unknowns are θ = {cameras, φ_g, g, β, c, ψ_v, θ_jaw,v, D_iris}:
+The unknowns are θ = {cameras, φ_G, ζ, β, c, ψ_v, θ_jaw,v, D_iris}:
 
-  E(θ) = Σ ρ_H(‖r_vi‖) + Σ ρ_H(r^sil) + Σ hinges + ½‖β‖² + ½λ_c cᵀK_cc c + Σ ½‖X_i/e^g − μ_i‖²_{Σ_pop,i⁻¹}
+  E(θ) = Σ ρ_H(‖r_vi‖) + Σ ρ_H(r^sil) + Σ hinges + ½‖β‖² + ½λ_c cᵀK_cc c + Σ ½‖X_i/e^ζ − μ_i‖²_{Σ_pop,i⁻¹}
      + E_sym + E_ratio + Σ_v ½ψ_vᵀΛ_vψ_v + E_scale + E_focal + E_dist + E_pose
 
 - **Solver:** LM with Nielsen damping (exists). Per-view blocks (≤ 30 parameters) are eliminated by Schur complement. The shared system (≤ ≈ 1,900 parameters) is solved by Cholesky.
 - **Stages** [bl W1, com R5.1–5.2 🧠]:
   - **S0** PnP.
   - **S1** Similarity and cameras on Tier A anchors, plus the mirror test.
-  - **S2** g, β (20 → 50) and coarse c (≈ 40 centres, 30–40 mm), plus expression EM (≤ 3 rounds).
+  - **S2** ζ, β (20 → 50) and coarse c (≈ 40 centres, 30–40 mm), plus expression EM (≤ 3 rounds).
   - **S3** All landmarks, silhouettes and fine c (≈ 600 centres, 10–20 mm). Cameras stay free, so profile silhouettes also correct pitch and f/z.
   - **S4** Per-vertex offsets (σ 2–3 mm, capped at 3–5 mm unless ≥ 2 views agree [rec MM-10]), driven only by dense data: §3.9, or a scan through NICP [rec MM-12].
 - **Advance** a stage when landmark RMS is < 2–3% IOD and silhouettes are within 1–2 mm, or when gains fall below 1% per iteration.
@@ -257,13 +257,13 @@ The unknowns are θ = {cameras, φ_g, g, β, c, ψ_v, θ_jaw,v, D_iris}:
 
 ### 3.7 Metric scale
 
-The global scale g is fused from independent sources:
+The global log-scale ζ is fused from independent sources:
 
 - **Measured references:** (‖X_a − X_b‖ − L)/σ_L. Caliper 0.5 mm; ID-1 card 85.60 mm, σ 0.5 [com §4 🧠]. Warn when references disagree by > 1% [rec BA-10].
 - **Iris:** a shared D ~ N(11.8, 0.6²) mm ✅; limbus σ 0.5–1 px [rec OPT-4 🧠]. Used only when the iris is ≥ 20 px, edges are sharp and there are no spectacles [anat R3.4].
 - **Population:** exactly **one** of global size (σ 0.035 [anat §4 🧠]) or IPD 63 ± 3.8 mm with vergence correction (≈ 2 mm at 0.35 m [bl C3 🧠]).
 
-IPD and head size are correlated, so using both would understate σ_g. Iris alone cannot beat ≈ 5%. Without a reference, the output is tagged "scale: iris/prior ±x%".
+IPD and head size are correlated, so using both would understate σ_ζ. Iris alone cannot beat ≈ 5%. Without a reference, the output is tagged "scale: iris/prior ±x%".
 
 ### 3.8 Silhouettes and profiles
 
@@ -315,16 +315,16 @@ The pass is rejected if any landmark moves > 0.5 mm or any view's RMS rises > 0.
 
 **Posterior.** Laplace: Σ_θ = (JᵀWJ)⁻¹, with cameras marginalised by Schur complement:
 
-  σ_n,k = √(n_kᵀ J_k Σ_θ J_kᵀ n_k),  k_k = 1 − σ²_n,post/σ²_n,prior  [anat/face-perception-likeness 🧠]
+  σ_n,k = √(n_kᵀ J_k Σ_θ J_kᵀ n_k),  e_k = 1 − σ²_n,post,k/σ²_n,prior,k  (evidence, called k in [anat/face-perception-likeness 🧠])
 
-- **Labels:** measured (k ≥ 0.8), partial (0.5–0.8), prior-driven (< 0.5).
-- **Requests:** k < 0.8 in a top-5 perceptual region asks for another view [anat §6].
+- **Labels:** measured (e ≥ 0.8), partial (0.5–0.8), prior-driven (< 0.5).
+- **Requests:** e < 0.8 in a top-5 perceptual region asks for another view [anat §6].
 
 **Calibration.** Laplace ignores model error. Leave-one-view-out (LOVO) gives γ² = mean(r²_held/σ²_pred), and the engine reports γ·σ.
 
 **Gates.**
 - A prior share of Fisher information > 20% in a region seen by ≥ 2 views [anat R1.4].
-- ‖β‖² > χ²_K at 99.9% (86.7 for K = 50), or ‖c̃‖² < k − 2√(2k) for shrinkage [rec MM-5, com R5.8].
+- ‖β‖² > χ²_K at 99.9% (86.7 for K = 50), or ‖c̃‖² < K_c − 2√(2K_c) over K_c whitened coefficients for shrinkage [rec MM-5, com R5.8].
 - Focal *measured* when σ_post(log f) < 0.10 [bl C2]; *prior used* when > 0.8·σ_prior [rec CAM-7].
 - Perspective strength P = 100 mm/z.
 
@@ -358,15 +358,13 @@ paths_exclude_pattern = ["__pycache__/", "/tests/"]
 ```
 
 - **No `network` permission:** the core is offline [eth A3, A7].
-- **Template:** a CC0 template is bundled only after its licence is verified (≤ 25 MB [bl Q5]). Until then, `face3d.template_import` builds it from the user's MPFB2 install.
-- **User data** lives in `extension_path_user`.
+- **Template:** a CC0 template is bundled only after its licence is verified (≤ 25 MB [bl Q5]). Until then, `face3d.template_import` builds it from the user's MPFB2 install into `extension_path_user`.
 - **Probing:** `compat.py` probes features at register time [bl A9].
+- **Version floor:** 4.2 is declared only once CI tests it (↔️).
 
 ### 4.2 Operators
 
-All are `REGISTER|UNDO` except the job operators.
-
-All operators carry the `face3d.` prefix.
+All operators carry the `face3d.` prefix and are `REGISTER|UNDO`, except the job operators.
 - `project_new`, `consent_edit`: project and ConsentRecord, with default-deny gates.
 - `photos_add`: EXIF, orientation, groups, gates; one locked camera with a background image per photo.
 - `landmarks_detect`, `landmarks_import`: run the helper (§4.6), or import JSON.
@@ -386,7 +384,7 @@ All operators carry the `face3d.` prefix.
 - **Project & Consent.**
 - **Photos:** per-photo landmark, mirror, expression, group, gate and LOVO status.
 - **Solve.**
-- **Accuracy:** per region, RMS, γσ, k and label; focal and scale status; flags.
+- **Accuracy:** per region, RMS, γσ, evidence e and label; focal and scale status; flags.
 - **Likeness Review.**
 - **Hand-off.**
 
@@ -447,7 +445,7 @@ An optional "detector pack" extension may bundle wheels only if the platform all
 
 ### 5.3 Honest-uncertainty reporting
 
-Every result states its tier, scale mode and σ, focal status, per-region RMS-to-data, γσ, k and label, LOVO error on ≥ 2 held-out photos [com R8.2], and flags, worst first. It never claims better than the reference modality (0.2–1 mm) [bl Q4].
+Every result states its tier, scale mode and σ, focal status, per-region RMS-to-data, γσ, evidence e and label, LOVO error on ≥ 2 held-out photos [com R8.2], and flags, worst first. It never claims better than the reference modality (0.2–1 mm) [bl Q4].
 
 ### 5.4 Likeness checks shown to the artist
 

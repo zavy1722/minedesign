@@ -1,6 +1,47 @@
 {
  "topic": "phone-video-depth-capture",
- "sources": [],
+ "sources": [
+  {
+   "id": 1,
+   "title": "ExifTool forum: Keys:CameraLensModel and CameraFocalLength35mmEquivalent (iPhone 16 Pro Max MOV example)",
+   "url": "https://exiftool.org/forum/index.php?msg=92681"
+  },
+  {
+   "id": 2,
+   "title": "Kodeco: AR Face Tracking Tutorial for iOS (ARFaceGeometry has 1220 vertices)",
+   "url": "https://www.kodeco.com/5491-ar-face-tracking-tutorial-for-ios-getting-started?page=2"
+  },
+  {
+   "id": 3,
+   "title": "PyPI: av (PyAV) project page; wheels bundle FFmpeg, Python >=3.12",
+   "url": "https://pypi.org/project/av/"
+  },
+  {
+   "id": 4,
+   "title": "WyattBlue/pyav fork: LGPLv3 binary wheels vs upstream GPLv3 wheels",
+   "url": "https://github.com/WyattBlue/pyav"
+  },
+  {
+   "id": 5,
+   "title": "record3d GitHub issue 7: .r3d metadata JSON, LZFSE float32 depth",
+   "url": "https://github.com/marek-simonik/record3d/issues/7"
+  },
+  {
+   "id": 6,
+   "title": "instant-ngp record3d2nerf.py: reads metadata K, poses, w, h",
+   "url": "https://huggingface.co/camenduru/instant-ngp/blob/main/scripts/record3d2nerf.py"
+  },
+  {
+   "id": 7,
+   "title": "Blender 5.0 HDR video / sequencer overhaul (heise)",
+   "url": "https://heise.de/-11084290"
+  },
+  {
+   "id": 8,
+   "title": "PMC: EM3D TrueDepth app vs CBCT, mean 0.387 mm (different reference)",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11592646/"
+  }
+ ],
  "references_by_name": [
   "ITU-R BT.2100 (HDR-TV image parameters: PQ and HLG)",
   "ITU-R BT.2020; ITU-R BT.709; ITU-R BT.2087 (BT.709/BT.2020 colour conversion); ITU-R BT.2390 (HDR report, EETF tone mapping)",

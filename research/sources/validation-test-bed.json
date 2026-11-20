@@ -1,6 +1,31 @@
 {
  "topic": "validation-test-bed",
- "sources": [],
+ "sources": [
+  {
+   "title": "Smithsonian 3D Abraham Lincoln (Mills)",
+   "url": "https://3d.si.edu/es/object/3d/abraham-lincoln%3A2b4a081a-9ea1-4b0c-b1c3-6f5389da3244"
+  },
+  {
+   "title": "Lincoln in 3-D (NPG)",
+   "url": "https://npg.si.edu/blog/lincoln-3-d"
+  },
+  {
+   "title": "NoW benchmark",
+   "url": "https://now.is.tue.mpg.de/"
+  },
+  {
+   "title": "MediaPipe Face Landmarker guide",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker"
+  },
+  {
+   "title": "Epic Fab: migrating assets to Fab",
+   "url": "https://dev.epicgames.com/documentation/fab/migrating-assets-to-fab"
+  },
+  {
+   "title": "Sketchfab: Fab publishing portal open",
+   "url": "https://sketchfab.com/blogs/community/fab-publishing-portal-open-for-sketchfab-migration"
+  }
+ ],
  "references_by_name": [
   "Sanyal, Bolkart, Feng & Black, RingNet / NoW benchmark, CVPR 2019",
   "Chai et al., \"REALY: Rethinking the Evaluation of 3D Face Reconstruction\", ECCV 2022",
@@ -18,7 +43,7 @@
   "Shih, Lai & Liang, \"Distortion-free Wide-angle Portraits on Camera Phones\", ACM TOG (SIGGRAPH) 2019",
   "Zhang, \"A Flexible New Technique for Camera Calibration\", IEEE TPAMI 2000",
   "Triggs, McLauchlan, Hartley & Fitzgibbon, \"Bundle Adjustment - A Modern Synthesis\", 2000",
-  "Förstner & Wrobel, Photogrammetric Computer Vision, Springer 2016",
+  "F\u00f6rstner & Wrobel, Photogrammetric Computer Vision, Springer 2016",
   "Bar-Shalom, Li & Kirubarajan, Estimation with Applications to Tracking and Navigation, 2001 (NEES)",
   "Kaipio & Somersalo, Statistical and Computational Inverse Problems, Springer 2005 (inverse crime)",
   "Bland & Altman, \"Statistical methods for assessing agreement between two methods of clinical measurement\", Lancet 1986",
