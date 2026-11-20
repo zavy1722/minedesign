@@ -16,7 +16,7 @@ It does **not** cover anatomy norms (`../anatomy/`), reconstruction maths (`../r
 - **Artists:** work through the [checklist](#practical-checklist-for-an-artist-working-in-blender). Look numbers up in the [quick-reference tables](#quick-reference-tables), then follow the link to the note before relying on a value.
 - **Engineers:** read the [principles](#principles), the [prior and QA tables](#r7--fitting-priors-σ-for-the-engine), the [contradictions](#cross-topic-contradictions-and-how-to-resolve-them) and the compact engine digest in [`../_raw/requirements_blender.md`](../_raw/requirements_blender.md). Machine-readable tables are in `../data/<topic>.json`.
 - **Evidence badges** (kept on every item below): ✅ verified by two or more independent sources · 📄 single-sourced · 🧠 expert knowledge not yet source-checked · ↔️ contested. Every note ends with a dated **verification log**; where it corrects the note's text, **the log wins**, and this page already uses the corrected values.
-- **Read the 🧠 share before trusting a number.** Across the area the notes carry 53 ✅ / 342 📄 / 1,341 🧠 / 261 ↔️ badged claims, so about two thirds are unchecked expert knowledge. Fifteen of the 21 topics had no web harvest of their own; the least-sourced notes (bpy API, sculpting workflow, retopology, hair, texture painting, template kit, guided workflow) have no ✅ and at most 7 📄 each. Treat their numbers as starting values to calibrate, not facts.
+- **Read the 🧠 share before trusting a number.** Across the area the notes carry 53 ✅ / 344 📄 / 1,340 🧠 / 260 ↔️ badged claims, so about two thirds are unchecked expert knowledge. Fifteen of the 21 topics had no web harvest of their own; the least-sourced notes (bpy API, sculpting workflow, retopology, hair, texture painting, guided workflow) have no ✅ and at most 7 📄 each. Treat their numbers as starting values to calibrate, not facts.
 
 ## Principles
 
@@ -410,7 +410,7 @@ Evidence counts are ✅ / 📄 / 🧠 / ↔️ from each note's header.
 | [blender-python-ml-deps](./blender-python-ml-deps.md) | Running MediaPipe, OpenCV and ONNX Runtime with Blender: wheel tags, worker processes, detector contract, landmark noise priors | 2 / 26 / 61 / 8 |
 | [blender-face-addons](./blender-face-addons.md) | Ecosystem map: MediaPipe, MPFB2, FLAME, Faceit, Face Shape Key Rig, CaptureForge, licences and version support, solver defaults | 4 / 36 / 49 / 4 |
 | [facebuilder-blender](./facebuilder-blender.md) | How KeenTools FaceBuilder works in practice, pin σ, focal observability, QA gates, pricing and trial | 1 / 19 / 47 / 19 |
-| [guided-workflow-accessibility](./guided-workflow-accessibility.md) | Guided, accessible add-on UX: where novices fail, plain-language photo checks, pin σ by class and expertise, pose coverage, colour-safe overlays, user testing | 0 / 0 / 92 / 17 |
+| [guided-workflow-accessibility](./guided-workflow-accessibility.md) | Guided, accessible add-on UX: where novices fail, plain-language photo checks, pin σ by class and expertise, pose coverage, colour-safe overlays, user testing | 0 / 2 / 91 / 16 |
 | [reference-camera-setup](./reference-camera-setup.md) | Rebuilding each photo's camera, perspective vs distance tables, scale anchors, solver priors, fSpy limits | 2 / 25 / 47 / 11 |
 | [portrait-lighting-compare](./portrait-lighting-compare.md) | Matching photo lighting (SH9, key patterns), compositor comparison graph, verification gates G1–G4 | 1 / 22 / 38 / 12 |
 | [import-export-scans](./import-export-scans.md) | Units, axes, mirroring and vertex order across formats; scan cleanup; landmark-anchored NICP; accuracy references | 6 / 20 / 57 / 4 |
@@ -426,7 +426,7 @@ Evidence counts are ✅ / 📄 / 🧠 / ↔️ from each note's header.
 | [skin-shading](./skin-shading.md) | Principled v2 skin setup, physical SSS radius, roughness priors, microdetail, engine output contract | 2 / 18 / 41 / 18 |
 | [texture-projection-painting](./texture-projection-painting.md) | Template UVs, three native projection routes, bake automation, texel density, projection error and UV gates | 0 / 6 / 68 / 17 |
 
-Totals: 53 ✅ / 342 📄 / 1,341 🧠 / 261 ↔️ (recounted from the note headers when this page was last edited; the notes are still being verified).
+Totals: 53 ✅ / 344 📄 / 1,340 🧠 / 260 ↔️ (recounted from the note headers when this page was last edited; the notes are still being verified).
 
 ## Largest gaps
 
