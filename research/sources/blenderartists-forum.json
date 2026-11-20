@@ -1,0 +1,14 @@
+{
+  "topic": "blenderartists-forum",
+  "sources": [
+    {"n": 1, "title": "FaceBuilder for Blender 2021.1 is out: now with AI - Blender Artists Community", "url": "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243", "kind": "forum", "year": "2021"},
+    {"n": 2, "title": "Revamped FaceBuilder for Blender - Blender Artists Community", "url": "https://blenderartists.org/t/revamped-facebuilder-for-blender/1245723", "kind": "forum", "year": "n.d."},
+    {"n": 3, "title": "The first-stable FaceBuilder release for Blender - Blender Artists Community", "url": "https://blenderartists.org/t/the-first-stable-facebuilder-release-for-blender/1210803", "kind": "forum", "year": "n.d."},
+    {"n": 4, "title": "KeenTools For Blender 2.8 - Blender Development Discussion - Blender Artists Community", "url": "https://blenderartists.org/t/keentools-for-blender-2-8/1173005", "kind": "forum", "year": "n.d."},
+    {"n": 5, "title": "Generating metahuman based on a single image blender ue5 tutorial - Released Add-ons and Extensions - Blender Artists Community", "url": "https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052", "kind": "forum", "year": "n.d."},
+    {"n": 6, "title": "AutoFace - Create Rigged and Textured Character from a Single Photograph - Blender Artists Community", "url": "https://blenderartists.org/t/autoface-create-rigged-and-textured-character-from-a-single-photograph/1154237", "kind": "forum", "year": "n.d."},
+    {"n": 7, "title": "Model human face from random photos - Modeling - Blender Artists Community", "url": "https://blenderartists.org/t/model-human-face-from-random-photos/1211277", "kind": "forum", "year": "n.d."},
+    {"n": 8, "title": "Photo to 3D - Basics & Interface - Blender Artists Community", "url": "https://blenderartists.org/t/photo-to-3d/1313606", "kind": "forum", "year": "n.d."},
+    {"n": 9, "title": "Want to Create a 3D Model Face of Myself? - Modeling - Blender Artists Community", "url": "https://blenderartists.org/t/want-to-create-a-3d-model-face-of-myself/1606840", "kind": "forum", "year": "n.d."}
+  ]
+}

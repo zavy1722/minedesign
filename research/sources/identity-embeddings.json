@@ -1,0 +1,15 @@
+{
+  "topic": "identity-embeddings",
+  "sources": [
+    {"n": 1, "title": "ArcFace: Additive Angular Margin Loss for Deep Face Recognition", "url": "https://arxiv.org/abs/1801.07698", "kind": "paper", "year": "2019"},
+    {"n": 2, "title": "ArcFace (arXiv HTML v3)", "url": "https://arxiv.org/html/1801.07698v3", "kind": "paper", "year": "2019"},
+    {"n": 3, "title": "MICA: Towards Metrical Reconstruction of Human Faces (Zielonka, Bolkart, Thies)", "url": "https://arxiv.org/abs/2204.06607", "kind": "paper", "year": "2022"},
+    {"n": 4, "title": "MICA project page (MPI-IS)", "url": "https://is.mpg.de/ncs/en/projects/mica-towards-metrical-reconstruction-of-human-faces", "kind": "official-docs", "year": "2022"},
+    {"n": 5, "title": "FaceNet: A Unified Embedding for Face Recognition and Clustering", "url": "https://arxiv.org/pdf/1503.03832.pdf", "kind": "paper", "year": "2015"},
+    {"n": 6, "title": "InsightFace python-package model_zoo.md", "url": "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md", "kind": "repo", "year": "2024"},
+    {"n": 7, "title": "Third-party InsightFace buffalo_l wrapper README (license claim unverified)", "url": "https://github.com/wangyifan349/insightface-face-similarity", "kind": "repo", "year": ""},
+    {"n": 8, "title": "Third-party trimmed buffalo_l release (unverified mirror)", "url": "https://github.com/inoveee/eventlens/releases/tag/face-models-v1", "kind": "forum", "year": ""},
+    {"n": 9, "title": "Adaptive Threshold for Online Object Recognition and Re-identification Tasks", "url": "https://arxiv.org/pdf/2012.14305", "kind": "paper", "year": "2020"},
+    {"n": 10, "title": "Third-party weights release (unverified mirror)", "url": "https://github.com/finetech-nexus/ai-api/releases/tag/weights-v1", "kind": "forum", "year": ""}
+  ]
+}

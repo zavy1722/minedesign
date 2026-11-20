@@ -1,0 +1,71 @@
+{
+  "topic": "identity-embeddings",
+  "tables": [
+    {
+      "name": "mica_now_error_reduction",
+      "units": "percent lower average reconstruction error vs prior state of the art",
+      "columns": ["variant", "error_reduction_percent"],
+      "rows": [["non-metric", 15], ["metric", 24]],
+      "population": "NoW benchmark (sample size not retrieved)",
+      "source_urls": ["https://arxiv.org/abs/2204.06607"],
+      "status": "single-source",
+      "notes": "From the MICA abstract via search snippet; not cross-checked (search budget exhausted)."
+    },
+    {
+      "name": "mica_arcface_finetuning",
+      "units": "count of ResNet blocks",
+      "columns": ["setting", "value"],
+      "rows": [["arcface_resnet_blocks_finetuned", 3]],
+      "population": "n/a (model design)",
+      "source_urls": ["https://arxiv.org/abs/2204.06607"],
+      "status": "single-source",
+      "notes": "Rest of ArcFace frozen; authors report that fine-tuning more layers overfits. MICA's loss is a masked supervised 3D geometry loss, not an ArcFace identity loss."
+    },
+    {
+      "name": "insightface_buffalo_l_files",
+      "units": "MB (approximate), embedding dimension",
+      "columns": ["file", "role", "approx_size_mb", "output_dim"],
+      "rows": [
+        ["buffalo_l (pack)", "SCRFD-10GF detection + ResNet50 recognition trained on WebFace600K", 326, null],
+        ["w600k_r50.onnx", "identity embedding (ResNet50)", 166, 512],
+        ["det_10g.onnx", "face detection (SCRFD)", null, null]
+      ],
+      "population": "n/a (software artefacts)",
+      "source_urls": [
+        "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md",
+        "https://github.com/wangyifan349/insightface-face-similarity"
+      ],
+      "status": "single-source",
+      "notes": "Pack size from the official model zoo; per-file size and 512-d from a third-party README. Model weights reported (secondary) as non-commercial research only; verify the official licence. No SHA-256 hashes confirmed."
+    },
+    {
+      "name": "reported_verification_figures",
+      "units": "percent accuracy / cosine similarity",
+      "columns": ["item", "value", "metric", "dataset"],
+      "rows": [
+        ["FaceNet verification accuracy", 99.63, "accuracy_percent", "LFW"],
+        ["conventional fixed cosine threshold (cited secondhand)", 0.5, "cosine_similarity", "LFW-based study"]
+      ],
+      "population": "LFW (10-fold protocol)",
+      "source_urls": ["https://arxiv.org/pdf/1503.03832.pdf", "https://arxiv.org/pdf/2012.14305"],
+      "status": "single-source",
+      "notes": "FaceNet figure came from a search summary, not the paper text. The 0.5 threshold is a secondary mention and the adaptive method beat it; it is not a recommended default. Thresholds are model- and dataset-specific; calibrate on your own labelled pairs."
+    },
+    {
+      "name": "cosine_l2_conversion_unit_vectors",
+      "units": "dimensionless; angle in degrees",
+      "columns": ["cosine", "squared_l2", "l2", "angle_deg"],
+      "rows": [
+        [1.0, 0.0, 0.0, 0.0],
+        [0.7, 0.6, 0.775, 45.6],
+        [0.5, 1.0, 1.0, 60.0],
+        [0.3, 1.4, 1.183, 72.5],
+        [0.0, 2.0, 1.414, 90.0]
+      ],
+      "population": "n/a (algebraic identity d^2 = 2 - 2 cos for L2-normalised embeddings)",
+      "source_urls": ["https://arxiv.org/pdf/1503.03832.pdf"],
+      "status": "verified",
+      "notes": "Rows are computed arithmetic, verified by derivation, not empirical values; they are not recommended thresholds."
+    }
+  ]
+}

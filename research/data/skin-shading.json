@@ -1,0 +1,35 @@
+{
+  "topic": "skin-shading",
+  "verification_note": "No independent cross-check was possible (search budget exhausted). All values are single-source from Blender documentation or developer notes; none is a measured human-skin dataset except the manual-cited anisotropy, whose underlying study is untraced.",
+  "tables": [
+    {
+      "name": "principled_bsdf_subsurface_and_ior_values",
+      "units": "per row (dimensionless unless stated)",
+      "columns": ["parameter", "value_min", "value_max", "units", "engine", "meaning"],
+      "rows": [
+        ["subsurface_anisotropy_skin", 0.8, 0.8, "dimensionless", "cycles", "Manual states skin has been measured at 0.8"],
+        ["subsurface_anisotropy_isotropic", 0.0, 0.0, "dimensionless", "cycles", "0 = uniform scattering direction"],
+        ["subsurface_scale_ui_range", 0.0, 50.0, "cm", "unspecified", "Slider range of Scale multiplier on Subsurface Radius (snippet-level)"],
+        ["ior_typical_material_span", 1.0, 4.0, "dimensionless", "both", "1.0 vacuum/air to 4.0 germanium"],
+        ["ior_default", 1.5, 1.5, "dimensionless", "both", "Default approximates glass, not skin"]
+      ],
+      "population": "Not a population measurement; documentation values. Skin anisotropy 0.8 is cited by the manual without study/sample size in the harvested snippet.",
+      "source_urls": ["https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"],
+      "status": "single-source",
+      "notes": "Subsurface IOR and Subsurface Anisotropy are Cycles-only inputs. Scale range taken from a search snippet, not full page text."
+    },
+    {
+      "name": "random_walk_skin_entry_model",
+      "units": "GGX roughness (dimensionless)",
+      "columns": ["component", "roughness", "role"],
+      "rows": [
+        ["ggx_refraction", 1.0, "Randomly chosen entry lobe; roughness fixed"],
+        ["lambertian_diffuse_transmission", null, "Randomly chosen entry lobe; added because pure random walk penetrates too deep into skin"]
+      ],
+      "population": "Implementation detail of Cycles, not a measurement.",
+      "source_urls": ["https://projects.blender.org/blender/blender/pulls/110989"],
+      "status": "single-source",
+      "notes": "Practitioner posts (blenderartists.org/t/this-material-how-to/1233888, /t/subsurface-scattering-colour/1502627) echo that the skin mode fixes roughness at 1; mixing probability not captured."
+    }
+  ]
+}

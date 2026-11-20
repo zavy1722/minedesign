@@ -36,7 +36,15 @@ def numeric_jacobian(fun: Callable[[np.ndarray], np.ndarray], x: np.ndarray,
 def levenberg_marquardt(fun: Callable[[np.ndarray], np.ndarray], x0: np.ndarray,
                         jac: Callable[[np.ndarray], np.ndarray] | None = None,
                         max_iter: int = 100, tol: float = 1e-10, lam0: float = 1e-3,
-                        fd_step: float = 1e-6) -> LMResult:
+                        fd_step: float = 1e-6,
+                        retract: Callable[[np.ndarray, np.ndarray], np.ndarray] | None = None) -> LMResult:
+    """Minimise 0.5*||fun(x)||^2.
+
+    `retract(x, dx)` applies a step on a manifold (e.g. multiplicative rotation
+    updates); `jac` must then be the Jacobian w.r.t. that local step. Default is
+    plain addition.
+    """
+    step_fn = retract if retract is not None else (lambda a, b: a + b)
     x = np.asarray(x0, float).copy()
     r = fun(x)
     cost = 0.5 * float(r @ r)
@@ -56,7 +64,7 @@ def levenberg_marquardt(fun: Callable[[np.ndarray], np.ndarray], x0: np.ndarray,
             except np.linalg.LinAlgError:
                 lam *= 10.0
                 continue
-            x_new = x + dx
+            x_new = step_fn(x, dx)
             r_new = fun(x_new)
             cost_new = 0.5 * float(r_new @ r_new)
             if np.isfinite(cost_new) and cost_new < cost:

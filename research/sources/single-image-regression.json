@@ -1,0 +1,19 @@
+{
+  "topic": "single-image-regression",
+  "sources": [
+    {"n": 1, "title": "Learning an Animatable Detailed 3D Face Model from In-The-Wild Images (DECA)", "url": "https://arxiv.org/abs/2012.04012", "kind": "paper", "year": "2021"},
+    {"n": 2, "title": "Towards Realistic Generative 3D Face Models", "url": "https://arxiv.org/pdf/2304.12483", "kind": "paper", "year": "2023"},
+    {"n": 3, "title": "SIDER: Single-Image Neural Optimization for Facial Geometric Detail Recovery", "url": "https://arxiv.org/pdf/2108.05465", "kind": "paper", "year": "2021"},
+    {"n": 4, "title": "Towards Metrical Reconstruction of Human Faces (MICA)", "url": "https://ar5iv.labs.arxiv.org/html/2204.06607", "kind": "paper", "year": "2022"},
+    {"n": 5, "title": "KaoLRM: Repurposing Pre-trained Large Reconstruction Models for Parametric 3D Face Reconstruction", "url": "https://arxiv.org/pdf/2601.12736", "kind": "paper", "year": "2026"},
+    {"n": 6, "title": "Profile-Specific 3DMM Regression from a Single Lateral Face Image", "url": "https://arxiv.org/html/2605.01746", "kind": "paper", "year": "2026"},
+    {"n": 7, "title": "SMIRK: 3D Facial Expressions through Analysis-by-Neural-Synthesis", "url": "https://arxiv.org/html/2404.04104", "kind": "paper", "year": "2024"},
+    {"n": 8, "title": "georgeretsi/smirk: Official PyTorch Implementation of SMIRK (CVPR 2024)", "url": "https://github.com/georgeretsi/smirk", "kind": "repo", "year": "2024"},
+    {"n": 9, "title": "TEASER: Token Enhanced Spatial Modeling for Expressions Reconstruction", "url": "https://arxiv.org/pdf/2502.10982", "kind": "paper", "year": "2025"},
+    {"n": 10, "title": "cleardusk/3DDFA_V2: Official PyTorch implementation of ECCV 2020 3D dense face alignment", "url": "https://github.com/cleardusk/3DDFA_V2", "kind": "repo", "year": "2020"},
+    {"n": 11, "title": "Towards Fast, Accurate and Stable 3D Dense Face Alignment", "url": "https://arxiv.org/pdf/2009.09960v2", "kind": "paper", "year": "2020"},
+    {"n": 12, "title": "1996scarlet/Dense-Head-Pose-Estimation (3DDFAv2 TFLite reimplementation)", "url": "https://github.com/1996scarlet/Dense-Head-Pose-Estimation", "kind": "repo", "year": "2020"},
+    {"n": 13, "title": "SEREP: Semantic Facial Expression Representation for Robust In-the-Wild Capture and Retargeting", "url": "https://arxiv.org/pdf/2412.14371", "kind": "paper", "year": "2024"},
+    {"n": 14, "title": "A survey and classification of face alignment methods based on face models", "url": "https://arxiv.org/pdf/2311.03082", "kind": "paper", "year": "2023"}
+  ]
+}

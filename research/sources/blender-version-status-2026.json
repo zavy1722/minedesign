@@ -1,0 +1,18 @@
+{
+  "topic": "blender-version-status-2026",
+  "sources": [
+    {"n": 1, "title": "Blender 5.0 — Blender", "url": "https://www.blender.org/releases/5-0/", "kind": "official-docs", "year": "2025"},
+    {"n": 2, "title": "Blender 5.0 Release Notes - Blender Developer Documentation", "url": "https://developer.blender.org/docs/release_notes/5.0/", "kind": "official-docs", "year": "2025"},
+    {"n": 3, "title": "Blender 5.0: Python API", "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/", "kind": "official-docs", "year": "2025"},
+    {"n": 4, "title": "Blender 5.0: Corrective Releases", "url": "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/", "kind": "official-docs", "year": "2025"},
+    {"n": 5, "title": "Index - Blender Developer Documentation (compatibility)", "url": "https://developer.blender.org/docs/release_notes/compatibility/", "kind": "official-docs", "year": "n.d."},
+    {"n": 6, "title": "5.2 LTS — Blender", "url": "https://www.blender.org/download/releases/5-2/", "kind": "official-docs", "year": "2026"},
+    {"n": 7, "title": "Blender 5.2 LTS — Blender", "url": "https://www.blender.org/releases/5-2/", "kind": "official-docs", "year": "2026"},
+    {"n": 8, "title": "Blender 5.2 LTS Release — Blender (press)", "url": "https://www.blender.org/press/blender-5-2-lts-release/", "kind": "official-docs", "year": "2026"},
+    {"n": 9, "title": "Projects to Look Forward to in 2026 — Blender", "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/", "kind": "official-docs", "year": "2026"},
+    {"n": 10, "title": "5.2 LTS - blender - Blender Projects (milestone)", "url": "https://projects.blender.org/blender/blender/milestone/33", "kind": "repo", "year": "2026"},
+    {"n": 11, "title": "5.0 - blender - Blender Projects (milestone)", "url": "https://projects.blender.org/blender/blender/milestone/20", "kind": "repo", "year": "2025"},
+    {"n": 12, "title": "Blender Release Notes - Blender Developer Documentation (index)", "url": "https://developer.blender.org/docs/release_notes/", "kind": "official-docs", "year": "n.d."},
+    {"n": 13, "title": "Release Notes — Blender (index)", "url": "https://www.blender.org/download/releases/", "kind": "official-docs", "year": "n.d."}
+  ]
+}

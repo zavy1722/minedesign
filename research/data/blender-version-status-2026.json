@@ -1,0 +1,62 @@
+{
+  "topic": "blender-version-status-2026",
+  "tables": [
+    {
+      "name": "blender_release_timeline",
+      "units": "ISO dates (YYYY-MM-DD where a day was given, YYYY-MM where only a month was given)",
+      "columns": ["version", "track", "release_date", "support_end", "date_kind", "source_urls"],
+      "rows": [
+        ["4.5", "LTS", null, "2027-07", "support_end from search snippet; release date not retrieved", ["https://www.blender.org/download/releases/"]],
+        ["5.0", "feature", "2025-11-18", null, "actual (search snippet)", ["https://www.blender.org/releases/5-0/", "https://developer.blender.org/docs/release_notes/5.0/"]],
+        ["5.1", "feature", "2026-03", null, "planned (2026 roadmap post)", ["https://www.blender.org/development/projects-to-look-forward-to-in-2026/"]],
+        ["5.2", "LTS", "2026-07-14", "2028-07", "actual (search snippet)", ["https://www.blender.org/download/releases/5-2/", "https://www.blender.org/releases/5-2/"]],
+        ["5.3", "feature", "2026-11-10", null, "listed as current stable on dev-docs index (snippet); plan said 2026-11", ["https://developer.blender.org/docs/release_notes/", "https://www.blender.org/development/projects-to-look-forward-to-in-2026/"]]
+      ],
+      "population": "Official Blender Foundation release pages (blender.org, developer.blender.org); one publisher",
+      "source_urls": [
+        "https://www.blender.org/download/releases/",
+        "https://www.blender.org/releases/5-0/",
+        "https://developer.blender.org/docs/release_notes/5.0/",
+        "https://www.blender.org/development/projects-to-look-forward-to-in-2026/",
+        "https://www.blender.org/download/releases/5-2/",
+        "https://www.blender.org/releases/5-2/",
+        "https://developer.blender.org/docs/release_notes/"
+      ],
+      "status": "single-source",
+      "notes": "All values come from search-result snippets collected by the harvester. No page was opened, and no independent cross-check was possible because the WebSearch budget was exhausted and developer.blender.org failed at DNS. The two-year LTS window (4.5 to July 2027, 5.2 July 2026 to July 2028) is internally consistent."
+    },
+    {
+      "name": "blender_5_2_4_release_date_conflict",
+      "units": "ISO date",
+      "columns": ["reported_date", "where", "source_url"],
+      "rows": [
+        ["2026-11-10", "official download page for 5.2 LTS (snippet)", "https://www.blender.org/download/releases/5-2/"],
+        ["2026-11-16", "Blender Projects 5.2 LTS milestone, one view (planned date)", "https://projects.blender.org/blender/blender/milestone/33"],
+        ["2026-11-17", "Blender Projects 5.2 LTS milestone, another view (planned date)", "https://projects.blender.org/blender/blender/milestone/33"]
+      ],
+      "population": "Official Blender pages",
+      "source_urls": [
+        "https://www.blender.org/download/releases/5-2/",
+        "https://projects.blender.org/blender/blender/milestone/33"
+      ],
+      "status": "contested",
+      "notes": "Range 2026-11-10 to 2026-11-17. The milestone dates may be stale planned dates. Not resolved."
+    },
+    {
+      "name": "blender_add_on_support_matrix_derived",
+      "units": "date windows (YYYY-MM)",
+      "columns": ["window_start", "window_end", "lts_lines_supported"],
+      "rows": [
+        ["2026-07", "2027-07", ["4.5", "5.2"]],
+        ["2027-07", "2028-07", ["5.2"]]
+      ],
+      "population": "Derived from blender_release_timeline support_end values",
+      "source_urls": [
+        "https://www.blender.org/download/releases/",
+        "https://www.blender.org/download/releases/5-2/"
+      ],
+      "status": "single-source",
+      "notes": "Computed from the snippet-level support-end dates. Any LTS due in July 2027 is not included because it was not sourced."
+    }
+  ]
+}

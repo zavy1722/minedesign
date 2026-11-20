@@ -45,3 +45,32 @@ def orbit_camera(distance_mm: float, yaw_deg: float, pitch_deg: float, f35: floa
     eye = tgt + distance_mm * np.array([np.sin(yaw) * np.cos(pitch), np.sin(pitch), np.cos(yaw) * np.cos(pitch)])
     R, t = look_at(eye, tgt)
     return Camera.centered(focal_px_from_35mm(f35, width, height), width, height, R=R, t=t)
+
+
+def mirror_pairs(names: list[str]) -> list[tuple[int, int]]:
+    """(left, right) index pairs from the _L/_R naming convention."""
+    idx = {n: i for i, n in enumerate(names)}
+    return [(i, idx[n[:-2] + "_R"]) for i, n in enumerate(names) if n.endswith("_L") and n[:-2] + "_R" in idx]
+
+
+def midline_indices(names: list[str]) -> list[int]:
+    return [i for i, n in enumerate(names) if not (n.endswith("_L") or n.endswith("_R"))]
+
+
+def random_subject(template: np.ndarray, names: list[str], rng: np.random.Generator,
+                   identity_sd: float = 4.0, asym_sd: float = 1.0, scale_sd: float = 0.04) -> np.ndarray:
+    """A plausible 'other person': smooth symmetric identity change + small asymmetry."""
+    pairs = mirror_pairs(names)
+    mid = midline_indices(names)
+    # Smooth identity field: random low-order polynomial displacement + per-landmark jitter.
+    c = template - template.mean(0)
+    feats = np.column_stack([np.ones(len(c)), c / 100.0, (c / 100.0) ** 2])
+    coef = rng.normal(scale=identity_sd, size=(feats.shape[1], 3))
+    d = feats @ coef * 0.5 + rng.normal(scale=identity_sd * 0.5, size=template.shape)
+    X = template * (1.0 + rng.normal(scale=scale_sd)) + d
+    # Symmetrise, then add a little true asymmetry.
+    for l, r in pairs:
+        avg = (X[l] + X[r] * np.array([-1, 1, 1])) / 2.0
+        X[l], X[r] = avg, avg * np.array([-1, 1, 1])
+    X[mid, 0] = 0.0
+    return X + rng.normal(scale=asym_sd, size=X.shape)

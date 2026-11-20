@@ -1,0 +1,17 @@
+{
+  "topic": "skin-shading",
+  "verification_note": "Independent verification pass could not run: shared WebSearch budget exhausted before the first query. All sources are from the harvester only.",
+  "sources": [
+    {"n": 1, "title": "Principled BSDF - Blender 5.3 Manual", "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2026"},
+    {"n": 2, "title": "Principled BSDF - Blender 4.3 Manual", "url": "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2024"},
+    {"n": 3, "title": "Subsurface Scattering - Blender 5.3 Manual", "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/sss.html", "kind": "official-docs", "year": "2026"},
+    {"n": 4, "title": "Subsurface Scattering - Blender 3.6 Manual", "url": "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/sss.html", "kind": "official-docs", "year": "2023"},
+    {"n": 5, "title": "Cycles: Tweak Principled BSDF Subsurface parameters (PR #110989)", "url": "https://projects.blender.org/blender/blender/pulls/110989", "kind": "repo", "year": "2023"},
+    {"n": 6, "title": "Subsurface Scattering colour - Blender Artists", "url": "https://blenderartists.org/t/subsurface-scattering-colour/1502627", "kind": "forum", "year": "unknown"},
+    {"n": 7, "title": "Principled BSDF: Subsurface Anisotropy - Blender Artists", "url": "https://blenderartists.org/t/principled-bsdf-subsurface-anisotropy/1629688", "kind": "forum", "year": "unknown"},
+    {"n": 8, "title": "Subsurface Scattering is producing flat-shaded artifacts - Blender Artists", "url": "https://blenderartists.org/t/subsurface-scattering-is-producing-flat-shaded-artifacts/1594573", "kind": "forum", "year": "unknown"},
+    {"n": 9, "title": "Volumetric SSS - Blender Tests - Blender Artists", "url": "https://blenderartists.org/t/volumetric-sss/1102733", "kind": "forum", "year": "unknown"},
+    {"n": 10, "title": "This material? How to - Blender Artists", "url": "https://blenderartists.org/t/this-material-how-to/1233888", "kind": "forum", "year": "unknown"},
+    {"n": 11, "title": "Principled BSDF - Blender 3.6 Manual", "url": "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2023"}
+  ]
+}
