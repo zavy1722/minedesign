@@ -119,17 +119,9 @@ Everything is JSON plus `.npz` arrays. Every object carries `{source, version, l
 
 **Project (`project.f3d.json`).**
 - `consent_id`.
-- `photos[]`, each with:
-  - `sha256`, `rights_basis`;
-  - EXIF data, `focal_group`;
-  - `view_tag` (nominal yaw and pitch);
-  - `mirrored`, `crop_px`, `expression_tag`;
-  - a `landmarks` reference;
-  - `masks` (labelled PNGs: skin, hair, background, occluder);
-  - `pins[]`.
-- `scale_refs[{a, b, length_mm, sigma_mm}]`.
-- `template_ref`, `model_ref`.
-- `settings` (every 🧠 default, by name).
+- `photos[]`: `sha256`, `rights_basis`, EXIF, `focal_group`, `view_tag` (nominal yaw and pitch), `mirrored`, `crop_px`, `expression_tag`, a `landmarks` reference, `masks` (labelled PNGs: skin, hair, background, occluder), `pins[]`.
+- `scale_refs[{a, b, length_mm, sigma_mm}]`, `template_ref`, `model_ref`.
+- `settings`: every 🧠 default, by name.
 
 **Landmark scheme (`schemes/<id>.json`).**
 - `points[{index, abbr, kind ∈ {anchor, contour, extremal, iris}, side, mirror_index, class, sigma_n, sigma_t, badge}]`;
@@ -159,13 +151,7 @@ The MediaPipe anatomical map is 🧠 [anat R2.4]. It is verified by rendering la
 
 **Results.**
 - `fit.npz`: stage vertices, `β`, `c`, `ψ_v`, `θ_v`, σ_n, evidence k.
-- `fit.json`:
-  - cameras (OpenCV and Blender form);
-  - scale mode (`measured|iris|prior`) and σ;
-  - focal status per group;
-  - flags, QA tables;
-  - provenance [bl D6];
-  - licence taint.
+- `fit.json`: cameras (OpenCV and Blender form), scale mode (`measured|iris|prior`) and σ, focal status per group, flags, QA tables, provenance [bl D6], licence taint.
 
 ### 2.5 Coordinate conventions
 
@@ -182,13 +168,12 @@ The MediaPipe anatomical map is 🧠 [anat R2.4]. It is verified by rendering la
 
 The pixel focal length is f_px = f35·√(W² + H²)/43.27 (diagonal convention ↔️ [rec CAM-2]).
 
-| Source | Prior on log f [rec CAM-6, com R2.2 🧠] |
-|---|---|
-| EXIF, uncropped | σ 0.03–0.04 |
-| Crop suspected | σ 0.08 |
-| Crop unknown | σ 0.35 |
-| Phone without EXIF | 26 mm, σ 0.25 |
-| Nothing known | 50 mm, σ 0.6 |
+Priors on log f [rec CAM-6, com R2.2 🧠]:
+- EXIF, uncropped: σ 0.03–0.04.
+- Crop suspected: σ 0.08.
+- Crop unknown: σ 0.35.
+- Phone without EXIF: 26 mm, σ 0.25.
+- Nothing known: 50 mm, σ 0.6.
 
 - **Groups** are keyed on (Make, Model, LensModel, f35, W, H, still/video), with a tie σ of 0.02 [rec CAM-5].
 - **Distance** priors on log z: selfie 0.35 m (σ 0.3), rear camera 0.8 m (0.4), tele 2 m (0.4), unknown 1 m (0.7) [rec CAM-6, com R2.4 🧠]. Bounds are 0.25–10 m [bl C6].

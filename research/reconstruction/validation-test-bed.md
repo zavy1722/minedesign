@@ -84,7 +84,7 @@
 
 **Table 5. Coverage check of `face3d` `reconstruct_landmarks`** (computed for this note: 32 illustrative landmarks, 26 mm-eq at 0.42 m, 3000×4000 px, IPD ≈470 px, 8 px noise vs auto σ 9.9 px; 30–40 seeded trials per row; z after similarity alignment with projected covariance)
 
-| Scenario | Shape RMSE mm | \|z\|<1 | \|z\|<2 | NEES/dof | Scale σ posterior / actual | Badge |
+| Scenario | Median shape RMSE mm | \|z\|<1 | \|z\|<2 | NEES/dof | Scale σ posterior / actual | Badge |
 |---|---|---|---|---|---|---|
 | 5 views ±60°, σ_px correct | 1.32 | 0.69 | 0.96 | 0.98 | 2.1 / 4.7 % | 🧠 |
 | 3 views 0, ±30° | 1.70 | 0.73 | 0.97 | 0.90 | 2.1 / 3.7 % | 🧠 |
@@ -124,7 +124,7 @@
 - **`face3d/eval/coverage.py`**: `gauge_project(X, C)`, `z_scores`, `nees` and a reliability curve (empirical vs nominal coverage, α = 0.1…0.9). `bundle_adjust` must return the full 3N×3N point covariance, not only `point_sigma_mm`. Upgrade `test_point_uncertainty_reflects_coverage` to assert aligned 1σ coverage 0.6–0.76 and NEES/dof 0.8–1.25 over ≥30 seeded trials. 🧠
 - **Add a scale parameter** with a log-normal prior (σ ≈ 0.045 until verified). An iid isotropic prior leaves ≈σ/(√N·r̄) scale freedom (≈2 % at 8 mm, 32 points), half the real spread (Table 5). Long term: a low-rank covariance from licensed scans. 🧠
 - **σ_def floor:** add per-landmark definition-bias variance (0.5–2 mm) to the covariance, or model a per-landmark offset shared across views; otherwise σ shrinks as 1/√views while bias stays. 🧠
-- **σ_px:** report reduced χ² = 2·cost/(m − n) per fit; calibrate `AUTO_SIGMA_FRACTION_OF_DIAG` so its median over tier-2/4 sets is ≈1, with per-landmark multipliers (inner anchors ≈0.5–0.7×, oval ≈1.5–2×); inflate reported covariance by max(1, χ²_red). 🧠
+- **σ_px:** report reduced χ² = 2·cost/(m − n) per fit; calibrate `AUTO_SIGMA_FRACTION_OF_DIAG` until median reduced χ² over tier-2/4 sets is ≈1, with per-landmark multipliers (inner anchors ≈0.5–0.7×, oval ≈1.5–2×); inflate reported covariance by max(1, χ²_red). 🧠
 - **Gates from quantiles:** landmark outlier at 3.03σ (1 % false alarm in 2D); view rejected above its 99 % reduced-χ² bound (Table 4); a final redescending round (Geman–McClure or Tukey) or hard rejection, since Huber leaves gross outliers bounded influence (Table 5, last row). Express pixel thresholds such as `max_dist_px` in IOD or σ_px units. 🧠
 - **Tuning order:** σ ratios set the MAP estimate, the global σ scale only the error bars; tune ratios for accuracy, then scale for coverage. Screen ≈12 parameters with Morris elementary effects (≈20 trajectories, 260 runs), Sobol' indices on the top 4–5, validate leave-one-subject-out. 🧠
 - **CI:** tier 1 on every push (numpy, fixed seeds, medians vs stored baselines ± 3 MAD over 30 seeds, paired); tier 2 nightly from cached detection JSON of CC0 renders committed with licence files; tiers 3–4 on a private machine before release, aggregates only. Store protocol version, licence hashes and engine SHA with every result. 🧠
