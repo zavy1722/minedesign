@@ -2,7 +2,7 @@
 
 > Single-image regressors map one photo to morphable-model coefficients plus a camera. DECA, EMOCA, MICA, SMIRK, TEASER and Pixel3DMM use FLAME. 3DDFA_V2, Deep3DFaceRecon and HRN use the Basel Face Model (BFM). On NoW, the standard neutral-shape benchmark, the best widely used identity regressor (MICA) reaches about 0.9 mm median and 1.1 mm mean error. A correctly scaled *average* FLAME face already reaches about 1.5 mm mean, so regressors capture only part of what makes a face recognisable [2][4]. Expression regressors are judged on perceptual metrics rather than shape accuracy, and REALY ranks methods differently from NoW. Use them as initialisers and priors for a multi-view, perspective-calibrated fit. Most research weights, and the FLAME and BFM assets they depend on, carry non-commercial terms.
 >
-> Evidence status: 5 ✅ / 21 📄 / 50 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 5 ✅ / 21 📄 / 48 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 

@@ -1,0 +1,112 @@
+{
+  "topic": "blenderartists-forum",
+  "tables": [
+    {
+      "name": "perspective_nose_vs_ear_magnification_by_distance",
+      "units": "camera-to-nose-tip distance in m; magnification is dimensionless (nose-tip plane relative to tragion plane)",
+      "columns": ["distance_m", "typical_setup", "magnification_d10cm", "magnification_d9cm", "magnification_d12cm"],
+      "rows": [
+        [0.3, "close selfie", 1.333, 1.30, 1.40],
+        [0.5, "arm's-length selfie", 1.20, 1.18, 1.24],
+        [0.75, "near portrait", 1.133, 1.12, 1.16],
+        [1.0, "phone 1x", 1.10, 1.09, 1.12],
+        [1.5, "85 mm-eq head-and-shoulders", 1.067, 1.06, 1.08],
+        [2.0, "2-3x phone tele", 1.05, 1.045, 1.06],
+        [3.0, "135-200 mm-eq", 1.033, 1.03, 1.04],
+        [5.0, "long tele", 1.02, 1.018, 1.024]
+      ],
+      "population": "n/a (pinhole geometry); d = nose-tip-to-tragion depth, assumed 9-12 cm adult",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Derived: m = 1 + d/Z. The 9-12 cm depth range is expert knowledge, not sourced. Use for perspective-guard warnings (e.g. warn when Z < 0.8 m, m > ~1.12). Cross-check against Ward et al. 2018 'selfie effect' study."
+    },
+    {
+      "name": "tight_head_framing_distance_by_focal",
+      "units": "focal in mm (35 mm-equivalent); distance in m; magnification dimensionless",
+      "columns": ["focal_35mm_eq", "distance_m_for_0.35m_vertical_field", "nose_ear_magnification_d10cm"],
+      "rows": [
+        [24, 0.23, 1.43],
+        [28, 0.27, 1.37],
+        [50, 0.49, 1.21],
+        [85, 0.83, 1.12],
+        [135, 1.31, 1.08],
+        [200, 1.94, 1.05]
+      ],
+      "population": "n/a (geometry); portrait orientation, 36 mm sensor side vertical, 0.35 m field",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "distance = f * 0.35 / 0.036. Shows that perspective is set by distance; focal length only fixes framing."
+    },
+    {
+      "name": "focal_35mm_equivalent_width_vs_diagonal_convention",
+      "units": "ratio (dimensionless)",
+      "columns": ["native_aspect", "width_based_fpx_over_diagonal_fpx", "effect_if_width_convention_used_wrongly"],
+      "rows": [
+        ["3:2", 1.000, "none"],
+        ["4:3", 0.962, "focal ~4% short -> camera solved too close, face too deep"],
+        ["16:9", 1.048, "focal ~5% long"]
+      ],
+      "population": "n/a (geometry); full-frame diagonal 43.27 mm",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Ratios are exact geometry. Which convention a given phone/camera uses when writing EXIF FocalLengthIn35mmFilm is not verified here; face3d.geometry.camera.focal_px_from_35mm assumes diagonal."
+    },
+    {
+      "name": "base_mesh_and_model_sizes",
+      "units": "vertex / parameter counts",
+      "columns": ["model", "vertices", "faces_or_tris", "parameters", "licence_note", "row_status"],
+      "rows": [
+        ["FLAME 2017/2020", 5023, 9976, "300 shape, 100 expression; jaw, neck, eye joints", "non-commercial research; commercial via Meshcapade; possible more open 2023 release unconfirmed", "knowledge (counts) / contested (licence)"],
+        ["MakeHuman hm08 base (MPFB2)", 13380, null, "macro + micro targets; ~19158 vertices incl. helper geometry", "code GPL-3+; asset licence CC0 vs CC-BY disputed", "knowledge"],
+        ["Basel Face Model 2009", 53490, null, "199 shape PCs", "non-commercial, registration", "knowledge"],
+        ["ARKit blendshapes", null, null, "52 blendshapes", "Apple specification", "knowledge"],
+        ["MediaPipe Face Mesh", 468, null, "478 with refinement (iris)", "Apache-2.0", "knowledge"]
+      ],
+      "population": "n/a (model specifications)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "From memory; verify each count against the official release before hard-coding correspondence tables. FaceBuilder and MetaHuman head vertex counts unknown."
+    },
+    {
+      "name": "likeness_sanity_check_proportions",
+      "units": "mm",
+      "columns": ["measure", "low_mm", "high_mm", "mean_mm", "notes"],
+      "rows": [
+        ["interpupillary_distance", 54, 74, 63, "men ~2-3 mm wider than women (Dodgson 2004)"],
+        ["eyeball_diameter", 23, 25, 24, "adult"],
+        ["visible_iris_diameter_HVID", 11.0, 12.5, 11.7, "adult"],
+        ["intercanthal_width_en_en", 28, 35, null, "sex/ancestry dependent"],
+        ["palpebral_fissure_length_ex_en", 27, 33, null, ""],
+        ["nasal_width_al_al", 30, 40, null, "strongly ancestry-dependent"],
+        ["mouth_width_ch_ch", 45, 55, null, ""],
+        ["ear_length", 55, 70, null, "increases with age"]
+      ],
+      "population": "adults, mixed sex and ancestry; broad ranges",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Sanity checks only, not priors for a specific person. Cross-check against the anatomy/craniometric-landmarks note and Farkas 1994 before use as priors."
+    },
+    {
+      "name": "suggested_solver_defaults",
+      "units": "mixed (see column units)",
+      "columns": ["parameter", "value", "unit", "rationale"],
+      "rows": [
+        ["sigma_auto_pin_interior", 0.03, "x IOD", "detector landmarks (eye/mouth corners, alae)"],
+        ["sigma_auto_pin_contour", 0.07, "x IOD (range 0.06-0.08)", "jaw/cheek contour; use point-to-curve residual"],
+        ["sigma_user_pin", 1.5, "screen px (range 1-2), converted at current zoom", "user-placed pins, Huber loss"],
+        ["f_prior_log_sigma_with_exif", 0.075, "log units (range 0.05-0.10)", "EXIF focal present"],
+        ["f_prior_log_sigma_no_exif", 0.35, "log units", "engine default ViewObs.f_prior_log_sigma"],
+        ["same_lens_log_focal_tie_sigma", 0.02, "log units", "photos tagged same lens/zoom"],
+        ["focal_disagreement_flag", 0.15, "fraction (range 0.10-0.15)", "solved focal vs EXIF or vs same-lens siblings"],
+        ["ipd_scale_prior_mean", 63, "mm", "absolute scale when no measurement given"],
+        ["ipd_scale_prior_sigma", 3.5, "mm (1 sigma)", "population spread"],
+        ["sigma_sym", 2.0, "mm (range 1.5-3)", "engine default Priors.sigma_sym; do not symmetrise"],
+        ["perspective_guard_min_distance", 0.8, "m", "warn if camera-to-nose distance below this (>~12% mid-face inflation)"]
+      ],
+      "population": "n/a (engineering defaults)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Expert-judgement defaults for face3d (ViewObs.weights, f_prior_log_sigma, Priors.sigma_sym). Tune on synthetic data (face3d.synthetic) before release."
+    }
+  ]
+}

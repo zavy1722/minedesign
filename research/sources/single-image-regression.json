@@ -15,5 +15,18 @@
     {"n": 12, "title": "1996scarlet/Dense-Head-Pose-Estimation (3DDFAv2 TFLite reimplementation)", "url": "https://github.com/1996scarlet/Dense-Head-Pose-Estimation", "kind": "repo", "year": "2020"},
     {"n": 13, "title": "SEREP: Semantic Facial Expression Representation for Robust In-the-Wild Capture and Retargeting", "url": "https://arxiv.org/pdf/2412.14371", "kind": "paper", "year": "2024"},
     {"n": 14, "title": "A survey and classification of face alignment methods based on face models", "url": "https://arxiv.org/pdf/2311.03082", "kind": "paper", "year": "2023"}
+  ],
+  "references_by_name": [
+    "Sanyal, Bolkart, Feng, Black - Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision (RingNet, NoW benchmark), CVPR 2019",
+    "Li, Bolkart, Black, Li, Romero - Learning a Model of Facial Shape and Expression from 4D Scans (FLAME), SIGGRAPH Asia 2017",
+    "Paysan et al. - A 3D Face Model for Pose and Illumination Invariant Face Recognition (BFM 2009), AVSS 2009",
+    "Danecek, Black, Bolkart - EMOCA: Emotion Driven Monocular Face Capture and Animation, CVPR 2022",
+    "Deng et al. - Accurate 3D Face Reconstruction with Weakly-Supervised Learning: From Single Image to Image Set (Deep3DFaceRecon), CVPR Workshops 2019",
+    "Chai et al. - REALY: Rethinking the Evaluation of 3D Face Reconstruction, ECCV 2022",
+    "Lei et al. - A Hierarchical Representation Network for Accurate and Detailed Face Reconstruction from In-The-Wild Images (HRN), CVPR 2023",
+    "Giebenhain et al. - Pixel3DMM: Versatile Screen-Space Priors for Single-Image 3D Face Reconstruction, 2025",
+    "Kartynnik et al. - Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs (MediaPipe Face Mesh), CVPR Workshops 2019",
+    "Egger et al. - 3D Morphable Face Models: Past, Present, and Future, ACM TOG 2020",
+    "NoW benchmark public leaderboard (MPI-IS), cited by name for test-split rows"
   ]
 }

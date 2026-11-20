@@ -1,56 +1,56 @@
 # Skull osteology that shapes the face surface
 
-> The face surface is the skull plus a soft-tissue cover whose thickness varies roughly tenfold, from about 3 mm on the bony nasal dorsum to 15–25 mm over the cheek and masseter. Bone therefore "reads" through skin only in predictable zones: forehead and brow ridge, orbital rims, nasal bones, zygomatic body and arch, and the chin and lower jaw border. At the thin midline points (glabella ≈5–5.5 mm, nasion ≈6–7 mm, rhinion ≈3 mm, pogonion ≈11–12 mm) a photo-derived surface must follow bone almost exactly [1][7][31]. Thick zones (buccal, philtrum, gonion) follow muscle, fat, age and BMI more than bone [2][4]. Bone also sets the plane breaks sculptors use (temporal line, lateral orbital rim, malar body, zygomatic arch, mandibular border and angle). Frontal bony points are observable from skin, but lateral ones (zygion, gonion) are not [11], and depth tables are population averages with large individual error, so they are priors, not answers [45][47][48].
+> The face is the skull plus a soft-tissue cover whose thickness varies about tenfold, from ≈3 mm on the bony nasal dorsum to 15–25 mm over cheek and masseter. Bone therefore shows through skin only in predictable zones: forehead and brow ridge, orbital rims, nasal bones, zygomatic body and arch, and the chin and jaw border. At thin midline points (glabella ≈5–5.5 mm, nasion ≈6–7 mm, rhinion ≈3 mm, pogonion ≈11–12 mm) a photo-derived surface must follow bone closely [1][7][31]. Thick zones follow fat, muscle, age and BMI [2][4]. Bone also sets the sculptor's plane breaks (temporal line, lateral orbital rim, malar body, arch, mandibular border). Lateral points (zygion, gonion) are poorly observable from skin [11], and depth tables are population priors with large individual error [45][47][48].
 >
 > Evidence status: 19 ✅ / 47 📄 / 52 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Frontal bone and brow**
-- Palpable frontal landmarks on the living face: supraorbital margins, frontal eminences and superciliary arches [26] 📄. The supraorbital notch or foramen lies in the medial third of the upper rim, about 2 cm from the midline, and transmits the supraorbital nerve and vessels [23][24][25] ✅.
-- The superior temporal line runs up and back from the zygomatic process of the frontal bone. It is the "corner" where the forehead's front plane turns into its side plane 🧠, and the inferior temporal line bounds the temporal fossa above [33] 📄.
-- Sex tendencies 🧠: males have a larger glabella and superciliary arches (partly frontal-sinus volume), blunt rounded supraorbital margins and a more sloping forehead. Females have a more vertical forehead with frontal eminences retained, thin sharp supraorbital margins and a small glabella. Visual cranial sexing is only about 80–90 % accurate in published tests, so treat these as tendencies, not rules.
-- Forehead soft tissue is thicker in males at all ages and most regions (MRI) [32], and men are thicker at supraglabella and nasion [2] ✅.
+- Palpable frontal landmarks: supraorbital margins, frontal eminences, superciliary arches [26] 📄. The supraorbital notch/foramen lies in the medial third of the upper rim, ≈2 cm from the midline, and carries the supraorbital nerve and vessels [23][24][25] ✅.
+- The temporal lines start at the zygomatic process of the frontal bone. The inferior line bounds the temporal fossa [33] 📄, and the line forms the forehead "corner" where the front plane turns into the side plane 🧠.
+- Sex tendencies 🧠: males have a larger glabella and superciliary arches (partly frontal sinus), blunt supraorbital margins and a sloping forehead. Females have a vertical forehead with frontal eminences, sharp thin margins and a small glabella. Visual cranial sexing is only ~80–90 % accurate, so these are tendencies.
+- Forehead cover is thicker in males (MRI, all ages) [32], including supraglabella and nasion [2] ✅.
 
 **Orbit**
-- The rim is built by the frontal bone (superior), the zygomatic bone (lateral and inferolateral) and the maxilla (inferomedial; its frontal process forms the medial rim) [23][27][28] ✅. The floor is maxilla, palatine and the orbital plate of the zygoma [27] 📄.
-- The rim is thicker than the orbital walls, and the lateral rim is the least projected [23] 📄. In profile at eye level the front-to-back order is typically brow/supraorbital rim → corneal apex → infraorbital rim → lateral orbital rim 🧠.
-- The corneal apex normally sits about 12–20 mm in front of the lateral orbital rim (the normal Hertel exophthalmometry range; higher on average in people of African ancestry) 🧠. When the cornea projects in front of the infraorbital rim and cheek (a "negative vector" orbit, usually with maxillary under-projection), the eyes look prominent 🧠.
-- The orbital aperture is about 35 mm high × 40 mm wide [23] 📄, wider than tall, with its long axis tilting down laterally 🧠.
-- Canthal anchors 🧠: the medial canthal tendon attaches to the anterior lacrimal crest on the maxilla's frontal process. The lateral canthal tendon attaches to Whitnall's tubercle a few mm inside the lateral rim, which is why the lateral canthus sits deep and usually slightly higher than the medial one.
-- The infraorbital foramen lies about 6 mm below the inferior rim, with a reported range of about 5–8.5 mm (and up to about 1 cm) depending on population and method [28][29] ↔️.
-- The lid–cheek junction and tear trough follow ligaments anchored on the inferior rim. In youth the junction sits near the rim, and with age it descends while the rim edge shows through 🧠.
+- The rim is frontal (superior), zygomatic (lateral, inferolateral) and maxillary (inferomedial; the frontal process forms the medial rim) [23][27][28] ✅. The floor is maxilla, palatine and zygoma [27] 📄.
+- The rim is thicker than the walls, and the lateral rim is the least projected [23] 📄. In profile at eye level the order is brow/supraorbital rim → corneal apex → infraorbital rim → lateral orbital rim 🧠.
+- The corneal apex sits ≈12–20 mm in front of the lateral orbital rim (normal Hertel range, higher on average in people of African ancestry) 🧠. When the cornea projects past the infraorbital rim and cheek (a "negative vector", usually with maxillary under-projection), the eyes look prominent 🧠.
+- The aperture is ≈35 mm high × 40 mm wide [23] 📄, its long axis tilting down laterally 🧠.
+- The medial canthal tendon inserts on the anterior lacrimal crest. The lateral one inserts on Whitnall's tubercle a few mm inside the lateral rim, so the lateral canthus sits deep and usually slightly higher 🧠.
+- The infraorbital foramen lies ≈6 mm below the rim (reported 5–8.5 mm, up to ~1 cm) [28][29] ↔️.
+- The lid–cheek junction and tear trough follow ligaments on the inferior rim. With age the junction descends and the rim shows through 🧠.
 
 **Nasal skeleton**
-- The nasal bones form the bony bridge and meet the frontal bone at nasion [24] 📄. Their mean length was ≈21 mm in Korean 3D-CT (n = 75) [15] 📄. Rhinion, the bony–cartilaginous junction, has the thinnest midline cover at about 3 mm [1] 📄, and the dorsal hump usually straddles it 🧠.
-- The anterior nasal spine sits at the inferior midline margin of the piriform aperture [40] 📄. With the premaxilla it supports the columella base and subnasale 🧠.
-- The aperture predicts the external nose only partly. In Korean CT, 26 of 76 nose–aperture relationships were significant [17], and regressions improve when sex and age are included [16]. In CBCT (n = 96), aperture width grows proportionally more than nasal breadth [41]. Several of six profile-prediction methods performed poorly [39], and geometric-morphometric approximation gave weak correlations (RV < 0.4) for nose and mouth [42] ✅.
-- The aperture and nasal bones are sexually dimorphic, larger in males [13][14] ✅.
+- The nasal bones form the bony bridge and meet the frontal bone at nasion [24] 📄. They are ≈21 mm long in Korean 3D-CT (n = 75) [15] 📄. Rhinion (the bone–cartilage junction) has the thinnest midline cover at ≈3 mm [1] 📄, and the dorsal hump straddles it 🧠.
+- The anterior nasal spine marks the inferior midline aperture margin [40] 📄 and, with the premaxilla, supports the columella base 🧠.
+- The aperture predicts the nose only partly: 26 of 76 nose–aperture relations were significant [17]; regressions improve with sex and age [16]; aperture width grows more than nasal breadth (CBCT, n = 96) [41]; several profile rules performed poorly [39]; and nose and mouth correlations were weak (RV < 0.4) [42] ✅.
+- The aperture and nasal bones are larger in males [13][14] ✅.
 
-**Zygomatic bone, arch and temporal fossa**
-- The anterolateral convexity of the zygomatic body is the malar eminence, just below the lateral orbit, and the zygoma forms the lateral orbit and the cheek prominence [12][23] ✅. The "cheekbone" highlight people see is the zygomatic body plus the malar fat over it, not the arch 🧠.
-- The arch (temporal process of the zygoma plus zygomatic process of the temporal bone) runs back to just in front of the tragus, roughly along the Frankfort horizontal 🧠. Zygion, its most lateral point, sets bizygomatic breadth, the widest facial dimension 🧠. Zygion is poorly observable from skin [11] 📄, and tissue over zygion and gonion was more than 2 mm thicker in older than in younger Azerbaijani adults [7] 📄.
-- Bone sets malar width. Burring prominent zygomas without reducing bizygomatic width flattens the malar area and makes the face look wider [49] 📄.
-- The temporal fossa is bounded by the inferior temporal line (superior), the squamosal suture (posterior), the lateral orbital rim (anterior) and the zygomatic arch (inferior) [33] 📄. Its volume is reported as stable through adulthood and between sexes, and temple variation comes mainly from temporalis and fat pads (secondhand citation) [33] 📄. Temporalis thickness is measured 1 cm above and 1 cm lateral to the lateral canthus, and it tended to be thinner in females [34] 📄. With age or weight loss the temple hollows and the temporal line and the frontal process of the zygoma show as ridges 🧠.
+**Zygoma, arch and temporal fossa**
+- The anterolateral convexity of the zygomatic body is the malar eminence, just below the lateral orbit [12][23] ✅. The visible "cheekbone" is that body plus malar fat, not the arch 🧠.
+- The arch runs back to just in front of the tragus, near the Frankfort horizontal. Zygion sets bizygomatic breadth, the widest facial dimension 🧠. Zygion is poorly observable from skin [11] 📄, and cover at zygion and gonion was more than 2 mm thicker in older adults [7] 📄.
+- Bone sets malar width: burring the zygoma without narrowing bizygomatic width flattens the malar and makes the face look wider [49] 📄.
+- Temporal fossa bounds: inferior temporal line, squamosal suture, lateral orbital rim and zygomatic arch [33] 📄. Its volume is reportedly stable in adults and between sexes, and temple variation is mostly temporalis and fat (secondhand) [33] 📄. Temporalis is measured 1 cm above and 1 cm lateral to the lateral canthus and tended to be thinner in females [34] 📄. A hollow temple exposes the temporal line and the zygoma's frontal process 🧠.
 
 **Maxilla** 🧠
-- Surface-relevant features: the frontal process (medial orbital rim and side wall of the nasal root), the canine fossa (a concavity below the infraorbital foramen, hidden under thick cheek tissue), the canine eminence (a ridge over the canine root), and the zygomaticoalveolar ("key") ridge sloping from the malar body to the first molar, which marks the lower edge of the malar mass. The alveolar process and teeth form the "dental barrel" the lips wrap around. Midface projection is maxillary, so maxillary retrusion flattens the paranasal area and steepens the nasolabial region.
+- The frontal process forms the medial rim and the side wall of the nasal root. The canine fossa is hidden under thick cheek tissue, and the canine eminence makes a ridge. The zygomaticoalveolar "key ridge" from the malar body to the first molar marks the lower edge of the malar mass. The alveolus and teeth form the "dental barrel" the lips wrap around. Maxillary retrusion flattens the paranasal area.
 
 **Mandible**
-- The gonial angle is ≈160° at birth and ≈120° in adults [35]. Young adult male dry mandibles averaged 120.17° [36] ✅. A reported 90° (male) / 110° (female) pair conflicts with this [35] ↔️.
-- The chin is the projecting part of the symphysis, and symphysis shape shapes the soft-tissue chin [22]. The mental protuberance is larger in males, with sex differences in symphysis size and shape [37] ✅.
-- Growth rotation couples angle and chin. Posteriorly rotated, high-angle mandibles have a receding chin, a shallower mental sulcus and narrow, elongated symphyses. Anteriorly rotated, low-angle ones have a prominent, wide, bulbous symphysis [18][20][21][38] ✅.
-- After advancement genioplasty, soft-tissue change follows bone change at about 0.75–0.92 [18] 📄. Jaw asymmetry tracks mandibular functional-unit lengths, not angle soft tissue [19] 📄.
-- Gonion is poorly observable from skin [11] 📄 and its cover is thicker in women [2] 📄. The masseter dominates the lateral jaw silhouette above the angle 🧠.
-- The mental tubercles at the chin corners set chin width and squareness 🧠. The mental foramen usually lies below the premolars, on roughly the same vertical line (about 2–3 cm from the midline, near the mid-pupillary line) as the supraorbital notch and infraorbital foramen 🧠.
+- The gonial angle is ≈160° at birth and ≈120° in adults [35]; young adult male dry mandibles averaged 120.17° [36] ✅. A 90°/110° (male/female) pair conflicts [35] ↔️.
+- The chin is the projecting symphysis, and symphysis shape drives the soft chin [22]. The mental protuberance is larger in males [37] ✅.
+- High-angle (posteriorly rotated) jaws come with a receding chin, a shallow mental sulcus and narrow, long symphyses. Low-angle jaws have a prominent, bulbous symphysis [18][20][21][38] ✅.
+- At the chin, soft tissue follows bone at ≈0.75–0.92 (genioplasty) [18] 📄. Jaw asymmetry is skeletal [19] 📄.
+- Gonion is poorly observable [11] 📄 and its cover is thicker in women [2] 📄. The masseter dominates the lateral jaw silhouette 🧠.
+- The mental tubercles set chin width and squareness. The mental foramen (below the premolars) lies roughly on a vertical line with the supraorbital notch and infraorbital foramen, ~2–3 cm from the midline 🧠.
 
-**Soft-tissue cover and covariates**
-- Midline thin points agree across sources: pooled glabella 5.5 / nasion 6.0 / rhinion 3.0 mm [1]; CBCT glabella 5.11 / nasion 6.78 / pogonion 11.71 / gnathion 8.46 mm [31]; Azerbaijani CT pogonion ≈12.3 mm in males and ≈11.0 mm in females [7] ✅.
-- The skin layer itself is only about 1.1–1.6 mm thick [30] 📄. The rest of the depth is fat, muscle and fascia.
-- The sex difference flips by region. Men are thicker at supraglabella, nasion, rhinion, mid-philtrum, supradentale and supraglenoid. Women are thicker at lateral orbit, inferior malar and gonion [2]. Thai ultrasound agrees that men are thicker at nasal and perioral sites [5] ✅ (men, midline); 📄 (women, lateral).
-- BMI raises thickness: nasion rose from 5.57 to 8.25 mm across BMI groups in Iranian MRI [4] 📄. Skeletal Class III has thicker subnasale, upper lip and menton [3] 📄.
-- Ultrasound depth depends on posture, and cadaver values are distorted by postmortem changes and the supine position [44] 📄. Supine CT also lets cheek and jowl tissue fall back relative to upright photos 🧠.
-- Age 🧠: the facial skeleton remodels. The orbital aperture enlarges (superomedial and inferolateral rim), the piriform aperture widens, the maxilla retrudes, and mandibular height decreases. Tooth loss collapses lower-face height and opens the gonial angle.
+**Soft-tissue cover**
+- Thin-point depths agree across sources: pooled glabella 5.5 / nasion 6.0 / rhinion 3.0 mm [1]; CBCT 5.11 / 6.78 / pogonion 11.71 / gnathion 8.46 mm [31]; Azerbaijani pogonion ≈12.3 mm (M) / 11.0 mm (F) [7] ✅.
+- The skin layer alone is ~1.1–1.6 mm [30] 📄; the rest is fat, muscle and fascia.
+- The sex difference flips by region: men are thicker at supraglabella, nasion, rhinion, mid-philtrum, supradentale and supraglenoid; women at lateral orbit, inferior malar and gonion [2]. Thai data agree for male nasal and perioral sites [5] ✅ (male midline); 📄 (female lateral).
+- BMI raises depth (nasion 5.57 → 8.25 mm across BMI groups) [4] 📄. Class III has thicker subnasale, upper lip and menton [3] 📄.
+- Posture and postmortem change distort ultrasound and cadaver values [44] 📄, and supine CT lets cheek tissue fall back compared with upright photos 🧠.
+- With age, the orbital and piriform apertures enlarge, the maxilla retrudes and mandibular height falls. Tooth loss collapses lower-face height and opens the gonial angle 🧠.
 
 ## Numbers & reference tables
 

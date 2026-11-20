@@ -1,1 +1,21 @@
-{"topic":"reddit-face-from-photos","sources":[],"notes":"No sources retrieved: WebSearch with allowed_domains reddit.com returned HTTP 400 (domain not accessible to search user agent) during harvest, and the shared per-turn WebSearch budget (200 calls) was exhausted before harvest and verification (verifier retry on 2026-11-20 also refused). No URLs listed to avoid invented citations."}
+{
+  "topic": "reddit-face-from-photos",
+  "sources": [],
+  "references_by_name": [
+    "Ward B, Ward M, Fried O, Paskhover B. Nasal distortion in short-distance photographs: the selfie effect. JAMA Facial Plastic Surgery, 2018",
+    "Fried O, Shechtman E, Goldman DB, Finkelstein A. Perspective-aware manipulation of portrait photos. ACM SIGGRAPH 2016",
+    "Hartley R, Zisserman A. Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+    "Schönberger JL, Frahm J-M. Structure-from-Motion Revisited (COLMAP). CVPR 2016",
+    "Egger B et al. 3D Morphable Face Models — Past, Present and Future. ACM TOG 2020",
+    "Li T, Bolkart T, Black MJ, Li H, Romero J. Learning a model of facial shape and expression from 4D scans (FLAME). SIGGRAPH Asia 2017",
+    "Paysan P et al. A 3D Face Model for Pose and Illumination Invariant Face Recognition (Basel Face Model), 2009",
+    "Sanyal S et al. RingNet / NoW benchmark. CVPR 2019",
+    "Zielonka W, Bolkart T, Thies J. Towards Metrical Reconstruction of Human Faces (MICA). ECCV 2022",
+    "Kerbl B et al. 3D Gaussian Splatting for Real-Time Radiance Field Rendering. SIGGRAPH 2023",
+    "Sinha P et al. Face recognition by humans: nineteen results all computer vision researchers should know about. Proc. IEEE 2006",
+    "Farkas LG. Anthropometry of the Head and Face, 1994",
+    "Dodgson NA. Variation and extrema of human interpupillary distance. Proc. SPIE, 2004",
+    "Faraut P. Portrait Sculpting: Anatomy & Expressions in Clay"
+  ],
+  "notes": "No harvest file existed for this topic and no Reddit URLs were retrieved; every claim in the note is author knowledge (🧠) or contested (↔️). Process note for verifiers: WebSearch with allowed_domains reddit.com previously returned HTTP 400, so use unfiltered queries containing 'reddit' plus the subreddit name."
+}

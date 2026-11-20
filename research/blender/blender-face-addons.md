@@ -1,6 +1,6 @@
 # Blender add-ons for heads and faces
 
-> No Blender add-on in this evidence set fits a specific person's identity to photos with open code, open data and a commercial-safe licence; that gap is what this project fills. The ecosystem has three layers: landmark capture (MediaPipe: 468 points, 478 with eye/lip/iris refinement), parametric base humans (MPFB2/MakeHuman is the only actively released option with GPL-3-or-later code and CC0/CC-BY assets; FLAME is research-licensed; MB-Lab, CharMorph and Human Generator are legacy, niche or proprietary-content), and expression/rig tools converging on the ARKit 52 basis (Faceit, CaptureForge, Face Shape Key Rig, Auto-Rig Pro, Rigify). KeenTools FaceBuilder is the incumbent photo→head tool, with a closed core and a commercial licence. Recommended architecture: fit identity on a frozen MPFB2 topology, write it as one neutral shape key or MPFB target, add detail with Multires, and hand expressions to the ARKit layer; version claims churn (5.0 broke the Python API; 5.2 LTS and 5.3 are current per the library note `blender/blender-version-status-2026.md`), so treat every version row as perishable.
+> No Blender add-on in this evidence set fits a specific person's identity to photos with open code, open data and a commercial-safe licence; that is the gap this project fills. The ecosystem has three layers: landmark capture (MediaPipe: 468 points, 478 refined), parametric base humans (MPFB2/MakeHuman is the only actively released option with GPL-3-or-later code and CC0/CC-BY assets; FLAME is research-licensed; MB-Lab, CharMorph and Human Generator are legacy, niche or proprietary-content), and expression/rig tools converging on ARKit 52 (Faceit, CaptureForge, Face Shape Key Rig, Auto-Rig Pro, Rigify). KeenTools FaceBuilder is the closed-core, commercial incumbent for photo→head. Recommended: fit identity on a frozen MPFB2 topology, store it as one neutral shape key or MPFB target, add detail with Multires, and leave expressions to the ARKit layer; version rows are perishable (5.2 LTS and 5.3 are current per `blender/blender-version-status-2026.md`).
 Evidence status: 3 ✅ / 21 📄 / 44 🧠 / 6 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
@@ -129,7 +129,7 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 7. **Expressions.** Before Faceit or Auto-Rig Pro binding: apply rotation and scale, face −Y, separate eyes/teeth/tongue, remove interior or duplicate faces; bone-heat binding fails on non-manifold or self-intersecting geometry 🧠. Then generate/bake the ARKit set [5]. On Blender >5.2, confirm Faceit support first [5].
 8. **Validate in Blender.** One camera per photo with its background image; overlay reprojected landmarks; report reprojection RMS in px and %IOD; compare model IPD with a measured IPD; inspect the profile silhouette (nasal projection, chin, forehead slope), where single-view fits fail most.
 
-**What goes wrong:** name confusion ("FaceMesh Capture" is not a real add-on name) [1]; controller mistaken for generator [6]; licence contamination (FLAME, BFM, MetaHuman, Human Generator assets); snippet-only versions [12]; MediaPipe jaw-line points biased toward the mean face; unit mismatches (MediaPipe cm, FLAME m, MakeHuman natively decimetres) 🧠; vertex order silently changed by Join, Separate, Sort Elements or applying Mirror; Blender 5.0 `mathutils` buffers are float32 and non-contiguous, so copy explicitly into float64 numpy arrays (library version note, unconfirmed).
+**What goes wrong:** controller mistaken for generator [6]; licence contamination (FLAME, BFM, MetaHuman, Human Generator assets); MediaPipe jaw-line points biased toward the mean face; unit mismatches (MediaPipe cm, FLAME m, MakeHuman natively decimetres) 🧠; vertex order silently changed by Join, Separate, Sort Elements or applying Mirror; Blender 5.0 `mathutils` buffers are float32 and non-contiguous, so copy explicitly into float64 numpy arrays (library version note, unconfirmed).
 
 ## Algorithmic implications
 
@@ -149,7 +149,6 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 - **468 vs 478:** both correct; the count depends on refinement [3][2].
 - **MPFB/MakeHuman asset licence** ↔️: "CC0 or CC-BY" [11] vs "CC0 1.0" [16]. Likely per-asset (base CC0, packs vary); unconfirmed against MakeHuman's own files.
 - **"Face Shape Key Rig replaces Faceit":** partly; it controls but does not create keys [6][5].
-- **MPFB2 2.0.18 dated 10 Oct 2026:** one snippet only.
 - **Myth: MediaPipe gives a 3D head.** z is relative and mean-face-biased; metric depth needs multi-view geometry or scale priors 🧠.
 - **"FLAME is free"** ↔️: free for research, not commercial; whether a permissive 2023 variant exists is unconfirmed 🧠.
 - **"Every bpy add-on must be GPL"** ↔️: Blender Foundation's position, legally untested; paid add-ons split GPL code from proprietary assets or binaries 🧠.

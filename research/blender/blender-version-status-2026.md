@@ -1,6 +1,6 @@
 # Blender release status and roadmap as of late 2026
 
-> On 20 November 2026 Blender ships on two tracks. **5.3** is the feature release dated 10 November 2026, and both the developer-docs index and the "latest" user manual label it current. **5.2 LTS** was released on 14 July 2026, is supported until July 2028, and its 5.2.4 corrective release is dated between 10 and 17 November [6][7][10][12][14][15]. **4.5 LTS** stays supported until July 2027 [13]. Under the two-year LTS rule, 4.2 LTS ran out of support in July 2026, though some face add-ons still target it [18][19]. No source in this library states which Python or NumPy version 5.x bundles. The 5.0.1 fixes for "Python newer than 3.11" and for a Python 3.14 build fit with 5.0 still bundling Python 3.11 [4]; a move to 3.13 during 2026 is plausible but unverified. For a photo→head add-on the breaks that matter most are 5.0's `mathutils` buffer protocol, through which NumPy now receives float32, non-contiguous views [3], and (from expert knowledge) the 4.2 extension platform, the 4.3 brush assets and a set of 5.0 removals. Engineering stance: read versions at runtime, probe for features rather than version numbers, and keep the solver as float64 pure NumPy.
+> In late November 2026 Blender ships on two tracks: **5.3**, the feature release of 10 Nov 2026 that the developer docs and the "latest" manual both label current, and **5.2 LTS**, released 14 Jul 2026, supported until Jul 2028, with 5.2.4 out between 10 and 17 Nov [6][7][10][12][14][15]. **4.5 LTS** is supported until Jul 2027 [13], while 4.2 LTS ran out of support in Jul 2026, though face add-ons still target it [18][19]. No source here states which Python or NumPy 5.x bundles: the 5.0.1 fixes [4] fit with 5.0 still bundling Python 3.11, and a move to 3.13 during 2026 is plausible but unverified. The breaks that matter most for a photo→head add-on are 5.0's `mathutils` buffer protocol, through which NumPy now gets float32, non-contiguous views [3], plus (from expert knowledge) the 4.2 extension platform, the 4.3 brush assets and several 5.0 removals. So the add-on should read versions at runtime, probe for features instead of version numbers, and keep the solver in float64 pure NumPy.
 >
 > Evidence status: 7 ✅ / 21 📄 / 50 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
 
@@ -102,12 +102,7 @@
 5. **Scale:** work at real scale with 1 unit = 1 m (head length ≈ 0.18–0.20 m 🧠). Set the camera's sensor and lens from EXIF. Voxel size and Dyntopo detail are measured in scene units, so a model at the wrong scale gives absurd face counts.
 6. **Freeze the topology while anything still depends on vertex indices.** Write the fit as a shape key on the template ("likeness", value 0–1) so the artist can dial it in and compare. Do every landmark-driven step first. Then use Multires for detail. Leave Dyntopo and remeshing for last, if you use them at all 🧠.
 7. **Interchange:** store landmarks, camera intrinsics and extrinsics, and shape coefficients in a JSON sidecar, not only inside the .blend. A .blend file is not guaranteed to open in an older major version 🧠. Exchange meshes as glTF, FBX, OBJ or USD; COLLADA is gone in 5.0 🧠.
-8. **What usually goes wrong:**
-   - An add-on that ran on 4.x fails on 5.x at `import bgl` or at `obj["prop"]`.
-   - Brush scripts from tutorials older than 4.3 do nothing.
-   - Bit-exact tests break, because mathutils→NumPy has gone through float32 since 5.0 [3].
-   - Compiled cp311 wheels stop importing after a Python version bump.
-   - The artist runs 5.3 while the studio runs 5.2 LTS, and the add-on was tested on only one of them.
+8. **What usually goes wrong:** a 4.x add-on fails on 5.x at `import bgl` or `obj["prop"]`; brush scripts from tutorials older than 4.3 do nothing; bit-exact tests break because mathutils→NumPy has gone through float32 since 5.0 [3]; cp311 wheels stop importing after a Python bump; the artist runs 5.3 while the studio runs 5.2 LTS.
 
 ## Algorithmic implications
 
@@ -140,15 +135,9 @@
   - call `np.linalg.lstsq(..., rcond=None)` and `np.random.default_rng(seed)`.
   - Run the pure-NumPy core outside Blender in a matrix of CPython 3.11 + NumPy 1.26 and CPython 3.13 + NumPy 2.x, so that both possible 5.x stacks are covered.
 - **Threads:** bpy is not thread-safe. Run the solve in a worker thread on copied arrays, poll it with `bpy.app.timers.register`, and apply the results on the main thread. Alternatively, chunk the iterations inside a modal operator 🧠.
-- **Dependencies:**
-  - keep compiled wheels out of the core;
-  - run landmark detection (MediaPipe or ONNX) out of process in its own Python, exchanging JSON;
-  - if wheels must be bundled, build them per platform and per CPython tag (cp311, plus cp313 if that move is confirmed) 🧠;
-  - never bundle `numpy` 🧠;
-  - declare `permissions` (`network`, `files`) in the manifest, gate downloads on `bpy.app.online_access`, and cache models under `extension_path_user(__package__, create=True)` 🧠.
+- **Dependencies:** no compiled wheels in the core; landmark detection (MediaPipe/ONNX) runs out of process in its own Python, exchanging JSON. Any bundled wheels are built per platform and per CPython tag (cp311, plus cp313 if confirmed), and never include `numpy` 🧠. Declare `permissions` (`network`, `files`), gate downloads on `bpy.app.online_access`, cache models under `extension_path_user(__package__, create=True)` 🧠.
 - **Camera exchange:** solve in OpenCV convention and convert with Table 4. When writing cameras, set `sensor_fit='HORIZONTAL'` explicitly, so that portrait-orientation photos don't fall into the AUTO max(W,H) ambiguity [14].
-- **Reproducibility record** for every fit: `{blender, python, numpy, addon_version, seed, solver_config}`.
-- **Cadence budget:** three compatibility passes a year (Mar, Jul, Nov) [9], with two LTS lines live at any time [6][13].
+- **Reproducibility record** for every fit: `{blender, python, numpy, addon_version, seed, solver_config}`; budget three compatibility passes a year [9].
 
 ## Disagreements, myths & open questions
 
@@ -158,8 +147,7 @@
 - **Misreading: "mathutils switched from float64 to float32 in 5.0."** The storage was always float32 🧠. What is new is the buffer path to NumPy [3]. Either way, the advice is to pass `dtype=np.float64` explicitly.
 - **Myth: "Extensions killed legacy add-ons."** Legacy installs still work; only a listing on extensions.blender.org needs a manifest 🧠.
 - **Myth: "the LTS gets the sculpt improvements."** LTS lines get fixes only; sculpt features land in feature releases 🧠.
-- **Myth: "4.2 LTS is the safe baseline."** It has been out of support since Jul 2026 🧠, even though MPFB2 and FaceFit still cite it [18][19].
-- **Verification record:** the earlier pass neither verified nor refuted anything, because every harvest fact was snippet-level. This pass upgrades only "5.3 is current" and "5.2 ships", through corroboration from other harvests. Nothing has been refuted.
+- **Verification record:** the earlier pass neither verified nor refuted anything (all harvest facts were snippet-level). This pass upgrades only "5.3 is current" and "5.2 ships", via other harvests. Nothing refuted.
 - **Open questions:**
   1. Which Python does each of 5.1, 5.2 LTS and 5.3 bundle?
   2. Which NumPy does 5.x bundle, and did any release move from 1.x to 2.x?

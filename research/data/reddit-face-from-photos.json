@@ -1,0 +1,377 @@
+{
+  "topic": "reddit-face-from-photos",
+  "tables": [
+    {
+      "name": "perspective_magnification_nose_vs_ear_plane",
+      "units": "dimensionless ratio (magnification at nose tip / magnification at tragion plane); distance in m",
+      "columns": [
+        "camera_to_nose_tip_m",
+        "typical_situation",
+        "ratio_if_depth_0.10m",
+        "ratio_if_depth_0.12m"
+      ],
+      "rows": [
+        [
+          0.3,
+          "close selfie",
+          1.333,
+          1.4
+        ],
+        [
+          0.5,
+          "arm's-length selfie",
+          1.2,
+          1.24
+        ],
+        [
+          1.0,
+          "phone held by another person; 85 mm headshot",
+          1.1,
+          1.12
+        ],
+        [
+          2.0,
+          "135-180 mm headshot",
+          1.05,
+          1.06
+        ],
+        [
+          3.0,
+          "200 mm+ telephoto",
+          1.033,
+          1.04
+        ],
+        [
+          5.0,
+          "press/long-lens photo",
+          1.02,
+          1.024
+        ]
+      ],
+      "population": "adult head; nose-tip-to-tragion depth assumed 0.10-0.12 m (author knowledge, not sourced)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Pinhole arithmetic ratio=(d+depth)/d. The depth assumption is the only empirical input. Use to warn users and to show why focal/distance must be solved for close photos."
+    },
+    {
+      "name": "focal_to_frame_head_and_shoulders",
+      "units": "m (distance), mm (35 mm-equivalent focal length)",
+      "columns": [
+        "camera_distance_m",
+        "f35_mm_for_0.40m_vertical_field"
+      ],
+      "rows": [
+        [
+          0.3,
+          27.0
+        ],
+        [
+          0.5,
+          45.0
+        ],
+        [
+          1.0,
+          90.0
+        ],
+        [
+          1.5,
+          135.0
+        ],
+        [
+          2.0,
+          180.0
+        ],
+        [
+          3.0,
+          270.0
+        ]
+      ],
+      "population": "full-frame 36 mm long side in portrait orientation; 0.40 m tall field",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Arithmetic f = 36*d/0.40. Phone main/front cameras are about 22-30 mm equivalent (author knowledge), which implies d of about 0.3-0.5 m for an uncropped head-and-shoulders phone photo."
+    },
+    {
+      "name": "single_camera_head_photogrammetry_settings",
+      "units": "mixed (see columns)",
+      "columns": [
+        "parameter",
+        "min",
+        "max",
+        "unit",
+        "notes"
+      ],
+      "rows": [
+        [
+          "photos",
+          40,
+          150,
+          "images",
+          "often 3 rings x 15-36 stations"
+        ],
+        [
+          "angular_step",
+          10,
+          20,
+          "deg per station",
+          ""
+        ],
+        [
+          "overlap",
+          60,
+          80,
+          "percent",
+          "between neighbouring photos"
+        ],
+        [
+          "shutter_speed_max_exposure",
+          null,
+          0.008,
+          "s",
+          "1/125 s handheld minimum; 1/200 s preferred"
+        ],
+        [
+          "aperture_full_frame",
+          5.6,
+          11,
+          "f-number",
+          ""
+        ],
+        [
+          "camera_distance",
+          0.6,
+          1.5,
+          "m",
+          ""
+        ],
+        [
+          "total_capture_time",
+          1,
+          3,
+          "min",
+          "sitter must hold still"
+        ],
+        [
+          "professional_rig_cameras",
+          24,
+          150,
+          "cameras",
+          "contested range; some rigs exceed 150"
+        ]
+      ],
+      "population": "adult live sitter, still photos, single handheld camera (rig row excepted)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Community ranges recalled by the author; no Reddit thread retrieved. Professional rig row is contested."
+    },
+    {
+      "name": "mesh_and_landmark_sizes",
+      "units": "vertices unless stated",
+      "columns": [
+        "mesh",
+        "min",
+        "max",
+        "unit",
+        "notes"
+      ],
+      "rows": [
+        [
+          "ARKit face mesh",
+          1220,
+          1220,
+          "vertices",
+          ""
+        ],
+        [
+          "MediaPipe Face Mesh",
+          468,
+          478,
+          "landmarks",
+          "verified elsewhere in library (blender-face-addons)"
+        ],
+        [
+          "FLAME",
+          5023,
+          5023,
+          "vertices",
+          ""
+        ],
+        [
+          "Basel Face Model 2009",
+          53490,
+          53490,
+          "vertices",
+          ""
+        ],
+        [
+          "raw photogrammetry head",
+          1000000,
+          10000000,
+          "triangles",
+          "before decimation"
+        ],
+        [
+          "sculpt-ready Multires base",
+          5000,
+          20000,
+          "quads",
+          "author recommendation"
+        ]
+      ],
+      "population": "n/a (model/mesh specifications)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Counts from author knowledge; verify before hard-coding."
+    },
+    {
+      "name": "suggested_fitting_priors",
+      "units": "see unit column",
+      "columns": [
+        "parameter",
+        "value_min",
+        "value_max",
+        "unit",
+        "notes"
+      ],
+      "rows": [
+        [
+          "focal_prior_sigma_log_exif",
+          0.05,
+          0.05,
+          "log f35",
+          "EXIF present; allows digital zoom/crop"
+        ],
+        [
+          "focal_prior_mu_phone_no_exif",
+          26,
+          26,
+          "mm f35",
+          ""
+        ],
+        [
+          "focal_prior_sigma_log_phone_no_exif",
+          0.25,
+          0.25,
+          "log f35",
+          ""
+        ],
+        [
+          "focal_prior_mu_unknown",
+          50,
+          50,
+          "mm f35",
+          ""
+        ],
+        [
+          "focal_prior_sigma_log_unknown",
+          0.6,
+          0.6,
+          "log f35",
+          ""
+        ],
+        [
+          "min_yaw_span_to_free_focal",
+          60,
+          60,
+          "deg",
+          "otherwise fix focal at prior mean"
+        ],
+        [
+          "interpupillary_distance_adult_mean",
+          63,
+          63,
+          "mm",
+          "SD about 3.5 mm; for distance sanity check Z = f_px*IPD/IPD_px"
+        ],
+        [
+          "strong_perspective_warning_distance",
+          0.8,
+          0.8,
+          "m",
+          "warn, do not reject"
+        ],
+        [
+          "landmark_sigma_auto_internal",
+          0.02,
+          0.03,
+          "x interocular distance",
+          ""
+        ],
+        [
+          "landmark_sigma_auto_contour",
+          0.05,
+          0.08,
+          "x interocular distance",
+          "silhouette-normal component only"
+        ],
+        [
+          "landmark_sigma_ears",
+          0.06,
+          0.1,
+          "x interocular distance",
+          "disable when |yaw| < 30 deg"
+        ],
+        [
+          "landmark_sigma_user_pin",
+          0.01,
+          0.01,
+          "x interocular distance",
+          "near-hard"
+        ],
+        [
+          "huber_delta",
+          2,
+          2,
+          "x sigma",
+          ""
+        ],
+        [
+          "view_downweight_rms",
+          3,
+          3,
+          "x sigma",
+          ""
+        ],
+        [
+          "symmetry_prior_sigma_per_pair",
+          1,
+          2,
+          "mm",
+          "consistent with 0.6-4.6 mm L-R differences in facial-asymmetry note"
+        ],
+        [
+          "ai_mesh_shape_term_sigma",
+          3,
+          5,
+          "mm",
+          "weak prior only"
+        ],
+        [
+          "prior_driven_depth_yaw_threshold",
+          20,
+          20,
+          "deg",
+          "max |yaw| below this -> depth labelled prior-driven"
+        ],
+        [
+          "mirror_detection_residual_drop",
+          20,
+          20,
+          "percent",
+          "flip lowers multi-view residual by more than this -> mirrored"
+        ],
+        [
+          "photo_date_span_warning",
+          18,
+          18,
+          "months",
+          ""
+        ]
+      ],
+      "population": "engine defaults proposed by the author (design choices, not measurements)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Engineering defaults derived from camera geometry and community failure modes; tune on synthetic and real data."
+    }
+  ]
+}

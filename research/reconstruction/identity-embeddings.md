@@ -1,11 +1,6 @@
 # Face recognition embeddings as identity signals
 
-> A face-recognition network such as ArcFace takes a face crop aligned on five keypoints at 112×112 px and outputs a 512-dimensional vector. After L2-normalising two such vectors, "same person" means their cosine similarity is above a threshold, and that threshold has to be calibrated for each model, image domain and ideally each subject. In photo→3D work the embedding plays three separate roles:
-> - a frozen **identity encoder** that feeds a shape regressor trained on 3D scans (MICA), whose training loss is a masked geometry loss rather than an ArcFace identity loss;
-> - a differentiable **identity loss** on renders (Genova 2018, Deng 2019, GANFIT, DECA);
-> - an offline **likeness scorecard** that compares camera-matched renders of the sculpt with the source photos.
->
-> As a scorecard it is useful but easy to fool. It cannot see absolute scale, sees depth only weakly, mostly ignores the ears, cranium and hairline, and is driven more by texture, eyes and brows than by form. It therefore has to be measured on clay renders against a calibrated genuine/impostor baseline. The common InsightFace ONNX weights are reportedly licensed for non-commercial use only, and the embedding itself is biometric data, which limits how an add-on can ship it and store its outputs.
+> A face-recognition network such as ArcFace turns a 112×112 face crop, aligned on five keypoints, into a 512-dimensional vector. Two faces count as the same person when the cosine similarity of their L2-normalised vectors clears a threshold, and that threshold must be calibrated per model, per image domain and ideally per subject. In photo→3D work the embedding plays three roles. It is a frozen **identity encoder** for a scan-supervised shape regressor (MICA, whose loss is geometric, not an ArcFace identity loss), an **identity loss** on renders (Genova 2018, Deng 2019, GANFIT, DECA), and an offline **likeness scorecard** for camera-matched renders of the sculpt. The scorecard can be fooled: it is blind to scale, weak on depth, ears and cranium, and dominated by texture, eyes and brows, so measure it on clay renders against a calibrated genuine/impostor baseline. The common InsightFace weights are reportedly non-commercial only, and embeddings are biometric data, which limits how an add-on ships the model and stores its outputs.
 >
 > Evidence status: 1 ✅ / 21 📄 / 37 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
 
@@ -15,14 +10,7 @@
 - **ArcFace** (Deng, Guo, Yang, Xue, Kotsia, Zafeiriou; CVPR 2019) adds an *additive angular margin* to the angle of the target class. That margin equals a geodesic-distance margin on the normalised hypersphere [1][2]. 📄 ([1] and [2] are two versions of one paper, so they are not independent.)
 - ArcFace reports state-of-the-art results on **ten** benchmarks, and the arXiv abstract also describes a **sub-center** variant for noisy training data [1]. 📄
 - **Loss form.** The target logit is s·cos(θ_y + m) and every other logit is s·cos θ_j. Usual defaults are **s = 64, m = 0.5 rad (≈28.6°)**. The loss family runs SphereFace (cos mθ) → CosFace (cos θ − m) → ArcFace (cos(θ + m)), and all three fit the combined form cos(m₁θ + m₂) − m₃. 🧠
-- **Successors keep the interface** (aligned crop in, 512-d vector out) and change the margin or the training scale:
-  - CurricularFace;
-  - MagFace, where the feature norm encodes image quality;
-  - AdaFace, a quality-adaptive margin that is strongest on degraded images;
-  - Partial FC, for training on millions of identities;
-  - ViT backbones.
-
-  On good photos they should rank renders similarly. They differ mainly at very low false-match rates and on poor images. 🧠
+- **Successors keep the interface** (aligned crop in, 512-d vector out) and change the margin or training scale: CurricularFace, MagFace (feature norm encodes quality), AdaFace (quality-adaptive margin, best on degraded images), Partial FC (millions of identities) and ViT backbones. On good photos they should rank renders similarly; they differ mainly at very low false-match rates and on poor images. 🧠
 - For unit vectors **‖a − b‖² = 2 − 2 cos θ**, so cosine and L2 thresholds convert exactly [5]. ✅ (an exact identity, from [5] plus derivation)
 - **FaceNet** thresholds the *squared* L2 distance and reports **99.63 % on LFW**. This figure comes from a search summary, not the paper text [5]. 📄
 - **LFW protocol.** The threshold is tuned on 9 of 10 folds and tested on the 10th, and the 10 results are averaged [9]. 📄 Modern recognisers score about 99.8 % on LFW, so LFW cannot separate them. Use cross-pose CFP-FP and IJB-C at low false-accept rate (FAR) instead. 🧠
@@ -36,36 +24,19 @@
 - **MICA's objective is a masked, supervised 3D geometry loss against scans, with no ArcFace identity term** [3]. 📄 This matches the expert reading: a region-weighted per-vertex L1 loss on a neutral, metric FLAME shape. 🧠
 - MICA reports **15 %** (non-metric NoW evaluation) and **24 %** (metric evaluation) lower average error than the prior state of the art [3]. 📄
 - MICA's rationale is that ArcFace features are robust to expression, illumination and camera, so a regressor built on them generalises [3]. 📄 The same invariance means the embedding deliberately ignores some things a sculptor must get right.
-- **Identity *losses* are an older, separate line of work.** Each passes a render through a recogniser and compares it with the photo:
-  - Genova et al. 2018: FaceNet features, unsupervised 3D morphable model (3DMM) regression;
-  - Deng et al. 2019: a perceptual cosine loss;
-  - GANFIT 2019: identity and content features during fitting;
-  - DECA 2021: an identity loss computed with a ResNet50 trained on VGGFace2.
-
-  🧠
-- **Embeddings can be inverted.** NbNet-style decoders and Arc2Face (Stable Diffusion conditioned on ArcFace vectors, ECCV 2024) regenerate recognisable faces from a vector, and ID-guided 3D avatar methods followed in 2024–25. A stored embedding is therefore *not* anonymised. 🧠 The 2D identity-conditioned generators InstantID, IP-Adapter-FaceID and PuLID are built on InsightFace embeddings and inherit the licence question. 🧠
+- **Identity *losses* are an older, separate line of work**, each comparing a recogniser's view of a render with the photo: Genova et al. 2018 (FaceNet features, unsupervised 3DMM regression), Deng et al. 2019 (perceptual cosine loss), GANFIT 2019 (identity and content features during fitting) and DECA 2021 (identity loss from a VGGFace2-trained ResNet50). 🧠
+- **Embeddings can be inverted.** NbNet-style decoders and Arc2Face (Stable Diffusion conditioned on ArcFace vectors, ECCV 2024) regenerate recognisable faces from a vector, and ID-guided 3D avatar methods followed in 2024–25. A stored embedding is therefore *not* anonymised. 🧠
 
 **Models, files, licences**
 - **buffalo_l** is the SCRFD-10GF detector plus a ResNet50 recogniser trained on WebFace600K, about **326 MB** in total [6]. 📄 Its recogniser `w600k_r50.onnx` is about **166 MB** and outputs **512-d** vectors [7][6]. 📄
 - The pack also ships `2d106det.onnx` (106 2D landmarks), `1k3d68.onnx` (68 3D landmarks) and `genderage.onnx`. **antelopev2** swaps in a ResNet100 trained on Glint360K, and **buffalo_s/sc** use MobileFaceNet. 🧠
 - **Licence.** The pretrained models are reported as **non-commercial research only**, separately from the MIT-licensed code [7]. 📄 Mirrors on SourceForge, Hugging Face and GitHub releases are unofficial [8][10]. 📄 The legacy CLI command is `insightface-cli model.download buffalo_l`, which saves to `~/.insightface/models/buffalo_l/` [6]. 📄
-- **Possibly more permissive alternatives**, all needing licence verification:
-  - OpenCV Zoo SFace (128-d) with the YuNet detector;
-  - dlib's ResNet (128-d, Euclidean threshold 0.6);
-  - facenet-pytorch (InceptionResNetV1 trained on VGGFace2).
-
-  Whatever the code licence says, the weights carry the consent and licence baggage of their training data. ↔️
+- **Possibly more permissive alternatives, all needing licence checks:** OpenCV Zoo SFace (128-d, with the YuNet detector), dlib's ResNet (128-d, Euclidean threshold 0.6) and facenet-pytorch (InceptionResNetV1 on VGGFace2). Whatever the code licence says, weights carry their training data's consent and licence baggage. ↔️
 
 **Bias and ethics**
 - **Demographic effects.** NIST FRVT Part 3 (NISTIR 8280, 2019) found that, for many algorithms, false-match rates differ between demographic groups by factors of roughly 10–100. Impostor scores run higher between people of the same sex, age band and ancestry. 🧠 Impostor statistics must therefore be matched to the subject's demographics.
 - **Training data.** MS-Celeb-1M was withdrawn in 2019 over consent concerns, and most recogniser weights descend from web-scraped celebrity data. 🧠
-- **Law (time-sensitive, not legal advice).**
-  - GDPR Art. 9 treats biometric data used to uniquely identify a person as a special category.
-  - Illinois BIPA requires written consent and a retention policy.
-  - The EU AI Act has banned untargeted scraping to build face-recognition databases since February 2025.
-  - Its Art. 50 deepfake-labelling duties are scheduled for August 2026, and proposals to delay parts of the Act exist.
-
-  ↔️
+- **Law (time-sensitive, not legal advice).** GDPR Art. 9 makes biometric data used for unique identification a special category; Illinois BIPA requires written consent and a retention policy; the EU AI Act has banned untargeted scraping for face-recognition databases since February 2025, and its Art. 50 deepfake-labelling duties were scheduled for August 2026, with delay proposals pending. ↔️
 
 ## Numbers & reference tables
 
@@ -131,13 +102,8 @@
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Set up a consent gate and quality check at intake.** Do not embed any photo until "I have this person's permission" is ticked.
-   - Reject a photo if detector score < 0.5, IOD < 60 px, |yaw| > 45°, it has sunglasses or heavy occlusion, or it shows a strong expression (a neutral face is needed for the identity set).
-   - Embed every kept photo and compute all photo-to-photo **genuine** scores. The median is your **ceiling**: a render cannot be expected to beat it.
-   - Drop any photo whose mean genuine score is more than 2 robust SD below the others. It is likely mis-detected, heavily retouched, or from a very different age.
-2. **Match each render to its photo's camera.** Use the focal length, distance and head pose from the multi-view solver. A wide-angle selfie camera changes the nose-to-ear proportions, so a render from a different lens is a different image.
-   - Render with **Standard** view transform, not AgX or Filmic.
-   - Use Workbench or Eevee at the photo's aspect ratio, with the face at least 450 px across.
+1. **Consent gate and quality check at intake.** Embed nothing until "I have this person's permission" is ticked. Reject photos with detector score < 0.5, IOD < 60 px, |yaw| > 45°, sunglasses or heavy occlusion, or a strong expression. Embed the rest and compute all photo-to-photo **genuine** scores; their median is the **ceiling** no render should be expected to beat. Drop any photo more than 2 robust SD below the others (likely mis-detected, retouched or much older/younger).
+2. **Match each render to its photo's camera**: focal length, distance and head pose from the multi-view solver (a wide-angle selfie changes nose-to-ear proportions). Render with the **Standard** view transform, not AgX or Filmic, in Workbench or Eevee at the photo's aspect ratio, with the face at least 450 px across.
 3. **Render four conditions for each view** (a factorial control):
    - **T**: the sculpt with projected photo texture;
    - **C**: clay with *generic* eyeballs, iris and brows;
@@ -146,23 +112,11 @@
 
    Geometry's contribution is **C − G** (and T − X). Texture's contribution is **X − G**. If T is high but C − G is near zero, the likeness lives in the texture: keep sculpting. 🧠
 4. **Use the same warp for the photo and its render.** The render is pixel-registered to the photo, so apply the *photo's* 5-point similarity warp to both. Score differences then come from content rather than alignment. Also run the detector on the render: if a keypoint drifts more than 3 px in the 112² crop, it shows which feature is misplaced (eye spacing, mouth width). Fix that with landmarks first.
-5. **Preprocess both images the same way.**
-   - Use the same resampling (area), the same face mask and the same background (neutral grey, or the render composited into the photo).
-   - Optionally score a greyscale-and-masked pair as well, which removes cues from skin tone and eye colour.
-   - **Do not** average in a horizontally flipped copy, a common test-time trick: it hides asymmetry, which is part of the likeness.
-6. **Score relative to the baseline, not in absolute terms.** For each view record:
-   - raw cosine;
-   - **ceiling ratio** s / genuine-median;
-   - **impostor z** = (s − μ_imp)/σ_imp;
-   - **rank** among the impostor gallery.
-
-   Summarise with the median and the worst view. A spread above about 0.1 across views points to a pose or camera error, not a shape error.
+5. **Preprocess both images identically**: same resampling (area), face mask and background (neutral grey, or the render composited into the photo). Optionally also score a greyscale, masked pair to remove skin-tone and eye-colour cues. **Do not** average in a flipped copy (a common test-time trick): it hides asymmetry, which is part of the likeness.
+6. **Score relative to the baseline.** Per view record raw cosine, **ceiling ratio** s / genuine-median, **impostor z** = (s − μ_imp)/σ_imp, and **rank** among the impostor gallery. Summarise with the median and worst view; a spread above ~0.1 across views points to pose or camera error, not shape.
 7. **Know what the score responds to.** It is strongly sensitive to eye spacing and shape, the brow ridge, nose width and length, mouth width and the jaw outline in ¾ view. It is weakly sensitive to nose projection in frontal views, cranial shape, ear shape, absolute size and the hairline. **Never** use it to validate millimetre proportions; use landmark reprojection and scale references for that. MICA needed 3D supervision to turn ArcFace features into metric shape [3]. 🧠
 8. **Expect a gap between renders and photos.** Hairless, eyeless or neckless renders score low even when the shape is right. Compare *gains from one iteration to the next* under fixed render settings, never raw scores across setups.
-9. **Model handling.** Do not bundle the buffalo_l weights [7].
-   - Have the user fetch them by the official route [6]. Treat mirrors [8][10] as untrusted.
-   - Pin each file's SHA-256 and refuse files whose hash does not match.
-   - Run onnxruntime CPU inside Blender's Python. Since Blender 4.2, extensions can ship platform wheels, but check which Python version the target release uses. 🧠
+9. **Model handling.** Do not bundle buffalo_l [7]; have the user fetch it by the official route [6], treat mirrors [8][10] as untrusted, and pin each file's SHA-256. Run onnxruntime (CPU) in Blender's Python; extensions can ship platform wheels since Blender 4.2, but check the target release's Python version. 🧠
 10. **Privacy.** Run everything locally and keep embeddings in memory only. Persist only scores and model hashes, and never offer search against other people's photos. Build impostor galleries only from licensed or consented datasets.
 
 ## Algorithmic implications
@@ -184,21 +138,8 @@
   - Accept a step only if landmark reprojection RMS rises by no more than 0.5 px and every coefficient stays within 3σ of its prior.
   - There are no ONNX gradients in Blender, so optimise ≤50 coefficients with SPSA or CMA-ES. Each evaluation is a Workbench render (~0.05–0.2 s) plus inference (~20–50 ms on CPU for R50). These timings are order-of-magnitude estimates. 🧠
 - **Stopping rule.** Stop on the clay impostor z-score from the **held-out** recogniser, never from the one being optimised.
-- **Per-model config** (no hard-coded constants):
-  - `model_sha256`, `licence`;
-  - `embedding_dim` and `input_shape`, read from the ONNX graph;
-  - `mean`/`std` (detect leading Sub/Mul nodes);
-  - `template_5pt`;
-  - `metric: cosine`;
-  - `threshold: null` until calibrated;
-  - `flip_tta: false`.
-- **Per-subject calibration record:**
-  - genuine n, median and IQR;
-  - impostor μ and σ, with demographic tags;
-  - view buckets;
-  - date.
-
-  Recalibrate whenever the model or the render settings change.
+- **Per-model config** (no hard-coded constants): `model_sha256`, `licence`, `embedding_dim` and `input_shape` read from the ONNX graph, `mean`/`std` (detect leading Sub/Mul nodes), `template_5pt`, `metric: cosine`, `threshold: null` until calibrated, `flip_tta: false`.
+- **Per-subject calibration record**: genuine n, median and IQR; impostor μ and σ with demographic tags; view buckets; date. Recalibrate whenever the model or render settings change.
 - **Licence guard.** Warn when a model tagged non-commercial is enabled in a project flagged as commercial.
 
 ## Disagreements, myths & open questions
@@ -210,12 +151,7 @@
 - **Which benchmark MICA's 24 % refers to.** The harvest says the NoW metric variant, while the sibling note says MICA's own metric benchmark. ↔️
 - **"Mirror X equals the official buffalo_l."** This is unverified [8][10]. ↔️
 - **Licences.** Do the InsightFace weights have commercial terms on request? Are the SFace, dlib and AdaFace weights genuinely permissive? ↔️
-- **Open questions:**
-  - How much of the ArcFace score on 3D renders is texture rather than geometry? No study was found.
-  - Could a 3D recogniser working on depth or normal maps act as a geometry-only scorer?
-  - How should impostor sets be calibrated for under-represented groups?
-  - What exactly do the 2025–26 EU AI Act changes do (the "digital omnibus" delays)?
-  - Do ViT or AdaFace successors track sculpt edits better than R50?
+- **Open questions:** how much of the score on 3D renders is texture rather than geometry (no study found); whether a depth- or normal-map 3D recogniser could serve as a geometry-only scorer; impostor calibration for under-represented groups; the exact 2025–26 EU AI Act changes ("digital omnibus" delays); whether ViT or AdaFace successors track sculpt edits better than R50.
 
 ## Sources
 
