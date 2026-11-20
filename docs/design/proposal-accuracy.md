@@ -9,12 +9,12 @@
 1. **Measure before building.** A stage merges only if the harness shows lower per-region error in mm.
 2. **Never report a prior as a measurement.**
 3. **Ship the uncertainty.** Per-vertex σ; regions labelled *measured*, *partial* or *prior-driven*.
-4. **Priors fill only what nothing observes.** Likeness is deviation from the mean, so shrinkage is audited [anat/face-perception-likeness 🧠].
+4. **Priors fill only what nothing observes;** shrinkage toward the mean is audited [anat/face-perception-likeness 🧠].
 5. **Fabricate nothing** (§2.4).
 
 ## 1. Vision and user journey
 
-**Vision.** Photos of a consenting sitter become a Blender head that is measurably closer to the real person, region by region, than existing Blender tools. It comes with an honest map of what is measured and what is guessed, and it is ready to sculpt.
+**Vision.** A consenting sitter's photos become a sculpt-ready Blender head, measurably closer to the person, region by region, than existing Blender tools, with an honest map of what is measured and what is guessed.
 
 ### 1.1 What each signal can determine
 
@@ -25,8 +25,7 @@
 | Profile silhouette | Midline profile; jaw outline | Anything under hair | 1–2 px [bl S2 🧠] |
 | Near-camera perspective | Distance z, but only if depth relief is known | z beyond ≈ 1 m; identity confounds it | Focal error 2–12% at 0.3 m, unobservable at 2 m [rec/camera-perspective-distortion 🧠] |
 | EXIF focal | f (breaks the dolly-zoom ambiguity) | Crops, digital zoom | log-σ 0.03–0.04 [rec CAM-6 🧠] |
-| Iris | Metric scale | — | HVID 11.8 ± 0.6 mm ✅ [anat/eye-region], ≈ 5% |
-| Caliper, PD, card | Metric scale | — | 0.5–1 mm [anat R3.4 🧠] |
+| Iris; caliper, PD, card | Metric scale | — | HVID 11.8 ± 0.6 mm ✅ [anat/eye-region], ≈ 5%; measured 0.5–1 mm [anat R3.4 🧠] |
 | Cross-view photo-consistency | Offsets along normals | Textureless skin | ±3 mm sweep *(design default)* |
 | Shading | Fine normals | Low-frequency shape (bas-relief ambiguity) | Wavelengths < 5 mm only [anat R5.11 🧠] |
 
@@ -38,9 +37,9 @@
    - **T1**, 5–9 photos: front, ±30–45°, ±90° profiles and a low view, from the rear main camera at ≥ 1 m [com R1.4–R1.7, bl T4 🧠].
    - **T2**, T1 plus one measured length: scale ≤ 1.5% [rec EV-3 🧠].
    - **T3**, a dense set with COLMAP cameras imported (BSD licence) [rec FMT-7, BA-12]: bounded by the scan floor of 0.2–0.5 mm [rec EV-4 ↔️].
-3. **Ingest.** EXIF, orientation baking, focal groups, and gates for blink, blur, size, clipping and mirroring [com R1.1–R1.6].
-4. **Landmarks.** An external MediaPipe helper writes JSON. Manual pins are always available, so the pipeline works with no downloads [eth A4].
-5. **Solve.** Staged joint estimation runs as a background job (§3.5).
+3. **Ingest** with EXIF, focal groups and quality gates [com R1.1–R1.6].
+4. **Landmarks** from an external MediaPipe helper, or manual pins (the no-download path [eth A4]).
+5. **Solve** in a background job (§3.5).
 6. **Review.** Matched-camera overlays, held-out-view error, σ and evidence heat maps, and a **next-best-photo advisor** (§3.11).
 7. **Correct.** Pins, masks and sculpt edits become observations with a σ, cross-validated against the other views [com R5.10, bl W5].
 8. **Hand-off.** Staged shape keys, a Multires-ready cage fitted to the limit surface, an optional texture, and a sidecar with QA.
@@ -99,9 +98,9 @@ All engine paths are under `face3d/`.
 ### 2.3 Data flow
 
 ```
-photos ─► ingest ─► *.lmk.json ◄─ helper | pins        template kit ─► Template ─► ModelAdapter ◄─ priors
-   S0 PnP ─► S1 rigid + mirror ─► S2 shape + expression EM ─► S3 + silhouettes ─► S4 dense ─► QA
-   ─► fit.npz + fit.json ─► bridge ─► shape keys, cameras, attributes, texture
+photos → ingest → *.lmk.json (helper|pins); template kit → ModelAdapter ← priors
+S0 PnP → S1 rigid+mirror → S2 shape+expression EM → S3 +silhouettes → S4 dense → QA
+→ fit.npz + fit.json → bridge → shape keys, cameras, attributes, texture
 ```
 
 ### 2.4 Data formats
@@ -126,17 +125,13 @@ The MediaPipe anatomical map is 🧠 [anat R2.4]. It is verified by rendering la
 
 **Template sidecar.**
 - `{template_id, licence, sha256, topology_hash, n_verts, units: "mm"}`;
-- `regions` (about 20, matching §5.2), `symmetry_map`, `midline`;
-- `embeddings{scheme: (tri, bary, bias, σ_annot)}`, `contour_chains`;
-- `stiffness` [anat R5.9];
-- `jaw_weights` plus the condylar axis;
-- `exclude` (eyeballs, mouth interior);
-- `uv`, `limit_stencils`.
+- `regions` (≈ 20, matching §5.2), `symmetry_map`, `midline`, `embeddings{scheme: (tri, bary, bias, σ_annot)}`, `contour_chains`;
+- `stiffness` [anat R5.9], `jaw_weights` plus condylar axis, `exclude` (eyeballs, mouth interior), `uv`, `limit_stencils`.
 
 *How the template and tables are obtained:*
-- `tools/template_kit/extract.py` runs in Blender on the user's MPFB2 install (hm08 base CC0 📄 [eth §5]; 2.0.16 vs 2.0.18 is ↔️). The fallback is Blender Studio Human Base Meshes (CC0 ✅ [com L2]).
+- The default is a project-owned CC0 quad head derived from Blender Studio Human Base Meshes (CC0 ✅ [com L2]) or MPFB2 hm08 (CC0 📄; 2.0.16 vs 2.0.18 ↔️). hm08's CC0 face targets are transferred barycentrically as a bundled identity basis [bl/open-template-head-kit 🧠]. `tools/template_kit/extract.py` rebuilds it from the source files.
 - Two annotators click the anatomical landmarks against the craniometric definitions [anat R2.1]. Their disagreement becomes σ_annot.
-- The MediaPipe-478 embedding comes from registering the Apache-2.0 canonical mesh: anchors first, then NICP [rec MM-12].
+- The MediaPipe-478 embedding comes from registering the user-supplied canonical mesh (Apache-2.0, not CC0, so never bundled): anchors first, then NICP [rec MM-12]. Indices are locked by render-and-detect calibration [rec/landmark-index-correspondence 🧠].
 - Per-point detector bias is calibrated on consented captures with reference scans (validation-test-bed topic).
 - `tools/build_priors.py` converts `research/data/*.json` rows into prior tables, carrying each row's badge and source.
 
@@ -168,7 +163,7 @@ Priors on log f [rec CAM-6, com R2.2 🧠]:
 
 - **Groups** are keyed on (Make, Model, LensModel, f35, W, H, still/video), with a tie σ of 0.02 [rec CAM-5].
 - **Distance** priors on log z: selfie 0.35 m (σ 0.3), rear camera 0.8 m (0.4), tele 2 m (0.4), unknown 1 m (0.7) [rec CAM-6, com R2.4 🧠]. Bounds are 0.25–10 m [bl C6].
-- **Wide lenses:** if f35 ≤ 16 mm, or the face lies beyond 60% of the half-diagonal, inflate σ ×2 or exclude [com R1.7 🧠].
+- **Phones:** trust EXIF focal only after testing crop and zoom hypotheses. Main and tele JPEGs are near-rectilinear (|k1| ≲ 0.02) [rec/smartphone-camera-pipeline 🧠]. Front, ultra-wide (f35 ≤ 16 mm) and edge-of-frame faces (beyond 60% of the half-diagonal) get σ ×2 or are excluded [com R1.7 🧠].
 
 ### 3.2 Camera parameterisation and initialisation
 
@@ -178,11 +173,8 @@ Each view v has rotation ω_v, offset τ_v ∈ ℝ², a_v = log s_v (px/mm) and 
 
 The dolly-zoom direction is now one coordinate, and the weak-perspective limit ρ → 0 stays regular.
 
-- **Focal groups:** the tie residual (a_v − ℓ_v − φ_G)/σ_tie for focal group G, with the focal prior on φ_G.
-- **PnP initialisation:**
-  - f35 hypotheses {13, 24, 26, 35, 50, 77, 85, 120, 135, 200} mm (the code has 7 of these);
-  - pitch-flip and yaw-mirror restarts;
-  - a cheirality check [rec CAM-3 🧠].
+- **Focal groups:** the tie residual (a_v − ℓ_v − φ_G)/σ_tie, with the focal prior on φ_G.
+- **PnP initialisation:** f35 hypotheses {13, 24, 26, 35, 50, 77, 85, 120, 135, 200} mm (the code has 7), pitch-flip and yaw-mirror restarts, cheirality check [rec CAM-3 🧠].
 - **Tag priors:** yaw σ 10° (5° with floor marks), pitch 5°, roll 3° [com R2.7 🧠].
 
 ### 3.3 Observation model
@@ -192,11 +184,11 @@ The dolly-zoom direction is now one coordinate, and the weak-perspective limit �
 - **IOD_v** := s_v·63 mm. It is defined once and is not foreshortened by yaw [bl table P].
 - **σ_cls** in % IOD: anchors 1.5, lid and lip contours 2.5, oval 4, iris 1, user pin 0.75 [bl table P 🧠].
 - **Contours:** κ ≥ 5, so points slide along the curve. R_i follows the projected model curve and is refreshed every outer iteration [rec BA-2].
-- **η** = N/N_eff (N_eff 60–100) for dense MediaPipe points [rec BA-2 🧠]. Without it, 478 correlated points over-count by about 5×.
+- **η** = N/N_eff (N_eff 60–100) for dense MediaPipe points [rec BA-2 🧠]. Without it, 478 correlated points over-count information 5–8×.
 - **P_vi** = ∂û/∂X carries expression covariance into the image (§3.6).
 - **Visibility:** weight ramps from 0 at n·(−v) = cos 80° to 1 at cos 60°; far-side oval points are dropped when |yaw| > 25°; MediaPipe z is ignored with ≥ 2 views [rec BA-3, bl D2 🧠].
 - **Known detector biases** (an epicanthal fold read as en, σ 2.5 mm; prn pulled 1–2 mm toward the highlight [anat §6]) enter as embedding offsets.
-- **Robust loss:** Huber δ = 2σ. After convergence, drop > 4σ and re-solve. Flag a view when > 15% of its points are rejected [rec BA-5 🧠].
+- **Robust loss:** Huber δ = 2σ, then a final redescending (Tukey) round [rec/validation-test-bed 🧠]; drop > 4σ and re-solve. Flag a view when > 15% of its points are rejected [rec BA-5 🧠].
 - **Extremal points** (g′, zy′, go′, pg′) are a softmax argmax over a region, temperature 1–2 mm, re-evaluated per pose [anat R3.2].
 
 ### 3.4 Shape model and priors
@@ -210,7 +202,7 @@ The dolly-zoom direction is now one coordinate, and the weak-perspective limit �
 | Adapter | S | Prior | Licence |
 |---|---|---|---|
 | `template_rbf` (default) | none | Anisotropic landmark prior on X_i/e^ζ: sharp junctions 1–1.5 mm; prn and pg′ 1–2 mm normal, 2–4 mm tangential; glabella and nasion (3, 4, 2); zygion and gonion (6, 8, 8); 8 mm fallback [anat R4.1, `craniometric-landmarks.json` 🧠]. Log-ratio priors at σ×2 [anat R4.3]. Ordering hinges [anat R5.2]. RKHS ½λ_c cᵀK_cc c. | CC0 |
-| `mpfb_targets` | User's MPFB2 face targets | N(0, 0.5²), clipped to ±1; macros σ 0.15 [bl table P 🧠]. A *plausibility* prior, not a covariance. | CC0 📄 |
+| `mpfb_targets` | hm08 face targets transferred to the template (bundled) | N(0, 0.5²), clipped to ±1; macros σ 0.15 [bl table P 🧠]. A *plausibility* prior, not a covariance. | CC0 📄 |
 | `flame_open` | FLAME 2023 Open, transferred locally as U′ = (W ⊗ I₃)U and never shipped [rec MM-7] | β ~ N(0, I); K_β 20 → 50 [rec MM-3 🧠]; Student-t ν = 4 option [anat §4] | CC-BY-4.0, contents unverified 📄 |
 
 **Honesty.** Without a permissive covariance, the default prior is per-landmark. Depth that nothing observes therefore stays near the template, and the engine **reports** this (§3.11).
@@ -249,7 +241,6 @@ The unknowns are θ = {cameras, φ_G, ζ, β, c, ψ_v, θ_jaw,v, D_iris}:
   - Nuisance η_vi ~ N(0, m²_v,r·σ²_expr,r·I₃) integrates out exactly to the P Σ_expr Pᵀ term in §3.3.
   - m_v,r = clip(score_r/threshold_r, 0, 3).
   - σ_expr = 3 mm for the mouth, lids and brows and 1 mm elsewhere *(design default)*.
-  - Neutral views thus dominate identity in mobile regions automatically.
   - Drop lip points when the inner gap/ch–ch > 0.04, and lid points on a blink (EAR < 0.2) or gaze pitch > 10–15° [anat §6, com R1.4].
 - **No neutral view:** warn, and suppress lip and lid numbers [rec BA-9].
 - **Jaw:** a hinge about the condylar axis, 10–13 mm anterior to tragion [rec BA-1 🧠]. σ 1.5° when neutral, 3° otherwise [rec MM-4 ↔️].
@@ -267,7 +258,7 @@ IPD and head size are correlated, so using both would understate σ_ζ. Iris alo
 
 ### 3.8 Silhouettes and profiles
 
-**Inputs.** Masks are painted in Blender, or come from an optional SAM 2 helper (Apache-2.0 [eth §5]). They become labelled polylines.
+**Inputs.** Masks supply *semantics*: painted in Blender, or from a helper running the MediaPipe segmenters, SAM 2 or U²-Net/IS-Net (all Apache-2.0 [rec/face-segmentation-contours ↔️]). Sub-pixel image edges near the mask boundary supply *position*.
 
 **Model contour, sub-vertex.** On each edge where q = n·(x − C_v) changes sign, the contour point is p = x_a + q_a/(q_a − q_b)·(x_b − x_a). Only points on the rasterised mask boundary are kept. The vertex-level contours in the current code carry up to half an edge length of bias, which is millimetre-scale on a 13k-vertex head.
 
@@ -275,7 +266,7 @@ IPD and head size are correlated, so using both would understate σ_ζ. Iris alo
 - **Forward:** n_cᵀ(π(p) − c_j)/σ_sil, σ 1–2 px [bl S2 🧠].
 - **Backward** (model → photo): truncated at 3σ, weight 0.5 *(design default)*. The code is forward-only today, so overshoot goes unpenalised.
 - **Hair segments:** a one-sided hinge that penalises only skin outside the hull. The scalp stays ≥ 2 mm inside, with an inward prior of 5–15 mm [bl W7, rec MM-13].
-- **No terms** above the trichion or on occluded ears [bl S3].
+- **No terms** above the trichion or on occluded ears [bl S3]. Tape measures (circumference, arcs) become arc-length equalities on the vault [anat/cranium-under-hair 🧠].
 
 **Profiles.** When |yaw| > 60°, contour landmarks are replaced by the silhouette term [rec BA-4, SIL-2].
 
@@ -294,19 +285,12 @@ IPD and head size are correlated, so using both would understate σ_ζ. Iris alo
 
 The pass is rejected if any landmark moves > 0.5 mm or any view's RMS rises > 0.5% IOD [com R5.10]. Step, patch and threshold are *(design defaults)*.
 
-**(c) Shading** (off by default).
-- SH9 per view, Huber 0.05 on log residuals.
-- Exclude the top 2–5% of pixels and n·v < 0.3.
-- Light elevation prior N(30°, 25°) [bl T6 🧠].
-- The high-pass residual (< 5 mm; clamp ±2.5 mm [rec OPT-1]) goes **only** into `detail_inferred`.
+**(c) Shading** (off by default): SH9 per view, Huber 0.05, top 2–5% of pixels and n·v < 0.3 excluded, light elevation prior N(30°, 25°) [bl T6 🧠]. The high-pass residual (< 5 mm, clamp ±2.5 mm [rec OPT-1]) goes **only** into `detail_inferred`.
 
 ### 3.10 Texture projection
 
-- **Visibility and G-buffer:** z-buffer visibility with ε = max(1 mm, 2σ_geom); a UV G-buffer [rec TEX-1].
-- **View weight:** w = vis·cos²θ·footprint·edge, with a 60–75° fade [rec TEX-2 🧠].
-- **Gains** in the log domain [rec TEX-3].
-- **Blend:** two-band, split at σ 3 mm. Fill order: mirror (low band) → harmonic → model [rec TEX-4, TEX-5].
-- **Map size:** 4096 (2048 for phones) [rec TEX-7].
+- **Weights:** z-buffer visibility (ε = max(1 mm, 2σ_geom)), w = vis·cos²θ·footprint·edge with a 60–75° fade, log-domain gains [rec TEX-1–3 🧠].
+- **Blend:** two-band, split at σ 3 mm; fill mirror (low band) → harmonic → model [rec TEX-4, TEX-5].
 - **Gate:** reprojection median ≤ 1.5 px and max ≤ 3 px [bl T2].
 - **Rights:** the `TEXTURE` scope and known photo rights [eth §3].
 - **QA use:** cross-view variance after gain compensation is a **geometry error locator**.
@@ -320,7 +304,7 @@ The pass is rejected if any landmark moves > 0.5 mm or any view's RMS rises > 0.
 - **Labels:** measured (e ≥ 0.8), partial (0.5–0.8), prior-driven (< 0.5).
 - **Requests:** e < 0.8 in a top-5 perceptual region asks for another view [anat §6].
 
-**Calibration.** Laplace ignores model error. Leave-one-view-out (LOVO) gives γ² = mean(r²_held/σ²_pred), and the engine reports γ·σ.
+**Calibration.** Laplace ignores model error: a coverage check of today's bundle adjuster found it 2–4× overconfident for absolute scale and badly so under landmark-definition bias [rec/validation-test-bed 🧠]. Leave-one-view-out (LOVO) gives γ² = mean(r²_held/σ²_pred), and the engine reports γ·σ.
 
 **Gates.**
 - A prior share of Fisher information > 20% in a region seen by ≥ 2 views [anat R1.4].
@@ -358,8 +342,8 @@ paths_exclude_pattern = ["__pycache__/", "/tests/"]
 ```
 
 - **No `network` permission:** the core is offline [eth A3, A7].
-- **Template:** a CC0 template is bundled only after its licence is verified (≤ 25 MB [bl Q5]). Until then, `face3d.template_import` builds it from the user's MPFB2 install into `extension_path_user`.
-- **Probing:** `compat.py` probes features at register time [bl A9].
+- **Template:** the CC0 head is bundled once its licence is verified (≤ 25 MB [bl Q5]); until then `face3d.template_import` builds it into `extension_path_user`.
+- **Probing:** `compat.py` at register time [bl A9].
 - **Version floor:** 4.2 is declared only once CI tests it (↔️).
 
 ### 4.2 Operators
@@ -391,8 +375,6 @@ All operators carry the `face3d.` prefix and are `REGISTER|UNDO`, except the job
 **Camera-view overlays** (`gpu` POST_PIXEL): detected vs model landmarks, z-score-coloured residual arrows, mask contour vs silhouette.
 
 **Heat maps** come from colour attributes `f3d_sigma_n_mm`, `f3d_evidence` and `f3d_region`.
-
-**Review** offers matched-camera switching (resolution follows the camera via markers [bl C5]), a blink comparator and an edge overlay [com R6.4, R8.1].
 
 ### 4.4 Jobs, threading and undo
 
@@ -429,6 +411,8 @@ An optional "detector pack" extension may bundle wheels only if the platform all
 - **Detector simulator:** anisotropic noise, per-point bias, correlated dense noise, 5% outliers, yaw occlusion.
 - **Images:** rasterised masks and Lambert + SH textured images.
 
+Tiers 2–4 of [rec/validation-test-bed] run outside CI: renders of CC0 scans through a simulated phone pipeline, a 3D-printed CC0 head shot on real phones, and consented sitters with reference scans.
+
 ### 5.2 Tests and acceptance
 
 | Class | Assertion |
@@ -452,12 +436,11 @@ Every result states its tier, scale mode and σ, focal status, per-region RMS-to
 - **Matched-camera comparison** per photo: clay render, 3 Hz blink, edge overlay, 64 px thumbnail (the 8–16 cycles-per-face band [anat/face-perception-likeness 📄]).
 - **Held-out views**, rendered before their error is shown.
 - **Region bars** against export tolerances. Lids, vermilion and alar rim 0.2–0.3 mm; nose tip and chin 0.5 mm [com R8.6 🧠]. Exceeding them blocks "approved".
-- **Shrinkage audit** with a protect list of the 3–5 largest |z| deviations.
-- **Familiar-viewer checklist.**
+- **Shrinkage audit** protecting the 3–5 largest |z| deviations, and a familiar-viewer checklist.
 
 ## 6. Milestones
 
-Each milestone ships tagged, with CI passing here.
+Each ships tagged, with CI passing here.
 
 | M | Deliverable | Acceptance |
 |---|---|---|
@@ -484,7 +467,7 @@ Each milestone ships tagged, with CI passing here.
 
 ### Deliberately left out
 
-- **Learned regressors** (MICA, DECA, 3DDFA): research licences and weak-perspective depth leaks [rec MM-6, LIC-1]. Allowed only as an opt-in import that never sets depth or scale.
+- **Learned regressors** (MICA, DECA, 3DDFA): research licences, weak-perspective depth leaks [rec MM-6, LIC-1]; opt-in import only, never setting depth or scale.
 - **Generative heads, and monocular depth or normal networks, in identity:** zero weight [rec OPT-2].
 - **Not attempted:** Gaussian avatars, hair strands, teeth, ear detail beyond silhouettes, albedo inverse rendering, identity-embedding losses [rec OPT-3–7], and differentiable GPU rendering.
 - **Fitting minors** without guardian consent and age-matched priors [eth F5].

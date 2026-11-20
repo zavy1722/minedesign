@@ -1,0 +1,167 @@
+{
+  "topic": "metric-3d-landmark-reference",
+  "sources": [
+    {
+      "n": 1,
+      "title": "The 3D Facial Norms Database: Part 1. A Web-Based Craniofacial Anthropometric and Image Repository for the Clinical and Research Community",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760",
+      "kind": "paper",
+      "year": "2015"
+    },
+    {
+      "n": 2,
+      "title": "FaceBase 3D Facial Norms Database",
+      "url": "https://facebase.org/facial_norms/",
+      "kind": "official-docs",
+      "year": "n.d."
+    },
+    {
+      "n": 3,
+      "title": "Weinberg et al., 3D stereophotogrammetry versus traditional craniofacial anthropometry: 3DFN vs Farkas's North American norms",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+      "kind": "paper",
+      "year": "2019"
+    },
+    {
+      "n": 4,
+      "title": "Penn State OpenLab ANSUR II page (public data 4,082 M / 1,986 F; NATICK/TR-15/007)",
+      "url": "https://www.openlab.psu.edu/ansur2/",
+      "kind": "official-docs",
+      "year": "2014"
+    },
+    {
+      "n": 5,
+      "title": "Greek facial anthropometry study, comparison table with North American Caucasian values (morphological face height 121.3 / 111.8)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3485457/table/Tab2",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 6,
+      "title": "Exploring Causes of Demographic Variations in Face Recognition Accuracy (reproduces Farkas SDs)",
+      "url": "https://arxiv.org/pdf/2304.07175",
+      "kind": "paper",
+      "year": "2023"
+    },
+    {
+      "n": 7,
+      "title": "Facial Anthropometric Norms among Kosovo-Albanian Adults",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+      "kind": "paper",
+      "year": "2017"
+    },
+    {
+      "n": 8,
+      "title": "Normative Findings for Periocular Anthropometric Measurements among Chinese Young Adults in Hong Kong",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 9,
+      "title": "Anthropometric Study of Three-Dimensional Facial Morphology in Malay Adults",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 10,
+      "title": "Accuracy and reliability of 3D stereophotogrammetry: a comparison to direct anthropometry and 2D photogrammetry",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26267357",
+      "kind": "paper",
+      "year": "2015"
+    },
+    {
+      "n": 11,
+      "title": "Three-Dimensional Anthropometric Facial Analysis and Fitting Discrepancies Between Stereophotogrammetry and CT",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38896864",
+      "kind": "paper",
+      "year": "2024"
+    },
+    {
+      "n": 12,
+      "title": "Reproducibility and Accuracy of Facial Soft Tissue Landmarks Across 3D Face Scanning Modalities: Systematic Review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 13,
+      "title": "Columbia anatomy craniology slides (landmark definitions; FH = porion–orbitale)",
+      "url": "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+      "kind": "other",
+      "year": "n.d."
+    },
+    {
+      "n": 14,
+      "title": "Nobel Biocare: Definition of 3D cephalometric soft tissue landmarks",
+      "url": "https://nobellicense.nobelbiocare.com/help/d3d046fb-52e8-4b33-9f51-d3fd98ca3ed4/2.0/EN/3D_cephalometric_soft_tissue_landmarks.htm",
+      "kind": "commercial docs",
+      "year": "n.d."
+    },
+    {
+      "n": 15,
+      "title": "Global facial soft tissue thicknesses for craniofacial identification",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/",
+      "kind": "review",
+      "year": "2023"
+    },
+    {
+      "n": 16,
+      "title": "Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 17,
+      "title": "FLAME project site (FLAME 2023 Open, CC BY 4.0)",
+      "url": "https://flame.is.tue.mpg.de/",
+      "kind": "official-docs",
+      "year": "n.d."
+    },
+    {
+      "n": 18,
+      "title": "FLAME model licence",
+      "url": "https://flame.is.tue.mpg.de/modellicense.html",
+      "kind": "official-docs",
+      "year": "n.d."
+    },
+    {
+      "n": 19,
+      "title": "MediaPipe 3D Face Transform (Google Developers Blog)",
+      "url": "https://developers.googleblog.com/en/mediapipe-3d-face-transform/",
+      "kind": "blog",
+      "year": "n.d."
+    },
+    {
+      "n": 20,
+      "title": "Google AI Edge Face Landmarker documentation",
+      "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+      "kind": "official-docs",
+      "year": "n.d."
+    },
+    {
+      "n": 21,
+      "title": "Towards Metrical Reconstruction of Human Faces (MICA)",
+      "url": "https://arxiv.org/pdf/2204.06607",
+      "kind": "paper",
+      "year": "2022"
+    }
+  ],
+  "references_by_name": [
+    "Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994.",
+    "Gordon CC et al., *2012 Anthropometric Survey of U.S. Army Personnel (ANSUR II): Methods and Summary Statistics*, 2014.",
+    "Zhuang Z, Bradtmiller B, \"Head-and-face anthropometric survey of U.S. respirator users\", *J Occup Environ Hyg*, 2005.",
+    "Robinette KM et al., CAESAR (Civilian American and European Surface Anthropometry Resource) final report, early 2000s.",
+    "Li T, Bolkart T, Black MJ, Li H, Romero J, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), SIGGRAPH Asia 2017.",
+    "Kartynnik Y et al., \"Real-time facial surface geometry from monocular video on mobile GPUs\", 2019.",
+    "Arnett GW et al., \"Soft tissue cephalometric analysis: diagnosis and treatment planning of dentofacial deformity\", *Am J Orthod Dentofacial Orthop*, 1999.",
+    "Legan HL, Burstone CJ, \"Soft tissue cephalometric analysis for orthognathic surgery\", *J Oral Surg*, 1980.",
+    "Holdaway RA, \"A soft-tissue cephalometric analysis and its use in orthodontic treatment planning\", *Am J Orthod*, 1983.",
+    "Dodgson NA, \"Variation and extrema of human interpupillary distance\", Proc. SPIE, 2004.",
+    "Booth J et al., \"Large Scale 3D Morphable Models\" (LSFM), *IJCV*, 2018.",
+    "Dai H, Pears N, Smith W, Duncan C, \"A 3D morphable model of craniofacial shape and texture variation\" (Liverpool-York Head Model), ICCV 2017.",
+    "Ball R et al., \"A comparison between Chinese and Caucasian head shapes\", *Applied Ergonomics*, 2010."
+  ]
+}
