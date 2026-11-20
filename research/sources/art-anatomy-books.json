@@ -1,1 +1,155 @@
-{"topic":"art-anatomy-books","sources":[]}
+{
+ "topic": "art-anatomy-books",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Proko - How to Draw the Head from Any Angle",
+   "url": "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle",
+   "kind": "tutorial",
+   "year": ""
+  },
+  {
+   "n": 2,
+   "title": "Proko - How to Draw the Head (front view)",
+   "url": "https://www.proko.com/course-lesson/how-to-draw-the-head-front-view",
+   "kind": "tutorial",
+   "year": ""
+  },
+  {
+   "n": 3,
+   "title": "Proko - The 10 Head Volumes",
+   "url": "https://www.proko.com/course-lesson/the-10-head-volumes",
+   "kind": "tutorial",
+   "year": ""
+  },
+  {
+   "n": 4,
+   "title": "Fine Art Tutorials - Loomis Method",
+   "url": "https://finearttutorials.com/guide/loomis-method/",
+   "kind": "tutorial",
+   "year": ""
+  },
+  {
+   "n": 5,
+   "title": "Al-Sebaei: The validity of three neo-classical facial canons in young adults originating from the Arabian Peninsula (PubMed)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25889948/",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 6,
+   "title": "Al-Sebaei 2015, full text (Head & Face Medicine)",
+   "url": "https://head-face-med.biomedcentral.com/articles/10.1186/s13005-015-0064-y",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 7,
+   "title": "Anthropometric facial analysis of the African American woman",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11497505/",
+   "kind": "paper",
+   "year": "2001"
+  },
+  {
+   "n": 8,
+   "title": "Evaluation of soft-tissue morphology of the face in 1,050 young adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10096619/",
+   "kind": "paper",
+   "year": "1999"
+  },
+  {
+   "n": 9,
+   "title": "Anthropometric and Cephalometric Facial Characteristics of Adult Saudi Patients with Skeletal Class III Malocclusions",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10699194",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 10,
+   "title": "A Systematic Review of Inter-ethnic Variability in Facial Dimensions (Fang, Clapham, Chung)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3074358/",
+   "kind": "review",
+   "year": "2011"
+  },
+  {
+   "n": 11,
+   "title": "Facial Anthropometric Norms among Kosovo-Albanian Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 12,
+   "title": "Exploring Causes of Demographic Variations In Face Recognition Accuracy (reproduces Farkas SDs)",
+   "url": "https://arxiv.org/pdf/2304.07175",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 13,
+   "title": "An Anthropometric Study of the Facial Index Among Undergraduate Medical Students, BHU, Uttar Pradesh",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996",
+   "kind": "paper",
+   "year": ""
+  },
+  {
+   "n": 14,
+   "title": "Three-dimensional photographic analysis of the face in European adults from southern Spain with normal occlusion",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104",
+   "kind": "paper",
+   "year": ""
+  },
+  {
+   "n": 15,
+   "title": "Review finding no evidence for the golden ratio in facial aesthetic or reconstructive planning",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10792139/",
+   "kind": "review",
+   "year": "2024"
+  },
+  {
+   "n": 16,
+   "title": "Holland, Marquardt's Phi Mask: Pitfalls of Relying on Fashion Models and the Golden Ratio (Aesthetic Plastic Surgery)",
+   "url": "https://link.springer.com/doi/10.1007/s00266-007-9080-z",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "n": 17,
+   "title": "Expanding the Classic Facial Canons: Quantifying Intercanthal Distance in a Diverse Patient Population",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9029890/",
+   "kind": "paper",
+   "year": ""
+  },
+  {
+   "n": 18,
+   "title": "Weinberg et al., comparison of Farkas direct anthropometry norms with the 3D Facial Norms database",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+   "kind": "paper",
+   "year": "2019"
+  }
+ ],
+ "references_by_name": [
+  "Andrew Loomis, Drawing the Head and Hands (1956)",
+  "Andrew Loomis, Figure Drawing for All It's Worth (1943)",
+  "Andrew Loomis, Fun with a Pencil (1939)",
+  "George B. Bridgman, Constructive Anatomy (1920)",
+  "George B. Bridgman, Life Drawing (1924)",
+  "George B. Bridgman, Heads, Features and Faces (1932)",
+  "George B. Bridgman, The Human Machine (1939)",
+  "Stephen Rogers Peck, Atlas of Human Anatomy for the Artist (Oxford University Press, 1951)",
+  "Scott Spencer, ZBrush Character Creation: Advanced Digital Sculpting (Sybex, 2008; 2nd ed. 2011)",
+  "Scott Spencer, ZBrush Digital Sculpting Human Anatomy (Sybex/Wiley, 2010)",
+  "Uldis Zarins and Sandis Kondrats, Anatomy for Sculptors: Understanding the Human Figure (2014)",
+  "Uldis Zarins, Anatomy of Facial Expression (circa 2017; publisher and co-authorship to verify)",
+  "John Asaro, Planes of the Head (Asaro head teaching cast)",
+  "Frank J. Reilly method as transmitted by students, e.g. Jack Faragasso's drawing/painting manuals",
+  "Eliot Goldfinger, Human Anatomy for Artists: The Elements of Form (Oxford University Press, 1991)",
+  "Gary Faigin, The Artist's Complete Guide to Facial Expression (1990)",
+  "Valerie L. Winslow, Classic Human Anatomy (2009)",
+  "Edouard Lanteri, Modelling and Sculpting the Human Figure (Dover reprint)",
+  "Peter Rubino, The Portrait in Clay (1997)",
+  "Ekman, Friesen and Hager, Facial Action Coding System (2002)",
+  "Leslie G. Farkas, Anthropometry of the Head and Face (1994)",
+  "Ricketts, E-line (esthetic plane) of lip relation"
+ ]
+}

@@ -1,0 +1,833 @@
+{
+ "topic": "mouth-lips-teeth",
+ "tables": [
+  {
+   "name": "lip_dimensions_sourced",
+   "units": "mm",
+   "columns": [
+    "measure",
+    "landmarks",
+    "age_group",
+    "mean_mm",
+    "sd_mm",
+    "range_min_mm",
+    "range_max_mm",
+    "population",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "upper lip height (probably sn-sto, definition unconfirmed)",
+     "sn-sto?",
+     "20-59",
+     null,
+     null,
+     22,
+     23,
+     "adults; cohort/n/sex unconfirmed",
+     2
+    ],
+    [
+     "philtrum width",
+     "cph-cph",
+     "20-59",
+     null,
+     null,
+     11,
+     12,
+     "adults; cohort/n/sex unconfirmed",
+     2
+    ],
+    [
+     "upper vermilion height",
+     "ls-sto",
+     "20-29",
+     8.1,
+     null,
+     null,
+     null,
+     "adults; cohort/n/sex unconfirmed",
+     2
+    ],
+    [
+     "upper vermilion height",
+     "ls-sto",
+     "50-59",
+     6.6,
+     null,
+     null,
+     null,
+     "adults; cohort/n/sex unconfirmed",
+     2
+    ],
+    [
+     "lateral upper lip / commissure height, group A",
+     "unconfirmed",
+     "adult",
+     23.5,
+     2.6,
+     null,
+     null,
+     "Kenyan adults; group label (sex or subgroup) unclear",
+     4
+    ],
+    [
+     "lateral upper lip / commissure height, group B",
+     "unconfirmed",
+     "adult",
+     22.3,
+     2.3,
+     null,
+     null,
+     "Kenyan adults; group label (sex or subgroup) unclear",
+     4
+    ]
+   ],
+   "population": "Adults 20-59 (PMC7984336 table; ancestry, n and sex split unconfirmed) and Kenyan adults",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003",
+    "https://www.springermedizin.de/normative-anthropometry-and-proportions-of-the-kenyan-african-fa/16501568"
+   ],
+   "status": "sourced",
+   "notes": "Values from search snippets, not full text. The 22-23 mm 'upper lip height' is numerically consistent with sn-sto (skin + vermilion), not sn-ls; an earlier draft mislabelled it sn-ls. Upper vermilion loss ~1.5 mm (~19%) from 20s to 50s implies ~0.05 mm/yr."
+  },
+  {
+   "name": "lip_dimensions_expert",
+   "units": "mm",
+   "columns": [
+    "measure",
+    "landmarks",
+    "sex",
+    "range_min_mm",
+    "range_max_mm",
+    "population"
+   ],
+   "rows": [
+    [
+     "mouth width",
+     "ch-ch",
+     "M",
+     50,
+     58,
+     "European-descent young adults"
+    ],
+    [
+     "mouth width",
+     "ch-ch",
+     "F",
+     46,
+     54,
+     "European-descent young adults"
+    ],
+    [
+     "upper lip height",
+     "sn-sto",
+     "M",
+     20,
+     24,
+     "European-descent young adults"
+    ],
+    [
+     "upper lip height",
+     "sn-sto",
+     "F",
+     18,
+     22,
+     "European-descent young adults"
+    ],
+    [
+     "cutaneous (skin) upper lip height",
+     "sn-ls",
+     "M+F",
+     12,
+     17,
+     "adults"
+    ],
+    [
+     "lower vermilion height",
+     "sto-li",
+     "M+F",
+     8,
+     12,
+     "young adults"
+    ],
+    [
+     "resting interlabial gap",
+     "sto_sup-sto_inf",
+     "M+F",
+     0,
+     3,
+     "adults with competent lips"
+    ],
+    [
+     "commissure depth behind lip midline (low confidence)",
+     "ls_prom.z - ch.z",
+     "M+F",
+     10,
+     20,
+     "adults"
+    ],
+    [
+     "soft-tissue thickness of upper lip over incisors",
+     "at ls",
+     "M+F",
+     11,
+     15,
+     "adults"
+    ]
+   ],
+   "population": "Mostly European-descent young adults (Farkas-type caliper norms recalled from training); not ancestry-general",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert knowledge, not yet checked against a source in this library; ranges deliberately wide. Use as QA/outlier bands and weak priors only."
+  },
+  {
+   "name": "vermilion_height_ratio_lower_to_upper",
+   "units": "ratio (sto-li / ls-sto)",
+   "columns": [
+    "context",
+    "value_min",
+    "value_max",
+    "population",
+    "status",
+    "source_urls"
+   ],
+   "rows": [
+    [
+     "aesthetic target (most cited)",
+     1.6,
+     2.0,
+     "mostly young white women",
+     "contested",
+     [
+      "https://www.ncbi.nlm.nih.gov/sites/books/NBK546691/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC5815114/"
+     ]
+    ],
+    [
+     "perception: overfilled upper lip less artificial when lower lip ~1.6x upper",
+     1.6,
+     1.6,
+     "perception study",
+     "sourced",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC5815114/"
+     ]
+    ],
+    [
+     "generality: Caucasian ratio does not generalize across populations",
+     null,
+     null,
+     "multi-ethnic review (2024)",
+     "contested",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10258039/"
+     ]
+    ],
+    [
+     "measured midline population ratio (expert estimate)",
+     1.1,
+     1.4,
+     "European-descent young adults",
+     "knowledge",
+     []
+    ],
+    [
+     "crowdsourced most-preferred female ratio (Heidekrueger et al. 2017, to verify)",
+     1.0,
+     1.0,
+     "online survey, multinational",
+     "knowledge",
+     []
+    ]
+   ],
+   "population": "Varies by row",
+   "source_urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK546691/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5815114/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10258039/"
+   ],
+   "status": "contested",
+   "notes": "Direction (lower taller than upper) is verified across [5][6][8]; magnitude is contested. Do not centre a fitting prior on 1.6; suggested prior mean 1.3, sigma 0.3, clamp 0.8-2.3."
+  },
+  {
+   "name": "proportion_canon_tests",
+   "units": "qualitative / ratio",
+   "columns": [
+    "canon",
+    "finding",
+    "n",
+    "status",
+    "source_urls"
+   ],
+   "rows": [
+    [
+     "mouth width = 1.5 x nose width (ch-ch vs al-al)",
+     "ch-ch exceeds 1.5 x al-al in the majority, wide spread",
+     1050,
+     "sourced",
+     [
+      "https://pubmed.ncbi.nlm.nih.gov/10096619/"
+     ]
+    ],
+    [
+     "intercanthal = nose width (en-en vs al-al)",
+     "en-en smaller than al-al in most",
+     1050,
+     "sourced",
+     [
+      "https://pubmed.ncbi.nlm.nih.gov/10096619/"
+     ]
+    ],
+    [
+     "mouth width = interpupillary distance",
+     "no direct test found in harvest",
+     null,
+     "contested",
+     []
+    ],
+    [
+     "ch-ch / IPD at rest (derived from typical means ch-ch ~50-54 mm, IPD ~60-65 mm)",
+     "~0.80-0.90; resting corners near medial limbus to mid-iris",
+     null,
+     "knowledge",
+     []
+    ]
+   ],
+   "population": "1,050 young adults (1999 study) for sourced rows",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/10096619/"
+   ],
+   "status": "sourced",
+   "notes": "Canons are rules of thumb; use only as QA warnings."
+  },
+  {
+   "name": "profile_and_lip_support_norms",
+   "units": "mm / degrees",
+   "columns": [
+    "measure",
+    "value_min",
+    "value_max",
+    "typical",
+    "units",
+    "population"
+   ],
+   "rows": [
+    [
+     "upper lip to Ricketts E-line (prn-pog')",
+     -6,
+     -2,
+     -4,
+     "mm",
+     "European-descent adults"
+    ],
+    [
+     "lower lip to Ricketts E-line",
+     -4,
+     0,
+     -2,
+     "mm",
+     "European-descent adults"
+    ],
+    [
+     "nasolabial angle",
+     90,
+     110,
+     100,
+     "deg",
+     "adults; women toward upper end"
+    ],
+    [
+     "mentolabial angle",
+     110,
+     135,
+     null,
+     "deg",
+     "adults; wide spread"
+    ],
+    [
+     "overjet",
+     2,
+     3,
+     null,
+     "mm",
+     "normal occlusion"
+    ],
+    [
+     "overbite",
+     2,
+     3,
+     null,
+     "mm",
+     "normal occlusion"
+    ],
+    [
+     "lip change per mm of incisor change",
+     0.3,
+     0.9,
+     null,
+     "mm/mm",
+     "orthodontic cohorts (contested)"
+    ]
+   ],
+   "population": "Cephalometric/photographic adult norms, mostly European-descent; African- and East Asian-descent norms are more protrusive (lips often at or ahead of E-line)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert knowledge (Ricketts, Holdaway, Burstone tradition); verify before hard-coding. Last row is contested in the literature."
+  },
+  {
+   "name": "incisor_display_and_smile",
+   "units": "mm / percent",
+   "columns": [
+    "quantity",
+    "value_min",
+    "value_max",
+    "units",
+    "population",
+    "status",
+    "source_urls"
+   ],
+   "rows": [
+    [
+     "pleasing upper-incisor display at rest",
+     2,
+     4,
+     "mm",
+     "review",
+     "sourced",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/"
+     ]
+    ],
+    [
+     "upper-incisor display at rest, young women (Vig & Brundo)",
+     3,
+     3.5,
+     "mm",
+     "young adults",
+     "knowledge",
+     []
+    ],
+    [
+     "upper-incisor display at rest, young men (Vig & Brundo)",
+     2,
+     2,
+     "mm",
+     "young adults",
+     "knowledge",
+     []
+    ],
+    [
+     "decline in upper display with age",
+     0.5,
+     1,
+     "mm per decade",
+     "adults",
+     "knowledge",
+     []
+    ],
+    [
+     "acceptable gingival display in smile",
+     0,
+     2,
+     "mm",
+     "adults",
+     "knowledge",
+     []
+    ],
+    [
+     "gummy smile threshold",
+     3,
+     null,
+     "mm",
+     "adults",
+     "knowledge",
+     []
+    ],
+    [
+     "smile line low / average / high",
+     null,
+     null,
+     "percent ~20/70/10",
+     "Tjan et al. 1984",
+     "knowledge",
+     []
+    ],
+    [
+     "upper central incisor crown length",
+     10,
+     11,
+     "mm",
+     "adults",
+     "knowledge",
+     []
+    ],
+    [
+     "upper central incisor crown width",
+     8.5,
+     9,
+     "mm",
+     "adults",
+     "knowledge",
+     []
+    ],
+    [
+     "upper intercanine width (cusp tips)",
+     33,
+     37,
+     "mm",
+     "adults",
+     "knowledge",
+     []
+    ]
+   ],
+   "population": "Mixed; see rows",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/"
+   ],
+   "status": "knowledge",
+   "notes": "Only the 2-4 mm resting display is sourced in this library; other rows are expert knowledge queued for verification."
+  },
+  {
+   "name": "smile_arc_prevalence",
+   "units": "percent of subjects",
+   "columns": [
+    "arc_class",
+    "percent",
+    "population",
+    "n",
+    "source_urls"
+   ],
+   "rows": [
+    [
+     "consonant",
+     63.3,
+     "Saudi orthodontic patients",
+     150,
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC13530071/",
+      "https://pubmed.ncbi.nlm.nih.gov/42671516/"
+     ]
+    ],
+    [
+     "consonant",
+     66.9,
+     "Saudi adults, Jeddah region",
+     null,
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7718042/"
+     ]
+    ],
+    [
+     "consonant",
+     82.8,
+     "cohort not pinned down",
+     null,
+     []
+    ],
+    [
+     "parallel",
+     43.1,
+     "Vietnamese students 18-29 y",
+     490,
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC12659754"
+     ]
+    ],
+    [
+     "non-consonant",
+     58.3,
+     "orthodontic finishing-phase patients",
+     null,
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10590081/"
+     ]
+    ],
+    [
+     "straight (older study, Maulik & Nanda as cited)",
+     49,
+     "not stated",
+     null,
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7718042/"
+     ]
+    ]
+   ],
+   "population": "Orthodontic and general cohorts, Saudi and Vietnamese",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13530071/",
+    "https://pubmed.ncbi.nlm.nih.gov/42671516/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7718042/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12659754",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10590081/"
+   ],
+   "status": "contested",
+   "notes": "Classification schemes differ between studies. [17] and [18] are the same 2026 study (no association of arc type with skeletal pattern or incisor display). Head pitch alters perceived consonance [22]: measure arcs in a head-aligned frame. Report arc class as a descriptor, never a target."
+  },
+  {
+   "name": "fitting_priors_mouth",
+   "units": "mixed (see units column)",
+   "columns": [
+    "parameter",
+    "mu",
+    "sigma",
+    "units",
+    "condition_on",
+    "status",
+    "source_urls"
+   ],
+   "rows": [
+    [
+     "ch-ch / IPD (rest)",
+     0.85,
+     0.06,
+     "ratio",
+     "sex",
+     "knowledge",
+     []
+    ],
+    [
+     "ch-ch / al-al",
+     1.55,
+     0.15,
+     "ratio",
+     "population",
+     "knowledge",
+     []
+    ],
+    [
+     "sn-sto / sn-me",
+     0.33,
+     0.03,
+     "ratio",
+     "none",
+     "knowledge",
+     []
+    ],
+    [
+     "ls-sto (upper vermilion), mu = 8.0 - 0.05*(age-25)",
+     8.0,
+     1.5,
+     "mm",
+     "age",
+     "sourced",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003"
+     ]
+    ],
+    [
+     "sto-li / ls-sto (clamp 0.8-2.3)",
+     1.3,
+     0.3,
+     "ratio",
+     "population",
+     "contested",
+     [
+      "https://www.ncbi.nlm.nih.gov/sites/books/NBK546691/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC5815114/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10258039/"
+     ]
+    ],
+    [
+     "cph-cph philtrum width",
+     11.5,
+     1.5,
+     "mm",
+     "none",
+     "sourced",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003"
+     ]
+    ],
+    [
+     "Cupid's bow dip depth below peaks (low confidence)",
+     1.5,
+     1.0,
+     "mm",
+     "age",
+     "knowledge",
+     []
+    ],
+    [
+     "commissure depth behind ls_prom",
+     15,
+     4,
+     "mm",
+     "none",
+     "knowledge",
+     []
+    ],
+    [
+     "upper lip to E-line",
+     -4,
+     3,
+     "mm",
+     "population",
+     "knowledge",
+     []
+    ],
+    [
+     "lower lip to E-line",
+     -2,
+     3,
+     "mm",
+     "population",
+     "knowledge",
+     []
+    ],
+    [
+     "upper-incisor display at rest",
+     3,
+     1.5,
+     "mm",
+     "sex, age",
+     "sourced",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/"
+     ]
+    ]
+   ],
+   "population": "Defaults for a generic adult; inflate sigma x1.5 when ancestry or age is unknown",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003",
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK546691/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5815114/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10258039/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/"
+   ],
+   "status": "knowledge",
+   "notes": "Engine defaults proposed by this note: energy w*((x-mu)/sigma)^2 with w small enough that one well-observed landmark dominates. Sigmas are this note's suggestions even where the mean is sourced. No mouth-width = IPD hard constraint."
+  },
+  {
+   "name": "qa_warning_bounds_mouth",
+   "units": "mixed",
+   "columns": [
+    "quantity",
+    "warn_below",
+    "warn_above",
+    "units"
+   ],
+   "rows": [
+    [
+     "ch-ch / IPD",
+     0.7,
+     1.0,
+     "ratio"
+    ],
+    [
+     "sto-li / ls-sto",
+     0.8,
+     2.3,
+     "ratio"
+    ],
+    [
+     "sn-sto / sn-me",
+     0.27,
+     0.4,
+     "ratio"
+    ],
+    [
+     "upper-incisor display at rest",
+     -2,
+     6,
+     "mm"
+    ],
+    [
+     "commissure depth behind ls_prom",
+     6,
+     25,
+     "mm"
+    ]
+   ],
+   "population": "Adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Warnings only, never constraints."
+  },
+  {
+   "name": "lip_landmark_detector_indices",
+   "units": "landmark index",
+   "columns": [
+    "scheme",
+    "role",
+    "indices"
+   ],
+   "rows": [
+    [
+     "iBUG-68 (dlib)",
+     "outer lip contour",
+     [
+      48,
+      59
+     ]
+    ],
+    [
+     "iBUG-68 (dlib)",
+     "mouth corners",
+     [
+      48,
+      54
+     ]
+    ],
+    [
+     "iBUG-68 (dlib)",
+     "near Cupid's bow peaks",
+     [
+      50,
+      52
+     ]
+    ],
+    [
+     "iBUG-68 (dlib)",
+     "upper lip outer midline (bow dip)",
+     [
+      51
+     ]
+    ],
+    [
+     "iBUG-68 (dlib)",
+     "lower lip outer midline",
+     [
+      57
+     ]
+    ],
+    [
+     "iBUG-68 (dlib)",
+     "inner lip contour",
+     [
+      60,
+      67
+     ]
+    ],
+    [
+     "MediaPipe Face Mesh",
+     "mouth corners",
+     [
+      61,
+      291
+     ]
+    ],
+    [
+     "MediaPipe Face Mesh",
+     "outer lip midline upper / lower",
+     [
+      0,
+      17
+     ]
+    ],
+    [
+     "MediaPipe Face Mesh",
+     "inner lip midline upper / lower",
+     [
+      13,
+      14
+     ]
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "From expert knowledge; iBUG ranges given as [first,last] inclusive. Neither scheme marks philtral columns or white roll; both track colour edges (lipstick and lighting bias). Verify against current library docs before hard-coding."
+  }
+ ]
+}

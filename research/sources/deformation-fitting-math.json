@@ -1,0 +1,216 @@
+{
+ "topic": "deformation-fitting-math",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Procrustes Analysis with Deformations: A Closed-Form Solution by Eigenvalue Decomposition",
+   "url": "https://arxiv.org/pdf/2206.14528",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 2,
+   "title": "Springer article s12518-020-00306-7 (weighted similarity transformation, geodesy)",
+   "url": "https://link.springer.com/article/10.1007/s12518-020-00306-7",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 3,
+   "title": "NIST J. Res. 124.028 (Procrustes/similarity transformation)",
+   "url": "https://nvlpubs.nist.gov/nistpubs/jres/124/jres.124.028.pdf",
+   "kind": "official-docs",
+   "year": "2019"
+  },
+  {
+   "n": 4,
+   "title": "NIST Bernal notes on Procrustes/similarity transform",
+   "url": "https://math.nist.gov/~JBernal/kujustf.pdf",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "MPI Virtual Humans 2023, Lecture 03.2: Procrustes",
+   "url": "https://virtualhumans.mpi-inf.mpg.de/VH23/slides/pdf/Lecture_03_2_Procrustes.pdf",
+   "kind": "lecture slides",
+   "year": "2023"
+  },
+  {
+   "n": 6,
+   "title": "Bookstein, Principal Warps: Thin-Plate Splines and the Decomposition of Deformations",
+   "url": "https://members.cbio.mines-paristech.fr/~jvert/svn/bibli/local/Bookstein1989Principal.pdf",
+   "kind": "paper",
+   "year": "1989"
+  },
+  {
+   "n": 7,
+   "title": "BrainMorph: A Foundational Keypoint Model for Robust and Flexible Brain MRI Registration",
+   "url": "https://arxiv.org/pdf/2405.14019",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 8,
+   "title": "CABLD: Contrast-Agnostic Brain Landmark Detection with Consistency-Based Regularization",
+   "url": "https://arxiv.org/pdf/2411.17845",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 9,
+   "title": "Sorkine & Alexa, As-Rigid-As-Possible Surface Modeling (SGP 2007)",
+   "url": "https://diglib.eg.org/handle/10.2312/SGP.SGP07.109-116",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "n": 10,
+   "title": "Sorkine & Alexa, As-Rigid-As-Possible Surface Modeling, Eurographics Digital Library full record",
+   "url": "https://diglib.eg.org/items/e0b21a71-350e-41e7-a586-3bfa526ed21c/full",
+   "kind": "paper record",
+   "year": "2007"
+  },
+  {
+   "n": 11,
+   "title": "Jacobson et al. 2012 (jacobson12fast; exact title not confirmed in harvest)",
+   "url": "https://users.cs.utah.edu/~ladislav/jacobson12fast/jacobson12fast.pdf",
+   "kind": "paper",
+   "year": "2012"
+  },
+  {
+   "n": 12,
+   "title": "Implementing As-Rigid-As-Possible Shape Manipulation and Surface Flattening (JGT)",
+   "url": "https://www-ui.is.s.u-tokyo.ac.jp/~takeo/papers/takeo_jgt09_arapFlattening.pdf",
+   "kind": "paper",
+   "year": "2009"
+  },
+  {
+   "n": 13,
+   "title": "arXiv 2501.10335 (higher-order/smooth ARAP variant, per search summary)",
+   "url": "https://arxiv.org/html/2501.10335v1",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 14,
+   "title": "Amberg, Romdhani, Vetter, Optimal Step Nonrigid ICP Algorithms for Surface Registration (CVPR)",
+   "url": "https://shapemodelling.cs.unibas.ch/gravis-literature/publications/2007/CVPR07_Amberg.pdf",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "n": 15,
+   "title": "Statistical non-rigid ICP (ibug)",
+   "url": "https://ibug.doc.ic.ac.uk/media/uploads/documents/statistical_non_rigid_icp.pdf",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Densely tracking sequences of 3D face scans",
+   "url": "https://arxiv.org/pdf/1709.04295",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 17,
+   "title": "arXiv 2003.08583 (face capture with decreasing stiffness and landmark weights; title not in harvest)",
+   "url": "https://arxiv.org/pdf/2003.08583",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 18,
+   "title": "Botsch & Sorkine, survey of linear variational mesh deformation",
+   "url": "https://cg.cs.tu-dortmund.de/publications/2008-survey.pdf",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "n": 19,
+   "title": "libigl Python bindings tutorial, chapter 3 (biharmonic deformation)",
+   "url": "https://libigl.github.io/libigl-python-bindings/tut-chapter3",
+   "kind": "docs",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "Jacobson, Baran, Popovic, Sorkine, Bounded Biharmonic Weights for Real-Time Deformation",
+   "url": "https://homes.cs.washington.edu/~jovan/papers/jacobson-2011-bbw.pdf",
+   "kind": "paper",
+   "year": "2011"
+  },
+  {
+   "n": 21,
+   "title": "Sorkine, Laplacian Mesh Processing (state-of-the-art report)",
+   "url": "https://www.cs.princeton.edu/courses/archive/fall10/cos526/papers/sorkine05.pdf",
+   "kind": "paper",
+   "year": "2005"
+  },
+  {
+   "n": 22,
+   "title": "A Revisit of Shape Editing Techniques: from the Geometric to the Neural Viewpoint",
+   "url": "https://arxiv.org/pdf/2103.01694",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "n": 23,
+   "title": "USPTO patent 9330206 (U(r) = r kernel in a 3D TPS-style model)",
+   "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9330206",
+   "kind": "patent",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "Polyharmonic spline",
+   "url": "https://Www.Wikipedia.org/wiki/Polyharmonic_spline",
+   "kind": "reference",
+   "year": "n.d."
+  },
+  {
+   "n": 25,
+   "title": "Madsen, Nielsen & Tingleff, Methods for Non-Linear Least Squares Problems, 2nd ed.",
+   "url": "https://www2.imm.dtu.dk/pubdb/pubs/3215-full.html",
+   "kind": "official docs",
+   "year": "2004"
+  },
+  {
+   "n": 26,
+   "title": "GSL multifit_nlinear nielsen.c",
+   "url": "https://git.stg.centos.org/source-git/gsl/blob/2d5f50cfd2a1fdeaae06be7e1dbdbf009ee5897e/f/multifit_nlinear/nielsen.c",
+   "kind": "source code",
+   "year": "n.d."
+  },
+  {
+   "n": 27,
+   "title": "robustbase psi functions vignette",
+   "url": "https://mirror.linux.duke.edu/pub/cran/web/packages/robustbase/vignettes/psi_functions.pdf",
+   "kind": "docs",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Umeyama, Least-squares estimation of transformation parameters between two point patterns, IEEE TPAMI 1991",
+  "Horn, Closed-form solution of absolute orientation using unit quaternions, JOSA A 1987",
+  "Gower, Generalized Procrustes analysis, Psychometrika 1975",
+  "Dryden & Mardia, Statistical Shape Analysis",
+  "Duchon 1977, splines minimizing rotation-invariant semi-norms in Sobolev spaces",
+  "Wahba, Spline Models for Observational Data, SIAM 1990",
+  "Carr et al., Reconstruction and representation of 3D objects with radial basis functions, SIGGRAPH 2001",
+  "Sorkine et al., Laplacian Surface Editing, SGP 2004",
+  "Botsch, Kobbelt, Pauly, Alliez, Levy, Polygon Mesh Processing, 2010",
+  "Sharp & Crane, A Laplacian for Nonmanifold Triangle Meshes, 2020",
+  "Finnendahl, Schwartz & Alexa, ARAP Revisited",
+  "Blanz & Vetter, A morphable model for the synthesis of 3D faces, SIGGRAPH 1999",
+  "Li, Bolkart, Black, Li & Romero, Learning a model of facial shape and expression from 4D scans (FLAME), 2017",
+  "Zhu, Lei, Yan, Yi & Li, High-fidelity pose and expression normalization for face recognition in the wild, CVPR 2015 (landmark marching)",
+  "Madsen, Nielsen & Tingleff, Methods for Non-Linear Least Squares Problems, DTU 2004",
+  "Triggs, McLauchlan, Hartley & Fitzgibbon, Bundle adjustment - a modern synthesis, 2000",
+  "Huber, Robust Statistics",
+  "Barron, A General and Adaptive Robust Loss Function, CVPR 2019",
+  "Yang, Antonante, Tzoumas & Carlone, Graduated Non-Convexity for Robust Spatial Perception, 2020",
+  "de Goes & James, Regularized Kelvinlets, 2017"
+ ]
+}

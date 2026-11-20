@@ -1,0 +1,154 @@
+{
+ "topic": "scan-cleanup-wrapping",
+ "tables": [
+  {
+   "name": "mesh_budgets_and_edge_length",
+   "units": "faces; mean edge length in mm (edge = sqrt(area / faces)); texel spacing in mm",
+   "columns": ["stage", "faces_min", "faces_max", "mean_edge_mm_min", "mean_edge_mm_max", "role"],
+   "rows": [
+    ["raw photogrammetry mesh (tris)", 1000000, 20000000, 0.1, 0.4, "bake source, never edited"],
+    ["fitting target (tris)", 50000, 200000, 1.0, 2.0, "wrap target"],
+    ["base level 0 (quads)", 10000, 10000, 3.5, 3.5, "likeness shape key"],
+    ["multires L2 (quads)", 160000, 160000, 0.87, 0.87, "primary/secondary forms"],
+    ["multires L3 (quads)", 640000, 640000, 0.43, 0.43, "likeness complete"],
+    ["multires L4 (quads)", 2560000, 2560000, 0.22, 0.22, "pores, or use maps"],
+    ["multires L5 (quads)", 10240000, 10240000, 0.11, 0.11, "pores"]
+   ],
+   "population": "adult head plus short neck, surface area assumed 0.12 m^2",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Arithmetic from an assumed area; stage sizes are community practice, not measurements."
+  },
+  {
+   "name": "texel_spacing_by_map_size",
+   "units": "mm per texel",
+   "columns": ["map", "texels", "uv_packing", "mm_per_texel"],
+   "rows": [
+    ["2K", 4194304, 0.7, 0.20],
+    ["4K", 16777216, 0.7, 0.10],
+    ["8K or 4x4K UDIM", 67108864, 0.7, 0.05]
+   ],
+   "population": "adult head plus short neck, 0.12 m^2",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Arithmetic; compare photogrammetry GSD 0.05-0.1 mm/px (see photogrammetry-heads)."
+  },
+  {
+   "name": "wrap_schedule_defaults",
+   "units": "radius in mm; stiffness alpha relative to data term; distances in mm; angles in degrees",
+   "columns": ["stage", "regulariser_radius_mm", "stiffness_alpha", "landmark_weight_beta", "max_correspondence_mm", "normal_gate_deg", "iterations"],
+   "rows": [
+    ["rigid_umeyama", null, null, null, null, null, "closed form"],
+    ["tps_warp", null, "lambda so landmark residual ~ sigma_lm", null, null, null, "closed form"],
+    ["nicp_1", "15-20", 100, 1.0, 10, 60, "5-10"],
+    ["nicp_2", "8-10", "20-50", 0.5, 8, 60, "5"],
+    ["nicp_3", "4-5", "5-10", 0.2, 5, 45, "5"],
+    ["nicp_4", "per vertex", "1-2", 0.05, 3, 45, "3-5"],
+    ["snap_relax", "tangential only", null, 0.0, "ray 1-2", 45, "1-3"]
+   ],
+   "population": "design defaults for template-to-scan wrapping of adult faces",
+   "source_urls": ["https://shapemodelling.cs.unibas.ch/gravis-literature/publications/2007/CVPR07_Amberg.pdf", "https://arxiv.org/pdf/2003.08583"],
+   "status": "knowledge",
+   "notes": "Annealing principle is sourced (decreasing stiffness and landmark weight); the numeric values are engineering choices consistent with import-export-scans and metahuman-cc-bridges notes. Reject correspondences beyond max(3*MAD, stage cap) or inside a 2-3 mm scan-boundary band."
+  },
+  {
+   "name": "region_weights",
+   "units": "dimensionless data weight; sigma in mm",
+   "columns": ["region", "data_weight", "landmark_or_contour_sigma_mm", "notes"],
+   "rows": [
+    ["forehead, cheeks, nasal dorsum, chin", 1.0, null, "primary evidence"],
+    ["lid margins", 0.5, "0.5-1", "lashes corrupt scan; constrain to eyeball sphere + 0-0.5 mm"],
+    ["eyeballs, mouth interior, nostril interiors", 0.0, null, "rebuilt; eye sphere radius ~12 mm"],
+    ["vermilion", 1.0, "1", "cut stomion; no lip interpenetration"],
+    ["ears", "0.3-0.5", "2-3", "ear backs weight 0"],
+    ["scalp under hair", 0.1, null, "one-sided; inward prior 5-15 mm, 1-3 mm if capped"],
+    ["beard", "0.2-0.5", null, "one-sided"],
+    ["scan boundary band 2-3 mm", 0.0, null, "rim artefacts"]
+   ],
+   "population": "adult face scans (photogrammetry or structured light)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Design defaults."
+  },
+  {
+   "name": "landmark_and_data_sigmas",
+   "units": "mm",
+   "columns": ["term", "sigma_mm_min", "sigma_mm_max", "notes"],
+   "rows": [
+    ["point landmark (canthi, cheilion, subnasale, pronasale)", 1.0, 1.0, "hand-placed on scan"],
+    ["sliding contour (lid margin, vermilion, brow)", 1.5, 2.0, "point-to-curve"],
+    ["ear landmarks", 2.0, 3.0, ""],
+    ["detector landmarks on renders", 2.0, 3.0, ""],
+    ["data term, multi-camera rig", 0.3, 0.5, "Huber at 1.5 sigma"],
+    ["data term, single camera, central face", 0.5, 1.0, ""],
+    ["data term, ears/hairline/under chin", 2.0, 3.0, ""],
+    ["symmetry prior (scan fitting)", 3.0, 5.0, "only fills unseen regions"],
+    ["lid-globe gap", 0.3, 0.3, "target gap 0-0.5 mm"]
+   ],
+   "population": "adult faces",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering priors; verify against residual statistics on real scans."
+  },
+  {
+   "name": "acceptance_checks",
+   "units": "mm unless stated",
+   "columns": ["check", "threshold", "status", "source_urls"],
+   "rows": [
+    ["face distance to scan median", "<0.3", "knowledge", []],
+    ["face distance RMS", "<0.5", "knowledge", []],
+    ["face distance p95", "<1.5", "knowledge", []],
+    ["automatic template registration landmark error (reference)", "53.1% <2 mm; 84.4% <4 mm", "sourced", ["https://pmc.ncbi.nlm.nih.gov/articles/PMC10047049/"]],
+    ["face area ratio vs template", "0.2-5, no flipped faces", "knowledge", []],
+    ["minimum angle (deg)", ">10-15", "knowledge", []],
+    ["stereophotogrammetry vs calipers", "~0.21 mm mean difference; most <2 mm", "verified", ["https://pubmed.ncbi.nlm.nih.gov/26267357", "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/"]],
+    ["mobile-device scanner landmark error", "~1 mm", "sourced", ["https://pmc.ncbi.nlm.nih.gov/articles/PMC13117559/"]],
+    ["natural facial asymmetry RMS (keep)", "0.80 +/- 0.24", "sourced", ["https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/"]],
+    ["displacement median |d| in face flagging wrap failure", ">0.3", "knowledge", []]
+   ],
+   "population": "adult face scans; registration study and asymmetry study populations as in sources",
+   "source_urls": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC10047049/", "https://pubmed.ncbi.nlm.nih.gov/26267357", "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/", "https://pmc.ncbi.nlm.nih.gov/articles/PMC13117559/", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/"],
+   "status": "contested",
+   "notes": "Mixed table: per-row status given. The 0.21 mm figure came from a search snippet; the asymmetry attribution was inferred from excerpts."
+  },
+  {
+   "name": "blender_wrap_and_bake_settings",
+   "units": "1 BU = 1 m; values in mm or px as stated",
+   "columns": ["setting", "value"],
+   "rows": [
+    ["Shrinkwrap final snap", "Project, no axis (normals), Negative+Positive, Limit 2-5 mm (1-2 mm for Multires Reshape copies), masked"],
+    ["Corrective Smooth between snaps", "Length Weight, factor 0.5, 5-20 repeats, Pin Boundaries"],
+    ["Surface Deform", "bind only after shapes match; falloff 4 (default); target vertex count frozen"],
+    ["Data Transfer UV/colour", "Face Corner Data, Nearest Face Interpolated, Max Distance 2-5 mm"],
+    ["Bake extrusion", "1-3 mm"],
+    ["Bake max ray distance", "5-10 mm"],
+    ["Bake margin", "16 px at 4K, 32 px at 8K"],
+    ["Normal map", "Tangent, Non-Color, OpenGL +Y; flip green for Unreal"],
+    ["Displacement", "32-bit float EXR, mid-level 0, scene units"],
+    ["Image save", "Save as Render off for baked albedo"],
+    ["Denoise radius", "<=1 mm, cheeks/forehead/neck only"],
+    ["Eye sphere radius", "~12 mm"]
+   ],
+   "population": "Blender 4.x-5.x",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Version-sensitive; verify Bake from Multires, Reshape and Shrinkwrap options in 5.x manual."
+  },
+  {
+   "name": "photo_projection_texture_weights",
+   "units": "dimensionless exponent; degrees; px",
+   "columns": ["parameter", "value"],
+   "rows": [
+    ["view weight", "cos(theta)^k, k = 2-4"],
+    ["grazing cutoff (deg)", "70-75"],
+    ["visibility", "depth test against fitted mesh"],
+    ["exposure", "per-camera gain solved on overlaps"],
+    ["hole fill", "push-pull, then dilate 16 px at 4K"]
+   ],
+   "population": "multi-view photo texturing of a fitted head",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Design defaults."
+  }
+ ]
+}

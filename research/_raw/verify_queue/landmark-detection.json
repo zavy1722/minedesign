@@ -1,0 +1,27 @@
+{
+ "id": "landmark-detection",
+ "area": "reconstruction",
+ "title": "Facial landmark detectors",
+ "queue": [
+  {
+   "claim": "MediaPipe Face Landmarker weights (face_landmarker.task) are released under Apache-2.0 per the model card, making it the only permissively licensed code+weights detector; Python wheels support the CPython versions Blender/out-of-process runners need",
+   "query": "MediaPipe Face Landmarker model card license face_landmarker.task Apache 2.0",
+   "domains": "ai.google.dev,github.com,storage.googleapis.com"
+  },
+  {
+   "claim": "dlib's shape_predictor_68_face_landmarks.dat is trained on iBUG 300-W and is not licensed for commercial use (code is Boost; 5-point model freely licensed)",
+   "query": "dlib shape_predictor_68_face_landmarks.dat license commercial use iBUG 300-W",
+   "domains": "dlib.net,github.com"
+  },
+  {
+   "claim": "MediaPipe z is relative (head-centre origin, ~x scale, not metric) and the facial transformation matrix fits a canonical face model in cm under an assumed perspective camera (legacy vertical FOV ~63 deg), so its translation/scale are not subject- or lens-specific",
+   "query": "MediaPipe face geometry facial transformation matrix canonical face model vertical_fov_degrees 63",
+   "domains": "github.com,ai.google.dev"
+  },
+  {
+   "claim": "WFLW full NME (% outer IOD): HRNetV2-W18 ~4.60, SPIGA ~4.06, STAR ~4.02, ADNet ~4.14; 300-W full: HRNet ~3.32, STAR ~2.87; best 2023-25 ~3.9-4.0 on WFLW",
+   "query": "WFLW NME comparison table HRNet 4.60 SPIGA 4.06 STAR 4.02 ADNet 4.14",
+   "domains": "arxiv.org,openaccess.thecvf.com"
+  }
+ ]
+}

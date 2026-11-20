@@ -1,0 +1,27 @@
+{
+ "id": "ear",
+ "area": "anatomy",
+ "title": "External ear",
+ "queue": [
+  {
+   "claim": "Ear long axis leans back about 10-30 degrees from vertical (typical ~20) with the head in Frankfort horizontal, and in Farkas's canon tests it was parallel to the nasal dorsum in only a minority, the ear usually being more upright. This drives the tilt prior N(20, 7).",
+   "query": "auricle inclination angle long axis degrees Farkas ear axis nasal bridge parallel neoclassical canon",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Vertical position: tragion is at about soft-tissue orbitale level (Frankfort horizontal); top of ear about level with the brow and bottom level with subnasale or up to ~10 mm below; ears are ~5-12 mm longer than nose height (n-sn), so the nasoaural canon mostly fails.",
+   "query": "Farkas neoclassical canons nasoaural proportion ear length nose length percentage valid young adult North American Caucasians",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Adult ear length keeps increasing about 0.2 mm per year after maturity (Heathcote, BMJ 1995, 'Why do old men have big ears?'), so ears are several mm to about 1 cm longer at 70 than at 25.",
+   "query": "Heathcote why do old men have big ears BMJ 1995 ear length increase per year",
+   "domains": ""
+  },
+  {
+   "claim": "McDowell otoplasty goals: helix-to-mastoid distance 10-12 mm upper third, 16-18 mm middle, 20-22 mm lower third, with left and right within 3 mm; normal auriculocephalic angle 20-30 degrees (vs <25 degrees with 20 mm or less projection); conchoscaphal angle about 90 degrees.",
+   "query": "McDowell goals in otoplasty helix mastoid distance 10-12 mm 16-18 mm 20-22 mm auriculocephalic angle normal conchoscaphal angle",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

@@ -1,0 +1,199 @@
+{
+ "topic": "camera-pose-solving",
+ "sources": [
+  {
+   "n": 1,
+   "title": "OpenCV calib3d solvePnP (4.x docs)",
+   "url": "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 2,
+   "title": "PyPose EPnP module docs",
+   "url": "https://pypose.readthedocs.io/stable/generated/pypose.module.EPnP.html",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Bengal-HP_RU: A Dataset of Bengal People For Head Pose Estimation",
+   "url": "https://arxiv.org/pdf/2606.24122",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 4,
+   "title": "Perspective Reconstruction of Human Faces by Joint Mesh and Landmark Regression",
+   "url": "https://arxiv.org/pdf/2208.07142",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 5,
+   "title": "Digital Trends: lens geometry for portraits",
+   "url": "https://www.digitaltrends.com/photography/lens-geometry-portraits/",
+   "kind": "blog",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "PhotographyLife: does focal length distort subjects",
+   "url": "https://photographylife.com/does-focal-length-distort-subjects",
+   "kind": "blog",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Valente et al., Perspective Distortion Modeling (CVPR Workshops 2015)",
+   "url": "https://openaccess.thecvf.com/content_cvpr_workshops_2015/W02/papers/Valente_Perspective_Distortion_Modeling_2015_CVPR_paper.pdf",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 8,
+   "title": "Learning Perspective Undistortion of Portraits",
+   "url": "https://arxiv.org/abs/1905.07515",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "n": 9,
+   "title": "PMC article on focal length and portrait perception (content not read)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/3440305",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "perarnia/blam README (no longer maintained, points to fSpy)",
+   "url": "https://github.com/perarnia/blam",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "BLAM user's guide wiki",
+   "url": "https://github.com/stuffmatic/blam/wiki/User's-guide",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 12,
+   "title": "cvlab-epfl multiview_calib",
+   "url": "https://github.com/cvlab-epfl/multiview_calib",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "Marginalized Bundle Adjustment: Multi-View Camera Pose from Monocular Depth Estimates",
+   "url": "https://arxiv.org/html/2602.18906v1",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 14,
+   "title": "Autocamera Calibration for traffic surveillance cameras with wide angle lenses",
+   "url": "https://arxiv.org/pdf/2001.07243",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 15,
+   "title": "Pose and Focal Length Estimation Using Two Vanishing Points with Known Camera Position",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10098530/",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 16,
+   "title": "Review of Statistical Shape Spaces for 3D Data with Comparative Analysis for Human Faces",
+   "url": "https://arxiv.org/html/1209.6491.pdf",
+   "kind": "paper",
+   "year": "2012"
+  },
+  {
+   "n": 17,
+   "title": "Face Frontalization Based on Robustly Fitting a Deformable Shape Model to 3D Landmarks",
+   "url": "https://arxiv.org/pdf/2010.13676",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 18,
+   "title": "What does 2D geometric information really tell us about 3D face shape?",
+   "url": "https://arxiv.org/html/1708.06703.pdf",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 19,
+   "title": "Pose-Invariant 3D Face Alignment",
+   "url": "https://arxiv.org/pdf/1506.03799",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 20,
+   "title": "Facial Movement Dynamics Reveal Workload During Complex Multitasking",
+   "url": "https://arxiv.org/pdf/2603.17767",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 21,
+   "title": "US patent 12205323 (bundle-adjustment convergence note, snippet only)",
+   "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12205323",
+   "kind": "patent",
+   "year": "n.d."
+  },
+  {
+   "n": 22,
+   "title": "MediaPipe Iris: Real-time Iris Tracking & Depth Estimation",
+   "url": "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/",
+   "kind": "official-blog",
+   "year": "2020"
+  },
+  {
+   "n": 23,
+   "title": "LUVLi Face Alignment: Estimating Landmarks' Location, Uncertainty, and Visibility Likelihood",
+   "url": "https://arxiv.org/pdf/2004.02980",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 24,
+   "title": "HIH: Towards More Accurate Face Alignment via Heatmap in Heatmap",
+   "url": "https://arxiv.org/pdf/2104.03100",
+   "kind": "paper",
+   "year": "2021"
+  }
+ ],
+ "references_by_name": [
+  "Lepetit, Moreno-Noguer & Fua, EPnP: An Accurate O(n) Solution to the PnP Problem, IJCV 2009",
+  "Gao et al., Complete solution classification for the perspective-three-point problem, TPAMI 2003",
+  "Terzakis & Lourakis, SQPnP (A consistently fast and globally optimal solution to the PnP problem), ECCV 2020",
+  "Collins & Bartoli, Infinitesimal Plane-Based Pose Estimation (IPPE), IJCV 2014",
+  "Bujnak, Kukelova & Pajdla, A general solution to the P4P problem for camera with unknown focal length, CVPR 2008",
+  "Wu, P3.5P: Pose estimation with unknown focal length, CVPR 2015",
+  "Kneip, Li & Seo, UPnP: An optimal O(n) solution to the absolute pose problem with universal applicability, ECCV 2014",
+  "Penate-Sanchez, Andrade-Cetto & Moreno-Noguer, Exhaustive linearization for robust camera pose and focal length estimation, TPAMI 2013",
+  "DeMenthon & Davis, Model-based object pose in 25 lines of code (POSIT), IJCV 1995",
+  "Umeyama, Least-squares estimation of transformation parameters between two point patterns, TPAMI 1991",
+  "Horn, Closed-form solution of absolute orientation using unit quaternions, JOSA A 1987",
+  "Gower, Generalized Procrustes Analysis, Psychometrika 1975",
+  "Triggs, McLauchlan, Hartley & Fitzgibbon, Bundle Adjustment - A Modern Synthesis, 2000",
+  "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+  "Zhang, A flexible new technique for camera calibration, TPAMI 2000",
+  "Caprile & Torre, Using vanishing points for camera calibration, IJCV 1990",
+  "Schonberger & Frahm, Structure-from-Motion Revisited (COLMAP), CVPR 2016",
+  "Belhumeur, Kriegman & Yuille, The bas-relief ambiguity, IJCV 1999",
+  "Dodgson, Variation and extrema of human interpupillary distance, 2004",
+  "Ward et al., Nasal distortion in short-distance photographs: the selfie effect, JAMA Facial Plastic Surgery 2018",
+  "Fried, Shechtman, Goldman & Finkelstein, Perspective-aware manipulation of portrait photos, SIGGRAPH 2016",
+  "Bryan, Perona & Adolphs, Perspective distortion from interpersonal distance is an implicit visual cue for social judgments of faces, PLoS ONE 2012",
+  "Trebicky et al., Focal length affects depicted shape and perception of facial images, PLoS ONE 2016",
+  "Google MediaPipe Iris announcement (real-time iris tracking and depth estimation), 2020"
+ ]
+}

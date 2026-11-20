@@ -1,0 +1,31 @@
+{
+  "topic": "benchmarks-metrics",
+  "sources": [],
+  "references_by_name": [
+    "Sanyal, Bolkart, Feng & Black, \"Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision\" (RingNet, NoW benchmark), CVPR 2019",
+    "Chai et al., \"REALY: Rethinking the Evaluation of 3D Face Reconstruction\", ECCV 2022",
+    "Feng, Huber, Kittler, Hancock et al., \"Evaluation of Dense 3D Reconstruction from 2D Face Images in the Wild\", FG 2018 (Stirling/ESRC challenge)",
+    "Yang et al., \"FaceScape: a Large-scale High Quality 3D Face Dataset and Detailed Riggable 3D Face Prediction\", CVPR 2020",
+    "Zhu et al., FaceScape benchmark extension for single-view 3D face reconstruction, IEEE TPAMI",
+    "Bagdanov, Del Bimbo & Masi, \"The Florence 2D/3D Hybrid Face Dataset\", 2011",
+    "Zielonka, Bolkart & Thies, \"Towards Metrical Reconstruction of Human Faces\" (MICA), ECCV 2022",
+    "Feng, Feng, Black & Bolkart, DECA, SIGGRAPH 2021",
+    "Zhu et al., \"Face Alignment Across Large Poses: A 3D Solution\" (3DDFA, AFLW2000-3D), CVPR 2016",
+    "Jackson et al., VRN (volumetric regression network), ICCV 2017",
+    "Feng et al., PRNet (position map regression network), ECCV 2018",
+    "Tran et al., \"Regressing Robust and Discriminative 3D Morphable Models with a Very Deep Neural Network\", CVPR 2017",
+    "Genova et al., \"Unsupervised Training for 3D Morphable Model Regression\", CVPR 2018",
+    "Dai, Pears, Smith & Duncan, \"A 3D Morphable Model of Craniofacial Shape and Texture Variation\" (LYHM/Headspace), ICCV 2017",
+    "Lei et al., HRN (hierarchical representation network), CVPR 2023",
+    "Martyniuk et al., DAD-3DHeads, CVPR 2022",
+    "Giebenhain et al., Pixel3DMM, 2025",
+    "Kirschstein et al., NeRSemble, ACM TOG 2023",
+    "Tatarchenko et al., \"What Do Single-view 3D Reconstruction Networks Learn?\", CVPR 2019",
+    "Besl & McKay, \"A Method for Registration of 3-D Shapes\" (ICP), IEEE TPAMI 1992",
+    "Chetverikov et al., trimmed ICP, 2002",
+    "Umeyama, least-squares estimation of transformation parameters between two point patterns, IEEE TPAMI 1991",
+    "Ericson, Real-Time Collision Detection, 2004",
+    "Bærentzen & Aanæs, \"Signed Distance Computation Using the Angle Weighted Pseudonormal\", IEEE TVCG 2005",
+    "Haig, \"The effect of feature displacement on face recognition\", Perception 1984"
+  ]
+}

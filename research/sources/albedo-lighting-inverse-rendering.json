@@ -1,0 +1,33 @@
+{
+  "topic": "albedo-lighting-inverse-rendering",
+  "sources": [],
+  "references_by_name": [
+    "Ramamoorthi & Hanrahan, 'An Efficient Representation for Irradiance Environment Maps', SIGGRAPH 2001",
+    "Ramamoorthi & Hanrahan, 'A Signal-Processing Framework for Inverse Rendering', SIGGRAPH 2001",
+    "Basri & Jacobs, 'Lambertian Reflectance and Linear Subspaces', IEEE TPAMI 2003",
+    "Belhumeur, Kriegman & Yuille, 'The Bas-Relief Ambiguity', IJCV 1999",
+    "Sloan, Kautz & Snyder, 'Precomputed Radiance Transfer for Real-Time Rendering in Dynamic, Low-Frequency Lighting Environments', SIGGRAPH 2002",
+    "Sloan, 'Stupid Spherical Harmonics (SH) Tricks', GDC 2008",
+    "Paysan et al., 'A 3D Face Model for Pose and Illumination Invariant Face Recognition', AVSS 2009 (BFM 2009)",
+    "Gerig et al., 'Morphable Face Models - An Open Framework', FG 2018 (BFM 2017)",
+    "Li, Bolkart, Black, Li & Romero, 'Learning a Model of Facial Shape and Expression from 4D Scans', SIGGRAPH Asia 2017 (FLAME)",
+    "Egger et al., 'Occlusion-aware 3D Morphable Models and an Illumination Prior for Face Image Analysis', IJCV 2018",
+    "Deng et al., 'Accurate 3D Face Reconstruction with Weakly-Supervised Learning: From Single Image to Image Set', CVPR Workshops 2019",
+    "Feng, Feng, Black & Bolkart, 'Learning an Animatable Detailed 3D Face Model from In-the-Wild Images' (DECA), SIGGRAPH 2021",
+    "Smith et al., 'A Morphable Face Albedo Model', CVPR 2020 (AlbedoMM)",
+    "Stratou, Ghosh, Debevec & Morency, 3D Relightable Facial Expression database (3DRFE), FG 2011 (title not confirmed)",
+    "Feng, Bolkart, Tesch, Black & Abrevaya, 'Towards Racially Unbiased Skin Tone Estimation via Scene Disambiguation' (TRUST), ECCV 2022",
+    "Dib et al., 'Practical Face Reconstruction via Differentiable Ray Tracing' (NextFace), Eurographics 2021",
+    "Lattas et al., AvatarMe++ (TPAMI 2021) and FitMe (CVPR 2023)",
+    "Bai et al., 'FFHQ-UV: Normalized Facial UV-Texture Dataset for 3D Face Reconstruction', CVPR 2023",
+    "Tsumura et al., 'Image-Based Skin Color and Texture Analysis/Synthesis by Extracting Hemoglobin and Melanin Information in the Skin', SIGGRAPH 2003",
+    "Alotaibi & Smith, BioFaceNet (biophysical face image interpretation), venue not confirmed",
+    "Ma et al., 'Rapid Acquisition of Specular and Diffuse Normal Maps from Polarized Spherical Gradient Illumination', EGSR 2007",
+    "Pandey et al., 'Total Relighting: Learning to Relight Portraits for Background Replacement', SIGGRAPH 2021",
+    "Kim et al., 'SwitchLight', CVPR 2024",
+    "Zeng et al., 'RGB<->X: Image Decomposition and Synthesis Using Material- and Lighting-aware Diffusion Models', SIGGRAPH 2024",
+    "Chardon, Cretois & Hourseau, 'Skin Colour Typology and Suntanning Pathways', Int J Cosmet Sci 1991 (ITA)",
+    "Del Bino et al., Pigment Cell Research 2006 (ITA groups brown/dark; title not confirmed)",
+    "Monk Skin Tone scale (Ellis Monk; released with Google, 2022)"
+  ]
+}

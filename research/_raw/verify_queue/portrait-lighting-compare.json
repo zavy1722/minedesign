@@ -1,0 +1,27 @@
+{
+ "id": "portrait-lighting-compare",
+ "area": "blender",
+ "title": "Matching photo lighting and verifying likeness renders",
+ "queue": [
+  {
+   "claim": "Blender lens shift is normalised by the sensor-fit dimension (image width for Sensor Fit = Horizontal, height for Vertical, larger side for Auto), so the engine's to_blender_camera (divides by max(W,H) while forcing Horizontal fit) misplaces the principal point on portrait-orientation photos by a factor of H/W",
+   "query": "Blender camera shift_x shift_y units sensor_fit horizontal vertical viewfac BKE_camera_params_compute_viewplane",
+   "domains": "projects.blender.org,docs.blender.org,github.com"
+  },
+  {
+   "claim": "In Blender 5.0 the compositor moved to node-group data-blocks (Python scene.compositing_node_group instead of scene.node_tree) and the Composite node was replaced by Group Output; Split Viewer was renamed Split in 4.x",
+   "query": "Blender 5.0 release notes compositor compositing_node_group Composite node removed Group Output Python API",
+   "domains": "developer.blender.org,docs.blender.org,projects.blender.org"
+  },
+  {
+   "claim": "Horizontal visible iris diameter is roughly constant at 11.7 \u00b1 0.5 mm across adults (MediaPipe Iris documentation), usable as a metric scale prior",
+   "query": "MediaPipe Iris horizontal iris diameter 11.7 mm metric depth estimation",
+   "domains": "google.github.io,research.google"
+  },
+  {
+   "claim": "Selfie effect: at about 12 inches (30 cm) the nasal base appears about 30% wider relative to the face than at about 5 feet (1.5 m) (Ward et al. 2018, JAMA Facial Plastic Surgery)",
+   "query": "Ward 2018 Nasal Distortion in Short-Distance Photographs Selfie Effect 12 inches 5 feet percent nasal width",
+   "domains": "jamanetwork.com,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

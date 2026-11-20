@@ -1,0 +1,694 @@
+{
+ "topic": "muscles-mastication-jaw",
+ "tables": [
+  {
+   "name": "masseter_thickness_ultrasound_review_range",
+   "units": "mm (per side)",
+   "columns": [
+    "sex",
+    "state",
+    "min_mm",
+    "max_mm",
+    "kind"
+   ],
+   "rows": [
+    [
+     "M",
+     "relaxed",
+     10,
+     15,
+     "typical range"
+    ],
+    [
+     "M",
+     "contracted",
+     14,
+     19,
+     "typical range"
+    ],
+    [
+     "mixed",
+     "mixed",
+     12.0,
+     17.2,
+     "range of study means"
+    ]
+   ],
+   "population": "Systematic review of ultrasound studies (mixed populations); primary studies [2][3] fall inside the range",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5606285/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6148042/",
+    "https://pubmed.ncbi.nlm.nih.gov/23649053/"
+   ],
+   "status": "verified",
+   "notes": "Probe, site, sex and population shift values; review gives no universal reference range. Not re-read in full text."
+  },
+  {
+   "name": "masseter_thickness_korean_young_adults",
+   "units": "mm (per side)",
+   "columns": [
+    "sex",
+    "relaxed_mean",
+    "relaxed_sd",
+    "clenched_mean",
+    "clenched_sd",
+    "clench_delta_mm_derived",
+    "clench_gain_derived"
+   ],
+   "rows": [
+    [
+     "F",
+     9.8,
+     1.3,
+     12.4,
+     1.4,
+     2.6,
+     0.27
+    ],
+    [
+     "M",
+     11.3,
+     1.2,
+     14.7,
+     1.4,
+     3.4,
+     0.3
+    ]
+   ],
+   "population": "Young Korean adults (ultrasound)",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6148042/"
+   ],
+   "status": "sourced",
+   "notes": "Deltas and gains derived here. Bilateral soft-tissue width change upper bound = 2x delta (assumes fully lateral thickening)."
+  },
+  {
+   "name": "masseter_thickness_by_vertical_pattern",
+   "units": "mm (per side, relaxed)",
+   "columns": [
+    "pattern",
+    "mean",
+    "sd",
+    "delta_vs_normo_derived"
+   ],
+   "rows": [
+    [
+     "hypodivergent",
+     13.94,
+     1.51,
+     1.41
+    ],
+    [
+     "normodivergent",
+     12.53,
+     1.21,
+     0.0
+    ],
+    [
+     "hyperdivergent",
+     11.13,
+     1.18,
+     -1.4
+    ]
+   ],
+   "population": "Ultrasound, dentofacial-pattern groups (sex mix not extracted)",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/23649053/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9717398",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11381490"
+   ],
+   "status": "sourced",
+   "notes": "Numbers single-source [3]; direction confirmed by [4][5] and Raadsheer (cited in [8]). Suggested coupling about -0.14 mm per degree SN-MP is derived (group centres assumed ~10 deg apart)."
+  },
+  {
+   "name": "masseter_tmd_myalgia_vs_control",
+   "units": "mm",
+   "columns": [
+    "group",
+    "relaxed_mean"
+   ],
+   "rows": [
+    [
+     "TMD myalgia (female dental students)",
+     12.91
+    ],
+    [
+     "control",
+     13.07
+    ]
+   ],
+   "population": "Female dental students",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13163890/"
+   ],
+   "status": "contested",
+   "notes": "From a search summary; no significant difference, contrasting with bruxism studies [9][10]."
+  },
+  {
+   "name": "temporalis_thickness",
+   "units": "mm",
+   "columns": [
+    "method",
+    "population",
+    "rest_mean",
+    "rest_sd",
+    "contracted_mean",
+    "contracted_sd",
+    "range_min",
+    "range_max"
+   ],
+   "rows": [
+    [
+     "ultrasound",
+     "healthy adults, 2024 reference",
+     8.8,
+     1.1,
+     9.8,
+     1.2,
+     null,
+     null
+    ],
+    [
+     "ultrasound",
+     "older control group cited in [29]",
+     6.4,
+     null,
+     7.6,
+     null,
+     null,
+     null
+    ],
+    [
+     "ultrasound",
+     "another cohort cited in [29]",
+     8.1,
+     null,
+     9.8,
+     null,
+     null,
+     null
+    ],
+    [
+     "MRI",
+     "Japanese adults 35-84, n=360",
+     null,
+     null,
+     null,
+     null,
+     3.69,
+     16.9
+    ]
+   ],
+   "population": "Mixed; see rows",
+   "source_urls": [
+    "https://academic.oup.com/dmfr/article/53/2/137/7499341",
+    "https://surgicalneurologyint.com/surgicalint-articles/standard-values-for-temporal-muscle-thickness-in-the-japanese-population-who-undergo-brain-check-up-by-magnetic-resonance-imaging/"
+   ],
+   "status": "contested",
+   "notes": "Ultrasound site typically ~1 cm above and lateral to lateral canthus; MRI TMT is measured on axial slices with protocol-specific landmarks. CT vs MRI ICC 0.894 [32]. Do not transfer across modalities."
+  },
+  {
+   "name": "masticatory_muscle_volume",
+   "units": "mL (cm^3) or percent",
+   "columns": [
+    "muscle",
+    "population",
+    "sex",
+    "value",
+    "unit",
+    "note"
+   ],
+   "rows": [
+    [
+     "masseter",
+     "Bunkyo older adults, MRI",
+     "M",
+     35,
+     "mL",
+     "summary; per side unclear"
+    ],
+    [
+     "masseter",
+     "Bunkyo older adults, MRI",
+     "F",
+     25,
+     "mL",
+     "summary; per side unclear"
+    ],
+    [
+     "masseter",
+     "children 0-17, CT, n=258",
+     "both",
+     199,
+     "% increase over growth",
+     "left side larger"
+    ],
+    [
+     "masseter",
+     "facial asymmetry, after orthognathic surgery, non-deviated side",
+     "both",
+     -13.5,
+     "% volume",
+     "CSA -16.4%"
+    ],
+    [
+     "temporalis",
+     "Taiwanese adults, automated segmentation",
+     "M",
+     36.9,
+     "mL peak (20-29 y)",
+     "-38% to oldest group"
+    ],
+    [
+     "temporalis",
+     "Taiwanese adults, automated segmentation",
+     "F",
+     27.9,
+     "mL peak (30-39 y)",
+     "-60% across lifespan"
+    ],
+    [
+     "temporalis",
+     "adults, MRI",
+     "M vs F",
+     40,
+     "% larger in men",
+     "32% if derived from [21] peaks"
+    ]
+   ],
+   "population": "Mixed; see rows",
+   "source_urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10738411/",
+    "https://pubmed.ncbi.nlm.nih.gov/39405919/",
+    "https://www.sciencedirect.com/science/article/abs/pii/S0940960226000737",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11541370/",
+    "https://pubmed.ncbi.nlm.nih.gov/42373791",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13617056"
+   ],
+   "status": "sourced",
+   "notes": "Per-side vs bilateral not confirmed for [21] or [24]. Sex-difference magnitude is contested (32-40%). Children 5-15: no temporalis sex effect [19]."
+  },
+  {
+   "name": "botulinum_toxin_masseter_effects",
+   "units": "percent / months",
+   "columns": [
+    "metric",
+    "effect",
+    "timing",
+    "sample",
+    "status"
+   ],
+   "rows": [
+    [
+     "thickness",
+     "about -25%",
+     null,
+     "prior study cited in RCT [6]",
+     "sourced"
+    ],
+    [
+     "volume (CT)",
+     "about -30%",
+     "onset 2 wk, peak ~3 mo, recovery ~6 mo",
+     "10 women [15]",
+     "sourced"
+    ],
+    [
+     "ultrasound / CT thickness",
+     "US minimum at 1 mo; CT thinning continues to 3 mo",
+     "1-3 mo",
+     "45 patients [14]",
+     "sourced"
+    ],
+    [
+     "duration",
+     "lasts 6-12 mo",
+     "peak ~3 mo",
+     "review [41]",
+     "contested"
+    ],
+    [
+     "mandibular angle bone volume",
+     "decreased",
+     "repeated injections",
+     "20 adults CBCT [37]",
+     "contested"
+    ],
+    [
+     "bigonial width, gonial angle, cortical thickness",
+     "no change vs placebo",
+     "12 mo",
+     "150 vs 37, CT [38]",
+     "contested"
+    ],
+    [
+     "bigonial width, skeletal gonial angle",
+     "no change",
+     "6 mo",
+     "10 subjects [7]",
+     "contested"
+    ],
+    [
+     "efficacy meta-analysis",
+     "short-term benefit, high heterogeneity",
+     null,
+     "5 RCTs, 536 participants [39]",
+     "sourced"
+    ]
+   ],
+   "population": "Clinical cohorts, largely East Asian; off-label use",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11196657",
+    "https://pubmed.ncbi.nlm.nih.gov/17674088/",
+    "https://pubmed.ncbi.nlm.nih.gov/12752514/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11860558/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5466904/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13773675",
+    "https://escholarship.org/content/qt9zz241z7/qt9zz241z7.pdf",
+    "https://pubmed.ncbi.nlm.nih.gov/42379083/"
+   ],
+   "status": "contested",
+   "notes": "Soft-tissue reduction is consistent across studies; bone effects disagree. Photos taken within ~1-12 months of injection may show reduced bulk."
+  },
+  {
+   "name": "anthropometric_priors_expert",
+   "units": "mm / degrees",
+   "columns": [
+    "quantity",
+    "sex",
+    "low",
+    "high",
+    "suggested_mean",
+    "suggested_sd"
+   ],
+   "rows": [
+    [
+     "gonial angle (cephalometric)",
+     "both",
+     110,
+     135,
+     122,
+     7
+    ],
+    [
+     "SN-MP angle",
+     "both",
+     27,
+     37,
+     32,
+     5
+    ],
+    [
+     "bony bigonial width",
+     "M",
+     90,
+     105,
+     97,
+     6
+    ],
+    [
+     "bony bigonial width",
+     "F",
+     84,
+     97,
+     90,
+     5
+    ],
+    [
+     "bizygomatic width (soft tissue)",
+     "M",
+     130,
+     145,
+     null,
+     null
+    ],
+    [
+     "bizygomatic width (soft tissue)",
+     "F",
+     122,
+     137,
+     null,
+     null
+    ],
+    [
+     "go-go / zy-zy ratio",
+     "both",
+     0.7,
+     0.8,
+     null,
+     null
+    ],
+    [
+     "soft-tissue depth at gonion (skin to bone)",
+     "both",
+     8,
+     18,
+     12,
+     3
+    ],
+    [
+     "soft-tissue depth at mid-ramus over masseter",
+     "both",
+     14,
+     26,
+     19,
+     4
+    ],
+    [
+     "skin+fat over masseter (derived)",
+     "both",
+     4,
+     10,
+     6,
+     2.5
+    ],
+    [
+     "temple soft tissue depth (skin to bone)",
+     "both",
+     9,
+     18,
+     13,
+     3
+    ],
+    [
+     "freeway space at rest",
+     "both",
+     2,
+     4,
+     null,
+     null
+    ]
+   ],
+   "population": "Adults, general; from training knowledge (Farkas; Steiner; forensic tissue-depth tables such as Stephan & Simpson 2008, De Greef 2006)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Not checked against a source in this library; queued for verification. Caliper go-go (palpated bone) differs from photographic silhouette width."
+  },
+  {
+   "name": "suggested_fitting_priors",
+   "units": "mm unless stated",
+   "columns": [
+    "parameter",
+    "distribution",
+    "mean",
+    "sd_or_scale",
+    "bounds",
+    "basis"
+   ],
+   "rows": [
+    [
+     "t_m relaxed per side, F",
+     "normal",
+     10.0,
+     1.8,
+     [
+      6,
+      20
+     ],
+     "[2] widened (design)"
+    ],
+    [
+     "t_m relaxed per side, M",
+     "normal",
+     12.0,
+     2.0,
+     [
+      6,
+      20
+     ],
+     "[1][2][3] widened (design)"
+    ],
+    [
+     "t_m relaxed per side, unknown sex",
+     "normal",
+     11.0,
+     2.3,
+     [
+      6,
+      20
+     ],
+     "design"
+    ],
+    [
+     "clench gain kappa (fraction)",
+     "normal",
+     0.28,
+     0.05,
+     [
+      0.15,
+      0.4
+     ],
+     "derived from [2]"
+    ],
+    [
+     "clench state c per image (rest capture)",
+     "beta(1,4)",
+     null,
+     null,
+     [
+      0,
+      1
+     ],
+     "design"
+    ],
+    [
+     "temporalis clench gain kappa_t (fraction)",
+     "uniform",
+     null,
+     null,
+     [
+      0.0,
+      0.1
+     ],
+     "[18][29] (weak)"
+    ],
+    [
+     "t_m mean shift per degree SN-MP above 32",
+     "linear",
+     -0.14,
+     null,
+     null,
+     "derived from [3]"
+    ],
+    [
+     "t_m L-R difference",
+     "laplace",
+     0.0,
+     0.8,
+     null,
+     "design"
+    ],
+    [
+     "fat offset s_f over masseter",
+     "normal",
+     6.0,
+     2.5,
+     [
+      2,
+      15
+     ],
+     "knowledge; scale with BMI"
+    ],
+    [
+     "temple soft tissue d_t",
+     "normal",
+     13.0,
+     3.0,
+     [
+      6,
+      22
+     ],
+     "knowledge"
+    ],
+    [
+     "temple d_t annual decline after 30, M (fraction/yr)",
+     "point",
+     0.006,
+     null,
+     null,
+     "derived from [21]"
+    ],
+    [
+     "temple d_t annual decline after 30, F (fraction/yr)",
+     "point",
+     0.01,
+     null,
+     null,
+     "derived from [21]"
+    ],
+    [
+     "gonial angle theta_go (deg)",
+     "normal",
+     122,
+     7,
+     [
+      105,
+      145
+     ],
+     "knowledge"
+    ]
+   ],
+   "population": "Design defaults for the fitting engine",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5606285/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6148042/",
+    "https://pubmed.ncbi.nlm.nih.gov/23649053/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11026518/",
+    "https://pubmed.ncbi.nlm.nih.gov/42373791",
+    "https://academic.oup.com/dmfr/article/53/2/137/7499341"
+   ],
+   "status": "knowledge",
+   "notes": "Widening factors and covariances are design choices, not sourced values. Correlation of t_m with gonial angle (negative) and ramus height (positive) suggested |rho| 0.2-0.3, tunable."
+  },
+  {
+   "name": "perspective_jaw_plane_scale",
+   "units": "ratio",
+   "columns": [
+    "camera_to_nose_tip_m",
+    "gonion_depth_behind_nose_tip_m",
+    "jaw_plane_scale_vs_nose_plane"
+   ],
+   "rows": [
+    [
+     0.3,
+     0.095,
+     0.759
+    ],
+    [
+     0.4,
+     0.095,
+     0.808
+    ],
+    [
+     0.6,
+     0.095,
+     0.863
+    ],
+    [
+     1.0,
+     0.095,
+     0.913
+    ],
+    [
+     1.5,
+     0.095,
+     0.94
+    ],
+    [
+     2.0,
+     0.095,
+     0.955
+    ],
+    [
+     3.0,
+     0.095,
+     0.969
+    ]
+   ],
+   "population": "Pinhole geometry; adult head with gonion ~9-10 cm behind the nose tip (assumed)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "scale = d/(d+depth). Shows why eyeballed selfies understate jaw width; a calibrated perspective solve removes it."
+  }
+ ]
+}

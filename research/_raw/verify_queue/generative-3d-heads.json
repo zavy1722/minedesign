@@ -1,0 +1,27 @@
+{
+ "id": "generative-3d-heads",
+ "area": "reconstruction",
+ "title": "Generative / large reconstruction models for heads (2024-2026)",
+ "queue": [
+  {
+   "claim": "Hunyuan3D 2.x licence (Tencent Hunyuan 3D Community License) excludes the EU, UK and South Korea and has a monthly-active-user cap; TRELLIS code and weights are MIT (with non-commercial CUDA dependencies). The tool's default backend choice depends on these terms.",
+   "query": "Hunyuan3D 2.1 license territory European Union United Kingdom South Korea monthly active users TRELLIS MIT license",
+   "domains": "github.com,huggingface.co"
+  },
+  {
+   "claim": "No generic image-to-3D generator (Hunyuan3D, TRELLIS, Rodin, Tripo, Meshy) or head model (PanoHead, Arc2Avatar, FaceLift) has published NoW or REALY millimetre error on real faces. The author estimates 2-4 mm frontal, 3-8 mm nose and chin, and 5-15 mm occiput and ears, and uses these figures to set the generator-term sigmas (Table 5).",
+   "query": "image-to-3D generator face reconstruction NoW benchmark error Hunyuan3D TRELLIS evaluation real face scans millimetre",
+   "domains": "arxiv.org"
+  },
+  {
+   "claim": "TRELLIS.2 (late 2025) has about 4B parameters, an 'O-Voxel' latent, resolution up to 1536^3, PBR output and an MIT licence. Hunyuan3D 2.5/3.0 are hosted only and claim up to 1536^3.",
+   "query": "TRELLIS.2 Microsoft O-Voxel 4B parameters 1536 resolution license",
+   "domains": "github.com,huggingface.co,arxiv.org"
+  },
+  {
+   "claim": "EG3D volume-renders its tri-plane (3x256^2x32 channels) at 128^2 and super-resolves in 2D to 512^2, so fine detail at 512^2 is not in the 3D density. PanoHead uses a tri-grid of depth 3 trained on FFHQ-F. SphereHead uses spherical tri-planes to suppress back-of-head faces.",
+   "query": "EG3D tri-plane 128 neural rendering super-resolution 512 PanoHead tri-grid SphereHead spherical tri-plane",
+   "domains": "arxiv.org"
+  }
+ ]
+}

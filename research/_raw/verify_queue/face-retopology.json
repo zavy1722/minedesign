@@ -1,0 +1,27 @@
+{
+ "id": "face-retopology",
+ "area": "blender",
+ "title": "Face retopology and edge flow",
+ "queue": [
+  {
+   "claim": "Default density spec for the template: 8-12k quads for head+neck+ears, region edge lengths at real scale (lids 1-2 mm across loops, lips 1.5-3, nose 1.5-3, cheek/forehead 4-7, scalp 6-12), and loop counts (upper lid 3-5 loops, mouth 8-14 loops with 20-36 ring edges, eye ring 16-28 edges)",
+   "query": "animation-ready face topology number of edge loops eyelid mouth recommended polycount head base mesh",
+   "domains": ""
+  },
+  {
+   "claim": "RetopoFlow is GPL source sold on Superhive (formerly Blender Market), maintained by Orange Turbine; RF4 is a rewrite that runs inside Blender's edit mode; its compatibility with Blender 5.x is unknown",
+   "query": "RetopoFlow 4 Blender 5 compatibility Orange Turbine release license",
+   "domains": ""
+  },
+  {
+   "claim": "Quad Remesher (Exoside, by ZRemesher's author) is paid, has a Blender bridge, and supports painted density through vertex colour, material groups as boundaries, symmetry and adaptive size",
+   "query": "Exoside Quad Remesher Blender vertex color density use materials price license 2026",
+   "domains": "exoside.com"
+  },
+  {
+   "claim": "Blender snapping offers Face Project and Face Nearest with Project Individual Elements and Backface Culling; a Retopology overlay exists (added around 3.6); QuadriFlow has been built into the Remesh panel since 2.81; LoopTools has been an extension since 4.2",
+   "query": "Blender manual snapping Face Project Face Nearest retopology overlay",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

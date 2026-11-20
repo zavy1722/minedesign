@@ -1,0 +1,348 @@
+{
+ "topic": "artstation-likeness",
+ "tables": [
+  {
+   "name": "reference_source_type_priors",
+   "units": "m (distance), mm (35 mm-equivalent focal), ratio (magnification), multiplier (landmark sigma), dimensionless (sigma_log = SD of ln f35)",
+   "columns": [
+    "source_type",
+    "d_min_m",
+    "d_max_m",
+    "f35_min_mm",
+    "f35_max_mm",
+    "nose_ear_mag_min",
+    "nose_ear_mag_max",
+    "sigma_mult_min",
+    "sigma_mult_max",
+    "f35_prior_median_mm",
+    "f35_prior_sigma_log",
+    "use_for"
+   ],
+   "rows": [
+    [
+     "event_press_telephoto",
+     3,
+     10,
+     70,
+     300,
+     1.01,
+     1.033,
+     1.0,
+     1.0,
+     135,
+     0.5,
+     "proportions, profile, yaw sweeps"
+    ],
+    [
+     "own_controlled_capture",
+     1.5,
+     3,
+     85,
+     135,
+     1.033,
+     1.067,
+     0.7,
+     1.0,
+     null,
+     0.02,
+     "everything"
+    ],
+    [
+     "studio_portrait_magazine",
+     1.5,
+     4,
+     70,
+     135,
+     1.025,
+     1.067,
+     2.0,
+     3.0,
+     100,
+     0.4,
+     "hairline, colour; proportions only if consistent with untouched photos"
+    ],
+    [
+     "film_tv_still",
+     0.6,
+     3,
+     25,
+     150,
+     1.033,
+     1.167,
+     1.5,
+     2.0,
+     50,
+     0.7,
+     "3/4 form, expression"
+    ],
+    [
+     "interview_video_frame",
+     1,
+     3,
+     35,
+     100,
+     1.033,
+     1.1,
+     1.5,
+     2.5,
+     50,
+     0.7,
+     "yaw coverage"
+    ],
+    [
+     "phone_rear_camera",
+     0.8,
+     2,
+     24,
+     120,
+     1.05,
+     1.125,
+     1.2,
+     1.2,
+     26,
+     0.6,
+     "general"
+    ],
+    [
+     "phone_selfie",
+     0.3,
+     0.6,
+     22,
+     30,
+     1.167,
+     1.333,
+     3.0,
+     3.0,
+     26,
+     0.1,
+     "colour, hairline only"
+    ]
+   ],
+   "population": "typical capture conditions for likeness reference of adults; pinhole model with nose-tip to ear-plane depth dz = 0.10 m (assumed 0.09-0.11 m)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Magnification = 1 + dz/d (arithmetic). Distance/lens ranges and sigma multipliers are expert heuristics. own_controlled_capture uses EXIF focal (median null). sigma_mult 3.0 for selfies/magazine means 'or exclude from proportion terms'. Studio/magazine and selfie rows are contested (retouching, beauty filters, phone face-distortion correction). Apply sigma_mult to base landmark sigma 0.03xIOD interior, 0.06-0.08xIOD contour."
+  },
+  {
+   "name": "reference_set_composition",
+   "units": "count, degrees, years, px",
+   "columns": [
+    "item",
+    "min",
+    "max",
+    "notes"
+   ],
+   "rows": [
+    [
+     "photos_collected",
+     30,
+     300,
+     "before curation"
+    ],
+    [
+     "hero_photos_matched",
+     5,
+     15,
+     "camera-matched"
+    ],
+    [
+     "three_quarter_yaw_deg",
+     30,
+     45,
+     "left and right"
+    ],
+    [
+     "profile_yaw_deg",
+     80,
+     95,
+     "left and right"
+    ],
+    [
+     "pitch_high_low_deg",
+     15,
+     20,
+     "one above, one below"
+    ],
+    [
+     "age_window_years",
+     0,
+     3,
+     "one weight period too"
+    ],
+    [
+     "hero_face_width_px",
+     400,
+     600,
+     "minimum recommended"
+    ]
+   ],
+   "population": "adult likeness projects as described in ArtStation-style breakdowns",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Recurring practitioner advice, unverified. Engine coverage gate: >=3 yaw bins and >=1 view with |yaw| >= 60 deg."
+  },
+  {
+   "name": "likeness_project_timelines",
+   "units": "hours (or weeks where stated)",
+   "columns": [
+    "project_type",
+    "min",
+    "max",
+    "unit",
+    "notes"
+   ],
+   "rows": [
+    [
+     "speed_likeness_study_sculpt_only",
+     2,
+     10,
+     "h",
+     ""
+    ],
+    [
+     "collectible_print_likeness_head_sculpt_only",
+     20,
+     80,
+     "h",
+     ""
+    ],
+    [
+     "portfolio_offline_bust_full_pipeline",
+     80,
+     400,
+     "h",
+     "often spread over 1-6 months part-time"
+    ],
+    [
+     "scan_based_realtime_actor_head",
+     1,
+     4,
+     "weeks",
+     "cleanup, texture, groom"
+    ]
+   ],
+   "population": "self-reported professional and portfolio projects",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Self-reported, survivorship-biased, highly variable."
+  },
+  {
+   "name": "portfolio_bust_phase_shares",
+   "units": "% of total effort",
+   "columns": [
+    "phase",
+    "min_pct",
+    "max_pct"
+   ],
+   "rows": [
+    [
+     "reference_gathering_curation",
+     3,
+     10
+    ],
+    [
+     "blockout_primary_likeness",
+     20,
+     35
+    ],
+    [
+     "secondary_tertiary_sculpt",
+     10,
+     20
+    ],
+    [
+     "texture_projection_paint_xyz",
+     10,
+     20
+    ],
+    [
+     "groom_hair_brows_lashes_fuzz",
+     15,
+     30
+    ],
+    [
+     "lookdev_lighting_comparison_renders",
+     10,
+     20
+    ]
+   ],
+   "population": "portfolio offline-render likeness busts",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Ranges do not sum to 100; groom share is contested."
+  },
+  {
+   "name": "asset_spec_ranges",
+   "units": "count (quads, polygons, triangles, strands, tiles, hairs)",
+   "columns": [
+    "item",
+    "min",
+    "max",
+    "status",
+    "notes"
+   ],
+   "rows": [
+    [
+     "sculpt_base_mesh_quads",
+     5000,
+     20000,
+     "knowledge",
+     ""
+    ],
+    [
+     "final_head_sculpt_polygons",
+     5000000,
+     40000000,
+     "knowledge",
+     "subdivision level 5-7"
+    ],
+    [
+     "head_udim_tiles",
+     4,
+     10,
+     "knowledge",
+     "4K-8K each"
+    ],
+    [
+     "realtime_hero_head_lod0_tris",
+     20000,
+     60000,
+     "contested",
+     "time-sensitive"
+    ],
+    [
+     "scalp_groom_rendered_strands",
+     50000,
+     200000,
+     "knowledge",
+     "from hundreds to a few thousand guides"
+    ],
+    [
+     "real_scalp_hair_count",
+     90000,
+     150000,
+     "knowledge",
+     "about 100k typical; varies with hair colour"
+    ],
+    [
+     "real_upper_eyelashes_per_lid",
+     90,
+     160,
+     "contested",
+     ""
+    ],
+    [
+     "real_lower_eyelashes_per_lid",
+     75,
+     80,
+     "contested",
+     ""
+    ]
+   ],
+   "population": "typical breakdown specs; human hair counts for adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Per-row status in column 'status'."
+  }
+ ]
+}

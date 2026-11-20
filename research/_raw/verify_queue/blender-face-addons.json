@@ -1,0 +1,27 @@
+{
+ "id": "blender-face-addons",
+ "area": "blender",
+ "title": "Blender add-ons for heads and faces",
+ "queue": [
+  {
+   "claim": "FLAME is non-commercial research-only. My recollection that a more permissive 'FLAME 2023 Open' variant exists is unconfirmed. This decides whether the engine can ever ship or support FLAME priors commercially.",
+   "query": "FLAME 2023 Open head model license commercial use",
+   "domains": "flame.is.tue.mpg.de,github.com"
+  },
+  {
+   "claim": "The MakeHuman/MPFB2 base mesh, targets and system assets are CC0, and asset packs are CC0 or CC-BY. MPFB2 latest is 2.0.18, needs Blender 4.2 LTS or newer, and the hm08 base has about 13.4k body / 19.2k total vertices.",
+   "query": "MakeHuman MPFB base mesh targets license CC0 asset packs CC-BY 2.0.18",
+   "domains": "extensions.blender.org,github.com"
+  },
+  {
+   "claim": "Scale priors: horizontal visible iris diameter 11.7 \u00b1 0.5 mm (the figure used by MediaPipe Iris); adult interpupillary distance mean about 63 mm, \u03c3 about 3.5 mm.",
+   "query": "MediaPipe Iris horizontal iris diameter 11.7 mm depth estimation",
+   "domains": ""
+  },
+  {
+   "claim": "MediaPipe Face Landmarker returns 478 landmarks plus 52 blendshape scores that include '_neutral' and omit 'tongueOut'. The iris points are indices 468-472 and 473-477.",
+   "query": "MediaPipe Face Landmarker blendshapes categories _neutral tongueOut iris landmark indices 468 473",
+   "domains": "ai.google.dev,github.com"
+  }
+ ]
+}

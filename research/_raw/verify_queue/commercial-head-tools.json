@@ -1,0 +1,27 @@
+{
+ "id": "commercial-head-tools",
+ "area": "reconstruction",
+ "title": "Commercial photo-to-head tools",
+ "queue": [
+  {
+   "claim": "Since UE 5.6 (2025), MetaHumans fall under the Unreal Engine EULA and may be used outside Unreal (Blender, Maya, Unity, Godot) and sold on Fab. Royalty and seat terms outside UE are unknown. There is no first-party single-photo to MetaHuman path; identity needs a mesh or depth/stereo footage.",
+   "query": "MetaHuman 5.6 license use outside Unreal Engine EULA Blender Unity royalty",
+   "domains": "unrealengine.com,dev.epicgames.com,metahuman.com"
+  },
+  {
+   "claim": "KeenTools FaceBuilder for Blender is a GPL Python add-on that downloads a proprietary core. It is paid by subscription with a trial (roughly US$100\u2013300 per seat-year). It exports 51 ARKit-compatible blendshapes and imports Live Link Face CSV. Blender 5.x support is unknown.",
+   "query": "KeenTools FaceBuilder for Blender pricing license 2026 Blender 5 ARKit blendshapes",
+   "domains": "keentools.io"
+  },
+  {
+   "claim": "Netflix acquired Ready Player Me in late 2025, and its public developer avatar services closed in early 2026.",
+   "query": "Ready Player Me Netflix acquisition developer services shutdown 2026",
+   "domains": ""
+  },
+  {
+   "claim": "No independent, peer-reviewed mm-level accuracy benchmark exists for commercial photo-to-head tools (FaceBuilder, Headshot, Mesh to MetaHuman, avatar SDKs) against ground-truth scans. The accuracy-ladder estimates (single photo 1.2\u20133 mm, multi-view pin fit 0.8\u20132 mm) are unbenchmarked.",
+   "query": "accuracy evaluation FaceBuilder Headshot 3D face reconstruction compared to 3D scan mm error",
+   "domains": ""
+  }
+ ]
+}

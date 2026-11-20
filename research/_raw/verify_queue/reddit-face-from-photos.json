@@ -1,0 +1,27 @@
+{
+ "id": "reddit-face-from-photos",
+ "area": "community",
+ "title": "Reddit: face-from-photos problems and answers",
+ "queue": [
+  {
+   "claim": "Adult interpupillary distance is about 63 mm mean with SD about 3.5 mm (used as the engine's distance-sanity prior Z = f_px*IPD/IPD_px).",
+   "query": "Dodgson 2004 variation and extrema of human interpupillary distance mean standard deviation adults",
+   "domains": ""
+  },
+  {
+   "claim": "Ward et al. (JAMA Facial Plastic Surgery, 2018) found nasal width appears about 30% larger in photos taken at 12 inches than at 5 feet.",
+   "query": "Ward Paskhover 2018 nasal distortion short-distance photographs selfie effect nasal width percent 12 inches 5 feet",
+   "domains": "jamanetwork.com,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "In adults, the depth from nose tip (pronasale) to the ear plane (tragion) is about 10-12 cm, which gives nose/ear magnification ratios of 1.33-1.40 at 0.3 m and 1.10-1.12 at 1 m.",
+   "query": "Farkas anthropometry tragion subnasale depth middle face depth adult mm norms",
+   "domains": ""
+  },
+  {
+   "claim": "MetaHuman licensing changed in 2025 (around Unreal Engine 5.6) so that MetaHumans can be used outside Unreal, including in Blender.",
+   "query": "MetaHuman 2025 license change use in other engines and software Blender Unreal Engine 5.6 EULA",
+   "domains": "unrealengine.com,metahuman.com"
+  }
+ ]
+}

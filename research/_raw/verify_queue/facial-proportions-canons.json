@@ -1,0 +1,27 @@
+{
+ "id": "facial-proportions-canons",
+ "area": "anatomy",
+ "title": "Facial proportions, neoclassical canons and the golden-ratio myth",
+ "queue": [
+  {
+   "claim": "Default ratio priors derived from Farkas young-adult North American White means: en-en/ex-en ~1.05, al-al/en-en ~1.0 (F ~0.99, M ~1.06), ch-ch/al-al ~1.55-1.6, sn-gn/n-sn ~1.25-1.3, sa-sba/n-sn ~1.15 (underlying means e.g. en-en 33.3/31.8, al-al 34.9/31.4, ch-ch ~54/50, n-sn ~55/51, sn-gn ~72/64 mm M/F)",
+   "query": "Farkas 1994 young adult North American Caucasian en-en al-al ch-ch n-sn sn-gn mean SD table",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Adult eye line (endocanthion/pupil level) sits 0.48-0.53 of vertex-menton height from the vertex; artist rule 'eyes at half the head'",
+   "query": "eye level position proportion of total head height vertex to menton adults anthropometry",
+   "domains": ""
+  },
+  {
+   "claim": "Farkas et al. 1985 revision of neoclassical canons: which canons held and in what percentage of young North American Caucasians (orbital and naso-facial most frequent; two-section/thirds rarely)",
+   "query": "Farkas Hreczko Kolar Munro 1985 revision of neoclassical canons percentage valid orbital naso-facial three-section",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Pallett, Link & Lee 2010 (Vision Research) found preferred eye-mouth distance ~36% of face length and interpupillary distance ~46% of face width, matching average faces rather than phi",
+   "query": "Pallett Link Lee 2010 new golden ratios facial beauty 36% 46% Vision Research",
+   "domains": ""
+  }
+ ]
+}

@@ -1,0 +1,406 @@
+{
+ "topic": "craniometric-landmarks",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Columbia University craniology slides (landmark definitions)",
+   "url": "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+   "kind": "lecture slides",
+   "year": "unknown"
+  },
+  {
+   "n": 2,
+   "title": "Grand Valley State, Introduction to Human Osteology",
+   "url": "https://pressbooks.gvsu.edu/introhumanosteology/?p=60",
+   "kind": "textbook",
+   "year": "unknown"
+  },
+  {
+   "n": 3,
+   "title": "PMC12334920 Table 1 (landmark definitions)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 4,
+   "title": "BMC Oral Health landmark table (s12903-024-04260-3)",
+   "url": "https://bmcoralhealth.biomedcentral.com/articles/10.1186/s12903-024-04260-3/tables/1",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 5,
+   "title": "BMC Oral Health landmark table (s12903-022-02179-1)",
+   "url": "https://bmcoralhealth.biomedcentral.com/articles/10.1186/s12903-022-02179-1/tables/1",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 6,
+   "title": "Artificial-Intelligence-Based Cephalometric Landmark Detection in Lateral Cephalograms",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13466904/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 7,
+   "title": "The definitions of three-dimensional landmarks on the human face: an interdisciplinary view",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4832301/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 8,
+   "title": "The Reliability of Three-Dimensional Landmark-Based Craniomaxillofacial and Airway Cephalometric Analysis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10377994/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 9,
+   "title": "Facial Landmarks Determination with Different Digital Scanners: An In Vivo Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 10,
+   "title": "Soft-Tissue Analysis of Different Sagittal Skeletal Patterns Using the Geometric Morphometric Method",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9949938/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 11,
+   "title": "Accuracy of AI-assisted soft tissue landmark identification in serial lateral cephalograms of Class III two-jaw surgery patients",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12460026/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 12,
+   "title": "A rapid identification method for soft tissue markers of dentofacial deformities based on heatmap regression",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10907697/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 13,
+   "title": "PMC4246044 (3D facial-scan landmark article; title not captured)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4246044",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 14,
+   "title": "Nobel Biocare: Definition of 3D cephalometric soft tissue landmarks",
+   "url": "https://nobellicense.nobelbiocare.com/help/d3d046fb-52e8-4b33-9f51-d3fd98ca3ed4/2.0/EN/3D_cephalometric_soft_tissue_landmarks.htm",
+   "kind": "commercial docs",
+   "year": "unknown"
+  },
+  {
+   "n": 15,
+   "title": "Clinical Equivalence of a CNN-Based Automated Soft Tissue Landmark Detection System on 2D Facial Images",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13205844/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 16,
+   "title": "Facial Anthropometry and Analysis in Egyptian Women",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 17,
+   "title": "PMC6571015 (cites Farkas as standard reference; title not captured)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 18,
+   "title": "CDC Stacks document 79136 (cites Farkas; title not captured)",
+   "url": "https://stacks.cdc.gov/view/cdc/79136",
+   "kind": "report",
+   "year": "unknown"
+  },
+  {
+   "n": 19,
+   "title": "Farkas norms vs 3D stereophotogrammetry (title not captured)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/26703056/",
+   "kind": "paper",
+   "year": "unconfirmed (harvest says 2019; PubMed ID suggests ~2015-16)"
+  },
+  {
+   "n": 20,
+   "title": "300 Faces In-the-Wild Challenge (300-W), ICCV 2013, iBUG",
+   "url": "https://ibug.doc.ic.ac.uk/resources/300-W",
+   "kind": "official docs",
+   "year": "2013"
+  },
+  {
+   "n": 21,
+   "title": "300 Faces In-The-Wild Challenge (300-W), IMAVIS, iBUG",
+   "url": "https://ibug.doc.ic.ac.uk/resources/300-W_IMAVIS/",
+   "kind": "official docs",
+   "year": "2014"
+  },
+  {
+   "n": 22,
+   "title": "iBUG facial point annotations",
+   "url": "https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/",
+   "kind": "official docs",
+   "year": "unknown"
+  },
+  {
+   "n": 23,
+   "title": "NeoLoc-68: 68-point neonatal facial landmark localisation",
+   "url": "https://arxiv.org/pdf/2606.20823",
+   "kind": "preprint",
+   "year": "2026"
+  },
+  {
+   "n": 24,
+   "title": "librealsense2 markup_68.h source",
+   "url": "https://docs.ros.org/en/kinetic/api/librealsense2/html/markup__68_8h_source.html",
+   "kind": "code docs",
+   "year": "unknown"
+  },
+  {
+   "n": 25,
+   "title": "PyImageSearch: Detect eyes, nose, lips, and jaw with dlib",
+   "url": "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/",
+   "kind": "blog",
+   "year": "2017"
+  },
+  {
+   "n": 26,
+   "title": "PyImageSearch: (Faster) facial landmark detector with dlib",
+   "url": "https://pyimagesearch.com/2018/04/02/faster-facial-landmark-detector-with-dlib/",
+   "kind": "blog",
+   "year": "2018"
+  },
+  {
+   "n": 27,
+   "title": "yakhyo/mediapipe-face-mesh-onnx README",
+   "url": "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 28,
+   "title": "cornpip/mediapipe_face_mesh",
+   "url": "https://github.com/cornpip/mediapipe_face_mesh",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 29,
+   "title": "PeizhiYan/Mediapipe_2_Dlib_Landmarks",
+   "url": "https://github.com/PeizhiYan/Mediapipe_2_Dlib_Landmarks/",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 30,
+   "title": "Google AI Edge Face Landmarker documentation",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+   "kind": "official docs",
+   "year": "unknown"
+  },
+  {
+   "n": 31,
+   "title": "MediaPipe Face Mesh docs (google-ai-edge/mediapipe)",
+   "url": "https://github.com/google-ai-edge/mediapipe/blob/master/docs/solutions/face_mesh.md?plain=1",
+   "kind": "official docs",
+   "year": "unknown"
+  },
+  {
+   "n": 32,
+   "title": "Infinite 3D Landmarks: Improving Continuous 2D Facial Landmark Detection",
+   "url": "https://arxiv.org/pdf/2405.20117",
+   "kind": "preprint",
+   "year": "2024"
+  },
+  {
+   "n": 33,
+   "title": "Proto-Former: Unified Facial Landmark Detection by Prototype Transformer",
+   "url": "https://arxiv.org/abs/2510.15338",
+   "kind": "preprint",
+   "year": "2025"
+  },
+  {
+   "n": 34,
+   "title": "Comparison Study of Extraction Accuracy of 3D Facial Anatomical Landmarks Based on Non-Rigid Registration of Face Template",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10047049/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 35,
+   "title": "Accuracy of Facial Digitization Using a New Mobile Device-Compatible 3D Scanner for Malocclusion",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13117559/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 36,
+   "title": "3D facial landmark detection under large yaw and expression variations",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/23681986/",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 37,
+   "title": "U-Net 3D facial landmark study, acromegaly (title not captured)",
+   "url": "https://ncbi.nlm.nih.gov/pmc/articles/PMC10963813",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 38,
+   "title": "Accuracy and reliability of automated landmark identification on CBCT using Invivo software",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12418967/",
+   "kind": "paper",
+   "year": "2025 (per harvest)"
+  },
+  {
+   "n": 39,
+   "title": "CBCT 3D skeletal landmark reliability study (3 judges, 31 landmarks)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8111847",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 40,
+   "title": "Observer Reliability of Three-Dimensional Cephalometric Landmark Identification on Cone-Beam CT",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2642991",
+   "kind": "paper",
+   "year": "unknown"
+  },
+  {
+   "n": 41,
+   "title": "VGCLUB/facefit-mpfb (FaceFit MPFB2 Blender add-on prototype)",
+   "url": "https://github.com/VGCLUB/facefit-mpfb",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 42,
+   "title": "H0wZy/captureforge (GPL-3.0 Blender face rig extension)",
+   "url": "https://github.com/H0wZy/captureforge",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 43,
+   "title": "Anatomical References for the Study of 3D Facial Photographs: A Scoping Review (also PubMed https://pubmed.ncbi.nlm.nih.gov/42590193/)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13466362/",
+   "kind": "paper (harvested, not used for claims)",
+   "year": "unknown"
+  },
+  {
+   "n": 44,
+   "title": "Human examination and artificial intelligence in cephalometric landmark detection",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10461256/",
+   "kind": "paper (harvested, not used for claims)",
+   "year": "unknown"
+  },
+  {
+   "n": 45,
+   "title": "Cephalometric landmark observer study, Imaging Sci Dent 2015",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4697005",
+   "kind": "paper (harvested, not used for claims)",
+   "year": "2015"
+  },
+  {
+   "n": 46,
+   "title": "Simulated radiograph mandibular measurement reliability study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5450056",
+   "kind": "paper (harvested, not used for claims)",
+   "year": "unknown"
+  },
+  {
+   "n": 47,
+   "title": "Precision of cephalometric landmark identification: CBCT vs conventional views",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/19732656/",
+   "kind": "paper (harvested, not used for claims)",
+   "year": "unknown"
+  },
+  {
+   "n": 48,
+   "title": "Learning to Validate the Quality of Detected Landmarks",
+   "url": "https://arxiv.org/pdf/1901.10143",
+   "kind": "preprint (harvested, not used for claims)",
+   "year": "2019"
+  },
+  {
+   "n": 49,
+   "title": "Zafeiriou et al., The Menpo Facial Landmark Localisation Challenge, CVPRW 2017",
+   "url": "https://openaccess.thecvf.com/content_cvpr_2017_workshops/w33/papers/Zafeiriou_The_Menpo_Facial_CVPR_2017_paper.pdf",
+   "kind": "paper (harvested, not used for claims)",
+   "year": "2017"
+  },
+  {
+   "n": 50,
+   "title": "Automatic cephalometric landmarks detection on frontal faces: supervised learning approach",
+   "url": "https://arxiv.org/pdf/1904.10816",
+   "kind": "preprint (harvested, not used for claims)",
+   "year": "2019"
+  },
+  {
+   "n": 51,
+   "title": "The Facial Morphology in Down Syndrome: A 3D Comparison of Patients with and without Obstructive Sleep Apnea",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5650534/",
+   "kind": "paper (harvested, not used for claims)",
+   "year": "unknown"
+  },
+  {
+   "n": 52,
+   "title": "Facial asymmetry in young healthy subjects evaluated by statistical shape analysis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2666135/",
+   "kind": "paper (harvested, not used for claims)",
+   "year": "unknown"
+  },
+  {
+   "n": 53,
+   "title": "3D Facial Normotypes for Maxillofacial Surgical Planning",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13666107",
+   "kind": "paper (harvested, not used for claims)",
+   "year": "unknown"
+  },
+  {
+   "n": 54,
+   "title": "MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research blog)",
+   "url": "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/",
+   "kind": "official docs",
+   "year": "2020"
+  }
+ ],
+ "references_by_name": [
+  "Farkas LG, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Farkas LG, Hreczko TA, Kolar JC, Munro IR, Vertical and horizontal proportions of the face in young adult North American Caucasians: revision of neoclassical canons, Plast Reconstr Surg, 1985",
+  "Farkas LG et al., international anthropometric study of facial morphology in various ethnic groups, J Craniofac Surg, 2005",
+  "Kolar JC, Salter EM, Craniofacial Anthropometry, 1997",
+  "Martin R, Saller K, Lehrbuch der Anthropologie, 1957",
+  "Swennen GRJ, Schutyser F, Hausamen JE, Three-Dimensional Cephalometry: A Color Atlas and Manual, 2006",
+  "Downs WB, Variations in facial relationships, Am J Orthod, 1948",
+  "Steiner CC, Cephalometrics for you and me, Am J Orthod, 1953",
+  "Legan HL, Burstone CJ, soft tissue cephalometric analysis for orthognathic surgery, J Oral Surg, 1980",
+  "Holdaway RA, soft-tissue cephalometric analysis, Am J Orthod, 1983",
+  "Baumrind S, Frantz RC, The reliability of head film measurements. 1. Landmark identification, Am J Orthod, 1971",
+  "Bookstein FL, Morphometric Tools for Landmark Data, 1991",
+  "Gunz P, Mitteroecker P, Semilandmarks: a method for quantifying curves and surfaces, Hystrix, 2013",
+  "Moorrees CFA, Kean MR, natural head position in cephalometrics, Am J Phys Anthropol, 1958",
+  "Kazemi V, Sullivan J, One Millisecond Face Alignment with an Ensemble of Regression Trees, CVPR 2014",
+  "Kartynnik Y et al., Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs, 2019",
+  "Ablavatski A et al., MediaPipe Iris pupil-tracking paper, 2020",
+  "Zhu X et al., Face Alignment Across Large Poses: A 3D Solution, CVPR 2016",
+  "Bulat A, Tzimiropoulos G, How far are we from solving the 2D & 3D Face Alignment problem?, ICCV 2017",
+  "Wu W et al., Look at Boundary: A Boundary-Aware Face Alignment Algorithm (WFLW), CVPR 2018",
+  "Dodgson NA, Variation and extrema of human interpupillary distance, Proc SPIE, 2004"
+ ]
+}

@@ -1,0 +1,131 @@
+{
+  "topic": "generative-3d-heads",
+  "tables": [
+    {
+      "name": "model_catalogue",
+      "units": "categorical; year = first public release",
+      "columns": ["model", "year", "family", "output_native_resolution", "input", "face_verdict_author", "status"],
+      "rows": [
+        ["LRM / OpenLRM", "2023-2024", "feed-forward LRM", "tri-plane NeRF -> marching cubes", "1 image", "soft mean face", "knowledge"],
+        ["TripoSR", "2024", "feed-forward LRM", "tri-plane, marching cubes 256^3 default", "1 image", "blockout", "knowledge"],
+        ["InstantMesh", "2024", "multi-view diffusion + sparse-view LRM", "FlexiCubes mesh", "1 image", "soft", "knowledge"],
+        ["SF3D / SPAR3D", "2024-2025", "feed-forward (+ point cloud stage)", "UV-unwrapped mesh, de-lit material", "1 image", "low detail", "knowledge"],
+        ["CLAY -> Rodin Gen-1 / Gen-2", "2024-2025", "3D latent DiT (hosted)", "SDF mesh; quad mode", "1-5 images", "clean, generic", "contested"],
+        ["Hunyuan3D 2.0 / 2.1 / 2mv", "2025", "vector-set flow DiT + Paint texture model", "marching cubes, octree 256 default, up to ~512; PBR in 2.1", "1 image (2mv: up to 4 views)", "best open mass, averaged identity", "contested"],
+        ["Hunyuan3D 2.5 / 3.0", "2025", "hosted", "reportedly up to 1536^3", "1+ images", "sharper; depth still guessed", "contested"],
+        ["TRELLIS", "2024-2025", "sparse structured latent (flow)", "64^3 sparse structure -> 256^3 FlexiCubes mesh, or 3DGS / radiance field", "1 image (multi-image experimental)", "good silhouette, soft face", "knowledge"],
+        ["TRELLIS.2", "2025", "O-Voxel latent (reported)", "reportedly up to 1536^3, PBR", "1 image", "unreviewed for faces", "contested"],
+        ["TripoSG / Step1X-3D", "2025", "SDF VAE + rectified flow", "marching cubes mesh", "1 image", "crisp objects, generic face", "knowledge"],
+        ["EG3D", "2022", "3D-aware GAN", "tri-plane 3x256^2x32ch; volume render 128^2 -> 2D super-resolution 512^2", "latent / GAN inversion", "frontal only (~+/-60 deg yaw)", "knowledge"],
+        ["PanoHead", "2023", "360-degree 3D GAN", "tri-grid 256^2 x 3 depth; 512^2 images", "GAN inversion", "full head; invented back", "knowledge"],
+        ["SphereHead", "2024", "spherical tri-plane GAN", "512^2 images", "GAN inversion", "fewer back-of-head face artefacts", "contested"],
+        ["Arc2Avatar / ID-to-3D", "2024-2025", "ArcFace-conditioned diffusion + SDS", "FLAME-bound 3DGS or mesh", "1 image", "high ArcFace score, FLAME-level shape", "contested"],
+        ["FaceLift", "2024-2025", "head multi-view diffusion + GS-LRM", "3D Gaussians", "1 image", "head-specific, synthetic-trained", "contested"],
+        ["KaoLRM", "2026", "pre-trained LRM repurposed to regress FLAME", "FLAME parameters", "1 image", "corresponded, near-metric", "sourced"]
+      ],
+      "population": "models as known to the author up to mid-2026; not benchmarked on real faces",
+      "source_urls": ["https://arxiv.org/pdf/2601.12736"],
+      "status": "contested",
+      "notes": "Only the KaoLRM row is sourced (library harvest single-image-regression). Architecture details, resolutions and years are author knowledge; hosted-model claims are vendor-reported and time-sensitive."
+    },
+    {
+      "name": "accuracy_reference_bar",
+      "units": "mm (NoW-style scan-to-mesh error after alignment unless noted)",
+      "columns": ["reference", "median_mm_min", "median_mm_max", "mean_mm_min", "mean_mm_max", "status", "notes"],
+      "rows": [
+        ["average FLAME mesh, no scale fit", null, null, 1.92, 1.92, "sourced", "NoW; MICA paper"],
+        ["average FLAME mesh, scale optimised", null, null, 1.53, 1.53, "sourced", "NoW; MICA paper"],
+        ["MICA single-image regressor", 0.90, 0.94, 1.11, 1.19, "contested", "metric (scan-to-mesh vs Chamfer) and split vary across papers"],
+        ["generic image-to-3D generator, frontal skin", null, null, 2, 4, "contested", "author estimate, RMS, unbenchmarked"],
+        ["generic image-to-3D generator, nose and chin projection", null, null, 3, 8, "contested", "author estimate, unbenchmarked"],
+        ["generic image-to-3D generator, occiput and ears", null, null, 5, 15, "contested", "author estimate, unbenchmarked"]
+      ],
+      "population": "NoW benchmark subjects (100 adults) for the sourced rows; generator rows are author estimates for adult faces from a single distant photo",
+      "source_urls": ["https://ar5iv.labs.arxiv.org/html/2204.06607", "https://arxiv.org/pdf/2304.12483", "https://arxiv.org/pdf/2601.12736"],
+      "status": "contested",
+      "notes": "A generator region adds identity information only where its error beats ~1.5 mm (the scaled mean-face baseline). No published NoW/REALY numbers exist for Hunyuan3D, TRELLIS, Rodin, Tripo, Meshy, PanoHead or Arc2Avatar as of this note."
+    },
+    {
+      "name": "internal_grid_vs_voxel_size",
+      "units": "mm",
+      "columns": ["model_or_setting", "grid", "voxel_mm_head_only_box_0.25m", "voxel_mm_bust_box_0.45m", "status"],
+      "rows": [
+        ["TRELLIS sparse structure", 64, 3.91, 7.03, "knowledge"],
+        ["TripoSR default MC; TRELLIS FlexiCubes mesh; Hunyuan3D default octree", 256, 0.98, 1.76, "knowledge"],
+        ["Hunyuan3D raised octree", 384, 0.65, 1.17, "knowledge"],
+        ["Hunyuan3D raised octree", 512, 0.49, 0.88, "knowledge"],
+        ["claimed next-gen (TRELLIS.2 / Hunyuan3D 3.0)", 1024, 0.24, 0.44, "contested"],
+        ["claimed next-gen (TRELLIS.2 / Hunyuan3D 3.0)", 1536, 0.16, 0.29, "contested"]
+      ],
+      "population": "arithmetic: voxel = bounding-box extent / grid; generators normalise the whole input to the box",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Upper bound only; effective learned detail is about 2-4 voxels. EG3D/PanoHead tri-plane texel is roughly 1-2 mm and the 128^2 ray footprint roughly 2-3 mm at the face (author estimate). Likeness-bearing relief is about 0.5-5 mm."
+    },
+    {
+      "name": "licence_access_matrix",
+      "units": "categorical",
+      "columns": ["model", "code_licence", "weights_licence", "commercial_use", "notes", "status"],
+      "rows": [
+        ["TRELLIS", "MIT", "MIT", "yes", "some CUDA dependencies (nvdiffrast, 3DGS rasteriser) carry non-commercial terms", "contested"],
+        ["TripoSR", "MIT", "MIT", "yes", "", "knowledge"],
+        ["TripoSG", "MIT", "MIT", "yes", "", "knowledge"],
+        ["InstantMesh", "Apache-2.0", "Apache-2.0 (check Zero123++ terms)", "yes", "", "contested"],
+        ["Step1X-3D", "Apache-2.0", "Apache-2.0", "yes", "", "contested"],
+        ["OpenLRM", "Apache-2.0", "CC BY-NC 4.0", "weights no", "", "contested"],
+        ["SF3D / SPAR3D", "Stability AI Community License", "Stability AI Community License", "below about US$1M annual revenue", "", "contested"],
+        ["Hunyuan3D 2.x", "Tencent Hunyuan 3D Community License", "same", "yes outside EU, UK, South Korea", "monthly-active-user cap", "contested"],
+        ["EG3D", "NVIDIA Source Code License-NC", "same", "no", "trained on FFHQ (CC BY-NC-SA 4.0)", "knowledge"],
+        ["PanoHead / SphereHead / FaceLift / Arc2Avatar", "unconfirmed", "unconfirmed", "assume no", "ArcFace/InsightFace pretrained weights reportedly non-commercial", "contested"],
+        ["Rodin / Tripo / Meshy", "hosted", "hosted", "paid tiers", "entry tiers about US$10-30/month; free-tier outputs public or CC BY; face upload is biometric data", "contested"]
+      ],
+      "population": "licence terms as recalled; time-sensitive",
+      "source_urls": ["https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md"],
+      "status": "contested",
+      "notes": "Verify every row against the current repository LICENSE file and vendor terms before shipping. Prices are deliberately given as a range."
+    },
+    {
+      "name": "generator_surface_data_term_sigmas",
+      "units": "mm; residual split into in-plane (perpendicular to conditioning view axis d) and along-d components",
+      "columns": ["region", "sigma_inplane_mm_min", "sigma_inplane_mm_max", "sigma_depth_mm_min", "sigma_depth_mm_max", "enabled"],
+      "rows": [
+        ["forehead, cheeks, temples facing the view", 2, 3, 4, 6, true],
+        ["nose dorsum and tip, chin, lip outline", 2, 3, 6, 10, true],
+        ["lateral face, jaw angle", 4, 6, 8, 12, true],
+        ["occiput and vertex (no rear photo)", 15, null, 15, null, "silhouette only"],
+        ["eyes, lid margins, mouth interior, nostrils, ears, hair and beard", null, null, null, null, false]
+      ],
+      "population": "AI-generated adult head after similarity alignment to a metric template",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Design defaults, unbenchmarked. Add per-vertex seed spread: sigma_v^2 = sigma_region^2 + s_v^2; drop vertices with s_v > 5 mm. Geman-McClure kernel c = 2 sigma. Multiply sigma_depth by 2 when the conditioning photo has f35 < 35 mm. Cap generator information per region at about 25% of photo-landmark information."
+    },
+    {
+      "name": "engine_defaults_generator_prior",
+      "units": "mixed",
+      "columns": ["parameter", "value", "unit", "notes"],
+      "rows": [
+        ["generator_term_default_likeness_mode", "off", "bool", "on by default only in blockout mode"],
+        ["seeds_per_photo", "4-8", "count", "spread s_v is the uncertainty estimate"],
+        ["photos_per_ensemble", "2-3", "count", "different conditioning photos where available"],
+        ["max_seed_spread", 5, "mm", "drop vertex from the term above this"],
+        ["depth_contradiction_gate", 3, "sigma", "glabella, pronasale, subnasale, pogonion vs triangulated points"],
+        ["perspective_guard_f35", 35, "mm", "below this, sigma_depth x2"],
+        ["asymmetry_halving_threshold", 2, "mm", "halve generator weight where photo-measured asymmetry exceeds this"],
+        ["synthetic_view_silhouette_weight_max", 0.25, "fraction", "diffusion views / GAN renders never used for landmarks or cameras"],
+        ["information_cap_vs_landmarks", 0.25, "fraction", "per region"],
+        ["ipd_scale_prior", "63 +/- 3.5", "mm", "only when no metric solve exists"],
+        ["clay_audit_reject_frontal", 3, "mm", "region disagreement with photos"],
+        ["clay_audit_reject_profile", 5, "mm", "region disagreement with photos"],
+        ["floater_component_threshold", 0.01, "fraction of vertices", ""],
+        ["proxy_voxel_remesh", "0.5-1.0", "mm", ""],
+        ["shrinkwrap_project_limit", "3-5", "mm", "restricted to ai_ok vertex group"],
+        ["head_gan_completion_sigma_min", 10, "mm", "back-of-head silhouette only"]
+      ],
+      "population": "adult head at metric scale",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Author design defaults; tune on held-out scans. Consistent with community/ai-assisted-sculpting.md defaults."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+ "topic": "3dmm-overview",
+ "sources": [
+  {
+   "n": 1,
+   "title": "FLAME model license",
+   "url": "https://flame.is.tue.mpg.de/modellicense.html"
+  },
+  {
+   "n": 2,
+   "title": "What does 2D geometric information really tell us about 3D face shape?",
+   "url": "https://arxiv.org/pdf/1708.06703"
+  }
+ ],
+ "references_by_name": [
+  "Blanz & Vetter, \"A Morphable Model for the Synthesis of 3D Faces\", SIGGRAPH 1999",
+  "Paysan, Knothe, Amberg, Romdhani & Vetter, \"A 3D Face Model for Pose and Illumination Invariant Face Recognition\" (Basel Face Model), AVSS 2009",
+  "Gerig et al., \"Morphable Face Models - An Open Framework\" (BFM 2017), FG 2018",
+  "Luthi et al., \"Gaussian Process Morphable Models\", IEEE TPAMI 2018",
+  "Li, Bolkart, Black, Li & Romero, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), SIGGRAPH Asia 2017",
+  "Booth et al., \"A 3D Morphable Model learnt from 10,000 faces\" (LSFM), CVPR 2016; \"Large Scale 3D Morphable Models\", IJCV 2018",
+  "Dai, Pears, Smith & Duncan, \"A 3D Morphable Model of Craniofacial Shape and Texture Variation\" (LYHM), ICCV 2017",
+  "Ploumpis et al., \"Combining 3D Morphable Models: A Large Scale Face-and-Head Model\", CVPR 2019; TPAMI extension 2021 (Universal Head Model)",
+  "Cao et al., \"FaceWarehouse: a 3D Facial Expression Database for Visual Computing\", IEEE TVCG 2014",
+  "Yang et al., \"FaceScape: a Large-scale High Quality 3D Face Dataset and Detailed Riggable 3D Face Prediction\", CVPR 2020",
+  "Li et al., \"Learning Formation of Physically-Based Face Attributes\" (ICT-FaceKit), CVPR 2020",
+  "Wang et al., \"FaceVerse: a Fine-grained and Detail-controllable 3D Face Morphable Model from a Hybrid Dataset\", CVPR 2022",
+  "Bao et al., \"High-Fidelity 3D Digital Human Head Creation from RGB-D Selfies\" (HIFI3D), ACM TOG",
+  "Chai et al., \"REALY: Rethinking the Evaluation of 3D Face Reconstruction\" (HIFI3D++), ECCV 2022",
+  "Huber et al., \"A Multiresolution 3D Morphable Face Model and Fitting Framework\" (Surrey Face Model / eos), VISAPP 2016",
+  "Giebenhain et al., \"Learning Neural Parametric Head Models\" (NPHM), CVPR 2023",
+  "Tran & Liu, \"Nonlinear 3D Face Morphable Model\", CVPR 2018",
+  "Amberg, Romdhani & Vetter, \"Optimal Step Nonrigid ICP Algorithms for Surface Registration\", CVPR 2007",
+  "Styner et al., \"Evaluation of 3D correspondence methods for model building\", IPMI 2003",
+  "Egger et al., \"3D Morphable Face Models - Past, Present and Future\", ACM TOG 2020"
+ ]
+}

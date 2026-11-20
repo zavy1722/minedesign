@@ -1,0 +1,31 @@
+{
+  "topic": "likeness-mistakes",
+  "sources": [],
+  "references_by_name": [
+    "Farkas, Anthropometry of the Head and Face, 1994",
+    "Cohen & Bennett, 'Why can't most people draw what they see?', Journal of Experimental Psychology: Human Perception and Performance, 1997",
+    "Ostrofsky, Kozbelt & Seidel, perceptual constancies and realistic drawing skill, 2012",
+    "Carbon & Wirth, Perception, 2014 (systematically raised eye placement in drawn faces; title to verify)",
+    "Webster & MacLin, figural aftereffects in face perception, Psychonomic Bulletin & Review, 1999",
+    "Leopold, O'Toole, Vetter & Blanz, prototype-referenced shape encoding (face aftereffects), Nature Neuroscience, 2001",
+    "Rhodes, Brennan & Carey, identification and ratings of caricatures, Cognitive Psychology, 1987",
+    "Benson & Perrett, photographic-quality facial caricatures, 1991",
+    "Meissner & Brigham, own-race bias meta-analysis, Psychology, Public Policy, and Law, 2001",
+    "Jenkins, White, Van Montfort & Burton, 'Variability in photos of the same face', Cognition, 2011",
+    "Bruce et al., verification of face identities from video images, Journal of Experimental Psychology: Applied, 1999",
+    "Burton, White & McNeill, The Glasgow Face Matching Test, Behavior Research Methods, 2010",
+    "Harmon, 'The recognition of faces', Scientific American, 1973",
+    "Sinha, Balas, Ostrovsky & Russell, 'Face recognition by humans: nineteen results all computer vision researchers should know about', Proceedings of the IEEE, 2006",
+    "Costen, Parker & Craw, spatial filtering and face identification, Perception & Psychophysics, 1996",
+    "Nasanen, spatial frequency bandwidth used in the recognition of facial images, Vision Research, 1999",
+    "Sadr, Jarudi & Sinha, 'The role of eyebrows in face recognition', Perception, 2003",
+    "Sinha & Poggio, 'I think I know that face...', Nature, 1996",
+    "Yin, 'Looking at upside-down faces', Journal of Experimental Psychology, 1969",
+    "Thompson, 'Margaret Thatcher: a new illusion', Perception, 1980",
+    "Mita, Dermer & Knight, reversed facial images and the mere-exposure hypothesis, Journal of Personality and Social Psychology, 1977",
+    "Belhumeur, Kriegman & Yuille, 'The bas-relief ambiguity', International Journal of Computer Vision, 1999",
+    "Ward et al., nasal distortion in short-distance photographs (selfie effect), JAMA Facial Plastic Surgery, 2018",
+    "Ricketts, esthetic (E-) line, 1968",
+    "Goode, nasal tip projection ratio"
+  ]
+}

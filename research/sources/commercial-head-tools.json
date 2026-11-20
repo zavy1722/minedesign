@@ -1,0 +1,21 @@
+{
+  "topic": "commercial-head-tools",
+  "sources": [],
+  "references_by_name": [
+    "KeenTools, FaceBuilder for Blender user guide and release notes",
+    "Reallusion, Character Creator 4 online manual (Headshot 2: image and mesh modes) and Reallusion EULA",
+    "Epic Games, MetaHuman documentation (Mesh to MetaHuman, MetaHuman Creator, MetaHuman Animator) and the Unreal Engine EULA",
+    "Singular Inversions, FaceGen Modeller and FaceGen SDK documentation",
+    "R3DS / Faceform, Wrap user documentation",
+    "Polywink product documentation",
+    "Avaturn developer documentation",
+    "Avatar SDK (itSeez3D) documentation",
+    "Blanz & Vetter, 'A Morphable Model for the Synthesis of 3D Faces', SIGGRAPH 1999",
+    "Egger et al., '3D Morphable Face Models - Past, Present, and Future', ACM Transactions on Graphics 2020",
+    "Oosterhof & Todorov, 'The functional basis of face evaluation', PNAS 2008",
+    "Sanyal et al., 'Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision' (RingNet, NoW benchmark), CVPR 2019",
+    "Chai et al., 'REALY: Rethinking the Evaluation of 3D Face Reconstruction', ECCV 2022",
+    "Amberg, Romdhani & Vetter, 'Optimal Step Nonrigid ICP Algorithms for Surface Registration', CVPR 2007",
+    "Apple ARKit documentation, ARFaceAnchor.BlendShapeLocation"
+  ]
+}

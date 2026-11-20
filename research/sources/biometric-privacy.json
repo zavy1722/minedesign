@@ -1,0 +1,27 @@
+{
+ "topic": "biometric-privacy",
+ "sources": [],
+ "references_by_name": [
+  "Illinois Biometric Information Privacy Act, 740 ILCS 14 (2008), as amended by Public Act 103-0769 (2024)",
+  "Texas Business & Commerce Code §503.001 (Capture or Use of Biometric Identifier); Texas HB 149 (TRAIGA, 2025)",
+  "Washington RCW 19.375 (biometric identifiers) and RCW 19.373 (My Health My Data Act)",
+  "Colorado Privacy Act as amended by HB 24-1130",
+  "California Consumer Privacy Act as amended by the CPRA, Cal. Civ. Code §1798.100 et seq.; Cal. Civ. Code §3344",
+  "Regulation (EU) 2016/679 (GDPR), Arts. 2(2)(c), 4(14), 6, 7, 9, 25, 28, 35, 83; Recitals 51 and 78",
+  "Regulation (EU) 2024/1689 (AI Act), Arts. 5(1)(e), 50; Regulation (EU) 2024/2847 (Cyber Resilience Act)",
+  "Rosenbach v. Six Flags Entertainment Corp., 2019 IL 123186",
+  "Tims v. Black Horse Carriers, Inc., 2023 IL 127801",
+  "Cothron v. White Castle System, Inc., 2023 IL 128004",
+  "Rivera v. Google Inc. (N.D. Ill. 2017)",
+  "Patel v. Facebook, Inc. (9th Cir. 2019)",
+  "Zellmer v. Meta Platforms, Inc. (9th Cir. 2024)",
+  "Heard v. Becton, Dickinson & Co. (N.D. Ill. 2020)",
+  "CJEU C-101/01 Bodil Lindqvist (2003)",
+  "EDPB Guidelines 07/2020 on the concepts of controller and processor",
+  "Article 29 Working Party Opinion 02/2012 on facial recognition in online and mobile services",
+  "UK ICO, Biometric data guidance: biometric recognition (2024)",
+  "FTC Policy Statement on Misuse of Biometric Information and Harm to Consumers (2023); In re Everalbum (FTC, 2021)",
+  "Japan Act on the Protection of Personal Information (individual identification codes); China PIPL Arts. 28-29; Brazil LGPD Art. 5(II); Quebec Act to establish a legal framework for information technology",
+  "Phillips et al., Overview of the Face Recognition Grand Challenge, CVPR 2005"
+ ]
+}

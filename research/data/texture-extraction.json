@@ -1,0 +1,111 @@
+{
+  "topic": "texture-extraction",
+  "tables": [
+    {
+      "name": "texel_pitch_by_map_size",
+      "units": "map_px: pixels per side; pitch: mm per texel; texels_used: millions; layer: MB for one float32 RGB layer",
+      "columns": ["map_px", "whole_head_pitch_mm", "face_tile_pitch_mm", "texels_used_millions", "float32_rgb_layer_MB"],
+      "rows": [
+        [1024, 0.467, 0.233, 0.7, 13],
+        [2048, 0.233, 0.117, 2.9, 50],
+        [4096, 0.117, 0.058, 11.7, 201],
+        [8192, 0.058, 0.029, 47.0, 805]
+      ],
+      "population": "Adult head; assumed surface areas: head + neck ~0.16 m^2 (whole-head layout), face alone ~0.04 m^2 (face on its own tile/UDIM); 70% UV fill",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Arithmetic: pitch = sqrt(area / (0.7 * N^2)). Surface areas are rough assumptions (rule of nines), consistent with blender/skin-shading.md Table D."
+    },
+    {
+      "name": "capture_gsd_vs_recommended_map",
+      "units": "field_mm: framed long side in mm; gsd: mm per pixel",
+      "columns": ["capture", "field_mm", "nominal_gsd_mm_per_px", "effective_gsd_mm_per_px", "recommended_map"],
+      "rows": [
+        ["12 MP phone (4032 px)", 400, 0.099, "0.14-0.20", "4096 whole head"],
+        ["24 MP full frame (6000 px)", 400, 0.067, "0.067-0.08 best view", "8192 whole head, or 4096 face tile"],
+        ["45 MP full frame (8192 px)", 400, 0.049, "0.05-0.06 best view", "8192 whole head, or 8192 face tile"]
+      ],
+      "population": "Adult head framed at 400 mm long side; GSD from reconstruction/photogrammetry-heads.md Table 2",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Rule: choose N so texel pitch is ~1-1.5x the best-view GSD. Phone effective resolution (50-70% of nominal) is contested; best-view GSD grows by 1/cos(theta) for regions not facing any camera."
+    },
+    {
+      "name": "incidence_angle_factors",
+      "units": "theta in degrees; other columns dimensionless",
+      "columns": ["theta_deg", "stretch_1_over_cos", "cos", "cos2", "cos4", "schlick_specular_F"],
+      "rows": [
+        [0, 1.00, 1.000, 1.000, 1.000, 0.028],
+        [30, 1.15, 0.866, 0.750, 0.563, 0.028],
+        [45, 1.41, 0.707, 0.500, 0.250, 0.030],
+        [60, 2.00, 0.500, 0.250, 0.063, 0.058],
+        [70, 2.92, 0.342, 0.117, 0.014, 0.148],
+        [75, 3.86, 0.259, 0.067, 0.005, 0.245],
+        [80, 5.76, 0.174, 0.030, 0.001, 0.402]
+      ],
+      "population": "Any surface; skin specular F0 = 0.028 from IOR ~1.4",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Arithmetic. Weight w = vis * cos^p(theta); p=2 default (contested 1-4). Schlick approximation F = F0 + (1-F0)(1-cos)^5."
+    },
+    {
+      "name": "misregistration_shift",
+      "units": "delta_n and shift in mm; shift_px at 0.067 mm/px",
+      "columns": ["delta_n_mm", "typical_source", "theta_deg", "shift_mm", "shift_px_at_0.067"],
+      "rows": [
+        [0.5, "scan", 15, 0.13, 2],
+        [0.5, "scan", 30, 0.29, 4],
+        [0.5, "scan", 45, 0.50, 7],
+        [0.5, "scan", 60, 0.87, 13],
+        [1.0, "good multi-view fit", 15, 0.27, 4],
+        [1.0, "good multi-view fit", 30, 0.58, 9],
+        [1.0, "good multi-view fit", 45, 1.00, 15],
+        [1.0, "good multi-view fit", 60, 1.73, 26],
+        [3.0, "template-only fit", 15, 0.80, 12],
+        [3.0, "template-only fit", 30, 1.73, 26],
+        [3.0, "template-only fit", 45, 3.00, 45],
+        [3.0, "template-only fit", 60, 5.20, 78]
+      ],
+      "population": "Derived geometry: shift = delta_n * tan(theta); two views at +/-theta disagree by about twice the shift",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Typical delta_n per source is an expert estimate; the shift formula is first-order (small errors, locally planar surface)."
+    },
+    {
+      "name": "texture_engine_defaults",
+      "units": "mixed; see units column",
+      "columns": ["parameter", "default", "range_or_sigma", "units", "status"],
+      "rows": [
+        ["map_size", 4096, "2048 phone; 8192 for >=24 MP", "px", "knowledge"],
+        ["theta_max_hard", 75, "70-80", "deg", "knowledge"],
+        ["theta_fade_start", 60, "50-65", "deg", "knowledge"],
+        ["cos_exponent_p", 2, "1-4", "-", "contested"],
+        ["depth_tolerance_eps", "max(1, 2*sigma_geom)", "scan 0.5-1; template 2-5", "mm", "knowledge"],
+        ["edge_erosion", 5, "3-15", "source px", "knowledge"],
+        ["edge_ramp", 10, "5-20", "source px", "knowledge"],
+        ["frame_margin", 0.02, "0.01-0.05", "fraction of image width", "knowledge"],
+        ["pyramid_level", "log2(footprint)", "max 3", "level", "knowledge"],
+        ["gain_prior_sigma_log_manual", 0.05, "0.03-0.1", "log units", "knowledge"],
+        ["gain_prior_sigma_log_auto", 0.3, "0.2-0.4", "log units", "knowledge"],
+        ["wb_ratio_prior_sigma_locked", 0.03, "0.02-0.05", "fraction", "knowledge"],
+        ["wb_ratio_prior_sigma_auto", 0.15, "0.1-0.2", "fraction", "knowledge"],
+        ["vignetting_corner_falloff_sigma", 0.5, "0.3-1", "stops", "knowledge"],
+        ["multiband_levels_4k", 5, "4-6", "levels", "contested"],
+        ["two_band_split_sigma", 3, "2-5", "mm on surface", "knowledge"],
+        ["gutter_4k", 16, "8 at 2K; 32 at 8K", "px", "knowledge"],
+        ["harmonic_fill_max_hole", 5, "3-10", "mm", "knowledge"],
+        ["mirror_source_weight_threshold", 0.3, "0.2-0.5", "fraction of max weight", "knowledge"],
+        ["generative_fill_max_confidence", 0.2, "off by default", "confidence", "contested"],
+        ["min_views_specular_median", 3, "-", "views", "knowledge"],
+        ["photometric_pose_refine_sigma_rot", 0.1, "0.05-0.2; landmark cameras only", "deg", "knowledge"],
+        ["photometric_pose_refine_sigma_trans", 1.0, "0.5-2; landmark cameras only", "mm", "knowledge"],
+        ["ao_division_gamma", 0.5, "0.3-0.6", "-", "contested"],
+        ["delight_sh_order", 2, "1-2", "SH order (9 coeffs per channel at order 2)", "knowledge"]
+      ],
+      "population": "Proposed defaults for a numpy photo-to-UV texture module (face3d/texture), adult heads, 0.05-0.2 mm/px capture",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Starting values from expert practice, to be tuned on synthetic renders (face3d/synthetic.py) and real capture sets; per-row status given in the status column."
+    }
+  ]
+}

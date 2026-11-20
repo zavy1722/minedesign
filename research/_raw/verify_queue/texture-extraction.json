@@ -1,0 +1,27 @@
+{
+ "id": "texture-extraction",
+ "area": "reconstruction",
+ "title": "Building a UV texture from photos",
+ "queue": [
+  {
+   "claim": "Waechter, Moehrle & Goesele (ECCV 2014) texture method: per-face view selection by graph-cut MRF with a data term of image-gradient magnitude integrated over the projected face, photo-consistency outlier rejection, global colour adjustment (per-vertex additive correction by least squares along seams), and local Poisson editing on a seam strip of about 20 px. This is the basis for the engine's 'select_poisson' blend mode.",
+   "query": "Waechter Moehrle Goesele \"Let There Be Color\" large-scale texturing global color adjustment local Poisson editing gradient magnitude data term",
+   "domains": ""
+  },
+  {
+   "claim": "Blender (current 4.x/5.x): Cycles bake has a 16 px default margin and margin types 'Adjacent Faces' and 'Extend'. The UV Project modifier projects through a camera with aspect settings. Texture Paint has Image > Apply Camera Image (paint.project_image). These underpin the pure-Blender projection route.",
+   "query": "Blender manual bake margin type Adjacent Faces Extend UV Project modifier Apply Camera Image",
+   "domains": "docs.blender.org"
+  },
+  {
+   "claim": "Generative face-UV completion landscape and licences: Relightify (ICCV 2023), TEXTure (SIGGRAPH 2023), Paint3D (CVPR 2024), Hunyuan3D-Paint/2.1 texturing. The Tencent Hunyuan community licence excludes the EU, UK and South Korea. Which open model is state of the art in late 2026 is unknown.",
+   "query": "Hunyuan3D 2.1 Paint license territory exclusion European Union United Kingdom South Korea",
+   "domains": ""
+  },
+  {
+   "claim": "Ramamoorthi & Hanrahan (SIGGRAPH 2001): 9 spherical-harmonic coefficients (order 2) per colour channel represent Lambertian irradiance to within a few percent, which justifies SH order 2 as the de-lighting default.",
+   "query": "Ramamoorthi Hanrahan efficient representation irradiance environment maps nine coefficients average error",
+   "domains": ""
+  }
+ ]
+}

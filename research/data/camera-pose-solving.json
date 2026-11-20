@@ -1,0 +1,757 @@
+{
+ "topic": "camera-pose-solving",
+ "tables": [
+  {
+   "name": "f35_to_camera_4032x3024",
+   "units": "mm (f35, Blender lens), px (f_px), degrees (FOV)",
+   "columns": [
+    "f35_mm",
+    "f_px",
+    "hfov_long_deg",
+    "vfov_short_deg",
+    "blender_lens_mm_sensor36_longside_fit"
+   ],
+   "rows": [
+    [
+     13,
+     1514,
+     106.2,
+     89.9,
+     13.52
+    ],
+    [
+     24,
+     2796,
+     71.6,
+     56.8,
+     24.96
+    ],
+    [
+     26,
+     3029,
+     67.3,
+     53.1,
+     27.04
+    ],
+    [
+     28,
+     3262,
+     63.4,
+     49.7,
+     29.12
+    ],
+    [
+     35,
+     4077,
+     52.6,
+     40.7,
+     36.4
+    ],
+    [
+     50,
+     5824,
+     38.2,
+     29.1,
+     52.0
+    ],
+    [
+     77,
+     8970,
+     25.3,
+     19.1,
+     80.08
+    ],
+    [
+     85,
+     9901,
+     23.0,
+     17.4,
+     88.41
+    ],
+    [
+     105,
+     12231,
+     18.7,
+     14.1,
+     109.21
+    ],
+    [
+     120,
+     13978,
+     16.4,
+     12.3,
+     124.81
+    ],
+    [
+     135,
+     15726,
+     14.6,
+     11.0,
+     140.41
+    ],
+    [
+     200,
+     23297,
+     9.9,
+     7.4,
+     208.01
+    ]
+   ],
+   "population": "Pinhole arithmetic for a 4032x3024 (4:3, 12 MP) image; 35 mm equivalence defined on the image diagonal (43.27 mm), as in face3d.geometry.camera.focal_px_from_35mm",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Derived, not empirical. f_px = f35 * hypot(W,H) / 43.2666. If a vendor defines EXIF FocalLengthIn35mmFilm on width instead of diagonal, values shift by ~4% for 4:3."
+  },
+  {
+   "name": "blender_lens_factor_from_exif_f35",
+   "units": "dimensionless multiplier",
+   "columns": [
+    "aspect",
+    "factor"
+   ],
+   "rows": [
+    [
+     "4:3",
+     1.0401
+    ],
+    [
+     "3:2",
+     1.0
+    ],
+    [
+     "16:9",
+     0.9547
+    ],
+    [
+     "1:1",
+     1.1767
+    ]
+   ],
+   "population": "Blender camera with sensor_width 36 mm and the sensor fitted to the long image side; correct lens = EXIF f35 * factor",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "factor = 36*diag/(43.2666*long_side). Arithmetic is exact; the contested part is whether EXIF 35mm-equivalent uses the diagonal convention (assumed) or width."
+  },
+  {
+   "name": "framing_distance_and_perspective_excess",
+   "units": "mm (distance), percent (excess magnification)",
+   "columns": [
+    "setup",
+    "f35_mm",
+    "distance_mm",
+    "excess_pct_delta60mm",
+    "excess_pct_delta110mm"
+   ],
+   "rows": [
+    [
+     "tight head (300 mm on long side)",
+     13,
+     108,
+     56,
+     102
+    ],
+    [
+     "tight",
+     24,
+     200,
+     30,
+     55
+    ],
+    [
+     "tight",
+     26,
+     217,
+     28,
+     51
+    ],
+    [
+     "typical selfie",
+     26,
+     350,
+     17,
+     31
+    ],
+    [
+     "typical selfie",
+     26,
+     500,
+     12,
+     22
+    ],
+    [
+     "tight",
+     35,
+     292,
+     21,
+     38
+    ],
+    [
+     "tight",
+     50,
+     417,
+     14,
+     26
+    ],
+    [
+     "tight",
+     77,
+     642,
+     9,
+     17
+    ],
+    [
+     "tight",
+     85,
+     708,
+     8,
+     16
+    ],
+    [
+     "head and shoulders",
+     85,
+     1200,
+     5,
+     9
+    ],
+    [
+     "tight",
+     135,
+     1125,
+     5,
+     10
+    ],
+    [
+     "tight",
+     200,
+     1667,
+     4,
+     7
+    ]
+   ],
+   "population": "Adult head; distances frame 300 mm on the 36 mm long side (+/-4% for 4:3 diagonal convention). Delta = depth behind nose tip: 60 mm ~ canthus/cheek region, 110 mm ~ tragion (author estimates, +/-15 mm)",
+   "source_urls": [
+    "https://www.digitaltrends.com/photography/lens-geometry-portraits/",
+    "https://photographylife.com/does-focal-length-distort-subjects"
+   ],
+   "status": "knowledge",
+   "notes": "Excess = Delta/d. Distance-driven perspective is supported qualitatively by the two URLs; the numbers are pinhole arithmetic with estimated Delta. Ward et al. 2018 reported ~30% nasal width increase at 30 cm vs 1.5 m (unverified)."
+  },
+  {
+   "name": "two_view_depth_uncertainty_gain",
+   "units": "ratio sigma_depth / sigma_lateral_per_view",
+   "columns": [
+    "view_separation_deg",
+    "depth_to_lateral_sigma_ratio",
+    "lateral_ratio"
+   ],
+   "rows": [
+    [
+     5,
+     16.21,
+     0.71
+    ],
+    [
+     10,
+     8.11,
+     0.71
+    ],
+    [
+     15,
+     5.42,
+     0.71
+    ],
+    [
+     20,
+     4.07,
+     0.72
+    ],
+    [
+     30,
+     2.73,
+     0.73
+    ],
+    [
+     45,
+     1.85,
+     0.77
+    ],
+    [
+     60,
+     1.41,
+     0.82
+    ],
+    [
+     90,
+     1.0,
+     1.0
+    ]
+   ],
+   "population": "Two symmetric views, equal isotropic per-view lateral noise",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "sigma_z = sigma/(sqrt2*sin(theta/2)); sigma_x = sigma/(sqrt2*cos(theta/2)). Derived."
+  },
+  {
+   "name": "pitch_error_vertical_shift",
+   "units": "mm image-plane vertical shift relative to reference",
+   "columns": [
+    "depth_offset_mm",
+    "shift_at_2deg",
+    "shift_at_5deg",
+    "shift_at_10deg",
+    "shift_at_15deg"
+   ],
+   "rows": [
+    [
+     20,
+     0.7,
+     1.7,
+     3.5,
+     5.2
+    ],
+    [
+     40,
+     1.4,
+     3.5,
+     6.9,
+     10.4
+    ],
+    [
+     110,
+     3.8,
+     9.6,
+     19.1,
+     28.5
+    ]
+   ],
+   "population": "Point at given depth offset (40 mm ~ nose tip vs canthi; 110 mm ~ ear vs nose tip)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "shift = dz*sin(dpitch). Shows that pitch error mimics nose-length and ear-height errors on frontal photos."
+  },
+  {
+   "name": "scale_and_noise_references",
+   "units": "mixed (see columns)",
+   "columns": [
+    "quantity",
+    "value",
+    "sd_or_range",
+    "units",
+    "population_note"
+   ],
+   "rows": [
+    [
+     "interpupillary distance",
+     63,
+     "SD ~3.5-4",
+     "mm",
+     "adults; Dodgson 2004 (unverified)"
+    ],
+    [
+     "horizontal visible iris diameter",
+     11.7,
+     "+/-0.5",
+     "mm",
+     "adults; MediaPipe Iris (Google Research blog)"
+    ],
+    [
+     "ID-1 card width",
+     85.6,
+     null,
+     "mm",
+     "ISO/IEC 7810"
+    ],
+    [
+     "ID-1 card height",
+     53.98,
+     null,
+     "mm",
+     "ISO/IEC 7810"
+    ],
+    [
+     "automatic 68-point landmark NME",
+     0.035,
+     "0.03-0.04",
+     "fraction of interocular distance",
+     "300W benchmark, modern detectors; published inter-ocular full-set NME ~2.9-3.3%"
+    ],
+    [
+     "learned single-image head pose MAE",
+     5,
+     "4-6",
+     "degrees per angle",
+     "AFLW2000/BIWI (method-dependent)"
+    ]
+   ],
+   "population": "Adults / benchmarks as noted",
+   "source_urls": [
+    "https://arxiv.org/pdf/2004.02980",
+    "https://arxiv.org/pdf/2104.03100",
+    "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/"
+   ],
+   "status": "mixed: iris and NME rows verified 2026-11-20; IPD row unverified",
+   "notes": "From author knowledge; queue for verification before using as priors."
+  },
+  {
+   "name": "sim_single_view_focal_error",
+   "units": "percent focal error (median, p90)",
+   "columns": [
+    "distance_mm",
+    "f35_mm",
+    "yaw_deg",
+    "known_shape_noise1pct_median",
+    "known_shape_noise1pct_p90",
+    "mismatch_noise2pct_median",
+    "mismatch_noise2pct_p90"
+   ],
+   "rows": [
+    [
+     300,
+     26,
+     0,
+     2,
+     5,
+     9,
+     21
+    ],
+    [
+     300,
+     26,
+     30,
+     2,
+     7,
+     12,
+     27
+    ],
+    [
+     500,
+     26,
+     0,
+     3,
+     7,
+     13,
+     35
+    ],
+    [
+     500,
+     26,
+     30,
+     4,
+     10,
+     17,
+     55
+    ],
+    [
+     1000,
+     50,
+     0,
+     8,
+     17,
+     38,
+     171
+    ],
+    [
+     1000,
+     50,
+     30,
+     9,
+     19,
+     45,
+     139
+    ],
+    [
+     2000,
+     85,
+     0,
+     13,
+     31,
+     45,
+     416
+    ],
+    [
+     2000,
+     85,
+     30,
+     11,
+     32,
+     93,
+     null
+    ]
+   ],
+   "population": "Engine experiment: face3d.solve.pnp.solve_pnp with focal free, no prior; illustrative synthetic landmarks (face3d/synthetic.py, contour points removed), 3000x4000 px, 40 trials; mismatch = random_subject (identity SD 4 mm, scale SD 4%) solved against template; noise as fraction of IOD",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Not literature. None = diverged (p90 > 600x). Synthetic landmarks are not anatomical data; repeat on real captures."
+  },
+  {
+   "name": "sim_multiview_ba",
+   "units": "percent focal error (median, p90); mm landmark RMSE after similarity alignment",
+   "columns": [
+    "distance_mm",
+    "f35_mm",
+    "views",
+    "focal_prior",
+    "focal_err_median_pct",
+    "focal_err_p90_pct",
+    "landmark_rmse_mm"
+   ],
+   "rows": [
+    [
+     400,
+     26,
+     "5 (yaw -60..60)",
+     "none",
+     9,
+     24,
+     1.2
+    ],
+    [
+     400,
+     26,
+     "5",
+     "EXIF-like, engine default sigma_log 0.35",
+     6,
+     11,
+     1.1
+    ],
+    [
+     400,
+     26,
+     "5",
+     "generic 50mm sigma_log 0.35",
+     11,
+     32,
+     1.3
+    ],
+    [
+     400,
+     26,
+     "frontal only",
+     "none",
+     8,
+     20,
+     2.7
+    ],
+    [
+     1000,
+     50,
+     "5",
+     "none",
+     16,
+     622,
+     1.2
+    ],
+    [
+     1000,
+     50,
+     "5",
+     "EXIF-like, sigma_log 0.35",
+     11,
+     22,
+     1.1
+    ],
+    [
+     1000,
+     50,
+     "5",
+     "generic 50mm sigma_log 0.35",
+     10,
+     25,
+     1.3
+    ],
+    [
+     1000,
+     50,
+     "frontal only",
+     "none",
+     19,
+     51,
+     2.5
+    ],
+    [
+     2000,
+     85,
+     "5",
+     "none",
+     73,
+     null,
+     1.2
+    ],
+    [
+     2000,
+     85,
+     "5",
+     "EXIF-like, sigma_log 0.35",
+     10,
+     21,
+     1.2
+    ],
+    [
+     2000,
+     85,
+     "5",
+     "generic 50mm sigma_log 0.35",
+     45,
+     71,
+     1.3
+    ],
+    [
+     2000,
+     85,
+     "frontal only",
+     "none",
+     63,
+     null,
+     3.0
+    ]
+   ],
+   "population": "Engine experiment: face3d.solve.reconstruct.reconstruct_landmarks; pitch jitter SD 5 deg; far-side points hidden beyond 35 deg yaw; 2% IOD noise; template prior sigma 6 mm with symmetry 2 mm, midline 1.5 mm; 12 subjects per row",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "EXIF-like prior = true focal perturbed with 5% log noise but applied with the engine's fixed f_prior_log_sigma 0.35 (reconstruct_landmarks does not expose it). None = diverged."
+  },
+  {
+   "name": "recommended_camera_priors",
+   "units": "mixed",
+   "columns": [
+    "parameter",
+    "default",
+    "sigma_or_rule"
+   ],
+   "rows": [
+    [
+     "log f (EXIF f35, uncropped)",
+     "EXIF",
+     "sigma_log 0.04-0.06"
+    ],
+    [
+     "log f (checkerboard calibrated)",
+     "calibration",
+     "sigma_log 0.01-0.02"
+    ],
+    [
+     "log f (vanishing points / fSpy)",
+     "VP estimate",
+     "sigma_log 0.05-0.10"
+    ],
+    [
+     "log f (unknown)",
+     "50 mm equivalent",
+     "sigma_log 0.5-0.7; init hypotheses 13,24,35,50,85,135,200 mm"
+    ],
+    [
+     "principal point",
+     "image centre",
+     "fixed unless crop metadata"
+    ],
+    [
+     "skew / pixel aspect",
+     "0 / 1",
+     "fixed"
+    ],
+    [
+     "k1,k2",
+     "0",
+     "fixed for phone main camera; k1 sigma ~0.1 for ultrawide/webcam"
+    ],
+    [
+     "landmark sigma_px",
+     "0.025*IOD_px detector; 0.01*IOD_px manual",
+     "x3 for contour points"
+    ],
+    [
+     "Huber threshold",
+     "2.5*sigma_px",
+     "relative"
+    ],
+    [
+     "global scale",
+     "IPD 63 mm",
+     "sigma 3.5-4 mm population; 0.5-1 mm if measured; or iris 11.7+/-0.5 mm"
+    ],
+    [
+     "tagged view yaw",
+     "tag",
+     "sigma 15-20 deg"
+    ],
+    [
+     "subject distance",
+     "0.35 m selfie / 1.5 m portrait",
+     "sigma_log 0.3-0.5"
+    ]
+   ],
+   "population": "Engineering defaults for face3d fitting",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Author recommendations; tune on held-out real captures."
+  },
+  {
+   "name": "opencv_solvepnp_flags",
+   "units": "minimum correspondences",
+   "columns": [
+    "flag",
+    "min_points",
+    "estimates_focal",
+    "note",
+    "status"
+   ],
+   "rows": [
+    [
+     "SOLVEPNP_EPNP",
+     4,
+     false,
+     "non-iterative, O(n)",
+     "sourced"
+    ],
+    [
+     "SOLVEPNP_DLS",
+     4,
+     false,
+     "documented broken; falls back to EPnP (snippet)",
+     "sourced"
+    ],
+    [
+     "SOLVEPNP_UPNP",
+     4,
+     false,
+     "falls back to EPnP in OpenCV",
+     "knowledge"
+    ],
+    [
+     "SOLVEPNP_ITERATIVE",
+     4,
+     false,
+     "LM; DLT init needs >=6 non-planar points, homography init >=4 planar",
+     "knowledge"
+    ],
+    [
+     "SOLVEPNP_P3P / AP3P",
+     4,
+     false,
+     "exactly 4 points",
+     "knowledge"
+    ],
+    [
+     "SOLVEPNP_IPPE",
+     4,
+     false,
+     "planar targets; two-solution ambiguity",
+     "knowledge"
+    ],
+    [
+     "SOLVEPNP_SQPNP",
+     3,
+     false,
+     "globally optimal",
+     "knowledge"
+    ]
+   ],
+   "population": "OpenCV 4.x",
+   "source_urls": [
+    "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html"
+   ],
+   "status": "contested",
+   "notes": "Mixed status per row; only EPnP and DLS rows are from the harvested docs. Version-sensitive."
+  }
+ ]
+}

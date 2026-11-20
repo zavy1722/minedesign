@@ -1,0 +1,27 @@
+{
+ "id": "camera-pose-solving",
+ "area": "reconstruction",
+ "title": "Solving camera pose and intrinsics from face images",
+ "queue": [
+  {
+   "claim": "EXIF FocalLengthIn35mmFilm is defined on the image diagonal, so Blender lens = f35 \u00d7 1.040 for 4:3, \u00d7 0.955 for 16:9 and \u00d7 1.177 for 1:1 (sensor 36 mm, long-side fit). Typing EXIF f35 directly into Blender is 4\u201318% off. The engine's focal_px_from_35mm assumes the diagonal convention.",
+   "query": "Exif FocalLengthIn35mmFilm definition diagonal or width equivalent focal length CIPA DC-008",
+   "domains": ""
+  },
+  {
+   "claim": "Adult interpupillary distance has a mean of about 63 mm with SD about 3.5\u20134 mm (Dodgson 2004). Used as the default global-scale prior.",
+   "query": "Dodgson 2004 variation and extrema of human interpupillary distance mean standard deviation adults",
+   "domains": ""
+  },
+  {
+   "claim": "Modern automatic 68-point face landmark detectors reach a normalised mean error of about 3\u20134% of interocular distance on 300W. Used to set the landmark noise default \u03c3_px = 0.025\u00b7IOD_px and the 2\u20133% IOD rule for accepting or rejecting a view.",
+   "query": "300W normalized mean error inter-ocular state of the art face alignment HRNet NME 300W full set",
+   "domains": "arxiv.org,paperswithcode.com"
+  },
+  {
+   "claim": "The horizontal visible iris diameter is about 11.7 \u00b1 0.5 mm across adults, as used by MediaPipe Iris for metric distance estimation.",
+   "query": "MediaPipe Iris horizontal iris diameter 11.7 mm depth estimation without depth sensor",
+   "domains": ""
+  }
+ ]
+}

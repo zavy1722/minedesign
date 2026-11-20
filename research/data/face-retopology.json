@@ -1,0 +1,581 @@
+{
+ "topic": "face-retopology",
+ "tables": [
+  {
+   "name": "vertex_budgets_by_use",
+   "units": "element count (quads, triangles, vertices or polygons as stated)",
+   "columns": [
+    "use",
+    "element",
+    "low",
+    "high",
+    "typical",
+    "notes"
+   ],
+   "rows": [
+    [
+     "sculpt_base_multires",
+     "quads",
+     2000,
+     25000,
+     "6000-12000",
+     "head+neck+ears; Multires L4 = base x 256"
+    ],
+    [
+     "fitting_template",
+     "vertices",
+     2000,
+     15000,
+     "5000",
+     "FLAME-class density"
+    ],
+    [
+     "mobile_vr_realtime_head",
+     "triangles",
+     1500,
+     8000,
+     null,
+     "contested; varies by platform and era"
+    ],
+    [
+     "pc_console_hero_head_lod0",
+     "triangles",
+     10000,
+     50000,
+     null,
+     "contested; varies by studio"
+    ],
+    [
+     "film_vfx_subdivision_cage",
+     "quads",
+     5000,
+     30000,
+     null,
+     "rendered at subdivision 2-3 (x16-x64 faces)"
+    ],
+    [
+     "final_sculpt_or_print",
+     "polygons",
+     1000000,
+     20000000,
+     null,
+     "topology irrelevant"
+    ],
+    [
+     "one_ear_base_level",
+     "quads",
+     300,
+     1000,
+     "500",
+     "separate ring system"
+    ]
+   ],
+   "population": "adult human head modelled at real scale (1 BU = 1 m); expert heuristics, no measured sample",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert ranges; mobile and LOD0 rows are contested. Verify before using as engine defaults."
+  },
+  {
+   "name": "reference_topology_counts",
+   "units": "vertices; faces where known",
+   "columns": [
+    "mesh",
+    "vertices",
+    "faces",
+    "face_type",
+    "coverage",
+    "status"
+   ],
+   "rows": [
+    [
+     "MediaPipe canonical face",
+     468,
+     null,
+     "triangles",
+     "face only",
+     "knowledge"
+    ],
+    [
+     "ARKit face mesh",
+     1220,
+     null,
+     "triangles",
+     "face only",
+     "knowledge"
+    ],
+    [
+     "FLAME",
+     5023,
+     9976,
+     "triangles",
+     "head, neck, eyeballs",
+     "knowledge"
+    ],
+    [
+     "MakeHuman hm08 (MPFB2)",
+     13400,
+     null,
+     "quads",
+     "full body (approx.)",
+     "knowledge"
+    ],
+    [
+     "MetaHuman LOD0 head",
+     24000,
+     null,
+     "mixed",
+     "head (approx., recalled)",
+     "contested"
+    ],
+    [
+     "BFM 2009",
+     53490,
+     null,
+     "triangles",
+     "face only",
+     "knowledge"
+    ]
+   ],
+   "population": "template meshes",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Recalled counts, consistent with other notes in this library; MetaHuman count unverified."
+  },
+  {
+   "name": "loop_counts_by_region",
+   "units": "loops (count across a feature); edges around a ring (count)",
+   "columns": [
+    "feature",
+    "loops_low",
+    "loops_high",
+    "ring_edges_low",
+    "ring_edges_high",
+    "notes"
+   ],
+   "rows": [
+    [
+     "eye_lid_margin_to_beyond_orbital_rim",
+     6,
+     10,
+     16,
+     28,
+     "concentric orbicularis oculi rings"
+    ],
+    [
+     "upper_lid_margin_to_crease",
+     3,
+     5,
+     null,
+     null,
+     "too few -> lid intersects cornea on blink"
+    ],
+    [
+     "lower_lid_margin_to_lid_cheek_junction",
+     2,
+     4,
+     null,
+     null,
+     ""
+    ],
+    [
+     "lid_margin_band",
+     2,
+     2,
+     null,
+     null,
+     "plus 1-2 tuck loops into socket; band 1.5-2 mm"
+    ],
+    [
+     "mouth_wet_line_to_outermost_ring",
+     8,
+     14,
+     20,
+     36,
+     "ring edge count even and symmetric"
+    ],
+    [
+     "each_vermilion",
+     3,
+     5,
+     null,
+     null,
+     "plus support loop outside border (white roll)"
+    ],
+    [
+     "nasolabial_fold",
+     1,
+     1,
+     null,
+     null,
+     "plus 1-2 support loops per side"
+    ],
+    [
+     "nostril_interior",
+     2,
+     3,
+     8,
+     12,
+     "blind sac"
+    ],
+    [
+     "forehead_horizontal",
+     4,
+     8,
+     null,
+     null,
+     "frontalis lines"
+    ],
+    [
+     "neck_ring",
+     null,
+     null,
+     32,
+     64,
+     ""
+    ]
+   ],
+   "population": "mid-density head, 8k-15k quads",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Artist heuristics; scale counts roughly with sqrt(total quads)."
+  },
+  {
+   "name": "target_edge_length_by_region",
+   "units": "mm at real scale",
+   "columns": [
+    "region",
+    "across_loops_low",
+    "across_loops_high",
+    "along_loops_low",
+    "along_loops_high"
+   ],
+   "rows": [
+    [
+     "lid_margin_canthi",
+     1.0,
+     2.0,
+     2.0,
+     4.0
+    ],
+    [
+     "lips_vermilion_border",
+     1.5,
+     3.0,
+     3.0,
+     5.0
+    ],
+    [
+     "nose_nostrils_alar_crease",
+     1.5,
+     3.0,
+     2.0,
+     4.0
+    ],
+    [
+     "nasolabial_perioral_skin",
+     3.0,
+     5.0,
+     3.0,
+     5.0
+    ],
+    [
+     "cheek_forehead_chin",
+     4.0,
+     7.0,
+     4.0,
+     7.0
+    ],
+    [
+     "scalp_back_of_head_neck",
+     6.0,
+     12.0,
+     6.0,
+     12.0
+    ]
+   ],
+   "population": "8k-15k quad head+neck; surface area approx 0.13 m^2 (mean edge approx 3.6 mm at 10k quads)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Derived by area arithmetic plus artist practice; usable as density field for Quad Remesher vertex colour or Instant Meshes."
+  },
+  {
+   "name": "pole_sites",
+   "units": "valence; minimum edge rings from named features",
+   "columns": [
+    "site",
+    "typical_valence",
+    "min_rings_from_feature_loops",
+    "status",
+    "notes"
+   ],
+   "rows": [
+    [
+     "cheek_malar_junction_eye_and_mouth_systems",
+     "5 (or 3)",
+     2,
+     "knowledge",
+     "classic cheek pole"
+    ],
+    [
+     "temple_lateral_to_outer_canthus",
+     "5 or 3",
+     2,
+     "knowledge",
+     ""
+    ],
+    [
+     "glabella_nasal_root",
+     "5 or 3",
+     2,
+     "knowledge",
+     "where left and right eye systems meet forehead grid"
+    ],
+    [
+     "alar_crease_top_of_nasolabial_loop",
+     "3 or 5",
+     2,
+     "knowledge",
+     ""
+    ],
+    [
+     "chin_sides",
+     "3 or 5",
+     2,
+     "knowledge",
+     "mouth rings meet jaw grid"
+    ],
+    [
+     "modiolus_lateral_to_commissure",
+     "5",
+     2,
+     "contested",
+     "some layouts place it here; others move it onto the cheek"
+    ],
+    [
+     "jaw_angle_behind_ear_crown",
+     "3 or 5",
+     null,
+     "knowledge",
+     "density reduction"
+    ]
+   ],
+   "population": "animation-ready head topology",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Net sum of (4 - valence) over interior vertices = 8 for a closed genus-0 all-quad surface; = 4 (interior plus boundary (3 - valence) terms) with one open boundary."
+  },
+  {
+   "name": "template_qa_thresholds",
+   "units": "as stated per row",
+   "columns": [
+    "metric",
+    "region",
+    "target",
+    "warn",
+    "units"
+   ],
+   "rows": [
+    [
+     "non_quad_fraction",
+     "deforming zones (lids, lips, nose, cheeks, forehead)",
+     0,
+     0,
+     "fraction"
+    ],
+    [
+     "non_quad_fraction",
+     "elsewhere in subdivision cage",
+     0.005,
+     0.01,
+     "fraction"
+    ],
+    [
+     "pole_distance_from_feature_loops",
+     "lid margin, vermilion, commissure, alar rim, canthi",
+     2,
+     2,
+     "edge rings (minimum)"
+    ],
+    [
+     "pole_count",
+     "head with ears",
+     20,
+     80,
+     "count (typical range)"
+    ],
+    [
+     "quad_interior_angle",
+     "deforming zones",
+     "60-120",
+     "45-135",
+     "degrees"
+    ],
+    [
+     "quad_aspect_ratio",
+     "general",
+     2,
+     2.5,
+     "ratio (max)"
+    ],
+    [
+     "quad_aspect_ratio",
+     "along lid and lip loops",
+     3,
+     4,
+     "ratio (max)"
+    ],
+    [
+     "edge_length_cv",
+     "within one region",
+     0.25,
+     0.35,
+     "coefficient of variation (max)"
+    ],
+    [
+     "midline_abs_x",
+     "midline vertices at rest",
+     1e-05,
+     0.0001,
+     "fraction of head size"
+    ]
+   ],
+   "population": "template meshes for fitting and sculpting",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering heuristics proposed for the add-on QA pass."
+  },
+  {
+   "name": "fitting_priors_topology",
+   "units": "mm unless stated",
+   "columns": [
+    "term",
+    "sigma_low",
+    "sigma_high",
+    "units",
+    "notes"
+   ],
+   "rows": [
+    [
+     "curve_normal_lid_margin",
+     0.5,
+     1.0,
+     "mm",
+     "point-to-curve, free tangential slide"
+    ],
+    [
+     "curve_normal_vermilion_border",
+     0.5,
+     1.0,
+     "mm",
+     "point-to-curve"
+    ],
+    [
+     "curve_normal_alar_rim",
+     1.0,
+     1.5,
+     "mm",
+     ""
+    ],
+    [
+     "curve_normal_nasolabial_fold",
+     2.0,
+     3.0,
+     "mm",
+     "expression- and fat-dependent; down-weight on neutral photos"
+    ],
+    [
+     "curve_normal_jaw_silhouette",
+     1.5,
+     2.5,
+     "mm",
+     "matches craniometric-landmarks oval sigma"
+    ],
+    [
+     "arap_or_laplacian_vs_template",
+     0.05,
+     0.15,
+     "fraction of rest edge length",
+     ""
+    ],
+    [
+     "loop_second_difference_smoothness",
+     0.2,
+     0.5,
+     "mm per vertex",
+     "along each named loop"
+    ],
+    [
+     "shape_asymmetry_prior",
+     1.5,
+     3.0,
+     "mm",
+     "never force to zero; topology exactly symmetric"
+    ],
+    [
+     "quad_angle_barrier",
+     30,
+     150,
+     "degrees (min, max)",
+     "hard barrier"
+    ],
+    [
+     "quad_aspect_barrier",
+     4,
+     4,
+     "ratio (max)",
+     "hard barrier"
+    ]
+   ],
+   "population": "engine defaults (proposed)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Tune on data. Consistent with sigma conventions in anatomy/craniometric-landmarks.md."
+  },
+  {
+   "name": "catmull_clark_limit_shrink",
+   "units": "mm",
+   "columns": [
+    "feature",
+    "edge_length_mm",
+    "radius_of_curvature_mm",
+    "shrink_mm_approx"
+   ],
+   "rows": [
+    [
+     "lip_vermilion_profile",
+     2.0,
+     4.0,
+     0.17
+    ],
+    [
+     "vermilion_border_sharp",
+     1.5,
+     1.0,
+     0.38
+    ],
+    [
+     "nose_tip",
+     3.0,
+     6.0,
+     0.25
+    ],
+    [
+     "chin",
+     5.0,
+     20.0,
+     0.21
+    ],
+    [
+     "scalp",
+     8.0,
+     80.0,
+     0.13
+    ]
+   ],
+   "population": "uniform cubic B-spline approximation: limit point (p- + 4p + p+)/6 on a circle; shrink ~ e^2/(6R)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Derived analytically; motivates fitting the subdivision limit surface rather than the cage."
+  }
+ ]
+}

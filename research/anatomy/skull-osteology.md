@@ -2,13 +2,13 @@
 
 > The face is the skull plus a soft-tissue cover whose thickness varies about tenfold, from ≈3 mm on the bony nasal dorsum to 15–25 mm over cheek and masseter. Bone therefore shows through skin only in predictable zones: forehead and brow ridge, orbital rims, nasal bones, zygomatic body and arch, and the chin and jaw border. At thin midline points (glabella ≈5–5.5 mm, nasion ≈6–7 mm, rhinion ≈3 mm, pogonion ≈11–12 mm) a photo-derived surface must follow bone closely [1][7][31]. Thick zones follow fat, muscle, age and BMI [2][4]. Bone also sets the sculptor's plane breaks (temporal line, lateral orbital rim, malar body, arch, mandibular border). Lateral points (zygion, gonion) are poorly observable from skin [11], and depth tables are population priors with large individual error [45][47][48].
 >
-> Evidence status: 19 ✅ / 47 📄 / 52 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 17 ✅ / 43 📄 / 53 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Frontal bone and brow**
 - Palpable frontal landmarks: supraorbital margins, frontal eminences, superciliary arches [26] 📄. The supraorbital notch/foramen lies in the medial third of the upper rim, ≈2 cm from the midline, and carries the supraorbital nerve and vessels [23][24][25] ✅.
-- The temporal lines start at the zygomatic process of the frontal bone. The inferior line bounds the temporal fossa [33] 📄, and the line forms the forehead "corner" where the front plane turns into the side plane 🧠.
+- The temporal lines start at the zygomatic process of the frontal bone. The inferior line bounds the temporal fossa [33] 📄, and the lines form the forehead "corner" where the front plane turns into the side plane 🧠.
 - Sex tendencies 🧠: males have a larger glabella and superciliary arches (partly frontal sinus), blunt supraorbital margins and a sloping forehead. Females have a vertical forehead with frontal eminences, sharp thin margins and a small glabella. Visual cranial sexing is only ~80–90 % accurate, so these are tendencies.
 - Forehead cover is thicker in males (MRI, all ages) [32], including supraglabella and nasion [2] ✅.
 
@@ -83,10 +83,10 @@
 | Supraorbital notch from midline | ≈20 mm (medial third of rim) | not stated | [23][24][25] | ✅ |
 | Infraorbital foramen below rim | 5.8 R / 6.2 L; 8.5 M / 7.8 F; ~6 (5–8.5); ~10 | N. Indian skulls; cadavers | [28][29] | ↔️ |
 | Cornea apex ahead of lateral orbital rim | ~12–20 mm | Hertel norms, ancestry-dependent | — | 🧠 |
-| Nasal bone length | ≈21 mm | Korean 3D-CT, n = 75 | [15] | 📄 |
+| Nasal bone length | ≈21 mm (type A commonest; no D/E types) | Korean 3D-CT, n = 75 | [15] | 📄 |
 | Piriform aperture width × height | ~22–26 × 30–35 mm | expert range | — | 🧠 |
 | Piriform index | 0.79 (mostly platyrrhine) | N. Indian skulls, n = 40 | [13] | 📄 |
-| Piriform aperture area | 12.6 cm² F / 16.0 cm² M | crania, n = 70 | [14] | ↔️ suspect |
+| Piriform aperture area | 12.6 cm² F / 16.0 cm² M; "pear" type 42.86 % | crania, n = 70 | [14] | ↔️ suspect |
 | Soft alar width minus aperture width | ~8–16 mm (rules disagree) | forensic rules of thumb | — | ↔️ 🧠 |
 | Gonial angle, adult | ≈120°; 120.17° | StatPearls; young adult male dry bone | [35][36] | ✅ |
 | Gonial angle, typical adult spread | ~110–135° | expert range | — | 🧠 |
@@ -98,39 +98,51 @@
 | Soft/bone chin response (genioplasty) | 0.75–0.92 | secondary citation | [18] | 📄 |
 | Normal chin deviation from midsagittal | ≲2–4 mm | clinical rule of thumb | — | 🧠 |
 
+**Table 3 — Depth datasets worth mining (design only; values need full text)**
+
+| Study | Modality | n | Landmarks | Src | Status |
+|---|---|---|---|---|---|
+| Thai, above middle age | US on unembalmed cadavers ≤120 h postmortem | 100 | 11 midline + 32 bilateral | [5] | 📄 |
+| Chinese adults, 18–90 y | CT, skin/fat/muscle layers | 1,174 | 33 | [6] | 📄 |
+| Azerbaijani adults | CT | not extracted | 20 (10 + 10) | [7] | 📄 |
+| Greek adults | head CT | 100 (50 M / 50 F) | 22 (5 + 17) | [8] | 📄 |
+| Cretan pilot | CT, sex-specific means | 64 | 36 | [9] | 📄 |
+| Korean adults | CBCT, upright | 100 (50 M / 50 F) | 31 (10 + 21) | [10] | 📄 |
+| Stephan–Simpson landmark set | CBCT | not confirmed | 34 (12 midline + 11 pairs) | [31] | 📄 |
+
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Work in millimetres.** Set Scene ▸ Units to Metric, Unit Scale 0.001, Length Millimeters, so tissue depths and Table 2 checks read directly. After scaling, sanity-check orbit width (~40 mm), nasal bone (~20–25 mm) and bizygomatic breadth (~125–145 mm) 🧠.
+1. **Work in millimetres.** Scene ▸ Units: Metric, Unit Scale 0.001, Length Millimeters. After scaling, sanity-check orbit width (~40 mm), nasal bones (~20–25 mm) and bizygomatic breadth (~125–145 mm) 🧠.
 2. **Orient to Frankfort.** In the profile photo, level the line from tragion to the lower-lid/cheek junction (a soft proxy for porion–orbitale). The zygomatic arch should then run near-horizontal 🧠.
-3. **Place bone empties before sculpting.** Add empties at glabella, nasion, rhinion, supraorbital notch, frontozygomatic suture, malar point, zygion, orbitale, ANS, pogonion, menton and gonion. Check the vertical notch → infraorbital foramen → mental foramen line 🧠, and check that the lateral orbital rim sits 12–20 mm behind the corneal apex 🧠.
-4. **Sculpt in order of bone confidence.** (a) Forehead → glabella → nasion → nasal bones → rhinion silhouette, matched to the profile within about 1 mm, because the cover is 3–7 mm here [1][31]. (b) Orbital rims and eyeball placement, with the lateral rim receding [23]. (c) Malar body high point, just below the lateral orbit and not on the arch [12]. (d) Mandibular border, angle and chin box (mental tubercles). (e) Thick zones last (buccal, temple, philtrum, jowl), driven by photo shading, not bone.
-5. **Measure depth.** With a skull mesh, use Geometry Nodes on the skin: *Geometry Proximity* (target = skull) → distance → *Store Named Attribute* → colour ramp, or *Raycast* along the inverted normal. Flag areas outside the Table 1 ranges. Version caveat: node names should be checked in the current Blender release 🧠.
-6. **Light-check bone cues.** Match the photo's key light and check the malar highlight, the shadow under the arch, the temple hollow, the brow shadow on the upper lid and the jawline shadow line. These are bone-driven and identity-critical 🧠.
-7. **Sex, age and BMI.** Do not paste a male brow ridge onto a female sculpt, or the reverse. For older or edentulous subjects, shorten lower-face height and open the jaw angle 🧠. Raise thickness with BMI, mostly in the cheek and submental area [4].
+3. **Place bone empties first** at glabella, nasion, rhinion, supraorbital notch, frontozygomatic suture, malar point, zygion, orbitale, ANS, pogonion, menton and gonion. Check the vertical notch → infraorbital → mental foramen line, and that the lateral orbital rim sits 12–20 mm behind the corneal apex 🧠.
+4. **Sculpt in order of bone confidence.** (a) Forehead → glabella → nasion → rhinion silhouette, matched to the profile within ~1 mm, because the cover is only 3–7 mm [1][31]. (b) Orbital rims and eyeball placement, with the lateral rim receding [23]. (c) Malar body high point, just below the lateral orbit and not on the arch [12]. (d) Mandibular border, angle and chin box (mental tubercles). (e) Thick zones last (buccal, temple, philtrum, jowl), driven by photo shading, not bone.
+5. **Measure depth.** With a skull mesh, use Geometry Nodes on the skin: *Geometry Proximity* (target = skull) → distance → *Store Named Attribute* → colour ramp, or *Raycast* along the inverted normal. Flag areas outside Table 1 ranges (check node names in the current Blender release) 🧠.
+6. **Light-check bone cues.** Under the photo's key light, compare the malar highlight, the shadow under the arch, the temple hollow, the brow shadow on the upper lid and the jawline shadow 🧠.
+7. **Sex, age and BMI.** Do not swap brow-ridge types between sexes. For older or edentulous subjects, shorten lower-face height and open the jaw angle 🧠. Raise depth with BMI [4].
 8. **What goes wrong:** eyes too proud or too sunk (Hertel range ignored); a flat front orbital rim that looks "masky" [23]; the cheekbone placed on the arch or too low; the jaw angle read from the frontal outline (masseter and fat) [11]; a skeletal jaw asymmetry symmetrised away [19]; one global tissue depth everywhere [1]; the nose forced to follow the aperture [17][42].
 
 ## Algorithmic implications
 
-- **Two-layer model.** skin = S(β_bone) + t(x; sex, age, BMI)·n̂(x). Use a few anatomical bone knobs: brow projection, orbit size, malar projection, bizygomatic width, maxillary projection, gonial angle, ramus height, bigonial width, chin projection, chin height, chin width and lower-face height.
-- **Thickness priors.** Use log-normal per landmark, μ from Table 1, with σ_log ≈ 0.15–0.20 at glabella, nasion, rhinion and gnathion, ≈0.25 at pogonion and the orbital rims, and ≈0.30–0.40 at malar, buccal and gonion 🧠. Sex enters as a per-region sign (Table 1 directions [2][5]), not a global scale. BMI enters as a positive slope, smallest on the nasal dorsum and forehead and largest in the cheek and submental area 🧠 (direction [4]). Class III raises lower-face depth [3].
+- **Two-layer model.** skin = S(β_bone) + t(x; sex, age, BMI)·n̂(x), with anatomical bone knobs: brow projection, orbit size, malar projection, bizygomatic width, maxillary projection, gonial angle, ramus height, bigonial width, chin projection/height/width and lower-face height.
+- **Thickness priors.** Use log-normal per landmark, μ from Table 1, with σ_log ≈ 0.15–0.20 at glabella, nasion, rhinion and gnathion, ≈0.20–0.25 at pogonion and the orbital rims, and ≈0.30–0.40 at malar, buccal and gonion 🧠. Sex enters as a per-region sign (Table 1 directions [2][5]), not a global scale. BMI enters as a positive slope, smallest on the nasal dorsum and forehead and largest in the cheek and submental area 🧠 (direction [4]). Class III raises lower-face depth [3].
 - **Observation weights** (`ViewObs.weights`): nasion, glabella, pogonion and the canthi 1.0; tragion 0.5; zygion and gonion 0.1–0.2 [11]. Better still, replace the zygion and gonion point residuals with silhouette or contour residuals.
 - **Anisotropic position priors** (`Priors.sigma` as (N,3) in mm): glabella and nasion about (3, 4, 2) (x, y vertical, z depth), since the profile pins depth but not height. Pogonion about (3, 4, 3); zygion and gonion about (6, 8, 8) 🧠.
-- **Symmetry.** Keep `sigma_sym` ≈1.5–2 mm for the upper face, but use ≈3–4 mm for gonion and lateral chin points, and never pull toward exact symmetry [19] 🧠.
+- **Symmetry.** Keep `sigma_sym` ≈1.5–2 mm for the upper face but ≈3–4 mm for gonion and lateral chin points (this needs a per-pair array), and never pull toward exact symmetry [19] 🧠.
 - **Ordering hinge constraints** in the Frankfort frame: z(glabella) > z(nasion); z(cornea) − z(lateral orbital rim) ∈ [12, 20] mm; z(supraorbital rim) > z(lateral orbital rim) [23]; zygion within ±10 mm of FH height; orbit w/h ≈1.1–1.2 🧠.
 - **Feature-preserving warps.** Tag template curves (temporal line, lateral orbital rim, arch, key ridge, mandibular border, mental tubercles) and give the cotan-Laplacian smoothness term lower weights across them, so warping does not smear plane breaks 🧠.
 - **Couplings.** Gonial angle up should push chin projection down and lower-face height up [18][20][21][38]. Propagate bone edits to skin with gain 0.75–0.92 at the chin [18]. The nose and lips are only soft consistency checks against the aperture [17][39][42].
-- **Provenance.** Store population, modality (living or cadaver, supine or upright) and status with every prior [44].
+- **Provenance.** Store population, modality (living or cadaver, supine or upright) and status with every prior [44]. Machine-readable defaults are in `research/data/skull-osteology.json` (`engine_priors_suggested`, `ordering_constraints`).
 
 ## Disagreements, myths & open questions
 
-- **Gonial angle** ↔️: ≈120° [35][36] against a 90°/110° pair. As adult means, 90°/110° are implausible 🧠, possibly a different measure or a snippet error. Panoramic, cephalometric and dry-bone values also differ by a few degrees.
+- **Gonial angle** ↔️: ≈120° [35][36] against a 90°/110° pair, which is implausible as adult means 🧠 (perhaps another measure or a snippet error). Panoramic, cephalometric and dry-bone values also differ by a few degrees.
 - **Infraorbital foramen depth** ↔️: 5.8–10 mm across populations [28][29].
-- **Depth tables** ↔️: means differ by population and modality [1][5]–[10]; there is no standard landmark set [47]; cadaver and posture artefacts [44]; individual error is unavoidable [45][48]. Pooled "T-table" advocates argue ancestry splits add little, while others build population tables 🧠.
-- **Approximation accuracy** ↔️: Manchester-method practitioners (Neave, late 1970s; tissue pegs plus muscle build-up) report the best results when a portrait or soft tissue is available [46][47][51]. Critics say muscle size cannot be read from bone and that tests are scarce [48]. Accuracy assessment is not standardised [43].
-- **Piriform area** ↔️: the 12.6–16.0 cm² figures [14] are 2–3× an expert estimate of ~4–7 cm² for a ~24 × 32 mm pear-shaped opening 🧠. Do not use them until the full text has been checked.
+- **Depth tables** ↔️: means differ by population and modality [1][5]–[10], no landmark set is standard [47], cadaver and posture distort values [44], and individual error is unavoidable [45][48]. Pooled "T-table" advocates say ancestry splits add little; others build population tables 🧠.
+- **Approximation accuracy** ↔️: the Manchester method (Neave, 1977; ~16 depth markers plus muscle build-up [47]) does best when a portrait or soft tissue survives [46][47][51]. Critics say muscle size cannot be read from bone and tests are scarce [48], and accuracy assessment is not standardised [43].
+- **Piriform area** ↔️: 12.6–16.0 cm² [14] is 2–3× an expert estimate of ~4–7 cm² for a ~24 × 32 mm pear-shaped opening 🧠. Do not use it until the full text is checked.
 - **Nose from aperture** ↔️: "add ~10 mm" and ratio rules disagree, and evidence shows only partial prediction [16][17][39][42].
 - **Myths:** "men are thicker everywhere" (false laterally [2][5]); "cheekbone = arch" (it is mostly the body plus fat 🧠); "faces are symmetric, so symmetrise" (jaw asymmetry is skeletal [19]); "the eyebrow sits on the brow ridge" (the male brow sits on the rim, the female brow usually above it — an aesthetic convention ↔️). Climate explanations for nose form are hypotheses [13].
-- **Open:** per-landmark SDs for the lateral landmarks; temporal depth in mm; dense thickness maps (Skull-to-Face is limited by small paired datasets [50]); supine-to-upright correction; photo-based (not CT-surface) observability errors [11]; the magnitude of age remodelling.
+- **Open:** SDs for lateral landmarks; temporal depth in mm; dense thickness maps (Skull-to-Face is limited by small paired datasets [50]); supine-to-upright correction; photo-based observability errors [11]; size of age remodelling.
 
 ## Sources
 

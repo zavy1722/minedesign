@@ -1,0 +1,646 @@
+{
+ "topic": "reference-camera-setup",
+ "tables": [
+  {
+   "name": "blender_camera_parameters_sourced",
+   "units": "mixed (mm, enum)",
+   "columns": [
+    "parameter",
+    "unit_or_values",
+    "meaning"
+   ],
+   "rows": [
+    [
+     "sensor_width / sensor_height",
+     "mm",
+     "with lens, defines field of view; alternative to focal length for matching a physical camera"
+    ],
+    [
+     "Camera Info node sensor size",
+     "2D vector, mm",
+     "sensor size exposed to Geometry Nodes"
+    ],
+    [
+     "sensor_fit AUTO",
+     "enum",
+     "larger render dimension defines a square sensor"
+    ],
+    [
+     "sensor_fit HORIZONTAL",
+     "enum",
+     "sensor width set by hand; height derived from output aspect"
+    ],
+    [
+     "background frame_method FIT",
+     "enum",
+     "scale to fit inside camera frame, aspect kept"
+    ],
+    [
+     "background frame_method CROP",
+     "enum",
+     "scale to fill camera frame, overflow cropped"
+    ]
+   ],
+   "population": "n/a (software parameter semantics)",
+   "source_urls": [
+    "https://docs.blender.org/manual/en/latest/render/cameras.html"
+   ],
+   "status": "sourced",
+   "notes": "From harvested search snippets of the Blender 5.3 manual page; page not opened."
+  },
+  {
+   "name": "blender_camera_parameters_knowledge",
+   "units": "mixed",
+   "columns": [
+    "parameter",
+    "value_or_unit",
+    "meaning"
+   ],
+   "rows": [
+    [
+     "shift_x / shift_y",
+     "fraction of sensor-fit dimension (larger dim under AUTO, width under HORIZONTAL, height under VERTICAL)",
+     "principal-point offset; HORIZONTAL: shift_x=(W/2-cx)/W, shift_y=(cy-H/2)/W"
+    ],
+    [
+     "default lens",
+     "50 mm",
+     "Blender default camera"
+    ],
+    [
+     "default sensor_width",
+     "36 mm",
+     "Blender default camera"
+    ],
+    [
+     "default sensor_fit",
+     "AUTO",
+     ""
+    ],
+    [
+     "default clip_start",
+     "0.1 m",
+     "can clip the nose for close cameras; use ~0.01 m"
+    ],
+    [
+     "CameraBackgroundImage fields",
+     "frame_method STRETCH/FIT/CROP; display_depth BACK/FRONT; alpha; offset; scale; rotation; use_flip_x/y",
+     "bpy names from memory"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert knowledge, unverified. Shift units matter: face3d to_blender_camera divides shift by max(W,H) while using HORIZONTAL fit, which would be wrong for H>W if the units follow the fit dimension."
+  },
+  {
+   "name": "fspy_import_fields",
+   "units": "n/a",
+   "columns": [
+    "field",
+    "use"
+   ],
+   "rows": [
+    [
+     "project version",
+     "must equal 1 or import is rejected"
+    ],
+    [
+     "principal point",
+     "mapped to camera lens shift"
+    ],
+    [
+     "horizontal field of view",
+     "sets lens/FOV"
+    ],
+    [
+     "image width, height",
+     "sets render resolution and aspect"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [
+    "https://github.com/stuffmatic/fSpy-Blender/blob/master/fspy_blender/fspy.py"
+   ],
+   "status": "sourced",
+   "notes": "From a search summary of fspy.py, not the file itself."
+  },
+  {
+   "name": "sensor_formats",
+   "units": "mm; crop factor dimensionless (diagonal)",
+   "columns": [
+    "format",
+    "width_mm",
+    "height_mm",
+    "crop_factor_diag"
+   ],
+   "rows": [
+    [
+     "full frame",
+     36.0,
+     24.0,
+     1.0
+    ],
+    [
+     "APS-C Nikon/Sony/Fuji",
+     23.5,
+     15.6,
+     1.5
+    ],
+    [
+     "APS-C Canon",
+     22.3,
+     14.9,
+     1.6
+    ],
+    [
+     "Micro Four Thirds",
+     17.3,
+     13.0,
+     2.0
+    ],
+    [
+     "1-inch type",
+     13.2,
+     8.8,
+     2.7
+    ],
+    [
+     "large phone main ~1/1.3-inch (approx)",
+     9.7,
+     7.3,
+     3.5
+    ],
+    [
+     "small phone 1/2.5-1/3-inch (approx, midpoint)",
+     5.3,
+     4.0,
+     6.5
+    ]
+   ],
+   "population": "nominal manufacturer formats; phone rows approximate",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Approximate; use spec sheet or EXIF-derived width (43.27*f_mm/f35*W/sqrt(W^2+H^2)) for a specific camera."
+  },
+  {
+   "name": "typical_focal_lengths_35mm_equiv",
+   "units": "mm (35 mm equivalent); m",
+   "columns": [
+    "camera_or_mode",
+    "f35_min",
+    "f35_max",
+    "typical_subject_distance_m"
+   ],
+   "rows": [
+    [
+     "phone ultra-wide",
+     13,
+     16,
+     "avoid for faces"
+    ],
+    [
+     "phone main",
+     23,
+     28,
+     "0.3-1"
+    ],
+    [
+     "phone front (selfie)",
+     22,
+     30,
+     "0.25-0.5"
+    ],
+    [
+     "phone tele 2-3x",
+     48,
+     77,
+     "1-2"
+    ],
+    [
+     "phone tele 5x",
+     110,
+     125,
+     "2-4"
+    ],
+    [
+     "portrait prime (full frame)",
+     85,
+     135,
+     "1.2-3"
+    ]
+   ],
+   "population": "consumer cameras, mid-2020s",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Time-sensitive; models vary."
+  },
+  {
+   "name": "landmark_depth_behind_pronasale",
+   "units": "mm (anterior-posterior, adult, approximate)",
+   "columns": [
+    "landmark_group",
+    "typical_mm",
+    "range_mm"
+   ],
+   "rows": [
+    [
+     "alar base",
+     20,
+     [
+      15,
+      25
+     ]
+    ],
+    [
+     "eye corners (exocanthion)",
+     40,
+     [
+      35,
+      50
+     ]
+    ],
+    [
+     "cheek contour / zygion soft tissue",
+     70,
+     [
+      60,
+      80
+     ]
+    ],
+    [
+     "tragion",
+     100,
+     [
+      90,
+      120
+     ]
+    ]
+   ],
+   "population": "adults, approximate",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Placeholder depths for perspective computations; replace with sourced anthropometry (e.g. Farkas). Tragion value matches the library's multi-view-fitting note (0.10 m, 0.09-0.12)."
+  },
+  {
+   "name": "nose_tip_excess_magnification_pct",
+   "units": "percent excess image scale of nose tip vs deeper landmark",
+   "columns": [
+    "z_m_camera_to_nose_tip",
+    "delta_40mm_eye_corners",
+    "delta_70mm_cheek_contour",
+    "delta_100mm_tragion"
+   ],
+   "rows": [
+    [
+     0.3,
+     13.3,
+     23.3,
+     33.3
+    ],
+    [
+     0.5,
+     8.0,
+     14.0,
+     20.0
+    ],
+    [
+     1.0,
+     4.0,
+     7.0,
+     10.0
+    ],
+    [
+     1.5,
+     2.7,
+     4.7,
+     6.7
+    ],
+    [
+     2.0,
+     2.0,
+     3.5,
+     5.0
+    ],
+    [
+     3.0,
+     1.3,
+     2.3,
+     3.3
+    ],
+    [
+     5.0,
+     0.8,
+     1.4,
+     2.0
+    ]
+   ],
+   "population": "pinhole arithmetic, 100*delta/z",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Exact arithmetic on approximate depths. Pure magnification predicts ~12% change in nose-width/face-width ratio between 0.3 and 1.5 m; a clinical study (Ward et al. 2018) reportedly found ~30% - contested/unverified."
+  },
+  {
+   "name": "capture_setups",
+   "units": "mm, m, px, percent",
+   "columns": [
+    "setup",
+    "f35_mm",
+    "z_m",
+    "image_w_px",
+    "image_h_px",
+    "f_px",
+    "face_width_px_at_140mm",
+    "ear_excess_pct_delta100"
+   ],
+   "rows": [
+    [
+     "phone front camera, arm's length",
+     24,
+     0.35,
+     4032,
+     3024,
+     2796,
+     1118,
+     28.6
+    ],
+    [
+     "phone main",
+     26,
+     1.0,
+     4032,
+     3024,
+     3029,
+     424,
+     10.0
+    ],
+    [
+     "phone main",
+     26,
+     2.0,
+     4032,
+     3024,
+     3029,
+     212,
+     5.0
+    ],
+    [
+     "phone 3x tele",
+     77,
+     2.0,
+     4032,
+     3024,
+     8970,
+     628,
+     5.0
+    ],
+    [
+     "phone 5x tele",
+     120,
+     3.0,
+     4032,
+     3024,
+     13978,
+     652,
+     3.3
+    ],
+    [
+     "full frame 24 MP",
+     85,
+     1.5,
+     6000,
+     4000,
+     14167,
+     1322,
+     6.7
+    ],
+    [
+     "full frame 24 MP",
+     135,
+     3.0,
+     6000,
+     4000,
+     22500,
+     1050,
+     3.3
+    ]
+   ],
+   "population": "derived; 35 mm equivalence on the diagonal",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Face width 140 mm assumed. Phone 12 MP 4:3; full frame 24 MP 3:2."
+  },
+  {
+   "name": "rotation_induced_offset_mm",
+   "units": "degrees; mm",
+   "columns": [
+    "theta_deg",
+    "offset_mm_delta70",
+    "offset_mm_delta100"
+   ],
+   "rows": [
+    [
+     1,
+     1.2,
+     1.7
+    ],
+    [
+     2,
+     2.4,
+     3.5
+    ],
+    [
+     3,
+     3.7,
+     5.2
+    ],
+    [
+     5,
+     6.1,
+     8.7
+    ],
+    [
+     10,
+     12.2,
+     17.4
+    ]
+   ],
+   "population": "derived, delta*sin(theta)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Apparent lateral (yaw) or vertical (pitch) shift of nose tip relative to deeper landmarks. Compare to perception thresholds 2-4 mm in the facial-asymmetry data file."
+  },
+  {
+   "name": "metric_scale_anchors",
+   "units": "mm",
+   "columns": [
+    "anchor",
+    "mean_mm",
+    "sd_mm",
+    "range_mm",
+    "note"
+   ],
+   "rows": [
+    [
+     "horizontal visible iris diameter",
+     11.7,
+     0.5,
+     null,
+     "MediaPipe Iris (2020) figure; per eye"
+    ],
+    [
+     "interpupillary distance, adults",
+     63.0,
+     "3.5-4",
+     [
+      50,
+      75
+     ],
+     "Dodgson 2004; men slightly larger than women; pupils converge at near focus (~2 mm less at 0.35 m, derived)"
+    ]
+   ],
+   "population": "adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Use as priors on metric scale; a user-measured IPD or ruler in frame is better."
+  },
+  {
+   "name": "solver_priors_suggested",
+   "units": "log-space sigma for focal; px or fraction otherwise",
+   "columns": [
+    "parameter",
+    "condition",
+    "prior_center",
+    "sigma"
+   ],
+   "rows": [
+    [
+     "log f",
+     "EXIF f35, uncropped original",
+     "f_px from f35",
+     "0.03-0.05"
+    ],
+    [
+     "log f",
+     "EXIF f_mm + spec-sheet sensor",
+     "f_mm*W/S_w",
+     "0.05"
+    ],
+    [
+     "log f",
+     "EXIF present, crop unknown",
+     "as above",
+     "0.35 (engine default)"
+    ],
+    [
+     "log f",
+     "no EXIF",
+     "multi-hypothesis f35 24-200 mm",
+     "none or 0.5"
+    ],
+    [
+     "log f tie",
+     "same device and zoom",
+     "shared",
+     "0.02"
+    ],
+    [
+     "principal point",
+     "default",
+     "image centre, fixed",
+     "0.01-0.02 of fit dimension if freed"
+    ],
+    [
+     "k1,k2",
+     "phone JPEG",
+     "0 fixed",
+     "calibrate with checkerboard only"
+    ],
+    [
+     "iris diameter",
+     "per eye",
+     "11.7 mm",
+     "0.5 mm"
+    ],
+    [
+     "IPD",
+     "population or measured",
+     "63 mm or measured",
+     "3.5-4 mm population; ~1 mm measured"
+    ],
+    [
+     "camera distance",
+     "hard bounds",
+     "0.25-10 m",
+     "warn below 1 m"
+    ],
+    [
+     "Huber threshold",
+     "landmark residual",
+     "1-2% of inter-ocular px",
+     "n/a"
+    ]
+   ],
+   "population": "engineering suggestions",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Unsourced engineering choices; calibrate on real portrait sets."
+  },
+  {
+   "name": "reported_distance_effects",
+   "units": "percent",
+   "columns": [
+    "effect",
+    "value_pct",
+    "comparison",
+    "status_note"
+   ],
+   "rows": [
+    [
+     "apparent nasal base width increase (selfie effect)",
+     30,
+     "~30 cm vs ~1.5 m",
+     "Ward et al. 2018 as recalled; verify exact figures"
+    ],
+    [
+     "nose-width/face-width ratio change from pure magnification",
+     12,
+     "0.3 m vs 1.5 m, alar base 20 mm vs cheeks 70 mm",
+     "derived"
+    ]
+   ],
+   "population": "adult faces",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Gap between geometric and reported values probably from occluding-contour shift and width definitions."
+  },
+  {
+   "name": "clinical_photography_focal",
+   "units": "mm (full-frame equivalent); m",
+   "columns": [
+    "recommendation",
+    "f_min_mm",
+    "f_max_mm",
+    "distance_m_min"
+   ],
+   "rows": [
+    [
+     "commonly cited range",
+     90,
+     105,
+     1.0
+    ],
+    [
+     "wider range seen",
+     85,
+     135,
+     1.0
+    ]
+   ],
+   "population": "clinical facial photography standards",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Recommendations vary by standard; e.g. Ettorre et al. 2006."
+  }
+ ]
+}

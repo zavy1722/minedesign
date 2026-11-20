@@ -1,0 +1,742 @@
+{
+ "topic": "hair-eyes-teeth-recon",
+ "tables": [
+  {
+   "name": "hair_strand_reconstruction_methods",
+   "units": "categorical",
+   "columns": [
+    "method",
+    "venue_year",
+    "input",
+    "output",
+    "typical_cost",
+    "artist_use"
+   ],
+   "rows": [
+    [
+     "Hu et al. / AutoHair",
+     "SIGGRAPH 2015 / 2016",
+     "1 image",
+     "retrieved, deformed exemplar strands",
+     "seconds-minutes",
+     "rough start"
+    ],
+    [
+     "HairStep / NeuralHDHair",
+     "CVPR 2023 / CVPR 2022",
+     "1 image",
+     "strands, plausible back",
+     "minutes",
+     "silhouette-level guides"
+    ],
+    [
+     "DiffLocks",
+     "CVPR 2025",
+     "1 image",
+     "strands incl. curly",
+     "minutes on GPU",
+     "best recalled single-image prior"
+    ],
+    [
+     "Perm",
+     "ICLR 2025",
+     "parametric model fitted to images",
+     "strands in scalp UV",
+     "-",
+     "editable prior"
+    ],
+    [
+     "HAAR",
+     "CVPR 2024",
+     "text",
+     "strands",
+     "-",
+     "style prior, not likeness"
+    ],
+    [
+     "Neural Haircut",
+     "ICCV 2023",
+     "phone or multi-view video",
+     "strands",
+     "hours to a day+ on 1 GPU",
+     "guides after cleanup"
+    ],
+    [
+     "MonoHair",
+     "CVPR 2024",
+     "phone video",
+     "strands",
+     "hours",
+     "guides after cleanup"
+    ],
+    [
+     "GaussianHaircut",
+     "ECCV 2024",
+     "phone or multi-view video",
+     "strands + Gaussians",
+     "hours",
+     "best recalled video method"
+    ],
+    [
+     "Neural Strands / DeepMVSHair",
+     "ECCV 2022 / SIGGRAPH Asia 2022",
+     "calibrated rig",
+     "strands (+appearance)",
+     "studio",
+     "not for phones"
+    ]
+   ],
+   "population": "n/a (methods)",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Expert recall; runtimes, licences and 'best' rankings unverified and time-sensitive. Most code/priors believed research or non-commercial."
+  },
+  {
+   "name": "hair_reconstruction_numbers",
+   "units": "per row",
+   "columns": [
+    "quantity",
+    "min",
+    "max",
+    "units",
+    "basis"
+   ],
+   "rows": [
+    [
+     "real_scalp_hairs",
+     80000,
+     150000,
+     "strands",
+     "lib: blender/hair-blender.md"
+    ],
+    [
+     "research_output_strands",
+     10000,
+     100000,
+     "strands",
+     "method outputs, recalled"
+    ],
+    [
+     "research_points_per_strand",
+     32,
+     128,
+     "points",
+     "method outputs, recalled"
+    ],
+    [
+     "usc_hairsalon_strands",
+     10000,
+     10000,
+     "strands",
+     "dataset convention, recalled"
+    ],
+    [
+     "usc_hairsalon_points_per_strand",
+     100,
+     100,
+     "points",
+     "dataset convention, recalled"
+    ],
+    [
+     "usc_hairsalon_styles",
+     343,
+     343,
+     "hairstyles",
+     "recalled"
+    ],
+    [
+     "difflocks_training_styles",
+     40000,
+     40000,
+     "hairstyles",
+     "recalled, approximate"
+    ],
+    [
+     "gabor_orientations",
+     16,
+     36,
+     "bins",
+     "practice"
+    ],
+    [
+     "gabor_wavelength",
+     4,
+     8,
+     "px",
+     "practice"
+    ],
+    [
+     "strand_video_orbit_duration",
+     1,
+     3,
+     "min",
+     "method inputs, recalled"
+    ],
+    [
+     "strand_video_frames_used",
+     100,
+     300,
+     "frames",
+     "method inputs, recalled"
+    ],
+    [
+     "guides_kept_for_recomb",
+     500,
+     3000,
+     "curves",
+     "practice"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Strand F-score thresholds commonly paired as 2 mm/20 deg, 3 mm/30 deg, 4 mm/40 deg."
+  },
+  {
+   "name": "eye_gaze_fitting_numbers",
+   "units": "per row",
+   "columns": [
+    "quantity",
+    "value",
+    "sigma_or_range",
+    "units",
+    "basis"
+   ],
+   "rows": [
+    [
+     "hvid_prior",
+     11.8,
+     0.6,
+     "mm",
+     "adults; sourced in blender/eyes-modeling-blender.md"
+    ],
+    [
+     "mediapipe_iris_assumed_hvid",
+     11.7,
+     0.5,
+     "mm",
+     "Ablavatski et al. 2020, recalled"
+    ],
+    [
+     "limbus_centre_to_rotation_centre",
+     10.7,
+     0.6,
+     "mm",
+     "schematic eye, lib"
+    ],
+    [
+     "far_ipd",
+     63,
+     3.8,
+     "mm",
+     "adults, lib"
+    ],
+    [
+     "kappa_temporal",
+     5,
+     2,
+     "deg",
+     "adults, lib"
+    ],
+    [
+     "appearance_gaze_error_lab",
+     "4-5",
+     null,
+     "deg",
+     "MPIIGaze / ETH-XGaze within-dataset"
+    ],
+    [
+     "appearance_gaze_error_wild",
+     "10-11",
+     null,
+     "deg",
+     "Gaze360"
+    ],
+    [
+     "ir_eye_tracker_accuracy",
+     "0.5-1",
+     null,
+     "deg",
+     "commercial devices"
+    ],
+    [
+     "model_based_limbus_fit_error",
+     "1-3",
+     null,
+     "deg",
+     "plausible, high-res photos"
+    ],
+    [
+     "upper_lid_gain_vs_vertical_gaze",
+     0.8,
+     "0.6-1.0",
+     "deg/deg",
+     "clinical, recalled; contested"
+    ],
+    [
+     "spectacle_scaling_per_dioptre",
+     1.2,
+     null,
+     "% per D",
+     "computed 1/(1-dP), d=12 mm; minus lenses minify"
+    ],
+    [
+     "strabismus_prevalence",
+     "2-4",
+     null,
+     "%",
+     "general population"
+    ],
+    [
+     "physiological_anisocoria_ge_0.4mm",
+     20,
+     null,
+     "%",
+     "general population"
+    ]
+   ],
+   "population": "adults unless noted",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Rows marked lib are sourced in sibling notes; others are expert recall."
+  },
+  {
+   "name": "vergence_half_angle_by_camera_distance",
+   "units": "m, deg",
+   "columns": [
+    "camera_distance_m",
+    "half_vergence_deg"
+   ],
+   "rows": [
+    [
+     0.3,
+     5.99
+    ],
+    [
+     0.5,
+     3.6
+    ],
+    [
+     1.0,
+     1.8
+    ],
+    [
+     1.5,
+     1.2
+    ],
+    [
+     3.0,
+     0.6
+    ]
+   ],
+   "population": "IPD 63 mm",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Computed: atan(31.5 mm / d)."
+  },
+  {
+   "name": "gaze_error_to_limbus_shift",
+   "units": "deg, mm",
+   "columns": [
+    "gaze_error_deg",
+    "limbus_shift_mm"
+   ],
+   "rows": [
+    [
+     1,
+     0.19
+    ],
+    [
+     3,
+     0.56
+    ],
+    [
+     5,
+     0.93
+    ],
+    [
+     10,
+     1.86
+    ]
+   ],
+   "population": "schematic eye",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Computed: 10.7 mm x sin(error)."
+  },
+  {
+   "name": "tooth_crown_dimensions",
+   "units": "mm",
+   "columns": [
+    "tooth",
+    "crown_length_mm",
+    "mesiodistal_width_mm"
+   ],
+   "rows": [
+    [
+     "upper_central_incisor",
+     10.5,
+     8.5
+    ],
+    [
+     "upper_lateral_incisor",
+     9.0,
+     6.5
+    ],
+    [
+     "upper_canine",
+     10.0,
+     7.5
+    ],
+    [
+     "upper_first_premolar",
+     8.5,
+     7.0
+    ],
+    [
+     "upper_second_premolar",
+     8.5,
+     6.75
+    ],
+    [
+     "upper_first_molar",
+     7.5,
+     10.0
+    ],
+    [
+     "lower_central_incisor",
+     9.0,
+     5.0
+    ],
+    [
+     "lower_lateral_incisor",
+     9.5,
+     5.5
+    ],
+    [
+     "lower_canine",
+     11.0,
+     7.0
+    ]
+   ],
+   "population": "adults, textbook averages (Wheeler-type); ancestry and sex shift all values",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Upper central W/L ratio 0.75-0.85. Lateral incisors most variable (peg laterals)."
+  },
+  {
+   "name": "dental_arch_occlusion_norms",
+   "units": "mm",
+   "columns": [
+    "quantity",
+    "min",
+    "max",
+    "units"
+   ],
+   "rows": [
+    [
+     "upper_intercanine_width",
+     33,
+     37,
+     "mm"
+    ],
+    [
+     "lower_intercanine_width",
+     25,
+     28,
+     "mm"
+    ],
+    [
+     "upper_intermolar_width",
+     50,
+     56,
+     "mm"
+    ],
+    [
+     "anterior_arch_depth",
+     8,
+     10,
+     "mm"
+    ],
+    [
+     "overjet",
+     2,
+     3,
+     "mm"
+    ],
+    [
+     "overbite",
+     2,
+     3,
+     "mm"
+    ],
+    [
+     "upper_incisor_display_at_rest",
+     1,
+     4,
+     "mm"
+    ],
+    [
+     "gum_display_in_smile_normal",
+     0,
+     2,
+     "mm"
+    ],
+    [
+     "soft_tissue_over_upper_incisor",
+     11,
+     15,
+     "mm"
+    ]
+   ],
+   "population": "adults; population-dependent",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Display and soft tissue rows from anatomy/mouth-lips-teeth.md; gummy smile threshold commonly >=3 mm (contested)."
+  },
+  {
+   "name": "eye_fitting_priors",
+   "units": "per row",
+   "columns": [
+    "parameter",
+    "mu",
+    "sigma",
+    "units",
+    "notes"
+   ],
+   "rows": [
+    [
+     "eye_centre_mirror_symmetry",
+     0,
+     1.0,
+     "mm",
+     "about mid-sagittal plane"
+    ],
+    [
+     "ipd_far",
+     63,
+     3.8,
+     "mm",
+     ""
+    ],
+    [
+     "apex_ahead_of_lateral_orbital_rim",
+     16,
+     2.5,
+     "mm",
+     "Hertel-type"
+    ],
+    [
+     "hvid",
+     11.8,
+     0.6,
+     "mm",
+     "free only with >=3 sharp views"
+    ],
+    [
+     "gaze_into_lens",
+     0,
+     3,
+     "deg",
+     "about camera direction + kappa"
+    ],
+    [
+     "gaze_fixed_mark",
+     0,
+     1,
+     "deg",
+     "shared across views"
+    ],
+    [
+     "gaze_untagged",
+     0,
+     15,
+     "deg",
+     ""
+    ],
+    [
+     "vergence_coupling",
+     0,
+     1,
+     "deg",
+     "strabismus flag if residual >3 deg in >=2 views"
+    ],
+    [
+     "limbus_edge_residual",
+     0,
+     "0.5-1",
+     "px",
+     ""
+    ],
+    [
+     "mediapipe_iris_centre_residual",
+     0,
+     "0.05*iris_diameter_px",
+     "px",
+     ""
+    ],
+    [
+     "lid_gaze_gain",
+     0.8,
+     0.2,
+     "deg/deg",
+     "upper margin shift = g*dpitch*12mm*pi/180"
+    ],
+    [
+     "lid_margin_to_eye_surface",
+     "0-0.3",
+     null,
+     "mm",
+     "hard constraint"
+    ]
+   ],
+   "population": "adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Suggested defaults for the numpy fitting engine; not measured values."
+  },
+  {
+   "name": "teeth_fitting_priors",
+   "units": "per row",
+   "columns": [
+    "parameter",
+    "mu",
+    "sigma",
+    "units"
+   ],
+   "rows": [
+    [
+     "intercanine_width_upper",
+     35,
+     2,
+     "mm"
+    ],
+    [
+     "intermolar_width_upper",
+     53,
+     3,
+     "mm"
+    ],
+    [
+     "anterior_arch_depth",
+     9,
+     1,
+     "mm"
+    ],
+    [
+     "tooth_width_residual",
+     0,
+     0.5,
+     "mm"
+    ],
+    [
+     "lateral_incisor_width_residual",
+     0,
+     0.7,
+     "mm"
+    ],
+    [
+     "incisal_edge_below_stomion_at_rest",
+     2.5,
+     1.5,
+     "mm"
+    ],
+    [
+     "overjet",
+     2.5,
+     1,
+     "mm"
+    ],
+    [
+     "overbite",
+     2.5,
+     1.5,
+     "mm"
+    ],
+    [
+     "proclination_residual",
+     0,
+     5,
+     "deg"
+    ],
+    [
+     "dental_midline_offset",
+     0,
+     1.5,
+     "mm"
+    ],
+    [
+     "edge_landmark_residual",
+     0,
+     "1-2",
+     "px"
+    ],
+    [
+     "lip_inner_surface_to_enamel_min",
+     0.5,
+     null,
+     "mm"
+    ]
+   ],
+   "population": "adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Suggested defaults; upper set rigid to skull, lower set on jaw joint."
+  },
+  {
+   "name": "hair_strand_import_gates",
+   "units": "per row",
+   "columns": [
+    "gate",
+    "threshold",
+    "units"
+   ],
+   "rows": [
+    [
+     "root_to_scalp_after_snap_max",
+     1,
+     "mm"
+    ],
+    [
+     "delete_strand_if_float_or_penetrate_gt",
+     5,
+     "mm"
+    ],
+    [
+     "head_penetrations_after_shrinkwrap",
+     0,
+     "count"
+    ],
+    [
+     "per_view_hair_mask_iou_min",
+     0.85,
+     "ratio"
+    ],
+    [
+     "median_orientation_error_max",
+     20,
+     "deg (confidence>0.5)"
+    ],
+    [
+     "guide_count",
+     "500-3000",
+     "curves"
+    ],
+    [
+     "scalp_inside_hair_hull_visible",
+     2,
+     "mm"
+    ],
+    [
+     "scalp_inside_hair_hull_bald",
+     0,
+     "mm"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering defaults; fail -> fall back to Tier 0 procedural groom."
+  }
+ ]
+}

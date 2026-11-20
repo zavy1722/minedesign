@@ -1,0 +1,27 @@
+{
+ "id": "facial-asymmetry",
+ "area": "anatomy",
+ "title": "Natural facial asymmetry",
+ "queue": [
+  {
+   "claim": "Whole-face asymmetry, as RMSD against the registered mirror, is about 0.8 mm in normal people: 0.80 \u00b1 0.24 mm in healthy 3dMD volunteers, attributed to PMC4614853 and possibly from Taylor et al. 2014, J Craniofac Surg; and 0.8 \u00b1 0.2 mm in 191 subjects (Linden et al. 2018). This calibrates the engine's asymmetry prior and the RMSD sanity bounds (0.3\u20131.5 mm).",
+   "query": "Taylor 2014 quantitative facial asymmetry three-dimensional photogrammetry baseline facial surface symmetry root mean square deviation 0.80 mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Right\u2013left differences at 9 bilateral soft-tissue landmark pairs were 0.6\u20134.6 mm in 48 adults with normal occlusion (CBCT), larger at lower and lateral landmarks. This is the basis for the per-region sigma_sym priors (0.7\u20134 mm per axis).",
+   "query": "Three-dimensional soft tissue analysis for the evaluation of facial asymmetry in normal occlusion individuals CBCT bilateral landmarks right left difference mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Perception thresholds: eyelid position at rest is about 2 mm (2017 review). Asymmetry under about 3\u20134 mm or 3\u20134\u00b0 of canting is generally not recognised (attributed to PMC11595402, 'Limits in the Perception of Facial Symmetry', 2024; attribution unconfirmed).",
+   "query": "Limits in the Perception of Facial Symmetry prospective study canting degrees millimetres not recognised threshold",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Working left\u2013right ranges in normal adults at rest (Table B, expert estimates): chin off midline 0\u20133 mm, nasal tip 0.5\u20133 mm, brow height 1\u20133 mm, ear height 0\u20135 mm, jaw angle 1\u20134 mm.",
+   "query": "normal adults soft tissue menton deviation nasal tip deviation brow height ear height left right difference mm stereophotogrammetry",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

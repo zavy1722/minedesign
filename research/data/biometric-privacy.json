@@ -1,0 +1,482 @@
+{
+ "topic": "biometric-privacy",
+ "tables": [
+  {
+   "name": "statutory_parameters",
+   "units": "mixed: years, days, hours, USD, EUR (nominal)",
+   "columns": [
+    "law",
+    "parameter",
+    "value",
+    "unit",
+    "notes"
+   ],
+   "rows": [
+    [
+     "BIPA (Illinois)",
+     "retention_cap_years_after_last_interaction",
+     3,
+     "years",
+     "or earlier, when the initial purpose is satisfied"
+    ],
+    [
+     "BIPA (Illinois)",
+     "liquidated_damages_negligent",
+     1000,
+     "USD per violation",
+     "or actual damages if greater"
+    ],
+    [
+     "BIPA (Illinois)",
+     "liquidated_damages_intentional_or_reckless",
+     5000,
+     "USD per violation",
+     "or actual damages if greater"
+    ],
+    [
+     "BIPA (Illinois)",
+     "limitation_period",
+     5,
+     "years",
+     "Tims v. Black Horse Carriers (2023)"
+    ],
+    [
+     "CUBI (Texas)",
+     "destruction_deadline_after_purpose_expires",
+     1,
+     "years",
+     "within a reasonable time, no later than first anniversary"
+    ],
+    [
+     "CUBI (Texas)",
+     "max_civil_penalty",
+     25000,
+     "USD per violation",
+     "Attorney General enforcement only"
+    ],
+    [
+     "Colorado (HB 24-1130)",
+     "deletion_after_last_interaction",
+     24,
+     "months",
+     "earliest of purpose met / 24 months / 45 days after no longer needed"
+    ],
+    [
+     "Colorado (HB 24-1130)",
+     "deletion_after_no_longer_needed",
+     45,
+     "days",
+     "see above"
+    ],
+    [
+     "GDPR",
+     "max_fine_eur",
+     20000000,
+     "EUR",
+     "or 4% of worldwide annual turnover, whichever higher (Art. 83(5))"
+    ],
+    [
+     "GDPR",
+     "max_fine_turnover_percent",
+     4,
+     "percent",
+     ""
+    ],
+    [
+     "GDPR",
+     "breach_notification",
+     72,
+     "hours",
+     "to supervisory authority (Art. 33)"
+    ],
+    [
+     "GDPR",
+     "subject_request_reply",
+     1,
+     "months",
+     "extendable by 2 further months (Art. 12(3))"
+    ],
+    [
+     "CCPA/CPRA",
+     "business_revenue_threshold",
+     25000000,
+     "USD",
+     "statutory; CPI-adjusted to about 26,625,000 from 2025"
+    ],
+    [
+     "CCPA/CPRA",
+     "business_consumer_threshold",
+     100000,
+     "consumers or households",
+     ""
+    ],
+    [
+     "CCPA/CPRA",
+     "admin_fine",
+     2500,
+     "USD per violation",
+     "about 2,663 after 2025 CPI adjustment"
+    ],
+    [
+     "CCPA/CPRA",
+     "admin_fine_intentional_or_minors",
+     7500,
+     "USD per violation",
+     "about 7,988 after 2025 CPI adjustment"
+    ],
+    [
+     "CCPA/CPRA",
+     "breach_damages_min",
+     100,
+     "USD per consumer per incident",
+     "about 107 after 2025 adjustment"
+    ],
+    [
+     "CCPA/CPRA",
+     "breach_damages_max",
+     750,
+     "USD per consumer per incident",
+     "about 799 after 2025 adjustment"
+    ],
+    [
+     "Quebec",
+     "biometric_database_notice",
+     60,
+     "days before use",
+     "notice to the Commission d'acces a l'information"
+    ]
+   ],
+   "population": "n/a (statutory text as recalled by author)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Author knowledge, not verified in this library. BIPA per-violation counting changed by P.A. 103-0769 (Aug 2024): one violation per person per method; retroactivity contested. CPI-adjusted CCPA amounts are time-sensitive (next adjustment due January 2027). Not legal advice."
+  },
+  {
+   "name": "enforcement_benchmarks",
+   "units": "currency as stated (nominal)",
+   "columns": [
+    "matter",
+    "law",
+    "year",
+    "amount",
+    "currency",
+    "theory"
+   ],
+   "rows": [
+    [
+     "In re Facebook Biometric Information Privacy Litigation (Tag Suggestions)",
+     "BIPA",
+     2021,
+     650000000,
+     "USD",
+     "face templates from uploaded photos"
+    ],
+    [
+     "Rivera v. Google (Google Photos)",
+     "BIPA",
+     2022,
+     100000000,
+     "USD",
+     "face grouping"
+    ],
+    [
+     "Boone v. Snap",
+     "BIPA",
+     2022,
+     35000000,
+     "USD",
+     "AR lenses and filters"
+    ],
+    [
+     "Texas v. Meta",
+     "CUBI",
+     2024,
+     1400000000,
+     "USD",
+     "face templates"
+    ],
+    [
+     "Texas v. Google",
+     "CUBI and other",
+     2025,
+     1375000000,
+     "USD",
+     "biometrics, location and other claims"
+    ],
+    [
+     "Clearview AI (Italy)",
+     "GDPR",
+     2022,
+     20000000,
+     "EUR",
+     "scraped faceprints"
+    ],
+    [
+     "Clearview AI (Greece)",
+     "GDPR",
+     2022,
+     20000000,
+     "EUR",
+     "scraped faceprints"
+    ],
+    [
+     "Clearview AI (France)",
+     "GDPR",
+     2022,
+     20000000,
+     "EUR",
+     "scraped faceprints"
+    ],
+    [
+     "Clearview AI (Netherlands)",
+     "GDPR",
+     2024,
+     30500000,
+     "EUR",
+     "scraped faceprints"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Settlement and fine amounts recalled from training knowledge; verify before quoting. Settlements are not admissions of liability."
+  },
+  {
+   "name": "engine_privacy_defaults",
+   "units": "as stated",
+   "columns": [
+    "parameter",
+    "default",
+    "unit",
+    "max_or_constraint",
+    "rationale"
+   ],
+   "rows": [
+    [
+     "network_enabled",
+     false,
+     "bool",
+     "opt-in per call with host, data classes and consent scope shown",
+     "local processing keeps the developer out of BIPA collection and GDPR processing"
+    ],
+    [
+     "cache_ttl_days",
+     0,
+     "days",
+     "<=30",
+     "crops, heatmaps and per-photo landmarks are session-only (minimisation)"
+    ],
+    [
+     "retention_after_purpose_days",
+     365,
+     "days",
+     "consent expires_at may be shorter",
+     "CUBI: destroy within 1 year after purpose expires"
+    ],
+    [
+     "max_days_since_last_interaction",
+     730,
+     "days",
+     "hard cap",
+     "Colorado 24 months; inside BIPA 3 years"
+    ],
+    [
+     "expiry_warning_days",
+     30,
+     "days",
+     "",
+     ""
+    ],
+    [
+     "persist_embeddings",
+     false,
+     "bool",
+     "never",
+     "recognition embeddings are biometric templates; persist only cosine scores and model hash"
+    ],
+    [
+     "identity_match_mode",
+     "1:1",
+     "enum",
+     "no 1:N, no gallery import",
+     "avoid building a recognition capability"
+    ],
+    [
+     "telemetry",
+     false,
+     "bool",
+     "error reports strip images, arrays and file paths",
+     "accidental collection is the usual trap"
+    ],
+    [
+     "audit_log_fields",
+     "event,time,data_class,sha256",
+     "list",
+     "never pixels or coordinates",
+     "prove deletion without retaining data"
+    ]
+   ],
+   "population": "n/a (engineering defaults)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering defaults derived from the statutory parameters above; not research-derived. Tightest commonly applicable caps chosen so one default satisfies BIPA, CUBI and Colorado."
+  },
+  {
+   "name": "artifact_classification",
+   "units": "categorical",
+   "columns": [
+    "artifact",
+    "data_class",
+    "bipa",
+    "gdpr",
+    "ccpa",
+    "persist_default",
+    "status"
+   ],
+   "rows": [
+    [
+     "source_photos",
+     "PERSONAL_IMAGE",
+     "excluded (photograph)",
+     "personal data",
+     "biometric information (template extractable)",
+     "external encrypted folder, EXIF stripped",
+     "knowledge"
+    ],
+    [
+     "per_photo_landmarks",
+     "BIOMETRIC_GEOMETRY",
+     "likely scan of face geometry",
+     "biometric-capable",
+     "biometric",
+     "session cache only",
+     "contested"
+    ],
+    [
+     "shape_coefficients_3dmm",
+     "BIOMETRIC_GEOMETRY",
+     "likely (compact template)",
+     "biometric-capable",
+     "biometric",
+     "project only, consent-scoped",
+     "contested"
+    ],
+    [
+     "fitted_mesh_or_sculpt",
+     "BIOMETRIC_GEOMETRY",
+     "contested",
+     "biometric-capable; Art. 9 depends on purpose",
+     "biometric",
+     "project only, consent-scoped",
+     "contested"
+    ],
+    [
+     "albedo_texture_with_iris",
+     "LIKENESS_ASSET",
+     "possible iris scan",
+     "biometric-capable",
+     "biometric",
+     "consent-scoped",
+     "contested"
+    ],
+    [
+     "recognition_embedding",
+     "BIOMETRIC_TEMPLATE",
+     "identifier or information",
+     "biometric; 1:1 check close to confirming identity",
+     "sensitive personal information",
+     "never persisted",
+     "knowledge"
+    ],
+    [
+     "population_prior_mean_pca",
+     "AGGREGATE_PRIOR",
+     "none if aggregate",
+     "not personal data if truly aggregate",
+     "none",
+     "bundle only if dataset licence allows",
+     "knowledge"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Conservative classification for the add-on's data model. Whether an identification-capable likeness mesh not used for recognition is regulated is unresolved (Zellmer v. Meta vs Illinois district-court readings; GDPR purpose vs capability)."
+  },
+  {
+   "name": "exif_field_policy",
+   "units": "categorical",
+   "columns": [
+    "exif_field",
+    "action",
+    "reason"
+   ],
+   "rows": [
+    [
+     "FocalLength",
+     "keep (sidecar)",
+     "camera solver intrinsics"
+    ],
+    [
+     "FocalLengthIn35mmFilm",
+     "keep (sidecar)",
+     "camera solver intrinsics"
+    ],
+    [
+     "Make",
+     "keep (sidecar)",
+     "sensor-size lookup"
+    ],
+    [
+     "Model",
+     "keep (sidecar)",
+     "sensor-size lookup"
+    ],
+    [
+     "PixelXDimension/PixelYDimension",
+     "keep (sidecar)",
+     "principal point and scale"
+    ],
+    [
+     "Orientation",
+     "keep (apply, then sidecar)",
+     "correct image rotation"
+    ],
+    [
+     "GPS*",
+     "drop",
+     "location of the subject"
+    ],
+    [
+     "BodySerialNumber",
+     "drop",
+     "device identifier"
+    ],
+    [
+     "LensSerialNumber",
+     "drop",
+     "device identifier"
+    ],
+    [
+     "OwnerName/Artist/Copyright",
+     "drop or move to consent record",
+     "names people"
+    ],
+    [
+     "MakerNote",
+     "drop",
+     "opaque vendor data, may hold serials or face-detection boxes"
+    ],
+    [
+     "ThumbnailImage",
+     "drop",
+     "second copy of the face"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering policy. DateTimeOriginal is optional: useful to flag photos taken years apart, otherwise drop."
+  }
+ ]
+}

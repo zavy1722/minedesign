@@ -1,0 +1,557 @@
+{
+ "topic": "open-source-pipelines",
+ "tables": [
+  {
+   "name": "pipeline_cards",
+   "units": "categorical; install_pain 1 (pip) to 5 (days)",
+   "columns": [
+    "pipeline",
+    "repo_slug",
+    "input",
+    "topology",
+    "camera_model",
+    "blender_output",
+    "gpu_need",
+    "install_pain",
+    "licence_code",
+    "licence_assets",
+    "status"
+   ],
+   "rows": [
+    [
+     "MediaPipe Face Landmarker",
+     "google-ai-edge/mediapipe",
+     "image|video",
+     "478 landmarks; canonical 468-vertex mesh",
+     "4x4 transform (cm)",
+     "landmarks JSON; canonical OBJ",
+     "none (CPU)",
+     1,
+     "Apache-2.0",
+     "Apache-2.0",
+     "knowledge"
+    ],
+    [
+     "3DDFA_V2",
+     "cleardusk/3DDFA_V2",
+     "image",
+     "BFM no-neck crop ~38k vertices",
+     "3x4 affine",
+     "OBJ/PLY in image-pixel space; pose",
+     "none (ONNX CPU)",
+     2,
+     "MIT",
+     "BFM non-commercial",
+     "sourced"
+    ],
+    [
+     "Deep3DFaceRecon_pytorch",
+     "sicxu/Deep3DFaceRecon_pytorch",
+     "image + 5 landmarks",
+     "BFM face crop 35,709 vertices",
+     "perspective f~1015px@224",
+     "vertex-colour OBJ; .mat 257 coeffs",
+     "CUDA (nvdiffrast)",
+     3,
+     "MIT",
+     "BFM + nvdiffrast non-commercial",
+     "knowledge"
+    ],
+    [
+     "DECA",
+     "YadiraF/DECA",
+     "image",
+     "FLAME 5,023 + dense detail mesh",
+     "weak-perspective",
+     "OBJ + texture/normal/displacement maps",
+     "CUDA preferred ~2-4 GB",
+     3,
+     "MPI non-commercial",
+     "FLAME",
+     "knowledge"
+    ],
+    [
+     "EMOCA v2",
+     "radekd91/emoca (inferno)",
+     "image",
+     "FLAME",
+     "weak-perspective",
+     "OBJ; FLAME codes",
+     "CUDA",
+     4,
+     "MPI non-commercial",
+     "FLAME",
+     "knowledge"
+    ],
+    [
+     "MICA",
+     "Zielonka/MICA",
+     "image",
+     "FLAME neutral, 300 shape",
+     "none",
+     "PLY/OBJ + identity.npy (units possibly mm)",
+     "CUDA preferred",
+     3,
+     "non-commercial",
+     "FLAME + InsightFace",
+     "contested"
+    ],
+    [
+     "SMIRK",
+     "georgeretsi/smirk",
+     "image",
+     "FLAME",
+     "weak-perspective",
+     "FLAME params (export DIY)",
+     "small; CPU plausible",
+     "2-3",
+     "unconfirmed",
+     "FLAME",
+     "sourced"
+    ],
+    [
+     "HRN",
+     "youngLBW/HRN",
+     "image|multi-view",
+     "BFM + deformation/displacement maps",
+     "perspective",
+     "textured OBJ + maps",
+     "CUDA (nvdiffrast)",
+     "3-4",
+     "unconfirmed",
+     "BFM",
+     "knowledge"
+    ],
+    [
+     "FaceVerse",
+     "LizhenWangT/FaceVerse",
+     "image|video",
+     "own topology",
+     "perspective",
+     "OBJ",
+     "CUDA",
+     3,
+     "unconfirmed",
+     "agreement-gated",
+     "contested"
+    ],
+    [
+     "flame-head-tracker",
+     "PeizhiYan/flame-head-tracker",
+     "image|video",
+     "FLAME",
+     "perspective",
+     "FLAME params per frame",
+     "NVIDIA + Ubuntu",
+     4,
+     "unverified",
+     "FLAME (separate download)",
+     "sourced"
+    ],
+    [
+     "metrical-tracker",
+     "Zielonka/metrical-tracker",
+     "video + MICA code",
+     "FLAME",
+     "perspective K,R,t",
+     "per-frame checkpoints; meshes",
+     "CUDA + PyTorch3D",
+     4,
+     "non-commercial",
+     "FLAME",
+     "contested"
+    ],
+    [
+     "VHAP",
+     "ShenhanQian/VHAP",
+     "video; multi-view (knowledge)",
+     "FLAME 2023/2020",
+     "perspective",
+     "FLAME params .npz; NeRF-style cameras",
+     "CUDA (+nvdiffrast, knowledge)",
+     "4-5",
+     "unverified",
+     "FLAME",
+     "sourced"
+    ],
+    [
+     "Pixel3DMM",
+     "SimonGiebenhain/pixel3dmm",
+     "image|video",
+     "FLAME",
+     "perspective",
+     "FLAME mesh + params",
+     "large VRAM (>=16-24 GB?)",
+     5,
+     "unverified",
+     "FLAME",
+     "knowledge"
+    ],
+    [
+     "video-head-tracker",
+     "philgras/video-head-tracker",
+     "video",
+     "FLAME",
+     "perspective",
+     "FLAME params",
+     "CUDA",
+     4,
+     "CC BY-NC 3.0",
+     "FLAME",
+     "sourced"
+    ]
+   ],
+   "population": "Open-source research repositories as known to mid-2025 plus sibling harvests; one row per pipeline",
+   "source_urls": [
+    "https://github.com/peizhiyan/flame-head-tracker",
+    "https://github.com/ShenhanQian/VHAP",
+    "https://github.com/philgras/video-head-tracker",
+    "https://github.com/georgeretsi/smirk",
+    "https://github.com/cleardusk/3DDFA_V2"
+   ],
+   "status": "knowledge",
+   "notes": "Per-row status column. Repo slugs, licences, GPU needs and install pain are time-sensitive author knowledge unless row status is sourced; verify before shipping."
+  },
+  {
+   "name": "pipeline_speed_accuracy_anchors",
+   "units": "see units column",
+   "columns": [
+    "item",
+    "value",
+    "units",
+    "hardware_or_population",
+    "status"
+   ],
+   "rows": [
+    [
+     "flame-head-tracker landmark mode",
+     0.9,
+     "s/frame",
+     "RTX 4090, author-reported, v4.1",
+     "sourced"
+    ],
+    [
+     "flame-head-tracker photometric mode",
+     1.9,
+     "s/frame",
+     "RTX 4090, author-reported, v4.1",
+     "sourced"
+    ],
+    [
+     "VHAP frame batching speedup",
+     3,
+     "x",
+     "2025 update, Gitee mirror only",
+     "sourced"
+    ],
+    [
+     "3DDFA_V2 throughput",
+     50,
+     "fps (lower bound)",
+     "single CPU or GPU",
+     "verified"
+    ],
+    [
+     "3DDFA_V2 face detection latency",
+     15,
+     "ms per 720p frame",
+     "ONNX",
+     "sourced"
+    ],
+    [
+     "3DDFA_V2 failure yaw",
+     90,
+     "degrees",
+     "beyond this alignment fails",
+     "sourced"
+    ],
+    [
+     "DECA NoW val coarse median",
+     1.18,
+     "mm",
+     "NoW validation",
+     "verified"
+    ],
+    [
+     "DECA NoW val coarse mean",
+     1.46,
+     "mm",
+     "NoW validation",
+     "verified"
+    ],
+    [
+     "DECA NoW val coarse std",
+     1.25,
+     "mm",
+     "NoW validation",
+     "verified"
+    ],
+    [
+     "MICA NoW median",
+     0.9,
+     "mm",
+     "NoW, split not stated",
+     "sourced"
+    ],
+    [
+     "MICA NoW mean",
+     1.11,
+     "mm",
+     "NoW, split not stated",
+     "sourced"
+    ],
+    [
+     "Average FLAME NoW mean, unscaled",
+     1.92,
+     "mm",
+     "NoW",
+     "sourced"
+    ],
+    [
+     "Average FLAME NoW mean, scale-optimised",
+     1.53,
+     "mm",
+     "NoW",
+     "sourced"
+    ]
+   ],
+   "population": "NoW benchmark subjects (iPhone images of ~100 adults) for errors; author benchmarks for speeds",
+   "source_urls": [
+    "https://github.com/peizhiyan/flame-head-tracker",
+    "https://gitee.com/hu-hanqing/VHAP",
+    "https://arxiv.org/abs/2012.04012",
+    "https://arxiv.org/pdf/2304.12483",
+    "https://ar5iv.labs.arxiv.org/html/2204.06607",
+    "https://github.com/cleardusk/3DDFA_V2",
+    "https://arxiv.org/pdf/2009.09960v2",
+    "https://arxiv.org/pdf/2108.05465"
+   ],
+   "status": "sourced",
+   "notes": "Per-row status. NoW numbers are similarity-aligned (scale solved), so they say nothing about absolute size."
+  },
+  {
+   "name": "output_topology_units",
+   "units": "vertex count; native length unit",
+   "columns": [
+    "output",
+    "vertices",
+    "native_units",
+    "axes",
+    "correspondence"
+   ],
+   "rows": [
+    [
+     "FLAME 2020/2023",
+     5023,
+     "m",
+     "Y-up, face +Z",
+     "fixed across FLAME tools"
+    ],
+    [
+     "DECA _detail.obj",
+     null,
+     "as coarse",
+     "as FLAME",
+     "none to FLAME (dense, tens of thousands of vertices)"
+    ],
+    [
+     "BFM 2009 full",
+     53490,
+     "micrometre-scale raw; rescaled per repo",
+     "Y-up",
+     "-"
+    ],
+    [
+     "Deep3DFaceRecon crop",
+     35709,
+     "~decimetre (camera at 10 units)",
+     "Y-up, face +Z",
+     "BFM index subset"
+    ],
+    [
+     "3DDFA_V2 crop",
+     38365,
+     "image pixels",
+     "image space, y flipped",
+     "BFM index subset"
+    ],
+    [
+     "MediaPipe canonical",
+     468,
+     "cm",
+     "Y-up",
+     "fixed indices (+10 iris landmarks = 478)"
+    ]
+   ],
+   "population": "Model assets, not people",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Use as adapter assertions; 3DDFA_V2 count and BFM/Deep3D units are moderate-confidence recollections. MICA demo mesh may be written x1000 (mm) - contested."
+  },
+  {
+   "name": "camera_convention_to_blender",
+   "units": "diagonal matrix applied to camera-frame axes",
+   "columns": [
+    "from_convention",
+    "axes",
+    "to_blender_camera"
+   ],
+   "rows": [
+    [
+     "OpenCV",
+     "x right, y down, z forward",
+     "diag(1,-1,-1)"
+    ],
+    [
+     "PyTorch3D",
+     "x left, y up, z forward",
+     "diag(-1,1,-1)"
+    ],
+    [
+     "Blender camera",
+     "x right, y up, looks -z",
+     "identity"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Lens: lens_mm = f_px*sensor_width_mm/image_width_px; shift_x=(W/2-cx)/max(W,H); shift_y=(cy-H/2)/max(W,H). Weak-perspective: Z0 = 2f/(s*W_crop)."
+  },
+  {
+   "name": "fitting_defaults_for_backend_initialisers",
+   "units": "see units column",
+   "columns": [
+    "quantity",
+    "value",
+    "units",
+    "applies_to"
+   ],
+   "rows": [
+    [
+     "beta_sigma_floor",
+     0.3,
+     "FLAME sigma units",
+     "MICA, components k<=100"
+    ],
+    [
+     "beta_sigma_floor",
+     0.6,
+     "FLAME sigma units",
+     "DECA"
+    ],
+    [
+     "beta_sigma_unpredicted",
+     1.0,
+     "FLAME sigma units",
+     "components not predicted"
+    ],
+    [
+     "vertex_huber_scale",
+     1.4,
+     "mm",
+     "MICA-initialised"
+    ],
+    [
+     "vertex_huber_scale",
+     1.8,
+     "mm",
+     "DECA-initialised"
+    ],
+    [
+     "log_scale_sigma",
+     0.05,
+     "log units",
+     "MICA"
+    ],
+    [
+     "log_scale_sigma",
+     0.1,
+     "log units",
+     "non-metric backends"
+    ],
+    [
+     "log_scale_sigma",
+     0.01,
+     "log units",
+     "user measurement present"
+    ],
+    [
+     "landmark_sigma_inner",
+     [
+      1.0,
+      1.5
+     ],
+     "% inter-ocular distance",
+     "canthi, alar base, mouth corners"
+    ],
+    [
+     "landmark_sigma_contour",
+     [
+      2.0,
+      4.0
+     ],
+     "% inter-ocular distance, x 1/cos(yaw)",
+     "jaw contour, brows"
+    ],
+    [
+     "psi_sigma_neutral",
+     0.3,
+     "FLAME sigma units",
+     "photos gated neutral"
+    ],
+    [
+     "jaw_sigma",
+     [
+      2,
+      3
+     ],
+     "degrees",
+     "photos gated neutral"
+    ],
+    [
+     "rotation_init_sigma",
+     5,
+     "degrees",
+     "3DDFA_V2 / SMIRK pose init"
+    ],
+    [
+     "log_focal_sigma",
+     0.03,
+     "log units",
+     "EXIF focal present"
+    ],
+    [
+     "log_focal_sigma",
+     [
+      0.15,
+      0.2
+     ],
+     "log units",
+     "no EXIF"
+    ],
+    [
+     "max_init_yaw_3ddfa",
+     90,
+     "degrees",
+     "do not initialise beyond"
+    ],
+    [
+     "accept_reprojection",
+     [
+      1,
+      2
+     ],
+     "% inter-ocular distance",
+     "landmark acceptance after fit"
+    ]
+   ],
+   "population": "Design defaults for the fitting engine; not measured on a population",
+   "source_urls": [
+    "https://github.com/cleardusk/3DDFA_V2"
+   ],
+   "status": "knowledge",
+   "notes": "Only max_init_yaw_3ddfa is sourced (3DDFA_V2 repo). Everything else is a design default to tune on held-out scans."
+  }
+ ]
+}

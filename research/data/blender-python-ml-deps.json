@@ -1,0 +1,110 @@
+{
+  "topic": "blender-python-ml-deps",
+  "tables": [
+    {
+      "name": "blender_bundled_python",
+      "units": "version strings; wheel tag = CPython compatibility tag required for compiled wheels",
+      "columns": ["blender_versions", "cpython", "wheel_tag", "numpy", "row_status", "notes"],
+      "rows": [
+        ["2.93-3.0", "3.9", "cp39", "1.2x", "knowledge", "expert knowledge"],
+        ["3.1-4.0", "3.10", "cp310", "1.2x", "knowledge", "expert knowledge"],
+        ["4.1-4.5", "3.11", "cp311", "~1.24-1.26", "knowledge", "4.5 LTS supported until 2027-07 (sourced); Python/NumPy expert knowledge"],
+        ["5.0", "3.11 (likely)", "cp311", "unknown", "contested", "5.0.1 fixed a Python 3.14 build and a test for Python >3.11; these concern system-Python builds, not the bundle"],
+        ["5.1-5.3 (5.2 LTS until 2028-07)", "3.11 or 3.13", "cp311 or cp313", "1.26 or 2.x", "contested", "unconfirmed; VFX Reference Platform CY2026 suggests 3.13"]
+      ],
+      "population": "Official blender.org builds (Windows, macOS, Linux tarball); distro/Flatpak builds may use system Python instead",
+      "source_urls": [
+        "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/",
+        "https://www.blender.org/download/releases/5-2/",
+        "https://www.blender.org/download/releases/",
+        "https://developer.blender.org/docs/release_notes/"
+      ],
+      "status": "contested",
+      "notes": "Probe at runtime: sys.version_info, numpy.__version__. Never hard-code."
+    },
+    {
+      "name": "ml_package_footprint",
+      "units": "licence; ABI type; MB (wheel and installed incl. dependencies); seconds (cold import)",
+      "columns": ["package", "licence", "abi", "wheel_mb_min", "wheel_mb_max", "installed_mb_min", "installed_mb_max", "cold_import_s_min", "cold_import_s_max", "row_status"],
+      "rows": [
+        ["mediapipe 0.10.x", "Apache-2.0", "per-cp", 30, 60, 150, 400, 0.5, 3.0, "knowledge"],
+        ["onnxruntime (CPU)", "MIT", "per-cp", 5, 20, 20, 60, 0.2, 1.0, "knowledge"],
+        ["opencv-python-headless", "Apache-2.0", "abi3", 30, 50, 80, 130, 0.1, 0.5, "knowledge"],
+        ["opencv-contrib-python", "Apache-2.0", "abi3", 40, 70, 100, 160, 0.2, 0.6, "knowledge"]
+      ],
+      "population": "One desktop platform (win-x64 / macos-arm64 / linux-x64), CPU builds, 2024-2026 releases",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Ranges from expert knowledge; versions and sizes change per release. mediapipe installed size depends on whether the release pulls jax/jaxlib and opencv-contrib-python."
+    },
+    {
+      "name": "face_model_files",
+      "units": "MB on disk; pixels (square input side); count of outputs",
+      "columns": ["model", "size_mb", "input_px", "output", "licence", "row_status", "source_urls"],
+      "rows": [
+        ["MediaPipe face_landmarker.task", "3-4", "detector 128 or 192; mesh 256", "478 landmarks + optional 52 blendshapes", "Apache-2.0 code; model card terms unverified", "contested", ["https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker", "https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker"]],
+        ["MediaPipe Face Mesh ONNX conversion", "1-5", "192-256", "468/478 landmarks", "check repo", "sourced", ["https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md"]],
+        ["OpenCV Zoo YuNet", "<0.5", "e.g. 320", "box + 5 points", "unverified", "knowledge", []],
+        ["InsightFace buffalo_l (SCRFD-10G + ResNet50 w600k)", "326 total; 166 for w600k_r50.onnx", "640 / 112", "box + 5 points / 512-D embedding", "reportedly non-commercial research only", "sourced", ["https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md", "https://github.com/wangyifan349/insightface-face-similarity"]],
+        ["Depth Anything V2 Small", "~100 (25M params fp32)", "518", "relative depth map", "unverified", "sourced", ["https://www.alphaxiv.org/abs/2406.09414"]]
+      ],
+      "population": "Publicly distributed model files",
+      "source_urls": [
+        "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+        "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md",
+        "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md",
+        "https://www.alphaxiv.org/abs/2406.09414"
+      ],
+      "status": "contested",
+      "notes": "Detector input size differs between two MediaPipe doc pages (192 vs 128). Byte sizes of .task/ONNX/YuNet files are expert knowledge. Depth Anything V2 Small megabytes derived from parameter count."
+    },
+    {
+      "name": "cpu_latency_per_still_image",
+      "units": "milliseconds (model already loaded) unless stated",
+      "columns": ["stage", "ms_min", "ms_max", "row_status", "source_urls", "notes"],
+      "rows": [
+        ["decode 24 MP JPEG (cv2)", 80, 250, "knowledge", [], ""],
+        ["bpy.data.images.load + pixels.foreach_get, 24 MP", 400, 2000, "knowledge", [], "384 MB float32 RGBA buffer; rows bottom-up"],
+        ["face detection (BlazeFace / YuNet)", 2, 10, "knowledge", [], ""],
+        ["face mesh 256x256", 3, 15, "knowledge", [], ""],
+        ["full MediaPipe FaceLandmarker incl. blendshapes", 10, 40, "knowledge", [], ""],
+        ["3DDFA_V2 face detection 720p (ONNX)", 15, 15, "sourced", ["https://github.com/cleardusk/3DDFA_V2"], "dominant stage; repo claims >50 fps overall; hardware not captured"],
+        ["SCRFD-10G 640x640", 30, 100, "knowledge", [], ""],
+        ["ArcFace ResNet50 112x112", 15, 50, "knowledge", [], ""],
+        ["Depth Anything V2 Small 518x518 (CPU)", 150, 800, "knowledge", [], "paper table reports 60 ms on unstated (likely GPU) hardware: https://www.alphaxiv.org/abs/2406.09414"],
+        ["ONNX Runtime session / MediaPipe task creation", 50, 500, "knowledge", [], "one-off per process"],
+        ["worker process spawn + imports", 1000, 4000, "knowledge", [], "first run on Windows with antivirus scanning: 10000-20000 ms"]
+      ],
+      "population": "Desktop CPU with 4-8 performance cores (AVX2 x86-64 or Apple M-series), single image, CPU execution provider",
+      "source_urls": ["https://github.com/cleardusk/3DDFA_V2"],
+      "status": "knowledge",
+      "notes": "Expert-knowledge ranges except the 3DDFA_V2 row; benchmark on target machines before relying on them."
+    },
+    {
+      "name": "suggested_engine_defaults",
+      "units": "u = face width in image pixels / 256 (one landmark-model pixel); counts; seconds; pixels",
+      "columns": ["parameter", "default", "range_or_alternative", "row_status", "notes"],
+      "rows": [
+        ["landmark_sigma_inner_features", "0.6u", "0.4u-1.0u", "knowledge", "eye/mouth corners, alar base, pupils"],
+        ["landmark_sigma_iris_centre", "0.4u", "0.3u-0.6u", "knowledge", ""],
+        ["landmark_sigma_brows", "1.0u", "0.8u-1.5u", "knowledge", ""],
+        ["contour_sigma_normal", "1.5u", "1.0u-2.5u", "knowledge", "point-to-curve residual"],
+        ["contour_sigma_tangent", ">=5u", "5u-inf", "knowledge", "contour points slide along silhouette"],
+        ["five_point_detector_sigma", "2.5% IOD", "2-3% inter-ocular distance", "knowledge", "YuNet/SCRFD"],
+        ["mediapipe_z_weight_multiview", "0", "0-0.1 x xy weight (single view only)", "knowledge", "z is relative, mean-face-biased"],
+        ["min_face_detection_confidence", "0.6", "0.5 (MediaPipe default)-0.7", "knowledge", "require exactly one face; request num_faces=2 to detect ambiguity"],
+        ["view_reprojection_flag", "3 sigma RMS (inner points)", "2-4 sigma", "knowledge", "usual causes: mirroring, EXIF rotation, wrong focal length"],
+        ["ort_intra_op_num_threads", "max(1, physical_cores - 2)", "1-physical_cores", "knowledge", "avoid oversubscribing Blender's TBB pool"],
+        ["ort_inter_op_num_threads", "1", "1", "knowledge", ""],
+        ["detection_long_side_px", "2048", "1280-2048", "knowledge", "map back with x = (x'+0.5)*s - 0.5"],
+        ["worker_timeout_first_run_s", "60", "30-120", "knowledge", "cold imports, antivirus"],
+        ["worker_timeout_per_image_s", "10", "5-30", "knowledge", ""],
+        ["golden_test_cross_machine_tolerance_px", "0.05", "0.01-0.1", "knowledge", "XNNPACK/MLAS kernels differ by ISA"]
+      ],
+      "population": "Design defaults for a multi-view photo-to-head landmark fitter; not measured",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Starting values only; tune on held-out photo sets."
+    }
+  ]
+}

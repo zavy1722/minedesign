@@ -1,0 +1,147 @@
+{
+  "topic": "anthropometric-norms",
+  "sources": [
+    {
+      "n": 1,
+      "title": "The 3D Facial Norms Database: Part 1. A Web-Based Craniofacial Anthropometric and Image Repository for the Clinical and Research Community",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760",
+      "kind": "paper",
+      "year": "2015"
+    },
+    {
+      "n": 2,
+      "title": "FaceBase 3D Facial Norms Database",
+      "url": "https://facebase.org/facial_norms/",
+      "kind": "official-docs",
+      "year": "n.d."
+    },
+    {
+      "n": 3,
+      "title": "Weinberg et al., 3D stereophotogrammetry versus traditional craniofacial anthropometry: Comparing measurements from the 3D facial norms database to Farkas's North American norms",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+      "kind": "paper",
+      "year": "2019"
+    },
+    {
+      "n": 4,
+      "title": "Facial Anthropometric Norms among Kosovo-Albanian Adults",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+      "kind": "paper",
+      "year": "2017"
+    },
+    {
+      "n": 5,
+      "title": "A Systematic Review of Inter-ethnic Variability in Facial Dimensions",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3074358/",
+      "kind": "paper",
+      "year": "2011"
+    },
+    {
+      "n": 6,
+      "title": "Wen et al., Bayesian meta-analysis of photogrammetric inter-ethnic facial variation (title not captured)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4527668/",
+      "kind": "paper",
+      "year": "2015"
+    },
+    {
+      "n": 7,
+      "title": "An Anthropometric Study of the Facial Index Among Undergraduate Medical Students, BHU, Uttar Pradesh",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 8,
+      "title": "Evaluation of Facial Asymmetry Determined by Linear Measurements According to Hand Preference and Gender",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12500730/",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 9,
+      "title": "Three-dimensional photographic analysis of the face in European adults from southern Spain with normal occlusion: reference anthropometric measurements",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 10,
+      "title": "3D Facial Normotypes for Maxillofacial Surgical Planning",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13666107",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 11,
+      "title": "Normative Findings for Periocular Anthropometric Measurements among Chinese Young Adults in Hong Kong",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 12,
+      "title": "Anthropometric Study of Three-Dimensional Facial Morphology in Malay Adults",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 13,
+      "title": "Exploring Causes of Demographic Variations In Face Recognition Accuracy (reproduces Farkas SDs)",
+      "url": "https://arxiv.org/pdf/2304.07175",
+      "kind": "paper",
+      "year": "2023"
+    },
+    {
+      "n": 14,
+      "title": "Accuracy and reliability of 3D stereophotogrammetry: a comparison to direct anthropometry and 2D photogrammetry",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26267357",
+      "kind": "paper",
+      "year": "2015"
+    },
+    {
+      "n": 15,
+      "title": "Three-Dimensional Anthropometric Facial Analysis and Fitting Discrepancies Between Stereophotogrammetry and CT",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38896864",
+      "kind": "paper",
+      "year": "2024"
+    },
+    {
+      "n": 16,
+      "title": "Reproducibility and Accuracy of Facial Soft Tissue Landmarks Across 3D Face Scanning Modalities: Systematic Review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/",
+      "kind": "paper",
+      "year": "n.d."
+    },
+    {
+      "n": 20,
+      "title": "Farkas et al. 2005 abstract record (14 measurements)",
+      "url": "https://acikerisim.omu.edu.tr/entities/publication/faa15b82-bd5a-4e41-b1a1-b11d0ae6a11e",
+      "kind": "paper",
+      "year": "2005"
+    },
+    {
+      "n": 21,
+      "title": "Penn State OpenLab ANSUR II / NATICK/TR-15/007",
+      "url": "https://www.openlab.psu.edu/ansur2/",
+      "kind": "official-docs",
+      "year": "2014"
+    }
+  ],
+  "references_by_name": [
+    "Farkas LG, Anthropometry of the Head and Face, 2nd ed., Raven Press, 1994 (1st ed. 1981)",
+    "Farkas LG, Munro IR (eds), Anthropometric Facial Proportions in Medicine, 1987",
+    "Farkas LG, Hreczko TA, Kolar JC, Munro IR, 'Vertical and horizontal proportions of the face in young adult North American Caucasians: revision of neoclassical canons', Plast Reconstr Surg, 1985",
+    "Farkas LG, Katic MJ, Forrest CR et al., 'International anthropometric study of facial morphology in various ethnic groups/races', J Craniofac Surg, 2005",
+    "Kolar JC, Salter EM, Craniofacial Anthropometry: Practical Measurement of the Head and Face for Clinical, Surgical, and Research Use, 1997",
+    "Martin R, Saller K, Lehrbuch der Anthropologie, 1957",
+    "Zhuang Z, Bradtmiller B, 'Head-and-face anthropometric survey of U.S. respirator users', J Occup Environ Hyg, 2005",
+    "Gordon CC et al., 2012 Anthropometric Survey of U.S. Army Personnel (ANSUR II): Methods and Summary Statistics, 2014",
+    "Ball R et al., 'A comparison between Chinese and Caucasian head shapes', Applied Ergonomics, 2010",
+    "Dai H, Pears N, Smith W, Duncan C, 'A 3D morphable model of craniofacial shape and texture variation' (Liverpool-York Head Model, Headspace), ICCV 2017",
+    "Dodgson NA, 'Variation and extrema of human interpupillary distance', Proc. SPIE, 2004",
+    "Porter JP, Olson KL, 'Anthropometric facial analysis of the African American woman', Arch Facial Plast Surg, 2001",
+    "Aldridge K et al., 'Precision and error of three-dimensional phenotypic measures acquired from 3dMD photogrammetric images', Am J Med Genet A, 2005",
+    "Heike CL et al., '3D digital stereophotogrammetry: a practical guide to facial image acquisition', Head Face Med, 2010"
+  ]
+}

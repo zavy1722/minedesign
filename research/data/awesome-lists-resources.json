@@ -1,0 +1,356 @@
+{
+  "topic": "awesome-lists-resources",
+  "tables": [
+    {
+      "name": "upstream_face_models_and_datasets",
+      "units": "subjects (count), vertices (count), components (count), images (count)",
+      "columns": [
+        "asset",
+        "lab",
+        "subjects_or_images",
+        "vertices",
+        "identity_components",
+        "expression_components",
+        "licence_posture",
+        "status"
+      ],
+      "rows": [
+        [
+          "FLAME",
+          "MPI-IS",
+          "~3800 CAESAR scans (identity)",
+          5023,
+          300,
+          100,
+          "non-commercial research; 'FLAME 2023 Open' possibly CC BY 4.0",
+          "contested"
+        ],
+        [
+          "BFM 2009",
+          "Univ. Basel",
+          "200 adults (100 f / 100 m)",
+          53490,
+          199,
+          0,
+          "non-commercial, registration",
+          "knowledge"
+        ],
+        [
+          "BFM 2017",
+          "Univ. Basel",
+          "200 adults + expression model",
+          null,
+          null,
+          null,
+          "non-commercial",
+          "knowledge"
+        ],
+        [
+          "LSFM",
+          "Imperial College iBUG",
+          "~9700",
+          null,
+          null,
+          0,
+          "non-commercial",
+          "knowledge"
+        ],
+        [
+          "LYHM",
+          "Univ. York",
+          "~1200",
+          null,
+          null,
+          0,
+          "academic",
+          "contested"
+        ],
+        [
+          "Headspace",
+          "Univ. York",
+          "~1500",
+          null,
+          null,
+          0,
+          "academic",
+          "contested"
+        ],
+        [
+          "FaceWarehouse",
+          "Zhejiang Univ.",
+          "150 (ages 7-80), 20 expressions",
+          null,
+          null,
+          null,
+          "research",
+          "knowledge"
+        ],
+        [
+          "FaceScape",
+          "Nanjing Univ.",
+          "938 x 20 expressions (~18,700 models)",
+          null,
+          null,
+          null,
+          "research, non-commercial",
+          "knowledge"
+        ],
+        [
+          "ICT-FaceKit",
+          "USC ICT",
+          "model",
+          null,
+          100,
+          53,
+          "MIT (verify)",
+          "contested"
+        ],
+        [
+          "NoW benchmark",
+          "MPI-IS",
+          "100 subjects, ~2050 images",
+          null,
+          null,
+          null,
+          "research",
+          "knowledge"
+        ],
+        [
+          "NeRSemble",
+          "TU Munich",
+          ">220 subjects; 16 cameras; ~73 fps; ~7 MP",
+          null,
+          null,
+          null,
+          "on request, non-commercial",
+          "contested"
+        ],
+        [
+          "Ava-256",
+          "Meta Reality Labs",
+          "256 subjects",
+          null,
+          null,
+          null,
+          "non-commercial",
+          "contested"
+        ],
+        [
+          "FFHQ",
+          "NVIDIA",
+          "70000 images at 1024x1024",
+          null,
+          null,
+          null,
+          "dataset CC BY-NC-SA 4.0; images individually licensed",
+          "knowledge"
+        ]
+      ],
+      "population": "Model/dataset training populations as described by their authors; BFM and FLAME skew European-descent adults, FaceScape mostly East Asian (author knowledge).",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "All counts from author memory, approximate; null = not recalled with confidence. Licence column must be re-verified before any bundling decision. Per-row status overrides table status."
+    },
+    {
+      "name": "landmark_and_topology_schemes",
+      "units": "points or vertices (count)",
+      "columns": [
+        "scheme",
+        "points",
+        "dimension",
+        "notes",
+        "status"
+      ],
+      "rows": [
+        [
+          "iBUG 300-W / dlib",
+          68,
+          "2D",
+          "points 0-16 are the sliding jaw contour; dlib model trained on 300-W (non-commercial terms)",
+          "knowledge"
+        ],
+        [
+          "WFLW",
+          98,
+          "2D",
+          "~10,000 images",
+          "knowledge"
+        ],
+        [
+          "AFLW2000-3D",
+          68,
+          "3D",
+          "2,000 images; fitted rather than scanned ground truth",
+          "knowledge"
+        ],
+        [
+          "MediaPipe Face Mesh / Face Landmarker",
+          478,
+          "3D",
+          "468 without iris refinement; Apache-2.0",
+          "knowledge"
+        ],
+        [
+          "ARKit face mesh",
+          1220,
+          "3D",
+          "52 blendshapes",
+          "knowledge"
+        ],
+        [
+          "FLAME landmark embedding",
+          68,
+          "3D",
+          "51 static + 17 dynamic contour, barycentric on 5,023-vertex mesh",
+          "knowledge"
+        ],
+        [
+          "Dense landmarks (Wood et al. 2022)",
+          700,
+          "2D",
+          "approximate; weights believed not public",
+          "contested"
+        ]
+      ],
+      "population": "n/a",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Use to size adapter tables (barycentric embeddings) in the fitting engine."
+    },
+    {
+      "name": "suggested_prior_sigmas_from_reference_resources",
+      "units": "mm (sigma) or dimensionless multiplier",
+      "columns": [
+        "prior",
+        "sigma_low",
+        "sigma_high",
+        "unit",
+        "applies_after",
+        "rationale"
+      ],
+      "rows": [
+        [
+          "single-specimen atlas skull (Z-Anatomy/BodyParts3D/CT) to template distance",
+          4,
+          6,
+          "mm",
+          "similarity alignment",
+          "one individual, no variance; region masks and placement only"
+        ],
+        [
+          "licensed scan head or AI mesh as shape prior",
+          3,
+          5,
+          "mm per vertex",
+          "umeyama similarity alignment",
+          "weak prior, never landmark ground truth"
+        ],
+        [
+          "sigma inflation when subject ancestry is outside the 3DMM training population",
+          1.5,
+          1.5,
+          "multiplier",
+          "n/a",
+          "guess; tune on held-out views"
+        ]
+      ],
+      "population": "adult heads",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Author-proposed engineering defaults, not measured values; tune on synthetic and held-out-view tests."
+    },
+    {
+      "name": "synthetic_camera_solver_test_harness",
+      "units": "mm (35mm-equivalent focal), m (distance), deg (yaw, error), percent (focal error)",
+      "columns": [
+        "parameter",
+        "min",
+        "max",
+        "unit",
+        "notes"
+      ],
+      "rows": [
+        [
+          "cameras_per_test",
+          3,
+          8,
+          "count",
+          "rendered in Blender from CC0/CC BY heads"
+        ],
+        [
+          "focal_length_35mm_equiv",
+          24,
+          135,
+          "mm",
+          "known ground truth"
+        ],
+        [
+          "camera_distance",
+          0.4,
+          3.0,
+          "m",
+          "covers selfie to portrait-lens range"
+        ],
+        [
+          "yaw_span",
+          -90,
+          90,
+          "deg",
+          "views should span >= 60 deg for focal recovery"
+        ],
+        [
+          "acceptance_focal_error",
+          0,
+          5,
+          "percent",
+          "when yaw span >= 60 deg"
+        ],
+        [
+          "acceptance_rotation_error",
+          0,
+          2,
+          "deg",
+          "when yaw span >= 60 deg"
+        ]
+      ],
+      "population": "synthetic renders of permissively licensed heads",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Shape error scored with the NoW protocol: 7-landmark rigid alignment then scan-vertex-to-surface distance in mm."
+    },
+    {
+      "name": "awesome_list_health_heuristics",
+      "units": "months, count",
+      "columns": [
+        "signal",
+        "healthy_threshold",
+        "stale_threshold",
+        "unit"
+      ],
+      "rows": [
+        [
+          "months_since_last_commit",
+          3,
+          12,
+          "months"
+        ],
+        [
+          "newest_venue_age",
+          0,
+          2,
+          "years"
+        ],
+        [
+          "open_unanswered_pull_requests",
+          10,
+          30,
+          "count"
+        ]
+      ],
+      "population": "GitHub curated paper lists",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Author heuristics, not a standard."
+    }
+  ]
+}

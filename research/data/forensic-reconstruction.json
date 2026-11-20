@@ -1,0 +1,97 @@
+{
+  "topic": "forensic-reconstruction",
+  "tables": [
+    {
+      "name": "bone_to_soft_rules",
+      "units": "mm unless stated; Frankfort-aligned head frame",
+      "columns": ["feature", "rule", "mu", "sigma_or_spread", "population", "origin", "status"],
+      "rows": [
+        ["corneal_apex_depth", "corneal apex anterior to lateral orbital rim (Hertel-style)", 16, 2.0, "European descent; African descent ~+1.5-2; East Asian often lower", "Stephan 2002; exophthalmometry norms", "contested"],
+        ["rim_tangent_rule", "cornea touches mid-supraorbital to mid-infraorbital tangent (traditional)", null, "sets eye several mm too deep", "-", "traditional guideline, falsified by Stephan 2002", "contested"],
+        ["endocanthion", "lateral to dacryon, per side", 5, 1.5, "adults", "medial canthal tendon on anterior lacrimal crest", "knowledge"],
+        ["exocanthion", "medial to lateral orbital margin (ectoconchion), per side", 4, 1.5, "adults", "lateral canthal tendon on Whitnall's tubercle", "knowledge"],
+        ["exocanthion_vertical", "below frontozygomatic suture (Whitnall's tubercle level)", 10, 3, "adults", "orbital anatomy", "knowledge"],
+        ["canthal_tilt_deg", "exocanthion above endocanthion, degrees", 4, "range +2 to +6; higher East Asian", "European descent", "anthropometry", "knowledge"],
+        ["nasal_dorsum", "follows nasal bones; cover at rhinion", 3, "range 2-3.5", "pooled", "tissue-depth tables", "knowledge"],
+        ["pronasale_two_tangent", "intersection of distal nasal-bone tangent and ANS line", null, "errors often >=4-5", "mixed", "Gerasimov", "contested"],
+        ["pronasale_krogman", "projection = 3 x ANS length + mid-philtrum depth", null, "errors often >=4-5", "mixed", "Krogman", "contested"],
+        ["alar_minus_aperture_total", "alar width minus maximum aperture width", 10, 3, "European descent (12-16 East Asian / African descent)", "traditional rules", "contested"],
+        ["alar_over_aperture_ratio", "al-al / maximum aperture width", 1.55, 0.15, "mixed", "traditional rules", "contested"],
+        ["mouth_width_from_icw", "ch-ch = ICW / 0.75 (ICW definition to verify)", 0.75, 0.05, "adults", "Stephan & Henneberg 2003", "knowledge"],
+        ["stomion_above_upper_incisal_edge", "neutral, lips closed; falls with age", 2.5, 1.5, "adults <30 y (1.5 at 30-50, 0.5 >50)", "Vig & Brundo 1978 pattern", "knowledge"],
+        ["lip_to_incisor_movement_ratio", "soft lip displacement per unit incisor displacement", 0.65, "range 0.4-0.9", "orthodontic samples", "orthodontic literature", "contested"],
+        ["tragion_lateral_of_porion", "per side; vertical offset 0 +/- 5", 11, 3, "adults", "anatomy (cartilaginous canal + tragus)", "knowledge"],
+        ["ear_length_minus_nose_height", "ear length minus n-sn", 8, 5, "adults; grows with age", "Farkas canon tests; Guyomarc'h & Stephan 2012", "knowledge"]
+      ],
+      "population": "Adults, neutral expression; mostly European-descent derived unless noted",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Expert-knowledge priors, not yet verified against sources. Use as weak priors for hidden structures (eyes, teeth, skull, ear canal) and for directions no photo view constrains; never as targets for observed skin."
+    },
+    {
+      "name": "eye_reference_values",
+      "units": "mm",
+      "columns": ["quantity", "low", "high", "typical", "population"],
+      "rows": [
+        ["globe_axial_length", 23, 25, 23.8, "adult emmetropes; longer in myopia"],
+        ["corneal_diameter_hvid", 10.5, 13.0, 11.8, "adults; SD ~0.6-0.8 (sourced in eyes-modeling-blender note)"],
+        ["corneal_radius_of_curvature", 7.5, 8.0, 7.8, "adults"],
+        ["interpupillary_distance", 58, 70, 63, "adults; M ~64, F ~62"],
+        ["intercanthal_en_en", 28, 35, 31, "adults; higher East Asian"],
+        ["biocular_ex_ex", 85, 95, 90, "adults"],
+        ["palpebral_fissure_ex_en", 27, 32, 29.5, "adults"],
+        ["hertel_left_right_difference_max_normal", 0, 2, 0, "clinical norm"]
+      ],
+      "population": "Adults",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Corneal diameter agrees with the sourced value in research/blender/eyes-modeling-blender.md."
+    },
+    {
+      "name": "accuracy_benchmarks_bone_to_face",
+      "units": "as stated",
+      "columns": ["study_or_method", "metric", "reported", "status"],
+      "rows": [
+        ["Stephan & Henneberg 2001 (manual, dry skulls)", "face-pool recognition", "1 of 16 approximations above chance", "knowledge"],
+        ["Manchester digital vs CT of live subjects (Wilkinson 2006; Lee 2012; Short 2014)", "share of surface within +/-2-2.5 mm", "~50-70 %", "contested"],
+        ["CT-template / statistical automated methods", "mean surface error", "~2-4 mm", "contested"],
+        ["Per-region ranking", "largest errors", "nose tip, lips, eyelids, ears, lateral cheeks; smallest forehead, nasal dorsum, chin", "knowledge"],
+        ["Casework identification aid", "share of cases", "~50-70 % quoted, uncontrolled", "contested"]
+      ],
+      "population": "Mixed",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Numbers recalled from the literature; extract exact figures before using them as benchmarks."
+    },
+    {
+      "name": "engine_rule_priors",
+      "units": "mm unless stated; Frankfort-aligned frame",
+      "columns": ["parameter", "mu", "sigma", "notes"],
+      "rows": [
+        ["cornea_ahead_lat_rim", 16, 2.0, "ancestry shift +1.75 African, -1.5 East Asian (contested); clamp 11-22"],
+        ["hertel_lr_diff", 0, 1.0, "warn above 2"],
+        ["globe_offset_sup", 1, 1.5, "relative to orbital-aperture centre; sign and size unverified"],
+        ["globe_offset_lat", 1, 1.5, "relative to orbital-aperture centre; sign and size unverified"],
+        ["globe_axial_len", 23.8, 1.0, "left-right sigma 0.3"],
+        ["corneal_diam", 11.8, 0.7, "low-weight scale prior; skip through spectacles"],
+        ["en_lat_of_dacryon", 5, 1.5, "per side"],
+        ["ex_med_of_ectoconchion", 4, 1.5, "per side"],
+        ["ex_below_fz_suture", 10, 3, "Whitnall's tubercle"],
+        ["alar_minus_aperture_eur", 10, 3, "total, both sides"],
+        ["alar_minus_aperture_eas", 13, 3, "total, both sides; contested"],
+        ["alar_minus_aperture_afr", 16, 3, "total, both sides; contested"],
+        ["tip_projection_from_bone", null, 5, "use only without a profile view; prefer face-model prior"],
+        ["icw_over_mouth_width", 0.75, 0.05, "ratio; ICW definition unverified"],
+        ["stomion_above_U1_edge_lt30", 2.5, 1.5, "neutral, lips closed"],
+        ["stomion_above_U1_edge_30_50", 1.5, 1.5, "neutral, lips closed"],
+        ["stomion_above_U1_edge_gt50", 0.5, 1.5, "neutral, lips closed"],
+        ["tragion_lat_of_porion", 11, 3, "vertical 0 +/- 5"],
+        ["tangential_slack_paired_landmarks", 3, 1, "slack tau for bone-soft landmark sliding (gnathion, menton, gonion)"]
+      ],
+      "population": "Adults",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Suggested defaults for factor-graph rule terms (weight 1/sigma^2). Tissue-depth priors live in research/data/skull-osteology.json."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "photogrammetry-heads",
+ "area": "reconstruction",
+ "title": "Photogrammetry of human heads",
+ "queue": [
+  {
+   "claim": "COLMAP images.txt stores a world-to-camera quaternion (QW QX QY QZ) and translation (camera centre = -R^T t), and COLMAP's pixel convention puts the centre of the top-left pixel at (0.5, 0.5), versus (0, 0) in OpenCV. The face3d Camera.centered cx = width/2 matches COLMAP.",
+   "query": "COLMAP output format images.txt QW QX QY QZ world to camera coordinate convention pixel center 0.5",
+   "domains": "colmap.github.io"
+  },
+  {
+   "claim": "In Metashape camera XML, cx and cy are offsets from the image centre, P1/P2 are swapped relative to OpenCV p1/p2, and the per-camera transform maps camera to chunk, followed by a separate chunk transform.",
+   "query": "Agisoft Metashape camera calibration model cx cy offset from image center P1 P2 convert to OpenCV",
+   "domains": "agisoft.com"
+  },
+  {
+   "claim": "Typical surface accuracy versus a reference scan: single DSLR with a live sitter 0.5\u20132 mm in the central face (2\u20135 mm at the periphery); smartphone stills 1\u20133 mm; TrueDepth 0.5\u20132 mm; clinical 3dMD/Vectra-class systems about 0.2\u20130.5 mm.",
+   "query": "smartphone photogrammetry facial 3D scan accuracy compared with 3dMD mean surface deviation mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "RealityCapture became free for users under about US$1M annual revenue in 2024, was renamed RealityScan 2.0 in 2025, runs only on Windows and needs an NVIDIA CUDA GPU for meshing.",
+   "query": "RealityScan 2.0 RealityCapture rename pricing free under 1 million revenue NVIDIA CUDA requirement",
+   "domains": "realityscan.com,unrealengine.com,epicgames.com"
+  }
+ ]
+}

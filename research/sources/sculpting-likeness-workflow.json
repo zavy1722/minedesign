@@ -1,0 +1,23 @@
+{
+  "topic": "sculpting-likeness-workflow",
+  "sources": [],
+  "references_by_name": [
+    "Blender Manual, Sculpt Mode chapter (Multiresolution, Dynamic Topology, Voxel Remesh, Brushes, Symmetry)",
+    "Blender release notes 2.81-5.3, sculpt sections (voxel remesh, face sets, multires rewrite, brush assets)",
+    "Julien Kaspar, Blender Studio sculpting training",
+    "Scott Spencer, ZBrush Digital Sculpting Human Anatomy, 2010",
+    "Uldis Zarins & Sandis Kondrats, Anatomy for Sculptors, 2014",
+    "Philippe Faraut, Mastering Portraiture",
+    "Daisy Grubbs, Modeling a Likeness in Clay, 1982",
+    "John Asaro, Planes of the Head model",
+    "Andrew Loomis, Drawing the Head and Hands, 1956",
+    "Farkas LG, Anthropometry of the Head and Face, 2nd ed., 1994",
+    "Sinha P, Balas B, Ostrovsky Y, Russell R. Face recognition by humans: nineteen results all computer vision researchers should know about. Proc. IEEE, 2006",
+    "Sadr J, Jarudi I, Sinha P. The role of eyebrows in face recognition. Perception, 2003",
+    "Ellis HD, Shepherd JW, Davies GM. Identification of familiar and unfamiliar faces from internal and external features. Perception, 1979",
+    "Rhodes G, Brennan S, Carey S. Identification and ratings of caricatures. Cognitive Psychology, 1987",
+    "Benson PJ, Perrett DI. Photographic-quality facial caricatures. European Journal of Cognitive Psychology, 1991",
+    "O'Toole AJ, Vetter T, Volz H, Salter EM. Three-dimensional caricatures of human heads. Perception, 1997",
+    "Jenkins R, White D, Van Montfort X, Burton AM. Variability in photos of the same face. Cognition, 2011"
+  ]
+}

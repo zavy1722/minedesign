@@ -1,0 +1,393 @@
+{
+ "topic": "youtube-likeness-blender",
+ "tables": [
+  {
+   "name": "route_comparison_practitioner_estimates",
+   "units": "photos (count), hours, mm",
+   "columns": [
+    "route",
+    "photos_min",
+    "photos_max",
+    "hands_on_hours_min",
+    "hands_on_hours_max",
+    "output",
+    "likeness_ceiling_face_region",
+    "main_failure"
+   ],
+   "rows": [
+    [
+     "FaceBuilder pin fit then sculpt",
+     3,
+     9,
+     5.5,
+     22,
+     "fixed KeenTools topology, UVs, texture, ~51 ARKit-style keys",
+     "good front/3-4; profile only as good as profile pins",
+     "over-pinning, wrong focal, expression absorbed"
+    ],
+    [
+     "Ortho image planes + box/poly modelling",
+     2,
+     2,
+     4,
+     15,
+     "hand topology",
+     "poor unless shot from >=2 m with tele",
+     "perspective mismatch between views"
+    ],
+    [
+     "Sculpt by eye from sphere or base mesh",
+     10,
+     50,
+     10,
+     60,
+     "free topology, needs retopo",
+     "high for experts, low for beginners",
+     "proportion drift, symmetry, eye depth"
+    ],
+    [
+     "Photogrammetry + cleanup/wrap",
+     50,
+     150,
+     4,
+     13,
+     "dense scan wrapped to template",
+     "best metric shape, mid-face ~0.5-2 mm",
+     "sitter motion, hair, eyes, shine"
+    ],
+    [
+     "AI image-to-3D",
+     1,
+     4,
+     0.05,
+     0.5,
+     "untopologised, non-metric",
+     "blockout only",
+     "hallucinated profile, averaged features"
+    ],
+    [
+     "MetaHuman / Headshot bridge",
+     1,
+     9,
+     1,
+     3,
+     "vendor rig topology",
+     "input mesh quality minus conform drift",
+     "vendor drift at nose, lips, lids"
+    ]
+   ],
+   "population": "adult head, competent user; excludes learning time",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Practitioner estimates from expert knowledge, not measured; FaceBuilder hours = 0.5-2 h fit + 5-20 h sculpt; photogrammetry = 1-3 h capture/process + 3-10 h cleanup. No mm-level benchmark of any YouTube workflow exists in this library."
+  },
+  {
+   "name": "perspective_distortion_vs_distance",
+   "units": "m, ratio",
+   "columns": [
+    "distance_to_nose_tip_m",
+    "nose_vs_ear_magnification",
+    "typical_source",
+    "usable_as_shape_cue"
+   ],
+   "rows": [
+    [
+     0.3,
+     1.333,
+     "arm's-length selfie",
+     "no"
+    ],
+    [
+     0.5,
+     1.2,
+     "close phone shot",
+     "only with a solved camera"
+    ],
+    [
+     1.0,
+     1.1,
+     "casual portrait",
+     "yes, with a solved camera"
+    ],
+    [
+     2.0,
+     1.05,
+     "tele portrait",
+     "yes; near-ortho tolerable"
+    ],
+    [
+     3.0,
+     1.033,
+     "long tele",
+     "ortho planes acceptable"
+    ]
+   ],
+   "population": "pinhole model; nose tip ~0.10 m in front of the ear plane (assumed adult range 0.09-0.11 m)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Derived: magnification = (d+0.10)/d. Consistent with community/instagram-social-sculptors and blender/reference-camera-setup notes. Engine thresholds proposed: warn d<1.0 m, shape-cue refusal d<0.6 m."
+  },
+  {
+   "name": "blender_defaults_vs_likeness_settings",
+   "units": "mm, m, px, fraction",
+   "columns": [
+    "setting",
+    "default_as_recalled",
+    "recommended_for_likeness",
+    "status"
+   ],
+   "rows": [
+    [
+     "viewport focal length",
+     "50 mm",
+     "85-100 mm to sculpt; judge through solved cameras",
+     "knowledge"
+    ],
+    [
+     "camera lens / sensor",
+     "50 mm / 36 mm, sensor fit AUTO",
+     "from EXIF or solver; AUTO uses larger image side",
+     "knowledge"
+    ],
+    [
+     "render resolution",
+     "1920x1080",
+     "photo's exact pixel size, uncropped original",
+     "knowledge"
+    ],
+    [
+     "camera background image opacity",
+     "0.5",
+     "0.3-0.5, Depth Front, Frame Method Stretch",
+     "knowledge"
+    ],
+    [
+     "view clip start",
+     "0.01 m (camera clip start 0.1 m)",
+     "0.001 m at real scale",
+     "knowledge"
+    ],
+    [
+     "brush radius unit",
+     "View (pixels)",
+     "Scene",
+     "knowledge"
+    ],
+    [
+     "voxel remesh size",
+     "~0.1 m on new meshes (uncertain)",
+     "0.003-0.005 m blockout; 0.0015-0.002 m primaries",
+     "contested"
+    ],
+    [
+     "Lock Camera to View",
+     "off",
+     "keep off; lock camera transforms",
+     "knowledge"
+    ],
+    [
+     "mesh symmetry X",
+     "often on (template-dependent)",
+     "on until primaries agree in all cameras",
+     "contested"
+    ]
+   ],
+   "population": "Blender 4.x-5.x, real-scale adult head (1 unit = 1 m)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Defaults recalled from expert knowledge; verify per Blender version (5.2 LTS, 5.3)."
+  },
+  {
+   "name": "photo_sets_by_route",
+   "units": "count, degrees, %, m, f-number, s",
+   "columns": [
+    "route",
+    "views",
+    "capture_settings"
+   ],
+   "rows": [
+    [
+     "FaceBuilder / pin fit",
+     "front, 3-4 L/R, both profiles, optional slight high/low (3-9 photos)",
+     ">=1 m; 2-3x phone tele or 85-135 mm-equivalent; one zoom for all (shared camera group); neutral face; hair off ears/forehead; no glasses"
+    ],
+    [
+     "Photogrammetry",
+     "3 rings at about -20, 0, +30..45 deg; 24-36 shots per ring; 60-80% overlap",
+     "diffuse light; f/8-f/11; shutter >=1/160 s or flash; low ISO; sitter still, eyes on fixed point; each ring <=20-30 s"
+    ],
+    [
+     "Sculpt by eye",
+     "8-16 yaw stations plus above/below, plus candid photos",
+     "as pin fit; add a ruler or measured IPD for scale"
+    ]
+   ],
+   "population": "adult sitter",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Practitioner consensus from expert knowledge; no tutorial transcripts harvested."
+  },
+  {
+   "name": "facebuilder_pin_plan",
+   "units": "landmark names; 6-12 pins per view",
+   "columns": [
+    "view",
+    "pins"
+   ],
+   "rows": [
+    [
+     "front",
+     "inner/outer canthi, nasal tip, alar bases, mouth corners, pogonion; no jaw-contour pins"
+    ],
+    [
+     "three-quarter",
+     "outer canthus, cheekbone contour, gonion, ear root, nasal tip"
+    ],
+    [
+     "profile",
+     "glabella, nasion, pronasale, subnasale, labrale superius/inferius, pogonion, menton, tragus, ear top/bottom"
+    ]
+   ],
+   "population": "adult photos, neutral expression",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Delete rather than add when pins conflict; contour pins outside profile views should be sliding silhouette constraints."
+  },
+  {
+   "name": "engine_defaults_proposed",
+   "units": "as stated per row",
+   "columns": [
+    "parameter",
+    "value",
+    "units",
+    "notes"
+   ],
+   "rows": [
+    [
+     "user pin sigma",
+     0.75,
+     "% IOD",
+     "matches reconstruction/commercial-head-tools"
+    ],
+    [
+     "auto pin sigma, corners",
+     1.5,
+     "% IOD",
+     ""
+    ],
+    [
+     "auto pin sigma, lid/lip contours",
+     2.5,
+     "% IOD",
+     ""
+    ],
+    [
+     "auto pin sigma, face oval",
+     4.0,
+     "% IOD",
+     "re-associated each iteration"
+    ],
+    [
+     "Huber delta",
+     2.0,
+     "x sigma",
+     ""
+    ],
+    [
+     "conflicting-pin flag",
+     3.0,
+     "x sigma",
+     "after convergence"
+    ],
+    [
+     "max auto-suggested pins per view",
+     12,
+     "count",
+     ""
+    ],
+    [
+     "IPD prior mean",
+     63.0,
+     "mm",
+     "sigma 3.5 mm; measured value overrides with sigma ~1 mm"
+    ],
+    [
+     "iris diameter prior mean",
+     11.7,
+     "mm",
+     "sigma 0.5 mm"
+    ],
+    [
+     "EXIF focal log-sigma",
+     0.03,
+     "log units",
+     "no EXIF: 50 mm-equivalent, log-sigma 0.5"
+    ],
+    [
+     "distance warn threshold",
+     1.0,
+     "m",
+     "d = f_px*63 mm / IPD_px"
+    ],
+    [
+     "distance shape-cue refusal",
+     0.6,
+     "m",
+     "photo kept for texture/2D cues only"
+    ],
+    [
+     "symmetry sigma, global/low-frequency",
+     1.0,
+     "mm",
+     "2-3 mm in per-vertex stage"
+    ],
+    [
+     "low-frequency length scale",
+     35,
+     "mm",
+     "range 30-40 mm"
+    ],
+    [
+     "per-vertex offset cap",
+     5.0,
+     "mm",
+     "unless >=2 views agree"
+    ],
+    [
+     "imported photogrammetry sigma",
+     0.75,
+     "mm",
+     "range 0.5-1 mm; eyes/hair masked or sigma x5"
+    ],
+    [
+     "imported multi-view pin-fit sigma",
+     1.25,
+     "mm",
+     "range 1-1.5 mm"
+    ],
+    [
+     "imported AI image-to-3D sigma",
+     4.0,
+     "mm",
+     "range 3-5 mm; zero profile weight unless confirmed"
+    ],
+    [
+     "eye sphere diameter",
+     24,
+     "mm",
+     "separate objects"
+    ],
+    [
+     "rigidity mapping",
+     "lambda_shape = 10^(2r-1), r in [0,1]",
+     "dimensionless",
+     "default r = 0.5 -> lambda 1"
+    ]
+   ],
+   "population": "design choices for the fitting engine",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Proposed defaults, not measurements; Blender camera export: sensor_fit AUTO, lens = f_px*36/max(W,H), shift_x = (W/2 - cx)/max(W,H), shift_y = (cy - H/2)/max(W,H); unit-test signs by reprojection."
+  }
+ ]
+}

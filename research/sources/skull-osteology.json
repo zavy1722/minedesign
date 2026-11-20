@@ -1,25 +1,377 @@
-{"topic":"skull-osteology","sources":[
-{"n":1,"title":"Global facial soft tissue thicknesses for craniofacial identification (2023): a review of 140 years of data since Welcker's first study","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/","kind":"paper (review)","year":"2023"},
-{"n":2,"title":"Soft-tissue thickness of South Korean adults with normal facial profiles","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959/","kind":"paper","year":"unconfirmed"},
-{"n":3,"title":"Facial Soft Tissue Thickness Differences among Three Skeletal Classes in Korean Population Using CBCT","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC9914978/","kind":"paper","year":"unconfirmed"},
-{"n":4,"title":"Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/","kind":"paper","year":"unconfirmed"},
-{"n":5,"title":"Sex, age, and body mass index influence on facial soft tissue thickness in a Thai population above middle age by ultrasonographic imaging","url":"https://pubmed.ncbi.nlm.nih.gov/41701465/","kind":"paper","year":"2026"},
-{"n":6,"title":"Layer-specific facial soft-tissue thickness in 1174 Chinese adults: Implications for finite-element headforms and ergonomic design","url":"https://pubmed.ncbi.nlm.nih.gov/42385786/","kind":"paper","year":"unconfirmed"},
-{"n":7,"title":"Facial soft tissue thicknesses of Azerbaijan adult population: CT study","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/","kind":"paper","year":"unconfirmed"},
-{"n":8,"title":"Facial soft tissue depth of a contemporary adult Greek population","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/","kind":"paper","year":"unconfirmed"},
-{"n":9,"title":"Medical Imaging and Facial Soft Tissue Thickness Studies for Forensic Craniofacial Approximation: A Pilot Study on Modern Cretans","url":"https://pubmed.ncbi.nlm.nih.gov/31313259/","kind":"paper","year":"unconfirmed"},
-{"n":10,"title":"Facial soft tissue thickness database for craniofacial reconstruction in Korean adults","url":"https://pubmed.ncbi.nlm.nih.gov/22621203/","kind":"paper","year":"unconfirmed"},
-{"n":11,"title":"Surface-to-Skeleton 3D Cephalometry: Estimating Hidden Skeletal Landmarks from CT-Derived External Soft-Tissue Surfaces","url":"https://arxiv.org/pdf/2608.12537","kind":"preprint (not peer-reviewed)","year":"2026"},
-{"n":12,"title":"Zygomatic bone (StatPearls, NCBI Bookshelf)","url":"https://www.ncbi.nlm.nih.gov/books/NBK544257/","kind":"medical-reference","year":"unconfirmed"},
-{"n":13,"title":"Morphometric Study of Nasal Bone and Piriform Aperture in Human Dry Skull of Indian Origin","url":"https://pubmed.ncbi.nlm.nih.gov/26894050/","kind":"paper","year":"unconfirmed"},
-{"n":14,"title":"Morphometric and morphological assessment of the piriform aperture in dry crania: anatomical observations and surgical implications","url":"https://pubmed.ncbi.nlm.nih.gov/42262393/","kind":"paper","year":"2026"},
-{"n":15,"title":"Analysis of the nasal bone and nasal pyramid by three-dimensional computed tomography","url":"https://pubmed.ncbi.nlm.nih.gov/17929046/","kind":"paper","year":"unconfirmed"},
-{"n":16,"title":"Regression analysis of nasal shape from juvenile to adult ages for forensic facial reconstruction","url":"https://pubmed.ncbi.nlm.nih.gov/38065055/","kind":"paper","year":"2023"},
-{"n":17,"title":"Craniofacial anthropometric investigation of relationships between the nose and nasal aperture using 3D computed tomography of Korean subjects","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7527952/","kind":"paper","year":"2020"},
-{"n":18,"title":"Comparisons of soft tissue chin thickness in adult patients with various mandibular divergence patterns","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC8650451/","kind":"paper","year":"unconfirmed"},
-{"n":19,"title":"Effects of the Mandibular Functional Units and Soft Tissue on Facial Asymmetry","url":"https://pubmed.ncbi.nlm.nih.gov/36917036/","kind":"paper","year":"unconfirmed"},
-{"n":20,"title":"The human chin and its relationship to mandibular morphology","url":"https://pubmed.ncbi.nlm.nih.gov/290281/","kind":"paper","year":"unconfirmed"},
-{"n":21,"title":"Comparisons of facial soft tissue characteristics in adult patients with various mandibular divergence patterns","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC12042354","kind":"paper","year":"unconfirmed"},
-{"n":22,"title":"Factors associated with the morphology of the mandibular symphysis and soft tissue chin","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC8439184/","kind":"paper","year":"unconfirmed"},
-{"n":23,"title":"Bony Anatomy of the Orbit (AAO EyeWiki)","url":"https://eyewiki.aao.org/Bony_Anatomy_of_the_Orbit","kind":"medical-reference","year":"unconfirmed"}
-]}
+{
+ "topic": "skull-osteology",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Global facial soft tissue thicknesses for craniofacial identification (2023): a review of 140 years of data since Welcker's first study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/",
+   "kind": "review",
+   "year": "2023"
+  },
+  {
+   "n": 2,
+   "title": "Soft-tissue thickness of South Korean adults with normal facial profiles",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 3,
+   "title": "Facial Soft Tissue Thickness Differences among Three Skeletal Classes in Korean Population Using CBCT",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9914978/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 4,
+   "title": "Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 5,
+   "title": "Sex, age, and body mass index influence on facial soft tissue thickness in a Thai population above middle age by ultrasonographic imaging",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 6,
+   "title": "Layer-specific facial soft-tissue thickness in 1174 Chinese adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42385786/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 7,
+   "title": "Facial soft tissue thicknesses of Azerbaijan adult population: CT study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 8,
+   "title": "Facial soft tissue depth of a contemporary adult Greek population",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 9,
+   "title": "Medical Imaging and Facial Soft Tissue Thickness Studies for Forensic Craniofacial Approximation: A Pilot Study on Modern Cretans",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31313259/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 10,
+   "title": "Facial soft tissue thickness database for craniofacial reconstruction in Korean adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/22621203/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 11,
+   "title": "Surface-to-Skeleton 3D Cephalometry: Estimating Hidden Skeletal Landmarks from CT-Derived External Soft-Tissue Surfaces",
+   "url": "https://arxiv.org/pdf/2608.12537",
+   "kind": "preprint (not peer reviewed)",
+   "year": "2026"
+  },
+  {
+   "n": 12,
+   "title": "Zygomatic bone (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK544257/",
+   "kind": "medical reference",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 13,
+   "title": "Morphometric Study of Nasal Bone and Piriform Aperture in Human Dry Skull of Indian Origin",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/26894050/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 14,
+   "title": "Morphometric and morphological assessment of the piriform aperture in dry crania",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42262393/",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 15,
+   "title": "Analysis of the nasal bone and nasal pyramid by three-dimensional computed tomography",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/17929046/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 16,
+   "title": "Regression analysis of nasal shape from juvenile to adult ages for forensic facial reconstruction",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38065055/",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 17,
+   "title": "Craniofacial anthropometric investigation of relationships between the nose and nasal aperture using 3D CT of Korean subjects",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7527952/",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 18,
+   "title": "Comparisons of soft tissue chin thickness in adult patients with various mandibular divergence patterns",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8650451/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 19,
+   "title": "Effects of the Mandibular Functional Units and Soft Tissue on Facial Asymmetry",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36917036/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 20,
+   "title": "The human chin and its relationship to mandibular morphology",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/290281/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 21,
+   "title": "Comparisons of facial soft tissue characteristics in adult patients with various mandibular divergence patterns",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12042354",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 22,
+   "title": "Factors associated with the morphology of the mandibular symphysis and soft tissue chin",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8439184/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 23,
+   "title": "Bony Anatomy of the Orbit (AAO EyeWiki)",
+   "url": "https://eyewiki.aao.org/Bony_Anatomy_of_the_Orbit",
+   "kind": "medical reference",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 24,
+   "title": "Taylor & Francis chapter on the frontal bone and supraorbital notch",
+   "url": "https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29",
+   "kind": "textbook",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 25,
+   "title": "Kenhub: The frontal bone",
+   "url": "https://www.kenhub.com/en/library/anatomy/the-frontal-bone",
+   "kind": "educational reference",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 26,
+   "title": "Elsevier: Frontal bone (surface anatomy)",
+   "url": "https://www.elsevier.com/resources/anatomy/skeletal-system/axial-skeleton/frontal-bone/20545",
+   "kind": "reference",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 27,
+   "title": "Anatomy of the Orbit",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 28,
+   "title": "Anatomic characteristics of the infraorbital foramen: a cadaver study",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10981979/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 29,
+   "title": "Morphological and Morphometric Relations of Infraorbital Foramen in North Indian Population",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 30,
+   "title": "Quantitative Analysis of the Human Face Skin Thickness: A High-Frequency Ultrasound Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 31,
+   "title": "Application of cone beam computed tomography in facial soft tissue thickness measurements for craniofacial reconstruction",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 32,
+   "title": "The Influence of Age and Gender on Forehead Soft Tissue Thickness: An MRI-Based Study",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12594695/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 33,
+   "title": "Temporal fossa / temporalis morphometry article (OAE Publishing)",
+   "url": "https://www.oaepublish.com/articles/2347-9264.2020.221",
+   "kind": "paper",
+   "year": "2020–2021 (unconfirmed)"
+  },
+  {
+   "n": 34,
+   "title": "Temporalis muscle thickness ultrasound study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8053578",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 35,
+   "title": "StatPearls: Anatomy, Head and Neck, Mandible",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/",
+   "kind": "medical reference",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 36,
+   "title": "Evaluation of location of mandibular and mental foramina in dry, young, adult human male, dentulous mandibles",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12089867/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 37,
+   "title": "Variation in Chin and Mandibular Symphysis Size and Shape in Males and Females: A CT-Based Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7345472/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 38,
+   "title": "Geometric morphometric analysis of mandibular symphysis in Class III skeletal base",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9747342/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 39,
+   "title": "Appraisal of traditional and recently proposed relationships between the hard and soft dimensions of the nose in profile (LJMU)",
+   "url": "https://researchonline.ljmu.ac.uk/id/eprint/5340/3/Appraisal%20of%20traditional%20and%20recently%20proposed%20relationships%20between%20the%20hard%20and%20soft%20dimensions%20of%20the%20nose%20in%20profile.pdf",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 40,
+   "title": "Piriform aperture / nasal study (PMC)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/5017614",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 41,
+   "title": "USP thesis: CBCT study of piriform aperture and nasal breadth",
+   "url": "https://teses.usp.br/teses/disponiveis/23/23153/tde-24052016-115026/fr.php",
+   "kind": "thesis",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 42,
+   "title": "A computerized facial approximation method based on facial soft tissue thickness depths and geometric morphometrics",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10557396/",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 43,
+   "title": "Assessment of accuracy and recognition of 3D computerized forensic craniofacial reconstruction (PLOS ONE)",
+   "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0196770",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 44,
+   "title": "The facial soft tissue thickness related facial reconstruction by ultrasonographic imaging: A review",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0379073822001955",
+   "kind": "review",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 45,
+   "title": "Considerations associated with computer forensic facial reconstructions: the limits of soft tissues' thickness determination",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20191828/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 46,
+   "title": "Wilkinson, The Manchester method of facial reconstruction, in Forensic Facial Reconstruction",
+   "url": "https://www.cambridge.org/core/books/forensic-facial-reconstruction/manchester-method-of-facial-reconstruction/327A6447C593EA972C92D93E3EB33A1D",
+   "kind": "textbook chapter",
+   "year": "2004"
+  },
+  {
+   "n": 47,
+   "title": "Survey of tissue depth landmarks for facial approximation (OJP abstract)",
+   "url": "https://ojp.gov/ncjrs/virtual-library/abstracts/survey-tissue-depth-landmarks-facial-approximation",
+   "kind": "abstract",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 48,
+   "title": "Anthropological facial \"reconstruction\": recognizing the fallacies, \"unembracing\" the errors, and realizing method limits",
+   "url": "https://www.researchgate.net/publication/8927033_Anthropological_facial_'reconstruction--recognizing_the_fallacies_'unembracing'_the_errors_and_realizing_method_limits",
+   "kind": "paper (critique)",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 49,
+   "title": "Temporal and malar-zygomatic reduction and augmentation",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/2015750/",
+   "kind": "paper",
+   "year": "year unconfirmed"
+  },
+  {
+   "n": 50,
+   "title": "Skull-to-Face: Anatomy-Guided 3D Facial Reconstruction and Editing",
+   "url": "https://arxiv.org/pdf/2403.16207",
+   "kind": "preprint",
+   "year": "2024"
+  },
+  {
+   "n": 51,
+   "title": "FutureLearn: Forensic facial reconstruction (Manchester method step)",
+   "url": "https://futurelearn.com/info/courses/forensic-facial-reconstruction/0/steps/31185",
+   "kind": "course",
+   "year": "year unconfirmed"
+  }
+ ],
+ "references_by_name": [
+  "Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994.",
+  "Wilkinson C, *Forensic Facial Reconstruction*, Cambridge University Press, 2004.",
+  "Stephan CN & Simpson EK, \"Facial soft tissue depths in craniofacial identification (part I)\", J Forensic Sci, 2008 (T-tables); Stephan CN, \"2018 tallied facial soft tissue thicknesses for adults and sub-adults\", Forensic Sci Int.",
+  "Rhine JS & Moore CE, *Tables of facial tissue thickness of American Caucasoids*, Maxwell Museum Technical Series 1, 1984.",
+  "De Greef S et al., large-scale in-vivo Caucasian facial soft tissue thickness database, Forensic Sci Int, 2006.",
+  "Gietzen T et al., dense statistics of soft tissue thickness for automatic facial reconstruction, PLOS ONE, 2019.",
+  "Buikstra JE & Ubelaker DH, *Standards for Data Collection from Human Skeletal Remains*, 1994; Walker PL, \"Sexing skulls using discriminant function analysis of visually assessed traits\", AJPA, 2008.",
+  "Shaw RB & Kahn DM, \"Aging of the midface bony elements: a three-dimensional CT study\", Plast Reconstr Surg, 2007; Mendelson B & Wong CH, \"Changes in the facial skeleton with aging\", Aesthetic Plast Surg, 2012.",
+  "Rynn C, Wilkinson CM & Peters HL, \"Prediction of nasal morphology from the skull\", Forensic Sci Med Pathol, 2010.",
+  "Migliori ME & Gladstone GJ, normal exophthalmometric values for Black and white adults, Am J Ophthalmol, 1984.",
+  "Haddock NT et al., \"The tear trough and lid/cheek junction: anatomy and implications for surgical correction\", Plast Reconstr Surg, 2009.",
+  "Björk A, \"Prediction of mandibular growth rotation\", Am J Orthod, 1969; McNamara JA, \"A method of cephalometric evaluation\", Am J Orthod, 1984.",
+  "Goldfinger E, *Human Anatomy for Artists*, 1991; Zarins U, *Anatomy of Facial Expression*, 2017; the Asaro planes-of-the-head teaching model."
+ ]
+}

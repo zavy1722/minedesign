@@ -1,0 +1,27 @@
+{
+ "id": "metahuman-cc-bridges",
+ "area": "blender",
+ "title": "Bridges to MetaHuman, Character Creator, Daz",
+ "queue": [
+  {
+   "claim": "From UE 5.6 (mid-2025), MetaHuman characters are covered by the Unreal Engine EULA and may be used and rendered outside Unreal (Blender, Maya, Unity, Godot) and sold on Fab. Before that they had to be rendered in Unreal. Royalty and seat obligations outside UE are unknown.",
+   "query": "MetaHuman license update Unreal Engine 5.6 use in other engines Blender Unity EULA royalties",
+   "domains": "unrealengine.com,epicgames.com"
+  },
+  {
+   "claim": "MetaHuman Creator in UE 5.6+ can conform from a template mesh already in MetaHuman topology (with preserved vertex order), from a DNA file, or from a Mesh to MetaHuman identity. It offers a cloud Auto-Rig (joints only, or joints plus blendshapes) and a DCC export of FBX, DNA and textures.",
+   "query": "MetaHuman Creator 5.6 conform template mesh import DNA auto-rig DCC export",
+   "domains": "dev.epicgames.com,unrealengine.com"
+  },
+  {
+   "claim": "The current Unreal Engine and MetaHuman version as of Nov 2026, and the features since 5.7 (Nov 2025), including whether Mesh to MetaHuman now transfers source textures and how much likeness it keeps.",
+   "query": "Unreal Engine 5.7 5.8 MetaHuman release notes Mesh to MetaHuman texture likeness",
+   "domains": "dev.epicgames.com,unrealengine.com"
+  },
+  {
+   "claim": "Template vertex counts: MetaHuman LOD0 head about 24k vertices across 8 head LODs; Daz Genesis 9 base about 25k and Genesis 8 about 16.5k vertices; the CC3+ base count was not recalled.",
+   "query": "MetaHuman head_lod0_mesh vertex count DNA LOD0 Genesis 9 base mesh vertex count",
+   "domains": ""
+  }
+ ]
+}

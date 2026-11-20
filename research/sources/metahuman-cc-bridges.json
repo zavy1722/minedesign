@@ -1,0 +1,23 @@
+{
+  "topic": "metahuman-cc-bridges",
+  "sources": [
+    {"n": 1, "title": "Generating metahuman based on a single image blender ue5 tutorial - Released Add-ons and Extensions - Blender Artists Community", "url": "https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052", "kind": "forum", "year": "n.d."},
+    {"n": 2, "title": "Apple ARKit: ARFaceAnchor.blendShapes", "url": "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes", "kind": "official docs", "year": "n.d."},
+    {"n": 3, "title": "Faceit: Facial Expressions and Performance Capture (Superhive)", "url": "https://superhivemarket.com/products/faceit", "kind": "commercial listing", "year": "n.d."}
+  ],
+  "notes": "No harvest or earlier draft existed for this topic; the three URLs are reused from sibling harvests in this library (blenderartists-forum, facs-expressions, blender-face-addons).",
+  "references_by_name": [
+    "Epic Games, MetaHuman documentation: Mesh to MetaHuman, MetaHuman Identity, MetaHuman Creator (UE 5.6+), MetaHuman licence FAQ and Unreal Engine EULA",
+    "Epic Games, MetaHuman DNA Calibration library (GitHub, EpicGames organisation)",
+    "Reallusion, Character Creator 4 and Headshot 2 online manuals; Reallusion EULA",
+    "CC/iC Blender Tools and CC/iC Blender Pipeline (soupday, GitHub)",
+    "Daz 3D, Daz Studio documentation (Morph Loader Pro, Face Transfer); Daz 3D EULA and Interactive License",
+    "Daz to Blender Bridge (daz3d, GitHub); Diffeomorphic DAZ Importer documentation (Thomas Larsson)",
+    "R3DS Wrap documentation",
+    "Amberg, Romdhani & Vetter, Optimal Step Nonrigid ICP Algorithms for Surface Registration, CVPR 2007",
+    "Umeyama, Least-Squares Estimation of Transformation Parameters Between Two Point Patterns, IEEE TPAMI 1991",
+    "Sumner & Popovic, Deformation Transfer for Triangle Meshes, SIGGRAPH 2004",
+    "Bookstein, Principal Warps: Thin-Plate Splines and the Decomposition of Deformations, IEEE TPAMI 1989",
+    "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994"
+  ]
+}

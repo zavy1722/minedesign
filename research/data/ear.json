@@ -3,15 +3,15 @@
   "tables": [
     {
       "name": "adult_auricle_length_width",
-      "units": "mm (cm values converted x10)",
-      "columns": ["population", "sex", "n", "side", "length_mean", "length_sd", "width_mean", "width_sd", "length_definition"],
+      "units": "mm (cm values converted x10); width_over_length dimensionless",
+      "columns": ["population", "sex", "n", "side", "length_mean", "length_sd", "width_mean", "width_sd", "width_over_length", "length_definition"],
       "rows": [
-        ["North India adults", "M+F", null, "R", 62.8, null, 32.1, null, "not stated"],
-        ["North India adults", "M+F", null, "L", 62.3, null, 32.8, null, "not stated"],
-        ["Sundanese (West Java), photogrammetry", "M", null, "unspecified", 62.9, 4.7, 29.5, 2.6, "superaurale-subaurale"],
-        ["Sundanese (West Java), photogrammetry", "F", null, "unspecified", 60.9, 4.2, 28.8, 2.5, "superaurale-subaurale"],
-        ["Mixed adults (PMC7580430)", "M+F", 200, "R", 57.62, 5.03, 29.72, 2.79, "not stated"],
-        ["Mixed adults (PMC7580430)", "M+F", 200, "L", 57.89, 4.89, 31.21, 2.95, "not stated"]
+        ["North India adults", "M+F", null, "R", 62.8, null, 32.1, null, 0.511, "not stated"],
+        ["North India adults", "M+F", null, "L", 62.3, null, 32.8, null, 0.526, "not stated"],
+        ["Sundanese (West Java), photogrammetry", "M", null, "unspecified", 62.9, 4.7, 29.5, 2.6, 0.469, "superaurale-subaurale"],
+        ["Sundanese (West Java), photogrammetry", "F", null, "unspecified", 60.9, 4.2, 28.8, 2.5, 0.473, "superaurale-subaurale"],
+        ["Mixed adults (PMC7580430)", "M+F", 200, "R", 57.62, 5.03, 29.72, 2.79, 0.516, "not stated"],
+        ["Mixed adults (PMC7580430)", "M+F", 200, "L", 57.89, 4.89, 31.21, 2.95, 0.539, "not stated"]
       ],
       "population": "Adults; North Indian, Sundanese (Indonesia), and a mixed n=200 sample; sample sizes for North Indian and Sundanese not stated in harvested results",
       "source_urls": [
@@ -20,8 +20,8 @@
         "https://www.pubmed.gov/36217409/",
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/"
       ],
-      "status": "contested",
-      "notes": "Each row is single-source from harvester search summaries; independent verification searches could not run (search budget exhausted). Values differ by population and by measurement definition. Sundanese women's concha width (0.42 cm) omitted as a suspected typo."
+      "status": "sourced",
+      "notes": "Each row is single-source from harvester search summaries; not yet independently verified. width_over_length is a ratio of means computed by this note, not reported by the sources. Rows differ by population and by measurement definition. Sundanese women's concha width (0.42 cm) omitted as a suspected typo. Lower Sundanese ratio may partly reflect profile foreshortening of width in photogrammetry (hypothesis)."
     },
     {
       "name": "male_auricle_height_range_review",
@@ -32,29 +32,21 @@
       ],
       "population": "Young adult males across several published studies",
       "source_urls": ["https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles"],
-      "status": "single-source",
-      "notes": "Aggregator topic page; length measured from most superior to most inferior projection. Absolute widths not given, only an approximately 12 mm range between studies."
+      "status": "sourced",
+      "notes": "Aggregator topic page; length measured from most superior to most inferior projection. Absolute widths not given, only an approximately 12 mm spread between studies."
     },
     {
-      "name": "width_to_length_ratio_derived",
-      "units": "ratio (dimensionless)",
-      "columns": ["population", "sex", "side", "width_over_length"],
+      "name": "ear_length_age_change_adult",
+      "units": "mm per year; mm",
+      "columns": ["quantity", "value_low", "value_typical", "value_high"],
       "rows": [
-        ["North India adults", "M+F", "R", 0.511],
-        ["North India adults", "M+F", "L", 0.526],
-        ["Sundanese", "M", "unspecified", 0.469],
-        ["Sundanese", "F", "unspecified", 0.473],
-        ["Mixed adults (PMC7580430)", "M+F", "R", 0.516],
-        ["Mixed adults (PMC7580430)", "M+F", "L", 0.539]
+        ["length increase per year after maturity (mm/yr)", 0.1, 0.2, 0.25],
+        ["length gain age 25 to 70 (mm)", 5, 9, 11]
       ],
-      "population": "Derived from adult_auricle_length_width means",
-      "source_urls": [
-        "https://pubmed.ncbi.nlm.nih.gov/36051810/",
-        "https://www.pubmed.gov/36217409/",
-        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/"
-      ],
+      "population": "Adults, mostly European-descent cross-sectional data",
+      "source_urls": [],
       "status": "contested",
-      "notes": "Computed by this research note (width_mean / length_mean); not reported by the sources. Ratio of means, not mean of ratios."
+      "notes": "Expert knowledge (Heathcote, BMJ 1995, 'Why do old men have big ears?', cross-sectional ~0.2 mm/yr); not yet checked against a source in this library. Conflicts with the 'size and shape steady until ~70' claim relayed by arXiv 2101.10540. Length matures by ~14 (PubMed 29169692, Chinese sample)."
     },
     {
       "name": "prominent_ear_thresholds",
@@ -66,7 +58,7 @@
       ],
       "population": "Patients, n=44 (2011 study)",
       "source_urls": ["https://pubmed.ncbi.nlm.nih.gov/22067874/"],
-      "status": "single-source",
+      "status": "sourced",
       "notes": "Exact upper/lower measurement points not given in harvested summary. The same study suggests the otoplasty success criterion of <3 mm asymmetry may be too strict."
     },
     {
@@ -83,6 +75,98 @@
       "notes": "Two norms differ; harvester could not confirm that the 20-30 degree figure maps to this exact page. Measurement methods differ between studies (ruler, photo, 3D plane-normal)."
     },
     {
+      "name": "otoplasty_aesthetic_goals_and_fold_angles",
+      "units": "mm; degrees",
+      "columns": ["measure", "value_low", "value_high", "unit", "kind"],
+      "rows": [
+        ["helix-mastoid distance, upper third", 10, 12, "mm", "surgical target"],
+        ["helix-mastoid distance, middle third", 16, 18, "mm", "surgical target"],
+        ["helix-mastoid distance, lower third", 20, 22, "mm", "surgical target"],
+        ["left-right lateral border difference, max", null, 3, "mm", "surgical target (called too strict by PubMed 22067874)"],
+        ["conchoscaphal angle, well-folded antihelix", 85, 95, "deg", "clinical"],
+        ["conchoscaphal angle, unfolded antihelix", 120, 150, "deg", "clinical"],
+        ["conchomastoid angle", 85, 95, "deg", "clinical"]
+      ],
+      "population": "Clinical/surgical convention, not population means",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Expert knowledge: McDowell, 'Goals in otoplasty for protruding ears', Plast Reconstr Surg 1968, and standard otoplasty teaching. Angles given as approximate ranges around the usually quoted ~90 degrees. Not yet verified."
+    },
+    {
+      "name": "ear_position_orientation_FH_frame",
+      "units": "mm unless stated; head in Frankfort horizontal",
+      "columns": ["relation", "typical", "spread", "unit"],
+      "rows": [
+        ["tragion height minus soft-tissue orbitale height", 0, 5, "mm"],
+        ["tragion position along ear height, fraction from superaurale", 0.47, 0.08, "fraction"],
+        ["superaurale height minus brow lower edge (mid-pupil)", 0, 10, "mm"],
+        ["subaurale height minus subnasale height (negative = below)", -5, 10, "mm"],
+        ["long-axis tilt back from FH vertical", 20, 7, "deg"],
+        ["ear length minus nose height n-sn", 8, 4, "mm"],
+        ["helical root behind lateral canthus", 62, 6, "mm"],
+        ["ear-plane flare from sagittal plane", 27, 7, "deg"]
+      ],
+      "population": "Adults; mostly European-descent conventions and anthropometric teaching",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Expert knowledge, not yet verified; 'spread' is a suggested 1-sigma, not a measured SD. Brow and subnasale alignments and nasal-dorsum parallelism are canons that Farkas (1985 canon revision; Anthropometry of the Head and Face, 1994) found only approximately or rarely true; use as UI warnings, not energy terms. Subaurale sits lower with age."
+    },
+    {
+      "name": "subfeature_planning_ranges",
+      "units": "mm",
+      "columns": ["feature", "low", "high"],
+      "rows": [
+        ["lobule height (intertragal notch to subaurale)", 15, 22],
+        ["lobule width", 15, 22],
+        ["concha width", 15, 20],
+        ["concha depth", 10, 20],
+        ["total ear thickness at helix rim", 3, 6]
+      ],
+      "population": "Adults; rough planning ranges",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Rough sculpting ranges from expert knowledge, not anthropometric norms. Verify against Farkas (1994) or a 3D ear dataset before use as priors."
+    },
+    {
+      "name": "photo_geometry_ear_scale_factors",
+      "units": "dimensionless scale factor",
+      "columns": ["view", "assumed_offset_mm", "distance_reference", "d_0.3m", "d_0.5m", "d_1m", "d_2m"],
+      "rows": [
+        ["frontal: ear scale relative to nose-tip scale", 110, "camera to nose tip", 0.73, 0.82, 0.90, 0.95],
+        ["profile: near-ear scale relative to midsagittal profile", 80, "camera to midsagittal plane", 1.36, 1.19, 1.09, 1.04]
+      ],
+      "population": "Pinhole-camera geometry with typical adult offsets",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Computed: frontal = D/(D+110 mm); profile = D/(D-80 mm). Offsets are approximate (nose tip to ear-plane depth ~100-130 mm; ear ~70-90 mm lateral of midline). Pitch effect: ear-vs-brow vertical shift ~100 mm x sin(pitch) (~9 mm at 5 deg, ~17 mm at 10 deg; chin-down makes ears look higher). True-profile width foreshortening ~cos(flare) = 0.82-0.94."
+    },
+    {
+      "name": "suggested_fitting_priors",
+      "units": "mixed (see parameter)",
+      "columns": ["parameter", "mean", "sigma", "hard_min", "hard_max", "notes"],
+      "rows": [
+        ["length_mm", 61, 4.5, 45, 85, "+2 if male; +0.2*max(0, age-25)"],
+        ["width_ratio", 0.50, 0.05, 0.38, 0.65, "ratio of means 0.47-0.54 in sourced rows"],
+        ["tilt_deg_from_FH_vertical", 20, 7, -5, 45, "positive = top leans back"],
+        ["tragion_height_vs_orbitale_mm", 0, 5, -20, 20, "FH frame"],
+        ["auriculocephalic_deg", 25, 8, 5, 70, "warn above 35; contested norm"],
+        ["LR_diff_length_mm", 0, 2, null, null, "soft symmetry"],
+        ["LR_diff_tilt_deg", 0, 4, null, null, "soft symmetry"],
+        ["LR_diff_tragion_position_mm", 0, 3, null, null, "soft symmetry"],
+        ["LR_diff_protrusion_mm", 0, 3, null, null, "soft symmetry; McDowell 3 mm goal, called too strict"]
+      ],
+      "population": "Adults; provisional engine defaults",
+      "source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/36051810/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/",
+        "https://www.pubmed.gov/36217409/",
+        "https://www.ncbi.nlm.nih.gov/books/NBK538320/",
+        "https://pubmed.ncbi.nlm.nih.gov/22067874/"
+      ],
+      "status": "contested",
+      "notes": "Length and width priors derive from sourced means; tilt, tragion, age slope and symmetry sigmas are expert knowledge. Replace with verified population tables when available; keep population tag."
+    },
+    {
       "name": "ear_growth_maturity",
       "units": "years",
       "columns": ["population", "sex", "age_length_reaches_mature_size"],
@@ -92,7 +176,7 @@
       ],
       "population": "Chinese growth study",
       "source_urls": ["https://pubmed.ncbi.nlm.nih.gov/29169692/"],
-      "status": "single-source",
+      "status": "sourced",
       "notes": "Stated as 'by age 14'; sample size not in harvested summary."
     },
     {
@@ -106,7 +190,7 @@
       ],
       "population": "Literature survey figures",
       "source_urls": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC8061142/"],
-      "status": "single-source",
+      "status": "sourced",
       "notes": "Rates are survey-reported figures from heterogeneous datasets; 90 and 80 are approximate bounds, not exact results."
     }
   ]

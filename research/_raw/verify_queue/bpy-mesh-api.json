@@ -1,0 +1,27 @@
+{
+ "id": "bpy-mesh-api",
+ "area": "blender",
+ "title": "Blender Python API for procedural heads",
+ "queue": [
+  {
+   "claim": "Camera shift_x/shift_y are multiplied by the fitted image dimension (W under HORIZONTAL, H under VERTICAL, max(W,H) only under AUTO), per BKE_camera_params_compute_viewplane. The engine's to_blender_camera divides by max(W,H) under HORIZONTAL, which is wrong for portrait photos.",
+   "query": "Blender camera shift units sensor_fit HORIZONTAL BKE_camera_params_compute_viewplane viewfac shiftx",
+   "domains": "projects.blender.org,docs.blender.org,developer.blender.org,blender.stackexchange.com"
+  },
+  {
+   "claim": "Bundled Python is 3.11 in Blender 4.1-4.5; 5.0 probably still 3.11; 5.1-5.3 either 3.11 or 3.13. NumPy is 1.2x in 4.x and unknown (1.26 or 2.x) in 5.x.",
+   "query": "Blender 5.1 release notes Python 3.13 NumPy 2 upgrade",
+   "domains": "developer.blender.org,blender.org,projects.blender.org"
+  },
+  {
+   "claim": "foreach_get/foreach_set uses a fast buffer path only when the NumPy dtype matches the RNA type (float32 coordinates, int32 indices) and the array is contiguous; otherwise it silently falls back to a per-item path about 5-20x slower.",
+   "query": "Blender foreach_set numpy float32 vs float64 performance buffer protocol",
+   "domains": "docs.blender.org,blender.stackexchange.com,devtalk.blender.org"
+  },
+  {
+   "claim": "Once shape keys exist, writing me.vertices co in object mode does not last: it is overwritten from the reference (Basis) key on the next entry into edit mode, so the Basis key block must be written.",
+   "query": "Blender python change mesh vertices co with shape keys reverts basis edit mode",
+   "domains": "blender.stackexchange.com,docs.blender.org,devtalk.blender.org"
+  }
+ ]
+}

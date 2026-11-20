@@ -1,0 +1,27 @@
+{
+ "id": "sculpting-likeness-workflow",
+ "area": "blender",
+ "title": "Blender portrait likeness sculpting workflow",
+ "queue": [
+  {
+   "claim": "Editing Multires base-mesh vertex positions (same topology, e.g. via foreach_set or Edit Mode) carries the sculpted displacement along; Multires 'Reshape' copies coordinates from a selected object whose vertex count matches the subdivided level; displacement cannot be written directly from Python. The add-on's update path depends on this.",
+   "query": "Blender multiresolution modifier reshape operator copy vertex coordinates subdivided level python multires_reshape",
+   "domains": "docs.blender.org,devtalk.blender.org,projects.blender.org"
+  },
+  {
+   "claim": "Since Blender 4.3, brushes are assets activated via bpy.ops.brush.asset_activate; Brush.sculpt_tool became sculpt_brush_type; Essentials brushes were renamed or split (e.g. Crease and Grab variants); the brush radius unit (View/Scene) is still settable from Python in 5.x.",
+   "query": "Blender 4.3 brush assets python API asset_activate sculpt_brush_type Essentials brush names",
+   "domains": "docs.blender.org,developer.blender.org,projects.blender.org"
+  },
+  {
+   "claim": "As of Blender 5.2 LTS and 5.3 there are no native sculpt layers, Dyntopo is still present (its future debated), and the Flatten/Fill/Scrape plane brushes may or may not have been unified.",
+   "query": "Blender 5.3 release notes sculpt mode dyntopo sculpt layers plane brush",
+   "domains": "developer.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Sculpt-mode symmetry works in object-local axes and its toggles have been stored per mesh (Mesh.use_mirror_x) since about 2.91; Sculpt Mode can sculpt on the active shape key when neither Multires nor Dyntopo is in use.",
+   "query": "Blender sculpt symmetry stored per mesh use_mirror_x 2.91 sculpt on shape keys",
+   "domains": "docs.blender.org,developer.blender.org"
+  }
+ ]
+}

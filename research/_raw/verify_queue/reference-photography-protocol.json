@@ -1,0 +1,27 @@
+{
+ "id": "reference-photography-protocol",
+ "area": "community",
+ "title": "How to shoot reference photos for 3D faces",
+ "queue": [
+  {
+   "claim": "Clinical facial-photography standards use a 90\u2013105 mm (range 85\u2013135 mm) full-frame lens at a fixed distance with the Frankfurt horizontal level (Ettorre et al. 2006; Yavuzer et al. 2001; Galdino et al. 2001). This is the headline default for the lens and distance recommendation.",
+   "query": "Ettorre 2006 standards for digital photography cranio-maxillo-facial surgery focal length camera distance Frankfurt horizontal",
+   "domains": "pubmed.ncbi.nlm.nih.gov,sciencedirect.com"
+  },
+  {
+   "claim": "ICAO portrait-quality guidance recommends a camera-to-subject distance of about 1.2\u20132.5 m and a near-frontal pose within about \u00b15\u00b0, as in ISO/IEC 19794-5 and 39794-5.",
+   "query": "ICAO portrait quality reference facial images MRTD camera subject distance 1.2 m 2.5 m pose tolerance",
+   "domains": "icao.int"
+  },
+  {
+   "claim": "Current flagship phone camera focal lengths (35 mm-equivalent): 2\u00d7 is often a crop of the main sensor (~48\u201352 mm), 3\u00d7 is ~65\u201377 mm, 4\u20135\u00d7 is ~100\u2013125 mm. Phones silently switch to a cropped main camera in low light or below the telephoto's minimum focus distance.",
+   "query": "iPhone 17 Pro telephoto 35mm equivalent focal length minimum focus distance low light switches to main camera crop",
+   "domains": "apple.com,support.apple.com"
+  },
+  {
+   "claim": "Cross-polarised lighting (linear film on the lights plus a lens polariser at 90\u00b0) costs about 2\u20133+ stops of light, and extinction is best for lights near the lens axis.",
+   "query": "cross polarized photography light loss stops polarizing gel lens polarizer skin specular removal",
+   "domains": ""
+  }
+ ]
+}

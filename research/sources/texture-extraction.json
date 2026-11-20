@@ -1,0 +1,31 @@
+{
+  "topic": "texture-extraction",
+  "sources": [],
+  "references_by_name": [
+    "Debevec, Taylor & Malik, \"Modeling and Rendering Architecture from Photographs\", SIGGRAPH 1996 (view-dependent texture mapping)",
+    "Lempitsky & Ivanov, \"Seamless Mosaicing of Image-Based Texture Maps\", CVPR 2007",
+    "Waechter, Moehrle & Goesele, \"Let There Be Color! Large-Scale Texturing of 3D Reconstructions\", ECCV 2014",
+    "Burt & Adelson, \"A Multiresolution Spline with Application to Image Mosaics\", ACM TOG 1983",
+    "Brown & Lowe, \"Automatic Panoramic Image Stitching using Invariant Features\", IJCV 2007",
+    "Pérez, Gangnet & Blake, \"Poisson Image Editing\", SIGGRAPH 2003",
+    "Prada, Kazhdan, Chuang & Hoppe, \"Gradient-Domain Processing within a Texture Atlas\", SIGGRAPH 2018",
+    "Liu, Ferguson, Jacobson & Gingold, \"Seamless: Seam Erasure and Seam-Aware Decoupling of Shape from Mesh Resolution\", SIGGRAPH Asia 2017",
+    "Zhou & Koltun, \"Color Map Optimization for 3D Reconstruction with Consumer Depth Cameras\", SIGGRAPH 2014",
+    "Eisemann et al., \"Floating Textures\", Eurographics 2008",
+    "Gortler, Grzeszczuk, Szeliski & Cohen, \"The Lumigraph\", SIGGRAPH 1996 (pull-push)",
+    "Barnes, Shechtman, Finkelstein & Goldman, \"PatchMatch\", SIGGRAPH 2009",
+    "Ramamoorthi & Hanrahan, \"An Efficient Representation for Irradiance Environment Maps\", SIGGRAPH 2001",
+    "Debevec et al., \"Acquiring the Reflectance Field of a Human Face\", SIGGRAPH 2000",
+    "McCamy, Marcus & Davidson, \"A Color-Rendition Chart\", Journal of Applied Photographic Engineering, 1976",
+    "Deng, Cheng, Xue, Zhou & Zafeiriou, \"UV-GAN: Adversarial Facial UV Map Completion for Pose-invariant Face Recognition\", CVPR 2018",
+    "Gecer, Ploumpis, Kotsia & Zafeiriou, \"GANFIT\", CVPR 2019",
+    "Gecer, Deng & Zafeiriou, \"OSTeC: One-Shot Texture Completion\", CVPR 2021",
+    "Lattas et al., \"AvatarMe: Realistically Renderable 3D Facial Reconstruction 'in-the-wild'\", CVPR 2020",
+    "Smith et al., \"A Morphable Face Albedo Model\", CVPR 2020",
+    "Papantoniou, Lattas, Moschoglou & Zafeiriou, \"Relightify: Relightable 3D Faces from a Single Image via Diffusion Models\", ICCV 2023",
+    "Richardson et al., \"TEXTure: Text-Guided Texturing of 3D Shapes\", SIGGRAPH 2023",
+    "Zeng et al., \"Paint3D: Paint Anything 3D with Lighting-Less Texture Diffusion Models\", CVPR 2024",
+    "Lee, Liu, Wu & Luo, \"MaskGAN: Towards Diverse and Interactive Facial Image Manipulation\" (CelebAMask-HQ face parsing), CVPR 2020",
+    "Yu et al., \"BiSeNet: Bilateral Segmentation Network for Real-time Semantic Segmentation\", ECCV 2018"
+  ]
+}

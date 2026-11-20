@@ -1,0 +1,210 @@
+{
+ "topic": "soft-tissue-thickness",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Facial soft tissue thickness in forensic facial reconstruction: Impact of regional differences in Brazil",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9286276/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Facial soft tissue depth of a contemporary adult Greek population",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "A preliminary study of facial soft tissue thickness for forensic facial reconstruction in a Nigerian adult female community",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Sex, age, and body mass index influence on facial soft tissue thickness in a Thai population above middle age by ultrasonographic imaging",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+   "kind": "paper",
+   "year": "2026 (unconfirmed)"
+  },
+  {
+   "n": 6,
+   "title": "Ultrasonographic analysis of facial skin thickness in relation to age, site, sex, and body mass index",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Systematic review on forensic craniofacial reconstruction. I. Facial soft-tissue thickness",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/37531497/",
+   "kind": "review",
+   "year": "2023"
+  },
+  {
+   "n": 8,
+   "title": "International Journal of Legal Medicine review of global FSTT data (s00414-023-03087-x)",
+   "url": "https://link.springer.com/article/10.1007/s00414-023-03087-x",
+   "kind": "review",
+   "year": "2023"
+  },
+  {
+   "n": 9,
+   "title": "NCJRS abstract: pooled soft-tissue-depth table from 66 studies",
+   "url": "https://ojp.gov/index%2Ephp/node/1311086",
+   "kind": "abstract",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Facial soft tissue thickness database for craniofacial reconstruction in Korean adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/22621203/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "Layer-specific facial soft-tissue thickness in 1174 Chinese adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42385786/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 12,
+   "title": "Facial soft tissue thickness in Yangtze River delta Han population (CBCT)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32217445",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "Age- and Sex-Related Measurements of Total Craniofacial Soft Tissue Thickness and Fat in a Central Chinese Population",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/34238872/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Accuracy and reliability of facial soft tissue depth measurements using cone beam computer tomography",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20236780/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "Reproducibility of Facial Soft Tissue Thickness Measurements Using Cone-Beam CT According to the Measurement Methods",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25845397/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Assessing the contribution of orthodontic profiles in predicting facial soft tissue thickness for forensic facial approximation",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532767/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "Evaluating the compatibility of the 2D and 3D facial soft tissue depth measurement methods",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12808181/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 18,
+   "title": "Forensic facial approximation methodologies applied to the Brazilian population: a scoping review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13658438",
+   "kind": "review",
+   "year": "n.d."
+  },
+  {
+   "n": 19,
+   "title": "Obesity and Overweight Conditions in Children and Adolescents and Their Impact on Craniofacial Morphology: A Systematic Review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11940931/",
+   "kind": "review",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "A method for automatic forensic facial reconstruction based on dense statistics of soft tissue thickness",
+   "url": "https://arxiv.org/pdf/1808.07334",
+   "kind": "preprint (PLOS ONE 2019)",
+   "year": "2018"
+  },
+  {
+   "n": 21,
+   "title": "Skull-to-Face: Anatomy-Guided 3D Facial Reconstruction and Editing",
+   "url": "https://arxiv.org/pdf/2403.16207",
+   "kind": "preprint",
+   "year": "2024"
+  },
+  {
+   "n": 22,
+   "title": "KU Leuven postprint (De Greef-related in-vivo / CT soft-tissue abstract; attribution inferred from snippet)",
+   "url": "https://lirias.kuleuven.be/bitstream/123456789/420593/1/3606_postprint.pdf",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "de Buhan & Nardoni, sparse-landmark soft-tissue thickness and dense reconstruction (Paris-Saclay)",
+   "url": "https://www.imo.universite-paris-saclay.fr/~de-buhan/deBuhanNardoni.pdf",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "Linear scleroderma CBCT soft-tissue thickness reliability study",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/29298697/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 25,
+   "title": "CBCT review on facial soft-tissue measurement (voxel size, contrast)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6631689/",
+   "kind": "review",
+   "year": "n.d."
+  },
+  {
+   "n": 26,
+   "title": "Computerized facial approximation based on FSTT and geometric morphometrics",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10557396/",
+   "kind": "paper",
+   "year": "2023 (unconfirmed)"
+  },
+  {
+   "n": 27,
+   "title": "Flynn 1989 cephalometric soft-tissue norms, Black vs White American adults (secondary Scribd copy)",
+   "url": "https://www.scribd.com/document/684241970/Flynn-1989",
+   "kind": "secondary copy",
+   "year": "1989"
+  }
+ ],
+ "references_by_name": [
+  "Stephan CN & Simpson EK, \"Facial soft tissue depths in craniofacial identification (part I: adults; part II: sub-adults)\", *J Forensic Sci*, 2008.",
+  "Stephan CN, \"The application of the central limit theorem and the law of large numbers to facial soft tissue depths: T-Table robustness and trends since 2008\", *J Forensic Sci*, 2014.",
+  "Stephan CN, \"2018 tallied facial soft tissue thicknesses for adults and sub-adults\", *Forensic Sci Int*, 2017.",
+  "Rhine JS & Moore CE, *Tables of Facial Tissue Thickness of American Caucasoids in Forensic Anthropology*, Maxwell Museum Technical Series 1, 1984; Rhine JS & Campbell HR, \"Thickness of facial tissues in American Blacks\", *J Forensic Sci*, 1980.",
+  "De Greef S et al., \"Large-scale in-vivo Caucasian facial soft tissue thickness database for craniofacial reconstruction\", *Forensic Sci Int*, 2006.",
+  "Helmer R, *Schädelidentifizierung durch elektronische Bildmischung*, 1984 (ultrasound depths).",
+  "Manhein MH et al., \"In vivo facial tissue depth measurements for children and adults\", *J Forensic Sci*, 2000.",
+  "Simpson E & Henneberg M, \"Variation in soft-tissue thicknesses on the human face and their relation to craniometric dimensions\", *Am J Phys Anthropol*, 2002.",
+  "Domaracki M & Stephan CN, \"Facial soft tissue thicknesses in Australian adult cadavers\", *J Forensic Sci*, 2006.",
+  "Munn L & Stephan CN, \"Changes in face topography from supine-to-upright position — and soft tissue correction values for craniofacial identification\", *Forensic Sci Int*, 2018.",
+  "Wilkinson C, *Forensic Facial Reconstruction*, Cambridge University Press, 2004; Taylor KT, *Forensic Art and Illustration*, CRC Press, 2001.",
+  "Claes P, Vandermeulen D et al., \"Computerized craniofacial reconstruction: conceptual framework and review\", *Forensic Sci Int*, 2010.",
+  "Gietzen T et al., dense FSTT statistics for automatic facial reconstruction, *PLOS ONE*, 2019.",
+  "New Mexico Decedent Image Database (NMDID), whole-body decedent CT archive (access terms to verify)."
+ ]
+}

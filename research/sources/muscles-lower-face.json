@@ -1,34 +1,464 @@
-{"topic":"muscles-lower-face","sources":[
-{"n":1,"title":"The Orbicularis Oris, and the Muscles of Expression","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6967927/","kind":"paper","year":"n.d."},
-{"n":2,"title":"The Orbicularis Oris and the Muscles of Expression (second PMC record, same title)","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6118625/","kind":"paper","year":"n.d."},
-{"n":3,"title":"Anatomy, Head and Neck, Orbicularis Oris Muscle (StatPearls)","url":"https://www.ncbi.nlm.nih.gov/books/NBK545169/","kind":"textbook","year":"n.d."},
-{"n":4,"title":"Elsevier Anatomy: Orbicularis oris muscle","url":"https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/orbicularis-oris-muscle/23373","kind":"reference-atlas","year":"n.d."},
-{"n":5,"title":"Kenhub: Orbicularis oris muscle","url":"https://kenhub.com/en/library/anatomy/orbicularis-oris-muscle","kind":"educational-reference","year":"n.d."},
-{"n":6,"title":"Elsevier Anatomy: Depressor anguli oris","url":"https://elsevier.com/resources/anatomy/muscular-system/muscles-of-head/depressor-anguli-oris/22268","kind":"reference-atlas","year":"n.d."},
-{"n":7,"title":"Elsevier Anatomy: Depressor labii inferioris","url":"https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/depressor-labii-inferioris/22387","kind":"reference-atlas","year":"n.d."},
-{"n":8,"title":"Radiopaedia: Mentalis muscle","url":"https://radiopaedia.org/articles/mentalis-muscle","kind":"medical-reference","year":"n.d."},
-{"n":9,"title":"Marionette fold treatment by depressor anguli oris section: technical note","url":"https://pubmed.ncbi.nlm.nih.gov/23107845","kind":"paper","year":"n.d."},
-{"n":10,"title":"Development and Validation of a Photonumeric Scale to Assess Marionette Lines","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC10833177/","kind":"paper","year":"n.d."},
-{"n":11,"title":"Anatomical Features in Lower-Lip Depressor Muscles (Journal of Craniofacial Surgery)","url":"https://journals.lww.com/10.1097/SCS.0000000000007622","kind":"paper","year":"n.d. (unconfirmed)"},
-{"n":12,"title":"Muscles of the Lower Lip: Functional Anatomy, Innervation Patterns, and Nerve Injury Prevention (Plast Reconstr Surg)","url":"https://journals.lww.com/plasreconsurg/abstract/9900/muscles_of_the_lower_lip__functional_anatomy,.3044.aspx","kind":"paper","year":"2026 (per harvest; ahead-of-print)"},
-{"n":13,"title":"Lower lip displacement during voluntary activation of individual labial muscles in man","url":"https://www.sciencedirect.com/science/article/abs/pii/0003996978902157","kind":"paper","year":"1978"},
-{"n":14,"title":"Intramuscular Electrical Stimulation of Facial Muscles in Humans and Chimpanzees: Duchenne Revisited and Extended","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC2826128/","kind":"paper","year":"n.d."},
-{"n":15,"title":"A structural analysis of the facial muscle modiolus: using a three-dimensional reconstruction system","url":"https://pubmed.ncbi.nlm.nih.gov/41945314/","kind":"paper","year":"2025 per harvest (unconfirmed)"},
-{"n":16,"title":"Growth patterns of facial muscles at the angle of the mouth: A histological study using midterm and near-term human fetuses","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC11424822/","kind":"paper","year":"n.d."},
-{"n":17,"title":"Discovery of the Ligament of Modiolus: Anatomical Insights and Clinical Relevance","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC12133989/","kind":"paper","year":"2025"},
-{"n":18,"title":"The modiolus. Comparative anatomy, embryological and physiological review, surgical importance","url":"https://pubmed.ncbi.nlm.nih.gov/10783511/","kind":"paper","year":"n.d."},
-{"n":19,"title":"Anatomical Evidence for a Uniquely Human Depressor Anguli Oris and a Novel Helplessness Signaling Hypothesis","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC13170994/","kind":"paper","year":"n.d."},
-{"n":20,"title":"Elsevier Anatomy: Platysma","url":"https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/platysma/22196","kind":"reference-atlas","year":"n.d."},
-{"n":21,"title":"Wikipedia: Mentalis","url":"https://en.wikipedia.com/wiki/Mentalis","kind":"encyclopedia","year":"n.d."},
-{"n":22,"title":"Cervicofacial Rhytidectomy (StatPearls)","url":"https://www.ncbi.nlm.nih.gov/sites/books/NBK564338/","kind":"textbook","year":"n.d."},
-{"n":23,"title":"Platysma muscle (NCBI Bookshelf)","url":"https://www.ncbi.nlm.nih.gov/books/NBK545294/","kind":"textbook","year":"n.d."},
-{"n":24,"title":"Anatomy of the Platysma Muscle","url":"https://pubmed.ncbi.nlm.nih.gov/28027174/","kind":"review","year":"2017"},
-{"n":25,"title":"McGill Office for Science and Society: Why do we have dimples?","url":"https://www.mcgill.ca/oss/article/did-you-know/why-do-we-have-dimples","kind":"science-communication","year":"n.d."},
-{"n":26,"title":"An Evaluation of VYC-17.5L for the Treatment of Marionette Lines: A Prospective, Open-Label, Postmarketing Study","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC11845915/","kind":"paper","year":"n.d."},
-{"n":27,"title":"Determining the Position, Morphology, and Location of the Depressor Anguli Muscle Through Ultrasound in the Caucasian Population","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC13322386/","kind":"paper","year":"n.d."},
-{"n":28,"title":"Anatomical Characterization and Three-Dimensional Modeling of the Muscles at the Corner of the Mouth: An Iodine Staining Technique Based on Micro-Computed Tomography","url":"https://pubmed.ncbi.nlm.nih.gov/29927831/","kind":"paper","year":"n.d."},
-{"n":29,"title":"Surgical Method of a Corner Mouth Lift","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC7159959/","kind":"paper","year":"n.d."},
-{"n":30,"title":"Surgical and Radiologic Anatomy perioral muscle study (DOI 10.1007/s00276-024-03354-5)","url":"https://link.springer.com/10.1007/s00276-024-03354-5","kind":"paper","year":"2024"},
-{"n":31,"title":"A biomechanical modeling study of the effects of the orbicularis oris muscle and jaw posture on lip shape","url":"https://arxiv.org/pdf/1307.2548","kind":"preprint","year":"2013 (from arXiv ID)"},
-{"n":32,"title":"Anatomical features in lower-lip depressor muscles (full-text PDF, Uppsala DiVA; not opened)","url":"https://uu.diva-portal.org/smash/get/diva2:1356617/FULLTEXT06.pdf","kind":"thesis-fulltext","year":"n.d."}
-]}
+{
+ "topic": "muscles-lower-face",
+ "sources": [
+  {
+   "n": 1,
+   "title": "The Orbicularis Oris, and the Muscles of Expression",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6967927/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "The Orbicularis Oris and the Muscles of Expression (second PMC record, same title)",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6118625/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Anatomy, Head and Neck, Orbicularis Oris Muscle (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK545169/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "Elsevier Anatomy: Orbicularis oris muscle",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/orbicularis-oris-muscle/23373",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Kenhub: Orbicularis oris muscle",
+   "url": "https://kenhub.com/en/library/anatomy/orbicularis-oris-muscle",
+   "kind": "educational reference",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Elsevier Anatomy: Depressor anguli oris",
+   "url": "https://elsevier.com/resources/anatomy/muscular-system/muscles-of-head/depressor-anguli-oris/22268",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Elsevier Anatomy: Depressor labii inferioris",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/depressor-labii-inferioris/22387",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Radiopaedia: Mentalis muscle",
+   "url": "https://radiopaedia.org/articles/mentalis-muscle",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "Marionette fold treatment by depressor anguli oris section: technical note",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/23107845",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Development and Validation of a Photonumeric Scale to Assess Marionette Lines",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10833177/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "Anatomical Features in Lower-Lip Depressor Muscles (J Craniofac Surg)",
+   "url": "https://journals.lww.com/10.1097/SCS.0000000000007622",
+   "kind": "paper",
+   "year": "n.d. (year unconfirmed)"
+  },
+  {
+   "n": 12,
+   "title": "Muscles of the Lower Lip: Functional Anatomy, Innervation Patterns, and Nerve Injury Prevention (Plast Reconstr Surg)",
+   "url": "https://journals.lww.com/plasreconsurg/abstract/9900/muscles_of_the_lower_lip__functional_anatomy,.3044.aspx",
+   "kind": "paper",
+   "year": "2026 (ahead of print, per harvest)"
+  },
+  {
+   "n": 13,
+   "title": "Lower lip displacement during voluntary activation of individual labial muscles in man",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/0003996978902157",
+   "kind": "paper",
+   "year": "1978"
+  },
+  {
+   "n": 14,
+   "title": "Intramuscular Electrical Stimulation of Facial Muscles in Humans and Chimpanzees: Duchenne Revisited and Extended",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2826128/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "A structural analysis of the facial muscle modiolus: using a three-dimensional reconstruction system",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41945314/",
+   "kind": "paper",
+   "year": "2025 per harvest (unconfirmed)"
+  },
+  {
+   "n": 16,
+   "title": "Growth patterns of facial muscles at the angle of the mouth: A histological study using midterm and near-term human fetuses (alternate record: PubMed https://pubmed.ncbi.nlm.nih.gov/38953435)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11424822/",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 17,
+   "title": "Discovery of the Ligament of Modiolus: Anatomical Insights and Clinical Relevance",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12133989/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 18,
+   "title": "The modiolus. Comparative anatomy, embryological and physiological review, surgical importance",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10783511/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 19,
+   "title": "Anatomical Evidence for a Uniquely Human Depressor Anguli Oris and a Novel Helplessness Signaling Hypothesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13170994/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "Elsevier Anatomy: Platysma",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/platysma/22196",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "Wikipedia: Mentalis",
+   "url": "https://en.wikipedia.com/wiki/Mentalis",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 22,
+   "title": "Cervicofacial Rhytidectomy (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK564338/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "Platysma muscle (NCBI Bookshelf)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK545294/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "Anatomy of the Platysma Muscle",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28027174/",
+   "kind": "review",
+   "year": "2017"
+  },
+  {
+   "n": 25,
+   "title": "McGill Office for Science and Society: Why do we have dimples?",
+   "url": "https://www.mcgill.ca/oss/article/did-you-know/why-do-we-have-dimples",
+   "kind": "science communication",
+   "year": "n.d."
+  },
+  {
+   "n": 26,
+   "title": "An Evaluation of VYC-17.5L for the Treatment of Marionette Lines: A Prospective, Open-Label, Postmarketing Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11845915/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 27,
+   "title": "Determining the Position, Morphology, and Location of the Depressor Anguli Muscle Through Ultrasound in the Caucasian Population",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13322386/",
+   "kind": "paper",
+   "year": "2021 (per harvest)"
+  },
+  {
+   "n": 28,
+   "title": "Anatomical Characterization and Three-Dimensional Modeling of the Muscles at the Corner of the Mouth: An Iodine Staining Technique Based on Micro-Computed Tomography",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/29927831/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "Surgical Method of a Corner Mouth Lift",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7159959/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 30,
+   "title": "Surgical and Radiologic Anatomy perioral muscle study (DOI 10.1007/s00276-024-03354-5)",
+   "url": "https://link.springer.com/10.1007/s00276-024-03354-5",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 31,
+   "title": "A biomechanical modeling study of the effects of the orbicularis oris muscle and jaw posture on lip shape",
+   "url": "https://arxiv.org/pdf/1307.2548",
+   "kind": "preprint",
+   "year": "2013 (from arXiv ID)"
+  },
+  {
+   "n": 32,
+   "title": "Anatomical features in lower-lip depressor muscles (full text, Uppsala DiVA; not opened)",
+   "url": "https://uu.diva-portal.org/smash/get/diva2:1356617/FULLTEXT06.pdf",
+   "kind": "thesis/paper full text",
+   "year": "n.d."
+  },
+  {
+   "n": 33,
+   "title": "Wikipedia: Orbicularis oris muscle",
+   "url": "https://en.wikipedia.org/wiki/Orbicularis_oris_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 34,
+   "title": "Radiopaedia: Orbicularis oris muscle",
+   "url": "https://radiopaedia.org/articles/orbicularis-oris-muscle",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 35,
+   "title": "Topographic and Neural Anatomy of the Depressor Anguli Oris Muscle and Implications for Treatment of Synkinetic Facial Paralysis",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/33565832/",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "n": 36,
+   "title": "Anatomy, Head and Neck: Face (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 37,
+   "title": "Anatomy, Head and Neck: Facial Muscles (StatPearls; surfaced, no fact extracted)",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK493209/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 38,
+   "title": "Anatomy, Head and Neck, Mandible (StatPearls)",
+   "url": "https://ncbi.nlm.nih.gov/books/NBK532292/?report=reader",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 39,
+   "title": "Italian Consensus and Review in Lower Face Mimetic Muscle Treatment with Botulinum Toxin-A",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13517480/",
+   "kind": "consensus/review",
+   "year": "n.d."
+  },
+  {
+   "n": 40,
+   "title": "Effective Locations for Injecting Botulinum Toxin into the Mentalis Muscle; Cadaveric and Ultrasonographic Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7911364/",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 41,
+   "title": "Modification of Chin Projection and Aesthetics With OnabotulinumtoxinA Injection",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28750118/",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 42,
+   "title": "Chin Ptosis: Etiology, Classification, Diagnosis and Surgical Management - A Literature Review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13706216",
+   "kind": "review",
+   "year": "2026"
+  },
+  {
+   "n": 43,
+   "title": "Muscle- and Gland-Specific Dosing of Botulinum Toxin in Facial Aesthetics: Review of Dose Ranges, Target Depth, Muscle Thickness",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13709392",
+   "kind": "review",
+   "year": "2026"
+  },
+  {
+   "n": 44,
+   "title": "A Novel Intraoral Technique for Botulinum Toxin Type A Application in the Mentalis Muscle",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13104702/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 45,
+   "title": "Nonsurgical correction of drooping mouth corners using monophasic hyaluronic acid and incobotulinumtoxinA",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31125173/",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "n": 46,
+   "title": "Platysma anatomy (PMC10702465; title as surfaced, includes Bae et al. cadaver findings)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10702465",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 47,
+   "title": "The Surgical Anatomy of the Jowl and the Mandibular Ligament Reassessed (Minelli et al.)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36050569/",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 48,
+   "title": "Aesthetic Plastic Surgery s00266-022-02996-3 (Minelli et al.; probably the publisher record of [47])",
+   "url": "https://link.springer.com/article/10.1007/s00266-022-02996-3",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 49,
+   "title": "The layered anatomy of the jawline",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30091282/",
+   "kind": "paper",
+   "year": "2018"
+  },
+  {
+   "n": 50,
+   "title": "Radiopaedia: Modiolus (mouth)",
+   "url": "https://radiopaedia.org/articles/modiolus-mouth",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 51,
+   "title": "Aesthetic Plastic Surgery s00266-025-04696-0 (modiolus \"false ligament\" cadaver study; title not captured)",
+   "url": "https://link.springer.com/article/10.1007/s00266-025-04696-0",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 52,
+   "title": "Modiolus dissection study, five cadavers (title not captured)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/18551340/",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "n": 53,
+   "title": "A key of facial muscle aging: locational changes in modiolus measured with ultrasonography",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41433716/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 54,
+   "title": "The Labiomandibular Fold Anatomy for Comprehensive Lower Facial Rejuvenation: A Micro-Computed Tomography Investigation",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39806136",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 55,
+   "title": "The Aging Process of Facial Muscles",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41413726/",
+   "kind": "review",
+   "year": "2025"
+  },
+  {
+   "n": 56,
+   "title": "Depressor Labii Inferioris Muscle Palsy After Chin Augmentation",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39655113/",
+   "kind": "case report",
+   "year": "2024"
+  },
+  {
+   "n": 57,
+   "title": "Wikipedia: Dimple",
+   "url": "https://en.wikipedia.com/wiki/Dimple",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 58,
+   "title": "Dermatology Times: botulinum toxin for chin dimpling proves safe, effective",
+   "url": "https://www.dermatologytimes.com/view/botulinum-toxin-chin-dimpling-proves-safe-effective",
+   "kind": "trade press",
+   "year": "n.d."
+  },
+  {
+   "n": 59,
+   "title": "Dermatology Times: marionette lines, dynamic and static components of melomental fold rhytids",
+   "url": "https://www.dermatologytimes.com/view/marionette-lines-targeting-dynamic-static-components-melomental-fold-rhytids",
+   "kind": "trade press",
+   "year": "n.d."
+  },
+  {
+   "n": 60,
+   "title": "Anatomical Relationship of the Inferior Bundle of the Incisivus Labii Inferioris With the Depressor Labii Inferioris and the Platysma (surfaced, not read)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28834838/",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 61,
+   "title": "Chin Ptosis: Classification, Anatomy, and Correction (surfaced, not read)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3052727/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 62,
+   "title": "Three-Dimensional Evaluation of the Depressor Anguli Oris and Depressor Labii Inferioris for Botulinum Toxin Injections (surfaced, not read)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32232427/",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 63,
+   "title": "The Deep Fascia of the Head and Neck Revisited: Relationship with the Facial Nerve (surfaced, not read)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11104498/",
+   "kind": "paper",
+   "year": "2024"
+  }
+ ],
+ "references_by_name": [
+  "Standring S (ed.), *Gray's Anatomy: The Anatomical Basis of Clinical Practice*, recent editions (modiolus, pars marginalis/peripheralis, platysma parts).",
+  "Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994.",
+  "Ekman P, Friesen WV, Hager JC, *Facial Action Coding System* manual, 2002.",
+  "Legan HL, Burstone CJ, \"Soft tissue cephalometric analysis for orthognathic surgery\", J Oral Surg, 1980.",
+  "Ricketts RM, \"Esthetics, environment, and the law of lip relation\", Am J Orthod, 1968.",
+  "Holdaway RA, \"A soft-tissue cephalometric analysis and its use in orthodontic treatment planning\", Am J Orthod, 1983.",
+  "Powell N, Humphreys B, *Proportions of the Aesthetic Face*, 1984.",
+  "Furnas DW, \"The retaining ligaments of the cheek\", Plast Reconstr Surg, 1989.",
+  "de Castro CC, \"The anatomy of the platysma muscle\", Plast Reconstr Surg, 1980.",
+  "Dingman RO, Grabb WC, surgical anatomy of the mandibular ramus of the facial nerve (100 facial halves), Plast Reconstr Surg, 1962.",
+  "Stephan CN, Simpson EK, \"Facial soft tissue depths in craniofacial identification (part I)\", J Forensic Sci, 2008.",
+  "Rohrich RJ, Pessa JE, \"The fat compartments of the face\", Plast Reconstr Surg, 2007.",
+  "Burrows AM et al., \"Muscles of facial expression in the chimpanzee (Pan troglodytes)\", Anat Rec, 2006.",
+  "Zhu X et al., \"Face alignment across large poses: a 3D solution\" (3DDFA), CVPR 2016.",
+  "Faigin G, *The Artist's Complete Guide to Facial Expression*, 1990.",
+  "Zarins U, *Anatomy of Facial Expression* (Anatomy for Sculptors), 2017."
+ ]
+}

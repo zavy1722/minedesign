@@ -1,0 +1,593 @@
+{
+ "topic": "sculpting-likeness-workflow",
+ "tables": [
+  {
+   "name": "stage_resolution_tools",
+   "units": "mm (edge length / voxel size, brush radius in Scene units); faces count",
+   "columns": [
+    "stage",
+    "method",
+    "edge_mm_low",
+    "edge_mm_high",
+    "faces_low",
+    "faces_high",
+    "brush_radius_mm_low",
+    "brush_radius_mm_high",
+    "key_brushes",
+    "symmetry"
+   ],
+   "rows": [
+    [
+     "blockout",
+     "voxel remesh or fitted template L0",
+     3,
+     5,
+     5000,
+     15000,
+     30,
+     120,
+     "Grab; Elastic Grab; Snake Hook; Pose; Clay Strips; Inflate; Mesh Filter; mask+gizmo; Lattice",
+     "on"
+    ],
+    [
+     "primary",
+     "voxel 1.5-2.5 mm or Multires L0-L1",
+     1.5,
+     3,
+     20000,
+     80000,
+     10,
+     40,
+     "Clay Strips; Clay; Draw; Flatten/Contrast; Scrape; Fill; Grab; Smooth; Box/Lasso Trim",
+     "on, break at end"
+    ],
+    [
+     "secondary",
+     "Multires L2-L3 on 10-20k base",
+     0.4,
+     1.0,
+     160000,
+     1300000,
+     2,
+     15,
+     "Draw Sharp; Crease; Pinch; Blob; Inflate; Layer; Clay Thumb; Slide Relax; Face Sets",
+     "off"
+    ],
+    [
+     "tertiary",
+     "Multires L4-L5 or displacement map",
+     0.08,
+     0.25,
+     2500000,
+     20000000,
+     0.3,
+     3,
+     "Draw Sharp/Crease with stabiliser; Layer; alpha textures (Area Plane/Stencil); Multires Displacement Eraser/Smear",
+     "off"
+    ]
+   ],
+   "population": "real-scale adult head + neck, closed surface area assumed 0.13 m^2 (0.12-0.14)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Workflow heuristics from practitioner knowledge; brush labels changed with 4.3 brush assets, verify names per build. Face counts scale linearly with surface area."
+  },
+  {
+   "name": "voxel_size_to_face_count",
+   "units": "mm; faces",
+   "columns": [
+    "voxel_mm",
+    "faces_at_0.13m2",
+    "faces_at_0.12m2",
+    "faces_at_0.14m2"
+   ],
+   "rows": [
+    [
+     5,
+     5200,
+     4800,
+     5600
+    ],
+    [
+     4,
+     8100,
+     7500,
+     8800
+    ],
+    [
+     3,
+     14400,
+     13300,
+     15600
+    ],
+    [
+     2,
+     32500,
+     30000,
+     35000
+    ],
+    [
+     1.5,
+     57800,
+     53300,
+     62200
+    ],
+    [
+     1,
+     130000,
+     120000,
+     140000
+    ],
+    [
+     0.5,
+     520000,
+     480000,
+     560000
+    ]
+   ],
+   "population": "closed head+neck surface at real scale (1 BU = 1 m)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Arithmetic: faces ~= area / voxel^2; real counts vary about +/-30% with shape and adaptivity. Blender voxel size field is in scene units (0.002 = 2 mm)."
+  },
+  {
+   "name": "multires_level_faces_and_edge",
+   "units": "faces; mm (mean edge length)",
+   "columns": [
+    "base_faces",
+    "level",
+    "faces",
+    "mean_edge_mm"
+   ],
+   "rows": [
+    [
+     5000,
+     0,
+     5000,
+     5.099
+    ],
+    [
+     5000,
+     1,
+     20000,
+     2.55
+    ],
+    [
+     5000,
+     2,
+     80000,
+     1.275
+    ],
+    [
+     5000,
+     3,
+     320000,
+     0.637
+    ],
+    [
+     5000,
+     4,
+     1280000,
+     0.319
+    ],
+    [
+     5000,
+     5,
+     5120000,
+     0.159
+    ],
+    [
+     5000,
+     6,
+     20480000,
+     0.08
+    ],
+    [
+     10000,
+     0,
+     10000,
+     3.606
+    ],
+    [
+     10000,
+     1,
+     40000,
+     1.803
+    ],
+    [
+     10000,
+     2,
+     160000,
+     0.901
+    ],
+    [
+     10000,
+     3,
+     640000,
+     0.451
+    ],
+    [
+     10000,
+     4,
+     2560000,
+     0.225
+    ],
+    [
+     10000,
+     5,
+     10240000,
+     0.113
+    ],
+    [
+     10000,
+     6,
+     40960000,
+     0.056
+    ],
+    [
+     20000,
+     0,
+     20000,
+     2.55
+    ],
+    [
+     20000,
+     1,
+     80000,
+     1.275
+    ],
+    [
+     20000,
+     2,
+     320000,
+     0.637
+    ],
+    [
+     20000,
+     3,
+     1280000,
+     0.319
+    ],
+    [
+     20000,
+     4,
+     5120000,
+     0.159
+    ],
+    [
+     20000,
+     5,
+     20480000,
+     0.08
+    ],
+    [
+     20000,
+     6,
+     81920000,
+     0.04
+    ]
+   ],
+   "population": "quad base mesh covering head+neck, area 0.13 m^2, uniform density assumed",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "faces = base * 4^L (Catmull-Clark); edge ~= sqrt(area/faces). Bases usually concentrate density on the face, so facial edges are ~1.5x finer than the mean."
+  },
+  {
+   "name": "feature_width_edge_requirement",
+   "units": "mm",
+   "columns": [
+    "feature",
+    "width_mm_low",
+    "width_mm_high",
+    "max_edge_mm",
+    "status"
+   ],
+   "rows": [
+    [
+     "lid margin thickness",
+     2,
+     2,
+     0.7,
+     "knowledge"
+    ],
+    [
+     "upper-lid crease/fold",
+     1,
+     3,
+     0.5,
+     "knowledge"
+    ],
+    [
+     "vermilion border ridge",
+     1,
+     2,
+     0.5,
+     "knowledge"
+    ],
+    [
+     "philtral column",
+     2,
+     4,
+     1.0,
+     "knowledge"
+    ],
+    [
+     "alar groove",
+     2,
+     3,
+     0.8,
+     "knowledge"
+    ],
+    [
+     "fine wrinkle",
+     0.2,
+     1,
+     0.1,
+     "contested"
+    ],
+    [
+     "pore",
+     0.05,
+     0.3,
+     0.05,
+     "contested"
+    ]
+   ],
+   "population": "adult face; rule of >=3 edges across a feature (2 = bare minimum)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Fine wrinkle max edge range 0.1-0.3 mm; pores better as displacement/normal texture than sculpted geometry. Widths are approximate."
+  },
+  {
+   "name": "real_scale_sanity_adult",
+   "units": "mm",
+   "columns": [
+    "measure",
+    "range_low_mm",
+    "range_high_mm",
+    "typical_mean_mm",
+    "status"
+   ],
+   "rows": [
+    [
+     "head length g-op",
+     175,
+     210,
+     null,
+     "knowledge"
+    ],
+    [
+     "head breadth eu-eu",
+     140,
+     165,
+     null,
+     "knowledge"
+    ],
+    [
+     "vertex-menton height",
+     210,
+     245,
+     null,
+     "knowledge"
+    ],
+    [
+     "bizygomatic width zy-zy",
+     120,
+     145,
+     null,
+     "knowledge"
+    ],
+    [
+     "bigonial width go-go",
+     90,
+     115,
+     null,
+     "knowledge"
+    ],
+    [
+     "interpupillary distance",
+     56,
+     72,
+     63,
+     "knowledge"
+    ],
+    [
+     "mouth width ch-ch",
+     45,
+     58,
+     null,
+     "knowledge"
+    ],
+    [
+     "nasal width al-al",
+     30,
+     40,
+     null,
+     "knowledge"
+    ],
+    [
+     "ear length sa-sba",
+     55,
+     70,
+     null,
+     "knowledge"
+    ],
+    [
+     "lateral orbital rim to corneal apex (Hertel)",
+     12,
+     20,
+     null,
+     "contested"
+    ]
+   ],
+   "population": "adults, sexes pooled, Farkas-type norms (mostly North American / European samples); varies by population",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Coarse sanity ranges for scale checks only; use the library's anthropometric notes for sourced means/SDs. Hertel values differ by ethnicity and device."
+  },
+  {
+   "name": "likeness_tolerance_targets",
+   "units": "% IOD, mm, %",
+   "columns": [
+    "check",
+    "target_low",
+    "target_high",
+    "units",
+    "status"
+   ],
+   "rows": [
+    [
+     "interior landmark reprojection per view",
+     2,
+     3,
+     "% IOD (~1.3-2 mm)",
+     "knowledge"
+    ],
+    [
+     "silhouette deviation in matched cameras",
+     1,
+     2,
+     "mm",
+     "knowledge"
+    ],
+    [
+     "primary ratio error (face W/H, bigonial/bizygomatic)",
+     0,
+     2,
+     "%",
+     "knowledge"
+    ],
+    [
+     "uncorrected asymmetry",
+     2,
+     3,
+     "mm (approx. lay detection threshold)",
+     "contested"
+    ]
+   ],
+   "population": "engineering heuristics, not measured perceptual thresholds",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Use as stage stopping criteria in the fitting engine; see anatomy/facial-asymmetry.md for sourced detection thresholds."
+  },
+  {
+   "name": "fitting_stage_schedule",
+   "units": "DOF count; mm",
+   "columns": [
+    "stage",
+    "parameterisation",
+    "length_scale_mm_low",
+    "length_scale_mm_high",
+    "sigma_sym_mm",
+    "sculpt_analogue"
+   ],
+   "rows": [
+    [
+     "A",
+     "similarity + anisotropic scale (7-9 DOF)",
+     null,
+     null,
+     1.0,
+     "blockout"
+    ],
+    [
+     "B",
+     "FFD lattice 3^3-4^3 or 10-30 Laplacian/PCA modes",
+     30,
+     40,
+     1.0,
+     "primary forms"
+    ],
+    [
+     "C",
+     "per-vertex offsets with smoothness",
+     10,
+     20,
+     2.5,
+     "secondary forms"
+    ],
+    [
+     "D",
+     "per-vertex, dense data only (scan/depth)",
+     2,
+     5,
+     3.0,
+     "tertiary (rarely supported by photos)"
+    ]
+   ],
+   "population": "design proposal for the numpy fitting engine",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "sigma_sym 2-3 mm in C; occluded regions keep strong symmetry pull; never symmetrize output. Landmark sigma ~0.03*IOD interior, 0.06-0.08*IOD contour, Huber loss; IPD prior 63 +/- 3.5 mm (1 sigma)."
+  },
+  {
+   "name": "addon_scene_defaults",
+   "units": "mixed (see column)",
+   "columns": [
+    "setting",
+    "value",
+    "units",
+    "notes"
+   ],
+   "rows": [
+    [
+     "scene.unit_settings.scale_length",
+     1.0,
+     "-",
+     "1 BU = 1 m"
+    ],
+    [
+     "SpaceView3D.lens",
+     85,
+     "mm",
+     "viewport sculpting lens; default is 50"
+    ],
+    [
+     "SpaceView3D.clip_start",
+     0.001,
+     "m",
+     "avoid near clipping at real scale"
+    ],
+    [
+     "brush radius unit",
+     "SCENE",
+     "-",
+     "strokes fixed in mm"
+    ],
+    [
+     "camera background image alpha",
+     0.5,
+     "fraction",
+     "0.3-0.7 usable; display depth FRONT for overlay"
+    ],
+    [
+     "SpaceView3D.lock_camera",
+     false,
+     "bool",
+     "Lock Camera to View must be off on matched cameras"
+    ],
+    [
+     "Mesh.use_mirror_x",
+     true,
+     "bool",
+     "until the asymmetry stage"
+    ],
+    [
+     "Mesh.remesh_voxel_size (route B)",
+     0.003,
+     "m",
+     "range 0.002-0.004 for blockout"
+    ],
+    [
+     "Multires level for likeness",
+     2,
+     "level",
+     "L4-L5 for tertiary detail"
+    ]
+   ],
+   "population": "Blender 4.2+ / 5.x add-on defaults (proposal)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Property paths should be probed at runtime; brush radius unit API changed with 4.3 brush assets."
+  }
+ ]
+}

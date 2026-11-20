@@ -1,0 +1,189 @@
+{
+ "topic": "import-export-scans",
+ "note": "This topic's own harvest did not exist; every URL is borrowed from a sibling harvest in research/_raw/harvests/ (deformation-fitting-math, single-image-regression, craniometric-landmarks, anthropometric-norms, facial-asymmetry, skin-shading, blender-version-status-2026, reference-camera-setup, blender-face-addons, multi-view-fitting).",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Amberg, Romdhani, Vetter, Optimal Step Nonrigid ICP Algorithms for Surface Registration (CVPR 2007)",
+   "url": "https://shapemodelling.cs.unibas.ch/gravis-literature/publications/2007/CVPR07_Amberg.pdf",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "n": 2,
+   "title": "Sorkine & Alexa, As-Rigid-As-Possible Surface Modeling (SGP 2007)",
+   "url": "https://diglib.eg.org/handle/10.2312/SGP.SGP07.109-116",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "n": 3,
+   "title": "Bookstein, Principal Warps: thin-plate splines and the decomposition of deformations",
+   "url": "https://members.cbio.mines-paristech.fr/~jvert/svn/bibli/local/Bookstein1989Principal.pdf",
+   "kind": "paper",
+   "year": "1989"
+  },
+  {
+   "n": 4,
+   "title": "BrainMorph: A Foundational Keypoint Model for Robust and Flexible Brain MRI Registration (TPS usage)",
+   "url": "https://arxiv.org/pdf/2405.14019",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 5,
+   "title": "Towards Metrical Reconstruction of Human Faces (MICA)",
+   "url": "https://ar5iv.labs.arxiv.org/html/2204.06607",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 6,
+   "title": "Towards Realistic Generative 3D Face Models",
+   "url": "https://arxiv.org/pdf/2304.12483",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 7,
+   "title": "Comparison Study of Extraction Accuracy of 3D Facial Anatomical Landmarks Based on Non-Rigid Registration of Face Template",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10047049/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Accuracy of Facial Digitization Using a New Mobile Device-Compatible 3D Scanner for Malocclusion",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13117559/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "Accuracy and reliability of 3D stereophotogrammetry: a comparison to direct anthropometry and 2D photogrammetry",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/26267357",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 10,
+   "title": "Reproducibility and Accuracy of Facial Soft Tissue Landmarks Across 3D Face Scanning Modalities: Systematic Review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "Three-Dimensional Anthropometric Facial Analysis and Fitting Discrepancies Between Stereophotogrammetry and CT",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38896864",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 12,
+   "title": "Facial asymmetry assessment in adults using three-dimensional surface imaging",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 13,
+   "title": "Principled BSDF - Blender 4.3 Manual",
+   "url": "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html",
+   "kind": "official-docs",
+   "year": "2024"
+  },
+  {
+   "n": 14,
+   "title": "Blender 5.0: Python API",
+   "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "n": 15,
+   "title": "5.2 LTS - Blender",
+   "url": "https://www.blender.org/download/releases/5-2/",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 16,
+   "title": "Cameras - Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/render/cameras.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 17,
+   "title": "MediaPipe Face Mesh (legacy docs)",
+   "url": "https://mediapipe.readthedocs.io/en/latest/solutions/face_mesh.html",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 18,
+   "title": "MediaPipe Face Mesh: All 478 Landmark Points (DEV Community)",
+   "url": "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8",
+   "kind": "blog",
+   "year": "n.d."
+  },
+  {
+   "n": 19,
+   "title": "MPFB, Blender Extensions listing",
+   "url": "https://extensions.blender.org/add-ons/mpfb/",
+   "kind": "official-listing",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "Anthropometric Study of Three-Dimensional Facial Morphology in Malay Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "Facial Anthropometric Norms among Kosovo-Albanian Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 22,
+   "title": "Normative Findings for Periocular Anthropometric Measurements among Chinese Young Adults in Hong Kong",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "VHAP (Versatile Head Alignment with Adaptive Appearance Priors)",
+   "url": "https://github.com/ShenhanQian/VHAP",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "PeizhiYan flame-head-tracker",
+   "url": "https://github.com/peizhiyan/flame-head-tracker",
+   "kind": "repo",
+   "year": "2025"
+  }
+ ],
+ "references_by_name": [
+  "Blender Manual: Import/Export (OBJ, PLY, STL, FBX, glTF 2.0, USD, Alembic); Shrinkwrap, Surface Deform, Laplacian Deform, Data Transfer, Multires, Remesh, Decimate; Cycles baking",
+  "Khronos, glTF 2.0 Specification (coordinate system, units, mesh attributes)",
+  "Pixar, Universal Scene Description documentation (metersPerUnit, upAxis)",
+  "Li, Bolkart, Black, Li, Romero, Learning a model of facial shape and expression from 4D scans (FLAME), SIGGRAPH Asia 2017",
+  "Paysan et al., A 3D Face Model for Pose and Illumination Invariant Face Recognition (BFM), 2009",
+  "Gerig et al., Morphable Face Models - An Open Framework (BFM 2017), 2018",
+  "Umeyama, Least-squares estimation of transformation parameters between two point patterns, IEEE TPAMI 1991",
+  "Besl & McKay, A Method for Registration of 3-D Shapes, 1992",
+  "Garland & Heckbert, Surface Simplification Using Quadric Error Metrics, SIGGRAPH 1997",
+  "Museth, VDB: High-resolution sparse volumes with dynamic topology, 2013",
+  "Dodgson, Variation and extrema of human interpupillary distance, 2004",
+  "Farkas, Anthropometry of the Head and Face, 1994",
+  "R3DS/Faceform Wrap user documentation"
+ ]
+}

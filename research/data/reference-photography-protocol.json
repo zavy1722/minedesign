@@ -1,0 +1,639 @@
+{
+ "topic": "reference-photography-protocol",
+ "tables": [
+  {
+   "name": "shot_list_identity_set",
+   "units": "degrees (yaw about vertical axis, sitter frame; elevation = camera angle above sitter eye-level plane)",
+   "columns": [
+    "id",
+    "view",
+    "yaw_deg",
+    "elevation_deg",
+    "constrains",
+    "tier"
+   ],
+   "rows": [
+    [
+     "1",
+     "front",
+     0,
+     0,
+     "widths, symmetry, eye and mouth shape",
+     "core"
+    ],
+    [
+     "2-3",
+     "three_quarter_L_R",
+     "±45",
+     0,
+     "nose projection vs cheek, zygoma, gonial angle",
+     "core"
+    ],
+    [
+     "4-5",
+     "profile_L_R",
+     "±90",
+     0,
+     "nose, lip, chin projection; forehead slope; ear position",
+     "core"
+    ],
+    [
+     "6",
+     "low",
+     0,
+     "-25 to -30",
+     "jaw underside, nostrils, alar base",
+     "core"
+    ],
+    [
+     "7",
+     "high",
+     0,
+     "+25 to +30",
+     "brow ridge, upper lids, crown",
+     "core"
+    ],
+    [
+     "8-9",
+     "low_and_high_three_quarter",
+     "±45",
+     "±25",
+     "jaw-neck junction, cheek fullness",
+     "optional"
+    ],
+    [
+     "10-11",
+     "half_turn",
+     "±20 to ±30",
+     0,
+     "nasal dorsum against cheek, cheek contour",
+     "extended"
+    ],
+    [
+     "12-14",
+     "rear_three_quarter_and_back",
+     "±135, 180",
+     0,
+     "occiput, ear protrusion, nape",
+     "extended"
+    ],
+    [
+     "15",
+     "top",
+     null,
+     "+80 to +90",
+     "cranial vault, breadth vs length",
+     "extended"
+    ],
+    [
+     "16-17",
+     "ear_closeups",
+     "±90",
+     0,
+     "helix, antihelix, concha, lobule",
+     "extended"
+    ],
+    [
+     "18-19",
+     "hair_down_front_and_three_quarter",
+     "0, 45",
+     0,
+     "recognisability check",
+     "extended"
+    ]
+   ],
+   "population": "adult sitter, single camera at 1.5-2 m",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert protocol; at 1.75 m, ±25 deg elevation = camera raised/lowered ~0.8 m. Move camera rather than tilting head."
+  },
+  {
+   "name": "distance_perspective_framing",
+   "units": "m, %, m, px",
+   "columns": [
+    "distance_m",
+    "nose_over_ear_excess_pct",
+    "field_long_side_m_at_85mm",
+    "field_long_side_m_at_105mm",
+    "field_long_side_m_at_135mm",
+    "face_width_px_105mm_24MP_FF",
+    "use"
+   ],
+   "rows": [
+    [
+     0.35,
+     29.0,
+     null,
+     null,
+     null,
+     null,
+     "phone selfie; never for identity"
+    ],
+    [
+     1.0,
+     10.0,
+     0.42,
+     0.34,
+     0.27,
+     2450,
+     "solved camera only; never eyeball"
+    ],
+    [
+     1.5,
+     6.7,
+     0.64,
+     0.51,
+     0.4,
+     1633,
+     "recommended"
+    ],
+    [
+     2.0,
+     5.0,
+     0.85,
+     0.69,
+     0.53,
+     1225,
+     "recommended"
+    ],
+    [
+     2.5,
+     4.0,
+     1.06,
+     0.86,
+     0.67,
+     980,
+     "recommended"
+    ],
+    [
+     3.0,
+     3.3,
+     1.27,
+     1.03,
+     0.8,
+     817,
+     "near-orthographic"
+    ],
+    [
+     5.0,
+     2.0,
+     2.12,
+     1.71,
+     1.33,
+     490,
+     "ortho tracing; needs >=200 mm"
+    ]
+   ],
+   "population": "geometry; Δ=100 mm nose tip to tragion, face width 140 mm, 36 mm sensor side in portrait orientation, 6000 px long side",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Arithmetic: excess = 100 mm / distance; field = 36 mm * d / f; face_px = 140 * f_mm*6000/36 / d_mm."
+  },
+  {
+   "name": "phone_face_width_px",
+   "units": "px (12 MP, 4032x3024, diagonal 35mm-equivalent)",
+   "columns": [
+    "lens",
+    "f35_mm",
+    "distance_m",
+    "face_width_px"
+   ],
+   "rows": [
+    [
+     "1x main",
+     26,
+     1.5,
+     283
+    ],
+    [
+     "2x",
+     52,
+     1.5,
+     565
+    ],
+    [
+     "3x tele",
+     77,
+     1.75,
+     718
+    ],
+    [
+     "5x tele",
+     120,
+     2.5,
+     783
+    ]
+   ],
+   "population": "geometry; face width 140 mm",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "f_px = f35 * sqrt(W^2+H^2) / 43.27."
+  },
+  {
+   "name": "depth_of_field_matched_framing",
+   "units": "mm total DoF (c = 0.03 mm full frame; halve for pixel-level sharpness at 24 MP)",
+   "columns": [
+    "setup",
+    "f2.8",
+    "f4",
+    "f5.6",
+    "f8",
+    "f11"
+   ],
+   "rows": [
+    [
+     "85mm_1.5m",
+     52,
+     75,
+     105,
+     149,
+     206
+    ],
+    [
+     "105mm_2.0m",
+     61,
+     87,
+     122,
+     174,
+     239
+    ],
+    [
+     "135mm_2.5m",
+     58,
+     82,
+     115,
+     165,
+     226
+    ]
+   ],
+   "population": "geometry; DoF ≈ 2·N·c·u²/f²",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Front view needs ~100-120 mm (nose tip to tragion), ~2/3 behind the eyes when focused on the eyes. Equivalent apertures: f/8 FF ≈ f/5.6 APS-C ≈ f/4 MFT."
+  },
+  {
+   "name": "pitch_from_camera_height_mismatch",
+   "units": "deg / mm (nose-vs-tragion vertical shift = 100 mm·sin θ)",
+   "columns": [
+    "delta_h_m",
+    "d_1.0m",
+    "d_1.5m",
+    "d_2.0m",
+    "d_3.0m"
+   ],
+   "rows": [
+    [
+     0.1,
+     "5.7 / 10",
+     "3.8 / 7",
+     "2.9 / 5",
+     "1.9 / 3"
+    ],
+    [
+     0.3,
+     "16.7 / 29",
+     "11.3 / 20",
+     "8.5 / 15",
+     "5.7 / 10"
+    ],
+    [
+     0.5,
+     "26.6 / 45",
+     "18.4 / 32",
+     "14.0 / 24",
+     "9.5 / 16"
+    ]
+   ],
+   "population": "geometry",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "θ = atan(Δh/d)."
+  },
+  {
+   "name": "smartphone_lens_equivalents",
+   "units": "mm (35 mm-equivalent)",
+   "columns": [
+    "camera",
+    "f35_range_mm",
+    "use_for_heads",
+    "status"
+   ],
+   "rows": [
+    [
+     "front_selfie",
+     "23-30",
+     "never for identity",
+     "knowledge"
+    ],
+    [
+     "ultra_wide",
+     "13-16",
+     "never",
+     "knowledge"
+    ],
+    [
+     "main_1x",
+     "24-26",
+     "solver anchor at 0.5-0.8 m, or >=1.5 m and cropped",
+     "knowledge"
+    ],
+    [
+     "2x_often_main_sensor_crop",
+     "48-52",
+     "acceptable at 1.2-2 m",
+     "contested"
+    ],
+    [
+     "3x_tele",
+     "65-77",
+     "good at 1.5-2 m",
+     "contested"
+    ],
+    [
+     "4-5x_tele",
+     "100-125",
+     "best at 2-3 m in good light",
+     "contested"
+    ]
+   ],
+   "population": "2023-2026 flagship phones (time-sensitive)",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Time-sensitive; models vary. Phones may silently substitute a cropped main camera in low light or below tele minimum focus distance: check EXIF LensModel."
+  },
+  {
+   "name": "photo_counts_by_method",
+   "units": "photos or frames",
+   "columns": [
+    "method",
+    "count",
+    "spread",
+    "time_budget",
+    "status"
+   ],
+   "rows": [
+    [
+     "single_image_regression",
+     "1 front (+1 profile helps)",
+     "-",
+     "-",
+     "knowledge"
+    ],
+    [
+     "pin_template_fitting",
+     "3-7",
+     "front, 3/4, profiles",
+     "~5 min",
+     "knowledge"
+    ],
+    [
+     "multiview_landmark_3dmm_identity",
+     "7-9 core; 15-20 extended",
+     "yaw ±90, elevation ±25",
+     "<=15 min",
+     "knowledge"
+    ],
+    [
+     "monocular_video_tracker",
+     "100-300 frames (10-30 s)",
+     "slow head turn to ±60-90",
+     "~1 min",
+     "contested"
+    ],
+    [
+     "single_camera_photogrammetry",
+     "30-50 face; 60-120 head; +10-20 detail",
+     "3-4 rings, 10-20 deg steps",
+     "<=20-30 s per ring",
+     "knowledge"
+    ],
+    [
+     "synchronised_rig",
+     "8-16 cameras face; 24-60 head",
+     "simultaneous",
+     "one strobe",
+     "contested"
+    ]
+   ],
+   "population": "adult live sitter",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "See reconstruction/photogrammetry-heads.md and reconstruction/multi-view-fitting.md."
+  },
+  {
+   "name": "capture_settings_defaults",
+   "units": "mixed",
+   "columns": [
+    "parameter",
+    "value",
+    "notes"
+   ],
+   "rows": [
+    [
+     "distance_identity_set_m",
+     "1.5-2.5",
+     "tape-measured, constant"
+    ],
+    [
+     "focal_ff_equiv_mm",
+     "85-135",
+     "or phone 2-5x"
+    ],
+    [
+     "aperture_ff",
+     "f/8",
+     "f/5.6 APS-C, f/4 MFT"
+    ],
+    [
+     "shutter_tripod_s",
+     "<=1/125",
+     ""
+    ],
+    [
+     "shutter_handheld_100mm_s",
+     "<=1/250",
+     ""
+    ],
+    [
+     "iso",
+     "100-400",
+     "phone: lowest"
+    ],
+    [
+     "camera_height",
+     "sitter eye-nose level",
+     "axis level"
+    ],
+    [
+     "key_to_fill_even",
+     "<=1.5:1",
+     "~0.5 stop"
+    ],
+    [
+     "key_to_fill_form_set",
+     "4:1-8:1",
+     "single key at 45 and 90 deg"
+    ],
+    [
+     "cross_pol_light_loss_stops",
+     "2-3+",
+     "contested amount"
+    ],
+    [
+     "video_shutter_s",
+     "<=1/250",
+     "4K, top bitrate"
+    ],
+    [
+     "video_orbit_s_per_ring",
+     ">=25-35",
+     "relative angular speed <=10-15 deg/s"
+    ],
+    [
+     "video_extract_fps",
+     "2-5",
+     ""
+    ],
+    [
+     "burst_per_view",
+     3,
+     "beat blinks"
+    ],
+    [
+     "session_minutes_identity_set",
+     "<=15",
+     "one day"
+    ],
+    [
+     "id1_card_mm",
+     "85.60 x 53.98",
+     "ISO/IEC 7810"
+    ]
+   ],
+   "population": "adult sitter",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert defaults, unverified."
+  },
+  {
+   "name": "engine_priors_and_gates",
+   "units": "mixed",
+   "columns": [
+    "parameter",
+    "value",
+    "notes"
+   ],
+   "rows": [
+    [
+     "pose_yaw_sigma_deg_freehand",
+     10,
+     "from view tag"
+    ],
+    [
+     "pose_yaw_sigma_deg_floor_marks",
+     5,
+     ""
+    ],
+    [
+     "pose_pitch_sigma_deg_main_ring",
+     5,
+     ""
+    ],
+    [
+     "pose_pitch_sigma_deg_high_low_ring",
+     "8-10",
+     ""
+    ],
+    [
+     "pose_roll_sigma_deg",
+     3,
+     ""
+    ],
+    [
+     "pose_outlier_flag",
+     "|solved-nominal| > 3 sigma",
+     "mislabel or mirror"
+    ],
+    [
+     "distance_prior_sigma_m",
+     0.05,
+     "tape-measured z"
+    ],
+    [
+     "log_f_sigma_within_lens_group",
+     0.02,
+     "group key: Make, Model, LensModel, FocalLength, W, H, still/video"
+    ],
+    [
+     "caliper_constraint_sigma_mm",
+     "1-2",
+     ""
+    ],
+    [
+     "id1_scale_sigma_mm",
+     0.5,
+     "over 85.6 mm, ~0.6%"
+    ],
+    [
+     "blink_reject_EAR",
+     "<0.2",
+     "Soukupova & Cech 2016"
+    ],
+    [
+     "sharpness_downweight",
+     "bottom 20% variance of Laplacian",
+     "relative within set"
+    ],
+    [
+     "face_width_warn_px",
+     250,
+     ""
+    ],
+    [
+     "face_width_reject_px",
+     120,
+     ""
+    ],
+    [
+     "skin_clip_fraction_disable_photometric",
+     0.02,
+     ""
+    ],
+    [
+     "mouth_aperture_exclude_identity",
+     "> 3% IOD",
+     ""
+    ],
+    [
+     "front_view_max_yaw_roll_deg",
+     2,
+     "QA"
+    ],
+    [
+     "profile_yaw_range_deg",
+     "85-95",
+     "QA"
+    ],
+    [
+     "distance_vs_tape_tolerance",
+     0.1,
+     "QA"
+    ],
+    [
+     "view_weight",
+     "1 / views in same 15 deg bin",
+     "anti-duplication"
+    ],
+    [
+     "video_frames_per_bin_max",
+     3,
+     ""
+    ]
+   ],
+   "population": "engineering choices for the face3d fitting engine",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Suggested starting values; calibrate on real capture sets."
+  }
+ ]
+}

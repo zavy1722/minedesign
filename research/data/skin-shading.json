@@ -1,22 +1,21 @@
 {
   "topic": "skin-shading",
-  "verification_note": "No independent cross-check was possible (search budget exhausted). All values are single-source from Blender documentation or developer notes; none is a measured human-skin dataset except the manual-cited anisotropy, whose underlying study is untraced.",
   "tables": [
     {
-      "name": "principled_bsdf_subsurface_and_ior_values",
+      "name": "principled_bsdf_doc_values",
       "units": "per row (dimensionless unless stated)",
       "columns": ["parameter", "value_min", "value_max", "units", "engine", "meaning"],
       "rows": [
-        ["subsurface_anisotropy_skin", 0.8, 0.8, "dimensionless", "cycles", "Manual states skin has been measured at 0.8"],
+        ["subsurface_anisotropy_skin", 0.8, 0.8, "dimensionless", "cycles", "Manual states skin has been measured at 0.8; underlying study untraced"],
         ["subsurface_anisotropy_isotropic", 0.0, 0.0, "dimensionless", "cycles", "0 = uniform scattering direction"],
         ["subsurface_scale_ui_range", 0.0, 50.0, "cm", "unspecified", "Slider range of Scale multiplier on Subsurface Radius (snippet-level)"],
         ["ior_typical_material_span", 1.0, 4.0, "dimensionless", "both", "1.0 vacuum/air to 4.0 germanium"],
         ["ior_default", 1.5, 1.5, "dimensionless", "both", "Default approximates glass, not skin"]
       ],
-      "population": "Not a population measurement; documentation values. Skin anisotropy 0.8 is cited by the manual without study/sample size in the harvested snippet.",
+      "population": "Documentation values, not a population measurement.",
       "source_urls": ["https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"],
-      "status": "single-source",
-      "notes": "Subsurface IOR and Subsurface Anisotropy are Cycles-only inputs. Scale range taken from a search snippet, not full page text."
+      "status": "sourced",
+      "notes": "Subsurface IOR, Subsurface Anisotropy and Specular Anisotropy are Cycles-only. Scale range from a search snippet, not full page text."
     },
     {
       "name": "random_walk_skin_entry_model",
@@ -26,10 +25,173 @@
         ["ggx_refraction", 1.0, "Randomly chosen entry lobe; roughness fixed"],
         ["lambertian_diffuse_transmission", null, "Randomly chosen entry lobe; added because pure random walk penetrates too deep into skin"]
       ],
-      "population": "Implementation detail of Cycles, not a measurement.",
-      "source_urls": ["https://projects.blender.org/blender/blender/pulls/110989"],
-      "status": "single-source",
-      "notes": "Practitioner posts (blenderartists.org/t/this-material-how-to/1233888, /t/subsurface-scattering-colour/1502627) echo that the skin mode fixes roughness at 1; mixing probability not captured."
+      "population": "Cycles implementation detail, not a measurement.",
+      "source_urls": [
+        "https://projects.blender.org/blender/blender/pulls/110989",
+        "https://blenderartists.org/t/this-material-how-to/1233888",
+        "https://blenderartists.org/t/subsurface-scattering-colour/1502627"
+      ],
+      "status": "verified",
+      "notes": "Developer PR plus independent practitioner reports agree that the skin mode fixes entry roughness at 1. Mixing probability not captured."
+    },
+    {
+      "name": "principled_v2_defaults_4x",
+      "units": "per row",
+      "columns": ["input", "default", "units", "note"],
+      "rows": [
+        ["subsurface_weight", 0.0, "dimensionless", "SSS off by default; manual says typically 0 or 1"],
+        ["subsurface_radius_rgb", [1.0, 0.2, 0.1], "multiplied by scale", "relative per-channel distances"],
+        ["subsurface_scale", 0.05, "m (scene units)", "effective red radius 50 mm, far too large for a real head"],
+        ["subsurface_ior", 1.4, "dimensionless", "Cycles-only"],
+        ["subsurface_anisotropy", 0.0, "dimensionless", "Cycles-only"],
+        ["ior", 1.5, "dimensionless", "glass"],
+        ["specular_ior_level", 0.5, "dimensionless", "0.5 = F0 from IOR unchanged"]
+      ],
+      "population": "Blender UI defaults (4.0+), recalled from training knowledge",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Verify against the current manual; defaults may differ in 5.x."
+    },
+    {
+      "name": "skin_diffuse_mean_free_path_jensen2001",
+      "units": "mm",
+      "columns": ["sample", "R", "G", "B", "G_over_R", "B_over_R"],
+      "rows": [
+        ["skin1", 3.67, 1.37, 0.68, 0.373, 0.185],
+        ["skin2", 4.82, 1.69, 1.09, 0.351, 0.226]
+      ],
+      "population": "A few light-skinned subjects measured by Jensen et al. (SIGGRAPH 2001); exact n not recalled",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Same values as Blender Internal's legacy Skin1/Skin2 SSS presets. Use as Radius with Scale = 0.001 in a metre scene. Artists often end at 40-100% of these."
+    },
+    {
+      "name": "skin_ior_to_f0",
+      "units": "dimensionless",
+      "columns": ["ior", "f0", "basis"],
+      "rows": [
+        [1.35, 0.022, "low end of epidermis estimates"],
+        [1.4, 0.028, "graphics convention for skin"],
+        [1.45, 0.034, "mid tissue estimate"],
+        [1.5, 0.040, "Blender default (glass)"],
+        [1.55, 0.047, "stratum corneum upper estimate"]
+      ],
+      "population": "Fresnel arithmetic F0 = ((n-1)/(n+1))^2 over a contested IOR range",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "IOR range 1.35-1.55 is from training knowledge of tissue optics; the arithmetic is exact."
+    },
+    {
+      "name": "cycles_skin_material_priors",
+      "units": "per row; Blender >= 4.0, metre scene, unit scale 1.0",
+      "columns": ["input", "start", "min", "max", "prior_sigma", "status"],
+      "rows": [
+        ["subsurface_weight", 1.0, 0.8, 1.0, null, "contested"],
+        ["subsurface_method", "RANDOM_WALK_SKIN (read enum at runtime)", null, null, null, "knowledge"],
+        ["subsurface_radius_r", 3.67, 1.5, 4.8, null, "knowledge"],
+        ["subsurface_radius_g", 1.37, 0.5, 1.7, null, "knowledge"],
+        ["subsurface_radius_b", 0.68, 0.25, 1.1, null, "knowledge"],
+        ["subsurface_scale_m", 0.001, 0.0004, 0.0013, "log-normal sigma_ln 0.35", "contested"],
+        ["subsurface_anisotropy", 0.8, 0.7, 0.9, 0.05, "sourced"],
+        ["subsurface_ior", 1.4, 1.33, 1.45, 0.03, "knowledge"],
+        ["ior", 1.4, 1.36, 1.55, 0.04, "contested"],
+        ["specular_ior_level", 0.5, 0.4, 0.6, 0.05, "knowledge"],
+        ["roughness_base", 0.45, 0.35, 0.6, 0.07, "contested"],
+        ["coat_weight", 0.05, 0.0, 0.25, null, "knowledge"],
+        ["coat_roughness", 0.25, 0.15, 0.35, null, "knowledge"],
+        ["sheen_weight", 0.1, 0.0, 0.3, null, "knowledge"],
+        ["metallic", 0.0, 0.0, 0.0, null, "knowledge"],
+        ["specular_anisotropy", 0.0, 0.0, 0.0, null, "knowledge"]
+      ],
+      "population": "Expert starting values for adult facial skin; not a measured dataset",
+      "source_urls": ["https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"],
+      "status": "knowledge",
+      "notes": "Only subsurface_anisotropy 0.8 is sourced [manual]. Radius values follow Jensen 2001 skin1. Store radius as physical mfp in mm and write Scale = 0.001 / scene.unit_settings.scale_length."
+    },
+    {
+      "name": "regional_roughness_offsets",
+      "units": "Blender perceptual roughness, added to roughness_base",
+      "columns": ["region", "offset", "sigma"],
+      "rows": [
+        ["nose", -0.12, 0.04],
+        ["forehead", -0.08, 0.04],
+        ["chin", -0.05, 0.04],
+        ["cheeks", 0.05, 0.04],
+        ["neck", 0.05, 0.04],
+        ["ears", 0.05, 0.04],
+        ["lips_moist", -0.12, 0.06],
+        ["eyelids", 0.0, 0.05]
+      ],
+      "population": "Artist heuristics following the T-zone trend reported by Weyrich et al. 2006 (about 150 faces); offsets are not measured values",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Author the masks once on the template's fixed topology/UVs so they transfer to every fitted head."
+    },
+    {
+      "name": "skin_microgeometry_and_texel_density",
+      "units": "per row",
+      "columns": ["item", "min", "max", "units", "basis"],
+      "rows": [
+        ["pore_opening_diameter", 0.05, 0.25, "mm", "dermatology/profilometry; enlarged pores up to ~0.5 mm"],
+        ["microrelief_furrow_depth", 0.02, 0.1, "mm", "skin replica profilometry"],
+        ["wrinkle_depth_fine_to_coarse", 0.1, 1.0, "mm", "coarse wrinkles can exceed 1 mm"],
+        ["facial_epidermis_thickness", 0.05, 0.15, "mm", "histology"],
+        ["head_neck_surface_area", 0.15, 0.17, "m^2", "rule of nines: 9% of 1.7-1.9 m^2 body surface"],
+        ["texel_pitch_4k_whole_head_70pct_fill", 0.12, 0.12, "mm", "arithmetic"],
+        ["texel_pitch_8k_whole_head_70pct_fill", 0.06, 0.06, "mm", "arithmetic"],
+        ["texel_pitch_8k_face_udim_face_0p04m2", 0.03, 0.03, "mm", "arithmetic; face area assumed"],
+        ["pore_displacement_peak_to_peak", 0.2, 0.5, "mm", "artist heuristic; >~1 mm reads as orange peel"]
+      ],
+      "population": "Adult facial skin; values vary with age, site and measurement method",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Training-knowledge ranges; texel rows are derived arithmetic."
+    },
+    {
+      "name": "mesh_resolution_for_skin",
+      "units": "per row",
+      "columns": ["purpose", "base_quads", "subdivision_level", "approx_quads", "approx_edge_mm"],
+      "rows": [
+        ["sculpt pores (multires)", 16000, 5, 16400000, 0.1],
+        ["facet-free random-walk SSS at render", 16000, 2, 256000, 0.8]
+      ],
+      "population": "Head+neck surface ~0.16 m^2",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Rule: render edge length <= 1/4 of red mean free path. Derived arithmetic."
+    },
+    {
+      "name": "scale_sanity_checks",
+      "units": "mm",
+      "columns": ["measure", "mean", "typical_min", "typical_max", "prior_sigma"],
+      "rows": [
+        ["interpupillary_distance_adult", 63, 55, 72, 3.5],
+        ["head_breadth_eu_eu_adult", 150, 140, 160, null]
+      ],
+      "population": "Adults (Dodgson 2004 for IPD; Farkas 1994 for head breadth), recalled from training",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Use to reject non-metric fitted heads before shading (>~10% off)."
+    },
+    {
+      "name": "engine_support_matrix",
+      "units": "categorical",
+      "columns": ["feature", "cycles", "eevee_next", "status"],
+      "rows": [
+        ["subsurface_method (Burley / Random Walk / Random Walk Skin)", "yes", "ignored (screen-space)", "sourced"],
+        ["subsurface_ior", "yes", "ignored", "sourced"],
+        ["subsurface_anisotropy", "yes", "ignored", "sourced"],
+        ["specular_anisotropy", "yes", "ignored", "sourced"],
+        ["subsurface_radius_x_scale", "volumetric", "screen-space blur + shadow-map thickness transmission", "knowledge"],
+        ["true_displacement", "yes (+ adaptive subdivision; experimental status in 5.x unverified)", "vertex displacement only (4.2+)", "knowledge"]
+      ],
+      "population": "Blender 4.2+ engines",
+      "source_urls": [
+        "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html",
+        "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html"
+      ],
+      "status": "sourced",
+      "notes": "Cycles-only rows are sourced from the manual; EEVEE Next behaviour rows are training knowledge."
     }
   ]
 }

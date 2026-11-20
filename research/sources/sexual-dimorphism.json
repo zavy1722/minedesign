@@ -1,0 +1,283 @@
+{
+ "topic": "sexual-dimorphism",
+ "note": "No harvest or earlier draft existed for this topic; all URLs come from sibling-topic harvests in research/_raw/harvests (anthropometric-norms, skull-osteology, soft-tissue-thickness, muscles-mastication-jaw, ear, eyes-modeling-blender, facial-proportions-canons). Facts were taken from search snippets, not full texts.",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Facial Anthropometric Norms among Kosovo-Albanian Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "n": 2,
+   "title": "An Anthropometric Study of the Facial Index Among Undergraduate Medical Students, BHU, Uttar Pradesh",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Exploring Causes of Demographic Variations In Face Recognition Accuracy (reproduces Farkas SDs)",
+   "url": "https://arxiv.org/pdf/2304.07175",
+   "kind": "preprint",
+   "year": "2023"
+  },
+  {
+   "n": 4,
+   "title": "Normative Findings for Periocular Anthropometric Measurements among Chinese Young Adults in Hong Kong",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Anthropometric Study of Three-Dimensional Facial Morphology in Malay Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Evaluation of Facial Asymmetry Determined by Linear Measurements According to Hand Preference and Gender",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12500730/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Three-dimensional photographic analysis of the face in European adults from southern Spain with normal occlusion",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "The 3D Facial Norms Database: Part 1",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 9,
+   "title": "FaceBase 3D Facial Norms Database",
+   "url": "https://facebase.org/facial_norms/",
+   "kind": "dataset docs",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "A Systematic Review of Inter-ethnic Variability in Facial Dimensions",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3074358/",
+   "kind": "review",
+   "year": "2011"
+  },
+  {
+   "n": 11,
+   "title": "Variation in Chin and Mandibular Symphysis Size and Shape in Males and Females: A CT-Based Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7345472/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 12,
+   "title": "StatPearls: Anatomy, Head and Neck, Mandible",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "Evaluation of location of mandibular and mental foramina in dry, young, adult human male, dentulous mandibles",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12089867/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Facial soft tissue thicknesses of Azerbaijan adult population: CT study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "The Influence of Age and Gender on Forehead Soft Tissue Thickness: An MRI-Based Study",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12594695/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "Facial soft tissue thickness database for craniofacial reconstruction in Korean adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/22621203/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 18,
+   "title": "Sex, age, and body mass index influence on facial soft tissue thickness in a Thai population above middle age by ultrasonographic imaging",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+   "kind": "paper",
+   "year": "2026 (unconfirmed)"
+  },
+  {
+   "n": 19,
+   "title": "Layer-specific facial soft-tissue thickness in 1174 Chinese adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42385786/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "Facial soft tissue depth of a contemporary adult Greek population",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "Ultrasonographic analysis of facial skin thickness in relation to age, site, sex, and body mass index",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 22,
+   "title": "Application of cone beam computed tomography in facial soft tissue thickness measurements for craniofacial reconstruction",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "Association of masseter muscle volume with risk of osteoporosis in older adults: the Bunkyo Health Study",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10738411/",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 24,
+   "title": "Masseter Muscle Volume, Sarcopenia, and Muscle Determinants (Bunkyo Health Study)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39405919/",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 25,
+   "title": "Standard values for temporal muscle thickness in the Japanese population (MRI brain check-up)",
+   "url": "https://surgicalneurologyint.com/surgicalint-articles/standard-values-for-temporal-muscle-thickness-in-the-japanese-population-who-undergo-brain-check-up-by-magnetic-resonance-imaging/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 26,
+   "title": "Temporalis muscle thickness ultrasound study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8053578",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 27,
+   "title": "Masseter thickness by sex, ultrasound, orthodontic sample of 70 (title not captured)",
+   "url": "https://doaj.org/article/bee473398a794b4b9acfdd1affa15fec",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 28,
+   "title": "Temporal fossa / temporalis morphometry article (OAE Publishing)",
+   "url": "https://www.oaepublish.com/articles/2347-9264.2020.221",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "Variations in Eyeball Diameters of the Healthy Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4238270/",
+   "kind": "paper",
+   "year": "2014"
+  },
+  {
+   "n": 30,
+   "title": "Sundanese auricle photogrammetry study (title not captured)",
+   "url": "https://www.pubmed.gov/36217409/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 31,
+   "title": "Morphometric Parameters of the Ear and Their Sexual Dimorphism in the Eastern Province of Saudi Arabia",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10775136/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 32,
+   "title": "Diagnostic Accuracy of Auricular Morphometry in Sex Estimation: Logistic Regression with ROC Validation",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13298092/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 33,
+   "title": "Stature and sex estimation: auricular morphometry and morphology",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13150244/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 34,
+   "title": "Expanding the Classic Facial Canons: Quantifying Intercanthal Distance in a Diverse Patient Population",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9029890/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 35,
+   "title": "Systematic review on forensic craniofacial reconstruction. I. Facial soft-tissue thickness",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/37531497/",
+   "kind": "review",
+   "year": "2023"
+  },
+  {
+   "n": 36,
+   "title": "Facial soft tissue thickness, Yangtze River delta Han, CBCT (424 adults; sex, age, BMI)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32217445",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 37,
+   "title": "Assessing the contribution of orthodontic profiles in predicting facial soft tissue thickness for forensic facial approximation",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532767/",
+   "kind": "paper",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Farkas LG, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Buikstra JE & Ubelaker DH, Standards for Data Collection from Human Skeletal Remains, 1994",
+  "Walker PL, Sexing skulls using discriminant function analysis of visually assessed traits, Am J Phys Anthropol, 2008",
+  "Rosas A & Bastir M, Thin-plate spline analysis of allometry and sexual dimorphism in the human craniofacial complex, Am J Phys Anthropol, 2002",
+  "Bruce V et al., Sex discrimination: how do we tell the difference between male and female faces?, Perception, 1993",
+  "Burton AM, Bruce V & Dench N, What's the difference between men and women? Evidence from facial measurement, Perception, 1993",
+  "Brown E & Perrett DI, What gives a face its gender?, Perception, 1993",
+  "Perrett DI et al., Effects of sexual dimorphism on facial attractiveness, Nature, 1998",
+  "Russell R, A sex difference in facial contrast and its exaggeration by cosmetics, Perception, 2009",
+  "Weston EM, Friday AE & Lio P, Biometric evidence that sexual selection has shaped the hominin face, PLoS ONE, 2007",
+  "Geniole SN et al., meta-analyses of facial width-to-height ratio as an evolved cue of threat, PLoS ONE, 2015",
+  "Kramer RSS, Sexual dimorphism of facial width-to-height ratio in human skulls and faces: a meta-analytical approach, Evolution and Human Behavior, 2017",
+  "Vig RG & Brundo GC, The kinetics of anterior tooth display, J Prosthet Dent, 1978",
+  "Ousterhout DK, Feminization of the forehead: contour changing to improve female aesthetics, Plast Reconstr Surg, 1987",
+  "Enlow DH & Hans MG, Essentials of Facial Growth, 1996",
+  "Paysan P et al., A 3D Face Model for Pose and Illumination Invariant Face Recognition (Basel Face Model), AVSS, 2009"
+ ]
+}

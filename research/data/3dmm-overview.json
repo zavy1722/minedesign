@@ -1,0 +1,106 @@
+{
+  "topic": "3dmm-overview",
+  "tables": [
+    {
+      "name": "3dmm_catalogue",
+      "units": "counts (vertices, components, subjects); null = not recalled",
+      "columns": ["model", "year", "vertices", "triangles", "coverage", "identity_components", "expression_components", "pose_params", "training_subjects", "capture", "population", "licence", "commercial_ok_default", "status"],
+      "rows": [
+        ["Blanz-Vetter", "1999", 70000, null, "face", 199, 0, 0, 200, "Cyberware laser", "100 f / 100 m, European", "not released", false, "knowledge"],
+        ["BFM 2009", "2009", 53490, 106466, "face, ears, upper neck; no eyeballs, no mouth interior", 199, 0, 0, 200, "structured light", "mostly European, ~8-62 y", "non-commercial research, registration", false, "knowledge"],
+        ["BFM 2017 face12", "2017", 28588, null, "face", 199, 100, 0, 200, "same scans as 2009 plus small expression set", "as BFM 2009", "non-commercial research", false, "contested"],
+        ["BFM 2017 bfm", "2017", 53149, null, "face and ears", 199, 100, 0, 200, "same scans as 2009 plus small expression set", "as BFM 2009", "non-commercial research", false, "contested"],
+        ["BFM 2019", "2019", null, null, "face12, bfm and full-head variants", null, null, 0, null, null, null, "non-commercial research", false, "contested"],
+        ["FaceWarehouse", "2014", 11510, null, "face and front of head", 50, 47, 0, 150, "Kinect RGB-D, 20 expressions each", "ages 7-80, mixed", "research, on request", false, "contested"],
+        ["LSFM", "2016", null, null, "face", 158, 0, 0, 9663, "3dMD", "includes children, ~80% White", "non-commercial, on request", false, "knowledge"],
+        ["FLAME 2017/2020", "2017/2020", 5023, 9976, "head, neck, two eyeballs; no mouth interior", 300, 100, 15, 3800, "CAESAR laser (identity); 4D sequences (expression)", "18-65 y, North America + Europe", "non-commercial research; commercial via MPI/Meshcapade", false, "knowledge"],
+        ["FLAME 2023", "2023", 5023, 9976, "as FLAME 2020", 300, 100, 15, null, null, null, "non-commercial; 'FLAME 2023 Open' variant CC BY 4.0 (flame.is.tue.mpg.de/modellicense.html)", false, "sourced"],
+        ["LYHM", "2017", null, null, "full head incl. cranium (capped scans)", null, 0, 0, 1212, "3dMD (Headspace, ~1,500 subjects)", "UK, children to elderly", "academic", false, "knowledge"],
+        ["UHM (Universal Head Model)", "2019/2021", null, null, "head + ears, eyes, mouth interior (TPAMI version)", null, null, null, null, "LSFM face + LYHM cranium combined", "as parent models", "academic non-commercial", false, "knowledge"],
+        ["Surrey Face Model", "2016", 3448, null, "face (low-resolution level; finer levels exist)", null, null, 0, 169, "3D scans", null, "academic", false, "knowledge"],
+        ["FaceScape", "2020", 26317, null, "face and front of head, plus 4K displacement maps", 50, 52, 0, 938, "68-DSLR array, 20 expressions each (18,760 models)", "mostly Chinese adults", "non-commercial, application", false, "contested"],
+        ["ICT-FaceKit", "2020", null, null, "head, eyes, lacrimal/occlusion, teeth, gums, tongue; quads", 100, 53, 0, null, "Light Stage", "diverse", "MIT (repository)", true, "contested"],
+        ["FaceVerse", "2022", null, null, "head", null, 52, 0, 128, "~60k RGB-D frames + ~2k scans", "East Asian", "non-commercial (believed)", false, "contested"],
+        ["HIFI3D++", "2022", 20481, null, "face and front of head", 526, null, 0, 1957, "merge of FaceScape, Headspace, HIFI3D", "mixed, Asian-weighted", "research", false, "contested"],
+        ["NPHM", "2023", null, null, "head (implicit SDF, no fixed topology)", null, null, 0, 255, "~5,200 high-res scans", "mostly European", "non-commercial", false, "knowledge"]
+      ],
+      "population": "model training sets as recalled",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "All counts from expert recall; no harvest existed. Integers for BFM 2017 crops (28588, 53149), FaceScape (26317), HIFI3D++ (20481, 526, 1957), FaceWarehouse expression count (25 vs 47) and LSFM components (158) are low-confidence: assert at load time and verify. commercial_ok_default is the safe engine default, not a legal opinion."
+    },
+    {
+      "name": "load_time_assertions",
+      "units": "vertex count; unit of stored coordinates; axis convention",
+      "columns": ["mesh", "expected_vertices", "stored_units", "to_mm_factor", "axes", "status"],
+      "rows": [
+        ["FLAME (any release)", 5023, "m", 1000, "Y-up, face toward +Z", "knowledge"],
+        ["FLAME eyeballs (subset; select via FLAME masks, never hard-coded indices)", 1092, "m", 1000, "as FLAME", "knowledge"],
+        ["BFM 2009", 53490, "sub-mm, commonly read as micrometres", 0.001, "Y-up, face toward +Z", "contested"],
+        ["BFM 2017/2019 face12", 28588, "mm", 1, "Y-up, face toward +Z", "contested"],
+        ["BFM 2017/2019 bfm", 53149, "mm", 1, "Y-up, face toward +Z", "contested"],
+        ["3DDFA BFM crop (no neck/ears)", 53215, "as BFM 2009", null, "as BFM", "knowledge"],
+        ["Deep3DFaceRecon BFM front crop", 35709, "as BFM 2009", null, "as BFM", "knowledge"],
+        ["SMPL-X (FLAME-compatible head region)", 10475, "m", 1000, "Y-up", "knowledge"]
+      ],
+      "population": "n/a",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Sanity check after conversion: adult zygion-zygion face width should be ~125-150 mm. If not, the unit factor is wrong. Library notes blender/import-export-scans.md also mark BFM units as contested."
+    },
+    {
+      "name": "beta_norm_chi2_quantiles",
+      "units": "squared Mahalanobis norm ||beta||^2 (dimensionless) for beta ~ N(0, I_K)",
+      "columns": ["K", "q01", "median", "q99", "q999", "sqrt_K"],
+      "rows": [
+        [10, 2.5, 9.3, 23.2, 29.8, 3.16],
+        [20, 8.2, 19.3, 37.6, 45.4, 4.47],
+        [50, 29.7, 49.3, 76.2, 86.7, 7.07],
+        [100, 70.0, 99.3, 135.8, 149.5, 10.0],
+        [200, 156.4, 199.3, 249.5, 267.6, 14.14],
+        [300, 246.0, 299.3, 359.9, 381.5, 17.32]
+      ],
+      "population": "theoretical population sample under a whitened Gaussian PCA prior",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Computed with the Wilson-Hilferty approximation (matches exact chi-square to ~0.5). Gate: flag fits above q999. MAP fits sit far below the median because unconstrained components shrink to zero; that is expected, not an error."
+    },
+    {
+      "name": "resolution_vs_multires",
+      "units": "mm (approximate mean edge length on the face region)",
+      "columns": ["base_mesh", "face_edge_mm_low", "face_edge_mm_high", "multires_levels_to_about_0.5mm", "topology", "status"],
+      "rows": [
+        ["FLAME", 3, 6, 3, "triangles", "knowledge"],
+        ["BFM 2009", 0.8, 1.2, 1, "triangles", "knowledge"],
+        ["FaceScape / HIFI3D / ICT-FaceKit", 1.5, 3, 2, "FaceScape/HIFI3D triangles; ICT quads", "contested"]
+      ],
+      "population": "n/a",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Estimated from vertex count and approximate face/head surface area; order of magnitude only. FLAME 9,976 tris -> Catmull-Clark L1 29,928 quads, L2 119,712, L3 478,848."
+    },
+    {
+      "name": "suggested_3dmm_fit_priors",
+      "units": "sigma in PCA standard-deviation units unless stated",
+      "columns": ["term", "setting", "status"],
+      "rows": [
+        ["identity beta", "N(0,1) per component after normalising basis to SD units", "knowledge"],
+        ["identity beta, sitter outside training population", "sigma x ~1.5 (guess; tune on held-out views)", "contested"],
+        ["K, sparse landmarks 3-9 views", "30-50 components", "knowledge"],
+        ["K, dense multi-view / photometric", "100-300 components", "knowledge"],
+        ["K schedule", "10 -> 50 -> full", "knowledge"],
+        ["expression psi, neutral-tagged view", "N(0, 0.3^2)", "knowledge"],
+        ["expression psi, expressive view", "N(0, 1), per view, beta shared", "knowledge"],
+        ["jaw rotation, neutral view", "sigma ~2-3 degrees", "knowledge"],
+        ["eye rotations", "nuisance, bounded +/-30 degrees", "knowledge"],
+        ["global scale with metric cue", "N(1, 0.04-0.05^2)", "knowledge"],
+        ["basis self-test", "+1 SD on component 1 moves vertices by RMS ~2-8 mm", "knowledge"],
+        ["post-3DMM per-vertex offsets", "Laplacian/RBF regularised, typically <= 3-5 mm", "knowledge"]
+      ],
+      "population": "adult faces; FLAME/BFM-style linear models",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Consistent with reconstruction/multi-view-fitting.md Table 5 and reconstruction/deformation-fitting-math.md. All starting values; tune by held-out-view reprojection error."
+    }
+  ]
+}

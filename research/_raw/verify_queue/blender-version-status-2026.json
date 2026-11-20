@@ -1,0 +1,27 @@
+{
+ "id": "blender-version-status-2026",
+ "area": "blender",
+ "title": "Blender release status and roadmap as of late 2026",
+ "queue": [
+  {
+   "claim": "Bundled Python version in Blender 5.0, 5.1, 5.2 LTS and 5.3 (note assumes 5.0 = 3.11; 3.13 in 5.1+ is only a hypothesis), which decides the CPython tag for any bundled wheels",
+   "query": "Blender 5.2 LTS bundled Python version 3.13 release notes python_api",
+   "domains": "developer.blender.org,blender.org,projects.blender.org"
+  },
+  {
+   "claim": "Bundled NumPy version in Blender 5.x and whether any 5.x release moved from NumPy 1.x to 2.x",
+   "query": "Blender 5.1 numpy 2 upgrade bundled numpy version",
+   "domains": "developer.blender.org,projects.blender.org,devtalk.blender.org"
+  },
+  {
+   "claim": "Blender 5.0 Python API breaking changes: bgl removed, bpy.props no longer reachable via id['prop'], BLENDER_EEVEE_NEXT renamed to BLENDER_EEVEE, scene.compositing_node_group, COLLADA removed, legacy Action.fcurves removed; mathutils buffer protocol is float32 and non-contiguous",
+   "query": "Blender 5.0 Python API release notes bgl removed IDProperty bpy.props mathutils buffer protocol",
+   "domains": "developer.blender.org"
+  },
+  {
+   "claim": "Blender 5.3 is the current stable feature release (10 Nov 2026), and 5.2.4 LTS was released between 10 and 17 Nov 2026",
+   "query": "Blender 5.3 release November 2026 5.2.4 LTS",
+   "domains": "blender.org,developer.blender.org"
+  }
+ ]
+}

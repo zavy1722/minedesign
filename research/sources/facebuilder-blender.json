@@ -1,0 +1,21 @@
+{
+  "topic": "facebuilder-blender",
+  "sources": [
+    {"n": 1, "title": "FaceBuilder for Blender 2021.1 is out: now with AI - Blender Artists Community", "url": "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243", "kind": "forum (vendor announcement; reused from _raw/harvests/blenderartists-forum.json, search summary only)", "year": "2021"},
+    {"n": 2, "title": "Revamped FaceBuilder for Blender - Blender Artists Community", "url": "https://blenderartists.org/t/revamped-facebuilder-for-blender/1245723", "kind": "forum (vendor announcement; reused from _raw/harvests/blenderartists-forum.json, search summary only)", "year": "n.d. (~2020 by topic ID)"},
+    {"n": 3, "title": "The first-stable FaceBuilder release for Blender - Blender Artists Community", "url": "https://blenderartists.org/t/the-first-stable-facebuilder-release-for-blender/1210803", "kind": "forum (reused from _raw/harvests/blenderartists-forum.json, search summary only)", "year": "n.d. (~2020 by topic ID)"},
+    {"n": 4, "title": "KeenTools For Blender 2.8 - Blender Development Discussion - Blender Artists Community", "url": "https://blenderartists.org/t/keentools-for-blender-2-8/1173005", "kind": "forum (reused from _raw/harvests/blenderartists-forum.json, search summary only)", "year": "n.d. (~2019 by topic ID)"}
+  ],
+  "references_by_name": [
+    "KeenTools FaceBuilder for Blender user documentation",
+    "KeenTools public GitHub repository for the Blender add-on (GPL front-end code)",
+    "Apple ARKit documentation, ARFaceAnchor.BlendShapeLocation",
+    "Epic Games Live Link Face app documentation (CSV export)",
+    "Hartley & Zisserman, Multiple View Geometry in Computer Vision (2nd ed., 2004)",
+    "Zhang, A Flexible New Technique for Camera Calibration, IEEE TPAMI (2000)",
+    "Brown, Decentering Distortion of Lenses, Photogrammetric Engineering (1966)",
+    "Blanz & Vetter, A Morphable Model for the Synthesis of 3D Faces, SIGGRAPH 1999",
+    "Ward et al., Nasal distortion in short-distance photographs: the selfie effect, JAMA Facial Plastic Surgery (2018)",
+    "Farkas, Anthropometry of the Head and Face (2nd ed., 1994)"
+  ]
+}

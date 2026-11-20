@@ -1,0 +1,27 @@
+{
+ "id": "monocular-depth-normals",
+ "area": "reconstruction",
+ "title": "Monocular depth and surface normals for faces",
+ "queue": [
+  {
+   "claim": "DA3Metric-Large metric depth = focal_px * net_output / 300 with focal = mean(fx, fy); unconfirmed whether focal must be expressed at the network processing resolution or the original image resolution, and whether output is in metres",
+   "query": "Depth-Anything-3 DA3Metric-Large metric depth focal net output 300 processing resolution meters",
+   "domains": "github.com,arxiv.org"
+  },
+  {
+   "claim": "Depth Anything V2 relative checkpoints output affine-invariant inverse depth (disparity), not depth, so scale/shift must be fitted in disparity space",
+   "query": "Depth Anything V2 relative depth output is disparity inverse depth convert to metric",
+   "domains": "github.com,huggingface.co"
+  },
+  {
+   "claim": "Depth Anything V2 Small is Apache-2.0 while Base/Large/Giant weights are CC BY-NC 4.0",
+   "query": "Depth-Anything-V2 model license Small Apache-2.0 Base Large Giant CC-BY-NC-4.0",
+   "domains": "github.com,huggingface.co"
+  },
+  {
+   "claim": "Sapiens depth/normal models come in 0.3B/0.6B/1B/2B sizes at 1024x768 input with TorchScript lite exports, under a custom Meta licence; 28-class segmentation includes hair, lips, teeth, eyeglasses",
+   "query": "facebookresearch sapiens normal depth license 1024x768 sapiens lite torchscript 0.3b",
+   "domains": "github.com"
+  }
+ ]
+}

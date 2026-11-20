@@ -62,6 +62,11 @@ def test_to_blender_camera_conventions():
     assert bl["shift_x"] == 0 and bl["shift_y"] == 0
     cam2 = cam.copy(); cam2.cx -= 100
     assert to_blender_camera(cam2)["shift_x"] > 0
+    # Portrait-orientation image (3000x4000) with HORIZONTAL sensor fit: shift is in
+    # units of the WIDTH for both axes (Blender viewplane uses the fit dimension).
+    cam3 = cam.copy(); cam3.cy += 300
+    bl3 = to_blender_camera(cam3)
+    assert np.isclose(bl3["shift_y"], 300 / cam3.width)
 
 
 def test_umeyama_recovers_similarity():
@@ -84,11 +89,28 @@ def test_rbf_interpolates_and_preserves_affine():
     assert np.allclose(warp_aff(P), P @ A.T + b, atol=1e-6)
 
 
-def test_rbf_smoothing_trades_fit_for_smoothness():
+@pytest.mark.parametrize("kind", ["biharmonic", "triharmonic", "multiquadric"])
+def test_rbf_smoothing_is_a_proper_smoothing_spline(kind):
+    """Increasing smoothing must monotonically lower bending energy, raise the data
+    residual, and stay bounded by the affine least-squares fit (lambda -> inf).
+    A sign error in the regulariser breaks all three (regression test)."""
     _, X = synthetic_landmarks()
     Y = X + rng.normal(scale=3.0, size=X.shape)
-    exact = RBFWarp(X, Y)
-    smooth = RBFWarp(X, Y, smoothing=50.0)
-    err_exact = np.abs(exact(X) - Y).max()
-    err_smooth = np.abs(smooth(X) - Y).max()
-    assert err_smooth > err_exact
+    from face3d.geometry.rbf import _kernel, _pairwise
+    sgn = -1.0 if kind in ("biharmonic", "multiquadric") else 1.0
+    K = sgn * _kernel(_pairwise(X, X), kind, 10.0)   # CPD form of the kernel
+    P = np.hstack([np.ones((len(X), 1)), X])
+    a_aff = np.linalg.lstsq(P, Y - X, rcond=None)[0]
+    res_affine = np.sqrt(np.mean(np.sum((P @ a_aff - (Y - X)) ** 2, 1)))
+    lams = [0.0, 0.1, 1.0, 10.0, 100.0, 1e3, 1e4] if kind != "triharmonic" else [0.0, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7]
+    energies, residuals = [], []
+    for lam in lams:
+        w = RBFWarp(X, Y, kind=kind, smoothing=lam, eps=10.0)
+        wc = sgn * w.w  # coefficients of the CPD-form kernel
+        energies.append(float(np.sum(wc * (K @ wc))))
+        residuals.append(float(np.sqrt(np.mean(np.sum((w(X) - Y) ** 2, 1)))))
+    assert all(e >= -1e-6 for e in energies)
+    assert all(a >= b - 1e-6 for a, b in zip(energies, energies[1:]))
+    assert all(a <= b + 1e-6 for a, b in zip(residuals, residuals[1:]))
+    assert residuals[0] < 1e-6
+    assert residuals[-1] <= res_affine + 1e-6

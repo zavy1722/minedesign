@@ -1,0 +1,627 @@
+{
+ "topic": "forehead-brow-temple-hairline",
+ "tables": [
+  {
+   "name": "fstt_forehead_sourced",
+   "units": "mm (soft-tissue depth, bone to skin; skin-only row is epidermis+dermis)",
+   "columns": [
+    "site",
+    "value_mm",
+    "low_mm",
+    "high_mm",
+    "sex",
+    "population",
+    "method",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "glabella",
+     5.11,
+     null,
+     null,
+     "not confirmed",
+     "not confirmed",
+     "CBCT, Stephan-Simpson landmarks",
+     8
+    ],
+    [
+     "nasion",
+     6.78,
+     null,
+     null,
+     "not confirmed",
+     "not confirmed",
+     "CBCT",
+     8
+    ],
+    [
+     "nasion_lowest_bmi_group",
+     5.57,
+     null,
+     null,
+     "mixed",
+     "Iranian adults",
+     "MRI",
+     10
+    ],
+    [
+     "nasion_highest_bmi_group",
+     8.25,
+     null,
+     null,
+     "mixed",
+     "Iranian adults",
+     "MRI",
+     10
+    ],
+    [
+     "skin_only_supraorbital_and_other_regions",
+     null,
+     1.1,
+     1.6,
+     "mixed",
+     "not confirmed",
+     "high-frequency ultrasound (median skin thickness)",
+     11
+    ]
+   ],
+   "population": "Adults; populations as listed per row",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/"
+   ],
+   "status": "sourced",
+   "notes": "Nasion rows agree across two sources (6-8 mm) and count as verified; glabella single-source here but matches the pooled ~5.5 mm in data/skull-osteology.json. Males thicker over forehead at all ages (MRI, [9]) - direction only. Values from search snippets; full text not checked."
+  },
+  {
+   "name": "fstt_forehead_temple_expert",
+   "units": "mm",
+   "columns": [
+    "site",
+    "low_mm",
+    "high_mm",
+    "suggested_mu_mm",
+    "sigma_log",
+    "thicker_sex",
+    "notes"
+   ],
+   "rows": [
+    [
+     "glabella",
+     4.5,
+     6.5,
+     5.3,
+     0.15,
+     "M",
+     "anchor; consistent with sourced 5.1-5.5"
+    ],
+    [
+     "supraglabella_mid_forehead",
+     4,
+     6,
+     5.0,
+     0.2,
+     "M",
+     "direction sourced [9]"
+    ],
+    [
+     "frontal_eminence",
+     4,
+     6,
+     5.0,
+     0.2,
+     "M",
+     ""
+    ],
+    [
+     "supraorbital_mid_brow",
+     6,
+     9,
+     7.5,
+     0.2,
+     "",
+     "ROOF under lateral brow"
+    ],
+    [
+     "mid_temple_skin_to_bone",
+     10,
+     25,
+     15.0,
+     0.35,
+     "",
+     "temporalis + fat pads + fascia; age/BMI/clenching dependent"
+    ],
+    [
+     "scalp_vertex",
+     5,
+     7,
+     6.0,
+     0.2,
+     "",
+     "for scalp shell over skull"
+    ]
+   ],
+   "population": "Adult, mixed; expert ranges",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Use as log-normal priors; needs verification against pooled FSTT tables (e.g. Stephan T-tables)."
+  },
+  {
+   "name": "temporalis_thickness",
+   "units": "mm",
+   "columns": [
+    "measure",
+    "rest_mm",
+    "contracted_mm",
+    "low_mm",
+    "high_mm",
+    "population",
+    "method",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "temporalis_2024_reference",
+     8.8,
+     9.8,
+     null,
+     null,
+     "healthy adults",
+     "ultrasound (mean; SD 1.1 rest)",
+     15
+    ],
+    [
+     "temporalis_earlier_control",
+     6.4,
+     7.6,
+     null,
+     null,
+     "control group cited in [15]",
+     "ultrasound",
+     15
+    ],
+    [
+     "temporalis_other_cohort",
+     8.1,
+     9.8,
+     null,
+     null,
+     "cohort cited in [15]",
+     "ultrasound",
+     15
+    ],
+    [
+     "temporalis_mri_range",
+     null,
+     null,
+     3.69,
+     16.9,
+     "Japanese adults 35-84 y, n=360",
+     "MRI",
+     16
+    ]
+   ],
+   "population": "Adults",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8053578",
+    "https://academic.oup.com/dmfr/article/53/2/137/7499341",
+    "https://surgicalneurologyint.com/surgicalint-articles/standard-values-for-temporal-muscle-thickness-in-the-japanese-population-who-undergo-brain-check-up-by-magnetic-resonance-imaging/"
+   ],
+   "status": "contested",
+   "notes": "Protocol- and population-sensitive; do not transfer across modalities. US site 1 cm above and 1 cm lateral to lateral canthus [14]. Men thicker except over 70; correlates with weight/BMI [16]."
+  },
+  {
+   "name": "forehead_brow_positions_sourced",
+   "units": "mm",
+   "columns": [
+    "quantity",
+    "value_mm",
+    "low_mm",
+    "high_mm",
+    "population",
+    "source_n",
+    "status"
+   ],
+   "rows": [
+    [
+     "supraorbital_notch_from_midline",
+     20,
+     20,
+     30,
+     "not stated (other series 20-30 mm, expert)",
+     "1;2",
+     "verified (upper range contested)"
+    ],
+    [
+     "depressor_supercilii_insertion_above_medial_canthal_tendon",
+     null,
+     13,
+     14,
+     "cadaver (Cook 2001)",
+     "29",
+     "sourced"
+    ],
+    [
+     "brow_asymmetry_detection_threshold",
+     3,
+     null,
+     null,
+     "naive observers, facial paralysis model",
+     "32",
+     "sourced"
+    ]
+   ],
+   "population": "Adults",
+   "source_urls": [
+    "https://www.kenhub.com/en/library/anatomy/the-frontal-bone",
+    "https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29",
+    "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications",
+    "https://pubmed.ncbi.nlm.nih.gov/21242426/"
+   ],
+   "status": "sourced",
+   "notes": "Row-level status in last column."
+  },
+  {
+   "name": "forehead_dimensions_angles_expert",
+   "units": "mm or degrees as stated",
+   "columns": [
+    "quantity",
+    "unit",
+    "male_low",
+    "male_high",
+    "female_low",
+    "female_high",
+    "sd",
+    "notes"
+   ],
+   "rows": [
+    [
+     "forehead_height_tr_to_soft_nasion",
+     "mm",
+     60,
+     70,
+     55,
+     65,
+     7,
+     "hair-dependent; tr-g' about 10-15 mm less; largest inter-ethnic variation [33]"
+    ],
+    [
+     "min_frontal_width_ft_ft_soft",
+     "mm",
+     108,
+     114,
+     103,
+     109,
+     4.5,
+     "from data/anthropometric-norms.json"
+    ],
+    [
+     "ft_ft_over_zy_zy",
+     "ratio",
+     0.78,
+     0.84,
+     0.78,
+     0.84,
+     0.03,
+     "derived"
+    ],
+    [
+     "frontal_chord_n_b_skull",
+     "mm",
+     108,
+     118,
+     102,
+     112,
+     5,
+     "Howells-type craniometry"
+    ],
+    [
+     "frontal_subtense_skull",
+     "mm",
+     22,
+     30,
+     22,
+     30,
+     3,
+     "arc height over n-b chord"
+    ],
+    [
+     "nasofrontal_angle",
+     "deg",
+     115,
+     135,
+     115,
+     135,
+     7,
+     "Powell & Humphreys 115-130; female more obtuse"
+    ],
+    [
+     "forehead_inclination_vs_FH_perpendicular",
+     "deg",
+     10,
+     20,
+     5,
+     12,
+     5,
+     "CONTESTED: definitions vary (tr-g' line vs upper-forehead tangent)"
+    ],
+    [
+     "radix_ahead_of_corneal_plane",
+     "mm",
+     9,
+     14,
+     9,
+     14,
+     null,
+     "rhinoplasty norm"
+    ],
+    [
+     "fz_suture_above_lateral_canthus",
+     "mm",
+     8,
+     12,
+     8,
+     12,
+     null,
+     "palpable"
+    ],
+    [
+     "frontal_eminence_above_supraorbital_margin",
+     "mm",
+     25,
+     35,
+     25,
+     35,
+     null,
+     "eminences ~50-70 mm apart"
+    ],
+    [
+     "mid_pupil_to_brow_top_women",
+     "mm",
+     null,
+     null,
+     20,
+     30,
+     null,
+     "brow-lift literature"
+    ],
+    [
+     "mature_hairline_temporal_recession_men",
+     "mm",
+     10,
+     20,
+     null,
+     null,
+     null,
+     "juvenile to mature hairline, not balding"
+    ]
+   ],
+   "population": "Adults, mostly North American/European White-type norms",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3074358/"
+   ],
+   "status": "knowledge",
+   "notes": "Expert recall; forehead_inclination is contested. Verify before using as hard priors."
+  },
+  {
+   "name": "fitting_priors_suggested",
+   "units": "as stated",
+   "columns": [
+    "parameter",
+    "unit",
+    "mu_male",
+    "mu_female",
+    "sigma",
+    "distribution",
+    "notes"
+   ],
+   "rows": [
+    [
+     "forehead_inclination_deg",
+     "deg",
+     12,
+     8,
+     5,
+     "normal",
+     "FH frame; add pitch sigma 2-3 deg"
+    ],
+    [
+     "nasofrontal_angle_deg",
+     "deg",
+     125,
+     128,
+     7,
+     "normal",
+     ""
+    ],
+    [
+     "glabella_proj_mm",
+     "mm",
+     5,
+     4,
+     2.5,
+     "normal",
+     "g' ahead of n' along FH depth"
+    ],
+    [
+     "supraglabellar_break_mm",
+     "mm",
+     1.5,
+     0.3,
+     1,
+     "half-normal",
+     "male concavity band 10-25 mm above g'"
+    ],
+    [
+     "ft_ratio",
+     "ratio",
+     0.81,
+     0.81,
+     0.03,
+     "normal",
+     "ft-ft/zy-zy"
+    ],
+    [
+     "temple_fullness_mm",
+     "mm",
+     0,
+     0,
+     3,
+     "normal",
+     "young adult mu 0; ~-1 mm/decade after 50 placeholder; negative at low BMI"
+    ],
+    [
+     "sigma_sym_upper_face_mm",
+     "mm",
+     1.5,
+     1.5,
+     null,
+     "",
+     "left/right eminences, crests, rim"
+    ],
+    [
+     "brow_landmark_sigma_for_bone_mm",
+     "mm",
+     4,
+     4,
+     null,
+     "",
+     "3-5 mm; brow hair is not bone"
+    ],
+    [
+     "mediapipe_forehead_point_sigma_mm",
+     "mm",
+     5,
+     5,
+     null,
+     "",
+     "in-plane; ignore depth"
+    ],
+    [
+     "profile_forehead_silhouette_sigma_mm",
+     "mm",
+     1,
+     1,
+     null,
+     "",
+     ""
+    ],
+    [
+     "brow_blendshape_expression_gate",
+     "score",
+     0.25,
+     0.25,
+     null,
+     "",
+     "drop brow/forehead residuals above ~0.2-0.3"
+    ]
+   ],
+   "population": "Adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering defaults, not measured norms."
+  },
+  {
+   "name": "detector_indices_brow_forehead",
+   "units": "index",
+   "columns": [
+    "detector",
+    "region",
+    "indices",
+    "notes",
+    "status"
+   ],
+   "rows": [
+    [
+     "dlib68",
+     "right_brow_subject",
+     "17-21",
+     "0-based; brow-hair arc",
+     "sourced"
+    ],
+    [
+     "dlib68",
+     "left_brow_subject",
+     "22-26",
+     "0-based",
+     "sourced"
+    ],
+    [
+     "mediapipe_478",
+     "midline_forehead_chain",
+     "10,151,9,8,168",
+     "10 = mesh top, not trichion; verify per model version",
+     "knowledge"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [
+    "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+    "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/"
+   ],
+   "status": "sourced",
+   "notes": "MediaPipe outputs 478 3D points and 52 blendshape scores [38]."
+  },
+  {
+   "name": "hair_loss_scales",
+   "units": "grades",
+   "columns": [
+    "scale",
+    "sex",
+    "grades",
+    "year",
+    "notes"
+   ],
+   "rows": [
+    [
+     "Hamilton",
+     "M",
+     "I-VIII",
+     "1951",
+     "original"
+    ],
+    [
+     "Norwood (Hamilton-Norwood)",
+     "M",
+     "I-VII plus type A variants",
+     "1975",
+     "Norwood II approximates a mature hairline"
+    ],
+    [
+     "BASP",
+     "M/F",
+     "basic + specific types",
+     "2007",
+     "Lee et al."
+    ],
+    [
+     "Ludwig",
+     "F",
+     "I-III",
+     "1977",
+     "crown thinning, frontal hairline retained"
+    ],
+    [
+     "Sinclair",
+     "F",
+     "1-5",
+     "",
+     ""
+    ],
+    [
+     "Olsen frontal accentuation",
+     "F",
+     "pattern",
+     "",
+     "'Christmas tree' pattern"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Grade counts from expert recall; verify."
+  }
+ ]
+}

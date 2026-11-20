@@ -1,0 +1,24 @@
+{
+  "topic": "ai-assisted-sculpting",
+  "sources": [],
+  "references_by_name": [
+    "Xiang et al., 'Structured 3D Latents for Scalable and Versatile 3D Generation' (TRELLIS), CVPR 2025",
+    "Tencent Hunyuan3D team, 'Hunyuan3D 2.0: Scaling Diffusion Models for High Resolution Textured 3D Assets Generation', technical report, 2025",
+    "Tencent Hunyuan Community License Agreement (Hunyuan3D repositories)",
+    "Tochilkin et al., 'TripoSR: Fast 3D Object Reconstruction from a Single Image', 2024",
+    "Hong et al., 'LRM: Large Reconstruction Model for Single Image to 3D', ICLR 2024",
+    "Boss et al., 'SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement', 2024",
+    "Deitke et al., 'Objaverse: A Universe of Annotated 3D Objects', CVPR 2023; Objaverse-XL, NeurIPS 2023",
+    "Oquab et al., 'DINOv2: Learning Robust Visual Features without Supervision', 2023",
+    "Shen et al., 'Flexible Isosurface Extraction for Gradient-Based Mesh Optimization' (FlexiCubes), SIGGRAPH 2023",
+    "Zhang et al., 'DreamFace: Progressive Generation of Animatable 3D Faces under Text Guidance', ACM TOG 2023",
+    "Wang et al., 'Rodin: A Generative Model for Sculpting 3D Digital Avatars Using Diffusion', CVPR 2023 (Microsoft; unrelated to Hyper3D Rodin)",
+    "Amberg, Romdhani, Vetter, 'Optimal Step Nonrigid ICP Algorithms for Surface Registration', CVPR 2007",
+    "Umeyama, 'Least-squares estimation of transformation parameters between two point patterns', IEEE TPAMI 1991",
+    "Farkas, 'Anthropometry of the Head and Face', 1994",
+    "KeenTools FaceBuilder for Blender documentation",
+    "Reallusion Headshot 2 documentation",
+    "Epic Games MetaHuman documentation (Mesh to MetaHuman)"
+  ],
+  "notes": "Neither the harvest (_raw/harvests/ai-assisted-sculpting.json) nor an earlier draft existed for this topic, so no URLs are cited. Every claim in the note is author knowledge (🧠) or contested (↔️). Related library notes: community/reddit-face-from-photos.md, community/blenderartists-forum.md, blender/blender-face-addons.md, reconstruction/single-image-regression.md, reconstruction/identity-embeddings.md, blender/reference-camera-setup.md."
+}

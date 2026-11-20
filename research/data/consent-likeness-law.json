@@ -1,0 +1,354 @@
+{
+  "topic": "consent-likeness-law",
+  "tables": [
+    {
+      "name": "post_mortem_publicity_terms",
+      "units": "years after death",
+      "columns": [
+        "jurisdiction",
+        "term_years",
+        "notes",
+        "row_status"
+      ],
+      "rows": [
+        [
+          "US-CA",
+          70,
+          "Civ. Code §3344.1",
+          "knowledge"
+        ],
+        [
+          "US-NY",
+          40,
+          "Civil Rights Law §50-f, deaths from 2020 onward; registration",
+          "knowledge"
+        ],
+        [
+          "US-TN",
+          10,
+          "then continues while commercially used; lapses after 2 consecutive years of non-use",
+          "knowledge"
+        ],
+        [
+          "US-IN",
+          100,
+          "among the broadest",
+          "knowledge"
+        ],
+        [
+          "US-OK",
+          100,
+          "",
+          "knowledge"
+        ],
+        [
+          "US-TX",
+          50,
+          "Property Code ch. 26",
+          "knowledge"
+        ],
+        [
+          "US-IL",
+          50,
+          "765 ILCS 1075",
+          "knowledge"
+        ],
+        [
+          "US-WA",
+          "10 (individual) / 75 (personality)",
+          "RCW 63.60",
+          "contested"
+        ],
+        [
+          "US-FL",
+          40,
+          "Fla. Stat. §540.08",
+          "knowledge"
+        ],
+        [
+          "US-OH",
+          60,
+          "",
+          "contested"
+        ],
+        [
+          "US-PA",
+          30,
+          "",
+          "contested"
+        ],
+        [
+          "US-VA",
+          20,
+          "",
+          "contested"
+        ],
+        [
+          "DE (KUG §22)",
+          10,
+          "relatives' consent needed to publish portraits",
+          "knowledge"
+        ],
+        [
+          "US federal NO FAKES (proposed)",
+          "10, renewable on use up to 70",
+          "not enacted at mid-2026",
+          "contested"
+        ]
+      ],
+      "population": "statutory law; living-person rights are lifetime everywhere listed",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "From expert knowledge, not checked against statute text in this library. Statutes are amended often; verify before encoding in jurisdiction rules. Not legal advice."
+    },
+    {
+      "name": "damages_fines_deadlines",
+      "units": "mixed (USD, EUR, % worldwide turnover, hours, years)",
+      "columns": [
+        "law",
+        "figure",
+        "unit",
+        "row_status"
+      ],
+      "rows": [
+        [
+          "California Civ. Code §3344 / §3344.1",
+          750,
+          "USD minimum statutory damages (or actual damages + profits)",
+          "knowledge"
+        ],
+        [
+          "California AB 1836 (deceased digital replica)",
+          10000,
+          "USD minimum (or actual damages)",
+          "knowledge"
+        ],
+        [
+          "Illinois BIPA negligent",
+          1000,
+          "USD per violation",
+          "knowledge"
+        ],
+        [
+          "Illinois BIPA intentional/reckless",
+          5000,
+          "USD per violation",
+          "knowledge"
+        ],
+        [
+          "Illinois BIPA destruction deadline",
+          3,
+          "years after last interaction (max)",
+          "knowledge"
+        ],
+        [
+          "Texas CUBI",
+          25000,
+          "USD per violation (max, AG enforcement)",
+          "knowledge"
+        ],
+        [
+          "TAKE IT DOWN Act platform removal",
+          48,
+          "hours after valid request",
+          "knowledge"
+        ],
+        [
+          "TAKE IT DOWN Act prison, adult victim",
+          2,
+          "years (max; 3 if minor)",
+          "contested"
+        ],
+        [
+          "EU AI Act Art. 50 breach",
+          "15000000 or 3%",
+          "EUR or worldwide annual turnover, whichever higher",
+          "knowledge"
+        ],
+        [
+          "EU AI Act Art. 5 prohibited practice",
+          "35000000 or 7%",
+          "EUR or worldwide annual turnover",
+          "knowledge"
+        ],
+        [
+          "GDPR upper tier",
+          "20000000 or 4%",
+          "EUR or worldwide annual turnover",
+          "knowledge"
+        ],
+        [
+          "India draft IT Rules SGI label",
+          10,
+          "% of display area / initial audio duration (Oct 2025 draft)",
+          "contested"
+        ]
+      ],
+      "population": "statutory law",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Expert knowledge as of mid-2026; verify. India figure is from a draft that may have changed when notified."
+    },
+    {
+      "name": "key_dates",
+      "units": "ISO date (day or month precision)",
+      "columns": [
+        "date",
+        "event",
+        "row_status"
+      ],
+      "rows": [
+        [
+          "2008",
+          "Illinois BIPA enacted",
+          "knowledge"
+        ],
+        [
+          "2023-01-10",
+          "China Deep Synthesis Provisions in force",
+          "knowledge"
+        ],
+        [
+          "2024-03-21",
+          "Tennessee ELVIS Act signed",
+          "knowledge"
+        ],
+        [
+          "2024-07-01",
+          "Tennessee ELVIS Act effective",
+          "knowledge"
+        ],
+        [
+          "2024-07",
+          "US Copyright Office Digital Replicas report; NO FAKES Act first introduced",
+          "knowledge"
+        ],
+        [
+          "2024-08-01",
+          "EU AI Act enters into force",
+          "knowledge"
+        ],
+        [
+          "2025-01-01",
+          "California AB 2602 and AB 1836 effective",
+          "contested"
+        ],
+        [
+          "2025-02-02",
+          "EU AI Act Art. 5 prohibitions apply",
+          "knowledge"
+        ],
+        [
+          "2025-04",
+          "NO FAKES Act reintroduced (119th Congress)",
+          "knowledge"
+        ],
+        [
+          "2025-05-19",
+          "TAKE IT DOWN Act signed",
+          "knowledge"
+        ],
+        [
+          "2025-09-01",
+          "China AI-generated content labelling measures apply",
+          "knowledge"
+        ],
+        [
+          "2025-11",
+          "EU Digital Omnibus proposal; India DPDP Rules notified",
+          "contested"
+        ],
+        [
+          "2026-05",
+          "TAKE IT DOWN platform notice-and-removal duties apply",
+          "knowledge"
+        ],
+        [
+          "2026-08-02",
+          "EU AI Act Art. 50 transparency obligations apply (Omnibus changes pending)",
+          "contested"
+        ]
+      ],
+      "population": "legislative timeline",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Expert knowledge; time-sensitive. Use for UI warnings keyed to export date, never as legal determination."
+    },
+    {
+      "name": "addon_policy_defaults",
+      "units": "mixed",
+      "columns": [
+        "parameter",
+        "default",
+        "unit",
+        "rationale"
+      ],
+      "rows": [
+        [
+          "min_self_consent_age",
+          18,
+          "years",
+          "below this require guardian consent + child assent"
+        ],
+        [
+          "commercial_consent_reconfirm_interval",
+          12,
+          "months",
+          "use-specific consent practice (SAG-AFTRA / AB 2602 logic)"
+        ],
+        [
+          "raw_photo_deletion_reminder",
+          90,
+          "days after project close",
+          "data minimisation"
+        ],
+        [
+          "raw_photo_retention_hard_cap",
+          3,
+          "years",
+          "Illinois BIPA ceiling"
+        ],
+        [
+          "identity_embedding_persistence",
+          "none",
+          "RAM only",
+          "embeddings are invertible biometric data"
+        ],
+        [
+          "ai_training_scope_default",
+          "off",
+          "flag",
+          "separate explicit opt-in"
+        ],
+        [
+          "cloud_processing_scope_default",
+          "off",
+          "flag",
+          "third-party processing must be named in release"
+        ],
+        [
+          "visible_disclosure_on_realistic_public_render",
+          "on",
+          "flag",
+          "EU AI Act Art. 50(4) spirit; deception statutes"
+        ],
+        [
+          "max_faces_auto_fitted_per_photo",
+          1,
+          "count",
+          "never fit bystanders; user selects subject"
+        ],
+        [
+          "ship_named_real_person_presets",
+          "never",
+          "policy",
+          "ELVIS Act / NO FAKES 'primary purpose' tool liability"
+        ]
+      ],
+      "population": "design heuristics for the add-on",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Policy defaults, not statistical priors; tune with legal counsel per jurisdiction."
+    }
+  ]
+}

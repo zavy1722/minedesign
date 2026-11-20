@@ -1,0 +1,27 @@
+{
+ "id": "mouth-lips-teeth",
+ "area": "anatomy",
+ "title": "Lips, mouth and dental support",
+ "queue": [
+  {
+   "claim": "Measured (population) midline lower:upper vermilion height ratio (sto\u2013li / ls\u2013sto) in young adults is about 1.1\u20131.4, not the 1.6 aesthetic target; the fitting prior is centred on 1.3 with \u03c3 0.3.",
+   "query": "upper lip vermilion height lower lip vermilion height mm anthropometric norms young adults ls-sto sto-li",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Adult mouth width (ch\u2013ch) is about 50\u201358 mm in men and 46\u201354 mm in women, and ch\u2013ch / interpupillary distance at rest is about 0.80\u20130.90, so resting mouth corners sit near the medial limbus rather than under the pupils.",
+   "query": "intercommissural width interpupillary distance ratio mouth corners medial limbus anthropometric study",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "In PMC7984336 (adults aged 20\u201359), the 22\u201323 mm 'upper lip height' is sn\u2013sto, not sn\u2013ls. Philtrum width is about 11\u201312 mm, and upper vermilion falls from about 8.1 mm (20s) to about 6.6 mm (50s).",
+   "query": "PMC7984336 lip morphology age 20-59 upper vermilion height philtrum width Skin Research and Technology",
+   "domains": "pmc.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov,onlinelibrary.wiley.com"
+  },
+  {
+   "claim": "Resting upper-incisor display is about 3\u20133.5 mm in young women and about 2 mm in young men, falling about 0.5\u20131 mm per decade while lower-incisor display rises (Vig & Brundo 1978).",
+   "query": "Vig Brundo 1978 kinetics of anterior tooth display maxillary incisor exposure at rest by age and sex",
+   "domains": "pubmed.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov"
+  }
+ ]
+}

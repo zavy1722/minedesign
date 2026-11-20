@@ -1,0 +1,351 @@
+{
+ "topic": "art-anatomy-books",
+ "tables": [
+  {
+   "name": "loomis_vertical_canon_normalized",
+   "units": "fraction of vertex-menton height (0 = vertex, 1 = menton)",
+   "columns": [
+    "level",
+    "landmark",
+    "loomis_canon",
+    "measured_adult_low",
+    "measured_adult_high",
+    "canon_status",
+    "measured_status"
+   ],
+   "rows": [
+    [
+     "hairline",
+     "trichion",
+     0.143,
+     0.1,
+     0.2,
+     "knowledge",
+     "knowledge"
+    ],
+    [
+     "brow",
+     "glabella",
+     0.429,
+     0.42,
+     0.46,
+     "knowledge",
+     "knowledge"
+    ],
+    [
+     "eye line",
+     "pupils/canthi",
+     0.5,
+     0.48,
+     0.53,
+     "sourced",
+     "knowledge"
+    ],
+    [
+     "nose base",
+     "subnasale",
+     0.714,
+     0.69,
+     0.73,
+     "knowledge",
+     "knowledge"
+    ],
+    [
+     "mouth",
+     "stomion",
+     0.81,
+     0.78,
+     0.82,
+     "sourced",
+     "knowledge"
+    ]
+   ],
+   "population": "Idealized adult (Loomis 3.5-unit scheme); measured ranges are approximate adult estimates, mostly European-descent males, not from a cited dataset",
+   "source_urls": [
+    "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle",
+    "https://www.proko.com/course-lesson/how-to-draw-the-head-front-view"
+   ],
+   "status": "knowledge",
+   "notes": "Eye line at half height (= 1/4 down the middle third) and mouth in the top third of the lower third are sourced from Proko; the 3.5-unit scheme and all measured ranges are expert knowledge awaiting verification (ANSUR II / Farkas / 3DFN). Not valid for children (eye line below 0.5). Trichion should never carry weight."
+  },
+  {
+   "name": "canon_ratio_priors",
+   "units": "dimensionless ratios of 3D inter-landmark distances",
+   "columns": [
+    "canon",
+    "numerator",
+    "denominator",
+    "stated_value",
+    "measured_low",
+    "measured_high",
+    "prior_mean",
+    "prior_sigma",
+    "status"
+   ],
+   "rows": [
+    [
+     "orbital: eye gap = eye width",
+     "en-en",
+     "en-ex",
+     1.0,
+     1.0,
+     1.2,
+     1.08,
+     0.1,
+     "contested"
+    ],
+    [
+     "five eye-widths across",
+     "zy-zy",
+     "en-ex",
+     5.0,
+     4.2,
+     4.8,
+     4.5,
+     0.3,
+     "contested"
+    ],
+    [
+     "orbito-nasal: nose width = eye gap",
+     "al-al",
+     "en-en",
+     1.0,
+     0.99,
+     1.12,
+     1.05,
+     0.12,
+     "sourced"
+    ],
+    [
+     "mouth vs eye gap",
+     "ch-ch",
+     "en-en",
+     null,
+     1.52,
+     1.59,
+     1.55,
+     0.12,
+     "sourced"
+    ],
+    [
+     "mouth corners under pupils",
+     "ch-ch",
+     "interpupillary",
+     1.0,
+     0.78,
+     0.88,
+     0.83,
+     0.07,
+     "contested"
+    ],
+    [
+     "equal thirds (middle/lower)",
+     "g-sn",
+     "sn-me",
+     1.0,
+     0.85,
+     0.95,
+     0.9,
+     0.08,
+     "contested"
+    ],
+    [
+     "lip line at 1/3 of lower third",
+     "sn-sto",
+     "sn-me",
+     0.333,
+     0.3,
+     0.34,
+     0.32,
+     0.03,
+     "knowledge"
+    ],
+    [
+     "ear spans brow to nose base",
+     "sa-sba",
+     "n-sn",
+     1.0,
+     1.1,
+     1.25,
+     1.15,
+     0.12,
+     "contested"
+    ],
+    [
+     "profile fits a square",
+     "g-op + nasal projection",
+     "v-me",
+     1.0,
+     0.9,
+     1.0,
+     0.95,
+     0.06,
+     "knowledge"
+    ]
+   ],
+   "population": "Adults; measured ranges mix populations (Spain 3D sample for al-al/en-en and ch-ch/en-en; others expert estimates)",
+   "source_urls": [
+    "https://finearttutorials.com/guide/loomis-method/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104",
+    "https://pubmed.ncbi.nlm.nih.gov/11497505/",
+    "https://pubmed.ncbi.nlm.nih.gov/25889948/"
+   ],
+   "status": "contested",
+   "notes": "Priors are engineering proposals: sigma ~8-12% of mean derived from 4-8% CV of linear facial dimensions. Widen sigma ~1.5x when sex/population unknown. Loader must keep weight 0 for knowledge-status rows until verified. Spain ratios: intercanthal/nasal 0.89 (M) 1.01 (F) inverted to al-al/en-en 1.12/0.99; mouth/intercanthal 1.59 (M) 1.52 (F). 'Five eye-widths' is ambiguous between zy-zy and eu-eu (eu-eu gives ~4.8-5.5)."
+  },
+  {
+   "name": "linear_dimension_dispersion",
+   "units": "mm",
+   "columns": [
+    "measure",
+    "population",
+    "sex",
+    "n",
+    "mean_mm",
+    "sd_mm",
+    "cv"
+   ],
+   "rows": [
+    [
+     "n-gn",
+     "Kosovo-Albanian adults",
+     "M",
+     null,
+     125.82,
+     6.366,
+     0.051
+    ],
+    [
+     "n-gn",
+     "Kosovo-Albanian adults",
+     "F",
+     null,
+     115.53,
+     5.004,
+     0.043
+    ],
+    [
+     "en-en",
+     "Kosovo-Albanian adults",
+     "M",
+     null,
+     32.49,
+     2.59,
+     0.08
+    ],
+    [
+     "en-en",
+     "Kosovo-Albanian adults",
+     "F",
+     null,
+     31.78,
+     2.25,
+     0.071
+    ],
+    [
+     "n-gn",
+     "Indian medical students (BHU)",
+     "M",
+     104,
+     121.64,
+     6.47,
+     0.053
+    ],
+    [
+     "n-gn",
+     "Indian medical students (BHU)",
+     "F",
+     96,
+     113.63,
+     4.61,
+     0.041
+    ],
+    [
+     "n-gn",
+     "Farkas North American White (secondary)",
+     "M",
+     null,
+     null,
+     6.8,
+     null
+    ],
+    [
+     "n-gn",
+     "Farkas North American White (secondary)",
+     "F",
+     null,
+     null,
+     5.2,
+     null
+    ],
+    [
+     "ex-ex",
+     "Farkas North American White (secondary)",
+     "M",
+     null,
+     null,
+     3.6,
+     null
+    ],
+    [
+     "ex-ex",
+     "Farkas North American White (secondary)",
+     "F",
+     null,
+     null,
+     4.0,
+     null
+    ]
+   ],
+   "population": "Adults: Kosovo-Albanian, Indian (Uttar Pradesh) students, Farkas North American White young adults",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996",
+    "https://arxiv.org/pdf/2304.07175"
+   ],
+   "status": "sourced",
+   "notes": "n-gn SD of 5-7 mm agrees across three independent sources (verified as a range). Farkas SDs are a secondary reproduction, not checked against the 1994 book. Kosovo means partly from search snippets; sample sizes not harvested."
+  },
+  {
+   "name": "canon_validity_studies",
+   "units": "study-level findings",
+   "columns": [
+    "population",
+    "n",
+    "finding"
+   ],
+   "rows": [
+    [
+     "Saudi young adults (Al-Sebaei 2015)",
+     168,
+     "Thirds, orbital and orbito-nasal canons not validated; thirds unequal p<0.0001"
+    ],
+    [
+     "African American women",
+     null,
+     "Orbital proportion best of nine canons, met by only 30.6%"
+    ],
+    [
+     "Turkish young adults",
+     1050,
+     "Neoclassical canons invalid for most of the sample"
+    ],
+    [
+     "Saudi Skeletal Class III adults",
+     null,
+     "Orbital canon the most validated canon in both groups"
+    ]
+   ],
+   "population": "Mixed adult populations",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/25889948/",
+    "https://head-face-med.biomedcentral.com/articles/10.1186/s13005-015-0064-y",
+    "https://pubmed.ncbi.nlm.nih.gov/11497505/",
+    "https://pubmed.ncbi.nlm.nih.gov/10096619/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10699194"
+   ],
+   "status": "verified",
+   "notes": "Independent studies agree canons fail for most individuals and that the orbital canon performs best; use canons as weak priors only."
+  }
+ ]
+}

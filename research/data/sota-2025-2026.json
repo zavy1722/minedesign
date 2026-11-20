@@ -1,0 +1,128 @@
+{
+  "topic": "sota-2025-2026",
+  "tables": [
+    {
+      "name": "method_cards_2024_2026",
+      "units": "categorical",
+      "columns": ["method", "venue_year", "input", "representation", "metric_scale", "code_public", "licence", "track", "role_in_pipeline", "status"],
+      "rows": [
+        ["Pixel3DMM", "2025 (venue unverified)", "1 image", "FLAME optimised to ViT-predicted normals + UV coordinates", "partial", true, "unverified; depends on FLAME", "geometry", "optional dense observation backend", "knowledge"],
+        ["SHeaP", "2025", "1 image", "FLAME regressor trained via 2D Gaussian photometric loss", "no", null, "unverified", "geometry", "alternative initialiser", "knowledge"],
+        ["TEASER", "ICLR 2025", "1 image", "FLAME, SMIRK-style with multi-scale tokens", "no", null, "unverified", "geometry/expression", "expression gating", "knowledge"],
+        ["SMIRK", "CVPR 2024", "1 image", "FLAME shape/expression via neural renderer", "no", true, "unconfirmed", "geometry/expression", "expression gating", "knowledge"],
+        ["MICA", "ECCV 2022", "1 image", "FLAME 300 shape, neutral, metres", "learned guess", true, "non-commercial; ArcFace weights non-commercial", "geometry", "identity initialiser", "knowledge"],
+        ["3DDFA-V3", "CVPR 2024", "1 image", "BFM with part-segmentation guidance", "no", true, "code licence unverified; BFM non-commercial", "geometry", "alternative initialiser", "knowledge"],
+        ["KaoLRM", "2026", "1 image", "LRM repurposed to FLAME parameters", "no", null, "unknown", "geometry", "watch", "knowledge"],
+        ["GaussianAvatars + VHAP", "CVPR 2024", "multi-view video", "3D Gaussians bound to FLAME triangles", "via rig calibration", true, "unverified (possibly non-commercial)", "appearance", "reference only", "contested"],
+        ["GAGAvatar", "NeurIPS 2024", "1 image", "Gaussians + FLAME, feed-forward", "no", true, "unverified", "appearance", "preview", "knowledge"],
+        ["LAM", "SIGGRAPH 2025", "1 image", "FLAME-driven Gaussian head, one forward pass", "no", true, "reportedly Apache-2.0", "appearance", "preview", "contested"],
+        ["Avat3r", "2025", "about 1-4 posed images", "animatable Gaussians; DUSt3R position maps + Sapiens features", "no", null, "unknown", "appearance", "preview", "knowledge"],
+        ["CAP4D", "CVPR 2025", "1 to about 100 images", "morphable multi-view diffusion then 4D Gaussians", "no", true, "unverified", "appearance", "preview", "knowledge"],
+        ["FaceLift", "2025 (reportedly ICCV)", "1 image", "multi-view diffusion then GS-LRM, 360 degree head", "no", true, "unverified", "appearance", "back-of-head blockout only", "knowledge"],
+        ["DiffPortrait360", "CVPR 2025", "1 image", "360 degree novel views", "no", null, "unverified", "appearance", "back-of-head blockout only", "knowledge"],
+        ["Arc2Avatar", "CVPR 2025", "1 image", "SDS with Arc2Face, FLAME-bound Gaussians", "no", null, "unverified; ArcFace non-commercial", "appearance", "preview", "knowledge"],
+        ["SynShot", "CVPR 2025", "few images", "inversion of synthetic-data head prior", "no", null, "unverified", "appearance", "preview", "knowledge"],
+        ["GAF", "CVPR 2025", "monocular video", "Gaussians regularised by multi-view diffusion; VHAP tracking", "no", null, "unverified", "appearance", "preview", "knowledge"],
+        ["DUSt3R / MASt3R", "CVPR 2024 / ECCV 2024", "image pairs / sets", "point maps", "MASt3R partly metric", true, "CC BY-NC-SA 4.0", "cameras", "camera initialiser", "knowledge"],
+        ["VGGT", "CVPR 2025 (best paper)", "1 to hundreds of images", "cameras, depth, point maps, tracks; about 1B parameters", "up to scale", true, "non-commercial weights; later commercial checkpoint reported", "cameras", "camera initialiser", "contested"],
+        ["Sapiens", "ECCV 2024", "1 image", "308 keypoints, segmentation, depth, normals", "no", true, "custom Meta licence", "human foundation", "landmarks, masks, normals", "knowledge"],
+        ["TRELLIS", "CVPR 2025", "1 image", "structured 3D latent to mesh/Gaussians", "no", true, "MIT (some deps non-commercial)", "generic 3D", "silhouette prior only", "contested"],
+        ["Hunyuan3D 2.x", "2025", "1 or multi-view images", "dense textured mesh", "no", true, "Tencent Hunyuan Community License (territory exclusions)", "generic 3D", "silhouette prior only", "contested"]
+      ],
+      "population": "n/a (software)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Author synthesis; reliable to about mid-2025. Code availability and every licence are time-sensitive and unverified. null = unknown. 2026 rows come from sibling library notes (single-image-regression, multi-view-fitting)."
+    },
+    {
+      "name": "now_accuracy_anchors",
+      "units": "mm (NoW non-metrical scan-to-mesh; split differs by row)",
+      "columns": ["entry", "median_mm", "mean_mm", "basis", "status"],
+      "rows": [
+        ["Average FLAME mesh, scale optimised", null, 1.53, "sibling note single-image-regression (MICA paper)", "knowledge"],
+        ["DECA", 1.09, 1.38, "public leaderboard recall (test)", "knowledge"],
+        ["MICA", 0.90, 1.11, "public leaderboard recall (test)", "knowledge"],
+        ["MICA, profile photos", 0.94, 1.16, "sibling note single-image-regression (2026 profile paper)", "knowledge"],
+        ["Best 2023-25 entries (e.g. TokenFace)", 0.77, 0.95, "leaderboard recall; median range 0.75-0.8", "contested"]
+      ],
+      "population": "NoW benchmark subjects (about 100; 80 test)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Pixel3DMM reports >15% better geometry than baselines on posed expressions on its own NeRSemble-based benchmark; NoW numbers for Pixel3DMM, SHeaP, TEASER not recalled. Gaps between top methods (<0.1 mm) are near alignment noise."
+    },
+    {
+      "name": "compute_classes",
+      "units": "time per subject or frame; VRAM in GB (order of magnitude)",
+      "columns": ["class", "examples", "time_low", "time_high", "time_unit", "vram_gb_low", "vram_gb_high", "status"],
+      "rows": [
+        ["per-image regressor", "MICA, SMIRK, TEASER", 0.005, 0.02, "s per image (excluding detection)", 2, 6, "knowledge"],
+        ["FLAME tracker", "flame-head-tracker, VHAP", 0.9, 1.9, "s per frame (RTX 4090, author-reported, sibling note)", 8, 24, "knowledge"],
+        ["dense-prior optimisation", "Pixel3DMM", 10, 120, "s per image", 12, 24, "knowledge"],
+        ["feed-forward avatar", "LAM, GAGAvatar, Avat3r", 0.1, 10, "s per subject", 8, 24, "knowledge"],
+        ["diffusion + fitting avatar", "CAP4D, GAF, Arc2Avatar", 1800, 18000, "s per subject", 24, 80, "contested"],
+        ["geometry foundation model", "VGGT", 0.1, 1, "s for tens of images", 16, 40, "knowledge"]
+      ],
+      "population": "NVIDIA consumer/workstation GPUs, Linux + CUDA",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Order-of-magnitude recall except the tracker row (sibling multi-view-fitting note). None of these runs inside Blender's Python; run out of process."
+    },
+    {
+      "name": "studio_datasets",
+      "units": "counts (approximate)",
+      "columns": ["dataset", "venue_year", "subjects", "cameras", "notes", "status"],
+      "rows": [
+        ["NeRSemble", "ACM TOG 2023", 220, 16, "multi-view video, expressions; Pixel3DMM benchmark source; subjects >= about 220", "knowledge"],
+        ["Ava-256", "NeurIPS 2024 D&B", 256, 80, "Meta Codec Avatar Studio; camera count approximate", "knowledge"],
+        ["RenderMe-360", "NeurIPS 2023 D&B", 500, 60, "includes hair and accessories", "knowledge"],
+        ["FaceScape", "CVPR 2020", 900, 68, "subjects about 850-940, cameras about 60-70; mostly East Asian; 20 expressions", "contested"],
+        ["FLAME training scans (CAESAR)", "SIGGRAPH Asia 2017", 3800, null, "static scans; Western adults", "knowledge"]
+      ],
+      "population": "mostly young adults; demographic skew per dataset",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Verify counts before quoting."
+    },
+    {
+      "name": "flame_multires_levels",
+      "units": "faces; mm edge length on the face region",
+      "columns": ["level", "faces", "edge_mm_low", "edge_mm_high", "use"],
+      "rows": [
+        [0, 9976, 3.0, 6.0, "fitting cage (triangles)"],
+        [1, 29928, 1.5, 3.0, "primary forms (quads)"],
+        [2, 119712, 0.75, 1.5, "secondary forms, normal-detail solve"],
+        [3, 478848, 0.375, 0.75, "pores and wrinkles from displacement"]
+      ],
+      "population": "FLAME 2017/2020 topology (5,023 vertices, 9,976 triangles)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Face counts are exact Catmull-Clark arithmetic (each triangle -> 3 quads, then x4 per level); edge lengths are estimates that halve per level."
+    },
+    {
+      "name": "suggested_fitting_defaults_sota",
+      "units": "mixed",
+      "columns": ["parameter", "value_low", "value_high", "unit", "basis"],
+      "rows": [
+        ["generated-view weight on identity beta and face vertices", 0, 0, "relative weight", "design rule"],
+        ["generated-view silhouette weight for ears/occiput", 0, 0.1, "relative to a real view", "design default"],
+        ["dense UV correspondence sigma", 2, 3, "% of inter-ocular distance", "design default"],
+        ["dense term subsampling stride", 8, 8, "px", "design default"],
+        ["silhouette exclusion band for dense terms", 5, 5, "px", "design default"],
+        ["grazing-angle cutoff", 70, 70, "degrees", "design default"],
+        ["face-specific normal mean angular error assumed", 12, 15, "degrees", "design default (kappa = pi/(2 m^2) = 36 to 23)"],
+        ["camera-initialiser rotation prior sigma", 3, 5, "degrees", "design default"],
+        ["camera-initialiser focal prior sigma", 0.15, 0.2, "log units", "design default"],
+        ["camera-initialiser acceptance: BA reprojection RMSE", 2, 2, "% of inter-ocular distance", "design default"],
+        ["neutral gate: max MediaPipe blendshape score", 0.2, 0.3, "score", "design default"],
+        ["neutral gate: SMIRK/TEASER expression norm", 1, 1, "FLAME sigma units", "design default"],
+        ["robust residual scale with MICA init", 1.2, 1.4, "mm", "sibling single-image-regression default; 1.2 only if Pixel3DMM gain confirmed"],
+        ["leave-one-view-out reprojection acceptance", 2, 2, "% of inter-ocular distance", "design default"],
+        ["profile silhouette acceptance at nose tip and chin", 1, 1.5, "mm", "design default"]
+      ],
+      "population": "engine defaults",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Unsourced starting points; tune on synthetic and scanned heads with held-out views."
+    }
+  ]
+}

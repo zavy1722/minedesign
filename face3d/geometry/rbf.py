@@ -45,7 +45,14 @@ class RBFWarp:
         Phi = _kernel(_pairwise(src, src), kind, eps)
         P = np.hstack([np.ones((n, 1)), src])
         A = np.zeros((n + d + 1, n + d + 1))
-        A[:n, :n] = Phi + smoothing * np.eye(n)
+        # Smoothing splines solve (K_cpd + lam I) w + P a = y with K_cpd the
+        # conditionally POSITIVE definite form of the kernel. In 3D, r and the
+        # multiquadric are CPD only with a minus sign (-r, -sqrt(r^2+c^2)), so for
+        # them the system written with phi itself is (Phi - lam I). r^3 (CPD order 2)
+        # and the Gaussian (PD) keep +lam. Using +lam with phi = r makes the system
+        # indefinite and can blow landmark errors up to hundreds of mm.
+        sign = -1.0 if kind in ("biharmonic", "multiquadric") else 1.0
+        A[:n, :n] = Phi + sign * smoothing * np.eye(n)
         A[:n, n:] = P
         A[n:, :n] = P.T
         b = np.zeros((n + d + 1, d))

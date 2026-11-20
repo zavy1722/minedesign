@@ -1,0 +1,84 @@
+{
+ "topic": "blender-sculpt-features-5x",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Blender Release Notes - Blender Developer Documentation (index)",
+   "url": "https://developer.blender.org/docs/release_notes/",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "Cameras - Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/render/cameras.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 3,
+   "title": "5.2 LTS - Blender",
+   "url": "https://www.blender.org/download/releases/5-2/",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 4,
+   "title": "Blender 5.2 LTS - Blender",
+   "url": "https://www.blender.org/releases/5-2/",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 5,
+   "title": "Release Notes - Blender (index)",
+   "url": "https://www.blender.org/download/releases/",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Blender 5.0 - Blender",
+   "url": "https://www.blender.org/releases/5-0/",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "n": 7,
+   "title": "Blender 5.0 Release Notes - Blender Developer Documentation",
+   "url": "https://developer.blender.org/docs/release_notes/5.0/",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "n": 8,
+   "title": "Blender 5.0: Python API",
+   "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "n": 9,
+   "title": "Index - Blender Developer Documentation (compatibility)",
+   "url": "https://developer.blender.org/docs/release_notes/compatibility/",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Projects to Look Forward to in 2026 - Blender",
+   "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/",
+   "kind": "official-docs",
+   "year": "2026"
+  }
+ ],
+ "references_by_name": [
+  "Blender Manual: Sculpt Mode chapter and Multiresolution modifier page",
+  "Blender 4.2-4.5 release notes: Sculpt, Paint, Texture; Brush Assets (4.3)",
+  "Blender Python API reference: bpy.ops.sculpt, bpy.ops.brush, bpy.types.Brush, mathutils.bvhtree, mathutils.kdtree",
+  "de Goes & James, Regularized Kelvinlets: Sculpting Brushes based on Fundamental Solutions of Elasticity, SIGGRAPH 2017",
+  "Vollmer, Mencl & Mueller, Improved Laplacian Smoothing of Noisy Surface Meshes, Eurographics 1999",
+  "Huang et al., QuadriFlow: A Scalable and Robust Method for Quadrangulation, SGP 2018"
+ ],
+ "notes": "No harvest existed for this topic; all URLs are cross-referenced from the blender-version-status-2026 and reference-camera-setup harvests and support only release-timeline and mathutils facts, not sculpt-feature facts."
+}

@@ -1,0 +1,200 @@
+{
+ "topic": "reference-camera-setup",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Cameras — Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/render/cameras.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 2,
+   "title": "Background Images — Blender 2.79 Manual (legacy View-panel workflow)",
+   "url": "https://docs.blender.org/manual/en/2.79/editors/3dview/properties/background_images.html",
+   "kind": "official-docs",
+   "year": "2017"
+  },
+  {
+   "n": 3,
+   "title": "Camera Data — Blender 2.79 Manual (movie clip editor)",
+   "url": "https://docs.blender.org/manual/en/2.79/editors/movie_clip_editor/tracking/clip/properties/camera_data.html",
+   "kind": "official-docs",
+   "year": "2017"
+  },
+  {
+   "n": 4,
+   "title": "Proposal: Replace background images with Image Empties in 2.8x (issue #52668)",
+   "url": "https://projects.blender.org/blender/blender/issues/52668",
+   "kind": "repo",
+   "year": "2019"
+  },
+  {
+   "n": 5,
+   "title": "Blender developer tracker task T51366 (title not captured)",
+   "url": "https://developer.blender.org/T51366",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 6,
+   "title": "Blender not taking movie clip or image in camera background when rendering animation (issue #120929)",
+   "url": "https://projects.blender.org/blender/blender/issues/120929",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 7,
+   "title": "Regression: Adding Camera background image pops an Image not found error (T98875)",
+   "url": "https://developer.blender.org/T98875",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 8,
+   "title": "In viewport, Background image size/offset has no effect in camera view (T44096)",
+   "url": "https://developer.blender.org/T44096",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 9,
+   "title": "Add a Background Image (katsbits codex)",
+   "url": "https://www.katsbits.com/codex/background-image/",
+   "kind": "blog",
+   "year": "unknown"
+  },
+  {
+   "n": 10,
+   "title": "fSpy — still-image camera matching app",
+   "url": "https://github.com/stuffmatic/fSpy",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 11,
+   "title": "fSpy still image camera matching software (LinuxLinks)",
+   "url": "https://linuxlinks.com/fspy-still-image-camera-matching-software",
+   "kind": "blog",
+   "year": "unknown"
+  },
+  {
+   "n": 12,
+   "title": "Retiring BLAM and announcing fSpy (Blender Artists)",
+   "url": "https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "n": 13,
+   "title": "fSpy-Blender importer source fspy.py",
+   "url": "https://github.com/stuffmatic/fSpy-Blender/blob/master/fspy_blender/fspy.py",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 14,
+   "title": "fSpy-Blender issue tracker (issues #88, #89)",
+   "url": "https://github.com/stuffmatic/fSpy-Blender/issues",
+   "kind": "repo",
+   "year": "2025"
+  },
+  {
+   "n": 15,
+   "title": "Feature idea: basic reference shapes for focal length matching (fSpy issue #119)",
+   "url": "https://github.com/stuffmatic/fSpy/issues/119",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 16,
+   "title": "Zoom on image? (fSpy issue #53)",
+   "url": "https://github.com/stuffmatic/fSpy/issues/53",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 17,
+   "title": "perspective-match: Blender extension, live perspective-line camera matching",
+   "url": "https://github.com/voki6/perspective-match",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 18,
+   "title": "V-Sekai decision record on fSpy",
+   "url": "https://v-sekai.github.io/manuals/decisions/20240111-fspy.html",
+   "kind": "other",
+   "year": "2024"
+  },
+  {
+   "n": 19,
+   "title": "3D Environment Design with Blender (Packt)",
+   "url": "https://www.packtpub.com/en-be/product/3d-environment-design-with-blender-9781803235851",
+   "kind": "book",
+   "year": "unknown"
+  },
+  {
+   "n": 20,
+   "title": "GeoCalib: single-image calibration (arXiv 2409.06704v2)",
+   "url": "https://arxiv.org/html/2409.06704v2",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 21,
+   "title": "Perspective Fields for Single Image Camera Calibration (CVPR 2023)",
+   "url": "https://openaccess.thecvf.com/content/CVPR2023/papers/Jin_Perspective_Fields_for_Single_Image_Camera_Calibration_CVPR_2023_paper.pdf",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 22,
+   "title": "Improving Blender workflows with still image camera matching app (80.lv)",
+   "url": "https://80.lv/articles/improving-blender-workflows-with-still-image-camera-matching-app",
+   "kind": "news",
+   "year": "unknown"
+  },
+  {
+   "n": 23,
+   "title": "Blender-AI-Camera-Match",
+   "url": "https://github.com/parthmital/Blender-AI-Camera-Match",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 24,
+   "title": "Perspective Plotter docs",
+   "url": "https://perspective-plotter.readthedocs.io/",
+   "kind": "official-docs",
+   "year": "unknown"
+  },
+  {
+   "n": 25,
+   "title": "Blenspy — camera matching from photos",
+   "url": "https://superhivemarket.com/products/blenspy",
+   "kind": "commercial",
+   "year": "unknown"
+  }
+ ],
+ "references_by_name": [
+  "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+  "Zhang, A flexible new technique for camera calibration, IEEE TPAMI, 2000",
+  "Brown, Decentering distortion of lenses, Photogrammetric Engineering, 1966",
+  "Caprile & Torre, Using vanishing points for camera calibration, IJCV, 1990",
+  "Lepetit, Moreno-Noguer & Fua, EPnP: an accurate O(n) solution to the PnP problem, IJCV, 2009",
+  "Bujnak, Kukelova & Pajdla, A general solution to the P4P problem for camera with unknown focal length, CVPR, 2008",
+  "Ward, Ward, Fried & Paskhover, Nasal distortion in short-distance photographs: the selfie effect, JAMA Facial Plastic Surgery, 2018",
+  "Noyes & Jenkins, Camera-to-subject distance affects face configuration and perceived identity, Cognition, 2017",
+  "Bryan, Perona & Adolphs, Perspective distortion from interpersonal distance is an implicit visual cue for social judgments of faces, PLoS ONE, 2012",
+  "Fried, Shechtman, Goldman & Finkelstein, Perspective-aware manipulation of portrait photos, ACM TOG (SIGGRAPH), 2016",
+  "Shih, Lai & Liang, Distortion-free wide-angle portraits on camera phones, ACM TOG (SIGGRAPH), 2019",
+  "Dodgson, Variation and extrema of human interpupillary distance, Proc. SPIE 5291, 2004",
+  "Google Research, MediaPipe Iris announcement (iris-based depth estimation), 2020",
+  "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Ettorre et al., Standards for digital photography in cranio-maxillo-facial surgery - Part I, J Craniomaxillofac Surg, 2006",
+  "CIPA DC-008, Exif standard (FocalLengthIn35mmFilm tag)",
+  "Blender Python API reference: CameraBackgroundImage, Object.empty_image_*, Camera.view_frame, bpy_extras.object_utils.world_to_camera_view",
+  "OpenCV documentation, calib3d module (calibrateCamera, undistort)"
+ ]
+}

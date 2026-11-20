@@ -1,0 +1,27 @@
+{
+ "id": "skin-shading",
+ "area": "blender",
+ "title": "Realistic skin shading in Blender",
+ "queue": [
+  {
+   "claim": "Jensen et al. 2001 measured skin diffuse mean free path (R,G,B) \u2248 (3.67, 1.37, 0.68) mm for skin1 and (4.82, 1.69, 1.09) mm for skin2; these are used as the default Subsurface Radius (Scale 0.001 m) and as the radius prior",
+   "query": "Jensen 2001 \"A Practical Model for Subsurface Light Transport\" skin1 skin2 diffuse mean free path 3.67 1.37 0.68 mm",
+   "domains": ""
+  },
+  {
+   "claim": "Blender 4.x/5.x Principled BSDF defaults: Subsurface Weight 0, Radius (1.0, 0.2, 0.1), Scale 0.05 m, Subsurface IOR 1.4, Anisotropy 0; the Subsurface Method enum values (Burley / Random Walk / Random Walk (Skin)); and whether 5.2 split random walk into legacy and new variants or added thin-wall",
+   "query": "Blender 5.2 release notes Principled BSDF subsurface method random walk legacy thin wall",
+   "domains": "developer.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Skin IOR \u2248 1.4 (F0 \u2248 0.028) is the right specular default, versus tissue-optics values up to ~1.55 for the stratum corneum (F0 \u2248 0.047)",
+   "query": "human skin refractive index stratum corneum epidermis specular F0 0.028 skin rendering",
+   "domains": ""
+  },
+  {
+   "claim": "EEVEE Next (4.2+) does SSS in screen space, using Radius \u00d7 Scale with shadow-map thickness for transmission, ignores Subsurface Method/IOR/Anisotropy, and supports only vertex displacement; Cycles adaptive subdivision may have left the Experimental feature set in 5.x",
+   "query": "EEVEE Next subsurface scattering thickness displacement Blender 4.2 release notes adaptive subdivision experimental 5.0",
+   "domains": "developer.blender.org"
+  }
+ ]
+}

@@ -1,0 +1,525 @@
+{
+ "topic": "aging-face",
+ "tables": [
+  {
+   "name": "age_dependent_landmark_priors",
+   "units": "mm unless stated; age in years",
+   "columns": [
+    "quantity",
+    "mu",
+    "sigma",
+    "units",
+    "valid_range",
+    "status",
+    "source_urls"
+   ],
+   "rows": [
+    [
+     "upper_vermilion_ls_sto",
+     "8.0 - 0.05*(age-25)",
+     1.5,
+     "mm",
+     "20-60 measured; extrapolate with caution",
+     "sourced",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003"
+     ]
+    ],
+    [
+     "upper_vermilion_ls_sto_20_29_observed",
+     8.1,
+     null,
+     "mm",
+     "20-29",
+     "sourced",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003"
+     ]
+    ],
+    [
+     "upper_vermilion_ls_sto_50_59_observed",
+     6.6,
+     null,
+     "mm",
+     "50-59",
+     "sourced",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003"
+     ]
+    ],
+    [
+     "upper_incisor_display_rest",
+     "max(0, 3.0 - 0.07*(age-25))",
+     1.2,
+     "mm",
+     "adults; 2-4 mm read as youthful",
+     "knowledge",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/"
+     ]
+    ],
+    [
+     "ear_length_increment",
+     "0.2*(age-25)",
+     3.0,
+     "mm added to young-adult ear length",
+     "adults",
+     "contested",
+     [
+      "https://arxiv.org/pdf/2101.10540"
+     ]
+    ],
+    [
+     "lid_margin_to_lid_cheek_junction_increment",
+     "0.1*max(0,age-30)",
+     3.0,
+     "mm added to subject's young baseline",
+     "adults; placeholder slope",
+     "contested",
+     []
+    ],
+    [
+     "lateral_brow_height_change",
+     0.0,
+     4.0,
+     "mm vs young baseline (no forced descent)",
+     "adults",
+     "contested",
+     []
+    ],
+    [
+     "cervicomental_angle_youthful",
+     "105-120",
+     null,
+     "deg",
+     "young adults; opens with age and BMI",
+     "knowledge",
+     []
+    ],
+    [
+     "skin_dermis_thickness",
+     "1.1-1.9",
+     null,
+     "mm",
+     "adult face, by region; men thicker",
+     "verified",
+     [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/"
+     ]
+    ],
+    [
+     "facial_asymmetry_rmsd",
+     0.8,
+     0.2,
+     "mm (mean, SD across sample)",
+     "n=191, age 0.3-88; rises with age",
+     "sourced",
+     [
+      "https://pubmed.ncbi.nlm.nih.gov/30511968/"
+     ]
+    ]
+   ],
+   "population": "Mixed adult cohorts; vermilion from a 20-59 adult table (cohort unconfirmed); others from training knowledge",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/",
+    "https://pubmed.ncbi.nlm.nih.gov/30511968/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/",
+    "https://arxiv.org/pdf/2101.10540"
+   ],
+   "status": "contested",
+   "notes": "Per-row status overrides the table status. Formulas are linear fits/placeholders for priors, not population norms; calibrate on aged scans. Match vermilion formula with data/mouth-lips-teeth.json."
+  },
+  {
+   "name": "age_basis_parameters",
+   "units": "mm, deg or unitless as stated",
+   "columns": [
+    "param",
+    "low",
+    "high",
+    "prior_mean",
+    "sigma",
+    "units",
+    "gating",
+    "status"
+   ],
+   "rows": [
+    [
+     "laxity",
+     0,
+     1,
+     "clip((age-25)/50,0,1)",
+     0.2,
+     "unitless",
+     "displacement d = laxity*D*m(x)*g(x), D~5 mm (see smas-ligaments)",
+     "knowledge"
+    ],
+    [
+     "deep_cheek_volume",
+     -3,
+     3,
+     "-0.04*max(0,age-35)",
+     1.5,
+     "mm along normal",
+     "raise loss for low BMI",
+     "knowledge"
+    ],
+    [
+     "orbital_fat_prolapse",
+     0,
+     1,
+     "clip((age-35)/40,0,1)",
+     0.25,
+     "unitless",
+     "",
+     "knowledge"
+    ],
+    [
+     "temporal_hollow",
+     0,
+     4,
+     "0.05*max(0,age-40)",
+     1.0,
+     "mm inward",
+     "x1.5 when BMI<20",
+     "knowledge"
+    ],
+    [
+     "orbit_rim_recession_inferolateral",
+     0,
+     3,
+     "0.05*max(0,age-40)",
+     1.0,
+     "mm posterior",
+     "",
+     "knowledge"
+    ],
+    [
+     "orbit_rim_recession_superomedial",
+     0,
+     2,
+     "0.03*max(0,age-40)",
+     1.0,
+     "mm posterior/superior",
+     "",
+     "knowledge"
+    ],
+    [
+     "maxilla_retrusion",
+     0,
+     10,
+     "0.15*max(0,age-35)",
+     3.0,
+     "deg",
+     "",
+     "contested"
+    ],
+    [
+     "pyriform_widening",
+     0,
+     2,
+     "0.03*max(0,age-40)",
+     0.8,
+     "mm inferolateral",
+     "",
+     "knowledge"
+    ],
+    [
+     "gonial_opening",
+     0,
+     5,
+     "0.05*max(0,age-40)",
+     2.0,
+     "deg",
+     "larger if edentulous",
+     "contested"
+    ],
+    [
+     "alveolar_collapse",
+     0,
+     15,
+     "0 if dentate; 5-10 if edentulous without dentures",
+     3.0,
+     "mm lower-face height loss",
+     "dental_status",
+     "contested"
+    ],
+    [
+     "jowl_submental_mass",
+     0,
+     5,
+     "0.05*max(0,age-40)*(BMI/25)",
+     1.5,
+     "mm outward",
+     "BMI",
+     "knowledge"
+    ],
+    [
+     "skin_age",
+     0,
+     1,
+     "clip((age-25)/55,0,1)",
+     0.2,
+     "unitless",
+     "texture/displacement only; never in mesh fit",
+     "knowledge"
+    ]
+   ],
+   "population": "Generic adult; heuristic placeholders",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "All slopes are uncalibrated placeholders derived from qualitative literature (Shaw & Kahn 2007; Kahn & Shaw 2008; Shaw 2010; Donofrio 2000; Rohrich & Pessa 2007-8). Names match anatomy/smas-ligaments.md. Apply in order bone -> deep fat -> superficial fat -> laxity -> skin."
+  },
+  {
+   "name": "decade_timeline",
+   "units": "qualitative",
+   "columns": [
+    "decade_start",
+    "bone",
+    "fat_ligaments",
+    "skin_glogau",
+    "sculpt_cues"
+   ],
+   "rows": [
+    [
+     20,
+     "peak projection",
+     "full high cheek; single lid-cheek convexity",
+     "I",
+     "unbroken ogee curve; crisp jawline; upper vermilion ~8 mm"
+    ],
+    [
+     30,
+     "little change",
+     "tear trough in many; early temporal/upper-sulcus hollow if lean",
+     "I-II",
+     "hint NLF and tear trough only"
+    ],
+    [
+     40,
+     "orbital/maxillary change begins (cross-sectional)",
+     "lid hooding; lower-lid bags; double convexity; jowl onset; early marionette",
+     "II-III",
+     "lengthen lower lid; break jawline at prejowl"
+    ],
+    [
+     50,
+     "maxillary/pyriform retrusion; mandible loss if teeth lost",
+     "midface deflation; malar mounds; jowl; prejowl sulcus; platysmal bands",
+     "III",
+     "upper vermilion ~6.6 mm; incisor display ~1 mm; cervicomental angle opens"
+    ],
+    [
+     60,
+     "orbit visibly larger (superomedial, inferolateral)",
+     "temporal hollow; jowl meets submental fat",
+     "III-IV",
+     "longer nose, lower tip, longer ears"
+    ],
+    [
+     70,
+     "edentulous collapse if no dentures",
+     "lean: skeletonised; heavy: ptotic masses",
+     "IV",
+     "inverted lips; chin forward-up; sparse lateral brow"
+    ]
+   ],
+   "population": "Adults, mostly European-descent clinical literature; individual variation about +/-1 decade",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003"
+   ],
+   "status": "knowledge",
+   "notes": "Glogau I-IV from Glogau 1996 (training knowledge). Darker skin types tend to wrinkle later and age more through volume and pigment."
+  },
+  {
+   "name": "wrinkle_feature_classes",
+   "units": "depth in micrometres (order of magnitude)",
+   "columns": [
+    "feature",
+    "driver",
+    "line_direction",
+    "depth_low_um",
+    "depth_high_um",
+    "representation"
+   ],
+   "rows": [
+    [
+     "fine_lines_crepe",
+     "dermal thinning, photoaging",
+     "cross-hatched",
+     10,
+     100,
+     "normal/bump map"
+    ],
+    [
+     "forehead_lines",
+     "frontalis",
+     "horizontal",
+     100,
+     1000,
+     "multires displacement"
+    ],
+    [
+     "glabellar_11s",
+     "corrugator",
+     "vertical",
+     100,
+     1000,
+     "multires displacement"
+    ],
+    [
+     "nasal_root_line",
+     "procerus",
+     "horizontal",
+     100,
+     800,
+     "multires displacement"
+    ],
+    [
+     "crows_feet",
+     "orbicularis oculi",
+     "radial from lateral canthus",
+     100,
+     800,
+     "multires displacement"
+    ],
+    [
+     "perioral_lip_lines",
+     "orbicularis oris",
+     "vertical/radial",
+     50,
+     500,
+     "multires displacement"
+    ],
+    [
+     "bunny_lines",
+     "nasalis",
+     "oblique on nasal dorsum",
+     50,
+     500,
+     "multires displacement"
+    ],
+    [
+     "sleep_lines",
+     "pillow compression",
+     "oblique, ignores muscle",
+     100,
+     800,
+     "multires displacement, often one-sided"
+    ],
+    [
+     "NLF_marionette_tear_trough_jowl",
+     "volume boundary, ligament, bone, depressors",
+     "fold",
+     2000,
+     10000,
+     "base mesh + shape keys"
+    ]
+   ],
+   "population": "Adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Depth classes are order-of-magnitude placeholders from training knowledge, not profilometry values; verify before use as displacement amplitudes."
+  },
+  {
+   "name": "soft_tissue_thickness_age_effect",
+   "units": "mm",
+   "columns": [
+    "study",
+    "population",
+    "finding",
+    "effect_mm_low",
+    "effect_mm_high",
+    "url"
+   ],
+   "rows": [
+    [
+     "Azerbaijan CT",
+     "adults",
+     "older >2 mm thicker at zygion, gonion and other landmarks",
+     2,
+     null,
+     "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/"
+    ],
+    [
+     "Greek CT",
+     "adults, 22 landmarks",
+     "limited age and sex effect",
+     0,
+     1,
+     "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/"
+    ],
+    [
+     "Thai ultrasound",
+     "above middle age",
+     "minimal age effect over 50; BMI strong",
+     0,
+     1,
+     "https://pubmed.ncbi.nlm.nih.gov/41701465/"
+    ],
+    [
+     "Chinese layer-specific CT",
+     "1174 adults 18-90, 33 landmarks",
+     "age and sex significant for total, fat and muscle layers",
+     null,
+     null,
+     "https://pubmed.ncbi.nlm.nih.gov/42385786/"
+    ],
+    [
+     "Orthodontic-profile FSTT",
+     "mixed",
+     "BMI strongest predictor; FSTT tends to decrease over time with reduced muscle tone",
+     null,
+     null,
+     "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532767/"
+    ]
+   ],
+   "population": "See rows",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+    "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+    "https://pubmed.ncbi.nlm.nih.gov/42385786/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532767/"
+   ],
+   "status": "contested",
+   "notes": "effect bounds for Greek/Thai are interpretive (limited/minimal), not reported values. Use N(0,1.5 mm) site-specific age term; larger at zygion/gonion."
+  },
+  {
+   "name": "apparent_age_estimation_error",
+   "units": "years MAE",
+   "columns": [
+    "estimator",
+    "setting",
+    "mae_low",
+    "mae_high"
+   ],
+   "rows": [
+    [
+     "human raters",
+     "unconstrained photos",
+     5,
+     8
+    ],
+    [
+     "deep regressors",
+     "curated benchmark (e.g. MORPH II)",
+     2,
+     3
+    ],
+    [
+     "deep regressors",
+     "in-the-wild photos",
+     4,
+     6
+    ]
+   ],
+   "population": "Benchmark datasets; time-sensitive",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Training-knowledge ranges; state of the art changes yearly. Use sigma ~6 y for an estimated-age prior; ask a consenting subject instead."
+  }
+ ]
+}

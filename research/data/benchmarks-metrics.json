@@ -1,0 +1,480 @@
+{
+ "topic": "benchmarks-metrics",
+ "tables": [
+  {
+   "name": "benchmark_cards",
+   "units": "counts (subjects, images); text fields",
+   "columns": [
+    "benchmark",
+    "year",
+    "ground_truth",
+    "subjects",
+    "images_or_models",
+    "conditions",
+    "alignment",
+    "metric",
+    "blind_to",
+    "access",
+    "demographic_skew"
+   ],
+   "rows": [
+    [
+     "NoW",
+     2019,
+     "one neutral active-stereo (3dMD-type) scan per subject",
+     100,
+     2054,
+     "neutral, expression, occlusion, selfie (iPhone)",
+     "7 landmarks -> similarity -> rigid refinement on scan-to-mesh; scale solved (metrical track: no scale)",
+     "scan-to-surface distance; median, mean, std, cumulative curve (mm)",
+     "absolute size (non-metrical), local regions, expression, ears",
+     "val 20 subjects public GT, test 80 subjects hidden GT via server; research licence",
+     "recruited in Germany, probably mostly European (unverified)"
+    ],
+    [
+     "REALY",
+     2022,
+     "Headspace/LYHM scans with region masks",
+     100,
+     null,
+     "frontal and multi-view images",
+     "keypoint global alignment, then per-region ICP",
+     "per-region mean nearest-point error (nose, mouth, forehead, cheek) and average (mm)",
+     "inter-region configuration, absolute size",
+     "research",
+     "UK (Headspace)"
+    ],
+    [
+     "Stirling/ESRC FG2018 challenge",
+     2018,
+     "Di3D stereophotogrammetry scans",
+     130,
+     2000,
+     "high- and low-quality in-the-wild images",
+     "7 landmarks + ICP",
+     "3D-RMSE (mm)",
+     "absolute size, regions",
+     "research licence",
+     "not recalled"
+    ],
+    [
+     "FaceScape benchmark",
+     2020,
+     "dense DSLR multi-view stereo (≈68 cameras)",
+     938,
+     18760,
+     "lab and wild images; yaw and focal-length bins; 20 expressions",
+     "ICP-type",
+     "Chamfer distance (mm), complete rate (%), mean normal error",
+     "perceived likeness",
+     "application, research-only",
+     "mostly East Asian"
+    ],
+    [
+     "Florence/MICC",
+     2011,
+     "3dMD scans",
+     53,
+     null,
+     "indoor cooperative, indoor PTZ, outdoor video",
+     "ICP (with or without scale) on ≈95 mm crop around nose tip; or NME protocol",
+     "point-to-plane error (mm) or NME (% outer IOD)",
+     "depends on protocol",
+     "research",
+     "not recalled"
+    ],
+    [
+     "AFLW2000-3D",
+     2016,
+     "3DMM fit (pseudo ground truth)",
+     null,
+     2000,
+     "in the wild, large pose",
+     "none (2D)",
+     "68-landmark NME normalised by bbox size (%)",
+     "true 3D shape",
+     "research",
+     "in-the-wild mix"
+    ]
+   ],
+   "population": "benchmark subjects as listed; counts are approximate recollections",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Counts for NoW and FaceScape recalled with moderate confidence; Stirling and REALY image counts uncertain. null = not known."
+  },
+  {
+   "name": "now_reference_errors",
+   "units": "mm (NoW scan-to-surface, non-metrical/similarity alignment)",
+   "columns": [
+    "entry",
+    "split",
+    "median_mm",
+    "mean_mm",
+    "skill_vs_scaled_mean_face",
+    "status"
+   ],
+   "rows": [
+    [
+     "Average FLAME, no scale fit",
+     "not stated",
+     null,
+     1.92,
+     null,
+     "knowledge"
+    ],
+    [
+     "Average FLAME, scale fitted",
+     "not stated",
+     null,
+     1.53,
+     0.0,
+     "knowledge"
+    ],
+    [
+     "DECA",
+     "test",
+     1.09,
+     1.38,
+     0.1,
+     "knowledge"
+    ],
+    [
+     "MICA",
+     "test",
+     0.9,
+     1.11,
+     0.27,
+     "knowledge"
+    ],
+    [
+     "Best 2023-25 entries (e.g. TokenFace)",
+     "test",
+     0.78,
+     0.95,
+     0.38,
+     "contested"
+    ],
+    [
+     "Late-2026 leader",
+     "test",
+     null,
+     null,
+     null,
+     "contested"
+    ]
+   ],
+   "population": "NoW subjects (100 adults; test split 80)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Skill = 1 - mean/1.53. Same figures are sourced in research/data/single-image-regression.json; here they are carried as expert knowledge. Best-entry median is the midpoint of a recalled 0.75-0.8 range. Differences < 0.1 mm are within protocol noise."
+  },
+  {
+   "name": "realy_region_error_ranges",
+   "units": "mm (REALY frontal track, per-region mean nearest-point error after region-wise alignment)",
+   "columns": [
+    "region",
+    "low_mm",
+    "high_mm",
+    "note"
+   ],
+   "rows": [
+    [
+     "nose",
+     1.6,
+     2.0,
+     "depth-driven; similar across methods"
+    ],
+    [
+     "mouth",
+     1.3,
+     2.5,
+     "largest spread across methods; expression leakage"
+    ],
+    [
+     "forehead",
+     1.8,
+     2.5,
+     "weak landmark support, hairline"
+    ],
+    [
+     "cheek",
+     1.0,
+     1.6,
+     "smooth, easiest"
+    ],
+    [
+     "average",
+     1.5,
+     2.2,
+     "HRN-class methods ≈1.5-1.6 at the low end"
+    ]
+   ],
+   "population": "REALY subjects (≈100 Headspace scans); methods Deep3D, DECA, 3DDFA_V2, HRN, 3DDFA-V3 (2022-24)",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Ranges recalled, not per-method values; verify before use."
+  },
+  {
+   "name": "nearest_vertex_bias",
+   "units": "mm; mean lateral offset to nearest vertex on a triangular lattice = 0.351 x edge length (Monte Carlo)",
+   "columns": [
+    "edge_length_mm",
+    "mean_offset_mm",
+    "example"
+   ],
+   "rows": [
+    [
+     1.0,
+     0.35,
+     "multires level 2"
+    ],
+    [
+     2.0,
+     0.7,
+     "multires level 1"
+    ],
+    [
+     3.0,
+     1.05,
+     "FLAME level 0, fine areas"
+    ],
+    [
+     4.0,
+     1.4,
+     "FLAME level 0"
+    ],
+    [
+     6.0,
+     2.11,
+     "FLAME level 0, coarse areas"
+    ]
+   ],
+   "population": "geometric arithmetic (uniform points over an equilateral triangular lattice)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Adds in quadrature to the true perpendicular error when distance is measured to the nearest vertex instead of the nearest surface point. Use point-to-triangle distances."
+  },
+  {
+   "name": "error_floors",
+   "units": "mm",
+   "columns": [
+    "source",
+    "low_mm",
+    "high_mm",
+    "status",
+    "note"
+   ],
+   "rows": [
+    [
+     "stereophotogrammetry scanner accuracy, rigid target (vendor claims)",
+     0.1,
+     0.5,
+     "contested",
+     "3dMD, Di3D, structured light"
+    ],
+    [
+     "live-face repeat capture RMS",
+     0.3,
+     1.0,
+     "contested",
+     "worst at lips and cheeks"
+    ],
+    [
+     "benchmark differences that are noise",
+     0.0,
+     0.1,
+     "knowledge",
+     "NoW leaderboard gaps"
+    ],
+    [
+     "mean-face per-point sigma (half-normal, sigma = mean/0.798)",
+     1.9,
+     1.9,
+     "knowledge",
+     "derived from 1.53 mm mean"
+    ],
+    [
+     "MICA per-point sigma (half-normal)",
+     1.4,
+     1.4,
+     "knowledge",
+     "derived from 1.11 mm mean"
+    ]
+   ],
+   "population": "adult faces",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Use 0.3-0.5 mm as heatmap deadband; measure your own scanner by scanning twice."
+  },
+  {
+   "name": "acceptance_targets",
+   "units": "mm RMS / mm p95 after alignment; scale in %",
+   "columns": [
+    "region",
+    "perceptual_weight",
+    "rms_target_mm",
+    "p95_target_mm"
+   ],
+   "rows": [
+    [
+     "eyes_lids_canthi",
+     1.0,
+     1.0,
+     2.0
+    ],
+    [
+     "brows_supraorbital",
+     0.9,
+     1.2,
+     2.5
+    ],
+    [
+     "lips_perioral",
+     0.8,
+     1.0,
+     2.0
+    ],
+    [
+     "nose",
+     0.7,
+     1.2,
+     2.5
+    ],
+    [
+     "nose_projection",
+     0.7,
+     1.5,
+     null
+    ],
+    [
+     "forehead_cheeks",
+     0.6,
+     1.5,
+     3.0
+    ],
+    [
+     "jaw_chin",
+     0.6,
+     2.0,
+     4.0
+    ],
+    [
+     "ears_cranium",
+     0.15,
+     3.0,
+     6.0
+    ]
+   ],
+   "population": "adult face crop with a reference scan; design defaults, not measured norms",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Global NoW-style targets: median <= 0.8 mm, mean <= 1.0 mm. Metric scale error <= 1.5 % with a reference. Weights from research/anatomy/face-perception-likeness.md Table B."
+  },
+  {
+   "name": "eval_defaults",
+   "units": "mixed (see column)",
+   "columns": [
+    "parameter",
+    "value",
+    "units",
+    "note"
+   ],
+   "rows": [
+    [
+     "icp_trim_fraction",
+     0.1,
+     "fraction",
+     "drop worst correspondences per iteration"
+    ],
+    [
+     "icp_max_correspondence",
+     7.5,
+     "mm",
+     "5-10 mm range"
+    ],
+    [
+     "icp_normal_gate",
+     60,
+     "deg",
+     "reject pairs with normals disagreeing more"
+    ],
+    [
+     "icp_max_iterations",
+     30,
+     "count",
+     ""
+    ],
+    [
+     "icp_tolerance",
+     0.0001,
+     "mm",
+     "change in mean distance"
+    ],
+    [
+     "heatmap_range",
+     2.0,
+     "mm",
+     "diverging ramp ±"
+    ],
+    [
+     "heatmap_deadband",
+     0.4,
+     "mm",
+     "0.3-0.5 mm, set to measured floor"
+    ],
+    [
+     "mesh_to_scan_cap",
+     5.0,
+     "mm",
+     "mask beyond, or nearest on hole border"
+    ],
+    [
+     "fscore_thresholds",
+     "0.5,1,2",
+     "mm",
+     ""
+    ],
+    [
+     "normal_lowpass_wavelength",
+     9.0,
+     "mm",
+     "from face-perception-likeness"
+    ],
+    [
+     "scale_unreliable_gate",
+     3.0,
+     "%",
+     "|s-1| above this"
+    ],
+    [
+     "heldout_flag_ratio",
+     2.0,
+     "x",
+     "held-out vs in-sample error"
+    ],
+    [
+     "prior_sigma_regressor_normal",
+     1.4,
+     "mm",
+     "raise to 2.5-3 mm at nose tip, chin, orbit depth"
+    ],
+    [
+     "prior_dominance_warning",
+     1.0,
+     "mm RMS",
+     "fit deviation from mean face below this"
+    ],
+    [
+     "stable_alignment_landmarks",
+     "en_l,en_r,ex_l,ex_r,n,sn",
+     "names",
+     "landmark-only alignment"
+    ]
+   ],
+   "population": "design defaults for face3d.eval",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering defaults; tune on synthetic and scanned sitters."
+  }
+ ]
+}

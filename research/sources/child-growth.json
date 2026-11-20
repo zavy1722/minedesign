@@ -1,0 +1,124 @@
+{
+ "topic": "child-growth",
+ "sources": [
+  {
+   "n": 1,
+   "title": "The 3D Facial Norms Database: Part 1. A Web-Based Craniofacial Anthropometric and Image Repository for the Clinical and Research Community",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 2,
+   "title": "FaceBase 3D Facial Norms Database",
+   "url": "https://facebase.org/facial_norms/",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Weinberg et al., 3D facial norms vs Farkas norms comparison (Am J Orthod Dentofacial Orthop)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "n": 4,
+   "title": "StatPearls: Anatomy, Head and Neck, Mandible",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/",
+   "kind": "medical-reference",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Anthropometric growth study of the ear in a Chinese population",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/29169692/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Anthropometric Measurement of Human External Ear: Single-Center Experiment in a Pediatric Saudi Population",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12297175/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "A longitudinal study of facial asymmetry in a normal birth cohort up to 6 years of age and the predisposing factors",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10389059/",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 8,
+   "title": "Fully Automated 3D Volumetric Analysis of Masticatory Muscles in a Pediatric Population: A CT-Based Normative Morphometric Study",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0940960226000737",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 9,
+   "title": "Temporalis sex differences in children, MRI (title unconfirmed)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8315666",
+   "kind": "paper",
+   "year": "~2021"
+  },
+  {
+   "n": 10,
+   "title": "Obesity and Overweight Conditions in Children and Adolescents and Their Impact on Craniofacial Morphology: A Systematic Review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11940931/",
+   "kind": "systematic-review",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "Regression analysis of nasal shape from juvenile to adult ages for forensic facial reconstruction",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38065055/",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 12,
+   "title": "Variations in Eyeball Diameters of the Healthy Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4238270/",
+   "kind": "paper",
+   "year": "2014"
+  },
+  {
+   "n": 13,
+   "title": "Mean human corneal diameter and palpebral fissure lengths as scales for forensic analysis of photographed faces: an analytical review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/",
+   "kind": "review",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Ear Recognition (Anagnostopoulos), Introduction to Biometrics",
+   "url": "https://arxiv.org/pdf/2101.10540",
+   "kind": "chapter/preprint",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Farkas LG (ed.), Anthropometry of the Head and Face, 2nd ed., Raven Press, 1994",
+  "Farkas LG, Posnick JC & Hreczko TM, 1992 growth-pattern series (head, face, orbital region, nasolabial region), Cleft Palate-Craniofacial Journal",
+  "Enlow DH & Hans MG, Essentials of Facial Growth",
+  "Proffit WR et al., Contemporary Orthodontics (facial growth chapters)",
+  "Scammon RE, 'The measurement of the body in childhood', in Harris et al., The Measurement of Man, 1930",
+  "Bjork A, 'Prediction of mandibular growth rotation', Am J Orthod, 1969",
+  "Behrents RG, Growth in the Aging Craniofacial Skeleton, Craniofacial Growth Series, University of Michigan, 1985",
+  "Bishara SE et al., 'Changes in facial dimensions and relationships between the ages of 5 and 25 years', Am J Orthod, 1984",
+  "Genecov JS, Sinclair PM & Dechow PC, 'Development of the nose and soft tissue profile', Angle Orthod, 1990",
+  "Gordon RA & Donzis PB, 'Refractive development of the human eye', Arch Ophthalmol, 1985",
+  "MacLachlan C & Howland HC, 'Normal values and standard deviations for pupil diameter and interpupillary distances in subjects aged 1 month to 19 years', Ophthalmic Physiol Opt, 2002",
+  "Stephan CN, '2018 tallied facial soft tissue thicknesses for adults and sub-adults', Forensic Sci Int, 2018",
+  "Wilkinson CM, 'In vivo facial tissue depth measurements for white British children', J Forensic Sci, 2002",
+  "Todd JT, Mark LS, Shaw RE & Pittenger JB, 'The perception of human growth', Scientific American, 1980",
+  "Glocker ML et al., 'Baby schema in infant faces induces cuteness perception and motivation for caretaking in adults', Ethology, 2009",
+  "Taylor KT, Forensic Art and Illustration, CRC Press, 2001",
+  "Booth J et al., 'A 3D Morphable Model learnt from 10,000 faces', CVPR 2016 (LSFM)",
+  "Grother P, Ngan M & Hanaoka K, NIST IR 8280, Face Recognition Vendor Test Part 3: Demographic Effects, 2019",
+  "WHO Child Growth Standards (head circumference-for-age); CDC 2000 growth charts"
+ ]
+}

@@ -1,0 +1,111 @@
+{
+  "topic": "metahuman-cc-bridges",
+  "tables": [
+    {
+      "name": "bridge_targets",
+      "units": "vertex counts (approximate), native units",
+      "columns": ["target", "template", "head_or_base_vertices_approx", "native_units", "up_axis", "character_faces", "any_topology_door", "same_topology_door", "cloud_step", "licence_gist", "row_status"],
+      "rows": [
+        ["MetaHuman (UE 5.6+)", "DNA head, LOD0-7", 24000, "cm", "Z (UE) / Y (DNA, Maya)", "+Y in UE mesh space / +Z in DNA", "Mesh to MetaHuman / Creator Conform", "template-mesh conform (recalled), DNA edit", true, "UE EULA; outside-UE use reportedly allowed since 5.6", "contested"],
+        ["Character Creator 4/5", "CC3+ base (body + head)", null, "cm", "via FBX metadata", "via FBX metadata", "Headshot mesh mode", "morph import / GoZ", false, "no raw base redistribution; export licences for some content", "knowledge"],
+        ["Daz Genesis 9", "unified G9", 25000, "cm", "Y", "+Z", "none first-party", "Morph Loader Pro", false, "Standard (renders) vs Interactive (games) licence", "knowledge"],
+        ["Daz Genesis 8/8.1", "G8", 16500, "cm", "Y", "+Z", "Face Transfer (single photo)", "Morph Loader Pro", false, "Standard vs Interactive licence", "knowledge"],
+        ["MPFB2 (Blender)", "hm08", 13400, "m", "Z", "-Y", "own fitter", "shape key / .target", false, "GPL-3.0+ code, CC0 base assets (contested)", "knowledge"]
+      ],
+      "population": "n/a (software templates)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Vertex counts are recalled approximations (MetaHuman = LOD0 head mesh only; CC3+ count not recalled). The engine must count vertices and hash face indices of the user's own template at runtime and never hard-code these."
+    },
+    {
+      "name": "blender_to_target_axis_conversion",
+      "units": "scale factor; axis mapping of a Blender point (x, y, z) in metres",
+      "columns": ["target", "scale", "x_target", "y_target", "z_target", "apply_via", "row_status"],
+      "rows": [
+        ["Daz / Maya / MetaHuman DNA (cm, Y-up, faces +Z)", 100, "x", "z", "-y", "OBJ export Up=Y Forward=-Z scale 100, or FBX", "knowledge"],
+        ["Unreal Engine (cm, Z-up, left-handed)", 100, "x", "-y", "z", "FBX export unit scale 1.0, transforms applied; UE importer converts", "knowledge"],
+        ["Character Creator (cm)", 100, "via FBX", "via FBX", "via FBX", "CC/iC Blender Tools export presets", "knowledge"]
+      ],
+      "population": "n/a",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Daz mapping matrix [[1,0,0],[0,0,1],[0,-1,0]] has determinant +1 (proper rotation, -90 deg about X). UE mapping is a reflection (handedness change) handled by the FBX importer; a head facing Blender -Y faces UE +Y, the UE skeletal-mesh convention. Verify with a test import and the sanity table."
+    },
+    {
+      "name": "post_import_scale_sanity",
+      "units": "cm",
+      "columns": ["measure", "low", "high", "typical", "row_status", "notes"],
+      "rows": [
+        ["interpupillary_distance", 5.5, 7.0, 6.3, "knowledge", "value near 0.063 or 630 indicates a x100 unit error"],
+        ["head_height_vertex_menton", 21.0, 25.0, null, "knowledge", "adult"],
+        ["head_breadth_eu_eu", 14.0, 16.5, null, "knowledge", "adult"],
+        ["bizygomatic_width", 12.0, 15.0, null, "knowledge", "adult"],
+        ["eyeball_axial_length", 2.2, 2.5, 2.4, "knowledge", "vendor template eye radius about 1.2 cm"],
+        ["visible_iris_diameter", 1.1, 1.25, 1.17, "knowledge", "horizontal visible iris"]
+      ],
+      "population": "adults, mixed sex and ancestry; broad ranges from anthropometric norms (Farkas 1994 and similar)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Ranges for unit/scale sanity checks only, not identity priors; see the anatomy notes for population-specific values."
+    },
+    {
+      "name": "interchange_format_topology_behaviour",
+      "units": "qualitative",
+      "columns": ["format", "preserves_vertex_count_and_order", "shape_keys", "unit_axis_metadata", "recommended_use", "row_status"],
+      "rows": [
+        ["OBJ", "yes, if modifiers off / Multires level 0 on export and no split by object/group on import", false, "none", "Daz Morph Loader Pro, CC morph import, Mesh to MetaHuman input", "knowledge"],
+        ["FBX", "yes (control points)", true, "yes", "CC, UE, Daz bridges; Mesh to MetaHuman input", "knowledge"],
+        ["glTF", "no: splits at UV seams and sharp normals", true, "metres, Y-up", "viewing only; never for index-matched round trips", "knowledge"],
+        ["USD", "yes (points)", true, "metersPerUnit, upAxis", "emerging; DCC coverage uneven", "contested"],
+        ["MetaHuman DNA", "own layout per LOD", true, "cm", "MetaHuman DNA tools only", "knowledge"]
+      ],
+      "population": "n/a",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Behaviour of Blender's exporters/importers as recalled; confirm on the Blender version in use."
+    },
+    {
+      "name": "wrap_and_export_defaults",
+      "units": "mm unless stated",
+      "columns": ["parameter", "value", "notes"],
+      "rows": [
+        ["rigid_alignment_min_anchors", 8, "Umeyama similarity"],
+        ["rigid_scale_accept_ratio", [0.8, 1.25], "relative to expected head scale"],
+        ["anchor_landmark_sigma", 1.0, "canthi, cheilion, pronasale, subnasale, gnathion"],
+        ["contour_landmark_sigma", [1.5, 2.0], "lid margins, vermilion border, brows; sliding"],
+        ["nricp_stiffness_schedule", [100, 50, 20, 10, 5, 2], "relative to data term"],
+        ["correspondence_reject_distance", 8.0, "mm"],
+        ["correspondence_reject_normal_angle_deg", 60, "degrees"],
+        ["protected_zone_stiffness_multiplier", 5, "eyelids, lips, nostrils, ears"],
+        ["eyeball_radius_prior", [12.0, 0.5], "mean, sigma"],
+        ["lid_globe_gap_penalty_threshold", 0.5, "mm"],
+        ["symmetry_prior_sigma", [1.0, 2.0], "soft, never hard mirroring"],
+        ["expression_basis_sigma", 0.3, "ARKit-named coefficients on 0-1 range; fitted then discarded"],
+        ["wrap_accept_face_rms", 0.5, "mm"],
+        ["wrap_accept_scalp_neck_rms", 1.5, "mm"],
+        ["min_triangle_area_ratio", 0.2, "relative to template rest triangle; flips rejected"],
+        ["bridge_texture_resolution_px", 4096, "projected photo albedo for tracking"]
+      ],
+      "population": "n/a (design choices)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Suggested defaults, not measurements; tune on ground-truth scans."
+    },
+    {
+      "name": "metahuman_milestones",
+      "units": "year / UE version",
+      "columns": ["date", "ue_version", "change", "row_status"],
+      "rows": [
+        ["2021", "pre-5.0", "MetaHuman Creator launched as a cloud-streamed browser app", "knowledge"],
+        ["2022", "5.0", "Mesh to MetaHuman in the MetaHuman plugin", "knowledge"],
+        ["2023", "5.2", "MetaHuman Animator (iPhone depth / stereo HMC)", "knowledge"],
+        ["2025 (mid)", "5.6", "Creator in-engine, parametric face and body, auto-rig options, DCC export; licence reportedly extended to other engines and DCCs", "contested"],
+        ["2025-11", "5.7", "not recalled", "knowledge"]
+      ],
+      "population": "n/a",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Time-sensitive; anything after UE 5.7 is unknown to the author. Verify before relying on it."
+    }
+  ]
+}

@@ -1,17 +1,131 @@
-{"topic":"facial-asymmetry","sources":[
-{"n":1,"title":"A longitudinal study of facial asymmetry in a normal birth cohort up to 6 years of age and the predisposing factors","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC10389059/","kind":"paper","year":"2023"},
-{"n":2,"title":"Three-dimensional soft tissue analysis for the evaluation of facial asymmetry in normal occlusion individuals","url":"https://pubmed.ncbi.nlm.nih.gov/23112933/","kind":"paper","year":"2012"},
-{"n":3,"title":"Analysis of hard tissue facial symmetry after unilateral mandibular reconstruction","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC8166985/","kind":"paper","year":"2021"},
-{"n":4,"title":"Precision Assessment of Facial Asymmetry Using 3D Imaging and Artificial Intelligence","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC12565447/","kind":"paper","year":"2025"},
-{"n":5,"title":"Quantification of three-dimensional facial asymmetry for diagnosis and postoperative evaluation of orthognathic surgery","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC7248163/","kind":"paper","year":"2020"},
-{"n":6,"title":"Facial asymmetry assessment in adults using three-dimensional surface imaging","url":"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/","kind":"paper","year":"2015"},
-{"n":7,"title":"The Relationship between Age and Facial Asymmetry","url":"https://pubmed.ncbi.nlm.nih.gov/30511968/","kind":"paper","year":"2018"},
-{"n":8,"title":"Comparison of Different 3D Surface Registration-Based Methods to Assess Facial Asymmetry","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC11593128/","kind":"paper","year":"2024"},
-{"n":9,"title":"Threshold of visual perception of facial asymmetry in a facial paralysis model","url":"https://pubmed.ncbi.nlm.nih.gov/21242426/","kind":"paper","year":"2011"},
-{"n":10,"title":"Discriminative Thresholds in Facial Asymmetry: A Review of the Literature","url":"https://pubmed.ncbi.nlm.nih.gov/28200081/","kind":"review","year":"2017"},
-{"n":11,"title":"Thresholds of Abnormality Perception in Facial Esthetics among Laypersons and Dental Professionals: Frontal Esthetics","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/","kind":"paper","year":"2020"},
-{"n":12,"title":"Limits in the Perception of Facial Symmetry - A Prospective Study","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/","kind":"paper","year":"2024"},
-{"n":13,"title":"Preferences for symmetry in human faces in two cultures: UK and Hadza","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC2293939/","kind":"paper","year":"2008"},
-{"n":14,"title":"Attractiveness of facial averageness and symmetry in non-western cultures","url":"https://pubmed.ncbi.nlm.nih.gov/11430245/","kind":"paper","year":"2001"},
-{"n":15,"title":"Measuring facial symmetry: a perception-based approach using 3D shape and color","url":"https://pubmed.ncbi.nlm.nih.gov/25296669/","kind":"paper","year":"2014"}
-]}
+{
+ "topic": "facial-asymmetry",
+ "sources": [
+  {
+   "n": 1,
+   "title": "A longitudinal study of facial asymmetry in a normal birth cohort up to 6 years of age and the predisposing factors",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10389059/",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "n": 2,
+   "title": "Three-dimensional soft tissue analysis for the evaluation of facial asymmetry in normal occlusion individuals",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/23112933/",
+   "kind": "paper",
+   "year": "2012"
+  },
+  {
+   "n": 3,
+   "title": "Analysis of hard tissue facial symmetry after unilateral mandibular reconstruction",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8166985/",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "n": 4,
+   "title": "Precision Assessment of Facial Asymmetry Using 3D Imaging and Artificial Intelligence",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565447/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 5,
+   "title": "Quantification of three-dimensional facial asymmetry for diagnosis and postoperative evaluation of orthognathic surgery",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7248163/",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 6,
+   "title": "Facial asymmetry assessment in adults using three-dimensional surface imaging",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "n": 7,
+   "title": "The Relationship between Age and Facial Asymmetry",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30511968/",
+   "kind": "paper",
+   "year": "2018"
+  },
+  {
+   "n": 8,
+   "title": "Comparison of Different 3D Surface Registration-Based Methods to Assess Facial Asymmetry",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11593128/",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 9,
+   "title": "Threshold of visual perception of facial asymmetry in a facial paralysis model",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/21242426/",
+   "kind": "paper",
+   "year": "2011"
+  },
+  {
+   "n": 10,
+   "title": "Discriminative Thresholds in Facial Asymmetry: A Review of the Literature",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28200081/",
+   "kind": "review",
+   "year": "2017"
+  },
+  {
+   "n": 11,
+   "title": "Thresholds of Abnormality Perception in Facial Esthetics among Laypersons and Dental Professionals: Frontal Esthetics",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "n": 12,
+   "title": "Limits in the Perception of Facial Symmetry - A Prospective Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "n": 13,
+   "title": "Preferences for symmetry in human faces in two cultures: UK and Hadza",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2293939/",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "n": 14,
+   "title": "Attractiveness of facial averageness and symmetry in non-western cultures",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11430245/",
+   "kind": "paper",
+   "year": "2001"
+  },
+  {
+   "n": 15,
+   "title": "Measuring facial symmetry: a perception-based approach using 3D shape and color",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25296669/",
+   "kind": "paper",
+   "year": "2014"
+  }
+ ],
+ "references_by_name": [
+  "Farkas LG, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Taylor et al. 2014, Quantitative facial asymmetry: using three-dimensional photogrammetry to measure baseline facial surface symmetry, J Craniofac Surg (probable origin of the 0.80 +/- 0.24 mm figure; unverified)",
+  "Severt TR & Proffit WR 1997, The prevalence of facial asymmetry in the dentofacial deformities population at the University of North Carolina",
+  "Ferrario VF, Sforza C, Poggio CE, Tartaglia G 1994, Distance from symmetry: a three-dimensional evaluation of facial asymmetry, J Oral Maxillofac Surg",
+  "Padwa BL, Kaiser MO, Kaban LB 1997, Occlusal cant in the frontal plane as a reflection of facial asymmetry, J Oral Maxillofac Surg",
+  "Van Valen L 1962, A study of fluctuating asymmetry, Evolution",
+  "Palmer AR & Strobeck C 1986, Fluctuating asymmetry: measurement, analysis, patterns, Annual Review of Ecology and Systematics",
+  "Klingenberg CP, Barluenga M, Meyer A 2002, Shape analysis of symmetric structures: quantifying variation among individuals and asymmetry, Evolution",
+  "Mardia KV, Bookstein FL, Moreton IJ 2000, Statistical assessment of bilateral symmetry of shapes, Biometrika",
+  "Mita TH, Dermer M, Knight J 1977, Reversed facial images and the mere-exposure hypothesis, J Pers Soc Psychol",
+  "Gilbert C & Bakan P 1973, Visual asymmetry in perception of faces, Neuropsychologia",
+  "Sackeim HA, Gur RC, Saucy MC 1978, Emotions are expressed more intensely on the left side of the face, Science",
+  "Rhodes G, Brennan S, Carey S 1987, Identification and ratings of caricatures, Cognitive Psychology",
+  "Valentine T 1991, A unified account of the effects of distinctiveness, inversion, and race in face recognition, QJEP",
+  "Troje NF & Buelthoff HH 1998, How is bilateral symmetry of human faces used for recognition of novel views?, Vision Research",
+  "Swaddle JP & Cuthill IC 1995, Asymmetry and human facial attractiveness: symmetry may not always be beautiful, Proc R Soc B",
+  "Perrett DI et al. 1999, Symmetry and human facial attractiveness, Evolution and Human Behavior",
+  "Haig ND 1984, The effect of feature displacement on face recognition, Perception (moderate confidence)",
+  "Umeyama S 1991, Least-squares estimation of transformation parameters between two point patterns, IEEE TPAMI"
+ ]
+}

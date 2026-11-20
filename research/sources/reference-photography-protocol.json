@@ -1,0 +1,18 @@
+{
+ "topic": "reference-photography-protocol",
+ "sources": [],
+ "references_by_name": [
+  "Ettorre et al., \"Standards for digital photography in cranio-maxillo-facial surgery – Part I: Basic views and guidelines\", J Craniomaxillofac Surg, 2006",
+  "Yavuzer, Smirnov & Jackson, \"Guidelines for standard photography in plastic surgery\", Annals of Plastic Surgery, 2001",
+  "Galdino, Vogel & Vander Kolk, \"Standardizing digital photography: it's not all in the eye of the beholder\", Plastic and Reconstructive Surgery, 2001",
+  "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Moorrees & Kean, \"Natural head position, a basic consideration in the interpretation of cephalometric radiographs\", Am J Phys Anthropol, 1958",
+  "Ward, Ward, Fried & Paskhover, \"Nasal distortion in short-distance photographs: the selfie effect\", JAMA Facial Plastic Surgery, 2018",
+  "Sinha & Poggio, \"I think I know that face...\", Nature, 1996",
+  "ICAO Doc 9303 and ICAO portrait-quality guidance; ISO/IEC 19794-5 and ISO/IEC 39794-5 (face image data)",
+  "ISO/IEC 7810 (ID-1 card dimensions)",
+  "Debevec et al., \"Acquiring the Reflectance Field of a Human Face\", SIGGRAPH 2000",
+  "Ma et al., \"Rapid Acquisition of Specular and Diffuse Normal Maps from Polarized Spherical Gradient Illumination\", EGSR 2007",
+  "Soukupová & Čech, \"Real-Time Eye Blink Detection using Facial Landmarks\", CVWW 2016"
+ ]
+}

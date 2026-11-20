@@ -1,0 +1,20 @@
+{
+  "topic": "artstation-likeness",
+  "sources": [],
+  "references_by_name": [
+    "ArtStation Learning; ArtStation Magazine / blog 'making of' features; ArtStation Marketplace tutorials",
+    "80 Level artist breakdown interviews; 3dtotal making-of articles; The Gnomon Workshop likeness and portrait courses (titles unverified)",
+    "KeenTools FaceBuilder documentation",
+    "Faceform (formerly R3DS) Wrap documentation",
+    "PureRef reference-board software",
+    "Texturing XYZ multichannel face maps; 3D Scan Store and Triplegangers head scans (licence terms to check)",
+    "Scott Spencer, ZBrush Digital Sculpting Human Anatomy (2010)",
+    "Uldis Zarins & Sandis Kondrats, Anatomy for Sculptors (2014)",
+    "Philippe Faraut, Mastering Portraiture",
+    "Farkas, Anthropometry of the Head and Face, 2nd ed. (1994)",
+    "Ward et al., selfie nasal distortion, JAMA Facial Plastic Surgery (2018)",
+    "Sinha & Poggio, 'I think I know that face...', Nature (1996)",
+    "Jenkins, White, Van Montfort & Burton, 'Variability in photos of the same face', Cognition (2011)",
+    "Rhodes, Brennan & Carey, caricature identification, Cognitive Psychology (1987)"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "expression-neutralization",
+ "area": "reconstruction",
+ "title": "Separating identity from expression",
+ "queue": [
+  {
+   "claim": "The 2\u20134 mm gap between the incisors at jaw rest, plus a condyle-to-incisor radius of about 100 mm (Bonwill triangle), justify a neutral-photo jaw prior of mean 0 and sigma 1\u20131.5\u00b0.",
+   "query": "interocclusal rest space freeway space normal range mm mandibular rest position",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "FLAME has 300 shape and 100 expression components. Identity comes from about 3,800 CAESAR scans. Expression PCA is learned from 4D sequences (D3DFACS plus the authors' own) after removing identity, jaw, neck and eye rotation and pose correctives, so jaw opening is a joint, not part of the expression basis.",
+   "query": "FLAME \"Learning a model of facial shape and expression from 4D scans\" expression space D3DFACS CAESAR jaw joint pose correctives",
+   "domains": ""
+  },
+  {
+   "claim": "A posed social smile (AU12 with or without AU6) widens the mouth by about 15\u201330% (+8\u201315 mm), thins the visible upper lip by 20\u201340%, narrows the eye opening by 10\u201350% and lifts the cheek soft tissue 2\u20135 mm.",
+   "query": "intercommissural width rest versus posed smile mm upper lip elevation smile anthropometric study",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Upper incisor display at rest is about 1\u20134 mm, with means of about 1.9 mm in men and 3.4 mm in women (Vig & Brundo 1978), and decreases with age.",
+   "query": "Vig Brundo 1978 kinetics of anterior tooth display maxillary incisor exposure at rest men women mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

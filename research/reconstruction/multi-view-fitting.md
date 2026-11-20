@@ -20,7 +20,7 @@
 - **flame-head-tracker v4.1 (2 Aug 2025)** does single-image and monocular-video fitting offline, at about 0.9 s/frame in landmark mode and 1.9 s/frame in photometric mode on an RTX 4090. It needs an NVIDIA GPU on Ubuntu (Windows untested), and FLAME files are downloaded separately for licensing reasons [9]. A fork exists [10]. 📄
 - **video-head-tracker** is licensed CC BY-NC 3.0 (non-commercial) [11]. 📄 From knowledge, it is the tracker behind *Neural Head Avatars from Monocular RGB Videos* (Grassal et al., CVPR 2022). 🧠
 - **Alternatives to sparse-landmark tracking:** dense UV-to-image flow tracking [12], real-time dense UV-space priors [2], and the neural parametric head model MonoNPHM [13]. 📄
-- **FLAME basics.** FLAME has 5,023 vertices and 9,976 triangles. It has joints for global rotation, neck, jaw and both eyes, with 3 axis-angle parameters each. Public releases ship 300 shape and 100 expression components, with bases scaled so that β and ψ are roughly in standard-deviation units. Coordinates are in **metres**, while this engine works in millimetres (×1000). 🧠
+- **FLAME basics.** FLAME has 5,023 vertices [12] and public releases ship 300 shape and 100 expression components [2][17]. ✅ It also has 9,976 triangles, and joints for global rotation, neck, jaw and both eyes, with 3 axis-angle parameters each; bases are scaled so that β and ψ are roughly in standard-deviation units. Coordinates are in **metres**, while this engine works in millimetres (×1000). 🧠 (triangle count and metre units: no source found in verification)
 - **Per-frame regressors do not share identity.** DECA, EMOCA, SMIRK and MICA run per image, so β jitters from frame to frame. Taking the median of β over frames is a cheap baseline. Joint optimisation with one β is the principled version, as in Face2Face's "non-rigid model-based bundling" over keyframes. Earlier lineage: analysis-by-synthesis (Blanz & Vetter 1999), model-based stereo (Amberg et al. 2007), and region-wise fusion of per-image fits (Piotraschke & Blanz 2016). 🧠
 - **Landmark-definition bias does not average away.** 2D detectors put jawline and brow points on the *visible* contour, while a 3DMM embeds fixed vertices. On turned views the contour slides, so adding views shrinks random noise roughly as 1/√N but leaves this systematic error. FLAME tooling handles it with a yaw-dependent dynamic contour embedding (RingNet/DECA code). 🧠
 - **Focal length and distance trade off.** Apparent perspective scales with relative depth Δ/d. Beyond roughly 1–1.5 m (Δ/d < ~0.07–0.1), focal length and distance are nearly degenerate, and a face alone barely constrains focal length (see Table 3). 🧠
@@ -60,7 +60,7 @@
 
 | Cue | Value | Notes | Status |
 |---|---|---|---|
-| Horizontal visible iris diameter | mean ≈ 11.7 mm, SD ≈ 0.4–0.5 mm | ~4% 1σ; MediaPipe Iris assumes ~11.7 mm | 🧠 |
+| Horizontal visible iris diameter | mean ≈ 11.7 mm (studies: 11.64–11.81), SD ≈ 0.24–0.5 mm [15][16] | ~2–4% 1σ; device-dependent (some biometers read 12.3–12.4 mm); MediaPipe Iris assumption of ~11.7 mm not verified 🧠 | ✅ |
 | Interpupillary distance (far gaze) | mean ≈ 61–64 mm, SD ≈ 3–4 mm | ~5–6% 1σ; near gaze shortens it | 🧠 |
 | Population-mean head template | head breadth SD ≈ 4–5% of mean | default scale of `Priors` fits | 🧠 |
 | A4 sheet in shot | 210 × 297 mm (ISO 216) | exact; flat, near face plane | 🧠 |
@@ -96,7 +96,7 @@
 5. **Validate in profile first.** Overlay projected landmarks and the silhouette on every photo. Profile views expose the depth errors a frontal fit cannot see: nose projection, chin projection, forehead slope, lip protrusion and ear position. Fail the fit if any view's RMSE exceeds about 2% of IOD.
 6. **Mask what FLAME cannot model.** Exclude hair, beard, glasses and the neck from fitting (face parsing), and treat the neck and back of skull as rough base geometry [4].
 7. **Import the fit, then sculpt.** Keep FLAME topology and vertex order. Put tracked expressions on shape keys, and put likeness detail on Multires or a separate "likeness" shape key so you can re-fit later. Use the camera-matched photos as background images on the solved cameras, not orthographic tracing.
-8. **Check licences before commercial likeness work.** FLAME files are licence-gated [9], and video-head-tracker is non-commercial [11]. From knowledge, FLAME 2020 is research-only, and a 2023 "FLAME Open" variant is reportedly CC BY 4.0. 🧠 Verify this.
+8. **Check licences before commercial likeness work.** FLAME files are licence-gated [9], and video-head-tracker is non-commercial [11]. The official FLAME site says earlier versions (including FLAME 2020) are non-commercial research only, while the FLAME 2023 Open model is released under CC BY 4.0, which allows commercial use [14][17]. 📄 Read the attribution terms on the licence page before shipping.
 
 ## Algorithmic implications
 
@@ -125,7 +125,7 @@
 - **"Multi-view gives true size."** It does not without a known baseline, object or measurement (see Scale). 🧠
 - **Photometric vs landmark-plus-silhouette for identity.** Photometric terms improve alignment and expression [2][4] but are "sometimes sensitive" [4]. With uncontrolled lighting, hair or makeup, a geometric fit from well-spread views may give equal or better β. ↔️
 - **The FLAME fit is not the likeness.** Capacity limits ("limited degrees of freedom" [4]) mean ears, nose detail and asymmetry need offsets or sculpting.
-- **Licences.** FLAME 2023 terms, the VHAP repo licence and the Metrical Tracker repo licence are unconfirmed. ↔️
+- **Licences.** FLAME 2023 Open is CC BY 4.0 [14], but the VHAP repo licence (a search summary reported CC-BY-NC-SA-4.0, not tied to a specific URL) and the Metrical Tracker repo licence are unconfirmed. ↔️
 - **Open questions.**
   - Measured gain from 1 to N views in mm on a scan benchmark, landmark versus photometric.
   - Whether VHAP officially supports calibrated multi-view input.
@@ -146,6 +146,10 @@
 [11] video-head-tracker (philgras) — https://github.com/philgras/video-head-tracker — code repository — n.d.
 [12] 3D Face Tracking from 2D Video through Iterative Dense UV to Image Flow — https://arxiv.org/html/2404.09819v1 — paper — 2024
 [13] MonoNPHM: Dynamic Head Reconstruction from Monocular Videos — https://arxiv.org/pdf/2312.06740 — paper — 2023
+[14] FLAME model license page — https://flame.is.tue.mpg.de/modellicense.html — official licence — n.d.
+[15] Mean shape of the human limbus (tabulates Martin & Holden 1982: 11.64 ± 0.49 mm) — https://arxiv.org/pdf/1906.09149 — paper — 2019
+[16] White-to-white / HVID comparison across devices (PLOS ONE, Orbscan IIz 11.77 ± 0.40 mm) — https://doaj.org/article/0840ccb0d3d443789243e436aad55af0 — paper — 2021
+[17] FLAME official site — https://flame.is.tue.mpg.de/ — official project page — n.d.
 
 **Further reading (by name, not yet linked)**
 - Li, Bolkart, Black, Li, Romero, "Learning a model of facial shape and expression from 4D scans" (FLAME), SIGGRAPH Asia 2017

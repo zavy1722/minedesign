@@ -1,0 +1,27 @@
+{
+ "id": "sota-2025-2026",
+ "area": "reconstruction",
+ "title": "State of the art 2025-2026 in 3D face reconstruction",
+ "queue": [
+  {
+   "claim": "FLAME licensing: FLAME 2020 is non-commercial research-only, and a 'FLAME 2023 Open' release exists under CC BY 4.0. This decides whether FLAME can be the shippable default prior and topology.",
+   "query": "FLAME 2023 Open head model license CC BY 4.0 commercial use",
+   "domains": "flame.is.tue.mpg.de"
+  },
+  {
+   "claim": "Pixel3DMM (Giebenhain et al., 2025): fine-tuned DINO ViTs predict normals and FLAME UV coordinates, FLAME is optimised to them, and it reports >15% better geometry than baselines on posed expressions on a NeRSemble-based benchmark. Code is public; venue and licence unknown.",
+   "query": "Pixel3DMM versatile screen-space priors single-image 3D face reconstruction posed expressions benchmark github license",
+   "domains": "arxiv.org,github.com"
+  },
+  {
+   "claim": "As of late 2026, the best open few-shot photo-to-3D head methods are Pixel3DMM/MICA plus multi-view FLAME optimisation for geometry, and LAM/Avat3r/CAP4D/FaceLift for avatars. No CVPR, SIGGRAPH or ECCV 2026 method was reviewed.",
+   "query": "CVPR 2026 few-shot 3D head reconstruction FLAME from photos geometry accuracy",
+   "domains": "openaccess.thecvf.com,arxiv.org"
+  },
+  {
+   "claim": "NoW non-metrical test leaderboard: DECA 1.09/1.38 mm, MICA 0.90/1.11 mm, best entries (for example TokenFace) about 0.75-0.8 median and 0.95 mean (median/mean, mm).",
+   "query": "NoW benchmark leaderboard non-metrical median mean error MICA TokenFace DECA",
+   "domains": ""
+  }
+ ]
+}

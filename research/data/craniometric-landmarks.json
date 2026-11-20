@@ -1,0 +1,1046 @@
+{
+ "topic": "craniometric-landmarks",
+ "tables": [
+  {
+   "name": "landmark_registry",
+   "units": "categorical; detector indices 0-based",
+   "columns": [
+    "abbr",
+    "name",
+    "tissue",
+    "side",
+    "bookstein_type",
+    "working_definition",
+    "dlib68_index",
+    "mediapipe478_candidate",
+    "definition_status",
+    "mapping_status"
+   ],
+   "rows": [
+    [
+     "n",
+     "nasion",
+     "hard",
+     "mid",
+     "I",
+     "midline junction of frontal and nasal bones (frontonasal meets internasal suture)",
+     null,
+     null,
+     "verified",
+     null
+    ],
+    [
+     "n'",
+     "soft-tissue nasion",
+     "soft",
+     "mid",
+     "III",
+     "deepest point of frontonasal concavity (ceph) OR skin over bony n (anthropometry)",
+     "~27",
+     168,
+     "contested",
+     "knowledge"
+    ],
+    [
+     "g",
+     "glabella",
+     "hard",
+     "mid",
+     "III",
+     "most prominent midline forehead point above nasal root, level of supraorbital ridges",
+     null,
+     null,
+     "verified",
+     null
+    ],
+    [
+     "g'",
+     "soft-tissue glabella",
+     "soft",
+     "mid",
+     "III",
+     "most prominent midline soft-tissue forehead point between brows",
+     null,
+     9,
+     "knowledge",
+     "knowledge"
+    ],
+    [
+     "or",
+     "orbitale",
+     "hard",
+     "bilateral",
+     "III",
+     "lowest point of inferior orbital margin (radiographic variant: midpoint of L/R images)",
+     null,
+     null,
+     "verified",
+     null
+    ],
+    [
+     "po",
+     "porion",
+     "hard",
+     "bilateral",
+     "III",
+     "uppermost point of external acoustic meatus (anatomical, not machine porion)",
+     null,
+     null,
+     "verified",
+     null
+    ],
+    [
+     "t",
+     "tragion",
+     "soft",
+     "bilateral",
+     "I",
+     "notch on upper margin of tragus",
+     null,
+     null,
+     "sourced",
+     "knowledge"
+    ],
+    [
+     "zy",
+     "zygion",
+     "hard",
+     "bilateral",
+     "III",
+     "most lateral point of zygomatic arch",
+     "~0-2 / 14-16 (silhouette, soft-tissue proxy)",
+     "234 (R) / 454 (L), silhouette",
+     "sourced",
+     "knowledge"
+    ],
+    [
+     "go",
+     "gonion",
+     "hard",
+     "bilateral",
+     "III",
+     "mandibular angle; construction: outer-inferior point | bisector of ramus/body tangents | tangent intersection",
+     "~3-5 / 11-13 (sliding, soft-tissue proxy)",
+     "172 (R) / 397 (L), or 58 / 288",
+     "contested",
+     "knowledge"
+    ],
+    [
+     "pog",
+     "pogonion",
+     "hard",
+     "mid",
+     "III",
+     "most anterior midline point of bony chin",
+     null,
+     null,
+     "verified",
+     null
+    ],
+    [
+     "pg'",
+     "soft-tissue pogonion",
+     "soft",
+     "mid",
+     "III",
+     "most anterior midpoint of soft-tissue chin",
+     "profile only",
+     199,
+     "verified",
+     "knowledge"
+    ],
+    [
+     "Gn",
+     "gnathion (cephalometric)",
+     "hard",
+     "mid",
+     "III",
+     "midway between pogonion and menton on chin contour",
+     null,
+     null,
+     "sourced",
+     null
+    ],
+    [
+     "gn (Farkas)",
+     "gnathion (anthropometric)",
+     "soft",
+     "mid",
+     "III",
+     "lowest midline chin point = cephalometric menton (me')",
+     "~8",
+     152,
+     "contested",
+     "knowledge"
+    ],
+    [
+     "me",
+     "menton",
+     "hard",
+     "mid",
+     "III",
+     "lowest midline point of mandibular symphysis",
+     null,
+     null,
+     "verified",
+     null
+    ],
+    [
+     "me'",
+     "soft-tissue menton",
+     "soft",
+     "mid",
+     "III",
+     "lowest midline point of soft-tissue chin",
+     "~8",
+     152,
+     "knowledge",
+     "knowledge"
+    ],
+    [
+     "gn'",
+     "soft-tissue gnathion",
+     "soft",
+     "mid",
+     "III",
+     "midpoint of most anterior and most inferior chin points | lowest mental soft-tissue point | (some sources) chin-throat junction",
+     null,
+     null,
+     "contested",
+     null
+    ],
+    [
+     "prn",
+     "pronasale",
+     "soft",
+     "mid",
+     "II",
+     "most anterior midpoint of nasal tip",
+     30,
+     1,
+     "verified",
+     "knowledge"
+    ],
+    [
+     "sn",
+     "subnasale",
+     "soft",
+     "mid",
+     "I",
+     "columella meets upper lip in midsagittal plane (3 constructions)",
+     33,
+     2,
+     "contested",
+     "knowledge"
+    ],
+    [
+     "al",
+     "alare",
+     "soft",
+     "bilateral",
+     "III",
+     "most lateral point of alar contour (31/35 in dlib are alar base, not al)",
+     null,
+     "129 (R) / 358 (L), verify",
+     "verified",
+     "knowledge"
+    ],
+    [
+     "ls",
+     "labiale (labrale) superius",
+     "soft",
+     "mid",
+     "I/II",
+     "midpoint of upper vermilion line | most prominent upper lip point",
+     51,
+     0,
+     "contested",
+     "knowledge"
+    ],
+    [
+     "sto",
+     "stomion",
+     "soft",
+     "mid",
+     "I",
+     "midline meeting point of naturally closed lips (some split Stms/Stmi)",
+     "mean(62,66)",
+     "mean(13,14)",
+     "verified",
+     "knowledge"
+    ],
+    [
+     "li",
+     "labiale (labrale) inferius",
+     "soft",
+     "mid",
+     "I/II",
+     "midpoint of lower vermilion line | most prominent lower lip point",
+     57,
+     17,
+     "contested",
+     "knowledge"
+    ],
+    [
+     "en_R",
+     "endocanthion right",
+     "soft",
+     "R",
+     "I",
+     "inner commissure of palpebral fissure",
+     39,
+     133,
+     "verified",
+     "knowledge"
+    ],
+    [
+     "en_L",
+     "endocanthion left",
+     "soft",
+     "L",
+     "I",
+     "inner commissure of palpebral fissure",
+     42,
+     362,
+     "verified",
+     "knowledge"
+    ],
+    [
+     "ex_R",
+     "exocanthion right",
+     "soft",
+     "R",
+     "I",
+     "outer commissure of palpebral fissure",
+     36,
+     33,
+     "verified",
+     "knowledge"
+    ],
+    [
+     "ex_L",
+     "exocanthion left",
+     "soft",
+     "L",
+     "I",
+     "outer commissure of palpebral fissure",
+     45,
+     263,
+     "verified",
+     "knowledge"
+    ],
+    [
+     "ch_R",
+     "cheilion right",
+     "soft",
+     "R",
+     "I",
+     "labial commissure",
+     48,
+     61,
+     "verified",
+     "knowledge"
+    ],
+    [
+     "ch_L",
+     "cheilion left",
+     "soft",
+     "L",
+     "I",
+     "labial commissure",
+     54,
+     291,
+     "verified",
+     "knowledge"
+    ],
+    [
+     "tr",
+     "trichion",
+     "hair",
+     "mid",
+     null,
+     "midline point of anterior hairline (not anatomical)",
+     null,
+     null,
+     "verified",
+     null
+    ],
+    [
+     "v",
+     "vertex",
+     "soft",
+     "mid",
+     "III",
+     "highest midline point of head, head in FH",
+     null,
+     null,
+     "verified",
+     null
+    ],
+    [
+     "iris_R",
+     "iris centre right",
+     "soft",
+     "R",
+     null,
+     "MediaPipe refined iris centre",
+     null,
+     468,
+     "knowledge",
+     "knowledge"
+    ],
+    [
+     "iris_L",
+     "iris centre left",
+     "soft",
+     "L",
+     null,
+     "MediaPipe refined iris centre",
+     null,
+     473,
+     "knowledge",
+     "knowledge"
+    ]
+   ],
+   "population": "n/a (definitions)",
+   "source_urls": [
+    "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+    "https://pressbooks.gvsu.edu/introhumanosteology/?p=60",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1",
+    "https://bmcoralhealth.biomedcentral.com/articles/10.1186/s12903-024-04260-3/tables/1",
+    "https://bmcoralhealth.biomedcentral.com/articles/10.1186/s12903-022-02179-1/tables/1",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4832301/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10377994/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9949938/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12460026/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10907697/",
+    "https://nobellicense.nobelbiocare.com/help/d3d046fb-52e8-4b33-9f51-d3fd98ca3ed4/2.0/EN/3D_cephalometric_soft_tissue_landmarks.htm",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13205844/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/"
+   ],
+   "status": "contested",
+   "notes": "Per-row definition_status uses verified/sourced/knowledge/contested as in the note. All MediaPipe indices and the dlib-to-anatomy correspondences are author knowledge: confirm by rendering index labels on the MediaPipe canonical mesh / 300-W images. R/L = subject's side; dlib R points are on the image left. '~' = convention-placed contour point, fit as sliding/silhouette, not as a fixed correspondence."
+  },
+  {
+   "name": "dlib68_regions",
+   "units": "0-based index, inclusive",
+   "columns": [
+    "region",
+    "first",
+    "last",
+    "count"
+   ],
+   "rows": [
+    [
+     "jaw",
+     0,
+     16,
+     17
+    ],
+    [
+     "right_brow",
+     17,
+     21,
+     5
+    ],
+    [
+     "left_brow",
+     22,
+     26,
+     5
+    ],
+    [
+     "nose_bridge",
+     27,
+     30,
+     4
+    ],
+    [
+     "nose_lower",
+     31,
+     35,
+     5
+    ],
+    [
+     "right_eye",
+     36,
+     41,
+     6
+    ],
+    [
+     "left_eye",
+     42,
+     47,
+     6
+    ],
+    [
+     "mouth_outer",
+     48,
+     59,
+     12
+    ],
+    [
+     "mouth_inner",
+     60,
+     67,
+     8
+    ]
+   ],
+   "population": "iBUG 300-W annotation convention",
+   "source_urls": [
+    "https://docs.ros.org/en/kinetic/api/librealsense2/html/markup__68_8h_source.html",
+    "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/",
+    "https://pyimagesearch.com/2018/04/02/faster-facial-landmark-detector-with-dlib/",
+    "https://ibug.doc.ic.ac.uk/resources/300-W",
+    "https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/"
+   ],
+   "status": "verified",
+   "notes": "Block boundaries from PyImageSearch slices and markup_68.h; split of nose into bridge/lower and mouth into outer/inner is author knowledge. PyImageSearch prose writes nose as [27, 35], which as an end-exclusive slice would drop point 35; nose is 27-35 inclusive."
+  },
+  {
+   "name": "mediapipe478_layout",
+   "units": "index",
+   "columns": [
+    "block",
+    "first",
+    "last",
+    "count"
+   ],
+   "rows": [
+    [
+     "face_mesh",
+     0,
+     467,
+     468
+    ],
+    [
+     "iris_right (centre 468)",
+     468,
+     472,
+     5
+    ],
+    [
+     "iris_left (centre 473)",
+     473,
+     477,
+     5
+    ]
+   ],
+   "population": "MediaPipe Face Mesh / Face Landmarker topology",
+   "source_urls": [
+    "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md",
+    "https://github.com/cornpip/mediapipe_face_mesh"
+   ],
+   "status": "verified",
+   "notes": "468 + 10 iris points at 468-477 is sourced (two repos). Right/left split and centre indices are author knowledge (check against official docs). z output is relative depth scaled like x, not metric."
+  },
+  {
+   "name": "adult_linear_norms_approx",
+   "units": "mm",
+   "columns": [
+    "measure",
+    "male_mean_low",
+    "male_mean_high",
+    "female_mean_low",
+    "female_mean_high",
+    "typical_sd_low",
+    "typical_sd_high"
+   ],
+   "rows": [
+    [
+     "en-en",
+     32,
+     34,
+     31,
+     33,
+     2,
+     3
+    ],
+    [
+     "ex-ex",
+     88,
+     92,
+     85,
+     89,
+     3,
+     4
+    ],
+    [
+     "ex-en",
+     30,
+     32,
+     29,
+     31,
+     1,
+     2
+    ],
+    [
+     "al-al",
+     33,
+     36,
+     30,
+     33,
+     2,
+     3
+    ],
+    [
+     "ch-ch",
+     51,
+     55,
+     48,
+     52,
+     3,
+     4
+    ],
+    [
+     "zy-zy",
+     135,
+     141,
+     127,
+     132,
+     4,
+     6
+    ],
+    [
+     "go-go",
+     94,
+     100,
+     88,
+     94,
+     5,
+     7
+    ],
+    [
+     "n-sn",
+     53,
+     57,
+     49,
+     53,
+     3,
+     4
+    ],
+    [
+     "sn-prn",
+     18,
+     22,
+     17,
+     20,
+     2,
+     2
+    ],
+    [
+     "sn-sto",
+     21,
+     24,
+     19,
+     22,
+     2,
+     3
+    ],
+    [
+     "sn-me'",
+     70,
+     75,
+     63,
+     67,
+     4,
+     5
+    ],
+    [
+     "n-me' (Farkas n-gn)",
+     119,
+     125,
+     110,
+     115,
+     5,
+     7
+    ],
+    [
+     "eu-eu",
+     148,
+     155,
+     141,
+     147,
+     5,
+     5
+    ],
+    [
+     "g-op",
+     192,
+     200,
+     182,
+     190,
+     6,
+     7
+    ]
+   ],
+   "population": "young adult North American White (Farkas-type data), recalled from memory",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Ranges of MEANS, not SD bands. Not checked against Farkas 1994; verify before use. East Asian adults have larger en-en and African-descent adults much wider al-al. Use as weak log-ratio priors (sigma_log 0.05-0.08, inflated x1.5-2)."
+  },
+  {
+   "name": "proportion_checks",
+   "units": "ratio",
+   "columns": [
+    "ratio",
+    "typical_low",
+    "typical_high"
+   ],
+   "rows": [
+    [
+     "en-en / ex-ex",
+     0.34,
+     0.38
+    ],
+    [
+     "ex-en / en-en",
+     0.88,
+     1.0
+    ],
+    [
+     "al-al / en-en",
+     0.95,
+     1.12
+    ],
+    [
+     "ch-ch / al-al",
+     1.45,
+     1.65
+    ],
+    [
+     "sn-sto / sto-me'",
+     0.42,
+     0.5
+    ],
+    [
+     "go-go / zy-zy",
+     0.67,
+     0.73
+    ],
+    [
+     "n-me' / zy-zy",
+     0.84,
+     0.91
+    ]
+   ],
+   "population": "derived from adult_linear_norms_approx",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Derived from recalled means; population-dependent (al-al ratios especially)."
+  },
+  {
+   "name": "scale_anchors_and_angles",
+   "units": "mm or degrees",
+   "columns": [
+    "quantity",
+    "value_low",
+    "value_high",
+    "units",
+    "use"
+   ],
+   "rows": [
+    [
+     "horizontal visible iris diameter (mean +/- 1 SD)",
+     11.2,
+     12.2,
+     "mm",
+     "absolute scale from one photo, ~+/-4%"
+    ],
+    [
+     "interpupillary distance, adult mean",
+     61,
+     64,
+     "mm",
+     "sanity check"
+    ],
+    [
+     "interpupillary distance, most adults",
+     55,
+     70,
+     "mm",
+     "sanity check"
+    ],
+    [
+     "FH vs true horizontal in natural head position, between-subject SD",
+     3,
+     5,
+     "deg",
+     "do not assume camera level = FH"
+    ],
+    [
+     "nasolabial angle (columella-sn-ls)",
+     90,
+     110,
+     "deg",
+     "profile check"
+    ],
+    [
+     "nasofrontal angle (g'-n'-prn)",
+     115,
+     135,
+     "deg",
+     "profile check"
+    ],
+    [
+     "S-N line to FH",
+     6,
+     8,
+     "deg",
+     "relating CBCT/ceph frames to FH"
+    ]
+   ],
+   "population": "adults, mixed",
+   "source_urls": ["https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/"],
+   "status": "knowledge",
+   "notes": "Iris value (11.7 +/- 0.5 mm) confirmed as the MediaPipe Iris assumption by Google Research blog [54] (verified 2026-11-20); other rows remain author knowledge.",
+   "iris_row_status": "verified"
+  },
+  {
+   "name": "landmark_localization_error",
+   "units": "mm unless stated",
+   "columns": [
+    "setting",
+    "metric",
+    "value",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "non-rigid template registration, 3D optical scans",
+     "fraction of landmarks < 2 mm",
+     0.531,
+     34
+    ],
+    [
+     "non-rigid template registration, 3D optical scans",
+     "fraction of landmarks < 4 mm",
+     0.844,
+     34
+    ],
+    [
+     "mobile-device 3D scanner, controlled light/angles",
+     "mean error mm (approx)",
+     1.0,
+     35
+    ],
+    [
+     "3D detection, large yaw and expression",
+     "mean error mm (low)",
+     4.5,
+     36
+    ],
+    [
+     "3D detection, large yaw and expression",
+     "mean error mm (high)",
+     6.3,
+     36
+    ],
+    [
+     "U-Net 3D landmarks, acromegaly",
+     "NME mm",
+     2.8,
+     37
+    ],
+    [
+     "manual cephalometric gonion/orbitale",
+     "error can exceed mm",
+     2.0,
+     38
+    ],
+    [
+     "CBCT gonion inter-observer vertical ICC (low)",
+     "ICC",
+     0.71,
+     40
+    ],
+    [
+     "CBCT gonion inter-observer vertical ICC (high)",
+     "ICC",
+     0.73,
+     40
+    ],
+    [
+     "CBCT gnathion/menton/pogonion ICC",
+     "ICC mostly >=",
+     0.9,
+     40
+    ]
+   ],
+   "population": "mixed clinical samples",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10047049/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13117559/",
+    "https://pubmed.ncbi.nlm.nih.gov/23681986/",
+    "https://ncbi.nlm.nih.gov/pmc/articles/PMC10963813",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12418967/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2642991"
+   ],
+   "status": "sourced",
+   "notes": "Single-source values from harvested snippets. Unattributed harvest values (0.83 +/- 0.49 mm CNN; 1.06/1.39 mm gonion/orbitale; 1.7-1.8 mm PCA RMS) deliberately excluded."
+  },
+  {
+   "name": "extremal_frame_sensitivity",
+   "units": "mm",
+   "columns": [
+    "landmark",
+    "R_low_mm",
+    "R_high_mm",
+    "slide_5deg_low",
+    "slide_5deg_high",
+    "slide_10deg_low",
+    "slide_10deg_high"
+   ],
+   "rows": [
+    [
+     "prn",
+     6,
+     10,
+     0.5,
+     0.9,
+     1.0,
+     1.7
+    ],
+    [
+     "pg'/me'",
+     15,
+     30,
+     1.3,
+     2.6,
+     2.6,
+     5.2
+    ],
+    [
+     "g'",
+     30,
+     80,
+     2.6,
+     7.0,
+     5.2,
+     14.0
+    ],
+    [
+     "zy (yaw)",
+     40,
+     80,
+     3.5,
+     7.0,
+     7.0,
+     14.0
+    ],
+    [
+     "v",
+     80,
+     100,
+     7.0,
+     8.7,
+     14.0,
+     17.5
+    ]
+   ],
+   "population": "geometric estimate",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "slide = R * theta (exact for a circular arc); R values are rough author estimates."
+  },
+  {
+   "name": "suggested_landmark_sigmas",
+   "units": "mm",
+   "columns": [
+    "class",
+    "examples",
+    "sigma_normal_low",
+    "sigma_normal_high",
+    "sigma_tangent_low",
+    "sigma_tangent_high"
+   ],
+   "rows": [
+    [
+     "sharp junction",
+     "en, ex, ch, sn, sto(closed)",
+     1.0,
+     1.5,
+     1.0,
+     1.5
+    ],
+    [
+     "curvature extreme",
+     "prn, pg', me'",
+     1.0,
+     2.0,
+     2.0,
+     4.0
+    ],
+    [
+     "flat extremal",
+     "g', zy', go', v",
+     1.5,
+     3.0,
+     5.0,
+     null
+    ],
+    [
+     "2D jaw / face oval (silhouette)",
+     "dlib 0-16, MediaPipe oval",
+     1.5,
+     2.5,
+     null,
+     null
+    ],
+    [
+     "brows",
+     "dlib 17-26",
+     3.0,
+     5.0,
+     null,
+     null
+    ],
+    [
+     "bone from skin, midline (thickness sigma)",
+     "n, g, pog",
+     1.0,
+     2.0,
+     null,
+     null
+    ],
+    [
+     "bone from skin, lateral (thickness sigma)",
+     "go, zy",
+     3.0,
+     5.0,
+     null,
+     null
+    ],
+    [
+     "midline x=0 prior",
+     "all midline",
+     1.0,
+     2.0,
+     null,
+     null
+    ],
+    [
+     "bilateral mirror residual",
+     "all pairs",
+     1.5,
+     3.0,
+     null,
+     null
+    ],
+    [
+     "MediaPipe z (if used at all)",
+     "all",
+     10.0,
+     null,
+     null,
+     null
+    ]
+   ],
+   "population": "engineering defaults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "None in sigma_tangent = free sliding. Tune on data; add R*sigma_theta tangentially for extremal points."
+  }
+ ]
+}

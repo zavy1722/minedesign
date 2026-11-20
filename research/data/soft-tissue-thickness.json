@@ -1,0 +1,1132 @@
+{
+ "topic": "soft-tissue-thickness",
+ "tables": [
+  {
+   "name": "fstt_adult_consensus",
+   "units": "mm (bone-to-skin, perpendicular to bone); SD in mm",
+   "columns": [
+    "abbr",
+    "landmark",
+    "side",
+    "mean_low_mm",
+    "mean_high_mm",
+    "study_means_low_mm",
+    "study_means_high_mm",
+    "typical_sd_mm",
+    "thicker_sex",
+    "bmi_sensitivity",
+    "status"
+   ],
+   "rows": [
+    [
+     "sg",
+     "supraglabella / mid-forehead",
+     "mid",
+     4.5,
+     4.5,
+     3.5,
+     6.0,
+     1.0,
+     "M>=F",
+     "low",
+     "knowledge"
+    ],
+    [
+     "g",
+     "glabella",
+     "mid",
+     5.5,
+     5.5,
+     4.5,
+     6.5,
+     1.15,
+     "M>=F",
+     "low",
+     "knowledge"
+    ],
+    [
+     "n",
+     "nasion",
+     "mid",
+     6.0,
+     6.5,
+     5.0,
+     7.5,
+     1.35,
+     "M>=F",
+     "moderate",
+     "knowledge"
+    ],
+    [
+     "rhi",
+     "rhinion (end of nasals)",
+     "mid",
+     3.0,
+     3.0,
+     2.0,
+     4.0,
+     0.85,
+     "none",
+     "very_low",
+     "knowledge"
+    ],
+    [
+     "mp",
+     "mid-philtrum",
+     "mid",
+     11.0,
+     12.0,
+     10.8,
+     16.4,
+     2.25,
+     "M>F",
+     "moderate",
+     "contested"
+    ],
+    [
+     "ls",
+     "labrale superius / upper lip margin",
+     "mid",
+     11.0,
+     12.0,
+     9.0,
+     14.0,
+     2.0,
+     "M>F",
+     "moderate",
+     "knowledge"
+    ],
+    [
+     "li",
+     "labrale inferius / lower lip margin",
+     "mid",
+     12.0,
+     13.0,
+     10.0,
+     16.0,
+     2.25,
+     "M>F",
+     "moderate",
+     "knowledge"
+    ],
+    [
+     "sm",
+     "supramentale / labiomental fold",
+     "mid",
+     10.5,
+     11.0,
+     9.0,
+     13.0,
+     1.75,
+     "M>F",
+     "moderate",
+     "knowledge"
+    ],
+    [
+     "pg",
+     "pogonion / mental eminence",
+     "mid",
+     11.0,
+     11.0,
+     9.0,
+     13.0,
+     2.25,
+     "M>=F",
+     "moderate",
+     "knowledge"
+    ],
+    [
+     "gn",
+     "gnathion",
+     "mid",
+     8.0,
+     8.0,
+     6.5,
+     10.0,
+     2.0,
+     "M>=F",
+     "high",
+     "knowledge"
+    ],
+    [
+     "me",
+     "menton / beneath chin",
+     "mid",
+     7.0,
+     7.0,
+     5.0,
+     9.0,
+     2.25,
+     "unclear",
+     "high",
+     "contested"
+    ],
+    [
+     "fe",
+     "frontal eminence",
+     "bilateral",
+     4.0,
+     4.5,
+     3.5,
+     5.5,
+     1.0,
+     "none",
+     "low",
+     "knowledge"
+    ],
+    [
+     "mso",
+     "mid-supraorbital",
+     "bilateral",
+     6.5,
+     8.0,
+     5.0,
+     9.0,
+     1.35,
+     "M>=F",
+     "low",
+     "knowledge"
+    ],
+    [
+     "mio",
+     "mid-infraorbital / suborbital",
+     "bilateral",
+     6.0,
+     7.0,
+     4.5,
+     9.0,
+     1.75,
+     "F>=M",
+     "moderate",
+     "knowledge"
+    ],
+    [
+     "lo",
+     "lateral orbit",
+     "bilateral",
+     6.0,
+     10.0,
+     5.0,
+     11.0,
+     1.75,
+     "F>=M",
+     "moderate",
+     "contested"
+    ],
+    [
+     "zy",
+     "zygion / zygomatic arch",
+     "bilateral",
+     7.0,
+     7.0,
+     5.0,
+     9.0,
+     1.75,
+     "none",
+     "moderate",
+     "knowledge"
+    ],
+    [
+     "imal",
+     "inferior malar",
+     "bilateral",
+     12.0,
+     14.0,
+     10.0,
+     18.0,
+     3.0,
+     "F>=M",
+     "high",
+     "knowledge"
+    ],
+    [
+     "sgl",
+     "supraglenoid",
+     "bilateral",
+     8.0,
+     9.0,
+     6.0,
+     12.0,
+     2.0,
+     "none",
+     "moderate",
+     "knowledge"
+    ],
+    [
+     "sM2",
+     "supra-M2 (buccal, maxillary)",
+     "bilateral",
+     18.0,
+     21.0,
+     15.0,
+     25.0,
+     4.25,
+     "unclear",
+     "very_high",
+     "knowledge"
+    ],
+    [
+     "ocl",
+     "occlusal line / mid-masseter",
+     "bilateral",
+     17.0,
+     19.0,
+     14.0,
+     24.0,
+     4.25,
+     "M>=F",
+     "very_high",
+     "knowledge"
+    ],
+    [
+     "iM2",
+     "sub-M2 (mandibular)",
+     "bilateral",
+     15.0,
+     17.0,
+     12.0,
+     22.0,
+     4.25,
+     "unclear",
+     "very_high",
+     "knowledge"
+    ],
+    [
+     "mr",
+     "mid-ramus",
+     "bilateral",
+     15.0,
+     18.0,
+     12.0,
+     22.0,
+     3.5,
+     "M>=F",
+     "high",
+     "knowledge"
+    ],
+    [
+     "go",
+     "gonion",
+     "bilateral",
+     11.0,
+     12.0,
+     8.0,
+     18.0,
+     3.5,
+     "F>=M (some samples)",
+     "high",
+     "contested"
+    ],
+    [
+     "mm",
+     "mid-mandibular border",
+     "bilateral",
+     9.0,
+     10.0,
+     7.0,
+     12.0,
+     2.25,
+     "none",
+     "high",
+     "knowledge"
+    ]
+   ],
+   "population": "adults, mixed sex, normal BMI; mostly European-derived pooled literature",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/"
+   ],
+   "status": "knowledge",
+   "notes": "Expert consensus ranges, not a published table. Only mp (study-mean range 10.8-16.4 from [2][4]), sm (11.79 Nigerian F [4]) and the nasion BMI spread (5.57-8.25 [2]) are sourced. Values agree with anatomy/skull-osteology.md Table 1 (pooled g 5.5, n 6.0, rhi 3.0). typical_sd_mm is the midpoint of the stated SD range. Verify against Stephan's T-tables before shipping as defaults."
+  },
+  {
+   "name": "rhine_moore_1984_caucasoid_normal",
+   "units": "mm",
+   "columns": [
+    "rhine_no",
+    "landmark",
+    "male_normal_mm",
+    "female_normal_mm",
+    "maps_to_abbr"
+   ],
+   "rows": [
+    [
+     1,
+     "supraglabella",
+     4.25,
+     3.5,
+     "sg"
+    ],
+    [
+     2,
+     "glabella",
+     5.25,
+     4.75,
+     "g"
+    ],
+    [
+     3,
+     "nasion",
+     6.5,
+     5.5,
+     "n"
+    ],
+    [
+     4,
+     "end of nasals",
+     3.0,
+     2.75,
+     "rhi"
+    ],
+    [
+     5,
+     "mid-philtrum",
+     10.0,
+     8.5,
+     "mp"
+    ],
+    [
+     6,
+     "upper lip margin",
+     9.75,
+     9.0,
+     "ls"
+    ],
+    [
+     7,
+     "lower lip margin",
+     11.0,
+     10.0,
+     "li"
+    ],
+    [
+     8,
+     "chin-lip fold",
+     10.75,
+     9.5,
+     "sm"
+    ],
+    [
+     9,
+     "mental eminence",
+     11.25,
+     10.0,
+     "pg"
+    ],
+    [
+     10,
+     "beneath chin",
+     7.25,
+     5.75,
+     "me"
+    ],
+    [
+     11,
+     "frontal eminence",
+     4.25,
+     3.5,
+     "fe"
+    ],
+    [
+     12,
+     "supraorbital",
+     8.25,
+     7.0,
+     "mso"
+    ],
+    [
+     13,
+     "suborbital",
+     5.75,
+     6.0,
+     "mio"
+    ],
+    [
+     14,
+     "inferior malar",
+     13.25,
+     12.75,
+     "imal"
+    ],
+    [
+     15,
+     "lateral orbit",
+     10.0,
+     10.75,
+     "lo"
+    ],
+    [
+     16,
+     "zygomatic arch",
+     7.25,
+     7.5,
+     "zy"
+    ],
+    [
+     17,
+     "supraglenoid",
+     8.5,
+     8.0,
+     "sgl"
+    ],
+    [
+     18,
+     "gonion",
+     11.5,
+     12.0,
+     "go"
+    ],
+    [
+     19,
+     "supra M2",
+     19.5,
+     19.25,
+     "sM2"
+    ],
+    [
+     20,
+     "occlusal line",
+     18.25,
+     17.0,
+     "ocl"
+    ],
+    [
+     21,
+     "sub M2",
+     16.0,
+     15.5,
+     "iM2"
+    ]
+   ],
+   "population": "American 'Caucasoid' cadavers, normal build, needle puncture (Rhine & Moore 1984, Maxwell Museum Technical Series 1)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Recalled from widely reproduced copies (e.g. Taylor, Forensic Art and Illustration); treat as +/-0.5 mm until checked against the original. Slender and obese columns are omitted. Sample sizes deliberately not stated. Cadaver data may run thinner than living upright values."
+  },
+  {
+   "name": "sourced_point_values",
+   "units": "mm unless stated",
+   "columns": [
+    "population_modality",
+    "quantity",
+    "male",
+    "female",
+    "value",
+    "source_n",
+    "status"
+   ],
+   "rows": [
+    [
+     "Iranian, MRI, midline",
+     "mid-philtrum",
+     16.41,
+     13.95,
+     null,
+     2,
+     "sourced"
+    ],
+    [
+     "Iranian, MRI",
+     "nasion, lowest BMI group -> highest BMI group",
+     null,
+     null,
+     "5.57 -> 8.25",
+     2,
+     "sourced"
+    ],
+    [
+     "Nigerian adult women, CT",
+     "mid-philtrum",
+     null,
+     10.8,
+     null,
+     4,
+     "sourced"
+    ],
+    [
+     "Nigerian adult women, CT",
+     "labiomental",
+     null,
+     11.79,
+     null,
+     4,
+     "sourced"
+    ],
+    [
+     "Ultrasound, skin layer only",
+     "mid-cheek dermis thickness",
+     1.877,
+     1.58,
+     null,
+     6,
+     "sourced"
+    ],
+    [
+     "Greek, CT",
+     "inter-observer TEM range",
+     null,
+     null,
+     "0.19-1.45",
+     3,
+     "contested"
+    ],
+    [
+     "CBCT, linear scleroderma vs controls",
+     "mean ICC (dimensionless)",
+     null,
+     null,
+     "0.49 vs 0.66",
+     24,
+     "sourced"
+    ],
+    [
+     "CBCT protocol review",
+     "recommended voxel size",
+     null,
+     null,
+     "0.3",
+     25,
+     "sourced"
+    ],
+    [
+     "Skull-to-Face CT data",
+     "pixel spacing",
+     null,
+     null,
+     "0.25",
+     21,
+     "sourced"
+    ]
+   ],
+   "population": "see rows",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+    "https://pubmed.ncbi.nlm.nih.gov/29298697/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6631689/",
+    "https://arxiv.org/pdf/2403.16207"
+   ],
+   "status": "sourced",
+   "notes": "From search-snippet harvest; full texts not re-read. TEM attribution to the Greek paper was inferred from a snippet."
+  },
+  {
+   "name": "fstt_datasets",
+   "units": "count",
+   "columns": [
+    "study",
+    "modality",
+    "n",
+    "landmarks",
+    "covariates",
+    "source_n",
+    "status"
+   ],
+   "rows": [
+    [
+     "Global pooled review (139 studies since 1883)",
+     "mixed",
+     ">19,500 adults; >220,000 measurements",
+     null,
+     "pooled T-tables (first 2008)",
+     8,
+     "sourced"
+    ],
+    [
+     "Systematic review 2023",
+     "review",
+     "84 articles screened; 30 databases",
+     null,
+     "sex, age, ethnicity",
+     7,
+     "sourced"
+    ],
+    [
+     "NCJRS pooled table",
+     "mixed",
+     "66 studies",
+     null,
+     "year, method, race, sex",
+     9,
+     "sourced"
+    ],
+    [
+     "De Greef 2006, Belgium",
+     "ultrasound, living",
+     "967",
+     "~52 (knowledge)",
+     "sex, age, BMI",
+     22,
+     "sourced"
+    ],
+    [
+     "Korean adults",
+     "CBCT",
+     "100 (50 M / 50 F)",
+     "31",
+     "sex",
+     10,
+     "sourced"
+    ],
+    [
+     "Chinese adults, layered",
+     "CT skin/fat/muscle",
+     "1174 (18-90 y)",
+     "33",
+     "sex, age",
+     11,
+     "sourced"
+    ],
+    [
+     "Yangtze River delta Han",
+     "CBCT 3D models",
+     "424",
+     "60",
+     "sex, age, BMI, malocclusion",
+     12,
+     "sourced"
+    ],
+    [
+     "Central Chinese",
+     "CT",
+     "280",
+     "41",
+     "total and fat thickness",
+     13,
+     "sourced"
+    ],
+    [
+     "Greek adults",
+     "CT",
+     "100 (50 M / 50 F) unconfirmed",
+     "22 (5 midline + 17 bilateral)",
+     "sex, age",
+     3,
+     "sourced"
+    ],
+    [
+     "Thai, above middle age",
+     "ultrasound",
+     null,
+     null,
+     "sex, age, BMI",
+     5,
+     "sourced"
+    ],
+    [
+     "Iranian midline",
+     "MRI",
+     null,
+     "midline",
+     "sex, BMI",
+     2,
+     "sourced"
+    ],
+    [
+     "Nigerian adult women",
+     "CT",
+     null,
+     "midline",
+     "-",
+     4,
+     "sourced"
+    ],
+    [
+     "Brazilian measurement-method study",
+     "CBCT",
+     "100 scans",
+     "32",
+     "measurement vector",
+     15,
+     "sourced"
+    ],
+    [
+     "CBCT reliability (dermal punch marks)",
+     "CBCT",
+     null,
+     "11",
+     "ICC, absolute error",
+     14,
+     "sourced"
+    ],
+    [
+     "Dense FSTT statistics (Gietzen)",
+     "CT, per vertex",
+     null,
+     "dense",
+     "-",
+     20,
+     "sourced"
+    ],
+    [
+     "Skull-to-Face 2024",
+     "CT skull-face pairs",
+     "small paired set",
+     "landmarks",
+     "-",
+     21,
+     "sourced"
+    ]
+   ],
+   "population": "see rows",
+   "source_urls": [
+    "https://link.springer.com/article/10.1007/s00414-023-03087-x",
+    "https://pubmed.ncbi.nlm.nih.gov/37531497/",
+    "https://ojp.gov/index%2Ephp/node/1311086",
+    "https://lirias.kuleuven.be/bitstream/123456789/420593/1/3606_postprint.pdf",
+    "https://pubmed.ncbi.nlm.nih.gov/22621203/",
+    "https://pubmed.ncbi.nlm.nih.gov/42385786/",
+    "https://pubmed.ncbi.nlm.nih.gov/32217445",
+    "https://pubmed.ncbi.nlm.nih.gov/34238872/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+    "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/",
+    "https://pubmed.ncbi.nlm.nih.gov/25845397/",
+    "https://pubmed.ncbi.nlm.nih.gov/20236780/",
+    "https://arxiv.org/pdf/1808.07334",
+    "https://arxiv.org/pdf/2403.16207"
+   ],
+   "status": "sourced",
+   "notes": "Design inventory; per-landmark values need full text."
+  },
+  {
+   "name": "covariate_and_method_effects",
+   "units": "mm or mm per unit as stated",
+   "columns": [
+    "factor",
+    "direction",
+    "magnitude",
+    "most_affected",
+    "status",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "BMI",
+     "increase",
+     "~+0.1-0.2 mm/BMI unit thin midline; ~+0.3-0.7 cheek/jaw/submental",
+     "buccal, gonion, menton",
+     "verified (direction); knowledge (slopes)",
+     [
+      2,
+      5,
+      16,
+      19
+     ]
+    ],
+    [
+     "sex (M-F)",
+     "site-dependent",
+     "+1 to +2.5 mm lips/philtrum; -0.5 to -1.5 mm malar/gonion",
+     "lower midline; lateral cheek",
+     "contested",
+     [
+      2,
+      5,
+      10
+     ]
+    ],
+    [
+     "age (adult)",
+     "mixed",
+     "lips -0.2 to -0.4 mm/decade after ~40; infraorbital up",
+     "lips, infraorbital, jowl",
+     "contested",
+     [
+      3,
+      5,
+      11,
+      16
+     ]
+    ],
+    [
+     "cadaver vs living",
+     "cadaver usually thinner/distorted",
+     "~0.5-2 mm",
+     "most sites",
+     "contested",
+     []
+    ],
+    [
+     "supine vs upright",
+     "gravity shift",
+     "<1 mm midline; ~1-3 mm lateral/lower face",
+     "cheek, gonion, submental",
+     "knowledge",
+     []
+    ],
+    [
+     "needle or probe pressure",
+     "thinner",
+     "~0.5-1+ mm at thick sites",
+     "cheek",
+     "knowledge",
+     []
+    ],
+    [
+     "measurement vector",
+     "perpendicular-to-bone most reproducible",
+     "up to several mm at curved sites",
+     "gonion, malar",
+     "sourced",
+     [
+      15
+     ]
+    ]
+   ],
+   "population": "adults",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+    "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532767/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11940931/",
+    "https://pubmed.ncbi.nlm.nih.gov/22621203/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+    "https://pubmed.ncbi.nlm.nih.gov/42385786/",
+    "https://pubmed.ncbi.nlm.nih.gov/25845397/"
+   ],
+   "status": "contested",
+   "notes": "Magnitudes are expert estimates unless a source is listed for the direction."
+  },
+  {
+   "name": "engine_default_priors",
+   "units": "mu in mm; sigma_log dimensionless; beta_bmi in log-units per BMI unit; delta_sex in mm (M-F); t_min in mm",
+   "columns": [
+    "abbr",
+    "mu_mm",
+    "sigma_log",
+    "beta_bmi",
+    "delta_sex_mm",
+    "t_min_mm",
+    "skull_warp_weight"
+   ],
+   "rows": [
+    [
+     "sg",
+     4.5,
+     0.18,
+     0.01,
+     0.5,
+     2.0,
+     1.0
+    ],
+    [
+     "g",
+     5.5,
+     0.17,
+     0.012,
+     0.5,
+     2.0,
+     1.0
+    ],
+    [
+     "n",
+     6.0,
+     0.18,
+     0.025,
+     0.5,
+     2.0,
+     1.0
+    ],
+    [
+     "rhi",
+     3.0,
+     0.2,
+     0.01,
+     0.0,
+     1.5,
+     1.0
+    ],
+    [
+     "mp",
+     11.5,
+     0.22,
+     0.025,
+     2.0,
+     2.0,
+     0.5
+    ],
+    [
+     "ls",
+     11.5,
+     0.22,
+     0.025,
+     2.0,
+     2.0,
+     0.4
+    ],
+    [
+     "li",
+     12.5,
+     0.22,
+     0.025,
+     1.5,
+     2.0,
+     0.4
+    ],
+    [
+     "sm",
+     10.75,
+     0.2,
+     0.025,
+     1.0,
+     2.0,
+     0.6
+    ],
+    [
+     "pg",
+     11.0,
+     0.22,
+     0.025,
+     1.0,
+     2.0,
+     0.9
+    ],
+    [
+     "gn",
+     8.0,
+     0.22,
+     0.03,
+     0.5,
+     2.0,
+     0.8
+    ],
+    [
+     "me",
+     7.0,
+     0.3,
+     0.04,
+     0.0,
+     2.0,
+     0.5
+    ],
+    [
+     "fe",
+     4.25,
+     0.18,
+     0.01,
+     0.0,
+     2.0,
+     0.8
+    ],
+    [
+     "mso",
+     7.0,
+     0.2,
+     0.015,
+     0.5,
+     2.0,
+     0.8
+    ],
+    [
+     "mio",
+     6.5,
+     0.25,
+     0.025,
+     -0.5,
+     2.0,
+     0.5
+    ],
+    [
+     "lo",
+     8.0,
+     0.25,
+     0.02,
+     -0.5,
+     2.0,
+     0.5
+    ],
+    [
+     "zy",
+     7.0,
+     0.25,
+     0.03,
+     0.0,
+     2.0,
+     0.3
+    ],
+    [
+     "imal",
+     13.0,
+     0.32,
+     0.04,
+     -1.0,
+     2.0,
+     0.2
+    ],
+    [
+     "sgl",
+     8.5,
+     0.28,
+     0.03,
+     0.0,
+     2.0,
+     0.2
+    ],
+    [
+     "sM2",
+     19.5,
+     0.35,
+     0.045,
+     0.0,
+     2.0,
+     0.1
+    ],
+    [
+     "ocl",
+     18.0,
+     0.35,
+     0.045,
+     0.5,
+     2.0,
+     0.1
+    ],
+    [
+     "iM2",
+     16.0,
+     0.35,
+     0.045,
+     0.0,
+     2.0,
+     0.1
+    ],
+    [
+     "mr",
+     16.5,
+     0.32,
+     0.04,
+     0.5,
+     2.0,
+     0.1
+    ],
+    [
+     "go",
+     11.5,
+     0.35,
+     0.04,
+     -1.0,
+     2.0,
+     0.2
+    ],
+    [
+     "mm",
+     9.5,
+     0.28,
+     0.035,
+     0.0,
+     2.0,
+     0.4
+    ]
+   ],
+   "population": "adults; BMI reference 22; age reference 40",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+    "https://pubmed.ncbi.nlm.nih.gov/25845397/"
+   ],
+   "status": "knowledge",
+   "notes": "Model: log t ~ N(log mu + beta_bmi*(BMI-22) + (delta_sex/mu)*s, sigma_log^2), s=+0.5 male, -0.5 female, 0 unknown. Add 0.05-0.10 to sigma_log when BMI unknown, and 0.05-0.10 on lateral/lower-face sites for supine or cadaver-derived data. Penalise skin inside bone (hinge on signed distance) and t < t_min. Measure along the smoothed bone normal (perpendicular-to-bone convention, [15]). Mean+-SD to log-normal: sigma_log = sqrt(ln(1+(SD/mean)^2)), mu_log = ln(mean) - sigma_log^2/2. Nasion beta_bmi checked against the 5.57->8.25 mm BMI spread in [2]."
+  }
+ ]
+}

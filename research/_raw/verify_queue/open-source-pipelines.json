@@ -1,0 +1,27 @@
+{
+ "id": "open-source-pipelines",
+ "area": "reconstruction",
+ "title": "Open-source end-to-end photo-to-3D-face pipelines",
+ "queue": [
+  {
+   "claim": "FLAME 2023 has an 'Open' release under CC BY 4.0 (possibly without the full expression basis), while FLAME 2020 is non-commercial research only.",
+   "query": "FLAME 2023 Open license CC BY 4.0 expression model download",
+   "domains": "flame.is.tue.mpg.de"
+  },
+  {
+   "claim": "nvdiffrast, the rasteriser used by Deep3DFaceRecon_pytorch, HRN and probably VHAP, is under the NVIDIA Source Code License for non-commercial use only.",
+   "query": "nvdiffrast LICENSE.txt NVIDIA Source Code License non-commercial",
+   "domains": "github.com"
+  },
+  {
+   "claim": "MICA's demo writes the mesh with vertices multiplied by 1000 (millimetres) plus an identity .npy of 300 FLAME shape coefficients, while FLAME's native unit is metres.",
+   "query": "Zielonka MICA demo.py mesh.ply identity.npy scale 1000",
+   "domains": "github.com"
+  },
+  {
+   "claim": "3DDFA_V2 writes OBJ/PLY in image-pixel coordinates (affine pose baked in, y flipped) on a no-neck BFM crop of about 38,365 vertices.",
+   "query": "3DDFA_V2 bfm_noneck_v3 number of vertices obj output image coordinates",
+   "domains": "github.com"
+  }
+ ]
+}

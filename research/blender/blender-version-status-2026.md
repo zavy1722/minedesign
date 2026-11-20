@@ -2,7 +2,7 @@
 
 > In late November 2026 Blender ships on two tracks: **5.3**, the feature release of 10 Nov 2026 that the developer docs and the "latest" manual both label current, and **5.2 LTS**, released 14 Jul 2026, supported until Jul 2028, with 5.2.4 out between 10 and 17 Nov [6][7][10][12][14][15]. **4.5 LTS** is supported until Jul 2027 [13], while 4.2 LTS ran out of support in Jul 2026, though face add-ons still target it [18][19]. No source here states which Python or NumPy 5.x bundles: the 5.0.1 fixes [4] fit with 5.0 still bundling Python 3.11, and a move to 3.13 during 2026 is plausible but unverified. The breaks that matter most for a photo→head add-on are 5.0's `mathutils` buffer protocol, through which NumPy now gets float32, non-contiguous views [3], plus (from expert knowledge) the 4.2 extension platform, the 4.3 brush assets and several 5.0 removals. So the add-on should read versions at runtime, probe for features instead of version numbers, and keep the solver in float64 pure NumPy.
 >
-> Evidence status: 7 ✅ / 21 📄 / 50 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 5 ✅ / 16 📄 / 67 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 

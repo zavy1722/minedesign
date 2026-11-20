@@ -1,0 +1,27 @@
+{
+ "id": "anthropometric-norms",
+ "area": "anatomy",
+ "title": "Quantitative facial anthropometry norms (Farkas and successors)",
+ "queue": [
+  {
+   "claim": "Farkas 1994 young-adult North American White means/SDs used as default priors: en-en 33.3\u00b12.7 (M) / 31.8\u00b12.3 (F); al-al 34.9\u00b12.1 / 31.4\u00b12.0; n-gn 121.3\u00b16.8 / 111.8\u00b15.2; ex-ex ~88-92 / ~85-89; ch-ch ~51-55 / ~48-52",
+   "query": "Farkas North American Caucasian young adult norms en-en 33.3 al-al 34.9 n-gn 121.3 ex-ex ch-ch mean SD male female",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "3DFN (stereophotogrammetry) adult values differ 'considerably' from Farkas direct norms; direction and magnitude per measurement (e.g. zy-zy, go-go, en-en, al-al, ch-ch) unknown; Farkas-to-3D inflation factor 1.2 assumed",
+   "query": "3D Facial Norms Database comparison Farkas norms differences per measurement stereophotogrammetry Weinberg 2019",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Population shifts vs NAW: East Asian en-en +2 to +6, al-al +3 to +6, zy-zy +3 to +8 mm; African/African American al-al +6 to +10 mm; Farkas 2005 international study ~1,470 subjects, ~25 populations, ~14 measurements",
+   "query": "Farkas 2005 International anthropometric study of facial morphology in various ethnic groups races J Craniofac Surg intercanthal nose width",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov,journals.lww.com"
+  },
+  {
+   "claim": "Head length g-op ~194-199 (M) / ~184-189 (F) mm and head breadth eu-eu ~149-154 / ~141-146 mm, CV ~3-4%; ANSUR II sample ~4,082 men and ~1,986 women",
+   "query": "ANSUR II 2012 summary statistics head length head breadth bizygomatic breadth male female mean SD",
+   "domains": ""
+  }
+ ]
+}

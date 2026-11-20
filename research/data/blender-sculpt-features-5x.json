@@ -1,0 +1,556 @@
+{
+ "topic": "blender-sculpt-features-5x",
+ "tables": [
+  {
+   "name": "sculpt_feature_landing_versions",
+   "units": "Blender version",
+   "columns": [
+    "version",
+    "items",
+    "confidence"
+   ],
+   "rows": [
+    [
+     "2.81",
+     "voxel remesh; QuadriFlow; Pose brush; mesh and mask filters",
+     "moderate-high"
+    ],
+    [
+     "2.83",
+     "face sets; cloth brush",
+     "moderate-high"
+    ],
+    [
+     "2.90",
+     "multires rewrite (Unsubdivide, Rebuild Subdivisions, Simple/Linear)",
+     "moderate-high"
+    ],
+    [
+     "2.91",
+     "Box/Lasso Trim; Boundary brush",
+     "moderate"
+    ],
+    [
+     "2.93",
+     "Expand operator",
+     "moderate-high"
+    ],
+    [
+     "3.2",
+     "colour-attribute painting in sculpt mode (Paint, Smear)",
+     "moderate"
+    ],
+    [
+     "3.5",
+     "cavity, view-normal, area-normal auto-masking; Alt+A pie; Mask from Cavity",
+     "moderate"
+    ],
+    [
+     "4.0",
+     "node tools usable in sculpt mode",
+     "moderate"
+    ],
+    [
+     "4.1",
+     "mask stored as generic attribute .sculpt_mask",
+     "low-moderate"
+    ],
+    [
+     "4.2 LTS",
+     "line/polyline hide, mask, face-set, trim tools; grow/shrink visibility; random mask; C++ refactor begins",
+     "moderate"
+    ],
+    [
+     "4.3",
+     "brush assets; Essentials library; asset shelf; single Brush tool; brush.asset_activate; sculpt_tool->sculpt_brush_type; large performance gains",
+     "high for assets, moderate otherwise"
+    ],
+    [
+     "4.4-4.5 LTS",
+     "refactor continues; Plane brush type (contested 4.5 vs 5.0)",
+     "low"
+    ],
+    [
+     "5.0",
+     "mathutils buffer protocol: np.asarray gives float32 non-contiguous view",
+     "sourced"
+    ],
+    [
+     "5.1-5.3",
+     "sculpt changes not established in library",
+     "open"
+    ]
+   ],
+   "population": "Blender releases",
+   "source_urls": [
+    "https://developer.blender.org/docs/release_notes/5.0/python_api/"
+   ],
+   "status": "knowledge",
+   "notes": "All rows expert knowledge except 5.0 row (sourced). Verify each against per-release notes."
+  },
+  {
+   "name": "blender_release_context_2026",
+   "units": "ISO dates",
+   "columns": [
+    "version",
+    "track",
+    "released",
+    "support_end",
+    "status"
+   ],
+   "rows": [
+    [
+     "4.5",
+     "LTS",
+     "2025-07",
+     "2027-07",
+     "sourced"
+    ],
+    [
+     "5.0",
+     "feature",
+     "2025-11-18",
+     null,
+     "sourced"
+    ],
+    [
+     "5.2",
+     "LTS",
+     "2026-07-14",
+     "2028-07",
+     "sourced"
+    ],
+    [
+     "5.3",
+     "feature",
+     "2026-11-10",
+     null,
+     "verified (current); date sourced"
+    ]
+   ],
+   "population": "Blender releases",
+   "source_urls": [
+    "https://developer.blender.org/docs/release_notes/",
+    "https://docs.blender.org/manual/en/latest/render/cameras.html",
+    "https://www.blender.org/download/releases/5-2/",
+    "https://www.blender.org/releases/5-2/",
+    "https://www.blender.org/download/releases/",
+    "https://www.blender.org/releases/5-0/"
+   ],
+   "status": "sourced",
+   "notes": "Cross-referenced from blender-version-status-2026 harvest; snippet-level."
+  },
+  {
+   "name": "voxel_remesh_face_count_real_scale_head",
+   "units": "voxel size in m; face counts",
+   "columns": [
+    "voxel_size_m",
+    "head_neck_faces_min",
+    "head_neck_faces_max",
+    "face_region_faces_min",
+    "face_region_faces_max",
+    "use"
+   ],
+   "rows": [
+    [
+     0.1,
+     null,
+     null,
+     null,
+     null,
+     "Blender default; collapses a real-scale head"
+    ],
+    [
+     0.002,
+     35000,
+     45000,
+     7500,
+     11000,
+     "block-out"
+    ],
+    [
+     0.001,
+     140000,
+     180000,
+     30000,
+     45000,
+     "primary forms"
+    ],
+    [
+     0.0005,
+     560000,
+     720000,
+     120000,
+     180000,
+     "secondary forms"
+    ],
+    [
+     0.00025,
+     2240000,
+     2880000,
+     480000,
+     720000,
+     "tertiary; prefer maps"
+    ]
+   ],
+   "population": "adult head+neck surface 0.14-0.18 m^2 (rule of nines 9% of 1.6-2.0 m^2 BSA); face region 0.03-0.045 m^2",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "faces ~= area / voxel^2 (quads with edge ~ voxel). Arithmetic on assumed areas."
+  },
+  {
+   "name": "multires_level_resolution",
+   "units": "faces; mm",
+   "columns": [
+    "level",
+    "faces_from_10k_quad_base",
+    "faces_from_20k_quad_base",
+    "edge_mm_from_3mm_base"
+   ],
+   "rows": [
+    [
+     0,
+     10000,
+     20000,
+     3.0
+    ],
+    [
+     1,
+     40000,
+     80000,
+     1.5
+    ],
+    [
+     2,
+     160000,
+     320000,
+     0.75
+    ],
+    [
+     3,
+     640000,
+     1280000,
+     0.375
+    ],
+    [
+     4,
+     2560000,
+     5120000,
+     0.1875
+    ],
+    [
+     5,
+     10240000,
+     20480000,
+     0.09375
+    ]
+   ],
+   "population": "Catmull-Clark multires on quad base",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "faces = base*4^L; edge = base_edge/2^L (arithmetic)."
+  },
+  {
+   "name": "defaults_to_change_real_scale",
+   "units": "mixed (m, px, %)",
+   "columns": [
+    "setting",
+    "default",
+    "recommended",
+    "confidence"
+   ],
+   "rows": [
+    [
+     "Mesh remesh voxel size",
+     "0.1 object units",
+     "0.001-0.002 block-out; 0.0003-0.0005 detail",
+     "moderate"
+    ],
+    [
+     "3D viewport clip start",
+     "0.01 m",
+     "0.001 m",
+     "moderate-high"
+    ],
+    [
+     "Camera clip start",
+     "0.1 m",
+     "keep for cameras at 0.3-3 m",
+     "moderate"
+    ],
+    [
+     "Brush radius",
+     "50 px view-relative",
+     "Radius Unit Scene: 0.02-0.04 m grab, 0.003-0.008 m detail",
+     "moderate"
+    ],
+    [
+     "Stroke spacing",
+     "10 %",
+     "5-10 % for creases",
+     "moderate"
+    ],
+    [
+     "Dyntopo relative detail",
+     "12 px",
+     "prefer constant detail or voxel",
+     "low-moderate"
+    ],
+    [
+     "Undo steps",
+     "32",
+     "32-64; memory limit if RAM < 32 GB",
+     "moderate"
+    ],
+    [
+     "Multires quality",
+     "4",
+     "keep",
+     "moderate"
+    ]
+   ],
+   "population": "Blender 4.x-5.x default settings",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Defaults from expert knowledge; verify in target version."
+  },
+  {
+   "name": "sculpt_hotkeys_default_keymap",
+   "units": "key combos",
+   "columns": [
+    "action",
+    "key",
+    "confidence"
+   ],
+   "rows": [
+    [
+     "radius / strength / texture angle",
+     "F / Shift+F / Ctrl+F",
+     "high"
+    ],
+    [
+     "invert / temporary smooth",
+     "hold Ctrl / hold Shift",
+     "high"
+    ],
+    [
+     "mask pie / clear / invert / box mask",
+     "A / Alt+M / Ctrl+I / B",
+     "moderate"
+    ],
+    [
+     "expand mask / face set",
+     "Shift+A / Shift+W",
+     "moderate"
+    ],
+    [
+     "face set hide / isolate / reveal",
+     "H / Shift+H / Alt+H",
+     "moderate"
+    ],
+    [
+     "auto-mask pie / stroke pie",
+     "Alt+A / E",
+     "moderate"
+    ],
+    [
+     "voxel size / remesh",
+     "R / Ctrl+R",
+     "moderate-high"
+    ],
+    [
+     "dyntopo toggle / detail size",
+     "Ctrl+D / Shift+D",
+     "moderate"
+    ],
+    [
+     "multires level",
+     "PageUp / PageDown",
+     "moderate"
+    ],
+    [
+     "brush keys Draw, Smooth, Grab, Snake Hook, Mask, Layer, Inflate, Clay Strips",
+     "X S G K M L I C",
+     "low (remapped in 4.3)"
+    ]
+   ],
+   "population": "Blender default keymap 4.3+",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Verify in Preferences > Keymap per version."
+  },
+  {
+   "name": "sculpt_data_names",
+   "units": "identifiers",
+   "columns": [
+    "data",
+    "name",
+    "domain_type",
+    "confidence"
+   ],
+   "rows": [
+    [
+     "mask",
+     ".sculpt_mask",
+     "POINT/FLOAT",
+     "moderate"
+    ],
+    [
+     "face sets",
+     ".sculpt_face_set",
+     "FACE/INT",
+     "moderate"
+    ],
+    [
+     "hidden",
+     ".hide_vert .hide_edge .hide_poly",
+     "BOOLEAN",
+     "moderate-high"
+    ],
+    [
+     "face set colours",
+     "Mesh.face_sets_color_seed, Mesh.face_sets_color_default",
+     "INT",
+     "moderate"
+    ],
+    [
+     "remesh",
+     "Mesh.remesh_voxel_size, Mesh.remesh_voxel_adaptivity",
+     "FLOAT",
+     "high"
+    ],
+    [
+     "symmetry",
+     "Mesh.use_mirror_x/y/z",
+     "BOOL",
+     "high"
+    ],
+    [
+     "brush type",
+     "Brush.sculpt_brush_type (4.3+) / Brush.sculpt_tool (<=4.2)",
+     "ENUM",
+     "moderate"
+    ],
+    [
+     "brush activation",
+     "bpy.ops.brush.asset_activate (4.3+)",
+     "operator",
+     "moderate-high"
+    ]
+   ],
+   "population": "Blender Python API 4.x-5.x",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Probe at runtime; do not branch on version."
+  },
+  {
+   "name": "practical_sculpt_budgets",
+   "units": "faces",
+   "columns": [
+    "workflow",
+    "comfortable_min",
+    "comfortable_max",
+    "upper_min",
+    "upper_max"
+   ],
+   "rows": [
+    [
+     "plain mesh 4.3+",
+     1000000,
+     5000000,
+     10000000,
+     30000000
+    ],
+    [
+     "multires total",
+     2000000,
+     10000000,
+     20000000,
+     40000000
+    ],
+    [
+     "dyntopo",
+     200000,
+     1000000,
+     2000000,
+     3000000
+    ],
+    [
+     "cloth brush local simulated vertices",
+     null,
+     100000,
+     null,
+     null
+    ]
+   ],
+   "population": "desktop, 32-64 GB RAM, mid-high GPU",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Hardware-dependent practitioner estimates."
+  },
+  {
+   "name": "engine_priors_for_sculpt_interop",
+   "units": "mm unless stated",
+   "columns": [
+    "parameter",
+    "value_min",
+    "value_max",
+    "notes"
+   ],
+   "rows": [
+    [
+     "sigma_pin for mask=1 vertices",
+     0.1,
+     0.3,
+     "pin term m*||x-x_artist||^2/sigma^2"
+    ],
+    [
+     "mask feather gaussian sigma",
+     1.5,
+     2.5,
+     "or 2-4 edge rings"
+    ],
+    [
+     "sigma_sym lateral face",
+     1.0,
+     2.0,
+     "soft symmetry prior; never hard mirror"
+    ],
+    [
+     "sigma_sym upper-face midline",
+     0.5,
+     0.5,
+     "approximate"
+    ],
+    [
+     "sigma_laplacian (fraction of mean edge length)",
+     0.05,
+     0.1,
+     "dimensionless"
+    ],
+    [
+     "base template edge length",
+     2.0,
+     4.0,
+     "5k-25k vertex base"
+    ],
+    [
+     "grab radius for silhouette fixes",
+     20,
+     40,
+     "scene units mm"
+    ],
+    [
+     "detail brush radius",
+     3,
+     8,
+     "scene units mm"
+    ]
+   ],
+   "population": "design defaults for a real-scale adult head",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Suggested engineering defaults, not measured values; cross-check against anatomy/facial-asymmetry.md (0.8 mm RMS, 2-4 mm perception)."
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "consent-likeness-law",
+ "area": "ethics",
+ "title": "Consent, right of publicity and deepfake law",
+ "queue": [
+  {
+   "claim": "NO FAKES Act (S.1367/H.R.2794, reintroduced April 2025) was not enacted as of mid-2026. Its key terms: post-mortem right renewable up to 70 years, liability for products 'primarily designed' to make replicas of specific people, notice-and-takedown safe harbour, partial pre-emption of state law.",
+   "query": "NO FAKES Act 2026 status Senate House vote digital replica",
+   "domains": "congress.gov"
+  },
+  {
+   "claim": "EU AI Act Art. 50 transparency obligations (machine-readable marking under 50(2), deepfake disclosure under 50(4)) apply from 2 August 2026. The Art. 2(12) open-source exemption does not cover Art. 50. The November 2025 Digital Omnibus proposed an Art. 50(2) grace period, and a code of practice on labelling AI-generated content was being drafted.",
+   "query": "AI Act Article 50 transparency obligations 2 August 2026 digital omnibus grace period code of practice AI-generated content labelling",
+   "domains": "digital-strategy.ec.europa.eu,eur-lex.europa.eu"
+  },
+  {
+   "claim": "Tennessee ELVIS Act (signed 21 Mar 2024, effective 1 Jul 2024) creates liability for distributing an 'algorithm, software, tool, or other technology' whose primary purpose or function is producing a particular, identified individual's likeness or voice without authorisation.",
+   "query": "Tennessee ELVIS Act text algorithm software tool technology primary purpose function particular identified individual likeness",
+   "domains": ""
+  },
+  {
+   "claim": "Illinois BIPA treats a 'scan of face geometry' as a biometric identifier, with damages of $1,000 negligent / $5,000 reckless per violation and destruction within 3 years. SB 2979 (2024) made repeat collection from one person a single violation. Zellmer v. Meta (9th Cir. 2024) excluded face data that cannot identify a person.",
+   "query": "Illinois SB 2979 BIPA amendment 2024 single violation electronic signature face geometry Zellmer v Meta",
+   "domains": "ilga.gov,cdn.ca9.uscourts.gov"
+  }
+ ]
+}

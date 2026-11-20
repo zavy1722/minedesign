@@ -2,53 +2,152 @@
   "topic": "single-image-regression",
   "tables": [
     {
-      "name": "now_benchmark_errors",
-      "units": "mm (scan-to-prediction distance after 7-landmark rigid alignment; null = not reported)",
+      "name": "now_benchmark_errors_sourced",
+      "units": "mm (NoW scan-to-mesh distance after 7-landmark alignment, similarity/non-metrical unless noted; null = not reported)",
       "columns": ["method", "variant", "split_as_reported", "median_mm", "mean_mm", "std_mm", "source_urls", "status"],
       "rows": [
-        ["Average FLAME mesh", "no scale optimisation", "not stated", null, 1.92, null, ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "single-source"],
-        ["Average FLAME mesh", "scale optimised", "not stated", null, 1.53, null, ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "single-source"],
+        ["Average FLAME mesh", "no scale optimisation", "not stated", null, 1.92, null, ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "sourced"],
+        ["Average FLAME mesh", "scale optimised", "not stated", null, 1.53, null, ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "sourced"],
         ["DECA", "coarse", "validation", 1.18, 1.46, 1.25, ["https://arxiv.org/abs/2012.04012", "https://arxiv.org/pdf/2304.12483"], "verified"],
         ["DECA", "detailed", "validation", 1.19, 1.47, 1.25, ["https://arxiv.org/abs/2012.04012", "https://arxiv.org/pdf/2108.05465"], "verified"],
-        ["DECA", "summary row", "unconfirmed (possibly test)", 1.09, 1.38, 1.18, ["https://arxiv.org/abs/2012.04012"], "contested"],
+        ["DECA", "summary row", "test (attribution from expert knowledge)", 1.09, 1.38, 1.18, ["https://arxiv.org/abs/2012.04012"], "sourced"],
         ["MICA", "row A as reported by 2304.12483", "not stated", 0.913, 1.130, 0.948, ["https://arxiv.org/pdf/2304.12483"], "contested"],
-        ["MICA", "row B as reported by 2304.12483", "not stated", 0.90, 1.11, 0.92, ["https://arxiv.org/pdf/2304.12483"], "contested"],
-        ["MICA", "profile-view evaluation", "profile subset", 0.9432, 1.1606, null, ["https://arxiv.org/html/2605.01746"], "single-source"],
-        ["MICA", "Chamfer-style overall (approximate)", "validation", null, 1.19, null, ["https://arxiv.org/pdf/2601.12736"], "single-source"]
+        ["MICA", "row B as reported by 2304.12483 (matches public test leaderboard per expert knowledge)", "test (knowledge)", 0.90, 1.11, 0.92, ["https://arxiv.org/pdf/2304.12483"], "contested"],
+        ["MICA", "profile-view evaluation", "profile subset", 0.9432, 1.1606, null, ["https://arxiv.org/html/2605.01746"], "sourced"],
+        ["MICA", "Chamfer-style overall (approximate)", "validation", null, 1.19, null, ["https://arxiv.org/pdf/2601.12736"], "sourced"]
       ],
-      "population": "NoW benchmark subjects/images; split sizes not captured in harvested snippets",
+      "population": "NoW benchmark (about 100 subjects; 20 validation / 80 test per expert knowledge)",
       "source_urls": ["https://arxiv.org/abs/2012.04012", "https://arxiv.org/pdf/2304.12483", "https://arxiv.org/pdf/2108.05465", "https://ar5iv.labs.arxiv.org/html/2204.06607", "https://arxiv.org/pdf/2601.12736", "https://arxiv.org/html/2605.01746"],
       "status": "contested",
-      "notes": "Rows mix protocols. KaoLRM notes some papers report Chamfer distance instead of NoW per-vertex error, and the splits of several rows are unknown. Do not rank across mismatched split or metric. Re-verification searches were blocked in this run, so the status reflects agreement among harvested sources only. To derive a normal-direction noise sigma under a half-normal assumption (a modelling assumption, not a sourced value): sigma = median/0.6745 = mean/0.7979 = std/0.6028."
+      "notes": "Rows mix splits and metrics (Chamfer vs scan-to-mesh). Do not rank across mismatched protocols. The 1.53 mm figure is the scale-optimised average-mesh baseline, not MICA. Half-normal conversion (assumption, not sourced): sigma = median/0.6745 = mean/0.7979 = std/0.6028."
+    },
+    {
+      "name": "now_leaderboard_test_knowledge",
+      "units": "mm (NoW non-metrical test split; approximate, from expert recall)",
+      "columns": ["method", "base_model", "median_mm", "mean_mm", "std_mm"],
+      "rows": [
+        ["PRNet", "UV position map (BFM-derived)", 1.50, 1.98, 1.88],
+        ["3DDFA_V2", "BFM", 1.23, 1.57, 1.39],
+        ["RingNet", "FLAME", 1.21, 1.53, 1.31],
+        ["Deep3DFaceRecon (PyTorch)", "BFM", 1.11, 1.41, 1.21],
+        ["DECA", "FLAME", 1.09, 1.38, 1.18],
+        ["EMOCA v1 (identity = DECA)", "FLAME", 1.09, 1.38, 1.18],
+        ["MICA", "FLAME", 0.90, 1.11, 0.92],
+        ["TokenFace", "FLAME", 0.76, 0.95, 0.82]
+      ],
+      "population": "NoW test split (80 subjects)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Recalled from the public NoW leaderboard; verify every row before using as a prior or in UI copy. SMIRK, HRN, TEASER and Pixel3DMM NoW rows not known."
     },
     {
       "name": "relative_improvement_claims",
       "units": "percent change in error (negative = better)",
       "columns": ["claim", "value_percent", "baseline", "metric", "source_urls", "status"],
       "rows": [
-        ["MICA vs prior methods, NoW", -15, "prior SOTA", "average error", ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "single-source"],
-        ["MICA vs prior methods, metric benchmarks", -24, "prior SOTA", "average error", ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "single-source"],
-        ["Towards Realistic Generative 3D Face Models vs DECA (coarse)", -23, "DECA", "median NoW error", ["https://arxiv.org/pdf/2304.12483"], "single-source"],
-        ["Towards Realistic Generative 3D Face Models vs DECA (detailed)", -20, "DECA", "median NoW error", ["https://arxiv.org/pdf/2304.12483"], "single-source"]
+        ["MICA vs prior methods, NoW (non-metrical)", -15, "prior SOTA", "average error", ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "sourced"],
+        ["MICA vs prior methods, metrical evaluation", -24, "prior SOTA", "average error", ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "sourced"],
+        ["Towards Realistic Generative 3D Face Models vs DECA (coarse)", -23, "DECA", "median NoW error", ["https://arxiv.org/pdf/2304.12483"], "sourced"],
+        ["Towards Realistic Generative 3D Face Models vs DECA (detailed)", -20, "DECA", "median NoW error", ["https://arxiv.org/pdf/2304.12483"], "sourced"],
+        ["Average FLAME mesh, effect of scale fit", -20, "average FLAME mesh", "mean NoW error 1.92 -> 1.53 mm", ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "sourced"]
       ],
-      "population": "NoW and MICA metric benchmarks",
+      "population": "NoW and MICA metrical benchmarks",
       "source_urls": ["https://ar5iv.labs.arxiv.org/html/2204.06607", "https://arxiv.org/pdf/2304.12483"],
-      "status": "single-source",
-      "notes": "These are the authors' own claims."
+      "status": "sourced",
+      "notes": "Authors' own claims."
+    },
+    {
+      "name": "method_cards",
+      "units": "categorical; speed order-of-magnitude per face on a consumer GPU excluding detection",
+      "columns": ["method", "year_venue", "base_model", "outputs", "camera_model", "metric_scale", "code_public", "licence_code", "licence_assets", "speed", "status"],
+      "rows": [
+        ["DECA", "SIGGRAPH 2021", "FLAME", "shape 100, expression 50, global+jaw pose, cam 3, albedo 50, SH light 27, detail code 128 -> UV displacement", "weak-perspective", false, true, "non-commercial research (unverified)", "FLAME", "~10 ms", "knowledge"],
+        ["EMOCA", "CVPR 2022", "FLAME", "DECA identity + emotion-supervised expression encoder", "weak-perspective", false, true, "non-commercial research (unverified)", "FLAME", "~10 ms", "knowledge"],
+        ["MICA", "ECCV 2022", "FLAME", "300 shape coefficients, neutral, metres", "none (shape only)", true, true, "non-commercial research (unverified)", "FLAME + ArcFace/InsightFace weights", "~10 ms + detection", "knowledge"],
+        ["SMIRK", "CVPR 2024", "FLAME", "shape, expression, eyelids, jaw/head pose", "weak-perspective", false, true, "unconfirmed", "FLAME + MediaPipe", "~10 ms", "sourced"],
+        ["TEASER", "ICLR 2025", "FLAME", "SMIRK-style + multi-scale tokens", "weak-perspective", false, null, "unconfirmed", "FLAME", "~10 ms", "knowledge"],
+        ["3DDFA_V2", "ECCV 2020", "BFM (reduced)", "62 params: 12 pose (3x4), 40 shape, 10 expression; landmarks", "affine / weak-perspective", false, true, "MIT (unverified)", "BFM", ">50 fps claimed; detection ~15 ms @720p", "sourced"],
+        ["Deep3DFaceRecon", "CVPR-W 2019", "BFM 2009 + FaceWarehouse expr", "257 coefficients: id 80, exp 64, tex 80, pose 6, SH 27", "perspective, fixed f ~1015 px at 224 px", false, true, "MIT (unverified)", "BFM", "~10 ms", "knowledge"],
+        ["HRN", "CVPR 2023", "BFM", "base + deformation map + displacement map, textured OBJ; MV-HRN multi-view", "perspective", false, true, "unconfirmed", "BFM", "sub-second", "knowledge"],
+        ["Pixel3DMM", "2025", "FLAME", "ViT-predicted normals + UV coordinates, then FLAME optimisation", "perspective (optimised)", null, true, "unconfirmed", "FLAME", "tens of seconds or more", "knowledge"],
+        ["MediaPipe Face Landmarker", "2019+", "canonical face mesh", "478 3D landmarks, 52 blendshape scores, head transform", "perspective", false, true, "Apache-2.0", "bundled", "real-time CPU", "knowledge"]
+      ],
+      "population": "n/a (software)",
+      "source_urls": ["https://github.com/georgeretsi/smirk", "https://arxiv.org/html/2404.04104", "https://github.com/cleardusk/3DDFA_V2", "https://arxiv.org/pdf/2009.09960v2"],
+      "status": "knowledge",
+      "notes": "Licences are time-sensitive and unverified; check every LICENSE file and model-asset licence before shipping. null = unknown."
+    },
+    {
+      "name": "morphable_model_assets",
+      "units": "counts",
+      "columns": ["asset", "vertices", "triangles", "shape_components", "expression_components", "training_population", "licence"],
+      "rows": [
+        ["FLAME 2017/2020", 5023, 9976, 300, 100, "about 3,800 CAESAR adult head scans + 4D expression sequences", "historically non-commercial; FLAME 2023 Open reportedly CC-BY-4.0 (contested, verify)"],
+        ["BFM 2009", 53490, null, 199, 0, "200 adults (100 F / 100 M), mostly European", "non-commercial, registration"],
+        ["BFM as cropped by Deep3DFaceRecon", 35709, null, 80, 64, "BFM 2009 + FaceWarehouse expression bases", "non-commercial, registration"]
+      ],
+      "population": "model assets",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "FLAME has 5 joints (global, neck, jaw, 2 eyes); units are metres; shape coefficients nominally unit-variance."
+    },
+    {
+      "name": "perspective_distortion_vs_distance",
+      "units": "ratio (nose-tip magnification relative to ear plane), d = 0.09 m depth difference",
+      "columns": ["camera_distance_m", "magnification"],
+      "rows": [[0.3, 1.30], [0.5, 1.18], [1.0, 1.09], [2.0, 1.045], [3.0, 1.03]],
+      "population": "geometric derivation, (D+d)/D",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Arithmetic; d varies roughly 0.08-0.11 m between individuals. Weak-perspective regressors absorb this into shape."
+    },
+    {
+      "name": "realy_frontal_region_average",
+      "units": "mm (approximate)",
+      "columns": ["group", "error_mm_low", "error_mm_high"],
+      "rows": [
+        ["HRN and detail-hierarchy methods", 1.5, 1.6],
+        ["Deep3DFaceRecon", 1.6, 1.7],
+        ["DECA, EMOCA, 3DDFA_V2", 1.9, 2.2]
+      ],
+      "population": "REALY benchmark, about 100 Headspace/LYHM scans, regions nose/mouth/forehead/cheek",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Recalled ranges only; verify against the REALY paper/leaderboard before use."
     },
     {
       "name": "runtime_and_robustness",
       "units": "fps, ms, degrees",
       "columns": ["tool", "quantity", "value", "unit", "condition", "source_urls", "status"],
       "rows": [
-        ["3DDFA_V2", "throughput", ">50", "fps", "single CPU or GPU, hardware unspecified", ["https://github.com/cleardusk/3DDFA_V2", "https://arxiv.org/pdf/2009.09960v2"], "single-source"],
-        ["3DDFA_V2", "face detection latency", 15, "ms", "720p image, ONNX (approximate)", ["https://github.com/cleardusk/3DDFA_V2"], "single-source"],
-        ["3DDFA_V2", "pose failure threshold", 90, "degrees", "alignment may fail above about this head pose or under fast motion", ["https://github.com/cleardusk/3DDFA_V2"], "single-source"]
+        ["3DDFA_V2", "throughput", ">50", "fps", "single CPU or GPU, hardware unspecified", ["https://github.com/cleardusk/3DDFA_V2", "https://arxiv.org/pdf/2009.09960v2"], "sourced"],
+        ["3DDFA_V2", "face detection latency", 15, "ms", "720p image, ONNX (approximate)", ["https://github.com/cleardusk/3DDFA_V2"], "sourced"],
+        ["3DDFA_V2", "pose failure threshold", 90, "degrees", "alignment may fail above about this yaw or with fast motion", ["https://github.com/cleardusk/3DDFA_V2"], "sourced"]
       ],
-      "population": "n/a (software benchmarks)",
+      "population": "n/a (software)",
       "source_urls": ["https://github.com/cleardusk/3DDFA_V2", "https://arxiv.org/pdf/2009.09960v2"],
-      "status": "single-source",
-      "notes": "No GPU timings were found for DECA, MICA or SMIRK."
+      "status": "sourced",
+      "notes": "Repo and paper share authors, so not independent. No measured GPU timings for DECA, MICA, SMIRK, HRN or Pixel3DMM."
+    },
+    {
+      "name": "suggested_fitting_defaults",
+      "units": "mixed (mm, FLAME unit-sigma, log-scale sigma)",
+      "columns": ["parameter", "init_backend", "value", "unit", "basis"],
+      "rows": [
+        ["robust vertex residual scale (Huber/Student-t)", "MICA-class", 1.4, "mm", "half-normal inversion of NoW 0.90/1.11/0.92 (assumption)"],
+        ["robust vertex residual scale (Huber/Student-t)", "DECA-class", 1.8, "mm", "half-normal inversion of NoW val 1.18/1.46/1.25 (assumption)"],
+        ["identity coefficient sigma floor", "MICA", 0.3, "FLAME unit sigma", "design default"],
+        ["identity coefficient sigma floor", "DECA", 0.6, "FLAME unit sigma", "design default"],
+        ["identity sigma for components not regressed", "any", 1.0, "FLAME unit sigma", "model prior"],
+        ["log-scale prior sigma", "MICA (metric guess)", 0.045, "log units", "design default"],
+        ["log-scale prior sigma", "non-metric backend", 0.10, "log units", "design default (or uninformative)"],
+        ["log-scale prior sigma", "user measurement anchor", 0.01, "log units", "design default"],
+        ["weak-to-perspective initial depth", "DECA/SMIRK-style cam", "Z0 = 2f/(s*W_b)", "same units as model", "derivation"]
+      ],
+      "population": "engine defaults",
+      "source_urls": ["https://arxiv.org/abs/2012.04012", "https://arxiv.org/pdf/2304.12483"],
+      "status": "knowledge",
+      "notes": "Not sourced values; tune on held-out scans."
     }
   ]
 }

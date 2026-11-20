@@ -1,0 +1,27 @@
+{
+ "id": "biometric-privacy",
+ "area": "ethics",
+ "title": "Biometric privacy law and face geometry",
+ "queue": [
+  {
+   "claim": "Face geometry computed from photos (landmarks, fitted meshes) can be a BIPA 'scan of face geometry' even when not used to identify anyone. Zellmer v. Meta (9th Cir. 2024) requires identification capability, and the virtual try-on cases have split. This decides whether a likeness mesh is regulated at all.",
+   "query": "BIPA \"scan of face geometry\" virtual try-on motion to dismiss identify Zellmer v. Meta 2025",
+   "domains": ""
+  },
+  {
+   "claim": "Colorado HB 24-1130 (effective 1 July 2025) requires deleting biometric identifiers by the earliest of: purpose satisfied, 24 months after last interaction, or 45 days after no longer needed. It applies to any controller regardless of volume.",
+   "query": "Colorado HB24-1130 biometric identifier deletion 24 months 45 days effective July 1 2025",
+   "domains": ""
+  },
+  {
+   "claim": "Illinois P.A. 103-0769 (SB 2979, August 2024) counts repeated collection from one person by one method as a single violation and accepts electronic signatures as a written release. Courts have split on whether it applies retroactively.",
+   "query": "BIPA amendment SB 2979 retroactive Seventh Circuit ruling per-person violation electronic signature",
+   "domains": ""
+  },
+  {
+   "claim": "Under GDPR, a face mesh is biometric data if it can identify someone, but Art. 9 applies only when it is processed for the purpose of uniquely identifying, which is the EDPB and UK ICO reading. On that reading a likeness sculpt needs an Art. 6 basis rather than Art. 9 explicit consent.",
+   "query": "EDPB ICO biometric data Article 9 purpose of uniquely identifying facial images not used for recognition guidance",
+   "domains": "edpb.europa.eu,ico.org.uk"
+  }
+ ]
+}

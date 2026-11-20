@@ -1,0 +1,130 @@
+{
+  "topic": "bpy-mesh-api",
+  "tables": [
+    {
+      "name": "foreach_attribute_map",
+      "units": "numpy dtype; values per collection item",
+      "columns": ["collection", "attribute", "numpy_dtype", "values_per_item", "access", "notes"],
+      "rows": [
+        ["Mesh.vertices", "co", "float32", 3, "RW", "undeformed coordinates; with shape keys the reference key is authoritative"],
+        ["Mesh.vertices", "normal", "float32", 3, "R", ""],
+        ["Mesh.edges", "vertices", "int32", 2, "RW", "or let me.update(calc_edges=True) build edges"],
+        ["Mesh.loops", "vertex_index", "int32", 1, "RW", "corner -> vertex"],
+        ["Mesh.loops", "edge_index", "int32", 1, "RW", ""],
+        ["Mesh.polygons", "loop_start", "int32", 1, "RW", "CSR offsets without the final total"],
+        ["Mesh.polygons", "loop_total", "int32", 1, "R", "derived; read-only in current versions (3.6 vs 4.0 unverified)"],
+        ["Mesh.polygons", "vertices", "int32", "sum of corners (flattened)", "RW", "used by from_pydata"],
+        ["Mesh.polygons", "use_smooth", "bool", 1, "RW", ""],
+        ["Mesh.polygons", "material_index", "int32", 1, "RW", ""],
+        ["Mesh.loop_triangles", "vertices", "int32", 3, "R", "after calc_loop_triangles()"],
+        ["MeshUVLoopLayer.data", "uv", "float32", 2, "RW", "per corner"],
+        ["Mesh.vertex_normals / polygon_normals / corner_normals", "vector", "float32", 3, "R", "corner_normals 4.1+; vertex/polygon_normals 3.5+"],
+        ["Attribute.data", "value | vector | color", "float32 / int32 / bool", "1 | 2-3 | 4", "RW", "key depends on attribute type"],
+        ["ShapeKey.data", "co", "float32", 3, "RW", "absolute positions, not deltas"],
+        ["Image.pixels", "(array)", "float32", 4, "RW", "RGBA, rows bottom-to-top; 8-bit files hold encoded/255 (moderate confidence)"]
+      ],
+      "population": "Blender Python API 4.x-5.x",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Mismatched dtype or non-contiguous buffer silently falls back to a slow per-item path. Buffer length must equal len(collection) * values_per_item."
+    },
+    {
+      "name": "bulk_io_planning_timings",
+      "units": "seconds (order of magnitude, single desktop core)",
+      "columns": ["operation", "n_1e5_vertices_s", "n_1e6_vertices_s", "notes"],
+      "rows": [
+        ["foreach_get/set co, float32 contiguous", [0.0001, 0.001], [0.001, 0.01], "buffer path"],
+        ["foreach_get/set co, float64", [0.005, 0.02], [0.05, 0.2], "slow sequence path"],
+        ["python per-vertex loop v.co = ...", [0.1, 0.3], [1.0, 3.0], ""],
+        ["Mesh.from_pydata with python lists", [0.1, 0.5], [1.0, 5.0], ""],
+        ["bmesh from_mesh + to_mesh", [0.02, 0.1], [0.2, 1.0], ""],
+        ["Image.pixels.foreach_get 12 MP", [0.05, 0.2], null, "list(img.pixels) approx 5-30 s"],
+        ["single bpy.ops call overhead", [0.0001, 0.005], null, "per call, higher with undo push and redraw"]
+      ],
+      "population": "Planning estimates, not measured benchmarks",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Measure on target hardware before relying on any figure."
+    },
+    {
+      "name": "bundled_python_numpy",
+      "units": "version strings",
+      "columns": ["blender_versions", "python", "numpy", "row_status"],
+      "rows": [
+        ["4.0", "3.10", "1.2x", "knowledge"],
+        ["4.1-4.5", "3.11", "1.2x (approx 1.24-1.26)", "knowledge"],
+        ["5.0", "3.11 (likely)", "unknown (1.26 or 2.x)", "contested"],
+        ["5.1-5.3", "3.11 or 3.13 (unconfirmed)", "unknown (1.26 or 2.x)", "contested"]
+      ],
+      "population": "Official Blender builds",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Consistent with research/data/blender-version-status-2026.json. Probe sys.version_info and numpy.__version__ at runtime."
+    },
+    {
+      "name": "api_changes_relevant_to_mesh_bridge",
+      "units": "n/a",
+      "columns": ["version", "change", "replacement_or_probe", "row_status"],
+      "rows": [
+        ["3.2", "context.temp_override added", "use for all operator calls", "knowledge"],
+        ["3.5", "Mesh.vertex_normals / polygon_normals collections", "foreach_get('vector')", "knowledge"],
+        ["3.6 or 4.0", "MeshPolygon.loop_total read-only", "bpy.types.MeshPolygon.bl_rna.properties['loop_total'].is_readonly", "knowledge"],
+        ["4.0", "operator context-override dicts removed", "temp_override", "knowledge"],
+        ["4.0", "NodeTree.inputs/outputs.new replaced", "NodeTree.interface.new_socket", "knowledge"],
+        ["4.0", "face maps removed", "face sets / attributes", "knowledge"],
+        ["4.1", "Auto Smooth, calc_normals_split removed", "Mesh.corner_normals, set_sharp_from_angle, Smooth by Angle modifier", "knowledge"],
+        ["4.1", "from_pydata shade_flat=True default", "call shade_smooth() after", "knowledge"],
+        ["4.2", "extensions platform", "blender_manifest.toml; never bundle numpy", "knowledge"],
+        ["4.3", "brush assets", "bpy.ops.brush.asset_activate", "knowledge"],
+        ["5.0", "np.asarray(Vector/Matrix) float32 non-contiguous view", "np.array(v, dtype=np.float64)", "knowledge (sourced in blender-version-status-2026)"],
+        ["5.0", "bgl removed", "gpu module", "knowledge"],
+        ["5.0", "bpy.props values not readable as id['x']", "attribute access", "knowledge (moderate)"]
+      ],
+      "population": "Blender Python API 3.2-5.0",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Verify each row against the per-release Python API notes."
+    },
+    {
+      "name": "camera_background_settings",
+      "units": "mm, m, dimensionless as stated",
+      "columns": ["property", "blender_default", "recommended", "reason"],
+      "rows": [
+        ["Camera.sensor_fit", "AUTO", "HORIZONTAL", "AUTO switches to height fit for portrait photos"],
+        ["Camera.sensor_width (mm)", 36.0, 36.0, "lens_mm = f_px * 36 / W"],
+        ["Camera.lens (mm)", 50.0, "f_px * sensor_width / W", ""],
+        ["Camera.shift_x", 0.0, "(W/2 - cx) / W", "shift is in units of the fitted dimension (W under HORIZONTAL)"],
+        ["Camera.shift_y", 0.0, "(cy - H/2) / W", "image y down; divided by W under HORIZONTAL"],
+        ["Camera.clip_start (m)", 0.1, 0.01, "avoid clipping the nose"],
+        ["SpaceView3D.clip_start (m)", 0.01, 0.001, "close inspection"],
+        ["RenderSettings.resolution_x/y", "per scene", "photo W x H at 100 percent", "switch per active camera"],
+        ["CameraBackgroundImage.frame_method", null, "FIT", "assert |W/H - res_x/res_y| < 1e-3"],
+        ["CameraBackgroundImage.display_depth / alpha", "BACK / approx 0.5", "FRONT / 0.3-0.5", "overlay checking"]
+      ],
+      "population": "Blender camera API",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Shift-unit rule recalled from BKE_camera_params_compute_viewplane; face3d/geometry/camera.py::to_blender_camera currently divides by max(W,H) under HORIZONTAL, which disagrees for portrait images."
+    },
+    {
+      "name": "bridge_defaults",
+      "units": "as stated",
+      "columns": ["quantity", "value", "units", "notes"],
+      "rows": [
+        ["timer interval", [0.05, 0.1], "s", ""],
+        ["main-thread work per tick", [0.01, 0.02], "s", "keeps viewport >= 30 fps"],
+        ["vertex-group weight quantization levels", 256, "levels", "max error 1/512"],
+        ["engine vs Blender projection agreement", 0.01, "px", "larger means a convention bug"],
+        ["landmark reprojection median alarm", 1.0, "px", "with correct engine fit"],
+        ["coordinate round-trip atol", 1e-06, "x head scale s", "s approx 0.14 m"],
+        ["mirror-map KD-tree tolerance", 1e-05, "x head scale s", ""],
+        ["live preview vertex limit", 100000, "vertices", "write key every LM iteration below this"],
+        ["shape key slider range", [-10, 10], "dimensionless", "practical -1..2 for anti-caricature/exaggeration"]
+      ],
+      "population": "Engineering defaults for the face3d Blender bridge",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Suggested defaults, not measured values."
+    }
+  ]
+}

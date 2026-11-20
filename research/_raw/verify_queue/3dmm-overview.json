@@ -1,0 +1,27 @@
+{
+ "id": "3dmm-overview",
+ "area": "reconstruction",
+ "title": "3D morphable models: survey",
+ "queue": [
+  {
+   "claim": "FLAME licence status: FLAME 2017/2020 non-commercial research only; a 'FLAME 2023 Open' variant reportedly under CC BY 4.0 (contents and terms unconfirmed). Drives the engine's commercial_ok gating.",
+   "query": "FLAME 2023 Open license CC BY 4.0 flame.is.tue.mpg.de",
+   "domains": "flame.is.tue.mpg.de,github.com"
+  },
+  {
+   "claim": "ICT-FaceKit is MIT-licensed, with ~100 identity components and 53 ARKit-like expression shapes, quad topology, and eyes, teeth, gums and tongue included.",
+   "query": "ICT-FaceKit github license identity shapes expression blendshapes vertex count",
+   "domains": "github.com"
+  },
+  {
+   "claim": "Storage units and vertex counts: FLAME 5,023 vertices in metres; BFM 2009 53,490 vertices stored in sub-mm units (commonly read as \u00b5m); BFM 2017/2019 in mm, with face12 \u224828,588 and bfm \u224853,149 vertices.",
+   "query": "Basel Face Model 2009 coordinates units micrometers shapeMU 53490 vertices BFM 2017 face12 vertex count",
+   "domains": "faces.dmi.unibas.ch,github.com"
+  },
+  {
+   "claim": "FLAME basis is pre-scaled so \u03b2 and \u03c8 are roughly unit-variance (N(0,1) prior), whereas BFM stores orthonormal PCs with separate \u03c3 (2009 shapeEV) or variance (2017 pcaVariance).",
+   "query": "BFM 2017 h5 pcaVariance pcaBasis scaled standard deviation shapeEV BFM 2009 FLAME shapedirs scaled",
+   "domains": "github.com"
+  }
+ ]
+}

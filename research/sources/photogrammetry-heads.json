@@ -1,0 +1,24 @@
+{
+  "topic": "photogrammetry-heads",
+  "sources": [],
+  "references_by_name": [
+    "Schönberger & Frahm, \"Structure-from-Motion Revisited\", CVPR 2016",
+    "Schönberger, Zheng, Frahm & Pollefeys, \"Pixelwise View Selection for Unstructured Multi-View Stereo\", ECCV 2016",
+    "Pan, Baráth, Pollefeys & Schönberger, \"Global Structure-from-Motion Revisited\" (GLOMAP), ECCV 2024",
+    "Griwodz et al., \"AliceVision Meshroom: An open-source 3D reconstruction pipeline\", ACM MMSys 2021",
+    "Jancosek & Pajdla, \"Multi-View Reconstruction Preserving Weakly-Supported Surfaces\", CVPR 2011",
+    "Furukawa & Hernández, \"Multi-View Stereo: A Tutorial\", Foundations and Trends in Computer Graphics and Vision, 2015",
+    "Kazhdan & Hoppe, \"Screened Poisson Surface Reconstruction\", ACM TOG 2013",
+    "Beeler, Bickel, Beardsley, Sumner & Gross, \"High-Quality Single-Shot Capture of Facial Geometry\", SIGGRAPH 2010",
+    "Ma et al., \"Rapid Acquisition of Specular and Diffuse Normal Maps from Polarized Spherical Gradient Illumination\", EGSR 2007",
+    "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+    "Luhmann, Robson, Kyle & Boehm, Close-Range Photogrammetry and 3D Imaging, de Gruyter",
+    "Brown, \"Decentering Distortion of Lenses\", Photogrammetric Engineering, 1966",
+    "Amberg, Romdhani & Vetter, \"Optimal Step Nonrigid ICP Algorithms for Surface Registration\", CVPR 2007",
+    "Soukupová & Čech, \"Real-Time Eye Blink Detection using Facial Landmarks\", CVWW 2016",
+    "Huang et al., \"2D Gaussian Splatting for Geometrically Accurate Radiance Fields\", SIGGRAPH 2024",
+    "Leroy, Cabon & Revaud, \"Grounding Image Matching in 3D with MASt3R\", ECCV 2024",
+    "Wang et al., \"VGGT: Visual Geometry Grounded Transformer\", CVPR 2025",
+    "Lindenberger, Sarlin & Pollefeys, \"LightGlue: Local Feature Matching at Light Speed\", ICCV 2023"
+  ]
+}

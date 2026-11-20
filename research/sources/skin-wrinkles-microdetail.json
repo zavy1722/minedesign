@@ -1,0 +1,29 @@
+{
+ "topic": "skin-wrinkles-microdetail",
+ "sources": [],
+ "references_by_name": [
+  "Langer K, Zur Anatomie und Physiologie der Haut, 1861",
+  "Kraissl CJ, elective incision lines, Plast Reconstr Surg, 1951",
+  "Borges AF, Relaxed skin tension lines (RSTL) versus other skin lines, Plast Reconstr Surg, 1984",
+  "Kligman AM, Zheng P, Lavker RM, The anatomy and pathogenesis of wrinkles, Br J Dermatol, 1985",
+  "Glogau RG, photoageing classification, 1996",
+  "Lemperle G et al., A classification of facial wrinkles, Plast Reconstr Surg, 2001",
+  "Ha RY et al., facial skin thickness and the relative thickness index, Plast Reconstr Surg, 2005",
+  "Chopra K et al., topographic thickness of facial skin, Aesthet Surg J, 2015",
+  "Lessard ML, Daniel RK, Surgical anatomy of septorhinoplasty, 1985",
+  "Shuster S, Black MM, McVitie E, age, sex and skin thickness, Br J Dermatol, 1975",
+  "Brincat M et al., postmenopausal skin collagen studies, 1980s",
+  "Paes EC et al., histology of perioral wrinkles in men and women, Aesthet Surg J, 2009",
+  "Otberg N et al., hair-follicle size and distribution by body site, J Invest Dermatol, 2004",
+  "Sugiyama-Nakagiri Y et al., epidermis around facial pores, J Dermatol Sci, 2009",
+  "Flament F et al., multiethnic facial pore study, 2015",
+  "Suzuki K, Tsuchihashi Y, lip-print classification, 1970",
+  "Frank ST, Aural sign of coronary-artery disease, N Engl J Med, 1973",
+  "Cerda E, Mahadevan L, Geometry and physics of wrinkling, Phys Rev Lett, 2003",
+  "Golovinskiy A et al., statistical synthesis of facial detail, SIGGRAPH, 2006",
+  "Beeler T et al., High-quality single-shot capture of facial geometry, SIGGRAPH, 2010",
+  "Graham P et al., Measurement-based synthesis of facial microgeometry, Eurographics, 2013",
+  "Nagano K et al., skin microstructure deformation by displacement-map convolution, SIGGRAPH, 2015",
+  "Feng Y et al., DECA, SIGGRAPH, 2021"
+ ]
+}

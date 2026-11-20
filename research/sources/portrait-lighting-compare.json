@@ -14,5 +14,29 @@
     {"n": 11, "title": "Improving Blender workflows with still image camera matching app (80.lv)", "url": "https://80.lv/articles/improving-blender-workflows-with-still-image-camera-matching-app", "kind": "news", "year": "n.d."},
     {"n": 12, "title": "How to Setup HDRI Lighting in Blender 2.93 (BlenderNation)", "url": "https://www.blendernation.com/2021/06/30/how-to-setup-hdri-lighting-in-blender-2-93/", "kind": "news", "year": "2021"},
     {"n": 13, "title": "Blender 5.0 Manual: Cameras", "url": "https://docs.blender.org/manual/en/5.0/render/cameras.html", "kind": "official-docs", "year": "n.d."}
+  ],
+  "references_by_name": [
+    "Debevec & Malik, Recovering High Dynamic Range Radiance Maps from Photographs, SIGGRAPH 1997",
+    "Debevec, Rendering Synthetic Objects into Real Scenes, SIGGRAPH 1998",
+    "Ramamoorthi & Hanrahan, An Efficient Representation for Irradiance Environment Maps, SIGGRAPH 2001",
+    "Basri & Jacobs, Lambertian Reflectance and Linear Subspaces, IEEE TPAMI 2003",
+    "Nishino & Nayar, Eyes for Relighting, SIGGRAPH 2004",
+    "Blanz & Vetter, A Morphable Model for the Synthesis of 3D Faces, SIGGRAPH 1999",
+    "Sengupta et al., SfSNet: Learning Shape, Reflectance and Illuminance of Faces in the Wild, CVPR 2018",
+    "Sun et al., Single Image Portrait Relighting, SIGGRAPH 2019",
+    "LeGendre et al., Learning Illumination from Diverse Portraits, SIGGRAPH Asia 2020",
+    "Phongthawee et al., DiffusionLight: Light Probes for Free by Painting a Chrome Ball, CVPR 2024",
+    "Wang, Bovik, Sheikh & Simoncelli, Image Quality Assessment: From Error Visibility to Structural Similarity, IEEE TIP 2004",
+    "Zhang et al., The Unreasonable Effectiveness of Deep Features as a Perceptual Metric (LPIPS), CVPR 2018",
+    "Andersson et al., FLIP: A Difference Evaluator for Alternating Images, HPG 2020",
+    "Sharma, Wu & Dalal, CIEDE2000 colour-difference formula implementation notes, Color Research & Application 2005",
+    "Deng et al., ArcFace: Additive Angular Margin Loss for Deep Face Recognition, CVPR 2019",
+    "Fried, Shechtman, Goldman & Finkelstein, Perspective-aware Manipulation of Portrait Photos, SIGGRAPH 2016",
+    "Ward et al., Nasal Distortion in Short-Distance Photographs: The Selfie Effect, JAMA Facial Plastic Surgery 2018",
+    "Thompson, Margaret Thatcher: A New Illusion, Perception 1980",
+    "Hunter, Biver & Fuqua, Light: Science and Magic (photographic lighting book)",
+    "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+    "Blender source: BKE_camera_params_compute_viewplane and CAMERA_PARAM_ZOOM_INIT_PERSP (camera shift units, viewport zoom)",
+    "Google MediaPipe Iris documentation (horizontal iris diameter 11.7 +/- 0.5 mm statement, recalled)"
   ]
 }

@@ -1,5 +1,765 @@
-{"topic":"muscles-lower-face","tables":[
-{"name":"lower_lip_depressor_widths","units":"mm","columns":["muscle","width_mean_mm","width_sd_mm","specimen_type","n"],"rows":[["depressor labii inferioris",20,4,"cadaver",null],["depressor anguli oris",14,3,"cadaver",null]],"population":"Cadaver dissections (study on lower-lip depressor myectomy for marginal mandibular nerve palsy); sample size not in the search snippet","source_urls":["https://journals.lww.com/10.1097/SCS.0000000000007622","https://uu.diva-portal.org/smash/get/diva2:1356617/FULLTEXT06.pdf"],"status":"single-source","notes":"Taken from a harvester search snippet; the verification pass could not re-check it because the web search budget was exhausted. Use as a weak prior for deformation-region width, scaled to the subject. Measurement site (origin vs mid-belly) not confirmed."},
-{"name":"lower_lip_innervation_cohort","units":"percent","columns":["metric","value","unit","n_patients"],"rows":[["DLI branches classified as cervical",95.5,"%",45],["pure DLI branches",68.8,"%",45],["marginal mandibular neurectomy worsened lower-lip position (sub-analysis)",null,"not worse",24]],"population":"Retrospective cohort of synkinesis patients, Plastic and Reconstructive Surgery (ahead of print, 2026 per harvest)","source_urls":["https://journals.lww.com/plasreconsurg/abstract/9900/muscles_of_the_lower_lip__functional_anatomy,.3044.aspx"],"status":"single-source","notes":"Taken from a search snippet. 'Cervical' DLI innervation conflicts with the textbook marginal mandibular supply; read the full text before using. DAO and mentalis reported to have mixed innervation (no percentages extracted)."},
-{"name":"perioral_action_directions","units":"direction (qualitative, anatomical axes)","columns":["muscle","moving_point","direction","evidence_type"],"rows":[["mentalis","lower-lip midline","superior+anterior","electrical stimulation, 1978"],["depressor labii inferioris","lower-lip midline","inferior+posterior","electrical stimulation, 1978"],["zygomaticus major","oral commissure","superolateral+posterior","intramuscular electrical stimulation"],["levator anguli oris","oral commissure","shifts vector superiorly","intramuscular electrical stimulation"],["depressor anguli oris","oral commissure","inferior (main depressor)","intramuscular electrical stimulation"]],"population":"Human subjects in stimulation studies; sample sizes not extracted","source_urls":["https://www.sciencedirect.com/science/article/abs/pii/0003996978902157","https://pmc.ncbi.nlm.nih.gov/articles/PMC2826128/"],"status":"single-source","notes":"Directions only; no displacement magnitudes were extracted. Each row is supported by one source. Intended as signed unit-vector priors for expression/identity separation."}
-]}
+{
+ "topic": "muscles-lower-face",
+ "tables": [
+  {
+   "name": "lower_lip_depressor_widths",
+   "units": "mm",
+   "columns": [
+    "muscle",
+    "width_mean_mm",
+    "width_sd_mm",
+    "specimen_type",
+    "n"
+   ],
+   "rows": [
+    [
+     "depressor labii inferioris",
+     20,
+     4,
+     "cadaver",
+     null
+    ],
+    [
+     "depressor anguli oris",
+     14,
+     3,
+     "cadaver",
+     null
+    ]
+   ],
+   "population": "Cadaver dissections (lower-lip depressor myectomy context); sample size not in the search snippet",
+   "source_urls": [
+    "https://journals.lww.com/10.1097/SCS.0000000000007622",
+    "https://uu.diva-portal.org/smash/get/diva2:1356617/FULLTEXT06.pdf"
+   ],
+   "status": "sourced",
+   "notes": "Single study ([32] is probably the full text of [11]). Measurement site (origin vs mid-belly) unconfirmed. Use as a weak prior for deformation-region width, scaled by mouth width (ch-ch / 52 mm)."
+  },
+  {
+   "name": "dao_insertion_offset_from_commissure",
+   "units": "mm",
+   "columns": [
+    "quantity",
+    "lateral_mm",
+    "caudal_mm",
+    "specimen_type",
+    "n"
+   ],
+   "rows": [
+    [
+     "DAO insertion into modiolus relative to oral commissure",
+     10,
+     10,
+     "cadaver",
+     null
+    ]
+   ],
+   "population": "Cadaver study of DAO topography and nerve supply (synkinesis surgery context), 2021",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/33565832/"
+   ],
+   "status": "sourced",
+   "notes": "Approximate values from a search snippet. This is the DAO insertion point, not the modiolus centre; textbook modiolus centre is ~10-15 mm lateral to cheilion (knowledge, see contested_lower_face_norms)."
+  },
+  {
+   "name": "mentalis_depth_thickness",
+   "units": "mm",
+   "columns": [
+    "quantity",
+    "mean_mm",
+    "sd_mm",
+    "site",
+    "method"
+   ],
+   "rows": [
+    [
+     "skin-to-muscle depth",
+     6.7,
+     1.4,
+     "5 mm lateral to the most prominent chin point",
+     "cadaver + ultrasound"
+    ],
+    [
+     "muscle thickness",
+     4.0,
+     1.4,
+     "same",
+     "cadaver + ultrasound"
+    ],
+    [
+     "bone-to-muscle gap",
+     1.1,
+     1.0,
+     "same",
+     "cadaver + ultrasound"
+    ],
+    [
+     "sagittal extent (range)",
+     "5-10",
+     null,
+     "midline",
+     "technical report, primary unconfirmed"
+    ],
+    [
+     "horizontal extent (range)",
+     "20-30",
+     null,
+     "chin",
+     "technical report, primary unconfirmed"
+    ]
+   ],
+   "population": "Cadaveric and ultrasonographic study of mentalis injection sites, 2020; n not extracted",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7911364/"
+   ],
+   "status": "sourced",
+   "notes": "Snippet values, not checked against full-text tables. Sum depth+thickness+gap = 11.8 mm, consistent with the 10-12 mm textbook soft-tissue chin thickness."
+  },
+  {
+   "name": "perioral_depths_misc",
+   "units": "mm",
+   "columns": [
+    "quantity",
+    "mean_mm",
+    "sd_mm",
+    "population",
+    "method"
+   ],
+   "rows": [
+    [
+     "DAO depth below skin",
+     3.1,
+     null,
+     "Caucasian patients",
+     "ultrasound"
+    ],
+    [
+     "skin + subcutaneous thickness at DLI reference point (not muscle)",
+     6.4,
+     1.7,
+     "45 embalmed cadavers (Choi et al. 2021, as cited)",
+     "dissection"
+    ]
+   ],
+   "population": "As listed per row; both reported via the 2021 DAO ultrasound paper",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13322386/"
+   ],
+   "status": "sourced",
+   "notes": "The Choi value is a secondary citation inside [27]; the primary paper was not opened."
+  },
+  {
+   "name": "dao_dli_overlap",
+   "units": "percent of subjects",
+   "columns": [
+    "method",
+    "overlap_percent"
+   ],
+   "rows": [
+    [
+     "ultrasound (Caucasian patients)",
+     12
+    ],
+    [
+     "cadaveric dissection data",
+     "<5"
+    ]
+   ],
+   "population": "2021 ultrasound study vs cadaver literature it cites",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13322386/"
+   ],
+   "status": "contested",
+   "notes": "Methods disagree; treat DAO/DLI region masks as slightly overlapping."
+  },
+  {
+   "name": "lower_lip_innervation_cohort",
+   "units": "percent",
+   "columns": [
+    "metric",
+    "value",
+    "unit",
+    "n"
+   ],
+   "rows": [
+    [
+     "DLI branches classified as cervical",
+     95.5,
+     "%",
+     45
+    ],
+    [
+     "pure DLI branches",
+     68.8,
+     "%",
+     45
+    ],
+    [
+     "lower-lip position worse after marginal mandibular neurectomy",
+     null,
+     "not worse",
+     24
+    ],
+    [
+     "DLI supplied solely by marginal mandibular branch (fresh cadaver)",
+     100,
+     "% of hemifaces",
+     10
+    ]
+   ],
+   "population": "Rows 1-3: retrospective synkinesis cohort, Plast Reconstr Surg (2026 ahead of print per harvest). Row 4: 10-hemiface dissection cited in the 2021 DAO ultrasound paper.",
+   "source_urls": [
+    "https://journals.lww.com/plasreconsurg/abstract/9900/muscles_of_the_lower_lip__functional_anatomy,.3044.aspx",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13322386/"
+   ],
+   "status": "contested",
+   "notes": "'Cervical' DLI supply conflicts with the textbook marginal mandibular supply and with row 4. Read full texts before relying on either."
+  },
+  {
+   "name": "modiolus_findings",
+   "units": "count / qualitative",
+   "columns": [
+    "finding",
+    "value",
+    "n",
+    "population"
+   ],
+   "rows": [
+    [
+     "facial artery lateral to modiolus",
+     4,
+     5,
+     "cadavers, 2008"
+    ],
+    [
+     "facial artery anterior to modiolus",
+     1,
+     5,
+     "cadavers, 2008"
+    ],
+    [
+     "facial artery medial to modiolus",
+     0,
+     5,
+     "cadavers, 2008"
+    ],
+    [
+     "modiolus shift with age",
+     "downward and inward, statistically significant",
+     90,
+     "45 young + 45 elderly Asian adults, ultrasound, 2025"
+    ]
+   ],
+   "population": "As listed per row",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/18551340/",
+    "https://pubmed.ncbi.nlm.nih.gov/41433716/"
+   ],
+   "status": "sourced",
+   "notes": "Displacement magnitudes for the age shift were not extracted."
+  },
+  {
+   "name": "toxin_natural_experiments",
+   "units": "mixed",
+   "columns": [
+    "intervention",
+    "outcome",
+    "value",
+    "n"
+   ],
+   "rows": [
+    [
+     "onabotulinumtoxinA into mentalis (underprojected chin, hyperactive mentalis)",
+     "chin point moved downward",
+     "10 of 11 patients",
+     11
+    ],
+    [
+     "monophasic HA filler + incobotulinumtoxinA into DAO and mentalis",
+     "median mouth-corner droop angle, baseline -> 2 wk and 3 mo",
+     "-4 deg -> -1 deg",
+     null
+    ]
+   ],
+   "population": "Small clinical studies (2017, 2019)",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/28750118/",
+    "https://pubmed.ncbi.nlm.nih.gov/31125173/"
+   ],
+   "status": "sourced",
+   "notes": "Shows resting muscle tone measurably shapes chin and commissure in neutral photos. Droop-angle definition not extracted."
+  },
+  {
+   "name": "cleft_chin_subgroup",
+   "units": "count",
+   "columns": [
+    "group",
+    "with_cleft_chin",
+    "total",
+    "percent"
+   ],
+   "rows": [
+    [
+     "Yoruba Nigerians with cheek dimples (2010 study)",
+     36,
+     500,
+     7.2
+    ]
+   ],
+   "population": "Cheek-dimple carriers only; NOT a general cleft-chin prevalence",
+   "source_urls": [
+    "https://en.wikipedia.com/wiki/Dimple"
+   ],
+   "status": "sourced",
+   "notes": "Reported via Wikipedia; primary study not opened."
+  },
+  {
+   "name": "perioral_action_directions",
+   "units": "direction (anatomical axes; head frame +y up, +z forward)",
+   "columns": [
+    "muscle",
+    "moving_point",
+    "direction",
+    "evidence_type"
+   ],
+   "rows": [
+    [
+     "mentalis",
+     "lower-lip midline",
+     "superior+anterior",
+     "electrical stimulation, 1978"
+    ],
+    [
+     "depressor labii inferioris",
+     "lower-lip midline",
+     "inferior+posterior",
+     "electrical stimulation, 1978"
+    ],
+    [
+     "zygomaticus major",
+     "oral commissure",
+     "superolateral+posterior",
+     "intramuscular stimulation"
+    ],
+    [
+     "levator anguli oris",
+     "oral commissure",
+     "shifts vector superiorly",
+     "intramuscular stimulation"
+    ],
+    [
+     "depressor anguli oris",
+     "oral commissure",
+     "inferior (main depressor)",
+     "intramuscular stimulation"
+    ],
+    [
+     "orbicularis oris, superficial",
+     "both lips",
+     "protrusion",
+     "descriptive"
+    ],
+    [
+     "orbicularis oris, deep and oblique",
+     "both lips",
+     "press against teeth",
+     "descriptive"
+    ]
+   ],
+   "population": "Human stimulation studies; sample sizes not extracted",
+   "source_urls": [
+    "https://www.sciencedirect.com/science/article/abs/pii/0003996978902157",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2826128/",
+    "https://www.ncbi.nlm.nih.gov/books/NBK545169/"
+   ],
+   "status": "sourced",
+   "notes": "Directions only, no magnitudes. Intended as signed unit-vector priors for expression/identity separation."
+  },
+  {
+   "name": "facs_arkit_lower_face_map",
+   "units": "labels",
+   "columns": [
+    "muscle",
+    "facs_au",
+    "arkit_blendshape"
+   ],
+   "rows": [
+    [
+     "mentalis",
+     "AU17 chin raiser",
+     "mouthShrugLower"
+    ],
+    [
+     "depressor labii inferioris",
+     "AU16 lower lip depressor",
+     "mouthLowerDownLeft/Right"
+    ],
+    [
+     "depressor anguli oris",
+     "AU15 lip corner depressor",
+     "mouthFrownLeft/Right"
+    ],
+    [
+     "zygomaticus major",
+     "AU12 lip corner puller",
+     "mouthSmileLeft/Right"
+    ],
+    [
+     "levator anguli oris",
+     "AU13 cheek puffer / sharp lip puller",
+     null
+    ],
+    [
+     "risorius + platysma",
+     "AU20 lip stretcher",
+     "mouthStretchLeft/Right"
+    ],
+    [
+     "platysma",
+     "AU21 neck tightener",
+     null
+    ],
+    [
+     "incisivii / orbicularis oris",
+     "AU18 lip pucker",
+     "mouthPucker"
+    ],
+    [
+     "orbicularis oris",
+     "AU22 lip funneler",
+     "mouthFunnel"
+    ],
+    [
+     "orbicularis oris",
+     "AU23 lip tightener",
+     null
+    ],
+    [
+     "orbicularis oris",
+     "AU24 lip pressor",
+     "mouthPressLeft/Right"
+    ],
+    [
+     "orbicularis oris",
+     "AU28 lip suck",
+     "mouthRollLower"
+    ]
+   ],
+   "population": "n/a (coding systems)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "From FACS (Ekman, Friesen & Hager 2002) and Apple ARKit's 52 blendshape names, from training knowledge; verify names before use. ARKit-to-AU correspondence is approximate."
+  },
+  {
+   "name": "lip_chin_profile_norms",
+   "units": "mm unless stated",
+   "columns": [
+    "measure",
+    "definition",
+    "mean",
+    "sd",
+    "population_reference"
+   ],
+   "rows": [
+    [
+     "mentolabial sulcus depth",
+     "B' (Si) to Li-Pog' line",
+     4,
+     2,
+     "Legan & Burstone 1980, white North American adults"
+    ],
+    [
+     "lower lip protrusion",
+     "Li to Sn-Pog'",
+     2,
+     1,
+     "Legan & Burstone 1980"
+    ],
+    [
+     "upper lip protrusion",
+     "Ls to Sn-Pog'",
+     3,
+     1,
+     "Legan & Burstone 1980"
+    ],
+    [
+     "interlabial gap at rest",
+     "Stms-Stmi",
+     2,
+     2,
+     "Legan & Burstone 1980"
+    ],
+    [
+     "vertical lip-chin ratio (unitless)",
+     "(Sn-Stms)/(Stmi-Me')",
+     0.5,
+     null,
+     "Legan & Burstone 1980; Powell & Humphreys 1984"
+    ],
+    [
+     "soft-tissue chin thickness",
+     "Pog to Pog'",
+     11,
+     null,
+     "Holdaway 1983 (10-12 mm range)"
+    ],
+    [
+     "mouth width",
+     "ch-ch",
+     52,
+     3.5,
+     "Farkas-type adult samples; means ~48-56 mm, women narrower"
+    ]
+   ],
+   "population": "Mostly adult white North American orthodontic samples",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Training knowledge, not yet checked against a source in this library. Widen sigmas for other ancestries."
+  },
+  {
+   "name": "contested_lower_face_norms",
+   "units": "mixed",
+   "columns": [
+    "measure",
+    "definition",
+    "value",
+    "units",
+    "notes"
+   ],
+   "rows": [
+    [
+     "lower lip to E-line",
+     "Li to Prn-Pog'",
+     "-2 +/- 2",
+     "mm",
+     "Ricketts, white adults; African and East Asian samples more protrusive"
+    ],
+    [
+     "mentolabial angle",
+     "angle Li-B'-Pog'",
+     "110-135 (centre ~120-130)",
+     "deg",
+     "norms vary by study; men more acute"
+    ],
+    [
+     "modiolus centre offset from cheilion",
+     "lateral, vertical",
+     "10-15 lateral; within +/-5 vertical",
+     "mm",
+     "textbook; cf. DAO insertion 10 mm lateral/10 mm caudal (sourced)"
+    ],
+    [
+     "platysma decussation type I / II / III",
+     "below chin / to thyroid cartilage / none",
+     "~75 / ~15 / ~10",
+     "percent",
+     "de Castro 1980 cadavers; later studies differ"
+    ]
+   ],
+   "population": "Mixed",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/33565832/"
+   ],
+   "status": "contested",
+   "notes": "Ranges from training knowledge; only the DAO insertion comparison is sourced."
+  },
+  {
+   "name": "lower_face_soft_tissue_depths",
+   "units": "mm",
+   "columns": [
+    "landmark",
+    "range_of_adult_means_low",
+    "range_of_adult_means_high",
+    "prior_mean",
+    "prior_sd",
+    "notes"
+   ],
+   "rows": [
+    [
+     "labrale inferius",
+     11,
+     16,
+     13.5,
+     2.5,
+     "men ~1-2 mm thicker"
+    ],
+    [
+     "supramentale (B')",
+     9,
+     13,
+     11,
+     2,
+     ""
+    ],
+    [
+     "pogonion",
+     9,
+     13,
+     11,
+     2,
+     "consistent with mentalis depth+thickness+gap ~11.8 mm"
+    ],
+    [
+     "gnathion",
+     7,
+     10,
+     8.5,
+     2,
+     "BMI-sensitive"
+    ],
+    [
+     "menton",
+     5,
+     9,
+     7,
+     2.5,
+     "strongly BMI- and method-dependent"
+    ]
+   ],
+   "population": "Adults, pooled across forensic soft-tissue depth studies (e.g., Stephan & Simpson 2008 review); ancestry, sex and BMI vary",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Training-knowledge ranges, queued for verification against the soft-tissue-thickness topic. Add sex and BMI covariates."
+  },
+  {
+   "name": "suggested_fitting_priors",
+   "units": "mm unless stated",
+   "columns": [
+    "parameter",
+    "mean",
+    "sigma",
+    "truncation",
+    "basis"
+   ],
+   "rows": [
+    [
+     "mentolabial_depth",
+     4,
+     2,
+     "[0, 10]",
+     "Legan & Burstone (knowledge)"
+    ],
+    [
+     "lower_lip_to_SnPog",
+     2,
+     1.5,
+     null,
+     "Legan & Burstone (knowledge)"
+    ],
+    [
+     "lower_lip_to_Eline",
+     -2,
+     2,
+     null,
+     "Ricketts; sigma 3 if ancestry unknown (contested)"
+    ],
+    [
+     "mentolabial_angle_deg",
+     125,
+     12,
+     null,
+     "contested norms"
+    ],
+    [
+     "lip_chin_ratio",
+     0.5,
+     0.06,
+     null,
+     "1:2 rule (knowledge)"
+    ],
+    [
+     "interlabial_gap_rest",
+     2,
+     2,
+     ">= 0",
+     "Legan & Burstone (knowledge)"
+    ],
+    [
+     "modiolus_offset_lateral",
+     12,
+     4,
+     null,
+     "blend of DAO insertion (sourced) and textbook (knowledge)"
+    ],
+    [
+     "modiolus_offset_vertical",
+     -3,
+     5,
+     null,
+     "negative = below cheilion; blend as above"
+    ],
+    [
+     "dli_region_width",
+     20,
+     4,
+     null,
+     "sourced, single study; scale by ch-ch/52"
+    ],
+    [
+     "dao_region_width",
+     14,
+     3,
+     null,
+     "sourced, single study; scale by ch-ch/52"
+    ],
+    [
+     "mentalis_thickness",
+     4.0,
+     1.4,
+     null,
+     "sourced, snippet"
+    ],
+    [
+     "commissure_height_asymmetry",
+     0,
+     1.5,
+     null,
+     "soft symmetry prior (knowledge)"
+    ]
+   ],
+   "population": "Adults",
+   "source_urls": [
+    "https://journals.lww.com/10.1097/SCS.0000000000007622",
+    "https://pubmed.ncbi.nlm.nih.gov/33565832/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7911364/"
+   ],
+   "status": "knowledge",
+   "notes": "Engineering defaults combining sourced and knowledge values; weight knowledge and single-source terms low and widen sigmas when sex or ancestry is unknown."
+  },
+  {
+   "name": "template_warp_relative_stiffness",
+   "units": "relative weight (unitless)",
+   "columns": [
+    "region",
+    "weight",
+    "notes"
+   ],
+   "rows": [
+    [
+     "lips (vermilion and skin lip)",
+     0.3,
+     "high mobility"
+    ],
+    [
+     "chin pad",
+     1.0,
+     "tethered by mentalis dermal insertions"
+    ],
+    [
+     "jowl",
+     0.5,
+     "redundant skin and fat"
+    ],
+    [
+     "mandibular ligament anchor",
+     2.0,
+     "resist vertical slide; allow crease along marionette curve"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Heuristic starting values for Laplacian/ARAP warps; tune on scans."
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "reference-camera-setup",
+ "area": "blender",
+ "title": "Reference images and camera matching in Blender",
+ "queue": [
+  {
+   "claim": "Blender lens shift (shift_x/shift_y) is in units of the sensor-fit dimension: width under HORIZONTAL fit, larger dimension under AUTO. If true, face3d to_blender_camera (HORIZONTAL fit, divides by max(W,H)) mis-sets shift for portrait-orientation photos.",
+   "query": "Blender camera shift_x units sensor fit horizontal \"viewfac\" BKE_camera_params_compute_viewplane shift",
+   "domains": "projects.blender.org,docs.blender.org,blender.stackexchange.com"
+  },
+  {
+   "claim": "Horizontal visible iris diameter is ~11.7 \u00b1 0.5 mm across adults (figure used by Google MediaPipe Iris for metric depth estimation).",
+   "query": "MediaPipe Iris horizontal iris diameter 11.7 mm depth estimation",
+   "domains": ""
+  },
+  {
+   "claim": "Adult interpupillary distance mean ~63 mm, SD ~3.5-4 mm, most adults 50-75 mm (Dodgson 2004).",
+   "query": "Dodgson 2004 variation and extrema of human interpupillary distance mean standard deviation",
+   "domains": ""
+  },
+  {
+   "claim": "Selfie-distance photos (~30 cm) increase apparent nasal base width by roughly 30% relative to ~1.5 m (Ward, Ward, Fried, Paskhover, JAMA Facial Plastic Surgery 2018).",
+   "query": "Ward Fried Paskhover nasal distortion short-distance photographs selfie effect nasal base width percent",
+   "domains": "jamanetwork.com,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "multi-view-fitting",
+ "area": "reconstruction",
+ "title": "Multi-image and video 3DMM fitting",
+ "queue": [
+  {
+   "claim": "FLAME 2020 is research/non-commercial only, while a 2023 'FLAME Open' variant is released under CC BY 4.0 and allows commercial use",
+   "query": "FLAME 2023 Open head model license CC BY 4.0 commercial use",
+   "domains": "flame.is.tue.mpg.de"
+  },
+  {
+   "claim": "Adult horizontal visible iris diameter is about 11.7 mm with SD about 0.4-0.5 mm (used as a metric scale cue; MediaPipe Iris assumes ~11.7 mm)",
+   "query": "horizontal visible iris diameter adults mean standard deviation mm white-to-white",
+   "domains": ""
+  },
+  {
+   "claim": "FLAME has 5023 vertices and 9976 triangles, ships 300 shape and 100 expression components, and its coordinates are in metres",
+   "query": "FLAME head model 5023 vertices 300 shape 100 expression components metres",
+   "domains": "flame.is.tue.mpg.de,arxiv.org"
+  },
+  {
+   "claim": "VHAP is the released tracker of GaussianAvatars and supports calibrated multi-view (NeRSemble 16-camera) input as well as monocular video; its repo licence is unknown",
+   "query": "ShenhanQian VHAP multi-view NeRSemble GaussianAvatars tracking license",
+   "domains": "github.com"
+  }
+ ]
+}

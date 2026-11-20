@@ -2,11 +2,11 @@
 
 > The auricle is one plate of elastic cartilage (helix, Y-shaped antihelix with two crura, tragus, antitragus, concha) under thin, tightly bound skin, plus a cartilage-free lobule. Its relief is crisp and individual enough to serve as a biometric, so a generic template ear visibly weakens likeness. Harvested adult means put length at about 57–63 mm and width at about 29–33 mm (width ≈ 0.47–0.54 × length), males longer, and length keeps creeping up through adult life. The ear hangs from the skull at the ear canal, so its height is best anchored to the Frankfort horizontal (tragion ≈ orbitale level) rather than to the "brow to nose base" canon, which is only approximate; its long axis leans back roughly 10–30°, and protrusion norms disagree. In photo fitting, perspective, head pitch, the ear's outward flare and hair occlusion cause larger errors than anatomical variation does.
 >
-> Evidence status: 3 ✅ / 23 📄 / 46 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 22 📄 / 55 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
-[1] and [2] are both StatPearls content, so together they count as one source (📄, not ✅). No independent verification pass has run on this note yet; nothing has been refuted.
+[1] and [2] are both StatPearls content, so together they count as one source (sourced, not verified). No independent verification pass has run on this note yet; nothing has been refuted.
 
 **Structure**
 - **Tissue.** One continuous elastic-cartilage plate gives the shape; the lobule is soft and fleshy with no cartilage [1][2] 📄. Front (lateral) skin is thin and adherent with almost no fat, so folds read sharply; back (cranial) skin is looser and its relief softer 🧠.

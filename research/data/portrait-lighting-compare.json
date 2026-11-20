@@ -1,0 +1,141 @@
+{
+  "topic": "portrait-lighting-compare",
+  "tables": [
+    {
+      "name": "portrait_key_light_patterns",
+      "units": "degrees (azimuth from camera axis toward the lit side; elevation above eye level)",
+      "columns": ["pattern", "key_azimuth_deg_min", "key_azimuth_deg_max", "key_elevation_deg_min", "key_elevation_deg_max", "readable_cue"],
+      "rows": [
+        ["butterfly", 0, 10, 30, 50, "symmetric shadow under nose; shadow under chin"],
+        ["loop", 25, 45, 25, 40, "small nose-shadow loop toward mouth corner, not touching cheek shadow"],
+        ["rembrandt", 45, 60, 35, 50, "nose shadow merges with cheek shadow; lit triangle under far eye"],
+        ["split", 80, 100, 0, 20, "face halved along the nose line"],
+        ["rim_kicker", 110, 160, 0, 40, "bright edge on jaw or ear, no frontal key"]
+      ],
+      "population": "Photographic convention, not a measured dataset",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Typical bands from portrait-lighting practice (e.g. Hunter, Biver & Fuqua, Light: Science and Magic); books differ by 5-15 degrees. Use only as an initialisation or classification aid for key direction."
+    },
+    {
+      "name": "lighting_ratio_conventions",
+      "units": "stops (log2 of lit-side / shadow-side luminance)",
+      "columns": ["label", "def_A_keyplusfill_over_fill_stops", "def_B_key_over_fill_stops"],
+      "rows": [
+        ["2:1", 1.0, 1.585],
+        ["3:1", 1.585, 2.0],
+        ["4:1", 2.0, 2.322],
+        ["8:1", 3.0, 3.170]
+      ],
+      "population": "Arithmetic from the two common definitions; not empirical",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Def A: label = (key+fill)/fill, so stops = log2(label). Def B: label = key/fill with fill on both sides, so lit/shadow = label+1. Store stops, never the label. Commercial portraits often fall around 2:1-4:1 (Def A) by practitioner convention."
+    },
+    {
+      "name": "sh_order2_irradiance_constants",
+      "units": "dimensionless (real spherical-harmonic basis, unit normal n = (x, y, z))",
+      "columns": ["term", "l", "m", "basis_constant", "polynomial", "lambertian_Ahat_l"],
+      "rows": [
+        ["Y00", 0, 0, 0.282095, "1", 3.141593],
+        ["Y1-1", 1, -1, 0.488603, "y", 2.094395],
+        ["Y10", 1, 0, 0.488603, "z", 2.094395],
+        ["Y11", 1, 1, 0.488603, "x", 2.094395],
+        ["Y2-2", 2, -2, 1.092548, "x*y", 0.785398],
+        ["Y2-1", 2, -1, 1.092548, "y*z", 0.785398],
+        ["Y20", 2, 0, 0.315392, "3*z^2 - 1", 0.785398],
+        ["Y21", 2, 1, 1.092548, "x*z", 0.785398],
+        ["Y22", 2, 2, 0.546274, "x^2 - y^2", 0.785398]
+      ],
+      "population": "Mathematical constants",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Irradiance E(n) = sum_lm Ahat_l * L_lm * Y_lm(n), with Ahat_0 = pi, Ahat_1 = 2pi/3, Ahat_2 = pi/4 (Ramamoorthi & Hanrahan 2001). Order 2 captures roughly 98-99% of the Lambertian kernel energy (Basri & Jacobs 2003). Dominant light direction is proportional to (L11, L1-1, L10) mapped to (x, y, z). The axis convention must match the engine's camera/world frame."
+    },
+    {
+      "name": "portrait_camera_perspective",
+      "units": "focal length mm (35 mm-equivalent); distance m; scale ratio dimensionless",
+      "columns": ["scenario", "f35_mm_min", "f35_mm_max", "distance_m_min", "distance_m_max", "near_far_scale_min", "near_far_scale_max"],
+      "rows": [
+        ["phone_selfie_arms_length", 22, 30, 0.25, 0.6, 1.20, 1.48],
+        ["phone_main_head_and_shoulders", 23, 28, 0.5, 1.0, 1.12, 1.24],
+        ["phone_tele_portrait_mode", 48, 120, 1.0, 2.5, 1.05, 1.12],
+        ["portrait_lens", 85, 135, 1.5, 3.0, 1.04, 1.08],
+        ["long_tele", 200, null, 4.0, null, null, 1.03]
+      ],
+      "population": "Typical consumer and portrait practice; not a measured sample",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "near_far_scale = 1 + delta/z, the magnification of the nose tip relative to the ear plane, with delta = 0.12 m assumed (nose-tip-to-tragion depth; replace with the anthropometry note's value). Ward et al. 2018 (JAMA Facial Plastic Surgery) reported roughly 30% wider apparent nasal base at about 30 cm than at about 1.5 m (recalled; verify)."
+    },
+    {
+      "name": "camera_and_scale_priors",
+      "units": "per row",
+      "columns": ["parameter", "value", "sigma", "units", "origin"],
+      "rows": [
+        ["log_focal_prior_sigma_exif_known_uncropped", 0.0, 0.075, "log units (range 0.05-0.1)", "engineering suggestion"],
+        ["log_focal_prior_sigma_guess", 0.0, 0.35, "log units", "engine default face3d/solve/pnp.py"],
+        ["f35_hypotheses", "24,35,50,85,135,200", null, "mm 35 mm-equivalent", "engine default face3d/solve/pnp.py"],
+        ["horizontal_visible_iris_diameter", 11.7, 0.5, "mm", "MediaPipe Iris documentation (recalled; verify)"],
+        ["corneal_anterior_radius", 7.8, 0.25, "mm (range ~7.5-8.0)", "ophthalmic schematic-eye knowledge"],
+        ["principal_point_offset_if_free", 0.0, 0.015, "fraction of image width", "engineering suggestion"]
+      ],
+      "population": "Adults (iris, cornea); others are engineering defaults",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Engineering sigmas are not research-derived; calibrate on consented test portraits with known camera data."
+    },
+    {
+      "name": "lighting_fit_defaults",
+      "units": "per row",
+      "columns": ["parameter", "value", "units", "role"],
+      "rows": [
+        ["sh_coefficients_per_channel", 9, "count", "order-2 SH lighting model (27 for RGB)"],
+        ["huber_delta", 0.05, "linear radiance units (photo normalised 0-1)", "robust weight on shading residual"],
+        ["specular_exclusion_top_fraction", 0.03, "fraction of masked pixels (range 0.02-0.05)", "drop brightest pixels as highlights"],
+        ["grazing_exclusion_ndotv_min", 0.3, "cosine", "drop silhouette-adjacent pixels"],
+        ["light_from_above_elevation_mean", 30, "deg", "weak prior when SH fit is ill-conditioned"],
+        ["light_from_above_elevation_sigma", 25, "deg", "weak prior"],
+        ["light_azimuth_prior_sigma", 60, "deg", "weak prior around camera axis"],
+        ["neutral_clay_albedo_linear_min", 0.18, "linear reflectance", "shape-check material"],
+        ["neutral_clay_albedo_linear_max", 0.4, "linear reflectance", "shape-check material"]
+      ],
+      "population": "n/a (engineering defaults)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Suggested starting values only. Exclude eyes, brows, lips, nostrils, hair and beard from the SH fit."
+    },
+    {
+      "name": "verification_gate_defaults",
+      "units": "per row",
+      "columns": ["gate", "metric", "threshold_or_sigma", "units", "status_note"],
+      "rows": [
+        ["G1", "landmark NME (outer inter-ocular normalised)", "<= 0.02-0.03", "fraction of IOD", "engineering; calibrate"],
+        ["G1", "landmark noise sigma for fitting", "0.015-0.03", "fraction of IOD", "detector noise floor ~3-4% IOD on 300-W-style sets (recalled; conventions vary)"],
+        ["G2", "mean contour distance, unoccluded jaw/cheek", "<= 0.01", "fraction of face height", "engineering; calibrate"],
+        ["G3", "CIEDE2000 colour difference", "~1 JND; 2-3 visible at a glance", "Delta E00", "perceptual rule of thumb"],
+        ["G4", "ArcFace cosine / photo-photo baseline", "relative only", "ratio", "see identity-embeddings note"],
+        ["human", "blink-comparison rate", "1-4", "Hz", "practice"],
+        ["multi_view", "minimum yaw separation between views", 30, "deg", "engineering; >= 2 views"]
+      ],
+      "population": "n/a (engineering defaults and perceptual rules of thumb)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Never auto-accept on G3 or G4 alone; photometric and identity scores are confounded by lighting and render-vs-photo domain gap."
+    },
+    {
+      "name": "blender_lens_shift_units",
+      "units": "divisor for pixel offset (shift = offset_px / divisor)",
+      "columns": ["sensor_fit", "divisor", "engine_face3d_uses"],
+      "rows": [
+        ["HORIZONTAL", "W_px", "max(W_px, H_px)"],
+        ["VERTICAL", "H_px", "n/a"],
+        ["AUTO", "max(W_px, H_px)", "n/a"]
+      ],
+      "population": "Blender camera model",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Divisors recalled from Blender source (BKE_camera_params_compute_viewplane: shift multiplied by viewfac = winx for horizontal fit). The engine forces HORIZONTAL fit but divides by max(W,H): identical for landscape, off by H/W for portrait-orientation photos. Confirm with a round-trip render test. Also recalled: the free perspective viewport applies a zoom factor of 2 (CAMERA_PARAM_ZOOM_INIT_PERSP), so viewport lens ~ 2x camera lens for the same FOV."
+    }
+  ]
+}

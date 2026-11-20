@@ -1,0 +1,43 @@
+{
+  "topic": "blender-python-ml-deps",
+  "sources": [
+    {"n": 1, "title": "mozi1924/mediapipe-facecap-for-blender (MediaPipe face capture for Blender)", "url": "https://github.com/mozi1924/mediapipe-facecap-for-blender", "kind": "repo", "year": "n.d."},
+    {"n": 2, "title": "VGCLUB/facefit-mpfb (FaceFit MPFB2 Blender add-on prototype)", "url": "https://github.com/VGCLUB/facefit-mpfb", "kind": "repo", "year": "n.d."},
+    {"n": 3, "title": "FaceBuilder for Blender 2021.1 is out: now with AI - Blender Artists Community", "url": "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243", "kind": "forum", "year": "2021"},
+    {"n": 4, "title": "MediaPipe Face Landmarker (Google AI Edge)", "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker", "kind": "official-docs", "year": "n.d."},
+    {"n": 5, "title": "MediaPipe Face landmark detection guide for Python", "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker/python", "kind": "official-docs", "year": "n.d."},
+    {"n": 6, "title": "MediaPipe mp.tasks.vision.FaceLandmarkerResult API", "url": "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult", "kind": "official-docs", "year": "n.d."},
+    {"n": 7, "title": "Face Landmarker (ai.google.dev page)", "url": "https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker", "kind": "official-docs", "year": "n.d."},
+    {"n": 8, "title": "MediaPipe Face Mesh (legacy docs mirror)", "url": "https://mediapipe.readthedocs.io/en/latest/solutions/face_mesh.html", "kind": "official-docs", "year": "n.d."},
+    {"n": 9, "title": "MediaPipe Face Mesh: All 478 Landmark Points (DEV Community)", "url": "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8", "kind": "blog", "year": "n.d."},
+    {"n": 10, "title": "yakhyo/mediapipe-face-mesh-onnx README", "url": "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md", "kind": "repo", "year": "n.d."},
+    {"n": 11, "title": "cornpip/mediapipe_face_mesh (478-landmark README)", "url": "https://github.com/cornpip/mediapipe_face_mesh", "kind": "repo", "year": "n.d."},
+    {"n": 12, "title": "cleardusk/3DDFA_V2: Official PyTorch implementation of ECCV 2020 3D dense face alignment", "url": "https://github.com/cleardusk/3DDFA_V2", "kind": "repo", "year": "2020"},
+    {"n": 13, "title": "InsightFace python-package model_zoo.md", "url": "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md", "kind": "repo-doc", "year": "2024"},
+    {"n": 14, "title": "Third-party InsightFace buffalo_l wrapper README (wangyifan349/insightface-face-similarity)", "url": "https://github.com/wangyifan349/insightface-face-similarity", "kind": "repo", "year": "n.d."},
+    {"n": 15, "title": "Depth Anything V2 (alphaXiv mirror of arXiv 2406.09414)", "url": "https://www.alphaxiv.org/abs/2406.09414", "kind": "paper", "year": "2024"},
+    {"n": 16, "title": "OpenCV calib3d solvePnP (4.x docs)", "url": "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html", "kind": "official-docs", "year": "2026"},
+    {"n": 17, "title": "Blender 5.0: Python API", "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/", "kind": "official-docs", "year": "2025"},
+    {"n": 18, "title": "Blender 5.0: Corrective Releases", "url": "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/", "kind": "official-docs", "year": "2025"},
+    {"n": 19, "title": "5.2 LTS — Blender", "url": "https://www.blender.org/download/releases/5-2/", "kind": "official-docs", "year": "2026"},
+    {"n": 20, "title": "Release Notes — Blender (index)", "url": "https://www.blender.org/download/releases/", "kind": "official-docs", "year": "n.d."},
+    {"n": 21, "title": "Blender Release Notes - Blender Developer Documentation (index)", "url": "https://developer.blender.org/docs/release_notes/", "kind": "official-docs", "year": "n.d."},
+    {"n": 22, "title": "MPFB version history, Blender Extensions", "url": "https://extensions.blender.org/add-ons/mpfb/versions/", "kind": "official-listing", "year": "2026"},
+    {"n": 23, "title": "1996scarlet/Dense-Head-Pose-Estimation (3DDFAv2 TFLite reimplementation)", "url": "https://github.com/1996scarlet/Dense-Head-Pose-Estimation", "kind": "repo", "year": "2020"}
+  ],
+  "references_by_name": [
+    "Blender Extensions developer handbook: blender_manifest.toml schema and 'Python Wheels' guidance; extensions.blender.org moderation guidelines",
+    "Blender Manual: command-line arguments (--python-use-system-env, --offline-mode)",
+    "PEP 425 (compatibility tags), PEP 427 (wheel format), PEP 384 (stable ABI / abi3), PEP 600 (manylinux), PEP 668 (externally managed environments)",
+    "Python documentation: ensurepip, site, -I isolated mode",
+    "NumPy 2.0 migration guide (ABI notes for downstream packages)",
+    "ONNX Runtime documentation: threading and execution providers",
+    "opencv-python wheel project README (package variants, headless builds)",
+    "Kartynnik, Ablavatski, Grishchenko, Grundmann, 'Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs', 2019",
+    "Bazarevsky et al., 'BlazeFace: Sub-millisecond Neural Face Detection on Mobile GPUs', 2019",
+    "Wu, Peng, Yu, 'YuNet: A Tiny Millisecond-level Face Detector', 2023",
+    "Guo et al., 'Sample and Computation Redistribution for Efficient Face Detection' (SCRFD), 2021",
+    "BlendArMocap (cgtinker) and Dream Textures (carson-katri) repositories (dependency-installer precedents)",
+    "uv and python-build-standalone (Astral)"
+  ]
+}

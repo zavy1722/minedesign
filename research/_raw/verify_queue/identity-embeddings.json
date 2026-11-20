@@ -1,0 +1,27 @@
+{
+ "id": "identity-embeddings",
+ "area": "reconstruction",
+ "title": "Face recognition embeddings as identity signals",
+ "queue": [
+  {
+   "claim": "InsightFace pretrained recognition weights (buffalo_l / antelopev2, w600k_r50.onnx, glintr100.onnx) are licensed for non-commercial research only, separate from the MIT code; commercial licences only on request.",
+   "query": "insightface pretrained models license non-commercial research purposes only buffalo_l commercial license",
+   "domains": "github.com,insightface.ai"
+  },
+  {
+   "claim": "InsightFace ArcFace ONNX contract: 112x112 RGB input, (px-127.5)/127.5 unless the graph begins with Sub/Mul nodes, 512-d un-normalised output, and arcface_dst template [[38.2946,51.6963],[73.5318,51.5014],[56.0252,71.7366],[41.5493,92.3655],[70.7299,92.2041]].",
+   "query": "insightface face_align.py arcface_dst 38.2946 51.6963 ArcFaceONNX input_mean 127.5",
+   "domains": "github.com"
+  },
+  {
+   "claim": "Cosine threshold anchors: OpenCV FaceRecognizerSF sample uses cosine 0.363 / L2 1.128 for SFace; deepface ArcFace default is about 0.68 cosine distance (similarity about 0.32); practitioners use about 0.28-0.45 for buffalo_l; good-quality genuine pairs score about 0.5-0.8.",
+   "query": "OpenCV FaceRecognizerSF cosine_similarity_threshold 0.363 l2_similarity_threshold 1.128",
+   "domains": "github.com,docs.opencv.org"
+  },
+  {
+   "claim": "MICA's training loss is only a masked (region-weighted) L1 geometry loss on FLAME vertices with no ArcFace identity term. ArcFace (insightface, possibly the antelopev2/Glint360K R100) is the encoder. The 24% improvement refers to a metric evaluation whose benchmark naming is unclear.",
+   "query": "MICA Zielonka Bolkart Thies masked L1 loss ArcFace identity encoder 15% 24% lower error NoW metrical benchmark",
+   "domains": "arxiv.org,github.com"
+  }
+ ]
+}

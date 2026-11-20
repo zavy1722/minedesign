@@ -1,25 +1,71 @@
 {"topic":"monocular-depth-normals","tables":[
 {"name":"depth_model_benchmarks","units":"params in millions; latency ms per image; DA-2K accuracy %; delta1 and AbsRel unitless","columns":["model","output_type","params_M","latency_ms","benchmark","metric","value"],"rows":[
-["Depth Anything V2 Small","relative_depth",25,60,"DA-2K","accuracy_pct",95.3],
-["Depth Anything V2 (ablation: labelled synthetic only)","relative_depth",null,null,"DA-2K","accuracy_pct",89.8],
-["Depth Anything V2 (ablation: pseudo-labelled real only)","relative_depth",null,null,"DA-2K","accuracy_pct",95.3],
-["Depth Anything V2 ViT-L","depth",null,null,"NYU-D","delta1",0.984],
-["Depth Anything V2 ViT-L","depth",null,null,"NYU-D","AbsRel",0.056],
+["Depth Anything V2 Small","relative_disparity",25,60,"DA-2K","accuracy_pct",95.3],
+["Depth Anything V2 (ablation: labelled synthetic only)","relative_disparity",null,null,"DA-2K","accuracy_pct",89.8],
+["Depth Anything V2 (ablation: pseudo-labelled real only)","relative_disparity",null,null,"DA-2K","accuracy_pct",95.3],
+["Depth Anything V2 ViT-L","metric_depth_finetuned_likely",null,null,"NYU-D","delta1",0.984],
+["Depth Anything V2 ViT-L","metric_depth_finetuned_likely",null,null,"NYU-D","AbsRel",0.056],
 ["DA3Metric-Large","metric_depth",350,null,"SUN-RGBD","AbsRel",0.105]
-],"population":"General indoor/outdoor scene benchmarks (DA-2K, NYU-D, SUN-RGBD); no face data. Latency hardware not stated.","source_urls":["https://arxiv.org/abs/2406.09414","https://www.alphaxiv.org/abs/2406.09414","https://arxiv.org/abs/2511.10647","https://github.com/1038lab/ComfyUI-Depth-Anything-3"],"status":"single-source","notes":"Values come from search-result summaries of the papers; independent cross-check was not possible (search budget exhausted). DA V2 ViT-L NYU-D protocol (zero-shot vs fine-tuned) unknown. DA3Metric-Large param count is from a community wrapper. DA3-metric also reported 2nd best on DIODE (value not retrieved)."},
-{"name":"normal_model_benchmarks","units":"mean angular error in degrees; training images count","columns":["model","benchmark","mean_angular_error_deg","training_images"],"rows":[
+],"population":"General indoor/outdoor scene benchmarks (DA-2K, NYU-D, SUN-RGBD); no face data. Latency hardware not stated.","source_urls":["https://arxiv.org/abs/2406.09414","https://www.alphaxiv.org/abs/2406.09414","https://arxiv.org/abs/2511.10647","https://github.com/1038lab/ComfyUI-Depth-Anything-3"],"status":"sourced","notes":"Values from search-result summaries of the papers. The alphaXiv URL mirrors arXiv, so it is not independent. That DA V2 relative checkpoints output disparity, and that the ViT-L NYU-D row is the in-domain metric fine-tuned setting, are expert knowledge (unverified). DA3Metric-Large param count is from a community wrapper. DA3-metric is also reported 2nd best on DIODE (value not retrieved)."},
+{"name":"normal_model_benchmarks","units":"mean angular error in degrees; training image count","columns":["model","benchmark","mean_angular_error_deg","training_images"],"rows":[
 ["DSINE","NYUv2",16.4,160000],
 ["Omnidata-V2","(DSINE comparison baseline)",null,12000000]
-],"population":"NYUv2 indoor scenes; no face data","source_urls":["https://arxiv.org/pdf/2607.12450","https://arxiv.org/html/2409.18124v1","https://arxiv.org/abs/2403.00712"],"status":"verified","notes":"Status 'verified' applies to the 16.4 deg NYUv2 error only (cited by two independent later papers). Training image counts (~160K vs >12M) are single-source with unclear attribution; Omnidata-V2 figure is a lower bound ('over 12M')."},
+],"population":"NYUv2 indoor scenes; no face data","source_urls":["https://arxiv.org/pdf/2607.12450","https://arxiv.org/html/2409.18124v1","https://arxiv.org/abs/2403.00712"],"status":"verified","notes":"'verified' applies only to the 16.4 deg NYUv2 error, which two independent later papers cite. The training image counts (~160K vs >12M) come from one source with unclear attribution, so they are 'sourced'. The Omnidata-V2 figure is a lower bound ('over 12M')."},
 {"name":"sapiens_human_depth_normal","units":"counts; relative improvement %","columns":["quantity","value","unit"],"rows":[
 ["pretraining_images_min",300000000,"images (in-the-wild human, 'over 300 million')"],
 ["synthetic_scans_for_depth_normal",600,"RenderPeople scans"],
 ["Hi4D_depth_relative_RMSE_improvement",22.4,"% vs prior work"],
 ["THuman2_normal_relative_angular_error_improvement",53.5,"% vs prior work"]
-],"population":"Full-body human datasets (Hi4D, THuman2); face region not reported","source_urls":["https://arxiv.org/abs/2408.12569"],"status":"single-source","notes":"Baselines for the relative improvements were not verified. A claimed 500K synthetic fine-tuning set was excluded because its attribution was unclear."},
-{"name":"da3_metric_conversion","units":"focal in pixels; output in model metric unit","columns":["parameter","formula_or_value"],"rows":[
+],"population":"Full-body human datasets (Hi4D, THuman2); face region not reported","source_urls":["https://arxiv.org/abs/2408.12569"],"status":"sourced","notes":"Baselines for the relative improvements were not verified. A claimed 500K-image synthetic fine-tuning set was excluded because its attribution was unclear. Model sizes (0.3B-2B) and the 1024x768 input are expert knowledge, so they are kept in model_runtime_licence_inventory."},
+{"name":"da3_metric_conversion","units":"focal in pixels; output in model metric unit (likely metres, unverified)","columns":["parameter","formula_or_value"],"rows":[
 ["metric_depth","focal_px * net_output / 300"],
 ["focal_px","(fx + fy) / 2"],
 ["divisor_constant",300]
-],"population":"Depth Anything 3 DA3Metric-Large (official repo)","source_urls":["https://github.com/ByteDance-Seed/Depth-Anything-3"],"status":"single-source","notes":"Depth is linear in the supplied focal: a fractional focal error produces the same fractional depth error. Output unit was not confirmed from the snippet."}
+],"population":"Depth Anything 3 DA3Metric-Large (official repo)","source_urls":["https://github.com/ByteDance-Seed/Depth-Anything-3"],"status":"sourced","notes":"Depth is linear in the supplied focal: a fractional focal error gives the same fractional error in distance and relief. Not confirmed: whether focal_px refers to the original image or the network processing resolution, and the output unit. Sanity-check against the PnP-solved camera translation."},
+{"name":"model_runtime_licence_inventory","units":"params; input px; CPU seconds per image (order-of-magnitude estimate)","columns":["model","params","native_input_px","runtime_path","cpu_seconds_low","cpu_seconds_high","licence"],"rows":[
+["Depth Anything V2 Small","~25M","518","HF transformers; community ONNX",0.2,1,"Apache-2.0"],
+["Depth Anything V2 Base","~98M","518","community ONNX",null,null,"CC BY-NC 4.0"],
+["Depth Anything V2 Large","~335M","518","community ONNX",2,8,"CC BY-NC 4.0"],
+["Depth Anything V2 Giant","~1.3B","518","PyTorch",null,null,"CC BY-NC 4.0"],
+["Depth Anything 3 family (S/B/L/G, Metric, Mono)","DA3Metric-Large ~350M","~500","PyTorch; community TensorRT",null,null,"per model, unverified"],
+["Marigold v1.x (SD2-based)","~0.87B U-Net","~768","diffusers",10,300,"code Apache-2.0; weights unverified"],
+["DSINE","unknown","any (needs intrinsics)","PyTorch",1,10,"unverified"],
+["Sapiens normal/depth 0.3B","0.3B","1024x768","TorchScript lite",5,30,"custom Meta licence, unverified"],
+["Sapiens normal/depth 2B","2B","1024x768","TorchScript lite",60,null,"custom Meta licence, unverified"],
+["DAViD","compact","unknown","ONNX (reported)",null,null,"unverified"],
+["Depth Pro","unknown","~1536","PyTorch",null,null,"Apple custom, unverified"]
+],"population":"Model families as distributed; CPU = typical desktop CPU, single image","source_urls":["https://github.com/ika-rwth-aachen/ros2-depth-anything-v3-trt","https://github.com/1038lab/ComfyUI-Depth-Anything-3"],"status":"knowledge","notes":"Expert knowledge, not checked against sources. CPU timings are rough order-of-magnitude estimates, not measurements. Verify every licence before bundling or recommending weights. The source URLs support only the DA3 TensorRT path and the DA3Metric-Large size."},
+{"name":"disparity_vs_depth_fit_error_and_ray_obliquity","units":"mm; degrees","columns":["camera_distance_mm","max_error_if_disparity_fitted_as_depth_mm","rms_error_mm","ray_obliquity_deg_at_70mm_offaxis"],"rows":[
+[300,4.9,2.1,13.1],
+[450,3.4,1.5,8.8],
+[600,2.6,1.2,6.7],
+[1000,1.6,0.7,4.0],
+[1500,1.1,0.5,2.7]
+],"population":"Derived numerically: least-squares affine fit of depth z against 1/z over a 100 mm depth interval starting at the camera distance; ray angle = atan(70/z)","source_urls":[],"status":"knowledge","notes":"Pure derivation; 100 mm visible facial relief is an assumption. Error is bowl-shaped (biases profile). Approximation: max error ~ D^2/(8z) to D^2/(4z). Ray obliquity is the normal-direction error from orthographic integration of a feature 70 mm off-axis."},
+{"name":"face_pixel_footprint","units":"mm per pixel","columns":["network_input_px","face_share_of_width","mm_per_px_low","mm_per_px_high","smallest_feature_mm_at_2px"],"rows":[
+[518,0.6,0.42,0.45,0.9],
+[768,0.6,0.28,0.30,0.6],
+[1024,0.6,0.21,0.23,0.45],
+[518,0.15,1.7,1.8,3.5]
+],"population":"Adult face, bizygomatic width assumed 130-140 mm","source_urls":[],"status":"knowledge","notes":"Derived arithmetic. Pores (~0.05-0.25 mm) are unresolvable at all listed settings."},
+{"name":"vmf_kappa_from_mean_angular_error","units":"degrees; kappa unitless","columns":["mean_angular_error_deg","kappa"],"rows":[
+[10,51.6],[15,22.9],[16.4,19.2],[20,12.9],[25,8.3],[30,5.7]
+],"population":"von Mises-Fisher on S2, high-concentration approximation kappa = pi/(2 m^2), m in radians","source_urls":[],"status":"knowledge","notes":"Derived; a Monte-Carlo check at kappa=19.2 gave mean 16.5 deg, median 15.5 deg. Real predictor errors are heavy-tailed, so use with a robust loss."},
+{"name":"suggested_engine_defaults","units":"mixed (see column unit)","columns":["parameter","default","range_low","range_high","unit"],"rows":[
+["normal_mean_error_generic_scene_model",20,15,30,"deg"],
+["normal_mean_error_human_specific_model",15,10,25,"deg"],
+["normal_term_pixel_stride",8,4,16,"px at network resolution"],
+["depth_sigma_after_scale_shift",6,3,10,"mm"],
+["depth_huber_delta_over_sigma",1.5,1,3,"ratio"],
+["detail_highpass_geodesic_sigma",6,4,10,"mm"],
+["displacement_clamp",2.5,1,4,"mm (+/-)"],
+["grazing_cutoff",70,60,75,"deg from view ray"],
+["detail_mesh_max_edge",1.0,0.5,1.5,"mm"],
+["diffusion_seeds",5,3,10,"count"],
+["diffusion_reject_spread",10,6,15,"deg"],
+["rotation_bias_cap",10,5,15,"deg"],
+["mask_erosion",4,3,5,"px"],
+["highlight_mask_value_threshold",0.95,0.9,0.98,"HSV value"],
+["proportion_change_alarm_nose_depth",1.0,0.5,2.0,"mm"]
+],"population":"Fitting-engine starting points for adult faces photographed at 0.3-1.5 m","source_urls":[],"status":"knowledge","notes":"Unsourced expert suggestions; tune on synthetic renders and scanned heads before relying on them."}
 ]}

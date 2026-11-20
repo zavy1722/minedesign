@@ -1,0 +1,1188 @@
+{
+  "topic": "anthropometric-norms",
+  "tables": [
+    {
+      "name": "farkas_type_naw_young_adult_priors",
+      "units": "mm (cv dimensionless)",
+      "columns": [
+        "measure_id",
+        "landmark_a",
+        "landmark_b",
+        "description",
+        "distance_type",
+        "male_mean_low",
+        "male_mean_high",
+        "male_prior_mean",
+        "male_sd",
+        "female_mean_low",
+        "female_mean_high",
+        "female_prior_mean",
+        "female_sd",
+        "cv",
+        "confidence"
+      ],
+      "rows": [
+        [
+          "head_length",
+          "g",
+          "op",
+          "maximum head length, glabella-opisthocranion",
+          "chord_caliper",
+          194,
+          199,
+          196.5,
+          6.5,
+          184,
+          189,
+          186.5,
+          6.5,
+          0.035,
+          "medium"
+        ],
+        [
+          "head_breadth",
+          "eu",
+          "eu",
+          "maximum head breadth",
+          "chord_caliper",
+          149,
+          154,
+          151.5,
+          5.0,
+          141,
+          146,
+          143.5,
+          5.0,
+          0.035,
+          "medium"
+        ],
+        [
+          "head_circumference",
+          "g",
+          "op",
+          "tape circumference at glabella-opisthocranion level",
+          "arc_tape",
+          565,
+          580,
+          572,
+          15,
+          545,
+          560,
+          552,
+          15,
+          0.03,
+          "medium"
+        ],
+        [
+          "total_head_height",
+          "v",
+          "gn",
+          "vertex to lowest chin point",
+          "chord_projective_FH",
+          220,
+          235,
+          227,
+          9,
+          205,
+          220,
+          212,
+          9,
+          0.04,
+          "low"
+        ],
+        [
+          "face_width",
+          "zy",
+          "zy",
+          "bizygomatic width, caliper on arches",
+          "chord_caliper",
+          135,
+          140,
+          137.5,
+          5.0,
+          127,
+          132,
+          129.5,
+          5.0,
+          0.035,
+          "medium"
+        ],
+        [
+          "mandible_width",
+          "go",
+          "go",
+          "bigonial width, caliper pressed on angles (not silhouette)",
+          "chord_caliper",
+          94,
+          100,
+          97,
+          6,
+          88,
+          94,
+          91,
+          5,
+          0.06,
+          "medium-low"
+        ],
+        [
+          "min_frontal_width",
+          "ft",
+          "ft",
+          "minimal frontal (forehead) width",
+          "chord_caliper",
+          108,
+          114,
+          111,
+          4.5,
+          103,
+          109,
+          106,
+          4.5,
+          0.04,
+          "low"
+        ],
+        [
+          "morph_face_height",
+          "n",
+          "gn",
+          "nasion to lowest chin point (gn = me')",
+          "chord",
+          121.3,
+          121.3,
+          121.3,
+          6.8,
+          111.8,
+          111.8,
+          111.8,
+          5.2,
+          0.053,
+          "high (SDs sourced [13])"
+        ],
+        [
+          "physiog_face_height",
+          "tr",
+          "gn",
+          "hairline to chin; hair-dependent",
+          "chord",
+          180,
+          192,
+          186,
+          8,
+          168,
+          178,
+          173,
+          8,
+          0.045,
+          "low"
+        ],
+        [
+          "upper_face_height",
+          "n",
+          "sto",
+          "nasion to stomion",
+          "chord",
+          75,
+          79,
+          77,
+          4,
+          69,
+          72,
+          70.5,
+          4,
+          0.05,
+          "medium"
+        ],
+        [
+          "lower_face_height",
+          "sn",
+          "gn",
+          "subnasale to chin",
+          "chord",
+          70,
+          75,
+          72.5,
+          4.5,
+          63,
+          67,
+          65,
+          4,
+          0.06,
+          "medium"
+        ],
+        [
+          "intercanthal",
+          "en",
+          "en",
+          "intercanthal width",
+          "chord",
+          33.3,
+          33.3,
+          33.3,
+          2.7,
+          31.8,
+          31.8,
+          31.8,
+          2.3,
+          0.075,
+          "medium-high (Kosovo [4] within 1 mm)"
+        ],
+        [
+          "biocular",
+          "ex",
+          "ex",
+          "biocular width",
+          "chord",
+          88,
+          92,
+          90,
+          3.6,
+          85,
+          89,
+          87,
+          4.0,
+          0.042,
+          "medium (SDs sourced [13])"
+        ],
+        [
+          "eye_fissure_length",
+          "ex",
+          "en",
+          "palpebral fissure length (oblique chord)",
+          "chord",
+          30,
+          32,
+          31.3,
+          1.3,
+          29,
+          31,
+          30.7,
+          1.3,
+          0.042,
+          "medium"
+        ],
+        [
+          "eye_fissure_height",
+          "ps",
+          "pi",
+          "palpebral fissure height, eyes open, primary gaze",
+          "chord",
+          9.5,
+          11,
+          10.2,
+          1.0,
+          9.5,
+          11,
+          10.2,
+          1.0,
+          0.1,
+          "low"
+        ],
+        [
+          "interpupillary",
+          "p",
+          "p",
+          "pupil centres, far gaze",
+          "chord",
+          63,
+          66,
+          64.5,
+          3.3,
+          60,
+          63,
+          62,
+          3.2,
+          0.05,
+          "medium"
+        ],
+        [
+          "nose_height",
+          "n",
+          "sn",
+          "nasion to subnasale",
+          "chord",
+          53,
+          56,
+          54.8,
+          3.3,
+          49,
+          52,
+          50.6,
+          3.1,
+          0.06,
+          "medium"
+        ],
+        [
+          "nasal_bridge_length",
+          "n",
+          "prn",
+          "nasion to pronasale",
+          "chord",
+          47,
+          53,
+          50,
+          3.5,
+          43,
+          48,
+          45.5,
+          3.2,
+          0.07,
+          "low"
+        ],
+        [
+          "nose_width",
+          "al",
+          "al",
+          "alar width",
+          "chord",
+          34.9,
+          34.9,
+          34.9,
+          2.1,
+          31.4,
+          31.4,
+          31.4,
+          2.0,
+          0.062,
+          "medium-high (consistent with [8] doubled)"
+        ],
+        [
+          "tip_protrusion",
+          "sn",
+          "prn",
+          "nasal tip protrusion",
+          "chord",
+          18,
+          22,
+          20,
+          2,
+          17,
+          20,
+          18.5,
+          1.8,
+          0.1,
+          "medium-low"
+        ],
+        [
+          "mouth_width",
+          "ch",
+          "ch",
+          "mouth width, lips closed relaxed",
+          "chord",
+          51,
+          55,
+          53,
+          3.3,
+          48,
+          52,
+          50,
+          3.2,
+          0.063,
+          "medium"
+        ],
+        [
+          "philtrum_width",
+          "cph",
+          "cph",
+          "philtral column peaks",
+          "chord",
+          10,
+          13,
+          11.5,
+          1.8,
+          9,
+          12,
+          10.5,
+          1.6,
+          0.15,
+          "low"
+        ],
+        [
+          "upper_lip_height",
+          "sn",
+          "sto",
+          "subnasale to stomion",
+          "chord",
+          21,
+          24,
+          22.3,
+          2,
+          19,
+          21,
+          19.9,
+          1.8,
+          0.09,
+          "medium"
+        ],
+        [
+          "upper_vermilion",
+          "ls",
+          "sto",
+          "upper vermilion height",
+          "chord",
+          8,
+          10,
+          8.9,
+          1.5,
+          7.5,
+          9,
+          8.3,
+          1.3,
+          0.17,
+          "low"
+        ],
+        [
+          "lower_vermilion",
+          "sto",
+          "li",
+          "lower vermilion height",
+          "chord",
+          9.5,
+          11,
+          10.3,
+          1.5,
+          9,
+          10.5,
+          9.7,
+          1.4,
+          0.15,
+          "low"
+        ],
+        [
+          "lower_lip_chin_height",
+          "sto",
+          "gn",
+          "stomion to lowest chin point",
+          "chord",
+          48,
+          52,
+          50,
+          3.5,
+          43,
+          46,
+          44.5,
+          3,
+          0.07,
+          "medium-low"
+        ],
+        [
+          "ear_length",
+          "sa",
+          "sba",
+          "superaurale to subaurale",
+          "chord",
+          60,
+          65,
+          62.5,
+          3.5,
+          56,
+          61,
+          58.5,
+          3.3,
+          0.056,
+          "low; contested vs other populations (57.6-62.9)"
+        ],
+        [
+          "ear_width",
+          "pra",
+          "pa",
+          "preaurale to postaurale",
+          "chord",
+          32,
+          36,
+          34,
+          2.3,
+          30,
+          33,
+          31.5,
+          2.1,
+          0.07,
+          "low; contested"
+        ]
+      ],
+      "population": "North American White young adults (~18-25 y), direct anthropometry (Farkas-type); recalled values",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Recalled from Farkas-type data, not checked against the 1994 book. prior_mean is a suggested default inside the recalled range. n-gn SDs (6.8/5.2) and ex-ex SDs (3.6/4.0) agree with a secondary copy of Farkas's table (https://arxiv.org/pdf/2304.07175). en-en agrees with Kosovo-Albanian direct data within 1 mm; al-al agrees with doubled alare-midline data (PMC12500730). Use as population-conditional log-normal priors; inflate sigma (see prior_inflation table). Farkas gn = lowest chin point (soft-tissue menton), not cephalometric gnathion."
+    },
+    {
+      "name": "harvested_population_values",
+      "units": "mm unless ratio",
+      "columns": [
+        "population",
+        "method",
+        "n",
+        "measure",
+        "male_mean",
+        "male_sd",
+        "female_mean",
+        "female_sd",
+        "source_n"
+      ],
+      "rows": [
+        [
+          "Kosovo-Albanian adults",
+          "direct",
+          null,
+          "n-gn",
+          125.82,
+          6.366,
+          115.53,
+          5.004,
+          4
+        ],
+        [
+          "Kosovo-Albanian adults",
+          "direct",
+          null,
+          "en-en",
+          32.49,
+          2.59,
+          31.78,
+          2.25,
+          4
+        ],
+        [
+          "Indian medical students (BHU, Uttar Pradesh)",
+          "not captured",
+          200,
+          "n-gn (morphological facial height)",
+          121.64,
+          6.47,
+          113.63,
+          4.61,
+          7
+        ],
+        [
+          "Adults 19-42 (asymmetry study)",
+          "linear",
+          297,
+          "right alare-midline",
+          17.34,
+          null,
+          15.39,
+          null,
+          8
+        ],
+        [
+          "Hong Kong Chinese young adults",
+          "3D",
+          null,
+          "en-en",
+          40.61,
+          null,
+          38.27,
+          null,
+          11
+        ],
+        [
+          "Malay adults",
+          "3D stereophotogrammetry",
+          null,
+          "en-en",
+          35.74,
+          null,
+          35.03,
+          null,
+          12
+        ],
+        [
+          "Malay adults",
+          "3D stereophotogrammetry",
+          null,
+          "nose width (definition unconfirmed)",
+          39.59,
+          null,
+          36.67,
+          null,
+          12
+        ],
+        [
+          "Southern Spain adults, normal occlusion",
+          "3D",
+          null,
+          "ratio ch-ch/en-en",
+          1.59,
+          null,
+          1.52,
+          null,
+          9
+        ],
+        [
+          "Southern Spain adults, normal occlusion",
+          "3D",
+          null,
+          "ratio en-en/al-al",
+          0.89,
+          null,
+          1.01,
+          null,
+          9
+        ],
+        [
+          "NAW young adults (Farkas, secondary copy)",
+          "direct",
+          null,
+          "SD only: ex-ex",
+          null,
+          3.6,
+          null,
+          4.0,
+          13
+        ],
+        [
+          "NAW young adults (Farkas, secondary copy)",
+          "direct",
+          null,
+          "SD only: n-gn",
+          null,
+          6.8,
+          null,
+          5.2,
+          13
+        ]
+      ],
+      "population": "Mixed adult samples as labelled",
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12500730/",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104",
+        "https://arxiv.org/pdf/2304.07175"
+      ],
+      "status": "sourced",
+      "notes": "All from harvest search snippets, not full text. BHU n=200 is 104 M / 96 F; asymmetry study n=297 is 150 M / 147 F. Kosovo n not captured. Malay nose width may be a different definition or a real population difference (contested). Sex differences in en-en are small (0.7-2.3 mm) across [4][11][12]."
+    },
+    {
+      "name": "intercanthal_normotype_ranges_unclear",
+      "units": "mm",
+      "columns": [
+        "group_label",
+        "range_low",
+        "range_high",
+        "note"
+      ],
+      "rows": [
+        [
+          "group A (label unclear)",
+          20,
+          41,
+          "mean +/- 2 SD"
+        ],
+        [
+          "group B (label unclear)",
+          21,
+          39,
+          "mean +/- 2 SD"
+        ],
+        [
+          "sex table value 1",
+          37.0,
+          null,
+          "label unclear"
+        ],
+        [
+          "sex table value 2",
+          28.9,
+          null,
+          "label unclear"
+        ]
+      ],
+      "population": "3D normotype reference groups; sex and population labels not confirmed",
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13666107"
+      ],
+      "status": "contested",
+      "notes": "Snippet-level; do not use as priors until the full text confirms labels."
+    },
+    {
+      "name": "dataset_inventory",
+      "units": "count / years",
+      "columns": [
+        "dataset",
+        "method",
+        "n",
+        "age_range",
+        "population",
+        "access",
+        "status_of_row"
+      ],
+      "rows": [
+        [
+          "Farkas 1994 norms",
+          "direct anthropometry (calipers, tape)",
+          2326,
+          "1-25",
+          "North American White (Toronto)",
+          "book",
+          "sourced [3]"
+        ],
+        [
+          "3D Facial Norms (3DFN, FaceBase)",
+          "3dMD stereophotogrammetry",
+          2454,
+          "3-40",
+          "European-ancestry US (952 M / 1502 F)",
+          "summary-level open; individual-level by Data Access Request",
+          "verified [1][2]"
+        ],
+        [
+          "Fang et al. 2011 systematic review",
+          "pooled literature",
+          2359,
+          "adult",
+          "27 ethnic groups",
+          "paper",
+          "sourced [5]"
+        ],
+        [
+          "Farkas et al. 2005 international study",
+          "direct anthropometry",
+          1470,
+          "~18-30",
+          "~25 populations",
+          "paper",
+          "knowledge"
+        ],
+        [
+          "NIOSH US respirator-user survey",
+          "calipers + 3D subset",
+          4000,
+          "adult",
+          "US workforce, multi-ethnic",
+          "report/paper",
+          "knowledge (approx n)"
+        ],
+        [
+          "ANSUR II (US Army 2012)",
+          "calipers, tape, 3D",
+          6000,
+          "adult",
+          "US Army (~4000 M, ~2000 F)",
+          "public summary data (check)",
+          "knowledge (approx n)"
+        ],
+        [
+          "Headspace / Liverpool-York Head Model",
+          "3dMD full head, capped",
+          1500,
+          "children to elderly",
+          "UK",
+          "research licence (check)",
+          "knowledge (approx n)"
+        ],
+        [
+          "SizeChina",
+          "3D head scans",
+          2000,
+          "adult",
+          "Chinese",
+          "commercial",
+          "knowledge (approx n)"
+        ]
+      ],
+      "population": "various",
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760",
+        "https://facebase.org/facial_norms/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3074358/"
+      ],
+      "status": "sourced",
+      "notes": "Mixed-status table: see status_of_row. Approximate n values for knowledge rows are rounded recall; verify. 3DFN reports 34 inter-landmark measurements and provides sex-specific growth curves and a MATLAB toolbox [1][2]."
+    },
+    {
+      "name": "proportion_checks",
+      "units": "ratio (dimensionless); sigma_log = SD of natural-log ratio",
+      "columns": [
+        "numerator",
+        "denominator",
+        "male",
+        "female",
+        "sigma_log",
+        "basis"
+      ],
+      "rows": [
+        [
+          "en-en",
+          "ex-ex",
+          0.37,
+          0.365,
+          0.07,
+          "knowledge"
+        ],
+        [
+          "ex-en",
+          "en-en",
+          0.94,
+          0.97,
+          0.08,
+          "knowledge"
+        ],
+        [
+          "al-al",
+          "en-en",
+          1.08,
+          1.0,
+          0.08,
+          "sourced [9] (inverse of 0.89/1.01) + knowledge"
+        ],
+        [
+          "ch-ch",
+          "en-en",
+          1.59,
+          1.54,
+          0.07,
+          "sourced [9] + knowledge"
+        ],
+        [
+          "ch-ch",
+          "al-al",
+          1.52,
+          1.59,
+          0.07,
+          "knowledge"
+        ],
+        [
+          "ch-ch",
+          "interpupillary",
+          0.83,
+          0.82,
+          0.06,
+          "knowledge"
+        ],
+        [
+          "n-gn",
+          "zy-zy",
+          0.88,
+          0.86,
+          0.05,
+          "knowledge"
+        ],
+        [
+          "zy-zy",
+          "eu-eu",
+          0.91,
+          0.9,
+          0.04,
+          "knowledge"
+        ],
+        [
+          "go-go",
+          "zy-zy",
+          0.71,
+          0.7,
+          0.06,
+          "knowledge (caliper go-go)"
+        ],
+        [
+          "sn-sto",
+          "sn-gn",
+          0.31,
+          0.31,
+          0.07,
+          "knowledge"
+        ],
+        [
+          "n-sn",
+          "n-gn",
+          0.45,
+          0.45,
+          0.05,
+          "knowledge"
+        ],
+        [
+          "al-al",
+          "n-sn",
+          0.64,
+          0.62,
+          0.08,
+          "knowledge"
+        ],
+        [
+          "sn-prn",
+          "n-sn",
+          0.36,
+          0.37,
+          0.1,
+          "knowledge"
+        ],
+        [
+          "eu-eu",
+          "g-op",
+          0.77,
+          0.77,
+          0.04,
+          "knowledge"
+        ],
+        [
+          "sa-sba",
+          "n-sn",
+          1.13,
+          1.15,
+          0.07,
+          "knowledge"
+        ]
+      ],
+      "population": "North American White young adults (ratio of recalled means); [9] is southern Spain 3D",
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104"
+      ],
+      "status": "knowledge",
+      "notes": "Within-population sigma_log; multiply by population inflation when ancestry is unknown. Ratios are scale-free and usable before absolute scale is known."
+    },
+    {
+      "name": "population_shifts_vs_naw",
+      "units": "mm added to NAW mean (or index)",
+      "columns": [
+        "population",
+        "en_en_low",
+        "en_en_high",
+        "al_al_low",
+        "al_al_high",
+        "zy_zy_low",
+        "zy_zy_high",
+        "sn_prn_low",
+        "sn_prn_high",
+        "notes"
+      ],
+      "rows": [
+        [
+          "East Asian",
+          2,
+          6,
+          3,
+          6,
+          3,
+          8,
+          -4,
+          -2,
+          "epicanthal fold inflates visible en-en; cephalic index ~80-88"
+        ],
+        [
+          "Southeast Asian",
+          2,
+          4,
+          4,
+          6,
+          2,
+          6,
+          -4,
+          -2,
+          "consistent with Malay 3D [12]"
+        ],
+        [
+          "African / African American",
+          1,
+          4,
+          6,
+          10,
+          0,
+          5,
+          -3,
+          -1,
+          "vermilion heights +2 to +4 each; often dolichocephalic"
+        ],
+        [
+          "South Asian",
+          0,
+          2,
+          1,
+          4,
+          -3,
+          2,
+          0,
+          0,
+          "n-gn close to NAW per [7]"
+        ]
+      ],
+      "population": "Approximate between-population mean shifts",
+      "source_urls": [
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996"
+      ],
+      "status": "contested",
+      "notes": "Direction reliable, magnitude rough recall; harvested values [11][12][7] are consistent but not sufficient to set these. Use as mixture-component centres with wide sigma."
+    },
+    {
+      "name": "method_offsets_sourced",
+      "units": "mm",
+      "columns": [
+        "comparison",
+        "measure",
+        "offset_mm",
+        "note",
+        "source_n"
+      ],
+      "rows": [
+        [
+          "direct vs 3D photogrammetry (systematic review)",
+          "most measures",
+          "<2",
+          "statistically significant differences can still be <2 mm",
+          16
+        ],
+        [
+          "direct vs 2D photogrammetry",
+          "highest mean difference",
+          0.3,
+          "search snippet",
+          14
+        ],
+        [
+          "direct vs 3D stereophotogrammetry",
+          "highest mean difference",
+          0.21,
+          "search snippet",
+          14
+        ],
+        [
+          "CT vs 3dMD",
+          "Go-Go",
+          2.34,
+          "CT larger",
+          15
+        ]
+      ],
+      "population": "study samples",
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/",
+        "https://pubmed.ncbi.nlm.nih.gov/26267357",
+        "https://pubmed.ncbi.nlm.nih.gov/38896864"
+      ],
+      "status": "sourced",
+      "notes": "3DFN vs Farkas differences are 'considerable' [3] despite small direct-vs-3D method offsets."
+    },
+    {
+      "name": "method_offsets_and_drifts_knowledge",
+      "units": "mm or fraction",
+      "columns": [
+        "effect",
+        "low",
+        "high",
+        "units_note"
+      ],
+      "rows": [
+        [
+          "photo jaw silhouette minus caliper go-go",
+          10,
+          30,
+          "mm"
+        ],
+        [
+          "hair added at eu/op/v/tr in photos",
+          5,
+          20,
+          "mm (can exceed 20)"
+        ],
+        [
+          "al-al/zy-zy inflation at 0.4 m camera distance",
+          0.08,
+          0.1,
+          "fraction"
+        ],
+        [
+          "al-al/zy-zy inflation at 1.5 m",
+          0.015,
+          0.025,
+          "fraction"
+        ],
+        [
+          "ear length adult drift",
+          0.1,
+          0.25,
+          "mm per year"
+        ],
+        [
+          "sn-sto change age 25->70",
+          1,
+          3,
+          "mm increase"
+        ],
+        [
+          "ls-sto change age 25->70",
+          -3,
+          -1,
+          "mm"
+        ],
+        [
+          "ex depth behind en (derived from NAW chords)",
+          10,
+          13,
+          "mm"
+        ]
+      ],
+      "population": "general adult; derived",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Order-of-magnitude engineering defaults."
+    },
+    {
+      "name": "engine_prior_defaults",
+      "units": "mixed",
+      "columns": [
+        "parameter",
+        "value",
+        "note"
+      ],
+      "rows": [
+        [
+          "k_matched_population_sex_method",
+          1.0,
+          "sigma_log = k * CV"
+        ],
+        [
+          "k_unknown_population_low_variance_measures",
+          1.5,
+          "zy-zy, head length/breadth, n-gn"
+        ],
+        [
+          "k_unknown_population_al_al_en_en",
+          2.5,
+          "or use population mixture"
+        ],
+        [
+          "k_farkas_to_3d_default_inflation",
+          1.2,
+          "method/era drift"
+        ],
+        [
+          "global_scale_sigma",
+          0.035,
+          "relative, from zy-zy / eu-eu CV"
+        ],
+        [
+          "iris_diameter_mm",
+          11.7,
+          "sigma 0.5 mm"
+        ],
+        [
+          "interpupillary_mm",
+          63.0,
+          "sigma 3.5 mm, sexes pooled"
+        ],
+        [
+          "prior_weight_cap_fraction_multiview",
+          0.15,
+          "10-20% of objective when >=2 pose-solved views"
+        ],
+        [
+          "z_flag_threshold",
+          3.0,
+          "|z|>3 flags probable landmark/camera/definition error"
+        ],
+        [
+          "z_warn_threshold",
+          2.0,
+          "amber"
+        ]
+      ],
+      "population": "engine defaults",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Tunable defaults, not measured values."
+    }
+  ]
+}

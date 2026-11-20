@@ -1,0 +1,27 @@
+{
+ "id": "craniometric-landmarks",
+ "area": "anatomy",
+ "title": "Hard- and soft-tissue anthropometric landmarks",
+ "queue": [
+  {
+   "claim": "In Farkas/Martin-Saller anthropometry, gnathion (gn) is the lowest midline point of the chin (= cephalometric menton), so Farkas n\u2013gn face height ends at me\u2032; and living-subject Frankfort horizontal is defined through tragion and soft-tissue orbitale rather than porion.",
+   "query": "Farkas anthropometry gnathion definition \"lowest median landmark on the lower border of the mandible\" Frankfort horizontal tragion orbitale",
+   "domains": "pmc.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Approximate young-adult North American White means (Farkas): en\u2013en ~32\u201334/31\u201333 mm, ex\u2013ex ~88\u201392/85\u201389, al\u2013al ~33\u201336/30\u201333, ch\u2013ch ~51\u201355/48\u201352, zy\u2013zy ~135\u2013141/127\u2013132, go\u2013go ~94\u2013100/88\u201394, n\u2013gn ~119\u2013125/110\u2013115 (male/female).",
+   "query": "Farkas North American Caucasian young adult facial norms en-en ex-ex al-al ch-ch zy-zy go-go n-gn mean SD mm",
+   "domains": "pmc.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "MediaPipe Face Mesh indices: 1 nose tip, 2 subnasale region, 168 nasal root, 33/133 right eye outer/inner, 362/263 left eye inner/outer, 61/291 mouth corners, 0/17 outer lip midline, 13/14 inner lip midline, 152 chin bottom, 234/454 face-oval lateral extremes, 468/473 iris centres (right/left); z is relative depth scaled like x, not metric.",
+   "query": "MediaPipe face mesh landmark indices 33 133 362 263 61 291 152 nose tip 1 iris 468 473 z coordinate relative depth",
+   "domains": "github.com,developers.google.com,ai.google.dev"
+  },
+  {
+   "claim": "Horizontal visible iris diameter is roughly constant across adults at about 11.7 \u00b1 0.5 mm (the assumption MediaPipe Iris uses for metric depth), usable as a ~\u00b14% single-photo scale prior.",
+   "query": "MediaPipe Iris horizontal iris diameter 11.7 mm depth estimation without depth sensor",
+   "domains": "research.google,blog.research.google,arxiv.org,developers.google.com"
+  }
+ ]
+}

@@ -1,0 +1,395 @@
+{
+ "topic": "fat-compartments",
+ "tables": [
+  {
+   "name": "fat_compartment_atlas",
+   "units": "categorical; side = paired (L/R) or midline",
+   "columns": [
+    "region_id",
+    "layer",
+    "side",
+    "location_borders",
+    "age_trend",
+    "weight_response"
+   ],
+   "rows": [
+    [
+     "forehead_central",
+     "superficial",
+     "midline",
+     "midline forehead, glabella to hairline",
+     "mild loss",
+     "low"
+    ],
+    [
+     "forehead_middle",
+     "superficial",
+     "paired",
+     "paramedian forehead to superior temporal septum",
+     "mild loss",
+     "low"
+    ],
+    [
+     "lat_temporal_cheek",
+     "superficial",
+     "paired",
+     "temple -> preauricular -> neck; between temporal septa",
+     "loss at temple",
+     "moderate"
+    ],
+    [
+     "orbital_sup",
+     "superficial",
+     "paired",
+     "thin layer above lid, inside ORL ring",
+     "thinning",
+     "low"
+    ],
+    [
+     "orbital_inf",
+     "superficial",
+     "paired",
+     "thin layer under lower-lid skin, above ORL (not postseptal fat)",
+     "thinning",
+     "low"
+    ],
+    [
+     "orbital_lat",
+     "superficial",
+     "paired",
+     "lateral canthal region, inside ORL/lateral orbital thickening",
+     "thinning",
+     "low"
+    ],
+    [
+     "roof",
+     "deep",
+     "paired",
+     "under orbital orbicularis beneath lateral brow / upper lid",
+     "deflation and descent -> lateral hooding",
+     "low"
+    ],
+    [
+     "soof_med",
+     "deep",
+     "paired",
+     "under orbicularis below ORL, medial limbus to lateral canthus",
+     "deflation -> longer lower lid",
+     "low-moderate"
+    ],
+    [
+     "soof_lat",
+     "deep",
+     "paired",
+     "under orbicularis below ORL, lateral canthus to temporal fat",
+     "deflation",
+     "low-moderate"
+    ],
+    [
+     "dmcf",
+     "deep",
+     "paired",
+     "on maxilla beside pyriform aperture, deep to nasolabial/medial cheek",
+     "strong deflation -> tear trough, flat ogee",
+     "moderate"
+    ],
+    [
+     "nasolabial",
+     "superficial",
+     "paired",
+     "lateral to nasolabial fold, alar base to commissure",
+     "holds volume, descends, overhangs (contested)",
+     "high"
+    ],
+    [
+     "medial_cheek",
+     "superficial",
+     "paired",
+     "lateral to nasolabial, below ORL",
+     "descent",
+     "high"
+    ],
+    [
+     "middle_cheek",
+     "superficial",
+     "paired",
+     "in front of parotid, near zygomaticus major",
+     "descent",
+     "moderate"
+    ],
+    [
+     "buccal_pad",
+     "deep",
+     "paired",
+     "between buccinator and masseter, below zygoma; temporal/pterygoid extensions",
+     "mild loss or ptosis (contested)",
+     "moderate-high (contested)"
+    ],
+    [
+     "temporal_deep",
+     "deep",
+     "paired",
+     "superficial (intermediate) and deep temporal fat pads under deep temporal fascia",
+     "loss -> temple hollow",
+     "moderate"
+    ],
+    [
+     "jowl",
+     "superficial",
+     "paired",
+     "between DAO/mandibular ligament and masseteric ligaments, above mandibular septum",
+     "descends below mandibular border",
+     "high"
+    ],
+    [
+     "submental",
+     "superficial (+subplatysmal)",
+     "midline",
+     "under chin and upper neck",
+     "gain or laxity",
+     "very high"
+    ]
+   ],
+   "population": "adult; compiled from cadaver and imaging literature (Rohrich & Pessa 2007 and follow-ups; Mendelson; Gierloff 2012) by name, not yet verified",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Use region_id as Blender vertex-group / Face Set names with _L/_R suffix for paired regions. Postseptal orbital fat (upper 2 pads, lower 3 pads) is a separate system not listed here."
+  },
+  {
+   "name": "soft_tissue_depth_ranges_fat_regions",
+   "units": "mm skin-to-bone",
+   "columns": [
+    "site",
+    "min_mm",
+    "max_mm",
+    "notes"
+   ],
+   "rows": [
+    [
+     "suborbital (on zygoma below orbit)",
+     5,
+     11,
+     ""
+    ],
+    [
+     "inferior malar",
+     10,
+     17,
+     ""
+    ],
+    [
+     "mid zygomatic arch",
+     4,
+     9,
+     ""
+    ],
+    [
+     "lateral orbit",
+     7,
+     12,
+     ""
+    ],
+    [
+     "buccal (supra/infra M2)",
+     18,
+     30,
+     "strongly BMI-dependent"
+    ],
+    [
+     "mid-masseter",
+     14,
+     22,
+     "includes masseter muscle"
+    ]
+   ],
+   "population": "adults, normal BMI, mixed ancestry; approximate ranges recalled from forensic tissue-depth compilations (Rhine; Stephan & Simpson)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Broad ranges for weak priors only; cross-check against the library's soft-tissue-thickness data before use."
+  },
+  {
+   "name": "fat_misc_quantities",
+   "units": "mixed (see unit column)",
+   "columns": [
+    "quantity",
+    "low",
+    "high",
+    "typical",
+    "unit",
+    "basis"
+   ],
+   "rows": [
+    [
+     "buccal fat pad volume per side",
+     8,
+     12,
+     10,
+     "mL",
+     "adult cadaver dissections (Stuzin 1990; Zhang 2002), recalled"
+    ],
+    [
+     "postseptal fat pads upper lid",
+     2,
+     2,
+     2,
+     "count per eye",
+     "standard anatomy"
+    ],
+    [
+     "postseptal fat pads lower lid",
+     3,
+     3,
+     3,
+     "count per eye",
+     "standard anatomy"
+    ],
+    [
+     "youthful cervicomental angle",
+     105,
+     120,
+     null,
+     "degrees",
+     "aesthetic criterion (Ellenbogen & Karlin 1980)"
+    ],
+    [
+     "superior cheek-mass shift on full smile",
+     2,
+     6,
+     null,
+     "mm",
+     "heuristic, not measured"
+    ],
+    [
+     "soft border width between compartments (youth)",
+     5,
+     15,
+     8,
+     "mm",
+     "heuristic default for weight blur"
+    ]
+   ],
+   "population": "adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Smile shift and border width are engineering heuristics, not measurements."
+  },
+  {
+   "name": "fat_region_prior_loadings",
+   "units": "mm per SD of latent factor (a_r adiposity, b_r age-older); sigma_r in mm",
+   "columns": [
+    "region_id",
+    "a_adiposity",
+    "b_age_older",
+    "sigma_min",
+    "sigma_max",
+    "inferior_shift_mm_older",
+    "notes"
+   ],
+   "rows": [
+    [
+     "submental",
+     4.0,
+     1.0,
+     4.0,
+     8.0,
+     null,
+     ""
+    ],
+    [
+     "jowl",
+     2.5,
+     1.0,
+     3.0,
+     4.0,
+     "2-4",
+     ""
+    ],
+    [
+     "buccal_pad",
+     2.5,
+     -0.5,
+     3.0,
+     5.0,
+     null,
+     "age sign contested"
+    ],
+    [
+     "nasolabial",
+     1.5,
+     0.5,
+     2.0,
+     3.0,
+     "yes, small",
+     ""
+    ],
+    [
+     "medial_cheek",
+     1.5,
+     -0.5,
+     2.5,
+     3.0,
+     null,
+     "also middle_cheek"
+    ],
+    [
+     "dmcf",
+     1.0,
+     -1.5,
+     2.5,
+     2.5,
+     null,
+     ""
+    ],
+    [
+     "soof",
+     1.0,
+     -1.0,
+     2.0,
+     2.0,
+     null,
+     "med and lat"
+    ],
+    [
+     "temporal",
+     1.5,
+     -1.5,
+     2.0,
+     3.0,
+     null,
+     "superficial + deep"
+    ],
+    [
+     "roof_upper_sulcus",
+     0.5,
+     -1.0,
+     1.5,
+     1.5,
+     null,
+     ""
+    ],
+    [
+     "periorbital_superficial",
+     0.5,
+     -0.5,
+     1.0,
+     1.5,
+     null,
+     ""
+    ],
+    [
+     "anchors_forehead_dorsum_arch",
+     0.0,
+     0.0,
+     0.75,
+     1.0,
+     null,
+     "ligament anchors also get ARAP stiffness x2-5"
+    ]
+   ],
+   "population": "untested engineering heuristic for adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Model: delta_r = mu_r(sex,age) + a_r*z_adip + b_r*z_age + eps_r, z~N(0,1), eps_r~N(0,sigma_r^2). Must be tuned on 3D scan data. Seam bending weight 0.1-0.2 vs 1.0 within region; crease depth HalfNormal scale 0.5-1 mm (<30 y) to 2-4 mm (>55 y); L/R asymmetry sigma ~0.5*sigma_r."
+  }
+ ]
+}

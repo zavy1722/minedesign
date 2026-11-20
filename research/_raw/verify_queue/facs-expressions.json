@@ -1,0 +1,27 @@
+{
+ "id": "facs-expressions",
+ "area": "anatomy",
+ "title": "FACS action units and expression mechanics",
+ "queue": [
+  {
+   "claim": "ARKit exposes exactly 52 blendshape names (14 eye, 5 brow, 3 cheek, 2 nose, 4 jaw, 23 mouth, 1 tongue, as listed in the data file), 'Left' means the subject's left, and the approximate FACS mapping holds (e.g. mouthShrugLower\u2248AU17, cheekSquint\u2248AU6, mouthDimple\u2248AU14).",
+   "query": "ARFaceAnchor BlendShapeLocation eyeBlinkLeft mouthShrugLower cheekSquintLeft list",
+   "domains": "developer.apple.com"
+  },
+  {
+   "claim": "MediaPipe Face Landmarker's 52 blendshape categories are the ARKit names minus tongueOut, plus a '_neutral' category at index 0. Left/right refer to the subject.",
+   "query": "MediaPipe face landmarker blendshapes category names _neutral index 0 list 52",
+   "domains": "ai.google.dev,developers.google.com,github.com"
+  },
+  {
+   "claim": "FLAME has 5,023 vertices, 300 shape and 100 expression components, and has historically been licensed for non-commercial research only. A more permissive release may now exist.",
+   "query": "FLAME head model license commercial use 2023 release terms",
+   "domains": "flame.is.tue.mpg.de"
+  },
+  {
+   "claim": "FACS has 44 AUs in total, of which about 30 are tied to specific muscles (12 upper face, 18 lower face). The 2002 revision reorganised the lid codes AU41/42/44. The muscle assignments in the AU table (e.g. AU13 = levator anguli oris, AU14 = buccinator, AU20 = risorius) are per the manual.",
+   "query": "FACS 2002 revision action units list muscles AU41 AU42 AU44 removed 44 action units 30 anatomically related",
+   "domains": ""
+  }
+ ]
+}

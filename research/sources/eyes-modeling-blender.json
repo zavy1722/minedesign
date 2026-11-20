@@ -1,0 +1,41 @@
+{
+  "topic": "eyes-modeling-blender",
+  "sources": [
+    {"n": 1, "title": "Blender 3D: Noob to Pro - Realistic Eyes In Blender (Wikibooks)", "url": "https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Realistic_Eyes_In_Blender", "kind": "wiki tutorial", "year": "n.d."},
+    {"n": 2, "title": "Blender 3D: Noob to Pro - Procedural Eyeball (Wikibooks)", "url": "https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Procedural_Eyeball", "kind": "wiki tutorial", "year": "n.d."},
+    {"n": 3, "title": "Sculpting the eye in Blender (BlenderNation)", "url": "https://www.blendernation.com/2023/05/18/sculpting-the-eye-in-blender/", "kind": "blog", "year": "2023"},
+    {"n": 4, "title": "How to sculpt convincing eyes in ZBrush (Creative Bloq)", "url": "https://creativebloq.com/how-to/sculpt-convincing-eyes-in-zbrush", "kind": "blog", "year": "n.d."},
+    {"n": 5, "title": "How I make CG eyes in Blender (Class Central listing of a YouTube video)", "url": "https://classcentral.com/course/youtube-how-i-make-cg-eyes-in-blender-127450", "kind": "video listing", "year": "n.d."},
+    {"n": 6, "title": "Tutorial: Creating Realistic Digital Eyes 3.0 (ArtStation Marketplace)", "url": "https://www.artstation.com/marketplace/p/GOVgy/tutorial-creating-a-realistic-eye", "kind": "commercial", "year": "n.d."},
+    {"n": 7, "title": "Learning Blender - Creating an Eyeball (O'Reilly)", "url": "https://www.oreilly.com/library/view/learning-blender-a/9780133886283/ch07lev2sec6.html", "kind": "textbook", "year": "2013"},
+    {"n": 8, "title": "Variations in Eyeball Diameters of the Healthy Adults", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4238270/", "kind": "paper", "year": "2014"},
+    {"n": 9, "title": "Variations in Eyeball Diameters of the Healthy Adults (PubMed record of the same study as [8])", "url": "https://pubmed.ncbi.nlm.nih.gov/25431659/", "kind": "paper", "year": "2014"},
+    {"n": 10, "title": "Mean human corneal diameter and palpebral fissure lengths as scales for forensic analysis of photographed faces: an analytical review", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/", "kind": "review", "year": "n.d."},
+    {"n": 11, "title": "Evaluation of the relationship between corneal diameter and lens diameter", "url": "https://pubmed.ncbi.nlm.nih.gov/18299075", "kind": "paper", "year": "2008"},
+    {"n": 12, "title": "Anatomy of cornea and ocular surface", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5819093/", "kind": "review", "year": "2017"},
+    {"n": 13, "title": "Radius and asphericity of the posterior corneal surface determined by corrected Scheimpflug photography", "url": "https://pubmed.ncbi.nlm.nih.gov/12190779/", "kind": "paper", "year": "2002"},
+    {"n": 14, "title": "Curvature analyses of the corneal front and back surface", "url": "https://pubmed.ncbi.nlm.nih.gov/23841132/", "kind": "paper", "year": "2013"},
+    {"n": 15, "title": "Radius of curvature of the posterior surface of the cornea", "url": "https://pubmed.ncbi.nlm.nih.gov/9293516/", "kind": "paper", "year": "1997"},
+    {"n": 16, "title": "The shape of the anterior and posterior surface of the aging human cornea", "url": "https://pubmed.ncbi.nlm.nih.gov/16266736/", "kind": "paper", "year": "2005"}
+  ],
+  "references_by_name": [
+    "Berard, Bradley, Nitti, Beeler, Gross - High-Quality Capture of Eyes, ACM TOG (SIGGRAPH Asia) 2014",
+    "Berard, Bradley, Gross, Beeler - Lightweight Eye Capture Using a Parametric Model, ACM TOG (SIGGRAPH) 2016",
+    "Berard et al. - Practical Person-Specific Eye Rigging, Eurographics 2019",
+    "Wood et al. - Rendering of Eyes for Eye-Shape Registration and Gaze Estimation, ICCV 2015",
+    "Wood et al. - A 3D Morphable Eye Region Model for Gaze Estimation, ECCV 2016",
+    "Pamplona, Oliveira, Baranoski - Photorealistic Models for Pupil Light Reflex and Iridal Pattern Deformation, ACM TOG 2009",
+    "Lefohn et al. - An Ocularist's Approach to Human Iris Synthesis, IEEE CG&A 2003",
+    "Nishino & Nayar - Eyes for Relighting, SIGGRAPH 2004",
+    "Hanika, Droske, Fascione - Manifold Next Event Estimation, EGSR 2015",
+    "Atchison & Smith - Optics of the Human Eye, 2000",
+    "Liou & Brennan - Anatomically accurate, finite model eye for optical modeling, JOSA A 1997",
+    "Bron, Tripathi & Tripathi - Wolff's Anatomy of the Eye and Orbit",
+    "Snell & Lemp - Clinical Anatomy of the Eye",
+    "Farkas - Anthropometry of the Head and Face, 1994",
+    "Dodgson - Variation and extrema of human interpupillary distance, Proc. SPIE 2004",
+    "Peshek et al. - limbal ring and facial attractiveness, Evolutionary Psychology 2011",
+    "Ablavatski et al. - MediaPipe Iris real-time pupil/iris tracking (Google, 2020)",
+    "Blender Manual - Principled BSDF, Light Paths, Object Visibility, Shadow Caustics; Blender 3.2 (MNEE) and 3.5 (hair node assets) release notes"
+  ]
+}

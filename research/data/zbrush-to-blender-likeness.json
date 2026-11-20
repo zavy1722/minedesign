@@ -1,0 +1,422 @@
+{
+ "topic": "zbrush-to-blender-likeness",
+ "tables": [
+  {
+   "name": "focal_length_to_fov_fullframe",
+   "units": "mm (35 mm-equivalent), degrees",
+   "columns": [
+    "f_eq_mm",
+    "hfov_deg",
+    "vfov_deg",
+    "dfov_deg"
+   ],
+   "rows": [
+    [
+     14,
+     104.3,
+     81.2,
+     114.2
+    ],
+    [
+     24,
+     73.7,
+     53.1,
+     84.1
+    ],
+    [
+     26,
+     69.4,
+     49.6,
+     79.5
+    ],
+    [
+     35,
+     54.4,
+     37.8,
+     63.4
+    ],
+    [
+     50,
+     39.6,
+     27.0,
+     46.8
+    ],
+    [
+     70,
+     28.8,
+     19.5,
+     34.3
+    ],
+    [
+     85,
+     23.9,
+     16.1,
+     28.6
+    ],
+    [
+     105,
+     19.5,
+     13.0,
+     23.3
+    ],
+    [
+     135,
+     15.2,
+     10.2,
+     18.2
+    ],
+    [
+     200,
+     10.3,
+     6.9,
+     12.3
+    ]
+   ],
+   "population": "pinhole model, 36x24 mm sensor",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Derived: FOV = 2*atan(s/(2f)). Blender lens with Sensor Fit Horizontal and sensor_width 36 equals f_eq."
+  },
+  {
+   "name": "distance_to_frame_head",
+   "units": "mm, m",
+   "columns": [
+    "f_eq_mm",
+    "landscape_distance_m",
+    "portrait_distance_m"
+   ],
+   "rows": [
+    [
+     14,
+     0.23,
+     0.16
+    ],
+    [
+     24,
+     0.4,
+     0.27
+    ],
+    [
+     26,
+     0.43,
+     0.29
+    ],
+    [
+     35,
+     0.58,
+     0.39
+    ],
+    [
+     50,
+     0.83,
+     0.56
+    ],
+    [
+     70,
+     1.17,
+     0.78
+    ],
+    [
+     85,
+     1.42,
+     0.94
+    ],
+    [
+     105,
+     1.75,
+     1.17
+    ],
+    [
+     135,
+     2.25,
+     1.5
+    ],
+    [
+     200,
+     3.33,
+     2.22
+    ]
+   ],
+   "population": "pinhole model; 0.40 m tall field (adult head plus margin)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "d = f*0.40/sensor_side; landscape uses 24 mm side vertical, portrait 36 mm side vertical."
+  },
+  {
+   "name": "nose_vs_ear_magnification",
+   "units": "m, ratio",
+   "columns": [
+    "distance_to_nose_tip_m",
+    "magnification_ratio",
+    "excess_pct"
+   ],
+   "rows": [
+    [
+     0.3,
+     1.333,
+     33.3
+    ],
+    [
+     0.5,
+     1.2,
+     20.0
+    ],
+    [
+     1.0,
+     1.1,
+     10.0
+    ],
+    [
+     1.5,
+     1.067,
+     6.7
+    ],
+    [
+     2.0,
+     1.05,
+     5.0
+    ],
+    [
+     3.0,
+     1.033,
+     3.3
+    ],
+    [
+     5.0,
+     1.02,
+     2.0
+    ]
+   ],
+   "population": "pinhole model; nose-tip to ear-plane depth 0.10 m assumed (adult ~0.09-0.11 m)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Consistent with instagram-social-sculptors table. Ward et al. 2018 reported ~30% nasal base widening at ~30 cm vs ~1.5 m (recalled; to verify)."
+  },
+  {
+   "name": "phone_camera_equivalent_focal_lengths",
+   "units": "mm (35 mm-equivalent)",
+   "columns": [
+    "module",
+    "f_eq_min_mm",
+    "f_eq_max_mm"
+   ],
+   "rows": [
+    [
+     "ultrawide_0.5x",
+     13,
+     16
+    ],
+    [
+     "main_1x",
+     23,
+     28
+    ],
+    [
+     "front_selfie",
+     22,
+     30
+    ],
+    [
+     "2x_crop_or_tele",
+     46,
+     52
+    ],
+    [
+     "3x_tele",
+     70,
+     77
+    ],
+    [
+     "5x_periscope",
+     100,
+     125
+    ]
+   ],
+   "population": "2020s flagship smartphones; varies by model",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Time-sensitive expert knowledge; prefer EXIF FocalLengthIn35mmFilm per photo."
+  },
+  {
+   "name": "blender_real_scale_settings",
+   "units": "mixed (mm, faces)",
+   "columns": [
+    "setting",
+    "suggested_value",
+    "reason"
+   ],
+   "rows": [
+    [
+     "units",
+     "Metric, unit scale 1.0, display mm",
+     "camera distances become physical"
+    ],
+    [
+     "viewport_clip_start_mm",
+     "1-10",
+     "avoid clipping when zoomed onto lids"
+    ],
+    [
+     "voxel_remesh_size_mm",
+     "2-3 blocking; 0.5-1 refining",
+     "default voxel size suits larger objects"
+    ],
+    [
+     "multires_base_quads",
+     "2000-10000; likeness at levels 0-2 (<= ~150k faces)",
+     "each level x4 faces"
+    ],
+    [
+     "viewport_focal_length_mm",
+     "150-200 (if viewport sensor is doubled, ~75-100 mm full-frame equivalent)",
+     "default 50 mm viewport is believed to be ~25 mm full-frame equivalent"
+    ],
+    [
+     "background_image_opacity",
+     "0.4, Depth Front, Frame Method Stretch",
+     "Spotlight-style overlay"
+    ]
+   ],
+   "population": "life-size adult head (vertex-menton ~0.21-0.25 m)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Viewport doubled-sensor claim (zoom factor 2) is unverified; check against Blender source/manual."
+  },
+  {
+   "name": "fitting_priors",
+   "units": "mixed",
+   "columns": [
+    "parameter",
+    "condition",
+    "distribution",
+    "center",
+    "sigma"
+   ],
+   "rows": [
+    [
+     "focal_length_eq_mm",
+     "EXIF 35mm-eq present, uncropped",
+     "lognormal",
+     "EXIF value",
+     0.03
+    ],
+    [
+     "focal_length_eq_mm",
+     "physical focal length, guessed sensor",
+     "lognormal",
+     "computed value",
+     0.1
+    ],
+    [
+     "focal_length_eq_mm",
+     "no EXIF",
+     "lognormal",
+     50,
+     0.6
+    ],
+    [
+     "camera_distance_m",
+     "general",
+     "lognormal",
+     1.0,
+     0.7
+    ],
+    [
+     "camera_distance_m",
+     "selfie",
+     "uniform-ish range",
+     "0.3-0.6",
+     null
+    ],
+    [
+     "principal_point_frac_of_maxdim",
+     "uncropped",
+     "normal",
+     "image centre",
+     0.01
+    ],
+    [
+     "principal_point_frac_of_maxdim",
+     "cropped",
+     "normal",
+     "image centre",
+     0.1
+    ],
+    [
+     "radial_k1",
+     "main/tele lens",
+     "normal",
+     0.0,
+     0.02
+    ],
+    [
+     "ipd_mm",
+     "adult population",
+     "normal",
+     63.0,
+     3.7
+    ],
+    [
+     "ipd_mm",
+     "measured prescription PD (distance)",
+     "normal",
+     "measured",
+     1.0
+    ],
+    [
+     "symmetry_mirror_residual_mm",
+     "stages 1-2",
+     "normal",
+     0.0,
+     0.5
+    ],
+    [
+     "symmetry_mirror_residual_mm",
+     "stage 3",
+     "normal",
+     0.0,
+     2.5
+    ],
+    [
+     "landmark_noise_pct_iod",
+     "inner landmarks (canthi, nose, mouth corners)",
+     "normal",
+     0.0,
+     2.5
+    ],
+    [
+     "landmark_noise_pct_iod",
+     "brows",
+     "normal",
+     0.0,
+     5.0
+    ],
+    [
+     "landmark_noise_pct_iod",
+     "jaw contour (sliding)",
+     "normal",
+     0.0,
+     6.5
+    ],
+    [
+     "distinctiveness_factor_k",
+     "optional caricature slider",
+     "default",
+     1.0,
+     "range 0.9-1.2"
+    ],
+    [
+     "shape_key_slider_max",
+     "per fitting stage layer",
+     "default",
+     1.5,
+     null
+    ]
+   ],
+   "population": "adult faces; engine defaults (expert suggestions)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "IPD prior after Dodgson 2004 (mean ~63 mm); landmark noise and distinctiveness are contested heuristics."
+  }
+ ]
+}

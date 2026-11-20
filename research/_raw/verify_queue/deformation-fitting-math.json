@@ -1,0 +1,27 @@
+{
+ "id": "deformation-fitting-math",
+ "area": "reconstruction",
+ "title": "Math for landmark-driven mesh fitting",
+ "queue": [
+  {
+   "claim": "In 3D the biharmonic RBF kernel is phi(r)=r, and -r (not r) is conditionally positive definite of order 1. So regularised smoothing with K_ij=|ci-cj| must use (K - lambda I), while r^3 (order 2) and the 2D r^2 ln r use K + lambda I.",
+   "query": "polyharmonic spline conditionally positive definite sign (-1)^ceil(beta/2) r^beta smoothing spline K - lambda I 3D biharmonic kernel r",
+   "domains": ""
+  },
+  {
+   "claim": "Nielsen's LM damping update: on success mu <- mu*max(1/3, 1-(2rho-1)^3) and nu=2; on failure mu <- mu*nu, nu <- 2nu; initial mu0 = tau*max diag(J^T J), tau 1e-6 to 1e-3 (Madsen, Nielsen, Tingleff 2004).",
+   "query": "Madsen Nielsen Tingleff Methods for Non-Linear Least Squares Problems damping parameter update max(1/3, 1-(2rho-1)^3) tau 1e-6",
+   "domains": ""
+  },
+  {
+   "claim": "95%-Gaussian-efficiency tuning constants: Huber c=1.345 sigma, Cauchy c=2.385 sigma, Tukey biweight c=4.685 sigma; robust sigma = 1.4826*MAD.",
+   "query": "M-estimator tuning constants 95% efficiency Huber 1.345 Cauchy 2.385 Tukey 4.685",
+   "domains": ""
+  },
+  {
+   "claim": "Blender's bundled Python ships numpy but not SciPy (current 4.x/5.x releases), so the add-on must solve sparse systems with numpy-only CG or reduced bases.",
+   "query": "Blender bundled Python modules numpy scipy included 2026",
+   "domains": "docs.blender.org,devtalk.blender.org,projects.blender.org"
+  }
+ ]
+}

@@ -1,0 +1,609 @@
+{
+  "topic": "likeness-mistakes",
+  "tables": [
+    {
+      "name": "likeness_proportion_checks",
+      "units": "mm, degrees or dimensionless ratio as given in the units column",
+      "columns": [
+        "check",
+        "landmarks_or_definition",
+        "typical_low",
+        "typical_high",
+        "units",
+        "flag_rule",
+        "badge"
+      ],
+      "rows": [
+        [
+          "iris_diameter",
+          "HVID",
+          11.2,
+          12.2,
+          "mm",
+          "iris/en-ex outside 0.34-0.44",
+          "knowledge"
+        ],
+        [
+          "fissure_length",
+          "en-ex",
+          28,
+          33,
+          "mm",
+          "en-ex/ex-ex outside 0.29-0.36",
+          "knowledge"
+        ],
+        [
+          "fissure_height",
+          "upper to lower lid margin, primary gaze",
+          8,
+          11,
+          "mm",
+          "sclera visible above iris",
+          "knowledge"
+        ],
+        [
+          "mrd1",
+          "pupil centre to upper lid margin",
+          4,
+          5,
+          "mm",
+          "<2.5 or >6 without photo support",
+          "knowledge"
+        ],
+        [
+          "inferior_scleral_show",
+          "lower lid below inferior limbus",
+          0,
+          1,
+          "mm",
+          ">1.5",
+          "contested"
+        ],
+        [
+          "intercanthal_width",
+          "en-en",
+          28,
+          35,
+          "mm",
+          "en-en/en-ex outside 0.9-1.3; wider in East Asian and African-descent samples",
+          "knowledge"
+        ],
+        [
+          "canthal_tilt",
+          "ex above en",
+          2,
+          8,
+          "deg",
+          "sign differs from photo",
+          "contested"
+        ],
+        [
+          "hertel_corneal_protrusion",
+          "corneal apex ahead of lateral orbital rim",
+          12,
+          20,
+          "mm",
+          "outside range or L-R >2 mm; higher in African-descent samples",
+          "contested"
+        ],
+        [
+          "alar_width",
+          "al-al",
+          31,
+          40,
+          "mm",
+          "al-al/en-en outside 0.9-1.4; often >40 mm in African-descent samples",
+          "contested"
+        ],
+        [
+          "goode_ratio",
+          "tip projection / nasal length",
+          0.55,
+          0.6,
+          "ratio",
+          "<0.5",
+          "knowledge"
+        ],
+        [
+          "nasolabial_angle_male",
+          "columella to upper lip",
+          90,
+          105,
+          "deg",
+          ">15 deg off profile photo",
+          "knowledge"
+        ],
+        [
+          "nasolabial_angle_female",
+          "columella to upper lip",
+          95,
+          115,
+          "deg",
+          ">15 deg off profile photo",
+          "knowledge"
+        ],
+        [
+          "mouth_width",
+          "ch-ch",
+          46,
+          58,
+          "mm",
+          "see ratio row",
+          "knowledge"
+        ],
+        [
+          "mouth_to_ipd_ratio",
+          "ch-ch / IPD",
+          0.78,
+          0.9,
+          "ratio",
+          ">=1.0 at rest",
+          "knowledge"
+        ],
+        [
+          "upper_vermilion_height",
+          "ls-sto",
+          6,
+          9,
+          "mm",
+          "lower <= upper",
+          "contested"
+        ],
+        [
+          "lower_vermilion_height",
+          "sto-li",
+          8,
+          12,
+          "mm",
+          "lower <= upper",
+          "contested"
+        ],
+        [
+          "lower_to_upper_vermilion_ratio",
+          "(sto-li)/(ls-sto)",
+          1.1,
+          1.5,
+          "ratio",
+          "<=1.0; aesthetic 'ideals' 1.6-2.0 are preferences, not norms",
+          "contested"
+        ],
+        [
+          "upper_lip_to_E_line",
+          "ls to prn-pog' line (negative = behind)",
+          -6,
+          -2,
+          "mm",
+          "anterior to line (>0)",
+          "contested"
+        ],
+        [
+          "lower_lip_to_E_line",
+          "li to prn-pog' line (negative = behind)",
+          -4,
+          0,
+          "mm",
+          "anterior to line (>0)",
+          "contested"
+        ],
+        [
+          "ear_length",
+          "sa-sba",
+          57,
+          63,
+          "mm (population means)",
+          "adult <52",
+          "knowledge"
+        ],
+        [
+          "ear_width",
+          "pra-pa",
+          29,
+          33,
+          "mm (population means)",
+          "",
+          "knowledge"
+        ],
+        [
+          "ear_axis_tilt",
+          "long axis from vertical, Frankfort horizontal",
+          10,
+          30,
+          "deg",
+          "<5",
+          "knowledge"
+        ],
+        [
+          "ear_protrusion",
+          "helix to mastoid",
+          15,
+          20,
+          "mm",
+          "<10",
+          "contested"
+        ],
+        [
+          "tragion_vs_orbitale_height",
+          "vertical offset in Frankfort horizontal",
+          -4,
+          4,
+          "mm",
+          ">8 mm off",
+          "knowledge"
+        ],
+        [
+          "head_length",
+          "g-op",
+          175,
+          205,
+          "mm",
+          "short vs profile silhouette",
+          "contested"
+        ],
+        [
+          "head_breadth",
+          "eu-eu",
+          140,
+          160,
+          "mm",
+          "",
+          "contested"
+        ],
+        [
+          "cephalic_index",
+          "100*eu-eu/g-op",
+          75,
+          85,
+          "index",
+          "population dependent",
+          "contested"
+        ],
+        [
+          "mirror_rmsd_whole_face",
+          "RMS distance face vs registered mirror",
+          0.6,
+          1.0,
+          "mm",
+          "<0.3 over-symmetrised (see anatomy/facial-asymmetry.md for sourced 0.8 +/- 0.2)",
+          "knowledge"
+        ]
+      ],
+      "population": "adults, neutral expression; mostly European-derived norms (Farkas-type anthropometry) unless the flag rule notes otherwise",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Author expert knowledge, not yet verified against sources in this library; rows with badge 'contested' vary strongly by ancestry, age or source. Use as lint thresholds only for features the photos cannot observe; photo-supported values always win. tragion_vs_orbitale_height range is a working tolerance, not a measured norm."
+    },
+    {
+      "name": "pose_induced_apparent_shift",
+      "units": "mm (levers and shifts), deg (angle)",
+      "columns": [
+        "unsolved_error",
+        "what_moves",
+        "lever_low_mm",
+        "lever_high_mm",
+        "angle_deg",
+        "shift_low_mm",
+        "shift_high_mm"
+      ],
+      "rows": [
+        [
+          "roll",
+          "eye-height difference across IPD",
+          63,
+          63,
+          3,
+          3.3,
+          3.3
+        ],
+        [
+          "roll",
+          "eye-height difference across IPD",
+          63,
+          63,
+          5,
+          5.5,
+          5.5
+        ],
+        [
+          "roll",
+          "eye-height difference across IPD",
+          63,
+          63,
+          10,
+          10.9,
+          10.9
+        ],
+        [
+          "yaw",
+          "nose tip lateral shift vs canthal midpoint",
+          35,
+          50,
+          3,
+          1.8,
+          2.6
+        ],
+        [
+          "yaw",
+          "nose tip lateral shift vs canthal midpoint",
+          35,
+          50,
+          5,
+          3.1,
+          4.4
+        ],
+        [
+          "yaw",
+          "nose tip lateral shift vs canthal midpoint",
+          35,
+          50,
+          10,
+          6.1,
+          8.7
+        ],
+        [
+          "pitch",
+          "nose tip vertical shift vs eye line",
+          35,
+          50,
+          3,
+          1.8,
+          2.6
+        ],
+        [
+          "pitch",
+          "nose tip vertical shift vs eye line",
+          35,
+          50,
+          5,
+          3.1,
+          4.4
+        ],
+        [
+          "pitch",
+          "nose tip vertical shift vs eye line",
+          35,
+          50,
+          10,
+          6.1,
+          8.7
+        ],
+        [
+          "pitch",
+          "ear vertical shift vs eye line",
+          65,
+          80,
+          3,
+          3.4,
+          4.2
+        ],
+        [
+          "pitch",
+          "ear vertical shift vs eye line",
+          65,
+          80,
+          5,
+          5.7,
+          7.0
+        ],
+        [
+          "pitch",
+          "ear vertical shift vs eye line",
+          65,
+          80,
+          10,
+          11.3,
+          13.9
+        ]
+      ],
+      "population": "adult head; levers assumed: IPD 63 mm, outer canthi to nose tip depth 35-50 mm, outer canthi to tragion depth 65-80 mm",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Arithmetic shift = lever * sin(angle); cosine foreshortening <1.6% at 10 deg. Lever depths are author estimates. Shows why ear height, nose length and apparent asymmetry must not be read from a photo before pose is solved."
+    },
+    {
+      "name": "diagnostic_render_settings",
+      "units": "mixed (see units column)",
+      "columns": [
+        "diagnostic",
+        "parameter",
+        "default",
+        "low",
+        "high",
+        "units",
+        "notes"
+      ],
+      "rows": [
+        [
+          "blur_squint",
+          "gaussian_sigma",
+          0.03,
+          0.03,
+          0.05,
+          "fraction of face width",
+          "sigma = 0.187/f_c for half-amplitude cutoff f_c cycles per face width; 3-5% keeps <4-6 cycles/face"
+        ],
+        [
+          "thumbnail",
+          "face_width",
+          64,
+          48,
+          64,
+          "px",
+          "identity band ~8-16 cycles/face survives"
+        ],
+        [
+          "overlay",
+          "opacity",
+          0.5,
+          0.3,
+          0.5,
+          "alpha",
+          "camera background image, Depth Front"
+        ],
+        [
+          "blink",
+          "toggle_rate",
+          3,
+          2,
+          3,
+          "Hz",
+          "bpy.app.timers toggling background image visibility"
+        ],
+        [
+          "held_out",
+          "photos_withheld",
+          2,
+          2,
+          null,
+          "photos",
+          "never used by solver or sculptor"
+        ],
+        [
+          "texture_review",
+          "min_angle_from_projection_camera",
+          25,
+          20,
+          30,
+          "deg",
+          "judge shape away from the projecting photo"
+        ],
+        [
+          "viewport_lens",
+          "focal_length",
+          85,
+          85,
+          100,
+          "mm (35 mm equiv.)",
+          "Blender viewport default is 50 mm"
+        ],
+        [
+          "caricature_slider",
+          "alpha",
+          1.0,
+          0.8,
+          1.4,
+          "dimensionless",
+          "S(alpha) = M + alpha (S - M); test 1.1-1.3"
+        ]
+      ],
+      "population": "n/a (tool defaults)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Engineering defaults proposed by the author; blur and thumbnail values derive from spatial-frequency literature named in the note (Costen et al. 1996; Nasanen 1999) via Gaussian arithmetic. Blender UI names are time-sensitive."
+    },
+    {
+      "name": "likeness_prior_defaults",
+      "units": "mm or deg as given",
+      "columns": [
+        "parameter",
+        "mean",
+        "sigma",
+        "units",
+        "notes"
+      ],
+      "rows": [
+        [
+          "eyeball_radius",
+          12.0,
+          0.5,
+          "mm",
+          "globe sphere"
+        ],
+        [
+          "cornea_ahead_of_lateral_orbital_rim",
+          16.0,
+          2.5,
+          "mm",
+          "Hertel-type; widen sigma for African-descent sitters"
+        ],
+        [
+          "iris_diameter",
+          11.7,
+          0.5,
+          "mm",
+          "also a scale anchor"
+        ],
+        [
+          "mrd1",
+          4.5,
+          1.0,
+          "mm",
+          "upper lid margin to pupil centre"
+        ],
+        [
+          "ipd",
+          63.0,
+          3.5,
+          "mm",
+          "scale anchor; user measurement overrides"
+        ],
+        [
+          "ear_length",
+          60.0,
+          4.0,
+          "mm",
+          "adult; increases with age"
+        ],
+        [
+          "ear_axis_tilt",
+          20.0,
+          7.0,
+          "deg",
+          "from vertical in Frankfort horizontal"
+        ],
+        [
+          "ear_protrusion",
+          17.0,
+          4.0,
+          "mm",
+          "helix to mastoid"
+        ],
+        [
+          "tragion_height_vs_orbitale",
+          0.0,
+          4.0,
+          "mm",
+          "only after pitch is constrained by >=2 views or a profile"
+        ],
+        [
+          "sigma_sym",
+          2.0,
+          null,
+          "mm",
+          "engine default Priors.sigma_sym"
+        ],
+        [
+          "sigma_mid",
+          1.5,
+          null,
+          "mm",
+          "engine default Priors.sigma_mid"
+        ],
+        [
+          "over_symmetric_warning_rmsd",
+          0.3,
+          null,
+          "mm",
+          "warn below this mirror RMSD when photos show asymmetry"
+        ],
+        [
+          "perspective_slope_warning",
+          0.05,
+          null,
+          "fractional magnification",
+          "regress radial residual on rho*delta; warn above 5%"
+        ],
+        [
+          "shrinkage_warning_chi2_margin",
+          2.0,
+          null,
+          "SD of chi2_k",
+          "warn if ||c||^2 < k - 2*sqrt(2k)"
+        ]
+      ],
+      "population": "adults; mixed populations",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Proposed priors and thresholds for the fitting engine; none verified. sigma_sym and sigma_mid mirror the current face3d.solve.bundle.Priors defaults."
+    }
+  ]
+}

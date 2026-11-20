@@ -1,0 +1,18 @@
+{
+  "topic": "bpy-mesh-api",
+  "sources": [],
+  "references_by_name": [
+    "Blender Python API Reference: bpy_prop_collection.foreach_get/foreach_set, Mesh, ShapeKey, VertexGroup, CameraBackgroundImage, Image, bpy.app.timers, Operator modal templates, 'Gotchas' pages",
+    "Blender bmesh module and bmesh.ops documentation",
+    "Blender Developer Documentation: Python API release notes 4.0-4.5 and 5.0, compatibility index",
+    "Blender source: Mesh.from_pydata in bpy_types.py / _bpy_types.py",
+    "Blender source: BKE_camera_params_compute_viewplane in blenkernel/intern/camera.cc",
+    "Blender Extensions handbook: blender_manifest.toml schema and Python wheels guidance",
+    "Blender as a Python Module (bpy package on PyPI)",
+    "fake-bpy-module (community type stubs)",
+    "NumPy 2.0 migration guide",
+    "NEP 50 - Promotion rules for Python scalars",
+    "Library cross-reference: research/blender/blender-version-status-2026.md",
+    "Library cross-reference: research/blender/reference-camera-setup.md"
+  ]
+}

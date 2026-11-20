@@ -1,0 +1,27 @@
+{
+ "id": "face-perception-likeness",
+ "area": "anatomy",
+ "title": "Psychology of face recognition and likeness",
+ "queue": [
+  {
+   "claim": "Face identification relies most on a mid spatial-frequency band of about 8\u201316 cycles per face width (peak about 10). The note uses this to set the evaluation low-pass (form wavelengths of 9 mm or more on a 140 mm face) and the 64\u2013128 px thumbnail check.",
+   "query": "spatial frequency band face identification cycles per face width N\u00e4s\u00e4nen 1999 Costen Parker Craw 1996",
+   "domains": ""
+  },
+  {
+   "claim": "Removing the eyebrows from celebrity photos impaired recognition more than removing the eyes (Sadr, Jarudi & Sinha 2003, Perception).",
+   "query": "Sadr Jarudi Sinha 2003 role of eyebrows in face recognition Perception eyes removed",
+   "domains": ""
+  },
+  {
+   "claim": "Abudarham & Yovel 2016 (J Vision) found high perceptual sensitivity to lip thickness, eye shape, eyebrow thickness, eye colour and hair colour, and low sensitivity to eye distance, mouth size and face proportion.",
+   "query": "Abudarham Yovel 2016 reverse engineering the face space critical features lip thickness eyebrow thickness eye distance",
+   "domains": "jov.arvojournals.org,ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Best-likeness ratings peak at a slight positive caricature, roughly +5 to +20% exaggeration of the deviation from the norm (Rhodes, Brennan & Carey 1987; Benson & Perrett 1991).",
+   "query": "best likeness caricature percentage exaggeration Benson Perrett 1991 photographic caricatures Rhodes Brennan Carey 1987",
+   "domains": ""
+  }
+ ]
+}

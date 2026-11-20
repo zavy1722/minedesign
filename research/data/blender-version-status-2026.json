@@ -4,26 +4,29 @@
     {
       "name": "blender_release_timeline",
       "units": "ISO dates (YYYY-MM-DD where a day was given, YYYY-MM where only a month was given)",
-      "columns": ["version", "track", "release_date", "support_end", "date_kind", "source_urls"],
+      "columns": ["version", "track", "release_date", "support_end", "bundled_python", "row_status", "date_kind", "source_urls"],
       "rows": [
-        ["4.5", "LTS", null, "2027-07", "support_end from search snippet; release date not retrieved", ["https://www.blender.org/download/releases/"]],
-        ["5.0", "feature", "2025-11-18", null, "actual (search snippet)", ["https://www.blender.org/releases/5-0/", "https://developer.blender.org/docs/release_notes/5.0/"]],
-        ["5.1", "feature", "2026-03", null, "planned (2026 roadmap post)", ["https://www.blender.org/development/projects-to-look-forward-to-in-2026/"]],
-        ["5.2", "LTS", "2026-07-14", "2028-07", "actual (search snippet)", ["https://www.blender.org/download/releases/5-2/", "https://www.blender.org/releases/5-2/"]],
-        ["5.3", "feature", "2026-11-10", null, "listed as current stable on dev-docs index (snippet); plan said 2026-11", ["https://developer.blender.org/docs/release_notes/", "https://www.blender.org/development/projects-to-look-forward-to-in-2026/"]]
+        ["4.2", "LTS", "2024-07", "2026-07", "3.11", "knowledge", "expert knowledge; support end inferred from the two-year LTS rule; still targeted by MPFB2 2.0.18 and FaceFit", ["https://extensions.blender.org/add-ons/mpfb/versions/", "https://github.com/VGCLUB/facefit-mpfb"]],
+        ["4.5", "LTS", "2025-07", "2027-07", "3.11", "sourced", "support_end sourced (snippet); release month and Python are expert knowledge", ["https://www.blender.org/download/releases/"]],
+        ["5.0", "feature", "2025-11-18", null, "3.11 (likely)", "sourced", "date from snippet; Python inferred from 5.0.1 fixes for builds with Python >3.11 and 3.14 (contested)", ["https://www.blender.org/releases/5-0/", "https://developer.blender.org/docs/release_notes/5.0/", "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/"]],
+        ["5.1", "feature", "2026-03", null, "3.11 or 3.13 (unconfirmed)", "sourced", "planned date from 2026 roadmap post; Python contested", ["https://www.blender.org/development/projects-to-look-forward-to-in-2026/"]],
+        ["5.2", "LTS", "2026-07-14", "2028-07", null, "sourced", "actual (snippet); existence corroborated by third-party add-ons requiring/listing 5.2", ["https://www.blender.org/download/releases/5-2/", "https://www.blender.org/releases/5-2/", "https://github.com/Fragid/face-shapekey-rig", "https://superhivemarket.com/products/faceit"]],
+        ["5.3", "feature", "2026-11-10", null, null, "verified", "current stable per dev-docs index; 'latest' manual pages titled 5.3 in two harvests (first-party only); exact date single-source", ["https://developer.blender.org/docs/release_notes/", "https://docs.blender.org/manual/en/latest/render/cameras.html", "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"]]
       ],
-      "population": "Official Blender Foundation release pages (blender.org, developer.blender.org); one publisher",
+      "population": "Official Blender Foundation release pages plus third-party add-on listings",
       "source_urls": [
         "https://www.blender.org/download/releases/",
         "https://www.blender.org/releases/5-0/",
         "https://developer.blender.org/docs/release_notes/5.0/",
+        "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/",
         "https://www.blender.org/development/projects-to-look-forward-to-in-2026/",
         "https://www.blender.org/download/releases/5-2/",
         "https://www.blender.org/releases/5-2/",
-        "https://developer.blender.org/docs/release_notes/"
+        "https://developer.blender.org/docs/release_notes/",
+        "https://docs.blender.org/manual/en/latest/render/cameras.html"
       ],
-      "status": "single-source",
-      "notes": "All values come from search-result snippets collected by the harvester. No page was opened, and no independent cross-check was possible because the WebSearch budget was exhausted and developer.blender.org failed at DNS. The two-year LTS window (4.5 to July 2027, 5.2 July 2026 to July 2028) is internally consistent."
+      "status": "sourced",
+      "notes": "Per-row status in row_status. Bundled Python values are expert knowledge or inference; no input source states the bundled Python or NumPy of any 5.x release. Read sys.version_info and numpy.__version__ at runtime."
     },
     {
       "name": "blender_5_2_4_release_date_conflict",
@@ -35,28 +38,119 @@
         ["2026-11-17", "Blender Projects 5.2 LTS milestone, another view (planned date)", "https://projects.blender.org/blender/blender/milestone/33"]
       ],
       "population": "Official Blender pages",
-      "source_urls": [
-        "https://www.blender.org/download/releases/5-2/",
-        "https://projects.blender.org/blender/blender/milestone/33"
-      ],
+      "source_urls": ["https://www.blender.org/download/releases/5-2/", "https://projects.blender.org/blender/blender/milestone/33"],
       "status": "contested",
-      "notes": "Range 2026-11-10 to 2026-11-17. The milestone dates may be stale planned dates. Not resolved."
+      "notes": "Range 2026-11-10 to 2026-11-17. Milestone dates are probably stale planned dates."
     },
     {
-      "name": "blender_add_on_support_matrix_derived",
+      "name": "lts_support_windows_and_ci_matrix",
       "units": "date windows (YYYY-MM)",
-      "columns": ["window_start", "window_end", "lts_lines_supported"],
+      "columns": ["window_start", "window_end", "lts_lines_supported", "suggested_ci_matrix"],
       "rows": [
-        ["2026-07", "2027-07", ["4.5", "5.2"]],
-        ["2027-07", "2028-07", ["5.2"]]
+        ["2026-07", "2027-07", ["4.5", "5.2"], ["4.5", "5.2", "latest feature (5.3)", "daily alpha during beta"]],
+        ["2027-07", "2028-07", ["5.2", "July-2027 LTS (version unsourced)"], ["5.2", "new LTS", "latest feature"]]
       ],
-      "population": "Derived from blender_release_timeline support_end values",
-      "source_urls": [
-        "https://www.blender.org/download/releases/",
-        "https://www.blender.org/download/releases/5-2/"
+      "population": "Derived from blender_release_timeline",
+      "source_urls": ["https://www.blender.org/download/releases/", "https://www.blender.org/download/releases/5-2/"],
+      "status": "sourced",
+      "notes": "Second window's new LTS is expert-knowledge extrapolation of the yearly July LTS cadence."
+    },
+    {
+      "name": "bundled_python_numpy_history",
+      "units": "version strings",
+      "columns": ["blender_versions", "python", "numpy", "row_status"],
+      "rows": [
+        ["3.1-4.0", "3.10", "1.2x", "knowledge"],
+        ["4.1-4.5", "3.11", "approx 1.24-1.26", "knowledge"],
+        ["5.0", "3.11 (likely)", "unknown (1.26 or 2.x)", "contested"],
+        ["5.1-5.3", "3.11 or 3.13 (unconfirmed)", "unknown (1.26 or 2.x)", "contested"]
       ],
-      "status": "single-source",
-      "notes": "Computed from the snippet-level support-end dates. Any LTS due in July 2027 is not included because it was not sourced."
+      "population": "Official Blender builds (not distro builds against system Python)",
+      "source_urls": ["https://developer.blender.org/docs/release_notes/5.0/corrective_releases/"],
+      "status": "knowledge",
+      "notes": "Only the 5.0 row has indirect sourced evidence (5.0.1 fixes for builds with Python >3.11 and 3.14). Hypothesis for 5.1+: Blender tracks the VFX Reference Platform, whose CY2026 spec moved to Python 3.13. Never hard-code; probe at runtime."
+    },
+    {
+      "name": "api_breaking_changes_for_face_addon",
+      "units": "n/a (version, symbol, replacement, runtime probe)",
+      "columns": ["introduced_in", "area", "old", "new_or_replacement", "runtime_probe", "row_status"],
+      "rows": [
+        ["4.0", "operators", "bpy.ops.x(context_override_dict)", "with bpy.context.temp_override(...)", "always use temp_override", "knowledge"],
+        ["4.0", "gpu", "builtin shader '3D_UNIFORM_COLOR' etc.", "'UNIFORM_COLOR', 'POLYLINE_UNIFORM_COLOR'", "try gpu.shader.from_builtin('UNIFORM_COLOR')", "knowledge"],
+        ["4.1", "mesh normals", "mesh.use_auto_smooth, calc_normals_split()", "Smooth by Angle modifier, mesh.corner_normals", "hasattr(bpy.types.Mesh, 'corner_normals')", "knowledge"],
+        ["4.2", "packaging", "bl_info add-on", "blender_manifest.toml extension (wheels, permissions, platforms)", "__package__ startswith 'bl_ext.'", "knowledge"],
+        ["4.2", "network", "unrestricted downloads", "check bpy.app.online_access", "getattr(bpy.app, 'online_access', True)", "knowledge"],
+        ["4.3", "sculpt brushes", "tool_settings.sculpt.brush = bpy.data.brushes[...]", "bpy.ops.brush.asset_activate(...)", "hasattr(bpy.ops.brush, 'asset_activate')", "knowledge"],
+        ["4.3", "sculpt brushes", "Brush.sculpt_tool", "Brush.sculpt_brush_type", "'sculpt_brush_type' in bpy.types.Brush.bl_rna.properties", "knowledge"],
+        ["5.0", "mathutils", "np.asarray(Vector) -> float64 copy via sequence protocol", "buffer protocol: float32, non-contiguous view", "np.asarray(mathutils.Vector((0,0,0))).dtype", "sourced"],
+        ["5.0", "drawing", "bgl", "gpu module only", "never import bgl", "knowledge"],
+        ["5.0", "properties", "id['prop'] for bpy.props-defined properties", "attribute access (PointerProperty group)", "use attribute access only", "knowledge"],
+        ["5.0", "render", "'BLENDER_EEVEE_NEXT'", "'BLENDER_EEVEE'", "try/except TypeError on assignment", "knowledge"],
+        ["5.0", "compositor", "scene.node_tree / scene.use_nodes", "scene.compositing_node_group", "hasattr(bpy.types.Scene, 'compositing_node_group')", "knowledge"],
+        ["5.0", "io", "COLLADA import/export", "glTF / FBX / OBJ / USD", "hasattr(bpy.ops.wm, 'collada_export')", "knowledge"],
+        ["5.0", "animation", "Action.fcurves legacy API", "slotted action channelbags", "hasattr(bpy.types.Action, 'fcurves')", "knowledge"]
+      ],
+      "population": "Blender Python API, 4.0-5.0",
+      "source_urls": ["https://developer.blender.org/docs/release_notes/5.0/python_api/", "https://developer.blender.org/docs/release_notes/compatibility/"],
+      "status": "knowledge",
+      "notes": "Only the mathutils row is sourced. 5.0 knowledge rows carry moderate confidence (about 60-70 percent each) and must be confirmed against the 5.0 Python API notes and the compatibility index."
+    },
+    {
+      "name": "precision_constants_and_tolerances",
+      "units": "dimensionless or metres as stated",
+      "columns": ["quantity", "value", "units", "row_status"],
+      "rows": [
+        ["float32 machine epsilon", 1.1920929e-07, "relative", "knowledge"],
+        ["float64 machine epsilon", 2.220446e-16, "relative", "knowledge"],
+        ["float32 spacing at 0.1 m", 7.45e-09, "m", "knowledge"],
+        ["float32 spacing at 1.0 m", 1.19e-07, "m", "knowledge"],
+        ["round-trip atol (suggested)", 1e-06, "x head scale s", "knowledge"],
+        ["convergence relative cost change (suggested)", 1e-10, "relative", "knowledge"],
+        ["convergence step (suggested)", 1e-08, "x head scale s", "knowledge"],
+        ["golden-file rtol (suggested)", 1e-05, "relative", "knowledge"],
+        ["head scale s, bizygomatic width (adult, approx)", [0.13, 0.15], "m", "knowledge"],
+        ["head length glabella-opisthocranion (adult, approx)", [0.18, 0.2], "m", "knowledge"]
+      ],
+      "population": "IEEE 754 arithmetic; adult head dimensions approximate",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Suggested defaults for the fitting engine, not measured values. Head dimensions are rough adult ranges for scaling tolerances only."
+    },
+    {
+      "name": "mesh_size_reference",
+      "units": "vertex or face counts",
+      "columns": ["item", "value", "row_status"],
+      "rows": [
+        ["FLAME template vertices", 5023, "knowledge"],
+        ["MakeHuman/MPFB whole-body base vertices (approx)", 13000, "knowledge"],
+        ["Multires faces at level L", "base_faces * 4**L", "knowledge"],
+        ["Multires, 20k-face base, L3", 1280000, "knowledge"],
+        ["Multires, 20k-face base, L4", 5120000, "knowledge"],
+        ["Multires, 20k-face base, L5", 20480000, "knowledge"],
+        ["Voxel remesh faces (approx)", "surface_area / voxel_size**2; whole head at 1 mm approx 1e5", "knowledge"],
+        ["foreach_get/set speed-up vs per-vertex Python loop", "approx 10-100x", "knowledge"]
+      ],
+      "population": "Typical head meshes in Blender",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Order-of-magnitude planning numbers; verify FLAME/MPFB vertex counts against their own docs."
+    },
+    {
+      "name": "blender_camera_to_pinhole",
+      "units": "pixels, millimetres",
+      "columns": ["quantity", "formula", "row_status"],
+      "rows": [
+        ["fitted sensor dimension S (px)", "AUTO: max(W,H); HORIZONTAL: W; VERTICAL: H", "sourced"],
+        ["focal length f (px)", "lens_mm * S / sensor_mm (sensor_width for AUTO/HORIZONTAL, sensor_height for VERTICAL)", "knowledge"],
+        ["principal point cx (px)", "W/2 - shift_x * S", "knowledge"],
+        ["principal point cy (px, y down)", "H/2 + shift_y * S", "knowledge"],
+        ["camera axes", "Blender camera looks down -Z, +Y up; OpenCV = Blender * diag(1,-1,-1)", "knowledge"],
+        ["render resolution", "scene-wide, not per camera", "knowledge"]
+      ],
+      "population": "Blender camera API (stable since 2.8x)",
+      "source_urls": ["https://docs.blender.org/manual/en/latest/render/cameras.html"],
+      "status": "knowledge",
+      "notes": "Only the AUTO sensor-fit semantics are sourced. Pixel aspect assumed 1. Some tools use (W-1)/2 pixel-centre convention; pick one and keep it consistent."
     }
   ]
 }

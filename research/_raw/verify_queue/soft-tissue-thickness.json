@@ -1,0 +1,27 @@
+{
+ "id": "soft-tissue-thickness",
+ "area": "anatomy",
+ "title": "Facial soft-tissue thickness (forensic tissue depth tables)",
+ "queue": [
+  {
+   "claim": "Pooled adult FSTT means used as engine defaults: glabella ~5.5, nasion ~6-6.5, rhinion ~3, mid-philtrum ~11-12, pogonion ~11, gnathion ~8, menton ~7, gonion ~11-12, mid-masseter/occlusal ~17-19 mm (Stephan T-table / 2018 tally)",
+   "query": "Stephan 2018 tallied facial soft tissue thicknesses adults T-table mean glabella nasion rhinion pogonion gonion mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov,sciencedirect.com,link.springer.com"
+  },
+  {
+   "claim": "Rhine & Moore 1984 American Caucasoid normal-build values, e.g. male supraglabella 4.25, glabella 5.25, nasion 6.5, end of nasals 3.0, mid-philtrum 10.0, inferior malar 13.25, gonion 11.5, supra-M2 19.5, occlusal line 18.25; female glabella 4.75, nasion 5.5, gonion 12.0",
+   "query": "Rhine Moore 1984 facial tissue thickness American Caucasoids table supraglabella 4.25 glabella 5.25 nasion 6.50 male normal",
+   "domains": ""
+  },
+  {
+   "claim": "BMI effect magnitudes: ~0.1-0.2 mm per BMI unit at thin midline sites and ~0.3-0.7 mm per unit at cheek/jaw/submental (beta_bmi 0.01-0.05 log-units); De Greef 2006 was ultrasound on 967 adults at ~52 landmarks stratified by BMI and age",
+   "query": "De Greef 2006 large-scale in vivo Caucasian facial soft tissue thickness database ultrasound 967 BMI age landmarks",
+   "domains": "pubmed.ncbi.nlm.nih.gov,sciencedirect.com,lirias.kuleuven.be"
+  },
+  {
+   "claim": "Sex differences depend on the site: men +1 to +2.5 mm at philtrum and lips; women equal or thicker at inferior malar, infraorbital and gonion (delta_sex defaults)",
+   "query": "facial soft tissue thickness sex differences females thicker malar gonion males thicker philtrum lips CT CBCT study",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

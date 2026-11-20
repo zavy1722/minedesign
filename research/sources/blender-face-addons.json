@@ -17,5 +17,20 @@
     {"n": 14, "title": "mpfb2 LICENSE.CODE.md", "url": "https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md", "kind": "licence-file", "year": "n.d."},
     {"n": 15, "title": "makehuman-plugin-for-blender (MPFB1, deprecated)", "url": "https://github.com/makehumancommunity/makehuman-plugin-for-blender", "kind": "repo", "year": "n.d."},
     {"n": 16, "title": "kblood/CharacterCreator LICENSE-NOTES.md (third-party notes)", "url": "https://github.com/kblood/CharacterCreator/blob/master/LICENSE-NOTES.md", "kind": "third-party-notes", "year": "n.d."}
+  ],
+  "references_by_name": [
+    "Kartynnik, Ablavatski, Grishchenko, Grundmann, 'Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs', 2019 (MediaPipe Face Mesh)",
+    "Grishchenko et al., 'Attention Mesh: High-fidelity Face Mesh Prediction in Real-time', 2020",
+    "Ablavatski et al., 'Real-time Pupil Tracking from Monocular Video for Digital Puppetry', 2020 (MediaPipe Iris; 11.7 mm iris figure)",
+    "Li, Bolkart, Black, Li, Romero, 'Learning a model of facial shape and expression from 4D scans' (FLAME), SIGGRAPH Asia 2017",
+    "Paysan et al., 'A 3D Face Model for Pose and Illumination Invariant Face Recognition' (Basel Face Model), 2009",
+    "Li et al., 'Learning Formation of Physically-Based Face Attributes' (ICT-FaceKit), CVPR 2020",
+    "Sorkine et al., 'Laplacian Surface Editing', 2004",
+    "Sorkine & Alexa, 'As-Rigid-As-Possible Surface Modeling', 2007",
+    "Amberg, Romdhani, Vetter, 'Optimal Step Nonrigid ICP Algorithms for Surface Registration', CVPR 2007",
+    "Dodgson, 'Variation and extrema of human interpupillary distance', 2004",
+    "Apple ARKit documentation, ARFaceAnchor.BlendShapeLocation",
+    "Blender Manual: Extensions and blender_manifest.toml",
+    "Blender Manual: Rigify"
   ]
 }

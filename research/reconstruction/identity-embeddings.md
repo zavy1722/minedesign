@@ -147,8 +147,8 @@
 - **Myth: "MICA trains with an ArcFace identity loss."** The primary source as harvested [3] and expert reading agree that ArcFace is MICA's partly fine-tuned *encoder* and the loss is 3D geometry. Identity losses belong to Genova, Deng, GANFIT and DECA. 📄
 - **Myth: "a higher identity score means more accurate geometry."** Recognisers are trained to be invariant [3] and they see texture. Human studies also find surface reflectance about as important as shape (Russell & Sinha 2007). Without the C/G controls, a high score says little about form. 🧠
 - **Thresholds disagree.** Published values include cos 0.5 [9], 0.32–0.36 from library defaults, and FaceNet's squared-L2 scale [5]. They are incomparable without fixing model, metric and FAR. ↔️ The harvester's "0.08–0.09" value had no source, so it was dropped.
-- **"ArcFace scores 99.83 % on LFW."** This is plausible for R100/MS1MV2 and is also the figure on the buffalo_l zoo row, but it has not been checked against the paper. 🧠
-- **Which benchmark MICA's 24 % refers to.** The harvest says the NoW metric variant, while the sibling note says MICA's own metric benchmark. ↔️
+- **"ArcFace scores 99.83 % on LFW."** This is plausible for R100/MS1MV2 and, from memory, also appears on the buffalo_l zoo row, but neither has been checked. 🧠
+- **Which benchmark MICA's 24 % refers to.** The harvest says the NoW metric variant, while the single-image-regression note says MICA's own metric benchmark. ↔️
 - **"Mirror X equals the official buffalo_l."** This is unverified [8][10]. ↔️
 - **Licences.** Do the InsightFace weights have commercial terms on request? Are the SFace, dlib and AdaFace weights genuinely permissive? ↔️
 - **Open questions:** how much of the score on 3D renders is texture rather than geometry (no study found); whether a depth- or normal-map 3D recogniser could serve as a geometry-only scorer; impostor calibration for under-represented groups; the exact 2025–26 EU AI Act changes ("digital omnibus" delays); whether ViT or AdaFace successors track sculpt edits better than R50.

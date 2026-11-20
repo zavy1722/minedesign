@@ -1,0 +1,19 @@
+{
+  "topic": "youtube-likeness-blender",
+  "sources": [],
+  "references_by_name": [
+    "KeenTools FaceBuilder for Blender documentation and the KeenTools YouTube channel",
+    "Blender Manual: Sculpt Mode (Multiresolution, Dynamic Topology, Voxel Remesh, Brushes); Cameras and Background Images; Image empties",
+    "Blender Studio, Human Base Meshes asset bundle (2023)",
+    "Julien Kaspar, Blender Studio sculpting training",
+    "YouTube channels (names only): YanSculpts; Grant Abbitt; Danny Mac 3D; Zacharias Reinhardt; FlippedNormals; Pablo Munoz Gomez (ZBrushGuides); Anatomy for Sculptors; Proko; CG Geek; Creative Shrimp; Reallusion; Unreal Engine",
+    "AliceVision/Meshroom documentation; fSpy documentation and the fSpy-Blender importer",
+    "CC/iC Blender Tools add-on (Character Creator to Blender); Epic Games, Mesh to MetaHuman documentation",
+    "Leslie G. Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+    "Ward et al., Nasal distortion in short-distance photographs: the selfie effect, JAMA Facial Plastic Surgery, 2018",
+    "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+    "Uldis Zarins & Sandis Kondrats, Anatomy for Sculptors, 2014",
+    "John Asaro, Planes of the Head model",
+    "Rhodes, Brennan & Carey, Identification and ratings of caricatures, Cognitive Psychology, 1987"
+  ]
+}

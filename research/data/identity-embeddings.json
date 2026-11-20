@@ -4,68 +4,518 @@
     {
       "name": "mica_now_error_reduction",
       "units": "percent lower average reconstruction error vs prior state of the art",
-      "columns": ["variant", "error_reduction_percent"],
-      "rows": [["non-metric", 15], ["metric", 24]],
-      "population": "NoW benchmark (sample size not retrieved)",
-      "source_urls": ["https://arxiv.org/abs/2204.06607"],
-      "status": "single-source",
-      "notes": "From the MICA abstract via search snippet; not cross-checked (search budget exhausted)."
+      "columns": [
+        "variant",
+        "error_reduction_percent"
+      ],
+      "rows": [
+        [
+          "non-metric (NoW)",
+          15
+        ],
+        [
+          "metric",
+          24
+        ]
+      ],
+      "population": "NoW benchmark / metric evaluation (sample size not retrieved)",
+      "source_urls": [
+        "https://arxiv.org/abs/2204.06607"
+      ],
+      "status": "sourced",
+      "notes": "Authors' own claim from the MICA abstract via search snippet. Which benchmark the 24% refers to is phrased differently across library notes (NoW metric variant vs MICA's own metric benchmark): treat that row as contested."
     },
     {
       "name": "mica_arcface_finetuning",
       "units": "count of ResNet blocks",
-      "columns": ["setting", "value"],
-      "rows": [["arcface_resnet_blocks_finetuned", 3]],
+      "columns": [
+        "setting",
+        "value"
+      ],
+      "rows": [
+        [
+          "arcface_resnet_blocks_finetuned",
+          3
+        ]
+      ],
       "population": "n/a (model design)",
-      "source_urls": ["https://arxiv.org/abs/2204.06607"],
-      "status": "single-source",
-      "notes": "Rest of ArcFace frozen; authors report that fine-tuning more layers overfits. MICA's loss is a masked supervised 3D geometry loss, not an ArcFace identity loss."
+      "source_urls": [
+        "https://arxiv.org/abs/2204.06607"
+      ],
+      "status": "sourced",
+      "notes": "Rest of ArcFace frozen; authors report fine-tuning more layers overfits. MICA's training loss is a masked supervised 3D geometry loss, not an ArcFace identity loss."
     },
     {
       "name": "insightface_buffalo_l_files",
       "units": "MB (approximate), embedding dimension",
-      "columns": ["file", "role", "approx_size_mb", "output_dim"],
+      "columns": [
+        "file",
+        "role",
+        "approx_size_mb",
+        "output_dim"
+      ],
       "rows": [
-        ["buffalo_l (pack)", "SCRFD-10GF detection + ResNet50 recognition trained on WebFace600K", 326, null],
-        ["w600k_r50.onnx", "identity embedding (ResNet50)", 166, 512],
-        ["det_10g.onnx", "face detection (SCRFD)", null, null]
+        [
+          "buffalo_l (pack)",
+          "SCRFD-10GF detection + ResNet50 recognition trained on WebFace600K",
+          326,
+          null
+        ],
+        [
+          "w600k_r50.onnx",
+          "identity embedding (ResNet50)",
+          166,
+          512
+        ],
+        [
+          "det_10g.onnx",
+          "face detection (SCRFD)",
+          null,
+          null
+        ]
       ],
       "population": "n/a (software artefacts)",
       "source_urls": [
         "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md",
         "https://github.com/wangyifan349/insightface-face-similarity"
       ],
-      "status": "single-source",
-      "notes": "Pack size from the official model zoo; per-file size and 512-d from a third-party README. Model weights reported (secondary) as non-commercial research only; verify the official licence. No SHA-256 hashes confirmed."
+      "status": "sourced",
+      "notes": "Pack size from the official model zoo; per-file size and 512-d from a third-party README. Weights reported (secondary) as non-commercial research only; verify the official licence. No SHA-256 hashes confirmed. From knowledge (unverified): pack also contains 2d106det.onnx, 1k3d68.onnx, genderage.onnx."
     },
     {
       "name": "reported_verification_figures",
       "units": "percent accuracy / cosine similarity",
-      "columns": ["item", "value", "metric", "dataset"],
+      "columns": [
+        "item",
+        "value",
+        "metric",
+        "dataset"
+      ],
       "rows": [
-        ["FaceNet verification accuracy", 99.63, "accuracy_percent", "LFW"],
-        ["conventional fixed cosine threshold (cited secondhand)", 0.5, "cosine_similarity", "LFW-based study"]
+        [
+          "FaceNet verification accuracy",
+          99.63,
+          "accuracy_percent",
+          "LFW"
+        ],
+        [
+          "conventional fixed cosine threshold (cited secondhand)",
+          0.5,
+          "cosine_similarity",
+          "LFW-based study"
+        ]
       ],
       "population": "LFW (10-fold protocol)",
-      "source_urls": ["https://arxiv.org/pdf/1503.03832.pdf", "https://arxiv.org/pdf/2012.14305"],
-      "status": "single-source",
-      "notes": "FaceNet figure came from a search summary, not the paper text. The 0.5 threshold is a secondary mention and the adaptive method beat it; it is not a recommended default. Thresholds are model- and dataset-specific; calibrate on your own labelled pairs."
+      "source_urls": [
+        "https://arxiv.org/pdf/1503.03832.pdf",
+        "https://arxiv.org/pdf/2012.14305"
+      ],
+      "status": "sourced",
+      "notes": "FaceNet figure from a search summary, not paper text. The 0.5 threshold is a secondary mention and the adaptive method beat it; not a recommended default."
     },
     {
       "name": "cosine_l2_conversion_unit_vectors",
       "units": "dimensionless; angle in degrees",
-      "columns": ["cosine", "squared_l2", "l2", "angle_deg"],
+      "columns": [
+        "cosine",
+        "squared_l2",
+        "l2",
+        "angle_deg"
+      ],
       "rows": [
-        [1.0, 0.0, 0.0, 0.0],
-        [0.7, 0.6, 0.775, 45.6],
-        [0.5, 1.0, 1.0, 60.0],
-        [0.3, 1.4, 1.183, 72.5],
-        [0.0, 2.0, 1.414, 90.0]
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.6,
+          0.775,
+          45.6
+        ],
+        [
+          0.5,
+          1.0,
+          1.0,
+          60.0
+        ],
+        [
+          0.3,
+          1.4,
+          1.183,
+          72.5
+        ],
+        [
+          0.0,
+          2.0,
+          1.414,
+          90.0
+        ]
       ],
       "population": "n/a (algebraic identity d^2 = 2 - 2 cos for L2-normalised embeddings)",
-      "source_urls": ["https://arxiv.org/pdf/1503.03832.pdf"],
+      "source_urls": [
+        "https://arxiv.org/pdf/1503.03832.pdf"
+      ],
       "status": "verified",
-      "notes": "Rows are computed arithmetic, verified by derivation, not empirical values; they are not recommended thresholds."
+      "notes": "Computed arithmetic verified by derivation; not thresholds."
+    },
+    {
+      "name": "arcface_alignment_template_112",
+      "units": "pixels in a 112x112 crop (x, y)",
+      "columns": [
+        "keypoint",
+        "x_px",
+        "y_px"
+      ],
+      "rows": [
+        [
+          "left_eye",
+          38.2946,
+          51.6963
+        ],
+        [
+          "right_eye",
+          73.5318,
+          51.5014
+        ],
+        [
+          "nose_tip",
+          56.0252,
+          71.7366
+        ],
+        [
+          "left_mouth_corner",
+          41.5493,
+          92.3655
+        ],
+        [
+          "right_mouth_corner",
+          70.7299,
+          92.2041
+        ]
+      ],
+      "population": "n/a (InsightFace canonical arcface_dst template)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "From InsightFace face_align code as remembered; verify before hard-coding. Derived inter-ocular distance ~35.2 px. Use a similarity (4-DoF) transform, not a full affine."
+    },
+    {
+      "name": "arcface_onnx_preprocessing",
+      "units": "mixed",
+      "columns": [
+        "parameter",
+        "value"
+      ],
+      "rows": [
+        [
+          "input_shape",
+          "1x3x112x112 float32"
+        ],
+        [
+          "channel_order",
+          "RGB"
+        ],
+        [
+          "input_mean",
+          127.5
+        ],
+        [
+          "input_std",
+          127.5
+        ],
+        [
+          "normalisation_exception",
+          "if graph begins with Sub/Mul nodes use mean 0, std 1 (raw 0-255)"
+        ],
+        [
+          "output_dim",
+          512
+        ],
+        [
+          "output_normalised",
+          false
+        ],
+        [
+          "scrfd_det_size",
+          "640x640"
+        ],
+        [
+          "scrfd_det_thresh",
+          0.5
+        ]
+      ],
+      "population": "n/a (InsightFace ArcFaceONNX / FaceAnalysis defaults)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Read input/output shapes from the ONNX graph at load time rather than trusting these values. Time-sensitive (package versions)."
+    },
+    {
+      "name": "margin_loss_hyperparameters",
+      "units": "scale s (dimensionless), margin m (radians or cosine units)",
+      "columns": [
+        "loss",
+        "margin_form",
+        "s",
+        "m"
+      ],
+      "rows": [
+        [
+          "SphereFace",
+          "cos(m*theta)",
+          null,
+          4
+        ],
+        [
+          "CosFace",
+          "cos(theta) - m",
+          64,
+          0.35
+        ],
+        [
+          "ArcFace",
+          "cos(theta + m)",
+          64,
+          0.5
+        ],
+        [
+          "AdaFace",
+          "feature-norm-adaptive angular+additive margin",
+          64,
+          0.4
+        ]
+      ],
+      "population": "n/a (published training defaults)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Recalled defaults; AdaFace also uses h ~0.333 concentration. Only relevant if training or fine-tuning a recogniser/regressor."
+    },
+    {
+      "name": "similarity_score_anchors",
+      "units": "cosine similarity unless stated",
+      "columns": [
+        "anchor",
+        "model",
+        "value_low",
+        "value_high",
+        "status"
+      ],
+      "rows": [
+        [
+          "LFW-study fixed threshold",
+          "unspecified",
+          0.5,
+          0.5,
+          "sourced"
+        ],
+        [
+          "OpenCV FaceRecognizerSF sample threshold (L2 1.128 equivalent)",
+          "SFace 128-d",
+          0.363,
+          0.363,
+          "knowledge"
+        ],
+        [
+          "deepface default (cos distance ~0.68 / L2 ~1.13)",
+          "ArcFace Keras port",
+          0.32,
+          0.36,
+          "knowledge"
+        ],
+        [
+          "practitioner same-person decision range",
+          "buffalo_l / antelopev2",
+          0.28,
+          0.45,
+          "contested"
+        ],
+        [
+          "genuine pairs, good frontal photos",
+          "buffalo_l",
+          0.5,
+          0.8,
+          "knowledge"
+        ],
+        [
+          "impostor pairs",
+          "buffalo_l",
+          -0.1,
+          0.2,
+          "knowledge"
+        ],
+        [
+          "random unit-vector SD, d=512",
+          "math",
+          0.044,
+          0.044,
+          "knowledge"
+        ]
+      ],
+      "population": "various; not portable between models, metrics or image domains (renders score lower than photos)",
+      "source_urls": [
+        "https://arxiv.org/pdf/2012.14305"
+      ],
+      "status": "contested",
+      "notes": "Use only as sanity anchors. Calibrate per model and per subject with genuine and demographically matched impostor distributions."
+    },
+    {
+      "name": "likeness_scorecard_defaults",
+      "units": "mixed",
+      "columns": [
+        "parameter",
+        "default",
+        "range",
+        "reason"
+      ],
+      "rows": [
+        [
+          "reference_photos_per_subject",
+          "6-10",
+          ">=3",
+          "estimate genuine ceiling"
+        ],
+        [
+          "scored_yaw_deg",
+          "0, +/-25, +/-45",
+          "|yaw|<=60",
+          "5-point alignment fails near profile"
+        ],
+        [
+          "min_source_interocular_px",
+          60,
+          "floor 35; >=90 preferred",
+          "avoid upsampling to ~35 px template IOD"
+        ],
+        [
+          "render_face_width_px",
+          450,
+          "4-8x crop",
+          "aliasing"
+        ],
+        [
+          "blender_view_transform",
+          "Standard",
+          "-",
+          "AgX/Filmic tone curves"
+        ],
+        [
+          "impostor_set_size",
+          100,
+          "50-500",
+          "z-normalisation statistics"
+        ],
+        [
+          "keypoint_drift_alarm_px_in_112_crop",
+          3,
+          "2-4",
+          "camera or geometry mismatch"
+        ],
+        [
+          "view_spread_alarm_cosine",
+          0.1,
+          "0.08-0.15",
+          "pose/camera error rather than shape"
+        ],
+        [
+          "recognisers",
+          2,
+          "one held out for stopping",
+          "Goodhart"
+        ],
+        [
+          "flip_tta",
+          false,
+          "-",
+          "flip averaging hides asymmetry"
+        ]
+      ],
+      "population": "design heuristics for this add-on; not empirically validated",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Tune on held-out subjects."
+    },
+    {
+      "name": "identity_prior_and_loss_defaults",
+      "units": "FLAME shape coefficients in SD units; cosine; fraction of energy; pixels",
+      "columns": [
+        "parameter",
+        "default",
+        "notes"
+      ],
+      "rows": [
+        [
+          "mica_prior_center",
+          "coordinate-wise median of per-photo MICA beta",
+          "robust to outlier photos"
+        ],
+        [
+          "mica_prior_sigma",
+          "max(1.4826*MAD_k, sigma_floor)",
+          "per coefficient"
+        ],
+        [
+          "sigma_floor_first_20_50_components",
+          0.5,
+          "informative but loose"
+        ],
+        [
+          "sigma_floor_remaining_components",
+          1.0,
+          "population prior"
+        ],
+        [
+          "id_loss_enabled",
+          false,
+          "off by default"
+        ],
+        [
+          "id_loss_target_increment_cos",
+          0.05,
+          "above post-landmark score, capped at genuine ceiling"
+        ],
+        [
+          "id_loss_max_energy_fraction",
+          0.15,
+          "range 0.10-0.20 at convergence"
+        ],
+        [
+          "step_gate_max_landmark_rms_increase_px",
+          0.5,
+          "reject step otherwise"
+        ],
+        [
+          "step_gate_prior_bound_sigma",
+          3,
+          "per coefficient"
+        ],
+        [
+          "zeroth_order_max_coefficients",
+          50,
+          "SPSA or CMA-ES; no ONNX gradients in Blender"
+        ],
+        [
+          "eot_shift_px",
+          2,
+          "augmentation"
+        ],
+        [
+          "eot_scale_pct",
+          3,
+          "augmentation"
+        ],
+        [
+          "eot_roll_deg",
+          3,
+          "augmentation"
+        ]
+      ],
+      "population": "design heuristics; unsourced",
+      "source_urls": [
+        "https://arxiv.org/abs/2204.06607"
+      ],
+      "status": "knowledge",
+      "notes": "Only the 'fine-tune at most last 3 blocks' rule is sourced [MICA]; everything here is a starting point to tune on held-out scans."
     }
   ]
 }

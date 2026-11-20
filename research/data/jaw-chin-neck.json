@@ -1,0 +1,720 @@
+{
+ "topic": "jaw-chin-neck",
+ "tables": [
+  {
+   "name": "mandible_bone_norms",
+   "units": "deg, mm",
+   "columns": [
+    "quantity",
+    "sex",
+    "low",
+    "high",
+    "typical",
+    "notes"
+   ],
+   "rows": [
+    [
+     "gonial_angle_deg",
+     "all",
+     110,
+     135,
+     122,
+     "adult; mean ~120-125"
+    ],
+    [
+     "gonial_angle_sex_diff_deg",
+     "M_minus_F",
+     -6,
+     -2,
+     -4,
+     "large overlap; some samples n.s."
+    ],
+    [
+     "gonial_angle_newborn_deg",
+     "all",
+     150,
+     160,
+     155,
+     ""
+    ],
+    [
+     "SN_MP_deg",
+     "all",
+     27,
+     37,
+     32,
+     "Steiner; <27 hypo, >37 hyperdivergent"
+    ],
+    [
+     "FMA_deg",
+     "all",
+     20,
+     30,
+     25,
+     "Tweed"
+    ],
+    [
+     "ramus_height_Co_Go_mm",
+     "M",
+     55,
+     65,
+     60,
+     "cephalometric"
+    ],
+    [
+     "ramus_height_Co_Go_mm",
+     "F",
+     50,
+     58,
+     54,
+     "cephalometric"
+    ],
+    [
+     "mandibular_length_Co_Gn_mm",
+     "M",
+     125,
+     135,
+     130,
+     "McNamara-type"
+    ],
+    [
+     "mandibular_length_Co_Gn_mm",
+     "F",
+     115,
+     125,
+     120,
+     "McNamara-type"
+    ],
+    [
+     "bigonial_width_bone_mm",
+     "M",
+     90,
+     105,
+     97,
+     "caliper/CT bone, not photo silhouette"
+    ],
+    [
+     "bigonial_width_bone_mm",
+     "F",
+     84,
+     97,
+     90,
+     "caliper/CT bone, not photo silhouette"
+    ],
+    [
+     "gogo_over_zyzy_ratio",
+     "all",
+     0.7,
+     0.8,
+     0.75,
+     "bone-to-bone"
+    ],
+    [
+     "symphysis_height_Id_Me_mm",
+     "all",
+     28,
+     36,
+     32,
+     "M > F"
+    ],
+    [
+     "condyle_anterior_to_tragus_mm",
+     "all",
+     10,
+     15,
+     12,
+     "jaw pivot placement"
+    ],
+    [
+     "max_interincisal_opening_mm",
+     "all",
+     40,
+     55,
+     47,
+     "rotation first ~20-25 mm then translation"
+    ],
+    [
+     "freeway_space_mm",
+     "all",
+     2,
+     4,
+     3,
+     "rest vertical gap"
+    ]
+   ],
+   "population": "Mixed adult cephalometric/dry-bone norms, mostly white North American/European",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert knowledge, not yet verified. Gonial angle ~120 deg is sourced in anatomy/skull-osteology.md. Sex difference and ramus/length/bigonial ranges are partly contested."
+  },
+  {
+   "name": "chin_lower_face_profile_norms",
+   "units": "mm, deg, ratio",
+   "columns": [
+    "measure",
+    "norm_mean",
+    "norm_sd_or_halfrange",
+    "reference",
+    "notes"
+   ],
+   "rows": [
+    [
+     "lower_lip_to_E_line_mm",
+     -2,
+     2,
+     "Ricketts",
+     "negative = behind line; ancestry/age dependent"
+    ],
+    [
+     "upper_lip_to_E_line_mm",
+     -4,
+     2,
+     "Ricketts",
+     "ancestry/age dependent"
+    ],
+    [
+     "H_angle_deg",
+     11,
+     4,
+     "Holdaway",
+     "range 7-15"
+    ],
+    [
+     "facial_convexity_G_Sn_Pog_deg",
+     12,
+     4,
+     "Legan-Burstone",
+     ""
+    ],
+    [
+     "Z_angle_deg",
+     80,
+     5,
+     "Merrifield",
+     "range ~75-85"
+    ],
+    [
+     "mentolabial_sulcus_depth_mm",
+     4,
+     2,
+     "Legan-Burstone",
+     ""
+    ],
+    [
+     "Sn_Stms_over_Stmi_Me_ratio",
+     0.5,
+     0.06,
+     "Legan-Burstone",
+     "1:2"
+    ],
+    [
+     "G_Sn_over_Sn_Me_ratio",
+     1.0,
+     0.08,
+     "Legan-Burstone",
+     "1:1"
+    ],
+    [
+     "lower_face_height_Sn_Me_mm_M",
+     72,
+     6,
+     "anthropometric",
+     "range 66-78"
+    ],
+    [
+     "lower_face_height_Sn_Me_mm_F",
+     64,
+     6,
+     "anthropometric",
+     "range 58-70"
+    ],
+    [
+     "soft_pogonion_to_zero_meridian_mm",
+     0,
+     5,
+     "Gonzalez-Ulloa",
+     "F slightly behind; contested"
+    ],
+    [
+     "soft_tissue_pogonion_mm",
+     11,
+     1,
+     "various",
+     "10-12"
+    ],
+    [
+     "soft_tissue_gnathion_mm",
+     8,
+     1,
+     "various",
+     "7-9"
+    ],
+    [
+     "soft_tissue_menton_mm",
+     7.5,
+     1.5,
+     "various",
+     "6-9"
+    ],
+    [
+     "chin_midline_deviation_normal_max_mm",
+     3,
+     1,
+     "clinical rule",
+     "<= ~2-4 normal"
+    ]
+   ],
+   "population": "Mostly white adult orthodontic/surgical norms",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Clinical ideals, not population means; ethnicity and age shift lip/E-line values. Soft-tissue chin depths are sourced in anatomy/skull-osteology.md."
+  },
+  {
+   "name": "neck_norms",
+   "units": "deg, mm, cm, ratio",
+   "columns": [
+    "measure",
+    "sex",
+    "low",
+    "high",
+    "typical",
+    "reference",
+    "notes"
+   ],
+   "rows": [
+    [
+     "cervicomental_angle_ideal_deg",
+     "all",
+     105,
+     120,
+     112,
+     "Ellenbogen & Karlin",
+     "youthful ideal"
+    ],
+    [
+     "cervicomental_angle_measured_deg",
+     "all",
+     115,
+     135,
+     122,
+     "mixed",
+     "opens with BMI and age; posture-dependent"
+    ],
+    [
+     "lower_face_throat_angle_deg",
+     "all",
+     93,
+     107,
+     100,
+     "Legan-Burstone",
+     "Sn-Gn' to Gn'-C"
+    ],
+    [
+     "Sn_Gn_over_C_Gn_ratio",
+     "all",
+     1.1,
+     1.3,
+     1.2,
+     "Legan-Burstone",
+     ""
+    ],
+    [
+     "thyroid_lamina_angle_deg",
+     "M",
+     85,
+     95,
+     90,
+     "anatomy texts",
+     ""
+    ],
+    [
+     "thyroid_lamina_angle_deg",
+     "F",
+     115,
+     125,
+     120,
+     "anatomy texts",
+     ""
+    ],
+    [
+     "larynx_rise_on_swallow_mm",
+     "all",
+     15,
+     30,
+     20,
+     "",
+     ""
+    ],
+    [
+     "thyroid_notch_below_hyoid_mm",
+     "all",
+     10,
+     20,
+     15,
+     "",
+     ""
+    ],
+    [
+     "neck_circumference_cm",
+     "M",
+     37,
+     42,
+     39.5,
+     "Western adults",
+     "risk flag > ~43"
+    ],
+    [
+     "neck_circumference_cm",
+     "F",
+     31,
+     36,
+     33.5,
+     "Western adults",
+     "risk flag > ~40"
+    ],
+    [
+     "neck_forward_tilt_deg",
+     "all",
+     10,
+     20,
+     15,
+     "artist convention",
+     ""
+    ],
+    [
+     "preplatysmal_submental_fat_mm",
+     "all",
+     2,
+     25,
+     5,
+     "uncertain",
+     "lean 2-6; high BMI >10"
+    ]
+   ],
+   "population": "Adults; surgical/aesthetic norms and anatomy texts",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Expert knowledge. CMA ideal vs measured values conflict and definitions differ. Vertebral levels: hyoid C3-C4, laryngeal prominence C4-C5, cricoid C6."
+  },
+  {
+   "name": "engine_priors_suggested",
+   "units": "mixed (see param)",
+   "columns": [
+    "param",
+    "sex",
+    "distribution",
+    "mu_or_median",
+    "sigma",
+    "lower",
+    "upper",
+    "notes"
+   ],
+   "rows": [
+    [
+     "gonial_angle_deg",
+     "M",
+     "normal",
+     120,
+     6,
+     105,
+     145,
+     ""
+    ],
+    [
+     "gonial_angle_deg",
+     "F",
+     "normal",
+     124,
+     6,
+     105,
+     145,
+     ""
+    ],
+    [
+     "gonial_angle_deg",
+     "U",
+     "normal",
+     122,
+     7,
+     105,
+     145,
+     ""
+    ],
+    [
+     "bigonial_bone_mm",
+     "M",
+     "normal",
+     97,
+     6,
+     80,
+     115,
+     "bone, not silhouette"
+    ],
+    [
+     "bigonial_bone_mm",
+     "F",
+     "normal",
+     90,
+     5,
+     75,
+     108,
+     "bone, not silhouette"
+    ],
+    [
+     "ramus_height_mm",
+     "M",
+     "normal",
+     60,
+     5,
+     45,
+     75,
+     ""
+    ],
+    [
+     "ramus_height_mm",
+     "F",
+     "normal",
+     54,
+     4,
+     42,
+     68,
+     ""
+    ],
+    [
+     "soft_tissue_pogonion_mm",
+     "U",
+     "lognormal",
+     11.5,
+     0.2,
+     6,
+     20,
+     "sigma is sigma_log"
+    ],
+    [
+     "soft_tissue_menton_mm",
+     "U",
+     "lognormal",
+     7.5,
+     0.25,
+     3,
+     15,
+     "sigma is sigma_log"
+    ],
+    [
+     "facial_convexity_deg",
+     "U",
+     "normal",
+     12,
+     5,
+     -5,
+     30,
+     ""
+    ],
+    [
+     "lower_lip_E_line_mm",
+     "U",
+     "normal",
+     -2,
+     2.5,
+     -10,
+     6,
+     "sigma 3 if ancestry unknown"
+    ],
+    [
+     "cervicomental_angle_canonical_deg",
+     "U",
+     "normal",
+     118,
+     12,
+     90,
+     160,
+     "+0.8 deg per BMI unit above 25 (heuristic); canonical pose only"
+    ],
+    [
+     "lower_face_throat_angle_deg",
+     "U",
+     "normal",
+     100,
+     8,
+     80,
+     125,
+     ""
+    ],
+    [
+     "submental_fat_mm",
+     "U",
+     "lognormal",
+     5,
+     0.5,
+     1,
+     40,
+     "sigma is sigma_log"
+    ],
+    [
+     "larynx_prominence_0to1",
+     "M",
+     "beta",
+     4,
+     2,
+     0,
+     1,
+     "mu=alpha, sigma=beta"
+    ],
+    [
+     "larynx_prominence_0to1",
+     "F",
+     "beta",
+     1.5,
+     6,
+     0,
+     1,
+     "mu=alpha, sigma=beta"
+    ],
+    [
+     "larynx_below_cervical_point_mm",
+     "U",
+     "uniform",
+     20,
+     5,
+     15,
+     25,
+     ""
+    ],
+    [
+     "neck_circumference_cm",
+     "M",
+     "normal",
+     39.5,
+     2.5,
+     32,
+     50,
+     ""
+    ],
+    [
+     "neck_circumference_cm",
+     "F",
+     "normal",
+     33.5,
+     2.5,
+     27,
+     45,
+     ""
+    ],
+    [
+     "head_neck_pitch_per_photo_deg",
+     "U",
+     "normal",
+     0,
+     10,
+     -40,
+     40,
+     "relative to FH-level neutral"
+    ],
+    [
+     "rest_jaw_opening_deg",
+     "U",
+     "halfnormal",
+     0,
+     2,
+     0,
+     10,
+     "rest-tagged frames"
+    ],
+    [
+     "chin_midline_deviation_mm",
+     "U",
+     "laplace",
+     0,
+     1.5,
+     -8,
+     8,
+     "flag > 4 mm for user confirmation"
+    ],
+    [
+     "latent_vertical_pattern_z",
+     "U",
+     "normal",
+     0,
+     1,
+     -3,
+     3,
+     "couplings: gonial +5/z, MP +5/z, chin projection -3 mm/z, lower face +3.5 mm/z, CMA +4/z"
+    ]
+   ],
+   "population": "Design defaults derived from the tables above",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Heuristic priors for the fitting engine; tune on data. Consistent with muscles-mastication-jaw.json bone priors (gonial N(122,7), bigonial M 97/F 90)."
+  },
+  {
+   "name": "youthful_neck_criteria_and_dedo_classes",
+   "units": "categorical",
+   "columns": [
+    "scheme",
+    "item",
+    "description"
+   ],
+   "rows": [
+    [
+     "Ellenbogen-Karlin",
+     1,
+     "distinct inferior mandibular border, no jowl"
+    ],
+    [
+     "Ellenbogen-Karlin",
+     2,
+     "subhyoid depression"
+    ],
+    [
+     "Ellenbogen-Karlin",
+     3,
+     "visible thyroid cartilage bulge"
+    ],
+    [
+     "Ellenbogen-Karlin",
+     4,
+     "visible anterior SCM border"
+    ],
+    [
+     "Ellenbogen-Karlin",
+     5,
+     "cervicomental angle 105-120 deg"
+    ],
+    [
+     "Dedo",
+     "I",
+     "minimal deformity"
+    ],
+    [
+     "Dedo",
+     "II",
+     "skin laxity"
+    ],
+    [
+     "Dedo",
+     "III",
+     "fat accumulation"
+    ],
+    [
+     "Dedo",
+     "IV",
+     "platysmal banding"
+    ],
+    [
+     "Dedo",
+     "V",
+     "retrognathia/microgenia"
+    ],
+    [
+     "Dedo",
+     "VI",
+     "low hyoid"
+    ]
+   ],
+   "population": "Aesthetic-surgery classification",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "From expert knowledge; verify wording."
+  }
+ ]
+}

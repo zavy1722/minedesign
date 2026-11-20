@@ -1,0 +1,28 @@
+{
+  "topic": "awesome-lists-resources",
+  "sources": [],
+  "references_by_name": [
+    "Blanz V, Vetter T. A Morphable Model for the Synthesis of 3D Faces. SIGGRAPH 1999",
+    "Paysan P, Knothe R, Amberg B, Romdhani S, Vetter T. A 3D Face Model for Pose and Illumination Invariant Face Recognition (Basel Face Model), 2009",
+    "Li T, Bolkart T, Black MJ, Li H, Romero J. Learning a model of facial shape and expression from 4D scans (FLAME). SIGGRAPH Asia 2017",
+    "Zollhöfer M et al. State of the Art on Monocular 3D Face Reconstruction, Tracking, and Applications. Eurographics STAR 2018",
+    "Egger B et al. 3D Morphable Face Models — Past, Present, and Future. ACM TOG 2020",
+    "Morales A, Piella G, Sukno FM. Survey on 3D face reconstruction from uncalibrated images. Computer Science Review 2021",
+    "Tewari A et al. State of the Art on Neural Rendering (2020); Advances in Neural Rendering (2022)",
+    "Booth J et al. Large Scale Facial Model (LSFM). CVPR 2016 / IJCV 2018",
+    "Dai H, Pears N, Smith W, Duncan C. Liverpool-York Head Model. ICCV 2017",
+    "Cao C et al. FaceWarehouse: a 3D facial expression database for visual computing. IEEE TVCG 2014",
+    "Yang H et al. FaceScape: a Large-scale High Quality 3D Face Dataset and Detailed Riggable 3D Face Prediction. CVPR 2020",
+    "Sagonas C et al. 300 Faces in-the-Wild Challenge (300-W), 2013/2016",
+    "Kartynnik Y et al. Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs (MediaPipe Face Mesh), 2019",
+    "Wood E et al. Fake It Till You Make It: Face analysis in the wild using synthetic data alone. ICCV 2021",
+    "Wood E et al. 3D Face Reconstruction with Dense Landmarks. ECCV 2022",
+    "Qian S et al. GaussianAvatars: Photorealistic Head Avatars with Rigged 3D Gaussians. CVPR 2024",
+    "Kirschstein T et al. NeRSemble: Multi-view Radiance Field Reconstruction of Human Heads. SIGGRAPH 2023",
+    "Huber P et al. A Multiresolution 3D Morphable Face Model and Fitting Framework (eos). VISAPP 2016",
+    "Zarins U, Kondrats S. Anatomy for Sculptors: Understanding the Human Figure, 2014",
+    "Zarins U. Anatomy of Facial Expression (Anatomy For Sculptors)",
+    "Farkas LG. Anthropometry of the Head and Face, 1994"
+  ],
+  "notes": "No harvest file and no earlier draft existed for this topic; every claim in the note is author knowledge (🧠) or contested (↔️). GitHub owner/repo names cited in the note (sindresorhus/awesome, MrNeRF/awesome-3D-gaussian-splatting, harlanhong/awesome-talking-head-generation, Kedreamix/Awesome-Talking-Head-Synthesis, patrikhuber/eos, Rubikplayer/flame-fitting, soubhiksanyal/FLAME_PyTorch, HavenFeng/photometric_optimization, cleardusk/3DDFA_V2, 1adrianb/face-alignment) are from memory and must be checked before linking."
+}

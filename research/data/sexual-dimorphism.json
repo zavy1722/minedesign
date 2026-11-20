@@ -1,0 +1,925 @@
+{
+ "topic": "sexual-dimorphism",
+ "tables": [
+  {
+   "name": "linear_measures_by_sex_sourced",
+   "units": "mm",
+   "columns": [
+    "measure",
+    "landmarks",
+    "population",
+    "method",
+    "M_mean",
+    "M_sd",
+    "F_mean",
+    "F_sd",
+    "cohens_d",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "face_height",
+     "n-gn",
+     "Kosovo-Albanian adults",
+     "direct",
+     125.82,
+     6.37,
+     115.53,
+     5.0,
+     1.8,
+     1
+    ],
+    [
+     "face_height",
+     "n-gn",
+     "Indian medical students (104 M / 96 F)",
+     "direct",
+     121.64,
+     6.47,
+     113.63,
+     4.61,
+     1.43,
+     2
+    ],
+    [
+     "intercanthal_width",
+     "en-en",
+     "Kosovo-Albanian adults",
+     "direct",
+     32.49,
+     2.59,
+     31.78,
+     2.25,
+     0.29,
+     1
+    ],
+    [
+     "intercanthal_width",
+     "en-en",
+     "Hong Kong Chinese young adults",
+     "3D",
+     40.61,
+     null,
+     38.27,
+     null,
+     null,
+     4
+    ],
+    [
+     "intercanthal_width",
+     "en-en",
+     "Malay adults",
+     "3D stereophotogrammetry",
+     35.74,
+     null,
+     35.03,
+     null,
+     null,
+     5
+    ],
+    [
+     "half_nose_width",
+     "al-midline (right)",
+     "adults 19-42 (150 M / 147 F)",
+     "direct",
+     17.34,
+     null,
+     15.39,
+     null,
+     null,
+     6
+    ],
+    [
+     "ear_length",
+     "sa-sba",
+     "Sundanese adults",
+     "photogrammetry",
+     62.9,
+     4.7,
+     60.9,
+     4.2,
+     0.45,
+     30
+    ],
+    [
+     "ear_width",
+     "pra-pa",
+     "Sundanese adults",
+     "photogrammetry",
+     29.5,
+     2.6,
+     28.8,
+     2.5,
+     0.27,
+     30
+    ]
+   ],
+   "population": "mixed (see rows)",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12500730/",
+    "https://www.pubmed.gov/36217409/"
+   ],
+   "status": "sourced",
+   "notes": "Values from search snippets, not full texts. cohens_d computed here as (M-F)/sqrt((sM^2+sF^2)/2). en-en differences across populations reflect method and landmark definition as well as population."
+  },
+  {
+   "name": "linear_measures_by_sex_defaults_NAW",
+   "units": "mm",
+   "columns": [
+    "measure",
+    "landmarks",
+    "M_low",
+    "M_high",
+    "F_low",
+    "F_high",
+    "sd_M",
+    "sd_F",
+    "cohens_d_approx"
+   ],
+   "rows": [
+    [
+     "face_height",
+     "n-gn",
+     121.3,
+     121.3,
+     111.8,
+     111.8,
+     6.8,
+     5.2,
+     1.57
+    ],
+    [
+     "face_width",
+     "zy-zy",
+     135,
+     140,
+     127,
+     132,
+     5,
+     5,
+     1.5
+    ],
+    [
+     "mandible_width_bone",
+     "go-go",
+     94,
+     100,
+     88,
+     94,
+     6,
+     6,
+     1.15
+    ],
+    [
+     "lower_lip_chin_height",
+     "sto-gn",
+     48,
+     52,
+     43,
+     46,
+     3.5,
+     3.5,
+     1.5
+    ],
+    [
+     "nose_height",
+     "n-sn",
+     53,
+     56,
+     49,
+     52,
+     3.3,
+     3.1,
+     1.2
+    ],
+    [
+     "nose_width",
+     "al-al",
+     34.9,
+     34.9,
+     31.4,
+     31.4,
+     2.1,
+     2.0,
+     1.7
+    ],
+    [
+     "upper_lip_height",
+     "sn-sto",
+     21,
+     24,
+     19,
+     21,
+     2,
+     2,
+     1.15
+    ],
+    [
+     "mouth_width",
+     "ch-ch",
+     51,
+     55,
+     48,
+     52,
+     3.25,
+     3.25,
+     0.9
+    ],
+    [
+     "interpupillary",
+     "p-p",
+     63,
+     66,
+     60,
+     63,
+     3.25,
+     3.25,
+     0.9
+    ],
+    [
+     "biocular_width",
+     "ex-ex",
+     88,
+     92,
+     85,
+     89,
+     3.6,
+     4.0,
+     0.8
+    ],
+    [
+     "eye_fissure_length",
+     "ex-en",
+     30,
+     32,
+     29,
+     31,
+     1.25,
+     1.25,
+     0.7
+    ],
+    [
+     "upper_vermilion_height",
+     "ls-sto",
+     8,
+     10,
+     7.5,
+     9,
+     1.5,
+     1.5,
+     0.4
+    ],
+    [
+     "lower_vermilion_height",
+     "sto-li",
+     9.5,
+     11,
+     9,
+     10.5,
+     1.5,
+     1.5,
+     0.3
+    ],
+    [
+     "head_circumference",
+     "tape",
+     565,
+     580,
+     545,
+     560,
+     15,
+     15,
+     1.3
+    ]
+   ],
+   "population": "North American White young adults, Farkas-type direct anthropometry (~18-25 y)",
+   "source_urls": [
+    "https://arxiv.org/pdf/2304.07175"
+   ],
+   "status": "knowledge",
+   "notes": "Expert recall consistent with research/data/anthropometric-norms.json; only the n-gn and ex-ex SDs are sourced [3]. Use within-sex SDs as prior sigmas; d values approximate."
+  },
+  {
+   "name": "effect_size_overlap",
+   "units": "fraction",
+   "columns": [
+    "d",
+    "overlap_OVL",
+    "P_M_gt_F",
+    "frac_M_above_F_mean",
+    "midpoint_misclassification",
+    "pooled_over_within_sd"
+   ],
+   "rows": [
+    [
+     0.3,
+     0.88,
+     0.58,
+     0.62,
+     0.44,
+     1.01
+    ],
+    [
+     0.5,
+     0.8,
+     0.64,
+     0.69,
+     0.4,
+     1.03
+    ],
+    [
+     0.8,
+     0.69,
+     0.71,
+     0.79,
+     0.34,
+     1.08
+    ],
+    [
+     1.0,
+     0.62,
+     0.76,
+     0.84,
+     0.31,
+     1.12
+    ],
+    [
+     1.5,
+     0.45,
+     0.86,
+     0.93,
+     0.23,
+     1.25
+    ],
+    [
+     2.0,
+     0.32,
+     0.92,
+     0.98,
+     0.16,
+     1.41
+    ],
+    [
+     3.0,
+     0.13,
+     0.98,
+     1.0,
+     0.07,
+     1.8
+    ]
+   ],
+   "population": "n/a (analytic)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Computed for two equal-variance normals: OVL=2*Phi(-d/2); P(M>F)=Phi(d/sqrt2); misclassification at midpoint=Phi(-d/2); pooled/within SD=sqrt(1+d^2/4). d=3 row approximates whole-face Mahalanobis D."
+  },
+  {
+   "name": "ratios_by_sex_sourced",
+   "units": "ratio",
+   "columns": [
+    "ratio",
+    "M",
+    "F",
+    "population",
+    "method",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "ch-ch/en-en",
+     1.59,
+     1.52,
+     "southern Spain European adults, normal occlusion",
+     "3D photo",
+     7
+    ],
+    [
+     "en-en/al-al",
+     0.89,
+     1.01,
+     "southern Spain European adults, normal occlusion",
+     "3D photo",
+     7
+    ]
+   ],
+   "population": "southern Spain",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104"
+   ],
+   "status": "sourced",
+   "notes": "Snippet values; nasal width mean difference reported as 5.23 mm in the same study."
+  },
+  {
+   "name": "ratios_angles_by_sex_defaults",
+   "units": "ratio or deg or mm",
+   "columns": [
+    "quantity",
+    "M_low",
+    "M_high",
+    "F_low",
+    "F_high",
+    "notes"
+   ],
+   "rows": [
+    [
+     "facial_index_ngn_over_zyzy",
+     0.87,
+     0.89,
+     0.85,
+     0.87,
+     "d~0.3"
+    ],
+    [
+     "gogo_over_zyzy_bone",
+     0.7,
+     0.72,
+     0.69,
+     0.71,
+     "silhouette ratio differs more because of masseter"
+    ],
+    [
+     "sngn_over_ngn",
+     0.59,
+     0.61,
+     0.57,
+     0.59,
+     "male lower face relatively taller"
+    ],
+    [
+     "fWHR",
+     1.8,
+     2.0,
+     1.8,
+     2.0,
+     "contested; d~0-0.3, sign inconsistent; do not use as sex cue"
+    ],
+    [
+     "gonial_angle_deg",
+     116,
+     123,
+     118,
+     127,
+     "men ~2-6 deg smaller, large overlap; 90/110 claim rejected"
+    ],
+    [
+     "nasolabial_angle_deg",
+     90,
+     105,
+     95,
+     115,
+     "aesthetic and population data mixed"
+    ],
+    [
+     "nasofrontal_angle_deg",
+     115,
+     130,
+     120,
+     140,
+     "female more obtuse"
+    ],
+    [
+     "incisor_display_rest_mm",
+     1.5,
+     2.5,
+     3.0,
+     3.8,
+     "Vig & Brundo 1978 means ~1.9 M / ~3.4 F"
+    ],
+    [
+     "thyroid_lamina_angle_deg",
+     85,
+     95,
+     115,
+     125,
+     "approximate"
+    ]
+   ],
+   "population": "mostly European-derived adults",
+   "source_urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/",
+    "https://pubmed.ncbi.nlm.nih.gov/12089867/"
+   ],
+   "status": "contested",
+   "notes": "Expert knowledge except gonial-angle anchor (~120 deg adult [12]; 120.17 deg young male dry mandibles [13]). Verify before use as priors."
+  },
+  {
+   "name": "soft_tissue_by_sex_sourced",
+   "units": "mm",
+   "columns": [
+    "site",
+    "M",
+    "F",
+    "population",
+    "method",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "mid-philtrum",
+     16.41,
+     13.95,
+     "Iranian",
+     "MRI",
+     16
+    ],
+    [
+     "pogonion",
+     12.3,
+     11.0,
+     "Azerbaijan adults",
+     "CT",
+     14
+    ],
+    [
+     "mid-cheek dermis (skin only)",
+     1.877,
+     1.58,
+     "adults",
+     "ultrasound",
+     21
+    ]
+   ],
+   "population": "mixed",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/"
+   ],
+   "status": "sourced",
+   "notes": "Directional findings: men thicker at forehead [15] and most landmarks in Korean CBCT [17]; women thicker at several lateral sites in Thai ultrasound [18]; limited sex effect in Greek CT [20]."
+  },
+  {
+   "name": "fstt_sex_log_ratio_gamma",
+   "units": "log(M/F)",
+   "columns": [
+    "region",
+    "gamma_low",
+    "gamma_high",
+    "notes"
+   ],
+   "rows": [
+    [
+     "philtrum_lips",
+     0.1,
+     0.18,
+     "[16] ln(16.41/13.95)=0.16"
+    ],
+    [
+     "pogonion_chin",
+     0.08,
+     0.14,
+     "[14] ln(12.3/11.0)=0.11"
+    ],
+    [
+     "forehead_nasion",
+     0.03,
+     0.08,
+     "[15] direction only"
+    ],
+    [
+     "malar_lateral_orbit_gonion",
+     -0.1,
+     -0.05,
+     "sign from [18]; magnitude expert estimate"
+    ]
+   ],
+   "population": "pooled adults",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12594695/",
+    "https://pubmed.ncbi.nlm.nih.gov/41701465/"
+   ],
+   "status": "contested",
+   "notes": "Use t(x)=tbar(x)*exp(gamma*s/2 + beta_bmi*(BMI-22)), s=+1 male mean, -1 female mean. Cap |gamma|<=0.2. BMI effect should outweigh sex [37]."
+  },
+  {
+   "name": "muscle_by_sex_sourced",
+   "units": "mL or qualitative",
+   "columns": [
+    "quantity",
+    "M",
+    "F",
+    "population",
+    "method",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "masseter_volume_mL",
+     35,
+     25,
+     "older Japanese, n~1484 (Bunkyo)",
+     "3D MRI",
+     23
+    ],
+    [
+     "temporalis_thickness",
+     "higher",
+     "lower (equal >70 y)",
+     "Japanese adults 35-84, n=360",
+     "MRI",
+     25
+    ],
+    [
+     "temporalis_thickness",
+     "higher",
+     "lower",
+     "clinical sample",
+     "ultrasound",
+     26
+    ],
+    [
+     "masseter_thickness",
+     "higher",
+     "lower",
+     "orthodontic sample n=70",
+     "ultrasound",
+     27
+    ]
+   ],
+   "population": "mixed",
+   "source_urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10738411/",
+    "https://pubmed.ncbi.nlm.nih.gov/39405919/",
+    "https://surgicalneurologyint.com/surgicalint-articles/standard-values-for-temporal-muscle-thickness-in-the-japanese-population-who-undergo-brain-check-up-by-magnetic-resonance-imaging/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8053578",
+    "https://doaj.org/article/bee473398a794b4b9acfdd1affa15fec"
+   ],
+   "status": "sourced",
+   "notes": "Masseter volumes are summary figures from search results; verify against full text."
+  },
+  {
+   "name": "classification_accuracy",
+   "units": "fraction correct",
+   "columns": [
+    "basis",
+    "low",
+    "high"
+   ],
+   "rows": [
+    [
+     "single cranial trait score",
+     0.7,
+     0.85
+    ],
+    [
+     "five visual cranial traits (Walker 2008)",
+     0.85,
+     0.9
+    ],
+    [
+     "mandible alone, metric",
+     0.75,
+     0.85
+    ],
+    [
+     "whole 3D face surface",
+     0.9,
+     0.96
+    ],
+    [
+     "human raters, hair hidden",
+     0.93,
+     0.97
+    ]
+   ],
+   "population": "various",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Implies whole-face Mahalanobis D of about 3-3.5."
+  },
+  {
+   "name": "sex_axis_prior_defaults",
+   "units": "dimensionless (s) or log units",
+   "columns": [
+    "parameter",
+    "value",
+    "notes"
+   ],
+   "rows": [
+    [
+     "s_mean_declared_male",
+     1.0,
+     "s=+1 at male mean shape"
+    ],
+    [
+     "s_mean_declared_female",
+     -1.0,
+     "s=-1 at female mean shape"
+    ],
+    [
+     "sigma_s_declared",
+     0.65,
+     "=2/D with D~3"
+    ],
+    [
+     "sigma_s_unspecified_single_gaussian",
+     1.2,
+     "or 50/50 mixture of N(+-1,0.65^2)"
+    ],
+    [
+     "sigma_s_custom_or_hrt",
+     1.0,
+     "user-chosen s0"
+    ],
+    [
+     "sigma_s_inflation_unknown_population",
+     1.3,
+     "multiplier"
+    ],
+    [
+     "log_size_gap_M_minus_F",
+     0.07,
+     "range 0.06-0.08"
+    ],
+    [
+     "log_size_within_sex_sd",
+     0.04,
+     "CV 3-5%"
+    ],
+    [
+     "age_gate_tau_years",
+     1.5,
+     "w(a)=logistic((a-a_PHV)/tau); a_PHV~11.5 F, 13.5 M"
+    ],
+    [
+     "warn_if_abs_s_minus_s0_over_sigma",
+     2.0,
+     "warning, not error"
+    ]
+   ],
+   "population": "engine defaults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Design defaults derived in this note; tune against 3DFN or a 3DMM with sex labels."
+  },
+  {
+   "name": "landmark_sigma_defaults_sex_conditioned",
+   "units": "mm",
+   "columns": [
+    "landmark_group",
+    "sigma_low",
+    "sigma_high",
+    "notes"
+   ],
+   "rows": [
+    [
+     "bony midline (g, n, rhinion, pogonion)",
+     2.5,
+     4,
+     "head frame"
+    ],
+    [
+     "nose tip and alae",
+     3,
+     4,
+     ""
+    ],
+    [
+     "soft lateral (soft zygion, soft gonion, cheek apex)",
+     5,
+     8,
+     ""
+    ],
+    [
+     "sex unspecified (any)",
+     8,
+     8,
+     "current face3d Priors default"
+    ]
+   ],
+   "population": "adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Sex conditioning shrinks SD only by 1/sqrt(1+d^2/4); main effect is mean shift."
+  },
+  {
+   "name": "feature_sex_informativeness",
+   "units": "approx Cohen d",
+   "columns": [
+    "feature",
+    "d_low",
+    "d_high",
+    "use_for_s"
+   ],
+   "rows": [
+    [
+     "n-gn face height",
+     1.4,
+     1.8,
+     "yes"
+    ],
+    [
+     "nose width al-al",
+     1.5,
+     1.8,
+     "yes"
+    ],
+    [
+     "sto-gn chin height",
+     1.3,
+     1.6,
+     "yes"
+    ],
+    [
+     "zy-zy",
+     1.3,
+     1.6,
+     "yes"
+    ],
+    [
+     "head size",
+     1.2,
+     1.5,
+     "yes (if metric)"
+    ],
+    [
+     "nose height n-sn",
+     1.0,
+     1.3,
+     "yes"
+    ],
+    [
+     "sn-sto",
+     1.0,
+     1.3,
+     "yes"
+    ],
+    [
+     "go-go bone",
+     1.0,
+     1.3,
+     "yes"
+    ],
+    [
+     "ch-ch",
+     0.8,
+     1.0,
+     "weak"
+    ],
+    [
+     "p-p",
+     0.8,
+     1.0,
+     "weak"
+    ],
+    [
+     "ex-ex",
+     0.7,
+     0.9,
+     "weak"
+    ],
+    [
+     "ex-en",
+     0.5,
+     0.8,
+     "weak"
+    ],
+    [
+     "ear length",
+     0.4,
+     1.1,
+     "weak"
+    ],
+    [
+     "vermilion heights",
+     0.3,
+     0.5,
+     "no"
+    ],
+    [
+     "en-en",
+     0.2,
+     0.4,
+     "no"
+    ],
+    [
+     "eyeball / iris",
+     0.0,
+     0.1,
+     "no (use for scale)"
+    ],
+    [
+     "fWHR",
+     0.0,
+     0.3,
+     "no (contested)"
+    ]
+   ],
+   "population": "young adults, mostly European-derived",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996",
+    "https://arxiv.org/pdf/2304.07175",
+    "https://www.pubmed.gov/36217409/"
+   ],
+   "status": "knowledge",
+   "notes": "Sourced anchors: n-gn d 1.43-1.80 [1][2]; en-en d 0.29 [1]; ear length d 0.45 [30]. Brow/glabella projection and masseter bulge are strong but lack linear d values here."
+  }
+ ]
+}

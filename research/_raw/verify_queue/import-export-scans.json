@@ -1,0 +1,27 @@
+{
+ "id": "import-export-scans",
+ "area": "blender",
+ "title": "Importing scans and reconstructions into Blender",
+ "queue": [
+  {
+   "claim": "FLAME template coordinates are in metres, Y-up, face toward +Z, +X to the subject's left; Blender's default OBJ import (Forward -Z, Up Y) maps it upright facing -Y via (x,y,z)->(x,-z,y); FLAME has 5,023 vertices and 9,976 triangles.",
+   "query": "FLAME head model coordinate system units meters y-up template 5023 vertices",
+   "domains": "github.com,flame.is.tue.mpg.de"
+  },
+  {
+   "claim": "Blender's C++ OBJ/PLY importers keep the file's vertex order for a single mesh (OBJ only with Split by Object/Group off), while glTF import changes the vertex count at UV seams and hard edges unless Merge Vertices is enabled, which renumbers them.",
+   "query": "Blender OBJ importer preserve vertex order wm.obj_import glTF import merge vertices seams vertex count",
+   "domains": "docs.blender.org,projects.blender.org,github.com"
+  },
+  {
+   "claim": "Native units: BFM 2009 is in micrometres (BFM 2017 in mm), the MakeHuman/MPFB base mesh is in decimetres, and the MediaPipe canonical/metric face model is in centimetres.",
+   "query": "Basel Face Model 2009 shapeMU units micrometers millimeters",
+   "domains": ""
+  },
+  {
+   "claim": "The legacy Python OBJ/PLY/STL import add-ons were removed in Blender 4.0 (C++ wm.obj_import since 3.3, wm.ply_import/wm.stl_import since 3.6), COLLADA was removed in 5.0, and the OBJ importer reads 'v x y z r g b' and ZBrush #MRGB vertex colours since 3.5.",
+   "query": "Blender 4.0 release notes legacy OBJ PLY STL importer removed wm.obj_import vertex colors MRGB",
+   "domains": "developer.blender.org,docs.blender.org"
+  }
+ ]
+}

@@ -1,0 +1,947 @@
+{
+ "topic": "skull-osteology",
+ "tables": [
+  {
+   "name": "fstt_midline_sourced",
+   "units": "mm (soft-tissue depth, bone to skin)",
+   "columns": [
+    "landmark",
+    "value_mm",
+    "sex",
+    "population",
+    "method",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "glabella",
+     5.5,
+     "pooled",
+     "global pooled, 140 years of studies",
+     "mixed CT/CBCT/US/MRI (total weighted mean)",
+     1
+    ],
+    [
+     "glabella",
+     5.11,
+     "not confirmed",
+     "not confirmed",
+     "CBCT, Stephan-Simpson landmarks",
+     31
+    ],
+    [
+     "nasion",
+     6.0,
+     "pooled",
+     "global pooled",
+     "mixed (total weighted mean)",
+     1
+    ],
+    [
+     "nasion",
+     6.78,
+     "not confirmed",
+     "not confirmed",
+     "CBCT",
+     31
+    ],
+    [
+     "nasion",
+     5.57,
+     "mixed",
+     "Iranian, lowest BMI group",
+     "MRI",
+     4
+    ],
+    [
+     "nasion",
+     8.25,
+     "mixed",
+     "Iranian, highest BMI group",
+     "MRI",
+     4
+    ],
+    [
+     "rhinion",
+     3.0,
+     "pooled",
+     "global pooled",
+     "mixed (mean)",
+     1
+    ],
+    [
+     "pogonion",
+     12.3,
+     "M",
+     "Azerbaijani adults",
+     "CT (snippet partly garbled)",
+     7
+    ],
+    [
+     "pogonion",
+     11.0,
+     "F",
+     "Azerbaijani adults",
+     "CT (snippet partly garbled)",
+     7
+    ],
+    [
+     "pogonion",
+     11.71,
+     "not confirmed",
+     "not confirmed",
+     "CBCT",
+     31
+    ],
+    [
+     "gnathion",
+     8.46,
+     "not confirmed",
+     "not confirmed",
+     "CBCT",
+     31
+    ]
+   ],
+   "population": "Adults; mixed populations and modalities as listed per row",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/"
+   ],
+   "status": "verified",
+   "notes": "Glabella, nasion and pogonion agree across >=2 independent sources (5-5.5, 6-7, 11-12.3 mm). Rhinion and gnathion are single-source. No SDs extracted. Values from abstracts/snippets; full-text check pending."
+  },
+  {
+   "name": "fstt_regional_ranges_expert",
+   "units": "mm",
+   "columns": [
+    "landmark",
+    "low_mm",
+    "high_mm",
+    "thicker_sex",
+    "age_effect",
+    "notes"
+   ],
+   "rows": [
+    [
+     "supraglabella_mid_forehead",
+     4,
+     6,
+     "M",
+     "",
+     "direction sourced [2][32]"
+    ],
+    [
+     "supraorbital_mid_brow",
+     6,
+     9,
+     null,
+     "",
+     ""
+    ],
+    [
+     "infraorbital_rim",
+     5,
+     10,
+     null,
+     "increases with age",
+     ""
+    ],
+    [
+     "lateral_orbit",
+     6,
+     10,
+     "F",
+     "",
+     "direction sourced [2]"
+    ],
+    [
+     "zygion",
+     6,
+     10,
+     null,
+     ">2 mm thicker in older group [7]",
+     ""
+    ],
+    [
+     "inferior_malar",
+     10,
+     18,
+     "F",
+     "",
+     "direction sourced [2]"
+    ],
+    [
+     "buccal_mid_masseter_occlusal_line",
+     15,
+     25,
+     null,
+     "",
+     "thickest facial region"
+    ],
+    [
+     "gonion",
+     8,
+     18,
+     "F",
+     ">2 mm thicker in older group [7]",
+     "direction sourced [2]"
+    ],
+    [
+     "mid_philtrum",
+     11,
+     16,
+     "M",
+     "",
+     "direction sourced [2]"
+    ],
+    [
+     "menton",
+     6,
+     9,
+     null,
+     "",
+     ""
+    ]
+   ],
+   "population": "Adults, normal BMI, mixed ancestry (expert synthesis of pooled tables such as Stephan & Simpson T-tables, Rhine & Moore 1984, De Greef 2006)",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12594695/"
+   ],
+   "status": "knowledge",
+   "notes": "Ranges are from training knowledge, not extracted from a source in this library; only the sex/age directions are sourced. Use as wide priors and replace with full-text T-table values after verification."
+  },
+  {
+   "name": "skin_layer_thickness",
+   "units": "mm (epidermis+dermis only)",
+   "columns": [
+    "regions",
+    "median_low_mm",
+    "median_high_mm",
+    "notes"
+   ],
+   "rows": [
+    [
+     "zygomatic, oral commissure, mandibular angle, supraorbital, infraorbital",
+     1.1,
+     1.6,
+     "infraorbital, zygomatic and buccal slightly thicker"
+    ]
+   ],
+   "population": "Not confirmed",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/"
+   ],
+   "status": "sourced",
+   "notes": "High-frequency ultrasound; skin layer only, NOT total soft-tissue depth."
+  },
+  {
+   "name": "sex_direction_by_region",
+   "units": "categorical",
+   "columns": [
+    "region",
+    "thicker_in",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "supraglabella",
+     "M",
+     2
+    ],
+    [
+     "nasion",
+     "M",
+     2
+    ],
+    [
+     "rhinion",
+     "M",
+     2
+    ],
+    [
+     "mid_philtrum",
+     "M",
+     2
+    ],
+    [
+     "supradentale",
+     "M",
+     2
+    ],
+    [
+     "supraglenoid",
+     "M",
+     2
+    ],
+    [
+     "nasal and perioral (prosthion, supracanine)",
+     "M",
+     5
+    ],
+    [
+     "forehead (most regions, all ages)",
+     "M",
+     32
+    ],
+    [
+     "lateral_orbit",
+     "F",
+     2
+    ],
+    [
+     "inferior_malar",
+     "F",
+     2
+    ],
+    [
+     "gonion",
+     "F",
+     2
+    ]
+   ],
+   "population": "Korean adults [2]; Thai above middle age, cadaver US [5]; MRI forehead study [32]",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959/",
+    "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12594695/"
+   ],
+   "status": "sourced",
+   "notes": "Male-thicker at midline nasal/perioral points is supported by >=2 sources; female-thicker lateral sites rest on one source [2]. Encode sex as a per-region sign, not a global scale."
+  },
+  {
+   "name": "bony_dimensions_sourced",
+   "units": "mm unless stated",
+   "columns": [
+    "quantity",
+    "value",
+    "low",
+    "high",
+    "units",
+    "population",
+    "source_n",
+    "status"
+   ],
+   "rows": [
+    [
+     "orbital_aperture_height",
+     35,
+     null,
+     null,
+     "mm",
+     "not stated",
+     23,
+     "sourced"
+    ],
+    [
+     "orbital_aperture_width",
+     40,
+     null,
+     null,
+     "mm",
+     "not stated",
+     23,
+     "sourced"
+    ],
+    [
+     "supraorbital_notch_from_midline",
+     20,
+     null,
+     null,
+     "mm",
+     "not stated",
+     24,
+     "verified"
+    ],
+    [
+     "nasal_bone_length",
+     21,
+     null,
+     null,
+     "mm",
+     "Korean 3D-CT n=75",
+     15,
+     "sourced"
+    ],
+    [
+     "piriform_aperture_index",
+     0.79,
+     null,
+     null,
+     "ratio",
+     "North Indian dry skulls n=40",
+     13,
+     "sourced"
+    ],
+    [
+     "piriform_aperture_area_F",
+     12.6,
+     null,
+     null,
+     "cm2",
+     "dry crania n=70",
+     14,
+     "contested"
+    ],
+    [
+     "piriform_aperture_area_M",
+     16.0,
+     null,
+     null,
+     "cm2",
+     "dry crania n=70",
+     14,
+     "contested"
+    ],
+    [
+     "gonial_angle_adult",
+     120,
+     null,
+     null,
+     "deg",
+     "StatPearls",
+     35,
+     "verified"
+    ],
+    [
+     "gonial_angle_adult_dry_bone",
+     120.17,
+     null,
+     null,
+     "deg",
+     "young adult male dentulous mandibles",
+     36,
+     "verified"
+    ],
+    [
+     "gonial_angle_birth",
+     160,
+     null,
+     null,
+     "deg",
+     "StatPearls",
+     35,
+     "sourced"
+    ],
+    [
+     "chin_soft_to_bone_response_genioplasty",
+     null,
+     0.75,
+     0.92,
+     "ratio",
+     "secondary citation in review",
+     18,
+     "sourced"
+    ]
+   ],
+   "population": "Mixed, per row",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/26894050/",
+    "https://pubmed.ncbi.nlm.nih.gov/42262393/",
+    "https://pubmed.ncbi.nlm.nih.gov/17929046/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8650451/",
+    "https://eyewiki.aao.org/Bony_Anatomy_of_the_Orbit",
+    "https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29",
+    "https://www.kenhub.com/en/library/anatomy/the-frontal-bone",
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/",
+    "https://pubmed.ncbi.nlm.nih.gov/12089867/"
+   ],
+   "status": "sourced",
+   "notes": "Piriform area values flagged suspect: 2-3x an expected ~4-7 cm2 for a ~24x32 mm aperture; do not use until full text checked. A 90 deg (M)/110 deg (F) gonial-angle claim conflicts with ~120 deg and is excluded."
+  },
+  {
+   "name": "infraorbital_foramen_below_rim",
+   "units": "mm",
+   "columns": [
+    "population",
+    "sex_or_side",
+    "value_mm"
+   ],
+   "rows": [
+    [
+     "North Indian skulls",
+     "R",
+     5.8
+    ],
+    [
+     "North Indian skulls",
+     "L",
+     6.2
+    ],
+    [
+     "cadavers",
+     "M",
+     8.5
+    ],
+    [
+     "cadavers",
+     "F",
+     7.8
+    ],
+    [
+     "textbook (Grant, as cited)",
+     "pooled",
+     6.0
+    ]
+   ],
+   "population": "Mixed",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/10981979/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/"
+   ],
+   "status": "contested",
+   "notes": "Attribution of each pair to a specific paper not confirmed; a ~1 cm value for a Filipino sample was also reported. Use 6-8.5 mm range."
+  },
+  {
+   "name": "bony_dimensions_expert",
+   "units": "as stated",
+   "columns": [
+    "quantity",
+    "low",
+    "high",
+    "units",
+    "notes"
+   ],
+   "rows": [
+    [
+     "cornea_apex_ahead_of_lateral_orbital_rim_hertel",
+     12,
+     20,
+     "mm",
+     "normal Hertel range; higher on average in people of African ancestry"
+    ],
+    [
+     "piriform_aperture_width",
+     22,
+     26,
+     "mm",
+     ""
+    ],
+    [
+     "piriform_aperture_height",
+     30,
+     35,
+     "mm",
+     ""
+    ],
+    [
+     "alar_width_minus_aperture_width",
+     8,
+     16,
+     "mm",
+     "forensic rules disagree (contested)"
+    ],
+    [
+     "gonial_angle_adult_spread",
+     110,
+     135,
+     "deg",
+     "males slightly more acute; opens with tooth loss"
+    ],
+    [
+     "bizygomatic_breadth_soft",
+     125,
+     145,
+     "mm",
+     "M > F"
+    ],
+    [
+     "bigonial_over_bizygomatic",
+     0.7,
+     0.8,
+     "ratio",
+     "masseter contributes"
+    ],
+    [
+     "lower_face_ANS_Me_over_N_Me",
+     0.52,
+     0.58,
+     "ratio",
+     "nominal 0.55"
+    ],
+    [
+     "SN_MP_angle",
+     27,
+     37,
+     "deg",
+     "Steiner norm ~32 +/- 5"
+    ],
+    [
+     "FMA_angle",
+     20,
+     30,
+     "deg",
+     "Tweed norm ~25 +/- 5"
+    ],
+    [
+     "chin_deviation_normal",
+     0,
+     4,
+     "mm",
+     "clinical rule of thumb; >~4 mm noticeable"
+    ],
+    [
+     "foramina_vertical_line_from_midline",
+     20,
+     30,
+     "mm",
+     "supraorbital notch, infraorbital and mental foramina roughly aligned"
+    ]
+   ],
+   "population": "Adults; general clinical/anthropometric norms (mostly European-derived)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Training knowledge, queued for verification. Use only as soft checks."
+  },
+  {
+   "name": "engine_priors_suggested",
+   "units": "mm; sigma_log dimensionless; weight 0-1",
+   "columns": [
+    "landmark",
+    "thickness_mu_mm",
+    "thickness_sigma_log",
+    "obs_weight",
+    "pos_sigma_x_mm",
+    "pos_sigma_y_mm",
+    "pos_sigma_z_mm",
+    "sym_sigma_mm"
+   ],
+   "rows": [
+    [
+     "glabella",
+     5.5,
+     0.18,
+     1.0,
+     3,
+     4,
+     2,
+     null
+    ],
+    [
+     "nasion",
+     6.0,
+     0.18,
+     1.0,
+     3,
+     4,
+     2,
+     null
+    ],
+    [
+     "rhinion",
+     3.0,
+     0.18,
+     null,
+     3,
+     4,
+     3,
+     null
+    ],
+    [
+     "supraorbital",
+     7.5,
+     0.25,
+     null,
+     null,
+     null,
+     null,
+     1.5
+    ],
+    [
+     "infraorbital_rim",
+     7.5,
+     0.25,
+     null,
+     null,
+     null,
+     null,
+     1.5
+    ],
+    [
+     "lateral_orbit",
+     8.0,
+     0.25,
+     null,
+     null,
+     null,
+     null,
+     1.5
+    ],
+    [
+     "zygion",
+     8.0,
+     0.3,
+     0.15,
+     6,
+     8,
+     8,
+     3.0
+    ],
+    [
+     "inferior_malar",
+     14.0,
+     0.35,
+     null,
+     null,
+     null,
+     null,
+     2.0
+    ],
+    [
+     "buccal",
+     20.0,
+     0.35,
+     null,
+     null,
+     null,
+     null,
+     2.5
+    ],
+    [
+     "gonion",
+     13.0,
+     0.35,
+     0.15,
+     6,
+     8,
+     8,
+     3.5
+    ],
+    [
+     "mid_philtrum",
+     13.0,
+     0.25,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "pogonion",
+     11.5,
+     0.22,
+     1.0,
+     3,
+     4,
+     3,
+     null
+    ],
+    [
+     "gnathion",
+     8.5,
+     0.18,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "menton",
+     7.5,
+     0.22,
+     0.6,
+     3,
+     4,
+     4,
+     null
+    ],
+    [
+     "tragion",
+     null,
+     null,
+     0.5,
+     null,
+     null,
+     null,
+     2.0
+    ],
+    [
+     "endocanthion",
+     null,
+     null,
+     1.0,
+     null,
+     null,
+     null,
+     1.5
+    ],
+    [
+     "exocanthion",
+     null,
+     null,
+     1.0,
+     null,
+     null,
+     null,
+     1.5
+    ]
+   ],
+   "population": "Adult default (normal BMI); apply sex sign per region and positive BMI slope",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+    "https://arxiv.org/pdf/2608.12537",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/"
+   ],
+   "status": "knowledge",
+   "notes": "Heuristic defaults for face3d: obs_weight -> ViewObs.weights; pos_sigma -> Priors.sigma (N,3) in head frame (x lateral, y vertical, z depth); sym_sigma -> per-pair override of Priors.sigma_sym (midline points use sigma_mid). Thickness priors are log-normal. mu for glabella/nasion/rhinion/pogonion/gnathion sourced; others from expert ranges."
+  },
+  {
+   "name": "ordering_constraints",
+   "units": "mm or ratio, Frankfort-horizontal head frame (+z out of face, +y up)",
+   "columns": [
+    "constraint",
+    "min",
+    "max",
+    "status",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "z_glabella - z_nasion",
+     0,
+     null,
+     "knowledge",
+     null
+    ],
+    [
+     "z_cornea_apex - z_lateral_orbital_rim",
+     12,
+     20,
+     "knowledge",
+     null
+    ],
+    [
+     "z_supraorbital_rim - z_lateral_orbital_rim",
+     0,
+     null,
+     "sourced",
+     23
+    ],
+    [
+     "y_zygion - y_frankfort",
+     -10,
+     10,
+     "knowledge",
+     null
+    ],
+    [
+     "orbit_aperture_width / height",
+     1.1,
+     1.2,
+     "sourced",
+     23
+    ],
+    [
+     "nasal_bone_length_mm",
+     17,
+     28,
+     "knowledge",
+     15
+    ],
+    [
+     "gonial_angle_deg",
+     110,
+     135,
+     "knowledge",
+     35
+    ],
+    [
+     "chin_skin_gain_from_bone_edit",
+     0.75,
+     0.92,
+     "sourced",
+     18
+    ]
+   ],
+   "population": "Adults",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/17929046/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8650451/",
+    "https://eyewiki.aao.org/Bony_Anatomy_of_the_Orbit",
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/"
+   ],
+   "status": "knowledge",
+   "notes": "Implement as hinge (one-sided) residuals with ~1-2 mm softness; never as hard constraints."
+  },
+  {
+   "name": "fstt_datasets_design",
+   "units": "count",
+   "columns": [
+    "study",
+    "modality",
+    "n",
+    "landmarks",
+    "source_n"
+   ],
+   "rows": [
+    [
+     "Thai, above middle age",
+     "ultrasound on unembalmed cadavers <=120 h postmortem",
+     100,
+     "11 midline + 32 bilateral",
+     5
+    ],
+    [
+     "Chinese adults 18-90 y",
+     "CT, skin/fat/muscle layers",
+     1174,
+     "33",
+     6
+    ],
+    [
+     "Azerbaijani adults",
+     "CT",
+     null,
+     "20 (10 midline + 10 bilateral)",
+     7
+    ],
+    [
+     "Greek adults",
+     "head CT",
+     100,
+     "22 (5 midsagittal + 17 bilateral)",
+     8
+    ],
+    [
+     "Cretan pilot",
+     "CT, sex-specific means",
+     64,
+     "36",
+     9
+    ],
+    [
+     "Korean adults",
+     "CBCT upright",
+     100,
+     "31 (10 midline + 21 bilateral)",
+     10
+    ],
+    [
+     "Stephan-Simpson landmark CBCT",
+     "CBCT",
+     null,
+     "34 (12 midline + 11 bilateral pairs)",
+     31
+    ]
+   ],
+   "population": "Per row",
+   "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+    "https://pubmed.ncbi.nlm.nih.gov/42385786/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+    "https://pubmed.ncbi.nlm.nih.gov/31313259/",
+    "https://pubmed.ncbi.nlm.nih.gov/22621203/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/"
+   ],
+   "status": "sourced",
+   "notes": "Design only; per-landmark values need full-text extraction."
+  }
+ ]
+}

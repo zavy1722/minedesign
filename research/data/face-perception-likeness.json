@@ -1,0 +1,367 @@
+{
+ "topic": "face-perception-likeness",
+ "tables": [
+  {
+   "name": "identity_spatial_frequency_band",
+   "units": "cycles per face width; mm",
+   "columns": [
+    "measure",
+    "low",
+    "high",
+    "units",
+    "note"
+   ],
+   "rows": [
+    [
+     "spatial-frequency band most used for identification",
+     8,
+     16,
+     "cycles/face width",
+     "peak reported near 10; other studies give optima ~5-20"
+    ],
+    [
+     "equivalent form wavelength for a 140 mm wide face",
+     8.75,
+     17.5,
+     "mm",
+     "derived: 140/16 and 140/8"
+    ],
+    [
+     "Nyquist pixels across face to carry 16 c/fw",
+     32,
+     32,
+     "px",
+     "derived: 2 x 16; use 64-128 px renders for thumbnail likeness checks"
+    ]
+   ],
+   "population": "adult observers, face identification tasks",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Recalled from Costen, Parker & Craw 1996 and Nasanen 1999; band edges vary by study and task. Derived rows are this note's arithmetic."
+  },
+  {
+   "name": "perceptual_effect_magnitudes",
+   "units": "mixed (see units column)",
+   "columns": [
+    "effect",
+    "value_low",
+    "value_high",
+    "units",
+    "population",
+    "reference_by_name",
+    "status"
+   ],
+   "rows": [
+    [
+     "coarsest image still allowing familiar recognition",
+     15,
+     20,
+     "px or blocks across face",
+     "famous faces",
+     "Harmon 1973; Sinha et al. 2006",
+     "contested"
+    ],
+    [
+     "own-race bias, odds ratio of hits (own vs other race)",
+     1.4,
+     1.4,
+     "odds ratio",
+     "meta-analysis",
+     "Meissner & Brigham 2001",
+     "knowledge"
+    ],
+    [
+     "own-race bias, odds ratio of false alarms (other vs own race)",
+     1.5,
+     1.5,
+     "odds ratio",
+     "meta-analysis",
+     "Meissner & Brigham 2001",
+     "knowledge"
+    ],
+    [
+     "unfamiliar face matching error rate",
+     10,
+     30,
+     "%",
+     "standard tests, good images",
+     "Bruce et al. 1999; Burton, White & McNeill 2010; White et al. 2014",
+     "contested"
+    ],
+    [
+     "identities made sorting 40 photos of 2 people, unfamiliar viewers",
+     7,
+     8,
+     "count",
+     "unfamiliar viewers",
+     "Jenkins et al. 2011",
+     "knowledge"
+    ],
+    [
+     "identities made sorting 40 photos of 2 people, familiar viewers",
+     2,
+     2,
+     "count",
+     "familiar viewers",
+     "Jenkins et al. 2011",
+     "knowledge"
+    ],
+    [
+     "best-likeness caricature level (uncertain)",
+     5,
+     20,
+     "% exaggeration of deviation from norm",
+     "line drawings and photographic caricatures",
+     "Rhodes, Brennan & Carey 1987; Benson & Perrett 1991",
+     "contested"
+    ],
+    [
+     "uniform one-axis stretch still recognised (familiar faces)",
+     1.0,
+     2.0,
+     "scale factor",
+     "famous faces",
+     "Hole et al. 2002",
+     "contested"
+    ],
+    [
+     "morph toward attractive face accepted as self",
+     20,
+     20,
+     "% morph",
+     "own face",
+     "Epley & Whitchurch 2008",
+     "knowledge"
+    ],
+    [
+     "developmental prosopagnosia prevalence",
+     2,
+     2.5,
+     "% of population",
+     "general population",
+     "Kennerknecht et al. 2006",
+     "contested"
+    ]
+   ],
+   "population": "varies by row",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "All values recalled from training, not checked against sources in this library. Do not use as priors; use for UI explanations and reviewer protocols only."
+  },
+  {
+   "name": "likeness_region_priority",
+   "units": "weight (dimensionless); tolerance in mm RMS after similarity alignment",
+   "columns": [
+    "rank",
+    "region",
+    "landmarks_or_measures",
+    "perceptual_weight",
+    "target_rms_mm_low",
+    "target_rms_mm_high",
+    "typical_failure"
+   ],
+   "rows": [
+    [
+     1,
+     "eyelids and fissure",
+     "upper-lid margin curve and peak, fissure height/width, canthal tilt, crease/hooding",
+     1.0,
+     0.5,
+     1.0,
+     "eyes look wrong"
+    ],
+    [
+     2,
+     "brows",
+     "brow height above lid at head/peak/tail, arch peak position, tilt, thickness",
+     0.9,
+     1.0,
+     1.5,
+     "wrong mood or sex"
+    ],
+    [
+     3,
+     "lips",
+     "upper/lower vermilion height, cheilion shape and height, philtrum",
+     0.8,
+     1.0,
+     1.0,
+     "looks sad or stern"
+    ],
+    [
+     4,
+     "eye spacing and depth",
+     "en-en, ex-ex, orbit rim and nasion depth",
+     0.7,
+     1.0,
+     2.0,
+     "looks like a sibling"
+    ],
+    [
+     5,
+     "nose",
+     "al-al, n-sn, tip shape; projection (target <=2 mm)",
+     0.7,
+     1.0,
+     1.5,
+     "right from front, wrong in 3/4"
+    ],
+    [
+     6,
+     "vertical proportions",
+     "facial thirds, sn-sto, sto-me",
+     0.6,
+     1.5,
+     2.0,
+     "face too long or short"
+    ],
+    [
+     7,
+     "outline and hair",
+     "jaw width and angle, chin, zygoma; hairline 3-5 mm; weight 0.8 for unfamiliar viewers",
+     0.6,
+     2.0,
+     3.0,
+     "strangers say not him"
+    ],
+    [
+     8,
+     "soft-tissue age state",
+     "nasolabial fold, jowl, under-eye, lid hooding (depth)",
+     0.5,
+     1.0,
+     2.0,
+     "wrong age"
+    ],
+    [
+     9,
+     "ears and posterior cranium",
+     "ear landmarks, back of head",
+     0.15,
+     3.0,
+     5.0,
+     "rarely noticed"
+    ]
+   ],
+   "population": "design synthesis for adult likeness work",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Design values from perception literature ranking (eyes/brows > lips > nose > outline) and asymmetry visibility thresholds (~2 mm lids, ~3 mm brows/mouth; see anatomy/facial-asymmetry.md). Use for evaluation metric and user guidance only, never as data-term weights."
+  },
+  {
+   "name": "map_shrinkage_factor",
+   "units": "k (fraction of true deviation from mean retained); sigmas in mm",
+   "columns": [
+    "sigma_prior_mm",
+    "sigma_data_mm",
+    "k_retained"
+   ],
+   "rows": [
+    [
+     8,
+     0.5,
+     0.996
+    ],
+    [
+     8,
+     1,
+     0.985
+    ],
+    [
+     8,
+     2,
+     0.941
+    ],
+    [
+     8,
+     4,
+     0.8
+    ],
+    [
+     8,
+     8,
+     0.5
+    ],
+    [
+     8,
+     16,
+     0.2
+    ],
+    [
+     4,
+     0.5,
+     0.985
+    ],
+    [
+     4,
+     1,
+     0.941
+    ],
+    [
+     4,
+     2,
+     0.8
+    ],
+    [
+     4,
+     4,
+     0.5
+    ],
+    [
+     4,
+     8,
+     0.2
+    ],
+    [
+     4,
+     16,
+     0.059
+    ]
+   ],
+   "population": "any (exact arithmetic for independent Gaussian prior and Gaussian data term)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "k = sp^2/(sp^2+sd^2); 1-k is the anti-caricature bias of a MAP fit. Per coordinate, k = 1 - var_post/var_prior from diag((J^T J)^-1). Typical sd (expert estimates): lateral 0.5-1 mm with 3+ views; depth ~2x lateral with views >=30 deg apart; depth 10-20 mm frontal-only. sigma_prior 8 mm is face3d Priors default."
+  },
+  {
+   "name": "expression_view_weight_multipliers",
+   "units": "multiplier on per-landmark confidence (dimensionless)",
+   "columns": [
+    "landmark_group",
+    "view_condition",
+    "multiplier_low",
+    "multiplier_high"
+   ],
+   "rows": [
+    [
+     "brows (inner, peak, tail)",
+     "brows raised or furrowed",
+     0.2,
+     0.3
+    ],
+    [
+     "cheilion, stomion, vermilion borders",
+     "smile or speech",
+     0.2,
+     0.3
+    ],
+    [
+     "lower lid",
+     "Duchenne smile (cheek raise)",
+     0.2,
+     0.3
+    ],
+    [
+     "nasion, endocanthion, tragion",
+     "any expression",
+     1.0,
+     1.0
+    ]
+   ],
+   "population": "design defaults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Design values to calibrate; lets non-neutral photos constrain rigid landmarks without corrupting expression-mobile ones."
+  }
+ ]
+}

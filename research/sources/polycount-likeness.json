@@ -1,0 +1,20 @@
+{
+  "topic": "polycount-likeness",
+  "sources": [],
+  "references_by_name": [
+    "Polycount wiki: topology and edge-loop pages (page names unverified)",
+    "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+    "Scott Spencer, ZBrush Character Creation: Advanced Digital Sculpting (Sybex)",
+    "Scott Spencer, ZBrush Digital Sculpting Human Anatomy (Sybex, 2010)",
+    "Zarins & Kondrats, Anatomy for Sculptors: Understanding the Human Figure, 2014",
+    "Zarins, Anatomy of Facial Expression, 2017",
+    "Faigin, The Artist's Complete Guide to Facial Expression, 1990",
+    "Goldfinger, Human Anatomy for Artists, 1991",
+    "Rhodes, Brennan & Carey, identification and ratings of caricatures, Cognitive Psychology, 1987",
+    "Mori, 'The Uncanny Valley', Energy, 1970",
+    "Jimenez et al., 'Next-Generation Character Rendering', GDC 2013 (to verify)",
+    "Ward et al., nasal distortion in short-distance photographs (selfie effect), JAMA Facial Plastic Surgery, 2018",
+    "Sorkine & Alexa, 'As-Rigid-As-Possible Surface Modeling', SGP 2007",
+    "Hartley & Zisserman, Multiple View Geometry in Computer Vision"
+  ]
+}

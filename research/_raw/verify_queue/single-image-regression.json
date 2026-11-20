@@ -1,0 +1,27 @@
+{
+ "id": "single-image-regression",
+ "area": "reconstruction",
+ "title": "Single-image 3D face reconstruction methods",
+ "queue": [
+  {
+   "claim": "Licence status of the 3D head model files: FLAME was historically non-commercial, and a 'FLAME 2023 Open' release is reportedly CC-BY-4.0. The DECA, EMOCA and MICA code is under MPI-style non-commercial research licences.",
+   "query": "FLAME 2023 Open license CC-BY-4.0 FLAME head model download terms",
+   "domains": "flame.is.tue.mpg.de, github.com"
+  },
+  {
+   "claim": "NoW test-split scores in mm (median/mean/std): DECA 1.09/1.38/1.18, MICA 0.90/1.11/0.92, 3DDFA_V2 about 1.23/1.57/1.39, Deep3DFaceRecon PyTorch about 1.11/1.41/1.21, TokenFace about 0.76/0.95/0.82. Test has 80 subjects and validation 20.",
+   "query": "NoW challenge leaderboard non-metrical median mean std DECA MICA 3DDFA_V2 Deng TokenFace",
+   "domains": "now.is.tue.mpg.de, github.com"
+  },
+  {
+   "claim": "The 3DDFA_V2 and Deep3DFaceRecon_pytorch code is MIT-licensed, while the BFM model they need is registration-only and non-commercial. MediaPipe Face Landmarker is Apache-2.0.",
+   "query": "3DDFA_V2 LICENSE MIT Deep3DFaceRecon_pytorch LICENSE Basel Face Model license terms",
+   "domains": "github.com, faces.dmi.unibas.ch"
+  },
+  {
+   "claim": "MICA outputs 300 FLAME shape coefficients in metres. It claims 15% lower error than prior methods on NoW (non-metrical) and 24% lower on its metrical evaluation. The average FLAME mesh scores 1.92 mm mean, or 1.53 mm with scale fitted. The protocol behind that baseline is unclear.",
+   "query": "MICA Towards Metrical Reconstruction of Human Faces metrical evaluation average FLAME scale 1.53 1.92 NoW",
+   "domains": "arxiv.org, github.com"
+  }
+ ]
+}

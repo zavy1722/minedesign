@@ -1,6 +1,5 @@
 {
   "topic": "skin-shading",
-  "verification_note": "Independent verification pass could not run: shared WebSearch budget exhausted before the first query. All sources are from the harvester only.",
   "sources": [
     {"n": 1, "title": "Principled BSDF - Blender 5.3 Manual", "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2026"},
     {"n": 2, "title": "Principled BSDF - Blender 4.3 Manual", "url": "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2024"},
@@ -13,5 +12,23 @@
     {"n": 9, "title": "Volumetric SSS - Blender Tests - Blender Artists", "url": "https://blenderartists.org/t/volumetric-sss/1102733", "kind": "forum", "year": "unknown"},
     {"n": 10, "title": "This material? How to - Blender Artists", "url": "https://blenderartists.org/t/this-material-how-to/1233888", "kind": "forum", "year": "unknown"},
     {"n": 11, "title": "Principled BSDF - Blender 3.6 Manual", "url": "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2023"}
+  ],
+  "references_by_name": [
+    "Jensen, Marschner, Levoy & Hanrahan, 'A Practical Model for Subsurface Light Transport', SIGGRAPH 2001",
+    "Donner & Jensen, 'Light Diffusion in Multi-Layered Translucent Materials', SIGGRAPH 2005",
+    "Donner & Jensen, 'A Spectral BSSRDF for Shading Human Skin', EGSR 2006",
+    "Weyrich et al., 'Analysis of Human Faces using a Measurement-Based Skin Reflectance Model', SIGGRAPH 2006",
+    "d'Eon & Luebke, 'Advanced Techniques for Realistic Real-Time Skin Rendering', GPU Gems 3, 2007",
+    "Christensen & Burley, 'Approximate Reflectance Profiles for Efficient Subsurface Scattering', Pixar technical memo, 2015",
+    "Jimenez et al., 'Separable Subsurface Scattering', Computer Graphics Forum, 2015",
+    "Ma et al., 'Rapid Acquisition of Specular and Diffuse Normal Maps from Polarized Spherical Gradient Illumination', EGSR 2007",
+    "Graham et al., 'Measurement-Based Synthesis of Facial Microgeometry', Eurographics 2013",
+    "Nagano et al., 'Skin Microstructure Deformation with Displacement Map Convolution', SIGGRAPH 2015",
+    "Anderson & Parrish, 'The Optics of Human Skin', Journal of Investigative Dermatology, 1981",
+    "van Gemert et al., 'Skin Optics', IEEE Transactions on Biomedical Engineering, 1989",
+    "Tuchin, Tissue Optics (book)",
+    "Dodgson, 'Variation and Extrema of Human Interpupillary Distance', SPIE 2004",
+    "Farkas, Anthropometry of the Head and Face, 1994",
+    "Blender 3.0, 4.0 and 4.2 release notes (Cycles subsurface, Principled v2, EEVEE Next)"
   ]
 }

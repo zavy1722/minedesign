@@ -1,0 +1,27 @@
+{
+ "id": "likeness-mistakes",
+ "area": "community",
+ "title": "Common likeness mistakes and diagnostics",
+ "queue": [
+  {
+   "claim": "Normal Hertel exophthalmometry (corneal apex ahead of lateral orbital rim) is about 12-20 mm in adults, with a left-right difference of 2 mm or less and higher values in African-descent samples. The engine uses a prior of 16 \u00b1 2.5 mm.",
+   "query": "Hertel exophthalmometry normal values adults mean SD by ethnicity",
+   "domains": "pubmed.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "At rest, MRD1 is about 4-5 mm, the upper lid covers 1-2 mm of the iris, the lower lid sits at the inferior limbus (0-1 mm scleral show), and palpebral fissure height is 8-11 mm. Iris diameter is 11.7 \u00b1 0.5 mm.",
+   "query": "normal MRD1 margin reflex distance adults mm palpebral fissure height normal range",
+   "domains": "pubmed.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Ward et al. 2018 (JAMA Facial Plastic Surgery) found the nasal base looks about 30% wider in a photo taken at 12 inches than at 5 feet.",
+   "query": "Ward 2018 selfie nasal distortion 30% 12 inches 5 feet JAMA Facial Plastic Surgery",
+   "domains": "jamanetwork.com,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Adult lip norms: upper lip about 4 mm and lower lip about 2 mm (\u00b1 2 mm) behind Ricketts' E-line. Upper and lower vermilion heights are about 6-9 mm and 8-12 mm, so the lower lip is about 1.1-1.5 times the upper. The 1:1.6 and 1:2 'ideal' ratios are aesthetic preferences, not norms.",
+   "query": "Ricketts E-line norms adults upper lip -4 mm lower lip -2 mm vermilion height upper lower lip ratio anthropometry",
+   "domains": ""
+  }
+ ]
+}

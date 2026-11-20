@@ -1,0 +1,27 @@
+{
+ "id": "blender-extensions-packaging",
+ "area": "blender",
+ "title": "Packaging as a Blender extension",
+ "queue": [
+  {
+   "claim": "blender_manifest.toml schema 1.0.0: required keys (schema_version, id, version, name, tagline<=64 chars, maintainer, type, blender_version_min, license as 'SPDX:' list); blender_version_max is exclusive; permissions are a table of {files, network, clipboard, camera, microphone} = reason; platforms values windows-x64/windows-arm64/macos-x64/macos-arm64/linux-x64",
+   "query": "blender_manifest.toml schema_version tagline permissions platforms blender_version_max extension manifest",
+   "domains": "docs.blender.org,developer.blender.org"
+  },
+  {
+   "claim": "extensions.blender.org accepts only free GPL-compatible licences for code and bundled assets (GPL-3.0-or-later as reference), forbids runtime pip installs / downloading and executing code, and requires checking bpy.app.online_access before network access",
+   "query": "extensions.blender.org extension guidelines license GPL compatible must not install python modules online access",
+   "domains": "extensions.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Blender 4.1-4.5 bundle Python 3.11 (cp311 wheels); which CPython Blender 5.1/5.2 LTS/5.3 bundle is unconfirmed (3.11 vs 3.13)",
+   "query": "Blender 5.1 Python 3.13 upgrade release notes bundled Python version",
+   "domains": "developer.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Bundled wheels are extracted into a shared per-repository site-packages (extensions/.local/lib/pythonX.Y/site-packages); 'extension build --split-platforms' emits one zip per platform; Blender skips wheels whose tags do not match",
+   "query": "Blender extensions Python wheels split-platforms site-packages shared between extensions",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

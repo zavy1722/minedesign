@@ -1,0 +1,743 @@
+{
+ "topic": "hair-blender",
+ "tables": [
+  {
+   "name": "scalp_hair_adults",
+   "units": "per row",
+   "columns": [
+    "quantity",
+    "typical",
+    "min",
+    "max",
+    "units",
+    "population_note"
+   ],
+   "rows": [
+    [
+     "total_scalp_hairs",
+     110000,
+     80000,
+     150000,
+     "hairs",
+     "blond > brown/black > red"
+    ],
+    [
+     "density_non_balding",
+     200,
+     120,
+     300,
+     "hairs/cm2",
+     "European high; East Asian and African lower"
+    ],
+    [
+     "hairs_per_follicular_unit",
+     2.25,
+     1,
+     4,
+     "hairs",
+     "singles at hairline"
+    ],
+    [
+     "shaft_diameter",
+     75,
+     50,
+     120,
+     "um",
+     "East Asian 80-120; European 60-90; fine blond 50-60"
+    ],
+    [
+     "cross_section_min_over_max",
+     null,
+     0.5,
+     0.9,
+     "ratio",
+     "East Asian 0.8-0.9; European 0.65-0.8; African 0.5-0.65"
+    ],
+    [
+     "emergence_angle_to_skin",
+     37,
+     15,
+     60,
+     "deg",
+     "flattest at hairline, temples, nape"
+    ],
+    [
+     "hairline_transition_zone_width",
+     5,
+     3,
+     10,
+     "mm",
+     "non-balding"
+    ],
+    [
+     "trichion_above_glabella",
+     60,
+     50,
+     70,
+     "mm",
+     "adults; larger with recession"
+    ]
+   ],
+   "population": "Adults, mixed ancestry; recalled ranges from dermatology/trichology literature, not a single study.",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Expert knowledge; ethnicity-dependent rows contested. Verify against primary studies before use as hard priors."
+  },
+  {
+   "name": "brows_lashes_adults",
+   "units": "per row",
+   "columns": [
+    "quantity",
+    "typical",
+    "min",
+    "max",
+    "units",
+    "note"
+   ],
+   "rows": [
+    [
+     "hairs_per_brow",
+     300,
+     200,
+     600,
+     "n",
+     "wide disagreement between sources"
+    ],
+    [
+     "brow_hair_length",
+     8,
+     4,
+     15,
+     "mm",
+     "longer in older men"
+    ],
+    [
+     "brow_density",
+     80,
+     40,
+     120,
+     "hairs/cm2",
+     ""
+    ],
+    [
+     "brow_hair_lift_from_skin",
+     12,
+     5,
+     20,
+     "deg",
+     ""
+    ],
+    [
+     "brow_height_head",
+     12,
+     10,
+     15,
+     "mm",
+     "vertical extent at medial head"
+    ],
+    [
+     "brow_height_tail",
+     4,
+     3,
+     5,
+     "mm",
+     ""
+    ],
+    [
+     "brow_dir_head",
+     75,
+     60,
+     90,
+     "deg from horizontal, lateral positive",
+     ""
+    ],
+    [
+     "brow_dir_body_upper_rows",
+     10,
+     0,
+     20,
+     "deg from horizontal",
+     ""
+    ],
+    [
+     "brow_dir_body_lower_rows",
+     -7,
+     -15,
+     0,
+     "deg from horizontal",
+     ""
+    ],
+    [
+     "brow_dir_tail",
+     -25,
+     -40,
+     -10,
+     "deg from horizontal",
+     ""
+    ],
+    [
+     "brow_peak_above_rim_female",
+     7,
+     5,
+     10,
+     "mm",
+     "men: on rim, flatter; contested"
+    ],
+    [
+     "upper_lash_count",
+     125,
+     90,
+     160,
+     "n",
+     "same as blender/eyes-modeling-blender.md"
+    ],
+    [
+     "upper_lash_length",
+     10,
+     8,
+     12,
+     "mm",
+     ""
+    ],
+    [
+     "lower_lash_count",
+     65,
+     50,
+     80,
+     "n",
+     ""
+    ],
+    [
+     "lower_lash_length",
+     7,
+     6,
+     8,
+     "mm",
+     ""
+    ],
+    [
+     "lash_base_diameter",
+     0.09,
+     0.06,
+     0.12,
+     "mm",
+     ""
+    ],
+    [
+     "lashes_per_tip_clump",
+     4,
+     3,
+     6,
+     "n",
+     ""
+    ],
+    [
+     "lash_free_medial_margin",
+     6,
+     5,
+     7,
+     "mm",
+     ""
+    ],
+    [
+     "lash_curl",
+     45,
+     30,
+     60,
+     "deg",
+     "East Asian lashes straighter/lower lift"
+    ]
+   ],
+   "population": "Adults; mixed; no single study.",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Brow count/density and brow position are contested; others expert knowledge."
+  },
+  {
+   "name": "blender_hair_starting_values",
+   "units": "per row",
+   "columns": [
+    "setting",
+    "start",
+    "min",
+    "max",
+    "units",
+    "note"
+   ],
+   "rows": [
+    [
+     "guides_full_scalp",
+     800,
+     300,
+     3000,
+     "curves",
+     "more for curly or layered"
+    ],
+    [
+     "rendered_strands_portrait",
+     60000,
+     30000,
+     150000,
+     "curves",
+     ""
+    ],
+    [
+     "points_per_strand",
+     16,
+     8,
+     64,
+     "points",
+     "8 short, 64 long/curly"
+    ],
+    [
+     "root_radius",
+     3e-05,
+     2e-05,
+     6e-05,
+     "m",
+     "inflate as count drops"
+    ],
+    [
+     "tip_over_root_radius",
+     0.2,
+     0.05,
+     0.4,
+     "ratio",
+     "Set Hair Curve Profile"
+    ],
+    [
+     "brow_strands_per_brow",
+     300,
+     200,
+     600,
+     "curves",
+     "Cycles 3D Curves"
+    ],
+    [
+     "lash_root_radius",
+     4e-05,
+     3e-05,
+     6e-05,
+     "m",
+     "tip tapers to ~0"
+    ],
+    [
+     "shrinkwrap_offset_off_skin",
+     0.001,
+     0.0005,
+     0.003,
+     "m",
+     ""
+    ],
+    [
+     "cycles_transparent_bounces_cards",
+     32,
+     16,
+     64,
+     "bounces",
+     ""
+    ],
+    [
+     "cycles_max_bounces_light_hair",
+     16,
+     12,
+     32,
+     "bounces",
+     "dark hair converges sooner"
+    ],
+    [
+     "hero_card_atlas_px",
+     4096,
+     2048,
+     4096,
+     "px",
+     ""
+    ],
+    [
+     "hero_card_triangles",
+     20000,
+     10000,
+     60000,
+     "tris",
+     "2-4 layers"
+    ]
+   ],
+   "population": "Artist practice, not measurement.",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Blender units in metres."
+  },
+  {
+   "name": "principled_hair_bsdf",
+   "units": "per row",
+   "columns": [
+    "input",
+    "default",
+    "human_min",
+    "human_max",
+    "note"
+   ],
+   "rows": [
+    [
+     "ior",
+     1.55,
+     1.55,
+     1.55,
+     "keratin"
+    ],
+    [
+     "offset_deg",
+     2,
+     2,
+     4,
+     "cuticle tilt"
+    ],
+    [
+     "roughness",
+     0.3,
+     0.15,
+     0.45,
+     "glossy to dull/frizzy"
+    ],
+    [
+     "radial_roughness",
+     0.3,
+     0.3,
+     0.6,
+     ""
+    ],
+    [
+     "coat",
+     0,
+     0,
+     0,
+     "fur only"
+    ],
+    [
+     "random_color",
+     0,
+     0.05,
+     0.2,
+     ""
+    ],
+    [
+     "random_roughness",
+     0,
+     0.05,
+     0.2,
+     ""
+    ],
+    [
+     "aspect_ratio_huang",
+     0.85,
+     0.5,
+     0.9,
+     "Huang model, Cycles only, 4.0+"
+    ],
+    [
+     "marschner_R_shift_deg",
+     null,
+     -10,
+     -5,
+     "TT ~ -0.5x, TRT ~ -1.5x the R shift"
+    ],
+    [
+     "marschner_R_width_deg",
+     null,
+     5,
+     10,
+     ""
+    ]
+   ],
+   "population": "Defaults as recalled from Blender 4.x; human ranges from rendering literature/practice.",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Verify defaults against current manual (5.2/5.3)."
+  },
+  {
+   "name": "melanin_presets",
+   "units": "Blender Melanin and Melanin Redness sliders (0-1)",
+   "columns": [
+    "hair_colour",
+    "melanin_min",
+    "melanin_max",
+    "redness_min",
+    "redness_max"
+   ],
+   "rows": [
+    [
+     "black",
+     0.92,
+     1.0,
+     0.1,
+     0.4
+    ],
+    [
+     "dark_brown",
+     0.75,
+     0.9,
+     0.3,
+     0.6
+    ],
+    [
+     "light_medium_brown",
+     0.5,
+     0.75,
+     0.4,
+     0.7
+    ],
+    [
+     "blond",
+     0.15,
+     0.4,
+     0.4,
+     0.8
+    ],
+    [
+     "red_auburn",
+     0.3,
+     0.6,
+     0.85,
+     1.0
+    ],
+    [
+     "grey_white_strands",
+     0.0,
+     0.05,
+     null,
+     null
+    ]
+   ],
+   "population": "Artist practice under Blender's nonlinear melanin mapping.",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Renderer-specific; grey hair is a per-strand mix (fraction p), not a tint. Always match by rendering a swatch under the matched light rig."
+  },
+  {
+   "name": "hair_envelope_offset_prior",
+   "units": "mm (scalp to hair outer surface at crown)",
+   "columns": [
+    "hair_class",
+    "min",
+    "max",
+    "suggested_mu",
+    "suggested_sigma"
+   ],
+   "rows": [
+    [
+     "bald_buzz",
+     0,
+     3,
+     1,
+     1
+    ],
+    [
+     "short_1_5cm",
+     5,
+     20,
+     10,
+     5
+    ],
+    [
+     "medium_5_15cm",
+     10,
+     40,
+     20,
+     10
+    ],
+    [
+     "long_straight",
+     5,
+     30,
+     15,
+     8
+    ],
+    [
+     "curly_voluminous",
+     30,
+     150,
+     60,
+     30
+    ]
+   ],
+   "population": "Practice estimate for adults; not measured.",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Use as log-normal per-region prior; sides of long hair larger than crown."
+  },
+  {
+   "name": "curl_hair_curves_starting_values",
+   "units": "mm",
+   "columns": [
+    "curl_type",
+    "radius_min",
+    "radius_max",
+    "period_min",
+    "period_max"
+   ],
+   "rows": [
+    [
+     "waves_2a_2c",
+     5,
+     15,
+     30,
+     60
+    ],
+    [
+     "curls_3a_3c",
+     3,
+     10,
+     10,
+     30
+    ],
+    [
+     "coils_4a_4c",
+     1,
+     3,
+     2,
+     8
+    ]
+   ],
+   "population": "Artist practice using Walker-style typing; not measured.",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Measured classification: De La Mettrie et al. 2007 (eight types by curve diameter); numbers to verify."
+  },
+  {
+   "name": "engine_priors",
+   "units": "per row",
+   "columns": [
+    "parameter",
+    "mu",
+    "sigma",
+    "units",
+    "note"
+   ],
+   "rows": [
+    [
+     "brow_landmark_sigma_skeletal_fit",
+     null,
+     4,
+     "mm",
+     "3-5; brows are hair features"
+    ],
+    [
+     "brow_landmark_sigma_brow_placement",
+     null,
+     1.5,
+     "mm",
+     "1-2"
+    ],
+    [
+     "scalp_min_inside_hair_hull",
+     2,
+     null,
+     "mm",
+     "0 when bald; hinge penalty"
+    ],
+    [
+     "trichion_glabella",
+     60,
+     10,
+     "mm",
+     ""
+    ],
+    [
+     "hairline_LR_mirror_deviation",
+     0,
+     3,
+     "mm",
+     ""
+    ],
+    [
+     "hairline_observation",
+     null,
+     2,
+     "px",
+     ""
+    ],
+    [
+     "hairline_control_points_per_side",
+     10,
+     null,
+     "n",
+     "8-12"
+    ],
+    [
+     "whorl_spiral_angle",
+     30,
+     8,
+     "deg",
+     "20-45"
+    ],
+    [
+     "guide_elevation_hairline",
+     15,
+     10,
+     "deg",
+     "10-20"
+    ],
+    [
+     "guide_elevation_crown",
+     37,
+     10,
+     "deg",
+     "30-45"
+    ],
+    [
+     "guide_step",
+     2.5,
+     null,
+     "mm",
+     "RK2, 2-3"
+    ],
+    [
+     "gabor_orientations",
+     24,
+     null,
+     "n",
+     "16-36"
+    ],
+    [
+     "gabor_wavelength",
+     6,
+     null,
+     "px",
+     "4-8"
+    ],
+    [
+     "brow_direction_sigma",
+     null,
+     10,
+     "deg",
+     ""
+    ],
+    [
+     "brow_zone_head_end",
+     0.15,
+     null,
+     "fraction of brow length",
+     ""
+    ],
+    [
+     "brow_zone_body_end",
+     0.7,
+     null,
+     "fraction of brow length",
+     ""
+    ],
+    [
+     "lash_cornea_clearance_min",
+     0.2,
+     null,
+     "mm",
+     ""
+    ]
+   ],
+   "population": "Suggested defaults for the fitting engine; not measured.",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Tune on real captures."
+  }
+ ]
+}

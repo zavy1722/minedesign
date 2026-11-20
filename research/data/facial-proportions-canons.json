@@ -1,0 +1,124 @@
+{
+  "topic": "facial-proportions-canons",
+  "tables": [
+    {
+      "name": "neoclassical_canons",
+      "units": "dimensionless ratios of soft-tissue landmark distances (Farkas landmark codes; gn = Farkas soft-tissue gnathion = cephalometric soft-tissue menton)",
+      "columns": ["id", "canon", "numerator", "denominator", "canonical_ratio", "typical_measured_low", "typical_measured_high", "known_population_shift", "status"],
+      "rows": [
+        [1, "two-section (head halves)", "v-en (vertical)", "v-gn (vertical)", 0.5, 0.48, 0.53, "children: eye line lower (see child-growth)", "knowledge"],
+        [2, "three-section (facial thirds), lower:middle", "sn-gn", "n-sn", 1.0, 1.15, 1.35, "thirds unequal in Saudi adults p<0.0001", "sourced"],
+        [3, "four-section", "v-tr", "n-sn", 1.0, 0.75, 0.95, "hair dependent; tr unreliable", "knowledge"],
+        [4, "naso-aural", "sa-sba", "n-sn", 1.0, 1.10, 1.25, "ears lengthen with age", "knowledge"],
+        [5, "orbital", "en-en", "ex-en", 1.0, 1.00, 1.10, "East Asian samples ~1.1-1.3", "verified"],
+        [6, "orbito-nasal", "al-al", "en-en", 1.0, 0.95, 1.10, "African-descent samples ~1.15-1.3; men > women", "sourced"],
+        [7, "naso-oral", "ch-ch", "al-al", 1.5, 1.45, 1.65, "African-descent samples ~1.25-1.4", "sourced"],
+        [8, "naso-facial", "al-al", "zy-zy", 0.25, 0.23, 0.27, "wider noses raise it", "knowledge"],
+        [9, "naso-aural inclination", "ear long-axis angle", "nasal dorsum angle", 1.0, null, null, "usually not parallel", "knowledge"]
+      ],
+      "population": "canonical values from Renaissance canons as operationalised by Farkas 1985; typical ranges derived by the author from Farkas-type young-adult North American White means",
+      "source_urls": ["https://pubmed.ncbi.nlm.nih.gov/25889948/", "https://pubmed.ncbi.nlm.nih.gov/11497505/", "https://pubmed.ncbi.nlm.nih.gov/10096619/", "https://pmc.ncbi.nlm.nih.gov/articles/PMC10699194"],
+      "status": "contested",
+      "notes": "Row status refers to whether the canon fails/holds per sources; numeric typical ranges are author knowledge (derived from means) and need verification. Use as QA/priors, never targets."
+    },
+    {
+      "name": "canon_validation_studies",
+      "units": "n = subjects; finding as text",
+      "columns": ["study", "year", "population", "n", "finding", "source_url", "status"],
+      "rows": [
+        ["Farkas et al.", "1985", "young North American Caucasians", null, "first test; most canons held only in a minority", "https://pubmed.ncbi.nlm.nih.gov/25889948/", "sourced"],
+        ["Turkish soft-tissue study", "1999", "Turkish young adults", 1050, "canons invalid for most of sample", "https://pubmed.ncbi.nlm.nih.gov/10096619/", "sourced"],
+        ["Farkas, Forrest & Litsas", "2000", "Afro-American vs North American Caucasian young adults", 203, "revised canons; should not be strict surgical directives (100 vs 103)", "https://pubmed.ncbi.nlm.nih.gov/11497505/", "sourced"],
+        ["African American women study", "2001", "African American women", null, "best of nine canons (orbital) met by 30.6%", "https://pubmed.ncbi.nlm.nih.gov/11497505/", "sourced"],
+        ["Le et al.", "2002", "Chinese, Vietnamese, Thai vs Caucasian", null, "validity more frequent in Caucasians; profile thirds never equal", "https://pubmed.ncbi.nlm.nih.gov/25889948/", "sourced"],
+        ["Greek study", "2012", "Greek adults", 163, "most subjects did not meet canons", "https://pubmed.ncbi.nlm.nih.gov/25889948/", "sourced"],
+        ["Al-Sebaei", "2015", "Saudi dental students 20-24 y (93 M, 75 F)", 168, "thirds unequal p<0.0001; thirds, orbital, orbito-nasal canons not validated", "https://head-face-med.biomedcentral.com/articles/10.1186/s13005-015-0064-y", "sourced"],
+        ["Saudi Class III study", "2023", "adult Saudi skeletal Class III patients", null, "orbital canon most validated in both groups", "https://pmc.ncbi.nlm.nih.gov/articles/PMC10699194", "sourced"],
+        ["Kenyans of Indian descent", null, "adult Kenyans of Indian descent", null, "canons analysed; result not captured", "https://pmc.ncbi.nlm.nih.gov/articles/PMC9941299", "sourced"],
+        ["Sridhar et al.", "2025", "text-to-image AI generated 'ideal' faces", null, "proportions differ significantly from neoclassical canons", "https://journals.sagepub.com/doi/10.1089/fpsam.2025.0007", "sourced"]
+      ],
+      "population": "as listed per row",
+      "source_urls": ["https://pubmed.ncbi.nlm.nih.gov/25889948/", "https://head-face-med.biomedcentral.com/articles/10.1186/s13005-015-0064-y", "https://pubmed.ncbi.nlm.nih.gov/11497505/", "https://pubmed.ncbi.nlm.nih.gov/10096619/", "https://pmc.ncbi.nlm.nih.gov/articles/PMC10699194", "https://pmc.ncbi.nlm.nih.gov/articles/PMC9941299", "https://journals.sagepub.com/doi/10.1089/fpsam.2025.0007"],
+      "status": "verified",
+      "notes": "Convergent finding (most adults fail most canons) is supported by >=2 independent studies; individual rows are single-source snippets (abstract level)."
+    },
+    {
+      "name": "ratio_prior_defaults",
+      "units": "mu = ratio (dimensionless); sigma = SD of natural-log ratio",
+      "columns": ["ratio", "numerator", "denominator", "frame", "mu", "sigma_log_same_population", "sigma_log_any_population", "default_use"],
+      "rows": [
+        ["orbital", "en-en", "ex-en", "3D chord", 1.05, 0.08, 0.14, "on"],
+        ["orbito-nasal", "al-al", "en-en", "3D chord", 1.02, 0.09, 0.16, "on"],
+        ["naso-oral", "ch-ch", "al-al", "3D chord, neutral mouth", 1.55, 0.07, 0.13, "on"],
+        ["naso-facial", "al-al", "zy-zy", "3D chord", 0.25, 0.07, 0.10, "on"],
+        ["biocular/bizygomatic", "ex-ex", "zy-zy", "3D chord", 0.67, 0.05, 0.07, "on"],
+        ["mouth/IPD", "ch-ch", "IPD", "3D chord, neutral", 0.83, 0.07, 0.10, "qa_only"],
+        ["lower/middle third (nasion)", "sn-gn", "n-sn", "FH vertical projection", 1.27, 0.08, 0.10, "on"],
+        ["lower/middle third (glabella)", "sn-gn", "g-sn", "FH vertical projection", 1.05, 0.08, 0.10, "on"],
+        ["upper lip/lower lip+chin", "sn-sto", "sto-gn", "FH vertical projection", 0.45, 0.10, 0.12, "on"],
+        ["ear/nose length", "sa-sba", "n-sn", "3D chord", 1.15, 0.08, 0.10, "only_if_ear_hidden"],
+        ["forehead/nose", "tr-n", "n-sn", "FH vertical projection", 1.15, 0.13, 0.18, "off"],
+        ["eye-line fraction", "v-en", "v-gn", "FH vertical projection", 0.51, 0.025, 0.03, "only_if_vertex_hidden"],
+        ["head height/face height", "v-gn", "n-gn", "FH vertical projection", 1.93, 0.04, 0.06, "only_if_vertex_hidden"],
+        ["cranial index /100", "eu-eu", "g-op", "3D chord", 0.79, 0.04, 0.07, "only_if_skull_hidden"]
+      ],
+      "population": "young adults of European descent, sexes pooled; 'any population' sigma widened for unknown/mixed population. Condition mu by sex/age/user-chosen norm set where available.",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Author-derived design defaults from Farkas-type means and CVs (3-12%). Use with Student-t (nu~4) robust loss in log space. Do not stack on an SSM prior without inflating sigma x2. Loosen x2 or drop once the ratio is observed in >=2 calibrated views."
+    },
+    {
+      "name": "artist_construction_rules",
+      "units": "fractions/ratios as stated",
+      "columns": ["rule", "claimed_value", "measured_adult_low", "measured_adult_high", "measured_quantity", "use_as", "rule_source_url", "status"],
+      "rows": [
+        ["eye line at half head height", 0.50, 0.48, 0.53, "v-en / v-gn from vertex", "prior sigma 0.025", "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle", "contested"],
+        ["equal thirds hairline/brow/nose base/chin (brow-based)", 1.0, 0.95, 1.15, "sn-gn / g-sn", "prior", null, "knowledge"],
+        ["mouth at one third nose-to-chin", 0.333, 0.29, 0.34, "sn-sto / sn-gn", "prior", "https://www.proko.com/course-lesson/how-to-draw-the-head-front-view", "knowledge"],
+        ["head five eye-widths across (head breadth)", 5.0, 4.7, 5.0, "eu-eu / ex-en", "block-out", "https://finearttutorials.com/guide/loomis-method/", "knowledge"],
+        ["head five eye-widths across (face width)", 5.0, 4.2, 4.6, "zy-zy / ex-en", "block-out", "https://finearttutorials.com/guide/loomis-method/", "knowledge"],
+        ["one eye between the eyes", 1.0, 1.0, 1.3, "en-en / ex-en", "population-dependent prior", "https://finearttutorials.com/guide/loomis-method/", "sourced"],
+        ["mouth corners under pupils", 1.0, 0.80, 0.87, "ch-ch / IPD", "QA only", null, "knowledge"],
+        ["front view width two-thirds of height", 0.667, 0.63, 0.67, "eu-eu / v-gn", "hidden-skull prior", null, "knowledge"],
+        ["profile fits a square", 1.0, 0.90, 1.0, "prn-op / v-gn", "hidden-skull prior", null, "knowledge"]
+      ],
+      "population": "adults; measured ranges derived by author from Farkas-type North American White means",
+      "source_urls": ["https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle", "https://www.proko.com/course-lesson/how-to-draw-the-head-front-view", "https://finearttutorials.com/guide/loomis-method/"],
+      "status": "knowledge",
+      "notes": "Rule statements are sourced to tutorials; measured ranges are author knowledge. Proko notes a textbook placing the eye line through the lower lids instead."
+    },
+    {
+      "name": "golden_ratio_claims",
+      "units": "text; phi = 1.618",
+      "columns": ["claim", "evidence", "verdict", "source_url", "status"],
+      "rows": [
+        ["phi predicts facial attractiveness / should guide surgery", "2024 review finds no supporting evidence", "rejected", "https://pmc.ncbi.nlm.nih.gov/articles/PMC10792139/", "verified"],
+        ["Marquardt phi mask is a universal ideal", "fit method flawed; poor fit for Europeans, worse for East Asians and sub-Saharan Africans; matches masculinised White fashion models", "rejected", "https://link.springer.com/doi/10.1007/s00266-007-9080-z", "sourced"],
+        ["attractive African-Caribbean faces follow phi", "only one ratio resembled phi; no association with attractiveness", "rejected", "https://pmc.ncbi.nlm.nih.gov/articles/PMC6123330", "sourced"],
+        ["face length/width = phi", "hairline-chin / bizygomatic ~1.3-1.4 in adults", "rejected", null, "knowledge"],
+        ["phi as ecological affordance", "single 2022 theoretical/experimental paper", "open", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9787369/", "contested"],
+        ["17.1% of proportions near phi (Malaysian sample)", "figure seen in snippet; attribution to PMC4642949 unconfirmed", "unverified", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4642949/", "contested"]
+      ],
+      "population": "as per row",
+      "source_urls": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC10792139/", "https://link.springer.com/doi/10.1007/s00266-007-9080-z", "https://pmc.ncbi.nlm.nih.gov/articles/PMC6123330", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9787369/", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4642949/"],
+      "status": "verified",
+      "notes": "Engine must contain no phi terms. Chance arithmetic: 20 landmarks -> 190 distances -> ~18,000 ratios; ~4-6% fall within +/-3% of phi by chance."
+    },
+    {
+      "name": "perspective_ratio_inflation",
+      "units": "camera distance in m; inflation in percent; pinhole model, factor = (d + delta)/d",
+      "columns": ["camera_to_alar_base_m", "alal_over_zyzy_inflation_pct_delta_0p07m", "nosetip_vs_ear_scale_pct_delta_0p11m"],
+      "rows": [
+        [0.35, 20.0, 31.4],
+        [0.5, 14.0, 22.0],
+        [1.0, 7.0, 11.0],
+        [2.0, 3.5, 5.5],
+        [3.0, 2.3, 3.7]
+      ],
+      "population": "geometry; depth offsets (al vs zy ~7 cm, nose tip vs tragion ~11 cm) are approximate adult values",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Additional: ~5-10% change in projected middle:lower third ratio per 10 deg head pitch (orthographic estimate). Measure ratios only after multi-view camera solve."
+    }
+  ]
+}

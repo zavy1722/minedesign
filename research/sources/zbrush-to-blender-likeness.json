@@ -1,0 +1,21 @@
+{
+ "topic": "zbrush-to-blender-likeness",
+ "sources": [],
+ "references_by_name": [
+  "Scott Spencer, ZBrush Character Creation: Advanced Digital Sculpting (Sybex, 2008; 2nd ed. 2011)",
+  "Scott Spencer, ZBrush Digital Sculpting Human Anatomy (Sybex, 2010)",
+  "Eric Keller, Introducing ZBrush (Sybex, several editions)",
+  "Maxon/Pixologic ZBrush documentation: Spotlight, Universal Camera, Layers, Morph Target, See-through",
+  "Blender Manual: Camera (Lens, Sensor, Background Images), Sculpt Mode, Multiresolution modifier, Shape Keys, UV Project modifier, Texture Paint stencil",
+  "Pablo Munoz Gomez, ZBrushGuides (website and courses)",
+  "Uldis Zarins & Sandis Kondrats, Anatomy for Sculptors (2014); Anatomy of Facial Expression (2017)",
+  "Philippe Faraut, Portrait Sculpting: Anatomy & Expressions in Clay (2004)",
+  "Leslie G. Farkas, Anthropometry of the Head and Face (2nd ed., 1994)",
+  "Neil A. Dodgson, Variation and extrema of human interpupillary distance (SPIE, 2004)",
+  "Ward, Ward, Fried & Paskhover, Nasal distortion in short-distance photographs: the selfie effect (JAMA Facial Plastic Surgery, 2018)",
+  "Fried, Shechtman, Goldman & Finkelstein, Perspective-aware manipulation of portrait photos (SIGGRAPH, 2016)",
+  "Rhodes, Brennan & Carey, Identification and ratings of caricatures (Cognitive Psychology, 1987)",
+  "Haig, The effect of feature displacement on face recognition (Perception, 1984)",
+  "Hartley & Zisserman, Multiple View Geometry in Computer Vision (2nd ed., 2004)"
+ ]
+}

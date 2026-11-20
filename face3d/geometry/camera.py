@@ -157,11 +157,13 @@ def to_blender_camera(cam: Camera, sensor_width_mm: float = 36.0) -> dict:
     M[:3, :3] = R_bl.T
     M[:3, 3] = cam.center
     lens = cam.f * sensor_width_mm / cam.width
-    # Blender shift is in units of the larger image dimension; a positive shift
-    # moves the frame right/up, so the optical axis lands left of/below centre.
-    larger = float(max(cam.width, cam.height))
-    shift_x = (cam.width / 2.0 - cam.cx) / larger
-    shift_y = (cam.cy - cam.height / 2.0) / larger
+    # Blender measures shift in units of the sensor-fit dimension; with
+    # sensor_fit = HORIZONTAL that is the image width for BOTH shift_x and
+    # shift_y (with AUTO it would be the larger side). A positive shift moves
+    # the frame right/up, so the optical axis lands left of/below centre.
+    fit = float(cam.width)
+    shift_x = (cam.width / 2.0 - cam.cx) / fit
+    shift_y = (cam.cy - cam.height / 2.0) / fit
     return {
         "matrix_world": M,
         "lens": lens,

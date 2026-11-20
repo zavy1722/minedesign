@@ -1,0 +1,27 @@
+{
+ "id": "skull-osteology",
+ "area": "anatomy",
+ "title": "Skull osteology that shapes the face surface",
+ "queue": [
+  {
+   "claim": "Expert-knowledge adult soft-tissue depth ranges for lateral and cheek landmarks, used as thickness priors in the engine: supraorbital ~6-9 mm, infraorbital ~5-10, lateral orbit ~6-10, zygion ~6-10, inferior malar ~10-18, buccal/mid-masseter ~15-25, gonion ~8-18, mid-philtrum ~11-16, menton ~6-9.",
+   "query": "Stephan Simpson T-table adult facial soft tissue thickness zygomatic arch gonion inferior malar mid-masseter supraorbital mean mm",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov,sciencedirect.com"
+  },
+  {
+   "claim": "The corneal apex normally lies about 12-20 mm in front of the lateral orbital rim (normal Hertel exophthalmometry range), with higher average values in people of African ancestry.",
+   "query": "normal Hertel exophthalmometry values adults range mm Black White Asian population study",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "The adult gonial angle averages about 120\u00b0 (StatPearls; 120.17\u00b0 in young adult male dry mandibles), with a typical adult spread of about 110-135\u00b0 and a slightly more acute angle in males. The 90\u00b0 (male) / 110\u00b0 (female) values are implausible as adult means.",
+   "query": "gonial angle adult mean standard deviation male female CT cephalometric study degrees",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Pooled global soft-tissue depths (2023 review): glabella 5.5 mm, nasion 6.0 mm, rhinion 3.0 mm. Rhinion and the SDs are single-source.",
+   "query": "Global facial soft tissue thicknesses for craniofacial identification 2023 review 140 years Welcker glabella nasion rhinion mean SD",
+   "domains": "pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

@@ -1,0 +1,681 @@
+{
+ "topic": "landmark-detection",
+ "tables": [
+  {
+   "name": "detector_cards",
+   "units": "points (count), input (px), cpu_time (ms per face, order of magnitude, detection excluded), usable_yaw (deg, +/-)",
+   "columns": [
+    "detector",
+    "points",
+    "convention",
+    "input_px",
+    "cpu_ms_min",
+    "cpu_ms_max",
+    "usable_yaw_deg",
+    "code_licence",
+    "weights_terms",
+    "status"
+   ],
+   "rows": [
+    [
+     "MediaPipe Face Landmarker",
+     478,
+     "3d_mesh_relative_z",
+     256,
+     2,
+     20,
+     65,
+     "Apache-2.0",
+     "Apache-2.0 (model card; verify per release)",
+     "contested"
+    ],
+    [
+     "dlib ERT 68",
+     68,
+     "2d",
+     null,
+     1,
+     3,
+     35,
+     "BSL-1.0",
+     "trained on iBUG 300-W; non-commercial",
+     "contested"
+    ],
+    [
+     "FAN / 3D-FAN (face_alignment)",
+     68,
+     "2d / 3d",
+     256,
+     100,
+     1000,
+     90,
+     "BSD-3-Clause",
+     "research datasets",
+     "knowledge"
+    ],
+    [
+     "HRNetV2-W18",
+     98,
+     "2d",
+     256,
+     10,
+     50,
+     60,
+     "MIT",
+     "research datasets",
+     "knowledge"
+    ],
+    [
+     "SPIGA",
+     98,
+     "2d (+visibility on MERL-RAV)",
+     256,
+     50,
+     300,
+     90,
+     "BSD-3-Clause (verify)",
+     "research datasets",
+     "contested"
+    ],
+    [
+     "PIPNet",
+     98,
+     "2d",
+     256,
+     5,
+     30,
+     60,
+     "MIT",
+     "research datasets",
+     "knowledge"
+    ],
+    [
+     "InsightFace 2d106 / 1k3d68",
+     106,
+     "2d / 3d",
+     192,
+     3,
+     10,
+     75,
+     "MIT",
+     "models non-commercial",
+     "knowledge"
+    ],
+    [
+     "3DDFA_V2",
+     68,
+     "3d (dense BFM)",
+     120,
+     5,
+     20,
+     90,
+     "MIT",
+     "BFM non-commercial",
+     "knowledge"
+    ],
+    [
+     "Sapiens pose 0.3B-2B",
+     308,
+     "2d (~243 face incl. ears)",
+     1024,
+     2000,
+     120000,
+     90,
+     "custom Sapiens licence",
+     "believed non-commercial",
+     "contested"
+    ],
+    [
+     "Wood et al. 2022 dense",
+     703,
+     "3d dense + per-point sigma",
+     null,
+     null,
+     null,
+     90,
+     "unreleased",
+     "unreleased",
+     "knowledge"
+    ]
+   ],
+   "population": "Order-of-magnitude engineering estimates for one face on a recent laptop CPU",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Not measured in this library. CPU times exclude face detection (dlib HOG adds ~20-100 ms). usable_yaw is where output remains usable, not accurate; MediaPipe reliable to ~45 deg. Licence fields are time-sensitive."
+  },
+  {
+   "name": "benchmark_nme_percent_iod",
+   "units": "% of outer inter-ocular distance (NME)",
+   "columns": [
+    "method",
+    "w300_common",
+    "w300_challenging",
+    "w300_full",
+    "wflw_full",
+    "status"
+   ],
+   "rows": [
+    [
+     "ERT (dlib-style)",
+     null,
+     null,
+     6.4,
+     null,
+     "knowledge"
+    ],
+    [
+     "LAB 2018",
+     3.0,
+     5.2,
+     3.5,
+     5.3,
+     "knowledge"
+    ],
+    [
+     "HRNetV2-W18",
+     2.9,
+     5.2,
+     3.3,
+     4.6,
+     "knowledge"
+    ],
+    [
+     "PIPNet-R101",
+     2.8,
+     4.9,
+     3.2,
+     4.3,
+     "knowledge"
+    ],
+    [
+     "ADNet 2021",
+     2.5,
+     4.6,
+     2.9,
+     4.1,
+     "knowledge"
+    ],
+    [
+     "SPIGA 2022",
+     2.6,
+     4.7,
+     3.0,
+     4.06,
+     "knowledge"
+    ],
+    [
+     "STAR 2023",
+     2.5,
+     4.3,
+     2.9,
+     4.0,
+     "knowledge"
+    ],
+    [
+     "Best 2023-25 (range low end)",
+     null,
+     null,
+     2.8,
+     3.9,
+     "contested"
+    ]
+   ],
+   "population": "300-W (68 pts; common 554, challenging 135, full 689 test images) and WFLW (98 pts; 2,500 test images); in-the-wild web photos",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Values as commonly tabulated in later papers, +/-0.1-0.2. WFLW pose-subset NME for 2021-23 methods ~6.5-8 %. MediaPipe has no comparable published NME (own 2019 protocol: MAD ~3-5 % IOD, contested)."
+  },
+  {
+   "name": "nme_to_mm",
+   "units": "mm",
+   "columns": [
+    "normaliser",
+    "adult_size_mm_min",
+    "adult_size_mm_max",
+    "mm_per_1pct_min",
+    "mm_per_1pct_max"
+   ],
+   "rows": [
+    [
+     "outer_iod_ex_ex",
+     85,
+     95,
+     0.85,
+     0.95
+    ],
+    [
+     "inter_pupil",
+     58,
+     70,
+     0.58,
+     0.7
+    ],
+    [
+     "sqrt_bbox_68pt",
+     120,
+     140,
+     1.2,
+     1.4
+    ]
+   ],
+   "population": "Adults; sizes after Farkas 1994 (approximate ranges)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Inner-face anchors typically ~0.5-0.7x the full NME; contour points ~1.5-2x."
+  },
+  {
+   "name": "anatomical_index_map",
+   "units": "0-based landmark indices",
+   "columns": [
+    "anthropometric_point",
+    "dlib68",
+    "mediapipe478",
+    "reliability",
+    "status"
+   ],
+   "rows": [
+    [
+     "exocanthion_R",
+     36,
+     33,
+     "high",
+     "knowledge"
+    ],
+    [
+     "exocanthion_L",
+     45,
+     263,
+     "high",
+     "knowledge"
+    ],
+    [
+     "endocanthion_R",
+     39,
+     133,
+     "high (caruncle offset)",
+     "knowledge"
+    ],
+    [
+     "endocanthion_L",
+     42,
+     362,
+     "high (caruncle offset)",
+     "knowledge"
+    ],
+    [
+     "iris_centre_R",
+     null,
+     468,
+     "high in 478 mode",
+     "contested"
+    ],
+    [
+     "iris_centre_L",
+     null,
+     473,
+     "high in 478 mode",
+     "contested"
+    ],
+    [
+     "upper_lid_apex_R",
+     [
+      37,
+      38
+     ],
+     159,
+     "medium",
+     "knowledge"
+    ],
+    [
+     "lower_lid_apex_R",
+     [
+      40,
+      41
+     ],
+     145,
+     "medium",
+     "knowledge"
+    ],
+    [
+     "upper_lid_apex_L",
+     [
+      43,
+      44
+     ],
+     386,
+     "medium",
+     "knowledge"
+    ],
+    [
+     "lower_lid_apex_L",
+     [
+      46,
+      47
+     ],
+     374,
+     "medium",
+     "knowledge"
+    ],
+    [
+     "sellion_region",
+     27,
+     168,
+     "low along bridge",
+     "knowledge"
+    ],
+    [
+     "pronasale",
+     30,
+     1,
+     "medium (lighting); MediaPipe alt 4",
+     "knowledge"
+    ],
+    [
+     "subnasale",
+     33,
+     2,
+     "medium-high; MediaPipe alt 94",
+     "knowledge"
+    ],
+    [
+     "alar_region_R",
+     31,
+     [
+      129,
+      64,
+      48
+     ],
+     "medium; MediaPipe candidates, verify",
+     "contested"
+    ],
+    [
+     "alar_region_L",
+     35,
+     [
+      358,
+      294,
+      278
+     ],
+     "medium; MediaPipe candidates, verify",
+     "contested"
+    ],
+    [
+     "cheilion_R",
+     48,
+     61,
+     "high",
+     "knowledge"
+    ],
+    [
+     "cheilion_L",
+     54,
+     291,
+     "high",
+     "knowledge"
+    ],
+    [
+     "labrale_superius",
+     51,
+     0,
+     "high",
+     "knowledge"
+    ],
+    [
+     "labrale_inferius",
+     57,
+     17,
+     "high",
+     "knowledge"
+    ],
+    [
+     "stomion",
+     [
+      62,
+      66
+     ],
+     [
+      13,
+      14
+     ],
+     "high when lips closed (mean of pair)",
+     "knowledge"
+    ],
+    [
+     "soft_tissue_gnathion",
+     8,
+     152,
+     "contour-like",
+     "knowledge"
+    ],
+    [
+     "face_outline_lateral",
+     [
+      0,
+      16
+     ],
+     [
+      234,
+      454
+     ],
+     "contour only",
+     "knowledge"
+    ],
+    [
+     "upper_forehead_not_trichion",
+     null,
+     10,
+     "low",
+     "knowledge"
+    ],
+    [
+     "brow_R",
+     [
+      17,
+      18,
+      19,
+      20,
+      21
+     ],
+     [
+      70,
+      105,
+      107
+     ],
+     "hair feature",
+     "knowledge"
+    ],
+    [
+     "brow_L",
+     [
+      22,
+      23,
+      24,
+      25,
+      26
+     ],
+     [
+      300,
+      334,
+      336
+     ],
+     "hair feature",
+     "knowledge"
+    ]
+   ],
+   "population": "Index conventions of dlib/iBUG 68 (0-based) and MediaPipe 478; R/L = subject's side",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Verify by rendering index labels on the canonical mesh before freezing; resolve iris L/R geometrically at runtime. List values = averaged or candidate indices."
+  },
+  {
+   "name": "observation_sigma_defaults",
+   "units": "% of image outer IOD (convert to px per view)",
+   "columns": [
+    "class",
+    "sigma_normal_pct",
+    "sigma_tangent_pct",
+    "residual_type"
+   ],
+   "rows": [
+    [
+     "iris_centre",
+     1.0,
+     1.0,
+     "point"
+    ],
+    [
+     "anchor (canthi, cheilia, labrale, subnasale)",
+     1.5,
+     1.5,
+     "point"
+    ],
+    [
+     "lid_lip_contour",
+     2.0,
+     5.0,
+     "point, anisotropic"
+    ],
+    [
+     "pronasale",
+     2.5,
+     2.5,
+     "point"
+    ],
+    [
+     "sellion (horizontal/vertical)",
+     2.0,
+     4.0,
+     "point, anisotropic"
+    ],
+    [
+     "brow",
+     4.0,
+     6.0,
+     "point, low weight"
+    ],
+    [
+     "jaw_oval",
+     2.5,
+     12.5,
+     "silhouette preferred"
+    ]
+   ],
+   "population": "Design defaults for the face3d bundle adjuster, not measurements",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Brow normal sigma 3-5 %, jaw tangent 10-15 %. For dense MediaPipe output inflate all sigma by sqrt(N/N_eff), N_eff ~60-100. Huber delta = 2 sigma; reject > 4 sigma after first solve. Use sigma = max(class sigma, TTA spread)."
+  },
+  {
+   "name": "engine_defaults",
+   "units": "mixed (see column)",
+   "columns": [
+    "parameter",
+    "value",
+    "unit",
+    "notes"
+   ],
+   "rows": [
+    [
+     "huber_delta",
+     2.0,
+     "sigma",
+     "replace fixed 3 px"
+    ],
+    [
+     "outlier_reject",
+     4.0,
+     "sigma",
+     "after first converged solve"
+    ],
+    [
+     "view_reject_fraction",
+     0.15,
+     "fraction",
+     "flag view if more points rejected"
+    ],
+    [
+     "visibility_zero_cos",
+     0.1736,
+     "cos(80 deg)",
+     "n.(-v) below -> weight 0"
+    ],
+    [
+     "visibility_full_cos",
+     0.5,
+     "cos(60 deg)",
+     "linear ramp between"
+    ],
+    [
+     "drop_far_oval_yaw",
+     25,
+     "deg",
+     "far-side face-oval points"
+    ],
+    [
+     "transform_rotation_seed_max_yaw",
+     60,
+     "deg",
+     "use MediaPipe rotation as PnP seed below this"
+    ],
+    [
+     "tta_passes",
+     8,
+     "count",
+     "6-10; flip, scale 0.9-1.1, rot +/-10 deg, shift +/-3 %"
+    ],
+    [
+     "n_eff_dense_mediapipe",
+     80,
+     "count",
+     "60-100"
+    ],
+    [
+     "calibration_renders",
+     30,
+     "count",
+     "20-50 known cameras of the template"
+    ],
+    [
+     "iris_diameter_prior",
+     11.7,
+     "mm",
+     "sigma 0.5 mm"
+    ],
+    [
+     "ipd_prior",
+     63,
+     "mm",
+     "sigma 3.5 mm"
+    ],
+    [
+     "blendshape_jawOpen_max",
+     0.08,
+     "score",
+     "uncalibrated starting threshold"
+    ],
+    [
+     "blendshape_mouthSmile_max",
+     0.15,
+     "score",
+     "uncalibrated"
+    ],
+    [
+     "blendshape_eyeBlink_max",
+     0.35,
+     "score",
+     "uncalibrated"
+    ],
+    [
+     "blendshape_browInnerUp_max",
+     0.2,
+     "score",
+     "uncalibrated"
+    ]
+   ],
+   "population": "Engineering defaults proposed for face3d; not validated",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Iris/IPD priors duplicated from blender/blender-face-addons.md for convenience."
+  }
+ ]
+}

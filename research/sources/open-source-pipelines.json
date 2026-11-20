@@ -1,0 +1,259 @@
+{
+ "topic": "open-source-pipelines",
+ "sources": [
+  {
+   "n": 1,
+   "title": "PeizhiYan flame-head-tracker (v4.1, Aug 2025)",
+   "url": "https://github.com/peizhiyan/flame-head-tracker",
+   "kind": "repo",
+   "year": "2025",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 2,
+   "title": "tikammali flame-head-tracker fork",
+   "url": "https://github.com/tikammali/flame-head-tracker",
+   "kind": "repo",
+   "year": "n.d.",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 3,
+   "title": "VHAP: Versatile Head Alignment with Adaptive Appearance Priors (ShenhanQian)",
+   "url": "https://github.com/ShenhanQian/VHAP",
+   "kind": "repo",
+   "year": "n.d.",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 4,
+   "title": "VHAP Gitee mirror (2025 batching update)",
+   "url": "https://gitee.com/hu-hanqing/VHAP",
+   "kind": "code mirror",
+   "year": "2025",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 5,
+   "title": "philgras video-head-tracker (CC BY-NC 3.0)",
+   "url": "https://github.com/philgras/video-head-tracker",
+   "kind": "repo",
+   "year": "n.d.",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 6,
+   "title": "RealDenseFace: Real-time Monocular 3D Face Reconstruction from Dense UV-space Priors",
+   "url": "https://arxiv.org/pdf/2608.09238",
+   "kind": "paper",
+   "year": "2026",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 7,
+   "title": "Multi-View Face and Gesture Animation with Dynamic Gaussians",
+   "url": "https://arxiv.org/pdf/2608.04722",
+   "kind": "paper",
+   "year": "2026",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 8,
+   "title": "GAF: Gaussian Avatar Reconstruction from Monocular Videos via Multi-view Diffusion",
+   "url": "https://arxiv.org/pdf/2412.10209v2",
+   "kind": "paper",
+   "year": "2024",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 9,
+   "title": "Tang et al., GAF, CVPR 2025 supplemental",
+   "url": "https://openaccess.thecvf.com/content/CVPR2025/supplemental/Tang_GAF_Gaussian_Avatar_CVPR_2025_supplemental.pdf",
+   "kind": "paper supplement",
+   "year": "2025",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 10,
+   "title": "Learning an Animatable Detailed 3D Face Model from In-The-Wild Images (DECA)",
+   "url": "https://arxiv.org/abs/2012.04012",
+   "kind": "paper",
+   "year": "2021",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 11,
+   "title": "Towards Realistic Generative 3D Face Models",
+   "url": "https://arxiv.org/pdf/2304.12483",
+   "kind": "paper",
+   "year": "2023",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 12,
+   "title": "Towards Metrical Reconstruction of Human Faces (MICA), ar5iv",
+   "url": "https://ar5iv.labs.arxiv.org/html/2204.06607",
+   "kind": "paper",
+   "year": "2022",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 13,
+   "title": "Towards Metrical Reconstruction of Human Faces (MICA), arXiv abstract",
+   "url": "https://arxiv.org/abs/2204.06607",
+   "kind": "paper",
+   "year": "2022",
+   "via_harvest": "identity-embeddings harvest"
+  },
+  {
+   "n": 14,
+   "title": "SMIRK: 3D Facial Expressions through Analysis-by-Neural-Synthesis",
+   "url": "https://arxiv.org/html/2404.04104",
+   "kind": "paper",
+   "year": "2024",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 15,
+   "title": "georgeretsi/smirk: Official PyTorch Implementation of SMIRK",
+   "url": "https://github.com/georgeretsi/smirk",
+   "kind": "repo",
+   "year": "2024",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 16,
+   "title": "TEASER: Token Enhanced Spatial Modeling for Expressions Reconstruction",
+   "url": "https://arxiv.org/pdf/2502.10982",
+   "kind": "paper",
+   "year": "2025",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 17,
+   "title": "cleardusk/3DDFA_V2",
+   "url": "https://github.com/cleardusk/3DDFA_V2",
+   "kind": "repo",
+   "year": "2020",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 18,
+   "title": "Towards Fast, Accurate and Stable 3D Dense Face Alignment",
+   "url": "https://arxiv.org/pdf/2009.09960v2",
+   "kind": "paper",
+   "year": "2020",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 19,
+   "title": "1996scarlet/Dense-Head-Pose-Estimation (3DDFA_V2 TFLite reimplementation)",
+   "url": "https://github.com/1996scarlet/Dense-Head-Pose-Estimation",
+   "kind": "repo",
+   "year": "2020",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 20,
+   "title": "SIDER: Single-Image Neural Optimization for Facial Geometric Detail Recovery",
+   "url": "https://arxiv.org/pdf/2108.05465",
+   "kind": "paper",
+   "year": "2021",
+   "via_harvest": "single-image-regression harvest"
+  },
+  {
+   "n": 21,
+   "title": "InsightFace python-package model_zoo.md",
+   "url": "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md",
+   "kind": "repo docs",
+   "year": "2024",
+   "via_harvest": "identity-embeddings harvest"
+  },
+  {
+   "n": 22,
+   "title": "MediaPipe Face Landmarker guide",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+   "kind": "official docs",
+   "year": "n.d.",
+   "via_harvest": "facs-expressions harvest"
+  },
+  {
+   "n": 23,
+   "title": "MediaPipe FaceLandmarkerResult API",
+   "url": "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult",
+   "kind": "official docs",
+   "year": "n.d.",
+   "via_harvest": "facs-expressions harvest"
+  },
+  {
+   "n": 24,
+   "title": "PeizhiYan/Mediapipe_2_Dlib_Landmarks",
+   "url": "https://github.com/PeizhiYan/Mediapipe_2_Dlib_Landmarks/",
+   "kind": "repo",
+   "year": "n.d.",
+   "via_harvest": "craniometric-landmarks harvest"
+  },
+  {
+   "n": 25,
+   "title": "VGCLUB/facefit-mpfb",
+   "url": "https://github.com/VGCLUB/facefit-mpfb",
+   "kind": "repo",
+   "year": "n.d.",
+   "via_harvest": "craniometric-landmarks harvest"
+  },
+  {
+   "n": 26,
+   "title": "Blender 5.0 Python API release notes",
+   "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/",
+   "kind": "official docs",
+   "year": "2025",
+   "via_harvest": "blender-version-status-2026 harvest"
+  },
+  {
+   "n": 27,
+   "title": "Blender 5.2 LTS release page",
+   "url": "https://www.blender.org/download/releases/5-2/",
+   "kind": "official docs",
+   "year": "2026",
+   "via_harvest": "blender-version-status-2026 harvest"
+  },
+  {
+   "n": 28,
+   "title": "MPFB2 LICENSE.CODE.md",
+   "url": "https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md",
+   "kind": "repo",
+   "year": "n.d.",
+   "via_harvest": "blender-face-addons harvest"
+  },
+  {
+   "n": 29,
+   "title": "3D Face Tracking from 2D Video through Iterative Dense UV to Image Flow",
+   "url": "https://arxiv.org/html/2404.09819v1",
+   "kind": "paper",
+   "year": "2024",
+   "via_harvest": "multi-view-fitting harvest"
+  },
+  {
+   "n": 30,
+   "title": "MPFB on Blender Extensions",
+   "url": "https://extensions.blender.org/add-ons/mpfb/",
+   "kind": "extension listing",
+   "year": "n.d.",
+   "via_harvest": "blender-face-addons harvest"
+  }
+ ],
+ "references_by_name": [
+  "Feng, Feng, Black, Bolkart — DECA, SIGGRAPH 2021; Daněček, Black, Bolkart — EMOCA, CVPR 2022",
+  "Zielonka, Bolkart, Thies — Towards Metrical Reconstruction of Human Faces (MICA + metrical tracker), ECCV 2022; INSTA, CVPR 2023",
+  "Qian et al. — GaussianAvatars, CVPR 2024 (origin of VHAP)",
+  "Retsinas et al. — SMIRK, CVPR 2024",
+  "Giebenhain et al. — Pixel3DMM: Versatile Screen-Space Priors for Single-Image 3D Face Reconstruction, 2025",
+  "Guo, Zhu, Yang, Yang, Lei, Li — Towards Fast, Accurate and Stable 3D Dense Face Alignment (3DDFA_V2), ECCV 2020",
+  "Deng et al. — Accurate 3D Face Reconstruction with Weakly-Supervised Learning (Deep3DFaceRecon), CVPR-W 2019",
+  "Lei et al. — HRN, CVPR 2023; Wang et al. — FaceVerse, CVPR 2022",
+  "Li, Bolkart, Black, Li, Romero — FLAME, SIGGRAPH Asia 2017; Paysan et al. — BFM 2009",
+  "Grassal et al. — Neural Head Avatars from Monocular RGB Videos, CVPR 2022",
+  "Ravi et al. — Accelerating 3D Deep Learning with PyTorch3D, 2020; Laine et al. — Modular Primitives for High-Performance Differentiable Rendering (nvdiffrast), SIGGRAPH Asia 2020",
+  "Kartynnik et al. — Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs (MediaPipe Face Mesh), CVPR-W 2019"
+ ]
+}

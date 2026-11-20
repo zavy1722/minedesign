@@ -1,0 +1,27 @@
+{
+ "id": "blender-python-ml-deps",
+ "area": "blender",
+ "title": "Running MediaPipe / OpenCV / ONNX inside Blender",
+ "queue": [
+  {
+   "claim": "Which CPython and NumPy versions Blender 5.1, 5.2 LTS and 5.3 bundle (3.11 vs 3.13; NumPy 1.26 vs 2.x). This decides the cp tag and NumPy ABI of every wheel shipped.",
+   "query": "Blender 5.2 LTS Python version bundled numpy version release notes",
+   "domains": "developer.blender.org,blender.org"
+  },
+  {
+   "claim": "extensions.blender.org policy forbids extensions from pip-installing packages or downloading executable code at runtime; dependencies must ship as bundled wheels, and there is an upload size cap.",
+   "query": "Blender extensions guidelines python wheels runtime install pip not allowed size limit",
+   "domains": "docs.blender.org,extensions.blender.org,developer.blender.org"
+  },
+  {
+   "claim": "mediapipe publishes cp313 and NumPy-2-built wheels (and win-arm64 wheels); the legacy mp.solutions API is deprecated or removed in recent 0.10.x releases.",
+   "query": "mediapipe pypi wheels python 3.13 numpy 2 support mp.solutions removed",
+   "domains": "pypi.org,github.com"
+  },
+  {
+   "claim": "Extension wheels from blender_manifest.toml are installed into one site-packages directory shared by all extensions (extensions/.local/lib/pythonX.Y/site-packages), so different versions of the same package collide.",
+   "query": "Blender extensions wheels installed shared site-packages .local lib python conflict versions",
+   "domains": "docs.blender.org,developer.blender.org,projects.blender.org"
+  }
+ ]
+}

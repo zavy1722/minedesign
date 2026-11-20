@@ -2,7 +2,7 @@
 
 > Checking a likeness render against a photo is three separate jobs. First rebuild the camera: focal length *with* sensor width, principal point and pose. Then approximate the light, direction before balance and low-frequency before sharp. Finally compare render and photo in a colour-managed, masked compositor graph. Blender's still-photo camera matchers are third-party vanishing-point or facade tools built for architecture, so portraits need a landmark-based perspective solve. Two independent tutorials rotate the environment until light direction matches and only then refine locally. Diffuse face shading pins down only about 9 spherical-harmonic lighting terms, so cast shadows, catchlights and highlights carry the rest. Blender blends in linear light and ignores alpha, so Difference maps must be masked, and geometric checks must gate photometric or identity scores.
 >
-> Evidence status: 1 ✅ / 21 📄 / 52 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 19 📄 / 40 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -195,4 +195,4 @@ Measure stops as log2(lit/shadow), using linear luminance from cheek patches tha
 - Wang et al., SSIM, IEEE TIP 2004; Zhang et al., LPIPS, CVPR 2018; Andersson et al., "FLIP: A Difference Evaluator for Alternating Images", HPG 2020; Sharma, Wu & Dalal, CIEDE2000 notes, 2005; Deng et al., "ArcFace", CVPR 2019
 - Fried et al., "Perspective-aware Manipulation of Portrait Photos", SIGGRAPH 2016; Ward et al., "Nasal Distortion in Short-Distance Photographs: The Selfie Effect", JAMA Facial Plastic Surgery 2018; Thompson, "Margaret Thatcher: A New Illusion", Perception 1980
 - Hunter, Biver & Fuqua, *Light: Science and Magic*; Hartley & Zisserman, *Multiple View Geometry in Computer Vision*, 2004
-- Blender source: `BKE_camera_params_compute_viewplane`, `CAMERA_PARAM_ZOOM_INIT_PERSP`
+- Blender source: `BKE_camera_params_compute_viewplane`, `CAMERA_PARAM_ZOOM_INIT_PERSP`; Google MediaPipe Iris documentation (iris-diameter constant)

@@ -1,0 +1,630 @@
+{
+  "topic": "albedo-lighting-inverse-rendering",
+  "tables": [
+    {
+      "name": "sh_order2_real_basis_constants",
+      "units": "dimensionless; Y_lm(n) for unit normal n=(x,y,z)",
+      "columns": [
+        "l",
+        "m",
+        "polynomial",
+        "constant",
+        "closed_form"
+      ],
+      "rows": [
+        [
+          0,
+          0,
+          "1",
+          0.282095,
+          "1/(2*sqrt(pi))"
+        ],
+        [
+          1,
+          -1,
+          "y",
+          0.488603,
+          "sqrt(3/(4*pi))"
+        ],
+        [
+          1,
+          0,
+          "z",
+          0.488603,
+          "sqrt(3/(4*pi))"
+        ],
+        [
+          1,
+          1,
+          "x",
+          0.488603,
+          "sqrt(3/(4*pi))"
+        ],
+        [
+          2,
+          -2,
+          "x*y",
+          1.092548,
+          "0.5*sqrt(15/pi)"
+        ],
+        [
+          2,
+          -1,
+          "y*z",
+          1.092548,
+          "0.5*sqrt(15/pi)"
+        ],
+        [
+          2,
+          0,
+          "3*z^2-1",
+          0.315392,
+          "0.25*sqrt(5/pi)"
+        ],
+        [
+          2,
+          1,
+          "x*z",
+          1.092548,
+          "0.5*sqrt(15/pi)"
+        ],
+        [
+          2,
+          2,
+          "x^2-y^2",
+          0.546274,
+          "0.25*sqrt(15/pi)"
+        ]
+      ],
+      "population": "mathematics (real orthonormal SH basis, common graphics sign convention)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Sign and ordering conventions differ between codebases (Condon-Shortley phase, m ordering, axis naming). State the convention in every exported SH file."
+    },
+    {
+      "name": "ramamoorthi_irradiance_constants",
+      "units": "dimensionless multipliers on radiance SH coefficients L_lm",
+      "columns": [
+        "constant",
+        "value",
+        "definition"
+      ],
+      "rows": [
+        [
+          "c1",
+          0.429043,
+          "A2 * 0.546274"
+        ],
+        [
+          "c2",
+          0.511664,
+          "A1 * 0.488603 / 2"
+        ],
+        [
+          "c3",
+          0.743125,
+          "A2 * 3 * 0.315392"
+        ],
+        [
+          "c4",
+          0.886227,
+          "A0 * 0.282095"
+        ],
+        [
+          "c5",
+          0.247708,
+          "A2 * 0.315392"
+        ]
+      ],
+      "population": "mathematics (Ramamoorthi & Hanrahan 2001)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "E(n) = c1 L22 (x^2-y^2) + c3 L20 z^2 + c4 L00 - c5 L20 + 2 c1 (L2-2 xy + L21 xz + L2-1 yz) + 2 c2 (L11 x + L1-1 y + L10 z). Outgoing Lambertian radiance = albedo * E / pi."
+    },
+    {
+      "name": "lambertian_kernel_band_factors",
+      "units": "A_l dimensionless; energy as fraction of clamped-cosine squared L2 norm (total 2*pi/3)",
+      "columns": [
+        "band_l",
+        "A_l_exact",
+        "A_l_value",
+        "cumulative_energy_fraction"
+      ],
+      "rows": [
+        [
+          0,
+          "pi",
+          3.141593,
+          0.375
+        ],
+        [
+          1,
+          "2*pi/3",
+          2.094395,
+          0.875
+        ],
+        [
+          2,
+          "pi/4",
+          0.785398,
+          0.9922
+        ],
+        [
+          3,
+          "0",
+          0.0,
+          0.9922
+        ],
+        [
+          4,
+          "-pi/24",
+          -0.1309,
+          0.998
+        ]
+      ],
+      "population": "mathematics (Ramamoorthi & Hanrahan 2001; Basri & Jacobs 2003)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Odd bands above 1 are zero. Energy fraction is of the kernel, not a per-pixel error bound; worst-case per-pixel SH9 error under a point light is larger (sources quote up to ~10%, contested)."
+    },
+    {
+      "name": "ita_skin_categories",
+      "units": "degrees (ITA = atan2(L*-50, b*) * 180/pi, CIELAB D65)",
+      "columns": [
+        "category",
+        "ita_min_deg",
+        "ita_max_deg"
+      ],
+      "rows": [
+        [
+          "very light",
+          55,
+          null
+        ],
+        [
+          "light",
+          41,
+          55
+        ],
+        [
+          "intermediate",
+          28,
+          41
+        ],
+        [
+          "tan",
+          10,
+          28
+        ],
+        [
+          "brown",
+          -30,
+          10
+        ],
+        [
+          "dark",
+          null,
+          -30
+        ]
+      ],
+      "population": "colorimeter on constitutive (unexposed) skin; Chardon et al. 1991 four groups, extended to six by Del Bino et al.",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "null = open bound. Sun-exposed facial skin reads lower ITA than inner arm. Use for stratified bias tests, not as a physiological classification."
+    },
+    {
+      "name": "colorchecker_classic_anchors",
+      "units": "sRGB 8-bit; linear values via sRGB EOTF (D65); Y = Rec.709 relative luminance",
+      "columns": [
+        "patch",
+        "srgb8",
+        "linear_rgb",
+        "Y"
+      ],
+      "rows": [
+        [
+          "White 9.5",
+          [
+            243,
+            243,
+            242
+          ],
+          [
+            0.8963,
+            0.8963,
+            0.8879
+          ],
+          0.8957
+        ],
+        [
+          "Neutral 8",
+          [
+            200,
+            200,
+            200
+          ],
+          [
+            0.5776,
+            0.5776,
+            0.5776
+          ],
+          0.5776
+        ],
+        [
+          "Neutral 6.5",
+          [
+            160,
+            160,
+            160
+          ],
+          [
+            0.3515,
+            0.3515,
+            0.3515
+          ],
+          0.3515
+        ],
+        [
+          "Neutral 5",
+          [
+            122,
+            122,
+            121
+          ],
+          [
+            0.1946,
+            0.1946,
+            0.1912
+          ],
+          0.1944
+        ],
+        [
+          "Neutral 3.5",
+          [
+            85,
+            85,
+            85
+          ],
+          [
+            0.0908,
+            0.0908,
+            0.0908
+          ],
+          0.0908
+        ],
+        [
+          "Black 2",
+          [
+            52,
+            52,
+            52
+          ],
+          [
+            0.0343,
+            0.0343,
+            0.0343
+          ],
+          0.0343
+        ],
+        [
+          "Light skin",
+          [
+            194,
+            150,
+            130
+          ],
+          [
+            0.5395,
+            0.305,
+            0.2232
+          ],
+          0.3489
+        ],
+        [
+          "Dark skin",
+          [
+            115,
+            82,
+            68
+          ],
+          [
+            0.1714,
+            0.0844,
+            0.0578
+          ],
+          0.101
+        ]
+      ],
+      "population": "commonly quoted post-2009 ColorChecker Classic reference sRGB values (single chart formulation)",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Editions and measurement sets differ by a few 8-bit units; use the manufacturer's spectral/Lab data for the specific chart when available. Two skin patches do not span human skin (very dark skin reaches <=0.05 linear blue)."
+    },
+    {
+      "name": "inverse_square_falloff_face_depth",
+      "units": "light distance m; depth offset m; brightness ratio near/far; stops",
+      "columns": [
+        "light_distance_m",
+        "depth_offset_m",
+        "brightness_ratio",
+        "stops"
+      ],
+      "rows": [
+        [
+          0.5,
+          0.1,
+          1.44,
+          0.526
+        ],
+        [
+          0.75,
+          0.1,
+          1.2844,
+          0.361
+        ],
+        [
+          1.0,
+          0.1,
+          1.21,
+          0.275
+        ],
+        [
+          1.5,
+          0.1,
+          1.1378,
+          0.186
+        ],
+        [
+          2.0,
+          0.1,
+          1.1025,
+          0.141
+        ],
+        [
+          3.0,
+          0.1,
+          1.0678,
+          0.095
+        ],
+        [
+          5.0,
+          0.1,
+          1.0404,
+          0.057
+        ]
+      ],
+      "population": "derived for a compact (point-like) source; 0.10 m is an assumed adult nose-tip-to-ear depth",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Ratio = ((d+0.10)/d)^2. Large softboxes close to the subject fall off more slowly than inverse-square."
+    },
+    {
+      "name": "pipeline_coefficient_budgets",
+      "units": "count of parameters",
+      "columns": [
+        "pipeline",
+        "identity_shape",
+        "expression",
+        "albedo",
+        "sh_lighting",
+        "pose_camera",
+        "other",
+        "total"
+      ],
+      "rows": [
+        [
+          "Deep3DFaceRecon (BFM 2009)",
+          80,
+          64,
+          80,
+          27,
+          6,
+          null,
+          257
+        ],
+        [
+          "DECA (FLAME)",
+          100,
+          50,
+          50,
+          27,
+          9,
+          "128 detail code",
+          null
+        ]
+      ],
+      "population": "published model configurations (recalled)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Deep3D pose_camera = 3 rotation + 3 translation; DECA pose_camera = 6 pose (global + jaw) + 3 weak-perspective camera. Deep3D expression basis derived from FaceWarehouse; DECA albedo is BFM albedo resampled to FLAME UV."
+    },
+    {
+      "name": "albedo_models_overview",
+      "units": "qualitative",
+      "columns": [
+        "model",
+        "data",
+        "contents",
+        "dims_topology",
+        "licence"
+      ],
+      "rows": [
+        [
+          "BFM 2009/2017",
+          "200 scans (100 F/100 M), mostly European",
+          "per-vertex colour with residual shading, display-encoded",
+          "199 PCs; BFM mesh",
+          "free non-commercial, registration (verify)"
+        ],
+        [
+          "FLAME albedo (BFM-derived)",
+          "BFM resampled to FLAME UV",
+          "inherits BFM bias",
+          "50 used in DECA; FLAME UV",
+          "BFM + FLAME terms (verify)"
+        ],
+        [
+          "FLAME FFHQ texture space",
+          "in-the-wild FFHQ fits",
+          "baked lighting",
+          "FLAME UV",
+          "MPI non-commercial (verify)"
+        ],
+        [
+          "AlbedoMM",
+          "polarised light-stage captures (3DRFE), small sample",
+          "linear diffuse + specular albedo",
+          "BFM2017 and FLAME",
+          "academic (verify)"
+        ],
+        [
+          "TRUST BalancedAlb",
+          "tone-balanced texture set",
+          "linear albedo",
+          "FLAME UV",
+          "MPI non-commercial (verify)"
+        ],
+        [
+          "FFHQ-UV",
+          "~50k GAN-normalised UV maps",
+          "evenly lit pseudo-albedo",
+          "own UV",
+          "verify"
+        ]
+      ],
+      "population": "model releases as recalled; licences time-sensitive",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "No row verified against a source in this library."
+    },
+    {
+      "name": "engine_priors_defaults",
+      "units": "SH quantities normalised by L00 after chart white balance; gains in natural log; angles in degrees",
+      "columns": [
+        "parameter",
+        "distribution",
+        "mean",
+        "sigma",
+        "notes"
+      ],
+      "rows": [
+        [
+          "log per-view gain g_v (per channel), chart present",
+          "normal",
+          0.0,
+          0.03,
+          "exposure/WB"
+        ],
+        [
+          "log per-view gain g_v (per channel), no chart",
+          "normal",
+          0.0,
+          0.3,
+          "flag absolute albedo unknown"
+        ],
+        [
+          "SH band-1 magnitude / L00",
+          "normal",
+          0.0,
+          0.8,
+          ""
+        ],
+        [
+          "SH band-2 / L00",
+          "normal",
+          0.0,
+          0.35,
+          "ridge; profiles see half the sphere"
+        ],
+        [
+          "key light elevation (deg)",
+          "normal",
+          30.0,
+          25.0,
+          "weak; y-up head frame"
+        ],
+        [
+          "key light azimuth (deg)",
+          "normal",
+          0.0,
+          60.0,
+          "weak"
+        ],
+        [
+          "SH chroma deviation from RGB mean / L00",
+          "normal",
+          0.0,
+          0.05,
+          "only after chart WB"
+        ],
+        [
+          "low-pass log-albedo symmetry difference",
+          "normal",
+          0.0,
+          0.05,
+          "exclude moles/freckles"
+        ],
+        [
+          "log-albedo gradient per 5 mm",
+          "huber",
+          0.0,
+          0.05,
+          "released at lip, brow, lid edges"
+        ],
+        [
+          "photometric residual log(I+eps)-log(I_hat+eps)",
+          "huber",
+          0.0,
+          0.05,
+          "eps = 0.01 linear"
+        ],
+        [
+          "specular F0",
+          "fixed",
+          0.028,
+          null,
+          "n ~ 1.4"
+        ],
+        [
+          "mask: min n.v",
+          "threshold",
+          0.3,
+          null,
+          ""
+        ],
+        [
+          "mask: min AO",
+          "threshold",
+          0.7,
+          null,
+          ""
+        ],
+        [
+          "mask: max channel after gain (clipping)",
+          "threshold",
+          0.95,
+          null,
+          "linear"
+        ],
+        [
+          "mask: brightest skin fraction excluded (specular)",
+          "threshold",
+          0.03,
+          null,
+          "range 0.02-0.05"
+        ],
+        [
+          "fairness target |delta ITA| per ITA group (deg)",
+          "acceptance",
+          5.0,
+          null,
+          "engineering target"
+        ]
+      ],
+      "population": "engineering defaults for this project's fitting engine, not measured values",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Calibrate on synthetic renders across all ITA groups and real chart-calibrated captures before relying on them."
+    }
+  ]
+}

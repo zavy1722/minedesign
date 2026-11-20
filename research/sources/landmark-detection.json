@@ -1,0 +1,25 @@
+{
+ "topic": "landmark-detection",
+ "sources": [],
+ "references_by_name": [
+  "Kartynnik, Ablavatski, Grishchenko, Grundmann, Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs, CVPR Workshops 2019",
+  "Grishchenko et al., Attention Mesh: High-fidelity Face Mesh Prediction in Real-time, CVPR Workshops 2020",
+  "Ablavatski et al., Real-time Pupil Tracking from Monocular Video for Digital Puppetry (MediaPipe Iris), 2020",
+  "Kazemi & Sullivan, One Millisecond Face Alignment with an Ensemble of Regression Trees, CVPR 2014",
+  "Sagonas et al., 300 Faces In-The-Wild Challenge: database and results, Image and Vision Computing 2016",
+  "Bulat & Tzimiropoulos, How far are we from solving the 2D & 3D Face Alignment problem? (and a dataset of 230,000 3D facial landmarks), ICCV 2017",
+  "Wang et al., Deep High-Resolution Representation Learning for Visual Recognition (HRNetV2), TPAMI 2020",
+  "Wu et al., Look at Boundary: A Boundary-Aware Face Alignment Algorithm (WFLW), CVPR 2018",
+  "Huang et al., ADNet: Leveraging Error-Bias Towards Normal Direction in Face Alignment, ICCV 2021",
+  "Zhou et al., STAR Loss: Reducing Semantic Ambiguity in Facial Landmark Detection, CVPR 2023",
+  "Kumar et al., LUVLi Face Alignment: Estimating Landmarks' Location, Uncertainty, and Visibility Likelihood, CVPR 2020",
+  "Jin, Liao & Shao, Pixel-in-Pixel Net: Towards Efficient Facial Landmark Detection in the Wild, IJCV 2021",
+  "Prados-Torreblanca, Buenaposada & Baumela, Shape Preserving Facial Landmarks with Graph Attention Networks (SPIGA), BMVC 2022",
+  "Khirodkar et al., Sapiens: Foundation for Human Vision Models, ECCV 2024",
+  "Wood et al., 3D Face Reconstruction with Dense Landmarks, ECCV 2022",
+  "Wood et al., Fake It Till You Make It: Face Analysis in the Wild Using Synthetic Data Alone, ICCV 2021",
+  "Zhu et al., Face Alignment Across Large Poses: A 3D Solution (3DDFA, 300W-LP, AFLW2000-3D), CVPR 2016",
+  "Guo et al., Towards Fast, Accurate and Stable 3D Dense Face Alignment (3DDFA_V2), ECCV 2020",
+  "Farkas, Anthropometry of the Head and Face, 1994"
+ ]
+}

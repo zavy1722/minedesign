@@ -13,6 +13,23 @@
     {"n": 10, "title": "5.2 LTS - blender - Blender Projects (milestone)", "url": "https://projects.blender.org/blender/blender/milestone/33", "kind": "repo", "year": "2026"},
     {"n": 11, "title": "5.0 - blender - Blender Projects (milestone)", "url": "https://projects.blender.org/blender/blender/milestone/20", "kind": "repo", "year": "2025"},
     {"n": 12, "title": "Blender Release Notes - Blender Developer Documentation (index)", "url": "https://developer.blender.org/docs/release_notes/", "kind": "official-docs", "year": "n.d."},
-    {"n": 13, "title": "Release Notes — Blender (index)", "url": "https://www.blender.org/download/releases/", "kind": "official-docs", "year": "n.d."}
+    {"n": 13, "title": "Release Notes — Blender (index)", "url": "https://www.blender.org/download/releases/", "kind": "official-docs", "year": "n.d."},
+    {"n": 14, "title": "Cameras - Blender 5.3 Manual (via reference-camera-setup harvest)", "url": "https://docs.blender.org/manual/en/latest/render/cameras.html", "kind": "official-docs", "year": "2026"},
+    {"n": 15, "title": "Principled BSDF - Blender 5.3 Manual (via skin-shading harvest)", "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2026"},
+    {"n": 16, "title": "Fragid/face-shapekey-rig (GitHub) (via blender-face-addons harvest)", "url": "https://github.com/Fragid/face-shapekey-rig", "kind": "repo", "year": "n.d."},
+    {"n": 17, "title": "Faceit: Facial Expressions and Performance Capture (Superhive) (via blender-face-addons harvest)", "url": "https://superhivemarket.com/products/faceit", "kind": "commercial", "year": "n.d."},
+    {"n": 18, "title": "MPFB version history, Blender Extensions (via blender-face-addons harvest)", "url": "https://extensions.blender.org/add-ons/mpfb/versions/", "kind": "official-listing", "year": "2026"},
+    {"n": 19, "title": "VGCLUB/facefit-mpfb (FaceFit MPFB2 Blender add-on prototype) (via craniometric-landmarks harvest)", "url": "https://github.com/VGCLUB/facefit-mpfb", "kind": "repo", "year": "n.d."}
+  ],
+  "references_by_name": [
+    "Blender Python API reference, incl. 'Gotchas' pages (bpy, mathutils, gpu, foreach_get)",
+    "Blender Extensions developer handbook: blender_manifest.toml schema and 'Python Wheels' guidance",
+    "VFX Reference Platform, yearly specifications CY2024-CY2026",
+    "NumPy 2.0 migration guide",
+    "NEP 50 - Promotion rules for Python scalars",
+    "IEEE 754-2008, Standard for Floating-Point Arithmetic",
+    "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+    "BlenderProc (DLR), camera intrinsics utilities",
+    "Farkas, Anthropometry of the Head and Face, 1994"
   ]
 }

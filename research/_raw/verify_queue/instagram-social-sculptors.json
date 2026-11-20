@@ -1,0 +1,27 @@
+{
+ "id": "instagram-social-sculptors",
+ "area": "community",
+ "title": "Instagram and social media sculptors' tips",
+ "queue": [
+  {
+   "claim": "Adult interpupillary distance mean about 61-65 mm, SD about 3.5-4 mm, range about 54-74 mm (proposed scale prior N(63,4) mm)",
+   "query": "Dodgson 2004 variation and extrema of human interpupillary distance mean standard deviation adults",
+   "domains": ""
+  },
+  {
+   "claim": "Horizontal visible iris diameter in adults about 11.5-12.0 mm mean, range about 10.7-12.8 mm (proposed prior N(11.7,0.5) mm)",
+   "query": "horizontal visible iris diameter white-to-white adult mean standard deviation mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Selfie effect: Ward et al. 2018 (JAMA Facial Plastic Surgery) reported nasal base appearing about 30% wider at about 30 cm than at about 1.5 m",
+   "query": "Nasal distortion in short-distance photographs the selfie effect JAMA Facial Plastic Surgery 2018 nasal base width percent",
+   "domains": ""
+  },
+  {
+   "claim": "Nose-tip to ear-plane depth (pronasale to tragion depth component) about 9-11 cm in adults, used as dz = 0.10 m in the perspective-distortion table",
+   "query": "tragion pronasale distance adult anthropometry mm Farkas facial depth",
+   "domains": ""
+  }
+ ]
+}

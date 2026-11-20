@@ -1,0 +1,27 @@
+{
+ "id": "jaw-chin-neck",
+ "area": "anatomy",
+ "title": "Mandible, chin and neck",
+ "queue": [
+  {
+   "claim": "Adult gonial angle mean is about 120-125 deg (range 110-135) and men's is on average 2-6 deg smaller, with heavy overlap. The engine priors are M N(120,6), F N(124,6), unknown N(122,7).",
+   "query": "gonial angle adult mean degrees sex difference male female cephalometric study",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "The youthful cervicomental angle ideal is 105-120 deg (Ellenbogen & Karlin 1980, five visual criteria), while measured adults often fall at 115-135 deg or more and the angle opens with BMI and age. The engine prior is N(118,12) in canonical pose.",
+   "query": "cervicomental angle normal values adults Ellenbogen Karlin 105 120 youthful neck criteria",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Legan & Burstone (1980) soft-tissue norms: facial convexity G'-Sn-Pog' 12 +/- 4 deg, lower-face-throat angle 100 +/- 7 deg, Sn-Gn' : C-Gn' about 1.2:1, mentolabial sulcus 4 +/- 2 mm, Sn-Stms : Stmi-Me' 1:2.",
+   "query": "Legan Burstone 1980 soft tissue cephalometric analysis orthognathic surgery norms facial convexity lower face throat angle",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Bony bigonial width is M about 90-105 mm and F about 84-97 mm, and ramus height Co-Go is M about 55-65 mm and F about 50-58 mm. Priors: B M N(97,6), F N(90,5); R M N(60,5), F N(54,4).",
+   "query": "bigonial width ramus height adult male female mean mm CT cephalometric norms",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

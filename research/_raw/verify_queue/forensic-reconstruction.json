@@ -1,0 +1,27 @@
+{
+ "id": "forensic-reconstruction",
+ "area": "anatomy",
+ "title": "Forensic facial reconstruction rules (skull to face)",
+ "queue": [
+  {
+   "claim": "Hertel-style rule: the corneal apex sits about 16 mm (normal 12\u201320) in front of the lateral orbital rim, about 1.5\u20132 mm more in people of African ancestry. Stephan 2002 falsified the rim-tangent rule. Used as the engine prior cornea_ahead_lat_rim N(16, 2).",
+   "query": "Stephan 2002 globe projection guideline falsified exophthalmometry facial approximation corneal apex lateral orbital rim mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov,onlinelibrary.wiley.com,astm.org"
+  },
+  {
+   "claim": "Stephan & Henneberg 2003: inter-canine width is about 75 % of mouth width (ch\u2013ch \u2248 ICW/0.75). Which ICW definition was used (cusp tips or the canines' lateral surfaces) is uncertain.",
+   "query": "Stephan Henneberg 2003 predicting mouth width from inter-canine width 75% rule measurement definition",
+   "domains": "pubmed.ncbi.nlm.nih.gov,onlinelibrary.wiley.com"
+  },
+  {
+   "claim": "Canthal positions: endocanthion about 4\u20136 mm lateral to dacryon; exocanthion about 3\u20135 mm medial to the lateral orbital margin, near Whitnall's tubercle (about 10 mm below the frontozygomatic suture). The globe sits about 1\u20132 mm superolateral of the orbit's centre (Stephan & Davidson 2008; Guyomarc'h et al. 2012).",
+   "query": "Stephan Davidson 2008 placement of the human eyeball and canthi craniofacial identification endocanthion exocanthion distance",
+   "domains": "pubmed.ncbi.nlm.nih.gov,onlinelibrary.wiley.com"
+  },
+  {
+   "claim": "Alar width \u2248 piriform aperture width + 10 mm (European descent), or +12\u201316 mm (East Asian or African descent); equivalently al\u2013al \u2248 1.4\u20131.7 \u00d7 aperture width.",
+   "query": "nasal aperture width alar width relationship facial approximation rule Hoffman 1991 Rynn 2010 prediction",
+   "domains": "pubmed.ncbi.nlm.nih.gov,onlinelibrary.wiley.com,link.springer.com"
+  }
+ ]
+}

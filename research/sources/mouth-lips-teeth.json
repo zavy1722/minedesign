@@ -1,0 +1,185 @@
+{
+ "topic": "mouth-lips-teeth",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Anatomy of the Philtrum (NIH Elements of Morphology)",
+   "url": "https://elementsofmorphology.nih.gov/anatomy-philtrum.shtml",
+   "kind": "official-reference",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "Anthropometric lip table, adults aged 20-59 (PMC7984336, table srt12906-tbl-0003)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Evaluation of soft-tissue morphology of the face in 1,050 young adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10096619/",
+   "kind": "paper",
+   "year": "1999"
+  },
+  {
+   "n": 4,
+   "title": "Normative anthropometry and proportions of the Kenyan African face",
+   "url": "https://www.springermedizin.de/normative-anthropometry-and-proportions-of-the-kenyan-african-fa/16501568",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Lip Implants - StatPearls, NCBI Bookshelf",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK546691/",
+   "kind": "textbook",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Determining the 2-Dimensional Threshold for Perception of Artificial-Appearing Lips",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5815114/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Perception of upper lip augmentation utilizing simulated photography",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6536866/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Cosmetic Surgery and the Diversity of Cultural and Ethnic Perceptions of Facial, Breast, and Gluteal Aesthetics in Women: A Comprehensive Review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10258039/",
+   "kind": "review",
+   "year": "2024"
+  },
+  {
+   "n": 9,
+   "title": "Enhancing Aesthetic Harmony: Comprehensive Anthropometric Lip Measurements in Youthful and Attractive Indonesian Adults",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10825920/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Anatomical-Based Diagnosis and Filler Injection Techniques: Lips and Philtrum",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11856795/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "The importance of incisor positioning in the esthetic smile: the smile arc",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11500650/",
+   "kind": "paper",
+   "year": "2001"
+  },
+  {
+   "n": 12,
+   "title": "Perception of Altered Smile Esthetics by Orthodontists, General Dentists, and Laypeople",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12894816/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "Influence of incisor display and lower lip height on smile esthetics and perceived age",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13316878/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "The maxillary incisor display at rest: analysis of the underlying components",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "Factors affecting smile esthetics in adults with different types of anterior overjet malocclusion",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5266129/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Total arch extrusion with skeletal anchorage to improve inadequate maxillary incisor display (case report)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10893920/",
+   "kind": "case-report",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "Association between smile arc curvature and skeletal pattern in orthodontic patients",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13530071/",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 18,
+   "title": "Association between smile arc curvature and skeletal pattern in orthodontic patients (PubMed record; same study as [17])",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42671516/",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "n": 19,
+   "title": "Visible Portion of Anterior Teeth at Rest and Analysis of Different Smile Characteristics in the Saudi Population of the Jeddah Region",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7718042/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "Smile-related oral characteristics in Vietnamese students",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12659754",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "Smile Aesthetics Assessment in Patients Undergoing the Finishing Phase of Orthodontic Treatment",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10590081/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 22,
+   "title": "The Influence of Anteroposterior Head Inclination on the Perceived Consonance of the Smile Arc and Lower Lip Curvature on Photographs",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11900144/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "Aesthetic Treatment of the Lips With Hyaluronic Acid Filler: The Multi Vector Lip Technique",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12424118/",
+   "kind": "paper",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Farkas LG, Anthropometry of the Head and Face, 2nd ed., 1994 (lip landmarks sn, ls, sto, li, sl, ch, cph; North American norms)",
+  "Farkas LG et al., revision of neoclassical facial canons in young adult North American Caucasians, Plast Reconstr Surg, 1985",
+  "Vig RG & Brundo GC, The kinetics of anterior tooth display, J Prosthet Dent, 1978",
+  "Tjan AHL, Miller GD & The JGP, Some esthetic factors in a smile, J Prosthet Dent, 1984",
+  "Ricketts RM, esthetic plane (E-line) papers",
+  "Holdaway RA, soft-tissue cephalometric analysis, Am J Orthod, 1983",
+  "Burstone CJ, lip posture",
+  "Kokich VO Jr et al., perception of altered dental esthetics by dentists and lay people, J Esthet Dent, 1999",
+  "Rubin LR, The anatomy of a smile, Plast Reconstr Surg, 1974",
+  "Dodgson NA, Variation and extrema of human interpupillary distance, Proc. SPIE, 2004",
+  "Stephan CN, early-2000s work on mouth-width prediction in facial approximation (exact title to verify)",
+  "Stephan CN & Simpson EK, 2008 review of adult facial soft-tissue depths",
+  "Heidekrueger PI et al., 2017 study of preferred female lip ratio (to verify)",
+  "Levin EI, Dental esthetics and the golden proportion, J Prosthet Dent, 1978",
+  "Nelson SJ, Wheeler's Dental Anatomy, Physiology and Occlusion",
+  "Powell N & Humphreys B, Proportions of the Aesthetic Face, 1984",
+  "Loomis A, Drawing the Head and Hands, 1956 (lip planes)"
+ ]
+}

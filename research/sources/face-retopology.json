@@ -1,0 +1,22 @@
+{
+ "topic": "face-retopology",
+ "sources": [],
+ "references_by_name": [
+  "Catmull & Clark, 'Recursively generated B-spline surfaces on arbitrary topological meshes', Computer-Aided Design, 1978",
+  "Stam, 'Exact Evaluation of Catmull-Clark Subdivision Surfaces at Arbitrary Parameter Values', SIGGRAPH 1998",
+  "Bommes et al., 'Quad-Mesh Generation and Processing: A Survey', Computer Graphics Forum, 2013",
+  "Bommes, Zimmer, Kobbelt, 'Mixed-Integer Quadrangulation', SIGGRAPH 2009",
+  "Jakob, Tarini, Panozzo, Sorkine-Hornung, 'Instant Field-Aligned Meshes', SIGGRAPH Asia 2015",
+  "Huang et al., 'QuadriFlow: A Scalable and Robust Method for Quadrangulation', SGP 2018",
+  "Sorkine & Alexa, 'As-Rigid-As-Possible Surface Modeling', SGP 2007",
+  "Amberg, Romdhani, Vetter, 'Optimal Step Nonrigid ICP Algorithms for Surface Registration', CVPR 2007",
+  "Lewis et al., 'Practice and Theory of Blendshape Facial Models', Eurographics STAR 2014",
+  "Li, Bolkart, Black, Li, Romero, 'Learning a model of facial shape and expression from 4D scans' (FLAME), SIGGRAPH Asia 2017",
+  "Osipa, 'Stop Staring: Facial Modeling and Animation Done Right', Sybex, 3rd ed. 2010",
+  "Pixar OpenSubdiv documentation (limit stencils)",
+  "Blender Manual: Snapping, Retopology overlay, Poly Build, Mirror, Shrinkwrap, Remesh (QuadriFlow), Multires, Mesh Analysis",
+  "RetopoFlow documentation (CG Cookie / Orange Turbine)",
+  "Exoside Quad Remesher documentation",
+  "Polycount wiki, topology pages"
+ ]
+}
