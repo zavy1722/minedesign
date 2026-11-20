@@ -2,7 +2,7 @@
 
 > Photogrammetry (structure-from-motion, SfM, then multi-view stereo, MVS) can recover a head to well under a millimetre: at head-portrait resolution, triangulation precision is about 0.05–0.25 mm. On a live sitter the error budget is set instead by **non-rigid motion** (blinks, lips, jaw, gaze), **skin shine and low texture**, and **materials MVS cannot see** (hair, eyes, lashes), far more than by the choice of COLMAP, Meshroom/AliceVision, RealityScan/RealityCapture or Metashape. A synchronised multi-camera rig removes the motion problem; a single camera works if each ring of photos takes ≤20–30 s, the background is masked or plain, and expression and gaze are held fixed. For likeness sculpting, the scan supplies trustworthy mid-face and profile depth plus absolute size (given a scale reference), while eyes, hair, ear backs and lip edges must be rebuilt by hand. With no harvest or prior draft for this topic, every item is expert knowledge or camera arithmetic, cross-referenced to sibling notes.
 >
-> Evidence status: 0 ✅ / 0 📄 / 59 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 2 📄 / 57 🧠 / 15 ↔️ — remaining 🧠 items are still queued for web verification (partial pass 2026-11-20).
 
 ## Key facts
 
@@ -36,7 +36,7 @@
 **Software (time-sensitive; verify versions, prices, licences)**
 - **COLMAP:** BSD-licensed, scriptable reference SfM/MVS; the dense PatchMatch stage needs an NVIDIA CUDA GPU. GLOMAP (global SfM, 2024) is faster; check whether current COLMAP releases include it 🧠
 - **Meshroom/AliceVision:** MPL-2.0 node graph, CUDA for depth maps. Cameras missing from its sensor database get a default field of view (reportedly 45°), a common cause of failed head scans 🧠
-- **RealityCapture:** very fast and detailed; Windows; NVIDIA CUDA for meshing. Epic made it free below about US$1 M annual revenue (2024) and, as I understand it, renamed it **RealityScan 2.0** in 2025 ↔️ (verify)
+- **RealityCapture:** very fast and detailed; Windows [3]; GPU requirement contested: one report says a CUDA 3.0 NVIDIA GPU is required [4], while a platform listing says NVIDIA CUDA or AMD Radeon. Epic made it free below about US$1 M annual revenue (April 2024 change [5], terms restated [3]) and renamed it **RealityScan 2.0** in June 2025 [3][4] ✅
 - **Agisoft Metashape:** Standard and Professional perpetual licences; Windows, macOS and Linux with any GPU. Markers, scale bars, coded targets and Python are, I believe, Professional-only 🧠 (verify)
 - **Apple Object Capture** and phone apps (Polycam, KIRI Engine, Scaniverse) are object-tuned, with little mask or camera control 🧠
 - **Gaussian splats and NeRFs** render photoreal heads but are not sculpt-ready meshes; mesh-extraction variants (2DGS and successors) are improving ↔️
@@ -111,8 +111,8 @@ Phone optics and processing typically resolve only 50–70% of nominal pixels �
 
 | Tool | File | Pose | Intrinsics gotcha | Badge |
 |---|---|---|---|---|
-| COLMAP | `cameras.txt`, `images.txt` | quaternion QW QX QY QZ + T, world→camera; centre = −Rᵀt | first pixel centre at (0.5, 0.5), OpenCV at (0, 0) | 🧠 |
-| Metashape | cameras XML | per-camera 4×4 transform (camera→chunk) plus chunk transform | cx, cy are offsets from the image centre; P1/P2 swapped vs OpenCV p1/p2 | 🧠 |
+| COLMAP | `cameras.txt`, `images.txt` | quaternion QW QX QY QZ + T, world→camera; centre = −Rᵀt [1] (Hamilton convention) | first pixel centre at (0.5, 0.5), OpenCV at (0, 0) (pixel convention not confirmed, 🧠) | 📄 |
+| Metashape | cameras XML | per-camera 4×4 transform (camera→chunk) plus chunk transform (chunk transform not confirmed, 🧠) | cx, cy are offsets from the image centre; P1/P2 swapped vs OpenCV p1/p2 [2] | 📄 |
 | RealityScan/RC | per-image XMP (`xcr:` namespace) | rotation matrix + position | focal as 35 mm equivalent; principal point normalised; Brown models | 🧠 |
 | Meshroom | `cameras.sfm` (JSON) | 3×3 rotation + centre | principal-point convention varies by version | ↔️ |
 
@@ -170,7 +170,13 @@ Phone optics and processing typically resolve only 50–70% of nominal pixels �
 
 ## Sources
 
-None linked: no harvest exists for this topic yet. Sourced stereophotogrammetry accuracy figures live in `_raw/harvests/anthropometric-norms.json`.
+Linked in the 2026-11-20 verification pass (no harvest exists for this topic). Sourced stereophotogrammetry accuracy figures live in `_raw/harvests/anthropometric-norms.json`.
+
+1. COLMAP, "Output Format" — https://colmap.github.io/format.html
+2. Metashape expert manual (community), "Metashape's distortion model and converting to OpenCV / Colmap" — https://photogrammetrycommunity.github.io/metashape-expert-manual/workflow/camera-calibration/distortion-model-opencv-colmap/
+3. RealityScan, "RealityScan 2.0 new release brings powerful new features to a rebranded RealityCapture" — https://www.realityscan.com/news/realityscan-20-new-release-brings-powerful-new-features-to-a-rebranded-realitycapture
+4. CG Channel, "Epic Games releases RealityScan 2.0 and RealityScan Mobile 1.7" — https://www.cgchannel.com/2025/06/epic-games-releases-realityscan-2-0-and-realityscan-mobile-1-7/
+5. All3DP, "RealityCapture Price Change Incoming, Goes Free Starting April" — https://all3dp.com/4/realitycapture-price-change-incoming-goes-free-starting-april/
 
 **Further reading (by name, not yet linked)**
 - Schönberger & Frahm, "Structure-from-Motion Revisited", CVPR 2016
@@ -191,3 +197,10 @@ None linked: no harvest exists for this topic yet. Sourced stereophotogrammetry 
 - Leroy, Cabon & Revaud, "Grounding Image Matching in 3D with MASt3R", ECCV 2024
 - Wang et al., "VGGT: Visual Geometry Grounded Transformer", CVPR 2025
 - Lindenberger, Sarlin & Pollefeys, "LightGlue: Local Feature Matching at Light Speed", ICCV 2023
+
+## Verification log (2026-11-20)
+
+- **COLMAP images.txt pose convention** (QW QX QY QZ + T, world→camera, centre = −Rᵀt): confirmed [1]. **Pixel-centre (0.5, 0.5) vs OpenCV (0, 0) and Camera.centered match:** unconfirmed (not in search results), stays 🧠.
+- **Metashape XML:** P1/P2 swapped vs OpenCV p1/p2 confirmed [2]; cx/cy offset from image centre supported by [2] (version-dependent: older releases measured from top-left). Camera→chunk transform plus chunk transform: unconfirmed. Outcome: partially confirmed, 📄.
+- **Surface accuracy table (Table 5):** unconfirmed/contested. Searches surfaced clinical studies (about 0.9 mm RMS for TrueDepth/Bellus3D vs 3dMD; about 1.5–1.7 mm mean surface distance for photogrammetry apps; PMC10172784, PMC11594577, PMC11723895 were returned but could not be tied to specific figures), consistent with, but not settling, the stated ranges. Rows stay ↔️; single-DSLR and 3dMD-class figures unconfirmed.
+- **RealityCapture/RealityScan:** free under about US$1 M revenue [3][5], rename to RealityScan 2.0 in 2025 [3][4], Windows [3]: confirmed (✅). NVIDIA CUDA requirement: contested (CUDA-only [4] vs CUDA or AMD per a platform listing).

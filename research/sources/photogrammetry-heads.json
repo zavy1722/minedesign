@@ -1,6 +1,37 @@
 {
   "topic": "photogrammetry-heads",
-  "sources": [],
+  "sources": [
+    {
+      "id": 1,
+      "title": "COLMAP Output Format",
+      "url": "https://colmap.github.io/format.html",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 2,
+      "title": "Metashape expert manual: distortion model and converting to OpenCV/Colmap",
+      "url": "https://photogrammetrycommunity.github.io/metashape-expert-manual/workflow/camera-calibration/distortion-model-opencv-colmap/",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 3,
+      "title": "RealityScan 2.0 release news",
+      "url": "https://www.realityscan.com/news/realityscan-20-new-release-brings-powerful-new-features-to-a-rebranded-realitycapture",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 4,
+      "title": "CG Channel: RealityScan 2.0 release",
+      "url": "https://www.cgchannel.com/2025/06/epic-games-releases-realityscan-2-0-and-realityscan-mobile-1-7/",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 5,
+      "title": "All3DP: RealityCapture goes free starting April",
+      "url": "https://all3dp.com/4/realitycapture-price-change-incoming-goes-free-starting-april/",
+      "accessed": "2026-11-20"
+    }
+  ],
   "references_by_name": [
     "Schönberger & Frahm, \"Structure-from-Motion Revisited\", CVPR 2016",
     "Schönberger, Zheng, Frahm & Pollefeys, \"Pixelwise View Selection for Unstructured Multi-View Stereo\", ECCV 2016",

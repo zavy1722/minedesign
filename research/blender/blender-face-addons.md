@@ -26,11 +26,11 @@ Evidence status: 4 ✅ / 24 📄 / 53 🧠 / 12 ↔️ — 🧠 items are queued
 
 ### Parametric base humans
 - **MPFB2** code is **GPL-3.0-or-later** [11][14] ✅
-- Assets: "CC0 or CC-BY" per the Extensions listing [11]; a third-party note says MakeHuman base assets are CC0 1.0 [16] ↔️. My understanding: base mesh, targets and system assets CC0, community packs vary 🧠
-- Latest **2.0.18**, **Blender 4.2 LTS+** [11][12] 📄 (snippets; the 10 Oct 2026 date is single-snippet). Preferred install is the Extensions platform [13] 📄; MPFB1 is deprecated [15] 📄
+- Assets: "CC0 or CC-BY" per the Extensions listing [11]; MakeHuman Community licence page: base mesh, targets, proxies and system assets are CC0 (since the 2020 change), while asset packs vary, some CC0, some CC-BY (e.g. Bodyparts packs) [18][19] 📄; a third-party note also says CC0 1.0 [16]
+- Latest **2.0.18**, **Blender 4.2 LTS+** [11][12] 📄 (snippets; the 10 Oct 2026 date is single-snippet). The MakeHuman Community page says 2.0.18 has been released [18], while one search saw the Extensions listing only up to 2.0.16 ↔️ (2.0.16–2.0.18, unresolved). hm08 vertex counts unconfirmed. Preferred install is the Extensions platform [13] 📄; MPFB1 is deprecated [15] 📄
 - MPFB2 internals 🧠: base mesh `hm08` (≈13.4k body vertices, ≈19.2k with helper geometry for clothes fitting, joints and hair, hidden by a Mask modifier); **macro** sliders (gender, age, muscle, weight, height, proportions, population blends) interpolate stored targets; hundreds of local face targets named `region-feature-decr|incr`; **MakeTarget** saves a sculpted shape key as a `.target`; import scale option (metres default); rigs include default, game-engine and a Rigify meta-rig.
 - **FLAME** (Li et al. 2017) 🧠: 5,023 vertices, 9,976 triangles, eyeballs included, no mouth interior; FLAME 2020 has 300 shape, 100 expression and 15 pose parameters (global, neck, jaw, two eyes); shape space learnt from ~3.8k CAESAR scans. The MPI **FLAME Blender add-on** loads it as shape keys plus armature with sliders and pose correctives; model files need a registered download.
-- FLAME licence: non-commercial research; commercial use licensed separately (MPI/Meshcapade) 🧠. I have an unconfirmed recollection of a more permissive "FLAME 2023 Open" release ↔️; treat FLAME as non-commercial until the official download page says otherwise.
+- FLAME licence: FLAME 2017/2019/2020/2023 are non-commercial research only; commercial use needs a separate licence from the institute [17] 📄. A **FLAME 2023 Open** variant exists, released under CC-BY-4.0 and licensed for commercial use with attribution; only that version is open [17] 📄 (corrected in verification). Treat all other FLAME versions as non-commercial.
 - **MB-Lab** 🧠: community continuation of ManuelbastioniLAB (discontinued 2018); AGPL-3.0 code; generated characters under a different licence (possibly CC-BY 4.0) ↔️; releases I know target 2.8x–3.x, so 4.2+/5.x is unknown. Its centimetre body-measurement sliders are a useful UI precedent.
 - **CharMorph** 🧠: GPL-3 MB-Lab-inspired rewrite; characters (e.g. "Antonia") ship in a separate data repo; Rigify rigging and asset fitting; maintenance, 5.x status and per-character data licences unknown.
 - **Human Generator** 🧠: paid; proprietary realistic content library, one-click expressions and face rig; the GPL-code/proprietary-asset split typical of paid add-ons; price and 5.x status unverified.
@@ -58,8 +58,8 @@ Evidence status: 4 ✅ / 24 📄 / 53 🧠 / 12 ↔️ — 🧠 items are queued
 
 | Template | Vertices | Identity params | Expression / pose | Data licence | Status |
 |---|---|---|---|---|---|
-| FLAME 2020 | 5,023 (9,976 tris) | 300 PCA | 100 PCA + 15 pose | research NC ↔️ | 🧠 |
-| MakeHuman hm08 (MPFB2) | ≈13.4k body / ≈19.2k with helpers (quads) | macros + local targets | via rig / face poses | CC0 base ↔️ | 🧠 |
+| FLAME 2020 | 5,023 (9,976 tris) | 300 PCA | 100 PCA + 15 pose | research NC; FLAME 2023 Open is CC-BY-4.0 [17] | 📄 (licence) |
+| MakeHuman hm08 (MPFB2) | ≈13.4k body / ≈19.2k with helpers (quads) | macros + local targets | via rig / face poses | CC0 base, packs CC0/CC-BY [18][19] | 🧠 (counts) / 📄 (licence) |
 | Basel Face Model 2009 | 53,490 | 199 PCA | none | research licence | 🧠 |
 | ICT-FaceKit | not recalled | ~100 | ~53 shapes | MIT | 🧠 |
 | MediaPipe canonical | 468 | none | none | Apache-2.0 | 🧠 |
@@ -80,12 +80,12 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 
 | Tool | Code | Data/assets | Cost | Role | Status |
 |---|---|---|---|---|---|
-| MPFB2 | GPL-3.0+ | CC0 / CC-BY ↔️ | free | parametric base | ✅ code, ↔️ assets [11][14][16] |
+| MPFB2 | GPL-3.0+ | CC0 base; packs CC0 / CC-BY | free | parametric base | ✅ code, 📄 assets [11][14][18][19] |
 | Faceit | not captured | — | paid | shape-key generator + bake | 📄 [5] |
 | Face Shape Key Rig | GPL | — | free | controller for existing keys | 📄 [6][7] |
 | CaptureForge | GPL-3.0 | — | not captured | rig → ARKit 52, video drive | 📄 [8] |
 | mediapipe-facecap | not captured | MediaPipe models | not captured | live capture | 📄 [1] |
-| FLAME add-on | add-on code open | FLAME NC research ↔️ | free (research) | PCA head | 🧠 |
+| FLAME add-on | add-on code open | FLAME NC research; 2023 Open CC-BY-4.0 [17] | free (research) | PCA head | 🧠 code / 📄 data licence |
 | MB-Lab | AGPL-3.0 | separate licence ↔️ | free | parametric body | 🧠 |
 | CharMorph | GPL-3 | per character | free | parametric body | 🧠 |
 | Human Generator | GPL (presumed) | proprietary | paid | realistic humans | 🧠 |
@@ -114,13 +114,13 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 | Face-oval/jaw points | σ = 4% IOD | silhouette residual, re-associate each iteration |
 | Iris centre | σ = 1% IOD | 478 mode only |
 | MediaPipe z | weight 0 (≥2 views); ≤0.1·w_xy (1 view) | relative, mean-face-biased |
-| Horizontal iris diameter scale prior | 11.7 ± 0.5 mm | figure used by MediaPipe Iris |
+| Horizontal iris diameter scale prior | 11.7 ± 0.5 mm | figure used by MediaPipe Iris [20] 📄 |
 | Interpupillary distance prior, adults | mean ≈ 63 mm, σ ≈ 3.5 mm | user-measured value overrides (σ 1 mm) |
 | EXIF focal → pixels | f_px = f35 · √(W²+H²) / 43.27 | 43.27 mm = 35 mm-frame diagonal |
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Choose the stack by licence first.** Shippable: MediaPipe (out of process) → own numpy fitter → MPFB2 base → Multires detail → expressions via Faceit (user-bought), CaptureForge or Face Shape Key Rig → Rigify or Auto-Rig Pro. Research-only: FLAME add-on and FLAME regressors; outputs inherit non-commercial terms. Read FaceBuilder's EULA before reusing its exported mesh as a base.
+1. **Choose the stack by licence first.** Shippable: MediaPipe (out of process) → own numpy fitter → MPFB2 base → Multires detail → expressions via Faceit (user-bought), CaptureForge or Face Shape Key Rig → Rigify or Auto-Rig Pro. Research-only: FLAME add-on and FLAME regressors (except FLAME 2023 Open, CC-BY-4.0 [17]); outputs inherit non-commercial terms. Read FaceBuilder's EULA before reusing its exported mesh as a base.
 2. **Prepare the MPFB2 base.** New human, metres, macros set from known age/height/sex; no proxy; keep helpers (masked). Record vertex count and an index-order hash and assert them at every write-back. Fitting a proxy, or deleting helpers, breaks targets and clothes fitting 🧠.
 3. **Landmarks.** Run MediaPipe outside Blender, as the transmitter/receiver split in [1] does; use 478 mode and check the count per image [2][3]. Un-mirror front-camera selfies (otherwise L/R swap), apply EXIF orientation, keep native resolution.
 4. **Cameras.** Seed focal length from EXIF (Table 6). Phone main lenses (~24–28 mm equivalent) at arm's length enlarge the nose and hide the ears; prefer 2–3× tele at ≥1 m (see `blender/reference-camera-setup.md`). Fix the principal point at centre; allow only k1 for wide lenses.
@@ -135,22 +135,22 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 
 - **Input schema:** `LandmarkSet{scheme ∈ {mp468, mp478}, xy_px[N], z_rel[N], image_wh, mirrored, exif_rotation}`. Branch on N, not a flag [3][2]; treat 468–477 as optional iris observations 🧠.
 - **Landmark classes with per-class σ** (Table 6) and a Huber loss (δ = 2σ). Drop a point from a view beyond 4σ after the first solve. Treat face-oval points as silhouette constraints (nearest occluding-contour vertex), never fixed vertex IDs, because they slide with yaw 🧠.
-- **Scale:** combine the iris-diameter prior (11.7 ± 0.5 mm) and the IPD prior (63 ± 3.5 mm); a user-measured IPD or ruler in frame overrides with σ ≈ 1 mm. Never take scale from MediaPipe's canonical model 🧠.
+- **Scale:** combine the iris-diameter prior (11.7 ± 0.5 mm [20]) and the IPD prior (63 ± 3.5 mm); a user-measured IPD or ruler in frame overrides with σ ≈ 1 mm. Never take scale from MediaPipe's canonical model 🧠.
 - **Shape priors:** MPFB macros ∈ [0,1] with a box constraint, Gaussian toward user-supplied age/height (σ ≈ 0.15); local face targets ∈ [−1,1], N(0, 0.5²) plus box; FLAME β ~ N(0,1) using the first 50–100 components. Fit a small expression basis (σ ≈ 0.3) only to absorb expression in the photos, then discard it 🧠.
 - **Residual warp:** after the parametric fit, solve per-vertex offsets with Laplacian/ARAP regularisation, λ annealed high→low (e.g. 10→1); cap offsets near 5 mm unless several views agree; soft symmetry prior with σ ≈ 1–2 mm (see `anatomy/facial-asymmetry.md`), never hard mirroring 🧠.
 - **Correspondence tables** (landmark → vertex or barycentric point) versioned per base and base version (MPFB2 2.0.18 `hm08` [12]); validate vertex count on load.
 - **Topology invariance:** the solver moves vertices only; assert count and order before write-back.
-- **Licence as data:** each prior, base and asset carries `{licence, attribution, commercial_ok}`; export refuses unknown or `commercial_ok=false` items, FLAME included by default.
+- **Licence as data:** each prior, base and asset carries `{licence, attribution, commercial_ok}`; export refuses unknown or `commercial_ok=false` items, FLAME 2017–2023 included by default (FLAME 2023 Open is CC-BY-4.0 and may be allowed with attribution [17]).
 - **Outputs:** neutral identity mesh, optional ARKit-52-named keys (Table 5) so Faceit, CaptureForge and FSKR can consume them [5][8][6], an MPFB `.target`, and OBJ with stable vertex order.
 - **Packaging:** extension with GPL-3.0-or-later code, matching MPFB2 [14] and CaptureForge [8]; `blender_version_min = "4.2.0"` like MPFB2 [11]; CI-test 4.5 LTS, 5.2 LTS and current 5.x; gate 5.2+ features (FSKR interop [7]); MediaPipe out of process or as an optional wheel; declare `camera` permission only for webcam capture 🧠.
 
 ## Disagreements, myths & open questions
 
 - **468 vs 478:** both correct; the count depends on refinement [3][2].
-- **MPFB/MakeHuman asset licence** ↔️: "CC0 or CC-BY" [11] vs "CC0 1.0" [16]. Likely per-asset (base CC0, packs vary); unconfirmed against MakeHuman's own files.
+- **MPFB/MakeHuman asset licence:** resolved: base mesh, targets and system assets CC0; asset packs CC0 or CC-BY, so check each pack [18][19] 📄.
 - **"Face Shape Key Rig replaces Faceit":** partly; it controls but does not create keys [6][5].
 - **Myth: MediaPipe gives a 3D head.** z is relative and mean-face-biased; metric depth needs multi-view geometry or scale priors 🧠.
-- **"FLAME is free"** ↔️: free for research, not commercial; whether a permissive 2023 variant exists is unconfirmed 🧠.
+- **"FLAME is free":** free for research only, except FLAME 2023 Open (CC-BY-4.0, commercial use allowed) [17] 📄 (corrected in verification).
 - **"Every bpy add-on must be GPL"** ↔️: Blender Foundation's position, legally untested; paid add-ons split GPL code from proprietary assets or binaries 🧠.
 - **Myth: ARKit 52 = FACS.** ARKit shapes are FACS-inspired, not action units; the mapping is many-to-many (see `anatomy/facs-expressions.md`) 🧠.
 - **Myth: FaceBuilder output is the likeness.** It is a pinned fit of a low-dimensional head; forum reports say pins need manual correction 🧠.
@@ -174,6 +174,10 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 [14] mpfb2 LICENSE.CODE.md — https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md — licence file — n.d.
 [15] makehuman-plugin-for-blender (MPFB1, deprecated) — https://github.com/makehumancommunity/makehuman-plugin-for-blender — repo — n.d.
 [16] kblood/CharacterCreator LICENSE-NOTES.md — https://github.com/kblood/CharacterCreator/blob/master/LICENSE-NOTES.md — third-party notes — n.d.
+[17] FLAME model license — https://flame.is.tue.mpg.de/modellicense.html — official licence page — n.d.
+[18] MakeHuman Community licence — https://static.makehumancommunity.org/about/license.html — official docs — n.d.
+[19] MakeHuman asset packs — https://static.makehumancommunity.org/assets/assetpacks.html — official docs — n.d.
+[20] MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research) — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/ — official blog — 2020
 
 **Further reading (by name, not yet linked)**
 - Kartynnik, Ablavatski, Grishchenko, Grundmann, "Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs", 2019 (MediaPipe Face Mesh).
@@ -187,3 +191,13 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 - Dodgson, "Variation and extrema of human interpupillary distance", 2004.
 - Apple ARKit documentation, `ARFaceAnchor.BlendShapeLocation`.
 - Blender Manual: Extensions and `blender_manifest.toml`; Rigify.
+
+## Verification log (2026-11-20)
+
+- FLAME 2023 Open permissive variant: corrected (exists, CC-BY-4.0, commercial use allowed; earlier versions non-commercial) — https://flame.is.tue.mpg.de/modellicense.html
+- MPFB2/MakeHuman asset licences (base mesh, targets, system assets CC0; packs CC0 or CC-BY): confirmed — https://static.makehumancommunity.org/about/license.html , https://static.makehumancommunity.org/assets/assetpacks.html
+- MPFB2 version 2.0.18: contested (MakeHuman Community page says released; Extensions listing seen only up to 2.0.16 in one search) — https://static.makehumancommunity.org ; https://extensions.blender.org/add-ons/mpfb/versions/
+- MPFB2 Blender 4.2+ minimum and hm08 13.4k/19.2k vertex counts: unconfirmed (no usable evidence in results)
+- Iris diameter 11.7 ± 0.5 mm (MediaPipe Iris): confirmed — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/
+- Adult IPD 63 mm, σ 3.5 mm: unconfirmed (not addressed by results)
+- Face Landmarker 52 blendshapes incl. `_neutral`, omitting `tongueOut`; iris indices 468–472 / 473–477: unconfirmed (478 landmarks and 52 scores confirmed at https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker, but names and index split not shown)

@@ -2,7 +2,7 @@
 
 > Distance, not focal length, sets facial perspective. The 85–135 mm (full-frame-equivalent) advice exists because those lenses let you stand 1.5–2.5 m away and still fill the frame, where the nose tip is only 4–7% over-magnified against the ears. A fitting and sculpting **identity set** is 7–9 core stills (front, ±45°, ±90°, below, above), extendable to 15–20. Shoot it in one ≤15-minute session with one locked lens, a neutral face, fixed gaze, hair off the ears and hairline, even diffuse light and a scale reference. Photogrammetry is a separate pass (40–150 photos in rings); video supplements stills. No harvest or draft existed for this topic, so every item is expert knowledge or camera arithmetic, cross-referenced to sibling notes.
 >
-> Evidence status: 0 ✅ / 0 📄 / 78 🧠 / 18 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 1 📄 / 78 🧠 / 18 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -10,7 +10,7 @@
 - Perspective depends only on distance; at the same framing, a longer lens just lets you stand farther back. The nose tip's magnification over the ear plane is ≈ 100 mm / distance: 20% at 0.5 m, 6.7% at 1.5 m, 4% at 2.5 m (Table 2; `blender/reference-camera-setup.md`) 🧠
 - At 1.5–2.5 m, an 85–135 mm lens frames a 0.4–1.0 m field and puts a face 1000–1700 px wide on 24 MP full frame. Crop later rather than walk closer 🧠
 - Clinical facial-photography standards use a 90–105 mm macro-class lens on full frame at a fixed, recorded distance, with the Frankfurt horizontal level. Recommendations span 85–135 mm (Ettorre et al. 2006; Yavuzer et al. 2001; Galdino et al. 2001) ↔️
-- Biometric portrait standards (ICAO; ISO/IEC 19794-5, 39794-5) require near-frontal pose (~±5°) and even light; I recall ICAO suggesting ~1.2–2.5 m. They target 2D recognition: a floor, not a target 🧠 (verify)
+- Biometric portrait standards (ICAO; ISO/IEC 19794-5, 39794-5) require near-frontal pose (±5° in yaw and pitch; roll relaxed to ±8° in the ISO/IEC 19794-5 corrigendum) and even light 📄 [1]. ICAO is recalled as suggesting ~1.2–2.5 m, but that distance was not found in verification 🧠 (verify). They target 2D recognition: a floor, not a target
 - At fixed framing, depth of field barely depends on focal length. Focus on the near eye at f/8 full frame (≈f/5.6 APS-C, f/4 Micro Four Thirds) to keep nose tip to ears sharp. At f/1.8–2.8 the ears and far cheek blur (Table 3) 🧠
 - **Camera height:** lens at the sitter's eye–nose level, axis level. A 30 cm mismatch at 1.5 m gives 11° of pitch, which shifts the nose tip ~20 mm vertically against the ears (Table 4). This is the usual cause of "ears too high/low" 🧠
 - **Head orientation:** natural head position (eyes on a mark at eye height ≥2 m away) or Frankfurt horizontal (tragus top level with the lower orbital rim); they differ by a few degrees, SD ~3–5° (`anatomy/craniometric-landmarks.md`) ↔️
@@ -34,7 +34,7 @@
 
 **Light & colour**
 - **Even, diffuse light for fitting and texture:** overcast or open shade outdoors. Indoors, two large softboxes at ±45° slightly above eye level plus a reflector below, key-to-fill ≤1.5:1. Avoid overhead light, direct sun and mixed colour temperatures 🧠
-- **Cross-polarisation** (film on the lights, lens polariser at 90°, until the corneal catchlight vanishes) removes specular reflections for albedo and photogrammetry. It costs ~2–3+ stops and works best with lights near the lens axis, such as a ring flash (`blender/skin-shading.md`) ↔️
+- **Cross-polarisation** (film on the lights, lens polariser at 90°, until the corneal catchlight vanishes) removes specular reflections for albedo and photogrammetry. It costs roughly 1.3–3+ stops (sources vary: a single polarizer alone is 1–3 stops; cross-polarised setups need "several" stops) [2][3], and works best with lights near the lens axis, such as a ring flash (`blender/skin-shading.md`) ↔️
 - Landmark fitting does not need cross-polarisation, which flattens apparent form; also shoot unpolarised 🧠
 - **"Form" set:** one key light at 45° and then at 90°, 4:1–8:1. It shows the planes, cheekbones and brow ridge that flat light hides ↔️
 - **Colour and exposure:** a grey card or colour chart for each lighting set; manual white balance and exposure; RAW; no clipped forehead or nose 🧠
@@ -111,7 +111,7 @@ Phone face widths (12 MP, diagonal 35 mm equivalent): 1× at 1.5 m ≈280 px; 2�
 | Main 1× | ~24–26 mm | solver anchor at 0.5–0.8 m, or ≥1.5 m and cropped | 🧠 |
 | 2× (often a main-sensor crop) | ~48–52 mm | acceptable at 1.2–2 m | ↔️ |
 | 3× telephoto | ~65–77 mm | good at 1.5–2 m | ↔️ |
-| 4–5× telephoto | ~100–125 mm | best at 2–3 m in good light | ↔️ |
+| 4–5× telephoto | ~100–125 mm (iPhone 17 Pro 4× = 100 mm equiv. [4]) | best at 2–3 m in good light | ↔️ |
 
 **Table 6 — Photo counts by method**
 
@@ -176,7 +176,12 @@ Phone face widths (12 MP, diagonal 35 mm equivalent): 1× at 1.5 m ≈280 px; 2�
 
 ## Sources
 
-None linked: no harvest or earlier draft exists for this topic. Related sourced material is in the sibling notes named above.
+1. ICAO TAG-MRTD/17 WP.009, pose tolerance ±5° (roll/pitch/yaw) in the standard — https://www2023.icao.int/Meetings/TAG-MRTD/Documents/Tag-Mrtd-17/TagMrtd17_WP009.pdf
+2. Wikipedia, Polarizing filter (1–3 stops loss) — https://Www.wikipedia.org/wiki/Polarising_filter
+3. Paul Bourke, Cross polarisation in photography (≥1.3 stops) — https://paulbourke.net/miscellaneous/crosspolarisation/index.html
+4. Apple, iPhone 17 Pro technical specifications (4× Fusion Telephoto, 100 mm) — https://www.apple.com/am/iphone-17-pro/specs/
+
+Related sourced material is in the sibling notes named above.
 
 **Further reading (by name, not yet linked)**
 - Ettorre et al., "Standards for digital photography in cranio-maxillo-facial surgery – Part I: Basic views and guidelines", J Craniomaxillofac Surg, 2006
@@ -191,3 +196,10 @@ None linked: no harvest or earlier draft exists for this topic. Related sourced 
 - Debevec et al., "Acquiring the Reflectance Field of a Human Face", SIGGRAPH 2000
 - Ma et al., "Rapid Acquisition of Specular and Diffuse Normal Maps from Polarized Spherical Gradient Illumination", EGSR 2007
 - Soukupová & Čech, "Real-Time Eye Blink Detection using Facial Landmarks", CVWW 2016
+
+## Verification log (2026-11-20)
+
+- Clinical photography lens 90–105 mm (85–135 mm range), Frankfurt horizontal, fixed distance (Ettorre/Yavuzer/Galdino): **unconfirmed**. Search summaries quoted Ettorre's "90–105 mm macro" but could not be tied to a specific URL; no distance or Frankfurt wording found. Stays ↔️.
+- ICAO pose ±5° and 1.2–2.5 m: **pose confirmed, distance unconfirmed.** Yaw/pitch ±5° confirmed (roll relaxed to ±8° in the 19794-5 corrigendum) — https://www2023.icao.int/Meetings/TAG-MRTD/Documents/Tag-Mrtd-17/TagMrtd17_WP009.pdf. The 1.2–2.5 m distance was not found (ICAO Portrait Quality TR v1.0, https://icao.int/Security/FAL/TRIP/Documents/TR - Portrait Quality v1.0.pdf, is the likely place; contents not retrieved).
+- Phone focal lengths and silent lens substitution: **unconfirmed** overall. Partial: iPhone 17 Pro 4× telephoto is 100 mm equiv. — https://www.apple.com/am/iphone-17-pro/specs/. No source found for low-light/minimum-focus switch to a cropped main camera (Moment mentions 12MP crop inside minimum focus: https://www.shopmoment.com/au/articles/iphone-17-camera-lenses-explained, text truncated).
+- Cross-polarisation light cost ~2–3+ stops, best with on-axis lights: **contested** — range ~1.3 to 3+ stops: https://Www.wikipedia.org/wiki/Polarising_filter (1–3 stops), https://paulbourke.net/miscellaneous/crosspolarisation/index.html (≥1.3 stops), https://www.taylorfrancis.com/books/9781315722160/chapters/10.4324/9781315722160-9 (several stops). On-axis claim not verified.

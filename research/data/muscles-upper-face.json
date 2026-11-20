@@ -1,0 +1,157 @@
+{
+ "topic": "muscles-upper-face",
+ "tables": [
+  {
+   "name": "sourced_upper_face_measurements",
+   "units": "mixed (mm, %, n)",
+   "columns": ["quantity", "value", "unit", "population_or_sample", "source_ref"],
+   "rows": [
+    ["depressor supercilii insertion above medial canthal tendon", "13-14", "mm", "cadavers, Cook et al. 2001; n not extracted", 25],
+    ["depressor supercilii heads", "2 in most specimens, 1 in a few", "count", "same", 25],
+    ["corrugator origin bundles", "3-4", "count", "2003 anatomical study (search-snippet value)", 16],
+    ["only lower forehead moves upward in frontalis contraction", 53, "%", "Asian cohort, 3D skin-displacement vectors", 5],
+    ["glabellar frown main vector on eyebrow ('lateral pattern')", 89.66, "%", "2025 3D study; n approx. 29 inferred, not stated", 19],
+    ["glabellar frown asymmetric displacement", 62.07, "%", "same", 19],
+    ["eyebrow lift after microfocused ultrasound, week 4", 1.99, "mm", "38 patients", 40],
+    ["eyebrow lift after microfocused ultrasound, week 16", 1.57, "mm", "38 patients", 40],
+    ["eyebrow position change after glabella-only neuromodulator", "none detected", "-", "18 participants, pilot", 38],
+    ["patients in glabellar contraction-pattern classification", 103, "n", "patients of African descent", 39]
+   ],
+   "population": "Mixed cadaver and clinical cohorts; see per-row column",
+   "source_urls": [
+    "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications",
+    "https://pubmed.ncbi.nlm.nih.gov/12975140/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10307676/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12715876/",
+    "https://pubmed.ncbi.nlm.nih.gov/39920474/",
+    "https://pubmed.ncbi.nlm.nih.gov/40772568/",
+    "https://pubmed.ncbi.nlm.nih.gov/39761145/"
+   ],
+   "status": "sourced",
+   "notes": "source_ref is the [n] number in research/sources/muscles-upper-face.json. All single-source; values from abstracts or search snippets, not full-text tables. The 53% finding conflicts with an earlier study (contested)."
+  },
+  {
+   "name": "upper_face_dimensions_excursions",
+   "units": "mm unless stated",
+   "columns": ["quantity", "low", "high", "typical", "notes", "status"],
+   "rows": [
+    ["frontalis thickness", 1.0, 2.5, null, "ultrasound; identity of hypoechoic layer disputed (PMC11635371)", "contested"],
+    ["corrugator lateral reach from midline", 25, 45, 35, "approx. mid-pupillary line; insertion variants across references", "contested"],
+    ["corrugator belly thickness", 1, 3, null, "thickest medially", "knowledge"],
+    ["forehead horizontal line count", 2, 6, null, "count, not mm", "contested"],
+    ["forehead line spacing", 6, 15, null, "consistent with skin-wrinkles-microdetail data", "contested"],
+    ["glabellar vertical lines per side", 1, 3, null, "count", "contested"],
+    ["glabellar line pair separation", 8, 15, null, "", "contested"],
+    ["crow's feet line count", 3, 7, null, "count", "knowledge"],
+    ["crow's feet spacing", 2, 5, null, "", "knowledge"],
+    ["crow's feet length from lateral canthus", 10, 30, null, "", "knowledge"],
+    ["maximal brow raise AU1+2 at mid-brow", 5, 15, null, "individual; use as clamp, not mean", "knowledge"],
+    ["brow-head travel in frown AU4, medial", 2, 6, null, "similar magnitude downward", "knowledge"],
+    ["LPS muscle length", null, null, 40, "", "knowledge"],
+    ["LPS aponeurosis length", 15, 20, null, "", "knowledge"],
+    ["levator excursion (down-gaze to up-gaze lid travel)", 12, 18, null, "<5 mm = poor function", "knowledge"],
+    ["Mueller muscle contribution to lid height", 1, 2, 2, "Horner ptosis 1-2 mm", "knowledge"],
+    ["upper tarsus height", 8, 12, null, "shorter in East Asian lids", "knowledge"],
+    ["lower tarsus height", 3.5, 5, null, "", "knowledge"],
+    ["upper-lid crease height, European-ancestry women", 8, 11, null, "from lash line", "contested"],
+    ["upper-lid crease height, European-ancestry men", 6, 9, null, "from lash line", "contested"],
+    ["upper-lid crease height, East Asian", 2, 6, null, "or absent (monolid)", "contested"],
+    ["MRD1", 4, 5, 4.5, "pupil light reflex to upper-lid margin; matches eyes-modeling-blender", "knowledge"],
+    ["MRD2", null, null, 5, "pupil light reflex to lower-lid margin", "knowledge"],
+    ["lateral canthus height above medial canthus", 1, 3, null, "varies with ancestry and age", "contested"]
+   ],
+   "population": "Adults; mixed clinical and anatomical literature recalled from training; not yet verified",
+   "source_urls": ["https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11635371/"],
+   "status": "knowledge",
+   "notes": "Per-row status overrides table status. Ranges are deliberately wide; queue crease height, brow excursion, corrugator extent and frontalis thickness for verification before using as tight priors."
+  },
+  {
+   "name": "muscle_action_vectors_head_frame",
+   "units": "unit vectors, head frame: +x subject's left, +y up, +z forward (face3d/synthetic.py); left side given, mirror x for right",
+   "columns": ["muscle", "fibre_direction_origin_to_insertion", "skin_motion_on_contraction", "region_moved", "facs_au", "arkit", "wrinkle_orientation"],
+   "rows": [
+    ["frontalis_medial", [0, 1, 0], [0, 1, 0], "inner brow, lower forehead", "AU1", "browInnerUp", "horizontal, bowed up centrally"],
+    ["frontalis_lateral", [0, 1, 0], [0, 1, 0], "outer brow (not beyond temporal fusion line)", "AU2", "browOuterUpLeft/Right", "horizontal, lateral"],
+    ["corrugator_supercilii", [0.93, 0.34, -0.1], [-0.93, -0.34, 0.1], "brow head, medial brow", "AU4", "browDownLeft/Right", "vertical and oblique glabellar"],
+    ["depressor_supercilii", [0.1, 1, 0], [-0.1, -1, 0], "brow head", "AU4", "browDownLeft/Right", "oblique medial brow"],
+    ["procerus", [0, 1, 0], [0, -1, 0], "glabella, medial brows", "AU4 (also AU9 lines)", "browDown / noseSneer", "horizontal at radix"],
+    ["orbicularis_oculi_orbital", "circumferential ellipse", "toward a point near the medial canthus: brow down, cheek and lower lid up", "periorbital skin", "AU6", "cheekSquintLeft/Right", "radial about exocanthion; lower-lid lines"],
+    ["orbicularis_oculi_palpebral", "horizontal arcs within lids", "lid closure: rotation about globe centre", "lid margins", "AU7, AU45", "eyeSquint, eyeBlink", "fine lid crinkles"],
+    ["levator_palpebrae_superioris", "posterior-to-anterior in orbit, vertical in lid", "upper-lid margin rotates up about globe centre", "upper lid, crease", "AU5 (AU43 = relaxation)", "eyeWideLeft/Right", "crease deepens"]
+   ],
+   "population": "Generic adult template",
+   "source_urls": [
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/corrugator-supercilii/16419",
+    "https://en.wikipedia.org/wiki/Frontalis_muscle",
+    "https://www.ncbi.nlm.nih.gov/books/NBK441907/",
+    "https://www.ncbi.nlm.nih.gov/books/NBK536921/"
+   ],
+   "status": "knowledge",
+   "notes": "Qualitative directions are sourced (corrugator superolateral fibres, inferomedial pull; frontalis vertical; procerus vertical). The numeric unit vectors (e.g. corrugator about 20 deg above horizontal, small posterior component) are design heuristics, not measurements. ARKit names to verify against current Apple docs."
+  },
+  {
+   "name": "suggested_fitting_priors",
+   "units": "mm unless stated",
+   "columns": ["parameter", "mean", "sigma", "bounds", "notes", "status"],
+   "rows": [
+    ["MRD1", 4.5, 1.0, [1.5, 7], "widen if ptosis suspected", "knowledge"],
+    ["MRD2", 5.0, 1.0, [3, 8], "", "knowledge"],
+    ["upper_lid_crease_height_european_female", 8, 2, [4, 13], "", "contested"],
+    ["upper_lid_crease_height_european_male", 7, 2, [4, 12], "", "contested"],
+    ["upper_lid_crease_height_east_asian", 4, 2.5, [0, 9], "plus Bernoulli no-crease switch", "contested"],
+    ["upper_lid_crease_height_unknown", 6.5, 3, [0, 13], "", "contested"],
+    ["brow_height_LR_difference", 0, 1.5, [-5, 5], "1-3 mm differences common; >=3 mm visible", "knowledge"],
+    ["depressor_supercilii_insertion_above_MCT", 13.5, 2, [9, 18], "from Cook 2001 value 13-14 mm", "sourced"],
+    ["corrugator_lateral_end_from_midline", 35, 7, [20, 50], "", "contested"],
+    ["frontalis_upper_mobility", 0.3, 0.25, [0, 1], "fraction of upper-forehead motion; skewed low per 53% lower-only finding", "knowledge"],
+    ["AU_weight_neutral_frame", 0, 0.1, [0, 1], "L2 prior per AU in frames used for identity", "knowledge"],
+    ["brow_raise_clamp_AU1_2", null, null, [0, 15], "max mid-brow travel", "knowledge"],
+    ["frown_brow_head_travel_clamp_AU4", null, null, [0, 8], "", "knowledge"],
+    ["neutral_gate_brow_above_median", null, null, [0, 2.5], "drop brow/forehead residuals beyond this", "knowledge"],
+    ["forehead_expression_normal_sigma", 0, 0.3, null, "sliding on subgaleal plane: tangential motion free, normal motion penalised", "knowledge"],
+    ["lid_margin_offset_from_globe_sphere", 0.75, 0.25, [0.3, 1.5], "margin kept on globe radius + offset", "knowledge"],
+    ["upper_lid_gaze_coupling_ratio", 0.9, 0.15, [0.5, 1.2], "lid angular elevation per unit eye pitch, moderate gaze", "knowledge"]
+   ],
+   "population": "Adults; design defaults",
+   "source_urls": ["https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications"],
+   "status": "knowledge",
+   "notes": "Engineering defaults for face3d fitting; tune on data. Per-row status overrides table status."
+  },
+  {
+   "name": "laplacian_warp_stiffness_upper_face",
+   "units": "relative weight (dimensionless)",
+   "columns": ["region", "weight", "extra"],
+   "rows": [
+    ["lid margins", 3.0, ""],
+    ["upper tarsal plate", 2.0, "near-rigid curved plate"],
+    ["medial canthus", 2.5, "anchored by medial canthal tendon"],
+    ["lateral canthus", 1.5, "anchored by lateral canthal tendon"],
+    ["brow", 0.7, ""],
+    ["forehead", 0.5, "tangential sliding allowed"],
+    ["glabella", 0.4, "crease allowance along vertical and radix lines"]
+   ],
+   "population": "Template heuristic",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Heuristics to tune, not measured tissue stiffness."
+  },
+  {
+   "name": "landmark_indices_upper_face",
+   "units": "0-based detector indices",
+   "columns": ["feature", "side", "mediapipe_478", "dlib_68"],
+   "rows": [
+    ["eyebrow upper arc", "subject right", [70, 63, 105, 66, 107], [17, 18, 19, 20, 21]],
+    ["eyebrow upper arc", "subject left", [300, 293, 334, 296, 336], [22, 23, 24, 25, 26]],
+    ["exocanthion / endocanthion", "subject right", [33, 133], [36, 39]],
+    ["exocanthion / endocanthion", "subject left", [263, 362], [45, 42]],
+    ["upper / lower lid apex", "subject right", [159, 145], ["37-38", "40-41"]],
+    ["upper / lower lid apex", "subject left", [386, 374], ["43-44", "46-47"]],
+    ["iris centre", "right / left", [468, 473], null]
+   ],
+   "population": "Detector conventions",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Consistent with research/reconstruction/landmark-detection.md Table 4; verify visually per model version before freezing. Brow points are hair features, not bone."
+  }
+ ]
+}

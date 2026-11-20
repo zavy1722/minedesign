@@ -1,6 +1,27 @@
 {
  "topic": "reference-photography-protocol",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "title": "ICAO TAG-MRTD/17 WP.009",
+   "url": "https://www2023.icao.int/Meetings/TAG-MRTD/Documents/Tag-Mrtd-17/TagMrtd17_WP009.pdf"
+  },
+  {
+   "n": 2,
+   "title": "Polarizing filter (Wikipedia)",
+   "url": "https://Www.wikipedia.org/wiki/Polarising_filter"
+  },
+  {
+   "n": 3,
+   "title": "Paul Bourke, Cross polarisation in photography",
+   "url": "https://paulbourke.net/miscellaneous/crosspolarisation/index.html"
+  },
+  {
+   "n": 4,
+   "title": "Apple iPhone 17 Pro technical specifications",
+   "url": "https://www.apple.com/am/iphone-17-pro/specs/"
+  }
+ ],
  "references_by_name": [
   "Ettorre et al., \"Standards for digital photography in cranio-maxillo-facial surgery – Part I: Basic views and guidelines\", J Craniomaxillofac Surg, 2006",
   "Yavuzer, Smirnov & Jackson, \"Guidelines for standard photography in plastic surgery\", Annals of Plastic Surgery, 2001",

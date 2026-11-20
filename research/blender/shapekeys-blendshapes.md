@@ -2,7 +2,7 @@
 
 > Blender stores every shape key as an absolute copy of all vertex positions and, in relative mode, mixes them as Basis + Σ valueᵢ·maskᵢ·(keyᵢ − relative_keyᵢ) before any modifier runs, which makes keys the natural non-destructive container for a photo-fitted likeness, artist passes and an expression set on one frozen topology. The de facto expression vocabulary is Apple's ARKit 52 coefficients in [0, 1]; MediaPipe Face Landmarker emits 52 scores under the same camelCase names (minus `tongueOut`, plus `_neutral`), so a clone keyed with exact ARKit names can be driven and audited by phone or webcam capture. Linear deltas fail on arcs (eyelids, jaw) and on combinations, so a usable set adds in-betweens and product-driven correctives, and after an identity fit the template's deltas must be transferred, not copied. No harvest or earlier draft existed: 📄 facts come from sibling harvests in this library; everything else is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 15 📄 / 80 🧠 / 10 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 14 📄 / 66 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
