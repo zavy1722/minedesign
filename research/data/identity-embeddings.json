@@ -197,9 +197,11 @@
         ]
       ],
       "population": "n/a (InsightFace canonical arcface_dst template)",
-      "source_urls": [],
-      "status": "knowledge",
-      "notes": "From InsightFace face_align code as remembered; verify before hard-coding. Derived inter-ocular distance ~35.2 px. Use a similarity (4-DoF) transform, not a full affine."
+      "source_urls": [
+        "https://github.com/deepinsight/insightface/blob/master/python-package/insightface/utils/face_align.py"
+      ],
+      "status": "sourced",
+      "notes": "Template confirmed present in InsightFace face_align.py as arcface_dst (verification 2026-11-20; search-summary level, values not re-diffed digit by digit). Derived inter-ocular distance ~35.2 px. Use a similarity (4-DoF) transform, not a full affine."
     },
     {
       "name": "arcface_onnx_preprocessing",
@@ -314,7 +316,7 @@
           "SFace 128-d",
           0.363,
           0.363,
-          "knowledge"
+          "sourced"
         ],
         [
           "deepface default (cos distance ~0.68 / L2 ~1.13)",
@@ -354,7 +356,8 @@
       ],
       "population": "various; not portable between models, metrics or image domains (renders score lower than photos)",
       "source_urls": [
-        "https://arxiv.org/pdf/2012.14305"
+        "https://arxiv.org/pdf/2012.14305",
+        "https://docs.opencv.org/4.13.0/d0/dd4/tutorial_dnn_face.html"
       ],
       "status": "contested",
       "notes": "Use only as sanity anchors. Calibrate per model and per subject with genuine and demographically matched impostor distributions."

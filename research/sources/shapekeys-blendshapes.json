@@ -1,0 +1,101 @@
+{
+ "topic": "shapekeys-blendshapes",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Apple ARKit: ARFaceAnchor.blendShapes",
+   "url": "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "Apple ARKit: ARFaceAnchor.BlendShapeLocation",
+   "url": "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Apple Tech Talks 601: Face Tracking with ARKit",
+   "url": "https://developer.apple.com/videos/play/tech-talks/601/",
+   "kind": "official-video",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "Apple Developer Forums thread 703686",
+   "url": "https://developer.apple.com/forums/thread/703686",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "MediaPipe Face Landmarker (Google AI Edge)",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "MediaPipe Face landmark detection guide for Python",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker/python",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "MediaPipe mp.tasks.vision.FaceLandmarkerResult API",
+   "url": "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult",
+   "kind": "api-reference",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Faceit: Facial Expressions and Performance Capture (Superhive)",
+   "url": "https://superhivemarket.com/products/faceit",
+   "kind": "commercial-listing",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "Face Shape Key Rig (Blender Extensions)",
+   "url": "https://extensions.blender.org/add-ons/face-shapekey-rig/",
+   "kind": "extension-listing",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Fragid/face-shapekey-rig",
+   "url": "https://github.com/Fragid/face-shapekey-rig",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "H0wZy/captureforge",
+   "url": "https://github.com/H0wZy/captureforge",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 12,
+   "title": "mozi1924/mediapipe-facecap-for-blender",
+   "url": "https://github.com/mozi1924/mediapipe-facecap-for-blender",
+   "kind": "repo",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Lewis, Anjyo, Rhee, Zhang, Pighin & Deng, 'Practice and Theory of Blendshape Facial Models', Eurographics STAR 2014",
+  "Sumner & Popovic, 'Deformation Transfer for Triangle Meshes', SIGGRAPH 2004",
+  "Li, Weise & Pauly, 'Example-Based Facial Rigging', SIGGRAPH 2010",
+  "Cao, Weng, Zhou, Tong & Zhou, 'FaceWarehouse: A 3D Facial Expression Database for Visual Computing', IEEE TVCG 2014",
+  "Li, Bolkart, Black, Li & Romero, FLAME ('Learning a model of facial shape and expression from 4D scans'), SIGGRAPH Asia 2017",
+  "Ekman, Friesen & Hager, Facial Action Coding System manual (2002)",
+  "Casiez, Roussel & Vogel, '1 Euro Filter', CHI 2012",
+  "Rhodes, Brennan & Carey, 'Identification and ratings of caricatures', Cognitive Psychology 1987",
+  "Cosker, Krumhuber & Hilton, D3DFACS, ICCV 2011",
+  "Blender Manual and Python API: Shape Keys; Drivers (Simple Expressions); bpy.types.ShapeKey, bpy.types.Key"
+ ]
+}

@@ -2,7 +2,7 @@
 
 > Animation-ready face topology is a quad cage whose edge loops lie where skin folds and stretches. It has concentric rings around the eyes (orbicularis oculi) and mouth (orbicularis oris), a nasolabial loop that carries the smile fold, and rings at the ala and nostrils. Its poles (vertices with 3 or 5+ edges) sit in low-deformation zones. For a photo→3D likeness tool, design one template topology once and fit it to each subject by landmarks and feature curves. Never retopologise the likeness mesh: remeshing destroys correspondence, shape keys, UVs and Multires. Auto-remeshers (QuadriFlow, Instant Meshes, Quad Remesher) make clean sculpt proxies but not dependable facial edge flow. Rig-grade topology comes from wrapping a known template or from manual retopology. No harvest or earlier draft existed for this topic, so every item here is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 0 📄 / 74 🧠 / 13 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 3 📄 / 73 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -42,7 +42,7 @@
 
 **Tools**
 - **Native Blender.**
-  - Snapping: Face Project projects along the view, Face Nearest goes to the closest point; turn on Project Individual Elements and Backface Culling.
+  - Snapping: Face Project projects along the view, Face Nearest goes to the closest point (also reaches occluded geometry); Project Individual Elements applies with Face Project 📄 [4]; turn on Backface Culling (unconfirmed).
   - The Retopology overlay, Poly Build, Grid Fill and Bridge Edge Loops.
   - Modifiers: Mirror (Clipping) and Shrinkwrap (On Cage + Edit Mode).
   - LoopTools (Relax, Circle, Space), an extension since 4.2.
@@ -50,10 +50,10 @@
   🧠 Snap option names were reorganised during 3.x–4.x, so check them against the 5.x manual ↔️.
 - **QuadriFlow** (Remesh panel, built in since about 2.81) targets a face count, edge length or ratio, with symmetry and preserve-sharp options. It needs manifold input and produces even quads but no facial loops. 🧠
 - **Instant Meshes** (Jakob et al. 2015, BSD-style licence, standalone) does field-aligned remeshing. Its comb and edge-constraint strokes can coax eye and mouth loops, but it has been largely unmaintained. 🧠
-- **Quad Remesher** (Exoside, by ZRemesher's author; paid; has a Blender bridge) offers target count, adaptive size, symmetry, hard edges, material groups as boundaries and painted density. It gives the best automatic face when the eyes and mouth are split into separate groups, but riggers still fix its loops. 🧠 Price, licence and 5.x support are time-sensitive ↔️.
-- **RetopoFlow** (CG Cookie, now Orange Turbine) has GPL source and is sold for updates on Superhive, formerly Blender Market. 🧠
+- **Quad Remesher** (Exoside, by ZRemesher's author; paid; has a Blender bridge) offers target count, adaptive size, symmetry, hard edges, material groups as boundaries and painted density. It gives the best automatic face when the eyes and mouth are split into separate groups, but riggers still fix its loops. 🧠 Price, licence and 5.x support are time-sensitive ↔️; Exoside lists Pro perpetual at $109.90 (single host) or $139.90 (all hosts) and Blender as supported [5].
+- **RetopoFlow** (CG Cookie, now Orange Turbine) has GPL source and is sold for updates on Superhive, formerly Blender Market. 📄 [1][2][3]
   - RF3 tools: Contours (neck, ear rim), PolyStrips (eye and mouth loops), PolyPen, Strokes, Patches, Loops, Tweak, Relax.
-  - RF4 is a rewrite inside Blender's edit mode. Its 5.x status is unknown ↔️.
+  - RF4 is a rewrite inside Blender's edit mode (4.0 released 20 Oct 2025). Its 5.x status: Superhive lists support for Blender 4.2–5.2 (v4.1.9, 25 Jun 2026, added 5.2) (corrected in verification). 📄 [1][3]
 - **Other add-ons:** PolyQuilt (free), Speedretopo (paid), Bsurfaces, F2. 🧠
 - **Wrapping beats retopology for heads.** Options are R3DS Wrap (now under the Faceform name, moderate confidence), Mesh to MetaHuman, CC Headshot, FaceBuilder, or the library's template plus NICP (`blender/import-export-scans.md`). 🧠
 
@@ -214,7 +214,13 @@
 
 ## Sources
 
-No harvested web sources existed for this topic, so this note cites no URLs. Library cross-references are given inline as file paths.
+1. Superhive, RetopoFlow 4 product/versions: https://superhivemarket.com/products/retopoflow/versions
+2. RetopoFlow source (GPL): https://github.com/CGCookie/retopoflow
+3. CG Channel, Orange Turbine releases Retopoflow 4: https://www.cgchannel.com/2026/04/orange-turbine-releases-retopoflow-4-for-blender/
+4. Blender 5.2 LTS Manual, Snapping: https://docs.blender.org/manual/en/latest/editors/3dview/controls/snapping.html
+5. Exoside, Buy Quad Remesher: https://exoside.com/quadremesher/quadremesher-buy/
+
+Library cross-references are given inline as file paths.
 
 **Further reading (by name, not yet linked)**
 - Catmull & Clark, "Recursively generated B-spline surfaces on arbitrary topological meshes", Computer-Aided Design, 1978
@@ -231,3 +237,10 @@ No harvested web sources existed for this topic, so this note cites no URLs. Lib
 - Pixar OpenSubdiv documentation (limit stencils)
 - Blender Manual: Snapping, Retopology overlay, Poly Build, Mirror, Shrinkwrap, Remesh, Multires, Mesh Analysis
 - RetopoFlow and Exoside Quad Remesher documentation; Polycount wiki topology pages
+
+## Verification log (2026-11-20)
+
+- Default density spec (8-12k quads, edge lengths, loop counts): unconfirmed. Searches found no source for these numbers (only a dated Softimage ~2,000-polygon cage guide). Stays unconfirmed.
+- RetopoFlow GPL source, Superhive sale, Orange Turbine: confirmed [1][2][3]. RF4 5.x status: corrected, Superhive lists Blender 4.2-5.2 [1]. https://superhivemarket.com/products/retopoflow/versions
+- Quad Remesher: paid and Blender supported confirmed, prices added [5] https://exoside.com/quadremesher/quadremesher-buy/; vertex-colour density, material-group boundaries, bridge details: unconfirmed.
+- Snapping: Face Project, Face Nearest, Project Individual Elements confirmed [4] https://docs.blender.org/manual/en/latest/editors/3dview/controls/snapping.html; Backface Culling, Retopology overlay (3.6), QuadriFlow since 2.81, LoopTools extension since 4.2: unconfirmed.

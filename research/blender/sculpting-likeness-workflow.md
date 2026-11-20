@@ -2,7 +2,7 @@
 
 > Likeness sculpting goes coarse to fine: masses and silhouette, primary proportions and planes, secondary features and soft tissue, then tertiary skin detail. Most of the likeness is settled in the first two stages, each worked at the lowest resolution that can express it. Voxel remesh and Dyntopo give free topology for blockout; Multires gives fixed topology that keeps UVs and the landmark↔vertex map, so it is the home for a photo-fitted template. Symmetry stays on until primary proportions agree in every matched camera, then is broken on purpose, and likeness is judged only through perspective cameras solved from the photos (blink, flip, thumbnail, held-out photo), never in ortho front/side views. No harvest or draft existed for this topic, so all claims are expert knowledge awaiting verification; related notes: `blender/reference-camera-setup.md`, `blender/blender-version-status-2026.md`, `anatomy/facial-asymmetry.md`, `blender/eyes-modeling-blender.md`.
 >
-> Evidence status: 0 ✅ / 0 📄 / 78 🧠 / 15 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 1 📄 / 77 🧠 / 15 ↔️ — 🧠 items are queued for web verification. Verification pass 2026-11-20: 1 claim part-confirmed (Reshape), 3 claims partly supported or unconfirmed (see log).
 
 ## Key facts
 
@@ -15,7 +15,7 @@
 **Resolution strategies**
 - **Voxel remesh** (OpenVDB; `Ctrl+R` remesh, `R` sets size) gives an even quad-dominant surface and fuses intersecting pieces. It discards UVs, shape keys, multires and vertex groups (mask, face sets, colour survive only with their Preserve options), and each pass smooths away forms narrower than ~2 voxels 🧠.
 - **Dyntopo** (`Ctrl+D`) refines/collapses triangles locally (Relative px, Constant scene units, Brush % of radius, Manual). Good for pulling out ears, nostrils and additive forms; it triangulates, destroys UVs and custom data, cannot coexist with Multires, slows on dense meshes, and its future in Blender is debated ↔️.
-- **Multires**: fixed quad base, Catmull–Clark levels (×4 faces each). Detail is displacement relative to the subdivided base, so moving base vertices (same topology) carries sculpted detail along; tools include *Sculpt Base Mesh*, *Unsubdivide*, *Rebuild Subdivisions*, *Apply Base*, *Reshape* 🧠. It cannot change topology, does not combine with shape keys, and its displacement cannot be written directly from Python 🧠.
+- **Multires**: fixed quad base, Catmull–Clark levels (×4 faces each). Detail is displacement relative to the subdivided base, so moving base vertices (same topology) carries sculpted detail along; tools include *Sculpt Base Mesh*, *Unsubdivide*, *Rebuild Subdivisions*, *Apply Base*, *Reshape* (copies vertex coordinates from another selected mesh with matching topology and vertex indices; Python operator `bpy.ops.object.multires_reshape`) 📄 [1]. It cannot change topology, does not combine with shape keys, and its displacement cannot be written directly from Python 🧠.
 - **Shape keys are Blender's nearest thing to sculpt layers**: without Multires/Dyntopo, Sculpt Mode edits the active key, dialled 0–1. Native ZBrush-style layers did not exist as of the author's knowledge ↔️ (verify for 5.x).
 - **Back to clean topology:** QuadriFlow (Remesh → Quad), Instant Meshes, Quad Remesher (paid) or manual retopo with face snapping; recover detail by subdividing the retopo, Shrinkwrapping a copy, then Multires *Reshape* 🧠 (moderate confidence on Reshape's vertex-count requirement).
 
@@ -151,7 +151,12 @@ Bases usually put about half or more of their density on the face, so facial edg
 
 ## Sources
 
-No web harvest or earlier draft existed for this topic, so no URLs are cited. Every item is 🧠 or ↔️ pending verification.
+Only the items cited below have been verified; every other item is 🧠 or ↔️ pending verification.
+
+1. Blender 5.3 Manual, Multiresolution Modifier (Reshape): https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html
+2. Blender 4.3: Sculpt, Paint, Texture (brush assets, `bpy.ops.brush.asset_activate`, Essentials library): https://developer.blender.org/docs/release_notes/4.3/sculpt/
+3. Blender 5.2 LTS Manual, Dyntopo: https://docs.blender.org/manual/en/dev/sculpt_paint/sculpting/tool_settings/dyntopo.html
+4. Blender 2.91 Manual, Sculpt Symmetry (mirror across local axes): https://docs.blender.org/manual/en/2.91/sculpt_paint/sculpting/tool_settings/symmetry.html
 
 **Further reading (by name, not yet linked)**
 - Blender Manual, *Sculpt Mode* chapter (Multiresolution, Dynamic Topology, Voxel Remesh, Brushes, Symmetry)
@@ -171,3 +176,10 @@ No web harvest or earlier draft existed for this topic, so no URLs are cited. Ev
 - Benson PJ, Perrett DI, photographic-quality facial caricatures, European Journal of Cognitive Psychology (1991)
 - O'Toole AJ, Vetter T, Volz H, Salter EM, three-dimensional caricatures of human heads, Perception (1997)
 - Jenkins R, White D, Van Montfort X, Burton AM, "Variability in photos of the same face", Cognition (2011)
+
+## Verification log (2026-11-20)
+
+- **Multires base edits carry detail; Reshape copies coordinates; no direct Python displacement write** — partly confirmed 📄. Manual [1] confirms Reshape copies vertex coordinates from another mesh with matching topology and vertex indices, and the operator `bpy.ops.object.multires_reshape` exists. Not confirmed: "carries detail along" via `foreach_set`, the subdivided-level wording, and the Python-displacement limit (left 🧠). https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html
+- **4.3 brush assets / `asset_activate` / `sculpt_brush_type` / renamed brushes / radius unit in 5.x** — partly confirmed. [2] confirms brush assets, the Essentials library and `bpy.ops.brush.asset_activate` replacing `paint.brush_set`. `sculpt_brush_type`, specific renames and 5.x radius-unit settability not found; items stay 🧠. https://developer.blender.org/docs/release_notes/4.3/sculpt/
+- **5.2 LTS / 5.3: no sculpt layers, Dyntopo present, plane brushes unified?** — Dyntopo still present in 5.2 LTS manual [3] (supports that clause only). Sculpt layers, 5.3 status and plane-brush unification unconfirmed; the 5.2 sculpt release notes (https://developer.blender.org/docs/release_notes/5.2/sculpt/) list no sculpt layers but absence is not proof. Left 🧠/↔️.
+- **Symmetry in local axes; `Mesh.use_mirror_x` since ~2.91; sculpting active shape key** — local-axes mirroring confirmed by the 2.91 manual [4]. Per-mesh storage / `use_mirror_x` and shape-key sculpting not confirmed; left 🧠.

@@ -2,14 +2,14 @@
 
 > The lower-face and neck silhouette stacks four layers. Bone sets ramus height, gonial angle, bigonial width and the chin; the masseter sits on top; then fat and gland (jowl, submental, submandibular); then the neck frame of hyoid, larynx, sternocleidomastoid (SCM) and platysma. On average men have a larger, taller, squarer and more everted mandible, a wider chin and a visible laryngeal prominence, and women a smaller, more tapered jaw and a narrower, rounder chin, but every metric overlaps between the sexes. Chin projection, gonial angle and cervicomental angle are nearly invisible frontally and shift with head pitch, mouth opening, beard and lighting, so a fitter must read them from camera-solved profile and 3/4 views and model head–neck articulation explicitly. No harvest or draft existed for this topic, so all values are expert knowledge. Sibling notes (`skull-osteology`, `muscles-mastication-jaw`, `muscles-lower-face`, `craniometric-landmarks`) hold sourced versions of some overlapping values.
 
-Evidence status: 0 ✅ / 0 📄 / 51 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 2 ✅ / 0 📄 / 49 🧠 / 22 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Mandible**
 - **Surface parts.** The symphysis and triangular mental protuberance, with paired mental tubercles at its lower corners. The inferior border is the jawline. The antegonial notch lies just in front of the angle. Gonion is the angle. The posterior ramus rises to the condyle, about 10–15 mm in front of the tragus. 🧠
-- **Gonial angle** (ramus tangent to border tangent). The adult mean is about 120–125° and the typical range about 110–135°. It is about 150–160° at birth. 🧠 (≈120° is sourced in skull-osteology)
-- **Sex.** Men average 2–6° smaller, with heavy overlap. Some samples show no difference. ↔️ The angle flares outward (eversion) more often in men and with strong masseters. 🧠
+- **Gonial angle** (ramus tangent to border tangent). The adult mean is about 120–125° and the typical range about 110–135°. It is about 150–160° at birth. ✅ for the adult mean [1][2] (cephalometric means 121–125°; CBCT samples run higher, about 125–129° [7]); range and newborn value remain 🧠
+- **Sex.** Verified samples disagree: men about 1.6° smaller [1], no difference [2], or men 3–3.5° smaller in a CBCT sample [7]. Treat the difference as 0–4° with heavy overlap. ↔️ The angle flares outward (eversion) more often in men and with strong masseters. 🧠
 - **The vertical pattern is the main shape axis after size.**
   - High-angle ("long") faces: obtuse gonial angle, short ramus, steep border, long lower face, retrusive chin, obtuse cervicomental angle.
   - Low-angle faces: the reverse, with a square lower face, prominent chin and deep mentolabial sulcus. 🧠
@@ -48,13 +48,13 @@ Evidence status: 0 ✅ / 0 📄 / 51 🧠 / 21 ↔️ — 🧠 items are queued 
 
 | Quantity | Value | Method | Status |
 |---|---|---|---|
-| Gonial angle, adult mean / spread | ≈ 120–125° / 110–135° | cephalometric, dry bone | 🧠 |
-| Gonial angle, sex difference | M ≈ 2–6° smaller, large overlap | various | ↔️ |
+| Gonial angle, adult mean / spread | ≈ 120–125° / 110–135° | cephalometric, dry bone | ✅ mean [1][2]; spread 🧠 |
+| Gonial angle, sex difference | M ≈ 0–4° smaller, large overlap (queue range 2–6° not supported) [1][2][7] | various | ↔️ |
 | Gonial angle, newborn | ≈ 150–160° | — | 🧠 |
 | SN–MP / FMA | ≈ 32 ± 5° / 25 ± 5° | Steiner / Tweed | 🧠 |
-| Ramus height Co–Go | M ≈ 55–65, F ≈ 50–58 mm | cephalometric | 🧠 ↔️ |
+| Ramus height Co–Go | M ≈ 55–65, F ≈ 50–58 mm; published means span M 53–77, F 49–70 by method [3][4][5][6] | cephalometric | ↔️ |
 | Mandibular length Co–Gn | F ≈ 115–125, M ≈ 125–135 mm | McNamara-type norms | 🧠 ↔️ |
-| Bony bigonial width | M ≈ 90–105, F ≈ 84–97 mm | caliper or CT | 🧠 ↔️ |
+| Bony bigonial width | M ≈ 90–105, F ≈ 84–97 mm (one 3D study M 84.6, F 80.7 [6]; panoramic values not comparable) | caliper or CT | ↔️ |
 | Go–go / zy–zy | 0.70–0.80 | bone | 🧠 |
 | Symphysis height Id–Me | ≈ 28–36 mm, M > F | cephalometric | 🧠 ↔️ |
 | Condyle in front of tragus | ≈ 10–15 mm | palpation | 🧠 |
@@ -187,7 +187,15 @@ Evidence status: 0 ✅ / 0 📄 / 51 🧠 / 21 ↔️ — 🧠 items are queued 
 
 ## Sources
 
-No URL sources: no harvest or earlier draft existed for this topic. Sourced overlapping values are in the library notes `anatomy/skull-osteology.md`, `muscles-mastication-jaw.md`, `muscles-lower-face.md`, `craniometric-landmarks.md` and `facial-asymmetry.md`.
+Sources added in the 2026-11-20 verification (most other values remain unsourced expert knowledge). Sourced overlapping values are in the library notes `anatomy/skull-osteology.md`, `muscles-mastication-jaw.md`, `muscles-lower-face.md`, `craniometric-landmarks.md` and `facial-asymmetry.md`.
+
+1. Sex estimation in Indians by digital analysis of the gonial angle on lateral cephalographs. https://pmc.ncbi.nlm.nih.gov/articles/PMC6981352/
+2. External gonial angle in panoramic radiographs and lateral cephalograms, Class I adults. https://pubmed.ncbi.nlm.nih.gov/19776510/
+3. Study on the location of mandibular foramen and measurement of sigmoid notch and ramus (Shanghai dry mandibles). https://pubmed.ncbi.nlm.nih.gov/14966643/
+4. Hard and soft tissue facial landmarks for mandibular angle reduction. https://pmc.ncbi.nlm.nih.gov/articles/PMC11417696/
+5. Influence of age, sex and mandibular parameters on cortical bone width (panoramic). https://pmc.ncbi.nlm.nih.gov/articles/PMC11983699
+6. How does the mandible age? AI-assisted shape analysis in the White population. https://pmc.ncbi.nlm.nih.gov/articles/PMC12011572/
+7. Morphometric evaluation of mandibular condyle, coronoid process and gonial angle, CBCT. https://pmc.ncbi.nlm.nih.gov/articles/PMC12191486/
 
 **Further reading (by name, not yet linked)**
 - Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994
@@ -206,3 +214,12 @@ No URL sources: no harvest or earlier draft existed for this topic. Sourced over
 - Standring S (ed.), *Gray's Anatomy*
 - Li T, Bolkart T et al., FLAME head model, SIGGRAPH Asia, 2017
 - Loomis A, *Drawing the Head and Hands*, 1956
+
+## Verification log (2026-11-20)
+
+- Gonial angle adult mean 120–125°: confirmed (✅), cephalometric means 121–125° [1][2]; CBCT higher (125–129°) [7].
+- Gonial angle sex difference "M 2–6° smaller": contested, 0–4° or none depending on sample; priors M N(120,6)/F N(124,6) are not clearly supported [1][2][7]. https://pmc.ncbi.nlm.nih.gov/articles/PMC6981352/ , https://pubmed.ncbi.nlm.nih.gov/19776510/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC12191486/
+- Cervicomental angle 105–120° (Ellenbogen & Karlin) and measured 115–135°: unconfirmed. A secondary chapter and a Japanese study (119° in young women at FH, 153° extended) appeared but could not be tied to a specific URL with certainty; the original paper was not found. Left as is.
+- Legan & Burstone norms (12±4°, 100±7°, 1.2:1, 4±2 mm, 1:2): unconfirmed; the search did not return the values (only bibliographic details, https://pubmed.ncbi.nlm.nih.gov/6575614/ for part of the series).
+- Ramus height Co–Go: contested, means span M 53–77, F 49–70 mm by method [3][4][5][6]; dry-bone M 61.6 / F 57.2 fits the note range.
+- Bony bigonial width 90–105 / 84–97 mm: contested/unconfirmed; one 3D study gives M 84.6 / F 80.7 [6], panoramic widths are not comparable.

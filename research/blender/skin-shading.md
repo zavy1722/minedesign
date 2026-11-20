@@ -11,7 +11,7 @@
 - **Subsurface Anisotropy:** 0 means light scatters equally in all directions. The manual says skin has been measured at **0.8** [1] 📄. Tissue optics puts the anisotropy factor g of epidermis and dermis at about 0.8–0.95 in visible light (van Gemert 1989; Tuchin) 🧠.
 - **Subsurface IOR** is Cycles-only. It applies to rays entering the subsurface component and can differ from the main IOR; the manual suggests this to imitate skin layers [1] 📄.
 - **Main IOR:** most materials lie between 1.0 and 4.0, and the default of 1.5 is glass [1] 📄. Graphics convention for skin is ≈1.4 (F0 ≈ 0.028; d'Eon & Luebke) 🧠. Tissue data go up to about 1.55 for the stratum corneum ↔️.
-- **Thin-wall mode** turns off Radius, Scale and Method [1] 📄. It appears in the current manual; the version that introduced it was not captured.
+- **Thin-wall mode** turns off Radius, Scale and Method [1] 📄. The 5.2 release notes list Thin Wall as a new boolean Principled BSDF input, so it is a 5.2 feature [12]; it is in the current manual [1].
 - **Specular Anisotropy** is Cycles-only [1] 📄. Skin highlights are not anisotropic at portrait scale, so keep it at 0 🧠.
 - **Principled v2 (4.0+):**
   - The Subsurface Color input is gone; Base Color is the subsurface albedo.
@@ -30,7 +30,7 @@
 
 **Engines**
 - Cycles-only inputs: Subsurface IOR, Subsurface Anisotropy, Specular Anisotropy and Random Walk (Skin) [1][2] 📄 (one publisher).
-- **EEVEE Next (4.2+):** subsurface scattering is done in screen space from Radius × Scale. Transmission through thin parts comes from shadow-map thickness. Method, Subsurface IOR and Anisotropy are ignored. It breaks at silhouettes and when the radius is large on screen 🧠.
+- **EEVEE Next (4.2+):** subsurface scattering is done in screen space from Radius × Scale. Transmission through thin parts comes from shadow-map thickness. Method, Subsurface IOR and Anisotropy are ignored. It breaks at silhouettes and when the radius is large on screen. The 4.2 notes support only part of this: a new SSS implementation with arbitrary radii and a Thickness output that drives translucency [13]; screen space, shadow-map thickness and ignored Method/IOR/Anisotropy were not found there 🧠.
 - **Displacement:**
   - **Cycles:** true displacement (Material ▸ Settings ▸ Displacement and Bump) plus adaptive subdivision. Adaptive subdivision has historically sat behind the Experimental feature set; its 5.x status needs checking.
   - **EEVEE:** bump. EEVEE Next adds vertex displacement on existing geometry, without adaptive dicing.
@@ -203,6 +203,8 @@
 [9] Volumetric SSS — Blender Tests — Blender Artists — https://blenderartists.org/t/volumetric-sss/1102733 — forum — unknown (no claim extracted)
 [10] This material? How to — Blender Artists — https://blenderartists.org/t/this-material-how-to/1233888 — forum — unknown
 [11] Principled BSDF — Blender 3.6 Manual — https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/principled.html — official-docs — 2023
+[12] Rendering - Blender 5.2 Release Notes — https://developer.blender.org/docs/release_notes/5.2/rendering/ — official-docs — 2026
+[13] EEVEE - Blender 4.2 LTS Release Notes — https://developer.blender.org/docs/release_notes/4.2/eevee/ — official-docs — 2024
 
 **Further reading (by name, not yet linked)**
 - Jensen, Marschner, Levoy & Hanrahan, "A Practical Model for Subsurface Light Transport", SIGGRAPH 2001
@@ -220,3 +222,12 @@
 - Dodgson, "Variation and Extrema of Human Interpupillary Distance", SPIE 2004
 - Farkas, *Anthropometry of the Head and Face*, 1994
 - Blender 3.0, 4.0 and 4.2 release notes (Cycles subsurface, Principled v2, EEVEE Next)
+
+## Verification log (2026-11-20)
+
+- **Jensen 2001 skin1/skin2 mean free paths (3.67, 1.37, 0.68 / 4.82, 1.69, 1.09 mm):** unconfirmed. Search found the paper (https://www.cs.cornell.edu/~srm/publications/SG01-subsurf-abstract.html, https://formaurbis.stanford.edu/papers/bssrdf/bssrdf.pdf) but returned no table values. Badges left at 🧠.
+- **Blender 4.x/5.x Principled defaults and Subsurface Method enum:** unconfirmed (no source page returned the default values). Enum: the Python API page (https://docs.blender.org/api/current/bpy.types.ShaderNodeBsdfPrincipled.html) was summarised as listing only BURLEY and RANDOM_WALK, which does not settle Random Walk (Skin); left as is.
+- **5.2 legacy/new random-walk split:** unconfirmed; the 5.2 notes (https://developer.blender.org/docs/release_notes/5.2/cycles/) mention only negative subsurface anisotropy support. Left ↔️.
+- **Thin Wall version:** confirmed new in 5.2, https://developer.blender.org/docs/release_notes/5.2/rendering/ [12]. Note text updated.
+- **Skin IOR 1.4 / F0 0.028 vs ~1.55 stratum corneum:** unconfirmed as a specific source; searches gave soft tissue 1.38-1.41, stratum corneum about 1.467, dry about 1.55, but not tied to a single URL reliably. Left ↔️.
+- **EEVEE Next SSS:** partly confirmed (new SSS, Thickness output) at https://developer.blender.org/docs/release_notes/4.2/eevee/ [13]; screen space, shadow-map thickness, ignored inputs, vertex-only displacement and adaptive subdivision status unconfirmed. Left 🧠.

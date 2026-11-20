@@ -1,6 +1,22 @@
 {
   "topic": "reddit-face-from-photos",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "Rutgers: selfies drive self image and may lead many to seek plastic surgery",
+      "url": "https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery"
+    },
+    {
+      "n": 2,
+      "title": "CG Channel: You can now sell MetaHumans or use them in Unity or Godot",
+      "url": "https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/"
+    },
+    {
+      "n": 3,
+      "title": "Creative Bloq: MetaHuman just broke free from Unreal Engine 5",
+      "url": "https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters"
+    }
+  ],
   "references_by_name": [
     "Ward B, Ward M, Fried O, Paskhover B. Nasal distortion in short-distance photographs: the selfie effect. JAMA Facial Plastic Surgery, 2018",
     "Fried O, Shechtman E, Goldman DB, Finkelstein A. Perspective-aware manipulation of portrait photos. ACM SIGGRAPH 2016",

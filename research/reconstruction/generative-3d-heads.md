@@ -2,18 +2,18 @@
 
 > Image-to-3D models come in four families: feed-forward large reconstruction models (LRM, TripoSR, InstantMesh, SF3D), native 3D latent diffusion or flow models (CLAY/Rodin, Hunyuan3D, TRELLIS, TripoSG), multi-view-diffusion-then-reconstruct pipelines (Zero123++, Hunyuan3D-2mv, FaceLift, CAP4D), and head-specific 3D GANs or identity-guided optimisers (EG3D, PanoHead, SphereHead, Arc2Avatar). All give a plausible head in seconds to minutes, but none publishes millimetre error against real face scans, and the bar is high: the *average* FLAME face already scores ≈1.5 mm mean on NoW once scaled [2]. Their output is unit-scale, canonical-camera, symmetry-biased triangle soup whose identity lives mostly in the texture, with depth, eyes, lips, ears and hair invented. Use them as a seeded, region-weighted blockout prior and a source for unseen regions, never for landmarks, scale or cameras. Licences run from MIT (TRELLIS, TripoSR) through territory-restricted (Hunyuan3D) to non-commercial (EG3D, most head GANs, anything built on InsightFace weights [4]).
 >
-> Evidence status: 0 ✅ / 11 📄 / 43 🧠 / 30 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 15 📄 / 44 🧠 / 28 ↔️ — verified 2026-11-20 (see log); remaining 🧠 items are unconfirmed.
 
 ## Key facts
 
 **Families: how each makes geometry**
 - **Feed-forward LRMs (2023–24).** LRM (Hong et al., ICLR 2024) maps a DINO-encoded image to a tri-plane NeRF with a ~0.5 B-parameter transformer trained on ~1 M Objaverse and MVImgNet objects, ~5 s per object. Descendants: OpenLRM (open reimplementation); TripoSR (MIT, under 1 s, marching cubes at 256³ by default); InstantMesh (Apache-2.0; six Zero123++ views into a sparse-view LRM with FlexiCubes); LGM and GS-LRM (Gaussians); Stability's SF3D and SPAR3D (UV-unwrapped, de-lit). One regression pass predicts roughly the conditional mean, so faces come out smooth and averaged. 🧠
 - **Native 3D latent diffusion and flow (2024–26).** CLAY (SIGGRAPH 2024; basis of Hyper3D Rodin Gen-1) and Hunyuan3D 2.0 (Jan 2025) work in a vector-set shape-VAE latent and extract an occupancy/SDF field by marching cubes at octree resolution 256 by default (raisable to ~384–512). TRELLIS (CVPR 2025) generates a sparse 64³ structure, then latents on active voxels, decoded to Gaussians, a radiance field or a 256³ FlexiCubes mesh. TripoSG (MIT) and Step1X-3D (Apache-2.0) pair SDF VAEs with rectified flow. Sampling is stochastic: seeds give different noses and chins. 🧠
-- **Hosted and next-generation (2025–26):** Hunyuan3D 2.5 (reported ≈10 B-parameter "LATTICE") and 3.0, Rodin Gen-2, Tripo 3.x, Meshy 5–6, and TRELLIS.2 (reported late 2025: ≈4 B parameters, "O-Voxel", up to 1536³, PBR, MIT). All claim higher resolution; none publishes face-scan accuracy. ↔️ (time-sensitive)
+- **Hosted and next-generation (2025–26):** Hunyuan3D 2.5 (reported ≈10 B-parameter "LATTICE") and 3.0, Rodin Gen-2, Tripo 3.x, Meshy 5–6, and TRELLIS.2 (late 2025: ≈4 B parameters, "O-Voxel", up to 1536³, PBR, MIT; some dependencies such as nvdiffrast/nvdiffrec carry their own licences) [9] 📄. All claim higher resolution; none publishes face-scan accuracy. Hosted-only status of Hunyuan3D 2.5/3.0 unconfirmed. ↔️ (time-sensitive)
 - **Multi-view diffusion, then reconstruction.** Generic: Zero123++, SV3D, Era3D, MV-Adapter, Hunyuan3D-2mv (accepts real front/left/back/right views). Head-specific: DiffPortrait3D, Morphable Diffusion (FLAME-conditioned), FaceLift (head multi-view diffusion trained on synthetic heads, then GS-LRM), CAP4D (morphable multi-view diffusion to a 4D avatar). 🧠 GAF fills unseen views of a monocular-video Gaussian avatar with multi-view diffusion, on VHAP-tracked FLAME [6]. 📄 Diffused views agree with each other, but each is a guess.
 - **3D-aware head GANs.**
   - EG3D (CVPR 2022) volume-renders a tri-plane (3 × 256² × 32 channels) at 128² and super-resolves in 2D to 512², so detail visible at 512² is **not in the 3D density**. FFHQ training limits it to roughly ±60° yaw.
-  - PanoHead (CVPR 2023) adds a depth-split "tri-grid" and back-of-head images (FFHQ-F) for 360°. SphereHead (ECCV 2024) uses spherical tri-planes to suppress a second face on the back of the head. GGHead (SIGGRAPH Asia 2024) generates Gaussians in a template's UV space.
+  - PanoHead (CVPR 2023) adds a depth-split "tri-grid" and back-of-head images (FFHQ-F) for 360°. SphereHead (ECCV 2024) uses spherical tri-planes to suppress a second face on the back of the head [10][11]. 📄 GGHead (SIGGRAPH Asia 2024) generates Gaussians in a template's UV space.
   - A real photo needs GAN inversion (PTI-style fine-tuning), which overfits the input view; identity drifts beyond ~45° yaw.
 
   🧠
@@ -53,7 +53,7 @@
 | Hunyuan3D 2.0 / 2.1 / 2mv | 2025 | vecset flow DiT + Paint | MC octree 256–512; PBR in 2.1 | 1 (2mv: up to 4) | best open mass, averaged | ↔️ |
 | Hunyuan3D 2.5 / 3.0 | 2025 | hosted | reportedly up to 1536³ | 1+ | sharper; depth still guessed | ↔️ |
 | TRELLIS | 2024–25 | sparse structured latent | 64³ → 256³ FlexiCubes, or 3DGS | 1 (multi-image experimental) | good silhouette, soft face | 🧠 |
-| TRELLIS.2 | 2025 | "O-Voxel" latent | reportedly ≤1536³, PBR | 1 | unreviewed for faces | ↔️ |
+| TRELLIS.2 | 2025 | "O-Voxel" latent | ≤1536³, PBR [9] | 1 | unreviewed for faces | 📄 |
 | TripoSG / Step1X-3D | 2025 | SDF VAE + rectified flow | MC mesh | 1 | crisp objects, generic face | 🧠 |
 | EG3D | 2022 | 3D GAN | tri-plane 256²; render 128² → SR 512² | inversion | frontal only | 🧠 |
 | PanoHead | 2023 | 360° 3D GAN | tri-grid 256² × 3, 512² | inversion | full head; invented back | 🧠 |
@@ -95,7 +95,7 @@ Likeness-bearing relief, such as the lid crease, alar groove and philtral column
 | Step1X-3D | Apache-2.0 | yes | – | ↔️ |
 | OpenLRM | Apache-2.0 / CC BY-NC 4.0 | weights no | – | ↔️ |
 | SF3D, SPAR3D | Stability Community | below ≈US$1 M annual revenue | – | ↔️ |
-| Hunyuan3D 2.x | Tencent Hunyuan Community | yes, outside the EU, UK and South Korea | monthly-active-user cap | ↔️ |
+| Hunyuan3D 2.x | Tencent Hunyuan Community | yes, outside the EU, UK and South Korea [8] | monthly-active-user cap not confirmed for 2.1 (only a secondary source for 2.0, <1M MAU) | 📄 |
 | EG3D | NVIDIA Source Code License-NC | no | FFHQ is CC BY-NC-SA | 🧠 |
 | PanoHead, SphereHead, FaceLift, Arc2Avatar | unconfirmed | assume no | ArcFace/InsightFace weights non-commercial [4] | ↔️ |
 | Rodin, Tripo, Meshy | hosted terms | paid tiers | entry tiers ≈US$10–30/month; free-tier outputs public or CC BY; face upload = biometric data | ↔️ |
@@ -164,6 +164,10 @@ No topic harvest or draft existed; these URLs are cross-cited from other harvest
 5. Ideal Facial Proportions in Generative Artificial Intelligence (Sridhar et al.) — https://journals.sagepub.com/doi/10.1089/fpsam.2025.0007 — paper — 2025
 6. GAF: Gaussian Avatar Reconstruction from Monocular Videos via Multi-view Diffusion — https://arxiv.org/pdf/2412.10209v2 — paper — 2024
 7. Sapiens: Foundation for Human Vision Models — https://arxiv.org/abs/2408.12569 — paper — 2024
+8. Hunyuan3D-2.1 LICENSE (mirror) — https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE — licence — 2025
+9. microsoft/TRELLIS.2-4B model card — https://huggingface.co/microsoft/trellis.2-4b — model card — 2025
+10. SphereHead: Stable 3D Full-head Synthesis with Spherical Tri-plane Representation — https://arxiv.org/abs/2404.05680 — paper — 2024
+11. PanoHead: Geometry-Aware 3D Full-Head Synthesis in 360° — https://openaccess.thecvf.com/content/CVPR2023/papers/An_PanoHead_Geometry-Aware_3D_Full-Head_Synthesis_in_360deg_CVPR_2023_paper.pdf — paper — 2023
 
 **Further reading (by name, not yet linked)**
 - Hong et al., "LRM: Large Reconstruction Model for Single Image to 3D", ICLR 2024; Tochilkin et al., "TripoSR", 2024; Xu et al., "InstantMesh", 2024; Tang et al., "LGM", ECCV 2024; Zhang et al., "GS-LRM", ECCV 2024; Boss et al., "SF3D", 2024
@@ -176,3 +180,10 @@ No topic harvest or draft existed; these URLs are cross-cited from other harvest
 - Karras et al., FFHQ (StyleGAN), CVPR 2019; Deitke et al., Objaverse / Objaverse-XL, 2023; Poole et al., "DreamFusion" (SDS), ICLR 2023
 - Shen et al., "FlexiCubes", SIGGRAPH 2023; Zhang et al., "3DShape2VecSet", SIGGRAPH 2023
 - Sanyal et al., NoW (RingNet), CVPR 2019; Chai et al., REALY, ECCV 2022
+
+## Verification log (2026-11-20)
+
+1. Hunyuan3D 2.x licence: territory excludes EU, UK, South Korea — **confirmed** (📄) — https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE. Monthly-active-user cap: **unconfirmed** for 2.1 (only a secondary page on 2.0). Original TRELLIS MIT licence: **unconfirmed** by this search (TRELLIS.2 is MIT, see 3).
+2. No published NoW/REALY millimetre error for generic generators or head GANs; author's 2-4/3-8/5-15 mm estimates — **unconfirmed** (search found no such report; absence is not proof). Reference: https://now.is.tue.mpg.de/nonmetricalevaluation.html
+3. TRELLIS.2: ~4B parameters, O-Voxel, up to 1536³, MIT — **confirmed** (📄); nvdiffrast/nvdiffrec dependencies have separate licences — https://huggingface.co/microsoft/trellis.2-4b. Hunyuan3D 2.5/3.0 hosted-only and 1536³ claim: **unconfirmed**.
+4. EG3D 128² render / 512² super-resolution and tri-plane shape: **unconfirmed** (no numbers in results). PanoHead tri-grid and SphereHead spherical tri-planes to suppress back-of-head faces: **confirmed** (📄) — https://arxiv.org/abs/2404.05680 , https://openaccess.thecvf.com/content/CVPR2023/papers/An_PanoHead_Geometry-Aware_3D_Full-Head_Synthesis_in_360deg_CVPR_2023_paper.pdf. FFHQ-F detail not seen in results.

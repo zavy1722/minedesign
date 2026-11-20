@@ -169,6 +169,55 @@
    "url": "https://github.com/peizhiyan/flame-head-tracker",
    "kind": "repo",
    "year": "2025"
+  },
+  {
+   "n": 25,
+   "title": "Blender 4.0: Python API (release notes)",
+   "url": "https://wiki.blender.org/release_notes/4.0/python_api/",
+   "kind": "official-docs",
+   "year": "2023"
+  },
+  {
+   "n": 26,
+   "title": "Pipeline, Assets & I/O, Blender 4.1 release notes",
+   "url": "https://developer.blender.org/docs/release_notes/4.1/pipeline_assets_io/",
+   "kind": "official-docs",
+   "year": "2024"
+  },
+  {
+   "n": 27,
+   "title": "Pipeline, Assets & I/O, Blender 3.3 release notes",
+   "url": "https://developer.blender.org/docs/release_notes/3.3/pipeline_assets_io/",
+   "kind": "official-docs",
+   "year": "2022"
+  },
+  {
+   "n": 28,
+   "title": "Blender 3.1 manual, glTF 2.0 add-on",
+   "url": "https://docs.blender.org/manual/en/3.1/addons/import_export/scene_gltf2.html",
+   "kind": "official-docs",
+   "year": "2022"
+  },
+  {
+   "n": 29,
+   "title": "glTF importer: add option to glue pieces of a mesh together",
+   "url": "https://developer.blender.org/rBAc7eda7cb49f706040cb04048b24c6db57501889e",
+   "kind": "commit",
+   "year": "2020"
+  },
+  {
+   "n": 30,
+   "title": "obj: vertex colors support in importer and exporter",
+   "url": "https://developer.blender.org/rB1b4f35f6a58",
+   "kind": "commit",
+   "year": "2022"
+  },
+  {
+   "n": 31,
+   "title": "Basel Face Model 2019 Point Coordinates (Scalismo forum; user report)",
+   "url": "https://groups.google.com/g/scalismo-faces/c/FJym8ubvMBI",
+   "kind": "forum",
+   "year": ""
   }
  ],
  "references_by_name": [

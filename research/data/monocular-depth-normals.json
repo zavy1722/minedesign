@@ -21,7 +21,7 @@
 ["metric_depth","focal_px * net_output / 300"],
 ["focal_px","(fx + fy) / 2"],
 ["divisor_constant",300]
-],"population":"Depth Anything 3 DA3Metric-Large (official repo)","source_urls":["https://github.com/ByteDance-Seed/Depth-Anything-3"],"status":"sourced","notes":"Depth is linear in the supplied focal: a fractional focal error gives the same fractional error in distance and relief. Not confirmed: whether focal_px refers to the original image or the network processing resolution, and the output unit. Sanity-check against the PnP-solved camera translation."},
+],"population":"Depth Anything 3 DA3Metric-Large (official repo)","source_urls":["https://github.com/ByteDance-Seed/Depth-Anything-3"],"status":"sourced","notes":"Depth is linear in the supplied focal: a fractional focal error gives the same fractional error in distance and relief. Verified 2026-11-20: the official README states the output is metric depth in metres. Not confirmed: whether focal_px refers to the original image or the network processing resolution. Sanity-check against the PnP-solved camera translation."},
 {"name":"model_runtime_licence_inventory","units":"params; input px; CPU seconds per image (order-of-magnitude estimate)","columns":["model","params","native_input_px","runtime_path","cpu_seconds_low","cpu_seconds_high","licence"],"rows":[
 ["Depth Anything V2 Small","~25M","518","HF transformers; community ONNX",0.2,1,"Apache-2.0"],
 ["Depth Anything V2 Base","~98M","518","community ONNX",null,null,"CC BY-NC 4.0"],
@@ -34,7 +34,7 @@
 ["Sapiens normal/depth 2B","2B","1024x768","TorchScript lite",60,null,"custom Meta licence, unverified"],
 ["DAViD","compact","unknown","ONNX (reported)",null,null,"unverified"],
 ["Depth Pro","unknown","~1536","PyTorch",null,null,"Apple custom, unverified"]
-],"population":"Model families as distributed; CPU = typical desktop CPU, single image","source_urls":["https://github.com/ika-rwth-aachen/ros2-depth-anything-v3-trt","https://github.com/1038lab/ComfyUI-Depth-Anything-3"],"status":"knowledge","notes":"Expert knowledge, not checked against sources. CPU timings are rough order-of-magnitude estimates, not measurements. Verify every licence before bundling or recommending weights. The source URLs support only the DA3 TensorRT path and the DA3Metric-Large size."},
+],"population":"Model families as distributed; CPU = typical desktop CPU, single image","source_urls":["https://github.com/ika-rwth-aachen/ros2-depth-anything-v3-trt","https://github.com/1038lab/ComfyUI-Depth-Anything-3"],"status":"knowledge","notes":"Expert knowledge, not checked against sources. CPU timings are rough order-of-magnitude estimates, not measurements. Verify every licence before bundling or recommending weights. Verified 2026-11-20 against the official Depth-Anything-V2 README: Small is Apache-2.0; Base/Large/Giant are CC-BY-NC-4.0. Sapiens licence not confirmed (official README points to a LICENSE file; a third-party wrapper says CC BY-NC 4.0). The source URLs support only the DA3 TensorRT path and the DA3Metric-Large size."},
 {"name":"disparity_vs_depth_fit_error_and_ray_obliquity","units":"mm; degrees","columns":["camera_distance_mm","max_error_if_disparity_fitted_as_depth_mm","rms_error_mm","ray_obliquity_deg_at_70mm_offaxis"],"rows":[
 [300,4.9,2.1,13.1],
 [450,3.4,1.5,8.8],

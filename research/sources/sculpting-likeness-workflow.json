@@ -1,6 +1,31 @@
 {
   "topic": "sculpting-likeness-workflow",
-  "sources": [],
+  "sources": [
+    {
+      "id": 1,
+      "title": "Blender 5.3 Manual, Multiresolution Modifier",
+      "url": "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 2,
+      "title": "Blender 4.3: Sculpt, Paint, Texture",
+      "url": "https://developer.blender.org/docs/release_notes/4.3/sculpt/",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 3,
+      "title": "Blender 5.2 LTS Manual, Dyntopo",
+      "url": "https://docs.blender.org/manual/en/dev/sculpt_paint/sculpting/tool_settings/dyntopo.html",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 4,
+      "title": "Blender 2.91 Manual, Symmetry",
+      "url": "https://docs.blender.org/manual/en/2.91/sculpt_paint/sculpting/tool_settings/symmetry.html",
+      "accessed": "2026-11-20"
+    }
+  ],
   "references_by_name": [
     "Blender Manual, Sculpt Mode chapter (Multiresolution, Dynamic Topology, Voxel Remesh, Brushes, Symmetry)",
     "Blender release notes 2.81-5.3, sculpt sections (voxel remesh, face sets, multires rewrite, brush assets)",

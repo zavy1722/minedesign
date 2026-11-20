@@ -2,7 +2,7 @@
 
 > Forensic facial reconstruction (Stephan prefers "approximation") builds a face on a skull from three ingredients: soft-tissue depth tables at bony landmarks, a build-up of the masticatory and facial muscles, and feature rules that place the eyes, nose, mouth and ears relative to bone. The classic schools are Russian anatomical (Gerasimov), American tissue-depth (Krogman; Gatliff & Snow) and the Manchester combination method (Neave, Wilkinson). Blind tests against CT of living people put good reconstructions at a few millimetres of mean surface error, with the largest errors where likeness lives: nose tip, lips, eyelids and ears. For photo-to-3D work the transfer runs backwards: photos give the skin, so forensic rules become weak priors for hidden parts (eyeballs, teeth, skull, ear canal) and for depths no view constrains, never overrides of photo evidence. No harvest or draft existed for this topic; sourced tissue depths live in `anatomy/skull-osteology.md`.
 >
-> Evidence status: 0 ✅ / 0 📄 / 54 🧠 / 30 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 5 📄 / 54 🧠 / 26 ↔️ — verified 2026-11-20 against abstracts only; remaining 🧠 items still queued.
 
 ## Key facts
 
@@ -14,9 +14,9 @@
 - **Craniofacial superimposition** 🧠: overlaying a skull on an antemortem photo by solving camera pose and focal length with soft-tissue offsets at landmarks. It is the forensic task closest to this project's camera solve.
 
 **Eyes and orbit**
-- The old guideline (cornea touches a line from mid-supraorbital to mid-infraorbital rim) sets the eye too deep; Stephan (2002) falsified it with exophthalmometry data ↔️. Use a Hertel rule instead: corneal apex ≈16 mm (normal 12–20) ahead of the lateral orbital rim 🧠.
+- The old guideline (cornea touches a line from mid-supraorbital to mid-infraorbital rim) sets the eye too deep; Stephan (2002) falsified it with exophthalmometry data (the guideline under-predicts globe projection by ~4 mm on average) 📄 [1]. Use a Hertel rule instead: corneal apex ≈16 mm (normal 12–20) ahead of the lateral orbital rim 🧠.
 - Hertel values average ≈1.5–2 mm higher in people of African ancestry and are often lower in East Asian samples ↔️. A left–right difference above ~2 mm is clinically abnormal 🧠.
-- The globe sits slightly off the aperture centre, nearer the roof and lateral wall in most accounts (Stephan & Davidson 2008; Guyomarc'h et al. 2012); offsets of order 1–2 mm need checking ↔️.
+- The globe sits slightly off the aperture centre, nearer the roof and lateral wall in most accounts (Stephan & Davidson 2008; Guyomarc'h et al. 2012); cadaver dissection found the globe 1–2 mm closer to the roof and lateral wall on average, and CT of living people supported superior and lateral placement 📄 [2] (exact CT offsets unverified).
 - **Canthi** 🧠: the medial tendon inserts on the anterior lacrimal crest, putting endocanthion ≈4–6 mm lateral to dacryon. The lateral tendon inserts on Whitnall's tubercle, ≈3–5 mm inside the rim and ≈10 mm below the frontozygomatic suture, so exocanthion lies ≈3–5 mm medial to the lateral orbital margin and usually 1–3 mm above endocanthion.
 - Adult globe ≈23–25 mm axial (longer in high myopia, which also raises Hertel values) 🧠. Corneal diameter ≈11.8 mm (SD ≈0.6–0.8), matching the sourced value in `blender/eyes-modeling-blender.md` 🧠.
 - **Brows** ↔️: a strong supraorbital ridge is said to carry a low, straight brow and a weak ridge a higher, arched one (Gerasimov; Fedosyutkin & Nainys). Qualitative and unvalidated.
@@ -30,7 +30,7 @@
 - **Tip direction and deviation** ↔️: ANS angle and septal or aperture asymmetry are said to predict tip rotation and soft-nose deviation; weak effects.
 
 **Mouth**
-- **75 % rule** 🧠: inter-canine width (ICW) ≈75 % of mouth width, so ch–ch ≈ ICW / 0.75 (Stephan & Henneberg 2003). The ICW definition matters: cusp-tip ICW (≈33–37 mm) would give too narrow a mouth.
+- **75 % rule** 📄 [3]: inter-canine width (ICW) ≈75 % of mouth width, so ch–ch ≈ ICW / 0.75 (Stephan & Henneberg 2003); the ICW definition used remains unverified 🧠. The ICW definition matters: cusp-tip ICW (≈33–37 mm) would give too narrow a mouth.
 - "Corners at the canine–first premolar contact" underestimates mouth width; resting corners usually sit over the first premolar 🧠.
 - At rest, stomion lies ≈1–4 mm above the upper incisal edges in young adults (more in women); display falls toward 0 mm by the 60s while lower-incisor display rises (Vig & Brundo pattern) 🧠.
 - Lip projection follows incisor position, but soft tissue moves less than teeth (lip/incisor ratios ≈0.4–0.9) ↔️. "Vermilion height = incisor enamel height" is weakly supported ↔️.
@@ -51,7 +51,7 @@
 | Feature | Rule | Error / spread | Population | Status |
 |---|---|---|---|---|
 | Corneal apex depth | 16 mm (12–20) ahead of lateral orbital rim | SD ≈2 mm | European descent; +1.5–2 African descent | 🧠 ↔️ |
-| Rim-tangent rule | cornea touches tangent | too deep by several mm | — | ↔️ |
+| Rim-tangent rule | cornea touches tangent | under-predicts projection ~4 mm [1] | — | 📄 |
 | Endocanthion | 4–6 mm lateral to dacryon | ±1.5 mm | adults | 🧠 |
 | Exocanthion | 3–5 mm medial to lateral orbital margin | ±1.5–2 mm | adults | 🧠 |
 | Canthal tilt (ex above en) | +2 to +6° | wide | European descent; higher East Asian | 🧠 |
@@ -59,7 +59,7 @@
 | Pronasale (two-tangent / 3 × ANS) | see text | often ≥4–5 mm | mixed | ↔️ |
 | Alar width | aperture + 10 (Eur.) / +12–16 mm (EAs., Afr.) | ±3 mm | population-specific | ↔️ |
 | Alar ratio | al–al ≈1.4–1.7 × aperture width | ±0.15 | mixed | ↔️ |
-| Mouth width | ch–ch ≈ ICW / 0.75 | ±3–5 mm | adults | 🧠 |
+| Mouth width | ch–ch ≈ ICW / 0.75 [3] | ±3–5 mm | adults | 📄 |
 | Stomion vs upper incisal edge | 1–4 mm above (young) → ≈0 (60s+) | ±1.5 mm | adults | 🧠 |
 | Lip vs incisor movement | 0.4–0.9 : 1 | wide | orthodontic samples | ↔️ |
 | Tragion vs porion | 8–14 mm lateral; level ±5 mm | ±3–5 mm | adults | 🧠 |
@@ -107,7 +107,7 @@
 |---|---|---|---|
 | `cornea_ahead_lat_rim` | 16 | 2.0 | +1.75 Afr., −1.5 EAs. ↔️; clamp 11–22 |
 | `hertel_lr_diff` | 0 | 1.0 | warn > 2 |
-| `globe_offset_sup`, `_lat` | +1, +1 | 1.5 | sign and size unverified ↔️ |
+| `globe_offset_sup`, `_lat` | +1, +1 | 1.5 | superolateral sign confirmed [2]; size ≈1–2 mm |
 | `globe_axial_len` | 23.8 | 1.0 | L–R σ 0.3 |
 | `corneal_diam` | 11.8 | 0.7 | low-weight scale prior |
 | `en_lat_of_dacryon` | 5 | 1.5 | per side |
@@ -133,7 +133,12 @@
 
 ## Sources
 
-No harvest or earlier draft existed, so no URLs are cited. Linked material on tissue depth, aperture–nose relations and Manchester accuracy: `anatomy/skull-osteology.md` (its [1], [16], [17], [39], [42], [43], [46]–[48], [51]); corneal scale: `blender/eyes-modeling-blender.md`; ear canons: `anatomy/ear.md`; mouth norms: `anatomy/mouth-lips-teeth.md`.
+Numbered sources (added in verification, 2026-11-20; abstracts only, full texts not read):
+1. Stephan CN 2002, globe projection guideline falsified — https://ojp.gov/ncjrs/virtual-library/abstracts/facial-approximation-globe-projection-guideline-falsified ; https://digital.library.adelaide.edu.au/items/f51c9e26-39d1-4c17-ad30-bc52cfdcf781
+2. Stephan & Davidson 2008, eyeball and canthi placement (J Forensic Sci 53:612–619) — https://www.pubmed.gov/18471206/ ; https://ojp.gov/ncjrs/virtual-library/abstracts/placement-human-eyeball-and-canthi-craniofacial-identification ; Guyomarc'h 2012 CT follow-up via NCJRS abstract https://www.ncjrs.gov/App/Publications/abstract.aspx?ID=248542
+3. Stephan & Henneberg 2003, 75 % rule (J Forensic Sci 48:725–727) — https://digital.library.adelaide.edu.au/dspace/handle/2440/5388 ; https://www.ojp.gov/ncjrs/virtual-library/abstracts/predicting-mouth-width-inter-canine-width-75-percent-rule
+
+Otherwise no URLs are cited. Linked material on tissue depth, aperture–nose relations and Manchester accuracy: `anatomy/skull-osteology.md` (its [1], [16], [17], [39], [42], [43], [46]–[48], [51]); corneal scale: `blender/eyes-modeling-blender.md`; ear canons: `anatomy/ear.md`; mouth norms: `anatomy/mouth-lips-teeth.md`.
 
 **Further reading (by name, not yet linked)**
 - Gerasimov MM, *The Face Finder*, 1971 (Russian original 1955).
@@ -155,3 +160,10 @@ No harvest or earlier draft existed, so no URLs are cited. Linked material on ti
 - Damas S, Cordón O, Ibáñez O et al., craniofacial superimposition survey, ACM Computing Surveys, 2011.
 - Vig RG & Brundo GC, "The kinetics of anterior tooth display", J Prosthet Dent, 1978; Migliori ME & Gladstone GJ, Am J Ophthalmol, 1984.
 - Moraes C et al., Blender forensic approximation and OrtogOnBlender (to verify); Schlager S, *Morpho* R package.
+
+## Verification log (2026-11-20)
+
+- Claim 1, Hertel prior (cornea 16 mm ahead of lateral rim, +1.5–2 mm African ancestry): PARTLY CONFIRMED. Stephan 2002 falsification of the rim-tangent rule confirmed (under-predicts projection ~4 mm) — https://ojp.gov/ncjrs/virtual-library/abstracts/facial-approximation-globe-projection-guideline-falsified . The 16 mm / 12–20 / ancestry values were not found in results: left 🧠 / ↔️.
+- Claim 2, 75 % rule: CONFIRMED (existence and ratio; ICW definition unconfirmed) — https://digital.library.adelaide.edu.au/dspace/handle/2440/5388
+- Claim 3, canthi and globe offset: globe 1–2 mm toward roof and lateral wall CONFIRMED (Stephan & Davidson 2008; CT support by Guyomarc'h 2012) — https://www.pubmed.gov/18471206/ . Canthi distances (4–6 mm, 3–5 mm, 10 mm): UNCONFIRMED, left 🧠.
+- Claim 4, alar width = aperture + 10 / +12–16 mm, ratio 1.4–1.7: UNCONFIRMED (Hoffman 1991 addition formula exists but its constant was not shown) — https://www.ojp.gov/ncjrs/virtual-library/abstracts/relationship-between-piriform-aperture-and-interalar-nasal-widths

@@ -2,7 +2,7 @@
 
 > Portrait and likeness sculptors on Instagram, TikTok, X and Threads, in clay and digitally, keep repeating a small set of process rules: settle the big masses before the features, check the silhouette from many angles, look again with fresh eyes (mirror, flip, squint, blink-compare), shoot reference from a distance with a longer lens, measure from fixed points, and turn symmetry off once the primary forms are in. The web harvest reached only five Instagram profile pages, whose snippets held bios and no technique, so the sourced part of this note is thin. Almost all of the practical content is expert knowledge, with the numbers worked out from pinhole geometry or taken from named canonical literature. For the fitting engine, each recurring studio check has an exact computational counterpart: matched-camera silhouette error, landmark reprojection residuals, estimated camera distance, a symmetry weight schedule and caliper distance constraints.
 >
-> Evidence status: 0 ✅ / 4 📄 / 51 🧠 / 15 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 5 📄 / 49 🧠 / 16 ↔️ — verified 2026-11-20: selfie-effect 30% figure press-confirmed (📄), iris diameter contested (↔️); IPD and nose-ear depth remain unconfirmed (🧠).
 
 ## Key facts
 
@@ -52,14 +52,14 @@
 | 2.0 | 1.05 | 5% | 180 mm (or 85 mm cropped) | recommended | 🧠 |
 | 3.0 | 1.033 | 3.3% | 270 mm (or 85–135 mm cropped) | near-orthographic | 🧠 |
 
-A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base looking roughly 30% wider at about 30 cm than at about 1.5 m; same order as this table, unverified here. 🧠
+A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base looking roughly 30% wider at about 30 cm than at about 1.5 m; same order as this table, press-confirmed in verification: the Rutgers release gives about 30% wider nasal base at 12 in (30 cm) versus 5 ft [6], while HealthDay reports 30% (men) and 29% (women) at 30.48 cm against an orthographic baseline [7], so the baseline is stated inconsistently. 📄
 
 **Table 2. Scale anchors for photo fitting (adults, mixed populations, approximate).** Population-specific values belong in the anatomy notes.
 
 | Quantity | Typical mean | Spread | Use | Badge |
 |---|---|---|---|---|
 | Interpupillary distance | 61–65 mm (men about 2 mm above women) | SD about 3.5–4 mm; range about 54–74 mm | Absolute scale when no ruler is in shot | 🧠 |
-| Horizontal visible iris diameter | 11.5–12.0 mm | about 10.7–12.8 mm | Per-photo scale when the iris spans ≥20 px | 🧠 |
+| Horizontal visible iris diameter | 11.6–12.4 mm (device-dependent: Orbscan 11.77 ± 0.40, IOLMaster 700 12.40 ± 0.43) [8] | SD about 0.4–0.5 mm; overall about 10–13 mm | Per-photo scale when the iris spans ≥20 px | ↔️ |
 | Eyeball axial length | 23–24.5 mm | about 22–26 mm | Eye-sphere size | 🧠 |
 | Corneal apex in front of lateral orbital rim (Hertel) | about 15–17 mm | about 12–20 mm; varies by ancestry | Eye depth placement | ↔️ |
 | Palpebral fissure width | 27–33 mm | n/a | "Five eyes" check | 🧠 |
@@ -124,7 +124,7 @@ A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base loo
   - Stage D: free local refinement only where at least two views agree.
 
   🧠
-- **Scale priors.** IPD ~ N(63, 4) mm when nothing better is available. Iris diameter ~ N(11.7, 0.5) mm per eye when its diameter is ≥20 px. A user ruler or caliper reading overrides both. Sigmas are proposed defaults, pending verification. 🧠
+- **Scale priors.** IPD ~ N(63, 4) mm when nothing better is available. Iris diameter ~ N(11.7, 0.5) mm per eye when its diameter is ≥20 px (verification: contested, device means span 11.6–12.4 mm [8]; consider N(12.0, 0.5)). A user ruler or caliper reading overrides both. Sigmas are proposed defaults; IPD mean about 63 mm is only supported by a secondary source [9], SD unconfirmed. 🧠
 - **Focal policy.** Keep the existing log-normal focal prior (σ_log 0.35) and the f35 hypotheses (24–200 mm). For nearly frontal views with d > 1 m, focal and distance are almost degenerate, so tie them through the IPD prior instead of trusting free focal. Flag any photo whose estimated d differs from the set median by more than 1.5×. 🧠
 - **Symmetry weight schedule.** σ_sym starts at about 1 mm during Stage A/B and relaxes to the bundle default of 2 mm, or looser, in C/D. Only occluded regions keep a strong symmetry pull. 🧠
 - **Caliper constraints.** Accept user-entered live measurements as distance residuals (‖X_i − X_j‖ − m)/σ, with σ ≈ 1–2 mm for soft tissue (compression and landmark ambiguity). Fixed triplets such as both tragi plus nasion trilaterate any other landmark, which is the sculptor's method made exact; it fits beside `triangulate.py`. 🧠
@@ -159,6 +159,10 @@ A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base loo
 [3] Character Sculpt (@charactersculpt) Instagram profile — https://www.instagram.com/charactersculpt/ — social (profile) — n.d.
 [4] Sculptor Artists (@sculptor_artists) Instagram profile — https://www.instagram.com/sculptor_artists/ — social (profile) — n.d.
 [5] CLAYSHAPER (@clayshaper) Instagram profile — https://www.instagram.com/Clayshaper/ — social (profile) — n.d.
+[6] Rutgers University news, selfies and the nose (Ward et al. 2018) — https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery — press release — 2018
+[7] HealthDay, Nasal distortive effect described in selfies — https://consumer.healthday.com/cosmetic-surgery-29/nose-surgery-500/nasal-distortive-effect-described-in-selfies-731642.html — press summary — 2018
+[8] White-to-white measurements across four devices, PLoS ONE — https://pmc.ncbi.nlm.nih.gov/articles/PMC8284630 — journal — 2021
+[9] Pupillary distance (cites Dodgson 2004) — https://en.wikipedia.org/wiki/Pupillary_distance — secondary — n.d.
 
 **Further reading (by name, not yet linked)**
 
@@ -177,3 +181,10 @@ A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base loo
 - Dodgson, "Variation and extrema of human interpupillary distance" (Proc. SPIE, 2004)
 - Leonardo da Vinci, notebooks (*Treatise on Painting*), on using the mirror
 - Tools (status, licence and price are time-sensitive): fSpy (camera matching, Blender importer), KeenTools FaceBuilder, PureRef
+
+## Verification log (2026-11-20)
+
+- IPD mean 61-65 mm, SD 3.5-4, range 54-74 (Dodgson 2004): unconfirmed. Only a secondary source gives mean 63.36 mm and a 50-75 mm majority range; no SD from the primary paper. https://en.wikipedia.org/wiki/Pupillary_distance
+- Horizontal visible iris diameter 11.5-12.0 mm: contested. Device-dependent means 11.77 to 12.42 mm, SD 0.4-0.5. https://pmc.ncbi.nlm.nih.gov/articles/PMC8284630
+- Ward et al. 2018 selfie effect (~30% nasal base at ~30 cm): confirmed via press (📄), with baseline ambiguity (5 ft per Rutgers, orthographic per HealthDay). https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery ; https://consumer.healthday.com/cosmetic-surgery-29/nose-surgery-500/nasal-distortive-effect-described-in-selfies-731642.html
+- Nose-tip to ear-plane depth 9-11 cm: unconfirmed. No tragion-pronasale values found.

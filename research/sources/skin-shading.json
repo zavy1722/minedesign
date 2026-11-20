@@ -1,34 +1,114 @@
 {
-  "topic": "skin-shading",
-  "sources": [
-    {"n": 1, "title": "Principled BSDF - Blender 5.3 Manual", "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2026"},
-    {"n": 2, "title": "Principled BSDF - Blender 4.3 Manual", "url": "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2024"},
-    {"n": 3, "title": "Subsurface Scattering - Blender 5.3 Manual", "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/sss.html", "kind": "official-docs", "year": "2026"},
-    {"n": 4, "title": "Subsurface Scattering - Blender 3.6 Manual", "url": "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/sss.html", "kind": "official-docs", "year": "2023"},
-    {"n": 5, "title": "Cycles: Tweak Principled BSDF Subsurface parameters (PR #110989)", "url": "https://projects.blender.org/blender/blender/pulls/110989", "kind": "repo", "year": "2023"},
-    {"n": 6, "title": "Subsurface Scattering colour - Blender Artists", "url": "https://blenderartists.org/t/subsurface-scattering-colour/1502627", "kind": "forum", "year": "unknown"},
-    {"n": 7, "title": "Principled BSDF: Subsurface Anisotropy - Blender Artists", "url": "https://blenderartists.org/t/principled-bsdf-subsurface-anisotropy/1629688", "kind": "forum", "year": "unknown"},
-    {"n": 8, "title": "Subsurface Scattering is producing flat-shaded artifacts - Blender Artists", "url": "https://blenderartists.org/t/subsurface-scattering-is-producing-flat-shaded-artifacts/1594573", "kind": "forum", "year": "unknown"},
-    {"n": 9, "title": "Volumetric SSS - Blender Tests - Blender Artists", "url": "https://blenderartists.org/t/volumetric-sss/1102733", "kind": "forum", "year": "unknown"},
-    {"n": 10, "title": "This material? How to - Blender Artists", "url": "https://blenderartists.org/t/this-material-how-to/1233888", "kind": "forum", "year": "unknown"},
-    {"n": 11, "title": "Principled BSDF - Blender 3.6 Manual", "url": "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2023"}
-  ],
-  "references_by_name": [
-    "Jensen, Marschner, Levoy & Hanrahan, 'A Practical Model for Subsurface Light Transport', SIGGRAPH 2001",
-    "Donner & Jensen, 'Light Diffusion in Multi-Layered Translucent Materials', SIGGRAPH 2005",
-    "Donner & Jensen, 'A Spectral BSSRDF for Shading Human Skin', EGSR 2006",
-    "Weyrich et al., 'Analysis of Human Faces using a Measurement-Based Skin Reflectance Model', SIGGRAPH 2006",
-    "d'Eon & Luebke, 'Advanced Techniques for Realistic Real-Time Skin Rendering', GPU Gems 3, 2007",
-    "Christensen & Burley, 'Approximate Reflectance Profiles for Efficient Subsurface Scattering', Pixar technical memo, 2015",
-    "Jimenez et al., 'Separable Subsurface Scattering', Computer Graphics Forum, 2015",
-    "Ma et al., 'Rapid Acquisition of Specular and Diffuse Normal Maps from Polarized Spherical Gradient Illumination', EGSR 2007",
-    "Graham et al., 'Measurement-Based Synthesis of Facial Microgeometry', Eurographics 2013",
-    "Nagano et al., 'Skin Microstructure Deformation with Displacement Map Convolution', SIGGRAPH 2015",
-    "Anderson & Parrish, 'The Optics of Human Skin', Journal of Investigative Dermatology, 1981",
-    "van Gemert et al., 'Skin Optics', IEEE Transactions on Biomedical Engineering, 1989",
-    "Tuchin, Tissue Optics (book)",
-    "Dodgson, 'Variation and Extrema of Human Interpupillary Distance', SPIE 2004",
-    "Farkas, Anthropometry of the Head and Face, 1994",
-    "Blender 3.0, 4.0 and 4.2 release notes (Cycles subsurface, Principled v2, EEVEE Next)"
-  ]
+ "topic": "skin-shading",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Principled BSDF - Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 2,
+   "title": "Principled BSDF - Blender 4.3 Manual",
+   "url": "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html",
+   "kind": "official-docs",
+   "year": "2024"
+  },
+  {
+   "n": 3,
+   "title": "Subsurface Scattering - Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/sss.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 4,
+   "title": "Subsurface Scattering - Blender 3.6 Manual",
+   "url": "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/sss.html",
+   "kind": "official-docs",
+   "year": "2023"
+  },
+  {
+   "n": 5,
+   "title": "Cycles: Tweak Principled BSDF Subsurface parameters (PR #110989)",
+   "url": "https://projects.blender.org/blender/blender/pulls/110989",
+   "kind": "repo",
+   "year": "2023"
+  },
+  {
+   "n": 6,
+   "title": "Subsurface Scattering colour - Blender Artists",
+   "url": "https://blenderartists.org/t/subsurface-scattering-colour/1502627",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "n": 7,
+   "title": "Principled BSDF: Subsurface Anisotropy - Blender Artists",
+   "url": "https://blenderartists.org/t/principled-bsdf-subsurface-anisotropy/1629688",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "n": 8,
+   "title": "Subsurface Scattering is producing flat-shaded artifacts - Blender Artists",
+   "url": "https://blenderartists.org/t/subsurface-scattering-is-producing-flat-shaded-artifacts/1594573",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "n": 9,
+   "title": "Volumetric SSS - Blender Tests - Blender Artists",
+   "url": "https://blenderartists.org/t/volumetric-sss/1102733",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "n": 10,
+   "title": "This material? How to - Blender Artists",
+   "url": "https://blenderartists.org/t/this-material-how-to/1233888",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "n": 11,
+   "title": "Principled BSDF - Blender 3.6 Manual",
+   "url": "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/principled.html",
+   "kind": "official-docs",
+   "year": "2023"
+  },
+  {
+   "n": 12,
+   "title": "Rendering - Blender 5.2 Release Notes",
+   "url": "https://developer.blender.org/docs/release_notes/5.2/rendering/",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 13,
+   "title": "EEVEE - Blender 4.2 LTS Release Notes",
+   "url": "https://developer.blender.org/docs/release_notes/4.2/eevee/",
+   "kind": "official-docs",
+   "year": "2024"
+  }
+ ],
+ "references_by_name": [
+  "Jensen, Marschner, Levoy & Hanrahan, 'A Practical Model for Subsurface Light Transport', SIGGRAPH 2001",
+  "Donner & Jensen, 'Light Diffusion in Multi-Layered Translucent Materials', SIGGRAPH 2005",
+  "Donner & Jensen, 'A Spectral BSSRDF for Shading Human Skin', EGSR 2006",
+  "Weyrich et al., 'Analysis of Human Faces using a Measurement-Based Skin Reflectance Model', SIGGRAPH 2006",
+  "d'Eon & Luebke, 'Advanced Techniques for Realistic Real-Time Skin Rendering', GPU Gems 3, 2007",
+  "Christensen & Burley, 'Approximate Reflectance Profiles for Efficient Subsurface Scattering', Pixar technical memo, 2015",
+  "Jimenez et al., 'Separable Subsurface Scattering', Computer Graphics Forum, 2015",
+  "Ma et al., 'Rapid Acquisition of Specular and Diffuse Normal Maps from Polarized Spherical Gradient Illumination', EGSR 2007",
+  "Graham et al., 'Measurement-Based Synthesis of Facial Microgeometry', Eurographics 2013",
+  "Nagano et al., 'Skin Microstructure Deformation with Displacement Map Convolution', SIGGRAPH 2015",
+  "Anderson & Parrish, 'The Optics of Human Skin', Journal of Investigative Dermatology, 1981",
+  "van Gemert et al., 'Skin Optics', IEEE Transactions on Biomedical Engineering, 1989",
+  "Tuchin, Tissue Optics (book)",
+  "Dodgson, 'Variation and Extrema of Human Interpupillary Distance', SPIE 2004",
+  "Farkas, Anthropometry of the Head and Face, 1994",
+  "Blender 3.0, 4.0 and 4.2 release notes (Cycles subsurface, Principled v2, EEVEE Next)"
+ ]
 }

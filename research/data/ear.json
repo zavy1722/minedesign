@@ -40,13 +40,13 @@
       "units": "mm per year; mm",
       "columns": ["quantity", "value_low", "value_typical", "value_high"],
       "rows": [
-        ["length increase per year after maturity (mm/yr)", 0.1, 0.2, 0.25],
+        ["length increase per year after maturity (mm/yr)", 0.1, 0.22, 0.25],
         ["length gain age 25 to 70 (mm)", 5, 9, 11]
       ],
       "population": "Adults, mostly European-descent cross-sectional data",
-      "source_urls": [],
-      "status": "contested",
-      "notes": "Expert knowledge (Heathcote, BMJ 1995, 'Why do old men have big ears?', cross-sectional ~0.2 mm/yr); not yet checked against a source in this library. Conflicts with the 'size and shape steady until ~70' claim relayed by arXiv 2101.10540. Length matures by ~14 (PubMed 29169692, Chinese sample)."
+      "source_urls": ["https://jhanley.biostat.mcgill.ca/bios601/Surveys/BigEars.pdf"],
+      "status": "sourced",
+      "notes": "Verified 2026-11-20: Heathcote, BMJ 1995, 'Why do old men have big ears?', cross-sectional 0.22 mm/yr (one source). Conflicts with the 'size and shape steady until ~70' claim relayed by arXiv 2101.10540. Length matures by ~14 (PubMed 29169692, Chinese sample)."
     },
     {
       "name": "prominent_ear_thresholds",

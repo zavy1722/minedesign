@@ -1,18 +1,18 @@
 # Monocular depth and surface normals for faces
 
 > General-purpose monocular depth models (Depth Anything V2/3, Marigold) and normal estimators (DSINE, Marigold-Normals, Lotus, StableNormal) are trained and benchmarked on scenes. This library holds no face-region accuracy figure for any of them, nor for the human-specific Sapiens and DAViD. Single-image depth is ambiguous in relief scale (affine-invariant outputs, bas-relief ambiguity), so it must never set nose projection or head depth; those come from the landmark/3DMM camera fit. Predicted **normals** are the useful signal: they carry mid-frequency form (nasolabial folds, lid creases, lip and chin contours) that can be added to the fitted base as a clamped, landmark-anchored displacement solved in mesh space. Run predictors out of process and cache float outputs, because CPU/ONNX support and weight licences differ per model and several popular weights are non-commercial.
-Evidence status: 3 ✅ / 32 📄 / 47 🧠 / 3 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 3 ✅ / 34 📄 / 47 🧠 / 3 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Depth Anything V2 and 3**
-- DA V2 is a *relative* depth model: it orders surfaces near to far but recovers no metric distance [1][2] 📄 ([2] mirrors [1]). Its relative checkpoints output MiDaS-style affine-invariant **inverse depth (disparity)**, not depth, so scale/shift must be fitted in disparity space (Table 4) 🧠.
+- DA V2 is a *relative* depth model: it orders surfaces near to far but recovers no metric distance [1][2] 📄 ([2] mirrors [1]). Its relative checkpoints output MiDaS-style affine-invariant **inverse depth (disparity)**, not depth, so scale/shift must be fitted in disparity space (Table 4) [23][24] 📄 (third-party blog and model card; no primary-source statement found).
 - DA V2 Small: ~25M parameters, 60 ms/image (hardware unstated), DA-2K accuracy 95.3% [1][2] 📄. Ablation: 89.8% with labelled synthetic data only, 95.3% with pseudo-labelled real data only [1] 📄.
 - DA V2 ViT-L on NYU-D: δ1 0.984, AbsRel 0.056 [1] 📄. This is very likely the in-domain metric fine-tuned setting, not zero-shot 🧠.
-- Small (~25M) is Apache-2.0; Base (~98M), Large (~335M) and Giant (~1.3B) are CC BY-NC 4.0. The teacher was trained on ~595K synthetic images and the students on ~62M pseudo-labelled real images; default input is 518 px (a multiple of the patch size, 14) 🧠.
+- Small (~25M) is Apache-2.0; Base, Large and Giant are CC BY-NC 4.0 [25] 📄 (the README lists Giant as "coming soon"; one paper reports Giant weights remain on Hugging Face). Sizes Base ~98M, Large ~335M, Giant ~1.3B 🧠. The teacher was trained on ~595K synthetic images and the students on ~62M pseudo-labelled real images; default input is 518 px (a multiple of the patch size, 14) 🧠.
 - Real-world metric quality is disputed: best monocular method in a driving obstacle study [3]; significantly worse metric accuracy than LiDAR in robotics [4]; metre-level errors in low-overlap drone photogrammetry, with MiDaS v3.1 worse [5] ↔️. No face evaluation was found [2] 📄.
 - Depth Anything 3 is arXiv 2511.10647, submitted November 2025 [19][21] ✅ (the exact day, 14 Nov, comes from the wrapper only 📄). It takes one or many views and predicts depth plus camera rays [19] 📄. The family has Small/Base/Large/Giant plus Metric and Mono variants 🧠.
-- `DA3Metric-Large` computes metric depth = focal × net output / 300, with focal = mean(fx, fy) in px [20] 📄. Depth is therefore linear in the focal you pass. It is unconfirmed whether that focal refers to the original photo's pixel grid or the network's processing resolution 🧠.
+- `DA3Metric-Large` computes metric depth = focal × net output / 300, with focal = mean(fx, fy) in px, output in metres [20] 📄 (re-confirmed in verification; 300 is the canonical training focal [19]). Depth is therefore linear in the focal you pass. It is unconfirmed whether that focal refers to the original photo's pixel grid or the network's processing resolution 🧠.
 - DA3-metric is best on SUN-RGBD (AbsRel 0.105) and second on DIODE [19] 📄. DA3Metric-Large has ~350M parameters [21] 📄. A TensorRT ROS2 node exists, but no CPU/ONNX latency was found [22] 📄.
 
 **Diffusion depth/normals**
@@ -212,6 +212,9 @@ Ray obliquity is the normal-direction error introduced by integrating under an o
 [20] ByteDance-Seed/Depth-Anything-3 — https://github.com/ByteDance-Seed/Depth-Anything-3 — official code repo — n.d.
 [21] 1038lab/ComfyUI-Depth-Anything-3 — https://github.com/1038lab/ComfyUI-Depth-Anything-3 — community wrapper repo — n.d.
 [22] ika-rwth-aachen/ros2-depth-anything-v3-trt — https://github.com/ika-rwth-aachen/ros2-depth-anything-v3-trt — community deployment repo — n.d.
+[23] Metric and Relative Monocular Depth Estimation: An Overview. Fine-Tuning Depth Anything V2 — https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide — blog — 2025
+[24] inference4j/depth-anything-v2-small — https://huggingface.co/inference4j/depth-anything-v2-small — model card (third party) — n.d.
+[25] DepthAnything/Depth-Anything-V2 — https://github.com/DepthAnything/Depth-Anything-V2 — official code repo — n.d.
 
 **Further reading (by name, not yet linked)**
 
@@ -250,3 +253,10 @@ Ray obliquity is the normal-direction error introduced by integrating under an o
 *Clothed-human reconstruction (normals for detail)*
 - Saito et al., *PIFuHD*, CVPR 2020
 - Xiu et al., *ECON*, CVPR 2023
+
+## Verification log (2026-11-20)
+
+- DA3Metric-Large metric depth = focal × net_output / 300, focal = mean(fx, fy): confirmed (official README, [20]); output is in metres (README). Whether focal refers to original or processing resolution: unconfirmed (🧠 kept). https://github.com/bytedance-seed/depth-anything-3
+- DA V2 relative checkpoints output disparity (inverse depth), scale/shift fitted per image: confirmed, 📄, third-party sources only [23][24]. https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide , https://huggingface.co/inference4j/depth-anything-v2-small
+- DA V2 Small Apache-2.0, Base/Large/Giant CC BY-NC 4.0: confirmed, 📄 [25] (caveat: Giant listed "coming soon" in README). https://github.com/DepthAnything/Depth-Anything-V2
+- Sapiens sizes, 1024x768 input, TorchScript lite, custom Meta licence, 28-class segmentation: unconfirmed as a whole (🧠 kept). Partial evidence only: 1024x768 normal config and a 0.3B TorchScript checkpoint exist; the official README points to a LICENSE file while a third-party wrapper says CC BY-NC 4.0 (licence unresolved); sizes 0.6B/1B and the 28-class segmentation were not seen in results. https://github.com/facebookresearch/sapiens

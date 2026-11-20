@@ -4,13 +4,49 @@
     {
       "name": "mediapipe_face_outputs",
       "units": "count per face",
-      "columns": ["item", "count", "units", "row_status", "notes"],
+      "columns": [
+        "item",
+        "count",
+        "units",
+        "row_status",
+        "notes"
+      ],
       "rows": [
-        ["face_mesh_default", 468, "landmarks", "verified", "3D landmarks, real time; official docs + blog agree"],
-        ["face_mesh_refined", 478, "landmarks", "sourced", "attention-mesh refinement around eyes and lips, adds iris points; +10 vs default"],
-        ["iris_points", 10, "landmarks", "knowledge", "two 5-point sets (centre + 4 rim), indices 468-472 and 473-477; left/right naming inconsistent across sources"],
-        ["face_landmarker_blendshapes", 52, "scores 0-1", "knowledge", "MediaPipe Tasks Face Landmarker; ARKit-style names, recalled as including _neutral and omitting tongueOut; verify"],
-        ["canonical_face_model_vertices", 468, "vertices (cm)", "knowledge", "used by the face-geometry module for Procrustes alignment; its scale is the canonical face's, not the subject's"]
+        [
+          "face_mesh_default",
+          468,
+          "landmarks",
+          "verified",
+          "3D landmarks, real time; official docs + blog agree"
+        ],
+        [
+          "face_mesh_refined",
+          478,
+          "landmarks",
+          "sourced",
+          "attention-mesh refinement around eyes and lips, adds iris points; +10 vs default"
+        ],
+        [
+          "iris_points",
+          10,
+          "landmarks",
+          "knowledge",
+          "two 5-point sets (centre + 4 rim), indices 468-472 and 473-477; left/right naming inconsistent across sources"
+        ],
+        [
+          "face_landmarker_blendshapes",
+          52,
+          "scores 0-1",
+          "knowledge",
+          "MediaPipe Tasks Face Landmarker; ARKit-style names, recalled as including _neutral and omitting tongueOut; verify"
+        ],
+        [
+          "canonical_face_model_vertices",
+          468,
+          "vertices (cm)",
+          "knowledge",
+          "used by the face-geometry module for Procrustes alignment; its scale is the canonical face's, not the subject's"
+        ]
       ],
       "population": "n/a (model output specification)",
       "source_urls": [
@@ -23,36 +59,184 @@
     {
       "name": "template_topologies",
       "units": "vertex / parameter counts",
-      "columns": ["template", "vertices", "faces", "identity_params", "expression_params", "pose_params", "data_licence", "notes"],
+      "columns": [
+        "template",
+        "vertices",
+        "faces",
+        "identity_params",
+        "expression_params",
+        "pose_params",
+        "data_licence",
+        "notes"
+      ],
       "rows": [
-        ["FLAME 2020", 5023, "9976 triangles", 300, 100, 15, "non-commercial research (contested: a permissive 2023 variant is an unconfirmed recollection)", "eyeballs included, no mouth interior; pose = global, neck, jaw, two eyes x 3; metres"],
-        ["MakeHuman hm08 (MPFB2)", "~13380 body / ~19158 incl. helpers", "quads", "macros + local targets", "via rig / face poses", null, "base assets CC0 (contested vs CC-BY packs)", "helpers hidden by Mask modifier; native unit decimetre, MPFB import default metres; recount at runtime"],
-        ["Basel Face Model 2009", 53490, null, 199, 0, 0, "research licence", "face only"],
-        ["ICT-FaceKit", null, null, "~100", "~53", null, "MIT (verify)", "ARKit-style expression shapes"],
-        ["MediaPipe canonical face", 468, null, 0, 0, 0, "Apache-2.0", "centimetres"]
+        [
+          "FLAME 2020",
+          5023,
+          "9976 triangles",
+          300,
+          100,
+          15,
+          "non-commercial research for FLAME 2017/2019/2020/2023; FLAME 2023 Open is CC-BY-4.0, commercial use allowed (corrected in verification)",
+          "eyeballs included, no mouth interior; pose = global, neck, jaw, two eyes x 3; metres"
+        ],
+        [
+          "MakeHuman hm08 (MPFB2)",
+          "~13380 body / ~19158 incl. helpers",
+          "quads",
+          "macros + local targets",
+          "via rig / face poses",
+          null,
+          "base mesh/targets/system assets CC0; asset packs CC0 or CC-BY",
+          "helpers hidden by Mask modifier; native unit decimetre, MPFB import default metres; recount at runtime"
+        ],
+        [
+          "Basel Face Model 2009",
+          53490,
+          null,
+          199,
+          0,
+          0,
+          "research licence",
+          "face only"
+        ],
+        [
+          "ICT-FaceKit",
+          null,
+          null,
+          "~100",
+          "~53",
+          null,
+          "MIT (verify)",
+          "ARKit-style expression shapes"
+        ],
+        [
+          "MediaPipe canonical face",
+          468,
+          null,
+          0,
+          0,
+          0,
+          "Apache-2.0",
+          "centimetres"
+        ]
       ],
       "population": "n/a",
-      "source_urls": [],
+      "source_urls": [
+        "https://flame.is.tue.mpg.de/modellicense.html",
+        "https://static.makehumancommunity.org/about/license.html"
+      ],
       "status": "knowledge",
-      "notes": "All from expert knowledge, not yet checked against a source in this library. The engine must count vertices of the loaded mesh rather than trust these numbers."
+      "notes": "All from expert knowledge, not yet checked against a source in this library. The engine must count vertices of the loaded mesh rather than trust these numbers. Licence cells for FLAME and MakeHuman verified 2026-11-20; counts remain knowledge."
     },
     {
       "name": "addon_blender_version_support",
       "units": "Blender release version",
-      "columns": ["addon", "addon_version", "blender_min", "blender_max_stated", "row_status", "source_url"],
+      "columns": [
+        "addon",
+        "addon_version",
+        "blender_min",
+        "blender_max_stated",
+        "row_status",
+        "source_url"
+      ],
       "rows": [
-        ["Faceit", null, "3.0", "5.2", "sourced", "https://superhivemarket.com/products/faceit"],
-        ["Face Shape Key Rig", null, "5.2", null, "sourced", "https://github.com/Fragid/face-shapekey-rig"],
-        ["MPFB2", "2.0.18", "4.2", null, "sourced", "https://extensions.blender.org/add-ons/mpfb/versions/"],
-        ["CaptureForge", null, null, null, "sourced", "https://github.com/H0wZy/captureforge"],
-        ["mediapipe-facecap-for-blender", null, null, null, "sourced", "https://github.com/mozi1924/mediapipe-facecap-for-blender"],
-        ["MB-Lab", null, null, null, "knowledge", null],
-        ["CharMorph", null, null, null, "knowledge", null],
-        ["Human Generator", null, null, null, "knowledge", null],
-        ["Auto-Rig Pro", null, null, null, "knowledge", null],
-        ["FLAME Blender add-on", null, null, null, "knowledge", null],
-        ["KeenTools FaceBuilder", null, null, null, "knowledge", null],
-        ["BlendArMocap", null, null, null, "knowledge", "development believed stopped"]
+        [
+          "Faceit",
+          null,
+          "3.0",
+          "5.2",
+          "sourced",
+          "https://superhivemarket.com/products/faceit"
+        ],
+        [
+          "Face Shape Key Rig",
+          null,
+          "5.2",
+          null,
+          "sourced",
+          "https://github.com/Fragid/face-shapekey-rig"
+        ],
+        [
+          "MPFB2",
+          "2.0.18",
+          "4.2",
+          null,
+          "sourced",
+          "https://extensions.blender.org/add-ons/mpfb/versions/"
+        ],
+        [
+          "CaptureForge",
+          null,
+          null,
+          null,
+          "sourced",
+          "https://github.com/H0wZy/captureforge"
+        ],
+        [
+          "mediapipe-facecap-for-blender",
+          null,
+          null,
+          null,
+          "sourced",
+          "https://github.com/mozi1924/mediapipe-facecap-for-blender"
+        ],
+        [
+          "MB-Lab",
+          null,
+          null,
+          null,
+          "knowledge",
+          null
+        ],
+        [
+          "CharMorph",
+          null,
+          null,
+          null,
+          "knowledge",
+          null
+        ],
+        [
+          "Human Generator",
+          null,
+          null,
+          null,
+          "knowledge",
+          null
+        ],
+        [
+          "Auto-Rig Pro",
+          null,
+          null,
+          null,
+          "knowledge",
+          null
+        ],
+        [
+          "FLAME Blender add-on",
+          null,
+          null,
+          null,
+          "knowledge",
+          null
+        ],
+        [
+          "KeenTools FaceBuilder",
+          null,
+          null,
+          null,
+          "knowledge",
+          null
+        ],
+        [
+          "BlendArMocap",
+          null,
+          null,
+          null,
+          "knowledge",
+          "development believed stopped"
+        ]
       ],
       "population": "n/a",
       "source_urls": [
@@ -67,21 +251,133 @@
     {
       "name": "addon_licences_and_roles",
       "units": "categorical",
-      "columns": ["tool", "code_licence", "data_or_asset_licence", "cost", "role", "generates_shape_keys", "row_status"],
+      "columns": [
+        "tool",
+        "code_licence",
+        "data_or_asset_licence",
+        "cost",
+        "role",
+        "generates_shape_keys",
+        "row_status"
+      ],
       "rows": [
-        ["MPFB2", "GPL-3.0-or-later", "CC0 or CC-BY (listing); CC0 1.0 base (third-party note)", "free", "parametric base human", false, "code verified; assets contested"],
-        ["Faceit", null, null, "paid", "expression shape-key generator + bake", true, "sourced"],
-        ["Face Shape Key Rig", "GPL", null, "free", "slider/2D-pad controller for existing keys", false, "sourced"],
-        ["CaptureForge", "GPL-3.0", null, null, "posed rig to ARKit 52; video/webcam drive", true, "sourced"],
-        ["mediapipe-facecap-for-blender", null, null, null, "live MediaPipe capture (transmitter + receiver)", null, "sourced"],
-        ["FLAME Blender add-on", "open (exact licence not recalled)", "FLAME: non-commercial research", "free for research", "PCA head as shape keys + armature", true, "knowledge/contested"],
-        ["MB-Lab", "AGPL-3.0", "separate licence for generated characters (possibly CC-BY 4.0)", "free", "parametric body", false, "knowledge/contested"],
-        ["CharMorph", "GPL-3.0", "per character", "free", "parametric body", false, "knowledge"],
-        ["Human Generator", "GPL (presumed)", "proprietary", "paid", "realistic humans, expressions", true, "knowledge"],
-        ["Auto-Rig Pro", "GPL (presumed)", null, "paid", "body + bone-based face rig, export, retarget", false, "knowledge"],
-        ["KeenTools FaceBuilder", "GPL front-end + proprietary core", "EULA", "subscription with trial", "photo-pinned head fit", true, "knowledge"],
-        ["MediaPipe", "Apache-2.0", "model cards not captured", "free", "landmarks + blendshape scores", false, "knowledge"],
-        ["ICT-FaceKit", "MIT", "MIT", "free", "PCA head + ARKit-style shapes", true, "knowledge"]
+        [
+          "MPFB2",
+          "GPL-3.0-or-later",
+          "CC0 base mesh/targets/system assets; asset packs CC0 or CC-BY",
+          "free",
+          "parametric base human",
+          false,
+          "code verified; assets verified"
+        ],
+        [
+          "Faceit",
+          null,
+          null,
+          "paid",
+          "expression shape-key generator + bake",
+          true,
+          "sourced"
+        ],
+        [
+          "Face Shape Key Rig",
+          "GPL",
+          null,
+          "free",
+          "slider/2D-pad controller for existing keys",
+          false,
+          "sourced"
+        ],
+        [
+          "CaptureForge",
+          "GPL-3.0",
+          null,
+          null,
+          "posed rig to ARKit 52; video/webcam drive",
+          true,
+          "sourced"
+        ],
+        [
+          "mediapipe-facecap-for-blender",
+          null,
+          null,
+          null,
+          "live MediaPipe capture (transmitter + receiver)",
+          null,
+          "sourced"
+        ],
+        [
+          "FLAME Blender add-on",
+          "open (exact licence not recalled)",
+          "FLAME 2017-2023: non-commercial research; FLAME 2023 Open: CC-BY-4.0",
+          "free for research",
+          "PCA head as shape keys + armature",
+          true,
+          "knowledge/contested"
+        ],
+        [
+          "MB-Lab",
+          "AGPL-3.0",
+          "separate licence for generated characters (possibly CC-BY 4.0)",
+          "free",
+          "parametric body",
+          false,
+          "knowledge/contested"
+        ],
+        [
+          "CharMorph",
+          "GPL-3.0",
+          "per character",
+          "free",
+          "parametric body",
+          false,
+          "knowledge"
+        ],
+        [
+          "Human Generator",
+          "GPL (presumed)",
+          "proprietary",
+          "paid",
+          "realistic humans, expressions",
+          true,
+          "knowledge"
+        ],
+        [
+          "Auto-Rig Pro",
+          "GPL (presumed)",
+          null,
+          "paid",
+          "body + bone-based face rig, export, retarget",
+          false,
+          "knowledge"
+        ],
+        [
+          "KeenTools FaceBuilder",
+          "GPL front-end + proprietary core",
+          "EULA",
+          "subscription with trial",
+          "photo-pinned head fit",
+          true,
+          "knowledge"
+        ],
+        [
+          "MediaPipe",
+          "Apache-2.0",
+          "model cards not captured",
+          "free",
+          "landmarks + blendshape scores",
+          false,
+          "knowledge"
+        ],
+        [
+          "ICT-FaceKit",
+          "MIT",
+          "MIT",
+          "free",
+          "PCA head + ARKit-style shapes",
+          true,
+          "knowledge"
+        ]
       ],
       "population": "n/a",
       "source_urls": [
@@ -92,7 +388,9 @@
         "https://extensions.blender.org/add-ons/face-shapekey-rig/",
         "https://github.com/Fragid/face-shapekey-rig",
         "https://github.com/H0wZy/captureforge",
-        "https://github.com/mozi1924/mediapipe-facecap-for-blender"
+        "https://github.com/mozi1924/mediapipe-facecap-for-blender",
+        "https://flame.is.tue.mpg.de/modellicense.html",
+        "https://static.makehumancommunity.org/about/license.html"
       ],
       "status": "contested",
       "notes": "null = not captured. Knowledge rows are unverified and must be checked before any licence decision."
@@ -100,49 +398,199 @@
     {
       "name": "arkit52_by_region",
       "units": "blendshapes",
-      "columns": ["region", "count", "members"],
+      "columns": [
+        "region",
+        "count",
+        "members"
+      ],
       "rows": [
-        ["eyes", 14, "eyeBlink, eyeLookDown, eyeLookIn, eyeLookOut, eyeLookUp, eyeSquint, eyeWide x Left/Right"],
-        ["jaw", 4, "jawOpen, jawForward, jawLeft, jawRight"],
-        ["mouth", 23, "mouthClose, mouthFunnel, mouthPucker, mouthLeft, mouthRight, mouthRollUpper, mouthRollLower, mouthShrugUpper, mouthShrugLower; mouthSmile, mouthFrown, mouthDimple, mouthStretch, mouthPress, mouthLowerDown, mouthUpperUp x Left/Right"],
-        ["brows", 5, "browDownLeft, browDownRight, browInnerUp, browOuterUpLeft, browOuterUpRight"],
-        ["cheeks", 3, "cheekPuff, cheekSquintLeft, cheekSquintRight"],
-        ["nose", 2, "noseSneerLeft, noseSneerRight"],
-        ["tongue", 1, "tongueOut"]
+        [
+          "eyes",
+          14,
+          "eyeBlink, eyeLookDown, eyeLookIn, eyeLookOut, eyeLookUp, eyeSquint, eyeWide x Left/Right"
+        ],
+        [
+          "jaw",
+          4,
+          "jawOpen, jawForward, jawLeft, jawRight"
+        ],
+        [
+          "mouth",
+          23,
+          "mouthClose, mouthFunnel, mouthPucker, mouthLeft, mouthRight, mouthRollUpper, mouthRollLower, mouthShrugUpper, mouthShrugLower; mouthSmile, mouthFrown, mouthDimple, mouthStretch, mouthPress, mouthLowerDown, mouthUpperUp x Left/Right"
+        ],
+        [
+          "brows",
+          5,
+          "browDownLeft, browDownRight, browInnerUp, browOuterUpLeft, browOuterUpRight"
+        ],
+        [
+          "cheeks",
+          3,
+          "cheekPuff, cheekSquintLeft, cheekSquintRight"
+        ],
+        [
+          "nose",
+          2,
+          "noseSneerLeft, noseSneerRight"
+        ],
+        [
+          "tongue",
+          1,
+          "tongueOut"
+        ]
       ],
       "population": "n/a (Apple ARKit specification)",
-      "source_urls": ["https://github.com/H0wZy/captureforge"],
+      "source_urls": [
+        "https://github.com/H0wZy/captureforge"
+      ],
       "status": "knowledge",
       "notes": "Total 52 is sourced (CaptureForge); the per-region breakdown and names are expert knowledge from the ARKit ARFaceAnchor.BlendShapeLocation list. Left/Right refers to the face's own side; check against mirrored capture."
     },
     {
       "name": "solver_default_priors",
       "units": "as stated per row (IOD = image inter-ocular distance)",
-      "columns": ["quantity", "default", "sigma", "units", "notes"],
+      "columns": [
+        "quantity",
+        "default",
+        "sigma",
+        "units",
+        "notes"
+      ],
       "rows": [
-        ["anchor_landmark_residual", 0, 0.015, "fraction of IOD", "eye/mouth corners, nose tip, subnasale; fixed correspondence"],
-        ["contour_landmark_residual", 0, 0.025, "fraction of IOD", "eyelid/lip contour; sliding along contour"],
-        ["face_oval_landmark_residual", 0, 0.04, "fraction of IOD", "silhouette residual, re-associated every iteration"],
-        ["iris_centre_residual", 0, 0.01, "fraction of IOD", "478 mode only"],
-        ["mediapipe_z_weight_multiview", 0.0, null, "relative weight vs xy", "ignore z when >= 2 views"],
-        ["mediapipe_z_weight_singleview", 0.1, null, "relative weight vs xy", "upper bound"],
-        ["huber_delta", 2, null, "multiples of sigma", "robust loss"],
-        ["outlier_reject", 4, null, "multiples of sigma", "after first solve, per view"],
-        ["horizontal_iris_diameter", 11.7, 0.5, "mm", "figure used by MediaPipe Iris; scale prior"],
-        ["interpupillary_distance_adult", 63, 3.5, "mm", "population prior; user-measured value overrides with sigma 1 mm"],
-        ["mpfb_local_target_weight", 0, 0.5, "slider units in [-1,1]", "plus hard box"],
-        ["mpfb_macro_toward_user_value", null, 0.15, "slider units in [0,1]", "only when user supplies age/height/sex"],
-        ["flame_shape_coeff", 0, 1.0, "standard deviations", "use first 50-100 components for photo fits"],
-        ["expression_absorb_coeff", 0, 0.3, "basis units", "fit then discard"],
-        ["residual_offset_cap", null, 5, "mm", "unless several views agree"],
-        ["symmetry_prior", 0, 1.5, "mm L/R mismatch", "range 1-2 mm; soft, never hard mirror"],
-        ["laplacian_weight_schedule", "10 -> 1", null, "relative", "annealed coarse to fine"],
-        ["exif_focal_to_pixels", "f_px = f35 * sqrt(W^2+H^2) / 43.27", null, "px", "43.27 mm = 35 mm frame diagonal"]
+        [
+          "anchor_landmark_residual",
+          0,
+          0.015,
+          "fraction of IOD",
+          "eye/mouth corners, nose tip, subnasale; fixed correspondence"
+        ],
+        [
+          "contour_landmark_residual",
+          0,
+          0.025,
+          "fraction of IOD",
+          "eyelid/lip contour; sliding along contour"
+        ],
+        [
+          "face_oval_landmark_residual",
+          0,
+          0.04,
+          "fraction of IOD",
+          "silhouette residual, re-associated every iteration"
+        ],
+        [
+          "iris_centre_residual",
+          0,
+          0.01,
+          "fraction of IOD",
+          "478 mode only"
+        ],
+        [
+          "mediapipe_z_weight_multiview",
+          0.0,
+          null,
+          "relative weight vs xy",
+          "ignore z when >= 2 views"
+        ],
+        [
+          "mediapipe_z_weight_singleview",
+          0.1,
+          null,
+          "relative weight vs xy",
+          "upper bound"
+        ],
+        [
+          "huber_delta",
+          2,
+          null,
+          "multiples of sigma",
+          "robust loss"
+        ],
+        [
+          "outlier_reject",
+          4,
+          null,
+          "multiples of sigma",
+          "after first solve, per view"
+        ],
+        [
+          "horizontal_iris_diameter",
+          11.7,
+          0.5,
+          "mm",
+          "figure used by MediaPipe Iris; scale prior"
+        ],
+        [
+          "interpupillary_distance_adult",
+          63,
+          3.5,
+          "mm",
+          "population prior; user-measured value overrides with sigma 1 mm"
+        ],
+        [
+          "mpfb_local_target_weight",
+          0,
+          0.5,
+          "slider units in [-1,1]",
+          "plus hard box"
+        ],
+        [
+          "mpfb_macro_toward_user_value",
+          null,
+          0.15,
+          "slider units in [0,1]",
+          "only when user supplies age/height/sex"
+        ],
+        [
+          "flame_shape_coeff",
+          0,
+          1.0,
+          "standard deviations",
+          "use first 50-100 components for photo fits"
+        ],
+        [
+          "expression_absorb_coeff",
+          0,
+          0.3,
+          "basis units",
+          "fit then discard"
+        ],
+        [
+          "residual_offset_cap",
+          null,
+          5,
+          "mm",
+          "unless several views agree"
+        ],
+        [
+          "symmetry_prior",
+          0,
+          1.5,
+          "mm L/R mismatch",
+          "range 1-2 mm; soft, never hard mirror"
+        ],
+        [
+          "laplacian_weight_schedule",
+          "10 -> 1",
+          null,
+          "relative",
+          "annealed coarse to fine"
+        ],
+        [
+          "exif_focal_to_pixels",
+          "f_px = f35 * sqrt(W^2+H^2) / 43.27",
+          null,
+          "px",
+          "43.27 mm = 35 mm frame diagonal"
+        ]
       ],
       "population": "Design defaults for the fitting engine; IPD and iris figures describe adults",
-      "source_urls": [],
+      "source_urls": [
+        "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/"
+      ],
       "status": "knowledge",
-      "notes": "Engineering choices, not measurements, except the iris and IPD figures, which are expert knowledge awaiting verification. Tune on held-out multi-view captures."
+      "notes": "Engineering choices, not measurements, except the iris and IPD figures, which are expert knowledge awaiting verification. Tune on held-out multi-view captures. Iris diameter 11.7 +/- 0.5 mm confirmed 2026-11-20 (Google Research MediaPipe Iris blog); IPD still unverified."
     }
   ]
 }

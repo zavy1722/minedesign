@@ -91,7 +91,7 @@
      null,
      "mm",
      "about 1.1-2.4 deg jaw rotation at r=95-105 mm",
-     "knowledge"
+     "verified-single-source"
     ],
     [
      "upper incisor display at rest",
@@ -100,7 +100,7 @@
      "men ~1.9, women ~3.4 (Vig & Brundo)",
      "mm",
      "decreases with age; repeatable large display is identity",
-     "knowledge"
+     "verified-single-source"
     ],
     [
      "resting interlabial gap, competent lips",
@@ -149,7 +149,10 @@
     ]
    ],
    "population": "adults, mostly Western samples",
-   "source_urls": [],
+   "source_urls": [
+    "https://speareducation.com/2019/05/options-for-determining-vertical-dimension-with-edentulous-patients",
+    "https://www.jco-online.com/archive/1998/07/432-esthetic-factors-involved-in-anterior-tooth-display-and-the-smile-vertical-dimension/"
+   ],
    "status": "knowledge",
    "notes": "Use as sanity checks and prior centres for a 'neutral' tag; verify before hard-coding."
   },

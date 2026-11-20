@@ -1,6 +1,22 @@
 {
   "topic": "forensic-reconstruction",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "Stephan 2002, Facial approximation: globe projection guideline falsified by exophthalmometry literature",
+      "url": "https://ojp.gov/ncjrs/virtual-library/abstracts/facial-approximation-globe-projection-guideline-falsified"
+    },
+    {
+      "n": 2,
+      "title": "Stephan & Davidson 2008, The placement of the human eyeball and canthi in craniofacial identification",
+      "url": "https://www.pubmed.gov/18471206/"
+    },
+    {
+      "n": 3,
+      "title": "Stephan & Henneberg 2003, Predicting mouth width from inter-canine width - a 75% rule",
+      "url": "https://digital.library.adelaide.edu.au/dspace/handle/2440/5388"
+    }
+  ],
   "notes": "No web harvest or earlier draft existed for this topic, so no URLs are cited. Linked sources on tissue depth, nose-aperture relations and Manchester-method accuracy are in research/sources/skull-osteology.json (its [1], [16], [17], [39], [42], [43], [46]-[48], [51]); corneal diameter as scale in research/sources/eyes-modeling-blender.json.",
   "references_by_name": [
     "Gerasimov MM, The Face Finder, English translation 1971 (Russian original 1955)",

@@ -2,7 +2,7 @@
 
 > A photo texture is built by rasterising the head's UV layout into per-texel 3D positions and normals, projecting each texel into every solved camera, keeping samples that are visible, front-facing and away from occlusion edges, matching colour across photos, and combining them. The seams that matter are **view-transition seams on the surface**, not UV seams. They come from geometric misregistration (a normal-direction error δn shifts a sample by ≈ δn·tan θ) and from exposure, white-balance and specular differences between views. The robust recipe is per-image gain compensation in linear RGB; then either best-view selection with seam levelling or two-band blending (low frequencies averaged widely, detail taken from one view); then hole filling ranked by honesty: mirror, harmonic/push-pull, statistical albedo, and only last generative (GAN or diffusion) inpainting, masked and recorded in a confidence map. Useful texel density is capped by photo sampling (about 0.05–0.15 mm/px for good capture). No harvest or prior draft exists for this topic, so every item is expert knowledge or arithmetic.
 >
-> Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 1 📄 / 59 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -48,7 +48,7 @@
 
 **De-lighting**
 - **Cross-polarisation removes surface specular only.** Shading, ambient occlusion and subsurface blur remain (`blender/skin-shading.md`) 🧠
-- **Spherical-harmonic (SH) de-lighting:** 9 coefficients per channel represent Lambertian irradiance closely (Ramamoorthi & Hanrahan 2001). Estimate them from texture + normals under a low-variance-albedo assumption, then divide 🧠
+- **Spherical-harmonic (SH) de-lighting:** 9 coefficients per channel represent Lambertian irradiance closely (Ramamoorthi & Hanrahan 2001). Estimate them from texture + normals under a low-variance-albedo assumption, then divide. The paper reports about 1% average error for 9 parameters [3] 📄
 - **Divide only part of the AO** (AO^γ, γ ≈ 0.3–0.6): skin's subsurface scattering and interreflection fill creases, so full division over-brightens nasolabial folds and orbits ↔️
 - **The high-pass "de-light" is a myth:** it also removes real low-frequency albedo (cheek flush, under-eye pigment, beard shadow) 🧠
 - **Double diffusion:** photo albedo already contains subsurface blur, so Random Walk SSS on top reads slightly soft or waxy. A mild unsharp mask (radius ≈ 0.5–1 mm) is a common, contested fix ↔️
@@ -93,7 +93,7 @@ Match to capture: a 24 MP full-frame camera framing 400 mm gives 0.067 mm/px; a 
 3. **Prepare photos.** Use a separate texture pass under flat light, cross-polarised if possible, with manual exposure and WB and a chart in the first frame. Develop RAW to 16-bit with chart and vignetting correction, no sharpening, light noise reduction. Undistort if the lens model exceeds k1, k2. Blender has no camera distortion.
 4. **Project.**
    - **Recommended:** run the engine (below); Blender only loads `albedo.exr` (Linear) and `confidence.png` (Non-Color).
-   - **Pure Blender, small jobs:** subdivide to edges ≤2–3 mm (the UV Project modifier interpolates affinely within a face). Per camera, make a duplicate with a UV Project modifier (projector = camera, aspect = image aspect) and an Emission material reading the photo through that UV map, then bake Emit into the main UV (Cycles, margin 16 px, margin type Extend or Adjacent Faces). For the weight, put a point light at the camera centre (radius 0, shadows on) and bake Diffuse ▸ Direct on a white material: that gives vis·cos θ/d², with true occlusion. Combine the layers outside Blender.
+   - **Pure Blender, small jobs:** subdivide to edges ≤2–3 mm (the UV Project modifier interpolates affinely within a face). Per camera, make a duplicate with a UV Project modifier (projector = camera, aspect = image aspect) and an Emission material reading the photo through that UV map, then bake Emit into the main UV (Cycles, margin 16 px, margin type Extend or Adjacent Faces; 16 px is the documented default and both types exist [1]). For the weight, put a point light at the camera centre (radius 0, shadows on) and bake Diffuse ▸ Direct on a white material: that gives vis·cos θ/d², with true occlusion. Combine the layers outside Blender.
    - **Manual:** stencil or projection paint (Image ▸ Apply Camera Image) per view, with painted masks.
 5. **Inspect** the confidence overlay, view-transition seams (cheek, temple, under the nose), lid margins and nose highlights.
 6. **Order of operations:** colour-match → blend → fill → de-light → optional mild sharpen → save. Base Color is sRGB for 8/16-bit PNG and Linear for EXR. Keep confidence and best-view maps as Non-Color.
@@ -157,13 +157,17 @@ Proposed module `face3d/texture/`, numpy-only, built on `Mesh` (`uvs`, `face_uvs
 - **Exponent p and θ_max** are tuned by taste; no face-specific study is known to me ↔️
 - **"Bigger maps = more detail."** Myth beyond the photo GSD (Table 1) 🧠
 - **"Cross-polarised = de-lit."** Myth: only specular is removed 🧠
-- **Generative completion for likeness** is contested: diffusion fills look plausible but are not the person. Licences vary (some Hunyuan licences exclude the EU, UK and South Korea), as do identity-safety controls and skin-tone bias ↔️
+- **Generative completion for likeness** is contested: diffusion fills look plausible but are not the person. Licences vary (Tencent Hunyuan 3D 2.x licences exclude the EU, UK and South Korea from their Territory [2]), as do identity-safety controls and skin-tone bias ↔️
 - **De-light or not?** Sculptors may want residual shading as a form cue; renderers need de-lit albedo. Keep both ↔️
 - **Open questions** 🧠 (time-sensitive): the best open face-UV completion model as of late 2026 and its licence; whether baking Gaussian-splat avatars to UV beats classic projection; how well learned de-lighters handle dark skin; whether current Blender versions changed bake margin types or the Apply Camera Image operator.
 
 ## Sources
 
-None linked: no harvest or prior draft exists for this topic. Related notes: `blender/skin-shading.md`, `reconstruction/photogrammetry-heads.md`, `blender/reference-camera-setup.md`, `community/ai-assisted-sculpting.md`, `reconstruction/single-image-regression.md`, `blender/import-export-scans.md`.
+1. Blender Python API, Bake Margin Type Items and BakeSettings (default margin 16; Extend, Adjacent Faces): https://docs.blender.org/api/current/bpy_types_enum_items/bake_margin_type_items.html , https://docs.blender.org/api/current/bpy.types.BakeSettings.html
+2. Tencent Hunyuan 3D 2.1 Community License (Territory excludes EU, UK, South Korea): https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE ; 2.0 text: https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE
+3. Ramamoorthi & Hanrahan, SIGGRAPH 2001 (9 SH coefficients, ~1% average error): https://graphics.stanford.edu/papers/envmap/ , https://history.siggraph.org/?p=116946
+
+No other sources linked. Related notes: `blender/skin-shading.md`, `reconstruction/photogrammetry-heads.md`, `blender/reference-camera-setup.md`, `community/ai-assisted-sculpting.md`, `reconstruction/single-image-regression.md`, `blender/import-export-scans.md`.
 
 **Further reading (by name, not yet linked)**
 - Debevec, Taylor & Malik, "Modeling and Rendering Architecture from Photographs", SIGGRAPH 1996 (view-dependent texture mapping)
@@ -191,3 +195,10 @@ None linked: no harvest or prior draft exists for this topic. Related notes: `bl
 - Zeng et al., "Paint3D: Paint Anything 3D with Lighting-Less Texture Diffusion Models", CVPR 2024
 - Lee, Liu, Wu & Luo, "MaskGAN: Towards Diverse and Interactive Facial Image Manipulation" (CelebAMask-HQ face parsing), CVPR 2020
 - Yu et al., "BiSeNet: Bilateral Segmentation Network for Real-time Semantic Segmentation", ECCV 2018
+
+## Verification log (2026-11-20)
+
+- **Waechter et al. 2014 method details** (gradient-magnitude data term, photo-consistency, global additive colour levelling, ~20 px Poisson seam strip): unconfirmed. Search confirmed only the paper's identity and, via a secondary description, the photo-consistency check and improved global colour adjustment; Poisson editing and gradient magnitude were not seen in results. Badges left at 🧠. https://link.springer.com/content/pdf/10.1007/978-3-319-10602-1_54.pdf
+- **Blender bake margin (16 px default; Adjacent Faces and Extend types)**: confirmed 📄 [1]. UV Project camera aspect and Image > Apply Camera Image: unconfirmed. https://docs.blender.org/api/current/bpy.types.BakeSettings.html
+- **Hunyuan licence excludes EU, UK, South Korea**: confirmed [2] (the bullet stays ↔️ because the surrounding claims are contested). Which model is state of the art in late 2026: unconfirmed. https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE
+- **Ramamoorthi & Hanrahan 2001: 9 SH coefficients suffice**: confirmed 📄 [3], about 1% average error (abstract excerpt). https://graphics.stanford.edu/papers/envmap/

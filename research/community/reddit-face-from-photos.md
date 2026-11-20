@@ -2,7 +2,7 @@
 
 > On r/blender, r/3Dmodeling, r/photogrammetry, r/ZBrush and r/computergraphics, "make a 3D head of a real person from photos" recurs constantly. Answers point to four routes: template photo-fitting, photogrammetry of a live sitter, sculpting by eye over references and, increasingly, AI image-to-3D. Experienced users agree no automatic route gives a finished likeness: each gives a base that a manual pass must correct for depth, proportions, eyes and hair. Recurring failures are about inputs more than tools: selfie perspective, unmatched front/side photos, mirrored or filtered phone images, sitter motion, hair, beards, eyes and shine. No Reddit thread was retrieved for this note, so everything is the author's synthesis of long-running discussion plus camera arithmetic: hypotheses to verify, not quotes.
 >
-> Evidence status: 0 ✅ / 0 📄 / 58 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 1 📄 / 57 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -14,7 +14,7 @@
 
 **Perspective and input defects**
 - **Orthographic front and side planes** are the classic beginner failure: eye height, ears and chin never line up, because the photos differ in distance, focal length and head pitch. Advice: shoot from ≥1.5–2 m, camera at nose height, head level, or camera-match instead 🧠
-- **Selfie distortion.** Arm's-length photos (about 0.3–0.6 m) make the nose and central face bigger and the face, jaw and ears smaller. Ward et al. (2018) reported that nasal width looks about 30% larger at 12 in than at 5 ft 🧠 (figure to verify)
+- **Selfie distortion.** Arm's-length photos (about 0.3–0.6 m) make the nose and central face bigger and the face, jaw and ears smaller. Ward et al. (2018) modelled that the nasal base looks about 30% wider (nasal tip about 7%) at 12 in than at 5 ft 📄 [1] (corrected in verification: 30% applies to the nasal base, not overall nasal width; figure from press/university coverage, not the paper text)
 - **Perspective depends on distance only.** "Telephoto flattens the face" is shorthand: at equal distance, focal length only crops. At ≥3 m the projection of a head is within about 4% of orthographic (Table 1) 🧠
 - **Mirrored selfies.** Front cameras on some phones and apps save a mirrored image. This flips hair partings, moles and real asymmetry, and it breaks multi-view solves 🧠
 - **Processed images.** Beauty, face-slimming and wide-angle face-correction modes, portrait-mode processing and social-media re-compression or cropping change geometry and strip EXIF. Use originals, filters off 🧠
@@ -90,7 +90,7 @@ Phone main and front cameras are about 22–30 mm equivalent 🧠. That is why a
 | Reallusion Headshot (CC4) | 1 photo or mesh | paid | fast rigged head, likeness middling | 🧠 |
 | Daz Face Transfer | 1 frontal photo | free base | "plastic", Daz-only | 🧠 |
 | FaceGen Modeller | 1–3 photos | paid | dated, generic | 🧠 |
-| MetaHuman (Mesh/footage to MetaHuman) | scan or depth video | free with Unreal; use outside Unreal changed 2025 | best rig, needs a clean neutral scan | ↔️ |
+| MetaHuman (Mesh/footage to MetaHuman) | scan or depth video | free with Unreal; use outside Unreal changed 2025 (UE 5.6; other tools incl. Blender allowed, but Blender export is clunky) [2][3] | best rig, needs a clean neutral scan | ✅ |
 | RealityCapture/RealityScan | photos | free under about US$1 M revenue (2024 change) | top quality, CUDA | 🧠 |
 | Agisoft Metashape | photos | Standard/Pro perpetual licences | robust, runs on Mac | 🧠 |
 | Meshroom / COLMAP | photos | open source (MPL-2.0 / BSD) | free, slower, CUDA for dense | 🧠 |
@@ -156,7 +156,9 @@ Phone main and front cameras are about 22–30 mm equivalent 🧠. That is why a
 
 ## Sources
 
-No harvested sources exist for this topic, so no URLs are cited.
+1. Rutgers news, selfies and nasal distortion: https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
+2. CG Channel, MetaHumans in Unity/Godot (June 2025): https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/
+3. Creative Bloq, MetaHuman outside Unreal: https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters
 
 **Further reading (by name, not yet linked)**
 - Ward, Ward, Fried, Paskhover, "Nasal distortion in short-distance photographs: the selfie effect", JAMA Facial Plastic Surgery, 2018
@@ -173,3 +175,10 @@ No harvested sources exist for this topic, so no URLs are cited.
 - Farkas, *Anthropometry of the Head and Face*, 1994
 - Dodgson, "Variation and extrema of human interpupillary distance", Proc. SPIE, 2004
 - Faraut, *Portrait Sculpting: Anatomy & Expressions in Clay*
+
+## Verification log (2026-11-20)
+
+- Adult IPD about 63 mm, SD about 3.5 mm: unconfirmed. Secondary sources cite Dodgson (2004) mean near 63 mm (63.36 mm cited), but no SD found and no result tied to a specific page. 🧠 kept.
+- Ward et al. 2018 30% at 12 in vs 5 ft: corrected/confirmed (nasal base about 30%, tip about 7%). https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
+- Nose-to-tragion depth 10-12 cm (Farkas): unconfirmed; no values found. 🧠 kept.
+- MetaHuman usable outside Unreal incl. Blender, UE 5.6 era (2025): confirmed (Blender export unofficial/clunky). https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/ ; https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters

@@ -2,7 +2,7 @@
 
 > The face is the skull plus a soft-tissue cover whose thickness varies about tenfold, from ≈3 mm on the bony nasal dorsum to 15–25 mm over cheek and masseter. Bone therefore shows through skin only in predictable zones: forehead and brow ridge, orbital rims, nasal bones, zygomatic body and arch, and the chin and jaw border. At thin midline points (glabella ≈5–5.5 mm, nasion ≈6–7 mm, rhinion ≈3 mm, pogonion ≈11–12 mm) a photo-derived surface must follow bone closely [1][7][31]. Thick zones follow fat, muscle, age and BMI [2][4]. Bone also sets the sculptor's plane breaks (temporal line, lateral orbital rim, malar body, arch, mandibular border). Lateral points (zygion, gonion) are poorly observable from skin [11], and depth tables are population priors with large individual error [45][47][48].
 >
-> Evidence status: 17 ✅ / 43 📄 / 53 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 18 ✅ / 44 📄 / 52 🧠 / 16 ↔️ (recounted after 2026-11-20 verification) — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -15,7 +15,7 @@
 **Orbit**
 - The rim is frontal (superior), zygomatic (lateral, inferolateral) and maxillary (inferomedial; the frontal process forms the medial rim) [23][27][28] ✅. The floor is maxilla, palatine and zygoma [27] 📄.
 - The rim is thicker than the walls, and the lateral rim is the least projected [23] 📄. In profile at eye level the order is brow/supraorbital rim → corneal apex → infraorbital rim → lateral orbital rim 🧠.
-- The corneal apex sits ≈12–20 mm in front of the lateral orbital rim (normal Hertel range, higher on average in people of African ancestry) 🧠. When the cornea projects past the infraorbital rim and cheek (a "negative vector", usually with maxillary under-projection), the eyes look prominent 🧠.
+- The corneal apex sits ≈12–20 mm in front of the lateral orbital rim (normal Hertel range, higher on average in people of African ancestry; Hertel means ≈15–18.5 mm with upper normal limits ≈20–25 mm, Black adults higher [52]) ↔️. When the cornea projects past the infraorbital rim and cheek (a "negative vector", usually with maxillary under-projection), the eyes look prominent 🧠.
 - The aperture is ≈35 mm high × 40 mm wide [23] 📄, its long axis tilting down laterally 🧠.
 - The medial canthal tendon inserts on the anterior lacrimal crest. The lateral one inserts on Whitnall's tubercle a few mm inside the lateral rim, so the lateral canthus sits deep and usually slightly higher 🧠.
 - The infraorbital foramen lies ≈6 mm below the rim (reported 5–8.5 mm, up to ~1 cm) [28][29] ↔️.
@@ -82,14 +82,14 @@
 | Orbital aperture h × w | ≈35 × 40 mm | not stated | [23] | 📄 |
 | Supraorbital notch from midline | ≈20 mm (medial third of rim) | not stated | [23][24][25] | ✅ |
 | Infraorbital foramen below rim | 5.8 R / 6.2 L; 8.5 M / 7.8 F; ~6 (5–8.5); ~10 | N. Indian skulls; cadavers | [28][29] | ↔️ |
-| Cornea apex ahead of lateral orbital rim | ~12–20 mm | Hertel norms, ancestry-dependent | — | 🧠 |
+| Cornea apex ahead of lateral orbital rim | ~12–20 mm; means 15.4–18.5, upper limits 20.1–24.7 (white < Black) | Hertel norms, ancestry-dependent, n = 681 | [52] | ↔️ |
 | Nasal bone length | ≈21 mm (type A commonest; no D/E types) | Korean 3D-CT, n = 75 | [15] | 📄 |
 | Piriform aperture width × height | ~22–26 × 30–35 mm | expert range | — | 🧠 |
 | Piriform index | 0.79 (mostly platyrrhine) | N. Indian skulls, n = 40 | [13] | 📄 |
 | Piriform aperture area | 12.6 cm² F / 16.0 cm² M; "pear" type 42.86 % | crania, n = 70 | [14] | ↔️ suspect |
 | Soft alar width minus aperture width | ~8–16 mm (rules disagree) | forensic rules of thumb | — | ↔️ 🧠 |
 | Gonial angle, adult | ≈120°; 120.17° | StatPearls; young adult male dry bone | [35][36] | ✅ |
-| Gonial angle, typical adult spread | ~110–135° | expert range | — | 🧠 |
+| Gonial angle, typical adult spread | ~110–135°; CBCT means 125–129° (F > M), cephalometric 121–126° | CBCT n = 141; lateral ceph | [53] | ↔️ |
 | Gonial angle, birth | ≈160° | — | [35] | 📄 |
 | Bizygomatic breadth (soft) | ~125–145 mm (M > F) | Farkas-type norms | — | 🧠 |
 | Bigonial / bizygomatic | ~0.70–0.80 | expert range | — | 🧠 |
@@ -196,6 +196,8 @@
 [48] Anthropological facial "reconstruction": recognizing the fallacies, "unembracing" the errors, and realizing method limits — https://www.researchgate.net/publication/8927033_Anthropological_facial_'reconstruction--recognizing_the_fallacies_'unembracing'_the_errors_and_realizing_method_limits — paper (critique) — year unconfirmed
 [49] Temporal and malar-zygomatic reduction and augmentation — https://pubmed.ncbi.nlm.nih.gov/2015750/ — paper — year unconfirmed
 [50] Skull-to-Face: Anatomy-Guided 3D Facial Reconstruction and Editing — https://arxiv.org/pdf/2403.16207 — preprint — 2024
+[52] Determination of the Normal Range of Exophthalmometric Values for Black and White Adults (Migliori & Gladstone) — https://www.bohrium.com/paper-details/determination-of-the-normal-range-of-exophthalmometric-values-for-black-and-white-adults/812031073310474241-5193 — paper — 1984
+[53] A Morphometric Evaluation of the Mandibular Condyle, Coronoid Process, and Gonial Angle: Age and Gender Differences in CBCT Imaging — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12191486/ — paper — 2025
 [51] FutureLearn: Forensic facial reconstruction (Manchester method step) — https://futurelearn.com/info/courses/forensic-facial-reconstruction/0/steps/31185 — course — year unconfirmed
 
 **Further reading (by name, not yet linked)**
@@ -212,3 +214,10 @@
 - Haddock NT et al., "The tear trough and lid/cheek junction: anatomy and implications for surgical correction", Plast Reconstr Surg, 2009.
 - Björk A, "Prediction of mandibular growth rotation", Am J Orthod, 1969; McNamara JA, "A method of cephalometric evaluation", Am J Orthod, 1984.
 - Goldfinger E, *Human Anatomy for Artists*, 1991; Zarins U, *Anatomy of Facial Expression*, 2017; the Asaro planes-of-the-head teaching model.
+
+## Verification log (2026-11-20)
+
+- Expert-range soft-tissue depths (supraorbital, infraorbital, lateral orbit, zygion, inferior malar, buccal, gonion, mid-philtrum, menton): unconfirmed. Search found only that the 2023 T-table update raised gonion by 2.5 mm and zygion by 1.5 mm vs 2008, without per-landmark values. https://link.springer.com/article/10.1007/s00414-023-03087-x
+- Corneal apex 12–20 mm ahead of lateral rim, higher in African ancestry: contested. Higher in Black adults confirmed; Migliori & Gladstone 1984 (n = 681) give means 15.4–18.5 mm and upper limits 20.1–24.7 mm. https://www.bohrium.com/paper-details/determination-of-the-normal-range-of-exophthalmometric-values-for-black-and-white-adults/812031073310474241-5193
+- Gonial angle ~120° adult, spread 110–135°, males more acute: contested. CBCT (n = 141) means 125.3–128.8° (females higher); cephalometric 121–126°. Males more acute is supported; the 120° mean sits at the low end. 90°/110° pair stays implausible. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12191486/
+- Pooled glabella 5.5 / nasion 6.0 / rhinion 3.0 mm: unconfirmed (review found, values not visible in results). https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10861615/

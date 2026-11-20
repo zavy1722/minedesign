@@ -70,6 +70,34 @@
       "url": "https://github.com/finetech-nexus/ai-api/releases/tag/weights-v1",
       "kind": "forum",
       "year": ""
+    },
+    {
+      "n": 11,
+      "title": "InsightFace python-package README (pretrained models non-commercial research only)",
+      "url": "https://github.com/deepinsight/insightface/blob/master/python-package/README.md",
+      "kind": "repo",
+      "year": "2024"
+    },
+    {
+      "n": 12,
+      "title": "InsightFace enterprise model licensing",
+      "url": "https://www.insightface.ai/solutions/face-recognition-licensing",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 13,
+      "title": "InsightFace face_align.py (arcface_dst template)",
+      "url": "https://github.com/deepinsight/insightface/blob/master/python-package/insightface/utils/face_align.py",
+      "kind": "repo",
+      "year": "2024"
+    },
+    {
+      "n": 14,
+      "title": "OpenCV DNN face detection and recognition tutorial (SFace thresholds)",
+      "url": "https://docs.opencv.org/4.13.0/d0/dd4/tutorial_dnn_face.html",
+      "kind": "official-docs",
+      "year": "2026"
     }
   ],
   "references_by_name": [

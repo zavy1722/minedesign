@@ -56,9 +56,12 @@
     ]
    ],
    "population": "pinhole model; nose-tip to ear-plane depth dz = 0.10 m (assumed adult range 0.09-0.11 m)",
-   "source_urls": [],
+   "source_urls": [
+    "https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery",
+    "https://consumer.healthday.com/cosmetic-surgery-29/nose-surgery-500/nasal-distortive-effect-described-in-selfies-731642.html"
+   ],
    "status": "knowledge",
-   "notes": "Derived: magnification = (d+dz)/d; f = 36*d/0.40 for full-frame with 36 mm side vertical. Higher-resolution sensors allow 85-135 mm at 2-3 m with cropping. Ward et al. 2018 (selfie effect) reportedly found ~30% nasal-base widening at ~30 cm vs ~1.5 m; unverified."
+   "notes": "Derived: magnification = (d+dz)/d; f = 36*d/0.40 for full-frame with 36 mm side vertical. Higher-resolution sensors allow 85-135 mm at 2-3 m with cropping. Ward et al. 2018 (selfie effect) reportedly found ~30% nasal-base widening at ~30 cm vs ~1.5 m; press-confirmed 2026-11-20 (Rutgers release: ~30% wider nasal base at 12 in vs 5 ft; HealthDay: 30%/29% M/F vs orthographic baseline); dz=0.10 m still unconfirmed."
   },
   {
    "name": "photo_scale_anchors_adult",
@@ -82,10 +85,10 @@
     ],
     [
      "horizontal visible iris diameter",
-     11.5,
-     12.0,
-     10.7,
-     12.8,
+     11.6,
+     12.4,
+     10.0,
+     13.0,
      "per-photo scale when iris spans >= 20 px"
     ],
     [
@@ -138,9 +141,11 @@
     ]
    ],
    "population": "adults, mixed populations, approximate",
-   "source_urls": [],
-   "status": "knowledge",
-   "notes": "Expert-knowledge ranges, not yet checked against sources in this library; Hertel row is contested across populations. Prefer population-specific values from the anatomy notes."
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8284630"
+   ],
+   "status": "contested (iris row); knowledge (others)",
+   "notes": "Expert-knowledge ranges, not yet checked against sources in this library; Hertel row is contested across populations. Prefer population-specific values from the anatomy notes. Verification 2026-11-20: iris diameter contested (device-dependent means 11.6-12.4 mm, SD ~0.4-0.5; https://pmc.ncbi.nlm.nih.gov/articles/PMC8284630); IPD mean ~63 mm only via secondary source, SD/range unconfirmed."
   },
   {
    "name": "proportion_canons_vs_measured",

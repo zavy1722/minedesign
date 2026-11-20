@@ -81,7 +81,7 @@
    "population": "Blender 4.x-5.x bundled importers",
    "source_urls": [],
    "status": "knowledge",
-   "notes": "Expert knowledge; USD behaviour changes fast across 4.x-5.x (contested). Legacy Python OBJ/PLY/STL add-ons removed in 4.0; COLLADA removed in 5.0."
+   "notes": "Expert knowledge; USD behaviour changes fast across 4.x-5.x (contested). Legacy Python OBJ/PLY add-ons removed in 4.0 (verified); STL add-on only marked legacy in 4.1 (corrected in verification); COLLADA removed in 5.0."
   },
   {
    "name": "native_units_of_inputs",

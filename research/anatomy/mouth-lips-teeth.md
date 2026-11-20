@@ -2,7 +2,7 @@
 
 > Mouth likeness must be fitted from neutral, lips-closed, bare-lip views, with smiles kept as separate shape keys [1]. Identity lives in mouth width (ch–ch), upper-lip height (sn–sto) and its skin/vermilion split, Cupid's-bow peak spacing (≈ philtrum width), the tubercle and lower-lip pillows, how far the corners wrap back, and profile projection, which the incisors and alveolus set as much as soft tissue does [14][15][16]. The lower vermilion is taller than the upper [5][6], but "1.6:1" is an aesthetic target drawn from young white women, not a population mean, and lips change with age and ancestry [2][8]. Classic canons fail for most people [3], and "mouth corners under the pupils" is untested; resting corners usually sit nearer the medial limbus. A fitting tool should encode all of this as weak, age- and population-conditioned priors and QA warnings over a latent dental arch.
 >
-> Evidence status: 3 ✅ / 27 📄 / 50 🧠 / 20 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 29 📄 / 44 🧠 / 23 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -19,10 +19,10 @@
 
 **Dimensions and ratios**
 
-- **Adult upper lip.** Philtrum width is about 11–12 mm and "upper lip height" about 22–23 mm in adults aged 20–59; the cohort and sex split are unconfirmed [2]. 📄 *Correction:* 22–23 mm matches sn–sto (vermilion included), not sn–ls (skin only, about 12–17 mm) as the earlier draft labelled it. 🧠
+- **Adult upper lip.** Philtrum width is about 11–12 mm and "upper lip height" about 22–23 mm in adults aged 20–59; the source study (PMC7984336) is a stereophotogrammetry study of Chinese women aged 20–60, so it is not a general-population norm [2][25]. 📄 *Correction:* 22–23 mm matches sn–sto (vermilion included), not sn–ls (skin only, about 12–17 mm) as the earlier draft labelled it. 🧠
 - **Age.** The upper vermilion is about 8.1 mm at 20–29 and 6.6 mm at 50–59, a loss of about 19% [2]. 📄 With age the skin lip also lengthens, the vermilion turns inward, the bow flattens and the corners turn down. 🧠
 - **Ratio direction.** The lower vermilion is taller than the upper [5][6][8]. ✅
-- **Ratio size.** The cited ideal is about 1.6:1, up to 2:1, and comes mostly from young white women [5][6]. A 2024 review rejects it as universal and notes larger lip volume in Black individuals [8]. ↔️ Measured midline sto–li/ls–sto in young adults of European descent looks nearer 1.1–1.4. 🧠
+- **Ratio size.** The cited ideal is about 1.6:1, up to 2:1, and comes mostly from young white women [5][6]. A 2024 review rejects it as universal and notes larger lip volume in Black individuals [8]. ↔️ Measured midline sto–li/ls–sto ranges from about 1.1 in Chinese young adults (3D, 9.8/9.1 and 11.0/10.2 mm) and about 1.0–1.2 in Black South African women, to about 1.8 in one Caucasian-women study (6.5 mm upper, 11.6 mm lower) [26][27][28]. ↔️
 - **Perception.** An over-filled upper lip looked less artificial once the lower lip was raised to about 1.6× its height [6]. Keeping the red-lip proportion mattered more than shortening the skin lip [7]. 📄
 - **Canons.** In 1,050 young adults, most had a mouth wider than 1.5 × nose width and an intercanthal distance narrower than the nose [3]. 📄 Canons and norms from a single population do not generalize [3][4][8]. ✅
 - **Mouth vs pupils.** No harvested study tests "mouth width = interpupillary distance (IPD)" [3][4]. Typical means (ch–ch ≈50–54 mm, IPD ≈60–65 mm) give ≈0.8–0.9, putting resting corners between the medial limbus (the line surgical texts use) and mid-iris; they reach the pupil lines only in a broad smile. ↔️
@@ -31,7 +31,7 @@
 **Teeth and lip support**
 
 - **Drape.** Lip projection is roughly tooth and alveolar position plus soft tissue about 11–15 mm thick over the upper incisors. 🧠 Reported lip change per 1 mm of incisor change ranges from 0.3 to 0.9 mm. ↔️
-- **Resting display.** About 2–4 mm of upper incisor showing at rest is pleasing [14]. 📄 Women show more than men, and with age upper display falls while lower display rises (Vig & Brundo). 🧠
+- **Resting display.** About 2–4 mm of upper incisor showing at rest is pleasing [14]. 📄 Women show more than men (Vig & Brundo, as cited: ≈3.4 vs ≈1.9 mm [19]), and upper display falls by about 3.4 mm between ages 30 and 60 [24]; lower display rising with age is unconfirmed. 📄
 - **Low display.** Too little display reads as aged [14]. It goes with poor lip support, reduced vertical dimension, a long lip or a retruded maxilla [16] (case-level evidence). ✅
 - **Smile display.** The reference is full display of the upper crowns with minimal gum [13]. 📄 About 3 mm or more of gum reads as "gummy". Smile lines split roughly 20/70/10% into low, average and high (Tjan et al.). 🧠
 - **Incisor angle.** Upright incisors increase display, and flared incisors reduce it [15]. 📄
@@ -53,13 +53,13 @@
 | Measure | Value | Population / n | Source | Status |
 |---|---|---|---|---|
 | Mouth width ch–ch | M ≈50–58; F ≈46–54 mm | European-descent young adults | — | 🧠 |
-| "Upper lip height" (probably sn–sto) | ≈22–23 mm | Adults 20–59 y, cohort unconfirmed | [2] | 📄 |
+| "Upper lip height" (probably sn–sto) | ≈22–23 mm | Chinese women 20–60 y [25] | [2] | 📄 |
 | Upper lip height sn–sto | M ≈20–24; F ≈18–22 mm | European-descent young adults | — | 🧠 |
 | Skin upper lip sn–ls | ≈12–17 mm | Adults | — | 🧠 |
 | Upper vermilion ls–sto, 20–29 y | ≈8.1 mm | as [2] | [2] | 📄 |
 | Upper vermilion ls–sto, 50–59 y | ≈6.6 mm | as [2] | [2] | 📄 |
 | Lower vermilion sto–li | ≈8–12 mm | Young adults | — | 🧠 |
-| Philtrum width cph–cph | ≈11–12 mm | Adults 20–59 y | [2] | 📄 |
+| Philtrum width cph–cph | ≈11–12 mm | Chinese women 20–60 y [25] | [2] | 📄 |
 | Lateral lip height, group A / B* | 23.5 ± 2.6 / 22.3 ± 2.3 mm | Kenyan adults | [4] | 📄 |
 | Resting gap between the lips | ≈0–3 mm | Competent lips | — | 🧠 |
 | Commissure depth behind lip midline | ≈10–20 mm (low confidence) | Adults | — | 🧠 |
@@ -73,7 +73,7 @@
 |---|---|---|---|---|
 | Lower:upper vermilion, aesthetic target | 1.6:1 (1.6–2.0) | Mostly young white women | [5][6] | ↔️ |
 | Lower:upper vermilion, generality | Not universal | Multi-ethnic review | [8] | ↔️ |
-| Lower:upper vermilion, measured at midline | ≈1.1–1.4 | European-descent young adults | — | 🧠 |
+| Lower:upper vermilion, measured at midline | ≈1.0–1.8 (Chinese ≈1.1; Black S. African women ≈1.0–1.2; Caucasian women ≈1.8) | Single-study samples | [26][27][28] | ↔️ |
 | sn–sto : sto–me | ≈1:2 | Adults | — | 🧠 |
 | ch–ch vs 1.5 × al–al | ch–ch larger in most | 1,050 young adults | [3] | 📄 |
 | en–en vs al–al | en–en smaller in most | 1,050 young adults | [3] | 📄 |
@@ -97,7 +97,7 @@
 | Quantity | Value | Population / n | Source | Status |
 |---|---|---|---|---|
 | Pleasing upper-incisor display at rest | 2–4 mm | Review | [14] | 📄 |
-| Display at rest by sex | F ≈3–3.5, M ≈2 mm; ≈0.5–1 mm less per decade | Young adults (Vig & Brundo) | — | 🧠 |
+| Display at rest by sex | F ≈3.4, M ≈1.9 mm; ≈1.1 mm less per decade (≈3.4 mm from age 30 to 60) (corrected in verification) | Vig & Brundo, as cited | [19][24] | 📄 |
 | Gum display in smile | ≈0–2 mm fine; ≳3 mm "gummy" | Adults | — | 🧠 |
 | Smile line low / average / high | ≈20 / 70 / 10 % | Tjan et al. | — | 🧠 |
 | Upper central crown L × W | ≈10–11 × 8.5–9 mm (W/L ≈0.75–0.85) | Adults | — | 🧠 |
@@ -195,7 +195,7 @@
 
 - **"Corners under the pupils."** Untested; roughly true only in a broad smile (see Key facts). ↔️
 - **"Mouth = 1.5 × nose" and "intercanthal = nose width."** Both fail in most of 1,050 young adults [3]. 📄
-- **Lip ratio.** Three answers compete: a 1.6 target from young white women [5][6], lower measured means 🧠, and a crowdsourced preference of about 1:1 (Heidekrueger et al. 2017, to verify) ↔️. A review rejects any universal ratio [8]. One snippet gave StatPearls as "upper-to-lower 1.6:1 to 2:1", contradicting [6]; this note assumes lower > upper.
+- **Lip ratio.** Three answers compete: a 1.6 target from young white women [5][6], lower measured means (≈1.0–1.8 across single-study samples [26][27][28]) ↔️, and a crowdsourced preference of about 1:1 (Heidekrueger et al. 2017, to verify) ↔️. A review rejects any universal ratio [8]. One snippet gave StatPearls as "upper-to-lower 1.6:1 to 2:1", contradicting [6]; this note assumes lower > upper.
 - **Smile arc.** ↔️
   - Orthodontic ideal [11] vs lay preference [12].
   - Prevalence gaps reflect classification [19].
@@ -232,6 +232,11 @@
 [21] Smile Aesthetics Assessment in Patients Undergoing the Finishing Phase of Orthodontic Treatment — https://pmc.ncbi.nlm.nih.gov/articles/PMC10590081/ — paper — n.d.
 [22] The Influence of Anteroposterior Head Inclination on the Perceived Consonance of the Smile Arc and Lower Lip Curvature on Photographs — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11900144/ — paper — n.d.
 [23] Aesthetic Treatment of the Lips With Hyaluronic Acid Filler: The Multi Vector Lip Technique — https://pmc.ncbi.nlm.nih.gov/articles/PMC12424118/ — paper — n.d. (not read)
+[24] Incisor display during speech and smile: Age and gender correlations — https://pmc.ncbi.nlm.nih.gov/articles/PMC8601479/ — paper — n.d. (cites Vig & Brundo)
+[25] Stereophotogrammetry to reveal age-related changes of labial morphology among Chinese women aging from 20 to 60 — https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/ — paper — n.d.
+[26] A 3D Anthropometric Analysis of the Orolabial Region in Chinese Young Adults — https://pmc.ncbi.nlm.nih.gov/articles/PMC4104960/ — paper — n.d.
+[27] Facial Anthropometric Norms of the Young Black South African Woman — https://pmc.ncbi.nlm.nih.gov/articles/PMC10146544/ — paper — n.d.
+[28] The Concept of Ideal Lips of Caucasian Female: An Anthropometric Analysis of the Lower Third of the Face — https://pubmed.ncbi.nlm.nih.gov/39198279/ — paper — 2024
 
 **Further reading (by name, not yet linked)**
 
@@ -252,3 +257,10 @@
 - Nelson SJ, *Wheeler's Dental Anatomy, Physiology and Occlusion*.
 - Powell N & Humphreys B, *Proportions of the Aesthetic Face*, 1984.
 - Loomis A, *Drawing the Head and Hands*, 1956 (lip planes).
+
+## Verification log (2026-11-20)
+
+- **Measured midline lower:upper vermilion ratio 1.1–1.4, prior 1.3** — contested. Chinese young adults ≈1.1 (ls–sto 10.2/9.1, sto–li 11.0/9.8 mm, M/F; ratios are our arithmetic) [26]; Black South African women ≈1.0–1.2 [27]; Caucasian women ≈1.8 (6.47 vs 11.64 mm) [28]. The 1.3 prior stays a compromise, not a measured mean. https://pmc.ncbi.nlm.nih.gov/articles/PMC4104960/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC10146544/ , https://pubmed.ncbi.nlm.nih.gov/39198279/
+- **ch–ch 50–58 M / 46–54 F; ch–ch/IPD 0.80–0.90; corners near medial limbus** — unconfirmed. No source in the results gave these values; a dental study's 1:1.35 ratio relates canine/intercommissural measures to IPD and does not test the corner position. Left 🧠 / ↔️.
+- **PMC7984336 (22–23 mm = sn–sto; philtrum 11–12 mm; vermilion 8.1→6.6 mm)** — unconfirmed for the numbers and the sn–sto label (full text not retrieved). Confirmed that the study is of Chinese women aged 20–60, that cutaneous upper lip lengthens with age and upper vermilion decreases (P < .001). Population labels updated. https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/
+- **Vig & Brundo resting display F ≈3–3.5, M ≈2 mm; 0.5–1 mm per decade** — corrected. Cited values are 3.40 mm (F) and 1.91 mm (M) [19]; display falls about 3.4 mm between 30 and 60, ≈1.1 mm per decade [24]. Secondhand citations of the 1978 paper, not the paper itself; lower-display rise unconfirmed. https://pmc.ncbi.nlm.nih.gov/articles/PMC7718042/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC8601479/

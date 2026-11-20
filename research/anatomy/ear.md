@@ -2,7 +2,7 @@
 
 > The auricle is one plate of elastic cartilage (helix, Y-shaped antihelix with two crura, tragus, antitragus, concha) under thin, tightly bound skin, plus a cartilage-free lobule. Its relief is crisp and individual enough to serve as a biometric, so a generic template ear visibly weakens likeness. Harvested adult means put length at about 57–63 mm and width at about 29–33 mm (width ≈ 0.47–0.54 × length), males longer, and length keeps creeping up through adult life. The ear hangs from the skull at the ear canal, so its height is best anchored to the Frankfort horizontal (tragion ≈ orbitale level) rather than to the "brow to nose base" canon, which is only approximate; its long axis leans back roughly 10–30°, and protrusion norms disagree. In photo fitting, perspective, head pitch, the ear's outward flare and hair occlusion cause larger errors than anatomical variation does.
 >
-> Evidence status: 3 ✅ / 22 📄 / 55 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 26 📄 / 51 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -20,7 +20,7 @@
 - **Length and width.** Means about 57.6–62.9 mm (length) and 28.8–32.8 mm (width) [3][5][16]; a review puts male means at 59.5–68.5 mm [17] ↔️ (a spread across populations and methods, not one disputed value).
 - **Shape ratio.** W/L ≈ 0.47–0.54 from those means (this note's arithmetic) [3][5][16] 📄.
 - **Sex.** Males have longer ears in North Indian, Central Indian, Saudi paediatric and Sundanese samples [3][9][12][16] ✅. Width difference is inconsistent: significant in [9][12], not in Eastern Saudi adults or a Turkish sample [10][13] ↔️. Lobule: larger in males in [9], no difference in [10][13] ↔️. Absolute length and width discriminate sex better than indices [13] 📄.
-- **Growth.** Length reaches mature size by about 14 in a Chinese sample [11] 📄, then keeps increasing slowly (Heathcote's often-quoted cross-sectional estimate is about 0.2 mm/year), largely via lobule elongation, so a 70-year-old's ears are typically several mm to about 1 cm longer than at 25 🧠 ↔️. This conflicts with the "steady until ~70" claim relayed by [14].
+- **Growth.** Length reaches mature size by about 14 in a Chinese sample [11] 📄, then keeps increasing slowly (Heathcote's cross-sectional estimate is 0.22 mm/year [18]), largely via lobule elongation, so a 70-year-old's ears are typically several mm to about 1 cm longer than at 25 📄 ↔️. This conflicts with the "steady until ~70" claim relayed by [14].
 
 **Position and orientation**
 - **Skull anchor.** The ear canal is fixed in the temporal bone, so ear height follows the skull: with the head in Frankfort horizontal (FH), tragion lies at about the level of the lower orbital rim, and the tragus sits near mid-height of the auricle 🧠.
@@ -55,7 +55,7 @@ All values in mm (cm × 10). "n.s." = sample size not stated in the harvested ma
 | Sundanese, photogrammetry | F | n.s. | 60.9 (SD 4.2) | 28.8 (SD 2.5) | 0.47 | superaurale–subaurale | [16] | 📄 |
 | Mixed adults | M+F | 200 | R 57.62 ± 5.03, L 57.89 ± 4.89 | R 29.72 ± 2.79, L 31.21 ± 2.95 | 0.52 / 0.54 | not stated | [5] | 📄 |
 | Review, ages ~17–30 | M | several studies | 59.5–68.5 (study means) | ~12 mm spread | – | extreme projections | [17] | 📄 |
-| Age 70 vs 25 | M+F | – | ≈ +5–10 | small change | falls | – | Heathcote-type data | 🧠 ↔️ |
+| Age 70 vs 25 | M+F | – | ≈ +5–10 (0.22 mm/yr × 45 yr ≈ 10) | small change | falls | – | Heathcote [18] | 📄 ↔️ |
 
 The lower Sundanese W/L may partly reflect profile foreshortening of width in photogrammetry (Table 5) 🧠.
 
@@ -127,7 +127,7 @@ Pitch: ear-vs-brow height shifts by about 100 mm × sin(pitch), ~9 mm at 5° and
 
 | Parameter | Prior | Hard bounds | Basis |
 |---|---|---|---|
-| length_mm | N(61, 4.5) + 2 if male + 0.2·max(0, age−25) | 45–85 | [3][5][16]; sex [16]; age slope 🧠 |
+| length_mm | N(61, 4.5) + 2 if male + 0.2·max(0, age−25) | 45–85 | [3][5][16]; sex [16]; age slope [18] 📄 |
 | width_ratio | N(0.50, 0.05) | 0.38–0.65 | [3][5][16] |
 | tilt_deg (top back, from FH vertical) | N(20, 7) | −5 to 45 | 🧠 |
 | tragion height vs orbitale (mm) | N(0, 5) | ±20 | 🧠 |
@@ -148,7 +148,7 @@ Pitch: ear-vs-brow height shifts by about 100 mm × sin(pitch), ~9 mm at 5° and
 
 - **Protrusion norm:** 20–30° vs <25° with ≤20 mm projection [8]; McDowell's 3 mm symmetry goal vs [7]'s "too strict". Encode ranges; warn, don't clamp.
 - **Width and lobule by sex:** [9][12] vs [10][13]. **Length definitions:** extreme projections [17] vs superaurale–subaurale [16]; a few mm of cross-study difference can be pure method.
-- **Stability vs growth:** "shape fixed by 4 months", "significant change to 8 years" and "stable until ~70" all come via one secondary source [14] (Iannarelli-era claims) and conflict with adult lengthening data 🧠 ↔️.
+- **Stability vs growth:** "shape fixed by 4 months", "significant change to 8 years" and "stable until ~70" all come via one secondary source [14] (Iannarelli-era claims) and conflict with adult lengthening data [18] 📄 ↔️.
 - **Myth: the classical canons are rules.** Brow-to-nose-base placement, ear length = nose length and axis parallel to the nasal dorsum are drawing conventions; Farkas found the last two hold only in a minority 🧠 ↔️.
 - **Myth: "ears are unique like fingerprints".** Ears are discriminative, but uniqueness is unproven and earprint evidence has been successfully challenged in court 🧠 ↔️.
 - **Myth: attached vs free earlobe is a simple Mendelian trait.** It is polygenic and continuous 🧠.
@@ -175,6 +175,7 @@ Pitch: ear-vs-brow height shifts by about 100 mm × sin(pitch), ~9 mm at 5° and
 [15] A comprehensive survey and deep learning-based approach for human recognition using ear biometric — https://pmc.ncbi.nlm.nih.gov/articles/PMC8061142/ — paper — n.d.
 [16] Sundanese auricle photogrammetry study (title not confirmed) — https://www.pubmed.gov/36217409/ — paper — n.d.
 [17] Nature Index topic page: anthropometric analysis of human auricles — https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles — aggregator — n.d.
+[18] Heathcote, "Why do old men have big ears?", BMJ 1995;311:1668 (copy) — https://jhanley.biostat.mcgill.ca/bios601/Surveys/BigEars.pdf — paper — 1995
 
 **Further reading (by name, not yet linked)**
 - Farkas, *Anthropometry of the Head and Face*, 2nd ed., 1994 (ear landmarks and norms).
@@ -190,3 +191,12 @@ Pitch: ear-vs-brow height shifts by about 100 mm × sin(pitch), ~9 mm at 5° and
 - Shaffer et al., earlobe-attachment multiethnic GWAS, American Journal of Human Genetics, 2017.
 - Brent; Nagata: microtia reconstruction literature (ear placement rules).
 - Standring (ed.), *Gray's Anatomy* (auricle chapter).
+
+## Verification log (2026-11-20)
+
+4 searches used; results are search summaries tied to the URLs listed.
+
+1. Ear long-axis tilt 10-30 deg (typical ~20) in FH; Farkas: parallel to nasal dorsum only in a minority. Outcome: unconfirmed. One anatomy review in the results gave 2-30 deg posterior tilt and ear more vertical than the nasal bridge by ~15 deg, and a Farkas Afro-American revision reported nasal bridge inclination greater than ear axis as a very frequent variation, but neither was tied to a Caucasian norm or to a specific URL for the tilt range; the typical ~20 and "minority" wording stay unverified. Related: https://rd.springer.com/content/pdf/10.1007/978-1-4613-9999-5_2.pdf, https://www.ncbi.nlm.nih.gov/books/NBK538320/
+2. Tragion at orbitale level; ear top at brow; bottom at subnasale to ~10 mm below; ear 5-12 mm longer than nose (nasoaural canon fails). Outcome: unconfirmed. Only the canon definition (n-sn = sa-sba) and general failure of canons in other populations were found (https://www.thieme-connect.com/products/ejournals/html/10.1055/s-0042-1759496); no Farkas Caucasian values.
+3. Heathcote, BMJ 1995: ears lengthen ~0.2 mm/yr. Outcome: confirmed (corrected precision to 0.22 mm/yr; cross-sectional, 206 patients aged 30-93 per secondary report). One source (single-source badge); the sex-difference reports conflict between secondary accounts. Source: https://jhanley.biostat.mcgill.ca/bios601/Surveys/BigEars.pdf
+4. McDowell goals (helix-mastoid 10-12/16-18/20-22 mm; 3 mm symmetry; auriculocephalic 20-30 vs <25; conchoscaphal ~90). Outcome: unconfirmed for attribution to McDowell: the mm values appear in PMC reviews (candidates PMC3312149, PMC5550315, PMC3199845) but the summary did not tie them to one URL; original 1968 abstract (https://pubmed.ncbi.nlm.nih.gov/5639206/) has no text. Angle norms vary by source (20-30, <25, 25-35 reported); conchoscaphal given as ~90 and as "<90". Existing badges left unchanged.

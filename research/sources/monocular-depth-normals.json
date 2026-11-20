@@ -154,6 +154,27 @@
    "url": "https://github.com/ika-rwth-aachen/ros2-depth-anything-v3-trt",
    "kind": "community deployment repo",
    "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "Metric and Relative Monocular Depth Estimation: An Overview. Fine-Tuning Depth Anything V2 (Hugging Face blog)",
+   "url": "https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide",
+   "kind": "blog",
+   "year": "2025"
+  },
+  {
+   "n": 24,
+   "title": "inference4j/depth-anything-v2-small (Hugging Face model card)",
+   "url": "https://huggingface.co/inference4j/depth-anything-v2-small",
+   "kind": "model card (third party)",
+   "year": "n.d."
+  },
+  {
+   "n": 25,
+   "title": "DepthAnything/Depth-Anything-V2 (official repo README)",
+   "url": "https://github.com/DepthAnything/Depth-Anything-V2",
+   "kind": "official code repo",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

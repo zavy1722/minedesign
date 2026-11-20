@@ -1,6 +1,22 @@
 {
   "topic": "texture-extraction",
-  "sources": [],
+  "sources": [
+    {
+      "id": 1,
+      "title": "Blender Python API: BakeSettings / Bake Margin Type Items",
+      "url": "https://docs.blender.org/api/current/bpy.types.BakeSettings.html"
+    },
+    {
+      "id": 2,
+      "title": "Tencent Hunyuan 3D 2.1 Community License",
+      "url": "https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE"
+    },
+    {
+      "id": 3,
+      "title": "Ramamoorthi & Hanrahan, An Efficient Representation for Irradiance Environment Maps",
+      "url": "https://graphics.stanford.edu/papers/envmap/"
+    }
+  ],
   "references_by_name": [
     "Debevec, Taylor & Malik, \"Modeling and Rendering Architecture from Photographs\", SIGGRAPH 1996 (view-dependent texture mapping)",
     "Lempitsky & Ivanov, \"Seamless Mosaicing of Image-Based Texture Maps\", CVPR 2007",

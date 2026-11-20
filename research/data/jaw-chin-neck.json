@@ -19,15 +19,15 @@
      110,
      135,
      122,
-     "adult; mean ~120-125"
+     "adult; mean ~120-125 confirmed (PMC6981352, pubmed 19776510)"
     ],
     [
      "gonial_angle_sex_diff_deg",
      "M_minus_F",
-     -6,
-     -2,
      -4,
-     "large overlap; some samples n.s."
+     0,
+     -1.5,
+     "contested: 0 to -4 deg, some samples n.s. or reversed (PMC6981352, 19776510, PMC12191486)"
     ],
     [
      "gonial_angle_newborn_deg",
@@ -144,7 +144,7 @@
    ],
    "population": "Mixed adult cephalometric/dry-bone norms, mostly white North American/European",
    "source_urls": [],
-   "status": "knowledge",
+   "status": "partially verified 2026-11-20 (gonial mean confirmed; sex difference and ramus height contested; rest knowledge)",
    "notes": "Expert knowledge, not yet verified. Gonial angle ~120 deg is sourced in anatomy/skull-osteology.md. Sex difference and ramus/length/bigonial ranges are partly contested."
   },
   {

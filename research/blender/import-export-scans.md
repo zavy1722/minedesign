@@ -2,18 +2,18 @@
 
 > Face scans (structured light, stereophotogrammetry, phone LiDAR or photogrammetry) and 3DMM outputs (FLAME, BFM, MediaPipe, DECA/MICA-style regressors) reach Blender in formats that disagree on units, axes, colour encoding and whether vertex order survives. Most likeness failures at this stage are silent ones: a ×10 to ×1000 unit error, a wrong axis or a mirror image, or broken vertex correspondence. Treat every import as an unknown similarity transform plus a possible reflection. Infer the units from one face measurement and the orientation from landmarks, and record the transform in a sidecar file. Clean and decimate the scan into a fitting target. Bring the template onto it with a landmark-anchored, coarse-to-fine non-rigid fit (Wrap/NICP style) rather than plain Shrinkwrap, and never pass the template that carries the likeness through anything that rebuilds topology. Clinical 3D surface imaging agrees with direct measurement to within about 2 mm [9][10], so a correctly imported scan is valid ground truth.
 >
-> Evidence status: 6 ✅ / 15 📄 / 59 🧠 / 5 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 6 ✅ / 19 📄 / 57 🧠 / 5 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Importers and formats**
-- OBJ, PLY and STL use C++ operators (`wm.obj_import`, `wm.ply_import`, `wm.stl_import`). The legacy Python add-ons (`import_scene.obj`, `import_mesh.ply`, `import_mesh.stl`) were removed in 4.0, so older scripts fail 🧠. The C++ OBJ importer arrived in 3.3, and the PLY and STL importers in 3.6 🧠.
+- OBJ, PLY and STL use C++ operators (`wm.obj_import`, `wm.ply_import`, `wm.stl_import`). The legacy Python OBJ and PLY add-ons (`import_scene.obj`, `import_mesh.ply`) were removed in 4.0, so older scripts fail [25] 📄. The legacy STL add-on (`import_mesh.stl`) was only marked legacy in 4.1, not removed in 4.0 [26] 📄 (corrected in verification). The C++ OBJ importer arrived in 3.3 [27] 📄, and the PLY and STL importers in 3.6 🧠.
 - FBX (`import_scene.fbx`) and glTF 2.0 (Khronos glTF-Blender-IO) are still bundled Python add-ons. USD and Alembic are built in 🧠. COLLADA was removed in 5.0 🧠 (see `blender-version-status-2026.md`).
 - **Vertex order:**
   - A single-mesh OBJ, PLY, FBX, USD or Alembic import keeps the file's vertex order, and template correspondence (FLAME, MPFB) depends on that 🧠.
-  - **glTF does not.** Each vertex carries one attribute set, so every UV seam or hard edge duplicates vertices. Enabling "Merge Vertices" on import then renumbers them 🧠.
+  - **glTF does not.** Each vertex carries one attribute set, so every UV seam or hard edge duplicates vertices [28]. Enabling "Merge Vertices" on import [29] then renumbers them 📄.
   - OBJ "Split by Object/Group" also renumbers 🧠.
-- **Colour:** OBJ import reads the unofficial `v x y z r g b` extension and ZBrush `#MRGB` (3.5+) 🧠 (moderate); PLY import reads uchar `red/green/blue[/alpha]` 🧠.
+- **Colour:** OBJ import reads the unofficial `v x y z r g b` extension and ZBrush `#MRGB` (3.5+; one source suggests the support landed in 3.3 [30], unresolved) 🧠 (moderate); PLY import reads uchar `red/green/blue[/alpha]` 🧠.
 - **Precision:** OBJ export writes 6 decimals (1 µm at 1 BU = 1 m) 🧠; binary formats keep float32; since 5.0 mathutils hands NumPy float32 views [14] 📄.
 
 **Units and scale**
@@ -71,7 +71,7 @@
 | FLAME 2020/2023 | m; Y-up, face +Z | 1, then +90° about X | 🧠 |
 | MICA | metric FLAME | 1 | 📄 [5] |
 | DECA-type regressors | FLAME space, free scale | solve | 🧠 |
-| BFM 2009 / 2017 | µm / mm | 1e-6 / 1e-3 | ↔️ |
+| BFM 2009 / 2017 | 2009 .mat µm, 2009 .h5 mm; 2017 mm [31] | 1e-6 (.mat) or 1e-3 (.h5) / 1e-3 | ↔️ |
 | MakeHuman / MPFB base mesh | dm | 0.1 | 🧠 |
 | MediaPipe canonical/metric face | cm | 0.01 | ↔️ |
 | ARKit face mesh (1,220 vertices) | m; Y-up | 1 | 🧠 |
@@ -198,6 +198,13 @@ All URLs come from sibling harvests in `research/_raw/harvests/` (named in paren
 [22] Normative Findings for Periocular Anthropometric Measurements among Chinese Young Adults in Hong Kong — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/ — paper — n.d. (anthropometric-norms)
 [23] VHAP (Versatile Head Alignment with Adaptive Appearance Priors) — https://github.com/ShenhanQian/VHAP — repo — n.d. (multi-view-fitting)
 [24] PeizhiYan flame-head-tracker — https://github.com/peizhiyan/flame-head-tracker — repo — 2025 (multi-view-fitting)
+[25] Blender 4.0: Python API (release notes) — https://wiki.blender.org/release_notes/4.0/python_api/ — official-docs — 2023 (verification)
+[26] Pipeline, Assets & I/O, Blender 4.1 release notes — https://developer.blender.org/docs/release_notes/4.1/pipeline_assets_io/ — official-docs — 2024 (verification)
+[27] Pipeline, Assets & I/O, Blender 3.3 release notes — https://developer.blender.org/docs/release_notes/3.3/pipeline_assets_io/ — official-docs — 2022 (verification)
+[28] Blender 3.1 manual, glTF 2.0 add-on — https://docs.blender.org/manual/en/3.1/addons/import_export/scene_gltf2.html — official-docs — 2022 (verification)
+[29] glTF importer: add option to glue pieces of a mesh together — https://developer.blender.org/rBAc7eda7cb49f706040cb04048b24c6db57501889e — commit — 2020 (verification)
+[30] obj: vertex colors support in importer and exporter — https://developer.blender.org/rB1b4f35f6a58 — commit — 2022 (verification)
+[31] Basel Face Model 2019 Point Coordinates (Scalismo forum; user report, not official) — https://groups.google.com/g/scalismo-faces/c/FJym8ubvMBI — forum — n.d. (verification)
 
 **Further reading (by name, not yet linked)**
 - Blender Manual: Import/Export (OBJ, PLY, STL, FBX, glTF 2.0, USD, Alembic); the Shrinkwrap, Surface Deform, Laplacian Deform, Data Transfer, Multires, Remesh and Decimate pages; Cycles baking
@@ -212,3 +219,10 @@ All URLs come from sibling harvests in `research/_raw/harvests/` (named in paren
 - Dodgson, "Variation and extrema of human interpupillary distance", 2004
 - Farkas, *Anthropometry of the Head and Face*, 1994
 - R3DS/Faceform Wrap user documentation
+
+## Verification log (2026-11-20)
+
+- FLAME units, axes, 5,023 vertices / 9,976 triangles: unconfirmed. Search confirmed only the 5,023 vertex count in papers (e.g. https://arxiv.org/pdf/1905.06817); no source stated metres, Y-up or +Z facing. Left 🧠.
+- Vertex order kept by OBJ/PLY, glTF seam splitting: partly confirmed. glTF seam/hard-edge vertex splitting and the Merge Vertices option are documented (https://docs.blender.org/manual/en/3.1/addons/import_export/scene_gltf2.html, https://developer.blender.org/rBAc7eda7cb49f706040cb04048b24c6db57501889e), badge 📄. OBJ/PLY order preservation and "Split by Object/Group" renumbering: unconfirmed, left 🧠.
+- BFM/MakeHuman/MediaPipe units: contested for BFM 2009 (.mat in µm, .h5 in mm per a user report at https://groups.google.com/g/scalismo-faces/c/FJym8ubvMBI; no official statement); BFM 2017/2019 mm per the same thread. MakeHuman (dm) and MediaPipe (cm) unconfirmed, left as is.
+- Legacy importers: confirmed that the Python OBJ and PLY add-ons were removed in 4.0 (https://wiki.blender.org/release_notes/4.0/python_api/). Corrected: the STL add-on was only marked legacy in 4.1 (https://developer.blender.org/docs/release_notes/4.1/pipeline_assets_io/). C++ OBJ importer in 3.3 confirmed (https://developer.blender.org/docs/release_notes/3.3/pipeline_assets_io/). PLY/STL importers in 3.6, COLLADA removed in 5.0: unconfirmed. OBJ vertex-colour/MRGB support: a commit (https://developer.blender.org/rB1b4f35f6a58) and search summary place it in 3.3, versus the note's 3.5+; unresolved, left 🧠.

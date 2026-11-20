@@ -2,13 +2,13 @@
 
 > The Facial Action Coding System (FACS) codes every visible facial movement as a numbered action unit (AU), defined as the appearance change made by one muscle or a small muscle group. Intensity is scored from A (trace) to E (the person's maximum). For likeness work FACS does two jobs. It is the vocabulary behind the 52 ARKit/MediaPipe blendshape coefficients and most face rigs. It also predicts which identity features an expression corrupts when it leaks into a reference photo: brow height, lid aperture, nasolabial depth, mouth width, chin shape and lower-face height. So the identity mesh must be the subject's *relaxed* neutral, with no active AUs, the jaw at rest and the lips lightly sealed. A fitter cannot reliably separate a slight AU6+12 smile or an AU26 jaw drop from bone and soft-tissue shape.
 >
-> Evidence status: 10 ✅ / 15 📄 / 64 🧠 / 10 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 10 ✅ / 17 📄 / 62 🧠/ 9 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 - **What an AU is.** An AU is an elementary movement corresponding to the contraction (or relaxation) of one muscle or a small group of muscles [2][3]. ✅ FACS codes visible *appearance*, not muscle activity [1]. 📄
 - **Lineage.** FACS grew out of Hjortsjö's work. Ekman and Friesen published it in 1978, and Ekman, Friesen and Hager substantially revised it in 2002 [1]. 📄
-- **How many AUs.** One source counts 44 AUs (1978). Another counts about 30 numbered muscular units, plus separate descriptors for head pose, gaze and gross behaviour [1][2]. ↔️ The usual reconciliation: 44 codes in total, about 30 of them tied to specific muscles (about 12 upper-face, 18 lower-face). The rest are action descriptors (ADs) and head and eye position codes (51–58, 61–64). 🧠
+- **How many AUs.** One source counts 44 AUs (1978). Another counts about 30 numbered muscular units, plus separate descriptors for head pose, gaze and gross behaviour [1][2]. ↔️ The usual reconciliation: 44 codes in total, about 30 of them tied to specific muscles (12 upper-face, 18 lower-face) [17]. The rest are action descriptors (ADs) and head and eye position codes (51–58, 61–64). 📄
 - **Core AUs.** AU1 is the inner brow raiser (medial frontalis), AU4 the brow lowerer (corrugator group) and AU6 the cheek raiser [1][2]. ✅ AU6 = orbicularis oculi pars orbitalis; AU12, the lip corner puller, = zygomaticus major [14]. 📄
 - **Intensity A–E** is appended to the AU number (for example 1E): A = trace, B = slight, C = marked, D = severe, E = maximum *for that person* [1][5]. ✅ The scale is not interval: C and D each cover more change than A, B or E [5]. 📄
 - **Asymmetry and reliability.** When the two sides differ, FACS scores the stronger side unless asymmetry is being coded [5]. 📄 Reliable coding needs at least two independent certified coders [5]. 📄
@@ -90,7 +90,7 @@ The bands are a design choice that copies the manual's unequal widths. They are 
 |---|---|---|
 | MediaPipe Face Landmarker | 478 landmarks, 52 scores [9][11]; licence believed Apache-2.0 | 📄 / licence 🧠 |
 | MediaPipe input sizes | detector 192² or 128², landmarker 256² [9][13] | ↔️ |
-| FLAME (Li et al. 2017) | 5,023 vertices; 300 shape and 100 expression components; jaw, neck and eye joints; non-commercial licence historically | 🧠; licence ↔️ |
+| FLAME (Li et al. 2017) | 5,023 vertices [18]; 300 shape and 100 expression components (project site viewer, not tied to a release); jaw, neck and eye joints; versions 2017/2019/2020/2023 under a non-commercial Academic Model License; a separate FLAME 2023 Open model is CC-BY-4.0 and allows commercial use [19] (corrected in verification) | 📄 vertices and licence; components 🧠 |
 | DISFA | 27 adults, 12 AUs, intensity 0–5 | 🧠 |
 | OpenFace 2.0 | intensity for 17 AUs, presence for 18; academic licence | 🧠 |
 | Interocclusal rest gap ("freeway space") | ~2–4 mm | 🧠 |
@@ -198,6 +198,9 @@ A left/right difference that persists across neutral frames is structure or habi
 [13] MediaPipe Face Landmarker (ai.google.dev) — https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker — official docs — n.d.
 [14] The Role of Facial Action Units in Investigating Facial Movements During Speech — https://pmc.ncbi.nlm.nih.gov/articles/PMC13229553/ — paper — n.d.
 [15] A Psychological Guide to Upper Face Botulinum Toxin Injections — https://pmc.ncbi.nlm.nih.gov/articles/PMC12539761/ — paper — n.d.
+[17] Tian, Kanade & Cohn, Recognizing Action Units for Facial Expression Analysis (CMU RI copy) — https://www.ri.cmu.edu/pub_files/pub3/cohn_jeffrey_2001_1/cohn_jeffrey_2001_1.pdf — paper — 2001
+[18] CVTHead: One-shot Controllable Head Avatar with Vertex-feature Transformer — https://arxiv.org/pdf/2311.06443 — paper — 2023
+[19] FLAME model license (MPI-IS) — https://flame.is.tue.mpg.de/modellicense.html — official licence page — n.d.
 [16] Facial Expressions as a Nexus for Health Assessment — https://pmc.ncbi.nlm.nih.gov/articles/PMC12938733/ — paper (surfaced; nothing extracted) — n.d.
 
 **Further reading (by name, not yet linked)**
@@ -216,3 +219,10 @@ A left/right difference that persists across neutral frames is structure or habi
 - Barrett et al., "Emotional Expressions Reconsidered", PSPI 2019
 - Faigin, *The Artist's Complete Guide to Facial Expression* (1990)
 - ICAO Doc 9303 / ISO/IEC 19794-5 (now 39794-5): neutral-expression portrait rules
+
+## Verification log (2026-11-20)
+
+- ARKit exposes exactly 52 names (14/5/3/2/4/23/1), Left = subject's left, AU mapping: **unconfirmed**. Apple pages surfaced (cheekSquintLeft etc.) but no full list or convention was retrieved. https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation
+- MediaPipe 52 = ARKit minus tongueOut plus `_neutral` at index 0: **unconfirmed** (names are camelCase like ARKit; `_neutral` not found). Left/right = subject's side is stated by Google. https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker
+- FLAME 5,023 vertices: **confirmed** (one source) https://arxiv.org/pdf/2311.06443 ; 300 shape/100 expression: **unconfirmed** for a specific release (project site mentions 300/100 viewer only). Licence: **corrected/updated**: 2017-2023 academic models are non-commercial; FLAME 2023 Open is CC-BY-4.0 and allows commercial use. https://flame.is.tue.mpg.de/modellicense.html
+- FACS 44 AUs, ~30 muscle-tied (12 upper, 18 lower): **confirmed** (one source, 2001, pre-2002 revision) https://www.ri.cmu.edu/pub_files/pub3/cohn_jeffrey_2001_1/cohn_jeffrey_2001_1.pdf ; 2002 reorganisation of AU41/42/44 and the specific muscle assignments (AU13, 14, 20): **unconfirmed**.

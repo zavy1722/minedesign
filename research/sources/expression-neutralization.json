@@ -1,35 +1,51 @@
 {
-  "topic": "expression-neutralization",
-  "sources": [],
-  "references_by_name": [
-    "Blanz & Vetter, \"A Morphable Model for the Synthesis of 3D Faces\", SIGGRAPH 1999",
-    "Paysan, Knothe, Amberg, Romdhani, Vetter, \"A 3D Face Model for Pose and Illumination Invariant Face Recognition\" (BFM 2009), AVSS 2009",
-    "Cao, Weng, Zhou, Tong, Zhou, \"FaceWarehouse: A 3D Facial Expression Database for Visual Computing\", IEEE TVCG 2014",
-    "Vlasic, Brand, Pfister, Popovic, \"Face Transfer with Multilinear Models\", SIGGRAPH 2005",
-    "Li, Bolkart, Black, Li, Romero, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), SIGGRAPH Asia 2017",
-    "Egger et al., \"3D Morphable Face Models - Past, Present and Future\", ACM TOG 2020",
-    "Lewis, Anjyo, Rhee, Zhang, Pighin, Deng, \"Practice and Theory of Blendshape Facial Models\", Eurographics STAR 2014",
-    "Sumner & Popovic, \"Deformation Transfer for Triangle Meshes\", SIGGRAPH 2004",
-    "Li, Weise, Pauly, \"Example-Based Facial Rigging\", SIGGRAPH 2010",
-    "Weise, Bouaziz, Li, Pauly, \"Realtime Performance-Based Facial Animation\", SIGGRAPH 2011",
-    "Bouaziz, Wang, Pauly, \"Online Modeling for Realtime Facial Animation\", SIGGRAPH 2013",
-    "Ichim, Bouaziz, Pauly, \"Dynamic 3D Avatar Creation from Hand-held Video Input\", SIGGRAPH 2015",
-    "Garrido et al., \"Reconstruction of Personalized 3D Face Rigs from Monocular Video\", ACM TOG 2016",
-    "Sanyal, Bolkart, Feng, Black, \"Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision\" (RingNet, NoW benchmark), CVPR 2019",
-    "Feng, Feng, Black, Bolkart, \"Learning an Animatable Detailed 3D Face Model from In-the-Wild Images\" (DECA), SIGGRAPH 2021",
-    "Danecek, Black, Bolkart, \"EMOCA: Emotion Driven Monocular Face Capture and Animation\", CVPR 2022",
-    "Zielonka, Bolkart, Thies, \"Towards Metrical Reconstruction of Human Faces\" (MICA), ECCV 2022",
-    "Retsinas et al., \"3D Facial Expressions through Analysis-by-Neural-Synthesis\" (SMIRK), CVPR 2024",
-    "Deng, Yang, Xu, Chen, Jia, Tong, \"Accurate 3D Face Reconstruction with Weakly-Supervised Learning: From Single Image to Image Set\", CVPR Workshops 2019",
-    "Tewari et al., \"FML: Face Model Learning from Videos\", CVPR 2019",
-    "Zheng et al., \"ImFace: A Nonlinear 3D Morphable Face Model with Implicit Neural Representations\", CVPR 2022",
-    "Giebenhain et al., \"Learning Neural Parametric Head Models\" (NPHM), CVPR 2023",
-    "Cosker, Krumhuber, Hilton, D3DFACS dynamic 3D FACS database, ICCV 2011",
-    "Bronstein, Bronstein, Kimmel, \"Three-Dimensional Face Recognition\", IJCV 2005",
-    "Chang, Bowyer, Flynn, \"Multiple Nose Region Matching for 3D Face Recognition under Varying Facial Expression\", IEEE TPAMI 2006",
-    "Ekman, Friesen, Hager, Facial Action Coding System manual, 2002",
-    "Vig & Brundo, \"The kinetics of anterior tooth display\", Journal of Prosthetic Dentistry 1978",
-    "Farkas, Anthropometry of the Head and Face, 1994",
-    "Library cross-references (sourced there): reconstruction/single-image-regression.md, reconstruction/identity-embeddings.md, reconstruction/multi-view-fitting.md, anatomy/facs-expressions.md"
-  ]
+ "topic": "expression-neutralization",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Spear Education freeway space review",
+   "url": "https://speareducation.com/2019/05/options-for-determining-vertical-dimension-with-edentulous-patients"
+  },
+  {
+   "n": 2,
+   "title": "FLAME paper",
+   "url": "https://download.is.tue.mpg.de/flame/flame_paper.pdf"
+  },
+  {
+   "n": 3,
+   "title": "Zachrisson 1998 JCO anterior tooth display",
+   "url": "https://www.jco-online.com/archive/1998/07/432-esthetic-factors-involved-in-anterior-tooth-display-and-the-smile-vertical-dimension/"
+  }
+ ],
+ "references_by_name": [
+  "Blanz & Vetter, \"A Morphable Model for the Synthesis of 3D Faces\", SIGGRAPH 1999",
+  "Paysan, Knothe, Amberg, Romdhani, Vetter, \"A 3D Face Model for Pose and Illumination Invariant Face Recognition\" (BFM 2009), AVSS 2009",
+  "Cao, Weng, Zhou, Tong, Zhou, \"FaceWarehouse: A 3D Facial Expression Database for Visual Computing\", IEEE TVCG 2014",
+  "Vlasic, Brand, Pfister, Popovic, \"Face Transfer with Multilinear Models\", SIGGRAPH 2005",
+  "Li, Bolkart, Black, Li, Romero, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), SIGGRAPH Asia 2017",
+  "Egger et al., \"3D Morphable Face Models - Past, Present and Future\", ACM TOG 2020",
+  "Lewis, Anjyo, Rhee, Zhang, Pighin, Deng, \"Practice and Theory of Blendshape Facial Models\", Eurographics STAR 2014",
+  "Sumner & Popovic, \"Deformation Transfer for Triangle Meshes\", SIGGRAPH 2004",
+  "Li, Weise, Pauly, \"Example-Based Facial Rigging\", SIGGRAPH 2010",
+  "Weise, Bouaziz, Li, Pauly, \"Realtime Performance-Based Facial Animation\", SIGGRAPH 2011",
+  "Bouaziz, Wang, Pauly, \"Online Modeling for Realtime Facial Animation\", SIGGRAPH 2013",
+  "Ichim, Bouaziz, Pauly, \"Dynamic 3D Avatar Creation from Hand-held Video Input\", SIGGRAPH 2015",
+  "Garrido et al., \"Reconstruction of Personalized 3D Face Rigs from Monocular Video\", ACM TOG 2016",
+  "Sanyal, Bolkart, Feng, Black, \"Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision\" (RingNet, NoW benchmark), CVPR 2019",
+  "Feng, Feng, Black, Bolkart, \"Learning an Animatable Detailed 3D Face Model from In-the-Wild Images\" (DECA), SIGGRAPH 2021",
+  "Danecek, Black, Bolkart, \"EMOCA: Emotion Driven Monocular Face Capture and Animation\", CVPR 2022",
+  "Zielonka, Bolkart, Thies, \"Towards Metrical Reconstruction of Human Faces\" (MICA), ECCV 2022",
+  "Retsinas et al., \"3D Facial Expressions through Analysis-by-Neural-Synthesis\" (SMIRK), CVPR 2024",
+  "Deng, Yang, Xu, Chen, Jia, Tong, \"Accurate 3D Face Reconstruction with Weakly-Supervised Learning: From Single Image to Image Set\", CVPR Workshops 2019",
+  "Tewari et al., \"FML: Face Model Learning from Videos\", CVPR 2019",
+  "Zheng et al., \"ImFace: A Nonlinear 3D Morphable Face Model with Implicit Neural Representations\", CVPR 2022",
+  "Giebenhain et al., \"Learning Neural Parametric Head Models\" (NPHM), CVPR 2023",
+  "Cosker, Krumhuber, Hilton, D3DFACS dynamic 3D FACS database, ICCV 2011",
+  "Bronstein, Bronstein, Kimmel, \"Three-Dimensional Face Recognition\", IJCV 2005",
+  "Chang, Bowyer, Flynn, \"Multiple Nose Region Matching for 3D Face Recognition under Varying Facial Expression\", IEEE TPAMI 2006",
+  "Ekman, Friesen, Hager, Facial Action Coding System manual, 2002",
+  "Vig & Brundo, \"The kinetics of anterior tooth display\", Journal of Prosthetic Dentistry 1978",
+  "Farkas, Anthropometry of the Head and Face, 1994",
+  "Library cross-references (sourced there): reconstruction/single-image-regression.md, reconstruction/identity-embeddings.md, reconstruction/multi-view-fitting.md, anatomy/facs-expressions.md"
+ ]
 }

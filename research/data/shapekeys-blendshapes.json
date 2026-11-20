@@ -1,0 +1,1154 @@
+{
+ "topic": "shapekeys-blendshapes",
+ "tables": [
+  {
+   "name": "arkit52_name_map",
+   "units": "names; MediaPipe category index (0 = _neutral)",
+   "columns": [
+    "arkit_swift_case",
+    "apple_raw_string",
+    "livelink_csv_header",
+    "mediapipe_index",
+    "region",
+    "side_subject",
+    "nearest_facs_au"
+   ],
+   "rows": [
+    [
+     "eyeBlinkLeft",
+     "eyeBlink_L",
+     "EyeBlinkLeft",
+     9,
+     "eye",
+     "L",
+     "AU45/43"
+    ],
+    [
+     "eyeLookDownLeft",
+     "eyeLookDown_L",
+     "EyeLookDownLeft",
+     11,
+     "eye",
+     "L",
+     "AU64"
+    ],
+    [
+     "eyeLookInLeft",
+     "eyeLookIn_L",
+     "EyeLookInLeft",
+     13,
+     "eye",
+     "L",
+     "AU61/62"
+    ],
+    [
+     "eyeLookOutLeft",
+     "eyeLookOut_L",
+     "EyeLookOutLeft",
+     15,
+     "eye",
+     "L",
+     "AU61/62"
+    ],
+    [
+     "eyeLookUpLeft",
+     "eyeLookUp_L",
+     "EyeLookUpLeft",
+     17,
+     "eye",
+     "L",
+     "AU63"
+    ],
+    [
+     "eyeSquintLeft",
+     "eyeSquint_L",
+     "EyeSquintLeft",
+     19,
+     "eye",
+     "L",
+     "AU7"
+    ],
+    [
+     "eyeWideLeft",
+     "eyeWide_L",
+     "EyeWideLeft",
+     21,
+     "eye",
+     "L",
+     "AU5"
+    ],
+    [
+     "eyeBlinkRight",
+     "eyeBlink_R",
+     "EyeBlinkRight",
+     10,
+     "eye",
+     "R",
+     "AU45/43"
+    ],
+    [
+     "eyeLookDownRight",
+     "eyeLookDown_R",
+     "EyeLookDownRight",
+     12,
+     "eye",
+     "R",
+     "AU64"
+    ],
+    [
+     "eyeLookInRight",
+     "eyeLookIn_R",
+     "EyeLookInRight",
+     14,
+     "eye",
+     "R",
+     "AU61/62"
+    ],
+    [
+     "eyeLookOutRight",
+     "eyeLookOut_R",
+     "EyeLookOutRight",
+     16,
+     "eye",
+     "R",
+     "AU61/62"
+    ],
+    [
+     "eyeLookUpRight",
+     "eyeLookUp_R",
+     "EyeLookUpRight",
+     18,
+     "eye",
+     "R",
+     "AU63"
+    ],
+    [
+     "eyeSquintRight",
+     "eyeSquint_R",
+     "EyeSquintRight",
+     20,
+     "eye",
+     "R",
+     "AU7"
+    ],
+    [
+     "eyeWideRight",
+     "eyeWide_R",
+     "EyeWideRight",
+     22,
+     "eye",
+     "R",
+     "AU5"
+    ],
+    [
+     "jawForward",
+     "jawForward",
+     "JawForward",
+     23,
+     "jaw",
+     "C",
+     "AU29"
+    ],
+    [
+     "jawLeft",
+     "jaw_L",
+     "JawLeft",
+     24,
+     "jaw",
+     "L",
+     "AU30"
+    ],
+    [
+     "jawRight",
+     "jaw_R",
+     "JawRight",
+     26,
+     "jaw",
+     "R",
+     "AU30"
+    ],
+    [
+     "jawOpen",
+     "jawOpen",
+     "JawOpen",
+     25,
+     "jaw",
+     "C",
+     "AU26/27"
+    ],
+    [
+     "mouthClose",
+     "mouthClose",
+     "MouthClose",
+     27,
+     "mouth",
+     "C",
+     "(lips sealed with jaw open; author relative to jawOpen)"
+    ],
+    [
+     "mouthFunnel",
+     "mouthFunnel",
+     "MouthFunnel",
+     32,
+     "mouth",
+     "C",
+     "AU22"
+    ],
+    [
+     "mouthPucker",
+     "mouthPucker",
+     "MouthPucker",
+     38,
+     "mouth",
+     "C",
+     "AU18"
+    ],
+    [
+     "mouthLeft",
+     "mouth_L",
+     "MouthLeft",
+     33,
+     "mouth",
+     "L",
+     "(lips shifted sideways)"
+    ],
+    [
+     "mouthRight",
+     "mouth_R",
+     "MouthRight",
+     39,
+     "mouth",
+     "R",
+     "(lips shifted sideways)"
+    ],
+    [
+     "mouthSmileLeft",
+     "mouthSmile_L",
+     "MouthSmileLeft",
+     44,
+     "mouth",
+     "L",
+     "AU12"
+    ],
+    [
+     "mouthSmileRight",
+     "mouthSmile_R",
+     "MouthSmileRight",
+     45,
+     "mouth",
+     "R",
+     "AU12"
+    ],
+    [
+     "mouthFrownLeft",
+     "mouthFrown_L",
+     "MouthFrownLeft",
+     30,
+     "mouth",
+     "L",
+     "AU15"
+    ],
+    [
+     "mouthFrownRight",
+     "mouthFrown_R",
+     "MouthFrownRight",
+     31,
+     "mouth",
+     "R",
+     "AU15"
+    ],
+    [
+     "mouthDimpleLeft",
+     "mouthDimple_L",
+     "MouthDimpleLeft",
+     28,
+     "mouth",
+     "L",
+     "AU14"
+    ],
+    [
+     "mouthDimpleRight",
+     "mouthDimple_R",
+     "MouthDimpleRight",
+     29,
+     "mouth",
+     "R",
+     "AU14"
+    ],
+    [
+     "mouthStretchLeft",
+     "mouthStretch_L",
+     "MouthStretchLeft",
+     46,
+     "mouth",
+     "L",
+     "AU20"
+    ],
+    [
+     "mouthStretchRight",
+     "mouthStretch_R",
+     "MouthStretchRight",
+     47,
+     "mouth",
+     "R",
+     "AU20"
+    ],
+    [
+     "mouthRollLower",
+     "mouthRollLower",
+     "MouthRollLower",
+     40,
+     "mouth",
+     "C",
+     "AU28"
+    ],
+    [
+     "mouthRollUpper",
+     "mouthRollUpper",
+     "MouthRollUpper",
+     41,
+     "mouth",
+     "C",
+     "AU28"
+    ],
+    [
+     "mouthShrugLower",
+     "mouthShrugLower",
+     "MouthShrugLower",
+     42,
+     "mouth",
+     "C",
+     "AU17"
+    ],
+    [
+     "mouthShrugUpper",
+     "mouthShrugUpper",
+     "MouthShrugUpper",
+     43,
+     "mouth",
+     "C",
+     "AU17 (upper lip push)"
+    ],
+    [
+     "mouthPressLeft",
+     "mouthPress_L",
+     "MouthPressLeft",
+     36,
+     "mouth",
+     "L",
+     "AU24"
+    ],
+    [
+     "mouthPressRight",
+     "mouthPress_R",
+     "MouthPressRight",
+     37,
+     "mouth",
+     "R",
+     "AU24"
+    ],
+    [
+     "mouthLowerDownLeft",
+     "mouthLowerDown_L",
+     "MouthLowerDownLeft",
+     34,
+     "mouth",
+     "L",
+     "AU16"
+    ],
+    [
+     "mouthLowerDownRight",
+     "mouthLowerDown_R",
+     "MouthLowerDownRight",
+     35,
+     "mouth",
+     "R",
+     "AU16"
+    ],
+    [
+     "mouthUpperUpLeft",
+     "mouthUpperUp_L",
+     "MouthUpperUpLeft",
+     48,
+     "mouth",
+     "L",
+     "AU10"
+    ],
+    [
+     "mouthUpperUpRight",
+     "mouthUpperUp_R",
+     "MouthUpperUpRight",
+     49,
+     "mouth",
+     "R",
+     "AU10"
+    ],
+    [
+     "browDownLeft",
+     "browDown_L",
+     "BrowDownLeft",
+     1,
+     "brow",
+     "L",
+     "AU4"
+    ],
+    [
+     "browDownRight",
+     "browDown_R",
+     "BrowDownRight",
+     2,
+     "brow",
+     "R",
+     "AU4"
+    ],
+    [
+     "browInnerUp",
+     "browInnerUp",
+     "BrowInnerUp",
+     3,
+     "brow",
+     "C",
+     "AU1"
+    ],
+    [
+     "browOuterUpLeft",
+     "browOuterUp_L",
+     "BrowOuterUpLeft",
+     4,
+     "brow",
+     "L",
+     "AU2"
+    ],
+    [
+     "browOuterUpRight",
+     "browOuterUp_R",
+     "BrowOuterUpRight",
+     5,
+     "brow",
+     "R",
+     "AU2"
+    ],
+    [
+     "cheekPuff",
+     "cheekPuff",
+     "CheekPuff",
+     6,
+     "cheek",
+     "C",
+     "AU34"
+    ],
+    [
+     "cheekSquintLeft",
+     "cheekSquint_L",
+     "CheekSquintLeft",
+     7,
+     "cheek",
+     "L",
+     "AU6"
+    ],
+    [
+     "cheekSquintRight",
+     "cheekSquint_R",
+     "CheekSquintRight",
+     8,
+     "cheek",
+     "R",
+     "AU6"
+    ],
+    [
+     "noseSneerLeft",
+     "noseSneer_L",
+     "NoseSneerLeft",
+     50,
+     "nose",
+     "L",
+     "AU9"
+    ],
+    [
+     "noseSneerRight",
+     "noseSneer_R",
+     "NoseSneerRight",
+     51,
+     "nose",
+     "R",
+     "AU9"
+    ],
+    [
+     "tongueOut",
+     "tongueOut",
+     "TongueOut",
+     null,
+     "tongue",
+     "C",
+     "AU19"
+    ]
+   ],
+   "population": "n/a (naming standard)",
+   "source_urls": [
+    "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes",
+    "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation",
+    "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+    "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult",
+    "https://github.com/H0wZy/captureforge"
+   ],
+   "status": "knowledge",
+   "notes": "Count 52 and 0-1 range are sourced ([1],[5],[7],[11]); the individual names, Apple raw strings (_L/_R), Live Link Face PascalCase headers, alphabetical MediaPipe ordering and AU mapping are expert knowledge to verify against Apple BlendShapeLocation [2] and a live FaceLandmarkerResult. MediaPipe has no tongueOut; its index 0 is _neutral. 'side_subject' assumes Left = subject's left (sourced for MediaPipe [5]; wink-test ARKit apps). In Blender (character faces -Y) subject's left = +X."
+  },
+  {
+   "name": "blendshape_standards",
+   "units": "count of shapes/controls; weight range",
+   "columns": [
+    "standard",
+    "count",
+    "range",
+    "naming",
+    "tongue",
+    "status",
+    "notes"
+   ],
+   "rows": [
+    [
+     "ARKit",
+     52,
+     "0-1",
+     "camelCase Swift; raw _L/_R strings",
+     true,
+     "sourced",
+     "count [11], range [1]; names knowledge"
+    ],
+    [
+     "MediaPipe Face Landmarker",
+     52,
+     "0-1",
+     "ARKit camelCase + _neutral",
+     false,
+     "sourced",
+     "[5][7]; composition (ARKit minus tongueOut plus _neutral) knowledge"
+    ],
+    [
+     "Live Link Face CSV",
+     61,
+     "0-1",
+     "PascalCase",
+     true,
+     "knowledge",
+     "52 shapes + 9 head/eye angles"
+    ],
+    [
+     "Meta Movement SDK face",
+     63,
+     "0-1",
+     "FACS-style UPPER_SNAKE",
+     false,
+     "contested",
+     "about 70 with tongue in v2; verify"
+    ],
+    [
+     "VRM 1.0 presets",
+     18,
+     "0-1",
+     "happy, angry, sad, relaxed, surprised, aa, ih, ou, ee, oh, blink(L/R), look x4, neutral",
+     false,
+     "knowledge",
+     ""
+    ],
+    [
+     "VRM 0.x presets",
+     17,
+     "0-1",
+     "Neutral, A I U E O, Blink(_L/_R), Joy, Angry, Sorrow, Fun, Look x4",
+     false,
+     "knowledge",
+     ""
+    ],
+    [
+     "Oculus/Meta visemes",
+     15,
+     "0-1",
+     "sil PP FF TH DD kk CH SS nn RR aa E ih oh ou",
+     null,
+     "knowledge",
+     ""
+    ],
+    [
+     "FaceWarehouse",
+     47,
+     "0-1",
+     "neutral + 46 FACS blendshapes; 150 identities",
+     false,
+     "knowledge",
+     "bilinear model, Cao et al. 2014"
+    ],
+    [
+     "FLAME 2020 expression",
+     100,
+     "unbounded",
+     "PCA; plus 36 pose correctives (4 joints x 9)",
+     false,
+     "knowledge",
+     "5,023 vertices"
+    ],
+    [
+     "ICT FaceKit",
+     53,
+     "0-1",
+     "FACS/ARKit-like; plus 100 identity PCA",
+     null,
+     "knowledge",
+     "recalled count; verify"
+    ],
+    [
+     "MetaHuman controls",
+     250,
+     "0-1",
+     "CTRL_expressions_* -> joints + corrective shapes",
+     true,
+     "knowledge",
+     "approximate; see metahuman-cc-bridges"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [
+    "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes",
+    "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+    "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult",
+    "https://github.com/H0wZy/captureforge"
+   ],
+   "status": "knowledge",
+   "notes": "Counts are time-sensitive; only ARKit 52 [11] and MediaPipe 52 [5] are sourced."
+  },
+  {
+   "name": "blender_shapekey_properties",
+   "units": "Blender RNA defaults and limits",
+   "columns": [
+    "property",
+    "default",
+    "soft_range",
+    "hard_range",
+    "notes"
+   ],
+   "rows": [
+    [
+     "ShapeKey.value",
+     0.0,
+     "slider_min..slider_max",
+     "-10..10",
+     "weight; drivable"
+    ],
+    [
+     "ShapeKey.slider_min",
+     0.0,
+     "",
+     "-10..10",
+     ""
+    ],
+    [
+     "ShapeKey.slider_max",
+     1.0,
+     "",
+     "-10..10",
+     "set 1.5 on ID_fit for caricature dial"
+    ],
+    [
+     "ShapeKey.relative_key",
+     "reference key",
+     "",
+     "",
+     "delta = key - relative_key; bake before export"
+    ],
+    [
+     "ShapeKey.vertex_group",
+     "''",
+     "",
+     "",
+     "per-key mask by name; exporters may ignore"
+    ],
+    [
+     "ShapeKey.interpolation",
+     "KEY_LINEAR",
+     "",
+     "",
+     "absolute (use_relative=False) mode only"
+    ],
+    [
+     "ShapeKey.lock_shape",
+     false,
+     "",
+     "",
+     "4.0 or 4.1+ (contested)"
+    ],
+    [
+     "Object.shape_key_add name",
+     "Key",
+     "",
+     "",
+     "pass name='Basis' for first key"
+    ],
+    [
+     "Object.shape_key_add from_mix",
+     true,
+     "",
+     "",
+     "pass from_mix=False for clean keys"
+    ],
+    [
+     "storage per key",
+     "12 bytes/vertex",
+     "",
+     "",
+     "float32 xyz absolute, not sparse; 25k verts x 80 keys = 24 MB"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert knowledge of the bpy API (Blender 4.x); probe at runtime on 5.x."
+  },
+  {
+   "name": "linear_delta_chord_error",
+   "units": "radius mm; sweep deg; error mm at weight 0.5",
+   "columns": [
+    "motion",
+    "radius_mm",
+    "sweep_deg",
+    "mid_weight_error_mm"
+   ],
+   "rows": [
+    [
+     "upper lid over globe",
+     12,
+     40,
+     0.72
+    ],
+    [
+     "upper lid over globe",
+     12,
+     50,
+     1.12
+    ],
+    [
+     "upper lid over globe",
+     12,
+     60,
+     1.61
+    ],
+    [
+     "upper lid over globe",
+     13,
+     40,
+     0.78
+    ],
+    [
+     "upper lid over globe",
+     13,
+     50,
+     1.22
+    ],
+    [
+     "upper lid over globe",
+     13,
+     60,
+     1.74
+    ],
+    [
+     "jaw (incisor/chin)",
+     100,
+     15,
+     0.86
+    ],
+    [
+     "jaw (incisor/chin)",
+     100,
+     20,
+     1.52
+    ],
+    [
+     "jaw (incisor/chin)",
+     100,
+     25,
+     2.37
+    ],
+    [
+     "jaw (incisor/chin)",
+     100,
+     30,
+     3.41
+    ],
+    [
+     "jaw (incisor/chin)",
+     120,
+     15,
+     1.03
+    ],
+    [
+     "jaw (incisor/chin)",
+     120,
+     20,
+     1.82
+    ],
+    [
+     "jaw (incisor/chin)",
+     120,
+     25,
+     2.84
+    ],
+    [
+     "jaw (incisor/chin)",
+     120,
+     30,
+     4.09
+    ]
+   ],
+   "population": "adult geometry (globe radius ~12 mm; incisor/chin to condyle 100-120 mm)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Derived: error = r*(1-cos(theta/2)). Inputs (globe radius, jaw radius, sweeps) are expert estimates. Error is inward/toward the hinge; needs an in-between at 0.5 or a bone."
+  },
+  {
+   "name": "expression_displacement_bounds_w1",
+   "units": "mm at weight 1",
+   "columns": [
+    "key",
+    "measure",
+    "min_mm",
+    "max_mm",
+    "notes"
+   ],
+   "rows": [
+    [
+     "eyeBlink",
+     "upper-lid margin travel",
+     8,
+     12,
+     "closure gap 0-0.5 mm, never crossing"
+    ],
+    [
+     "eyeWide",
+     "upper-lid rise",
+     1,
+     4,
+     ""
+    ],
+    [
+     "eyeSquint",
+     "lower-lid rise",
+     1,
+     3,
+     ""
+    ],
+    [
+     "browInnerUp",
+     "medial brow rise",
+     5,
+     12,
+     ""
+    ],
+    [
+     "browOuterUp",
+     "lateral brow rise",
+     5,
+     12,
+     ""
+    ],
+    [
+     "browDown",
+     "brow drop + medial pull",
+     3,
+     8,
+     ""
+    ],
+    [
+     "cheekSquint",
+     "malar lift",
+     2,
+     5,
+     ""
+    ],
+    [
+     "mouthSmile",
+     "cheilion displacement",
+     7,
+     15,
+     ""
+    ],
+    [
+     "mouthStretch",
+     "cheilion lateral",
+     3,
+     8,
+     ""
+    ],
+    [
+     "mouthPucker",
+     "lip protrusion",
+     6,
+     12,
+     "also mouthFunnel"
+    ],
+    [
+     "jawOpen",
+     "interincisal opening",
+     40,
+     60,
+     "contested range; see facs-expressions"
+    ],
+    [
+     "jawForward",
+     "mandibular protrusion",
+     5,
+     10,
+     ""
+    ],
+    [
+     "jawLeft/Right",
+     "lateral shift",
+     5,
+     10,
+     ""
+    ],
+    [
+     "cheekPuff",
+     "cheek outward",
+     5,
+     15,
+     ""
+    ],
+    [
+     "noseSneer",
+     "alar lift",
+     1,
+     4,
+     ""
+    ]
+   ],
+   "population": "adults (heuristic)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "QA plausibility bounds only, not anthropometric norms; calibrate from 4D data (e.g., D3DFACS)."
+  },
+  {
+   "name": "corrective_starter_set",
+   "units": "Blender simple-expression drivers",
+   "columns": [
+    "shape",
+    "parents",
+    "driver_expression",
+    "purpose",
+    "priority"
+   ],
+   "rows": [
+    [
+     "mouthClose (guard)",
+     "mouthClose, jawOpen",
+     "min(mc, jo)",
+     "lips never cross when jaw shut",
+     "high"
+    ],
+    [
+     "jawOpen_mid",
+     "jawOpen",
+     "max(0,1-abs(2*jo-1))",
+     "jaw arc in-between (full key: max(0,2*jo-1))",
+     "high"
+    ],
+    [
+     "eyeBlink_mid L/R",
+     "eyeBlink",
+     "max(0,1-abs(2*eb-1))",
+     "lid arc over cornea",
+     "high"
+    ],
+    [
+     "jawOpen_x_mouthSmile L/R",
+     "jawOpen, mouthSmile",
+     "jo*s",
+     "open smile",
+     "high"
+    ],
+    [
+     "jawOpen_x_mouthFunnel",
+     "jawOpen, mouthFunnel",
+     "jo*f",
+     "'oh' viseme",
+     "medium"
+    ],
+    [
+     "jawOpen_x_mouthPucker",
+     "jawOpen, mouthPucker",
+     "jo*p",
+     "'oo' viseme",
+     "medium"
+    ],
+    [
+     "eyeBlink_x_eyeLookDown/Up L/R",
+     "eyeBlink, eyeLook",
+     "eb*ld",
+     "lid follows gaze",
+     "medium"
+    ],
+    [
+     "eyeBlink_x_eyeSquint/cheekSquint L/R",
+     "eyeBlink, eyeSquint/cheekSquint",
+     "eb*sq",
+     "lower-lid bunching",
+     "medium"
+    ],
+    [
+     "browDown_x_browInnerUp",
+     "browDown, browInnerUp",
+     "bd*bi",
+     "AU1+4 grief brow",
+     "medium"
+    ],
+    [
+     "mouthSmile_x_cheekSquint L/R",
+     "mouthSmile, cheekSquint",
+     "s*cs",
+     "AU6+12 infraorbital bulge",
+     "medium"
+    ],
+    [
+     "mouthPucker_x_mouthFunnel",
+     "mouthPucker, mouthFunnel",
+     "p*f",
+     "lip volume",
+     "low"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Product drivers follow the combination-blendshape model (Lewis et al. 2014); min() is a contested alternative."
+  },
+  {
+   "name": "fitting_priors_defaults",
+   "units": "weights in [0,1]; residuals normalised by inter-ocular distance (IOD)",
+   "columns": [
+    "parameter",
+    "default",
+    "range",
+    "notes"
+   ],
+   "rows": [
+    [
+     "psi bounds",
+     "[0,1]",
+     "",
+     "projected Gauss-Newton / bounded LM"
+    ],
+    [
+     "psi prior sigma, neutral view (half-normal)",
+     0.07,
+     "0.05-0.10",
+     "plus L1"
+    ],
+    [
+     "L1 sparsity lambda",
+     0.02,
+     "0.01-0.05",
+     "IOD-normalised residual units"
+    ],
+    [
+     "psi prior sigma, expressive view",
+     0.5,
+     "",
+     ""
+    ],
+    [
+     "MediaPipe score as psi observation sigma (calibrated)",
+     0.2,
+     "0.15-0.25",
+     "0.3 if uncalibrated; init/prior only, not a second data term"
+    ],
+    [
+     "antagonist penalty weight (x data scale)",
+     3,
+     "1-10",
+     "blink/wide, lookIn/lookOut same eye; jawL/R; mouthL/R"
+    ],
+    [
+     "jaw rotation prior, neutral (deg)",
+     "N(1.5, 1^2)",
+     "0-30 bound",
+     "from facs-expressions note"
+    ],
+    [
+     "delta scale s = IOD_subj/IOD_tmpl",
+     "1.0",
+     "0.86-1.14",
+     "derived from adult IPD ~54-72 mm vs 63 mm template"
+    ],
+    [
+     "condition-number threshold for ridge",
+     10000.0,
+     "",
+     "cond(D^T D) at landmarks"
+    ],
+    [
+     "L/R split mask midline band (mm)",
+     15,
+     "10-20",
+     "smoothstep; wL + wR = 1"
+    ],
+    [
+     "key spill threshold (fraction of displacement energy outside mask)",
+     0.015,
+     "0.01-0.02",
+     "QA"
+    ],
+    [
+     "L/R mirror RMS threshold on template (mm)",
+     0.5,
+     "",
+     "QA"
+    ],
+    [
+     "eyelid closure gap at eyeBlink=1 (mm)",
+     "0-0.5",
+     "",
+     "never negative (crossing)"
+    ],
+    [
+     "remap lo percentile (neutral frames)",
+     95,
+     "90-95",
+     ""
+    ],
+    [
+     "remap hi percentile (ROM clip)",
+     98,
+     "95-99",
+     ""
+    ],
+    [
+     "remap gamma",
+     1.0,
+     "0.7-1.5",
+     ""
+    ],
+    [
+     "One Euro min_cutoff (Hz)",
+     1.0,
+     "0.5-3",
+     ""
+    ],
+    [
+     "One Euro beta",
+     0.01,
+     "0.005-0.05",
+     ""
+    ],
+    [
+     "ID_fit slider_max (caricature dial)",
+     1.5,
+     "useful 1.1-1.3",
+     "only if Basis is a mean face"
+    ]
+   ],
+   "population": "engineering defaults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Unvalidated engineering starting values; calibrate per capture system and log per run."
+  }
+ ]
+}

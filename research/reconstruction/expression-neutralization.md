@@ -2,7 +2,7 @@
 
 > A 3D morphable model (3DMM) writes a face as mean + identity basis·β + expression basis·ψ (plus an articulated jaw in FLAME); the split is a statistical convention learned from different data, not anatomy, and the two subspaces overlap. From one photo, a slight smile, parted jaw or squint is partly absorbed as a wider mouth, longer chin or smaller eyes. Fitting several photos with one shared β and a per-photo ψ separates the *varying* part of expression, but a *constant* offset (a habitual smile in every photo) is separable only if one photo is tagged neutral and a prior pins its ψ near 0. The recipe: capture a relaxed neutral, trust only expression-stable regions (nasal dorsum, forehead, orbital rims, ears) on expressive photos, fit expression per photo, hand off ψ = 0 with the jaw closed, and use expressive photos for teeth, rig shapes and extra angles, never for lips or lids.
 >
-> Evidence status: 0 ✅ / 0 📄 / 49 🧠 / 13 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 4 📄 / 46 🧠 / 14 ↔️ — remaining 🧠 items are queued for web verification (4 claims checked 2026-11-20; see Verification log).
 
 *No web harvest existed for this topic, so nothing here is web-sourced. Where a sibling note in this library cites a source for the same claim, it is named in backticks.*
 
@@ -11,7 +11,7 @@
 **How models encode the split**
 - **Blanz & Vetter (1999)** built PCA from 200 *neutral* scans, with no expression. BFM 2009 is also neutral-only, so expression must be added from another dataset. 🧠
 - **The additive BFM pipelines** take expression deltas from FaceWarehouse. Each delta is computed against that subject's own neutral scan, then PCA is run on the deltas. FaceWarehouse has about 150 subjects with about 20 expressions each. Deep3DFaceRecon uses 80 identity and 64 expression components; 3DDFA_V2 uses 40 and 10. 🧠 (component counts also in `single-image-regression.md`)
-- **FLAME** has 300 shape (β) and 100 expression (ψ) components, roughly in SD units (`multi-view-fitting.md`). Identity PCA comes from ≈3,800 CAESAR scans; expression PCA from 4D sequences (D3DFACS plus own captures) *after* removing identity, jaw/neck/eye rotation (linear blend skinning) and pose correctives, so jaw opening is articulation (θ_jaw), not ψ. 🧠
+- **FLAME** has 300 shape (β) and 100 expression (ψ) components, roughly in SD units (`multi-view-fitting.md`). Identity PCA comes from ≈3,800 CAESAR scans; expression PCA from 4D sequences (D3DFACS plus own captures) *after* removing identity, jaw/neck/eye rotation (linear blend skinning) and pose correctives, so jaw opening is articulation (θ_jaw), not ψ. 📄 [2] for D3DFACS plus additional 4D sequences, articulated jaw/neck/eyes and pose correctives; CAESAR scan count ↔️ (≈3,800 in one summary vs roughly 4,000 in the paper abstract); the 300/100 component counts were not found in the results 🧠
 - **Multilinear models** (Vlasic et al. 2005; FaceWarehouse bilinear tensor) make expression depend on identity (a wide mouth smiles wider). Additive models apply one delta to everyone, so person-specific expression shape leaks into β or stays as residual; how much that matters is ↔️.
 - **Implicit/neural heads** (ImFace, NPHM, MonoNPHM) keep identity in a canonical neutral space plus an expression deformation field; they neutralise by setting the expression code to 0 and inherit the same zero-point ambiguity. 🧠
 - **FACS blendshape rigs** (ARKit/MediaPipe 52) are semantic, non-orthogonal, bounded to [0, 1]: good for neutralising by subtraction, not identity models. 🧠 (sourced in `anatomy/facs-expressions.md`)
@@ -25,7 +25,7 @@
 
 **Anatomy of a usable neutral**
 - **Definition:** no active action unit (AU); mandible at physiological rest (2–4 mm interincisal freeway space); lips lightly touching without mentalis (AU17) or pressing (AU24); primary gaze; upper lid margin ≈1–2 mm below the upper limbus (MRD1 ≈ 3.5–5 mm). 🧠
-- **Incisor display at rest** is about 1–4 mm. Vig & Brundo give means of about 1.9 mm for men and 3.4 mm for women, falling with age. If display is repeatable across sessions it is identity (short lip or vertical maxillary excess), not expression. 🧠
+- **Incisor display at rest** is about 1–4 mm. Vig & Brundo give means of about 1.9 mm for men and 3.4 mm for women, falling with age. If display is repeatable across sessions it is identity (short lip or vertical maxillary excess), not expression. 📄 [3] (means and age trend; the 1–4 mm overall range and identity interpretation not separately sourced)
 - **Resting lip gap.** A gap of more than about 3–4 mm (lip incompetence) is identity. Forcing the lips shut recruits mentalis, which gives a dimpled "golf-ball" chin and a flattened labiomental fold. That chin is an *expression*. Exact threshold ↔️.
 - **Expression-stable regions:** nasal bridge and dorsum, forehead above the brows (except under AU1/2/4), orbital rims, zygion, ears, cranial vault. Expression-robust 3D face recognition is built on them (Chang–Bowyer–Flynn nose regions; Bronstein et al. isometric expressions). 🧠
 - **Mobile regions:** lips and commissures, malar soft tissue, nasolabial fold, lower lid, brows, chin pad, everything jaw-dependent. 🧠
@@ -53,8 +53,8 @@
 
 | Quantity | Typical | Units | Note | Status |
 |---|---|---|---|---|
-| Interincisal freeway space at rest | 2–4 | mm | ≈ 1.1–2.4° of jaw rotation (Table 4) | 🧠 |
-| Upper incisor display at rest | 1–4 (M ≈ 1.9, F ≈ 3.4) | mm | Vig & Brundo; falls with age | 🧠 |
+| Interincisal freeway space at rest | 2–4 | mm | ≈ 1.1–2.4° of jaw rotation (Table 4); 2–4 mm typical clinical value [1], literature spans 1–10 mm by method | 📄 |
+| Upper incisor display at rest | 1–4 (M ≈ 1.9, F ≈ 3.4) | mm | Vig & Brundo; falls with age [3] | 📄 |
 | Resting interlabial gap, competent | 0–3 | mm | >3–4 mm = incompetent lips (identity) | ↔️ |
 | MRD1 (lid margin to corneal light reflex) | 3.5–5 | mm | below 2 mm = ptosis or squint | 🧠 |
 | Mouth width (ch–ch) at rest | 45–58 | mm | Farkas-type norms; M > F | 🧠 |
@@ -127,7 +127,11 @@
 
 ## Sources
 
-No harvest existed for this topic; no URLs are cited. Sibling notes cite sources for overlapping claims: `reconstruction/single-image-regression.md` (DECA, MICA, SMIRK, NoW), `reconstruction/identity-embeddings.md` (MICA/ArcFace expression robustness), `reconstruction/multi-view-fitting.md` (VHAP and metrical tracking, prior table), `anatomy/facs-expressions.md` (AUs, ARKit/MediaPipe 52).
+Sources verified 2026-11-20 are listed below; no full harvest existed for the rest of the note. Sibling notes cite sources for overlapping claims: `reconstruction/single-image-regression.md` (DECA, MICA, SMIRK, NoW), `reconstruction/identity-embeddings.md` (MICA/ArcFace expression robustness), `reconstruction/multi-view-fitting.md` (VHAP and metrical tracking, prior table), `anatomy/facs-expressions.md` (AUs, ARKit/MediaPipe 52).
+
+1. Spear Education, freeway space / vertical dimension review: https://speareducation.com/2019/05/options-for-determining-vertical-dimension-with-edentulous-patients
+2. Li et al., FLAME paper (SIGGRAPH Asia 2017): https://download.is.tue.mpg.de/flame/flame_paper.pdf (also https://flame.is.tue.mpg.de/)
+3. Zachrisson, "Esthetic factors involved in anterior tooth display and the smile", J Clin Orthod 1998 (reports Vig & Brundo means): https://www.jco-online.com/archive/1998/07/432-esthetic-factors-involved-in-anterior-tooth-display-and-the-smile-vertical-dimension/ ; original: https://pubmed.ncbi.nlm.nih.gov/349139/
 
 **Further reading (by name, not yet linked)**
 - Blanz & Vetter, "A Morphable Model for the Synthesis of 3D Faces", SIGGRAPH 1999; Paysan et al., BFM 2009, AVSS 2009
@@ -142,3 +146,10 @@ No harvest existed for this topic; no URLs are cited. Sibling notes cite sources
 - ImFace (CVPR 2022); NPHM (CVPR 2023); D3DFACS (Cosker et al., ICCV 2011)
 - Bronstein, Bronstein, Kimmel, "Three-Dimensional Face Recognition", IJCV 2005; Chang, Bowyer, Flynn, TPAMI 2006
 - Ekman, Friesen, Hager, FACS manual, 2002; Vig & Brundo, "The kinetics of anterior tooth display", J Prosthet Dent 1978; Farkas, Anthropometry of the Head and Face, 1994
+
+## Verification log (2026-11-20)
+
+- Freeway space 2–4 mm (jaw prior justification): confirmed for 2–4 mm (📄 [1]); literature range 1–10 mm by method, 2–5 mm at incisors in another source. The ≈100 mm condyle–incisor radius and the σ 1–1.5° prior were not confirmed (design choice). https://speareducation.com/2019/05/options-for-determining-vertical-dimension-with-edentulous-patients
+- FLAME components and data: partly confirmed. D3DFACS plus additional 4D sequences, articulated jaw/neck/eyes, pose correctives confirmed; CAESAR count contested (≈3,800 vs ≈4,000); 300 shape / 100 expression counts unconfirmed. https://download.is.tue.mpg.de/flame/flame_paper.pdf
+- Social smile shifts (+15–30 % width, −20–40 % upper lip, etc.): unconfirmed. Sources showed only qualitative rest-to-smile changes (larger in women, shrinking with age). Candidate leads: https://pmc.ncbi.nlm.nih.gov/articles/PMC8805521/ , https://pubmed.ncbi.nlm.nih.gov/22196189/
+- Incisor display, Vig & Brundo (men 1.9, women 3.4 mm, decreases with age): confirmed via secondary review (Zachrisson 1998); original table not read. The 1–4 mm overall range not separately confirmed. https://www.jco-online.com/archive/1998/07/432-esthetic-factors-involved-in-anterior-tooth-display-and-the-smile-vertical-dimension/

@@ -1,13 +1,83 @@
 {
   "topic": "generative-3d-heads",
   "sources": [
-    {"n": 1, "title": "KaoLRM: Repurposing Pre-trained Large Reconstruction Models for Parametric 3D Face Reconstruction", "url": "https://arxiv.org/pdf/2601.12736", "kind": "paper", "year": "2026"},
-    {"n": 2, "title": "Towards Metrical Reconstruction of Human Faces (MICA)", "url": "https://ar5iv.labs.arxiv.org/html/2204.06607", "kind": "paper", "year": "2022"},
-    {"n": 3, "title": "Towards Realistic Generative 3D Face Models", "url": "https://arxiv.org/pdf/2304.12483", "kind": "paper", "year": "2023"},
-    {"n": 4, "title": "InsightFace python-package model_zoo.md", "url": "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md", "kind": "repo", "year": "2024"},
-    {"n": 5, "title": "Ideal Facial Proportions in Generative Artificial Intelligence (Sridhar et al.)", "url": "https://journals.sagepub.com/doi/10.1089/fpsam.2025.0007", "kind": "paper", "year": "2025"},
-    {"n": 6, "title": "GAF: Gaussian Avatar Reconstruction from Monocular Videos via Multi-view Diffusion", "url": "https://arxiv.org/pdf/2412.10209v2", "kind": "paper", "year": "2024"},
-    {"n": 7, "title": "Sapiens: Foundation for Human Vision Models", "url": "https://arxiv.org/abs/2408.12569", "kind": "paper", "year": "2024"}
+    {
+      "n": 1,
+      "title": "KaoLRM: Repurposing Pre-trained Large Reconstruction Models for Parametric 3D Face Reconstruction",
+      "url": "https://arxiv.org/pdf/2601.12736",
+      "kind": "paper",
+      "year": "2026"
+    },
+    {
+      "n": 2,
+      "title": "Towards Metrical Reconstruction of Human Faces (MICA)",
+      "url": "https://ar5iv.labs.arxiv.org/html/2204.06607",
+      "kind": "paper",
+      "year": "2022"
+    },
+    {
+      "n": 3,
+      "title": "Towards Realistic Generative 3D Face Models",
+      "url": "https://arxiv.org/pdf/2304.12483",
+      "kind": "paper",
+      "year": "2023"
+    },
+    {
+      "n": 4,
+      "title": "InsightFace python-package model_zoo.md",
+      "url": "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md",
+      "kind": "repo",
+      "year": "2024"
+    },
+    {
+      "n": 5,
+      "title": "Ideal Facial Proportions in Generative Artificial Intelligence (Sridhar et al.)",
+      "url": "https://journals.sagepub.com/doi/10.1089/fpsam.2025.0007",
+      "kind": "paper",
+      "year": "2025"
+    },
+    {
+      "n": 6,
+      "title": "GAF: Gaussian Avatar Reconstruction from Monocular Videos via Multi-view Diffusion",
+      "url": "https://arxiv.org/pdf/2412.10209v2",
+      "kind": "paper",
+      "year": "2024"
+    },
+    {
+      "n": 7,
+      "title": "Sapiens: Foundation for Human Vision Models",
+      "url": "https://arxiv.org/abs/2408.12569",
+      "kind": "paper",
+      "year": "2024"
+    },
+    {
+      "n": 8,
+      "title": "Hunyuan3D-2.1 LICENSE (mirror)",
+      "url": "https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE",
+      "kind": "licence",
+      "year": "2025"
+    },
+    {
+      "n": 9,
+      "title": "microsoft/TRELLIS.2-4B model card",
+      "url": "https://huggingface.co/microsoft/trellis.2-4b",
+      "kind": "model card",
+      "year": "2025"
+    },
+    {
+      "n": 10,
+      "title": "SphereHead: Stable 3D Full-head Synthesis with Spherical Tri-plane Representation",
+      "url": "https://arxiv.org/abs/2404.05680",
+      "kind": "paper",
+      "year": "2024"
+    },
+    {
+      "n": 11,
+      "title": "PanoHead: Geometry-Aware 3D Full-Head Synthesis in 360°",
+      "url": "https://openaccess.thecvf.com/content/CVPR2023/papers/An_PanoHead_Geometry-Aware_3D_Full-Head_Synthesis_in_360deg_CVPR_2023_paper.pdf",
+      "kind": "paper",
+      "year": "2023"
+    }
   ],
   "references_by_name": [
     "Hong et al., 'LRM: Large Reconstruction Model for Single Image to 3D', ICLR 2024",

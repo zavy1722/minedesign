@@ -14,7 +14,7 @@
         ["Hunyuan3D 2.0 / 2.1 / 2mv", "2025", "vector-set flow DiT + Paint texture model", "marching cubes, octree 256 default, up to ~512; PBR in 2.1", "1 image (2mv: up to 4 views)", "best open mass, averaged identity", "contested"],
         ["Hunyuan3D 2.5 / 3.0", "2025", "hosted", "reportedly up to 1536^3", "1+ images", "sharper; depth still guessed", "contested"],
         ["TRELLIS", "2024-2025", "sparse structured latent (flow)", "64^3 sparse structure -> 256^3 FlexiCubes mesh, or 3DGS / radiance field", "1 image (multi-image experimental)", "good silhouette, soft face", "knowledge"],
-        ["TRELLIS.2", "2025", "O-Voxel latent (reported)", "reportedly up to 1536^3, PBR", "1 image", "unreviewed for faces", "contested"],
+        ["TRELLIS.2", "2025", "O-Voxel latent", "up to 1536^3, PBR", "1 image", "unreviewed for faces", "sourced"],
         ["TripoSG / Step1X-3D", "2025", "SDF VAE + rectified flow", "marching cubes mesh", "1 image", "crisp objects, generic face", "knowledge"],
         ["EG3D", "2022", "3D-aware GAN", "tri-plane 3x256^2x32ch; volume render 128^2 -> 2D super-resolution 512^2", "latent / GAN inversion", "frontal only (~+/-60 deg yaw)", "knowledge"],
         ["PanoHead", "2023", "360-degree 3D GAN", "tri-grid 256^2 x 3 depth; 512^2 images", "GAN inversion", "full head; invented back", "knowledge"],
@@ -74,7 +74,7 @@
         ["Step1X-3D", "Apache-2.0", "Apache-2.0", "yes", "", "contested"],
         ["OpenLRM", "Apache-2.0", "CC BY-NC 4.0", "weights no", "", "contested"],
         ["SF3D / SPAR3D", "Stability AI Community License", "Stability AI Community License", "below about US$1M annual revenue", "", "contested"],
-        ["Hunyuan3D 2.x", "Tencent Hunyuan 3D Community License", "same", "yes outside EU, UK, South Korea", "monthly-active-user cap", "contested"],
+        ["Hunyuan3D 2.x", "Tencent Hunyuan 3D Community License", "same", "yes outside EU, UK, South Korea", "monthly-active-user cap (unconfirmed for 2.1); territory exclusion confirmed", "sourced"],
         ["EG3D", "NVIDIA Source Code License-NC", "same", "no", "trained on FFHQ (CC BY-NC-SA 4.0)", "knowledge"],
         ["PanoHead / SphereHead / FaceLift / Arc2Avatar", "unconfirmed", "unconfirmed", "assume no", "ArcFace/InsightFace pretrained weights reportedly non-commercial", "contested"],
         ["Rodin / Tripo / Meshy", "hosted", "hosted", "paid tiers", "entry tiers about US$10-30/month; free-tier outputs public or CC BY; face upload is biometric data", "contested"]

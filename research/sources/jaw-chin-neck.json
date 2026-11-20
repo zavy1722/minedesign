@@ -1,6 +1,42 @@
 {
  "topic": "jaw-chin-neck",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "title": "Sex estimation in Indians by digital analysis of the gonial angle",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6981352/"
+  },
+  {
+   "n": 2,
+   "title": "External gonial angle, panoramic vs lateral cephalograms, Class I adults",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/19776510/"
+  },
+  {
+   "n": 3,
+   "title": "Mandibular foramen, sigmoid notch and ramus (Shanghai dry mandibles)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/14966643/"
+  },
+  {
+   "n": 4,
+   "title": "Landmarks for mandibular angle reduction",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11417696/"
+  },
+  {
+   "n": 5,
+   "title": "Age, sex and mandibular parameters, panoramic",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11983699"
+  },
+  {
+   "n": 6,
+   "title": "How does the mandible age? AI shape analysis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12011572/"
+  },
+  {
+   "n": 7,
+   "title": "Mandibular condyle, coronoid, gonial angle CBCT",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12191486/"
+  }
+ ],
  "references_by_name": [
   "Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994",
   "Legan HL & Burstone CJ, soft-tissue cephalometric analysis for orthognathic surgery, J Oral Surg, 1980",

@@ -2,7 +2,7 @@
 
 > A face-recognition network such as ArcFace turns a 112×112 face crop, aligned on five keypoints, into a 512-dimensional vector. Two faces count as the same person when the cosine similarity of their L2-normalised vectors clears a threshold, and that threshold must be calibrated per model, per image domain and ideally per subject. In photo→3D work the embedding plays three roles. It is a frozen **identity encoder** for a scan-supervised shape regressor (MICA, whose loss is geometric, not an ArcFace identity loss), an **identity loss** on renders (Genova 2018, Deng 2019, GANFIT, DECA), and an offline **likeness scorecard** for camera-matched renders of the sculpt. The scorecard can be fooled: it is blind to scale, weak on depth, ears and cranium, and dominated by texture, eyes and brows, so measure it on clay renders against a calibrated genuine/impostor baseline. The common InsightFace weights are reportedly non-commercial only, and embeddings are biometric data, which limits how an add-on ships the model and stores its outputs.
 >
-> Evidence status: 6 ✅ / 26 📄 / 38 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 6 ✅ / 28 📄 / 37 🧠 / 9 ↔️ — 🧠 items are queued for web verification; last verification pass 2026-11-20.
 
 ## Key facts
 
@@ -30,7 +30,7 @@
 **Models, files, licences**
 - **buffalo_l** is the SCRFD-10GF detector plus a ResNet50 recogniser trained on WebFace600K, about **326 MB** in total [6]. 📄 Its recogniser `w600k_r50.onnx` is about **166 MB** and outputs **512-d** vectors [7][6]. 📄
 - The pack also ships `2d106det.onnx` (106 2D landmarks), `1k3d68.onnx` (68 3D landmarks) and `genderage.onnx`. **antelopev2** swaps in a ResNet100 trained on Glint360K, and **buffalo_s/sc** use MobileFaceNet. 🧠
-- **Licence.** The pretrained models are reported as **non-commercial research only**, separately from the MIT-licensed code [7]. 📄 Mirrors on SourceForge, Hugging Face and GitHub releases are unofficial [8][10]. 📄 The legacy CLI command is `insightface-cli model.download buffalo_l`, which saves to `~/.insightface/models/buffalo_l/` [6]. 📄
+- **Licence.** The pretrained models are reported as **non-commercial research only**, separately from the MIT-licensed code [7][6][11]; commercial use of buffalo_l, antelopev2 etc. is offered only through a separate licence on request [11][12]. 📄 Mirrors on SourceForge, Hugging Face and GitHub releases are unofficial [8][10]. 📄 The legacy CLI command is `insightface-cli model.download buffalo_l`, which saves to `~/.insightface/models/buffalo_l/` [6]. 📄
 - **Possibly more permissive alternatives, all needing licence checks:** OpenCV Zoo SFace (128-d, with the YuNet detector), dlib's ResNet (128-d, Euclidean threshold 0.6) and facenet-pytorch (InceptionResNetV1 on VGGFace2). Whatever the code licence says, weights carry their training data's consent and licence baggage. ↔️
 
 **Bias and ethics**
@@ -60,7 +60,7 @@
 | Input | 1×3×112×112 float32, RGB (feed cv2 BGR with swapRB) | 🧠 |
 | Normalisation | (px − 127.5)/127.5, *unless* the graph starts with Sub/Mul nodes (older MXNet conversions), in which case use raw 0–255 | 🧠 |
 | Alignment | 5-point similarity transform (`estimateAffinePartial2D`/Umeyama) to the template below | 🧠 |
-| Template (x, y) px | L-eye 38.29, 51.70 · R-eye 73.53, 51.50 · nose 56.03, 71.74 · L-mouth 41.55, 92.37 · R-mouth 70.73, 92.20 | 🧠 |
+| Template (x, y) px | L-eye 38.29, 51.70 · R-eye 73.53, 51.50 · nose 56.03, 71.74 · L-mouth 41.55, 92.37 · R-mouth 70.73, 92.20 (`arcface_dst` in `face_align.py`) | 📄 [13] |
 | Template inter-ocular distance | ≈35.2 px | 🧠 (derived) |
 | Output | 512 floats, **not** normalised; L2-normalise before the dot product | 🧠 |
 | SCRFD defaults | det_size 640×640, det_thresh 0.5 | 🧠 |
@@ -70,7 +70,7 @@
 | Anchor | Model | Value | Cosine equivalent | Badge |
 |---|---|---|---|---|
 | LFW study, fixed threshold | unspecified | cos 0.5 | 0.50 | 📄 [9] |
-| OpenCV FaceRecognizerSF sample | SFace, 128-d | cos 0.363 / L2 1.128 | 0.363 (the two values are self-consistent) | 🧠 |
+| OpenCV FaceRecognizerSF sample | SFace, 128-d | cos 0.363 / L2 1.128 | 0.363 (the two values are self-consistent) | 📄 [14] |
 | deepface library default | ArcFace (Keras port) | cosine distance ≈0.68 / L2 ≈1.13 | ≈0.32–0.36 | 🧠 |
 | Practitioner decision range | buffalo_l / antelopev2 | cos 0.28–0.45 | — | ↔️ |
 | Genuine pairs, good frontal photos | buffalo_l | ~0.5–0.8 | — | 🧠 |
@@ -150,7 +150,7 @@
 - **"ArcFace scores 99.83 % on LFW."** This is plausible for R100/MS1MV2 and, from memory, also appears on the buffalo_l zoo row, but neither has been checked. 🧠
 - **Which benchmark MICA's 24 % refers to.** The harvest says the NoW metric variant, while the single-image-regression note says MICA's own metric benchmark. ↔️
 - **"Mirror X equals the official buffalo_l."** This is unverified [8][10]. ↔️
-- **Licences.** Do the InsightFace weights have commercial terms on request? Are the SFace, dlib and AdaFace weights genuinely permissive? ↔️
+- **Licences.** The InsightFace weights do offer commercial terms on request via a separate licence [11][12] (confirmed in verification; terms and pricing not checked). Are the SFace, dlib and AdaFace weights genuinely permissive? ↔️
 - **Open questions:** how much of the score on 3D renders is texture rather than geometry (no study found); whether a depth- or normal-map 3D recogniser could serve as a geometry-only scorer; impostor calibration for under-represented groups; the exact 2025–26 EU AI Act changes ("digital omnibus" delays); whether ViT or AdaFace successors track sculpt edits better than R50.
 
 ## Sources
@@ -165,6 +165,10 @@
 [8] Third-party trimmed buffalo_l release (unverified mirror) — https://github.com/inoveee/eventlens/releases/tag/face-models-v1 — forum — year unknown
 [9] Adaptive Threshold for Online Object Recognition and Re-identification Tasks — https://arxiv.org/pdf/2012.14305 — paper — 2020
 [10] Third-party weights release (unverified mirror) — https://github.com/finetech-nexus/ai-api/releases/tag/weights-v1 — forum — year unknown
+[11] InsightFace python-package README (pretrained models non-commercial research only; contact for licensing) — https://github.com/deepinsight/insightface/blob/master/python-package/README.md — repo — 2024
+[12] InsightFace enterprise model licensing — https://www.insightface.ai/solutions/face-recognition-licensing — official-docs (vendor page) — 2026
+[13] InsightFace face_align.py (arcface_dst template) — https://github.com/deepinsight/insightface/blob/master/python-package/insightface/utils/face_align.py — repo — 2024
+[14] OpenCV DNN face detection and recognition tutorial (SFace thresholds) — https://docs.opencv.org/4.13.0/d0/dd4/tutorial_dnn_face.html — official-docs — 2026
 
 **Further reading (by name, not yet linked)**
 - Liu et al., *SphereFace: Deep Hypersphere Embedding for Face Recognition*, CVPR 2017
@@ -187,3 +191,10 @@
 - Russell & Sinha, *Real-world face recognition: the importance of surface reflectance properties*, Perception 2007
 - Zhong et al., *SFace: Sigmoid-Constrained Hypersphere Loss for Robust Face Recognition*, IEEE TIP 2021
 - Regulation (EU) 2024/1689 (AI Act); GDPR Art. 9; Illinois BIPA (740 ILCS 14)
+
+## Verification log (2026-11-20)
+
+- **InsightFace pretrained weights non-commercial research only, MIT code, commercial licence on request** — confirmed (📄). Official README and model zoo say the pretrained models are non-commercial research only; the vendor page offers commercial licensing for buffalo_l, antelopev2 and others. https://github.com/deepinsight/insightface/blob/master/python-package/README.md · https://www.insightface.ai/solutions/face-recognition-licensing
+- **ArcFace ONNX contract** — partly confirmed. The 5-point `arcface_dst` template is in `face_align.py` (📄); the 112×112 RGB input, (px−127.5)/127.5 normalisation, Sub/Mul exception and un-normalised 512-d output were not found in results and stay 🧠 unconfirmed. https://github.com/deepinsight/insightface/blob/master/python-package/insightface/utils/face_align.py
+- **Cosine threshold anchors** — partly confirmed. OpenCV's SFace tutorial uses cosine 0.363 / L2 1.128 (📄). deepface ≈0.68 distance, practitioner 0.28–0.45 and genuine 0.5–0.8 were not checked; unconfirmed. https://docs.opencv.org/4.13.0/d0/dd4/tutorial_dnn_face.html
+- **MICA masked L1 loss with no ArcFace term, ArcFace encoder, 24 % benchmark naming** — unconfirmed. Results only support that ArcFace is the identity encoder and that a masked mesh loss is used (secondary papers); the L1 form, the absence of an identity term and the 24 % benchmark were not found. Secondary result (OFER) says layers are frozen "except the last", which may conflict with the note's "last 3 blocks"; left unchanged, to check against the paper. https://github.com/Zielon/MICA · https://arxiv.org/html/2410.21629
