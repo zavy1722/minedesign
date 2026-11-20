@@ -1,0 +1,244 @@
+{
+ "queries": [
+  "DECA detailed expression capture and animation 3D face reconstruction NoW benchmark mean median error (arxiv.org)",
+  "MICA metric-consistent apprenticeship 3D face shape identity from single image NoW error mm (arxiv.org)",
+  "SMIRK 3D facial expressions reconstruction emotion neural rendering github (arxiv.org, github.com)",
+  "3DDFA_V2 github face alignment 3D morphable model real-time single image (github.com, arxiv.org)"
+ ],
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2012.04012",
+   "title": "Learning an Animatable Detailed 3D Face Model from In-The-Wild Images (DECA)",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2304.12483",
+   "title": "Towards Realistic Generative 3D Face Models",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2412.14371",
+   "title": "SEREP: Semantic Facial Expression Representation for Robust In-the-Wild Capture and Retargeting",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2108.05465",
+   "title": "SIDER: Single-Image Neural Optimization for Facial Geometric Detail Recovery",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "url": "https://ar5iv.labs.arxiv.org/html/2204.06607",
+   "title": "Towards Metrical Reconstruction of Human Faces (MICA)",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2601.12736",
+   "title": "KaoLRM: Repurposing Pre-trained Large Reconstruction Models for Parametric 3D Face Reconstruction",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://arxiv.org/html/2605.01746",
+   "title": "Profile-Specific 3DMM Regression from a Single Lateral Face Image",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://arxiv.org/html/2404.04104",
+   "title": "SMIRK: 3D Facial Expressions through Analysis-by-Neural-Synthesis",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://github.com/georgeretsi/smirk",
+   "title": "georgeretsi/smirk: Official PyTorch Implementation of SMIRK (CVPR 2024)",
+   "kind": "repo",
+   "year": "2024"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2502.10982",
+   "title": "TEASER: Token Enhanced Spatial Modeling for Expressions Reconstruction",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://github.com/cleardusk/3DDFA_V2",
+   "title": "cleardusk/3DDFA_V2: Official PyTorch implementation of ECCV 2020 3D dense face alignment",
+   "kind": "repo",
+   "year": "2020"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2009.09960v2",
+   "title": "Towards Fast, Accurate and Stable 3D Dense Face Alignment",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "url": "https://github.com/1996scarlet/Dense-Head-Pose-Estimation",
+   "title": "1996scarlet/Dense-Head-Pose-Estimation (3DDFAv2 TFLite reimplementation)",
+   "kind": "repo",
+   "year": "2020"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2311.03082",
+   "title": "A survey and classification of face alignment methods based on face models",
+   "kind": "paper",
+   "year": "2023"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "DECA on the NoW validation set (coarse mesh): median 1.18 mm, mean 1.46 mm, std 1.25 mm; detailed mesh: median 1.19 mm, mean 1.47 mm, std 1.25 mm, as reported in the DECA paper and cited in the search results.",
+   "urls": [
+    "https://arxiv.org/abs/2012.04012",
+    "https://arxiv.org/pdf/2304.12483"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A summary table in the DECA paper lists a DECA row with median 1.09 mm, mean 1.38 mm, std 1.18 mm, which differs from the per-mesh figures (1.18/1.46) above; the search snippets did not resolve which table or version applies.",
+   "urls": [
+    "https://arxiv.org/abs/2012.04012"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A third-party reproduction (SIDER reference) reports DECA on NoW validation at median 1.19 mm and mean 1.47 mm.",
+   "urls": [
+    "https://arxiv.org/pdf/2108.05465"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Towards Realistic Generative 3D Face Models cites DECA coarse-mesh median 1.178 mm and mean 1.464 mm, and reports its own method at 23% better median error (coarse) and 20% better median error (detailed) than DECA.",
+   "urls": [
+    "https://arxiv.org/pdf/2304.12483"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The NoW protocol aligns predictions to the ground-truth scan using 7-landmark rigid alignment, then reports per-vertex error in mm, summarized as mean, median and std over all subjects.",
+   "urls": [
+    "https://arxiv.org/pdf/2304.12483",
+    "https://ar5iv.labs.arxiv.org/html/2204.06607"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "MICA (MetrIC fAce) predicts a metrical FLAME-based shape in neutral expression from a single RGB image, using identity features from a face-recognition network under supervised learning.",
+   "urls": [
+    "https://ar5iv.labs.arxiv.org/html/2204.06607"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "MICA paper states its method beats prior reconstruction methods by 15% and 24% lower average error on NoW and on its metric benchmarks respectively.",
+   "urls": [
+    "https://ar5iv.labs.arxiv.org/html/2204.06607"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In the MICA paper, scale optimization reduces mean NoW error for the average FLAME mesh from 1.92 mm to 1.53 mm.",
+   "urls": [
+    "https://ar5iv.labs.arxiv.org/html/2204.06607"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A later reproduction (Towards Realistic Generative 3D Face Models) lists MICA at median 0.913 mm, mean 1.130 mm, std 0.948 mm (a second MICA row shows 0.90/1.11/0.92 mm).",
+   "urls": [
+    "https://arxiv.org/pdf/2304.12483"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "KaoLRM reports NoW validation Chamfer-style errors for MICA of roughly 0.96 to 1.00 mm per challenge and about 1.19 mm overall; it notes that some papers report Chamfer distance rather than per-vertex error.",
+   "urls": [
+    "https://arxiv.org/pdf/2601.12736"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A profile-view evaluation in the Profile-Specific 3DMM paper reports MICA at median 0.9432 and mean 1.1606 (units as reported, mm-scale).",
+   "urls": [
+    "https://arxiv.org/html/2605.01746"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "SMIRK is the CVPR 2024 method for 3D facial expressions via analysis-by-neural-synthesis: it replaces the differentiable renderer with a neural renderer that takes predicted geometry plus sparse input-image pixels, so the reconstruction loss trains geometry.",
+   "urls": [
+    "https://arxiv.org/html/2404.04104",
+    "https://arxiv.org/abs/2404.04104"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "SMIRK training batches mix in-the-wild faces (FFHQ, CelebA), emotional expressions (MEAD) and speech mouth shapes (LRS3).",
+   "urls": [
+    "https://arxiv.org/html/2404.04104"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "SMIRK is built on the FLAME model; its official PyTorch code is at github.com/georgeretsi/smirk, which showed about 396 stars and last update May 31, 2024 in the search listing (star count and date are from a listing snapshot and may be stale).",
+   "urls": [
+    "https://github.com/georgeretsi/smirk"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025 paper (TEASER) is reported in a search summary as showing better expression accuracy than SMIRK on several benchmarks; this came from a summary of search snippets and was not verified against the paper's tables.",
+   "urls": [
+    "https://arxiv.org/pdf/2502.10982"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "3DDFA_V2 (ECCV 2020) is the official PyTorch implementation at github.com/cleardusk/3DDFA_V2; it uses FaceBoxes for detection instead of Dlib and is claimed to run over 50 fps on a single CPU or GPU setup.",
+   "urls": [
+    "https://github.com/cleardusk/3DDFA_V2",
+    "https://arxiv.org/pdf/2009.09960v2"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "3DDFA_V2 alignment may fail when head pose exceeds about 90 degrees or motion is too fast (per repo notes in search results).",
+   "urls": [
+    "https://github.com/cleardusk/3DDFA_V2"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In 3DDFA_V2, face detection dominates latency (reported about 15 ms for a 720p image even with ONNX).",
+   "urls": [
+    "https://github.com/cleardusk/3DDFA_V2"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "1996scarlet/Dense-Head-Pose-Estimation is a TensorFlow Lite reimplementation of 3DDFAv2 adding head pose and mesh preview, described as CPU real-time (community claim, not verified).",
+   "urls": [
+    "https://github.com/1996scarlet/Dense-Head-Pose-Estimation"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "DECA NoW numbers differ between tables in the DECA paper: per-mesh coarse median 1.18 / mean 1.46 mm versus a summary row of median 1.09 / mean 1.38 mm.",
+  "MICA NoW mean: original paper gives 1.53 mm after scale optimization (average FLAME mesh 1.92 mm before), while reproduction papers give about 1.11 to 1.13 mm mean and about 0.90 to 0.91 mm median; protocol differences (Chamfer vs per-vertex, validation vs test split, alignment) likely explain the gap but this was not confirmed."
+ ],
+ "openQuestions": [
+  "Search budget was exhausted after 4 productive queries (the per-turn WebSearch limit was hit), so the following were NOT searched and remain unverified: Deep3DFaceRecon (licence and NoW numbers), HRN (speed and accuracy), Pixel3DMM (numbers and licence), EMOCA (NoW/REALY numbers), TEASER (numbers beyond one summary claim), REALY benchmark protocol, and community or criticism sources on single-image regressors.",
+  "Licences for DECA, EMOCA, MICA, SMIRK, 3DDFA_V2 and Deep3DFaceRecon were not confirmed from sources in this run; these need a follow-up search of each repository's LICENSE file.",
+  "Speed numbers for DECA, MICA and SMIRK on specific GPUs were not found.",
+  "The exact REALY metric definition and whether REALY numbers exist for DECA/MICA/SMIRK are unresolved.",
+  "Whether the DECA summary-table row (1.09/1.38) and per-mesh row (1.18/1.46) come from different protocol versions is unresolved."
+ ]
+}

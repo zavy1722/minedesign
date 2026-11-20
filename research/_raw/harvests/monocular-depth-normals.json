@@ -1,0 +1,341 @@
+{
+ "queries": [
+  "Depth Anything V2 monocular depth estimation face accuracy",
+  "Marigold monocular depth diffusion surface normals paper",
+  "DSINE surface normal estimation face (arxiv.org)",
+  "Sapiens human vision foundation model depth normal estimation (arxiv.org)",
+  "Depth Anything V3 release metric depth (github.com, arxiv.org)",
+  "NOT RUN (budget exhausted): shape from shading face mesh refinement using predicted normals",
+  "NOT RUN (budget exhausted): monocular depth model ONNX CPU inference latency Depth Anything small (github.com)",
+  "NOT RUN (budget exhausted): monocular depth estimation limitations relative depth scale ambiguity criticism (arxiv.org)",
+  "NOT RUN (budget exhausted): Sapiens normal estimation THuman2 angular error face (extended)"
+ ],
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/2406.09414",
+   "title": "Depth Anything V2 (arXiv 2406.09414)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://www.alphaxiv.org/abs/2406.09414",
+   "title": "Depth Anything V2 (alphaXiv mirror of arXiv 2406.09414)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2507.12449",
+   "title": "Vision-based Perception for Autonomous Vehicles in Obstacle Avoidance Scenarios",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://www.researchgate.net/publication/397955860_Assessing_Depth_Anything_V2_monocular_depth_estimation_as_a_LiDAR_alternative_in_robotics",
+   "title": "Assessing Depth Anything V2 monocular depth estimation as a LiDAR alternative in robotics",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2503.04513",
+   "title": "A Novel Solution for Drone Photogrammetry with Low-overlap Aerial Images using Monocular Depth Estimation",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://openaccess.thecvf.com/content/CVPR2024/papers/Ke_Repurposing_Diffusion-Based_Image_Generators_for_Monocular_Depth_Estimation_CVPR_2024_paper.pdf",
+   "title": "Repurposing Diffusion-Based Image Generators for Monocular Depth Estimation (Marigold, CVPR 2024)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://arxiv.org/abs/2505.09358",
+   "title": "Marigold: Affordable Adaptation of Diffusion-Based Image Generators for Image Analysis (arXiv 2505.09358)",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://arxiv.org/abs/2609.08084",
+   "title": "Marigold V2: Revisiting Diffusion Transformers for Monocular Depth Estimation (arXiv 2609.08084)",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://github.com/huawei-bayerlab/marigold-v2",
+   "title": "huawei-bayerlab/marigold-v2 (GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://arxiv.org/abs/2403.00712",
+   "title": "Rethinking Inductive Biases for Surface Normal Estimation (DSINE, arXiv 2403.00712)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://github.com/baegwangbin/DSINE",
+   "title": "baegwangbin/DSINE (GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2607.12450",
+   "title": "Let RGB Be the Language of Vision (arXiv 2607.12450)",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://arxiv.org/html/2409.18124v1",
+   "title": "Lotus: Diffusion-based Visual Foundation Model for High-quality Dense Prediction",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2601.01950",
+   "title": "Face Normal Estimation from Rags to Riches (arXiv 2601.01950)",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2003.09691",
+   "title": "Cross-modal Deep Face Normals with Deactivable Skip Connections (arXiv 2003.09691)",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "url": "https://arxiv.org/abs/2408.12569",
+   "title": "Sapiens: Foundation for Human Vision Models (arXiv 2408.12569)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://arxiv.org/html/2507.15365",
+   "title": "DAViD: Data-efficient and Accurate Vision Models from Synthetic Data",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://arxiv.org/abs/2511.10647",
+   "title": "Depth Anything 3: Recovering the Visual Space from Any Views (arXiv 2511.10647)",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://github.com/ByteDance-Seed/Depth-Anything-3",
+   "title": "ByteDance-Seed/Depth-Anything-3 (GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/1038lab/ComfyUI-Depth-Anything-3",
+   "title": "1038lab/ComfyUI-Depth-Anything-3 (community wrapper, lists model sizes)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/ika-rwth-aachen/ros2-depth-anything-v3-trt",
+   "title": "ika-rwth-aachen/ros2-depth-anything-v3-trt (TensorRT ROS2 node)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://arxiv.org/html/2406.16864v1",
+   "title": "StableNormal: Reducing Diffusion Variance for Stable and Sharp Normal (arXiv 2406.16864)",
+   "kind": "paper",
+   "year": "2024"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Depth Anything V2 Small runs at 60 ms with 25M parameters and reports 95.3% DA-2K accuracy (paper's own table, as summarized in search results).",
+   "urls": [
+    "https://www.alphaxiv.org/abs/2406.09414"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Depth Anything V2 DA-2K accuracy is 89.8% when trained on labeled synthetic data alone and 95.3% with pseudo-labeled real data alone (per search-result summary of the paper).",
+   "urls": [
+    "https://arxiv.org/abs/2406.09414"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Depth Anything V2 ViT-L reaches NYU-D delta1 0.984 and AbsRel 0.056 (per search-result summary of the paper's table).",
+   "urls": [
+    "https://arxiv.org/abs/2406.09414"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "No search result reported a face-specific accuracy evaluation of Depth Anything V2; its benchmarks are general scenes.",
+   "urls": [
+    "https://www.alphaxiv.org/abs/2406.09414"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Depth Anything V2 is described as a relative-depth model (ordering of near/far) that does not recover absolute metric distance; this is a secondary characterization from search snippets, not checked against the paper text.",
+   "urls": [
+    "https://www.alphaxiv.org/abs/2406.09414"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In one autonomous-vehicle obstacle-avoidance study, Depth Anything V2 showed the highest accuracy among compared monocular methods, with low and stable error across distances (study-specific setup; numbers not retrieved).",
+   "urls": [
+    "https://arxiv.org/pdf/2507.12449"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A robotics assessment concluded Depth Anything V2 gives higher pixel resolution than LiDAR but significantly reduced metric depth accuracy.",
+   "urls": [
+    "https://www.researchgate.net/publication/397955860_Assessing_Depth_Anything_V2_monocular_depth_estimation_as_a_LiDAR_alternative_in_robotics"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In a drone photogrammetry study with low-overlap aerial images, both monocular networks showed meter-level errors; MiDaS v3.1 had notably higher errors than Depth Anything v2.",
+   "urls": [
+    "https://arxiv.org/pdf/2503.04513"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Marigold (CVPR 2024, Ke et al.) repurposes a diffusion image generator (Stable Diffusion) as an affine-invariant monocular depth estimator.",
+   "urls": [
+    "https://openaccess.thecvf.com/content/CVPR2024/papers/Ke_Repurposing_Diffusion-Based_Image_Generators_for_Monocular_Depth_Estimation_CVPR_2024_paper.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The extended Marigold paper (arXiv 2505.09358) adds Marigold-Normals, a surface-normal variant following the Marigold-Depth fine-tuning protocol.",
+   "urls": [
+    "https://arxiv.org/abs/2505.09358"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Marigold V2 (arXiv 2609.08084) replaces the Stable Diffusion backbone with a diffusion transformer (Qwen-Image-Edit per search summary) and the authors claim state-of-the-art surface normals results.",
+   "urls": [
+    "https://arxiv.org/abs/2609.08084"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The Marigold V2 repo includes a normals configuration that uses an angular loss.",
+   "urls": [
+    "https://github.com/huawei-bayerlab/marigold-v2"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "DSINE uses per-pixel ray direction and learns the relative rotation between neighboring surface normals; code is public.",
+   "urls": [
+    "https://arxiv.org/abs/2403.00712",
+    "https://github.com/baegwangbin/DSINE"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "DSINE is reported as trained on about 160K images and surpassing Omnidata-V2 trained on over 12M images (attribution in snippet is unclear; treat as secondary).",
+   "urls": [
+    "https://arxiv.org/abs/2403.00712"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "DSINE scores a mean angular error of about 16.4 degrees on NYUv2 as cited in other papers (arXiv 2607.12450 and the Lotus benchmark table).",
+   "urls": [
+    "https://arxiv.org/pdf/2607.12450",
+    "https://arxiv.org/html/2409.18124v1"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2026 paper, Face Normal Estimation from Rags to Riches (arXiv 2601.01950), proposes exemplar-based refinement of a coarse face normal; the snippet does not show whether DSINE is a baseline.",
+   "urls": [
+    "https://arxiv.org/pdf/2601.01950"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2020 paper (arXiv 2003.09691) estimates face normals from in-the-wild images using cross-modal deep face normals with deactivable skip connections.",
+   "urls": [
+    "https://arxiv.org/pdf/2003.09691"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Sapiens is a Meta human-centric vision model family covering pose, body-part segmentation, depth and surface normals, pretrained on over 300 million in-the-wild human images.",
+   "urls": [
+    "https://arxiv.org/abs/2408.12569"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Sapiens depth and normal training used synthetic data generated from 600 detailed RenderPeople scans (per search summary).",
+   "urls": [
+    "https://arxiv.org/abs/2408.12569"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Sapiens reports 22.4% relative RMSE improvement on Hi4D (depth) and 53.5% relative angular error improvement on THuman2 (normal) over prior work (as summarized in search results; baseline details not verified).",
+   "urls": [
+    "https://arxiv.org/abs/2408.12569"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A later paper describes Sapiens fine-tuning on 500K high-resolution synthetic images for depth and normal estimation.",
+   "urls": [
+    "https://arxiv.org/abs/2408.12569"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Depth Anything 3 (arXiv 2511.10647) was reported as published November 14, 2025 by a community ComfyUI wrapper; no official announcement was checked.",
+   "urls": [
+    "https://github.com/1038lab/ComfyUI-Depth-Anything-3",
+    "https://arxiv.org/abs/2511.10647"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The official DA3 repo offers a DA3Metric-Large model; metric depth is computed as focal x net output / 300, where focal is the mean of fx and fy.",
+   "urls": [
+    "https://github.com/ByteDance-Seed/Depth-Anything-3"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "DA3-metric is reported with best SUN-RGBD AbsRel of 0.105 and second-best on DIODE (per search summary of the paper).",
+   "urls": [
+    "https://arxiv.org/abs/2511.10647"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "DA3Metric-Large is listed at roughly 350M parameters by community wrappers.",
+   "urls": [
+    "https://github.com/1038lab/ComfyUI-Depth-Anything-3"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "An official-looking community TensorRT ROS2 node exists for DA3 monocular metric depth, indicating GPU/TensorRT deployment paths; no CPU latency was retrieved.",
+   "urls": [
+    "https://github.com/ika-rwth-aachen/ros2-depth-anything-v3-trt"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Depth Anything V2 is praised as most accurate in an autonomous-vehicle study but found to have significantly reduced metric accuracy in a robotics LiDAR comparison; the setups differ, so both should be reported.",
+  "DSINE's training-data-efficiency claim (160K vs 12M images) comes from a secondary snippet with unclear attribution."
+ ],
+ "openQuestions": [
+  "Search budget for this turn was exhausted after 6 successful queries; 4 planned queries were not run: shape-from-shading mesh refinement from predicted normals, ONNX/CPU latency for Depth Anything and DSINE, criticism/limitations of monocular depth, and Sapiens THuman2 details. These remain open.",
+  "No face-specific accuracy numbers for Depth Anything V2/V3, Marigold, DSINE, or Sapiens were retrieved; face-specific evaluation is an open gap.",
+  "CPU/ONNX availability and latency for Marigold, DSINE, Sapiens and DA3 were not confirmed.",
+  "Licenses for Sapiens, DSINE, Marigold V2, and DA3 weights were not checked.",
+  "Mesh refinement from predicted normals (shape-from-shading) method details were not retrieved.",
+  "Depth Anything 3 release date and metric numbers rest on secondary wrappers and should be checked against the paper and the official repo."
+ ]
+}

@@ -1,0 +1,224 @@
+{
+ "queries": [
+  "FACS action units list facial muscles AU definitions Ekman Friesen",
+  "FACS intensity coding A-E scale action unit intensity manual",
+  "ARKit blendshapes list 52 facial blendshape names mapping FACS (allowed: developer.apple.com)",
+  "MediaPipe face landmarker blendshapes 52 categories documentation (allowed: ai.google.dev, developers.google.com)",
+  "FACS action unit to facial muscle mapping zygomaticus major AU12 orbicularis oculi AU6 (allowed: pmc.ncbi.nlm.nih.gov)"
+ ],
+ "sources": [
+  {
+   "url": "https://en.wikipedia.org/wiki/Facial_Action_Coding_System",
+   "title": "Facial Action Coding System (Wikipedia)",
+   "kind": "other"
+  },
+  {
+   "url": "https://technav.ieee.org/topic/action-units/",
+   "title": "IEEE Technav: Action units",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.lancaster.ac.uk/fas/psych/glossary/action_unit/",
+   "title": "Lancaster University psychology glossary: action unit",
+   "kind": "other"
+  },
+  {
+   "url": "https://facsref.ucsd.edu/",
+   "title": "FACS Visual Reference (UCSD)",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://pt.slideshare.net/wooo17/manual-1st",
+   "title": "Scoring Upper Face Action Units (FACS manual excerpt, SlideShare copy)",
+   "kind": "other"
+  },
+  {
+   "url": "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes",
+   "title": "Apple ARKit: ARFaceAnchor.blendShapes",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation",
+   "title": "Apple ARKit: ARFaceAnchor.BlendShapeLocation",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://developer.apple.com/videos/play/tech-talks/601/",
+   "title": "Apple Tech Talks 601: Face Tracking with ARKit",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+   "title": "MediaPipe Face Landmarker (Google AI Edge)",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker/python",
+   "title": "MediaPipe Face landmark detection guide for Python",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult",
+   "title": "MediaPipe mp.tasks.vision.FaceLandmarkerResult API",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13229553/",
+   "title": "The Role of Facial Action Units in Investigating Facial Movements During Speech",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12539761/",
+   "title": "A Psychological Guide to Upper Face Botulinum Toxin Injections: Baseline Emotional Functions of Facial Expressions",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12938733/",
+   "title": "Facial Expressions as a Nexus for Health Assessment",
+   "kind": "paper"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "FACS taxonomizes facial movements by their visible appearance; it originated from work by Carl-Herman Hjortsjo, was published by Ekman and Friesen in 1978, and was significantly updated by Ekman, Friesen and Hager in 2002.",
+   "urls": [
+    "https://en.wikipedia.org/wiki/Facial_Action_Coding_System",
+    "https://wikiwand.com/en/articles/Facial_Action_Coding_System"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "An action unit (AU) is an elementary facial movement corresponding to the contraction or relaxation of one facial muscle or a small group of muscles.",
+   "urls": [
+    "https://www.lancaster.ac.uk/fas/psych/glossary/action_unit/",
+    "https://technav.ieee.org/topic/action-units/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "AU1 is the inner brow raiser (medial frontalis); AU4 is the brow lowerer (linked to corrugator muscles); AU6 is the cheek raiser.",
+   "urls": [
+    "https://en.wikipedia.org/wiki/Facial_Action_Coding_System",
+    "https://technav.ieee.org/topic/action-units/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Sources disagree on the AU count: one source states Ekman and Friesen (1978) described all appearance changes for 44 action units; another says roughly thirty numbered units cover facial muscle movement, with separate descriptors for head pose, eye direction and gross behaviour. The difference likely reflects what is counted; not confirmed.",
+   "urls": [
+    "https://technav.ieee.org/topic/action-units/",
+    "https://en.wikipedia.org/wiki/Facial_Action_Coding_System"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Example emotion AU combinations given: happiness as AU 6+12 and sadness as AU 1+4+15.",
+   "urls": [
+    "https://en.wikipedia.org/wiki/Facial_Action_Coding_System"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "FACS intensity is annotated by appending letters A-E to the AU number: A = trace, B = slight, C = marked/pronounced, D = severe/extreme, E = maximum possible for that person (e.g., AU 1E).",
+   "urls": [
+    "https://pt.slideshare.net/wooo17/manual-1st",
+    "https://en.wikipedia.org/wiki/Facial_Action_Coding_System"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The A-E intensity scale is not uniform: levels C and D cover a broader range of facial change than A, B and E (one source's characterisation).",
+   "urls": [
+    "https://pt.slideshare.net/wooo17/manual-1st"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "When intensity differs between the two sides of the face, the manual says to give one intensity score using the higher side, unless asymmetry is being scored.",
+   "urls": [
+    "https://pt.slideshare.net/wooo17/manual-1st"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "FACS suggests that the most accurate annotation comes from agreement between at least two independent certified FACS encoders.",
+   "urls": [
+    "https://pt.slideshare.net/wooo17/manual-1st"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Apple documents ARKit blendShapes as a dictionary of named coefficients describing the detected expression via movement of specific facial features; values are floats from 0 to 1 and are updated live.",
+   "urls": [
+    "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes",
+    "https://developer.apple.com/videos/play/tech-talks/601/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "ARKit's full 52-name blendshape list and its FACS mapping could not be confirmed from search results. A partial developer-forum list starts with jawOpen and eyeLookDown; community cheat sheets exist but were not verified.",
+   "urls": [
+    "https://developer.apple.com/forums/thread/703686",
+    "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "MediaPipe Face Landmarker outputs 478 3D face landmarks per face plus 52 blendshape scores, each a named category (e.g., browDownLeft, jawOpen, eyeBlinkRight) with values in [0.0, 1.0].",
+   "urls": [
+    "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+    "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "MediaPipe blendshape output is off by default and is enabled with the output_face_blendshapes option in Python.",
+   "urls": [
+    "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker/python"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "MediaPipe left/right blendshape labels refer to the subject's face, not the viewer's; passing a horizontally mirrored image inverts the outputs.",
+   "urls": [
+    "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "MediaPipe documentation pages disagree on model input sizes: one gives FaceDetector 192x192 and FaceMesh-V2 256x256; another gives FaceDetector 128x128 and FaceLandmarker-V2 256x256. Current values not resolved.",
+   "urls": [
+    "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+    "https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "AU12 is the lip corner puller, mapped to the zygomaticus major muscle; AU6 is the cheek raiser, mapped to orbicularis oculi (pars orbitalis).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13229553/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The AU6+AU12 pairing is often called a Duchenne smile and is treated as a marker of genuine enjoyment in some sources; sources disagree, so this is a contested interpretation. Whether AU6 also involves pars palpebralis was not addressed.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13229553/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12539761/"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "AU count: ~44 AUs (Ekman and Friesen 1978, per one source) vs roughly thirty numbered muscular AUs plus descriptors (another source). Both from search snippets, not verified against the manual.",
+  "MediaPipe model input sizes differ between two doc pages (detector 192x192 vs 128x128; landmarker 256x256 in both).",
+  "Duchenne smile (AU6+AU12) as a genuine-enjoyment marker is presented as settled by some results and contested by others."
+ ],
+ "openQuestions": [
+  "Search budget ran out after 5 executed searches; 6 of the 11 planned queries were refused. Not covered: OpenFace 2.0 AU detection, the neutral-expression and identity-capture literature, FLAME expression blendshapes, FACS criticism and limitations from 2024-2026, the 2002 FACS manual's exact AU list, practitioner/Blender FACS rig sources, and the full ARKit 52-to-AU mapping.",
+  "Why a neutral, relaxed expression matters for identity capture: no sources were retrieved. This is an open gap.",
+  "Surface deformation per AU (what each AU does to the mesh) and exact muscle-by-muscle mapping for the full AU set: no primary table was retrieved. The Wikipedia AU/muscle table and the UCSD FACS Visual Reference (https://facsref.ucsd.edu/) were surfaced but not read, since WebFetch and direct fetch were not attempted.",
+  "Verify the full ARKit 52 names and their FACS mapping against Apple's BlendShapeLocation reference before use.",
+  "Retry the neutral-expression, OpenFace, FLAME and criticism searches in a follow-up run to complete coverage."
+ ]
+}

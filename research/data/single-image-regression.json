@@ -1,0 +1,54 @@
+{
+  "topic": "single-image-regression",
+  "tables": [
+    {
+      "name": "now_benchmark_errors",
+      "units": "mm (scan-to-prediction distance after 7-landmark rigid alignment; null = not reported)",
+      "columns": ["method", "variant", "split_as_reported", "median_mm", "mean_mm", "std_mm", "source_urls", "status"],
+      "rows": [
+        ["Average FLAME mesh", "no scale optimisation", "not stated", null, 1.92, null, ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "single-source"],
+        ["Average FLAME mesh", "scale optimised", "not stated", null, 1.53, null, ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "single-source"],
+        ["DECA", "coarse", "validation", 1.18, 1.46, 1.25, ["https://arxiv.org/abs/2012.04012", "https://arxiv.org/pdf/2304.12483"], "verified"],
+        ["DECA", "detailed", "validation", 1.19, 1.47, 1.25, ["https://arxiv.org/abs/2012.04012", "https://arxiv.org/pdf/2108.05465"], "verified"],
+        ["DECA", "summary row", "unconfirmed (possibly test)", 1.09, 1.38, 1.18, ["https://arxiv.org/abs/2012.04012"], "contested"],
+        ["MICA", "row A as reported by 2304.12483", "not stated", 0.913, 1.130, 0.948, ["https://arxiv.org/pdf/2304.12483"], "contested"],
+        ["MICA", "row B as reported by 2304.12483", "not stated", 0.90, 1.11, 0.92, ["https://arxiv.org/pdf/2304.12483"], "contested"],
+        ["MICA", "profile-view evaluation", "profile subset", 0.9432, 1.1606, null, ["https://arxiv.org/html/2605.01746"], "single-source"],
+        ["MICA", "Chamfer-style overall (approximate)", "validation", null, 1.19, null, ["https://arxiv.org/pdf/2601.12736"], "single-source"]
+      ],
+      "population": "NoW benchmark subjects/images; split sizes not captured in harvested snippets",
+      "source_urls": ["https://arxiv.org/abs/2012.04012", "https://arxiv.org/pdf/2304.12483", "https://arxiv.org/pdf/2108.05465", "https://ar5iv.labs.arxiv.org/html/2204.06607", "https://arxiv.org/pdf/2601.12736", "https://arxiv.org/html/2605.01746"],
+      "status": "contested",
+      "notes": "Rows mix protocols. KaoLRM notes some papers report Chamfer distance instead of NoW per-vertex error, and the splits of several rows are unknown. Do not rank across mismatched split or metric. Re-verification searches were blocked in this run, so the status reflects agreement among harvested sources only. To derive a normal-direction noise sigma under a half-normal assumption (a modelling assumption, not a sourced value): sigma = median/0.6745 = mean/0.7979 = std/0.6028."
+    },
+    {
+      "name": "relative_improvement_claims",
+      "units": "percent change in error (negative = better)",
+      "columns": ["claim", "value_percent", "baseline", "metric", "source_urls", "status"],
+      "rows": [
+        ["MICA vs prior methods, NoW", -15, "prior SOTA", "average error", ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "single-source"],
+        ["MICA vs prior methods, metric benchmarks", -24, "prior SOTA", "average error", ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "single-source"],
+        ["Towards Realistic Generative 3D Face Models vs DECA (coarse)", -23, "DECA", "median NoW error", ["https://arxiv.org/pdf/2304.12483"], "single-source"],
+        ["Towards Realistic Generative 3D Face Models vs DECA (detailed)", -20, "DECA", "median NoW error", ["https://arxiv.org/pdf/2304.12483"], "single-source"]
+      ],
+      "population": "NoW and MICA metric benchmarks",
+      "source_urls": ["https://ar5iv.labs.arxiv.org/html/2204.06607", "https://arxiv.org/pdf/2304.12483"],
+      "status": "single-source",
+      "notes": "These are the authors' own claims."
+    },
+    {
+      "name": "runtime_and_robustness",
+      "units": "fps, ms, degrees",
+      "columns": ["tool", "quantity", "value", "unit", "condition", "source_urls", "status"],
+      "rows": [
+        ["3DDFA_V2", "throughput", ">50", "fps", "single CPU or GPU, hardware unspecified", ["https://github.com/cleardusk/3DDFA_V2", "https://arxiv.org/pdf/2009.09960v2"], "single-source"],
+        ["3DDFA_V2", "face detection latency", 15, "ms", "720p image, ONNX (approximate)", ["https://github.com/cleardusk/3DDFA_V2"], "single-source"],
+        ["3DDFA_V2", "pose failure threshold", 90, "degrees", "alignment may fail above about this head pose or under fast motion", ["https://github.com/cleardusk/3DDFA_V2"], "single-source"]
+      ],
+      "population": "n/a (software benchmarks)",
+      "source_urls": ["https://github.com/cleardusk/3DDFA_V2", "https://arxiv.org/pdf/2009.09960v2"],
+      "status": "single-source",
+      "notes": "No GPU timings were found for DECA, MICA or SMIRK."
+    }
+  ]
+}

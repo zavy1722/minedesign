@@ -1,0 +1,279 @@
+{
+ "queries": [
+  "solvePnP EPnP face pose estimation camera intrinsics",
+  "focal length depth ambiguity perspective distortion face photos camera distance",
+  "Bundle adjustment camera intrinsics estimation multiple images (arxiv.org, github.com)",
+  "fSpy vanishing point camera focal length estimation (github.com)",
+  "Procrustes alignment 3D face model landmarks scale rotation translation (arxiv.org)"
+ ],
+ "sources": [
+  {
+   "url": "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html",
+   "title": "OpenCV calib3d solvePnP (4.x docs)",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "url": "https://pypose.readthedocs.io/stable/generated/pypose.module.EPnP.html",
+   "title": "PyPose EPnP module docs",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2606.24122",
+   "title": "Bengal-HP_RU: A Dataset of Bengal People For Head Pose Estimation",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2208.07142",
+   "title": "Perspective Reconstruction of Human Faces by Joint Mesh and Landmark Regression",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "url": "https://www.digitaltrends.com/photography/lens-geometry-portraits/",
+   "title": "Digital Trends: lens geometry for portraits",
+   "kind": "blog"
+  },
+  {
+   "url": "https://photographylife.com/does-focal-length-distort-subjects",
+   "title": "PhotographyLife: does focal length distort subjects",
+   "kind": "blog"
+  },
+  {
+   "url": "https://openaccess.thecvf.com/content_cvpr_workshops_2015/W02/papers/Valente_Perspective_Distortion_Modeling_2015_CVPR_paper.pdf",
+   "title": "Valente, Perspective Distortion Modeling (CVPR Workshops 2015)",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "url": "https://arxiv.org/abs/1905.07515",
+   "title": "Learning Perspective Undistortion of Portraits (ar5iv mirror)",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/3440305",
+   "title": "PMC article surfaced for focal-length/portrait perception (exact content not read)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://github.com/perarnia/blam",
+   "title": "perarnia/blam README (no longer maintained, points to fSpy)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/cvlab-epfl/multiview_calib",
+   "title": "cvlab-epfl multiview_calib",
+   "kind": "repo"
+  },
+  {
+   "url": "https://arxiv.org/html/2602.18906v1",
+   "title": "Marginalized Bundle Adjustment: Multi-View Camera Pose from Monocular Depth Estimates",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2001.07243",
+   "title": "Autocamera Calibration for traffic surveillance cameras with wide angle lenses",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10098530/",
+   "title": "Pose and Focal Length Estimation Using Two Vanishing Points with Known Camera Position",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://github.com/stuffmatic/blam/wiki/User's-guide",
+   "title": "BLAM user's guide wiki",
+   "kind": "repo"
+  },
+  {
+   "url": "https://arxiv.org/html/1209.6491.pdf",
+   "title": "Review of Statistical Shape Spaces for 3D Data with Comparative Analysis for Human Faces",
+   "kind": "paper",
+   "year": "2012"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2010.13676",
+   "title": "Face Frontalization Based on Robustly Fitting a Deformable Shape Model to 3D Landmarks",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "url": "https://arxiv.org/html/1708.06703.pdf",
+   "title": "What does 2D geometric information really tell us about 3D face shape?",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://arxiv.org/pdf/1506.03799",
+   "title": "Pose-Invariant 3D Face Alignment",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2603.17767",
+   "title": "Facial Movement Dynamics Reveal Workload During Complex Multitasking",
+   "kind": "paper",
+   "year": "2026"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "OpenCV's solvePnP documentation credits its SOLVEPNP_EPNP method to Moreno-Noguer, Lepetit and Fua (the EPnP paper), and describes EPnP as a non-iterative solution to the general PnP problem for n >= 4 points.",
+   "urls": [
+    "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "OpenCV 4.x documentation (as reported in a search snippet, not verified on the page) states the SOLVEPNP_DLS flag is a broken implementation and falls back to EPnP.",
+   "urls": [
+    "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The Bengal-HP_RU head-pose dataset paper uses six 2D facial landmarks (nose tip, chin, eye corners, mouth corners) matched to a canonical 3D face model and calls solvePnP, assuming a pinhole camera with focal length set to the image width and principal point at the image center (approximation, not calibrated).",
+   "urls": [
+    "https://arxiv.org/pdf/2606.24122"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2022 face-reconstruction paper states intrinsic parameters K can be obtained through an off-line calibration step, after which solvePnP is used with known 2D-3D correspondences.",
+   "urls": [
+    "https://arxiv.org/pdf/2208.07142"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "PnP methods assume landmark coordinates are free of lens distortion; distorted landmarks must be undistorted first (per a search snippet from OpenCV-related material).",
+   "urls": [
+    "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Practitioner sources (photography blogs, snippet-level) state that for a fixed camera-to-subject distance, a normal and a wide-angle or telephoto lens produce the same linear perspective on the face; facial distortion is driven mainly by camera distance rather than focal length alone.",
+   "urls": [
+    "https://www.digitaltrends.com/photography/lens-geometry-portraits/",
+    "https://photographylife.com/does-focal-length-distort-subjects"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Different focal lengths require different subject distances to keep subject size constant, so changing focal length indirectly changes face perspective; the search snippets report that short lenses force close distances and make wide-angle portraits look worst.",
+   "urls": [
+    "https://www.digitaltrends.com/photography/lens-geometry-portraits/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Photography guidance (snippet-level, practitioner) recommends holding a phone at arm's length for selfies to reduce face distortion.",
+   "urls": [
+    "https://photographylife.com/does-focal-length-distort-subjects"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A study reported in search snippets found that photos taken at 50 mm focal length were rated as significantly less feminine/masculine, attractive, and dominant than images taken at longer focal lengths; the exact source article was not identified in the snippet, so the sample size is unconfirmed.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/3440305"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Two orthogonal vanishing points are the minimum needed to calibrate a traffic camera's focal length in one cited paper, which gives a closed-form relation for focal length from them.",
+   "urls": [
+    "https://arxiv.org/pdf/2001.07243"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A pose-estimation paper (snippet-level) states at least three vanishing points are needed to estimate pose, and at least four are needed if focal length is estimated simultaneously.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10098530/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The BLAM Blender calibration add-on has been discontinued by its maintainers, who direct users to fSpy; BLAM's single-vanishing-point mode computes camera orientation from a known focal length.",
+   "urls": [
+    "https://github.com/perarnia/blam",
+    "https://github.com/stuffmatic/blam/wiki/User's-guide"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "No fSpy documentation or algorithm description was found in search results; fSpy-specific workflow claims remain unverified.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "The cvlab multiview_calib tool estimates each camera's intrinsics separately with OpenCV's calibration framework, then computes extrinsics linearly and refines them with bundle adjustment.",
+   "urls": [
+    "https://github.com/cvlab-epfl/multiview_calib"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Marginalized Bundle Adjustment (2026 arXiv) jointly optimizes per-camera intrinsics K_i and extrinsics P_i from unordered RGB frames, initializing intrinsics from a DUSt3R pointmap when calibration is unknown.",
+   "urls": [
+    "https://arxiv.org/html/2602.18906v1"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A patent snippet notes that camera parameters and 3D points may fail to converge in bundle adjustment because of accumulated error, even after BA is applied.",
+   "urls": [
+    "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12205323"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Generalized Procrustes analysis removes rotation, translation and uniform scale before statistical shape modelling of 3D faces, repeatedly aligning each shape to the recomputed mean shape.",
+   "urls": [
+    "https://arxiv.org/html/1209.6491.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 3D face paper (arXiv 1708.06703) aligns faces by translation and rotation only and does not factor out scale, evaluating surface error after Procrustes alignment.",
+   "urls": [
+    "https://arxiv.org/html/1708.06703.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A face frontalization paper parameterizes face pose as scale, rotation and translation mapping a face-centered frame to the camera frame, and fits a 3DMM to 2D/3D landmarks by scaling, rotating and translating the model.",
+   "urls": [
+    "https://arxiv.org/pdf/2010.13676"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2026 facial-movement study uses Procrustes with translation, rotation and anisotropic scaling, which differs from uniform-scale similarity alignment.",
+   "urls": [
+    "https://arxiv.org/pdf/2603.17767"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Shape-model practice differs on scale: GPA-style pipelines (arXiv 1209.6491) remove uniform scale, while arXiv 1708.06703 keeps scale out of alignment and pose fitting (arXiv 2010.13676) fits scale as a parameter. Not a hard contradiction, but the handling of scale is inconsistent across sources.",
+  "Bengal-HP_RU sets focal length to image width (an approximation), whereas the 2022 face reconstruction paper calls for offline calibration of K; the two approaches conflict for uncalibrated photos.",
+  "Photography sources attribute face distortion mainly to camera distance, while a study snippet attributes perceived differences to focal length (50 mm vs longer); these are consistent only if focal length is read as a proxy for distance."
+ ],
+ "openQuestions": [
+  "WEB SEARCH BUDGET EXHAUSTED: only 5 of 12 planned queries ran. The following never ran: 3DMM weak-perspective fitting with focal-length estimation; 85mm/portrait focal-length recommendations with numbers; joint focal length and face shape from multiple photos (2024-2026, extended mode); Gao et al. 2003 P3P complete solution; OpenCV solvePnP flag docs (beyond snippet); Lepetit et al. EPnP primary paper; and criticism or degeneracy-specific sources for focal-depth ambiguity on faces.",
+  "No primary source was retrieved for the focal-vs-depth ambiguity of faces (the core degeneracy); the distance-vs-focal claims come only from photography blogs and unidentified snippets.",
+  "No quantitative error figures (reprojection error, focal length accuracy, pose error in degrees) were obtained for any PnP or BA method on faces.",
+  "The 50 mm rating study and the 'rounder vs flatter' experiment were seen only as snippets; source identity, sample size and population are unconfirmed.",
+  "Cross-session/cross-camera photo fusion (combining photos from different cameras) was not researched beyond multi-camera BA papers from robotics/SLAM.",
+  "Recommended follow-up: send a follow-up message to continue the search for the unrun queries."
+ ]
+}

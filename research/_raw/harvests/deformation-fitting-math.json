@@ -1,0 +1,299 @@
+{
+ "queries": [
+  "Procrustes similarity transform analysis closed-form solution SVD scale rotation translation",
+  "thin-plate spline deformation landmarks bending energy formulation",
+  "As-rigid-as-possible surface modeling ARAP Sorkine Alexa paper",
+  "non-rigid ICP face registration Amberg Romdhani Vetter stiffness weights paper",
+  "biharmonic deformation Laplacian mesh editing Botsch Sorkine",
+  "Levenberg-Marquardt damping parameter Gauss-Newton nonlinear least squares (search not performed: per-turn web search budget exhausted)",
+  "3D morphable model PCA shape prior regularisation Blanz Vetter face fitting (search not performed: per-turn web search budget exhausted)",
+  "robust loss function M-estimator Huber Geman-McClure landmark fitting outliers (search not performed: per-turn web search budget exhausted)"
+ ],
+ "sources": [
+  {
+   "url": "https://arxiv.org/pdf/2206.14528",
+   "title": "Procrustes Analysis with Deformations: A Closed-Form Solution by Eigenvalue Decomposition",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s12518-020-00306-7",
+   "title": "Springer article s12518-020-00306-7 (Procrustes/similarity transformation, geodesy)",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "url": "https://nvlpubs.nist.gov/nistpubs/jres/124/jres.124.028.pdf",
+   "title": "NIST J. Res. 124.028 (Procrustes/similarity transformation)",
+   "kind": "official-docs",
+   "year": "2019"
+  },
+  {
+   "url": "https://math.nist.gov/~JBernal/kujustf.pdf",
+   "title": "NIST Bernal notes on Procrustes/similarity transform",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://virtualhumans.mpi-inf.mpg.de/VH23/slides/pdf/Lecture_03_2_Procrustes.pdf",
+   "title": "MPI Virtual Humans 2023 lecture 03 2: Procrustes",
+   "kind": "other",
+   "year": "2023"
+  },
+  {
+   "url": "https://members.cbio.mines-paristech.fr/~jvert/svn/bibli/local/Bookstein1989Principal.pdf",
+   "title": "Bookstein 1989 Principal Warps: thin-plate splines and the decomposition of deformations",
+   "kind": "paper",
+   "year": "1989"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2405.14019",
+   "title": "BrainMorph: A Foundational Keypoint Model for Robust and Flexible Brain MRI Registration (TPS usage)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2411.17845",
+   "title": "CABLD: Contrast-Agnostic Brain Landmark Detection with Consistency-Based Regularization (TPS usage)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://diglib.eg.org/handle/10.2312/SGP.SGP07.109-116",
+   "title": "Sorkine & Alexa, As-Rigid-As-Possible Surface Modeling (SGP 2007), DOI 10.2312/SGP/SGP07/109-116",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "url": "https://users.cs.utah.edu/~ladislav/jacobson12fast/jacobson12fast.pdf",
+   "title": "Jacobson et al. fast ARAP / mesh deformation (Utah)",
+   "kind": "paper",
+   "year": "2012"
+  },
+  {
+   "url": "https://www-ui.is.s.u-tokyo.ac.jp/~takeo/papers/takeo_jgt09_arapFlattening.pdf",
+   "title": "Implementing As-Rigid-As-Possible Shape Manipulation and Surface Flattening (JGT 2009)",
+   "kind": "paper",
+   "year": "2009"
+  },
+  {
+   "url": "https://arxiv.org/html/2501.10335v1",
+   "title": "arXiv 2501.10335 (ARAP-related, spikes/higher-order variant discussion, per search summary)",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://shapemodelling.cs.unibas.ch/gravis-literature/publications/2007/CVPR07_Amberg.pdf",
+   "title": "Amberg, Romdhani, Vetter, Optimal Step Nonrigid ICP Algorithms for Surface Registration (CVPR 2007)",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "url": "https://ibug.doc.ic.ac.uk/media/uploads/documents/statistical_non_rigid_icp.pdf",
+   "title": "Statistical non-rigid ICP (ibug)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/pdf/1709.04295",
+   "title": "Densely tracking sequences of 3D face scans",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://cg.cs.tu-dortmund.de/publications/2008-survey.pdf",
+   "title": "Botsch & Sorkine 2008 survey on linear variational mesh deformation",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "url": "https://libigl.github.io/libigl-python-bindings/tut-chapter3",
+   "title": "libigl tutorial chapter 3 (biharmonic deformation)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://homes.cs.washington.edu/~jovan/papers/jacobson-2011-bbw.pdf",
+   "title": "Jacobson et al. 2011 Bounded Biharmonic Weights for Real-Time Deformation",
+   "kind": "paper",
+   "year": "2011"
+  },
+  {
+   "url": "https://www.cs.princeton.edu/courses/archive/fall10/cos526/papers/sorkine05.pdf",
+   "title": "Sorkine 2005 Laplacian mesh processing state-of-the-art report",
+   "kind": "paper",
+   "year": "2005"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2103.01694",
+   "title": "A Revisit of Shape Editing Techniques: from the Geometric to the Neural Viewpoint",
+   "kind": "paper",
+   "year": "2021"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Closed-form similarity Procrustes (unweighted): center both point sets, form the cross-covariance matrix, take its SVD; rotation is V U^T with a determinant correction to exclude reflections; scale and translation follow in closed form from the same decomposition. Search summary of arXiv 2206.14528, not verified against the full text.",
+   "urls": [
+    "https://arxiv.org/pdf/2206.14528"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The optimal translation once rotation is known is the averaged residual between the centred target and rotated source, t = (1/n)(X2 - X1 R^T) 1 (sign/ordering depends on convention).",
+   "urls": [
+    "https://arxiv.org/pdf/2206.14528",
+    "https://virtualhumans.mpi-inf.mpg.de/VH23/slides/pdf/Lecture_03_2_Procrustes.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Procrustes with deformations has a closed-form solution via eigenvalue decomposition (paper title, 2022).",
+   "urls": [
+    "https://arxiv.org/pdf/2206.14528"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A geodesy paper reports that the symmetric case of weighted similarity transformation (weights on both coordinate systems) generally lacks a closed form and is solved iteratively, while asymmetric cases have closed forms.",
+   "urls": [
+    "https://link.springer.com/article/10.1007/s12518-020-00306-7"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Generalized Procrustes analysis across many shapes requires an iterative algorithm because the reference shape is updated at each step (per search summary of the geodesy/Procrustes sources).",
+   "urls": [
+    "https://link.springer.com/article/10.1007/s12518-020-00306-7",
+    "https://math.nist.gov/~JBernal/kujustf.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Thin-plate spline mapping is a non-rigid, closed-form interpolant of corresponding landmarks, with kernel U(r) = r^2 ln r in 2D, and an affine part.",
+   "urls": [
+    "https://members.cbio.mines-paristech.fr/~jvert/svn/bibli/local/Bookstein1989Principal.pdf",
+    "https://arxiv.org/pdf/2405.14019"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "TPS bending energy is the integral of the squared Frobenius norm of the Hessian of the mapping, I = integral ||Hess T||_F^2 dx; TPS minimises this subject to interpolation and affine constraints (weights sum to zero, landmark-weighted sums zero).",
+   "urls": [
+    "https://members.cbio.mines-paristech.fr/~jvert/svn/bibli/local/Bookstein1989Principal.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Noisy landmarks: exact TPS interpolation can be relaxed by replacing K with K + lambda I; as lambda grows the solution approaches the affine map, which has zero bending energy.",
+   "urls": [
+    "https://arxiv.org/pdf/2405.14019",
+    "https://members.cbio.mines-paristech.fr/~jvert/svn/bibli/local/Bookstein1989Principal.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Bookstein (1989) treats the bending energy as a quadratic form in the surface heights at the landmarks, and the TPS as a superposition of eigenvectors of the bending energy matrix.",
+   "urls": [
+    "https://members.cbio.mines-paristech.fr/~jvert/svn/bibli/local/Bookstein1989Principal.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Some patent sources use U(r) = r (not r^2 ln r) for a 3D TPS-style implant model; no single standard 3D kernel was confirmed.",
+   "urls": [
+    "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9330206"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "ARAP (Sorkine & Alexa, SGP 2007): iterative mesh editing where each local neighbourhood is fit to its best rigid transform via a Procrustes problem, then vertex positions are updated by solving a linear system.",
+   "urls": [
+    "https://diglib.eg.org/handle/10.2312/SGP.SGP07.109-116",
+    "https://diglib.eg.org/items/e0b21a71-350e-41e7-a586-3bfa526ed21c/full"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "ARAP is described as effective and easy to implement; later work notes standard ARAP can produce spikes, motivating a higher-order smooth variant (Oehri, Herholz, Sorkine-Hornung, 2025) per search summary.",
+   "urls": [
+    "https://arxiv.org/html/2501.10335v1"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Finnendahl, Schwartz, Alexa ('ARAP Revisited') reinterpret ARAP as a discretised elastic energy; Igarashi et al. (JGT 2009) give an implementation guide and show ARAP for surface flattening.",
+   "urls": [
+    "https://www-ui.is.s.u-tokyo.ac.jp/~takeo/papers/takeo_jgt09_arapFlattening.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Optimal-step non-rigid ICP (Amberg, Romdhani, Vetter, CVPR 2007) runs a sequence of decreasing stiffness weights, starting high, so the template moves from global to local deformation; it works with any regulariser that has an adjustable stiffness parameter.",
+   "urls": [
+    "https://shapemodelling.cs.unibas.ch/gravis-literature/publications/2007/CVPR07_Amberg.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Amberg et al. report that a general black-box optimiser performs poorly for non-rigid registration: it has a very small convergence basin and fails on incomplete surfaces unless initialisation is nearly perfect.",
+   "urls": [
+    "https://shapemodelling.cs.unibas.ch/gravis-literature/publications/2007/CVPR07_Amberg.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Dense face-scan tracking (arXiv 1709.04295) uses a stiffness weight alpha in a cost with landmark and motion-history terms; face-capture work (arXiv 2003.08583) describes gradually decreasing stiffness and landmark weights.",
+   "urls": [
+    "https://arxiv.org/pdf/1709.04295",
+    "https://arxiv.org/pdf/2003.08583"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Botsch & Sorkine (2008) is a survey of linear variational mesh deformation methods aimed at detailed high-resolution meshes.",
+   "urls": [
+    "https://cg.cs.tu-dortmund.de/publications/2008-survey.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Biharmonic deformation uses solutions of the bi-Laplace equation, which also minimise a Laplacian energy; assigning identity handles does not reproduce the original surface unless it is already biharmonic.",
+   "urls": [
+    "https://libigl.github.io/libigl-python-bindings/tut-chapter3"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Bounded biharmonic weights (Jacobson, Baran, Popovic, Sorkine, 2011) minimise Laplacian energy under bound constraints for real-time deformation.",
+   "urls": [
+    "https://homes.cs.washington.edu/~jovan/papers/jacobson-2011-bbw.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Sorkine (2005) state-of-the-art report covers Laplacian mesh processing with differential coordinates; Lipman & Sorkine (2005) extend it to interactive mesh editing.",
+   "urls": [
+    "https://www.cs.princeton.edu/courses/archive/fall10/cos526/papers/sorkine05.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2021 review (arXiv 2103.01694) compares geometric and neural shape-editing techniques.",
+   "urls": [
+    "https://arxiv.org/pdf/2103.01694"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Closed-form claim vs iterative claim: unweighted similarity Procrustes has a closed form via SVD, but weighted/symmetric variants (geodesy source) and generalized Procrustes (many shapes) are described as needing iteration.",
+  "TPS kernel: the 2D kernel r^2 ln r (Bookstein) differs from the U(r)=r variant seen in patent sources for 3D; the latter is not confirmed as a standard."
+ ],
+ "openQuestions": [
+  "Could not verify Levenberg-Marquardt damping-update rules (Madsen, Nielsen, Tingleff): the web search budget for this turn was exhausted before that query ran.",
+  "Could not verify PCA morphable-model regularisation (Blanz & Vetter) or robust losses (Huber, Geman-McClure) for landmark fitting; those queries did not run.",
+  "Umeyama (1991) closed-form similarity-transform paper was named in search summaries but its text and URL were not retrieved, so it is not cited here.",
+  "Schonemann & Carroll (1970) first closed-form similarity solution was named in a summary without a retrieved URL; unverified.",
+  "Tikhonov regularisation for shape coefficients and numerically stable formulations in numpy were not searched.",
+  "Oehri, Herholz, Sorkine-Hornung 2025 higher-order ARAP variant was mentioned in a summary; the exact paper was not retrieved.",
+  "Only 8 WebSearch calls ran; 3 were refused by a budget-exhausted message, so the source count is below the 12-query target and the fact count is below the 20-60 target. Most facts are from search snippets, not full papers."
+ ]
+}

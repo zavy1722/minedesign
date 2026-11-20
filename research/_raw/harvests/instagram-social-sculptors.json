@@ -1,0 +1,67 @@
+{
+ "queries": [
+  "Instagram portrait sculptor tips likeness clay sculpting proportions (instagram.com, standard)",
+  "portrait sculpture likeness tips tiktok sculptor facial proportions (tiktok.com) - NOT RUN, search budget exhausted",
+  "sculptor portrait likeness advice thread facial landmarks clay (x.com) - NOT RUN, search budget exhausted",
+  "portrait sculptor threads tips likeness face sculpting (threads.net) - NOT RUN, search budget exhausted",
+  "Instagram portrait bust sculptor process reference photos measurements likeness (unrestricted) - NOT RUN, search budget exhausted"
+ ],
+ "sources": [
+  {
+   "url": "https://www.instagram.com/societyofportraitsculptors/",
+   "title": "Portrait Sculptors (@societyofportraitsculptors) Instagram profile",
+   "kind": "social"
+  },
+  {
+   "url": "https://www.instagram.com/cooleblumen/",
+   "title": "Inese Veismane (@cooleblumen) Instagram profile",
+   "kind": "social"
+  },
+  {
+   "url": "https://www.instagram.com/charactersculpt/",
+   "title": "Character Sculpt (@charactersculpt) Instagram profile",
+   "kind": "social"
+  },
+  {
+   "url": "https://www.instagram.com/sculptor_artists/",
+   "title": "Sculptor Artists (@sculptor_artists) Instagram profile",
+   "kind": "social"
+  },
+  {
+   "url": "https://www.instagram.com/Clayshaper/",
+   "title": "CLAYSHAPER (@clayshaper) Instagram profile",
+   "kind": "social"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "The Instagram account @societyofportraitsculptors describes itself as 'Professional sculptors committed to making portrait sculpture accessible to a wider public' (bio text as shown in search snippet; no technique content visible).",
+   "urls": [
+    "https://www.instagram.com/societyofportraitsculptors/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The Instagram account @cooleblumen (Inese Veismane) appears in search results as offering clay tutorials, and the snippet context indicates these are for flowers rather than portraits; not relevant to likeness work.",
+   "urls": [
+    "https://www.instagram.com/cooleblumen/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Only one of five planned WebSearch queries returned results; the search returned only Instagram profile pages whose snippets contained bios and follower counts, with no sculpting measurements, proportion methods or likeness-check techniques.",
+   "urls": [
+    "https://www.instagram.com/charactersculpt/",
+    "https://www.instagram.com/sculptor_artists/",
+    "https://www.instagram.com/Clayshaper/"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [],
+ "openQuestions": [
+  "No concrete likeness, proportion or process tips from Instagram, TikTok, X or Threads sculptors were retrieved. The per-turn WebSearch budget was exhausted after the first query (tool result stated limit of 200 calls per turn shared by all agents), so the TikTok, X, Threads and extended-mode queries were never run.",
+  "Needed: searches on eye-line/mid-line proportion grids, reflection/squint likeness checks, and named portrait sculptors' recurring advice (clay and digital), to be run in a follow-up session with a fresh search budget.",
+  "Instagram profile pages return poorly in WebSearch snippets; direct post or captioned-reel content was not surfaced. WebFetch was not used because the task says direct fetches fail at DNS for nearly all hosts."
+ ]
+}

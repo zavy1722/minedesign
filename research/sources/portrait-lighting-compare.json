@@ -1,0 +1,18 @@
+{
+  "topic": "portrait-lighting-compare",
+  "sources": [
+    {"n": 1, "title": "Retiring BLAM and announcing fSpy - a stand alone camera matching app (Blender Artists)", "url": "https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app", "kind": "forum", "year": "n.d."},
+    {"n": 2, "title": "Simple Camera Match (Blender Extensions listing)", "url": "https://extensions.blender.org/add-ons/simple-camera-match/", "kind": "repo", "year": "n.d."},
+    {"n": 3, "title": "Photo-Match Camera (Superhive Market listing)", "url": "https://superhivemarket.com/products/photo-match-camera", "kind": "commercial", "year": "n.d."},
+    {"n": 4, "title": "Blender's camera focal length / sensor size values inaccurate? (Blender Artists)", "url": "https://blenderartists.org/t/blenders-camera-focal-length-sensor-size-values-inaccurate/1271788", "kind": "forum", "year": "n.d."},
+    {"n": 5, "title": "Poly Light Match - Image Based Lighting Setup (docs)", "url": "https://superhivemarket.com/products/poly-light-match---image-based-lighting-setup/docs", "kind": "commercial", "year": "n.d."},
+    {"n": 6, "title": "Lightmap Blender tutorial 03 (Smart Car HDRI backplate match)", "url": "https://www.lightmap.co.uk/learning/blender-tutorial-03/", "kind": "blog", "year": "n.d."},
+    {"n": 7, "title": "Term 2 lighting course (Maya environment-light matching, student blog)", "url": "https://shimin.myblog.arts.ac.uk/2021/02/23/term2-lighting-course_2", "kind": "blog", "year": "2021"},
+    {"n": 8, "title": "Difference between the Mix and AlphaOver node? (Blender Artists)", "url": "https://blenderartists.org/t/difference-between-the-mix-and-alphaover-node/431442", "kind": "forum", "year": "n.d."},
+    {"n": 9, "title": "What are the exact functions of Blend Modes? (Blender Artists)", "url": "https://blenderartists.org/t/what-are-the-exact-functions-of-blend-modes/1485612", "kind": "forum", "year": "n.d."},
+    {"n": 10, "title": "Can't replicate After Effects result in Blender with basic nodes (Blender Artists)", "url": "https://blenderartists.org/t/cant-replicate-after-effects-result-in-blender-with-basic-nodes-compositing-and-post-processing/1524574", "kind": "forum", "year": "n.d."},
+    {"n": 11, "title": "Improving Blender workflows with still image camera matching app (80.lv)", "url": "https://80.lv/articles/improving-blender-workflows-with-still-image-camera-matching-app", "kind": "news", "year": "n.d."},
+    {"n": 12, "title": "How to Setup HDRI Lighting in Blender 2.93 (BlenderNation)", "url": "https://www.blendernation.com/2021/06/30/how-to-setup-hdri-lighting-in-blender-2-93/", "kind": "news", "year": "2021"},
+    {"n": 13, "title": "Blender 5.0 Manual: Cameras", "url": "https://docs.blender.org/manual/en/5.0/render/cameras.html", "kind": "official-docs", "year": "n.d."}
+  ]
+}

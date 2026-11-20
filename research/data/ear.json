@@ -1,0 +1,113 @@
+{
+  "topic": "ear",
+  "tables": [
+    {
+      "name": "adult_auricle_length_width",
+      "units": "mm (cm values converted x10)",
+      "columns": ["population", "sex", "n", "side", "length_mean", "length_sd", "width_mean", "width_sd", "length_definition"],
+      "rows": [
+        ["North India adults", "M+F", null, "R", 62.8, null, 32.1, null, "not stated"],
+        ["North India adults", "M+F", null, "L", 62.3, null, 32.8, null, "not stated"],
+        ["Sundanese (West Java), photogrammetry", "M", null, "unspecified", 62.9, 4.7, 29.5, 2.6, "superaurale-subaurale"],
+        ["Sundanese (West Java), photogrammetry", "F", null, "unspecified", 60.9, 4.2, 28.8, 2.5, "superaurale-subaurale"],
+        ["Mixed adults (PMC7580430)", "M+F", 200, "R", 57.62, 5.03, 29.72, 2.79, "not stated"],
+        ["Mixed adults (PMC7580430)", "M+F", 200, "L", 57.89, 4.89, 31.21, 2.95, "not stated"]
+      ],
+      "population": "Adults; North Indian, Sundanese (Indonesia), and a mixed n=200 sample; sample sizes for North Indian and Sundanese not stated in harvested results",
+      "source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/36051810/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9426708/",
+        "https://www.pubmed.gov/36217409/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/"
+      ],
+      "status": "contested",
+      "notes": "Each row is single-source from harvester search summaries; independent verification searches could not run (search budget exhausted). Values differ by population and by measurement definition. Sundanese women's concha width (0.42 cm) omitted as a suspected typo."
+    },
+    {
+      "name": "male_auricle_height_range_review",
+      "units": "mm",
+      "columns": ["population", "sex", "age_range_years", "height_min", "height_max", "width_between_study_spread"],
+      "rows": [
+        ["Multiple studies (review)", "M", "approx 17-30", 59.5, 68.5, 12]
+      ],
+      "population": "Young adult males across several published studies",
+      "source_urls": ["https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles"],
+      "status": "single-source",
+      "notes": "Aggregator topic page; length measured from most superior to most inferior projection. Absolute widths not given, only an approximately 12 mm range between studies."
+    },
+    {
+      "name": "width_to_length_ratio_derived",
+      "units": "ratio (dimensionless)",
+      "columns": ["population", "sex", "side", "width_over_length"],
+      "rows": [
+        ["North India adults", "M+F", "R", 0.511],
+        ["North India adults", "M+F", "L", 0.526],
+        ["Sundanese", "M", "unspecified", 0.469],
+        ["Sundanese", "F", "unspecified", 0.473],
+        ["Mixed adults (PMC7580430)", "M+F", "R", 0.516],
+        ["Mixed adults (PMC7580430)", "M+F", "L", 0.539]
+      ],
+      "population": "Derived from adult_auricle_length_width means",
+      "source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/36051810/",
+        "https://www.pubmed.gov/36217409/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/"
+      ],
+      "status": "contested",
+      "notes": "Computed by this research note (width_mean / length_mean); not reported by the sources. Ratio of means, not mean of ratios."
+    },
+    {
+      "name": "prominent_ear_thresholds",
+      "units": "mm",
+      "columns": ["sex", "upper_protrusion_prominent_if_gt", "lower_protrusion_prominent_if_gt"],
+      "rows": [
+        ["M (boys)", 21.5, 20.0],
+        ["F (girls)", 17.5, 15.5]
+      ],
+      "population": "Patients, n=44 (2011 study)",
+      "source_urls": ["https://pubmed.ncbi.nlm.nih.gov/22067874/"],
+      "status": "single-source",
+      "notes": "Exact upper/lower measurement points not given in harvested summary. The same study suggests the otoplasty success criterion of <3 mm asymmetry may be too strict."
+    },
+    {
+      "name": "auriculocephalic_angle_norms",
+      "units": "degrees; mm for projection",
+      "columns": ["claim", "angle_min_deg", "angle_max_deg", "max_projection_from_mastoid_mm"],
+      "rows": [
+        ["normal range", 20, 30, null],
+        ["normal upper limit", null, 25, 20]
+      ],
+      "population": "Not stated",
+      "source_urls": ["https://www.ncbi.nlm.nih.gov/books/NBK538320/"],
+      "status": "contested",
+      "notes": "Two norms differ; harvester could not confirm that the 20-30 degree figure maps to this exact page. Measurement methods differ between studies (ruler, photo, 3D plane-normal)."
+    },
+    {
+      "name": "ear_growth_maturity",
+      "units": "years",
+      "columns": ["population", "sex", "age_length_reaches_mature_size"],
+      "rows": [
+        ["Chinese", "M", 14],
+        ["Chinese", "F", 14]
+      ],
+      "population": "Chinese growth study",
+      "source_urls": ["https://pubmed.ncbi.nlm.nih.gov/29169692/"],
+      "status": "single-source",
+      "notes": "Stated as 'by age 14'; sample size not in harvested summary."
+    },
+    {
+      "name": "ear_biometric_recognition_rates",
+      "units": "percent",
+      "columns": ["setting", "rate_percent", "note"],
+      "rows": [
+        ["ear recognition, typical", 90, "usually over 90%"],
+        ["ear recognition, changed imaging angle", 80, "about 80% or lower"],
+        ["ear + face fusion, border control", 97.1, "one cited study"]
+      ],
+      "population": "Literature survey figures",
+      "source_urls": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC8061142/"],
+      "status": "single-source",
+      "notes": "Rates are survey-reported figures from heterogeneous datasets; 90 and 80 are approximate bounds, not exact results."
+    }
+  ]
+}

@@ -1,0 +1,548 @@
+{
+ "queries": [
+  "orbicularis oris muscle anatomy lower lip sphincter fibers (standard)",
+  "depressor anguli oris depressor labii inferioris mentalis origin insertion anatomy (standard, ncbi/pmc)",
+  "mentolabial sulcus chin dimpling mentalis muscle study measurement (standard, pubmed/pmc)",
+  "marionette lines depressor anguli oris anatomy botulinum treatment study (standard)",
+  "platysma muscle anatomy anterior border lower face jowl study (standard)",
+  "modiolus facial anatomy muscle convergence oral commissure (standard)",
+  "lower lip depressor muscles anatomy aging study 2024 2025 (extended, arxiv/pmc/ncbi)",
+  "mentalis muscle chin cleft dimple anatomy frequency (standard)",
+  "lower face facial muscles anatomy review sculpting Blender orbicularis oris (standard, github/docs.blender.org)",
+  "lower facial muscles anatomy depressor labii inferioris thickness measurement cadaver (standard, pubmed/pmc)",
+  "mentalis muscle botulinum toxin chin dimpling treatment limitations (standard)"
+ ],
+ "sources": [
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK545169/",
+   "title": "StatPearls/NCBI Bookshelf orbicularis oris entry (as surfaced in search)",
+   "kind": "official-docs",
+   "year": ""
+  },
+  {
+   "url": "https://en.wikipedia.org/wiki/Orbicularis_oris_muscle",
+   "title": "Wikipedia: Orbicularis oris muscle",
+   "kind": "other",
+   "year": ""
+  },
+  {
+   "url": "https://radiopaedia.org/articles/orbicularis-oris-muscle",
+   "title": "Radiopaedia: Orbicularis oris muscle",
+   "kind": "other",
+   "year": ""
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/33565832/",
+   "title": "Topographic and Neural Anatomy of the Depressor Anguli Oris Muscle and Implications for Treatment of Synkinetic Facial Paralysis",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/",
+   "title": "StatPearls: Anatomy, Head and Neck: Face",
+   "kind": "official-docs",
+   "year": ""
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK493209/",
+   "title": "StatPearls: Anatomy, Head and Neck: Facial Muscles",
+   "kind": "official-docs",
+   "year": ""
+  },
+  {
+   "url": "https://ncbi.nlm.nih.gov/books/NBK532292/?report=reader",
+   "title": "StatPearls: Anatomy, Head and Neck, Mandible",
+   "kind": "official-docs",
+   "year": ""
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13517480/",
+   "title": "Italian Consensus and Review in Lower Face Mimetic Muscle Treatment with Botulinum Toxin-A",
+   "kind": "paper",
+   "year": ""
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13644905",
+   "title": "Descriptive, comparative, and functional anatomy of the facial musculature in cattle (Bos taurus)",
+   "kind": "paper",
+   "year": ""
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28834838/",
+   "title": "Anatomical Relationship of the Inferior Bundle of the Incisivus Labii Inferioris With the Depressor Labii Inferioris and the Platysma",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7911364/",
+   "title": "Effective Locations for Injecting Botulinum Toxin into the Mentalis Muscle; Cadaveric and Ultrasonographic Study",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28750118/",
+   "title": "Modification of Chin Projection and Aesthetics With OnabotulinumtoxinA Injection",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3052727/",
+   "title": "Chin Ptosis: Classification, Anatomy, and Correction",
+   "kind": "paper",
+   "year": ""
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13706216",
+   "title": "Chin Ptosis: Etiology, Classification, Diagnosis and Surgical Management - A Literature Review",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13709392",
+   "title": "Muscle- and Gland-Specific Dosing of Botulinum Toxin in Facial Aesthetics: Review of Dose Ranges, Target Depth, Muscle Thickness",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13104702/",
+   "title": "A Novel Intraoral Technique for Botulinum Toxin Type A Application in the Mentalis Muscle",
+   "kind": "paper",
+   "year": ""
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31125173/",
+   "title": "Nonsurgical correction of drooping mouth corners using monophasic hyaluronic acid and incobotulinumtoxinA",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5732664/",
+   "title": "Marionette lines / DAO botulinum adjunct (PMC5732664, as surfaced)",
+   "kind": "paper",
+   "year": ""
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10702465",
+   "title": "Platysma anatomy search result (PMC10702465, as surfaced)",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s00266-022-02996-3",
+   "title": "Springer: Aesthetic Plastic Surgery article s00266-022-02996-3 (Minelli et al., jowl/mandibular ligament)",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30091282/",
+   "title": "The layered anatomy of the jawline",
+   "kind": "paper",
+   "year": "2018"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36050569/",
+   "title": "The Surgical Anatomy of the Jowl and the Mandibular Ligament Reassessed",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28027174/",
+   "title": "Anatomy of the Platysma Muscle",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://radiopaedia.org/articles/modiolus-mouth",
+   "title": "Radiopaedia: Modiolus (mouth)",
+   "kind": "other",
+   "year": ""
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s00266-025-04696-0",
+   "title": "Springer: Aesthetic Plastic Surgery article s00266-025-04696-0 (modiolus ligament/false ligament cadaver study)",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/18551340/",
+   "title": "Modiolus dissection study (PubMed 18551340, as surfaced)",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41433716/",
+   "title": "A key of facial muscle aging: locational changes in modiolus measured with ultrasonography",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39806136",
+   "title": "The Labiomandibular Fold Anatomy for Comprehensive Lower Facial Rejuvenation: A Micro-Computed Tomography Investigation",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41413726/",
+   "title": "The Aging Process of Facial Muscles",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39655113/",
+   "title": "Depressor Labii Inferioris Muscle Palsy After Chin Augmentation",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32232427/",
+   "title": "Three-Dimensional Evaluation of the Depressor Anguli Oris and Depressor Labii Inferioris for Botulinum Toxin Injections",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11104498/",
+   "title": "The Deep Fascia of the Head and Neck Revisited: Relationship with the Facial Nerve",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13322386/",
+   "title": "Determining the Position, Morphology, and Location of the Depressor Anguli Muscle Through Ultrasound in the Caucasian Population",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "url": "https://www.mcgill.ca/oss/article/did-you-know/why-do-we-have-dimples",
+   "title": "McGill Office for Science and Society: why do we have dimples",
+   "kind": "blog",
+   "year": ""
+  },
+  {
+   "url": "https://en.wikipedia.com/wiki/Dimple",
+   "title": "Wikipedia: Dimple",
+   "kind": "other",
+   "year": ""
+  },
+  {
+   "url": "https://www.dermatologytimes.com/view/botulinum-toxin-chin-dimpling-proves-safe-effective",
+   "title": "Dermatology Times: botulinum toxin chin dimpling proves safe, effective",
+   "kind": "blog",
+   "year": ""
+  },
+  {
+   "url": "https://www.dermatologytimes.com/view/marionette-lines-targeting-dynamic-static-components-melomental-fold-rhytids",
+   "title": "Dermatology Times: marionette lines, dynamic and static components",
+   "kind": "blog",
+   "year": ""
+  },
+  {
+   "url": "https://github.com/Yoosseph/dental-scope/issues/6",
+   "title": "GitHub: dental-scope issue on orbicularis oris (developer notes, not a sculpting reference)",
+   "kind": "repo",
+   "year": ""
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Orbicularis oris is an annular complex around the mouth; older descriptions called it a sphincter, but later work found its fibers run in different directions and it is composed of four quadrants that interlace to give an appearance of circularity (not a uniform circular sphincter). Source: Wikipedia/Radiopaedia results aggregated in the orbicularis oris search.",
+   "urls": [
+    "https://en.wikipedia.org/wiki/Orbicularis_oris_muscle",
+    "https://radiopaedia.org/articles/orbicularis-oris-muscle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The orbicularis oris has an outer marginal part and an inner labial part.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK545169/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Lower-lip supplementary orbicularis fibers include a slip of m. incisivus labii inferioris on each side of the midline arising from the mandible, fibers from the buccinator and caninus, and deep fibers from the modiolus.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK545169/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Motor innervation of orbicularis oris is by the buccal branch of the facial nerve (CN VII); superior and inferior labial arteries run between the muscle fibers and mucosa.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK545169/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Depressor anguli oris (DAO) is a triangular muscle at the mouth corner; fibers originate from the lower jaw along the oblique line and converge to insert into the modiolus.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13517480/",
+    "https://pubmed.ncbi.nlm.nih.gov/33565832/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In a cadaver study, the DAO modiolus insertion was reported about 10 mm lateral and 10 mm caudal to the oral commissure.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/33565832/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Mentalis originates from the anterior mandible (mental protuberance near midline) and inserts into the skin of the chin; its motor supply is the marginal mandibular branch of CN VII.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/",
+    "https://radiopaedia.org/articles/mentalis-muscle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Sources disagree on the exact bony origin of the mentalis: StatPearls Mandible lists the incisive fossa, while the Italian consensus review describes origin from the alveolar bone of the anterior mandible.",
+   "urls": [
+    "https://ncbi.nlm.nih.gov/books/NBK532292/?report=reader",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13517480/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Depressor labii inferioris (DLI) originates from the mandible and inserts into the lower lip; it is supplied solely by the marginal mandibular branch in a fresh-cadaver dissection of ten hemifaces.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13322386/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The platysma's middle portion (pars labialis) crosses the body of the mandible, continues under the DAO, and inserts into the lower lip dermis and orbicularis oris.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10702465"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A cadaveric study (Bae et al., as reported in search results) found the anterior platysma ascends to interdigitate with the DAO and DLI, and the lower one-third of the masseter is covered by the platysma.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10702465"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Minelli et al. (2022) found the jowl is a localized area of redundant skin and subcutaneous fat, and its anterior border is not defined by a specific osteocutaneous structure.",
+   "urls": [
+    "https://link.springer.com/article/10.1007/s00266-022-02996-3",
+    "https://pubmed.ncbi.nlm.nih.gov/36050569/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The mandibular ligament is described (2022 study) as existing only in the deep, sub-platysma plane, formed by combined muscular attachment to the mandible of the lower lip depressor muscles and the platysma.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/36050569/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2018 layered-anatomy study attributed jowl deformity to loose platysma adherence to the mandible, occurring posterior but not anterior to the mandibular ligament.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/30091282/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2025 cadaver study in Aesthetic Plastic Surgery reported a conjoined mass and a tissue band from the modiolus to the dermis, classed as a 'false ligament'; this is a single small study.",
+   "urls": [
+    "https://link.springer.com/article/10.1007/s00266-025-04696-0"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Radiopaedia describes the modiolus as a small fibromuscular structure at the mouth corner where fibers from multiple facial muscles converge (it cites nine muscles' fibers joining at the commissure).",
+   "urls": [
+    "https://radiopaedia.org/articles/modiolus-mouth"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Named contributors to the modiolus include orbicularis oris, levator and depressor anguli oris, risorius, platysma, buccinator and zygomaticus major; sources differ on the exact count.",
+   "urls": [
+    "https://radiopaedia.org/articles/modiolus-mouth"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Facial artery supplies the modiolus region, branching into inferior and superior labial arteries; in a dissection of five cadavers the facial artery lay anterior to the modiolus in 1 specimen (20%) and lateral in 4 (80%), never medial.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/18551340/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025 ultrasound study of 45 young and 45 elderly Asian adults found a statistically significant downward and inward shift of the modiolus with age, attributed to laxity of lip elevators and contracture of lip depressors.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/41433716/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025 micro-CT study reports the labiomandibular fold is accentuated with age by downward pull of depressor muscles (DAO, platysma, buccinator fibers).",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/39806136"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A December 2025 review argues chronic shortening and increased resting tone of facial muscles alter form and function, describing hypertonic DAO as a secondary contributor to lip aging.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/41413726/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In a cadaver and ultrasound study of the mentalis, measured 5 mm lateral to the chin's most prominent point, depth was 6.7 \u00b1 1.4 mm, bone-to-muscle distance 1.1 \u00b1 1.0 mm, and muscle thickness 4.0 \u00b1 1.4 mm (units mm; reported as cited in the search summary, not verified against full text).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7911364/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A technical report describes the mentalis as spanning roughly 5-10 mm in the sagittal midline and 20-30 mm horizontally (per search summary; primary source not confirmed).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7911364/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Choi et al. (Aesthetic Surgery Journal, 2021), 45 embalmed cadavers, reported soft-tissue (skin plus subcutaneous) thickness of 6.4 mm (SD 1.7) at the DLI reference point; this is not muscle thickness.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13322386/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2021 ultrasound study of Caucasian patients reported an average DAO depth of 3.1 mm and DLI overlap in 12% of patients, versus under 5% in cadaveric dissection data.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13322386/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Onabotulinumtoxin A injection into the mentalis in 11 patients with underprojected chin and high-riding hyperactive mentalis: chin point moved downward in 10 of 11 patients; dimpling reduced on frontal photos.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/28750118/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Published mentalis BoNT doses vary: 4 U per side under ultrasound, and 12-15 U total in the measurement study.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13709392",
+    "https://pubmed.ncbi.nlm.nih.gov/28750118/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2026 review notes the evidence does not justify increasing mentalis dose solely on muscle thickness when the goal is reducing chin dimpling.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13709392"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A chin ptosis review recommends standardized assessment at rest and during animation, including mentalis function, skeletal projection, submental crease and cervicomental angle; inadequate reattachment of the mentalis to the anterior mandible after surgery can cause bunching or dimpling of chin skin.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13706216"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Chin dimpling mechanism: mentalis dermal insertions can pull skin inward; a McGill explainer says chin dimples are unrelated to muscle, while a plastic surgeon commentary argues central dimples reflect soft-tissue muscle defects. Sources disagree.",
+   "urls": [
+    "https://www.mcgill.ca/oss/article/did-you-know/why-do-we-have-dimples"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Wikipedia's dimple article notes that Professor John McDonald, citing limited research, concluded dimples were mislabeled as genetically inherited and dominant.",
+   "urls": [
+    "https://en.wikipedia.com/wiki/Dimple"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2010 study of 500 Yoruba Nigerians with cheek dimples found 36 (7.2%) also had cleft chin; this is a subgroup figure among cheek-dimple carriers, not a general cleft chin prevalence.",
+   "urls": [
+    "https://en.wikipedia.com/wiki/Dimple"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Lower lip droop is listed as a possible adverse event of chin BoNT injection, requiring careful placement.",
+   "urls": [
+    "https://www.dermatologytimes.com/view/botulinum-toxin-chin-dimpling-proves-safe-effective"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Misplaced BoNT in the mentalis can spread to DLI (speech difficulty) or orbicularis oris (incompetent lip or asymmetry); a separate review says diffusion does not often affect these muscles. Sources disagree on frequency.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13104702/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13709392"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Deep mentalis injection alone may be insufficient for chin dimpling because dimpling arises from mentalis fibers attaching to chin skin.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13104702/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Marionette-line treatment: BoNT into the DAO (often with filler) is an established adjunct; a split-face study used 4 U into the DAO on one side and a prospective study reported median mouth-corner droop improved from -4 degrees to -1 degree at 2 weeks and 3 months after filler plus incobotulinumtoxinA into DAO and mentalis.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/31125173/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Evidence for DAO-BoNT in marionette lines is mostly small studies, case reports and expert opinion; reviews call for larger multicenter trials.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/31125173/",
+    "https://www.dermatologytimes.com/view/marionette-lines-targeting-dynamic-static-components-melomental-fold-rhytids"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Depressor labii inferioris palsy has been reported after chin augmentation (2024 case report), illustrating the muscle's vulnerability in chin procedures.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/39655113/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Fetal histology study (2024) examined growth patterns of facial muscles at the mouth angle in midterm and near-term fetuses.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/38953435"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Orbicularis oris: older texts call it a sphincter; later work says its fibers run in differing directions as four interlacing quadrants.",
+  "Mentalis origin: StatPearls Mandible says incisive fossa; the Italian consensus review says alveolar bone of anterior mandible.",
+  "Modiolus muscle count: Radiopaedia cites nine muscles; other summaries list six to eight, and one adds zygomaticus minor.",
+  "Chin dimple mechanism: McGill says muscle-unrelated; a plastic surgeon commentary says soft-tissue muscle defect.",
+  "BoNT spread to DLI/orbicularis oris: one review calls it a real risk for speech and lip competence; another says it rarely affects these muscles.",
+  "Mentalis dimensions: a technical report gives 5-10 mm sagittal and 20-30 mm horizontal, which were not checked against a primary measurement.",
+  "DLI overlap: 12% in ultrasound vs under 5% in cadaver dissection."
+ ],
+ "openQuestions": [
+  "No population prevalence figure for chin cleft or chin dimple was found; an epidemiological or anthropometric search is needed.",
+  "Full-text numbers for mentalis thickness (cadaver and ultrasound) were only seen as search summaries; the primary tables were not fetched.",
+  "A true DLI muscle-thickness measurement was not found; the Choi 2021 figure is soft tissue, not muscle.",
+  "The 2008 five-cadaver modiolus dissection and the 2025 false-ligament cadaver study need full-text verification.",
+  "Blender-specific sculpting references for the lower face were not found; GitHub results were developer notes only.",
+  "Bae et al. platysma cadaver study citation details (journal, year) were not confirmed.",
+  "Fetal histology (PubMed 38953435) results were not read beyond the title.",
+  "WebFetch and direct page fetches were not attempted per instructions; all facts rest on search snippets."
+ ]
+}

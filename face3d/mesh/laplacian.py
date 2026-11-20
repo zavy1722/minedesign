@@ -44,10 +44,13 @@ def uniform_laplacian(n: int, edges: np.ndarray) -> Sparse:
     return Sparse(np.r_[i, j, i, j], np.r_[j, i, i, j], np.r_[-ones, -ones, ones, ones], (n, n))
 
 
-def laplacian_deform(mesh: Mesh, idx: np.ndarray, targets: np.ndarray, weight: float = 1e3,
+def laplacian_deform(mesh: Mesh, idx: np.ndarray, targets: np.ndarray, weight: float | np.ndarray = 1e3,
                      x_init: np.ndarray | None = None, tol: float = 1e-7, max_iter: int = 3000,
                      cotan: bool = True) -> tuple[np.ndarray, int]:
-    """Bilaplacian-smooth displacement moving vertices `idx` to `targets` (soft, `weight`)."""
+    """Bilaplacian-smooth displacement moving vertices `idx` to `targets`.
+
+    `weight` is a scalar or one weight per constraint (soft constraints).
+    """
     V0 = mesh.vertices
     n = len(V0)
     tris = mesh.triangles()
@@ -59,10 +62,11 @@ def laplacian_deform(mesh: Mesh, idx: np.ndarray, targets: np.ndarray, weight: f
     # Normalise so the constraint weight is scale-independent.
     scale = float(np.median(mass))
     idx = np.asarray(idx, np.int64)
+    wv = np.broadcast_to(np.asarray(weight, float), idx.shape)
     w_c = np.zeros(n)
-    np.add.at(w_c, idx, weight)
+    np.add.at(w_c, idx, wv)
     rhs = np.zeros((n, 3))
-    np.add.at(rhs, idx, weight * (np.asarray(targets, float) - V0[idx]))
+    np.add.at(rhs, idx, wv[:, None] * (np.asarray(targets, float) - V0[idx]))
 
     def matvec(d: np.ndarray) -> np.ndarray:
         return scale * (L.T @ (Minv * (L @ d))) + w_c * d

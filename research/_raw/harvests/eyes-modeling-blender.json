@@ -1,0 +1,232 @@
+{
+ "queries": [
+  "Blender sculpting realistic eyes sclera cornea iris concavity tutorial (standard)",
+  "human eye dimensions cornea diameter sclera horizontal diameter mm anatomy (allowed: ncbi, pmc.ncbi)",
+  "corneal radius of curvature anterior posterior mm measurement study (allowed: pmc, ncbi)",
+  "caruncle lacrimal lake anatomy eye 3D model tear meniscus (not run: search budget exhausted)",
+  "tear meniscus height measurement mm OCT study (not run: search budget exhausted)",
+  "eyelash count per eyelid length mm (not run: search budget exhausted)",
+  "blender eye shader refraction IOR cornea caustic iris tutorial (not run: search budget exhausted)",
+  "Blender manual Principled BSDF transmission IOR eye cornea (not run: search budget exhausted)",
+  "human cornea refractive index 1.376 aqueous humor 1.336 (not run: search budget exhausted)",
+  "realistic eye sculpting tutorial iris depth sclera bulge polycount (not run: search budget exhausted)",
+  "eyeball prolate ellipsoid axial length adult measurement (not run: search budget exhausted)"
+ ],
+ "sources": [
+  {
+   "url": "https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Realistic_Eyes_In_Blender",
+   "title": "Blender 3D: Noob to Pro - Realistic Eyes In Blender (Wikibooks)",
+   "kind": "blog",
+   "year": ""
+  },
+  {
+   "url": "https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Procedural_Eyeball",
+   "title": "Blender 3D: Noob to Pro - Procedural Eyeball (Wikibooks)",
+   "kind": "blog",
+   "year": ""
+  },
+  {
+   "url": "https://www.blendernation.com/2023/05/18/sculpting-the-eye-in-blender/",
+   "title": "Sculpting the eye in Blender (BlenderNation)",
+   "kind": "blog",
+   "year": "2023"
+  },
+  {
+   "url": "https://creativebloq.com/how-to/sculpt-convincing-eyes-in-zbrush",
+   "title": "How to sculpt convincing eyes in ZBrush (Creative Bloq)",
+   "kind": "blog",
+   "year": ""
+  },
+  {
+   "url": "https://www.artstation.com/marketplace/p/GOVgy/tutorial-creating-a-realistic-eye",
+   "title": "Tutorial: Creating Realistic Digital Eyes 3.0 (ArtStation Marketplace)",
+   "kind": "commercial",
+   "year": ""
+  },
+  {
+   "url": "https://www.oreilly.com/library/view/learning-blender-a/9780133886283/ch07lev2sec6.html",
+   "title": "Learning Blender - Creating an Eyeball (O'Reilly)",
+   "kind": "textbook",
+   "year": "2013"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4238270/",
+   "title": "Variations in Eyeball Diameters of the Healthy Adults",
+   "kind": "paper",
+   "year": "2014"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/",
+   "title": "Mean human corneal diameter and palpebral fissure lengths as scales for forensic analysis of photographed faces: an analytical review",
+   "kind": "paper",
+   "year": ""
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/18299075",
+   "title": "Evaluation of the relationship between corneal diameter and lens diameter",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5819093/",
+   "title": "Anatomy of cornea and ocular surface",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12190779/",
+   "title": "Radius and asphericity of the posterior corneal surface determined by corrected Scheimpflug photography",
+   "kind": "paper",
+   "year": "2002"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/23841132/",
+   "title": "Curvature analyses of the corneal front and back surface",
+   "kind": "paper",
+   "year": "2013"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/9293516/",
+   "title": "Radius of curvature of the posterior surface of the cornea",
+   "kind": "paper",
+   "year": "1997"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/16266736/",
+   "title": "The shape of the anterior and posterior surface of the aging human cornea",
+   "kind": "paper",
+   "year": "2005"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Search overview (secondary, ZBrush-origin methods): a common eye construction uses two spheres, one named Sclera and a duplicate named Cornea, with the cornea scaled slightly so it wraps the sclera.",
+   "urls": [
+    "https://www.blendernation.com/2023/05/18/sculpting-the-eye-in-blender/",
+    "https://creativebloq.com/how-to/sculpt-convincing-eyes-in-zbrush"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Search overview: the iris area is masked and pushed inward to form a shallow concave dome on the sclera; the pupil is cleared and the edges are extended toward the eye centre; the cornea is masked over the same area and pushed outward into a smooth convex dome.",
+   "urls": [
+    "https://creativebloq.com/how-to/sculpt-convincing-eyes-in-zbrush"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Search overview: iris fibres can be sculpted radiating from the pupil toward the outer iris edge with standard and damstandard brushes.",
+   "urls": [
+    "https://creativebloq.com/how-to/sculpt-convincing-eyes-in-zbrush"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Blender Wikibooks guide (marked incomplete) suggests a sphere falloff shape for the iris sculpt, and an alternative of two balls where the iris bends inward from the inner ball.",
+   "urls": [
+    "https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Realistic_Eyes_In_Blender"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Search overview: for the cornea shader, one source recommends a glass material with two-sided refraction enabled; without refraction the iris-to-cornea gap can look like empty space.",
+   "urls": [
+    "https://www.blendernation.com/2023/05/18/sculpting-the-eye-in-blender/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Search overview: a Blender-focused video covers modelling the cornea, iris, lacrimal caruncle and tear line; the caruncle and tear line were not documented in detail in retrieved snippets.",
+   "urls": [
+    "https://classcentral.com/course/youtube-how-i-make-cg-eyes-in-blender-127450"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Emmetropic adult eye size (CT-based study, as summarised in search results): about 24.2 mm transverse (horizontal) x 23.7 mm sagittal (vertical) x 22.0-24.8 mm axial, with no significant difference between sexes or age groups.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4238270/",
+    "https://pubmed.ncbi.nlm.nih.gov/25431659/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Transverse eyeball diameter may range from 21 mm to 27 mm across adults; myopia or hyperopia mainly changes axial length.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4238270/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Corneal horizontal diameter is about 11-12 mm and vertical diameter about 9-11 mm, so the cornea is wider than tall (horizontally oval).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A pooled estimate across studies gives a mean corneal diameter of 11.84 mm (SD 0.79 mm).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13161299/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The limbus, the transition zone between cornea and sclera, is roughly 1-2 mm wide (search summary; primary figure not verified).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5819093/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Corrected Scheimpflug photography study: anterior corneal radius 7.87 +/- 0.27 mm (SD) and posterior radius 6.40 +/- 0.28 mm (SD); posterior asphericity decreased significantly with age.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/12190779/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Scheimpflug photography in healthy adults aged 18-65 (search summary): anterior radius 7.79 +/- 0.27 mm and posterior radius 6.53 +/- 0.25 mm; both surfaces flatter horizontally than vertically. Exact source paper within the results was not confirmed.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/23841132/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Purkinje-image study in children aged 6-17 (search summary): vertical-meridian posterior radius 6.42 +/- 0.31 mm, range 5.62-7.22 mm. Source paper not confirmed.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/9293516/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Small study of 25 eyes aged 60-80 before cataract surgery (search summary): anterior radius R1 = 7.84 mm, posterior radius R2 = 6.4 mm.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/16266736/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Across the corneal curvature studies, anterior radius is about 7.8 mm and posterior about 6.4-6.5 mm; methods and sample sizes differ.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/12190779/",
+    "https://pubmed.ncbi.nlm.nih.gov/23841132/",
+    "https://pubmed.ncbi.nlm.nih.gov/9293516/",
+    "https://pubmed.ncbi.nlm.nih.gov/16266736/"
+   ],
+   "numeric": true
+  }
+ ],
+ "contradictions": [
+  "Anterior corneal radius: 7.79 mm (Scheimpflug, 18-65) vs 7.87 mm (corrected Scheimpflug) vs 7.84 mm (small 60-80 cohort); differences are within method and sample variation.",
+  "Posterior corneal radius: 6.53 mm vs 6.40 mm vs 6.42 mm (children) vs 6.4 mm; not directly comparable across age groups and methods.",
+  "Some Blender-specific how-to details (two-sphere construction, glass with two-sided refraction) were in search overview text whose originating page was not confirmed for each claim."
+ ],
+ "openQuestions": [
+  "No search results were retrieved for caruncle geometry, tear meniscus height/width, tear film meniscus measurements, or eyelash count, density, length and placement numbers. These remain unresearched.",
+  "No Blender manual or primary source confirming IOR values for cornea (about 1.376) or aqueous humor (about 1.336) was retrieved; the search for these failed due to exhausted search budget.",
+  "No verified source for eye shading tricks such as caustics, limbal ring darkening, sclera subsurface scattering, or iris depth values in mm.",
+  "Sclera diameter as a separate number was not found; the eyeball transverse diameter was used instead.",
+  "Search budget (200 WebSearch calls per turn, shared across agents) was exhausted after 4 successful queries; 7 queries were not run. A follow-up message could continue the search for the missing topics."
+ ]
+}

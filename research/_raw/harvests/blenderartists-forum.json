@@ -1,0 +1,113 @@
+{
+ "queries": [
+  "blenderartists face modeling from photos add-on FaceBuilder (blenderartists.org only) - returned results",
+  "blenderartists FaceBuilder add-on photo reference head modeling - NOT RUN, search budget exhausted",
+  "blenderartists MPFB MakeHuman face from reference photo likeness (blenderartists.org only) - NOT RUN, search budget exhausted",
+  "blenderartists FLAME model face fitting Blender add-on (blenderartists.org only) - NOT RUN, search budget exhausted"
+ ],
+ "sources": [
+  {
+   "url": "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243",
+   "title": "FaceBuilder for Blender 2021.1 is out: now with AI - Blender Artists Community",
+   "kind": "forum",
+   "year": "2021"
+  },
+  {
+   "url": "https://blenderartists.org/t/revamped-facebuilder-for-blender/1245723",
+   "title": "Revamped FaceBuilder for Blender - Blender Artists Community",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/the-first-stable-facebuilder-release-for-blender/1210803",
+   "title": "The first-stable FaceBuilder release for Blender - Blender Artists Community",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/model-human-face-from-random-photos/1211277",
+   "title": "Model human face from random photos - Modeling - Blender Artists Community",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052",
+   "title": "Generating metahuman based on a single image blender ue5 tutorial - Released Add-ons and Extensions - Blender Artists Community",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/keentools-for-blender-2-8/1173005",
+   "title": "KeenTools For Blender 2.8 - Blender Development Discussion - Blender Artists Community",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/photo-to-3d/1313606",
+   "title": "Photo to 3D - Basics & Interface - Blender Artists Community",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/want-to-create-a-3d-model-face-of-myself/1606840",
+   "title": "Want to Create a 3D Model Face of Myself? - Modeling - Blender Artists Community",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/autoface-create-rigged-and-textured-character-from-a-single-photograph/1154237",
+   "title": "AutoFace - Create Rigged and Textured Character from a Single Photograph - Blender Artists Community",
+   "kind": "forum"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "FaceBuilder (KeenTools add-on for Blender) 2021.1 release added auto-alignment: a couple of neural networks find the face in the photo and set up all required pins. Per the thread, developers said results are not always 100% accurate, so manual adjustment is sometimes needed. (Taken from the search-result summary of the thread; not verified by opening the page.)",
+   "urls": [
+    "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A later revamp of FaceBuilder automatically sets the focal length and sensor size for each photo, reducing setup work. (From search-result summary; page not opened.)",
+   "urls": [
+    "https://blenderartists.org/t/revamped-facebuilder-for-blender/1245723"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "FaceBuilder's newer feature set includes support for facial expressions, so neutral photographs are not strictly required, though the thread's summary says neutral photos still give better quality.",
+   "urls": [
+    "https://blenderartists.org/t/revamped-facebuilder-for-blender/1245723",
+    "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Forum users describe FaceBuilder as a paid add-on (not free); one mentions a 30-day trial. Pricing and trial terms may have changed; the search summary advises checking keentools.io. Not confirmed from a primary source.",
+   "urls": [
+    "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243",
+    "https://blenderartists.org/t/keentools-for-blender-2-8/1173005"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A community add-on, MetahumanModeler, is reported to generate a 3D model with Metahuman topology from a single image; its author says it was built from their understanding of FaceBuilder.",
+   "urls": [
+    "https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "BlenderArtists threads exist on single-photo face/character generation: AutoFace (create rigged and textured character from a single photograph) and general 'model human face from random photos' threads. Only titles were seen; no methods or numbers were retrieved.",
+   "urls": [
+    "https://blenderartists.org/t/autoface-create-rigged-and-textured-character-from-a-single-photograph/1154237",
+    "https://blenderartists.org/t/model-human-face-from-random-photos/1211277"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Pricing: forum posts call FaceBuilder paid and mention a 30-day trial; no current primary pricing source was checked, so the current status is unresolved."
+ ],
+ "openQuestions": [
+  "No measurements, sample sizes or accuracy numbers were retrieved from BlenderArtists for face-from-photo fitting.",
+  "MPFB, MakeHuman and FLAME-based add-on discussion on BlenderArtists was not searched because the WebSearch budget was exhausted after the first query.",
+  "Current FaceBuilder version, price and license need a primary check (keentools.io), not done here.",
+  "Whether the 2021.1 and revamp threads' statements about accuracy and expressions are current (2024-2026) was not confirmed; dates in the search output were unclear.",
+  "Follow-up search needed in a new turn: MPFB/FLAME threads, likeness critiques, and scripts shared on BlenderArtists."
+ ]
+}

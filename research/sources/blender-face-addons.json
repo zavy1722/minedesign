@@ -1,0 +1,21 @@
+{
+  "topic": "blender-face-addons",
+  "sources": [
+    {"n": 1, "title": "mozi1924/mediapipe-facecap-for-blender", "url": "https://github.com/mozi1924/mediapipe-facecap-for-blender", "kind": "repo", "year": "n.d."},
+    {"n": 2, "title": "MediaPipe Face Mesh: All 478 Landmark Points (DEV Community)", "url": "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8", "kind": "blog", "year": "n.d."},
+    {"n": 3, "title": "MediaPipe Face Mesh (legacy docs mirror)", "url": "https://mediapipe.readthedocs.io/en/latest/solutions/face_mesh.html", "kind": "official-docs", "year": "n.d."},
+    {"n": 4, "title": "GitHub topic: mediapipe-facemesh", "url": "https://github.com/topics/mediapipe-facemesh", "kind": "index", "year": "n.d."},
+    {"n": 5, "title": "Faceit: Facial Expressions and Performance Capture (Superhive, formerly Blender Market)", "url": "https://superhivemarket.com/products/faceit", "kind": "commercial", "year": "n.d."},
+    {"n": 6, "title": "Face Shape Key Rig (Blender Extensions)", "url": "https://extensions.blender.org/add-ons/face-shapekey-rig/", "kind": "official-listing", "year": "n.d."},
+    {"n": 7, "title": "Fragid/face-shapekey-rig", "url": "https://github.com/Fragid/face-shapekey-rig", "kind": "repo", "year": "n.d."},
+    {"n": 8, "title": "H0wZy/captureforge", "url": "https://github.com/H0wZy/captureforge", "kind": "repo", "year": "n.d."},
+    {"n": 9, "title": "TalkingHead blender/Faceit/FACEIT.md", "url": "https://github.com/met4citizen/TalkingHead/blob/main/blender/Faceit/FACEIT.md", "kind": "repo-doc", "year": "n.d."},
+    {"n": 10, "title": "wk FaceRig (Superhive)", "url": "https://superhivemarket.com/products/wk-facerig", "kind": "commercial", "year": "n.d."},
+    {"n": 11, "title": "MPFB, Blender Extensions listing", "url": "https://extensions.blender.org/add-ons/mpfb/", "kind": "official-listing", "year": "n.d."},
+    {"n": 12, "title": "MPFB version history, Blender Extensions", "url": "https://extensions.blender.org/add-ons/mpfb/versions/", "kind": "official-listing", "year": "2026 (single search snippet)"},
+    {"n": 13, "title": "makehumancommunity/mpfb2", "url": "https://github.com/makehumancommunity/mpfb2", "kind": "repo", "year": "n.d."},
+    {"n": 14, "title": "mpfb2 LICENSE.CODE.md", "url": "https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md", "kind": "licence-file", "year": "n.d."},
+    {"n": 15, "title": "makehuman-plugin-for-blender (MPFB1, deprecated)", "url": "https://github.com/makehumancommunity/makehuman-plugin-for-blender", "kind": "repo", "year": "n.d."},
+    {"n": 16, "title": "kblood/CharacterCreator LICENSE-NOTES.md (third-party notes)", "url": "https://github.com/kblood/CharacterCreator/blob/master/LICENSE-NOTES.md", "kind": "third-party-notes", "year": "n.d."}
+  ]
+}

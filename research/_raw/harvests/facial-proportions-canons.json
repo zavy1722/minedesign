@@ -1,0 +1,450 @@
+{
+ "queries": [
+  "Farkas anthropometry facial proportions neoclassical canons validation study",
+  "golden ratio face beauty study criticism facial proportions evidence (ncbi/pmc)",
+  "facial thirds fifths rule accuracy measurement study adults (ncbi/pmc)",
+  "Marquardt golden ratio face mask phi critique facial attractiveness",
+  "artist head construction proportions eye line halfway nose mouth thirds practitioner guide (proko/drawabox/artstation)",
+  "Loomis head construction proportions skull eye line ear alignment",
+  "facial proportions canons 2025 study deep learning landmarks neoclassical canons (extended)",
+  "Al-Sebaei 2015 neoclassical facial canons Arabian Peninsula validity (pubmed/biomedcentral)",
+  "facial proportions ideal averageness symmetry attractiveness review Rhodes Langlois proportion (ncbi/pmc)",
+  "Farkas 1994 anthropometry of the head and face facial proportions reference values",
+  "Holland 2008 Aesthetic Plastic Surgery golden proportion mask critique Procrustes"
+ ],
+ "sources": [
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25889948/",
+   "title": "The validity of three neo-classical facial canons in young adults originating from the Arabian Peninsula (Al-Sebaei, Head & Face Medicine 2015)",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "url": "https://head-face-med.biomedcentral.com/articles/10.1186/s13005-015-0064-y",
+   "title": "The validity of three neo-classical facial canons in young adults originating from the Arabian Peninsula (full text)",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11497505/",
+   "title": "Anthropometric facial analysis of the African American woman",
+   "kind": "paper",
+   "year": "2001"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10096619/",
+   "title": "Evaluation of soft-tissue morphology of the face in 1,050 young adults",
+   "kind": "paper",
+   "year": "1999"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369102/",
+   "title": "The validity of three neo-classical facial canons in young adults originating from the Arabian Peninsula (PMC copy)",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10699194",
+   "title": "Anthropometric and Cephalometric Facial Characteristics of Adult Saudi Patients with Skeletal Class III Malocclusions",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9941299",
+   "title": "Analysis of Neoclassical Canons in Adult Kenyans of Indian Descent",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9029890/",
+   "title": "Expanding the Classic Facial Canons: Quantifying Intercanthal Distance in a Diverse Patient Population",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30881823/",
+   "title": "What Is the Most Beautiful Facial Proportion in the 21st Century? (Miss Universe, neoclassical canons, golden ratios)",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3951104/",
+   "title": "Evaluation of Facial Beauty Using Anthropometric Proportions",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5278934/",
+   "title": "Analysis of reliability, accuracy, sensitivity and predictive value of a subjective method to classify facial pattern in adults",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://link.springer.com/doi/10.1007/s00266-007-9080-z",
+   "title": "Holland 2008, Marquardt's Phi Mask: Pitfalls of Relying on Fashion Models and the Golden Ratio (Aesthetic Plastic Surgery 32(2):200-208)",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7929632",
+   "title": "The Divine Proportion: Origins and Usage in Plastic Surgery",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10792139/",
+   "title": "Review (2024) finding no evidence for golden ratio in facial aesthetic or reconstructive planning",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6123330",
+   "title": "Proportions of the aesthetic African-Caribbean face: idealized ratios, comparison with the golden proportion and perceptions of attractiveness",
+   "kind": "paper",
+   "year": "2018"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11546649",
+   "title": "Is There An Ideal Instagram Face for Caucasian Female Influencers? (100 top beauty influencers)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9787369/",
+   "title": "The golden ratio as an ecological affordance leading to aesthetic attractiveness",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4642949/",
+   "title": "Multiracial Facial Golden Ratio and Evaluation of Facial Appearance",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.jco-online.com/media/17658/jco_2002-06-339.pdf",
+   "title": "Marquardt, Journal of Clinical Orthodontics 2002 (interview/article, as listed in search)",
+   "kind": "paper",
+   "year": "2002"
+  },
+  {
+   "url": "https://journals.sagepub.com/doi/10.1089/fpsam.2025.0007",
+   "title": "Ideal Facial Proportions in Generative Artificial Intelligence (Sridhar et al.)",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle",
+   "title": "Proko - How to Draw the Head from Any Angle",
+   "kind": "blog"
+  },
+  {
+   "url": "https://www.proko.com/course-lesson/how-to-draw-the-head-front-view",
+   "title": "Proko - How to Draw the Head (front view)",
+   "kind": "blog"
+  },
+  {
+   "url": "https://www.proko.com/course-lesson/the-10-head-volumes",
+   "title": "Proko - The 10 Head Volumes",
+   "kind": "blog"
+  },
+  {
+   "url": "https://finearttutorials.com/guide/loomis-method/",
+   "title": "Fine Art Tutorials - Loomis Method",
+   "kind": "blog"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8192579/",
+   "title": "Anthropometric accuracy of three-dimensional average faces compared to conventional facial measurements",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4053512/",
+   "title": "Beauty is in the ease of the beholding: neurophysiological test of averageness theory",
+   "kind": "paper",
+   "year": "2014"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+   "title": "Weinberg 2019 comparison of Farkas direct anthropometry norms with 3D Facial Norms database",
+   "kind": "paper",
+   "year": "2019"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Farkas and colleagues first tested the neoclassical facial canons in young North American Caucasian adults in 1985; the canons were later tested in other populations.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/25889948/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Al-Sebaei (2015) studied 168 Saudi dental students aged 20-24 (93 men, 75 women) and concluded the three tested neoclassical canons (vertical thirds, orbital, orbito-nasal) could not be validated in this cohort.",
+   "urls": [
+    "https://head-face-med.biomedcentral.com/articles/10.1186/s13005-015-0064-y",
+    "https://pubmed.ncbi.nlm.nih.gov/25889948/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In the Al-Sebaei 2015 caliper study, the upper, middle and lower facial thirds were not equal to each other (reported p < 0.0001).",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/25889948/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Al-Sebaei's authors described the sample as esthetically pleasing yet not showing equal facial thirds or matching the orbital or orbito-nasal canons, and called for surgical aims to account for ethnic variation.",
+   "urls": [
+    "https://head-face-med.biomedcentral.com/articles/10.1186/s13005-015-0064-y"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In an African American women study, only 30.6% of subjects fit the orbital proportion, the best-performing of nine canons; the authors concluded the average woman does not fit the neoclassical standard.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/11497505/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Farkas, Forrest and Litsas (2000) tested seven revised Afro-American canons in 100 young adults, compared with 103 North American Caucasians, and said the canons should not be strict directives in surgery.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/11497505/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In Le et al. (2002) of Asian faces, canon validity was more frequent in Caucasians than in Chinese, Vietnamese and Thai subjects, and in neither group were the three profile sections equal.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/25889948/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A Turkish study of 1,050 young adults found the neoclassical canons invalid for most of the sample.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/10096619/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A Greek study (2012, 163 subjects) found most subjects did not meet the neoclassical canons.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/25889948/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In adult Saudi Class III malocclusion patients, the orbital canon was reported as the most validated canon in both groups studied, so rejection of the canons is not total across all canons or subgroups.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10699194"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A study of adult Kenyans of Indian descent analysed neoclassical canons and cites Al-Sebaei 2015 among its references.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9941299"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A pooled review on intercanthal distance argues canon standards built on White reference values need to change, since canons do not reflect variation tied to age, sex or ethnicity.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9029890/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2025 study found significant differences between facial proportions of attractive/ideal faces generated by text-to-image generative AI models and the neoclassical canons (ANOVA and unpaired t-tests).",
+   "urls": [
+    "https://journals.sagepub.com/doi/10.1089/fpsam.2025.0007"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Null findings on the golden ratio: a Malaysian study reported only 17.1% of facial proportions conformed to the golden ratio, with no significant link to facial evaluation scores (source page not individually confirmed in search results).",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "A Brazilian women study found no correlation between perception of beauty and the golden proportion (source page not individually confirmed in search results).",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "A study of African-Caribbean professional models found only one facial ratio resembled the golden proportion, and no association with attractiveness was found.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6123330"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2024 study of 100 top beauty influencers found no statistically significant difference between the conventional gold standard and the newly identified ideal Instagram face.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11546649"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2022 paper proposes the golden ratio may be an ecological affordance leading to aesthetic attractiveness, so the debate on it is not settled.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9787369/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Holland (2008), Aesthetic Plastic Surgery 32(2):200-208, argues the method used to check fit with Marquardt's phi mask is flawed and proposes generalized Procrustes analysis with thin-plate spline visualization.",
+   "urls": [
+    "https://link.springer.com/doi/10.1007/s00266-007-9080-z"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Holland (2008) reports Marquardt's mask suits European populations poorly, especially sub-Saharan Africans and East Asians, and best matches masculinized White women in fashion models, not an ideal face even for White women.",
+   "urls": [
+    "https://dx.doi.org/10.1007/s00266-007-9080-z"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Marquardt built his mask from measurements of movie actors and models, a select sample; Marquardt claimed the mask fit all genders, races and cultures, a claim critics say the evidence does not support.",
+   "urls": [
+    "https://www.jco-online.com/media/17658/jco_2002-06-339.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2024 review concludes there is currently no evidence supporting the golden ratio in facial aesthetic or reconstructive surgical planning.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10792139/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2021 review notes new golden proportions are regularly published in aesthetic surgery, indicating continued use despite weak support.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7929632"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A surgeon applied the golden mask to 40 pre- and post-operative photographs and reported scores tracked attractiveness; this is weaker validation (source URL not isolated in search results).",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "Averageness has been reported as both necessary and sufficient for facial attractiveness, citing Langlois et al. (1994) and Rubenstein et al. (2002); this is a claim by one paper, not settled consensus.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4053512/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Averageness predicts attractiveness even when symmetry is held constant (single-study report).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3859548/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2001 study found facial symmetry did not correlate with health measured from medical records.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5670498/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Farkas's 1994 book Anthropometry of the Head and Face (ed. Leslie Farkas, Raven Press, New York) provides norms mainly for North American White adults and children and is the most comprehensive dataset of its kind, compiled in 1980s-1990s.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "Weinberg (2019) compared Farkas direct anthropometry norms (N=2326) with 3D stereophotogrammetry data (N=2454) from the 3D Facial Norms database.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Secondary citation reports Farkas cautioned reference values should not be used for more than 20 years (snippet truncated; verify in original).",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "Proko tutorials state the eye line sits at the halfway point of the head, or the middle third divided into four, and state the eyes sit midway on the cranium sphere rather than the whole head.",
+   "urls": [
+    "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A Proko lesson notes a textbook places the eye line through the bottoms of the lids, while Proko places eye centers at the center of the face; the two conflict.",
+   "urls": [
+    "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In the Loomis method as summarized by Proko, the nose line is 2/3 down from the centerline, and the mouth line falls within the first third of the lower third (bottom third divided into 3).",
+   "urls": [
+    "https://www.proko.com/course-lesson/how-to-draw-the-head-front-view"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Loomis head is described as roughly five eye-widths across, with one eye width between the eyes; the ears sit in the middle third and usually end at the outside of the original circle.",
+   "urls": [
+    "https://finearttutorials.com/guide/loomis-method/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Thirds and halves are compressed by perspective, so head-construction ratios shift with viewing angle.",
+   "urls": [
+    "https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Loomis's construction uses a cranium ball with a centerline and brow-line cross as the key construction point for the whole head; practitioner sources say individual proportions vary from the average head.",
+   "urls": [
+    "https://finearttutorials.com/guide/loomis-method/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A pure Loomis or Winslow book reference for eye-line placement was not retrieved; tutorial sites are secondary sources.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "An anthropometric review states that anthropometric methods are preferable to cephalometric methods for determining the ideal face's dimensions.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/17238049/?dopt=Abstract"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A study titled Evaluation of Facial Beauty Using Anthropometric Proportions reported attractive females showed uniformity of facial thirds and fifths (snippet only; sample not seen).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3951104/"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Al-Sebaei 2015 rejects equal thirds and the orbital/orbito-nasal canons in Saudi adults, while a 2023 Saudi Class III study reports the orbital canon as the most validated canon.",
+  "The golden-ratio beauty studies report null or weak associations, but some older and single-author papers report partial fits or claim the ratio is a reliable marker of attractiveness.",
+  "An attractiveness study reports attractive females show uniform thirds and fifths, whereas the Al-Sebaei caliper study found thirds unequal (p<0.0001).",
+  "Proko says the eye line is at the halfway point of the head, while a textbook places it through the bottoms of the lids; Proko itself notes the conflict."
+ ],
+ "openQuestions": [
+  "Full-text values for Malaysian (17.1%) and Brazilian golden-ratio studies were not located with URLs; verify source papers before citing.",
+  "Rhodes (2006) and Langlois review papers on averageness and proportion were not retrieved.",
+  "Farkas 1994 tables and facial proportion indices not retrieved; check the book directly.",
+  "Whether the 2025 Sridhar et al. AI-generated ideal-face study uses real-human validation was not confirmed.",
+  "Eye-line placement in Loomis/Winslow originals was not verified; tutorial sites disagree.",
+  "No direct published rebuttal to Holland (2008) was found.",
+  "The African-Caribbean model study date and the Al-Sebaei details come from snippets; full text not read."
+ ]
+}

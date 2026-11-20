@@ -1,0 +1,467 @@
+{
+ "queries": [
+  "frontal bone supraorbital margin nasal bone zygomatic bone visible through skin facial surface anatomy (standard, open web)",
+  "facial soft tissue thickness measurements by region CT ultrasound study millimeters (standard, ncbi/pmc)",
+  "Facial soft tissue depth Caucasian Stephan landmarks thickness table (standard, pubmed/ncbi/sciencedirect)",
+  "zygomatic arch malar prominence bone contour facial reconstruction sculpting (standard, open web)",
+  "mandible gonial angle chin symphysis mental protuberance soft tissue profile osteology (standard, ncbi/pmc)",
+  "nasal aperture piriform rim anterior nasal spine nasal bone shape forensic facial approximation (standard, open web)",
+  "orbit inferior orbital rim infraorbital foramen eye socket soft tissue depth anatomy (standard, docs.blender/github/ncbi/pmc)",
+  "temporal fossa temporalis muscle thickness skull landmarks facial approximation (standard, open web)",
+  "facial approximation craniofacial reconstruction limitations accuracy soft tissue thickness variability criticism (extended, open web)",
+  "Manchester method facial reconstruction tissue depth markers sculpting practitioner guide (standard, open web)"
+ ],
+ "sources": [
+  {
+   "url": "https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29",
+   "title": "Taylor & Francis chapter on frontal bone / supraorbital notch (cited via search snippet)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://www.kenhub.com/en/library/anatomy/the-frontal-bone",
+   "title": "Kenhub: The frontal bone",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/skeletal-system/axial-skeleton/frontal-bone/20545",
+   "title": "Elsevier resources: Frontal bone (surface anatomy)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK551530/",
+   "title": "NCBI Bookshelf (StatPearls-style) entry on orbit/zygomatic bone (cited via search snippet)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/",
+   "title": "Facial soft tissue thicknesses of Azerbaijan adult population: CT study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/",
+   "title": "Quantitative Analysis of the Human Face Skin Thickness: A High-Frequency Ultrasound Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5298227/",
+   "title": "Non-invasive evaluation of facial crestal bone with ultrasonography",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/",
+   "title": "Application of cone beam computed tomography in facial soft tissue thickness measurements for craniofacial reconstruction",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12594695/",
+   "title": "The Influence of Age and Gender on Forehead Soft Tissue Thickness: An MRI-Based Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/",
+   "title": "Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11490456/",
+   "title": "Facial soft tissue depth of a contemporary adult Greek population",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2403.16207",
+   "title": "Skull-to-Face: Anatomy-Guided 3D Facial Reconstruction and Editing",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/2015750/",
+   "title": "Temporal and malar-zygomatic reduction and augmentation (PubMed)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2884897",
+   "title": "Zygomatic complex 3-D CT repositioning study (cited via search results; exact content not confirmed)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/",
+   "title": "StatPearls: Anatomy, Head and Neck, Mandible",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7345472/",
+   "title": "Variation in Chin and Mandibular Symphysis Size and Shape in Males and Females: A CT-Based Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9747342/",
+   "title": "Geometric morphometric analysis of mandibular symphysis in Class III skeletal base",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8712157/",
+   "title": "The Influence of the Mandibular Chin Angle on the Occurrence of Mandibular Condylar Fracture: A Retrospective Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12089867/",
+   "title": "Evaluation of location of mandibular and mental foramina in dry, young, adult human male, dentulous mandibles",
+   "kind": "paper"
+  },
+  {
+   "url": "https://researchonline.ljmu.ac.uk/id/eprint/5340/3/Appraisal%20of%20traditional%20and%20recently%20proposed%20relationships%20between%20the%20hard%20and%20soft%20dimensions%20of%20the%20nose%20in%20profile.pdf",
+   "title": "LJMU: Appraisal of traditional and recently proposed relationships between hard and soft dimensions of the nose in profile",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/5017614",
+   "title": "Piriform aperture / nasal study (PMC, cited via search results)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/",
+   "title": "Anatomy of the Orbit",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10981979/",
+   "title": "Anatomic characteristics of the infraorbital foramen: a cadaver study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/",
+   "title": "Morphological and Morphometric Relations of Infraorbital Foramen in North Indian Population",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.oaepublish.com/articles/2347-9264.2020.221",
+   "title": "Temporal fossa / temporalis morphometry article (2020, OAE Publishing)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8053578",
+   "title": "Temporalis muscle thickness ultrasound study (joa13370)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10557396/",
+   "title": "A computerized facial approximation method based on facial soft tissue thickness depths and geometric morphometrics",
+   "kind": "paper"
+  },
+  {
+   "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0196770",
+   "title": "PLOS ONE: Assessment of accuracy and recognition of 3D computerized forensic craniofacial reconstruction",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0379073822001955",
+   "title": "The facial soft tissue thickness related facial reconstruction by ultrasonographic imaging: A review",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20191828/",
+   "title": "Considerations associated with computer forensic facial reconstructions: the limits of soft tissues' thickness determination",
+   "kind": "paper"
+  },
+  {
+   "url": "https://futurelearn.com/info/courses/forensic-facial-reconstruction/0/steps/31185",
+   "title": "FutureLearn: Forensic facial reconstruction course step (Manchester method)",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.cambridge.org/core/books/forensic-facial-reconstruction/manchester-method-of-facial-reconstruction/327A6447C593EA972C92D93E3EB33A1D",
+   "title": "Wilkinson, The Manchester method of facial reconstruction, in Forensic Facial Reconstruction (CUP, 2004)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://ojp.gov/ncjrs/virtual-library/abstracts/survey-tissue-depth-landmarks-facial-approximation",
+   "title": "OJP abstract: Survey of tissue depth landmarks for facial approximation",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.researchgate.net/publication/8927033_Anthropological_facial_'reconstruction--recognizing_the_fallacies_'unembracing'_the_errors_and_realizing_method_limits",
+   "title": "Anthropological facial reconstruction: recognizing the fallacies and realizing method limits (critique)",
+   "kind": "paper"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "The supraorbital notch of the frontal bone is a palpable spot about 2 cm from the midline and transmits the supraorbital nerve and vessels; the supraorbital margin is the upper orbital rim and lower edge of the forehead.",
+   "urls": [
+    "https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29",
+    "https://www.kenhub.com/en/library/anatomy/the-frontal-bone"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Surface-anatomy sources list the supraorbital margins, frontal eminences and superciliary arches as palpable frontal-bone landmarks on the living face.",
+   "urls": [
+    "https://www.elsevier.com/resources/anatomy/skeletal-system/axial-skeleton/frontal-bone/20545"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The nasal bones form the bridge of the nose, and their upper border meets the frontal bone at the nasion.",
+   "urls": [
+    "https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The orbital rim is formed by the frontal, zygomatic and maxillary bones; the infraorbital rim is formed medially by maxilla and laterally by zygomatic bone.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/",
+    "https://pubmed.ncbi.nlm.nih.gov/10981979/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The orbital floor is formed by three bones: maxilla, palatine, and the orbital plate of the zygomatic bone.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In a CT study of Azerbaijan adults, mean facial soft tissue thickness at pogonion was reported as about 12.3 mm in males and about 11.0 mm in females (sample size and exact table not confirmed from snippet; the snippet text was partly garbled).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In the Azerbaijan CT study, soft tissue thickness increased by more than 2 mm between younger and older age groups at several landmarks, including zygion and gonion.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A high-frequency ultrasound study of facial skin thickness reports median skin thicknesses roughly 1.1 to 1.6 mm (about 1100-1550 \u00b5m) across regions including zygomatic, oral commissure, mandibular angle, supraorbital and infraorbital areas; the infraorbital, zygomatic and buccal areas were described as slightly thicker.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In a CBCT study of facial soft tissue thickness built on Stephan and Simpson landmarks (34 landmarks: 12 midline, 11 bilateral pairs), reported mean thicknesses include g 5.11 mm, n 6.78 mm, pg 11.71 mm and gn 8.46 mm; the population the table describes was not confirmed.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Ultrasound measurements of facial crestal bone thickness correlated with CBCT in a cadaver study with r = 0.81 (p<0.001).",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5298227/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "An MRI study of forehead soft tissue thickness found males had significantly greater thickness than females at all ages and across most regions.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12594695/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A compiled review states that one comparison study found men had greater soft tissue thickness than women at all sites (the specific study was not identified in the search).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The temporal fossa is bounded superiorly by the inferior temporal line, posteriorly by the squamosal suture, anteriorly by the lateral orbital rim, and inferiorly by the zygomatic arch.",
+   "urls": [
+    "https://www.oaepublish.com/articles/2347-9264.2020.221"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Clinical ultrasound studies define temporalis thickness across the muscle at a point about 1 cm lateral and 1 cm above the lateral canthus; one ultrasound study found thickness tended to be lesser in females.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8053578"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2021 CT study used a 10-point template across 18 hemifaces to measure temporal tissue thickness, citing temporal fossa morphometry as relevant to facial approximation casework.",
+   "urls": [
+    "https://www.oaepublish.com/articles/2347-9264.2020.221"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Per literature cited in a 2021 study, temporal fossa volume remains constant in adulthood and across genders, while variation in temporal tissue height is mainly from the temporalis muscle and overlying fat pads (secondhand citation of Zhao et al. 2015 and Stephan and Devine 2009).",
+   "urls": [
+    "https://www.oaepublish.com/articles/2347-9264.2020.221"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The gonial angle is about 160 degrees at birth and roughly 120 degrees in adulthood according to StatPearls.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Reported adult gonial angle values conflict: one source gives 90 degrees in males and 110 degrees in females, which does not match the 120 degree adult figure from StatPearls; the sources disagree and the 90/110 values were not verified against a primary paper.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In a dry-bone study of young adult male mandibles, the mean gonial angle was reported as 120.17 degrees on both sides.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/12089867/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The mental protuberance is larger in males, and the chin and mandibular symphysis show sex-related size and shape differences in a CT study.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7345472/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In a Class III geometric morphometric study, high gonial angle groups had narrower, elongated symphyses while low gonial angle groups had wider, bulbous, rounded symphyses.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9747342/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A retrospective CT study proposed a chin angle and reported that individuals with a high chin angle may have a higher risk of associated mandibular condylar fracture.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8712157/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The mental foramen and infraorbital foramen positions are anatomical landmarks; the infraorbital foramen lies about 6 mm inferior to the infraorbital rim per a cited source, with a range of about 5 to 8.5 mm.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/10981979/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Indian skull measurements of infraorbital foramen distance from the orbital margin were 5.8 mm (right) and 6.2 mm (left); a cadaver study reported mean 8.5 mm in men and 7.8 mm in women (attribution of these two sets to specific papers was not confirmed).",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/",
+    "https://pubmed.ncbi.nlm.nih.gov/10981979/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A CBCT study of 96 subjects found the piriform aperture width increases proportionally more than nasal breadth, with a positive correlation between them.",
+   "urls": [
+    "https://teses.usp.br/teses/disponiveis/23/23153/tde-24052016-115026/fr.php"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The anterior nasal spine lies at the inferior margin of the piriform aperture in the midsagittal plane (nasospinale is the lowest point of that margin at the spine base).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/5017614"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A Manchester study tested six methods for predicting external nasal profile proportions from the bony piriform aperture; several methods performed poorly.",
+   "urls": [
+    "https://researchonline.ljmu.ac.uk/id/eprint/5340/3/Appraisal%20of%20traditional%20and%20recently%20proposed%20relationships%20between%20the%20hard%20and%20soft%20dimensions%20of%20the%20nose%20in%20profile.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The Manchester method was developed by Neave in 1977 and combines tissue-depth markers with facial muscle build-up; practitioners typically place about 16 osteometric markers on a cast.",
+   "urls": [
+    "https://ojp.gov/ncjrs/virtual-library/abstracts/survey-tissue-depth-landmarks-facial-approximation",
+    "https://www.cambridge.org/core/books/forensic-facial-reconstruction/manchester-method-of-facial-reconstruction/327A6447C593EA972C92D93E3EB33A1D"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "No single standard set of tissue-depth landmarks exists; published depth tables differ, so choice of table and interpretation is left to the practitioner.",
+   "urls": [
+    "https://ojp.gov/ncjrs/virtual-library/abstracts/survey-tissue-depth-landmarks-facial-approximation"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Critics note that tissue-depth markers are population averages, so an individual's actual soft tissue thickness will never be fully accurate.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/20191828/",
+    "https://www.researchgate.net/publication/8927033_Anthropological_facial_'reconstruction--recognizing_the_fallacies_'unembracing'_the_errors_and_realizing_method_limits"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Ultrasound soft tissue thickness depends strongly on body posture, and cadaver-based depth values can be distorted by postmortem stage and supine position.",
+   "urls": [
+    "https://www.sciencedirect.com/science/article/abs/pii/S0379073822001955"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2023 geometric morphometric study found weak RV correlations (<0.4) and larger errors for approximated nose and mouth soft tissue from bone, advising caution on those regions.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10557396/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Critics argue that the location and size of facial muscles cannot be accurately established for most of the face, and that depth-prediction models have seldom been empirically tested.",
+   "urls": [
+    "https://www.researchgate.net/publication/8927033_Anthropological_facial_'reconstruction--recognizing_the_fallacies_'unembracing'_the_errors_and_realizing_method_limits"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Greatest accuracy in facial reconstruction is reported when preserved soft tissue, a portrait, or pathology or healed-injury information is available.",
+   "urls": [
+    "https://www.cambridge.org/core/books/forensic-facial-reconstruction/manchester-method-of-facial-reconstruction/327A6447C593EA972C92D93E3EB33A1D"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Assessment methods for testing accuracy of facial reconstruction are inconsistent and not well established; the precision needed for a recognizable reconstruction is not clearly known.",
+   "urls": [
+    "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0196770"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Surgical zygomatic literature reports that burring prominent zygomas without reducing bizygomatic width can cause malar flattening and an impression of facial widening; zygomatic body shaving is intraoral and arch reduction uses a pretragal greenstick fracture or bicoronal osteotomy.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/2015750/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Dedicated sculpting guides for zygomatic or malar contour from bone were not found in these searches; the zygomatic results are surgical, not sculpting sources.",
+   "urls": [],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Adult gonial angle: StatPearls gives about 120 degrees in adulthood, while another snippet gives 90 degrees (male) and 110 degrees (female); not reconciled.",
+  "Infraorbital foramen distance from the orbital margin: values of about 6 mm (Grant), 5.8/6.2 mm (Indian skulls), 8.5 mm men and 7.8 mm women (cadaver), and about 1 cm (Filipino skull) differ; population and method vary.",
+  "Facial soft tissue thickness: population-specific datasets (Azerbaijan CT, Greek, Iranian MRI, CBCT Stephan-based) give different values; no single Caucasian reference table was retrieved.",
+  "Method reliability: some sources describe facial approximation as having inadequate reliability and inappropriate for positive identification, while others describe Manchester as the most accepted method."
+ ],
+ "openQuestions": [
+  "Exact Stephan and Simpson or Moore (1984) Caucasian soft tissue depth values were not retrieved; the Moore 1984 Maxwell Museum tables are the likely primary source and need direct access.",
+  "Soft tissue depth values over the supraorbital margin, infraorbital rim and temporal region were not retrieved as numbers; the temporal and orbital searches returned anatomy only.",
+  "Stephan and Devine (2009) and Zhao et al. (2015) temporal papers were cited secondhand and not opened.",
+  "Sample sizes, exact units and table rows for the Azerbaijan CT and high-frequency skin ultrasound studies were garbled in snippets and need full-text verification.",
+  "No 2025-2026 developments on skull-to-face soft tissue methods were found beyond the 2023 geometric morphometric study and the Azerbaijan CT study; the extended search surfaced few recent items.",
+  "No Blender-specific or sculpting-practitioner (Polycount, Blender Artists, ArtStation) sources were retrieved; domain-restricted searches were not run for those communities.",
+  "Whether the cadaver ultrasound crestal bone study (PMC5298227) is the same study as the r=0.81 figure was not confirmed from the full text.",
+  "Fetching was not attempted for any page; all facts rely on search snippets."
+ ]
+}

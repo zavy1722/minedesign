@@ -1,0 +1,205 @@
+{
+ "queries": [
+  "metrical tracker FLAME 3DMM multi-view face tracking monocular video (arxiv.org)",
+  "VHAP versatile head alignment with adaptive appearance priors FLAME tracking",
+  "flame-head-tracker github Metrical Tracker FLAME head tracking code (github.com)",
+  "Metrical Tracker shape identity consistency across frames FLAME metric accuracy (arxiv.org)",
+  "Towards Metrical Reconstruction of Human Faces Zielonka Bolkart Thies metrical tracker (arxiv.org) - search budget exhausted after this query",
+  "multi-view FLAME fitting multiple calibrated cameras face keypoints photometric optimization shared identity (arxiv.org) - not run, budget exhausted",
+  "Dynamic Gaussians multi-view face gesture animation FLAME tracking 15 cameras keypoints (arxiv.org) - not run, budget exhausted",
+  "VHAP github ShenhanQian head alignment adaptive appearance priors FLAME tracker (github.com) - not run, budget exhausted"
+ ],
+ "sources": [
+  {
+   "url": "https://arxiv.org/pdf/2608.04722",
+   "title": "Multi-View Face and Gesture Animation with Dynamic Gaussians",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2608.09238",
+   "title": "RealDenseFace: Real-time Monocular 3D Face Reconstruction from Dense UV-space Priors",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2204.06607",
+   "title": "Towards Metrical Reconstruction of Human Faces",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "url": "https://github.com/ShenhanQian/VHAP",
+   "title": "VHAP (ShenhanQian) - official-style repo, mirrored in search results",
+   "kind": "repo"
+  },
+  {
+   "url": "https://gitee.com/hu-hanqing/VHAP",
+   "title": "VHAP Gitee mirror (2025 batching update noted)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/ydvaayan/VHAP-mod",
+   "title": "VHAP mod fork",
+   "kind": "repo"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2412.10209v2",
+   "title": "GAF: Gaussian Avatar Reconstruction from Monocular Videos via Multi-view Diffusion (uses VHAP for FLAME tracking)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://openaccess.thecvf.com/content/CVPR2025/supplemental/Tang_GAF_Gaussian_Avatar_CVPR_2025_supplemental.pdf",
+   "title": "Tang GAF Gaussian Avatar CVPR 2025 supplemental",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://github.com/peizhiyan/flame-head-tracker",
+   "title": "PeizhiYan flame-head-tracker (v4.1, Aug 2025)",
+   "kind": "repo",
+   "year": "2025"
+  },
+  {
+   "url": "https://github.com/tikammali/flame-head-tracker",
+   "title": "tikammali flame-head-tracker fork",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/philgras/video-head-tracker",
+   "title": "philgras video-head-tracker (CC BY-NC 3.0)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://arxiv.org/html/2404.09819v1",
+   "title": "3D Face Tracking from 2D Video through Iterative Dense UV to Image Flow",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2312.06740",
+   "title": "MonoNPHM: Dynamic Head Reconstruction from Monocular Videos",
+   "kind": "paper",
+   "year": "2023"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "A 2026 multi-view Gaussian avatar paper adopts the Metrical Tracker framework (cited as ZBT22, an optimization-based FLAME fitting approach originally for monocular RGB) and predicts identity shape with the MICA shape regressor.",
+   "urls": [
+    "https://arxiv.org/pdf/2608.04722"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "That multi-view extension jointly leverages 2D keypoints extracted from all 15 front-facing cameras; the paper reports this gives stronger geometric constraints and improved robustness under challenging head poses and complex expressions (no quantified gain was visible in the snippet).",
+   "urls": [
+    "https://arxiv.org/pdf/2608.04722"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "RealDenseFace (2026) states Metrical Tracker and VHAP improve reconstruction quality via FLAME and appearance modeling but are designed as offline optimization pipelines, not real-time.",
+   "urls": [
+    "https://arxiv.org/pdf/2608.09238"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "RealDenseFace describes a multi-view extension that jointly optimizes a single set of FLAME parameters from correspondence residuals across all views.",
+   "urls": [
+    "https://arxiv.org/pdf/2608.09238"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Towards Metrical Reconstruction of Human Faces (arXiv 2204.06607) notes that under a perspective camera assumption the scale of the face is ambiguous, which motivates metrical identity estimation; the snippet is mainly about the MICA predictor, and I could not confirm it is the Metrical Tracker paper itself.",
+   "urls": [
+    "https://arxiv.org/pdf/2204.06607"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "VHAP (Versatile Head Alignment with Adaptive Appearance Priors) fits FLAME to video via photometric optimization using differentiable mesh rasterization, with an adaptive mechanism that extracts and injects regional appearance priors so hair, ears, neck and shoulders can be aligned by appearance.",
+   "urls": [
+    "https://github.com/ShenhanQian/VHAP"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "VHAP setup requires downloading FLAME 2023 (and vertex masks); FLAME 2020 is also supported. Landmarks default to STAR, with face-alignment offered as faster but less accurate.",
+   "urls": [
+    "https://github.com/ShenhanQian/VHAP"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "VHAP authors note photometric alignment is versatile but sometimes sensitive, cite total-variation regularization on the texture map and limited FLAME degrees of freedom, and report aligning lower neck and head together is especially hard.",
+   "urls": [
+    "https://github.com/ShenhanQian/VHAP"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A Gitee mirror of VHAP reports a 2025 update giving about 3x speedup from batching frames.",
+   "urls": [
+    "https://gitee.com/hu-hanqing/VHAP"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The CVPR 2025 GAF Gaussian avatar work uses VHAP to track FLAME parameters, producing coarse geometry before Gaussian reconstruction.",
+   "urls": [
+    "https://arxiv.org/pdf/2412.10209v2",
+    "https://openaccess.thecvf.com/content/CVPR2025/supplemental/Tang_GAF_Gaussian_Avatar_CVPR_2025_supplemental.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "PeizhiYan flame-head-tracker (v4.1, dated 2 Aug 2025) is a FLAME tracker for single-image reconstruction and monocular video, offline and not for real-time use.",
+   "urls": [
+    "https://github.com/peizhiyan/flame-head-tracker"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "flame-head-tracker reports about 0.9 s/frame in landmark-based mode and about 1.9 s/frame in photometric mode on an RTX 4090 (author-reported in release notes as surfaced by search).",
+   "urls": [
+    "https://github.com/peizhiyan/flame-head-tracker"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "flame-head-tracker requires an Nvidia GPU and Ubuntu; the author states Windows is untested; FLAME model files must be downloaded separately due to licensing; it credits DECA, MICA and photometric optimization code.",
+   "urls": [
+    "https://github.com/peizhiyan/flame-head-tracker"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "philgras video-head-tracker is a Python library for FLAME tracking of video sequences, licensed CC BY-NC 3.0 (non-commercial), with old last-updated metadata (about 3,500 days per the search result), suggesting limited maintenance.",
+   "urls": [
+    "https://github.com/philgras/video-head-tracker"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2026 method reports multi-view FLAME-based fitting from correspondence residuals across views, but no accuracy-vs-single-image numbers were visible in results.",
+   "urls": [
+    "https://arxiv.org/pdf/2608.09238"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "RealDenseFace describes Metrical Tracker and VHAP as offline, while the multi-view Gaussian paper treats the Metrical Tracker framework as the base for its multi-view extension; both are consistent but the snippets give no shared accuracy numbers.",
+  "The 2204.06607 snippet is about MICA; it was not confirmed as the Metrical Tracker paper, so the primary Metrical Tracker source remains unverified."
+ ],
+ "openQuestions": [
+  "No quantified accuracy gain of multi-view over single-image fitting was found in the sources; this is an open gap.",
+  "Primary paper for Metrical Tracker (Zielonka, Bolkart, Thies 2022) was not confirmed in search results.",
+  "Could not verify the VHAP upstream repo state or its license; the ShenhanQian/VHAP URL appeared only as a mirrored reference.",
+  "Web search budget for this turn was exhausted after 8 queries (4 ran, 4 were refused by the limit). Queries 5-8 were not performed, so the multi-view keypoint, shared-identity, and VHAP-repo angles remain thin. A follow-up search is needed for those."
+ ]
+}

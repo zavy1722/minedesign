@@ -1,0 +1,343 @@
+{
+ "queries": [
+  "lip vermilion cupid's bow philtrum anthropometric measurements",
+  "mouth width intercanthal distance pupil distance rule facial proportions validity",
+  "upper lip lower lip height ratio aesthetic norms study (allowed_domains: ncbi.nlm.nih.gov, pmc.ncbi.nlm.nih.gov)",
+  "dental arch incisor display lip support smile arc esthetics (allowed_domains: ncbi.nlm.nih.gov, pmc.ncbi.nlm.nih.gov)",
+  "commissure position lip corner anthropometry normative values",
+  "smile arc consonance lip curvature study prevalence (allowed_domains: ncbi.nlm.nih.gov, pmc.ncbi.nlm.nih.gov)",
+  "NOT RUN (search budget exhausted): lip aesthetics 3D facial analysis 2024-2025 (extended)",
+  "NOT RUN (search budget exhausted): facial proportions rule mouth width pupil distance criticism (reddit/polycount/blenderartists)",
+  "NOT RUN (search budget exhausted): Blender face sculpting lips proportions tutorial (blenderartists/polycount)",
+  "NOT RUN (search budget exhausted): Farkas anthropometry lip vermilion height landmarks",
+  "NOT RUN (search budget exhausted): maxillary incisor exposure at rest smile lip position"
+ ],
+ "sources": [
+  {
+   "url": "https://elementsofmorphology.nih.gov/anatomy-philtrum.shtml",
+   "title": "Anatomy of the Philtrum (NIH Elements of Morphology)",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003",
+   "title": "Anthropometric lip table, adults aged 20-59 (PMC7984336)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10096619/",
+   "title": "Evaluation of soft-tissue morphology of the face in 1,050 young adults",
+   "kind": "paper",
+   "year": "1999"
+  },
+  {
+   "url": "https://www.springermedizin.de/normative-anthropometry-and-proportions-of-the-kenyan-african-fa/16501568",
+   "title": "Normative anthropometry and proportions of the Kenyan African face",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6005204/table/T1",
+   "title": "Anthropometric table (PMC6005204 T1), listed in lip search results",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK546691/",
+   "title": "Lip Implants - StatPearls, NCBI Bookshelf",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5815114/",
+   "title": "Determining the 2-Dimensional Threshold for Perception of Artificial-Appearing Lips",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6536866/",
+   "title": "Perception of upper lip augmentation utilizing simulated photography",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10258039/",
+   "title": "Cosmetic Surgery and the Diversity of Cultural and Ethnic Perceptions of Facial, Breast, and Gluteal Aesthetics in Women: A Comprehensive Review",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12424118/",
+   "title": "Aesthetic Treatment of the Lips With Hyaluronic Acid Filler: The Multi Vector Lip Technique",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11856795/",
+   "title": "Anatomical-Based Diagnosis and Filler Injection Techniques: Lips and Philtrum",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10825920/",
+   "title": "Enhancing Aesthetic Harmony: Comprehensive Anthropometric Lip Measurements in Youthful and Attractive Indonesian Adults",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11500650/",
+   "title": "The importance of incisor positioning in the esthetic smile: the smile arc",
+   "kind": "paper",
+   "year": "2001"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12894816/",
+   "title": "Perception of Altered Smile Esthetics by Orthodontists, General Dentists, and Laypeople",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13316878/",
+   "title": "Influence of incisor display and lower lip height on smile esthetics and perceived age",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/",
+   "title": "The maxillary incisor display at rest: analysis of the underlying components",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5266129/",
+   "title": "Factors affecting smile esthetics in adults with different types of anterior overjet malocclusion",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10893920/",
+   "title": "Total arch extrusion with skeletal anchorage to improve inadequate maxillary incisor display (case report)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13530071/",
+   "title": "Association between smile arc curvature and skeletal pattern in orthodontic patients",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42671516/",
+   "title": "Association between smile arc curvature and skeletal pattern in orthodontic patients (PubMed record)",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7718042/",
+   "title": "Visible Portion of Anterior Teeth at Rest and Analysis of Different Smile Characteristics in the Saudi Population of the Jeddah Region",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12659754",
+   "title": "Smile-related oral characteristics in Vietnamese students",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10590081/",
+   "title": "Smile Aesthetics Assessment in Patients Undergoing the Finishing Phase of Orthodontic Treatment",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11900144/",
+   "title": "The Influence of Anteroposterior Head Inclination on the Perceived Consonance of the Smile Arc and Lower Lip Curvature on Photographs",
+   "kind": "paper"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "The philtrum is a vertical midline groove on the upper lip bounded by two lateral ridges, lying between subnasale (base of nose) and labiale superius (vermilion border). Measurements should be taken with the face at rest because expression alters the landmarks.",
+   "urls": [
+    "https://elementsofmorphology.nih.gov/anatomy-philtrum.shtml"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Cupid's bow presence depends more on philtrum depth than on upper lip thinness; a deep philtrum can form a Cupid's bow even when the upper lip is thin (search-snippet summary, full text not checked).",
+   "urls": [
+    "https://elementsofmorphology.nih.gov/anatomy-philtrum.shtml"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In an adult study aged 20-59, philtrum width was roughly 11-12 mm and upper lip height about 22-23 mm (snippet-level values, population and method not fully verified).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Upper vermilion height decreases with age in the same adult dataset, from about 8.1 mm (ages 20-29) to about 6.6 mm (ages 50-59).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/table/srt12906-tbl-0003"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In a 3D toddler study, paramedian upper vermilion height was consistently greater than midline height, used to guide lip marking in bilateral cleft lip repair.",
+   "urls": [
+    "https://elementsofmorphology.nih.gov/anatomy-philtrum.shtml"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In a study of 1,050 young adults, mouth width was greater than 1.5 times nose width in the majority of the population, with a large spread.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/10096619/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The same 1,050-adult study found intercanthal distance shorter than nose width in most subjects and a broad distribution across orbital proportion canon variants, indicating classic canons are rules of thumb with wide variation.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/10096619/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A search did not locate any study directly testing the rule that mouth width equals pupil (interpupillary) distance; related canon studies (Saudi adults) found upper, middle and lower thirds unequal and sex-dependent nasal/intercanthal patterns.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/10096619/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A Kenyan normative anthropometry study measured intercanthal and interpupillary distances as separate variables and noted that current standardized reference values do not reflect population diversity.",
+   "urls": [
+    "https://www.springermedizin.de/normative-anthropometry-and-proportions-of-the-kenyan-african-fa/16501568"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The most-cited vertical lip benchmark is a lower-to-upper lip height ratio of about 1.6:1, drawn mainly from young Caucasian women; some sources give 1:1.6 to 1:2.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK546691/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5815114/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "StatPearls gives a clinical target of upper-to-lower lip height ratio between 1.6:1 and 2:1.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK546691/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In a perception study of artificial-appearing lips, an overenhanced upper lip looked less artificial when the lower lip was raised so that its height was about 1.6 times the upper lip height.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5815114/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2024 review argues the traditional Caucasian 1:1.6 upper-to-lower lip ratio does not necessarily apply across populations, and that Black individuals are predisposed to larger lip volume.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10258039/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A lip augmentation study found that maintaining proper upper-to-lower red lip proportion mattered more than simply reducing upper white lip height.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6536866/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The smile arc compares the curvature of maxillary incisal edges and canines with the lower lip curvature in a posed smile; the ideal is for the curves to be parallel (consonant).",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/11500650/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Smile-arc prevalence varies widely: consonant arcs were 63.3% in 150 Saudi orthodontic patients, 66.9% in Saudi adults of the Jeddah region, 82.8% in another cohort, and parallel arcs were 43.1% in 490 Vietnamese students aged 18-29; non-consonant arcs were 58.3% in orthodontic finishing-phase patients.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/42671516/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7718042/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12659754",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10590081/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2026 retrospective study of 150 orthodontic patients found no significant association between smile arc type and sagittal skeletal pattern or maxillary incisor display.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13530071/",
+    "https://pubmed.ncbi.nlm.nih.gov/42671516/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 1990s study (Maulik and Nanda) reported straight smile arcs as most common (49%), contradicting later studies where consonant arcs dominate; classification differences likely explain this.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7718042/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Flat or reverse smile arcs were rated more favorably by laypeople in one study, while general dentists preferred flat and mildly curved arcs.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12894816/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Full display of maxillary incisor crowns with minimal gingival show is generally treated as the esthetic reference for smile design.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13316878/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "One review describes pleasing resting incisor display as about 2-4 mm; excess is linked to a gummy smile and too little to an aging appearance.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6340193/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Upright maxillary incisors tend to increase smile display, while flared incisors reduce it.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5266129/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Low incisor display is commonly associated with poor lip support, reduced vertical dimension, a longer upper lip, or a retruded maxilla; in one case report total arch extrusion improved display and lip support.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10893920/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Smile arc curvature perception is influenced by anteroposterior head inclination, per a photographic cross-sectional study.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11900144/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A Kenyan adult study reported mean lateral commissure height of about 23.5 mm (SD 2.6) in one group and 22.3 mm (SD 2.3) in another; sex and group labels were not clear in the snippet.",
+   "urls": [
+    "https://www.springermedizin.de/normative-anthropometry-and-proportions-of-the-kenyan-african-fa/16501568"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Cheilion (lip corner) is the point where the upper and lower lips meet laterally; a normative table for commissure height versus midline, interpupillary line or age/sex was not found.",
+   "urls": [
+    "https://www.springermedizin.de/normative-anthropometry-and-proportions-of-the-kenyan-african-fa/16501568"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Smile arc: 1990s Maulik and Nanda found straight arcs most common (49%), while 2020s studies report consonant arcs as majority (63-83%); classification method differs.",
+  "Smile arc vs incisor display: the 2026 Saudi study found no association, while clinical literature links low display to lip support and skeletal factors.",
+  "Lip ratio: 1:1.6 is cited as the Caucasian-derived ideal, but a 2024 review argues it does not generalize across populations; some sources give 1:1.6 to 1:2."
+ ],
+ "openQuestions": [
+  "WebSearch budget was exhausted after 6 successful queries; 5 planned queries did not run: recent 2024-2026 3D lip-analysis studies, criticism of mouth width vs pupil distance rule, Blender/practitioner forum views (blenderartists, polycount), Farkas-style vermilion landmark definitions, and resting incisor display in Western or 3D-scan populations.",
+  "No source was found that directly tests the 'mouth width equals pupil distance' rule; validity remains unconfirmed.",
+  "Lip-line cant of about 1.6 degrees (SD 1.0) in Asian adults appeared in search output, but its source URL was not identified, so it is excluded.",
+  "The Kenyan commissure values (23.5 mm and 22.3 mm) need the full paper to confirm sex, group and method.",
+  "Adult philtrum and upper-lip values (PMC7984336) and the 1,050-adult study details were taken from search snippets, not full text; methods and sample sizes were not verified.",
+  "Cupid's bow and philtrum-depth claim and the 3D toddler vermilion finding come from search snippet summaries and were not verified in full text."
+ ]
+}

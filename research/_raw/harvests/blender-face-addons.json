@@ -1,0 +1,206 @@
+{
+ "queries": [
+  "FaceMesh Capture Blender add-on MediaPipe face landmarks",
+  "Face It Blender add-on facial rig shape keys (allowed_domains: extensions.blender.org, blendermarket.com, superhivemarket.com, github.com)",
+  "MPFB2 MakeHuman Blender add-on license version (allowed_domains: github.com, extensions.blender.org)",
+  "MB-Lab / CharMorph / FLAME / Human Generator / FaceBuilder queries: NOT RUN, web search budget reported exhausted after 4 searches"
+ ],
+ "sources": [
+  {
+   "url": "https://github.com/mozi1924/mediapipe-facecap-for-blender",
+   "title": "mozi1924/mediapipe-facecap-for-blender (MediaPipe face capture for Blender)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8",
+   "title": "MediaPipe Face Mesh: All 478 Landmark Points (DEV Community)",
+   "kind": "blog"
+  },
+  {
+   "url": "https://mediapipe.readthedocs.io/en/latest/solutions/face_mesh.html",
+   "title": "MediaPipe Face Mesh (legacy docs, v0.7.5 mirror)",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://github.com/topics/mediapipe-facemesh",
+   "title": "GitHub topic: mediapipe-facemesh",
+   "kind": "repo"
+  },
+  {
+   "url": "https://superhivemarket.com/products/faceit",
+   "title": "Faceit: Facial Expressions and Performance Capture (Superhive, formerly Blender Market)",
+   "kind": "commercial"
+  },
+  {
+   "url": "https://extensions.blender.org/add-ons/face-shapekey-rig/",
+   "title": "Face Shape Key Rig (Blender Extensions)",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://github.com/Fragid/face-shapekey-rig",
+   "title": "Fragid/face-shapekey-rig (GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/H0wZy/captureforge",
+   "title": "H0wZy/captureforge (GitHub, GPL-3.0)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/met4citizen/TalkingHead/blob/main/blender/Faceit/FACEIT.md",
+   "title": "TalkingHead blender/Faceit/FACEIT.md (GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://superhivemarket.com/products/wk-facerig",
+   "title": "wk FaceRig (Superhive)",
+   "kind": "commercial"
+  },
+  {
+   "url": "https://extensions.blender.org/add-ons/mpfb/",
+   "title": "MPFB, Blender Extensions listing",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://extensions.blender.org/add-ons/mpfb/versions/",
+   "title": "MPFB version history, Blender Extensions",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://github.com/makehumancommunity/mpfb2",
+   "title": "makehumancommunity/mpfb2 (GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md",
+   "title": "mpfb2 LICENSE.CODE.md (GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/makehumancommunity/makehuman-plugin-for-blender",
+   "title": "makehuman-plugin-for-blender (deprecated MPFB1 plugin, GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/kblood/CharacterCreator/blob/master/LICENSE-NOTES.md",
+   "title": "kblood/CharacterCreator LICENSE-NOTES.md (third-party notes)",
+   "kind": "repo"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "MediaPipe FaceMesh detects 468 face landmarks in real time (per search-result summaries of the MediaPipe Face Mesh documentation and a DEV Community article).",
+   "urls": [
+    "https://mediapipe.readthedocs.io/en/latest/solutions/face_mesh.html",
+    "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "With refined landmarks enabled, MediaPipe Face Mesh outputs 478 landmarks per face; the refinement uses an attention mesh model to refine coordinates around eyes and lips and adds iris landmarks.",
+   "urls": [
+    "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "mozi1924/mediapipe-facecap-for-blender is a MediaPipe-based face capture project with a companion Blender add-on ('receiver') and a transmitter program; it is not an add-on literally named 'FaceMesh Capture'.",
+   "urls": [
+    "https://github.com/mozi1924/mediapipe-facecap-for-blender"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Faceit (Superhive, formerly Blender Market) is a paid add-on that semi-automatically generates facial shape keys, with ARKit-style, Audio2Face, tongue and phoneme presets, and a bake step that converts modifier-stack, pose and sculpt deformation into shape keys.",
+   "urls": [
+    "https://superhivemarket.com/products/faceit"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Faceit's listing states Blender compatibility 3.0 to 5.2.",
+   "urls": [
+    "https://superhivemarket.com/products/faceit"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Face Shape Key Rig is a free GPL add-on on Blender Extensions that builds in-viewport sliders and 2D pads driven by bones and drivers to animate existing shape keys; it supports iFacialMocap capture and audio lipsync. Its GitHub page states it requires Blender 5.2 or newer.",
+   "urls": [
+    "https://extensions.blender.org/add-ons/face-shapekey-rig/",
+    "https://github.com/Fragid/face-shapekey-rig"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Face Shape Key Rig controls existing shape keys; it does not generate them. Faceit is the comparable tool that creates shape keys.",
+   "urls": [
+    "https://extensions.blender.org/add-ons/face-shapekey-rig/",
+    "https://superhivemarket.com/products/faceit"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "CaptureForge (H0wZy/captureforge) is a GPL-3.0 Blender extension suite that converts a posed face rig to ARKit 52 blendshapes and drives them from video or webcam, without an iPhone; it also lists a quality inspector and auto face rig features.",
+   "urls": [
+    "https://github.com/H0wZy/captureforge"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "MPFB2 (MakeHuman Community Plugin for Blender) code is GPL v3 or later, per the Blender Extensions listing and the repository's LICENSE.CODE.md.",
+   "urls": [
+    "https://extensions.blender.org/add-ons/mpfb/",
+    "https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The Blender Extensions listing for MPFB says its asset packs are CC0 or CC-BY.",
+   "urls": [
+    "https://extensions.blender.org/add-ons/mpfb/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A third-party project's license notes state MakeHuman base assets are CC0 1.0; not verified against MakeHuman's own files.",
+   "urls": [
+    "https://github.com/kblood/CharacterCreator/blob/master/LICENSE-NOTES.md"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A search snippet reports MPFB2 latest version as 2.0.18 with listed compatibility Blender 4.2 LTS and newer; the snippet's release date (October 10, 2026) comes from a single unverified snippet.",
+   "urls": [
+    "https://extensions.blender.org/add-ons/mpfb/versions/",
+    "https://extensions.blender.org/add-ons/mpfb/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The project's releases page says the preferred install method for MPFB2 is the Blender extension platform.",
+   "urls": [
+    "https://github.com/makehumancommunity/mpfb2"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The MPFB1 plugin (makehuman-plugin-for-blender) is deprecated and replaced by MPFB2.",
+   "urls": [
+    "https://github.com/makehumancommunity/makehuman-plugin-for-blender"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "The 2.0.18 version/date snippet and the 4.2 LTS compatibility come from search summaries, not from fetched pages; treat as unconfirmed until checked on the listing.",
+  "Asset license: Blender listing says CC0 or CC-BY; a third-party note says CC0 1.0 for MakeHuman base assets. Not a direct contradiction, but the exact per-asset licence needs checking against MakeHuman's own files."
+ ],
+ "openQuestions": [
+  "MB-Lab, CharMorph, Human Generator, FLAME Blender add-on, Auto-Rig Pro and FaceBuilder were not searched: the WebSearch budget was reported exhausted after 4 queries. A follow-up run is needed to cover them.",
+  "Current (2025-2026) status and Blender 5.x support of MB-Lab, CharMorph, Human Generator and FLAME add-ons is unconfirmed.",
+  "Human Generator licence and price is unconfirmed.",
+  "Whether FLAME's licence (non-commercial research licence per its authors) permits use in a commercial Blender add-on is unverified and must be checked against the FLAME license text.",
+  "Whether Faceit's Blender 5.x support is the same as its listed 3.0 to 5.2 range is unverified beyond the listing."
+ ]
+}

@@ -1,0 +1,205 @@
+{
+ "queries": [
+  "Blender Principled BSDF subsurface random walk skin shading",
+  "Blender manual Principled BSDF subsurface radius scale IOR anisotropy",
+  "Blender subsurface scattering skin random walk vs random walk skin settings",
+  "human skin subsurface scattering scattering radius millimeters measurement study (NOT EXECUTED: search budget exhausted)",
+  "EEVEE Next subsurface scattering Cycles differences Blender 4.2 5.0 (NOT EXECUTED: search budget exhausted)",
+  "skin specular roughness map pore displacement microdetail Blender tutorial (NOT EXECUTED: search budget exhausted)",
+  "Blender Cycles subsurface random walk fix skin looks fake waxy (NOT EXECUTED: search budget exhausted)",
+  "Blender skin shader github subsurface principled node skin texture (NOT EXECUTED: search budget exhausted)",
+  "Blender 4.x Principled BSDF subsurface weight Random Walk Skin method (NOT EXECUTED: search budget exhausted)",
+  "skin reflectance specular index of refraction 1.4 oily skin cross-polarized photography (NOT EXECUTED: search budget exhausted)"
+ ],
+ "sources": [
+  {
+   "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html",
+   "title": "Principled BSDF - Blender 5.3 Manual",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "url": "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html",
+   "title": "Principled BSDF - Blender 4.3 Manual",
+   "kind": "official-docs",
+   "year": "2024"
+  },
+  {
+   "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/sss.html",
+   "title": "Subsurface Scattering - Blender 5.3 Manual",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "url": "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/sss.html",
+   "title": "Subsurface Scattering - Blender 3.6 Manual",
+   "kind": "official-docs",
+   "year": "2023"
+  },
+  {
+   "url": "https://projects.blender.org/blender/blender/pulls/110989",
+   "title": "Cycles: Tweak Principled BSDF Subsurface parameters (PR #110989)",
+   "kind": "repo",
+   "year": "2023"
+  },
+  {
+   "url": "https://blenderartists.org/t/subsurface-scattering-colour/1502627",
+   "title": "Subsurface Scattering colour - Blender Artists",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "url": "https://blenderartists.org/t/principled-bsdf-subsurface-anisotropy/1629688",
+   "title": "Principled BSDF: Subsurface Anisotropy - Blender Artists",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "url": "https://blenderartists.org/t/subsurface-scattering-is-producing-flat-shaded-artifacts/1594573",
+   "title": "Subsurface Scattering is producing flat-shaded artifacts - Blender Artists",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "url": "https://blenderartists.org/t/volumetric-sss/1102733",
+   "title": "Volumetric SSS - Blender Tests - Blender Artists",
+   "kind": "forum",
+   "year": "unknown"
+  },
+  {
+   "url": "https://blenderartists.org/t/this-material-how-to/1233888",
+   "title": "This material? How to - Blender Artists",
+   "kind": "forum",
+   "year": "unknown"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Blender manual: Random Walk (Skin) is a Cycles-only subsurface method tuned for skin; per the search snippet of the current Principled BSDF page, its radius is automatically adjusted based on the color texture (snippet-level, not verified against full page text).",
+   "urls": [
+    "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Blender manual gives skin as an example subsurface anisotropy value and states skin has been measured at anisotropy 0.8 (the manual cites this value; primary measurement study not verified in this run).",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Subsurface anisotropy of 0 means uniform scattering direction inside the medium.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Subsurface Radius is the average distance light scatters below the surface, with separate RGB values per channel, so red can scatter deeper than blue.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Subsurface Scale is a multiplier on the radius; its slider range is documented as 0 to 50 cm.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Subsurface IOR is used for rays entering the subsurface component, is Cycles-only, and may differ from the global IOR (the manual suggests this for simulating skin layers).",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Global IOR: the manual states most materials fall between 1.0 (vacuum/air) and 4.0 (germanium), with default 1.5 approximating glass.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Specular Anisotropy is a Cycles-only input: positive values elongate highlights along the tangent direction, negative values shape highlights perpendicular to the tangent.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In thin-wall mode, the Subsurface Radius, Subsurface Scale and Subsurface Method inputs have no effect.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Blender 3.6 manual lists Random Walk modes under Subsurface Method with radius modulated by color, and uses older input names such as 'Subsurface Anisotropy' and 'Anisotropic'; names changed in later versions.",
+   "urls": [
+    "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/sss.html",
+    "https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Blender developer PR #110989 explains the skin random-walk mode randomly chooses between diffuse Lambertian transmission and GGX refraction at fixed roughness 1; diffuse is mixed in because a pure random walk penetrates too deep into skin.",
+   "urls": [
+    "https://projects.blender.org/blender/blender/pulls/110989"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Forum practitioner claim: Random Walk (skin) yields results similar to the older random walk but loses the surface roughness control because it fixes roughness at 1.",
+   "urls": [
+    "https://blenderartists.org/t/this-material-how-to/1233888",
+    "https://blenderartists.org/t/subsurface-scattering-colour/1502627"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Forum claim: Random Walk (skin) lacks the scaling the legacy random walk applies to approximate Burley; a forum post says Blender 5.2 splits the random-walk options into legacy and newer variants. Not confirmed in official docs.",
+   "urls": [
+    "https://blenderartists.org/t/principled-bsdf-subsurface-anisotropy/1629688"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Forum practitioner opinion: random walk with zero anisotropy can look fake, lacking a thin film of surface detail; another poster argues radius and color adjustments matter more than anisotropy for a close match.",
+   "urls": [
+    "https://blenderartists.org/t/principled-bsdf-subsurface-anisotropy/1629688",
+    "https://blenderartists.org/t/subsurface-scattering-colour/1502627"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Forum-reported artifact: Subsurface Scattering can produce flat-shaded artifacts on some meshes, a known practical issue.",
+   "urls": [
+    "https://blenderartists.org/t/subsurface-scattering-is-producing-flat-shaded-artifacts/1594573"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Random Walk uses volumetric scattering inside the mesh, so overlapping faces and holes/open meshes can cause errors; closed meshes work best (manual-derived statement from the Principled search results).",
+   "urls": [
+    "https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Manual snippet says Random Walk (Skin) radius is auto-adjusted by color texture, while a forum post says Random Walk (skin) lacks the Burley-approximating scaling of the legacy random walk; these describe different aspects and were not reconciled against the full manual text.",
+  "Forum claims about Blender 5.2 splitting random-walk modes (legacy vs new) conflict with the 5.3 manual excerpt, which lists the modes differently; version naming is inconsistent across manual pages (3.4 'Random Walk (Fixed Radius)', 4.x 'Random Walk (Legacy)' in a non-English page).",
+  "Forum statement that random walk costs more render time and noise for dense media like skin is attributed to Blender docs by a forum post, but not located in the docs pages retrieved."
+ ],
+ "openQuestions": [
+  "BUDGET EXHAUSTED: only 4 of the planned 8-12 WebSearch queries ran; the remaining 6 returned 'search budget used up' and were not executed. Coverage is thin, and the next pass should rerun: human skin SSS radius measurements (mm, sample sizes), EEVEE Next vs Cycles subsurface limits, skin texture resources and displacement microdetail, skin roughness/specular maps, and Blender 4.x-5.x random-walk-skin changes.",
+  "Measured skin scattering radii and anisotropy primary sources (the 0.8 figure is cited only by the Blender manual here, not traced to its measurement paper).",
+  "Whether EEVEE Next supports Random Walk at all, and its SSS approximations, remain unverified.",
+  "Exact Blender 5.x default for Subsurface Method and whether Random Walk (Skin) is still the recommended setting were not confirmed from full page text.",
+  "No sources on displacement microdetail, specular/roughness map values for skin, or community skin texture resources were retrieved."
+ ]
+}

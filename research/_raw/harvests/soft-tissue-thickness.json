@@ -1,0 +1,371 @@
+{
+ "queries": [
+  "Stephan 2009 facial soft tissue thickness forensic tables craniometric landmarks mm (ncbi/pmc)",
+  "facial soft tissue thickness ultrasound study mean depth millimetres landmarks sex age BMI (pmc)",
+  "De Greef Claes facial soft tissue thickness CT 3D reconstruction skull-to-face prior",
+  "facial soft tissue depth MRI cone-beam CT measurement method reliability forensic facial reconstruction (ncbi/pmc)",
+  "Rhine Moore facial soft tissue thickness tables ancestry Stephan tissue depth criticism",
+  "facial soft tissue thickness body mass index age sex variation systematic review 2024 2025 (extended, pubmed/pmc)",
+  "facial tissue depth tables forensic facial approximation limitations interobserver error (ncbi/pmc)",
+  "soft tissue depth craniometric points Caucasian African American tissue thickness mean values table",
+  "facial soft tissue thickness Chinese Korean Japanese population measurement CT data (ncbi/pmc)",
+  "forensic facial reconstruction tissue depth markers practitioner guidance github tissue depth dataset (github)",
+  "facial soft tissue thickness deep learning skull to face reconstruction prior dataset CT (arxiv)"
+ ],
+ "sources": [
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9286276/",
+   "title": "Facial soft tissue thickness in forensic facial reconstruction: Impact of regional differences in Brazil",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/",
+   "title": "Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+   "title": "Facial soft tissue depth of a contemporary adult Greek population",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/",
+   "title": "A preliminary study of facial soft tissue thickness for forensic facial reconstruction in a Nigerian adult female community",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41701465/",
+   "title": "Sex, age, and body mass index influence on facial soft tissue thickness in a Thai population above middle age by ultrasonographic imaging",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/",
+   "title": "Ultrasonographic analysis of facial skin thickness in relation to age, site, sex, and body mass index",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/37531497/",
+   "title": "Systematic review on forensic craniofacial reconstruction. I. facial soft-tissue thickness",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s00414-023-03087-x",
+   "title": "Springer International Journal of Legal Medicine review of FSTT studies (s00414-023-03087-x)",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://ojp.gov/index%2Ephp/node/1311086",
+   "title": "NCJRS abstract: pooled soft-tissue-depth table from 66 studies",
+   "kind": "other"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/22621203/",
+   "title": "Facial soft tissue thickness database for craniofacial reconstruction in Korean adults",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42385786/",
+   "title": "Layer-specific facial soft-tissue thickness in 1174 Chinese adults",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32217445",
+   "title": "Facial soft tissue thickness in Yangtze River delta Han population (CBCT)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/34238872/",
+   "title": "Age- and Sex-Related Measurements of Total Craniofacial Soft Tissue Thickness and Fat in a Central Chinese Population",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20236780/",
+   "title": "Accuracy and reliability of facial soft tissue depth measurements using cone beam computer tomography",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25845397/",
+   "title": "Reproducibility of Facial Soft Tissue Thickness Measurements Using Cone-Beam CT According to the Measurement Methods",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532767/",
+   "title": "Assessing the contribution of orthodontic profiles in predicting facial soft tissue thickness for forensic facial approximation",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12808181/",
+   "title": "Evaluating the compatibility of the 2D and 3D facial soft tissue depth measurement methods",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13658438",
+   "title": "Forensic facial approximation methodologies applied to the Brazilian population: a scoping review",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11940931/",
+   "title": "Obesity and Overweight Conditions in Children and Adolescents and Their Impact on Craniofacial Morphology: A Systematic Review",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/pdf/1808.07334",
+   "title": "A method for automatic forensic facial reconstruction based on dense statistics of soft tissue thickness",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2403.16207",
+   "title": "Skull-to-Face: Anatomy-Guided 3D Facial Reconstruction and Editing",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://lirias.kuleuven.be/bitstream/123456789/420593/1/3606_postprint.pdf",
+   "title": "Leuven postprint (De Greef-related CT/soft-tissue abstract; attribution to De Greef 2006 inferred from search snippet)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.imo.universite-paris-saclay.fr/~de-buhan/deBuhanNardoni.pdf",
+   "title": "Paris-Saclay paper on sparse-landmark soft-tissue thickness averages",
+   "kind": "paper"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Iranian MRI study (midline, Iranian sample): mid-philtrum soft tissue thickness averaged 16.41 mm in males vs 13.95 mm in females; males had thicker tissue at most midline landmarks.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Iranian MRI midline study: nasion thickness rose with BMI from 5.57 mm in the lowest BMI group to 8.25 mm in the highest BMI group; thickness increased with BMI at several landmarks.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5543663/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Nigerian adult female community study (CT-based midline): mean midphiltrum 10.80 mm and labiomental 11.79 mm.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Greek adult population CT study (22 landmarks: 5 midsagittal, 17 bilateral): age and sex had a limited effect on soft tissue depth at these landmarks.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Greek CT study inter-observer TEM values ranged 0.19 to 1.45 mm; the authors judged repeated measurements at 22 landmarks unreliable for inter-observer error (attribution to this paper inferred from search snippet).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12808181/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Thai ultrasound study (above middle age, ultrasonographic imaging): significant FSTT differences across all landmarks between underweight and normal BMI groups; BMI had a notable effect.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/41701465/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Thai ultrasound study: females were thicker at several sites while males were thicker in nasal and perioral regions (sex effect is site-dependent); aging had minimal impact on FSTT in individuals over 50.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/41701465/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Ultrasound facial skin (dermal) thickness study: at the mid-cheek, dermal thickness was 1.877 mm in males and 1.580 mm in females; epidermal thickness did not differ significantly by sex and skin thickness did not correlate significantly with BMI. This measures skin layer only, not total soft tissue depth.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10370326/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Forensic systematic review (2023) screened 84 articles; 30 presented databases on sex, age and ethnicity-dependent soft tissue thickness variation.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/37531497/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Pooled review of FSTT literature: 139 studies published since 1883, over 220,000 measurements from more than 19,500 adults; the pooled T-Tables were first calculated in 2008 and are still used as means for superimposition and approximation.",
+   "urls": [
+    "https://link.springer.com/article/10.1007/s00414-023-03087-x"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "NCJRS abstract: a pooled soft-tissue-depth table built from 66 studies, analysed by year, measurement method, race and sex; reports wide variation between measurement techniques.",
+   "urls": [
+    "https://ojp.gov/index%2Ephp/node/1311086"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Korean CBCT database: 100 adults (50 men, 50 women) measured at 31 landmarks; most landmarks thicker in men.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/22621203/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Chinese layer-specific CT study: 1174 adults aged 18-90 measured at 33 landmarks, with skin, fat and muscle layers separated; sex and age significantly affected total thickness and fat and muscle layers.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/42385786/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Yangtze River delta Han CBCT study: 424 adults, 60 landmarks from 3D models; examined sex, age, BMI and malocclusion effects.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/32217445"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Central Chinese CT study: 280 individuals, 41 landmarks, total soft tissue and fat thickness recorded.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/34238872/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Brazilian CBCT study (100 scans, 32 landmarks): 'perpendicular to bone' measurement method gave high inter- and intra-observer reproducibility at all 32 landmarks, while 'perpendicular to skin' and 'direct' methods had low reproducibility; authors suggest identifying landmarks on hard-tissue images.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/25845397/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "CBCT reliability study used 11 landmarks marked with dermal punch holes; CBCT of the face was judged reliable for soft tissue thickness (ICC and absolute error used).",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/20236780/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Linear scleroderma CBCT study: mean ICC for soft tissue thickness was 0.49 in patients vs 0.66 in controls.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/29298697/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A CBCT review recommended a 0.3 mm voxel size for accurate facial soft tissue measurement and noted CBCT has weaker soft-tissue differentiation than CT and MRI.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6631689/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "De Greef et al. (2006) in vivo facial soft tissue depth measurements on 967 adult Caucasoids; CT-derived values from total head CT scans of twelve patients (attribution inferred from a Leuven abstract snippet; original paper not retrieved).",
+   "urls": [
+    "https://lirias.kuleuven.be/bitstream/123456789/420593/1/3606_postprint.pdf"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Average soft tissue thickness values are typically measured at a sparse set of fewer than 53 landmarks, which motivates denser approaches.",
+   "urls": [
+    "https://www.imo.universite-paris-saclay.fr/~de-buhan/deBuhanNardoni.pdf"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Gietzen et al. (PLOS ONE 2019, cited via arXiv 1808.07334) build a dense FSTT statistic by registering a skull model to each CT-extracted skull and computing thickness per vertex toward the extracted skin surface.",
+   "urls": [
+    "https://arxiv.org/pdf/1808.07334"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Skull-to-Face (2024) learns the joint distribution of tissue thickness at skull landmarks from scanned skull-face pairs; model complexity is limited by the small paired dataset; CT scans at 0.25 mm/pixel.",
+   "urls": [
+    "https://arxiv.org/pdf/2403.16207"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Orthodontic-profile paper (PMC12532767) notes BMI is the variable most strongly associated with FSTT among age, sex and BMI, and FSTT tends to decrease over time with reduced muscle tone.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532767/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Pediatric systematic review (PRISMA) concludes soft tissue thickness is significantly greater in obese individuals (ages 6-18).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11940931/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Scoping review of Brazilian facial approximation methods flags standardization of landmarks and validation of FSTT tables as open challenges.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13658438"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Critique: mean-depth tables are weakest at nose, mouth and ears, which have little direct skeletal support; a computerized approach found weaker correlations and greater errors for nose and mouth shapes.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10557396/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Critique of needle-probe method: needle pressure distorts soft-tissue depth; supine CT/MRI positioning may introduce error.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "Stephan (2007 AAFS abstract) argues traditional ancestry/classification of soft tissue depth data has little empirical statistical justification; pooled tables do not separately retain sex, ancestry, body position or measurement method.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "Rhine and Moore (1984) published tissue thickness tables for American Caucasoids (Maxwell Museum Technical Series 1); no independent validation against modern samples was found.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "Flynn (1989) cephalometric study reports soft tissue norms for black vs white American adults, with greater soft-tissue chin thickness in the black sample (secondary Scribd copy only).",
+   "urls": [
+    "https://www.scribd.com/document/684241970/Flynn-1989"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Mastoid CT study: male sex associated with thicker tissue, adjusted difference 1.37 mm; age not independently associated (source URL not confirmed in results).",
+   "urls": [],
+   "numeric": true
+  }
+ ],
+ "contradictions": [
+  "Sex effect is not uniform: Iranian MRI and Korean CBCT report males thicker at most landmarks, while the Thai ultrasound study reports females thicker at several sites and males only in nasal and perioral regions.",
+  "Age effect: Greek CT reports limited age and sex effects, while the Chinese 1174-adult CT study reports significant sex and age effects on total thickness.",
+  "Cadaver vs living: a 50-cadaver Japanese MDCT study found earlier cadaveric data thinner at nearly all sites than earlier living Japanese data (secondary report; source not confirmed).",
+  "Race/ancestry: Stephan argues ancestry categories lack statistical justification, while the Rhine and Moore tables and Flynn (1989) use ancestry-specific values; no direct test found.",
+  "Interobserver: Greek CT study judged its inter-observer error unreliable, while a 2D vs 3D comparison found inter- and intra-observer error not significantly different."
+ ],
+ "openQuestions": [
+  "Stephan 2009 T-table mm values were not retrieved; the T-table numbers must be fetched from the original paper or the 2023 IJLM review.",
+  "De Greef 2006 per-landmark mean values were not retrieved; only sample size (967 in vivo, 12 CT) confirmed by a snippet.",
+  "No ultrasound study of total facial soft tissue depth was found; only skin-layer ultrasound data.",
+  "Japanese postmortem CT (103 cadavers, ages 18-86) and Greek 100-scan CT (50M/50F, ages 18-99) are referenced but their primary URLs were not confirmed in results.",
+  "Measurement-method effects (supine CT vs upright, needle probe vs imaging) lack quantitative sources in this pass.",
+  "No direct MRI vs CBCT vs CT agreement study was found.",
+  "Fetching was not attempted (sandbox limit), so all figures rely on search snippets and should be verified against full text."
+ ]
+}

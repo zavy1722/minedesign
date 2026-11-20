@@ -1,0 +1,196 @@
+{
+ "queries": [
+  "Blender HDRI lighting match photo reference camera matching tutorial",
+  "camera matching photogrammetry focal length perspective Blender camera solve from photo",
+  "render overlay difference blend compositor face likeness comparison opacity (allowed: blenderartists.org, polycount.com)",
+  "Blender Compositor difference node overlay render reference image (allowed: docs.blender.org) - NOT EXECUTED, search budget reported exhausted",
+  "Blender camera background images opacity reference photo match lighting (allowed: docs.blender.org) - NOT EXECUTED, search budget reported exhausted",
+  "HDRI lighting match photo gray ball chrome ball lighting reference practitioner - NOT EXECUTED, search budget reported exhausted",
+  "photo to 3D likeness face comparison overlay blend mode accuracy evaluation - NOT EXECUTED, search budget reported exhausted",
+  "camera calibration focal length from EXIF 35mm equivalent perspective distortion portrait lens - NOT EXECUTED, search budget reported exhausted"
+ ],
+ "sources": [
+  {
+   "url": "https://www.lightmap.co.uk/learning/blender-tutorial-03/",
+   "title": "Lightmap Blender tutorial 03 (Smart Car HDRI backplate match) - snippet only",
+   "kind": "blog"
+  },
+  {
+   "url": "https://www.blendernation.com/2021/06/30/how-to-setup-hdri-lighting-in-blender-2-93/",
+   "title": "BlenderNation: How to Setup HDRI Lighting in Blender 2.93 - title/snippet only",
+   "kind": "news",
+   "year": "2021"
+  },
+  {
+   "url": "https://superhivemarket.com/products/poly-light-match---image-based-lighting-setup/docs",
+   "title": "Poly Light Match - Image Based Lighting Setup (docs)",
+   "kind": "commercial"
+  },
+  {
+   "url": "https://extensions.blender.org/add-ons/simple-camera-match/",
+   "title": "Simple Camera Match (Blender extension listing)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://superhivemarket.com/products/photo-match-camera",
+   "title": "Photo-Match Camera (archviz add-on listing)",
+   "kind": "commercial"
+  },
+  {
+   "url": "https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app",
+   "title": "Retiring BLAM and announcing fSpy - a stand alone camera matching app (Blender Artists)",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/blenders-camera-focal-length-sensor-size-values-inaccurate/1271788",
+   "title": "Blender's camera focal length / sensor size values inaccurate? (Blender Artists)",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/difference-between-the-mix-and-alphaover-node/431442",
+   "title": "Difference between the Mix and AlphaOver node? (Blender Artists)",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/what-are-the-exact-functions-of-blend-modes/1485612",
+   "title": "What are the exact functions of Blend Modes? (Blender Artists)",
+   "kind": "forum"
+  },
+  {
+   "url": "https://blenderartists.org/t/cant-replicate-after-effects-result-in-blender-with-basic-nodes-compositing-and-post-processing/1524574",
+   "title": "Can't replicate After Effects result in Blender with basic nodes (Blender Artists)",
+   "kind": "forum"
+  },
+  {
+   "url": "https://80.lv/articles/improving-blender-workflows-with-still-image-camera-matching-app",
+   "title": "Improving Blender workflows with still image camera matching app (80.lv) - title only",
+   "kind": "news"
+  },
+  {
+   "url": "https://docs.blender.org/manual/en/5.0/render/cameras.html",
+   "title": "Blender 5.0 Manual: Cameras - listed in results, content not retrieved",
+   "kind": "official-docs"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Blender has no dedicated built-in camera-matching tool; practitioner tutorials point to third-party add-ons and standalone apps (fSpy, Simple Camera Match, Photo-Match Camera) for matching a camera to a photo.",
+   "urls": [
+    "https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app",
+    "https://extensions.blender.org/add-ons/simple-camera-match/",
+    "https://superhivemarket.com/products/photo-match-camera"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "fSpy is a standalone still-image camera matching app, described as the successor to the older BLAM add-on; its developer describes still-image camera matching as computing field of view and camera orientation from an image given vanishing points.",
+   "urls": [
+    "https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "With only one discernible vanishing point, the focal length must be supplied by the user or guessed by trial and error when using fSpy-style still-image matching.",
+   "urls": [
+    "https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Simple Camera Match is a Blender extension where the user draws X, Y and Z vanishing lines over a background image in the camera viewport, and the add-on solves focal length, location and rotation.",
+   "urls": [
+    "https://extensions.blender.org/add-ons/simple-camera-match/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Simple Camera Match guidance: pick orthogonal references such as building edges or box edges and draw the X, Y and Z lines along edges of each respective axis.",
+   "urls": [
+    "https://extensions.blender.org/add-ons/simple-camera-match/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Photo-Match Camera is an archviz add-on for flat upright facades: the photo plane must stand upright, the camera is placed level with no tilt and no roll, and focal length is estimated from a known real-world width and camera distance.",
+   "urls": [
+    "https://superhivemarket.com/products/photo-match-camera"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Camera matching solvers need sensor size as well as focal length for a good solution; sensor-size and focal-length values in Blender have been questioned as inaccurate in a community thread.",
+   "urls": [
+    "https://blenderartists.org/t/blenders-camera-focal-length-sensor-size-values-inaccurate/1271788"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A Blender Artists thread reports that the Blender viewport's focal length can appear to need roughly twice the camera focal length to match the camera view; a maintainer disputed this as a bug (per the thread summary). Treat as unconfirmed community report.",
+   "urls": [
+    "https://blenderartists.org/t/blenders-camera-focal-length-sensor-size-values-inaccurate/1271788"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Poly Light Match is a Blender add-on that builds an image-based lighting rig from a reference photo, offering presets for movie, portrait, landscape and product shots, with controls for intensity, distance, height and rotation.",
+   "urls": [
+    "https://superhivemarket.com/products/poly-light-match---image-based-lighting-setup/docs"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The Lightmap Blender tutorial 03 (Smart Car) matches an HDRI to a backplate photo by correcting HDRI orientation to the backplate, then refining the map by reducing light from under the tires and brightening the headlight reflection.",
+   "urls": [
+    "https://www.lightmap.co.uk/learning/blender-tutorial-03/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A Maya-based lighting course matches lighting to a reference by rotating the environment light until the light direction on the object matches the reference photo (not a Blender method).",
+   "urls": [
+    "https://shimin.myblog.arts.ac.uk/2021/02/23/term2-lighting-course_2"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In Blender, the Mix node Factor sets blend amount regardless of alpha, while Alpha Over respects the foreground alpha channel.",
+   "urls": [
+    "https://blenderartists.org/t/difference-between-the-mix-and-alphaover-node/431442"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Blender compositing works in linear color, whereas After Effects blends in display space by default, so the same blend mode (e.g. difference) can give different results between the two.",
+   "urls": [
+    "https://blenderartists.org/t/cant-replicate-after-effects-result-in-blender-with-basic-nodes-compositing-and-post-processing/1524574"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "After Effects limits blend modes to a layer's alpha by default, while Blender blend operations do not; black outside a layer can therefore affect a Blender result.",
+   "urls": [
+    "https://blenderartists.org/t/cant-replicate-after-effects-result-in-blender-with-basic-nodes-compositing-and-post-processing/1524574"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Blend modes are per-pixel formulas mixing foreground and background pixels; shaders only see the foreground, so background-dependent modes such as Overlay cannot be rebuilt inside a shader.",
+   "urls": [
+    "https://blenderartists.org/t/what-are-the-exact-functions-of-blend-modes/1485612"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Blender viewport vs camera focal length: a community report says the viewport needs about 2x the focal length to match, while a Blender maintainer disputed this as a bug (per the forum thread summary; not verified against the primary bug tracker).",
+  "Blender compositor vs After Effects: Blender Artists thread says results differ due to linear vs display color space and alpha limiting; no single authoritative resolution was retrieved."
+ ],
+ "openQuestions": [
+  "SEARCH BUDGET EXHAUSTED: 5 of the 8 queries were not executed because the WebSearch tool reported the per-turn budget was used up; only 3 queries returned results. Coverage of the focus is therefore thin.",
+  "No sources retrieved on objective likeness-verification metrics (landmark error, overlay/difference scoring, side-by-side protocols), face-specific render-vs-photo comparison, or photo-based HDRI/key-fill measurement with numeric values.",
+  "No numeric measurements or sample sizes found for lighting-matching accuracy, camera focal-length error, or color-space error magnitudes.",
+  "No 2024-2026 developments confirmed; the Blender 5.0 camera manual URL was listed but its content was not retrieved.",
+  "Blender docs on compositor Mix/Difference nodes and Movie Clip/camera background images were not retrieved; recommended to re-run those queries in a follow-up.",
+  "Criticism/limitations of overlay-based likeness checks (alignment sensitivity, lighting confound) were not sourced."
+ ]
+}

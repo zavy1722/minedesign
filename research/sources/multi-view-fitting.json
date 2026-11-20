@@ -1,0 +1,34 @@
+{
+  "topic": "multi-view-fitting",
+  "sources": [
+    {"n": 1, "title": "Multi-View Face and Gesture Animation with Dynamic Gaussians", "url": "https://arxiv.org/pdf/2608.04722", "kind": "paper", "year": "2026"},
+    {"n": 2, "title": "RealDenseFace: Real-time Monocular 3D Face Reconstruction from Dense UV-space Priors", "url": "https://arxiv.org/pdf/2608.09238", "kind": "paper", "year": "2026"},
+    {"n": 3, "title": "Towards Metrical Reconstruction of Human Faces", "url": "https://arxiv.org/pdf/2204.06607", "kind": "paper", "year": "2022"},
+    {"n": 4, "title": "VHAP: Versatile Head Alignment with Adaptive Appearance Priors (ShenhanQian)", "url": "https://github.com/ShenhanQian/VHAP", "kind": "code repository", "year": "n.d."},
+    {"n": 5, "title": "VHAP Gitee mirror (2025 batching update)", "url": "https://gitee.com/hu-hanqing/VHAP", "kind": "code mirror", "year": "2025"},
+    {"n": 6, "title": "VHAP-mod (community fork)", "url": "https://github.com/ydvaayan/VHAP-mod", "kind": "code repository", "year": "n.d."},
+    {"n": 7, "title": "GAF: Gaussian Avatar Reconstruction from Monocular Videos via Multi-view Diffusion", "url": "https://arxiv.org/pdf/2412.10209v2", "kind": "paper", "year": "2024"},
+    {"n": 8, "title": "GAF: Gaussian Avatar Reconstruction, CVPR 2025 supplemental", "url": "https://openaccess.thecvf.com/content/CVPR2025/supplemental/Tang_GAF_Gaussian_Avatar_CVPR_2025_supplemental.pdf", "kind": "paper supplement", "year": "2025"},
+    {"n": 9, "title": "flame-head-tracker (PeizhiYan)", "url": "https://github.com/peizhiyan/flame-head-tracker", "kind": "code repository", "year": "2025"},
+    {"n": 10, "title": "flame-head-tracker fork (tikammali)", "url": "https://github.com/tikammali/flame-head-tracker", "kind": "code repository", "year": "n.d."},
+    {"n": 11, "title": "video-head-tracker (philgras)", "url": "https://github.com/philgras/video-head-tracker", "kind": "code repository", "year": "n.d."},
+    {"n": 12, "title": "3D Face Tracking from 2D Video through Iterative Dense UV to Image Flow", "url": "https://arxiv.org/html/2404.09819v1", "kind": "paper", "year": "2024"},
+    {"n": 13, "title": "MonoNPHM: Dynamic Head Reconstruction from Monocular Videos", "url": "https://arxiv.org/pdf/2312.06740", "kind": "paper", "year": "2023"}
+  ],
+  "references_by_name": [
+    "Li, Bolkart, Black, Li, Romero, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), SIGGRAPH Asia 2017",
+    "Blanz & Vetter, \"A Morphable Model for the Synthesis of 3D Faces\", SIGGRAPH 1999",
+    "Amberg et al., \"Reconstructing High Quality Face-Surfaces using Model Based Stereo\", ICCV 2007",
+    "Piotraschke & Blanz, \"Automated 3D Face Reconstruction from Multiple Images using Quality Measures\", CVPR 2016",
+    "Thies et al., \"Face2Face: Real-time Face Capture and Reenactment of RGB Videos\", CVPR 2016",
+    "Wu et al., \"MVF-Net: Multi-View 3D Face Morphable Model Regression\", CVPR 2019",
+    "Qian et al., \"GaussianAvatars: Photorealistic Head Avatars with Rigged 3D Gaussians\", CVPR 2024",
+    "Kirschstein et al., \"NeRSemble: Multi-view Radiance Field Reconstruction of Human Heads\", ACM TOG 2023",
+    "Zielonka, Bolkart, Thies, \"Instant Volumetric Head Avatars\" (INSTA), CVPR 2023",
+    "Grassal et al., \"Neural Head Avatars from Monocular RGB Videos\", CVPR 2022",
+    "Sanyal et al., RingNet and the NoW benchmark, CVPR 2019",
+    "Schönberger & Frahm, \"Structure-from-Motion Revisited\" (COLMAP), CVPR 2016",
+    "Hartley & Zisserman, Multiple View Geometry in Computer Vision, 2nd ed., 2004",
+    "Farkas, Anthropometry of the Head and Face, 1994"
+  ]
+}

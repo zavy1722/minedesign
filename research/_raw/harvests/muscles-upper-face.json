@@ -1,0 +1,538 @@
+{
+ "queries": [
+  "frontalis muscle origin insertion galea aponeurotica forehead wrinkles anatomy",
+  "corrugator supercilii origin insertion fibre direction medial eyebrow anatomy",
+  "procerus muscle origin insertion nasal bone glabella wrinkle anatomy",
+  "depressor supercilii muscle anatomy origin insertion",
+  "orbicularis oculi orbital palpebral part origin insertion anatomy",
+  "levator palpebrae superioris origin lesser wing sphenoid insertion tarsus anatomy",
+  "frontalis muscle anatomy facial expression wrinkles forehead study (ncbi/pmc only)",
+  "corrugator supercilii procerus facial muscles anatomy review (ncbi/pmc only)",
+  "orbicularis oculi muscle anatomy palpebral orbital portions review (ncbi/pmc only)",
+  "upper face muscles 3D face modeling blendshape frontalis corrugator anatomy artists (reddit/polycount/blenderartists; reddit blocked, other domains returned nothing relevant)",
+  "upper face facial muscles anatomy sculpting frontalis corrugator orbicularis (extended)",
+  "facial muscle anatomy forehead glabella eyebrow wrinkle mechanism 2024 2025 study (extended, arxiv/pmc)"
+ ],
+ "sources": [
+  {
+   "url": "https://en.wikipedia.org/wiki/Frontalis_muscle",
+   "title": "Frontalis muscle (Wikipedia)",
+   "kind": "other",
+   "year": ""
+  },
+  {
+   "url": "https://radiopaedia.org/articles/92665",
+   "title": "Frontalis muscle (Radiopaedia)",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/frontalis-muscle/18057",
+   "title": "Frontalis muscle (Elsevier anatomy)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK557752/",
+   "title": "Anatomy, Head and Neck; Frontalis Muscle (StatPearls)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10307676/",
+   "title": "Dynamic Evaluation of Skin Displacement by the Frontalis Muscle Contraction Using 3D Skin Displacement Vector Analysis",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10893323/",
+   "title": "Optimizing Botulinum Toxin A Administration for Forehead Wrinkles: Lines and Dots (LADs) Technique",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32223472/",
+   "title": "A personalized treatment approach of frontalis muscle with Bont-A related to functional anatomy: case studies",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12737568/",
+   "title": "Why, When, and How to Treat Dynamic Forehead Lines with Botulinum Toxin Type A",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/corrugator-supercilii/16419",
+   "title": "Corrugator supercilii (Elsevier anatomy)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://en.wikipedia.org/wiki/Corrugator_supercilii_muscle",
+   "title": "Corrugator supercilii muscle (Wikipedia)",
+   "kind": "other"
+  },
+  {
+   "url": "https://gpnotebook.com/en-AU/pages/neurology/corrugator-supercilii-muscle-anatomy",
+   "title": "Corrugator supercilii muscle anatomy (GPnotebook)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://radiopaedia.org/articles/corrugator-supercilii-2?lang=us",
+   "title": "Corrugator supercilii (Radiopaedia)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://www.kenhub.com/en/library/anatomy/corrugator-supercilii-muscle",
+   "title": "Corrugator supercilii muscle (Kenhub)",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK542280/",
+   "title": "Anatomy, Head and Neck, Eye Corrugator Muscle (StatPearls)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/18835209/",
+   "title": "[The corrugator supercilii muscle. A review]",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12975140/",
+   "title": "Anatomy of the corrugator supercilii muscle",
+   "kind": "paper",
+   "year": "2003"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13433588/",
+   "title": "Corrugator Supercilii Muscle and Its Relationship with Neurovascular Structures of the Frontal Region: A Cadaveric Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39789039/",
+   "title": "The influence of repeated frowning and smiling on corrugator muscle activity and wrinkles between eyebrows",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12715876/",
+   "title": "Dynamic Evaluation of Glabellar Area Muscles Movement and Skin Displacement Using 3D Skin Displacement Vector Analysis",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK555993/",
+   "title": "Anatomy, Head and Neck: Glabella (StatPearls)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://en.wikipedia.org/wiki/Procerus_muscle",
+   "title": "Procerus muscle (Wikipedia)",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/procerus-muscle/18373",
+   "title": "Procerus muscle (Elsevier anatomy)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://www.kenhub.com/en/library/anatomy/procerus-muscle",
+   "title": "Procerus muscle (Kenhub)",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/depressor-supercilii/21131",
+   "title": "Depressor supercilii (Elsevier anatomy)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications",
+   "title": "Depressor supercilii muscle: anatomy, histology and cosmetic implications (Cook et al. 2001 abstract, as hosted)",
+   "kind": "paper",
+   "year": "2001"
+  },
+  {
+   "url": "https://en.wikipedia.org/wiki/Depressor_supercilii_muscle",
+   "title": "Depressor supercilii muscle (Wikipedia)",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/eye-accessory-visual-structures/circumorbital-muscles/palpebral-part-of-orbicularis-oculi-muscle/15241",
+   "title": "Palpebral part of orbicularis oculi (Elsevier anatomy)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/palpebral-part-of-orbicularis-oculi/21807",
+   "title": "Palpebral part of orbicularis oculi (Elsevier anatomy)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://elsevier.com/resources/anatomy/muscular-system/muscles-of-head/orbital-part-of-orbicularis-oculi/23847",
+   "title": "Orbital part of orbicularis oculi (Elsevier anatomy)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK441907/",
+   "title": "Anatomy, Head and Neck: Orbicularis Oculi Muscle (StatPearls)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://en.wikipedia.org/wiki/Orbicularis_oculi_muscle",
+   "title": "Orbicularis oculi muscle (Wikipedia)",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/eye-accessory-visual-structures/extraocular-muscles/levator-palpebrae-superioris/16321",
+   "title": "Levator palpebrae superioris (Elsevier anatomy)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK536921/",
+   "title": "Levator palpebrae superioris (StatPearls)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://en.wikipedia.org/wiki/Levator_palpebrae_superioris_muscle",
+   "title": "Levator palpebrae superioris muscle (Wikipedia)",
+   "kind": "other"
+  },
+  {
+   "url": "https://www.meddean.luc.edu/lumen/MedEd/GrossAnatomy/dissector/muscles/lps.htm",
+   "title": "Levator palpebrae superioris (Loyola dissector)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20456101/",
+   "title": "The severity of wrinkling at the forehead is related to the degree of ptosis of the upper eyelid",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/40772568/",
+   "title": "Continuous Improvement of Frontal Rhytids Following Glabella Only Treatments With Neuromodulators: Clinical Prospective Pilot Study",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39761145/",
+   "title": "A Study of Glabellar Contraction Patterns in African Descendants",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39920474/",
+   "title": "Efficacy and safety of microfocused ultrasound for temporary eyebrow lift and glabellar wrinkle reduction",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13172661/",
+   "title": "The Neuromuscular Junction Distribution in the Upper Face: Anatomy-to-Practice Review",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/",
+   "title": "Anatomy, Head and Neck: Face (StatPearls)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK493209/",
+   "title": "Anatomy, Head and Neck: Facial Muscles (StatPearls)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://www.physio-pedia.com/Facial_Muscles_-_Upper_Group",
+   "title": "Facial Muscles - Upper Group (Physiopedia)",
+   "kind": "other"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Frontalis arises from the galea aponeurotica; sources differ on whether its origin is the anterior or posterior galea. It has no bony attachment. Its insertion is reported inconsistently: skin of the eyebrows and root of nose (Elsevier), superior border of orbicularis oculi and eyebrow skin (Radiopaedia), orbicularis oculi (Wikipedia). A histology study reported fibres running the whole length of the venter and inserting into the galea.",
+   "urls": [
+    "https://en.wikipedia.org/wiki/Frontalis_muscle",
+    "https://radiopaedia.org/articles/92665",
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/frontalis-muscle/18057"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Frontalis is innervated by the temporal (frontal) branch of the facial nerve; it elevates the brow and creates transverse forehead rhytids; its antagonists are orbicularis oculi, corrugator and procerus.",
+   "urls": [
+    "https://en.wikipedia.org/wiki/Frontalis_muscle",
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/frontalis-muscle/18057"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A cadaver study described four anatomical shapes of frontalis, which the authors linked to four horizontal wrinkle patterns in live patients (a 'full' pattern giving straight parallel lines, a 'V-shaped' pattern giving wavy lines). Sample size and exact source URL were not confirmed in the snippet; treat as unconfirmed.",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "In a 3D skin-displacement vector study of an Asian cohort, 53% of participants showed only the lower forehead moving upward while the upper forehead stayed fixed during frontalis contraction. Authors note this differed from an earlier study.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10307676/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2024 technique, Lines and Dots (LADs), proposes botulinum toxin A injection placement for forehead wrinkles based on frontalis anatomy and nerve pathways, with a predictive dosage model.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10893323/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Researchers recommend concomitant botulinum toxin injection into corrugator and procerus when treating forehead wrinkles in patients whose glabellar skin is displaced by frontalis contraction.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10307676/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Forehead wrinkle severity is associated with upper-eyelid ptosis; ptosis correlated with increased frontalis activation during upward gaze in a Japanese study.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/20456101/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Deep forehead wrinkles are attributed mainly to overactive frontalis; ageing factors (reduced skin elasticity, forehead flattening, fat pad atrophy, eyelid ptosis) contribute. This is a review-level claim, not a quantified study.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10307676/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Corrugator supercilii is a small, narrow muscle at the medial end of the brow; its fibres run superolaterally between the palpebral and orbital parts of orbicularis oculi.",
+   "urls": [
+    "https://gpnotebook.com/en-AU/pages/neurology/corrugator-supercilii-muscle-anatomy",
+    "https://en.wikipedia.org/wiki/Corrugator_supercilii_muscle",
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/corrugator-supercilii/16419"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Corrugator origin is the frontal bone at the medial end of the superciliary arch; Kenhub notes some fibres arise from orbicularis oculi.",
+   "urls": [
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/corrugator-supercilii/16419",
+    "https://www.kenhub.com/en/library/anatomy/corrugator-supercilii-muscle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Corrugator insertion is reported differently: skin above the supraorbital margin (Elsevier); deep to skin above the middle of the supraorbital margin (Radiopaedia); medial forehead up to mid-eyebrow (GPnotebook).",
+   "urls": [
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/corrugator-supercilii/16419",
+    "https://radiopaedia.org/articles/corrugator-supercilii-2?lang=us",
+    "https://gpnotebook.com/en-AU/pages/neurology/corrugator-supercilii-muscle-anatomy"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Corrugator contraction draws the eyebrow inferomedially and produces vertical glabellar furrows when frowning.",
+   "urls": [
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/corrugator-supercilii/16419",
+    "https://en.wikipedia.org/wiki/Corrugator_supercilii_muscle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2003 anatomical study reported the corrugator originates as 3 or 4 thin, rectangular, panel-like muscle groups; the corrugator usually has two heads in the same summary. Attribution of the 3-to-4 figure to the 2003 PubMed record was taken from search summary and not verified in full text.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/12975140/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Corrugator is deeper and more laterally extended than procerus and is more directly linked to vertical glabellar lines.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/18835209/",
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK542280/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Corrugator is supplied by the frontal (temporal) branch of the facial nerve. Frontalis, corrugator and procerus share this innervation.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK542280/",
+    "https://www.physio-pedia.com/Facial_Muscles_-_Upper_Group"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A cadaver study found the corrugator's close relationship to the supratrochlear nerve, supraorbital nerve and associated vessels, which the authors say underscores iatrogenic injury risk in forehead procedures.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13433588/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In one anatomy study, corrugator extended through the frontalis and orbicularis layers in 41% of cases. Source URL not confirmed from snippet.",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "Procerus is a small, thin, pyramidal midline muscle; origin at the lower nasal bone and upper lateral nasal cartilage junction; insertion into skin of the glabella or lower forehead (sources differ on exact level).",
+   "urls": [
+    "https://en.wikipedia.org/wiki/Procerus_muscle",
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/procerus-muscle/18373",
+    "https://www.kenhub.com/en/library/anatomy/procerus-muscle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Procerus pulls the medial eyebrow down and produces horizontal wrinkles at the nasal root; repeated activation leaves permanent glabellar skin wrinkles, which is the rationale for botulinum toxin injection there.",
+   "urls": [
+    "https://en.wikipedia.org/wiki/Procerus_muscle",
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK555993/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Glabellar complex is formed by procerus, corrugator supercilii, depressor supercilii, orbicularis oculi fibres and frontalis fibres together.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK555993/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Depressor supercilii is a small muscle that depresses the eyebrow; origin is the medial orbital rim (frontal process of maxilla), with one source adding the superciliary arch of frontal bone. Its insertion is into skin of the medial eyebrow, not bone.",
+   "urls": [
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/depressor-supercilii/21131",
+    "https://radiopaedia.org/articles/depressor-supercilii-muscle?lang=gb",
+    "https://en.wikipedia.org/wiki/Depressor_supercilii_muscle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2001 cadaver study (Cook et al.) measured depressor supercilii insertion about 13 to 14 mm above the medial canthal tendon, and treated it as distinct from corrugator and the medial orbital portion of orbicularis.",
+   "urls": [
+    "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Depressor supercilii is classed as distinct by some authors and as part of orbicularis oculi by many others; this is an active taxonomic disagreement. A 2022 PLoS ONE study by Hur and Lee was cited in results, but no URL was confirmed.",
+   "urls": [
+    "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Depressor supercilii has two heads in most specimens and one in a few; innervated by temporal branches of the facial nerve.",
+   "urls": [
+    "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Orbicularis oculi is a superficial sphincter divided into orbital and palpebral portions; the orbital part is the forceful, voluntary closer; the palpebral part closes gently in reflex blinking.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK441907/",
+    "https://en.wikipedia.org/wiki/Orbicularis_oculi_muscle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Palpebral part originates at the medial palpebral ligament and inserts at the lateral palpebral raphe; Kenhub adds insertion into superior and inferior tarsal plates. Some sources say the palpebral part attaches to both medial and lateral palpebral ligaments.",
+   "urls": [
+    "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/palpebral-part-of-orbicularis-oculi/21807",
+    "https://www.ncbi.nlm.nih.gov/books/NBK441907/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Palpebral part subdivides into preseptal (over orbital septum), pretarsal (in front of tarsal plates) and sometimes a ciliary (muscle of Riolan) part.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK441907/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Orbital portion extends beyond the orbital rim onto the frontalis, temporalis and cheek musculature, so frontalis and orbicularis overlap; this overlap may affect eyebrow movement.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK441907/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Levator palpebrae superioris arises from the lesser wing of the sphenoid just above the optic canal/foramen, widens into an aponeurosis, and inserts into the anterior surface of the superior tarsus and skin of the upper eyelid.",
+   "urls": [
+    "https://www.elsevier.com/resources/anatomy/eye-accessory-visual-structures/extraocular-muscles/levator-palpebrae-superioris/16321",
+    "https://www.ncbi.nlm.nih.gov/books/NBK536921/",
+    "https://en.wikipedia.org/wiki/Levator_palpebrae_superioris_muscle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Levator palpebrae superioris is innervated by the superior division of the oculomotor nerve (CN III) and elevates the upper eyelid; smooth-muscle superior tarsal muscle lies alongside it.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK536921/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In a 2025 Annals of Dermatology 3D skin-displacement study of glabellar frowning, lateral pattern (main vector on the eyebrow area) was 89.66% and 62.07% showed asymmetric displacement; the denominator implies about 29 participants but this was not stated and is an inference.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12715876/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025 pilot (Aesthetic Surgery Journal) treating glabella only with neuromodulator tested whether forehead lines improved; 18 participants; no eyebrow-position change was detected.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/40772568/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025 microfocused-ultrasound study of 38 patients found eyebrow-lift (AEH) elevation of a mean 1.99 mm at week 4 and 1.57 mm at week 16.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/39920474/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025 study of 103 patients of African descent classified glabellar contraction patterns to guide botulinum toxin dosing.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/39761145/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025 study found repeated frowning and smiling increased corrugator activity and wrinkles between the eyebrows, attributed to cumulative activation.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/39789039/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The upper-face neuromuscular junction distribution has been reviewed for botulinum toxin planning; a 2025 dosing review covers target depth and muscle thickness.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13172661/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13709392"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Ultrasound anatomy of the forehead is contested: whether a thick hypoechoic middle layer is frontalis muscle or subcutaneous fat.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11635371/"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Frontalis insertion: skin of eyebrows/nasal root (Elsevier) vs. orbicularis oculi superior border (Radiopaedia, Wikipedia) vs. galea aponeurotica (histology study).",
+  "Frontalis origin: anterior vs. posterior galea.",
+  "Corrugator insertion: above supraorbital margin (Elsevier) vs. middle of supraorbital margin (Radiopaedia) vs. up to mid-eyebrow (GPnotebook).",
+  "Procerus insertion: skin of glabella (most sources) vs. lower forehead between brows.",
+  "Depressor supercilii: separate muscle (Cook 2001, Hur and Lee 2022) vs. part of orbicularis oculi (many authorities).",
+  "Forehead motion: 2025/earlier 3D analysis reported only the lower forehead moves in 53%, contrasting an earlier study.",
+  "Palpebral part origin: medial palpebral ligament only (Elsevier, Kenhub) vs. both medial and lateral ligaments (StatPearls)."
+ ],
+ "openQuestions": [
+  "Full-text confirmation of the cadaver frontalis shape classification (four shapes) and of the 41% corrugator-through-layers figure; no URL confirmed in results.",
+  "Full-text of the 2025 Annals of Dermatology glabellar study: sample size and definitions of 'lateral pattern'.",
+  "Whether any primary, quantitative muscle-belly measurements (thickness, length, fibre angle) exist for frontalis, corrugator, procerus or orbicularis in these results; none were found.",
+  "Community/practitioner views (Reddit, Polycount, BlenderArtists) could not be retrieved: the Reddit domain was rejected by the search tool, and Polycount/BlenderArtists produced no relevant results in the combined query.",
+  "Whether the 2022 PLoS ONE Hur and Lee depressor supercilii study is accessible and what it measured.",
+  "The orbicularis 'orbital part is the stronger voluntary closer' claim and the 'frontalis/temporalis/cheek extension' claim were from search summaries; primary URLs were not confirmed.",
+  "Fat pad and skin-thickness layering of the forehead for sculpting was not covered in this focus."
+ ]
+}

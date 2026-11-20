@@ -1,0 +1,290 @@
+{
+ "queries": [
+  "Farkas anthropometry facial measurements norms mean standard deviation adults (ncbi/pmc)",
+  "Farkas 1994 Anthropometry of the Head and Face normative values facial width height nose mouth",
+  "anthropometric norms face linear measurements mm sex population sample size review (pmc)",
+  "3D facial scan anthropometry normative database FaceBase Headspace face measurements",
+  "3D Facial Norms Database comparison Farkas direct anthropometry stereophotogrammetry differences mm (pmc/ncbi)",
+  "Kosovo Albanian adults facial anthropometric norms en-en n-gn mean SD males females (pmc)",
+  "Kolar 1993 criticism Farkas craniofacial anthropometric norms limitations sample",
+  "systematic review inter-ethnic variability facial dimensions 27 ethnic groups 2359 individuals (pmc)",
+  "facial anthropometry 2025 2026 3D landmark normative values adults nasal width mouth width intercanthal (extended, pmc/ncbi)"
+ ],
+ "sources": [
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760",
+   "title": "The 3D Facial Norms Database: Part 1. A Web-Based Craniofacial Anthropometric and Image Repository for the Clinical and Research Community",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/",
+   "title": "Facial Anthropometric Norms among Kosovo-Albanian Adults",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3074358/",
+   "title": "A Systematic Review of Inter-ethnic Variability in Facial Dimensions",
+   "kind": "paper",
+   "year": "2011"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996",
+   "title": "An Anthropometric Study of the Facial Index Among Undergraduate Medical Students, BHU, Uttar Pradesh",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12500730/",
+   "title": "Evaluation of Facial Asymmetry Determined by Linear Measurements According to Hand Preference and Gender",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104",
+   "title": "Three-dimensional photographic analysis of the face in European adults from southern Spain with normal occlusion: reference anthropometric measurements",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13666107",
+   "title": "3D Facial Normotypes for Maxillofacial Surgical Planning",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/",
+   "title": "Normative Findings for Periocular Anthropometric Measurements among Chinese Young Adults in Hong Kong",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/",
+   "title": "Anthropometric Study of Three-Dimensional Facial Morphology in Malay Adults",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+   "title": "Weinberg et al. 3D facial norms vs Farkas norms comparison (Am J Orthod Dentofacial Orthop 2019)",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2304.07175",
+   "title": "Exploring Causes of Demographic Variations In Face Recognition Accuracy (reproduces Farkas Table 0.3 SDs)",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://facebase.org/facial_norms/",
+   "title": "FaceBase 3D Facial Norms Database",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/26267357",
+   "title": "Accuracy and reliability of 3D stereophotogrammetry: a comparison to direct anthropometry and 2D photogrammetry",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38896864",
+   "title": "Three-Dimensional Anthropometric Facial Analysis and Fitting Discrepancies Between Stereophotogrammetry and CT",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/",
+   "title": "Reproducibility and Accuracy of Facial Soft Tissue Landmarks Across 3D Face Scanning Modalities: Systematic Review",
+   "kind": "paper"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Farkas North American White young adult SDs as reproduced in a face-recognition paper (secondary citation of Farkas Table 0.3, not verified against the book): ex-ex SD 3.6 mm (males), 4 mm (females); n-gn height SD 6.8 mm (males), 5.2 mm (females). Means not given in the excerpt.",
+   "urls": [
+    "https://arxiv.org/pdf/2304.07175"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Farkas's full adult means and SDs could not be retrieved from the search results; the primary source is Farkas, Anthropometry of the Head and Face (Raven Press, New York, 1994).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The Farkas craniofacial norms are based on direct anthropometry with N=2326 subjects, described as North American White adults and children; the 3D Facial Norms (3DFN) comparison dataset is N=2454 collected by stereophotogrammetry.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The 3DFN database contains 2454 participants aged 3-40 years (952 male, 1502 female); it is cross-sectional with each person appearing once.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760",
+    "https://facebase.org/facial_norms/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "3DFN summary-level phenotypic data (landmarks, anthropometric measurements, demographics) are non-controlled and openly downloadable from facebase.org; individual-level data require a Data Access Request reviewed by the FaceBase Data Access Committee.",
+   "urls": [
+    "https://facebase.org/facial_norms/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The 3DFN resource includes sex-specific 3D growth curves and a MATLAB toolbox for assessing individuals against the models.",
+   "urls": [
+    "https://facebase.org/facial_norms/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The 3DFN paper reports 34 inter-landmark measurements and defines landmarks such as en, al, ch; the snippet did not include adult mouth-width values.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Kolar (1993) criticized the Farkas dataset, with the most serious problems attributed to inconsistent data-collection protocols; the original Kolar paper was not retrieved.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Traditional anthropometry norm datasets are confined to narrow age ranges and share demographic limitations, per the 3DFN description.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2019 comparison (Weinberg et al.) found considerable differences between 3DFN and Farkas norms; the authors attribute discrepancies partly to measurement method, possibly secular trends and ethnic composition.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Direct vs 3D photogrammetry agreement in a systematic review (Weinberg et al.): most differences below 2 mm despite some statistically significant differences.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180338/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Direct measurement vs photogrammetry: highest mean difference 0.30 mm; direct vs 3D stereophotogrammetry: 0.21 mm (figures from a search snippet; the source study was not opened).",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/26267357"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "CT-derived measurement for Go-Go was 2.34 mm larger than the 3dMD stereophotogrammetry value in one study, showing modality-dependent offsets.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/38896864"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Kosovo-Albanian adults (Staka et al. 2017): male morphological facial height (n-gn) SD 6.366 mm; female SD 5.004 mm; male n-gn mean 125.82 mm, female 115.53 mm (means from search snippet).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Kosovo-Albanian adults: intercanthal width (en-en) male mean 32.49 mm (SD 2.59), female 31.78 mm (SD 2.25); sex difference t=2.078, p=0.039.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5708327/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Indian medical students (n=200; 104 male, 96 female; BHU Uttar Pradesh): morphological facial height male 121.64 \u00b1 6.47 mm, female 113.63 \u00b1 4.61 mm.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13399996"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Facial asymmetry study (n=297 adults aged 19-42; 147 women, 150 men): right alare-midline mean 17.34 mm (male) vs 15.39 mm (female); males larger on all reported landmarks.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12500730/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Southern-Spain European adults with normal occlusion (3D): mouth-to-intercanthal width ratio about 1.59 (men) and 1.52 (women); intercanthal-to-nasal width ratio 0.89 (men) and 1.01 (women); nasal mean difference reported 5.23 mm.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "3D normotypes paper (2025-era, maxillofacial planning): intercanthal width en_r-en_l ranges 20-41 mm in one group and 21-39 mm in another; a sex table lists 37.0 and 28.9 mm; sex and population labels not confirmed from the snippet. Ranges are computed as mean \u00b1 2 SD (about 95% of the reference population).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13666107"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Hong Kong Chinese young adults (3D): intercanthal width male mean 40.61 mm, female 38.27 mm; males significantly larger.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3730197/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Malay adults (3D stereophotogrammetry): intercanthal width 35.74 mm (men) and 35.03 mm (women); nose width 39.59 mm (men) and 36.67 mm (women); nose width definition should be checked as it is larger than typical alar width values.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5051712/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Systematic review of inter-ethnic variability (Fang, Clapham, Chung 2011, Plast Reconstr Surg): pooled 11 neoclassical linear facial measurements from 2,359 men and women across 27 ethnic groups; coefficient of variation used; forehead height showed the largest inter-ethnic variation in facial proportions.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3074358/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Wen et al. (2015) Bayesian meta-analysis of photogrammetric inter-ethnic facial variation is a separate work from the 2011 systematic review and should not be conflated with it.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4527668/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "No 2025-2026 adult normative table reporting nasal width, mouth width and intercanthal width together from 3D landmarks was found in the search results.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13666107"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Search for Headspace as a 3D facial norms source returned no results; it could not be confirmed as a norms source.",
+   "urls": [],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Intercanthal (en-en) adult means disagree across populations: Kosovo-Albanian males 32.49 mm and females 31.78 mm; Malay 35.74/35.03 mm; Hong Kong Chinese 40.61/38.27 mm; normotype paper 37.0 and 28.9 mm (labels unclear). Likely due to landmark definitions (en-en vs biocular), modality (caliper vs 3D) and population; they are not directly comparable.",
+  "Nose width in the Malay 3D study (39.59 mm males) is much larger than typical alar width values, suggesting a different landmark definition than alar width; comparisons need definition matching.",
+  "Direct-vs-3D agreement is reported as sub-2 mm for most measures (systematic review), yet the 3DFN vs Farkas comparison found considerable differences; discrepancies appear to be method, time and population dependent.",
+  "Farkas SDs quoted in a 2023 face-recognition paper (ex-ex 3.6/4 mm; n-gn 6.8/5.2 mm) could not be checked against the primary book."
+ ],
+ "openQuestions": [
+  "Farkas (1994) full table of means and SDs for face height, face width, intercanthal, biocular, nasal width/height/projection, mouth width, lip heights, ear length, head length/breadth by sex, not retrieved; needs the book or a verified full-table secondary source.",
+  "Kolar (1993) critique text and specific sample criticisms not retrieved.",
+  "Mouth width (cheilion-cheilion) and lip height adult norms with SD were not found in these results.",
+  "Ear length and head length/breadth norms were not found.",
+  "Headspace as a 3D norms source: no evidence found.",
+  "Sample sizes and age ranges for the 2025-era normotype study (PMC13666107) and the Hong Kong/Malay studies need confirmation from full text.",
+  "Whether the 2019 Weinberg comparison (PMC6571015) reports per-measurement mm differences against Farkas is unconfirmed from snippets.",
+  "Fetching was not attempted; all facts come from search snippets and should be verified against full text before citation."
+ ]
+}

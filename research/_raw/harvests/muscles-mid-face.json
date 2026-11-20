@@ -1,0 +1,462 @@
+{
+ "queries": [
+  "zygomaticus major minor origin insertion anatomy",
+  "levator labii superioris alaeque nasi origin insertion function (NCBI/PMC)",
+  "modiolus muscle convergence facial muscles anatomy review (NCBI/PMC)",
+  "nasolabial fold formation muscle zygomaticus levator labii superioris anatomy study",
+  "buccinator muscle anatomy attachments pterygomandibular raphe orbicularis oris (NCBI/PMC)",
+  "risorius nasalis levator anguli oris muscle anatomy function smile",
+  "smile dynamics zygomaticus major activation electromyography study (NCBI/PMC)",
+  "midface muscles anatomy facial rejuvenation 2024 2025 study (extended)",
+  "facial muscles 3D model face animation muscle-based simulation (arXiv/GitHub)",
+  "mid face muscles criticism limitations anatomy variation zygomaticus minor absence"
+ ],
+ "sources": [
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/zygomaticus-major-muscle/21402",
+   "title": "Elsevier Anatomy: Zygomaticus major muscle",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/zygomaticus-minor-muscle/21818",
+   "title": "Elsevier Anatomy: Zygomaticus minor muscle",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25006853",
+   "title": "Clinical anatomic considerations of the zygomaticus minor muscle based on the morphology and insertion pattern",
+   "kind": "paper",
+   "year": "2014"
+  },
+  {
+   "url": "https://www.kenhub.com/en/library/anatomy/zygomaticus-major-muscle",
+   "title": "Kenhub: Zygomaticus major muscle",
+   "kind": "blog"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12641590/",
+   "title": "Accessing the Levator Labii Superioris Alaeque Nasi (LLSAN) Muscle for the Treatment of Infraorbital Dimples: Case Report",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9951819/",
+   "title": "Correction of Alar Base Retraction by Levator Labii Alaeque Nasi Muscle Dissection and Alar Rim Grafting: A Clinical Prospective Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8887774/",
+   "title": "Anatomical connections among the depressor supercilii, levator labii superioris alaeque nasi, and inferior fibers of orbicularis oculi",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/",
+   "title": "StatPearls: Anatomy, Head and Neck: Face",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565131/",
+   "title": "Are We Underestimating Zygomaticus Variability in Midface Surgery?",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12194095/",
+   "title": "An Interdisciplinary Review of the Zygomaticus Muscles: Anatomical Variability, Imaging Modalities, and Clinical Implications",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/9725574/",
+   "title": "Double or bifid zygomaticus major muscle: anatomy, incidence, and clinical correlation",
+   "kind": "paper",
+   "year": "1998"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41945314/",
+   "title": "A structural analysis of the facial muscle modiolus: using a three-dimensional reconstruction system",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39900721/",
+   "title": "Discovery of the Ligament of Modiolus: Anatomical Insights and Clinical Relevance",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11424822/",
+   "title": "Growth patterns of facial muscles at the angle of the mouth: histological study using midterm and near-term human fetuses",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13608583",
+   "title": "The Anatomy of Facial Muscles Revisited: High-Resolution MRI and CT Studies on Body Donors",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499",
+   "title": "Heights and spatial relationships of the facial muscles acting on the nasolabial fold by dissection and 3D microCT",
+   "kind": "paper"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s00266-017-0889-9",
+   "title": "Aesthetic Plastic Surgery 2017 nasolabial fold dissection study (Snider et al.)",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s00266-019-01555-7",
+   "title": "Aesthetic Plastic Surgery 2019 nasolabial fold article",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8846390/",
+   "title": "Identification of the Peri-oral Mimic Muscles on Cadaver Slices and 3 and 7 Tesla MRI Scans",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK546678/",
+   "title": "StatPearls: Anatomy, Head and Neck: Buccinator Muscle",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12864571/",
+   "title": "Dual attachment of the buccinator muscle at the pterygoid hamulus",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6803527/",
+   "title": "Contrasting Experimentally Device-Manipulated and Device-Free Smiles",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42040515/",
+   "title": "Multimodal Assessment of Biomechanical and Neuromuscular Characteristics of Zygomaticus Major in Healthy Participants",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5794977/",
+   "title": "A Wearable High-Resolution Facial Electromyography for Long Term Recordings in Freely Behaving Humans",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/2339189/",
+   "title": "Perception of activity in the Zygomaticus major and Corrugator supercilii muscle regions",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12715075/",
+   "title": "The Aging Process of Facial Muscles (J Cosmetic Dermatology review, Dec 2025)",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s00266-024-03921-6",
+   "title": "Three Key Submuscular Points for Nonsurgical Rejuvenation of the Midface Using HA Fillers",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/9810983/",
+   "title": "Variability of the midfacial muscles: analysis of 50 hemifacial cadaver dissections",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/pdf/physics/0606222",
+   "title": "A 3D Finite Element model of the face for simulation in plastic and maxillo-facial surgery",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2111.06517",
+   "title": "Neuromuscular Control of the Face-Head-Neck",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2503.09556",
+   "title": "Electromyography-Informed Facial Expression Reconstruction",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://github.com/paulmand3l/facemotion",
+   "title": "facemotion.js (GitHub)",
+   "kind": "repo"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Zygomaticus major originates on the lateral zygomatic bone (zygomaticotemporal suture area) and inserts at the modiolus/corner of the mouth, blending with levator anguli oris and orbicularis oris; some sources say it splits to insert above and below the oral commissure.",
+   "urls": [
+    "https://www.kenhub.com/en/library/anatomy/zygomaticus-major-muscle",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8846390/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Zygomaticus minor arises from the lateral zygomatic bone superior and medial to the origin of zygomaticus major; its insertion is variable and described as blending into the upper lip muscles medial to zygomaticus major, with the insertion pattern not well described (2014 study).",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/25006853",
+    "https://kenhub.com:443/en/library/anatomy/zygomaticus-minor-muscle"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Zygomaticus major and minor are both innervated by the zygomatic and buccal branches of the facial nerve (CN VII).",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Levator labii superioris alaeque nasi (LLSAN) typically arises from the frontal process of the maxilla; StatPearls instead describes origin from the medial orbital wall, so the origin is reported inconsistently.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12641590/",
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "LLSAN inserts into the nasal ala (pulling it superolaterally) and the upper lip; one source describes it as having two bellies that merge with levator labii superioris at insertion.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12641590/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9951819/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "LLSAN functions as an upper-lip elevator and nostril flaring muscle, and is described as primarily mimetic, relatively inactive during respiration but highly active during complex expressions.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9951819/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8887774/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "One LLSAN source reports it is innervated by the zygomatic and superior buccal branches of the facial nerve and supplied by the facial artery and infraorbital branch of the maxillary artery (source attribution within the result set was not fully confirmed).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9951819/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Buccinator arises from the alveolar processes of maxilla and mandible and from the pterygomandibular raphe, and its anterior fibers run forward to the modiolus where they blend with orbicularis oris.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/sites/books/NBK546678/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8846390/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Some sources describe all buccinator fiber sets as inserting into orbicularis oris, while others describe the anterior fibers as ending at the modiolus; the two descriptions differ.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3498722/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8846390/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2026 study reports a dual attachment of the buccinator to the pterygoid hamulus, which textbooks typically do not mention.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12864571/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The modiolus is described in a 2025 cadaver study as a fibromuscular convergence point at the mouth angle where orbicularis oris, buccinator and zygomaticus major converge.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/39900721/",
+    "https://pubmed.ncbi.nlm.nih.gov/41945314/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 3D reconstruction study names orbicularis oris, buccinator, zygomaticus major, levator anguli oris and depressor anguli oris as core modiolus components, with labial orbicularis oris and zygomaticus major fibers crossing obliquely and interweaving.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/41945314/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A fetal histology study (midterm and near-term fetuses) argues the modiolus is not a distinct fibromuscular structure but a name for a cluster of muscle convergence sites with only a thin epimysium at crossings.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11424822/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "MRI and CT on body donors could not resolve individual facial muscles as drawn in atlases, and whether the perioral musculature is continuous or several muscles joined by connective tissue remains unclear.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13608583"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In a dissection of 50 hemifaces, the most common midface pattern (44%) combined levator alae nasi, levator labii superioris and zygomaticus major.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/9810983/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A bifid or double zygomaticus major was reported in about 34% of specimens in cadaver work cited in a 2025 review (the 1998 Double or bifid zygomaticus major paper is the related primary source).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565131/",
+    "https://pubmed.ncbi.nlm.nih.gov/9725574/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025 review argues textbook zygomaticus descriptions understate variability and proposes a five-type morphological classification based on belly number, accessory structures and insertion pattern.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565131/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2024 dissection and micro-CT study measured heights and spatial relationships of the facial muscles acting on the nasolabial fold; sample was 56 specimens from 34 embalmed adults (Korean cadaver study).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2017 dissection study (Aesthetic Plastic Surgery) suggests the levator labii muscles and zygomaticus minor are primarily responsible for nasolabial fold formation, while other muscles affect oral commissure position.",
+   "urls": [
+    "https://link.springer.com/article/10.1007/s00266-017-0889-9"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Muscle roles in the nasolabial fold are debated: the fold is described as the result of interaction between skin/fat and underlying muscle, and a study argues it differs from aging nasolabial wrinkles and mimetic-muscle ridges.",
+   "urls": [
+    "https://link.springer.com/article/10.1007/s00266-019-01555-7"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The nasolabial fold is a 3D curvature forming the medial boundary of the malar fat pad, due to cutaneous insertion of upper lip elevators and zygomaticus major.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Zygomaticus major is the principal smile muscle: device-free smiles produced about 40% more zygomaticus major activation than smiles made while holding a Smile Stick or chopsticks (orbicularis oculi about 15% more).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6803527/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2026 study of 33 healthy adults measured zygomaticus major during smiling and puckering, reporting a maximum sEMG-based contraction of 9.8% \u00b1 3.1% during smiling with force 0.93 \u00b1 0.48 N.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/42040515/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Duchenne-marker interpretation is contested: zygomaticus major with orbicularis oculi is treated as a genuine-smile marker, but other studies found the marker in posed smiles too, so EMG reliability for genuine emotion is unresolved.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7773723/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5794977/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Wearable high-density facial EMG shows crosstalk from high-intensity muscles, especially zygomaticus major during smiling.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5794977/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Risorius is a smile/grin muscle pulling the mouth corner outward; its presence is not universal according to some sources; dissection sources describe a toothless smile action.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK493209/",
+    "https://statpearls.com/sp/al/48/36306/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Levator anguli oris runs from the canine fossa of the maxilla to the modiolus and works with zygomaticus major to lift the mouth corners; unilateral paralysis can cause smile asymmetry.",
+   "urls": [
+    "https://statpearls.com/sp/al/48/24224/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Nasalis produces nostril flaring and vertical bunny lines on snarling; it is not primarily a smile muscle.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK493209/",
+    "https://my.clevelandclinic.org/health/body/21672-facial-muscles"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2025 Journal of Cosmetic Dermatology review argues zygomaticus major shows different aging patterns in its two layers and links muscle weakening to bone resorption via Wolff's law (review, not original data).",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12715075/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2024 prospective Aesthetic Plastic Surgery study injected hyaluronic acid at the cutaneous insertions of levator labii superioris and zygomatic muscles; follow-up averaged 4 months with no control group.",
+   "urls": [
+    "https://link.springer.com/article/10.1007/s00266-024-03921-6"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "An ultrasound study of a facial exercise device reported thickness increases in levator labii superioris and zygomaticus major, with mixed results (one side of levator labii superioris did not change significantly); about a decade old.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5888959/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A finite-element face model drives zygomaticus major to pull lip corners upward; the authors planned to add levator, depressor and masseter layers. A companion atlas labels zygomaticus major and minor, risorius, buccinator and orbicularis oris elements, but not levator labii.",
+   "urls": [
+    "https://arxiv.org/pdf/physics/0606222"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Neuromuscular face-head-neck biomechanical model (arXiv 2111.06517) includes 26 pairs of primary facial muscles, driven by FACS-based activations.",
+   "urls": [
+    "https://arxiv.org/pdf/2111.06517"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "An EMG-informed facial expression reconstruction paper (arXiv 2503.09556, 2025) exists for physiological-based synthesis; code and licensing were not checked.",
+   "urls": [
+    "https://arxiv.org/pdf/2503.09556"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "facemotion.js is an open-source JavaScript library with a physics muscle-and-tissue face model and a levator-labii setting used for a sneer; a lightweight demo only.",
+   "urls": [
+    "https://github.com/paulmand3l/facemotion"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "LLSAN origin: frontal process of maxilla (most sources, PMC12641590) vs medial orbital wall (StatPearls NBK551530).",
+  "Buccinator anterior insertion: all fibers into orbicularis oris (PMC3498722) vs anterior fibers ending at the modiolus (PMC8846390).",
+  "Modiolus: a discrete fibromuscular structure (2025 cadaver PubMed 39900721; 3D reconstruction PubMed 41945314) vs a mere cluster of convergence sites (fetal histology PMC11424822).",
+  "Levator vs zygomaticus minor dominance in nasolabial fold formation: 2017 dissection favors levator labii and zygomaticus minor, while other sources say zygomaticus major and the upper-lip elevators together form the fold.",
+  "Zygomaticus minor insertion: angle of mouth in some sources vs blending into upper lip muscles in Kenhub."
+ ],
+ "openQuestions": [
+  "Zygomaticus minor absence incidence was not found in the results.",
+  "Full texts of the 2025 zygomaticus variability review and the 2026 zygomaticus EMG study were not opened; all facts come from search snippets.",
+  "The 34% bifid zygomaticus major figure is cited secondhand; the primary study's sample size and population were not confirmed.",
+  "No 2024-2025 study directly measures zygomaticus or levator labii muscle position in aging faces.",
+  "Code availability and licensing for arXiv muscle-simulation papers were not checked.",
+  "Direct page fetches were not attempted, so most details rest on search snippets rather than full text."
+ ]
+}

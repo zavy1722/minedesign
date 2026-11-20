@@ -1,0 +1,253 @@
+{
+ "queries": [
+  "facial asymmetry normal adults millimeters landmarks magnitude (ncbi/pmc restricted)",
+  "normal facial asymmetry 3D surface scan study mean asymmetry mm healthy adults",
+  "human face asymmetry perception threshold detection of asymmetry study (ncbi/pmc restricted)",
+  "facial symmetry mirrored face likeness attractiveness asymmetry natural faces study (pmc/ncbi restricted)"
+ ],
+ "sources": [
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10389059/",
+   "title": "A longitudinal study of facial asymmetry in a normal birth cohort up to 6 years of age and the predisposing factors",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/23112933/",
+   "title": "Three-dimensional soft tissue analysis for the evaluation of facial asymmetry in normal occlusion individuals",
+   "kind": "paper",
+   "year": "2012"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8166985/",
+   "title": "Analysis of hard tissue facial symmetry after unilateral mandibular reconstruction",
+   "kind": "paper",
+   "year": "2021"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565447/",
+   "title": "Precision Assessment of Facial Asymmetry Using 3D Imaging and Artificial Intelligence",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7248163/",
+   "title": "Quantification of three-dimensional facial asymmetry for diagnosis and postoperative evaluation of orthognathic surgery",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/",
+   "title": "Facial asymmetry assessment in adults using three-dimensional surface imaging",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30511968/",
+   "title": "The Relationship between Age and Facial Asymmetry",
+   "kind": "paper",
+   "year": "2018"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11593128/",
+   "title": "Comparison of Different 3D Surface Registration-Based Methods to Assess Facial Asymmetry",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/21242426/",
+   "title": "Threshold of visual perception of facial asymmetry in a facial paralysis model",
+   "kind": "paper",
+   "year": "2011"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28200081/",
+   "title": "Discriminative Thresholds in Facial Asymmetry: A Review of the Literature",
+   "kind": "paper",
+   "year": "2017"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/",
+   "title": "Thresholds of Abnormality Perception in Facial Esthetics among Laypersons and Dental Professionals: Frontal Esthetics",
+   "kind": "paper",
+   "year": "2020"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/",
+   "title": "Limits in the Perception of Facial Symmetry - A Prospective Study",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2293939/",
+   "title": "Preferences for symmetry in human faces in two cultures: UK and Hadza",
+   "kind": "paper",
+   "year": "2008"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11430245/",
+   "title": "Attractiveness of facial averageness and symmetry in non-western cultures",
+   "kind": "paper",
+   "year": "2001"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25296669/",
+   "title": "Measuring facial symmetry: a perception-based approach using 3D shape and color",
+   "kind": "paper",
+   "year": "2014"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "In a longitudinal normal birth cohort (infancy to 6 years), average landmark offsets from the midline were around 0.25 mm, with lower-face landmarks shifting slightly to the other side; the authors state no thresholds exist to separate normal from increased asymmetry. Figure taken from search excerpt, not full text.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10389059/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In 48 adults with normal occlusion (CBCT, soft tissue), right-left differences across 9 bilateral landmark pairs ranged 0.6 to 4.6 mm, with larger values at lower and lateral landmarks.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/23112933/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A source reports a normal adult range of 0 to 12 mm between right and left skeletal landmarks on posteroanterior cephalograms; the very wide range reflects the 2D method and landmark choice.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8166985/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025 3D-AI study uses 3 mm as a treatment-planning threshold and notes asymmetry under about 3 mm is generally undetectable in a normal face; described as a clinical convention, not an established normal limit.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565447/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A normal control group of 25 males gave 3D asymmetry index values of 1.77 to 3.38 across 10 landmarks (index values, not mm).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7248163/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In healthy volunteers using 3dMD photogrammetry, mean facial asymmetry (RMSD between each face and its reflection about its plane of maximum symmetry) was 0.80 plus or minus 0.24 mm. Attribution to this exact URL is inferred from search excerpts and is not fully confirmed.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In a sample of 191 people aged 0.3 to 88 years, mean RMSD asymmetry was 0.8 plus or minus 0.2 mm; upper, middle and lower thirds averaged 0.5, 0.6 and 0.6 mm, and asymmetry increased significantly with age.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/30511968/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A Raine Study dense-correspondence analysis of young adults reported over 50 percent of faces exceeded 2 mm asymmetry by total surface area, and the midline deviated to the right in all females and all but one male. Source URL not confirmed in search results.",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "A 2024 comparison of three 3D surface-registration methods in 80 adults aged 18 to 95 reported RMS asymmetry per method and concluded some slight asymmetry is always present in normal faces. Exact per-method values not confirmed from excerpt.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11593128/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In a facial paralysis model, naive observers detected mouth-corner or brow asymmetry only at about 3 mm or more; shorter viewing times raised detection thresholds, while longer display times let observers detect smaller asymmetry.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/21242426/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2017 literature review found each facial feature has its own detection threshold; eyelid position at rest is the most sensitive feature with a perceptive threshold of about 2 mm.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/28200081/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2024 3D-scan study reported perception threshold values at asymmetry index values of about 1.1 and 3.1. Source URL for this specific claim was not confirmed.",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "Laypersons and general dental practitioners judged 4 mm of asymmetry as the threshold of abnormality, while orthodontists and oral and maxillofacial surgeons placed it at 2 mm.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "For lower-face deviation in one study, the orthodontist detection threshold was 6 degrees in the OIII category; dentists and laypeople could not detect the asymmetry at that level.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A prospective study reports that differences below about 3-4 degrees of canting or 3-4 mm are generally not recognized as asymmetry. Attribution to this URL is unconfirmed.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Earlier symmetry-attractiveness studies that simply reflected one half of the face distorted features (making some abnormally large or small); later studies blended each face with its mirror image instead.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/25296669/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Symmetric faces were found more attractive when blended with mirror images in Japanese samples; a 2001 study found preferences for averageness and symmetry also hold in Chinese and Japanese faces.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/11430245/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Symmetry preference was found in both UK and Hadza hunter-gatherers, and was stronger in the Hadza.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2293939/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Attractiveness ratings correlated only weakly with individual 3D asymmetry indices in one scanning study.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "Directional asymmetry did not affect symmetry or attractiveness judgements, whereas fluctuating asymmetry affected both. Source not confirmed.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "Asymmetry-threshold findings differ across studies because of method (2D photos, 3D models, paralysis simulation) and metric (RMSD, midline deviation, index), so the numbers are not interchangeable.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/28200081/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11593128/"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Childhood midline offsets about 0.25 mm (PMC10389059) vs adult landmark right-left differences 0.6 to 4.6 mm (PubMed 23112933) vs whole-surface RMSD 0.8 mm (PMC4614853, PubMed 30511968). Different metrics and populations.",
+  "Perception thresholds: 2 mm (eyelid, review 28200081), about 3 mm (paralysis model, Chu 2011, 21242426), 2 mm vs 4 mm lay vs specialist (PMC7603600), 3-4 mm and 3-4 degrees (PMC11595402).",
+  "Skeletal cephalometric normal range 0-12 mm (PMC8166985) is far wider than CBCT or 3D soft-tissue values."
+ ],
+ "openQuestions": [
+  "Search budget was exhausted after 4 successful WebSearch calls (the tool returned a per-turn limit message on the 5th query). Not covered: which regions are most asymmetric by 3D surface measures; head-rotation and pose effects on asymmetry; step-by-step methods for estimating and correcting asymmetry; criticism of mirror-symmetry templates in face modelling; 2025-2026 developments beyond the 2024-2025 papers above.",
+  "Several URLs above were inferred from search excerpts rather than read in full. Verify the 0.80 mm RMSD, 2024 index thresholds, and 3-4 degree/mm statement against the full papers before citing.",
+  "The Raine Study figure and fluctuating vs directional asymmetry finding lack a confirmed source URL.",
+  "When to turn symmetry mirroring off for likeness has no direct source yet; the 2024 fMRI symmetry study (PubMed 43026397) and arXiv SymFace (2409.11816) were surfaced but not read."
+ ]
+}

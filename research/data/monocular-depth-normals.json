@@ -1,0 +1,25 @@
+{"topic":"monocular-depth-normals","tables":[
+{"name":"depth_model_benchmarks","units":"params in millions; latency ms per image; DA-2K accuracy %; delta1 and AbsRel unitless","columns":["model","output_type","params_M","latency_ms","benchmark","metric","value"],"rows":[
+["Depth Anything V2 Small","relative_depth",25,60,"DA-2K","accuracy_pct",95.3],
+["Depth Anything V2 (ablation: labelled synthetic only)","relative_depth",null,null,"DA-2K","accuracy_pct",89.8],
+["Depth Anything V2 (ablation: pseudo-labelled real only)","relative_depth",null,null,"DA-2K","accuracy_pct",95.3],
+["Depth Anything V2 ViT-L","depth",null,null,"NYU-D","delta1",0.984],
+["Depth Anything V2 ViT-L","depth",null,null,"NYU-D","AbsRel",0.056],
+["DA3Metric-Large","metric_depth",350,null,"SUN-RGBD","AbsRel",0.105]
+],"population":"General indoor/outdoor scene benchmarks (DA-2K, NYU-D, SUN-RGBD); no face data. Latency hardware not stated.","source_urls":["https://arxiv.org/abs/2406.09414","https://www.alphaxiv.org/abs/2406.09414","https://arxiv.org/abs/2511.10647","https://github.com/1038lab/ComfyUI-Depth-Anything-3"],"status":"single-source","notes":"Values come from search-result summaries of the papers; independent cross-check was not possible (search budget exhausted). DA V2 ViT-L NYU-D protocol (zero-shot vs fine-tuned) unknown. DA3Metric-Large param count is from a community wrapper. DA3-metric also reported 2nd best on DIODE (value not retrieved)."},
+{"name":"normal_model_benchmarks","units":"mean angular error in degrees; training images count","columns":["model","benchmark","mean_angular_error_deg","training_images"],"rows":[
+["DSINE","NYUv2",16.4,160000],
+["Omnidata-V2","(DSINE comparison baseline)",null,12000000]
+],"population":"NYUv2 indoor scenes; no face data","source_urls":["https://arxiv.org/pdf/2607.12450","https://arxiv.org/html/2409.18124v1","https://arxiv.org/abs/2403.00712"],"status":"verified","notes":"Status 'verified' applies to the 16.4 deg NYUv2 error only (cited by two independent later papers). Training image counts (~160K vs >12M) are single-source with unclear attribution; Omnidata-V2 figure is a lower bound ('over 12M')."},
+{"name":"sapiens_human_depth_normal","units":"counts; relative improvement %","columns":["quantity","value","unit"],"rows":[
+["pretraining_images_min",300000000,"images (in-the-wild human, 'over 300 million')"],
+["synthetic_scans_for_depth_normal",600,"RenderPeople scans"],
+["Hi4D_depth_relative_RMSE_improvement",22.4,"% vs prior work"],
+["THuman2_normal_relative_angular_error_improvement",53.5,"% vs prior work"]
+],"population":"Full-body human datasets (Hi4D, THuman2); face region not reported","source_urls":["https://arxiv.org/abs/2408.12569"],"status":"single-source","notes":"Baselines for the relative improvements were not verified. A claimed 500K synthetic fine-tuning set was excluded because its attribution was unclear."},
+{"name":"da3_metric_conversion","units":"focal in pixels; output in model metric unit","columns":["parameter","formula_or_value"],"rows":[
+["metric_depth","focal_px * net_output / 300"],
+["focal_px","(fx + fy) / 2"],
+["divisor_constant",300]
+],"population":"Depth Anything 3 DA3Metric-Large (official repo)","source_urls":["https://github.com/ByteDance-Seed/Depth-Anything-3"],"status":"single-source","notes":"Depth is linear in the supplied focal: a fractional focal error produces the same fractional depth error. Output unit was not confirmed from the snippet."}
+]}

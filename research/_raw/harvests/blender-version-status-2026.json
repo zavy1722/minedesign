@@ -1,0 +1,167 @@
+{
+ "queries": [
+  "Blender 5.0 release notes Python version numpy (allowed_domains blender.org, developer.blender.org, code.blender.org)",
+  "Blender LTS release schedule 2026 latest version (allowed_domains blender.org)",
+  "Blender 5.0 Python API breaking changes add-on migration (allowed_domains developer.blender.org, docs.blender.org) - NOT EXECUTED: search budget exhausted",
+  "Blender 4.5 LTS release Python 3.11 numpy bundled - NOT EXECUTED: search budget exhausted"
+ ],
+ "sources": [
+  {
+   "url": "https://www.blender.org/releases/5-0/",
+   "title": "Blender 5.0 \u2014 Blender",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "url": "https://developer.blender.org/docs/release_notes/5.0/",
+   "title": "Blender 5.0 Release Notes - Blender Developer Documentation",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/",
+   "title": "Blender 5.0: Python API",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "url": "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/",
+   "title": "Blender 5.0: Corrective Releases",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "url": "https://developer.blender.org/docs/release_notes/compatibility/",
+   "title": "Index - Blender Developer Documentation (compatibility)",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://www.blender.org/download/releases/5-2/",
+   "title": "5.2 LTS \u2014 Blender",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "url": "https://www.blender.org/releases/5-2/",
+   "title": "Blender 5.2 LTS \u2014 Blender",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "url": "https://www.blender.org/press/blender-5-2-lts-release/",
+   "title": "Blender 5.2 LTS Release \u2014 Blender (press)",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/",
+   "title": "Projects to Look Forward to in 2026 \u2014 Blender",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "url": "https://projects.blender.org/blender/blender/milestone/33",
+   "title": "5.2 LTS - blender - Blender Projects (milestone)",
+   "kind": "repo",
+   "year": "2026"
+  },
+  {
+   "url": "https://projects.blender.org/blender/blender/milestone/20",
+   "title": "5.0 - blender - Blender Projects (milestone)",
+   "kind": "repo",
+   "year": "2025"
+  },
+  {
+   "url": "https://developer.blender.org/docs/release_notes/",
+   "title": "Blender Release Notes - Blender Developer Documentation (index)",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://www.blender.org/download/releases/",
+   "title": "Release Notes \u2014 Blender (index)",
+   "kind": "official-docs"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Blender 5.0 was released on November 18, 2025 (per search-result summary of the official release pages; the exact date line was in the search snippet, not re-verified on the page).",
+   "urls": [
+    "https://www.blender.org/releases/5-0/",
+    "https://developer.blender.org/docs/release_notes/5.0/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Blender 5.0.1 corrective release includes a fix to unbreak the Python 3.14 build, suggesting Python 3.14 was a build target for 5.0.x; the search did not confirm which Python version is bundled with 5.0.",
+   "urls": [
+    "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A Blender 5.0.1 fix made a driver-evaluation test pass with Python newer than 3.11 (snippet-level evidence only).",
+   "urls": [
+    "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Blender 5.0 added native buffer protocol support for mathutils types; Vector's underlying element type is now float32 rather than float64, and the buffer is exposed as non-contiguous, so scripts passing matrices/vectors to NumPy may need updating (the search summary did not clearly tie this to a specific page; treat as the Python API release-notes page's content, to be verified).",
+   "urls": [
+    "https://developer.blender.org/docs/release_notes/5.0/python_api/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Blender 5.2 LTS was released July 14, 2026 and is supported until July 2028.",
+   "urls": [
+    "https://www.blender.org/download/releases/5-2/",
+    "https://www.blender.org/releases/5-2/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Blender 4.5 LTS remains supported until July 2027 (per search-result summary).",
+   "urls": [
+    "https://www.blender.org/download/releases/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Blender's 2026 release plan named Blender 5.1 (March 2026), Blender 5.2 LTS (July 2026) and Blender 5.3 (November 2026).",
+   "urls": [
+    "https://www.blender.org/development/projects-to-look-forward-to-in-2026/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "CONFLICT on latest stable as of Nov 2026: the developer docs listing gives Blender 5.3 as current stable (November 10, 2026); the official download page lists 5.2.4 LTS dated November 10, 2026. Both are in the search summary; neither was opened directly.",
+   "urls": [
+    "https://developer.blender.org/docs/release_notes/",
+    "https://www.blender.org/download/releases/5-2/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "CONFLICT on 5.2.4 date: the Blender Projects 5.2 LTS milestone shows 5.2.4 planned for November 16, 2026 in one view and November 17, 2026 in another.",
+   "urls": [
+    "https://projects.blender.org/blender/blender/milestone/33"
+   ],
+   "numeric": true
+  }
+ ],
+ "contradictions": [
+  "Latest stable version in November 2026: developer docs index says Blender 5.3 (Nov 10, 2026) while the official download page says 5.2.4 LTS (Nov 10, 2026). Not resolved; needs direct check on blender.org.",
+  "5.2.4 planned date: Nov 16, 2026 vs Nov 17, 2026 across two views of the same Blender Projects milestone (milestone/33).",
+  "Blender 5.0 date and 5.0.1 Python 3.14 target were only seen in search snippets; the bundled Python version for 5.x was NOT confirmed by any source retrieved."
+ ],
+ "openQuestions": [
+  "Which Python version is bundled with Blender 5.0, 5.2 LTS and 5.3 (the search did not confirm; 5.0.1 suggests a Python 3.14 build target).",
+  "Which numpy version ships with Blender 5.x (not found in any retrieved source).",
+  "Full list of Blender 5.0 to 5.2 Python API breaking changes affecting add-ons (only the mathutils buffer/float32 change was surfaced; the add-on migration page was not searched because the search budget was exhausted).",
+  "Sculpt and modeling roadmap for 5.3 and beyond (not searched).",
+  "Community and practitioner views and criticism of 5.x add-on compatibility (not searched).",
+  "Whether 5.3 is actually the current stable release as of 2026-11-20 (conflicting sources).",
+  "Two of the four planned WebSearch queries were not executed: the per-turn WebSearch budget was reported exhausted after four calls. Only four queries ran, well short of the 8-12 target. A follow-up turn is needed to complete the harvest."
+ ]
+}

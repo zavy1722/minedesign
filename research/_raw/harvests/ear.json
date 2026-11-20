@@ -1,0 +1,295 @@
+{
+ "queries": [
+  "external ear anatomy helix antihelix concha tragus antitragus lobule definitions (standard)",
+  "auricle length width anthropometric norms adults mm study (standard)",
+  "ear protrusion angle normative values otoplasty measurement (standard)",
+  "ear anthropometry sex differences ear length width population study (standard, allowed_domains: ncbi.nlm.nih.gov, pmc.ncbi.nlm.nih.gov)",
+  "ear identity biometric recognition ear shape features forensic (standard, allowed_domains: arxiv.org, ncbi.nlm.nih.gov)",
+  "auricle morphology measurement reliability anthropometric study 2024 2025 (extended)",
+  "NOT EXECUTED: ear landmark detection 2D 3D face dataset (arxiv.org) - WebSearch budget exhausted",
+  "NOT EXECUTED: ear vertical position relative to eyebrow and nasal base - WebSearch budget exhausted",
+  "NOT EXECUTED: ear axis inclination angle to head tilt cephalometric - WebSearch budget exhausted",
+  "NOT EXECUTED: Blender ear sculpting reference polycount/blenderartists - WebSearch budget exhausted"
+ ],
+ "sources": [
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK470359/",
+   "title": "NCBI Bookshelf chapter on external ear anatomy (appeared in search results; full text not fetched)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://statpearls.com/sp/al/13/20828/",
+   "title": "StatPearls ear anatomy entry (appeared in search results; full text not fetched)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36051810/",
+   "title": "Anthropometric assessment of human auricle in North Indian population",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9426708/",
+   "title": "Anthropometric assessment of human auricle in North Indian population (PMC copy)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/",
+   "title": "Mixed adult sample ear measurements, n=200 (PMC7580430; title not confirmed)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10731092/",
+   "title": "Morphometry of the normal human ear: a cross-sectional study from adolescence to mid-adulthood",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/22067874/",
+   "title": "Defining the protruding ear (2011 study, n=44 per search summary)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK538320/",
+   "title": "Auriculocephalic angle reference (appeared in results; mapping of the 20-30 degree figure to this page not confirmed)",
+   "kind": "medical-reference"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12297175/",
+   "title": "Anthropometric Measurement of Human External Ear: Single-Center Experiment in a Pediatric Saudi Population",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10775136/",
+   "title": "Morphometric Parameters of the Ear and Their Sexual Dimorphism in the Eastern Province of Saudi Arabia",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/29169692/",
+   "title": "Anthropometric growth study of the ear in a Chinese population",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13150244/",
+   "title": "Stature and sex estimation auricular morphometry and morphology",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13298092/",
+   "title": "Diagnostic Accuracy of Auricular Morphometry in Sex Estimation: Logistic Regression with ROC Validation",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2101.10540",
+   "title": "Ear Recognition (Anagnostopoulos), Introduction to Biometrics",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8061142/",
+   "title": "A comprehensive survey and deep learning-based approach for human recognition using ear biometric",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.pubmed.gov/36217409/",
+   "title": "Sundanese auricle photogrammetry study (title not confirmed from results)",
+   "kind": "paper"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Helix: outer posterosuperior rim of the ear, curving slightly inward toward the external acoustic meatus (definition from search-result summary; not verified against full text).",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK470359/",
+    "https://statpearls.com/sp/al/13/20828/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Antihelix: Y-shaped ridge arising from the antitragus that separates the concha, triangular fossa and scapha; its upper arms are the crura, bounding the deep conchal bowl.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK470359/",
+    "https://statpearls.com/sp/al/13/20828/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Concha is the hollow next to the ear canal, bounded by the tragus, intertragal notch, antitragus, antihelix, inferior crus of the antihelix and root of the helix; the external auditory meatus opens into it.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK470359/",
+    "https://statpearls.com/sp/al/13/20828/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Tragus is a cartilaginous projection anterior to the ear canal that partially occludes the meatus; antitragus is the opposing smaller protrusion forming the inferior concha boundary and posterior wall of the intertragal notch.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK470359/",
+    "https://statpearls.com/sp/al/13/20828/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Lobule (earlobe) is the inferior extremity of the auricle, soft and fleshy with no cartilaginous framework.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK470359/",
+    "https://statpearls.com/sp/al/13/20828/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "North India mixed adults: mean auricle length 6.28 cm (right) and 6.23 cm (left); mean width 3.21 cm (right) and 3.28 cm (left). Males had greater total auricle height and width than females.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/36051810/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Sundanese (West Java) photogrammetry: men auricle length 6.29 cm (SD 0.47), width 2.95 cm (SD 0.26); women length 6.09 cm (SD 0.42), width 2.88 cm (SD 0.25). The women's concha width value in the abstract (0.42 cm) appears to be a typo per the summary.",
+   "urls": [
+    "https://www.pubmed.gov/36217409/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Mixed adult sample (n=200): ear length 57.62 \u00b1 5.03 mm right and 57.89 \u00b1 4.89 mm left; ear breadth 29.72 \u00b1 2.79 mm right and 31.21 \u00b1 2.95 mm left.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Across a review of studies aged roughly 17-30, male auricle height spans about 59.5 to 68.5 mm and male width shows about a 12 mm range between studies.",
+   "urls": [
+    "https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Length definitions differ: one review measures auricle length from most superior to most inferior projection; the Sundanese study measures superaurale to subaurale. Norms must be compared using the same landmarks and units.",
+   "urls": [
+    "https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles",
+    "https://www.pubmed.gov/36217409/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Protrusion criteria (2011, n=44 patients): ear considered prominent if upper protrusion exceeds 21.5 mm or lower exceeds 20.0 mm in boys; upper >17.5 mm or lower >15.5 mm in girls. The study argues different criteria should be used for boys and girls.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/22067874/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The same 2011 study suggests the common otoplasty success criterion of asymmetry under 3 mm may be too strict.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/22067874/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Auriculocephalic (protrusion) angle: one StatPearls-style summary gives a normal range of roughly 20-30 degrees between skull and helix; another source says the auricle normally projects no more than 2 cm from the mastoid, forming an angle under 25 degrees. The two norms differ slightly.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK538320/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Molded-ear study (small sample, illustrative): mean cephaloauricular angle 47.7 degrees in study group vs 31.1 degrees in controls; scaphaconchal angle 132.6 vs 106.7 degrees. Source URL for these figures was not confirmed.",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "Different studies have measured ear protrusion, long-axis inclination and ear level with different methods, so the reported data are hard to compare across studies.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK538320/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 3D study defines the auriculocephalic angle as the angle between plane normals fit to the mastoid and auricle surfaces, a different method from ruler or photo measurement.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "Sex differences: males show significantly greater ear length and width than females in a Central Indian adult sample (p=0.0001 both sides), and in a Saudi pediatric sample; lobule measures were also larger in males in the pediatric study.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12297175/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13150244/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Width is inconsistent by sex: an Eastern Saudi adult study found no significant male-female difference in right ear width, with similar results reported in a Turkish population.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10775136/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13298092/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Lobule height and lobule index often show no significant sex difference; absolute length and width have greater discriminatory power for sex than proportional indices (one study).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10775136/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13298092/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Chinese growth study: ear length reached mature size by age 14 in both males and females, with gender and ethnic differences in development.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/29169692/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Ear shape classified as round, oval, rectangular or triangular in a Central Indian population; shape was judged less useful for sex determination than metric parameters.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13150244/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Forensic ear comparison has been used for about 40 years; an early system used twelve ear measurements. The earlobe is the ear part most often examined in forensic cases (per one source).",
+   "urls": [
+    "https://arxiv.org/pdf/2101.10540"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Ear shape claimed stable: one source says full development by the fourth month after birth with later growth only in size; another says size and shape hold steady until about age 70. Significant shape change is reported between about 4 months and 8 years. These are secondary-source claims, not verified against primary papers.",
+   "urls": [
+    "https://arxiv.org/pdf/2101.10540"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Combined ear and face biometrics achieved a 97.1% recognition rate in a border-control setting (one cited study); ear recognition rates are usually over 90% and fall to about 80% or lower as imaging angle changes (one review).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8061142/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Ear tissue is elastic and can be deliberately deformed to defeat ear recognition systems.",
+   "urls": [
+    "https://arxiv.org/pdf/2101.10540"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Auriculocephalic angle norms: 20-30 degrees (StatPearls-style summary) vs under 25 degrees with projection of 2 cm or less from the mastoid (second source).",
+  "Ear width sex difference: significant in Central Indian and Saudi pediatric samples, not significant in Eastern Saudi adults and similar Turkish results.",
+  "Sundanese women's concha width value (0.42 cm) in the abstract looks inconsistent with the rest of the data; treat as a likely typo.",
+  "Units differ across sources (cm vs mm) and length definitions differ (superior-inferior projection vs superaurale-subaurale), so direct numeric comparison is unreliable.",
+  "Source URLs for several numbers (molded-ear angles, 3D plane-normal angle, shape-stability claims) were not reliably mapped to a URL in the results."
+ ],
+ "openQuestions": [
+  "Vertical position of the ear relative to brow and nasal base: no search results obtained (search budget exhausted). Needs a follow-up search, e.g. facial proportion and ear-level anthropometry papers.",
+  "Axis tilt / long-axis inclination of the ear relative to the head: no numeric norms obtained; only a note that methods differ.",
+  "Ear as an identity feature in 3D face reconstruction or landmark detection (2D/3D ear landmark datasets): not searched.",
+  "Practitioner Blender/polycount/blenderartists ear sculpting workflows: not obtained.",
+  "Primary-source verification of the 20-30 degree and under-25 degree auriculocephalic norms and the 2011 protrusion study (PubMed 22067874) full text.",
+  "Cited numbers from the Sundanese, PMC7580430, and molded-ear studies should be checked against primary full texts before use.",
+  "Recent 2024-2026 developments and criticism of ear morphometry were only partly covered.",
+  "WebSearch budget was exhausted after 5 successful queries in this turn; a follow-up turn is needed for the remaining angles."
+ ]
+}

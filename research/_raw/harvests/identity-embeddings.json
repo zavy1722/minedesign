@@ -1,0 +1,198 @@
+{
+ "queries": [
+  "ArcFace additive angular margin loss face recognition paper",
+  "MICA metrical identity-consistent aware 3D face reconstruction ArcFace identity loss",
+  "face recognition embedding cosine similarity threshold verification LFW accuracy",
+  "InsightFace ArcFace ONNX model buffalo_l w600k_r50 onnx download"
+ ],
+ "sources": [
+  {
+   "url": "https://arxiv.org/abs/1801.07698",
+   "title": "ArcFace: Additive Angular Margin Loss for Deep Face Recognition",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "url": "https://arxiv.org/html/1801.07698v3",
+   "title": "ArcFace (arXiv HTML v3)",
+   "kind": "paper",
+   "year": "2019"
+  },
+  {
+   "url": "https://arxiv.org/abs/2204.06607",
+   "title": "MICA: Towards Metrical Reconstruction of Human Faces (Zielonka, Bolkart, Thies)",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "url": "https://is.mpg.de/ncs/en/projects/mica-towards-metrical-reconstruction-of-human-faces",
+   "title": "MICA project page (MPI-IS)",
+   "kind": "official-docs",
+   "year": "2022"
+  },
+  {
+   "url": "https://arxiv.org/pdf/1503.03832.pdf",
+   "title": "FaceNet: A Unified Embedding for Face Recognition and Clustering",
+   "kind": "paper",
+   "year": "2015"
+  },
+  {
+   "url": "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md",
+   "title": "InsightFace python-package model_zoo.md",
+   "kind": "repo",
+   "year": "2024"
+  },
+  {
+   "url": "https://github.com/inoveee/eventlens/releases/tag/face-models-v1",
+   "title": "Third-party trimmed buffalo_l release (unverified mirror)",
+   "kind": "forum",
+   "year": ""
+  },
+  {
+   "url": "https://github.com/wangyifan349/insightface-face-similarity",
+   "title": "Third-party InsightFace buffalo_l wrapper README (license claim unverified)",
+   "kind": "repo",
+   "year": ""
+  },
+  {
+   "url": "https://arxiv.org/pdf/2012.14305",
+   "title": "Adaptive Threshold for Online Object Recognition and Re-identification Tasks",
+   "kind": "paper",
+   "year": "2020"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "ArcFace (Deng, Guo, Yang, Xue, Kotsia, Zafeiriou) was published at CVPR 2019 and proposes an additive angular margin loss; the name comes from the fact that the additive angular margin equals the geodesic distance margin on the normalised hypersphere.",
+   "urls": [
+    "https://arxiv.org/abs/1801.07698"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The ArcFace paper reports state-of-the-art results on ten face recognition benchmarks; the arXiv abstract also describes a sub-center variant for noisy data.",
+   "urls": [
+    "https://arxiv.org/abs/1801.07698"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "MICA (Zielonka, Bolkart, Thies, ECCV 2022, arXiv 2204.06607) uses a pretrained ArcFace network as its identity encoder, followed by a small mapping network into the latent space of a geometry decoder.",
+   "urls": [
+    "https://arxiv.org/abs/2204.06607"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In MICA, most of the ArcFace network is frozen and only the last 3 ResNet blocks are fine-tuned; the authors state that refining more hidden layers led to worse predictions due to overfitting.",
+   "urls": [
+    "https://arxiv.org/abs/2204.06607"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "MICA's training objective, per the search snippet of its Eq. 1, is a masked supervised 3D geometry loss against ground-truth 3D shapes; no separate ArcFace feature or identity-matching term was found in the snippets. This contradicts the premise that MICA uses an ArcFace identity loss.",
+   "urls": [
+    "https://arxiv.org/abs/2204.06607"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "MICA reports 15% and 24% lower average reconstruction error than state-of-the-art methods on the NoW benchmark (non-metric and metric variants respectively), as stated in its abstract.",
+   "urls": [
+    "https://arxiv.org/abs/2204.06607"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "MICA's authors argue that ArcFace features are robust to expression, illumination and camera changes, so supervised shape learning on top of them generalises well.",
+   "urls": [
+    "https://arxiv.org/abs/2204.06607"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "FaceNet (arXiv 1503.03832) performs verification by thresholding the squared L2 distance between embeddings and reports 99.63% LFW accuracy; this figure came from a search-result summary and was not checked against the paper text.",
+   "urls": [
+    "https://arxiv.org/pdf/1503.03832.pdf"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "LFW results are usually reported under a 10-fold protocol in which the threshold is tuned on nine folds and applied to the held-out fold, with accuracies averaged.",
+   "urls": [
+    "https://arxiv.org/pdf/2012.14305"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "For unit-normalised embeddings, cosine similarity and L2 distance are monotonically related, so a threshold must be converted between the two when switching metrics.",
+   "urls": [
+    "https://arxiv.org/pdf/1503.03832.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Thresholds are model- and dataset-specific; a threshold chosen on one dataset may not transfer. Practitioners recommend sweeping the threshold on one's own labelled pairs to hit a target false-accept rate. No canonical cosine threshold for ArcFace-style models was found.",
+   "urls": [
+    "https://arxiv.org/pdf/2012.14305"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "One LFW-based study cites a conventional fixed cosine threshold of 0.5 and reports that its adaptive threshold performed better; this is a single secondary-source claim, not verified.",
+   "urls": [
+    "https://arxiv.org/pdf/2012.14305"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The InsightFace model zoo lists the buffalo_l pack as SCRFD-10GF detection plus ResNet50 trained on WebFace600K recognition, about 326 MB in total.",
+   "urls": [
+    "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The buffalo_l recognition file w600k_r50.onnx is about 166 MB and outputs 512-dimensional embeddings; SCRFD (det_10g.onnx) is needed for detection. These figures come from third-party project READMEs and were not verified against the official zoo.",
+   "urls": [
+    "https://github.com/wangyifan349/insightface-face-similarity",
+    "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Third-party projects state the InsightFace pretrained models are licensed for non-commercial research only, separately from the MIT-licensed code. This is a secondary claim and must be verified against the official license before commercial use.",
+   "urls": [
+    "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Mirror downloads of buffalo_l (SourceForge, Hugging Face, and GitHub release assets) are community-hosted, not official; one README claims they match the official file, which is unverified. SHA-256 verification is advisable.",
+   "urls": [
+    "https://github.com/inoveee/eventlens/releases/tag/face-models-v1",
+    "https://github.com/finetech-nexus/ai-api/releases/tag/weights-v1"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The official InsightFace CLI for the older 0.3.2 package downloads the pack with `insightface-cli model.download buffalo_l`; the local default path is typically ~/.insightface/models/buffalo_l/.",
+   "urls": [
+    "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "The task premise says MICA uses ArcFace as an identity loss; the MICA search result says ArcFace is a frozen identity encoder and the training loss is a supervised 3D geometry loss.",
+  "Thresholds: FaceNet uses squared L2 distance on its own scale; a third-party LFW study cites a cosine 0.5 threshold; another system used 0.08-0.09. These are not comparable without the model and metric."
+ ],
+ "openQuestions": [
+  "WEB SEARCH BUDGET EXHAUSTED: only 4 of the planned 10 queries returned results. Queries 5-10 (texture vs geometry bias in 3D reconstruction; 2024-2026 successors to ArcFace such as AdaFace/MagFace/ExpFace; ethics and EU AI Act restrictions on facial recognition; InsightFace license terms; demographic bias and NIST FRVT; identity-similarity metrics in DECA/EMOCA-style work) were not run. A follow-up session is needed.",
+  "Official InsightFace model license text and exact file hashes were not confirmed.",
+  "No primary source for ArcFace's exact LFW/IJB numbers was retrieved; the 99.83 figure in the planned query was not confirmed.",
+  "Pitfalls of texture vs geometry in identity embeddings remain unsourced.",
+  "Whether MICA's released code or weights use ArcFace features in a loss during training remains unverified; check the paper's full text."
+ ]
+}

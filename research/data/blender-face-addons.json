@@ -1,0 +1,80 @@
+{
+  "topic": "blender-face-addons",
+  "tables": [
+    {
+      "name": "mediapipe_face_mesh_landmark_counts",
+      "units": "landmarks per face",
+      "columns": ["mode", "landmarks_per_face", "row_status", "notes"],
+      "rows": [
+        ["default", 468, "verified", "3D landmarks, real time; official docs + blog agree"],
+        ["refine_landmarks", 478, "single-source", "attention-mesh refinement around eyes and lips, adds iris landmarks; +10 vs default (derived)"]
+      ],
+      "population": "n/a (model output specification)",
+      "source_urls": [
+        "https://mediapipe.readthedocs.io/en/latest/solutions/face_mesh.html",
+        "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8"
+      ],
+      "status": "single-source",
+      "notes": "Table status is the weakest row. 468 is verified (2 sources); 478 is from the DEV Community article only. Index ranges of the extra 10 points were not sourced; confirm before use."
+    },
+    {
+      "name": "addon_blender_version_support",
+      "units": "Blender release version",
+      "columns": ["addon", "addon_version", "blender_min", "blender_max_stated", "source_url"],
+      "rows": [
+        ["Faceit", null, "3.0", "5.2", "https://superhivemarket.com/products/faceit"],
+        ["Face Shape Key Rig", null, "5.2", null, "https://github.com/Fragid/face-shapekey-rig"],
+        ["MPFB2", "2.0.18", "4.2", null, "https://extensions.blender.org/add-ons/mpfb/versions/"]
+      ],
+      "population": "n/a",
+      "source_urls": [
+        "https://superhivemarket.com/products/faceit",
+        "https://github.com/Fragid/face-shapekey-rig",
+        "https://extensions.blender.org/add-ons/mpfb/",
+        "https://extensions.blender.org/add-ons/mpfb/versions/"
+      ],
+      "status": "single-source",
+      "notes": "null max means the source says 'or newer'/'and newer'. MPFB2 version and 4.2 LTS minimum come from search snippets, not fetched pages; reported release date 2026-10-10 is from one snippet. Not re-verified in this run (search budget exhausted)."
+    },
+    {
+      "name": "addon_licences_and_roles",
+      "units": "n/a (categorical)",
+      "columns": ["addon", "code_licence", "asset_licence", "cost", "role", "generates_shape_keys", "row_status"],
+      "rows": [
+        ["MPFB2", "GPL-3.0-or-later", "CC0 or CC-BY (Extensions listing); CC0 1.0 for MakeHuman base assets (third-party note)", null, "parametric base human", null, "code: verified; assets: contested"],
+        ["Faceit", null, null, "paid", "expression shape-key generator with sculpt/modifier/pose bake", true, "single-source"],
+        ["Face Shape Key Rig", "GPL", null, "free", "slider/2D-pad controller for existing shape keys; iFacialMocap; audio lipsync", false, "single-source"],
+        ["CaptureForge", "GPL-3.0", null, null, "posed face rig to ARKit 52 conversion; video/webcam drive", true, "single-source"],
+        ["mediapipe-facecap-for-blender", null, null, null, "live MediaPipe capture: external transmitter + Blender receiver add-on", null, "single-source"]
+      ],
+      "population": "n/a",
+      "source_urls": [
+        "https://extensions.blender.org/add-ons/mpfb/",
+        "https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md",
+        "https://github.com/kblood/CharacterCreator/blob/master/LICENSE-NOTES.md",
+        "https://superhivemarket.com/products/faceit",
+        "https://extensions.blender.org/add-ons/face-shapekey-rig/",
+        "https://github.com/Fragid/face-shapekey-rig",
+        "https://github.com/H0wZy/captureforge",
+        "https://github.com/mozi1924/mediapipe-facecap-for-blender"
+      ],
+      "status": "contested",
+      "notes": "null = not captured. CaptureForge 'generates_shape_keys' = converts a posed rig into ARKit blendshapes. MB-Lab, CharMorph, Human Generator, FLAME add-on, Auto-Rig Pro and FaceBuilder have no sourced rows."
+    },
+    {
+      "name": "expression_basis_sizes",
+      "units": "blendshapes",
+      "columns": ["basis", "count", "used_by"],
+      "rows": [
+        ["ARKit blendshapes", 52, "CaptureForge target set; Faceit offers ARKit-style presets"]
+      ],
+      "population": "n/a",
+      "source_urls": [
+        "https://github.com/H0wZy/captureforge",
+        "https://superhivemarket.com/products/faceit"
+      ],
+      "status": "single-source",
+      "notes": "Count 52 comes from the CaptureForge repo description only; Faceit listing says 'ARKit-style' without a count in the harvested material."
+    }
+  ]
+}

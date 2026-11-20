@@ -1,0 +1,295 @@
+{
+ "queries": [
+  "Blender camera background images reference photos focal length sensor size match (docs.blender.org)",
+  "Blender manual camera background images empty image object reference",
+  "fSpy Blender importer camera field of view vanishing points version (github.com)",
+  "fSpy camera matching single image perspective vanishing points tool",
+  "portrait perspective distortion focal length 85mm face photograph camera distance facial proportions (NOT RUN: search budget exhausted)",
+  "orthographic front side blueprint reference face sculpting misleading perspective photo (NOT RUN: search budget exhausted)",
+  "photogrammetry camera calibration focal length 35mm equivalent EXIF face capture distance (arxiv/pmc; NOT RUN: search budget exhausted)",
+  "Blender image empty overlay compare front side reference alignment camera view tutorial (blenderartists/polycount; NOT RUN: search budget exhausted)",
+  "Blender 4.x camera background images display depth front back opacity (extended; NOT RUN: search budget exhausted)",
+  "camera lens distortion correction photo calibration Blender add-on Brown distortion model (NOT RUN: search budget exhausted)"
+ ],
+ "sources": [
+  {
+   "url": "https://docs.blender.org/manual/en/latest/render/cameras.html",
+   "title": "Cameras - Blender 5.3 Manual",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "url": "https://docs.blender.org/manual/en/2.79/editors/3dview/properties/background_images.html",
+   "title": "Background Images - Blender 2.79 Manual (legacy View-panel workflow)",
+   "kind": "official-docs",
+   "year": "2017"
+  },
+  {
+   "url": "https://docs.blender.org/manual/en/2.79/editors/movie_clip_editor/tracking/clip/properties/camera_data.html",
+   "title": "Camera Data - Blender 2.79 Manual (movie clip editor)",
+   "kind": "official-docs",
+   "year": "2017"
+  },
+  {
+   "url": "https://projects.blender.org/blender/blender/issues/52668",
+   "title": "Proposal: Replace background images with Image Empties in 2.8x (issue #52668)",
+   "kind": "repo",
+   "year": "2019"
+  },
+  {
+   "url": "https://projects.blender.org/blender/blender/issues/120929",
+   "title": "Blender not taking movie clip or image in camera background when rendering animation (issue #120929)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://developer.blender.org/T98875",
+   "title": "Regression: Adding Camera background image pops an Image not found error (T98875)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://developer.blender.org/T44096",
+   "title": "In viewport, Background image size/offset has no effect in camera view (T44096)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://www.katsbits.com/codex/background-image/",
+   "title": "Add a Background Image (katsbits codex, third-party guide)",
+   "kind": "blog"
+  },
+  {
+   "url": "https://github.com/stuffmatic/fSpy-Blender/blob/master/fspy_blender/fspy.py",
+   "title": "fSpy-Blender importer source fspy.py",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/stuffmatic/fSpy-Blender/issues",
+   "title": "fSpy-Blender issue tracker (issues #88, #89)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/stuffmatic/fSpy",
+   "title": "fSpy - still-image camera matching app (GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app",
+   "title": "Retiring BLAM and announcing fSpy (Blender Artists)",
+   "kind": "forum"
+  },
+  {
+   "url": "https://github.com/stuffmatic/fSpy/issues/119",
+   "title": "Feature idea: basic reference shapes for focal length matching (fSpy issue #119)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/stuffmatic/fSpy/issues/53",
+   "title": "Zoom on image? (fSpy issue #53)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/voki6/perspective-match",
+   "title": "perspective-match: Blender extension, live perspective-line camera matching",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/parthmital/Blender-AI-Camera-Match",
+   "title": "Blender-AI-Camera-Match (GitHub)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://v-sekai.github.io/manuals/decisions/20240111-fspy.html",
+   "title": "V-Sekai decision record on fSpy",
+   "kind": "other"
+  },
+  {
+   "url": "https://linuxlinks.com/fspy-still-image-camera-matching-software",
+   "title": "fSpy still image camera matching software (LinuxLinks)",
+   "kind": "blog"
+  },
+  {
+   "url": "https://80.lv/articles/improving-blender-workflows-with-still-image-camera-matching-app",
+   "title": "Improving Blender workflows with still image camera matching app (80.lv)",
+   "kind": "news"
+  },
+  {
+   "url": "https://arxiv.org/html/2409.06704v2",
+   "title": "GeoCalib: single-image calibration (arXiv 2409.06704v2)",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://openaccess.thecvf.com/content/CVPR2023/papers/Jin_Perspective_Fields_for_Single_Image_Camera_Calibration_CVPR_2023_paper.pdf",
+   "title": "Perspective Fields for Single Image Camera Calibration (CVPR 2023)",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://perspective-plotter.readthedocs.io/",
+   "title": "Perspective Plotter docs",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://superhivemarket.com/products/blenspy",
+   "title": "Blenspy - camera matching from photos (commercial)",
+   "kind": "commercial"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Blender's current manual (5.3 page) describes Size (Width, Height) as an alternative to focal length for setting field of view, useful for matching a physical camera and lens, e.g. for motion tracking.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/cameras.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Blender camera Sensor Fit options: Auto uses the larger Resolution dimension to define a square sensor; Horizontal sets sensor width manually and derives height from the output aspect ratio.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/cameras.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Background image Fit scales the image to fit inside the camera view without changing aspect ratio; Crop scales it to fill the camera view, cutting off part of the image.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/cameras.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "For matching real footage, sensor width should come from the camera's spec sheet; in Python, Camera.sensor_width and sensor_height are in millimeters, and the Camera Info geometry node outputs sensor size as a 2D vector in mm.",
+   "urls": [
+    "https://docs.blender.org/manual/en/latest/render/cameras.html"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Blender developers proposed replacing View-panel background images with Image Empties starting in 2.8x (proposal issue #52668); the camera-view drawing function was suggested to move into the camera data-block. This is a proposal, not confirmed as shipped behavior.",
+   "urls": [
+    "https://projects.blender.org/blender/blender/issues/52668"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Image empties are drawn in perspective and orthographic views; the camera background remains the mechanism for drawing in camera view with framing options, per tracker discussion summaries.",
+   "urls": [
+    "https://developer.blender.org/T51366",
+    "https://projects.blender.org/blender/blender/issues/52668"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Tracker issue #120929 reports Blender did not render a camera background image or movie clip during animation renders; developers treated the use of image empties as the reason, per the search summary.",
+   "urls": [
+    "https://projects.blender.org/blender/blender/issues/120929"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Tracker reports exist for camera-background regressions: T98875 (adding a camera background image shows an 'Image not found' error) and T44096 (background image size/offset has no effect in camera view).",
+   "urls": [
+    "https://developer.blender.org/T98875",
+    "https://developer.blender.org/T44096"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Add an Image Empty in Blender 2.8+: Shift+A > Empty > Image, settings in Object Data Properties; per a third-party guide, the Image Empty and Image Object differ only in the underlying datablocks.",
+   "urls": [
+    "https://www.katsbits.com/codex/background-image/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "fSpy is an open-source, cross-platform still-image camera matching app that computes approximate focal length, orientation and position from user-placed control points and vanishing lines; the usual path is exporting the camera to Blender.",
+   "urls": [
+    "https://github.com/stuffmatic/fSpy",
+    "https://linuxlinks.com/fspy-still-image-camera-matching-software"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "fSpy is the author's stand-alone successor to the Blender add-on BLAM (Per Gantelius's announcement on Blender Artists).",
+   "urls": [
+    "https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The fSpy-Blender importer reads principal point, horizontal field of view and image dimensions from the .fspy project JSON and rejects project files whose version is not 1 (per the search summary of fspy.py).",
+   "urls": [
+    "https://github.com/stuffmatic/fSpy-Blender/blob/master/fspy_blender/fspy.py"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A third-party benchmark reported .fspy files imported with fSpy-Blender gave the same camera matrix as its own output (maximum difference 1.4e-7) and the same field of view; .fspy files do not store vanishing points.",
+   "urls": [
+    "https://github.com/stuffmatic/fSpy-Blender/blob/master/fspy_blender/fspy.py"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "fSpy-Blender open issue #89 (Sept 2025) asks whether the importer works in Blender 4.5; open issue #88 reports matching fails with strong vanishing points. Both were seen only as titles in a search summary, not verified on the issue pages.",
+   "urls": [
+    "https://github.com/stuffmatic/fSpy-Blender/issues"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The perspective-match Blender extension states its solver is a port of fSpy's solver (GPL-3.0) and that its Blender camera mapping follows the fSpy importer.",
+   "urls": [
+    "https://github.com/voki6/perspective-match"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "fSpy struggles when an image has no clear vanishing points; the V-Sekai decision record suggests alternative methods in that case.",
+   "urls": [
+    "https://v-sekai.github.io/manuals/decisions/20240111-fspy.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Vanishing-point workflows use one to three vanishing points depending on how many sets of parallel lines an image shows (Packt, 3D Environment Design with Blender; tutorial statement, not a study).",
+   "urls": [
+    "https://www.packtpub.com/en-be/product/3d-environment-design-with-blender-9781803235851"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "GeoCalib (arXiv 2409.06704, 2024) authors describe classical vanishing-point geometry as accurate but not robust, motivating learned single-image calibration.",
+   "urls": [
+    "https://arxiv.org/html/2409.06704v2"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Perspective Fields for Single Image Camera Calibration (CVPR 2023) is a learned single-image calibration method; its abstract was not read in this run.",
+   "urls": [
+    "https://openaccess.thecvf.com/content/CVPR2023/papers/Jin_Perspective_Fields_for_Single_Image_Camera_Calibration_CVPR_2023_paper.pdf"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "fSpy issue #119 is a feature idea for basic reference shapes (e.g. known-size objects) to help focal-length matching; issue #53 asks about zoom on the image.",
+   "urls": [
+    "https://github.com/stuffmatic/fSpy/issues/119",
+    "https://github.com/stuffmatic/fSpy/issues/53"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Blender manual (5.3) frames camera Size/sensor as the field-of-view control, while older 2.79 pages and developer discussions describe a separate View-panel background-image workflow; the developer proposal (#52668) argues background images should be replaced by image empties, so the 'right' place for reference photos depends on Blender version.",
+  "fSpy-Blender README-level claims of working with Blender 4.x/5.x are not confirmed: issue #89 asks whether it works in 4.5 and is open."
+ ],
+ "openQuestions": [
+  "NOT RESEARCHED: portrait focal length and camera-distance effects on facial proportions (e.g. 85mm vs wide-angle distortion) and any measured numbers with population/sample; the web search budget for this turn was exhausted after 4 successful queries.",
+  "NOT RESEARCHED: why orthographic front/side blueprints mislead for faces versus perspective-matched photos; no source gathered.",
+  "NOT RESEARCHED: overlay/compare techniques (blend modes, difference views, flicker compare) and practitioner views on Blender Artists or Polycount.",
+  "NOT RESEARCHED: lens distortion correction (Brown model) for Blender camera matching; no source gathered.",
+  "Blender 4.x/5.x current behavior of camera background images and image empties was only partially confirmed; the exact current manual page for background images was not found.",
+  "Fetching pages was not possible in this sandbox, so all facts rest on search-result snippets and titles; the fSpy importer details come from a search summary of fspy.py, not from reading the file."
+ ]
+}

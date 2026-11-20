@@ -1,0 +1,64 @@
+{
+  "topic": "multi-view-fitting",
+  "tables": [
+    {
+      "name": "flame_tracker_runtime",
+      "units": "seconds per frame",
+      "columns": ["tool", "mode", "s_per_frame", "gpu", "version", "release_date"],
+      "rows": [
+        ["flame-head-tracker", "landmark", 0.9, "RTX 4090", "v4.1", "2025-08-02"],
+        ["flame-head-tracker", "photometric", 1.9, "RTX 4090", "v4.1", "2025-08-02"]
+      ],
+      "population": "Author-reported benchmark; image resolution, iteration count and sequence not stated in harvested material",
+      "source_urls": ["https://github.com/peizhiyan/flame-head-tracker"],
+      "status": "single-source",
+      "notes": "Values are approximate ('about'). Offline tool; requires NVIDIA GPU and Ubuntu, Windows untested. No independent cross-check possible in this run (search budget exhausted)."
+    },
+    {
+      "name": "tracker_speedups",
+      "units": "multiplicative speedup (x)",
+      "columns": ["tool", "change", "speedup_x", "year"],
+      "rows": [
+        ["VHAP", "batching frames", 3, "2025"]
+      ],
+      "population": "README update note seen on a Gitee mirror of the VHAP repository",
+      "source_urls": ["https://gitee.com/hu-hanqing/VHAP"],
+      "status": "single-source",
+      "notes": "Approximate ('about 3x'); baseline hardware and settings not given. Mirror, not upstream."
+    },
+    {
+      "name": "tracker_metadata",
+      "units": "categorical",
+      "columns": ["tool", "inputs", "fitting_signal", "flame_versions", "default_landmarks", "licence", "realtime"],
+      "rows": [
+        ["VHAP", "video", "photometric (differentiable mesh rasterization) + adaptive regional appearance priors + landmarks", "FLAME 2023 (required, with vertex masks); FLAME 2020 supported", "STAR (face-alignment optional: faster, less accurate)", "not verified", false],
+        ["flame-head-tracker", "single image; monocular video", "landmark or photometric", "FLAME (downloaded separately due to licensing)", "not stated in harvest", "FLAME files licence-gated; repo licence not verified", false],
+        ["Metrical Tracker", "monocular RGB (extended to multi-view in 2608.04722)", "optimization-based; MICA identity", "FLAME", "not stated in harvest", "not verified", false],
+        ["video-head-tracker", "video", "FLAME tracking", "FLAME", "not stated in harvest", "CC BY-NC 3.0", null]
+      ],
+      "population": "Open-source FLAME tracking tools",
+      "source_urls": [
+        "https://github.com/ShenhanQian/VHAP",
+        "https://github.com/peizhiyan/flame-head-tracker",
+        "https://arxiv.org/pdf/2608.04722",
+        "https://arxiv.org/pdf/2608.09238",
+        "https://github.com/philgras/video-head-tracker"
+      ],
+      "status": "single-source",
+      "notes": "Offline/optimization nature of Metrical Tracker and VHAP is corroborated by two independent sources (2608.04722, 2608.09238); other cells single-source. null = not stated."
+    },
+    {
+      "name": "multiview_setups",
+      "units": "count of cameras; qualitative gain",
+      "columns": ["work", "n_views", "shared_parameters", "residual_type", "quantified_gain_vs_single_view"],
+      "rows": [
+        ["Multi-View Face and Gesture Animation with Dynamic Gaussians (2026)", 15, "single FLAME fit; identity from MICA", "2D keypoints from all front-facing cameras", null],
+        ["RealDenseFace multi-view extension (2026)", null, "single set of FLAME parameters", "correspondence residuals across all views", null]
+      ],
+      "population": "Two 2026 papers; snippet-level evidence",
+      "source_urls": ["https://arxiv.org/pdf/2608.04722", "https://arxiv.org/pdf/2608.09238"],
+      "status": "single-source",
+      "notes": "Joint single-parameter-set multi-view fitting is corroborated by both papers (verified as a principle); camera count 15 is single-source; neither snippet gave a numeric accuracy gain (null)."
+    }
+  ]
+}

@@ -1,0 +1,502 @@
+{
+ "queries": [
+  "craniometric landmarks definitions nasion glabella gonion pogonion menton zygion porion orbitale",
+  "soft tissue landmarks definitions sn prn ls li sto pg' gn' ex en ch al t tr v anthropometry",
+  "facial soft tissue landmark abbreviations glabella subnasale pronasale labiale superius inferius stomion",
+  "cephalometric landmark definitions hard tissue Downs Steiner orbitale porion nasion sella",
+  "MediaPipe face mesh 478 landmarks mapping to 68-point dlib landmark scheme",
+  "dlib 68 point facial landmark indices jaw eyebrows nose mouth annotation scheme",
+  "anthropometric landmarks 3D face scan facial landmark localization accuracy millimeters study",
+  "gonion menton gnathion pogonion mandible landmark reliability measurement error study",
+  "Farkas anthropometric facial proportions landmark definitions North American reference values",
+  "facial landmark detection 2025 benchmark 3D face landmarks anthropometric points deep learning",
+  "Blender face landmark add-on MediaPipe landmarks mesh fitting community discussion",
+  "cephalometric landmark identification error limitations reproducibility orbitale gonion"
+ ],
+ "sources": [
+  {
+   "url": "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+   "title": "Columbia anatomy craniology slides (landmark definitions)",
+   "kind": "other"
+  },
+  {
+   "url": "https://pressbooks.gvsu.edu/introhumanosteology/?p=60",
+   "title": "Grand Valley State Introduction to Human Osteology (landmark definitions)",
+   "kind": "textbook"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1",
+   "title": "PMC12334920 Table 1 (landmark definitions table)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://nobellicense.nobelbiocare.com/help/d3d046fb-52e8-4b33-9f51-d3fd98ca3ed4/2.0/EN/3D_cephalometric_soft_tissue_landmarks.htm",
+   "title": "Nobel Biocare: Definition of 3D cephalometric soft tissue landmarks",
+   "kind": "commercial"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13205844/",
+   "title": "Clinical Equivalence of a CNN-Based Automated Soft Tissue Landmark Detection System on 2D Facial Images",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/",
+   "title": "Facial Anthropometry and Analysis in Egyptian Women",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/",
+   "title": "Facial Landmarks Determination with Different Digital Scanners: An In Vivo Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12460026/",
+   "title": "Accuracy of AI-assisted soft tissue landmark identification in serial lateral cephalograms of Class III two-jaw surgery patients",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13466362/",
+   "title": "Anatomical References for the Study of 3D Facial Photographs: A Scoping Review",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42590193/",
+   "title": "Anatomical References for the Study of 3D Facial Photographs: scoping review (PubMed)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13466904/",
+   "title": "Artificial-Intelligence-Based Cephalometric Landmark Detection in Lateral Cephalograms",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10461256/",
+   "title": "Human examination and artificial intelligence in cephalometric landmark detection",
+   "kind": "paper"
+  },
+  {
+   "url": "https://github.com/PeizhiYan/Mediapipe_2_Dlib_Landmarks/",
+   "title": "PeizhiYan/Mediapipe_2_Dlib_Landmarks (MediaPipe to dlib converter)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/cornpip/mediapipe_face_mesh",
+   "title": "cornpip/mediapipe_face_mesh (478-landmark README)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md",
+   "title": "yakhyo/mediapipe-face-mesh-onnx README",
+   "kind": "repo"
+  },
+  {
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+   "title": "Google AI Edge Face Landmarker documentation",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://github.com/google-ai-edge/mediapipe/blob/master/docs/solutions/face_mesh.md?plain=1",
+   "title": "MediaPipe Face Mesh docs (google-ai-edge/mediapipe)",
+   "kind": "official-docs"
+  },
+  {
+   "url": "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/",
+   "title": "PyImageSearch: Detect eyes, nose, lips, and jaw with dlib",
+   "kind": "blog"
+  },
+  {
+   "url": "https://pyimagesearch.com/2018/04/02/faster-facial-landmark-detector-with-dlib/",
+   "title": "PyImageSearch: (Faster) facial landmark detector with dlib",
+   "kind": "blog"
+  },
+  {
+   "url": "https://arxiv.org/pdf/2405.20117",
+   "title": "Infinite 3D Landmarks: Improving Continuous 2D Facial Landmark Detection",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/pdf/1901.10143",
+   "title": "Learning to Validate the Quality of Detected Landmarks",
+   "kind": "paper"
+  },
+  {
+   "url": "https://arxiv.org/abs/2510.15338",
+   "title": "Proto-Former: Unified Facial Landmark Detection by Prototype Transformer",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10047049/",
+   "title": "Comparison Study of Extraction Accuracy of 3D Facial Anatomical Landmarks Based on Non-Rigid Registration of Face Template",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13117559/",
+   "title": "Accuracy of Facial Digitization Using a New Mobile Device-Compatible 3D Scanner for Malocclusion",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/23681986/",
+   "title": "3D facial landmark detection under large yaw and expression variations",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8111847",
+   "title": "CBCT 3D skeletal landmark reliability study (3 judges, 31 landmarks)",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2642991",
+   "title": "Observer Reliability of Three-Dimensional Cephalometric Landmark Identification on Cone-Beam CT",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4697005",
+   "title": "Cephalometric landmark observer study, Imaging Sci Dent 2015",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5450056",
+   "title": "Simulated radiograph mandibular measurement reliability study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12418967/",
+   "title": "Accuracy and reliability of automated landmark identification on CBCT using Invivo software",
+   "kind": "paper"
+  },
+  {
+   "url": "https://github.com/VGCLUB/facefit-mpfb",
+   "title": "VGCLUB/facefit-mpfb (FaceFit MPFB2 Blender add-on prototype)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://github.com/H0wZy/captureforge",
+   "title": "H0wZy/captureforge (GPL-3.0 Blender face rig extension)",
+   "kind": "repo"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/19732656/",
+   "title": "Precision of cephalometric landmark identification: CBCT vs conventional views",
+   "kind": "paper"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Nasion is the junction of the frontal and nasal bones in the midsagittal plane (intersection of internasal and frontonasal sutures per one source).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1",
+    "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Glabella is the most prominent/forward midline point of the forehead above the nasal root, at about the level of the supra-orbital ridges.",
+   "urls": [
+    "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13205844/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Orbitale is the lowest point of the orbital margin/inferior orbital rim; with porion it defines the Frankfort horizontal plane (FH = porion-orbitale).",
+   "urls": [
+    "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "One source defines orbitale differently: as a point midway between the lowest points of the inferior margins of the two orbits, which the source notes affects reproducibility.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Porion is the uppermost point of the external auditory meatus (superior point of the external acoustic opening margin).",
+   "urls": [
+    "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Porion and orbitale are described as hard to locate because they sit in a vague region containing soft tissue, nerves and vessels.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12334920/table/T1"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Zygion is the most lateral point of the zygomatic arch.",
+   "urls": [
+    "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Gonion is the most outward inferior point of the mandibular angle where the body meets the ramus; sources differ on whether it is a midpoint or outermost inferior point.",
+   "urls": [
+    "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+    "https://pressbooks.gvsu.edu/introhumanosteology/?p=60"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Pogonion is the most anterior midline point of the chin; menton is the lowest median point of the chin; gnathion lies midway between pogonion and menton on the mandible (one source).",
+   "urls": [
+    "https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html",
+    "https://pressbooks.gvsu.edu/introhumanosteology/?p=60"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Sella is the centre of the pituitary fossa (sella turcica) of the sphenoid bone.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13466904/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Downs and Steiner original definitions were not found in these searches; they need the original papers or a textbook.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "Subnasale (sn) is where the columella meets the upper lip at the nasolabial contour; Nobel Biocare's 3D cephalometric guide defines it on the nasolabial contour between columella crest and upper lip.",
+   "urls": [
+    "https://nobellicense.nobelbiocare.com/help/d3d046fb-52e8-4b33-9f51-d3fd98ca3ed4/2.0/EN/3D_cephalometric_soft_tissue_landmarks.htm"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Pronasale (prn) is the most anterior midpoint of the nasal tip (Nobel Biocare 3D soft-tissue definition); an Egyptian anthropometry study defines it as the most protrusive point in lateral view.",
+   "urls": [
+    "https://nobellicense.nobelbiocare.com/help/d3d046fb-52e8-4b33-9f51-d3fd98ca3ed4/2.0/EN/3D_cephalometric_soft_tissue_landmarks.htm",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Subnasale is defined inconsistently: a CNN study calls it the deepest point at the nose base/upper lip junction, while the Egyptian study places it at the columella's lower border meeting the philtrum.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13205844/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Labiale superius (ls) and labiale inferius (li) are the most prominent points of the upper and lower lips in a CNN 2D study, whereas the Egyptian study places ls at the midline of the upper vermilion border.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13205844/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Stomion (sto) is where the upper and lips meet in the midline; a class III surgery AI study splits it into stomion superius (Stms) and inferius (Stmi).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12460026/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Soft tissue gnathion (gn') is defined as the lowest midpoint of the chin soft-tissue contour in some sources, while others place gn at the neck-throat junction.",
+   "urls": [
+    "https://nobellicense.nobelbiocare.com/help/d3d046fb-52e8-4b33-9f51-d3fd98ca3ed4/2.0/EN/3D_cephalometric_soft_tissue_landmarks.htm"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Exocanthion (ex) and endocanthion (en) are the outer and inner corners of each eye fissure in soft tissue; cheilion (ch) is the labial commissure; alare (al) is the most lateral point of the alar contour; trichion (tr) is the anterior hairline midline; vertex (v) is the highest midline point of the skull.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Farkas (1994, Anthropometry of the Head and Face) is cited as the standard reference for craniofacial landmark definitions and North American White male and female norms; many definitions are framed in 2D planes.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015",
+    "https://stacks.cdc.gov/view/cdc/79136"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2019 study found considerable differences between Farkas norms and 3D stereophotogrammetry data, attributed possibly to measurement method, secular trends, or ethnic composition.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/26703056/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 3D imaging study uses Farkas-style abbreviations: g, n, sn, pg, en, ex, al, cph, ch, ls, ft.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "The MediaPipe Face Mesh model outputs 478 landmarks: the first 468 mesh points keep a stable order, with 10 iris points appended at indices 468-477.",
+   "urls": [
+    "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/README.md",
+    "https://github.com/cornpip/mediapipe_face_mesh"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A MIT-licensed community converter (PeizhiYan/Mediapipe_2_Dlib_Landmarks) maps MediaPipe 478 landmarks to dlib 68 landmarks via a single function; its index table was not visible in search results and must be checked in the repo.",
+   "urls": [
+    "https://github.com/PeizhiYan/Mediapipe_2_Dlib_Landmarks/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "dlib's 68-point detector outputs 68 (x,y) points trained on iBUG 300-W; tutorial index ranges (Python slices): jaw [0,17), right eyebrow [17,22), left eyebrow [22,27), nose [27,35), right eye [36,42), left eye [42,48), mouth [48,68).",
+   "urls": [
+    "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/",
+    "https://pyimagesearch.com/2018/04/02/faster-facial-landmark-detector-with-dlib/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "The sources' range notation is end-exclusive slices; the inclusive per-point reading (jaw 0-16, mouth 48-67, etc.) is general knowledge of the dlib layout and was NOT confirmed by the search results.",
+   "urls": [],
+   "numeric": false
+  },
+  {
+   "fact": "dlib's 5-point model is a lower-density alternative and can be used as a drop-in in some sources' description.",
+   "urls": [
+    "https://pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Best-case 3D face-scan landmark error: a CNN approach reported overall mean 0.83 +/- 0.49 mm, with lowest error at endocanthion, exocanthion, cheilion; attribution URL not confirmed from the search output.",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "A non-rigid template registration on a 3D optical scanner gave landmark error <2 mm for 53.1% of landmarks and <4 mm for 84.4%; midface errors smallest, upper face largest.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10047049/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A PCA method combining 3D geometry and 2D texture gave RMS about 1.7-1.8 mm over 17 landmarks.",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "Under large yaw and expression variation, a 3D landmark detection method reported 4.5-6.3 mm mean localization error.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/23681986/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A U-Net 3D facial landmark study reported average NME 2.8 mm in acromegaly patients, indicating accuracy needs improvement.",
+   "urls": [
+    "https://ncbi.nlm.nih.gov/pmc/articles/PMC10963813"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A mobile-device-compatible 3D scanner under controlled lighting and angles averaged about 1 mm error on facial landmarks.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13117559/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Manual cephalometric identification shows high intra- and inter-operator variability, with errors possibly above 2 mm for gonion and orbitale.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12418967/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In a 3D CBCT study gonion had the largest Euclidean intra- and inter-observer distances; gonion, nasion, orbitale and ANS had the greatest median distances.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8111847",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2642991"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In a CBCT observer study, gnathion, menton and pogonion ICCs were mostly 0.9 or above; gonion inter-observer Y-axis ICC was about 0.71-0.73.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2642991"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Orbitale and porion are bilateral, so left and right images overlap, which can add error when locating midline-referenced points.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13466904/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2025 CBCT commercial-software study found large gonion location errors but accurate FMA because the error ran along the gonion-menton line.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12418967/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Gonion and orbitale mean errors of 1.06 mm and 1.39 mm respectively were reported in a deep-learning study; the source was not confirmed from search output.",
+   "urls": [],
+   "numeric": true
+  },
+  {
+   "fact": "Blender add-on FaceFit (VGCLUB/facefit-mpfb) is a v0.1 prototype that fits MPFB2 heads to photos using 57 stable points out of MediaPipe 478; solving runs in an external MCP server; tested on Blender 4.2.3 LTS with MPFB2 2.0.18.",
+   "urls": [
+    "https://github.com/VGCLUB/facefit-mpfb"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "CaptureForge (GPL-3.0) auto-rig needs a front view with visible eyes and mouth; its roadmap reports fitting tracked landmarks made weights worse than MediaPipe's own scores on stylized heads.",
+   "urls": [
+    "https://github.com/H0wZy/captureforge"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "No 2025 benchmark for 3D or anthropometric face landmarks was found; the closest 2025 item, Proto-Former (Oct 2025), is a 2D method.",
+   "urls": [
+    "https://arxiv.org/abs/2510.15338"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Infinite 3D Landmarks (2024) dropped jaw points on the Sagonas evaluation because its sliding jawline landmarks are not 3D consistent.",
+   "urls": [
+    "https://arxiv.org/pdf/2405.20117"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Subnasale: Nobel Biocare (nasolabial contour between columella crest and lip) vs CNN study (deepest point at nose base/upper lip) vs Egyptian study (columella lower border meeting philtrum).",
+  "Labiale superius: CNN study (most prominent upper lip point) vs Egyptian study (midline of upper vermilion border).",
+  "Stomion: single point in 3D scanner study vs split into Stms/Stmi in class III AI study.",
+  "Gnathion (soft tissue gn'): lowest chin midpoint vs neck-throat junction in different sources.",
+  "Orbitale: lowest inferior orbital rim point vs midpoint between the two orbits' lowest inferior margins.",
+  "Gonion: midpoint vs outermost inferior point of the mandibular angle.",
+  "Farkas norms vs 3D stereophotogrammetry data differ considerably (2019 study)."
+ ],
+ "openQuestions": [
+  "Exact 68-point and 478-point index mapping table was not found; the converter repo must be read directly.",
+  "Downs and Steiner original hard-tissue definitions not retrieved.",
+  "Farkas 1994 numeric reference values not retrieved.",
+  "Attribution URLs for the 0.83 mm CNN, 1.06/1.39 mm gonion/orbitale, and the PCA 1.7-1.8 mm figures were not confirmed in search output.",
+  "No community (Blender forum, Polycount, Reddit) discussion surfaced; Blender Stack Exchange and MakeHuman boards remain unchecked.",
+  "Structured-light scanner sub-1 mm reproducibility claim was seen in results but its source URL was not captured.",
+  "Whether the sandbox allows fetching primary sources was not tested beyond the single allowed attempt; all facts rely on search snippets."
+ ]
+}

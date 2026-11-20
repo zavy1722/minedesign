@@ -1,0 +1,35 @@
+{"topic":"facial-asymmetry","tables":[
+{"name":"whole_face_rmsd_vs_mirror","units":"mm","columns":["region","mean_mm","sd_mm","n","population","method"],"rows":[
+["whole face",0.8,0.2,191,"age 0.3-88 y","3D surface registered to its mirror image, RMSD"],
+["upper third",0.5,null,191,"age 0.3-88 y","3D surface, RMSD"],
+["middle third",0.6,null,191,"age 0.3-88 y","3D surface, RMSD"],
+["lower third",0.6,null,191,"age 0.3-88 y","3D surface, RMSD"]],
+"population":"191 subjects aged 0.3-88 years","source_urls":["https://pubmed.ncbi.nlm.nih.gov/30511968/"],"status":"single-source","notes":"Asymmetry increased significantly with age. Per-third values below whole-face value probably reflect separate per-region alignment (unconfirmed). Not re-verified by independent search in this run."},
+{"name":"whole_face_rmsd_vs_mirror_3dmd","units":"mm","columns":["region","mean_mm","sd_mm","n","population","method"],"rows":[
+["whole face",0.80,0.24,null,"healthy volunteers","3dMD photogrammetry; RMSD between face and its reflection about the plane of maximum symmetry"]],
+"population":"healthy adult volunteers (n not available in excerpt)","source_urls":["https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4614853/"],"status":"single-source","notes":"Attribution of this value to this URL was inferred from search excerpts by the harvester and is not confirmed. Concordant with the 0.8 +/- 0.2 mm value from PubMed 30511968."},
+{"name":"bilateral_landmark_lr_difference","units":"mm","columns":["measure","min_mm","max_mm","n","population","method"],"rows":[
+["right-left difference, 9 bilateral soft-tissue landmark pairs",0.6,4.6,48,"adults with normal occlusion","CBCT soft tissue, 3D"],
+["right-left difference, skeletal landmarks",0,12,null,"normal adults","2D posteroanterior cephalogram"]],
+"population":"normal adults","source_urls":["https://pubmed.ncbi.nlm.nih.gov/23112933/","https://pmc.ncbi.nlm.nih.gov/articles/PMC8166985/"],"status":"contested","notes":"Row 1 from PubMed 23112933 (larger values at lower and lateral landmarks). Row 2 from PMC8166985; much wider range reflects the 2D method and landmark choice. Do not mix the two metrics."},
+{"name":"child_midline_offset","units":"mm","columns":["measure","mean_mm","population"],"rows":[
+["average landmark offset from midline",0.25,"normal birth cohort, infancy to 6 years"]],
+"population":"normal birth cohort up to 6 years","source_urls":["https://pmc.ncbi.nlm.nih.gov/articles/PMC10389059/"],"status":"single-source","notes":"Value taken from a search excerpt, not full text. Lower-face landmarks shifted slightly to the opposite side. Authors state no threshold separates normal from increased asymmetry."},
+{"name":"asymmetry_index_controls","units":"dimensionless index (not mm)","columns":["measure","min","max","n","population"],"rows":[
+["3D asymmetry index across 10 landmarks",1.77,3.38,25,"normal male controls"]],
+"population":"25 normal males","source_urls":["https://pmc.ncbi.nlm.nih.gov/articles/PMC7248163/"],"status":"single-source","notes":"Index values, not millimetres; not comparable with RMSD."},
+{"name":"perception_thresholds_mm","units":"mm","columns":["feature_or_context","threshold_mm","observers","source_url"],"rows":[
+["eyelid position at rest (most sensitive feature)",2,"literature review","https://pubmed.ncbi.nlm.nih.gov/28200081/"],
+["mouth corner or brow",3,"naive observers, facial paralysis model","https://pubmed.ncbi.nlm.nih.gov/21242426/"],
+["threshold of abnormality, frontal",4,"laypersons and general dental practitioners","https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/"],
+["threshold of abnormality, frontal",2,"orthodontists and oral and maxillofacial surgeons","https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/"],
+["general asymmetry not recognised below (lower bound of 3-4 mm range)",3,"prospective study","https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/"],
+["general asymmetry not recognised below (upper bound of 3-4 mm range)",4,"prospective study","https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/"],
+["treatment-planning cut-off (clinical convention)",3,"clinical 3D/AI study","https://pmc.ncbi.nlm.nih.gov/articles/PMC12565447/"]],
+"population":"mixed observer groups","source_urls":["https://pubmed.ncbi.nlm.nih.gov/28200081/","https://pubmed.ncbi.nlm.nih.gov/21242426/","https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/","https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/","https://pmc.ncbi.nlm.nih.gov/articles/PMC12565447/"],"status":"contested","notes":"Range 2-4 mm depending on feature, observer expertise and viewing time (shorter viewing raises thresholds, PubMed 21242426). PMC11595402 attribution unconfirmed. Each row is single-source."},
+{"name":"perception_thresholds_deg","units":"degrees","columns":["feature_or_context","threshold_deg","observers","source_url"],"rows":[
+["lower-face deviation detected",6,"orthodontists only (dentists and laypeople did not detect)","https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/"],
+["canting not recognised below (lower bound)",3,"prospective study","https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/"],
+["canting not recognised below (upper bound)",4,"prospective study","https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/"]],
+"population":"mixed observer groups","source_urls":["https://pmc.ncbi.nlm.nih.gov/articles/PMC7603600/","https://pmc.ncbi.nlm.nih.gov/articles/PMC11595402/"],"status":"single-source","notes":"PMC11595402 attribution unconfirmed. Each row single-source."}
+]}

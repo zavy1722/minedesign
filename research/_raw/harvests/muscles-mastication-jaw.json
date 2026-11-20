@@ -1,0 +1,377 @@
+{
+ "queries": [
+  "masseter muscle volume size variation population study",
+  "temporalis muscle thickness measurement ultrasound MRI normal values",
+  "masseter hypertrophy bruxism lower face width jaw angle (allowed: ncbi, pmc)",
+  "masseter muscle botulinum toxin lower face contour gonial angle study (allowed: ncbi, pmc)",
+  "temporalis muscle temple hollowing sculpting anatomy practitioner (allowed: polycount, blenderartists, artstation)",
+  "masseter temporalis muscle volume MRI 3D segmentation 2025 study facial shape (extended)",
+  "masseter muscle hypertrophy limitations criticism evidence botulinum lower face review (allowed: pubmed, pmc, arxiv)",
+  "masseter muscle size gender difference bigonial width facial width anthropometry"
+ ],
+ "sources": [
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10738411/",
+   "title": "Association of masseter muscle volume with risk of osteoporosis in older adults: the Bunkyo Health Study",
+   "kind": "paper",
+   "year": "2023"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39405919/",
+   "title": "Masseter Muscle Volume, Sarcopenia, and Muscle Determinants: Insights from ACTN3 Polymorphism in Elderly Japanese in the Bunkyo Health Study",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0940960226000737",
+   "title": "Fully Automated 3D Volumetric Analysis of Masticatory Muscles in a Pediatric Population: A CT-Based Normative Morphometric Study",
+   "kind": "paper",
+   "year": "2026"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11541370/",
+   "title": "Changes in 3-Dimensional Measurements of Masseter Muscle After Orthognathic Surgery in Patients with Facial Asymmetry",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9146455/",
+   "title": "Volumetric Change in the Masseter and Lateral Pterygoid after Mandibular Setback",
+   "kind": "paper"
+  },
+  {
+   "url": "https://academic.oup.com/dmfr/article/53/2/137/7499341",
+   "title": "Determination of masseter and temporal muscle thickness by ultrasound and muscle hardness by shear wave elastography in healthy adults as reference values",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://surgicalneurologyint.com/surgicalint-articles/standard-values-for-temporal-muscle-thickness-in-the-japanese-population-who-undergo-brain-check-up-by-magnetic-resonance-imaging/",
+   "title": "Standard values for temporal muscle thickness in the Japanese population who undergo brain check-up by MRI",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7288067/",
+   "title": "Sarcopenia in Neurological Patients: Standard Values for Temporal Muscle Thickness and Muscle Strength Evaluation",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.nature.com/articles/s41598-024-59316-9",
+   "title": "Ultrasonographic examination of masticatory muscles in patients with TMJ arthralgia and headache attributed to temporomandibular disorders",
+   "kind": "paper",
+   "year": "2024"
+  },
+  {
+   "url": "https://www.biorxiv.org/content/10.1101/2025.10.31.685721.full.pdf",
+   "title": "Automatic measurement of temporalis muscle thickness from CT head scans using deep learning",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6768934/",
+   "title": "Application of botulinum toxin in maxillofacial field: part I. Bruxism and square jaw",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3304221/",
+   "title": "Surgical management of masseteric hypertrophy and mandibular retrognathism",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5885125/",
+   "title": "Changes in the temporomandibular joint disc and temporal and masseter muscles secondary to bruxism in Turkish patients",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5466904/",
+   "title": "Repeated injections of botulinum toxin into the masseter muscle induce bony changes in human adults: A longitudinal study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13773675",
+   "title": "Longitudinal Computed Tomographic Evaluation of Mandibular Bone Morphology Following OnabotulinumtoxinA Treatment of Masseter Muscle Prominence: 12-Month Placebo-Controlled Study",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/17674088/?dopt=Abstract",
+   "title": "Botulinum toxin A for lower facial contouring: a prospective study",
+   "kind": "paper",
+   "year": "2007"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10557449/",
+   "title": "A review on bigonial width reduction by botulinum toxin injections in masseter",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42379083/",
+   "title": "Efficacy of botulinum toxin for masseter muscle hypertrophy: A systematic review and meta-analysis",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11196657/",
+   "title": "Exploring botulinum toxin's impact on masseter hypertrophy: a randomized, triple-blinded clinical trial",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30091170/",
+   "title": "Literature review of the adverse events associated with botulinum toxin injection for the masseter muscle hypertrophy",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13617056",
+   "title": "MRI-based anatomical and biomechanical characterization of the human masticatory muscles",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/21590309/",
+   "title": "Automatic 3D segmentation of individual facial muscles using unlabeled prior information",
+   "kind": "paper",
+   "year": "2011"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11856534/",
+   "title": "An Expert Guide to Anatomy-Based Filler Injection for the Temple",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11355334/",
+   "title": "Correction of Post-Surgical Temporal Hollowing with Adipo-Dermal Grafts: A Case Series",
+   "kind": "paper"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12230883",
+   "title": "Three-Dimensional Stereophotogrammetry Facial Morphologic Signatures of Temporomandibular Disorders",
+   "kind": "paper"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9324049/",
+   "title": "Combined Effects of Botulinum Toxin Injection and Oral Appliance Therapy on Lower Facial Contouring: A Randomized Controlled Trial",
+   "kind": "paper"
+  }
+ ],
+ "facts": [
+  {
+   "fact": "Bunkyo Health Study (Tokyo, older adults, n\u22481,484, 3D MRI): mean masseter volume reported as about 35 mL in men and 25 mL in women; men significantly larger. Figures come from search-result summary, not the full paper; verify before use.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10738411/",
+    "https://pubmed.ncbi.nlm.nih.gov/39405919/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Bunkyo cohort: lowest masseter-volume quintile had higher sarcopenia risk than highest quintile in both sexes; IGF-1 positively correlated with masseter volume.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/39405919/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Pediatric CT normative study (258 children aged 0\u201317): masticatory muscle volume rises with age; masseter shows the largest increase (about 199%); left-side favoring in masseter volume reported.",
+   "urls": [
+    "https://www.sciencedirect.com/science/article/abs/pii/S0940960226000737"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "In a facial asymmetry orthognathic surgery cohort, masseter volume and cross-sectional area on the non-deviated side decreased by 13.5% and 16.4% after surgery (patient group, not general population).",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11541370/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Ultrasound reference study in healthy adults (DMFR 2024): masseter and temporal thickness and shear-wave hardness reported as reference values; a summary cites temporal thickness mean 0.88 \u00b1 0.11 cm at rest and 0.98 \u00b1 0.12 cm on contraction.",
+   "urls": [
+    "https://academic.oup.com/dmfr/article/53/2/137/7499341"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Earlier ultrasound control group reported temporal thickness about 0.64 cm at rest and 0.76 cm on contraction; another ultrasound cohort reported about 8.1 mm rest and 9.8 mm contracted. These disagree with the 2024 reference values, showing protocol and population sensitivity.",
+   "urls": [
+    "https://academic.oup.com/dmfr/article/53/2/137/7499341",
+    "https://www.researchgate.net/publication/377274549_Determination_of_Masseter_and_Temporal_Muscle_Thickness_by_Ultrasound_and_Muscle_Hardness_by_Shear_Wave_Elastography_in_Healthy_Adults_as_Reference_Values"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Japanese MRI reference cohort of 360 adults aged 35\u201384: temporal muscle thickness ranged 3.69\u201316.90 mm; men had higher means than women except over age 70; thickness correlated with body weight and BMI.",
+   "urls": [
+    "https://surgicalneurologyint.com/surgicalint-articles/standard-values-for-temporal-muscle-thickness-in-the-japanese-population-who-undergo-brain-check-up-by-magnetic-resonance-imaging/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A sarcopenia-focused study used a normal reference cohort of 624 people to set sex- and age-specific temporal muscle thickness standards.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7288067/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "CT and MRI temporalis thickness measurements agreed well in head and neck cancer patients (ICC 0.894). MRI protocols differ in landmark (one measures perpendicular to the temporalis long axis using the Sylvian fissure as reference), so values should not be transferred across modalities without validation.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8492642/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Temporalis thickness is used as a sarcopenia proxy; the 2021 head and neck cancer study links it to progression-free survival.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8492642/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Bruxism and square-jaw review: chronic clenching gradually enlarges masseter and temporalis, giving a square lower face; a 2024 review attributes a wider lower third mainly to mandibular angle and masseter hypertrophy. Evidence is largely case reports and small studies; causation not fully settled.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6768934/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5885125/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "In one Turkish cohort with severe bruxism, all patients showed temporal and masseteric muscle hypertrophy.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5885125/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Male masseter thickness exceeds female thickness in both relaxed and contracted states (orthodontic sample of 70; ultrasound-based).",
+   "urls": [
+    "https://doaj.org/article/bee473398a794b4b9acfdd1affa15fec"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Masseter thickness correlates positively with intergonial (bigonial) and bizygomatic facial width and negatively with anterior facial height and mandibular length (Raadsheer et al., as cited in a search summary).",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7433933"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "A 2024 study of 140 patients: masseter thickness correlates directly with male sex and normal occlusion, inversely with malocclusion severity and facial form.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7609929"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Masseter thickness at rest is significantly lower in people aged 55+ than in those aged 18\u201335 (P < 0.01).",
+   "urls": [
+    "https://doaj.org/article/a02f971250a04a81b2bf64a6cd7b3186"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Repeated BoNT-A injections into the masseter reduced bone volume in the mandibular angle region in a longitudinal CBCT study of 20 healthy adults, with larger reduction in the repeat-injection group.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5466904/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "12-month placebo-controlled CT trial (onabotulinumtoxinA n=150, placebo n=37): no differences in bigonial width, cortical thickness, mandibular flare or gonial angle. Authors note that gonial angle change could reflect mandibular rotation from altered joint forces.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13773675"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Prospective study of 10 women: masseter reduced by about 30% statistically significantly after BoNT-A, with no change in other masticatory muscles; contour returned gradually by about 6 months.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/17674088/?dopt=Abstract"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Meta-analysis of five RCTs (536 participants) found BoNT-A benefit for benign bilateral masseter hypertrophy, short-term, with substantial heterogeneity.",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/42379083/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Earlier systematic check found no RCTs or CCTs on intra-masseteric BoNT-A for bilateral benign masseter hypertrophy (older review).",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/24018587/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "BoNT-A masseter effect typically peaks about 3 months after a single session and lasts about 6\u201312 months; repeat sessions may be needed (review summary).",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11860558/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "Repeated low-dose masseter injections reduced muscle thickness, contraction ability and masticatory performance in a triple-blinded RCT; authors questioned aesthetic-only justification.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11196657/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Brazilian cohort reported masticatory fatigue, smile limitation and smile asymmetry after masseter BoNT-A (smile limitation attributed to possible risorius blockade).",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/30091170/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "No consensus on average BoNT-A dose for masseter treatment; off-label in most jurisdictions and popular in Asia; no formal guidelines per review summaries.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6768934/",
+    "https://pubmed.ncbi.nlm.nih.gov/30091170/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Automatic MRI segmentation of facial soft tissue reached 82.6% volumetric overlap for masseter and 78.8% for temporalis versus ground truth (about 2011 method).",
+   "urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/21590309/"
+   ],
+   "numeric": true
+  },
+  {
+   "fact": "A 2025-era MRI study of masticatory muscles uses high-resolution MRI with semi-automatic 3D Slicer segmentation to report sex-specific volume, length and cross-sectional area of masseter, pterygoid and temporalis in young adults; publication date unclear from metadata.",
+   "urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13617056"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Temple hollowing is anatomically the area below the superior temporal line where temporalis originates; the muscle lies in a fascial envelope with deep temporal fat pad between muscle and deep fascia, relevant to clinical injection planes.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11856534/"
+   ],
+   "numeric": false
+  },
+  {
+   "fact": "Temporal hollowing after neurosurgery is linked to temporalis atrophy or retraction; fat grafting, fillers, PEEK implants and serratus flaps are alternatives, none a standard of care.",
+   "urls": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11355334/"
+   ],
+   "numeric": false
+  }
+ ],
+ "contradictions": [
+  "Gonial angle/bone effects of masseter BoNT-A: small CBCT study (n=20) reports bone volume loss at the mandibular angle, while a 12-month placebo-controlled CT trial (n=150 vs 37) found no gonial angle or bigonial width change.",
+  "Temporalis ultrasound thickness at rest differs across studies: about 0.64 cm (older control group) vs 0.88 cm (2024 reference cohort) vs about 8.1 mm in another cohort.",
+  "Soft-tissue masseter reduction after BoNT-A is documented (about 30% in 10 women), but whether it changes bone is unresolved.",
+  "Intermolar/arch width vs sex: one orthodontic study found men wider, another found no gender association."
+ ],
+ "openQuestions": [
+  "No large population norm found for adult masseter or temporalis volume or thickness by sex, age, and ethnicity with a shared protocol; Bunkyo figures are from a search summary and need full-paper verification.",
+  "No large anthropometric norm for bigonial width by sex was found; the sex and facial-width data are small orthodontic or ultrasound samples.",
+  "Whether masseter hypertrophy causes a wider mandibular angle versus only soft-tissue bulk is not settled.",
+  "Long-term safety of repeated BoNT-A masseter dosing and functional effects remain open; no standard guideline located.",
+  "Practitioner sculpting-art sources on masseter/temporalis shape were not found; only clinical and surgical literature surfaced (polycount, blenderartists, artstation searches returned nothing relevant).",
+  "Full-text checks of most abstracts were not possible (WebFetch unavailable); numbers are from search snippets and summaries."
+ ]
+}
