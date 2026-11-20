@@ -2,7 +2,7 @@
 
 > Lower-face width, the apparent jaw angle and temple fullness depend on two chewing muscles laid over bone: the masseter on the ramus and the temporalis in the temporal fossa, each under fat, fascia and (for the masseter) the parotid gland. Relaxed adult masseter thickness is roughly 10-15 mm per side by ultrasound and rises about 27-30% on clenching. It is greater in men, in low-angle (short) faces and, on average, in bruxers. The adult temporalis is larger in men and shrinks with age. Botulinum toxin cuts masseter bulk by about 25-30% for months, but whether it changes bone is contested. For photo-to-3D the core problem is identifiability: a frontal photo confounds bone, muscle, gland and fat, so a fitter needs separate layers, a per-photo clench state and profile or 3/4 contour evidence.
 
-Evidence status: 14 ✅ / 33 📄 / 30 🧠 / 14 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 15 ✅ / 34 📄 / 35 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
 
 *Notes on the evidence:* "(summary)" marks a number taken from a search-result summary rather than from the paper itself. "Derived" marks a value computed from cited numbers.
 

@@ -118,22 +118,13 @@
   - check `hasattr(bpy.ops.brush, "asset_activate")`;
   - check `"sculpt_brush_type" in bpy.types.Brush.bl_rna.properties`;
   - keep add-on state in a `PointerProperty` group and read it as attributes, never as `id["x"]` 🧠.
-- **Precision boundary:**
-  - bulk reads go into a preallocated `np.empty(3*n, np.float32)` through `foreach_get("co", buf)`, and the dtype must match for the fast memcpy path 🧠;
-  - convert to float64 once, and keep the solver in float64 throughout;
-  - write back with `astype(np.float32)`, then `foreach_set` and `mesh.update()`;
-  - read mathutils objects with `np.array(m, dtype=np.float64)`;
-  - never pass `copy=False`: NumPy 2 raises when a copy is required 🧠.
+- **Precision boundary:** bulk reads go into a preallocated `np.empty(3*n, np.float32)` via `foreach_get("co", buf)` (the dtype must match for the fast memcpy path 🧠); convert to float64 once and solve in float64; write back with `astype(np.float32)`, `foreach_set`, `mesh.update()`. Read mathutils objects with `np.array(m, dtype=np.float64)`, and never pass `copy=False`, which raises in NumPy 2 when a copy is needed 🧠.
 - **Suggested tolerance defaults**, scale-relative, with s = head scale (for example bizygomatic width ≈ 0.13–0.15 m 🧠):
   - Blender round-trip check: atol = 1e-6·s, which is ≈ 10–20 float32 steps at head scale.
   - Convergence: relative cost change < 1e-10, or step < 1e-8·s, in float64.
   - Finite differences: only in float64 and only on data that never went through float32, because the float32 noise floor (~1e-7 relative) ruins Jacobians. Prefer analytic Jacobians.
   - Golden-file tests: rtol = 1e-5.
-- **NumPy 1/2-neutral subset** 🧠:
-  - do not use `np.float_`, `np.NaN`, `np.Inf`, `np.product`, `np.cumproduct`, `np.alltrue`, `np.row_stack` or `np.in1d` (use `np.isin`);
-  - give explicit dtypes everywhere, because under NEP 50 a float32 array × a Python float stays float32;
-  - call `np.linalg.lstsq(..., rcond=None)` and `np.random.default_rng(seed)`.
-  - Run the pure-NumPy core outside Blender in a matrix of CPython 3.11 + NumPy 1.26 and CPython 3.13 + NumPy 2.x, so that both possible 5.x stacks are covered.
+- **NumPy 1/2-neutral subset** 🧠: avoid `np.float_`, `np.NaN`, `np.Inf`, `np.product`, `np.cumproduct`, `np.alltrue`, `np.row_stack`, `np.in1d` (use `np.isin`); give explicit dtypes (under NEP 50 a float32 array × a Python float stays float32); use `lstsq(..., rcond=None)` and `default_rng(seed)`. Test the pure-NumPy core outside Blender on CPython 3.11 + NumPy 1.26 and 3.13 + NumPy 2.x, covering both possible 5.x stacks.
 - **Threads:** bpy is not thread-safe. Run the solve in a worker thread on copied arrays, poll it with `bpy.app.timers.register`, and apply the results on the main thread. Alternatively, chunk the iterations inside a modal operator 🧠.
 - **Dependencies:** no compiled wheels in the core; landmark detection (MediaPipe/ONNX) runs out of process in its own Python, exchanging JSON. Any bundled wheels are built per platform and per CPython tag (cp311, plus cp313 if confirmed), and never include `numpy` 🧠. Declare `permissions` (`network`, `files`), gate downloads on `bpy.app.online_access`, cache models under `extension_path_user(__package__, create=True)` 🧠.
 - **Camera exchange:** solve in OpenCV convention and convert with Table 4. When writing cameras, set `sensor_fit='HORIZONTAL'` explicitly, so that portrait-orientation photos don't fall into the AUTO max(W,H) ambiguity [14].

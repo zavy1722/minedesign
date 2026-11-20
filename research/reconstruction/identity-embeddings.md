@@ -2,7 +2,7 @@
 
 > A face-recognition network such as ArcFace turns a 112×112 face crop, aligned on five keypoints, into a 512-dimensional vector. Two faces count as the same person when the cosine similarity of their L2-normalised vectors clears a threshold, and that threshold must be calibrated per model, per image domain and ideally per subject. In photo→3D work the embedding plays three roles. It is a frozen **identity encoder** for a scan-supervised shape regressor (MICA, whose loss is geometric, not an ArcFace identity loss), an **identity loss** on renders (Genova 2018, Deng 2019, GANFIT, DECA), and an offline **likeness scorecard** for camera-matched renders of the sculpt. The scorecard can be fooled: it is blind to scale, weak on depth, ears and cranium, and dominated by texture, eyes and brows, so measure it on clay renders against a calibrated genuine/impostor baseline. The common InsightFace weights are reportedly non-commercial only, and embeddings are biometric data, which limits how an add-on ships the model and stores its outputs.
 >
-> Evidence status: 1 ✅ / 21 📄 / 37 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 6 ✅ / 26 📄 / 38 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 

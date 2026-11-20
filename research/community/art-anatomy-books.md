@@ -2,7 +2,7 @@
 
 > The classic head references fall into three families. Construction canons (Loomis, the Reilly method, Bridgman) give a fast, idealized scaffold. Plane models (the Asaro head, Reilly's rhythm lines) explain how form turns into light. Anatomical atlases (Peck, Goldfinger, Scott Spencer, Uldis Zarins) cover the skull, muscle and fat that produce those forms, and Zarins and Faigin add expression. The canons describe one idealized adult head with no variance, and most real faces fail most of them [5][7][8]. For photo→3D likeness, use the books three ways: as a block-in initializer, as the vocabulary and region map for checks and UI, and as weak priors only where the photos cannot see. Never use them as targets.
 >
-> Evidence status: X ✅ / Y 📄 / Z 🧠 / W ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 5 ✅ / 21 📄 / 54 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 

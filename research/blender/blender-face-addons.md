@@ -1,7 +1,7 @@
 # Blender add-ons for heads and faces
 
 > No Blender add-on in this evidence set fits a specific person's identity to photos with open code, open data and a commercial-safe licence; that is the gap this project fills. The ecosystem has three layers: landmark capture (MediaPipe: 468 points, 478 refined), parametric base humans (MPFB2/MakeHuman is the only actively released option with GPL-3-or-later code and CC0/CC-BY assets; FLAME is research-licensed; MB-Lab, CharMorph and Human Generator are legacy, niche or proprietary-content), and expression/rig tools converging on ARKit 52 (Faceit, CaptureForge, Face Shape Key Rig, Auto-Rig Pro, Rigify). KeenTools FaceBuilder is the closed-core, commercial incumbent for photo→head. Recommended: fit identity on a frozen MPFB2 topology, store it as one neutral shape key or MPFB target, add detail with Multires, and leave expressions to the ARKit layer; version rows are perishable (5.2 LTS and 5.3 are current per `blender/blender-version-status-2026.md`).
-Evidence status: 3 ✅ / 21 📄 / 44 🧠 / 6 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 4 ✅ / 24 📄 / 53 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
