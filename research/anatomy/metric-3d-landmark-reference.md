@@ -231,3 +231,14 @@ This topic's own harvest and earlier draft were absent. The URLs cited here were
 - Booth J et al., "Large Scale 3D Morphable Models" (LSFM), *IJCV*, 2018.
 - Dai H, Pears N, Smith W, Duncan C, "A 3D morphable model of craniofacial shape and texture variation" (Liverpool-York Head Model), ICCV 2017.
 - Ball R et al., "A comparison between Chinese and Caucasian head shapes", *Applied Ergonomics*, 2010.
+
+## Verification log (2026-11-20)
+
+Nine searches used. No badges changed: no claim reached a reliable, URL-tied confirmation beyond what the note already cites.
+
+1. Tragion depths (prn 119 / 111 mm; t–n′ 121 / 113, t–sn 129 / 121, t–gn′ 150 / 139 mm): **unconfirmed**. Results confirmed only the definitions (nasion, subnasale and gnathion to tragion) and that Farkas values exist in Weinberg et al. (https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015) and Farkas 1994. No adult mm norms were returned. Stays 🧠 ↔️.
+2. Bitragion breadth 145 / 137 mm and tragion–vertex 130 / 126 mm: **unconfirmed**. ANSUR II lists tragiontopofhead (https://ph.health.mil/topics/workplacehealth/ergo/Pages/Anthropometric-Database.aspx) but no means were returned. Stays 🧠.
+3. ANSUR II public CSV head columns and 4,082 M / 1,986 F: **partly confirmed**. The counts were already 📄 [4]. Columns tragiontopofhead and interpupillarybreadth appear at https://ph.health.mil/topics/workplacehealth/ergo/Pages/Anthropometric-Database.aspx, mentonsellionlength at https://ph.health.mil/PHC Resource Library/ANSURIIDatabasesOverview.pdf, and bitragionsubmandibulararc in the calmcode.io listing (https://calmcode.io/datasets/ergonomics). The full 12-column list, the units and the other columns were not seen. Table 5 stays 🧠.
+4. FLAME 2023 Open: **confirmed (already 📄)**: CC BY 4.0, with other FLAME releases non-commercial (https://flame.is.tue.mpg.de/modellicense.html, https://flame.is.tue.mpg.de/). Training data and component counts for the Open model stay **unconfirmed**; the viewer covers 10 of 300 shape components, which is not a confirmed count for the Open model.
+5. 3DFN: summary-level data are public and individual-level data are restricted (https://www.facebase.org/facial_norms/, https://pmc.ncbi.nlm.nih.gov/articles/PMC4841760); this was already 📄. Whether tragion is in the summary downloads is **unconfirmed**. Tragion appears only in a FaceBase morphometrics presentation.
+6. Arnett TVL norms (nasal projection about 16–17, Pg′ −3.5 M / −2.6 F, orbital rims 19–22 mm): **unconfirmed**. A search snippet gave 16.0 / 17.4, −2.6 / −3.5 and −18.7 / −22.4 with unlabelled columns, which is consistent with the claim. It could not be tied to a specific URL, so the facts stay 🧠 ↔️. Candidate source to check: https://go.digitalsmiledesign.com/hubfs/DSD%20Articles/Articles%20by%20others/Soft%20tissue%20cephalometric%20analysis%20Diagnosis%20and%20treatment.pdf
