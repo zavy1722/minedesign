@@ -2,7 +2,7 @@
 
 > A photo-to-head fitter fails silently when it reads an index under the wrong convention: left/right, 0- vs 1-based numbering, fixed vertex vs sliding contour, or a detector's habit vs the anthropometric definition. This note settles the conventions for MediaPipe 478 (subject-relative left/right; image-space z, smaller = nearer; canonical mesh y-up, face toward +z). It gives index→Farkas tables and ordered region polylines, and cross-maps iBUG 68, WFLW 98, the 3D-68 sets, FLAME's 51 + 17 embedding, MICA's MediaPipe embedding and ARKit's 1,220-vertex mesh. Only the coarse layouts are confirmed by sources. Almost every per-index anatomical assignment is expert knowledge and must be locked by the render-and-detect calibration below before it becomes an engine constant. This topic had no harvest and no earlier draft, so the cited URLs come from sibling harvests in this library.
 >
-> Evidence status: 7 ✅ / 17 📄 / 79 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 8 ✅ / 19 📄 / 83 🧠 / 28 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
