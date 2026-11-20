@@ -1,0 +1,633 @@
+{
+ "topic": "phone-video-depth-capture",
+ "tables": [
+  {
+   "name": "video_focal_from_photo_f35",
+   "units": "px (f_px), mm (35 mm-equivalent), degrees (HFOV)",
+   "columns": [
+    "video_w",
+    "video_h",
+    "eis_margin_per_axis",
+    "f_px",
+    "f35_diagonal_mm",
+    "f35_width_mm",
+    "hfov_deg"
+   ],
+   "rows": [
+    [
+     3840,
+     2160,
+     0.0,
+     2884,
+     28.3,
+     27.0,
+     67.3
+    ],
+    [
+     3840,
+     2160,
+     0.1,
+     3205,
+     31.5,
+     30.0,
+     61.8
+    ],
+    [
+     3840,
+     2160,
+     0.2,
+     3606,
+     35.4,
+     33.8,
+     56.1
+    ],
+    [
+     1920,
+     1080,
+     0.0,
+     1442,
+     28.3,
+     27.0,
+     67.3
+    ],
+    [
+     1920,
+     1080,
+     0.1,
+     1602,
+     31.5,
+     30.0,
+     61.8
+    ],
+    [
+     1920,
+     1080,
+     0.2,
+     1803,
+     35.4,
+     33.8,
+     56.1
+    ]
+   ],
+   "population": "Pinhole arithmetic: main camera 26 mm-equivalent (diagonal convention) on a 4032x3024 photo (f_px 3029); video assumed to be a full-width 16:9 readout, then cropped by the EIS margin",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "f_px_video = f_px_photo * (W_video/W_photo) / (1 - margin). Real EIS margins vary by vendor and mode (5-20%, contested). Derived, not measured."
+  },
+  {
+   "name": "face_motion_blur_mm",
+   "units": "mm of smear on the face",
+   "columns": [
+    "turn_speed_deg_s",
+    "t_1_30",
+    "t_1_60",
+    "t_1_120",
+    "t_1_250",
+    "t_1_500"
+   ],
+   "rows": [
+    [
+     15,
+     0.87,
+     0.44,
+     0.22,
+     0.1,
+     0.05
+    ],
+    [
+     30,
+     1.75,
+     0.87,
+     0.44,
+     0.21,
+     0.1
+    ],
+    [
+     60,
+     3.49,
+     1.75,
+     0.87,
+     0.42,
+     0.21
+    ],
+    [
+     90,
+     5.24,
+     2.62,
+     1.31,
+     0.63,
+     0.31
+    ]
+   ],
+   "population": "Point 100 mm from the yaw axis (roughly the nose tip); blur = omega(rad/s) * r * t_exp",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Convert to px with px/mm = f_px / z_mm: selfie 0.4 m at 1080p 3.6 px/mm (IOD ~227 px), 4K 7.2; 2x crop at 1.2 m: 2.4 (1080p), 4.8 (4K)."
+  },
+  {
+   "name": "rolling_shutter_width_distortion_pct",
+   "units": "% change of apparent face width",
+   "columns": [
+    "motion",
+    "readout_10ms",
+    "readout_20ms",
+    "readout_30ms"
+   ],
+   "rows": [
+    [
+     "head yaw 30 deg/s",
+     0.17,
+     0.35,
+     0.52
+    ],
+    [
+     "head yaw 90 deg/s",
+     0.52,
+     1.05,
+     1.57
+    ],
+    [
+     "handheld camera rotation 5 deg/s",
+     null,
+     0.23,
+     null
+    ],
+    [
+     "handheld camera rotation 20 deg/s",
+     null,
+     0.93,
+     null
+    ]
+   ],
+   "population": "Phone held upright (readout sweeps across the face); selfie geometry 0.4 m, 1080x1920 portrait, f_px 1443; distortion = v_px * T_readout / N_readout_px",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Phone readout times of 10-30 ms are an expert estimate (contested). Compare with landmark noise of about 2-3% of IOD."
+  },
+  {
+   "name": "phone_depth_sources_faces",
+   "units": "mixed (px, Hz, m, mm, % log-scale sigma)",
+   "columns": [
+    "source",
+    "depth_resolution",
+    "rate_hz",
+    "range_m",
+    "metric",
+    "face_shape_sigma_mm",
+    "scale_sigma_pct",
+    "status"
+   ],
+   "rows": [
+    [
+     "iPhone TrueDepth AVDepthData",
+     "~640x480",
+     "<=30",
+     "0.2-1.0 (best 0.25-0.5)",
+     "absolute",
+     "0.5-2 raw frame; 0.5-1.5 fused central face; 2-3+ lateral/ears",
+     "1-2",
+     "contested"
+    ],
+    [
+     "ARKit face mesh (TrueDepth)",
+     "1220 vertices / 2304 triangles",
+     "60 (depth ~15)",
+     "0.2-1.0",
+     "yes",
+     "~2-5 vs scan (estimate)",
+     "1-2",
+     "contested"
+    ],
+    [
+     "ARKit face mesh RGB-only",
+     "1220 vertices",
+     "60",
+     "-",
+     "assumed",
+     "weak",
+     "5-10",
+     "knowledge"
+    ],
+    [
+     "iPhone LiDAR sceneDepth",
+     "256x192 + confidence",
+     "60",
+     "0.3-5",
+     "absolute",
+     "~10 (cm-class)",
+     "2-3",
+     "knowledge"
+    ],
+    [
+     "Rear dual-camera/ML portrait depth",
+     "~VGA, stills",
+     "-",
+     "-",
+     "relative",
+     "masks only",
+     null,
+     "knowledge"
+    ],
+    [
+     "Android rear ToF",
+     "~240x180-640x480",
+     "~30",
+     "0.2-4",
+     "absolute",
+     "gross only; flying pixels at edges",
+     "2-4",
+     "knowledge"
+    ],
+    [
+     "ARCore Depth without ToF",
+     "low-res, 16-bit mm",
+     "~30",
+     "<=5 best",
+     "approximate",
+     "none",
+     "5-10",
+     "knowledge"
+    ]
+   ],
+   "population": "Adult faces at handheld range; values are expert estimates, not a single study",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Use as default sigmas only until verified. TrueDepth accuracy varies with app, fusion, face region and reference scanner."
+  },
+  {
+   "name": "engine_priors_video_depth",
+   "units": "log-space sigma (dimensionless) or mm or deg",
+   "columns": [
+    "parameter",
+    "condition",
+    "value",
+    "status"
+   ],
+   "rows": [
+    [
+     "log_f sigma",
+     "QuickTime f35 metadata, EIS off",
+     0.05,
+     "knowledge"
+    ],
+    [
+     "log_f sigma",
+     "scaled from same-lens photo EXIF",
+     0.08,
+     "knowledge"
+    ],
+    [
+     "log_f sigma",
+     "EIS on, crop margin unknown",
+     0.12,
+     "knowledge"
+    ],
+    [
+     "log_f sigma",
+     "nothing known (use focal hypothesis set)",
+     0.35,
+     "knowledge"
+    ],
+    [
+     "principal point offset sigma (fraction of width)",
+     "EIS on, per frame",
+     0.03,
+     "knowledge"
+    ],
+    [
+     "rotation second-difference sigma (deg/frame at 30 fps)",
+     "static camera head turn",
+     "0.5-1",
+     "knowledge"
+    ],
+    [
+     "translation second-difference sigma (mm)",
+     "static camera head turn",
+     "1-2",
+     "knowledge"
+    ],
+    [
+     "neck pivot fixed-point sigma (mm)",
+     "static camera head turn, pivot on midline 2-4 cm below ear canals",
+     "10-20",
+     "knowledge"
+    ],
+    [
+     "depth sigma0 at 0.35 m (mm)",
+     "TrueDepth, sigma scales with (z/0.35)^2 / cos(theta)",
+     "0.7 (0.4-1.5)",
+     "contested"
+    ],
+    [
+     "depth sigma_align (mm)",
+     "depth-colour registration and timing",
+     0.5,
+     "knowledge"
+    ],
+    [
+     "depth sigma_floor (mm)",
+     "systematic floor after fusing N frames",
+     0.5,
+     "contested"
+    ],
+    [
+     "depth incidence cutoff (deg)",
+     "drop pixels beyond",
+     70,
+     "knowledge"
+    ],
+    [
+     "depth Huber delta",
+     "in units of sigma",
+     2,
+     "knowledge"
+    ],
+    [
+     "max head angular speed for depth frames (deg/s)",
+     "depth-RGB timing",
+     10,
+     "knowledge"
+    ],
+    [
+     "scale log sigma",
+     "TrueDepth",
+     "0.01-0.02",
+     "contested"
+    ],
+    [
+     "scale log sigma",
+     "iPhone LiDAR",
+     "0.02-0.03",
+     "knowledge"
+    ],
+    [
+     "scale log sigma",
+     "ARKit RGB-only",
+     "0.05-0.10",
+     "knowledge"
+    ],
+    [
+     "scale log sigma",
+     "ID-1 card in face plane",
+     "0.01-0.02",
+     "knowledge"
+    ],
+    [
+     "scale log sigma",
+     "IPD alone",
+     "~0.06",
+     "knowledge"
+    ],
+    [
+     "ARKit vertex target sigma (mm)",
+     "forehead, nasal dorsum, cheeks, chin",
+     "2-3",
+     "contested"
+    ],
+    [
+     "ARKit vertex target sigma (mm)",
+     "jawline, lateral cheeks",
+     "4-6",
+     "contested"
+    ],
+    [
+     "frames per 5 deg yaw bin",
+     "decorrelation",
+     "1-3",
+     "knowledge"
+    ],
+    [
+     "rolling-shutter model threshold (% predicted stretch)",
+     "below this ignore",
+     0.5,
+     "knowledge"
+    ],
+    [
+     "default readout time (ms)",
+     "no metadata",
+     "20 +/- 10",
+     "contested"
+    ]
+   ],
+   "population": "Suggested defaults for face3d bundle adjustment (face3d/solve/bundle.py ViewObs.focal_group, f_prior_log_sigma) and a proposed depth residual",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering defaults from expert judgement; tune on synthetic sweeps and real captures."
+  },
+  {
+   "name": "frame_selection_defaults",
+   "units": "mixed",
+   "columns": [
+    "parameter",
+    "value",
+    "notes"
+   ],
+   "rows": [
+    [
+     "yaw bins (deg)",
+     "0, +/-10, +/-20, +/-30, +/-45, +/-60, +/-75, +/-90",
+     "best frame per bin"
+    ],
+    [
+     "pitch bins (deg)",
+     "0, +/-15",
+     ""
+    ],
+    [
+     "sharpness",
+     "variance of Laplacian on skin-masked crop at IOD = 100 px",
+     "relative to best frame within +/-0.5 s"
+    ],
+    [
+     "blink reject (eyeBlink above clip frontal median)",
+     0.35,
+     "MediaPipe/ARKit-style score"
+    ],
+    [
+     "jawOpen reject",
+     0.08,
+     ""
+    ],
+    [
+     "mouthSmile reject",
+     0.15,
+     ""
+    ],
+    [
+     "frames for solving",
+     "12-24",
+     ""
+    ],
+    [
+     "frames for texture",
+     "40-60",
+     ""
+    ],
+    [
+     "head-turn speed (deg/s)",
+     "<=20-30",
+     "pause 1 s at 0, +/-45, +/-90"
+    ],
+    [
+     "light level (lux)",
+     ">=500-1000",
+     "to force shutter <= 1/250 s"
+    ]
+   ],
+   "population": "Head-turn or orbit phone video of a cooperative adult",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Heuristic thresholds; calibrate per detector."
+  },
+  {
+   "name": "hdr_decode_constants",
+   "units": "dimensionless",
+   "columns": [
+    "item",
+    "value"
+   ],
+   "rows": [
+    [
+     "HLG a",
+     0.17883277
+    ],
+    [
+     "HLG b",
+     0.28466892
+    ],
+    [
+     "HLG c",
+     0.55991073
+    ],
+    [
+     "HLG inverse OETF",
+     "E = E'^2/3 for E' <= 0.5; else (exp((E'-c)/a)+b)/12"
+    ],
+    [
+     "HLG system gamma",
+     "1.2 + 0.42*log10(L_W/1000); 1.2 at 1000 cd/m2"
+    ],
+    [
+     "PQ m1",
+     0.1593017578125
+    ],
+    [
+     "PQ m2",
+     78.84375
+    ],
+    [
+     "PQ c1",
+     0.8359375
+    ],
+    [
+     "PQ c2",
+     18.8515625
+    ],
+    [
+     "PQ c3",
+     18.6875
+    ],
+    [
+     "BT.2020 Kr",
+     0.2627
+    ],
+    [
+     "BT.2020 Kb",
+     0.0593
+    ],
+    [
+     "BT.709 Kr",
+     0.2126
+    ],
+    [
+     "BT.709 Kb",
+     0.0722
+    ],
+    [
+     "10-bit narrow range Y",
+     "64-940"
+    ],
+    [
+     "10-bit narrow range C",
+     "64-960"
+    ]
+   ],
+   "population": "ITU-R BT.2100 / BT.2020 / BT.709, SMPTE ST 2084",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "HLG b, c, luma coefficients and the matrix below were recomputed from the standard primaries and a = 0.17883277."
+  },
+  {
+   "name": "bt2020_to_bt709_linear_rgb",
+   "units": "3x3 matrix, linear light",
+   "columns": [
+    "R709",
+    "G709",
+    "B709"
+   ],
+   "rows": [
+    [
+     1.6605,
+     -0.5876,
+     -0.0728
+    ],
+    [
+     -0.1246,
+     1.1329,
+     -0.0083
+    ],
+    [
+     -0.0182,
+     -0.1006,
+     1.1187
+    ]
+   ],
+   "population": "D65 white; BT.2020 to BT.709 primaries",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Rows map linear BT.2020 RGB to linear BT.709 RGB; recomputed from primaries. Clip or soft-clip negatives afterwards."
+  },
+  {
+   "name": "arkit_face_geometry",
+   "units": "counts, Hz",
+   "columns": [
+    "item",
+    "value"
+   ],
+   "rows": [
+    [
+     "vertices",
+     1220
+    ],
+    [
+     "triangles",
+     2304
+    ],
+    [
+     "blend shapes",
+     52
+    ],
+    [
+     "anchor update rate (Hz)",
+     60
+    ],
+    [
+     "capturedDepthData rate (Hz, approx.)",
+     15
+    ],
+    [
+     "units",
+     "metres"
+    ],
+    [
+     "axes",
+     "+x subject's left, +y up, +z out of the face"
+    ]
+   ],
+   "population": "Apple ARKit ARFaceAnchor / ARFaceGeometry on TrueDepth devices",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Verify against Apple documentation; depth rate is the least certain value."
+  }
+ ]
+}

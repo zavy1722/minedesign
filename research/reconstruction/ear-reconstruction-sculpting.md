@@ -2,20 +2,20 @@
 
 > Generic photo-to-3D tools handle the ear badly: face 3DMMs carry coarse, averaged ears, face landmarkers stop at the tragus, recognition crops leave the ear out, and hair hides it. The route that works is to fit each ear as its own part, hinged on the otobasion line and anchored at tragion in a Frankfort-horizontal (FH) frame, with its own tilt, protrusion and twist. Fit it to profile, near-profile, rear-oblique and back photos taken with the hair clipped away and a raking light, then sculpt the folds by hand. As far as recalled, the ear-specific landmark sets and statistical models (iBUG 55-point, York Ear Model, UHM) are research-only, so a shippable tool needs a CC0 ear plus its own ear modes. With no harvest or draft, every claim is expert knowledge or a pointer to a sibling library note.
 >
-> Evidence status: 0 ✅ / 0 📄 / 63 🧠 / 35 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 7 📄 / 64 🧠 / 30 ↔️ — verified 2026-11-20 (see log); remaining 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Detectors, landmarks, datasets**
 - **Coarse ear points are free.** COCO body keypoints and MediaPipe Pose (Apache-2.0) both include `left_ear`/`right_ear`. That is enough to crop the ear and sanity-check yaw, but not to fit shape. 🧠
 - **Face landmarkers stop short of the ear.** dlib-68's jaw ends near the ear root and MediaPipe Face Mesh stops in front of the tragus. Sapiens' 308 points reportedly include ears, under a licence believed non-commercial (lib: `reconstruction/landmark-detection.md`). ↔️
-- **iBUG in-the-wild ears** (Zhou & Zafeiriou, IEEE FG 2017) define a 55-point scheme on the helix, antihelix and crura, concha rim, tragus, antitragus and lobule. The set is recalled as ≈600 landmarked images plus a ≈2k-image identity collection, for research use only ↔️. Its scheme is the de facto dense ear convention 🧠.
+- **iBUG in-the-wild ears** (Zhou & Zafeiriou, IEEE FG 2017) define a 55-point scheme on the helix, antihelix and crura, concha rim, tragus, antitragus and lobule. The set holds 500 training plus 105 test landmarked images (Collection A) and a 2,058-image, 231-subject identity collection (Collection B) 📄 [4][5]; research-only use is recalled, not confirmed 🧠. Its scheme is the de facto dense ear convention 🧠.
 - **Other 2D ear sets** (identity labels, mostly no landmarks): AWE/AWEx and UERC (Ljubljana, on request), USTB I–IV, IIT Delhi, AMI (≈700 images, 100 subjects), UBEAR (masks) and EarVN1.0 (≈28k images, 164 subjects). All are research or non-commercial 🧠, except perhaps EarVN1.0 (possibly CC BY) ↔️.
-- **3D ear data.** Notre Dame UND (J2: ≈400 subjects, range + colour; licence agreement) 🧠. HRTF corpora with head-and-ear meshes: SYMARE, HUTUBS (≈96 subjects, recalled CC BY 4.0), SONICOM, synthetic CHEDAR (≈1,250 heads) ↔️. Spatial audio now drives consumer ear capture (Apple's TrueDepth ear scan, Sony's ear-photo app) 🧠.
+- **3D ear data.** Notre Dame UND (J2: ≈400 subjects, range + colour; licence agreement) 🧠. HRTF corpora with head-and-ear meshes: SYMARE, HUTUBS (96 subjects, CC BY 4.0 per its documentation; head meshes in PLY, but the mesh count is unclear, secondary sources say 58) 📄 [6], SONICOM, synthetic CHEDAR (≈1,250 heads) ↔️. Spatial audio now drives consumer ear capture (Apple's TrueDepth ear scan, Sony's ear-photo app) 🧠.
 - **Segmentation.** CelebAMask-HQ parsing has left-ear, right-ear and earring classes but is non-commercial. Hair and accessory masks are the key occlusion input. 🧠
 
 **3D models and licences**
-- **York Ear Model (YEM)** (Dai, Pears & Smith, FG 2018) is the main ear-only 3DMM. It was seeded from a few SYMARE scans and augmented by fitting landmarked 2D ears (recalled ≈500 training ears). Research release on request. ↔️
+- **York Ear Model (YEM)** (Dai, Pears & Smith, FG 2018) is the main ear-only 3DMM. It was seeded from 10 pairs of SYMARE scans (corrected in verification) and augmented by fitting landmarked 2D ears; the released dataset holds 500 3D ears. Non-commercial research and education release, via a signed user agreement. 📄 [1][2]
 - **UHM** (Ploumpis et al., CVPR 2019; TPAMI 2021) fuses LSFM face statistics with LYHM cranium statistics. The TPAMI version adds a YEM ear, eyes and the mouth interior. Academic, non-commercial (lib: `reconstruction/3dmm-overview.md`). 🧠
 - **FLAME ears are coarse.** Its edges are 3–6 mm long against folds 1–3 mm wide, so helix roll and crura cannot be represented. `FLAME_masks.pkl` has per-ear masks. FLAME 2023 Open is CC BY 4.0; earlier versions are non-commercial (lib: `reconstruction/flame-model.md`, confirmed there). 🧠 BFM ears are generic, and NPHM-style neural heads are non-commercial 🧠.
 - **Permissive geometry, but no ear statistics.**
@@ -52,7 +52,7 @@
 
 | Resource | Content | Size | Licence | Commercial | Status |
 |---|---|---|---|---|---|
-| iBUG in-the-wild ears (FG 2017) | 55 2D landmarks | ≈600 + ≈2k ID images | research | no | ↔️ |
+| iBUG in-the-wild ears (FG 2017) | 55 2D landmarks | 605 landmarked + 2,058 ID images [4][5] | research (unconfirmed) | no | 📄 |
 | AWE / AWEx / UERC | in-the-wild IDs | AWE 1,000 / 100 subjects | on request | no | 🧠 |
 | EarVN1.0 | in-the-wild IDs | ≈28k / 164 | possibly CC BY | check | ↔️ |
 | UND J2 | 2D + 3D range | ≈400 subjects | agreement | no | 🧠 |
@@ -63,13 +63,13 @@
 
 | Model | Ear content | Licence | Ship in add-on? | Status |
 |---|---|---|---|---|
-| York Ear Model | ear-only 3DMM, ≈500 training ears | research, on request | no | ↔️ |
+| York Ear Model | ear-only 3DMM, 500 3D ears [1] | non-commercial, signed agreement [2] | no | 📄 |
 | UHM (TPAMI) | head 3DMM + YEM ear | academic NC | no | 🧠 |
 | FLAME / FLAME 2023 Open | coarse ear, 3–6 mm edges | NC / CC BY 4.0 | user-supplied (extensions bundle CC0 only) | 🧠 |
 | ICT-FaceKit | scan-derived head + ears | MIT file vs "contact for commercial" | not until resolved | ↔️ |
 | MPFB2 / MakeHuman | ear morph targets | CC0 assets, GPL code | yes | 🧠 |
 | Blender Human Base Meshes | generic sculpt-ready ears | CC0 | yes | 🧠 |
-| HUTUBS / SYMARE / SONICOM / CHEDAR | acoustic head-and-ear scans | HUTUBS CC BY 4.0?; others unknown | train locally | ↔️ |
+| HUTUBS / SYMARE / SONICOM / CHEDAR | acoustic head-and-ear scans | HUTUBS CC BY 4.0 [6] 📄; others unknown | train locally | ↔️ |
 
 **Table 3 — Sub-feature dimensions** (adult; mm unless stated)
 
@@ -79,7 +79,7 @@
 | Width / length | 0.47–0.54 | same | 🧠 |
 | Pinna height / width (CIPIC, recalled) | ≈64 / ≈29 | 45 subjects, HRTF set | ↔️ |
 | Cavum concha height / width / depth (CIPIC) | ≈19 / ≈16 / ≈10 | same | ↔️ |
-| Cymba height; fossa height (CIPIC) | ≈7; ≈15 | same | ↔️ |
+| Cymba height; fossa height (CIPIC) | ≈7 (6.8); ≈15 (15.1) [3] | same | 📄 |
 | Intertragal incisure width (CIPIC) | ≈5 | same | ↔️ |
 | Pinna rotation / flare (CIPIC) | ≈24° / ≈28° | same | ↔️ |
 | Long-axis tilt from vertical, FH | 10–30°, typical ≈20° | mixed (lib) | ↔️ |
@@ -201,7 +201,14 @@ At 1.5 m: 85 mm on 24 MP ≈ 560 px of ear; 3× phone tele on 12 MP ≈ 340 px. 
 
 ## Sources
 
-No harvest or earlier draft existed, so no URLs are cited; sourced versions of related claims sit in the library notes named inline.
+1. York Ear Model project page — https://www-users.york.ac.uk/~np7/research/YEM
+2. YEM user agreement — https://www-users.york.ac.uk/~np7/research/YEM/YEMagreement.pdf
+3. Algazi et al., The CIPIC HRTF Database (2001) — https://www.ece.ucdavis.edu/cipic/wp-content/uploads/sites/12/2015/04/cipic_WASSAP_2001_143.pdf
+4. iBUG ears resource page — https://ibug.doc.ic.ac.uk/resources/ibug-ears/
+5. Zhou & Zafeiriou, FG 2017 paper — https://Ibug.Doc.Ic.Ac.Uk/media/uploads/documents/fg2017earrecognitioninthewild.pdf
+6. HUTUBS record, TU Berlin DepositOnce — https://depositonce.tu-berlin.de/signposting/describedby/dc2a3076-a291-417e-97f0-7697e332c960
+
+Other claims have no URLs; sourced versions of related claims sit in the library notes named inline.
 
 **Further reading (by name, not yet linked)**
 - Zhou & Zafeiriou, "Deformable Models of Ears in-the-Wild for Alignment and Recognition", IEEE FG 2017
@@ -213,3 +220,15 @@ No harvest or earlier draft existed, so no URLs are cited; sourced versions of r
 - Yan & Bowyer, 3D ear biometrics, IEEE TPAMI 2007; Hoang, EarVN1.0, Data in Brief 2019; Lee et al., CelebAMask-HQ, CVPR 2020
 - Iannarelli, *Ear Identification*, 1989; Farkas, *Anthropometry of the Head and Face*, 1994; McDowell, otoplasty goals, 1968
 - Blender Studio, Human Base Meshes, 2023; MakeHuman/MPFB2 documentation
+
+## Verification log (2026-11-20)
+
+| Claim | Outcome | Source |
+|---|---|---|
+| YEM is non-commercial, on request, ≈500 training ears, seeded from SYMARE | confirmed; corrected: seeded from 10 pairs of SYMARE scans, dataset of 500 3D ears, signed user agreement (corrected in verification). | [1] https://www-users.york.ac.uk/~np7/research/YEM ; [2] https://www-users.york.ac.uk/~np7/research/YEM/YEMagreement.pdf |
+| UHM ear is research-only | unconfirmed (no usable evidence in results) | none |
+| CIPIC pinna means (height 64, cymba 7, fossa 15, concha height 19, width 16) | partly confirmed: height 6.41, cymba 0.68, fossa 1.51, concha height 1.91, width 1.58 (units garbled in extract, read as cm). Pinna width, concha depth, incisure, rotation and flare angles unconfirmed. | [3] https://www.ece.ucdavis.edu/cipic/wp-content/uploads/sites/12/2015/04/cipic_WASSAP_2001_143.pdf |
+| Ear plane within ±20° of sagittal, faces forward | unconfirmed (sources define auriculocephalic angle vs midsagittal plane but gave no values) | https://pmc.ncbi.nlm.nih.gov/articles/PMC12502933 (not used as evidence) |
+| iBUG ears: 55 points, ≈600 landmarked + ≈2k ID images, research-only | confirmed for 55 points and counts (500 train + 105 test landmarked; 2,058 images, 231 subjects); licence unconfirmed | [4] https://ibug.doc.ic.ac.uk/resources/ibug-ears/ ; [5] https://Ibug.Doc.Ic.Ac.Uk/media/uploads/documents/fg2017earrecognitioninthewild.pdf |
+| HUTUBS: 96 subjects, head meshes, CC BY 4.0 | confirmed; mesh count unclear (secondary sources say 58) | [6] https://depositonce.tu-berlin.de/signposting/describedby/dc2a3076-a291-417e-97f0-7697e332c960 |
+| MPFB2/MakeHuman CC0 ear targets (size, position, rotation, wing, lobe, shape); Blender Human Base Meshes | unconfirmed (no ear target list found) | none |

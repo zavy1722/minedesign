@@ -1,0 +1,23 @@
+{
+ "topic": "phone-video-depth-capture",
+ "sources": [],
+ "references_by_name": [
+  "ITU-R BT.2100 (HDR-TV image parameters: PQ and HLG)",
+  "ITU-R BT.2020; ITU-R BT.709; ITU-R BT.2087 (BT.709/BT.2020 colour conversion); ITU-R BT.2390 (HDR report, EETF tone mapping)",
+  "SMPTE ST 2084 (PQ EOTF)",
+  "Apple Developer Documentation: ARFaceAnchor, ARFaceGeometry, ARFrame (capturedDepthData, sceneDepth), AVDepthData, AVCameraCalibrationData",
+  "Apple WWDC 2017, \"Capturing Depth in iPhone Photography\"",
+  "Android Camera2 API reference (LENS_INTRINSIC_CALIBRATION, LENS_DISTORTION, SENSOR_ROLLING_SHUTTER_SKEW)",
+  "Google ARCore developer docs: Depth API; Augmented Faces",
+  "Google Camera Motion Metadata (CAMM) specification",
+  "Blender Manual: Movie Clip Editor / Motion Tracking; Blender Python API: MovieClip, MovieTrackingCamera, MovieTrackingSettings",
+  "PyAV documentation (BSD-3-Clause)",
+  "FFmpeg filter documentation: zscale, tonemap, libplacebo",
+  "nerfstudio data-processing documentation for Record3D and Polycam captures",
+  "Khoshelham & Elberink, \"Accuracy and Resolution of Kinect Depth Data for Indoor Mapping Applications\", Sensors 2012",
+  "Newcombe et al., \"KinectFusion: Real-Time Dense Surface Mapping and Tracking\", ISMAR 2011",
+  "Karpenko, Jacobs, Baek & Levoy, \"Digital Video Stabilization and Rolling Shutter Correction using Gyroscopes\", Stanford CS tech report 2011",
+  "Hedborg, Forssén, Felsberg & Ringaby, \"Rolling Shutter Bundle Adjustment\", CVPR 2012",
+  "Pertuz, Puig & Garcia, \"Analysis of focus measure operators for shape-from-focus\", Pattern Recognition 2013"
+ ]
+}

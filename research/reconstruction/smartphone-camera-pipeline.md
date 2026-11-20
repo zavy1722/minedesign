@@ -2,7 +2,7 @@
 
 > A phone photo is not a raw pinhole image. The ISP has already removed most lens distortion, so main and telephoto JPEG/HEIC files are near-rectilinear (residual |k1| ≲ 0.02, negligible for a centred face). It may also have applied what a pinhole solver cannot model: face-aware wide-angle warps near the frame edge, geometric beauty filters, mirroring, zoom and aspect crops that EXIF describes inconsistently, and generative zoom. The engine should trust main or telephoto pixels with the face near the centre, give front, ultra-wide and edge-of-frame faces a different camera model, and use EXIF focal length only after testing crop and zoom hypotheses. Real calibration exists (Apple AVCameraCalibrationData, Android LENS_INTRINSIC_CALIBRATION/LENS_DISTORTION and Dynamic Depth, DNG WarpRectilinear) but rarely survives in a camera-roll file, so the capture protocol matters more than any parser.
 >
-> Evidence status: 0 ✅ / 0 📄 / 74 🧠 / 28 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 3 📄 / 73 🧠 / 27 ↔️ — 🧠 items remain unverified; 3 claims checked 2026-11-20 (see Verification log).
 
 *No harvest or earlier draft existed, so nothing here is web-sourced; sibling notes with related sourced claims are named in backticks. Menus, models and library versions are time-sensitive (2026-11-20).*
 
@@ -11,7 +11,7 @@
 **What the ISP does to geometry**
 - **Geometric distortion correction (GDC)** is applied to processed outputs (JPEG/HEIC) of every module on Apple, Google and Samsung phones: Apple `AVCaptureDevice.isGeometricDistortionCorrectionEnabled` (default on where supported), Android `DISTORTION_CORRECTION_MODE` (API 28) 🧠
 - **Residual after GDC** on main and telephoto is sub-percent at the corners, |k1| ≲ 0.01–0.02 in OpenCV focal-normalised units; before correction main modules carry ~1–3% and ultra-wides 10–30%+ barrel ↔️ (no per-model survey known). In the central third of a 26 mm-equivalent frame, k1 = 0.02 moves a landmark ≤ 2 px and changes local aspect < 0.5% (Table 3), below detector noise (2–3% of inter-ocular distance, IOD) 🧠
-- **Face-aware wide-angle correction:** Shih, Lai & Liang (Google, SIGGRAPH 2019) solve a mesh warp making each face region a similarity transform of a *stereographic* projection while background lines stay straight; versions shipped on Pixel wide/selfie captures (models unverified) 🧠. Apple's capture switch is `AVCapturePhotoSettings.isAutoContentAwareDistortionCorrectionEnabled` (iOS 14+) 🧠. A warped off-centre face looks locally as if a camera were pointed straight at it, so it is neither pinhole nor globally radial 🧠
+- **Face-aware wide-angle correction:** Shih, Lai & Liang (Google, SIGGRAPH 2019) solve a mesh warp making each face region a similarity transform of a *stereographic* projection while background lines stay straight; versions shipped on Pixel wide/selfie captures (models unverified) 🧠. Apple's capture switch is `AVCapturePhotoSettings.isAutoContentAwareDistortionCorrectionEnabled` (iOS 14+; the output-level counterpart is documented from iOS 14.1) 📄 [2]. A warped off-centre face looks locally as if a camera were pointed straight at it, so it is neither pinhole nor globally radial 🧠
 - **Why vendors warp:** in a rectilinear image a face at field angle θ is stretched radially by 1/cos θ: 3.5% at 15°, 15.5% at 30°, 30.5% at 40° (Table 1); corners sit at ~40° (26 mm main), ~43° (23 mm front), ~59° (13 mm ultra-wide) (Table 2). A pinhole solver models that stretch; the warp removing it breaks the solver 🧠
 - **Beauty:** China-market Android phones (Xiaomi, Oppo, Vivo, Honor, Huawei) often default front-camera beauty on, with *geometric* sliders (face slimming, eye enlargement, nose, chin) 🧠; Samsung "face effects" smooth skin, older models reshaped 🧠; Google made Pixel face retouching off by default around 2020 ↔️; Apple has no beauty mode ("Beautygate", iPhone XS 2018, was Smart HDR noise reduction, changed in iOS 12.1) 🧠
 - **Multi-frame fusion** (HDR+, Deep Fusion, Night mode, Super Res Zoom) aligns tiles to a reference frame, preserving geometry to about a pixel; motion in night exposures softens lids, lips and hair 🧠. Pixel 6 "Face Unblur" warps a sharper face in from a second module 🧠
@@ -29,11 +29,11 @@
 - **Edited exports** (iOS Photos, Google Photos, Lightroom crops) keep the original f35, which becomes wrong; non-native sizes (native e.g. 4032×3024, 5712×4284, 4080×3072, 4000×3000) and `Software` naming an editor (Facetune, Meitu) flag this. Messaging apps strip EXIF 🧠
 
 **Calibration a phone can expose**
-- **Apple `AVCameraCalibrationData`:** `intrinsicMatrix` in pixels of `intrinsicMatrixReferenceDimensions` (usually full sensor); `extrinsicMatrix` (3×4, mm); `pixelSize`; `lensDistortionCenter`; forward and inverse `lensDistortionLookupTable` of relative radial magnification m at n radii up to the farthest corner, p′ = c + (p − c)(1 + m(r)) 🧠. The inverse table maps distorted landmarks → rectified ↔️
+- **Apple `AVCameraCalibrationData`:** `intrinsicMatrix` in pixels of `intrinsicMatrixReferenceDimensions` (usually full sensor); `extrinsicMatrix` (3×4, mm); `pixelSize`; `lensDistortionCenter`; forward and inverse `lensDistortionLookupTable` of relative radial magnification m at n radii up to the farthest corner, p′ = c + (p − c)(1 + m(r)) 🧠. The forward table is the one used to rectify (distorted → rectified); the inverse table returns a rectified image to its distorted geometry (rectified → distorted) 📄 [3] (corrected in verification)
 - It arrives with `AVDepthData`, or with `AVCapturePhoto` in a custom app that enables calibration delivery on a virtual multi-camera device 🧠. HEIC stores depth/disparity as an auxiliary image beside Portrait and semantic mattes ↔️ (rear ~768×576-class, TrueDepth ~640×480-class 🧠); whether calibration survives in Camera-app HEICs is unverified ↔️
 - **ARKit:** `ARFrame.camera.intrinsics` per frame; `ARFaceAnchor` (TrueDepth) gives a metric 1,220-vertex face mesh, a scale and distance source for a companion app 🧠
 - **Android Camera2:** `LENS_INTRINSIC_CALIBRATION` [fx, fy, cx, cy, s] (API 23; pre-correction active-array pixels; per frame as OIS moves it); `LENS_DISTORTION` [κ1–κ5] (API 28; Brown–Conrady 3 radial + 2 tangential, replacing the inconsistent `LENS_RADIAL_DISTORTION`); `LENS_POSE_*` 🧠. All optional, dependable mainly on devices declaring DEPTH_OUTPUT or LOGICAL_MULTI_CAMERA, readable only by the capturing app, never in stock EXIF 🧠
-- Documented `LENS_DISTORTION` coordinates are centred on (cx, cy) with the farthest edge = 1 (|r| ≤ √2), unlike OpenCV's focal-normalised ones; practitioners report OEM values that look focal-normalised ↔️
+- Documented `LENS_DISTORTION` coordinates are centred on (cx, cy) with the farthest edge = 1 (|r| ≤ √2) 📄 [1], unlike OpenCV's focal-normalised ones; practitioners report OEM values that look focal-normalised ↔️
 - **Android Dynamic Depth 1.0** (`DEPTH_JPEG`) embeds a depth map and an `ImagingModel` (focal, principal point, distortion) in the JPEG 🧠
 - **DNG `WarpRectilinear`** (opcode 1, OpcodeList3): per-plane kr0–kr3 (in r², r⁴, r⁶; kr0 ≈ 1), kt0–kt1 and a normalised centre; a backward map, radius normalised to the farthest corner 🧠. Android `DngCreator` writes it from `LENS_DISTORTION` 🧠
 - **ProRAW and Samsung Expert RAW** are linear, demosaiced, multi-frame-merged DNGs (ProRAW: DNG 1.6 with semantic masks 🧠; newer files may use DNG 1.7 JPEG XL ↔️); whether geometry is pre-corrected or in opcodes varies ↔️
@@ -118,7 +118,7 @@
   1. Corrected main/tele, face within 25°: k = 0 fixed.
   2. Main/tele beyond 25°, or front camera: k1 free, prior N(0, 0.02²).
   3. Ultra-wide or front with the face beyond 25°, or content-aware warp likely: **local virtual camera**, i.e. rotate so the face-centre ray is the axis, f′ = f·sec²(θ/2), principal point at the face centre (the stereographic similarity); or inflate σ_px ×3.
-  4. Known calibration (Apple inverse LUT, Android `LENS_DISTORTION`, DNG warp, Dynamic Depth) on an uncorrected image: undistort landmarks, then k = 0.
+  4. Known calibration (Apple forward LUT (corrected in verification), Android `LENS_DISTORTION`, DNG warp, Dynamic Depth) on an uncorrected image: undistort landmarks, then k = 0.
 - **Mirror hypothesis:** fit front-camera views both ways; keep the lower cost if the margin is > 10%, else ask the user 🧠
 - **Distance priors (σ on log z)** 🧠: SubjectDistance 0.5; Apple FocusDistanceRange log-uniform, range ×1.5; Android focus CALIBRATED 0.2, APPROXIMATE 0.4, UNCALIBRATED ignored; median face depth from TrueDepth 0.05–0.1, rear disparity 0.2–0.3.
 - **Gravity:** Apple `AccelerationVector` → camera pitch/roll prior (pitch σ 5°; head tilt unknown) 🧠
@@ -136,7 +136,11 @@
 
 ## Sources
 
-None (no harvest or draft existed). Related sourced claims: `reconstruction/camera-perspective-distortion.md`, `reconstruction/camera-pose-solving.md`, `community/reference-photography-protocol.md` (iPhone 17 Pro 4× = 100 mm), `blender/blender-python-ml-deps.md`.
+1. AOSP commit ddefa9dd (LENS_DISTORTION NDK header text): https://gitlab.e.foundation/e/os/android_frameworks_av/-/commit/ddefa9dd59b6ba75fcfb21612060eea1e26a5270
+2. Apple, AVCapturePhotoSettings: https://developer.apple.com/documentation/avfoundation/avcapturephotosettings.md
+3. Apple, AVCameraCalibrationData.inverseLensDistortionLookupTable: https://developer.apple.com/documentation/avfoundation/avcameracalibrationdata/inverselensdistortionlookuptable.md
+
+Related sourced claims: `reconstruction/camera-perspective-distortion.md`, `reconstruction/camera-pose-solving.md`, `community/reference-photography-protocol.md` (iPhone 17 Pro 4× = 100 mm), `blender/blender-python-ml-deps.md`.
 
 **Further reading (by name, not yet linked)**
 - Shih, Lai & Liang, "Distortion-free wide-angle portraits on camera phones", ACM TOG (SIGGRAPH), 2019
@@ -146,3 +150,12 @@ None (no harvest or draft existed). Related sourced claims: `reconstruction/came
 - Adobe DNG Specification 1.4–1.7; CIPA DC-008 (Exif); ISO/IEC 23008-12 (HEIF)
 - ExifTool tag documentation (Apple MakerNotes); Lensfun, pillow-heif, rawpy and LibRaw documentation
 - Brown, "Decentering distortion of lenses", 1966; Zhang, "A flexible new technique for camera calibration", TPAMI 2000
+
+## Verification log (2026-11-20)
+
+- FocalLengthIn35mmFilm under 16:9/1:1 crops: unconfirmed. Searches found no source on whether iPhone updates the tag for aspect crops; a Hugin list post says Apple includes digital zoom in the tag (not a primary source). Left as is.
+- Residual |k1| ≲ 0.01–0.02 after in-camera correction: unconfirmed. A mobile-calibration arXiv paper (https://arxiv.org/pdf/2012.02899) says phone images are generally corrected but the residual is unknown. Left 🧠.
+- Android LENS_DISTORTION normalisation: confirmed (📄) for documentation wording (origin at optical centre, max x/y magnitudes reach 1 at the edge farther from centre): https://gitlab.e.foundation/e/os/android_frameworks_av/-/commit/ddefa9dd59b6ba75fcfb21612060eea1e26a5270. Practitioner-vs-doc discrepancy stays ↔️.
+- pillow-heif / rawpy / Pillow licences: unconfirmed in full. pillow-heif BSD-3-Clause since 0.13.0 appears in the project changelog/Snyk listing (https://pypi.org/project/pillow-heif); wheel bundling of libheif/libde265/x265 and their licences not confirmed. Left ↔️.
+- AVCameraCalibrationData lookup tables: corrected. Apple documents the forward table as the one for rectifying images and the inverse as returning a rectified image to distorted geometry, the opposite of the queued claim: https://developer.apple.com/documentation/avfoundation/avcameracalibrationdata/inverselensdistortionlookuptable.md . "Relative radial magnification", linear spacing and p' formula remain unconfirmed; Camera-app HEIC survival unverified.
+- isAutoContentAwareDistortionCorrectionEnabled: confirmed (📄) as a member of AVCapturePhotoSettings (https://developer.apple.com/documentation/avfoundation/avcapturephotosettings.md); output-level property documented from iOS 14.1. Google/Pixel shipping of Shih et al. 2019: unconfirmed.

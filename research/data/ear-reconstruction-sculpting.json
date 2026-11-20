@@ -17,7 +17,7 @@
     [
      "iBUG in-the-wild ears (Zhou & Zafeiriou, FG 2017), landmark collection",
      "2D in-the-wild",
-     600,
+     605,
      null,
      55,
      "research only",
@@ -26,8 +26,8 @@
     [
      "iBUG in-the-wild ears, identity collection",
      "2D in-the-wild",
-     2000,
-     null,
+     2058,
+     231,
      null,
      "research only",
      "no"
@@ -88,8 +88,10 @@
     ]
    ],
    "population": "mixed in-the-wild web images and lab captures",
-   "source_urls": [],
-   "status": "knowledge",
+   "source_urls": [
+    "https://ibug.doc.ic.ac.uk/resources/ibug-ears/"
+   ],
+   "status": "partly verified 2026-11-20: iBUG counts confirmed, licences unconfirmed",
    "notes": "All sizes and licences are recalled; iBUG and EarVN1.0 rows are contested and queued for verification. Never bundle research-only landmark data or models trained on it."
   },
   {
@@ -105,8 +107,8 @@
    "rows": [
     [
      "York Ear Model (FG 2018)",
-     "ear-only 3DMM, ~500 training ears (recalled)",
-     "research, on request",
+     "ear-only 3DMM, 500 3D ears; seeded from 10 SYMARE pairs",
+     "non-commercial, signed agreement",
      "no",
      "user-supplied, local only"
     ],
@@ -168,8 +170,10 @@
     ]
    ],
    "population": "n/a",
-   "source_urls": [],
-   "status": "contested",
+   "source_urls": [
+    "https://www-users.york.ac.uk/~np7/research/YEM"
+   ],
+   "status": "partly verified 2026-11-20: YEM confirmed non-commercial, 500 ears",
    "notes": "No permissively licensed ear-specific 3DMM is known to the author. MPFB2 licence and FLAME 2023 Open are sourced in sibling notes (blender/blender-face-addons.md, reconstruction/flame-model.md); the rest is recalled. extensions.blender.org accepts only CC0 bundled assets (lib blender/open-template-head-kit.md), so CC BY sources stay user-supplied."
   },
   {
@@ -227,10 +231,10 @@
     [
      "cymba concha height (CIPIC d2)",
      null,
-     7,
+     6.8,
      null,
-     "CIPIC (recalled)",
-     "contested"
+     "CIPIC (Algazi 2001)",
+     "confirmed"
     ],
     [
      "cavum concha width (CIPIC d3)",
@@ -243,10 +247,10 @@
     [
      "triangular fossa height (CIPIC d4)",
      null,
-     15,
+     15.1,
      null,
-     "CIPIC (recalled)",
-     "contested"
+     "CIPIC (Algazi 2001)",
+     "confirmed"
     ],
     [
      "intertragal incisure width (CIPIC d7)",

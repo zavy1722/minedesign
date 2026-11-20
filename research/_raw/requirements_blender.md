@@ -13,7 +13,7 @@ For the team building the NumPy-only engine (`face3d`) and its Blender add-on; d
 - **A3** **Precision boundary:** `foreach_get` into contiguous float32 (coordinates) or int32 (indices); solve in float64; write back with `astype(float32)`, `foreach_set`, `mesh.update()`. Assert dtype and contiguity. Copy mathutils values with `np.array(x, dtype=float64)`: since 5.0 `np.asarray` gives float32 views 📄. [BPY, VER]
 - **A4** **NumPy 1/2-neutral code:** no `np.float_` or `np.in1d`; explicit dtypes (NEP 50); `default_rng(seed)`. Test on CPython 3.11 + NumPy 1.26 and on 3.13 + NumPy 2.x; 5.1 and 5.2 LTS bundle Python 3.13 📄, 5.3 is unconfirmed. [VER, PKG]
 - **A5** **Threading:** bpy is not thread-safe. Solve copied arrays in a worker thread or subprocess; apply results from `bpy.app.timers` (0.05–0.1 s, ≤ 10–20 ms per tick); re-fetch IDs by name after undo. A synchronous path must work under `blender -b`. [BPY, PKG]
-- **A6** **No SciPy:** LM, preconditioned CG and sparse Poisson solves in NumPy; in Blender, closest-point and ray queries via `mathutils.bvhtree`/`kdtree` (µs per call). [SF, SK, BPY]
+- **A6** **No SciPy:** LM, preconditioned CG and sparse Poisson solves in NumPy; in Blender, closest-point and ray queries via `mathutils.bvhtree`/`kdtree`. [SF, SK, BPY]
 - **A7** **Faces in CSR form** (`offsets` + `corner_verts`, int32), mapping 1:1 to `loop_start`/`vertex_index`; `loop_total` is read-only 📄. [BPY]
 - **A8** **Frames and units:** engine frame Y-up, face toward +Z; in Blender one R_x(+90°) parent empty holds head and cameras [BPY]. Blender is 1 BU = 1 m but the engine's synthetic data are in mm (observed in `face3d/synthetic.py`), so the bridge scales by 0.001.
 - **A9** **Probe features, not versions:** `compat.py` at `register()` (< 100 ms) returns `{blender, python_tag, numpy, online_access, platform, has_onnxruntime}`; failing backends are disabled with a message. [PKG, VER]
@@ -22,7 +22,7 @@ For the team building the NumPy-only engine (`face3d`) and its Blender add-on; d
 ## 2. Data formats and landmark schemes
 
 - **D1** **Detector output:** `{points[N,2]` px (origin top-left, y down), `visibility, scheme, image_wh, exif_applied, mirrored, backend, backend_version, model_sha256}`. [ML]
-- **D2** **MediaPipe:** 468 points ✅, 478 with refinement 📄; branch on N. Indices 468–477 are optional iris points (L/R split unconfirmed). z (relative, mean-face-biased) gets weight 0 with ≥ 2 views, ≤ 0.1·w_xy with one. [ADD]
+- **D2** **MediaPipe:** 468 points ✅, 478 with refinement 📄; branch on N. Indices 468–477 are optional iris points (L/R unconfirmed). z (relative, mean-face-biased) gets weight 0 with ≥ 2 views, ≤ 0.1·w_xy with one. [ADD]
 - **D3** **Preprocessing:** bake EXIF orientation into the pixels (Blender ignores it 📄); un-mirror selfies; RGB, 8-bit sRGB; detect at a long side ≤ 2048 px and map back with x = (x′ + 0.5)·s − 0.5; `img.pixels` rows run bottom-up. [ML, BPY, TEX]
 - **D4** **ImportRecord** per mesh: hash, units (declared, inferred), axis matrix, reflection flag, s/R/t, vertex-order checksum. [IMP]
 - **D5** **Template sidecar** (JSON + `.npz`): `topology_sha256` (refuse mismatches), units m, axes, licence, sub-mesh ranges, named loops and poles, mirror map (bijection, M(M(i)) = i), regions (soft masks), landmark (tri, bary) per convention (MediaPipe 478, iBUG-68, WFLW-98, FLAME 51 + 17, Farkas ≈40), anthropometric points as a vertex or candidates + rule, contour candidate rings, and bases `{U, σ, licence, commercial_ok, bundle_ok}`. Version per base release (MPFB2 version ↔️). [TK, TOPO, BR]
@@ -35,7 +35,7 @@ For the team building the NumPy-only engine (`face3d`) and its Blender add-on; d
 
 - **C1** **Camera model:** per photo a perspective pinhole `[rvec, t, log f]`, one shared shape; principal point at the centre (σ 1–2 % if freed); k1 = 0 (σ 0.05 only for f35 < 28 mm); scaled-orthographic only to initialise. [CAM, FB]
 - **C2** **Observability:** expose a dolly-zoom coordinate (f/z constant) and report posterior σ(log f). Estimate focal only when σ(log f) < 0.10, else hold the prior and say "not observable"; flag > 0.15. Lock focal beyond ~1.2 m without side views (single-view z error 15–20 % at 2 m). [FB, CAM]
-- **C3** **Metric scale** comes from the iris, IPD or a ruler (section 4), never MediaPipe's canonical face; vergence shrinks IPD ≈ 2 mm at 0.35 m. [CAM, ADD]
+- **C3** **Metric scale** comes from the iris, IPD or a ruler (section 4), never MediaPipe's canonical mesh; vergence shrinks IPD ≈ 2 mm at 0.35 m. [CAM, ADD]
 - **C4** **Export:** `sensor_fit='HORIZONTAL'`, `lens = f_px·36/W`, `shift_x = (W/2 − cx)/W`, `shift_y = (cy − H/2)/W`, `clip_start` 0.01 m, resolution = photo pixels; shift units are ↔️. `face3d/geometry/camera.py` already divides by W, tested on a 3000×4000 portrait (checked 2026-11-20). **Still required:** a Blender round-trip test (`calc_matrix_camera`/`world_to_camera_view`) within **0.01 px**, landscape and portrait, centred and shifted, via PyPI `bpy`. [BPY, CAM, LIT]
 - **C5** **Resolution is per scene:** pad photos to one canvas (offset cx, cy) or switch it per camera. [CAM, BPY]
 - **C6** **Distance:** hard bounds 0.25–10 m; flag solved cameras below 0.8–1 m; coach capture below 1.2 m (block < 0.7 m). [CAM, FB, GW]
@@ -60,8 +60,8 @@ Store σ in mm: the notes mix outer-canthal (≈88 mm) and pupil (≈63 mm) IOD,
 - **W1** **Coarse-to-fine schedule** [SCU]: A similarity plus anisotropic scale (7–9 DOF) → B a 3³–4³ lattice or 10–30 low-frequency modes at ≥ 30–40 mm → C per-vertex offsets with 10–20 mm smoothness → D 2–5 mm, dense data only. Advance when landmarks are < 2–3 % IOD, silhouettes within 1–2 mm and ratios within ~2 %, or RMS gains < 1 % per iteration.
 - **W2** **Scan and 3DMM targets** [IMP, BR]: (1) Umeyama proper and reflected, flagging "mirrored source" if reflected RMS < 0.5 × proper, never auto-flipping; rigid 7-landmark RMS 2–5 mm is normal, > 10 mm means wrong landmarks or axes. (2) TPS warp regularised as K + λI ✅. (3) NICP, stiffness {100, 50, 20, 10, 5, 2, 1} × mean edge, landmark weight 1 → 0.05; reject pairs beyond max(3·MAD, 5 mm) (8 mm cross-vendor), normals > 60°, or on boundaries. Region weights: interiors 0, hair-covered scalp 0.1, ears 0.3–0.5, face 1.
 - **W3** **Edge flow:** barriers on quad angles outside 30–150°, aspect ratio > 4 and normal flips; ×5 stiffness on lids, lips, nostrils and ears. [TOPO, BR]
-- **W4** **Subdivided deliveries:** fit on the Catmull–Clark limit surface, or features shrink by ≈ e²/(6R) = 0.1–0.4 mm. [TOPO]
-- **W5** **Artist data:** sculpt mask m → data weight (1 − m) plus a pin to the artist's shape (σ 0.1–0.3 mm); feather engine masks (σ 1.5–2.5 mm); vertex-group weights → confidence; 15–25 region IDs as face sets. Hand-off writes `(1 − support)` into the sculpt mask. [SF, BPY, GW]
+- **W4** **Subdivided deliveries:** fit the Catmull–Clark limit surface, else features shrink ≈ e²/(6R) = 0.1–0.4 mm. [TOPO]
+- **W5** **Artist data:** sculpt mask m (`.sculpt_mask`, 4.1+ 📄) → data weight (1 − m) plus a pin to the artist's shape (σ 0.1–0.3 mm); feather engine masks (σ 1.5–2.5 mm); vertex weights → confidence; 15–25 face-set regions. Hand-off writes `(1 − support)` into the sculpt mask. [SF, BPY, GW]
 - **W6** **Cross-topology:** embed the delivery template barycentrically in the fitting template once; accept vendor wraps at face RMS < 0.5 mm, scalp/neck < 1.5 mm, area ratio ≥ 0.2. [TOPO, BR]
 - **W7** **Hair:** hair, brow and beard pixels are excluded from skin terms; scalp vertices stay ≥ 2 mm inside the hair visual hull (hinge). [HAIR]
 - **W8** **Basis transfer:** U′ = (W ⊗ I₃)U keeps the N(0, I) prior. Accept projections < 2–3 mm with normal cosine > 0.5; fill the rest harmonically. hm08 targets become two non-negative columns (incr, decr) in [0, 1]. Store W; build U′ at load from the user's file. [TK]
@@ -74,11 +74,11 @@ Store σ in mm: the notes mix outer-canthal (≈88 mm) and pupil (≈63 mm) IOD,
 
 ## 7. Shape keys and write-back
 
-- **K1** Refuse write-back on vertex-count or topology-hash mismatch, or in Edit Mode. [BPY, BR]
+- **K1** Refuse write-back on a count or topology-hash mismatch, or in Edit Mode. [BPY, BR]
 - **K2** **Keys:** `Basis` = template mean; `ID_fit` = engine output (`from_mix=False`); `artist` = sculpt layer; optional region keys masked by vertex groups; `slider_max` 1.5. [SK, SCU]
 - **K3** **Absolute positions:** with keys present, `me.vertices` writes revert from Basis 📄; Python writes to Basis do not propagate, so add Δ to every dependent key; refits never overwrite `artist − ID_fit`. [BPY, SK, SF]
 - **K4** **Mode discipline:** OBJECT mode, `foreach_set`, `mesh.update()`, restore the mode, in one REGISTER/UNDO operator; writes in Sculpt Mode are lost. [SF]
-- **K5** **Multires:** never write displacement directly; use `multires_reshape` from a subdivided copy (matching topology and indices 📄), or duplicate, bake the mix and clear keys first. [SF, BPY]
+- **K5** **Multires:** never write displacement directly; use `multires_reshape` from a subdivided copy (matching topology 📄), or duplicate, bake the mix and clear keys first. [SF, BPY]
 - **K6** **Expressions:** X(ψ) = X₀ + Σψₖ Dₖ + Σ_c (Π ψ) D_c, D at landmark barycentrics; ψ ∈ [0, 1]; ridge when cond(DᵀD) > 1e4; deformation transfer by preconditioned CG. [SK]
 - **K7** **Drivers:** simple expressions only 📄; bake them, masks and relatives before export. [SK]
 - **K8** **Rig pivots:** eye centre σ 0.5 mm; condyle 10–15 mm anterior, 0–10 mm inferior to tragion, σ 3–4 mm ↔️; head pivot at the mastoid midpoint, σ 6 mm. [RIG]
@@ -86,7 +86,7 @@ Store σ in mm: the notes mix outer-canthal (≈88 mm) and pupil (≈63 mm) IOD,
 ## 8. Texture projection
 
 - **T1** One camera convention for solver, shader and UV Project; backends agree within 0.5 px on a synthetic checker. [TEX]
-- **T2** Project only when landmark reprojection median ≤ 1.5 px, max ≤ 3 px. [TEX]
+- **T2** Project only if landmark reprojection median ≤ 1.5 px and max ≤ 3 px. [TEX]
 - **T3** **Weights and outputs:** w = visibility·cos^p θ, faded 60° → 75°, raycasting hair, glasses and eyeballs as occluders; per-texel view index, gain compensation, specular rejection. Write `albedo.exr` (half-float, linear) and `confidence.png` (Non-Color) at 4096 px from 5–7 views plus a low view. [TEX, FB]
 - **T4** **UV gates:** |log area ratio| ≤ 0.25 and conformal ratio ≤ 1.3 on the face (≤ 2 on ears); on failure, relax interior UVs with pinned boundaries. Per-vertex backends need edges ≤ √(4ez), e = 0.05 mm. [TEX]
 - **T5** **Photometry:** skin shading is low-pass (use low frequencies or G/B, mask specular); SH9 lighting, Huber δ 0.05, excluding the top 2–5 % of pixels and n·v < 0.3; light prior elevation N(30°, 25°), azimuth N(0°, 60°). [SKIN, LIT]
@@ -96,7 +96,7 @@ Store σ in mm: the notes mix outer-canthal (≈88 mm) and pupil (≈63 mm) IOD,
 
 - **L1** Add-on code GPL-3.0-or-later; extensions.blender.org requires CC0 bundled assets and bans remote code and externally downloaded components 📄. [PKG]
 - **L2** **Licence as data** on every prior, template and model `{licence, attribution, commercial_ok, bundle_ok}`; unknown or non-commercial items never default and block export; fitting must work with the CC0 template alone; a CC-BY basis writes `ATTRIBUTION.txt`. [PKG, ADD, TK]
-- **L3** **Template and models:** default to a project-owned CC0 template derived from the Blender Studio Human Base Meshes or MPFB2 hm08 head (CC0 per sibling notes; MPFB2 code GPL ✅). FLAME 2023 Open (CC-BY-4.0 📄), the MediaPipe canonical mesh and ICT-FaceKit (licence ↔️) are not CC0: user paths or off-platform builds only. FLAME 2017–2023 📄, InsightFace weights 📄 and CelebAMask-HQ-trained parsers 📄 are non-commercial. [ADD, TK, HAIR]
+- **L3** **Template and models:** default to a project-owned CC0 template from the Blender Studio Human Base Meshes (CC0 ✅; a realistic head unconfirmed) or the MPFB2 hm08 head (CC0 📄). FLAME 2023 Open (CC-BY-4.0 📄), the MediaPipe canonical mesh and ICT-FaceKit (commercial use needs contact ↔️) are not CC0: user paths or off-platform builds only. FLAME 2017–2023 📄, InsightFace weights 📄 and CelebAMask-HQ-trained parsers 📄 are non-commercial. [ADD, TK, HAIR]
 - **L4** Never ship vendor meshes, index lists or priors (MetaHuman, CC3+, Daz, KeenTools); generate correspondence packs locally from the user's licensed copy ↔️. [BR, FB]
 - **L5** Porting fSpy/perspective-match solver code makes the engine GPL-3.0 📄. [CAM, PKG]
 - **L6** **Bundling:** never bundle NumPy; a model registry `{name, url, sha256, licence, commercial_ok}` downloads only with `online_access` on and user consent, checks the hash, and stores files in `extension_path_user`. [PKG]

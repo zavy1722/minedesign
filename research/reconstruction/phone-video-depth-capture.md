@@ -10,7 +10,7 @@
 - Blender links FFmpeg into its binary (Movie Clip Editor, VSE, video render) but ships no `ffmpeg` executable or Python binding; `bpy.app.ffmpeg` only reports `supported` and library versions 🧠.
 - `bpy.data.movieclips.load(path)` opens a video or image sequence, but there is no supported per-frame pixel read (`Image.pixels` on a MOVIE image yields one cached frame). The dependency-free route is a background job rendering a VSE movie strip to images with View Transform = Standard 🧠. The VSE API renamed `sequences` → `strips` (old name gone in 5.0, as I recall): probe with `hasattr` ↔️.
 - Clip-editor operators (`clip.track_markers`, `clip.solve_camera`) need a Clip Editor area, so they fail under `blender -b`; libmv has no Python module 🧠.
-- **PyAV** is BSD-3-Clause; its wheels bundle FFmpeg libraries built, to my knowledge, as LGPL. Either way it can ship in a GPL extension; codec patents are the open question ↔️. Blender 5.1+ bundles Python 3.13, so cp313 wheels are needed 🧠.
+- **PyAV** is BSD-3-Clause; its wheels bundle FFmpeg libraries built, to my knowledge, as LGPL. Either way it can ship in a GPL extension; codec patents are the open question ↔️. Blender 5.1+ bundles Python 3.13, so cp313 wheels are needed (`blender/blender-version-status-2026.md`) 🧠.
 - **OpenCV** `VideoCapture` is already a dependency but returns 8-bit BGR, truncating 10-bit HDR 🧠.
 - **YUV→RGB matrix bugs:** swscale-style conversion falls back to BT.601 when untagged; phone HD is BT.709, HDR BT.2020. Decode to `yuv420p10le` and convert in NumPy with the tagged matrix and range 🧠.
 - Phone video is stored landscape plus a rotation matrix that PyAV and older Blender builds ignore ↔️, and is often variable-frame-rate: index frames by PTS 🧠.
@@ -21,7 +21,7 @@
 - **Video is a crop of the photo frame.** A 16:9 readout of a 4:3 sensor shortens the diagonal, so a 26 mm-equivalent main camera is ≈28 mm on the video diagonal before stabilisation and ≈31–35 mm with a 10–20 % EIS margin (Table 1): reusing the photo's f35 is an 8–25 % focal error 🧠.
 - **EIS** warps each frame (usually a gyro rotation homography plus rolling-shutter correction) and crops. A pure-rotation warp keeps a constant-f pinhole, but crop-window translation moves the principal point by up to the margin (≈5–10 % of width) and decentres distortion ↔️.
 - **Lens switching** while zooming changes f, distortion and optical centre (cameras sit ≈1–2 cm apart); iOS has a "Lock Camera" video setting 🧠. **Center Stage** (iPads; iPhone 17 front camera, to my knowledge) reframes digitally during video ↔️ (time-sensitive).
-- Front-camera video may be saved mirrored ↔️: run the mirror test (`reconstruction/camera-pose-solving.md`). Live Photos and Motion Photos are free ≈3 s micro-videos 🧠.
+- Front-camera video may be saved mirrored ↔️: run the mirror test (`reconstruction/camera-pose-solving.md`). Live Photos and Motion Photos are free ≈1.5–3 s micro-videos 🧠.
 
 **HDR**
 - iPhone 12+ records HDR by default as Dolby Vision Profile 8.4: 10-bit HEVC with an HLG/BT.2020 base layer. Android uses HLG (e.g., Pixel) or HDR10/HDR10+ PQ (e.g., Samsung) 🧠.
@@ -162,4 +162,5 @@ No web harvest or earlier draft existed for this topic, so no URLs are cited.
 - Karpenko et al., "Digital Video Stabilization and Rolling Shutter Correction using Gyroscopes", Stanford tech report 2011
 - Hedborg et al., "Rolling Shutter Bundle Adjustment", CVPR 2012
 - Pertuz, Puig & Garcia, "Analysis of focus measure operators for shape-from-focus", Pattern Recognition 2013
+
 **Related library notes:** `reconstruction/camera-pose-solving.md`, `reconstruction/camera-perspective-distortion.md`, `reconstruction/photogrammetry-heads.md`, `reconstruction/expression-neutralization.md`, `blender/import-export-scans.md`, `blender/blender-python-ml-deps.md`, `ethics/biometric-privacy.md`.

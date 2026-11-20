@@ -1,6 +1,25 @@
 {
  "topic": "smartphone-camera-pipeline",
- "sources": [],
+ "sources": [
+  {
+   "id": 1,
+   "title": "AOSP commit ddefa9dd: deprecate LENS_RADIAL_DISTORTION, add LENS_DISTORTION (NDK header text)",
+   "url": "https://gitlab.e.foundation/e/os/android_frameworks_av/-/commit/ddefa9dd59b6ba75fcfb21612060eea1e26a5270",
+   "accessed": "2026-11-20"
+  },
+  {
+   "id": 2,
+   "title": "Apple: AVCapturePhotoSettings (lists isAutoContentAwareDistortionCorrectionEnabled)",
+   "url": "https://developer.apple.com/documentation/avfoundation/avcapturephotosettings.md",
+   "accessed": "2026-11-20"
+  },
+  {
+   "id": 3,
+   "title": "Apple: AVCameraCalibrationData.inverseLensDistortionLookupTable",
+   "url": "https://developer.apple.com/documentation/avfoundation/avcameracalibrationdata/inverselensdistortionlookuptable.md",
+   "accessed": "2026-11-20"
+  }
+ ],
  "references_by_name": [
   "Shih, Lai & Liang, \"Distortion-free wide-angle portraits on camera phones\", ACM TOG (SIGGRAPH), 2019",
   "Hasinoff et al., \"Burst photography for high dynamic range and low-light imaging on mobile cameras\", ACM TOG (SIGGRAPH Asia), 2016",

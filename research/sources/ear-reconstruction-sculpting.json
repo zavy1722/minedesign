@@ -1,6 +1,43 @@
 {
  "topic": "ear-reconstruction-sculpting",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "title": "York Ear Model project page",
+   "url": "https://www-users.york.ac.uk/~np7/research/YEM",
+   "accessed": "2026-11-20"
+  },
+  {
+   "n": 2,
+   "title": "YEM user agreement",
+   "url": "https://www-users.york.ac.uk/~np7/research/YEM/YEMagreement.pdf",
+   "accessed": "2026-11-20"
+  },
+  {
+   "n": 3,
+   "title": "Algazi et al., The CIPIC HRTF Database (2001)",
+   "url": "https://www.ece.ucdavis.edu/cipic/wp-content/uploads/sites/12/2015/04/cipic_WASSAP_2001_143.pdf",
+   "accessed": "2026-11-20"
+  },
+  {
+   "n": 4,
+   "title": "iBUG ears resource page",
+   "url": "https://ibug.doc.ic.ac.uk/resources/ibug-ears/",
+   "accessed": "2026-11-20"
+  },
+  {
+   "n": 5,
+   "title": "Zhou & Zafeiriou FG 2017 paper",
+   "url": "https://Ibug.Doc.Ic.Ac.Uk/media/uploads/documents/fg2017earrecognitioninthewild.pdf",
+   "accessed": "2026-11-20"
+  },
+  {
+   "n": 6,
+   "title": "HUTUBS record, TU Berlin DepositOnce",
+   "url": "https://depositonce.tu-berlin.de/signposting/describedby/dc2a3076-a291-417e-97f0-7697e332c960",
+   "accessed": "2026-11-20"
+  }
+ ],
  "references_by_name": [
   "Zhou & Zafeiriou, \"Deformable Models of Ears in-the-Wild for Alignment and Recognition\", IEEE FG 2017",
   "Emeršič, Štruc & Peer, \"Ear recognition: More than a survey\", Neurocomputing 2017",

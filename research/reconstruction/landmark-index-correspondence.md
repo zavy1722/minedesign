@@ -2,17 +2,17 @@
 
 > A photo-to-head fitter fails silently when it reads an index under the wrong convention: left/right, 0- vs 1-based numbering, fixed vertex vs sliding contour, or a detector's habit vs the anthropometric definition. This note settles the conventions for MediaPipe 478 (subject-relative left/right; image-space z, smaller = nearer; canonical mesh y-up, face toward +z). It gives index→Farkas tables and ordered region polylines, and cross-maps iBUG 68, WFLW 98, the 3D-68 sets, FLAME's 51 + 17 embedding, MICA's MediaPipe embedding and ARKit's 1,220-vertex mesh. Only the coarse layouts are confirmed by sources. Almost every per-index anatomical assignment is expert knowledge and must be locked by the render-and-detect calibration below before it becomes an engine constant. This topic had no harvest and no earlier draft, so the cited URLs come from sibling harvests in this library.
 >
-> Evidence status: 8 ✅ / 19 📄 / 83 🧠 / 28 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 8 ✅ / 23 📄 / 81 🧠 / 29 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **MediaPipe 478**
 - **Layout.** The 478 points are the 468 mesh vertices, in a stable order, plus 10 iris points at 468–477 [6][7] ✅. Legacy Face Mesh returns the first 468 [5][8] ✅. The refined model adds the iris points and refines the eye and lip points with an attention mesh [8] 📄. Face Landmarker also returns 52 blendshape scores in [0, 1] [1][2] ✅. So every 468-vertex table (canonical OBJ, UV picture, connection sets) applies unchanged to 478 output 🧠.
 - **Left/right.** Labels are relative to the subject, and a mirrored (selfie) image swaps them [1] 📄. `FACEMESH_LEFT_EYE` is the 263/362 ring: on the image's right in an unmirrored frontal photo, and at +x in the canonical mesh 🧠.
-- **Iris.** By the connection sets, `RIGHT_IRIS` is the ring 469–472 (centre 468) and `LEFT_IRIS` is 474–477 (centre 473) 🧠. Sources label the eye sides inconsistently [9][10] ↔️, so assign each iris to an eye geometrically and never by name.
+- **Iris.** By the connection sets, `RIGHT_IRIS` is the ring 469–472 (centre 468) and `LEFT_IRIS` is 474–477 (centre 473) ↔️: one cheat sheet lists 469–472 as the left iris [10], another source as the right [37]. Sources label the eye sides inconsistently [9][10][37] ↔️, so assign each iris to an eye geometrically and never by name.
 - **z.** Normalised z is depth relative to the head centre: smaller is nearer, and the magnitude is roughly on the scale of x [3] 📄. The frame is therefore x right, y down, z away from the camera: right-handed and OpenCV-like. For isotropic pixels, multiply x and z by W and y by H 🧠.
-- **Canonical model.** `canonical_face_model.obj` has 468 vertices with one UV per vertex. It is in centimetres, y up, face toward +z, with the subject's left at +x 🧠. A virtual perspective camera sits at the origin [3] 📄 and looks down −z 🧠. Expect about 898 triangles 🧠. If the only boundary is the 36-edge oval, Euler's formula implies the eye and mouth openings are triangulated across, so the lip seam is mesh-connected. Count the boundary edges before using the mesh as a wrap source 🧠.
-- **Connection sets.** `FACE_OVAL` has 36 points. `LIPS` has 40 (20 outer, 20 inner). Each eye has 16. Each brow has 10, in two rows of 5. Each iris has a 4-point ring, centre excluded. `CONTOURS` (their union, irises excluded) has 128 unique points. Newer releases add a `NOSE` set 🧠.
+- **Canonical model.** `canonical_face_model.obj` has 468 vertices with one UV per vertex. Its units are centimetres [3] 📄; y up, face toward +z and the subject's left at +x are 🧠. A virtual perspective camera sits at the origin [3] 📄 and looks down −z [3] 📄. Expect about 898 triangles 🧠. If the only boundary is the 36-edge oval, Euler's formula implies the eye and mouth openings are triangulated across, so the lip seam is mesh-connected. Count the boundary edges before using the mesh as a wrap source 🧠.
+- **Connection sets.** `FACE_OVAL` has 36 points, starting with the 10→338 connection [36] 📄. `LIPS` has 40 (20 outer, 20 inner). Each eye has 16. Each brow has 10, in two rows of 5. Each iris has a 4-point ring, centre excluded. `CONTOURS` (their union, irises excluded) has 128 unique points. Newer releases add a `NOSE` set 🧠.
 - **Freeze the sets yourself.** The legacy `mp.solutions` package, home of `face_mesh_connections`, is gone from wheels from 0.10.30 onward [12] 📄. The Tasks API exposes `FaceLandmarksConnections` instead 🧠. Vendor frozen copies under Apache-2.0 attribution 🧠.
 - **Midline.** 28 vertices, in order: 10, 151, 9, 8, 168, 6, 197, 195, 5, 4, 1, 19, 94, 2, 164, 0, 11, 12, 13, 14, 15, 16, 17, 18, 200, 199, 175, 152 🧠.
 - **Lid points.** 159/145 and 386/374 are upper/lower lid contour points [9][10] 📄.
@@ -25,8 +25,8 @@
 
 **FLAME / MICA / ARKit**
 - **FLAME embedding.** The static set holds 51 barycentric points equal to iBUG 17–67, so static index = iBUG index − 17. The dynamic set holds 17 jaw points (iBUG 0–16) tabulated over 79 yaw bins clamped to ±39° 🧠. In DECA-style code, yaw ≥ 0 uses bin round(yaw) and yaw < 0 uses 39 − round(yaw); check the sign on your rotation 🧠.
-- **MICA.** MICA [24] / metrical-tracker ship a MediaPipe→FLAME embedding of about 105 points (MediaPipe ids, FLAME triangle ids, barycentrics) ↔️. MICA's demo writes vertices ×1000, in mm [25] 📄.
-- **ARKit.** `ARFaceGeometry` has 1,220 vertices and 2,304 triangles in a fixed topology, in metres. Apple defines +x as the face's own left, +y up and +z out of the face 🧠 (L/R reports differ ↔️). Apple publishes no semantic vertex list 🧠.
+- **MICA.** MICA [24] / metrical-tracker ship a MediaPipe→FLAME embedding of about 105 points (MediaPipe ids, FLAME triangle ids, barycentrics) ↔️. MICA's demo writes vertices ×1000, in mm [25] 📄. A loader reads `lmk_face_idx` and `lmk_b_coords` from `mediapipe_landmark_embedding.npz` [39]; the 105 count was not confirmed.
+- **ARKit.** `ARFaceGeometry` has 1,220 vertices and 2,304 triangles in a fixed topology, in metres. Apple defines the face frame as right-handed, in metres, with +x toward the face's own left [38] 📄; +y up and +z out of the face are 🧠 (L/R reports differ ↔️). The 1,220 / 2,304 counts were not found in Apple's pages. Apple publishes no semantic vertex list 🧠.
 - **Frames all agree.** FLAME (m, Y up, +X subject's left), ARKit, MediaPipe canonical (cm) and the engine (`face3d/synthetic.py`: mm, +x subject's left, +y up, +z out) share axes. Only the scale differs: ×1000, ×1000 and ×10 to engine mm 🧠.
 
 **Licences** (details in Table 1)
@@ -235,6 +235,10 @@ All indices are 0-based. "R / L" means the subject's right / left. MediaPipe map
 [33] Facial Anthropometry and Analysis in Egyptian Women — https://pmc.ncbi.nlm.nih.gov/articles/PMC9116947/ — paper — n.d.
 [34] Facial Landmarks Determination with Different Digital Scanners: An In Vivo Study — https://pmc.ncbi.nlm.nih.gov/articles/PMC12941515/ — paper — n.d.
 [35] Accuracy and reliability of automated landmark identification on CBCT using Invivo software — https://pmc.ncbi.nlm.nih.gov/articles/PMC12418967/ — paper — 2025
+[36] MediaPipe FaceLandmarksConnections (Tasks API) — https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarksConnections — official docs — n.d.
+[37] Iris segmentation with MediaPipe in Python (Medium) — https://medium.com/mlearning-ai/iris-segmentation-mediapipe-python-a4deb711aae3 — blog — n.d.
+[38] Apple ARFaceAnchor documentation — https://developer.apple.com/documentation/arkit/arfaceanchor.md — official docs — n.d.
+[39] PEAR FLAME.py (loads mediapipe_landmark_embedding.npz) — https://huggingface.co/spaces/BestWJH/PEAR/blob/main/models/modules/flame/FLAME.py — code — n.d.
 
 Uses not marked inline: [4] and [15] are the official homes of the MediaPipe Face Mesh and 300-W definitions. [26] uses MediaPipe and FLAME, with FLAME files downloaded separately for licensing reasons 📄. [27] fits MPFB2 using 57 "stable" MediaPipe points 📄, a precedent for a rigid subset. [28] documents ARKit blendshape coefficients in [0, 1] 📄.
 
@@ -249,3 +253,18 @@ Uses not marked inline: [4] and [15] are the official homes of the MediaPipe Fac
 - Apple Developer documentation: ARFaceAnchor, ARFaceGeometry.
 - Farkas, Anthropometry of the Head and Face, 2nd ed., 1994.
 - Bookstein, Morphometric Tools for Landmark Data, 1991; Gunz & Mitteroecker, Semilandmarks, Hystrix 2013.
+
+## Verification log (2026-11-20)
+
+| Claim | Outcome | Source |
+|---|---|---|
+| FACEMESH_LEFT_EYE ring 263/466/…/362 + lower lid (subject's left) | unconfirmed (names exist; indices not read) | [36] |
+| LEFT/RIGHT_IRIS = 474–477 / 469–472 | contested: a cheat sheet puts 469–472 on the left iris, another source on the right | https://hackernoon.com/mediapipe-face-mesh-landmark-indices-cheat-sheet ; https://medium.com/mlearning-ai/iris-segmentation-mediapipe-python-a4deb711aae3 |
+| FACE_OVAL is a 36-point ring starting 10, 338 | confirmed for the 10→338 start (📄); 36 count not read | https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarksConnections |
+| Canonical model in cm, right-handed, camera at origin looking −z | confirmed (📄) | https://developers.googleblog.com/en/mediapipe-3d-face-transform/ |
+| Canonical model 468 v / ~898 tri / y up / +z face / +x subject left | unconfirmed (docs cite an .fbx; no result gave these) | — |
+| FLAME 51 static + 17×79 dynamic, ±39°, DECA indexing | unconfirmed (PEAR code consistent but snippet partial) | [39] |
+| PeizhiYan converter MIT and table matches note | unconfirmed (repo not surfaced; other community lists differ, e.g. Sipeed starts 162, 234, 93, 58) | — |
+| MICA/metrical-tracker ~105-point embedding, MPI terms | unconfirmed (npz keys seen in a third-party loader; count and licence not found) | [39] |
+| ARKit 1,220 v / 2,304 tri | unconfirmed | — |
+| ARKit frame: metres, right-handed, +x face's own left | confirmed (📄); +y/+z not read | https://developer.apple.com/documentation/arkit/arfaceanchor.md |
