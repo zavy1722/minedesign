@@ -2,7 +2,7 @@
 
 > A 10–20 s head-turn video gives dense yaw coverage through one lens, so every frame can share one unknown focal while the turn supplies the parallax. The costs are lossy, often HDR, often stabilised frames whose intrinsics differ from the still camera's and may wander per frame, plus motion blur; rolling shutter is second-order at sensible turn speeds. Front TrueDepth (structured light, VGA-class, best at 25–50 cm) is the only phone sensor that resolves facial shape at the 1–5 mm scale with metric scale; rear LiDAR and Android ToF give scale and gross size only, and ARKit's 1,220-vertex face mesh is a fitted model, not a measurement. The robust pipeline: record SDR, unstabilised, lens-locked video (or raw RGB-D with intrinsics), decode outside Blender's Python, pick 12–24 sharp neutral frames across yaw bins, solve them with one focal group, and add depth as a robust point-to-plane term with a distance-dependent σ.
 >
-> Evidence status: 0 ✅ / 0 📄 / 70 🧠 / 31 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 0 📄 / 73 🧠 / 30 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 

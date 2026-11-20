@@ -1,6 +1,6 @@
 # Engine requirements: Blender tools, sculpting & Python practice
 
-For the team building the NumPy-only engine (`face3d`) and its Blender add-on. Drawn only from the 21 notes in `research/blender/`, with verification corrections (passes 1–2, 2026-11-20) applied. Overview: [`../blender/README.md`](../blender/README.md).
+For the team building the NumPy-only engine (`face3d`) and its Blender add-on; drawn only from the 21 notes in `research/blender/`, verification corrections (passes 1–2, 2026-11-20) applied. Overview: [`../blender/README.md`](../blender/README.md).
 
 **Badges:** ✅ verified · 📄 single source · 🧠 expert knowledge, **provisional: calibrate before use** · ↔️ contested. Outside section 4, an unbadged item is 🧠.
 
@@ -9,7 +9,7 @@ For the team building the NumPy-only engine (`face3d`) and its Blender add-on. D
 ## 1. Architecture and runtime
 
 - **A1** The engine imports only `numpy`, `math`, `json` and `tomllib`, never `bpy`, and uses relative imports, so it also runs under plain pytest. [PKG]
-- **A2** One bridge module imports `bpy`; it hands the engine float64 arrays, never IDs. [BPY]
+- **A2** One bridge module imports `bpy` and passes float64 arrays, never IDs. [BPY]
 - **A3** **Precision boundary:** `foreach_get` into contiguous float32 (coordinates) or int32 (indices); solve in float64; write back with `astype(float32)`, `foreach_set`, `mesh.update()`. Assert dtype and contiguity. Copy mathutils values with `np.array(x, dtype=float64)`: since 5.0 `np.asarray` gives float32 views 📄. [BPY, VER]
 - **A4** **NumPy 1/2-neutral code:** no `np.float_` or `np.in1d`; explicit dtypes (NEP 50); `default_rng(seed)`. Test on CPython 3.11 + NumPy 1.26 and on 3.13 + NumPy 2.x; 5.1 and 5.2 LTS bundle Python 3.13 📄, 5.3 is unconfirmed. [VER, PKG]
 - **A5** **Threading:** bpy is not thread-safe. Solve copied arrays in a worker thread or subprocess; apply results from `bpy.app.timers` (0.05–0.1 s, ≤ 10–20 ms per tick); re-fetch IDs by name after undo. A synchronous path must work under `blender -b`. [BPY, PKG]
@@ -24,7 +24,7 @@ For the team building the NumPy-only engine (`face3d`) and its Blender add-on. D
 - **D1** **Detector output:** `{points[N,2]` px (origin top-left, y down), `visibility, scheme, image_wh, exif_applied, mirrored, backend, backend_version, model_sha256}`. [ML]
 - **D2** **MediaPipe:** 468 points ✅, 478 with refinement 📄; branch on N. Indices 468–477 are optional iris points (L/R split unconfirmed). z (relative, mean-face-biased) gets weight 0 with ≥ 2 views, ≤ 0.1·w_xy with one. [ADD]
 - **D3** **Preprocessing:** bake EXIF orientation into the pixels (Blender ignores it 📄); un-mirror selfies; RGB, 8-bit sRGB; detect at a long side ≤ 2048 px and map back with x = (x′ + 0.5)·s − 0.5; `img.pixels` rows run bottom-up. [ML, BPY, TEX]
-- **D4** **ImportRecord** per mesh: hash, declared/inferred units, axis matrix, reflection flag, s/R/t, vertex count, order checksum. [IMP]
+- **D4** **ImportRecord** per mesh: hash, units (declared, inferred), axis matrix, reflection flag, s/R/t, vertex-order checksum. [IMP]
 - **D5** **Template sidecar** (JSON + `.npz`): `topology_sha256` (refuse mismatches), units m, axes, licence, sub-mesh ranges, named loops and poles, mirror map (bijection, M(M(i)) = i), regions (soft masks), landmark (tri, bary) per convention (MediaPipe 478, iBUG-68, WFLW-98, FLAME 51 + 17, Farkas ≈40), anthropometric points as a vertex or candidates + rule, contour candidate rings, and bases `{U, σ, licence, commercial_ok, bundle_ok}`. Version per base release (MPFB2 version ↔️). [TK, TOPO, BR]
 - **D6** **Fit sidecar:** consent (who, when, scope, cloud steps); cameras, landmarks, coefficients; asset licences; `{addon_version, blender, python, numpy, seed, solver_config}`. [PKG, VER, BR]
 - **D7** **Expression names:** ARKit camelCase, 52 keys 📄; adapters for raw `_L/_R`, PascalCase CSV and MediaPipe `_neutral`. [SK]
@@ -35,9 +35,9 @@ For the team building the NumPy-only engine (`face3d`) and its Blender add-on. D
 
 - **C1** **Camera model:** per photo a perspective pinhole `[rvec, t, log f]`, one shared shape; principal point at the centre (σ 1–2 % if freed); k1 = 0 (σ 0.05 only for f35 < 28 mm); scaled-orthographic only to initialise. [CAM, FB]
 - **C2** **Observability:** expose a dolly-zoom coordinate (f/z constant) and report posterior σ(log f). Estimate focal only when σ(log f) < 0.10, else hold the prior and say "not observable"; flag > 0.15. Lock focal beyond ~1.2 m without side views (single-view z error 15–20 % at 2 m). [FB, CAM]
-- **C3** **Metric scale** comes from the iris, IPD or a ruler (section 4), never from MediaPipe's canonical face. IPD shrinks by ≈ 2 mm from vergence at 0.35 m. [CAM, ADD]
+- **C3** **Metric scale** comes from the iris, IPD or a ruler (section 4), never MediaPipe's canonical face; vergence shrinks IPD ≈ 2 mm at 0.35 m. [CAM, ADD]
 - **C4** **Export:** `sensor_fit='HORIZONTAL'`, `lens = f_px·36/W`, `shift_x = (W/2 − cx)/W`, `shift_y = (cy − H/2)/W`, `clip_start` 0.01 m, resolution = photo pixels; shift units are ↔️. `face3d/geometry/camera.py` already divides by W, tested on a 3000×4000 portrait (checked 2026-11-20). **Still required:** a Blender round-trip test (`calc_matrix_camera`/`world_to_camera_view`) within **0.01 px**, landscape and portrait, centred and shifted, via PyPI `bpy`. [BPY, CAM, LIT]
-- **C5** **Resolution is per scene:** pad photos to one canvas (offsetting cx, cy) or switch resolution with the camera. [CAM, BPY]
+- **C5** **Resolution is per scene:** pad photos to one canvas (offset cx, cy) or switch it per camera. [CAM, BPY]
 - **C6** **Distance:** hard bounds 0.25–10 m; flag solved cameras below 0.8–1 m; coach capture below 1.2 m (block < 0.7 m). [CAM, FB, GW]
 - **C7** **Depth claims** (nose projection, ear position) need ≥ 2 views ≥ 30° apart in yaw. [LIT]
 
@@ -70,7 +70,7 @@ Store σ in mm: the notes mix outer-canthal (≈88 mm) and pupil (≈63 mm) IOD,
 
 - **S1** Jaw, cheek and chin outlines are occluding-contour constraints, re-associated every iteration, never fixed vertex IDs [CAM, ADD]. Chamfer distance between rendered silhouette and segmented contour, σ 1–2 px, weighted up in profile views [SCU].
 - **S2** No silhouette terms above the trichion or on occluded ears; the hair outline is never the cranium. [FB, HAIR]
-- **S3** Profile points (glabella to pogonion) are user-pinnable [FB]; gate on mean contour distance ≤ 1 % of face height. [LIT]
+- **S3** Profile points are user-pinnable [FB]; gate on mean contour distance ≤ 1 % of face height [LIT].
 
 ## 7. Shape keys and write-back
 
@@ -80,7 +80,7 @@ Store σ in mm: the notes mix outer-canthal (≈88 mm) and pupil (≈63 mm) IOD,
 - **K4** **Mode discipline:** OBJECT mode, `foreach_set`, `mesh.update()`, restore the mode, in one REGISTER/UNDO operator; writes in Sculpt Mode are lost. [SF]
 - **K5** **Multires:** never write displacement directly; use `multires_reshape` from a subdivided copy (matching topology and indices 📄), or duplicate, bake the mix and clear keys first. [SF, BPY]
 - **K6** **Expressions:** X(ψ) = X₀ + Σψₖ Dₖ + Σ_c (Π ψ) D_c, D at landmark barycentrics; ψ ∈ [0, 1]; ridge when cond(DᵀD) > 1e4; deformation transfer by preconditioned CG. [SK]
-- **K7** **Drivers:** simple expressions only 📄; bake masks, relatives and drivers before export. [SK]
+- **K7** **Drivers:** simple expressions only 📄; bake them, masks and relatives before export. [SK]
 - **K8** **Rig pivots:** eye centre σ 0.5 mm; condyle 10–15 mm anterior, 0–10 mm inferior to tragion, σ 3–4 mm ↔️; head pivot at the mastoid midpoint, σ 6 mm. [RIG]
 
 ## 8. Texture projection
