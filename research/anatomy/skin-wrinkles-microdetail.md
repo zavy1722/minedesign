@@ -1,7 +1,7 @@
 # Skin thickness, wrinkles, pores and microdetail
 
 > Facial skin (epidermis plus dermis) is a 0.4–2.5 mm sheet, thinnest on the eyelids and thickest on the nasal tip, upper lip, chin and glabella–forehead; its thickness sets how crisply bone and cartilage read through and the scale at which it folds. Wrinkles are dynamic, static, compression (sleep) or atrophic (crepey); expression lines lie perpendicular to their muscle's pull, along relaxed skin tension lines (RSTL), which a tool can store as a vector field on the template. Pores are pilosebaceous openings ≈0.05–0.4 mm across, largest and densest on the nose and medial cheeks and absent from the eyelids and vermilion; microrelief furrows 0.01–0.1 mm deep lie beneath them. This tertiary layer mostly signals age (identity lives only in marks such as moles, scars and distinctive lines), and pores need ≤0.03–0.05 mm/px photos, far finer than a normal portrait; with no harvest or draft for this topic, every item is expert knowledge.
-Evidence status: 0 ✅ / 0 📄 / 74 🧠 / 32 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 0 ✅ / 1 📄 / 74 🧠 / 31 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -33,7 +33,7 @@ Evidence status: 0 ✅ / 0 📄 / 74 🧠 / 32 ↔️ — 🧠 items are queued 
   - Langer (1861): cadaver awl-puncture cleavage lines;
   - Kraissl (1951): lines perpendicular to muscle action;
   - Borges (1984), RSTL: the furrows that form when relaxed skin is pinched.
-- On the face RSTL and wrinkle lines largely coincide, while Langer's lines depart from them in several areas ↔️.
+- On the face RSTL and wrinkle lines largely coincide, while Langer's lines depart from them in several areas (on the face the two sets often run at right angles) 📄 [1][2].
 - Skin is pre-tensioned and stiffer along these lines. Round wounds gape into ellipses along them, and pores and microrelief elongate along them with age 🧠.
 
 **Pores and microrelief**
@@ -61,7 +61,7 @@ Evidence status: 0 ✅ / 0 📄 / 74 🧠 / 32 ↔️ — 🧠 items are queued 
 | Glabella | 60–110 | 1.5–2.3 | 1.9 | ↔️ |
 | Temple | 50–90 | 1.1–1.7 | 1.4 | 🧠 |
 | Nasal dorsum (rhinion) | 40–80 | 0.8–1.4 | 1.1 | 🧠 |
-| Nasal tip / ala (sebaceous) | 60–120 | 1.5–3.0 | 2.2 | ↔️ |
+| Nasal tip / ala (sebaceous) | 60–120 | 1.5–3.0 | 2.2 | ↔️ [3] |
 | Mid / medial cheek | 50–100 | 1.3–2.0 | 1.7 | 🧠 |
 | Lateral cheek / preauricular | 50–90 | 1.2–1.8 | 1.5 | 🧠 |
 | Upper lip (cutaneous) | 60–110 | 1.6–2.6 | 2.0 | ↔️ |
@@ -200,7 +200,11 @@ Worked examples 🧠:
 
 ## Sources
 
-No harvest file or earlier draft existed for this topic, so no URLs are cited. The sourced HFUS skin-thickness values are cited in `anatomy/smas-ligaments.md` and `anatomy/skull-osteology.md`.
+1. DermNet NZ, Skin tension lines: https://dermnetnz.org/topics/skin-tension-lines
+2. Wikipedia, Relaxed skin tension lines (Borges 1984 vs Langer): https://en.wikipedia.org/wiki/Relaxed_skin_tension_lines
+3. Quantitative Analysis of the Human Face Skin Thickness, a High-Frequency Ultrasound Study (J Clin Med 2025; nasal apex median 1907 µm, thickest site): https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12693017/
+
+The sourced HFUS skin-thickness values are cited in `anatomy/smas-ligaments.md` and `anatomy/skull-osteology.md`.
 
 **Further reading (by name, not yet linked)**
 - Langer K, *Zur Anatomie und Physiologie der Haut*, 1861.
@@ -226,3 +230,10 @@ No harvest file or earlier draft existed for this topic, so no URLs are cited. T
 - Graham P et al., "Measurement-based synthesis of facial microgeometry", Eurographics, 2013.
 - Nagano K et al., skin microstructure deformation by displacement-map convolution, SIGGRAPH, 2015.
 - Feng Y et al., DECA, SIGGRAPH, 2021.
+
+## Verification log (2026-11-20)
+
+- Regional skin thickness (eyelid 0.4–0.9, forehead/cheek 1.3–2.2, nasal tip up to 3 mm; male +10–25%): unconfirmed overall. The 2025 HFUS study reports the nasal apex as the thickest site (median 1907 µm), consistent with Table A; no usable per-region values were obtained for the rest, and one snippet suggested eyelid values near 1.2 mm in a 50 MHz study, which could not be tied to a URL. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12693017/
+- Pore diameter 0.05–0.4 mm, spacing, sebaceous density 400–900/cm²: unconfirmed. Only qualitative support (enlarged pores more prominent on nose and forehead than cheek): https://pubmed.ncbi.nlm.nih.gov/29393550/
+- Static wrinkle depths and microrelief furrow depth: unconfirmed. Results gave only profilometry accuracy (about ±14–15 µm), not depths per line.
+- RSTL (Borges 1984) vs Langer lines on the face: confirmed 📄 (Langer lines differ; on the face the two sets often run at right angles). https://dermnetnz.org/topics/skin-tension-lines , https://en.wikipedia.org/wiki/Relaxed_skin_tension_lines

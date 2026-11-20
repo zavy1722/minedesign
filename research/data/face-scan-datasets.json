@@ -1,0 +1,132 @@
+{
+  "topic": "face-scan-datasets",
+  "tables": [
+    {
+      "name": "dataset_catalogue",
+      "units": "subjects = people; volume = models, sequences or frames; null = not recalled",
+      "columns": ["dataset", "year", "kind", "subjects_min", "subjects_max", "volume", "capture", "registered_topology", "population", "ages", "licence", "access", "commercial_ok_default", "has_cranium", "has_calibrated_images", "status"],
+      "rows": [
+        ["Headspace", "2015-2017", "static head", 1212, 1519, "1 neutral per subject", "3dMD head system, tight cap", "raw; LYHM registrations", "mostly white British", "child-elderly", "academic non-commercial", "signed institutional agreement (York)", false, true, false, "contested"],
+        ["FaceBase 3D Facial Norms", null, "static face", 2400, 2500, "1 per subject + linear measurements", "3dMDface", "landmarks only", "European ancestry", "3-40", "controlled data-use agreement", "application", false, false, false, "contested"],
+        ["FRGC v2.0", "2005", "static face", 466, 466, "4007 scans", "Minolta Vivid laser, 640x480 range", "none", "US, mostly young", "adult", "research licence", "signed agreement", false, false, false, "knowledge"],
+        ["Bosphorus", "2008", "static face, pose/occlusion/AU", 105, 105, "about 4666 scans", "structured light", "24 landmarks", "mostly Turkish/European", "adult", "research licence", "signed agreement", false, false, false, "knowledge"],
+        ["CAESAR", "2002", "whole body", 4400, 4400, "1 per subject", "Cyberware whole-body laser", "none", "US, NL, IT", "18-65", "commercial purchase", "purchase", null, true, false, "knowledge"],
+        ["FaceScape", "2020", "static expressions", 938, 938, "20 expressions each = 18760 models", "DSLR array, about 60-70 cameras", "uniform base mesh about 26k verts + 4K displacement", "mostly Chinese", "about 16-70", "non-commercial research", "application", false, false, true, "contested"],
+        ["FaceWarehouse", "2014", "static expressions", 150, 150, "20 expressions each = 3000", "Kinect v1 RGB-D", "11510 verts, 74 landmarks", "mixed", "7-80", "non-commercial research", "emailed signed agreement", false, false, false, "knowledge"],
+        ["BU-3DFE", "2006", "static expressions", 100, 100, "25 per subject = 2500 (neutral + 6 x 4 intensities)", "3dMD", "raw, 83 landmarks", "mixed, White majority", "18-70", "research agreement", "Binghamton signed agreement", false, false, false, "knowledge"],
+        ["BU-4DFE", "2008", "4D posed", 101, 101, "606 sequences of about 100 frames at 25 fps", "Di3D", "raw, about 35k verts per frame", "mixed", "18-45", "research agreement", "Binghamton signed agreement", false, false, false, "knowledge"],
+        ["BP4D-Spontaneous", "2014", "4D spontaneous, AU-coded", 41, 41, "8 tasks each", "Di3D", "raw", "mixed", "18-29", "research agreement", "Binghamton; BP4D+ (about 140 subjects) fee reported", false, false, false, "knowledge"],
+        ["D3DFACS", "2011", "4D FACS action units", 10, 10, "about 519 AU sequences at 60 fps", "3dMD dynamic", "raw", "small, European", "adult", "academic", "request", false, false, false, "contested"],
+        ["CoMA", "2018", "4D extreme expressions", 12, 12, "12 sequences each, 20466 meshes", "3dMD 60 fps", "FLAME 5023 verts", "European", "adult", "MPI non-commercial", "website account", false, false, false, "knowledge"],
+        ["VOCASET", "2019", "4D speech", 12, 12, "480 sequences at 60 fps", "3dMD", "FLAME 5023 verts", "European", "adult", "MPI non-commercial", "website account", false, false, false, "knowledge"],
+        ["FaMoS", "2023", "4D expressions and head rotations", 95, 95, "28 sequences each, about 600k frames", "3dMD multi-view 60 fps", "FLAME + calibrated images", "mostly European", "adult", "MPI non-commercial", "website account", false, false, true, "contested"],
+        ["4DFAB", "2018", "4D, 4 sessions over about 5 years", 180, 180, "more than 1.8M meshes", "DI4D", "raw", "mixed", "adult", "non-commercial", "application (Imperial)", false, false, false, "contested"],
+        ["Multiface", "2022", "multi-view video", 13, 13, "about 40 (v1) or 150 (v2) cameras, 2048x1334, 30 fps", "Mugsy domes", "tracked meshes + UV textures", "Meta volunteers", "adult", "CC BY-NC 4.0", "open download script", false, false, true, "contested"],
+        ["NeRSemble", "2023", "multi-view video", 220, null, "16 cameras, about 7.1 MP, about 73 fps, more than 4700 sequences", "machine-vision rig", "FLAME tracking in later releases", "mostly young European", "adult", "non-commercial", "EULA application", false, false, true, "contested"],
+        ["RenderMe-360", "2023", "multi-view video", 500, 500, "60 cameras, about 2448x2048", "dome", "FLAME fits", "Asia-recruited (unverified)", "adult", "non-commercial", "application", false, false, true, "contested"],
+        ["Ava-256", "2024", "multi-view + VR headset", 256, 256, "dome of about 80 cameras (unverified)", "Codec Avatar Studio", "tracked", "varied", "adult", "CC BY-NC-type (unverified)", "download", false, false, true, "contested"],
+        ["NoW benchmark", "2019", "benchmark", 100, 100, "2054 images; 20 val / 80 test", "3dMD neutral scans", "raw, 7 alignment landmarks", "Germany-recruited", "adult", "MPI non-commercial", "website account", false, false, false, "knowledge"],
+        ["Florence/MICC", "2011", "benchmark", 53, 53, "scans + video", "3dMD", "raw", "Italian", "adult", "research", "request", false, false, false, "knowledge"]
+      ],
+      "population": "as listed per dataset",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "All counts from expert recall; per-row status given. Licences and access are time-sensitive (late 2026). commercial_ok_default=false means non-commercial or research-only as understood; null = depends on purchase terms."
+    },
+    {
+      "name": "ground_truth_noise_floor",
+      "units": "mm, one standard deviation; adult face at the scanner's working distance",
+      "columns": ["capture_tech", "surface_sigma_min_mm", "surface_sigma_max_mm", "landmark_repeatability_min_mm", "landmark_repeatability_max_mm", "notes", "status"],
+      "rows": [
+        ["stereophotogrammetry_3dmd_di3d", 0.2, 0.5, 0.5, 1.5, "well-defined points; gonion/pogonion/tragion about 2-4 mm; pod seams; hair and lashes", "contested"],
+        ["dslr_multiview_stereo", 0.1, 0.4, 0.5, 1.5, "FaceScape-type; displacement maps hold sub-mm detail", "contested"],
+        ["structured_light_or_laser_line", 0.2, 0.5, 1.0, 2.0, "Minolta, Bosphorus; motion during sweep", "contested"],
+        ["kinect_v1_rgbd", 1.0, 4.0, 2.0, 3.0, "grows roughly with distance squared", "knowledge"],
+        ["whole_body_laser", 2.0, 5.0, 2.0, 5.0, "CAESAR; coarse head sampling, holes under chin and at hair", "contested"],
+        ["multiview_video_fit", 1.0, 2.0, null, null, "NeRSemble/RenderMe: ground truth is a reconstruction or FLAME fit, not a scan", "contested"]
+      ],
+      "population": "adult faces",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Use as sigma_gt per capture_tech; robust residual scale about 2*sigma_gt; errors below about 1.5*sigma_gt are not resolvable."
+    },
+    {
+      "name": "loader_conventions",
+      "units": "units and axes as stored in files; verify per file",
+      "columns": ["source", "units", "up_axis", "forward", "topology_vertices", "landmark_convention", "status"],
+      "rows": [
+        ["FLAME family (CoMA, VOCASET, FaMoS)", "m", "+Y", "face toward +Z", 5023, "FLAME landmark embedding", "knowledge"],
+        ["3dMD/Di3D exports (Headspace, BU-3DFE, BU-4DFE, NoW scans)", "mm", "rig-dependent", "rig-dependent", null, "BU-3DFE 83; NoW 7; Headspace own", "contested"],
+        ["FaceScape", "mm-scale expected; check", "check", "check", 26000, "68-point indices on uniform mesh (unverified)", "contested"],
+        ["FaceWarehouse", "check", "+Y", "+Z", 11510, "74 points", "knowledge"],
+        ["BFM 2009", "um or mm depending on version; check", "+Y", "+Z", 53490, "none official", "contested"],
+        ["Blender scene", "m (1 unit = 1 m default)", "+Z", "face toward -Y (front view looks toward +Y)", null, "n/a", "knowledge"]
+      ],
+      "population": "n/a",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Y-up to Blender Z-up: (x, y, z) -> (x, -z, y), i.e. +90 deg about X; Blender OBJ importer defaults (forward -Z, up Y) do this. Detect units from ex-ex: adult about 85-100 mm; en-en about 28-36 mm."
+    },
+    {
+      "name": "unit_detection",
+      "units": "measured ex-ex distance in file units -> scale to metres",
+      "columns": ["measured_ex_ex", "inferred_units", "scale_to_m"],
+      "rows": [
+        [0.09, "m", 1.0],
+        [9.0, "cm", 0.01],
+        [90.0, "mm", 0.001],
+        [90000.0, "um", 0.000001]
+      ],
+      "population": "adults; children smaller (ex-ex grows with age)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Snap to nearest scale; abort if the ratio to the expected value falls outside 0.6-1.4."
+    },
+    {
+      "name": "fit_to_scan_region_weights",
+      "units": "dimensionless weight (0-1); offset in mm",
+      "columns": ["region", "weight", "notes"],
+      "rows": [
+        ["skin_core (cheeks, forehead, nasal dorsum, chin)", 1.0, "reliable"],
+        ["lips", 0.7, "vermilion seam 0.3"],
+        ["eyebrows", 0.3, "hair inflates surface"],
+        ["eyelids_lashes", 0.2, "spikes, holes"],
+        ["ears", 0.2, "occluded, holes"],
+        ["inner_mouth_eyeballs_nostrils", 0.0, "missing or specular"],
+        ["scalp_default", 0.0, "hair"],
+        ["scalp_headspace_cap", 0.5, "one-sided outward offset 1-5 mm for cap and compressed hair"]
+      ],
+      "population": "n/a",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Defaults to tune on held-out scans; not from a published source."
+    },
+    {
+      "name": "landmark_prior_sigma",
+      "units": "mm, one standard deviation, after Procrustes alignment with scale removed",
+      "columns": ["landmark_group", "sigma_inplane_min", "sigma_inplane_max", "sigma_depth_min", "sigma_depth_max"],
+      "rows": [
+        ["endocanthion, alare (tight)", 1.5, 3.0, 2.0, 4.0],
+        ["general mid-face", 2.0, 4.0, 3.0, 5.0],
+        ["pronasale, pogonion, glabella, gonion", 2.0, 4.0, 3.0, 6.0]
+      ],
+      "population": "adults; widen 1.3-1.5x for subjects outside the prior's training population",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Expert estimates; derive from licensed scan data or sample from published anthropometric means/SDs."
+    },
+    {
+      "name": "validation_targets",
+      "units": "mm, mean scan-to-mesh error after 7-landmark similarity + ICP",
+      "columns": ["method", "error_min_mm", "error_max_mm", "conditions"],
+      "rows": [
+        ["3DMM fit from 5 or more calibrated views", 1.0, 1.5, "neutral, face region"],
+        ["photogrammetry (dense MVS)", 0.3, 0.7, "neutral, face region"]
+      ],
+      "population": "adult benchmark subjects",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Rough expectations; errors below about 1.5x the ground-truth sigma are noise."
+    }
+  ]
+}

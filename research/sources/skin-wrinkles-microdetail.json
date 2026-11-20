@@ -1,6 +1,22 @@
 {
  "topic": "skin-wrinkles-microdetail",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "title": "DermNet NZ, Skin tension lines",
+   "url": "https://dermnetnz.org/topics/skin-tension-lines"
+  },
+  {
+   "n": 2,
+   "title": "Relaxed skin tension lines (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Relaxed_skin_tension_lines"
+  },
+  {
+   "n": 3,
+   "title": "Quantitative Analysis of the Human Face Skin Thickness, HFUS study (2025)",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12693017/"
+  }
+ ],
  "references_by_name": [
   "Langer K, Zur Anatomie und Physiologie der Haut, 1861",
   "Kraissl CJ, elective incision lines, Plast Reconstr Surg, 1951",

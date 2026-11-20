@@ -1,7 +1,7 @@
 # Muscles of the mid face
 
 > The mid-face elevators fan out from bone to the upper lip and mouth corner. From medial to lateral they are levator labii superioris alaeque nasi (LLSAN), levator labii superioris (LLS), zygomaticus minor (ZMn) and zygomaticus major (ZMj), with levator anguli oris (LAO) and buccinator deep and risorius variable. Their dermal insertions along the cheek fat's medial edge make the nasolabial fold (NLF), a fixed hinge line present at every age that smiling deepens but does not create. ZMj drives the smile (AU12). The other elevators set lip, tooth and gum show, buccinator and risorius pull the corner back or sideways, and nasalis moves only the nostril. Attachments vary between people and imaging cannot resolve them in vivo, so a fitter should encode them as lines of action and expression priors, not identity geometry; most numbers here await verification.
-Evidence status: 10 ✅ / 30 📄 / 45 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 15 ✅ / 31 📄 / 45 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 

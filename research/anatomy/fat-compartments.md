@@ -2,7 +2,7 @@
 
 > Facial fat is not one continuous blanket: septa and retaining ligaments divide it into superficial compartments above the SMAS and deep compartments beneath the mimetic muscles, the model Rohrich and Pessa's 2007 cadaver dye study made standard. Compartment borders show as soft shading transitions in a young face and as grooves in an older one (tear trough, lid–cheek junction, midcheek groove, nasolabial fold, prejowl sulcus), because neighbouring compartments gain, lose and slide independently. With age the deep midface, periorbital and temporal fat deflates while the lower superficial compartments hold their volume or descend, and body-weight change acts mostly on superficial and lower-face fat. A photo→3D fitter should therefore model the soft tissue as region-wise thickness fields with soft borders, crease seams and ligament anchors, driven by latent adiposity, age and expression factors. No harvest or earlier draft existed for this topic, so everything below is expert knowledge awaiting verification.
 
-Evidence status: 0 ✅ / 0 📄 / 67 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 0 ✅ / 4 📄 / 63 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -24,10 +24,10 @@ Evidence status: 0 ✅ / 0 📄 / 67 🧠 / 12 ↔️ — 🧠 items are queued 
 - Septa carry perforating vessels, so each compartment ages and swells semi-independently 🧠; they are leaky partial barriers, not sealed walls ↔️.
 
 **Superficial compartments (Rohrich & Pessa 2007 and follow-ups)**
-- **Forehead:** a central forehead compartment and paired middle forehead compartments 🧠.
-- **Lateral temporal–cheek:** a long strip running from the temple, down in front of the ear, to the neck, bounded by the temporal septa 🧠.
-- **Periorbital:** superior, inferior and lateral orbital compartments, ringed by the ORL. The inferior orbital compartment is a thin layer under the lid skin, not the postseptal "eye-bag" fat 🧠.
-- **Midface, medial to lateral** 🧠:
+- **Forehead:** a central forehead compartment and paired middle forehead compartments 📄 [1].
+- **Lateral temporal–cheek:** a long strip running from the temple, down in front of the ear, to the neck, bounded by the temporal septa 📄 [1].
+- **Periorbital:** superior, inferior and lateral orbital compartments, ringed by the ORL. The inferior orbital compartment is a thin layer under the lid skin, not the postseptal "eye-bag" fat 📄 [1].
+- **Midface, medial to lateral** 📄 [1]:
   - nasolabial, which sits lateral to the fold and overhangs the lip;
   - medial cheek;
   - middle cheek, in front of the parotid near zygomaticus major;
@@ -64,7 +64,7 @@ Evidence status: 0 ✅ / 0 📄 / 67 🧠 / 12 ↔️ — 🧠 items are queued 
 - Smiling (AU6+AU12) pushes the nasolabial and medial-cheek fat up and medially, bunches the malar soft tissue and narrows the eye, while the deep fat glides underneath. A smiling photo is never neutral volume 🧠.
 
 **Age, weight, sex, ancestry**
-- **Age:** the deep compartments (DMCF, SOOF, temporal, ROOF, preaponeurotic) deflate. The superficial compartments shift down, and the lower ones keep or gain volume. The "inverted triangle of youth" becomes a heavier lower third (CT evidence: Gierloff 2012). How much each mechanism contributes is contested ↔️.
+- **Age:** the deep compartments (DMCF, SOOF, temporal, ROOF, preaponeurotic) deflate. The superficial compartments shift down, and the lower ones keep or gain volume. The "inverted triangle of youth" becomes a heavier lower third (CT evidence: Gierloff 2012 [2], whose abstract reports inferior migration of the midfacial compartments and deep medial cheek fat loss). How much each mechanism contributes is contested ↔️.
 - **Bone:** resorption removes deep-fat support and deepens grooves (Shaw & Kahn; Mendelson & Wong). It works through maxillary retrusion, widening of the pyriform aperture and orbit, and mandibular remodelling 🧠.
 - **Weight gain** goes first to the submental, jowl, buccal/lower cheek, nasolabial and temple regions. The forehead, nasal dorsum and bony rims change least. Lower and mid-face width is the main cue for perceived adiposity 🧠.
 - **Rapid large weight loss**, including on GLP-1 agonists ("Ozempic face"), deflates temple, cheek and periorbital fat and leaves lax skin; evidence is mostly case reports and reviews, and time-sensitive ↔️.
@@ -183,7 +183,8 @@ Individual error is large: measure the person. Full depth tables: skull-osteolog
 
 ## Sources
 
-No harvest or earlier draft existed for this topic, so this note cites no URLs.
+1. Rohrich & Pessa 2007, PubMed: https://pubmed.ncbi.nlm.nih.gov/17519724/
+2. Gierloff et al. 2012, PubMed: https://pubmed.ncbi.nlm.nih.gov/21915077/
 
 **Further reading (by name, not yet linked; PRS = Plast Reconstr Surg)**
 - Rohrich & Pessa 2007, The fat compartments of the face (PRS); 2008, The retaining system of the face (PRS)
@@ -204,3 +205,10 @@ No harvest or earlier draft existed for this topic, so this note cites no URLs.
 - Ellenbogen & Karlin 1980, Youthful neck criteria; Hinderer 1975, Malar implants
 - Owsley (malar fat pad, 1990s) and Jelks & Jelks ("negative vector", early 1990s): exact titles not confirmed
 - Rhine and colleagues; Stephan & Simpson (2008 onward): forensic soft-tissue depth tables
+
+## Verification log (2026-11-20)
+
+- Superficial compartments in Rohrich & Pessa 2007: confirmed (forehead central/middle, medial/middle/lateral temporal-cheek, three orbital, jowl as most inferior, nasolabial). The Reece 2008 attribution of the jowl border was not checked. https://pubmed.ncbi.nlm.nih.gov/17519724/
+- Skin-to-bone depth ranges (suborbital, inferior malar, arch, lateral orbit, buccal, mid-masseter): unconfirmed; search found the Stephan & Simpson T-Table literature but no landmark values. https://link.springer.com/article/10.1007/s00414-023-03087-x (not read for values)
+- Gierloff 2012 aging pattern: confirmed (inferior migration of midfacial compartments; deep medial cheek fat volume loss). Badge on that line stays ↔️ because the relative contribution of mechanisms is contested. https://pubmed.ncbi.nlm.nih.gov/21915077/
+- Buccal fat pad 8-12 mL per side: unconfirmed. A cadaver study (mean 10.2 mL male, 8.9 mL female, range 7.2-11.2) appeared in results but could not be tied to Stuzin/Zhang or a specific URL; the body-weight relationship was not settled. https://pubmed.ncbi.nlm.nih.gov/12045584/ (Zhang 2002 abstract, no mL figure)

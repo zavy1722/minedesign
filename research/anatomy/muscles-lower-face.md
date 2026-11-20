@@ -86,7 +86,7 @@ Evidence status: 12 ✅ / 50 📄 / 39 🧠 / 25 ↔️ — 🧠 items are queue
 | Interlabial gap, rest | Stms–Stmi | 2 ± 2 mm | same | 🧠 |
 | Vertical lip–chin ratio | Sn–Stms : Stmi–Meʹ | ≈ 1 : 2 | same; Powell & Humphreys | 🧠 |
 | Lower lip to E-line | Li to Prn–Pogʹ | −2 ± 2 mm | white adults (Ricketts); more protrusive in African, East Asian samples | ↔️ |
-| Mentolabial angle | Li–Bʹ vs Bʹ–Pogʹ | ~110–135°, centre ~120–130° | norms vary | ↔️ |
+| Mentolabial angle | Li–Bʹ vs Bʹ–Pogʹ | ~110–135°, centre ~120–130° (attractiveness drops outside 107–140° [64]) | norms vary | ↔️ |
 | Soft-tissue chin thickness | Pog–Pogʹ | 10–12 mm | Holdaway | 🧠 |
 | Mouth width | ch–ch | means ~48–56 mm, SD ≈ 3–4 | Farkas-type; women narrower | 🧠 |
 | Modiolus centre | from cheilion | ~10–15 mm lateral, ±5 mm vertical | cf. [35] | ↔️ |
@@ -219,6 +219,7 @@ Evidence status: 12 ✅ / 50 📄 / 39 🧠 / 25 ↔️ — 🧠 items are queue
 [61] Chin Ptosis: Classification, Anatomy, and Correction (surfaced, not read) — https://pmc.ncbi.nlm.nih.gov/articles/PMC3052727/ — paper — n.d.
 [62] Three-Dimensional Evaluation of the Depressor Anguli Oris and Depressor Labii Inferioris for Botulinum Toxin Injections (surfaced, not read) — https://pubmed.ncbi.nlm.nih.gov/32232427/ — paper — 2020
 [63] The Deep Fascia of the Head and Neck Revisited: Relationship with the Facial Nerve (surfaced, not read) — https://pmc.ncbi.nlm.nih.gov/articles/PMC11104498/ — paper — 2024
+[64] Mentolabial angle and aesthetics: a quantitative investigation of idealized and normative values — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5292106/ — paper — n.d.
 
 **Further reading (by name, not yet linked)**
 - Standring S (ed.), *Gray's Anatomy: The Anatomical Basis of Clinical Practice*, recent editions (modiolus, pars marginalis/peripheralis, platysma parts).
@@ -237,3 +238,11 @@ Evidence status: 12 ✅ / 50 📄 / 39 🧠 / 25 ↔️ — 🧠 items are queue
 - Zhu X et al., "Face alignment across large poses: a 3D solution" (3DDFA), CVPR 2016.
 - Faigin G, *The Artist's Complete Guide to Facial Expression*, 1990.
 - Zarins U, *Anatomy of Facial Expression* (Anatomy for Sculptors), 2017.
+
+## Verification log (2026-11-20)
+
+- Legan & Burstone norms (sulcus 4 ± 2, lip protrusion 2 ± 1 / 3 ± 1, interlabial gap 2 ± 2, ratio 1:2): unconfirmed. Only a slide deck repeated sulcus 4 ± 2 mm (not a reliable source); no reliable URL found for the rest. Left 🧠. Related, not the norms: https://pmc.ncbi.nlm.nih.gov/articles/PMC3606791 (Turkish vs European-American profile values).
+- Soft-tissue depths (Li 11–16, Bʹ 9–13, Pog 9–13, Gn 7–10, Me 5–9) and Holdaway 10–12 mm: unconfirmed; search did not return the Stephan & Simpson tables. Left 🧠. Note from https://link.springer.com/article/10.1007/s00414-023-03087-x: landmark names (gnathion/menton/"chin") are used inconsistently across studies.
+- DAO insertion ≈ 10 mm lateral, 10 mm caudal: re-seen, still single source, stays 📄: https://pubmed.ncbi.nlm.nih.gov/33565832/. Modiolus centre 10–15 mm lateral, ±5 mm vertical: unconfirmed; an unattributed snippet gave 11.0 ± 2.6 lateral and 8.9 ± 2.8 inferior to cheilion (no URL tied, not used). Left ↔️/🧠.
+- Mentolabial angle ~110–135°, centre 120–130°, more acute in men: contested. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5292106/ gives an acceptable range of 107–140°; a Malaysian sample (not tied to a URL) found ~130° with no sex difference, against the "more acute in men" wording. Left ↔️. Lower lip to E-line −2 ± 2 mm and ethnic differences: unconfirmed, left ↔️.
+- Searches used: 4. Net badge counts unchanged.

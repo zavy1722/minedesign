@@ -1,6 +1,17 @@
 {
   "topic": "fat-compartments",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "The fat compartments of the face: anatomy and clinical implications for cosmetic surgery (Rohrich & Pessa 2007)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17519724/"
+    },
+    {
+      "n": 2,
+      "title": "Aging changes of the midfacial fat compartments: a computed tomographic study (Gierloff 2012)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21915077/"
+    }
+  ],
   "references_by_name": [
     "Rohrich RJ, Pessa JE. The fat compartments of the face: anatomy and clinical implications for cosmetic surgery. Plast Reconstr Surg, 2007",
     "Rohrich RJ, Pessa JE. The retaining system of the face: histologic evaluation of the septal boundaries of the subcutaneous fat compartments. Plast Reconstr Surg, 2008",
