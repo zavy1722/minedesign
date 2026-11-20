@@ -2,7 +2,7 @@
 
 > A photo→3D likeness is clean only when three separate permission chains are all clean: the subject's consent (`ethics/consent-likeness-law.md`); the copyright in every photograph, which belongs to whoever pressed the shutter rather than to the subject, and which public visibility on a platform never grants; and the licence of every model, dataset and template that touches the fit. The third chain is where open face tooling usually fails. Code is MIT, BSD or Apache, but FLAME, BFM, InsightFace weights, dlib's 68-point model and most research regressors carry non-commercial or no-redistribution terms, and converting them to ONNX does not lift those terms. An add-on that imports `bpy` should be GPL-3.0-or-later, but the GPL does not reach the meshes and renders it makes, and a bpy-free numpy engine can stay permissive. Instagram, Facebook, X, TikTok and LinkedIn all forbid automated collection, so the clean route for social photos is the subject's own data export plus each photographer's permission. No harvest or earlier draft existed, so this is expert knowledge as of mid-2026. It is not legal advice.
 >
-> Evidence status: 0 ✅ / 0 📄 / 64 🧠 / 32 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 3 📄 / 65 🧠 / 29 ↔️ — verified 2026-11-20 (one pass, 4 searches); remaining 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -197,3 +197,10 @@ Sibling harvests' licence URLs: `blender/blender-extensions-packaging.md`, `reco
 - *Van Buren v. United States* (2021); *hiQ Labs v. LinkedIn* (9th Cir. 2022); *Meta Platforms v. Bright Data* (N.D. Cal. 2024)
 - *Rogers v. Koons* (2d Cir. 1992); *Andy Warhol Foundation v. Goldsmith* (2023); *Mannion v. Coors* (S.D.N.Y. 2005)
 - Directive (EU) 2019/790 Arts. 3–4; UK CDPA ss. 29, 29A; 17 U.S.C. §§412, 504, 1202–1203; *Kneschke v. LAION* (LG Hamburg, 2024); *Getty Images v. Stability AI* (EWHC, 2025)
+
+## Verification log (2026-11-20)
+
+- **MediaPipe Face Landmarker weights Apache-2.0 per official model card:** unconfirmed. Only third-party repackagers (Hugging Face py-feat/mp_facemesh_v2, Luxonis, Unity Sentis) state Apache-2.0; Google's own model card was not retrieved. Badge left as ↔️. https://huggingface.co/py-feat/mp_facemesh_v2 ; https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker
+- **MPFB2/MakeHuman base mesh and targets CC0, some packs CC-BY:** confirmed (📄). Core assets and base mesh/targets are CC0 since the 2020 change; some asset packs are CC-BY. https://static.makehumancommunity.org/about/license.html ; https://static.makehumancommunity.org/assets/assetpacks.html
+- **FLAME non-commercial and "FLAME 2023 Open" under CC BY 4.0:** unconfirmed. Search returned only unrelated "FLAME" projects; no official MPI-IS page found.
+- **Blender Extensions policy:** corrected in part. Docs require GPL-3.0-or-later for add-ons (older 4.2 pages recommended GPL-2.0-or-later) and CC0 for bundled assets, not just "free". Bundled wheels / no runtime pip and runtime model download rules remain unconfirmed. https://docs.blender.org/manual/en/dev/extensions/licenses.html

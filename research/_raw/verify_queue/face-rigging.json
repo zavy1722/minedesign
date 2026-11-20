@@ -1,0 +1,27 @@
+{
+ "id": "face-rigging",
+ "area": "blender",
+ "title": "Face rigging for a reconstructed head",
+ "queue": [
+  {
+   "claim": "Jaw rig priors: the mandibular condyle (jaw pivot) sits about 10\u201315 mm in front of and 0\u201310 mm below tragion, 15\u201320 mm deep. In adults the first ~20\u201325 mm of mouth opening is mostly rotation; at maximum opening (40\u201360 mm) the jaw has rotated about 20\u201330\u00b0 and the condyle has slid forward about 10\u201320 mm.",
+   "query": "mandibular condyle rotation translation phase mouth opening interincisal distance mm condylar translation degrees",
+   "domains": "pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Live Link Face in ARKit mode streams and records 61 values: the 52 ARKit blendshapes plus head yaw/pitch/roll and left/right eye yaw/pitch/roll. It sends over UDP (default port 11111) and records a timecoded CSV with the same columns.",
+   "query": "Live Link Face CSV columns Timecode BlendshapeCount HeadYaw LeftEyeYaw 61 port 11111",
+   "domains": "dev.epicgames.com,github.com"
+  },
+  {
+   "claim": "Blender 4.4 introduced slotted Actions, and from 4.4 on F-curves are written through layers, strips and channelbags. The legacy Action.fcurves API was deprecated and then removed in Blender 5.0.",
+   "query": "Blender 5.0 Python API Action.fcurves removed channelbag slotted actions anim_utils",
+   "domains": "developer.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Rigify still ships with Blender (4.2+/5.x). Its face has been a modular 'skin' system since Blender 3.0 (lid, lip, brow and nose chains with glue bones, plus jaw, eye and tongue rigs), with an 'Upgrade Face Rig' converter for the legacy super_face.",
+   "query": "Rigify face rig skin rig types upgrade face rig Blender 3.0 release notes",
+   "domains": "developer.blender.org,docs.blender.org"
+  }
+ ]
+}

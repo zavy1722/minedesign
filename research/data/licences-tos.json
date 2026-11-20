@@ -4,52 +4,334 @@
     {
       "name": "component_licence_matrix",
       "units": "categorical; commercial_ok is yes|no|conditional|unknown (unknown must be treated as no for export)",
-      "columns": ["component", "role", "code_licence", "weights_or_data_licence", "commercial_ok", "bundle_in_extension", "default_enabled", "status"],
+      "columns": [
+        "component",
+        "role",
+        "code_licence",
+        "weights_or_data_licence",
+        "commercial_ok",
+        "bundle_in_extension",
+        "default_enabled",
+        "status"
+      ],
       "rows": [
-        ["MediaPipe Face Landmarker", "landmark detector (478 pts + 52 blendshape scores)", "Apache-2.0", "Apache-2.0 per model card (verify per release)", "yes", "download on demand, SHA-256 pinned", true, "contested"],
-        ["MediaPipe canonical face model OBJ", "468-vertex topology/UV reference", "Apache-2.0", "n/a", "yes", "yes, with NOTICE", true, "knowledge"],
-        ["ONNX (spec, onnx package)", "model format", "Apache-2.0", "n/a", "yes", "yes", true, "knowledge"],
-        ["ONNX Runtime", "inference runtime", "MIT", "n/a", "yes", "yes (platform wheel)", true, "knowledge"],
-        ["OpenCV >= 4.5.0", "image ops / solvePnP", "Apache-2.0", "OpenCV Zoo models per-model", "yes", "yes (wheel)", false, "knowledge"],
-        ["NumPy", "fitting engine", "BSD-3-Clause", "n/a", "yes", "bundled with Blender", true, "knowledge"],
-        ["dlib 68-point shape predictor", "landmark detector", "BSL-1.0", "trained on iBUG 300-W, non-commercial", "no", "no", false, "knowledge"],
-        ["face-alignment (FAN)", "landmark detector", "BSD-3-Clause", "research datasets (300W-LP, LS3D-W)", "unknown", "no", false, "contested"],
-        ["InsightFace pretrained packs (buffalo_l, antelopev2)", "detector, landmarks, recognition", "MIT", "non-commercial research only; paid licence available", "no", "no", false, "knowledge"],
-        ["3DDFA_V2", "dense 3D alignment", "MIT", "BFM + 300W-LP, non-commercial", "no", "no", false, "knowledge"],
-        ["DECA / EMOCA / MICA", "FLAME regressors", "MPI non-commercial", "FLAME (non-commercial)", "no", "no", false, "knowledge"],
-        ["FLAME 2020 / FLAME 2023", "3D morphable model", "n/a", "MPI non-commercial research; registration; no redistribution", "conditional", "no", false, "knowledge"],
-        ["FLAME 2023 Open", "3D morphable model", "n/a", "reportedly CC BY 4.0 (unconfirmed)", "unknown", "unknown", false, "contested"],
-        ["Basel Face Model 2009/2017/2019", "3D morphable model", "n/a", "non-commercial research; signed agreement; no redistribution", "conditional", "no", false, "knowledge"],
-        ["MPFB2 / MakeHuman", "parametric base mesh and targets", "GPL-3.0-or-later", "CC0 base; some packs CC-BY", "yes", "yes", true, "contested"],
-        ["ICT-FaceKit", "morphable head + ARKit-like expressions", "MIT", "MIT", "unknown", "after licence check", false, "contested"],
-        ["BiSeNet face-parsing weights", "face segmentation", "MIT", "CelebAMask-HQ, non-commercial", "no", "no", false, "knowledge"],
-        ["SAM / SAM 2", "segmentation", "Apache-2.0", "Apache-2.0", "yes", "download on demand", false, "knowledge"],
-        ["Ultralytics YOLO (incl. YOLOv8-face)", "face detector", "AGPL-3.0", "AGPL-3.0", "conditional", "avoid", false, "knowledge"],
-        ["Depth Anything V2 Small / Base-Large", "monocular depth", "Apache-2.0", "Small Apache-2.0; Base/Large CC BY-NC 4.0", "conditional", "Small only, download", false, "contested"],
-        ["FFHQ", "dataset", "n/a", "CC BY-NC-SA 4.0 compilation; images individually licensed", "no", "no", false, "knowledge"],
-        ["CelebA / CelebAMask-HQ", "dataset", "n/a", "non-commercial research", "no", "no", false, "knowledge"]
+        [
+          "MediaPipe Face Landmarker",
+          "landmark detector (478 pts + 52 blendshape scores)",
+          "Apache-2.0",
+          "Apache-2.0 per model card (verify per release)",
+          "yes",
+          "download on demand, SHA-256 pinned",
+          true,
+          "contested"
+        ],
+        [
+          "MediaPipe canonical face model OBJ",
+          "468-vertex topology/UV reference",
+          "Apache-2.0",
+          "n/a",
+          "yes",
+          "yes, with NOTICE",
+          true,
+          "knowledge"
+        ],
+        [
+          "ONNX (spec, onnx package)",
+          "model format",
+          "Apache-2.0",
+          "n/a",
+          "yes",
+          "yes",
+          true,
+          "knowledge"
+        ],
+        [
+          "ONNX Runtime",
+          "inference runtime",
+          "MIT",
+          "n/a",
+          "yes",
+          "yes (platform wheel)",
+          true,
+          "knowledge"
+        ],
+        [
+          "OpenCV >= 4.5.0",
+          "image ops / solvePnP",
+          "Apache-2.0",
+          "OpenCV Zoo models per-model",
+          "yes",
+          "yes (wheel)",
+          false,
+          "knowledge"
+        ],
+        [
+          "NumPy",
+          "fitting engine",
+          "BSD-3-Clause",
+          "n/a",
+          "yes",
+          "bundled with Blender",
+          true,
+          "knowledge"
+        ],
+        [
+          "dlib 68-point shape predictor",
+          "landmark detector",
+          "BSL-1.0",
+          "trained on iBUG 300-W, non-commercial",
+          "no",
+          "no",
+          false,
+          "knowledge"
+        ],
+        [
+          "face-alignment (FAN)",
+          "landmark detector",
+          "BSD-3-Clause",
+          "research datasets (300W-LP, LS3D-W)",
+          "unknown",
+          "no",
+          false,
+          "contested"
+        ],
+        [
+          "InsightFace pretrained packs (buffalo_l, antelopev2)",
+          "detector, landmarks, recognition",
+          "MIT",
+          "non-commercial research only; paid licence available",
+          "no",
+          "no",
+          false,
+          "knowledge"
+        ],
+        [
+          "3DDFA_V2",
+          "dense 3D alignment",
+          "MIT",
+          "BFM + 300W-LP, non-commercial",
+          "no",
+          "no",
+          false,
+          "knowledge"
+        ],
+        [
+          "DECA / EMOCA / MICA",
+          "FLAME regressors",
+          "MPI non-commercial",
+          "FLAME (non-commercial)",
+          "no",
+          "no",
+          false,
+          "knowledge"
+        ],
+        [
+          "FLAME 2020 / FLAME 2023",
+          "3D morphable model",
+          "n/a",
+          "MPI non-commercial research; registration; no redistribution",
+          "conditional",
+          "no",
+          false,
+          "knowledge"
+        ],
+        [
+          "FLAME 2023 Open",
+          "3D morphable model",
+          "n/a",
+          "reportedly CC BY 4.0 (unconfirmed)",
+          "unknown",
+          "unknown",
+          false,
+          "contested"
+        ],
+        [
+          "Basel Face Model 2009/2017/2019",
+          "3D morphable model",
+          "n/a",
+          "non-commercial research; signed agreement; no redistribution",
+          "conditional",
+          "no",
+          false,
+          "knowledge"
+        ],
+        [
+          "MPFB2 / MakeHuman",
+          "parametric base mesh and targets",
+          "GPL-3.0-or-later",
+          "CC0 base; some packs CC-BY",
+          "yes",
+          "yes",
+          true,
+          "confirmed"
+        ],
+        [
+          "ICT-FaceKit",
+          "morphable head + ARKit-like expressions",
+          "MIT",
+          "MIT",
+          "unknown",
+          "after licence check",
+          false,
+          "contested"
+        ],
+        [
+          "BiSeNet face-parsing weights",
+          "face segmentation",
+          "MIT",
+          "CelebAMask-HQ, non-commercial",
+          "no",
+          "no",
+          false,
+          "knowledge"
+        ],
+        [
+          "SAM / SAM 2",
+          "segmentation",
+          "Apache-2.0",
+          "Apache-2.0",
+          "yes",
+          "download on demand",
+          false,
+          "knowledge"
+        ],
+        [
+          "Ultralytics YOLO (incl. YOLOv8-face)",
+          "face detector",
+          "AGPL-3.0",
+          "AGPL-3.0",
+          "conditional",
+          "avoid",
+          false,
+          "knowledge"
+        ],
+        [
+          "Depth Anything V2 Small / Base-Large",
+          "monocular depth",
+          "Apache-2.0",
+          "Small Apache-2.0; Base/Large CC BY-NC 4.0",
+          "conditional",
+          "Small only, download",
+          false,
+          "contested"
+        ],
+        [
+          "FFHQ",
+          "dataset",
+          "n/a",
+          "CC BY-NC-SA 4.0 compilation; images individually licensed",
+          "no",
+          "no",
+          false,
+          "knowledge"
+        ],
+        [
+          "CelebA / CelebAMask-HQ",
+          "dataset",
+          "n/a",
+          "non-commercial research",
+          "no",
+          "no",
+          false,
+          "knowledge"
+        ]
       ],
       "population": "Components considered by this research library for a photo-to-head Blender add-on, as understood mid-2026",
-      "source_urls": [],
+      "source_urls": [
+        "https://static.makehumancommunity.org/about/license.html",
+        "https://static.makehumancommunity.org/assets/assetpacks.html"
+      ],
       "status": "contested",
       "notes": "Expert knowledge, unverified. Licences change per release; re-check the official licence file and model card before shipping. ONNX conversion, quantisation or fine-tuning does not change weight terms."
     },
     {
       "name": "photograph_copyright_terms",
       "units": "years",
-      "columns": ["jurisdiction", "category", "term_years", "counted_from", "status"],
+      "columns": [
+        "jurisdiction",
+        "category",
+        "term_years",
+        "counted_from",
+        "status"
+      ],
       "rows": [
-        ["US", "photographs created since 1978 (individual author)", 70, "death of author", "knowledge"],
-        ["US", "work made for hire", "95 from publication or 120 from creation, whichever first", "publication/creation", "knowledge"],
-        ["EU / UK", "original photographs", 70, "death of author", "knowledge"],
-        ["Germany", "simple photographs (Lichtbilder, UrhG s.72)", 50, "publication, or production if unpublished", "knowledge"],
-        ["Austria", "simple photographs (Lichtbilder)", 50, "publication or production", "knowledge"],
-        ["Italy", "simple photographs (LDA Art. 92)", 20, "production", "knowledge"],
-        ["Spain", "meras fotografias (TRLPI Art. 128)", 25, "1 January after creation", "knowledge"],
-        ["Canada", "all works (life + 70 from 30 Dec 2022)", 70, "death of author", "knowledge"],
-        ["Japan", "all works (life + 70 from 30 Dec 2018)", 70, "death of author", "knowledge"],
-        ["China", "photographic works (2020 amendment)", 50, "death of author", "contested"],
-        ["India", "photographs", 60, "publication", "knowledge"]
+        [
+          "US",
+          "photographs created since 1978 (individual author)",
+          70,
+          "death of author",
+          "knowledge"
+        ],
+        [
+          "US",
+          "work made for hire",
+          "95 from publication or 120 from creation, whichever first",
+          "publication/creation",
+          "knowledge"
+        ],
+        [
+          "EU / UK",
+          "original photographs",
+          70,
+          "death of author",
+          "knowledge"
+        ],
+        [
+          "Germany",
+          "simple photographs (Lichtbilder, UrhG s.72)",
+          50,
+          "publication, or production if unpublished",
+          "knowledge"
+        ],
+        [
+          "Austria",
+          "simple photographs (Lichtbilder)",
+          50,
+          "publication or production",
+          "knowledge"
+        ],
+        [
+          "Italy",
+          "simple photographs (LDA Art. 92)",
+          20,
+          "production",
+          "knowledge"
+        ],
+        [
+          "Spain",
+          "meras fotografias (TRLPI Art. 128)",
+          25,
+          "1 January after creation",
+          "knowledge"
+        ],
+        [
+          "Canada",
+          "all works (life + 70 from 30 Dec 2022)",
+          70,
+          "death of author",
+          "knowledge"
+        ],
+        [
+          "Japan",
+          "all works (life + 70 from 30 Dec 2018)",
+          70,
+          "death of author",
+          "knowledge"
+        ],
+        [
+          "China",
+          "photographic works (2020 amendment)",
+          50,
+          "death of author",
+          "contested"
+        ],
+        [
+          "India",
+          "photographs",
+          60,
+          "publication",
+          "knowledge"
+        ]
       ],
       "population": "Default statutory rules; older works follow transitional rules",
       "source_urls": [],
@@ -59,15 +341,63 @@
     {
       "name": "exposure_figures",
       "units": "as stated per row",
-      "columns": ["rule_or_case", "figure", "unit", "notes", "status"],
+      "columns": [
+        "rule_or_case",
+        "figure",
+        "unit",
+        "notes",
+        "status"
+      ],
       "rows": [
-        ["17 U.S.C. 504(c) statutory damages", "750-30000; up to 150000 if wilful", "USD per work infringed", "requires timely registration (17 U.S.C. 412)", "knowledge"],
-        ["DMCA 1203(c)(3)(B), removal of copyright management information", "2500-25000", "USD per violation", "keep EXIF/IPTC Artist and Copyright when stripping GPS", "knowledge"],
-        ["X Terms of Service liquidated damages", "15000", "USD per 1,000,000 posts accessed in any 24 h", "verify current terms", "contested"],
-        ["Clearview AI: Italy Garante / Greek HDPA / CNIL", "20000000 each", "EUR", "2022 decisions", "knowledge"],
-        ["Clearview AI: Dutch Autoriteit Persoonsgegevens", "30500000", "EUR", "2024", "knowledge"],
-        ["Clearview AI: UK ICO", "7500000", "GBP", "2022; tribunal appeal history contested", "contested"],
-        ["Instagram Basic Display API end of life", "2024-12-04", "date", "Graph API serves only business/creator own media", "contested"]
+        [
+          "17 U.S.C. 504(c) statutory damages",
+          "750-30000; up to 150000 if wilful",
+          "USD per work infringed",
+          "requires timely registration (17 U.S.C. 412)",
+          "knowledge"
+        ],
+        [
+          "DMCA 1203(c)(3)(B), removal of copyright management information",
+          "2500-25000",
+          "USD per violation",
+          "keep EXIF/IPTC Artist and Copyright when stripping GPS",
+          "knowledge"
+        ],
+        [
+          "X Terms of Service liquidated damages",
+          "15000",
+          "USD per 1,000,000 posts accessed in any 24 h",
+          "verify current terms",
+          "contested"
+        ],
+        [
+          "Clearview AI: Italy Garante / Greek HDPA / CNIL",
+          "20000000 each",
+          "EUR",
+          "2022 decisions",
+          "knowledge"
+        ],
+        [
+          "Clearview AI: Dutch Autoriteit Persoonsgegevens",
+          "30500000",
+          "EUR",
+          "2024",
+          "knowledge"
+        ],
+        [
+          "Clearview AI: UK ICO",
+          "7500000",
+          "GBP",
+          "2022; tribunal appeal history contested",
+          "contested"
+        ],
+        [
+          "Instagram Basic Display API end of life",
+          "2024-12-04",
+          "date",
+          "Graph API serves only business/creator own media",
+          "contested"
+        ]
       ],
       "population": "Selected statutes, contractual terms and regulator decisions",
       "source_urls": [],
@@ -77,15 +407,63 @@
     {
       "name": "platform_automated_collection",
       "units": "categorical",
-      "columns": ["platform", "automated_collection_allowed", "sanctioned_route_for_subjects_own_photos", "notes", "status"],
+      "columns": [
+        "platform",
+        "automated_collection_allowed",
+        "sanctioned_route_for_subjects_own_photos",
+        "notes",
+        "status"
+      ],
       "rows": [
-        ["Instagram", "no, without express permission", "Accounts Center: Download your information", "Basic Display API retired; content licence runs to Meta only", "knowledge"],
-        ["Facebook / Threads", "no, without permission", "Accounts Center: Download your information", "same Meta terms", "knowledge"],
-        ["X", "no, without prior written consent", "account archive download", "liquidated-damages clause reported", "contested"],
-        ["TikTok", "no", "data download request", "", "knowledge"],
-        ["LinkedIn", "no", "data export", "hiQ v. LinkedIn: CFAA narrowed but contract claim succeeded", "knowledge"],
-        ["Pinterest", "no", "data request", "pins are often re-posts without the original rights", "knowledge"],
-        ["Flickr", "API terms apply", "per-photo licence field", "CC licences exclude publicity/privacy rights (CC 4.0 s.2(b)(1))", "knowledge"]
+        [
+          "Instagram",
+          "no, without express permission",
+          "Accounts Center: Download your information",
+          "Basic Display API retired; content licence runs to Meta only",
+          "knowledge"
+        ],
+        [
+          "Facebook / Threads",
+          "no, without permission",
+          "Accounts Center: Download your information",
+          "same Meta terms",
+          "knowledge"
+        ],
+        [
+          "X",
+          "no, without prior written consent",
+          "account archive download",
+          "liquidated-damages clause reported",
+          "contested"
+        ],
+        [
+          "TikTok",
+          "no",
+          "data download request",
+          "",
+          "knowledge"
+        ],
+        [
+          "LinkedIn",
+          "no",
+          "data export",
+          "hiQ v. LinkedIn: CFAA narrowed but contract claim succeeded",
+          "knowledge"
+        ],
+        [
+          "Pinterest",
+          "no",
+          "data request",
+          "pins are often re-posts without the original rights",
+          "knowledge"
+        ],
+        [
+          "Flickr",
+          "API terms apply",
+          "per-photo licence field",
+          "CC licences exclude publicity/privacy rights (CC 4.0 s.2(b)(1))",
+          "knowledge"
+        ]
       ],
       "population": "Major platforms' user terms as understood mid-2026",
       "source_urls": [],
@@ -95,16 +473,52 @@
     {
       "name": "licence_policy_defaults",
       "units": "categorical / boolean",
-      "columns": ["parameter", "default", "rationale"],
+      "columns": [
+        "parameter",
+        "default",
+        "rationale"
+      ],
       "rows": [
-        ["unknown commercial_ok", "treat as false", "fail closed on export"],
-        ["result.commercial_ok", "AND over all components used in the run", "taint propagation from priors, templates, detectors, regressors, segmenters, photos"],
-        ["photo rights_basis = unknown", "fit allowed with warning; texture bake/pack/export blocked", "geometry extracts facts; texture copies pixels"],
-        ["URL/social import", "disabled", "platform terms prohibit automated collection"],
-        ["EXIF GPS and serial", "strip", "privacy"],
-        ["EXIF/IPTC Artist and Copyright", "preserve into sidecar and glTF extras", "DMCA 1202"],
-        ["non-commercial weights", "never bundled; user downloads under own registration", "asset licences forbid redistribution; Extensions free-content policy"],
-        ["add-on licence", "SPDX:GPL-3.0-or-later; engine package MIT or Apache-2.0", "bpy glue must be GPL-compatible; engine reusable outside Blender"]
+        [
+          "unknown commercial_ok",
+          "treat as false",
+          "fail closed on export"
+        ],
+        [
+          "result.commercial_ok",
+          "AND over all components used in the run",
+          "taint propagation from priors, templates, detectors, regressors, segmenters, photos"
+        ],
+        [
+          "photo rights_basis = unknown",
+          "fit allowed with warning; texture bake/pack/export blocked",
+          "geometry extracts facts; texture copies pixels"
+        ],
+        [
+          "URL/social import",
+          "disabled",
+          "platform terms prohibit automated collection"
+        ],
+        [
+          "EXIF GPS and serial",
+          "strip",
+          "privacy"
+        ],
+        [
+          "EXIF/IPTC Artist and Copyright",
+          "preserve into sidecar and glTF extras",
+          "DMCA 1202"
+        ],
+        [
+          "non-commercial weights",
+          "never bundled; user downloads under own registration",
+          "asset licences forbid redistribution; Extensions free-content policy"
+        ],
+        [
+          "add-on licence",
+          "SPDX:GPL-3.0-or-later; engine package MIT or Apache-2.0",
+          "bpy glue must be GPL-compatible; engine reusable outside Blender"
+        ]
       ],
       "population": "Design defaults proposed for the add-on",
       "source_urls": [],

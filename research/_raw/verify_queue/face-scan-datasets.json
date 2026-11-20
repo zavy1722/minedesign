@@ -1,0 +1,27 @@
+{
+ "id": "face-scan-datasets",
+ "area": "reconstruction",
+ "title": "Public 3D face scan datasets",
+ "queue": [
+  {
+   "claim": "Licence and access terms: FaceScape, Headspace, NeRSemble and the Binghamton sets are non-commercial research-only behind institutional signed agreements; Multiface is CC BY-NC 4.0 with open download; the licences also cover trained models and PCA bases. These terms decide what the open-source add-on may bundle.",
+   "query": "FaceScape dataset license agreement non-commercial derived models redistribution",
+   "domains": ""
+  },
+  {
+   "claim": "Multiface: 13 identities, about 40 or 150 cameras at 2048x1334 and 30 fps, tracked meshes, CC BY-NC 4.0, downloadable without an application. It is the recommended validation set for unaffiliated developers.",
+   "query": "Multiface dataset neural face rendering license CC BY-NC cameras identities github",
+   "domains": "github.com,arxiv.org"
+  },
+  {
+   "claim": "Headspace: about 1,519 subjects scanned with a 3dMD head system wearing tight caps, mostly white British, children to elderly. LYHM was built from 1,212 of them, and REALY uses about 100 Headspace subjects.",
+   "query": "Headspace dataset York 1519 subjects 3dMD cap Liverpool-York Head Model 1212",
+   "domains": ""
+  },
+  {
+   "claim": "Noise floor of ground-truth scans: 3dMD/Di3D surface \u03c3 about 0.2-0.5 mm and landmark repeatability about 0.5-1.5 mm; Kinect v1 about 1-4 mm.",
+   "query": "3dMD stereophotogrammetry accuracy validation mm landmark reliability in vivo",
+   "domains": "ncbi.nlm.nih.gov"
+  }
+ ]
+}

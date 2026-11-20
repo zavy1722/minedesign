@@ -1,0 +1,27 @@
+{
+ "id": "nose",
+ "area": "anatomy",
+ "title": "Nose anatomy and morphology",
+ "queue": [
+  {
+   "claim": "Profile angle norms used as priors: nasolabial angle ~90\u2013120\u00b0 (men ~90\u2013105\u00b0, women ~95\u2013115\u00b0; prior \u03bc 100/105, \u03c3 9\u00b0) and nasofrontal angle ~115\u2013135\u00b0 (prior \u03bc 125/130, \u03c3 7\u00b0); population means differ from aesthetic ideals (Leong & White 2006).",
+   "query": "nasolabial angle nasofrontal angle normative values healthy adults men women mean SD anthropometric study",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Goode ratio 0.55\u20130.60 (ac\u2013prn perpendicular to the n\u2032\u2013ac line, divided by n\u2032\u2013prn), Crumley's 3:4:5 triangle and nasofacial angle 30\u201340\u00b0 (ideal 36\u00b0) are geometrically one constraint; Byrd & Hobar's 0.67 uses a different baseline (alar\u2013cheek junction).",
+   "query": "Goode ratio nasal tip projection 0.55 0.60 definition Crumley 3:4:5 Byrd Hobar 0.67 comparison",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Adult NAW nasal norms: al\u2013al 34.9 mm (M, SD 2.1) / 31.4 mm (F, SD 2.0); n\u2013sn 53\u201356 / 49\u201352 mm; n\u2013prn 47\u201353 / 43\u201348 mm; sn\u2013prn 18\u201322 / 17\u201320 mm (Farkas).",
+   "query": "Farkas nasal width al-al nose height n-sn nasal tip protrusion sn-prn young adult North American Caucasian mean SD table",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Selfie effect: the nasal base appears ~30% wider at 12 in than at 5 ft (Ward, Ward, Fried & Paskhover, JAMA Facial Plast Surg 2018), against ~10\u201312% predicted by point-depth geometry alone.",
+   "query": "Ward Paskhover 2018 nasal distortion short-distance photographs selfie effect nasal base width 12 inches 5 feet",
+   "domains": "jamanetwork.com,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

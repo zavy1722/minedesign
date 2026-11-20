@@ -1,0 +1,27 @@
+{
+ "id": "camera-perspective-distortion",
+ "area": "reconstruction",
+ "title": "Focal length, subject distance and perspective distortion",
+ "queue": [
+  {
+   "claim": "Ward, Ward, Fried & Paskhover (2018) found that at 12 in (~30 cm) the nasal base appears ~30% (men) / ~29% (women) wider than at 5 ft (~1.5 m), using a computational head model.",
+   "query": "Ward Fried Paskhover 2018 selfie effect nasal base width 30% 12 inches 5 feet",
+   "domains": "jamanetwork.com,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "EXIF FocalLengthIn35mmFilm is derived from the diagonal crop factor (43.27 mm / sensor diagonal) rather than sensor width; the two differ by ~4% on 4:3 sensors.",
+   "query": "Exif FocalLengthIn35mmFilm definition CIPA DC-008 equivalent focal length diagonal or width",
+   "domains": "cipa.jp,exiftool.org"
+  },
+  {
+   "claim": "Blender's 3D viewport perspective applies a fixed 2x zoom (CAMERA_PARAM_ZOOM_INIT_PERSP), so a 50 mm viewport focal length matches roughly a 25 mm camera on a 36 mm sensor.",
+   "query": "CAMERA_PARAM_ZOOM_INIT_PERSP Blender viewport lens focal length twice camera",
+   "domains": "projects.blender.org,github.com,blenderartists.org"
+  },
+  {
+   "claim": "ICAO portrait-quality guidance and ISO/IEC 19794-5 / 39794-5 specify a camera-to-subject distance of roughly 1.2\u20132.5 m for ID photos.",
+   "query": "ICAO portrait quality camera subject distance 1.2 m 2.5 m ISO/IEC 39794-5",
+   "domains": "icao.int,iso.org"
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 # BlenderArtists forum knowledge on faces
 
 > BlenderArtists (BA) is where KeenTools announced each FaceBuilder for Blender release, from the 2.8 beta to 2021.1 "now with AI". It also hosts single-photo generator add-ons and a beginner question that keeps coming back: how do I model my own face from photos? The harvested threads say three things. Neural auto-pins are only a first draft. Focal length and sensor size are estimated for each photo. Expressive photos work, but neutral photos fit better. No thread gives an accuracy figure. The rest of this note sets out expert knowledge of how BA models and critiques faces, turned into numbers a solver can use.
-> Evidence status: 3 ✅ / 6 📄 / 44 🧠 / 10 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 9 📄 / 44 🧠 / 9 ↔️ — 🧠 items remain unverified; 2026-11-20 verification pass corrected FLAME and KeenTools terms (see log).
 
 ## Key facts
 
@@ -11,7 +11,7 @@
 - The developers say these automatic pins are not always 100% accurate and sometimes need adjusting by hand. This is the vendor's own caveat [1] 📄
 - In the "Revamped" thread, focal length and sensor size are set automatically for each photo [2] 📄
 - Expressions are supported, so neutral photos are not required, but they are said to give better quality. Both statements come from the vendor, so the sources are not independent [1][2] 📄
-- Users describe FaceBuilder as paid, and one mentions a 30-day trial. These terms are time-sensitive and were not checked against keentools.io [1][4] 📄
+- Users describe FaceBuilder as paid. Forum users mention a 30-day trial, but KeenTools states each Blender add-on has a 15-day free trial that starts when you first create a head [10][11] (corrected in verification). KeenTools 2025.3 (Dec 2025) added official Blender 5.0 support [12]. Current price not confirmed [1][4] 📄
 - MetahumanModeler ("Released Add-ons and Extensions") builds a mesh with MetaHuman topology from one image. Its author says it was built from their understanding of FaceBuilder [5] 📄
 - Single-photo character generators come up repeatedly (AutoFace, MetahumanModeler). Both threads exist, but no accuracy evidence was found [5][6] ✅
 - Beginners keep asking how to model a face from photos, in threads whose IDs suggest roughly 2020 to 2025. The answers in those threads were not harvested [7][8][9] ✅
@@ -68,14 +68,14 @@
 | Native aspect | Width-based ÷ diagonal f_px | Effect if wrong | Badge |
 |---|---|---|---|
 | 3:2 | 1.000 | none | 🧠 |
-| 4:3 (most phones) | 0.962 | focal about 4% short, so the camera is solved too close and the face too deep | ↔️ manufacturers may differ |
+| 4:3 (most phones) | 0.962 | focal about 4% short, so the camera is solved too close and the face too deep | ↔️ manufacturers may differ; the CIPA definition is diagonal-based [15], per-maker practice unverified |
 | 16:9 | 1.048 | focal about 5% long | ↔️ |
 
 **D. Base meshes discussed in BA add-on threads.** These figures are from memory; verify them before hard-coding.
 
 | Model | Vertices | Parameters | Licence note | Badge |
 |---|---|---|---|---|
-| FLAME (2017/2020) | 5,023 (9,976 tris) | 300 shape, 100 expression; jaw, neck and eye joints | non-commercial research use; commercial licences via Meshcapade; a more open 2023 release is unconfirmed | ↔️ licence / 🧠 counts |
+| FLAME (2017/2020) | 5,023 (9,976 tris) | 300 shape, 100 expression; jaw, neck and eye joints | FLAME 2017/2019/2020 and the Blender add-on: non-commercial research, education or art only; the FLAME 2023 Open release is CC-BY-4.0 and allows commercial use, but the texture model is BY-NC-SA 4.0 [13][14] (corrected in verification) | 📄 licence / 🧠 counts |
 | MakeHuman hm08 (MPFB2) | ≈13,380 body (≈19,158 including helper geometry) | macro and micro targets | code is GPL-3+; whether the assets are CC0 or CC-BY is disputed (see `blender/blender-face-addons.md`) | 🧠 |
 | Basel Face Model 2009 | 53,490 | 199 shape PCs | non-commercial, registration required | 🧠 |
 | ARKit blendshapes (Faceit target) | n/a | 52 | Apple spec | 🧠 |
@@ -85,7 +85,7 @@
 
 | Measure | Typical adult range | Badge |
 |---|---|---|
-| Interpupillary distance | mean ≈ 63 mm, most adults 54–74 mm, men about 2–3 mm wider (Dodgson 2004) | 🧠 |
+| Interpupillary distance | mean ≈ 63 mm (Dodgson 2004 is cited at 63.36 mm by a secondary source [16]); range: secondary sources attribute 50–75 mm to Dodgson, versus 54–74 mm here; men wider, 2–3 mm gap unconfirmed [16] | ↔️ |
 | Eyeball diameter | 23–25 mm | 🧠 |
 | Visible iris diameter (HVID) | 11.0–12.5 mm | 🧠 |
 | Intercanthal width (en–en) | 28–35 mm | 🧠 |
@@ -177,8 +177,8 @@
 - **Proportion canons vs anthropometry.** Artists teach thirds, fifths and "ear parallel to nose". Farkas's revision of the neoclassical canons found that most of these rules are only approximate, or hold only in a minority of faces ↔️
 - **Box modeling vs sculpt-and-retopo vs fitting tools.** There is no consensus. Fitting tools get to a first likeness faster; hand methods give more control 🧠
 - **Single-photo likeness.** Threads [5][6] claim it, but nobody has measured it. On geometric grounds, the depth comes from the prior.
-- **FaceBuilder terms** ↔️. Users report it is paid, with a 30-day trial [1][4]. The current price, licence and Blender 5.x support are unknown.
-- **FLAME licence** ↔️. It may be research-only, or a newer, more open release may exist.
+- **FaceBuilder terms** 📄. Users report it is paid [1][4]. KeenTools states a 15-day trial per add-on (not 30) [10][11] and Blender 5.0 support since 2025.3 [12] (corrected in verification). The current price is unconfirmed.
+- **FLAME licence** 📄. Versions up to 2020 are non-commercial; FLAME 2023 Open is released under CC-BY-4.0 and allows commercial use [13][14] (corrected in verification).
 - **Thread order** ↔️. Topic IDs and recollection both say the revamp came before 2021.1, contradicting the harvester's "later revamp".
 - **Open questions:**
   - Has any BA thread measured accuracy, in millimetres or reprojection pixels?
@@ -198,6 +198,13 @@
 7. Model human face from random photos — https://blenderartists.org/t/model-human-face-from-random-photos/1211277 — forum (Modeling) — n.d.
 8. Photo to 3D — https://blenderartists.org/t/photo-to-3d/1313606 — forum (Basics & Interface) — n.d.
 9. Want to Create a 3D Model Face of Myself? — https://blenderartists.org/t/want-to-create-a-3d-model-face-of-myself/1606840 — forum (Modeling) — n.d.
+10. FaceBuilder for Blender (product page, trial terms) — https://keentools.io/products/facebuilder-for-blender — vendor — current
+11. KeenTools Blender Pack download page (per-add-on 15-day trial, per search summary) — https://keentools.io/download-blender — vendor — current
+12. KeenTools 2025.3 (Dec 4, 2025) — https://keentools.io/news/2025-3 — vendor release notes — 2025
+13. FLAME model license — https://flame.is.tue.mpg.de/modellicense.html — official (MPI) — current
+14. FLAME project page — https://flame.is.tue.mpg.de/ — official (MPI) — current
+15. 35 mm equivalent focal length (cites CIPA DCG-001, diagonal 43.27 mm) — https://en.wikipedia.org/wiki/35mm_equivalent — secondary — current
+16. Pupillary distance (cites Dodgson 2004) — https://en.wikipedia.org/wiki/Pupillary_distance — secondary — current
 
 **Further reading (by name, not yet linked)**
 - Farkas, *Anthropometry of the Head and Face* (2nd ed., 1994)
@@ -211,3 +218,10 @@
 - Zarins, *Anatomy of Facial Expression* (2017)
 - Blender Manual: Camera properties (sensor fit, shift, background images)
 - KeenTools FaceBuilder documentation; MPFB2 documentation; fSpy documentation
+
+## Verification log (2026-11-20)
+
+- **FLAME licence** — corrected. FLAME 2023 Open exists and is CC-BY-4.0 (commercial use allowed); earlier versions and the Blender add-on are non-commercial; texture model is BY-NC-SA 4.0. https://flame.is.tue.mpg.de/modellicense.html , https://flame.is.tue.mpg.de/
+- **EXIF FocalLengthIn35mmFilm on the diagonal** — confirmed only in part (one secondary source). CIPA DCG-001 defines the conversion by diagonal (43.27 mm); the DC-008 wording itself was not seen, and per-manufacturer practice is unconfirmed, so the Table C badge stays ↔️. https://en.wikipedia.org/wiki/35mm_equivalent
+- **KeenTools FaceBuilder terms** — corrected. Trial is 15 days per add-on, not 30; Blender 5.0 supported since KeenTools 2025.3; current price not found. https://keentools.io/products/facebuilder-for-blender , https://keentools.io/download-blender , https://keentools.io/news/2025-3
+- **Adult IPD (Dodgson 2004)** — contested. Mean about 63 mm (63.36 cited) is consistent; secondary sources give 50–75 mm, not 54–74 mm; the male–female 2–3 mm gap was not confirmed. The 63 ± 3.5 mm prior stays 🧠. https://en.wikipedia.org/wiki/Pupillary_distance

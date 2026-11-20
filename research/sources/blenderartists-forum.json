@@ -1,29 +1,132 @@
 {
-  "topic": "blenderartists-forum",
-  "sources": [
-    {"n": 1, "title": "FaceBuilder for Blender 2021.1 is out: now with AI - Blender Artists Community", "url": "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243", "kind": "forum", "year": "2021"},
-    {"n": 2, "title": "Revamped FaceBuilder for Blender - Blender Artists Community", "url": "https://blenderartists.org/t/revamped-facebuilder-for-blender/1245723", "kind": "forum", "year": "n.d."},
-    {"n": 3, "title": "The first-stable FaceBuilder release for Blender - Blender Artists Community", "url": "https://blenderartists.org/t/the-first-stable-facebuilder-release-for-blender/1210803", "kind": "forum", "year": "n.d."},
-    {"n": 4, "title": "KeenTools For Blender 2.8 - Blender Development Discussion - Blender Artists Community", "url": "https://blenderartists.org/t/keentools-for-blender-2-8/1173005", "kind": "forum", "year": "n.d."},
-    {"n": 5, "title": "Generating metahuman based on a single image blender ue5 tutorial - Released Add-ons and Extensions - Blender Artists Community", "url": "https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052", "kind": "forum", "year": "n.d."},
-    {"n": 6, "title": "AutoFace - Create Rigged and Textured Character from a Single Photograph - Blender Artists Community", "url": "https://blenderartists.org/t/autoface-create-rigged-and-textured-character-from-a-single-photograph/1154237", "kind": "forum", "year": "n.d."},
-    {"n": 7, "title": "Model human face from random photos - Modeling - Blender Artists Community", "url": "https://blenderartists.org/t/model-human-face-from-random-photos/1211277", "kind": "forum", "year": "n.d."},
-    {"n": 8, "title": "Photo to 3D - Basics & Interface - Blender Artists Community", "url": "https://blenderartists.org/t/photo-to-3d/1313606", "kind": "forum", "year": "n.d."},
-    {"n": 9, "title": "Want to Create a 3D Model Face of Myself? - Modeling - Blender Artists Community", "url": "https://blenderartists.org/t/want-to-create-a-3d-model-face-of-myself/1606840", "kind": "forum", "year": "n.d."}
-  ],
-  "references_by_name": [
-    "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
-    "Farkas, Hreczko, Kolar & Munro, Vertical and horizontal proportions of the face in young adult North American Caucasians: revision of neoclassical canons, Plastic and Reconstructive Surgery, 1985",
-    "Dodgson, Variation and extrema of human interpupillary distance, SPIE Stereoscopic Displays and Virtual Reality Systems XI, 2004",
-    "Ward et al., Nasal distortion in short-distance photographs: the selfie effect, JAMA Facial Plastic Surgery, 2018",
-    "Li, Bolkart, Black, Li & Romero, Learning a model of facial shape and expression from 4D scans (FLAME), ACM Transactions on Graphics, 2017",
-    "Paysan et al., A 3D Face Model for Pose and Illumination Invariant Face Recognition (Basel Face Model), 2009",
-    "Blanz & Vetter, A Morphable Model for the Synthesis of 3D Faces, SIGGRAPH 1999",
-    "Hartley & Zisserman, Multiple View Geometry in Computer Vision",
-    "Zarins, Anatomy of Facial Expression, 2017",
-    "Blender Manual: Camera properties (sensor fit, shift, background images)",
-    "KeenTools FaceBuilder documentation",
-    "MPFB2 documentation",
-    "fSpy documentation"
-  ]
+ "topic": "blenderartists-forum",
+ "sources": [
+  {
+   "n": 1,
+   "title": "FaceBuilder for Blender 2021.1 is out: now with AI - Blender Artists Community",
+   "url": "https://blenderartists.org/t/facebuilder-for-blender-2021-1-is-out-now-with-ai/1294243",
+   "kind": "forum",
+   "year": "2021"
+  },
+  {
+   "n": 2,
+   "title": "Revamped FaceBuilder for Blender - Blender Artists Community",
+   "url": "https://blenderartists.org/t/revamped-facebuilder-for-blender/1245723",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "The first-stable FaceBuilder release for Blender - Blender Artists Community",
+   "url": "https://blenderartists.org/t/the-first-stable-facebuilder-release-for-blender/1210803",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "KeenTools For Blender 2.8 - Blender Development Discussion - Blender Artists Community",
+   "url": "https://blenderartists.org/t/keentools-for-blender-2-8/1173005",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Generating metahuman based on a single image blender ue5 tutorial - Released Add-ons and Extensions - Blender Artists Community",
+   "url": "https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "AutoFace - Create Rigged and Textured Character from a Single Photograph - Blender Artists Community",
+   "url": "https://blenderartists.org/t/autoface-create-rigged-and-textured-character-from-a-single-photograph/1154237",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Model human face from random photos - Modeling - Blender Artists Community",
+   "url": "https://blenderartists.org/t/model-human-face-from-random-photos/1211277",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Photo to 3D - Basics & Interface - Blender Artists Community",
+   "url": "https://blenderartists.org/t/photo-to-3d/1313606",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "Want to Create a 3D Model Face of Myself? - Modeling - Blender Artists Community",
+   "url": "https://blenderartists.org/t/want-to-create-a-3d-model-face-of-myself/1606840",
+   "kind": "forum",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "FaceBuilder for Blender",
+   "url": "https://keentools.io/products/facebuilder-for-blender",
+   "kind": "vendor",
+   "year": "current"
+  },
+  {
+   "n": 11,
+   "title": "KeenTools Blender Pack",
+   "url": "https://keentools.io/download-blender",
+   "kind": "vendor",
+   "year": "current"
+  },
+  {
+   "n": 12,
+   "title": "KeenTools 2025.3",
+   "url": "https://keentools.io/news/2025-3",
+   "kind": "vendor release notes",
+   "year": "2025"
+  },
+  {
+   "n": 13,
+   "title": "FLAME model license",
+   "url": "https://flame.is.tue.mpg.de/modellicense.html",
+   "kind": "official",
+   "year": "current"
+  },
+  {
+   "n": 14,
+   "title": "FLAME project page",
+   "url": "https://flame.is.tue.mpg.de/",
+   "kind": "official",
+   "year": "current"
+  },
+  {
+   "n": 15,
+   "title": "35 mm equivalent focal length",
+   "url": "https://en.wikipedia.org/wiki/35mm_equivalent",
+   "kind": "secondary",
+   "year": "current"
+  },
+  {
+   "n": 16,
+   "title": "Pupillary distance",
+   "url": "https://en.wikipedia.org/wiki/Pupillary_distance",
+   "kind": "secondary",
+   "year": "current"
+  }
+ ],
+ "references_by_name": [
+  "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Farkas, Hreczko, Kolar & Munro, Vertical and horizontal proportions of the face in young adult North American Caucasians: revision of neoclassical canons, Plastic and Reconstructive Surgery, 1985",
+  "Dodgson, Variation and extrema of human interpupillary distance, SPIE Stereoscopic Displays and Virtual Reality Systems XI, 2004",
+  "Ward et al., Nasal distortion in short-distance photographs: the selfie effect, JAMA Facial Plastic Surgery, 2018",
+  "Li, Bolkart, Black, Li & Romero, Learning a model of facial shape and expression from 4D scans (FLAME), ACM Transactions on Graphics, 2017",
+  "Paysan et al., A 3D Face Model for Pose and Illumination Invariant Face Recognition (Basel Face Model), 2009",
+  "Blanz & Vetter, A Morphable Model for the Synthesis of 3D Faces, SIGGRAPH 1999",
+  "Hartley & Zisserman, Multiple View Geometry in Computer Vision",
+  "Zarins, Anatomy of Facial Expression, 2017",
+  "Blender Manual: Camera properties (sensor fit, shift, background images)",
+  "KeenTools FaceBuilder documentation",
+  "MPFB2 documentation",
+  "fSpy documentation"
+ ]
 }

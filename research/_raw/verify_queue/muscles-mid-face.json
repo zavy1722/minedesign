@@ -1,0 +1,27 @@
+{
+ "id": "muscles-mid-face",
+ "area": "anatomy",
+ "title": "Muscles of the mid face",
+ "queue": [
+  {
+   "claim": "Mouth-corner movement in a normal full smile is about 7-15 mm per side, at about 20-50 degrees above horizontal in frontal view, plus 3-6 mm backward (prior for the AU12 basis and its direction vector (0.70, 0.55, -0.45))",
+   "query": "normal smile commissure excursion millimetres direction angle Paletz Manktelow \"shape of a normal smile\"",
+   "domains": "pubmed.ncbi.nlm.nih.gov,journals.lww.com,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Nasolabial fold endpoints: the upper end is about 2-6 mm lateral and 0-5 mm above the alar crease point; the lower end is about 11 \u00b1 4 mm lateral and 0 \u00b1 6 mm vertical from cheilion; length about 30-50 mm",
+   "query": "nasolabial fold length position relative to oral commissure ala anthropometric measurement 3D photogrammetry",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "The MediaPipe Face Landmarker outputs 52 ARKit-style blendshape scores including mouthSmileLeft/Right, cheekSquintLeft/Right, noseSneerLeft/Right, mouthUpperUpLeft/Right, mouthDimpleLeft/Right and mouthStretchLeft/Right, usable for gating the neutral frame",
+   "query": "MediaPipe Face Landmarker blendshapes 52 categories list mouthSmileLeft cheekSquintLeft noseSneerLeft",
+   "domains": "ai.google.dev,developers.google.com,github.com"
+  },
+  {
+   "claim": "A bifid or double zygomaticus major occurs in about 34% of cadaver specimens (Pessa et al. 1998, Clin Anat), and its inferior slip explains cheek dimples",
+   "query": "\"Double or bifid zygomaticus major muscle\" incidence cheek dimple cadaver 1998",
+   "domains": "pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

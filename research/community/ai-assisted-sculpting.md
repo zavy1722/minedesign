@@ -2,16 +2,16 @@
 
 > By 2025–26, artists routinely start heads with image-to-3D generators (Hunyuan3D, TRELLIS, Rodin, Meshy, Tripo) or face fitters (KeenTools FaceBuilder, Reallusion Headshot, Mesh to MetaHuman). The verdict is consistent: a plausible bust in minutes, a likeness almost never. Generators carry identity mostly in the projected photo texture; in clay the head reads as "a relative", with invented profile depth, fused eyes and lips, helmet hair and triangle-soup topology that must be wrapped before sculpting. Face fitters keep clean topology but inherit a low-dimensional prior, so the likeness is still sculpted by eye against solved cameras. Rule: "AI for mass and speed, real photos for truth"; use AI output as a weak, region-weighted shape prior, never as landmark ground truth. No harvest or earlier draft existed, so all of this is author synthesis to verify; versions, licences and prices go stale within months.
 >
-> Evidence status: 0 ✅ / 0 📄 / 48 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 6 📄 / 47 🧠 / 20 ↔️ — verified 2026-11-20; remaining 🧠 items are unverified.
 
 ## Key facts
 
 **What each tool family gives you**
 - **Generic generators** run diffusion or flow models over learned 3D shape latents, then extract a surface (marching cubes, FlexiCubes-type). Training data is mostly Objaverse-class objects and game assets; real-person head scans are rare. Expect a well-formed generic head, not this person 🧠
-- **Hunyuan3D (Tencent).** 2.0 (Jan 2025): shape DiT plus a separate texture model (Paint). Variants 2mini, 2mv (multi-view input) and 2.1 (mid-2025, open PBR texturing); 2.5 and 3.x reported hosted only. The Tencent Hunyuan Community License excludes the EU, UK and South Korea and caps monthly users. Community view: best open geometry; faces sharp but averaged ↔️ (time-sensitive)
-- **TRELLIS (Microsoft, Dec 2024; CVPR 2025).** Structured latent on a sparse 64³ voxel grid, decoded to Gaussians, radiance fields or mesh. MIT code and weights, but some CUDA rasteriser dependencies carry NVIDIA non-commercial terms; ≥16 GB VRAM. "TRELLIS.2" reported late 2025 (verify). Community view: good silhouettes, soft faces ↔️
+- **Hunyuan3D (Tencent).** 2.0 (Jan 2025): shape DiT plus a separate texture model (Paint). Variants 2mini, 2mv (multi-view input) and 2.1 (mid-2025, open PBR texturing); 2.5 and 3.x reported hosted only. The Tencent Hunyuan Community License excludes the EU, UK and South Korea and caps monthly users (1M MAU threshold) 📄 [1][2]. Community view: best open geometry; faces sharp but averaged ↔️ (time-sensitive)
+- **TRELLIS (Microsoft, Dec 2024; CVPR 2025).** Structured latent on a sparse 64³ voxel grid, decoded to Gaussians, radiance fields or mesh. MIT code and weights, but some CUDA rasteriser dependencies (nvdiffrast, nvdiffrec) carry separate NVIDIA terms restricting use to research/non-commercial 📄 [3][4]; ≥16 GB VRAM. TRELLIS.2 released Dec 2025 (17 Dec), MIT code and weights, same NVIDIA dependency caveat 📄 [3][5]. Community view: good silhouettes, soft faces ↔️
 - **Rodin (Hyper3D, Deemos):** commercial; quad-mesh mode, multi-image input, T/A pose; reachable from Blender via the community "Blender MCP" bridge. Deemos also runs ChatAvatar, a face product from its DreamFace research. Unrelated to Microsoft's 2023 "Rodin" avatar paper 🧠
-- **Meshy and Tripo:** freemium services with Blender bridges, quad/triangle remeshing to a target count and humanoid auto-rigging. Open spin-offs: TripoSR (2024, MIT, with Stability AI) and TripoSG. Free-tier outputs reportedly public or CC BY, paid tiers private ↔️ (verify per vendor)
+- **Meshy and Tripo:** freemium services with Blender bridges, quad/triangle remeshing to a target count and humanoid auto-rigging. Open spin-offs: TripoSR (2024, MIT, with Stability AI) and TripoSG. Meshy: free-plan outputs are CC BY 4.0 (attribution required), paid plans private 📄 [6]; Tripo's terms not verified ↔️ (verify per vendor)
 - **Face fitters.** FaceBuilder: pin-based fit of a fixed KeenTools head, neural auto-pins since 2021.1 (`community/blenderartists-forum.md`), GPL front-end, closed core, subscription. Headshot 2 (Character Creator 4): photo mode plus a mesh mode that wraps CC topology onto any head mesh, AI output included. Mesh to MetaHuman (Unreal). All keep production topology and rigs; likeness is bounded by their shape spaces 🧠
 
 **Community verdicts on likeness (2025–26)**
@@ -41,13 +41,13 @@
 
 | Tool | Type | Access / licence (verify) | Output | Verdict for a real person | Badge |
 |---|---|---|---|---|---|
-| Hunyuan3D 2.0 / 2.1 / 2mv | open generator | Tencent community licence; excludes EU/UK/KR | dense tris; PBR in 2.1 | best open blockout; averaged identity | ↔️ |
+| Hunyuan3D 2.0 / 2.1 / 2mv | open generator | Tencent community licence; excludes EU/UK/KR [1][2] | dense tris; PBR in 2.1 | best open blockout; averaged identity | ↔️ |
 | Hunyuan3D 2.5 / 3.x | hosted | Tencent cloud terms | higher-res tris | sharper; same depth guessing | ↔️ |
-| TRELLIS | open generator | MIT; some deps non-commercial | mesh / Gaussians | soft faces; good mass | 🧠 |
-| TRELLIS.2 | open generator | reported MIT, late 2025 | PBR mesh | unreviewed for likeness | ↔️ |
+| TRELLIS | open generator | MIT; some deps non-commercial [3][4] | mesh / Gaussians | soft faces; good mass | 📄 |
+| TRELLIS.2 | open generator | MIT, Dec 2025 [3][5] | PBR mesh | unreviewed for likeness | 📄 |
 | TripoSR / TripoSG | open generator | MIT | tris | blockout only | 🧠 |
 | Stable Fast 3D / SPAR3D | open generator | Stability Community License | UV'd tris | fast, low detail | 🧠 |
-| Tripo, Meshy | services | freemium credits; free outputs public/CC BY | tris or quads, auto-rig | blockout, figurines | ↔️ |
+| Tripo, Meshy | services | freemium credits; Meshy free outputs CC BY 4.0, paid private [6]; Tripo unverified | tris or quads, auto-rig | blockout, figurines | ↔️ |
 | Rodin (Hyper3D) | service | paid credits | quad mode, PBR | cleanest service mesh; generic face | 🧠 |
 | KeenTools FaceBuilder | photo fitter (Blender) | subscription; closed core | fixed head topology, UVs, blendshapes | best quick base; sculpt after | 🧠 |
 | Headshot 2 (CC4) | photo or mesh wrapper | paid plug-in | CC4 rigged head | mesh mode is the useful part | 🧠 |
@@ -161,7 +161,16 @@ Likeness-bearing relief (upper-lid crease, alar groove, philtral columns, vermil
 
 ## Sources
 
-No harvested sources exist for this topic, so no URLs are cited. Related notes: `community/reddit-face-from-photos.md`, `community/blenderartists-forum.md` (FaceBuilder release threads), `blender/blender-face-addons.md`, `reconstruction/single-image-regression.md`, `reconstruction/identity-embeddings.md`, `blender/reference-camera-setup.md`.
+Numbered sources added in verification, 2026-11-20:
+
+1. Tencent Hunyuan 3D 2.0 Community License (Hugging Face): https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE
+2. DeepWiki, Hunyuan3D-2 license and terms (secondary; MAU threshold): https://deepwiki.com/Tencent/Hunyuan3D-2/9-license-and-terms
+3. Microsoft TRELLIS.2-4B model card, MIT and dependency licence notes: https://huggingface.co/microsoft/TRELLIS.2-4B/blob/main/README.md
+4. microsoft/TRELLIS issue 298, nvdiffrast non-commercial licence: https://github.com/microsoft/TRELLIS/issues/298
+5. CG World Japan, TRELLIS.2 release report (secondary; 17 Dec): https://cgworld.jp/flashnews/01-202601-TRELLIS2.html
+6. Meshy docs, Pricing & Credits (free plan CC BY 4.0, paid private): https://docs.meshy.ai/pricing
+
+Otherwise no harvested sources exist for this topic. Related notes: `community/reddit-face-from-photos.md`, `community/blenderartists-forum.md` (FaceBuilder release threads), `blender/blender-face-addons.md`, `reconstruction/single-image-regression.md`, `reconstruction/identity-embeddings.md`, `blender/reference-camera-setup.md`.
 
 **Further reading (by name, not yet linked)**
 - Xiang et al., "Structured 3D Latents for Scalable and Versatile 3D Generation" (TRELLIS), CVPR 2025
@@ -179,3 +188,10 @@ No harvested sources exist for this topic, so no URLs are cited. Related notes: 
 - Umeyama, "Least-squares estimation of transformation parameters between two point patterns", IEEE TPAMI 1991
 - Farkas, *Anthropometry of the Head and Face*, 1994
 - KeenTools FaceBuilder for Blender documentation; Reallusion Headshot 2 documentation; Epic Games MetaHuman documentation (Mesh to MetaHuman)
+
+## Verification log (2026-11-20)
+
+- Hunyuan3D licence territory excludes EU/UK/South Korea, MAU cap: confirmed (cap is 1M MAU per secondary source). https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE ; https://deepwiki.com/Tencent/Hunyuan3D-2/9-license-and-terms . "Best open generator" is a community opinion, left ↔️.
+- AI mesh accuracy 3-5 mm frontal / 6-10 mm lateral: unconfirmed. Search found no NoW-style mm benchmark for Hunyuan3D or TRELLIS (NoW suits parametric face models). The sigmas remain 🧠 heuristics.
+- TRELLIS MIT with NVIDIA non-commercial dependencies; TRELLIS.2 late-2025 release, MIT: confirmed (released 17 Dec 2025). https://huggingface.co/microsoft/TRELLIS.2-4B/blob/main/README.md ; https://github.com/microsoft/TRELLIS/issues/298 ; https://cgworld.jp/flashnews/01-202601-TRELLIS2.html
+- Meshy free tier CC BY 4.0, paid private: confirmed for Meshy ("public" not stated; CC BY 4.0 is the stated term). https://docs.meshy.ai/pricing . Tripo: unconfirmed.

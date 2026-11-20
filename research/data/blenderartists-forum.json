@@ -56,15 +56,15 @@
       "units": "vertex / parameter counts",
       "columns": ["model", "vertices", "faces_or_tris", "parameters", "licence_note", "row_status"],
       "rows": [
-        ["FLAME 2017/2020", 5023, 9976, "300 shape, 100 expression; jaw, neck, eye joints", "non-commercial research; commercial via Meshcapade; possible more open 2023 release unconfirmed", "knowledge (counts) / contested (licence)"],
+        ["FLAME 2017/2020", 5023, 9976, "300 shape, 100 expression; jaw, neck, eye joints", "FLAME 2017/2019/2020 non-commercial; FLAME 2023 Open is CC-BY-4.0 (commercial use allowed); texture model BY-NC-SA 4.0 (corrected in verification)", "knowledge (counts) / sourced (licence)"],
         ["MakeHuman hm08 base (MPFB2)", 13380, null, "macro + micro targets; ~19158 vertices incl. helper geometry", "code GPL-3+; asset licence CC0 vs CC-BY disputed", "knowledge"],
         ["Basel Face Model 2009", 53490, null, "199 shape PCs", "non-commercial, registration", "knowledge"],
         ["ARKit blendshapes", null, null, "52 blendshapes", "Apple specification", "knowledge"],
         ["MediaPipe Face Mesh", 468, null, "478 with refinement (iris)", "Apache-2.0", "knowledge"]
       ],
       "population": "n/a (model specifications)",
-      "source_urls": [],
-      "status": "knowledge",
+      "source_urls": ["https://flame.is.tue.mpg.de/modellicense.html", "https://flame.is.tue.mpg.de/"],
+      "status": "knowledge (counts); licence corrected",
       "notes": "From memory; verify each count against the official release before hard-coding correspondence tables. FaceBuilder and MetaHuman head vertex counts unknown."
     },
     {

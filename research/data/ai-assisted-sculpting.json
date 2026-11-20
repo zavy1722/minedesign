@@ -4,35 +4,159 @@
     {
       "name": "tool_landscape_real_person_heads_2025_2026",
       "units": "categorical",
-      "columns": ["tool", "type", "access_licence_verify", "output", "verdict_real_person", "status"],
+      "columns": [
+        "tool",
+        "type",
+        "access_licence_verify",
+        "output",
+        "verdict_real_person",
+        "status"
+      ],
       "rows": [
-        ["Hunyuan3D 2.0 / 2.1 / 2mv", "open generator", "Tencent Hunyuan Community License; territory excludes EU/UK/South Korea; monthly-user cap", "dense triangles; PBR in 2.1", "best open blockout; averaged identity", "contested"],
-        ["Hunyuan3D 2.5 / 3.x", "hosted generator", "Tencent cloud terms", "higher-resolution triangles", "sharper; same depth guessing", "contested"],
-        ["TRELLIS (image-large)", "open generator", "MIT code and weights; some CUDA deps under NVIDIA non-commercial terms", "mesh / Gaussians / radiance field", "soft faces; good mass", "knowledge"],
-        ["TRELLIS.2", "open generator", "reported MIT, late 2025 (verify)", "PBR mesh", "unreviewed for likeness", "contested"],
-        ["TripoSR / TripoSG", "open generator", "MIT", "triangles", "blockout only", "knowledge"],
-        ["Stable Fast 3D / SPAR3D", "open generator", "Stability AI Community License", "UV-unwrapped triangles", "fast, low detail", "knowledge"],
-        ["Tripo, Meshy", "hosted service", "freemium credits; free-tier outputs reportedly public or CC BY", "triangles or quads; humanoid auto-rig", "blockout, figurines", "contested"],
-        ["Rodin (Hyper3D, Deemos)", "hosted service", "paid credits", "quad mode, PBR", "cleanest service mesh; generic face", "knowledge"],
-        ["KeenTools FaceBuilder", "photo fitter (Blender)", "subscription; GPL front-end, closed core", "fixed head topology, UVs, blendshapes", "best quick base; sculpt after", "knowledge"],
-        ["Reallusion Headshot 2 (CC4)", "photo or mesh wrapper", "paid plug-in", "CC4 rigged head", "mesh mode is the useful part", "knowledge"],
-        ["Mesh to MetaHuman (Unreal)", "mesh wrapper", "free with Unreal; outside-Unreal use changed 2025", "MetaHuman rig", "best rig; needs clean eyes and mouth", "contested"]
+        [
+          "Hunyuan3D 2.0 / 2.1 / 2mv",
+          "open generator",
+          "Tencent Hunyuan Community License; territory excludes EU/UK/South Korea (confirmed); 1M monthly-user threshold",
+          "dense triangles; PBR in 2.1",
+          "best open blockout; averaged identity",
+          "contested"
+        ],
+        [
+          "Hunyuan3D 2.5 / 3.x",
+          "hosted generator",
+          "Tencent cloud terms",
+          "higher-resolution triangles",
+          "sharper; same depth guessing",
+          "contested"
+        ],
+        [
+          "TRELLIS (image-large)",
+          "open generator",
+          "MIT code and weights; some CUDA deps under NVIDIA non-commercial terms",
+          "mesh / Gaussians / radiance field",
+          "soft faces; good mass",
+          "confirmed"
+        ],
+        [
+          "TRELLIS.2",
+          "open generator",
+          "MIT code and weights, released Dec 2025; NVIDIA-licensed dependencies (nvdiffrast, nvdiffrec)",
+          "PBR mesh",
+          "unreviewed for likeness",
+          "confirmed"
+        ],
+        [
+          "TripoSR / TripoSG",
+          "open generator",
+          "MIT",
+          "triangles",
+          "blockout only",
+          "knowledge"
+        ],
+        [
+          "Stable Fast 3D / SPAR3D",
+          "open generator",
+          "Stability AI Community License",
+          "UV-unwrapped triangles",
+          "fast, low detail",
+          "knowledge"
+        ],
+        [
+          "Tripo, Meshy",
+          "hosted service",
+          "freemium credits; Meshy free outputs CC BY 4.0, paid private; Tripo unverified",
+          "triangles or quads; humanoid auto-rig",
+          "blockout, figurines",
+          "contested"
+        ],
+        [
+          "Rodin (Hyper3D, Deemos)",
+          "hosted service",
+          "paid credits",
+          "quad mode, PBR",
+          "cleanest service mesh; generic face",
+          "knowledge"
+        ],
+        [
+          "KeenTools FaceBuilder",
+          "photo fitter (Blender)",
+          "subscription; GPL front-end, closed core",
+          "fixed head topology, UVs, blendshapes",
+          "best quick base; sculpt after",
+          "knowledge"
+        ],
+        [
+          "Reallusion Headshot 2 (CC4)",
+          "photo or mesh wrapper",
+          "paid plug-in",
+          "CC4 rigged head",
+          "mesh mode is the useful part",
+          "knowledge"
+        ],
+        [
+          "Mesh to MetaHuman (Unreal)",
+          "mesh wrapper",
+          "free with Unreal; outside-Unreal use changed 2025",
+          "MetaHuman rig",
+          "best rig; needs clean eyes and mouth",
+          "contested"
+        ]
       ],
       "population": "tools as discussed by artists 2025-2026; not benchmarked",
-      "source_urls": [],
+      "source_urls": [
+        "https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE",
+        "https://huggingface.co/microsoft/TRELLIS.2-4B/blob/main/README.md",
+        "https://docs.meshy.ai/pricing"
+      ],
       "status": "contested",
       "notes": "Versions, licences and prices are time-sensitive and unverified. No public benchmark measures these tools' likeness against ground-truth face scans."
     },
     {
       "name": "local_inference_requirements",
       "units": "GB (VRAM), seconds (time per single-image generation)",
-      "columns": ["model", "vram_gb_shape", "vram_gb_with_texture", "time_s_min", "time_s_max"],
+      "columns": [
+        "model",
+        "vram_gb_shape",
+        "vram_gb_with_texture",
+        "time_s_min",
+        "time_s_max"
+      ],
       "rows": [
-        ["TripoSR", 6, null, 0.5, 1],
-        ["Stable Fast 3D", 6, 7, 0.5, 2],
-        ["TRELLIS image-large", 16, 16, 10, 60],
-        ["Hunyuan3D 2.0", 6, 16, 30, 180],
-        ["Hunyuan3D 2.1", 10, 29, 60, 300]
+        [
+          "TripoSR",
+          6,
+          null,
+          0.5,
+          1
+        ],
+        [
+          "Stable Fast 3D",
+          6,
+          7,
+          0.5,
+          2
+        ],
+        [
+          "TRELLIS image-large",
+          16,
+          16,
+          10,
+          60
+        ],
+        [
+          "Hunyuan3D 2.0",
+          6,
+          16,
+          30,
+          180
+        ],
+        [
+          "Hunyuan3D 2.1",
+          10,
+          29,
+          60,
+          300
+        ]
       ],
       "population": "single 518-1024 px input image; A100-class or 24 GB consumer GPU",
       "source_urls": [],
@@ -42,15 +166,55 @@
     {
       "name": "extraction_grid_vs_voxel_size",
       "units": "mm",
-      "columns": ["grid_resolution", "voxel_mm_head_only_box_0.25m", "voxel_mm_bust_box_0.45m", "smallest_feature_mm_head_only_2_voxels"],
+      "columns": [
+        "grid_resolution",
+        "voxel_mm_head_only_box_0.25m",
+        "voxel_mm_bust_box_0.45m",
+        "smallest_feature_mm_head_only_2_voxels"
+      ],
       "rows": [
-        [64, 3.91, 7.03, 7.8],
-        [128, 1.95, 3.52, 3.9],
-        [256, 0.98, 1.76, 2.0],
-        [384, 0.65, 1.17, 1.3],
-        [512, 0.49, 0.88, 1.0],
-        [1024, 0.24, 0.44, 0.49],
-        [1536, 0.16, 0.29, 0.33]
+        [
+          64,
+          3.91,
+          7.03,
+          7.8
+        ],
+        [
+          128,
+          1.95,
+          3.52,
+          3.9
+        ],
+        [
+          256,
+          0.98,
+          1.76,
+          2.0
+        ],
+        [
+          384,
+          0.65,
+          1.17,
+          1.3
+        ],
+        [
+          512,
+          0.49,
+          0.88,
+          1.0
+        ],
+        [
+          1024,
+          0.24,
+          0.44,
+          0.49
+        ],
+        [
+          1536,
+          0.16,
+          0.29,
+          0.33
+        ]
       ],
       "population": "arithmetic: voxel = bounding-box extent / grid resolution",
       "source_urls": [],
@@ -60,12 +224,37 @@
     {
       "name": "conditioning_image_face_size",
       "units": "pixels at a 518 px square conditioning image",
-      "columns": ["framing", "field_height_m", "face_width_px", "ipd_px"],
+      "columns": [
+        "framing",
+        "field_height_m",
+        "face_width_px",
+        "ipd_px"
+      ],
       "rows": [
-        ["full body", 1.75, 37, 17],
-        ["waist up", 0.90, 73, 33],
-        ["head and shoulders", 0.40, 163, 73],
-        ["head only", 0.27, 242, 109]
+        [
+          "full body",
+          1.75,
+          37,
+          17
+        ],
+        [
+          "waist up",
+          0.9,
+          73,
+          33
+        ],
+        [
+          "head and shoulders",
+          0.4,
+          163,
+          73
+        ],
+        [
+          "head only",
+          0.27,
+          242,
+          109
+        ]
       ],
       "population": "adult; bizygomatic width 140 mm, IPD 63 mm; subject fills 90% of frame height (466 px)",
       "source_urls": [],
@@ -75,14 +264,56 @@
     {
       "name": "multires_density_10k_base",
       "units": "faces; mm (mean edge length)",
-      "columns": ["level", "faces", "mean_edge_mm_10k_base", "mean_edge_mm_5k_base", "mean_edge_mm_20k_base"],
+      "columns": [
+        "level",
+        "faces",
+        "mean_edge_mm_10k_base",
+        "mean_edge_mm_5k_base",
+        "mean_edge_mm_20k_base"
+      ],
       "rows": [
-        [0, 10000, 3.61, 5.10, 2.55],
-        [1, 40000, 1.80, 2.55, 1.27],
-        [2, 160000, 0.90, 1.27, 0.64],
-        [3, 640000, 0.45, 0.64, 0.32],
-        [4, 2560000, 0.23, 0.32, 0.16],
-        [5, 10240000, 0.11, 0.16, 0.08]
+        [
+          0,
+          10000,
+          3.61,
+          5.1,
+          2.55
+        ],
+        [
+          1,
+          40000,
+          1.8,
+          2.55,
+          1.27
+        ],
+        [
+          2,
+          160000,
+          0.9,
+          1.27,
+          0.64
+        ],
+        [
+          3,
+          640000,
+          0.45,
+          0.64,
+          0.32
+        ],
+        [
+          4,
+          2560000,
+          0.23,
+          0.32,
+          0.16
+        ],
+        [
+          5,
+          10240000,
+          0.11,
+          0.16,
+          0.08
+        ]
       ],
       "population": "head-and-scalp surface area assumed 0.13 m^2; faces column is for the 10k base (x0.5 for 5k, x2 for 20k)",
       "source_urls": [],
@@ -92,15 +323,63 @@
     {
       "name": "ai_mesh_prior_sigmas",
       "units": "mm (sigma of point-to-plane residual); Huber delta = 2 sigma",
-      "columns": ["region", "cos_normal_vs_conditioning_view", "sigma_mm_min", "sigma_mm_max", "enabled"],
+      "columns": [
+        "region",
+        "cos_normal_vs_conditioning_view",
+        "sigma_mm_min",
+        "sigma_mm_max",
+        "enabled"
+      ],
       "rows": [
-        ["frontal skin", ">0.7", 3, 5, true],
-        ["lateral face", "0.3-0.7", 6, 10, true],
-        ["back of head, under chin", "<=0.3", 15, null, false],
-        ["hair or beard mask", "any", null, null, false],
-        ["eyes (inside palpebral fissure)", "any", null, null, false],
-        ["lips interior / mouth", "any", null, null, false],
-        ["ears", "any", null, null, false]
+        [
+          "frontal skin",
+          ">0.7",
+          3,
+          5,
+          true
+        ],
+        [
+          "lateral face",
+          "0.3-0.7",
+          6,
+          10,
+          true
+        ],
+        [
+          "back of head, under chin",
+          "<=0.3",
+          15,
+          null,
+          false
+        ],
+        [
+          "hair or beard mask",
+          "any",
+          null,
+          null,
+          false
+        ],
+        [
+          "eyes (inside palpebral fissure)",
+          "any",
+          null,
+          null,
+          false
+        ],
+        [
+          "lips interior / mouth",
+          "any",
+          null,
+          null,
+          false
+        ],
+        [
+          "ears",
+          "any",
+          null,
+          null,
+          false
+        ]
       ],
       "population": "AI image-to-3D head mesh after similarity alignment to a metric template",
       "source_urls": [],
@@ -110,19 +389,79 @@
     {
       "name": "nonrigid_icp_defaults",
       "units": "mixed",
-      "columns": ["parameter", "value", "unit", "notes"],
+      "columns": [
+        "parameter",
+        "value",
+        "unit",
+        "notes"
+      ],
       "rows": [
-        ["stiffness_start", 50, "dimensionless", "Amberg et al. 2007 style schedule"],
-        ["stiffness_end", 1, "dimensionless", ""],
-        ["stiffness_steps", "5-8", "steps", ""],
-        ["max_correspondence_distance", 10, "mm", "reject farther pairs"],
-        ["max_normal_angle", 45, "deg", "reject incompatible normals"],
-        ["reject_boundary_correspondences", true, "bool", ""],
-        ["floater_component_threshold", 0.01, "fraction of vertices", "drop smaller connected components"],
-        ["proxy_voxel_remesh", "0.5-1.0", "mm", "watertight sculpt proxy"],
-        ["merge_by_distance", 0.01, "mm", "cleanup"],
-        ["eyeball_diameter", 24, "mm", "template insert; replaces AI eyes"],
-        ["iris_diameter", 11.7, "mm", "template insert"]
+        [
+          "stiffness_start",
+          50,
+          "dimensionless",
+          "Amberg et al. 2007 style schedule"
+        ],
+        [
+          "stiffness_end",
+          1,
+          "dimensionless",
+          ""
+        ],
+        [
+          "stiffness_steps",
+          "5-8",
+          "steps",
+          ""
+        ],
+        [
+          "max_correspondence_distance",
+          10,
+          "mm",
+          "reject farther pairs"
+        ],
+        [
+          "max_normal_angle",
+          45,
+          "deg",
+          "reject incompatible normals"
+        ],
+        [
+          "reject_boundary_correspondences",
+          true,
+          "bool",
+          ""
+        ],
+        [
+          "floater_component_threshold",
+          0.01,
+          "fraction of vertices",
+          "drop smaller connected components"
+        ],
+        [
+          "proxy_voxel_remesh",
+          "0.5-1.0",
+          "mm",
+          "watertight sculpt proxy"
+        ],
+        [
+          "merge_by_distance",
+          0.01,
+          "mm",
+          "cleanup"
+        ],
+        [
+          "eyeball_diameter",
+          24,
+          "mm",
+          "template insert; replaces AI eyes"
+        ],
+        [
+          "iris_diameter",
+          11.7,
+          "mm",
+          "template insert"
+        ]
       ],
       "population": "adult head at metric scale",
       "source_urls": [],
@@ -132,12 +471,37 @@
     {
       "name": "artist_time_budget_realistic_head",
       "units": "hours (except generation in minutes)",
-      "columns": ["stage", "min", "max", "unit"],
+      "columns": [
+        "stage",
+        "min",
+        "max",
+        "unit"
+      ],
       "rows": [
-        ["AI generation, several seeds", 1, 15, "min"],
-        ["cleanup and wrap to clean topology", 1, 4, "h"],
-        ["likeness sculpt against solved cameras", 8, 40, "h"],
-        ["eyes, hair, texture", 4, 20, "h"]
+        [
+          "AI generation, several seeds",
+          1,
+          15,
+          "min"
+        ],
+        [
+          "cleanup and wrap to clean topology",
+          1,
+          4,
+          "h"
+        ],
+        [
+          "likeness sculpt against solved cameras",
+          8,
+          40,
+          "h"
+        ],
+        [
+          "eyes, hair, texture",
+          4,
+          20,
+          "h"
+        ]
       ],
       "population": "experienced artist, one realistic head (practitioner estimates)",
       "source_urls": [],

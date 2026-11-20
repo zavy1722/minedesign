@@ -1,6 +1,22 @@
 {
   "topic": "licences-tos",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "MakeHuman Community licence page",
+      "url": "https://static.makehumancommunity.org/about/license.html"
+    },
+    {
+      "n": 2,
+      "title": "MakeHuman Asset Packs",
+      "url": "https://static.makehumancommunity.org/assets/assetpacks.html"
+    },
+    {
+      "n": 3,
+      "title": "Blender Manual, Extension Licenses",
+      "url": "https://docs.blender.org/manual/en/dev/extensions/licenses.html"
+    }
+  ],
   "references_by_name": [
     "FLAME licence and download page (Max Planck Institute for Intelligent Systems)",
     "Basel Face Model licence agreement (University of Basel), BFM 2009/2017/2019",

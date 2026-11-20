@@ -1,6 +1,43 @@
 {
   "topic": "ai-assisted-sculpting",
-  "sources": [],
+  "sources": [
+    {
+      "id": 1,
+      "title": "Tencent Hunyuan 3D 2.0 Community License",
+      "url": "https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 2,
+      "title": "DeepWiki Hunyuan3D-2 license and terms (secondary)",
+      "url": "https://deepwiki.com/Tencent/Hunyuan3D-2/9-license-and-terms",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 3,
+      "title": "TRELLIS.2-4B model card",
+      "url": "https://huggingface.co/microsoft/TRELLIS.2-4B/blob/main/README.md",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 4,
+      "title": "TRELLIS issue 298 nvdiffrast licence",
+      "url": "https://github.com/microsoft/TRELLIS/issues/298",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 5,
+      "title": "CG World TRELLIS.2 release (secondary)",
+      "url": "https://cgworld.jp/flashnews/01-202601-TRELLIS2.html",
+      "accessed": "2026-11-20"
+    },
+    {
+      "id": 6,
+      "title": "Meshy pricing and credits docs",
+      "url": "https://docs.meshy.ai/pricing",
+      "accessed": "2026-11-20"
+    }
+  ],
   "references_by_name": [
     "Xiang et al., 'Structured 3D Latents for Scalable and Versatile 3D Generation' (TRELLIS), CVPR 2025",
     "Tencent Hunyuan3D team, 'Hunyuan3D 2.0: Scaling Diffusion Models for High Resolution Textured 3D Assets Generation', technical report, 2025",
