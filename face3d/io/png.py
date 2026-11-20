@@ -5,6 +5,8 @@ otherwise RGB), 4 (grey+alpha), 6 (RGBA); bit depths 8 and 16 (16-bit returns
 uint16, big-endian samples decoded). Chunk CRCs are verified. Adam7 interlacing
 and other bit depths raise NotImplementedError. Arrays are (H, W) or (H, W, C),
 row 0 at the top, values unscaled (no gamma handling; sRGB is assumed by callers).
+Performance: the Average/Paeth filters run a per-byte Python loop (~3.6 MB/s), so a
+12 MP RGB all-Paeth image takes ~10 s (~20 s at 16 bit); filters 0-2 are numpy-vectorised.
 Writer: uint8/uint16 grey/RGB/RGBA, filter type 0, zlib level 6.
 """
 from __future__ import annotations

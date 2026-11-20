@@ -93,6 +93,15 @@ def _from_list(x, dtype):
     return a.astype(dtype)
 
 
+def _check_shapes(n, vis, cov, tta, err, where):
+    if tuple(vis) != (n,):
+        raise err(f"{where}: visible must have shape ({n},), got {tuple(vis)}")
+    if cov is not None and tuple(cov) != (n, 2, 2):
+        raise err(f"{where}: cov must have shape ({n}, 2, 2), got {tuple(cov)}")
+    if tta is not None and tuple(tta) != (n,):
+        raise err(f"{where}: tta_spread_px must have shape ({n},), got {tuple(tta)}")
+
+
 def save_landmarks(ls: LandmarkSet, path, inline_threshold: int = 1000) -> None:
     """Write ``ls`` as JSON; arrays above ``inline_threshold`` values go to sibling ``.npy`` files."""
     if not ls.scheme:
@@ -114,6 +123,8 @@ def save_landmarks(ls: LandmarkSet, path, inline_threshold: int = 1000) -> None:
     faces = []
     for fi, f in enumerate(ls.faces):
         uv = np.asarray(f.uv, dtype=np.float64)
+        _check_shapes(len(uv), np.shape(f.visible), None if f.cov is None else np.shape(f.cov),
+                      None if f.tta_spread_px is None else np.shape(f.tta_spread_px), FormatError, "face")
         d = {"score": float(f.score), "uv": put(uv, "uv", fi),
              "visible": put(np.asarray(f.visible, dtype=bool), "visible", fi)}
         d["cov"] = None if f.cov is None else put(np.asarray(f.cov, dtype=np.float64), "cov", fi)
@@ -122,7 +133,8 @@ def save_landmarks(ls: LandmarkSet, path, inline_threshold: int = 1000) -> None:
         d["blendshapes"] = (None if f.blendshapes is None
                             else {str(k): float(v) for k, v in f.blendshapes.items()})
         faces.append(d)
-    doc = {"format": FORMAT, "version": VERSION, "scheme": ls.scheme,
+    doc = {"format": FORMAT, "version": VERSION,
+           "licence": ls.detector.get("licence"), "scheme": ls.scheme,
            "detector": ls.detector, "image": image, "faces": faces}
     path.write_text(json.dumps(doc, indent=1, sort_keys=True, allow_nan=False))
 
@@ -149,6 +161,8 @@ def load_landmarks(path) -> LandmarkSet:
     def get(v, dtype):
         if isinstance(v, dict) and "file" in v:
             fp = path.parent / v["file"]
+            if Path(v["file"]).is_absolute() or not fp.resolve().is_relative_to(path.parent.resolve()):
+                raise FormatError(f"{path}: array reference {v['file']!r} escapes the JSON folder")
             if not fp.is_file():
                 raise FormatError(f"{path}: missing array file {v['file']}")
             if _sha256(fp) != v.get("sha256"):
@@ -162,10 +176,12 @@ def load_landmarks(path) -> LandmarkSet:
         if uv.ndim != 2 or uv.shape[1] != 2:
             raise FormatError(f"{path}: uv must be (N, 2)")
         vis = get(d["visible"], bool) if d.get("visible") is not None else np.ones(len(uv), bool)
+        cov = None if d.get("cov") is None else get(d["cov"], np.float64)
+        tta = None if d.get("tta_spread_px") is None else get(d["tta_spread_px"], np.float64)
+        _check_shapes(len(uv), vis.shape, None if cov is None else cov.shape,
+                      None if tta is None else tta.shape, lambda m: FormatError(f"{path}: {m}"), "face")
         faces.append(Face(
-            score=float(d["score"]), uv=uv, visible=vis,
-            cov=None if d.get("cov") is None else get(d["cov"], np.float64),
-            tta_spread_px=None if d.get("tta_spread_px") is None else get(d["tta_spread_px"], np.float64),
+            score=float(d["score"]), uv=uv, visible=vis, cov=cov, tta_spread_px=tta,
             blendshapes=None if d.get("blendshapes") is None else dict(d["blendshapes"]),
         ))
     return LandmarkSet(scheme=scheme, detector=dict(doc.get("detector") or {}), image=image, faces=faces)

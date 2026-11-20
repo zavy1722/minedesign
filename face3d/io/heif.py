@@ -8,13 +8,14 @@ Conventions
 -----------
 * ``irot`` is an anti-clockwise rotation in degrees (0/90/180/270), ``angle = 90 * (b & 3)``
   (ISO/IEC 23008-12).
-* ``imir_axis``: ``b & 1``; axis 0 mirrors about the vertical axis (left <-> right),
-  axis 1 about the horizontal axis (top <-> bottom).
+* ``imir_axis``: ``b & 1``; axis 0 swaps top and bottom (v' = h - v),
+  axis 1 swaps left and right (u' = w - u) (ISO/IEC 23008-12 6.5.12; = libheif).
 * ``clap`` rationals are stored as numerator/denominator pairs; offsets are signed
   and measure the crop-centre displacement from the image centre, in pixels.
 * HEIF transform order is clap, then irot, then imir. **When any HEIF transform
   property is present the EXIF Orientation tag is ignored** (smartphone-camera
-  pipeline note, DESIGN 3.1); a file without transforms falls back to EXIF.
+  pipeline note, DESIGN 3.1); EXIF Orientation is *always* ignored for HEIF/AVIF
+  containers (no fallback), as in libheif.
 Only construction_method 0 (file offsets) items are located; others are skipped.
 """
 from __future__ import annotations

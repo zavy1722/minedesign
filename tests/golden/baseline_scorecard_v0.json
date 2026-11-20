@@ -1,0 +1,733 @@
+{
+ "meta": {
+  "engine_label": "legacy-41179a3",
+  "format": "face3d-scorecard-v0",
+  "git_rev": "afd4dda627f3f1c41a54a850fdb2dc73560b6afa",
+  "metric_keys": [
+   "config_rms_mm",
+   "now7_rms_mm",
+   "nees_per_dof",
+   "coverage_1s",
+   "coverage_2s",
+   "focal_rel_err",
+   "distance_rel_err",
+   "log_scale_err",
+   "rmse_px"
+  ],
+  "numpy_version": "2.5.3",
+  "scenario_defs": {
+   "camera_roll_legacy": {
+    "detector_kwargs": {},
+    "rig_fn": "camera_roll",
+    "subject_fn": "legacy_subject"
+   },
+   "rear_phone_legacy": {
+    "detector_kwargs": {},
+    "rig_fn": "rear_phone",
+    "subject_fn": "legacy_subject"
+   },
+   "rear_phone_nobias": {
+    "detector_kwargs": {
+     "definition_bias": false
+    },
+    "rig_fn": "rear_phone",
+    "subject_fn": "legacy_subject"
+   },
+   "rear_phone_outliers": {
+    "detector_kwargs": {
+     "outlier_frac": 0.1
+    },
+    "rig_fn": "rear_phone",
+    "subject_fn": "legacy_subject"
+   },
+   "rear_phone_smooth": {
+    "detector_kwargs": {},
+    "rig_fn": "rear_phone",
+    "subject_fn": "smooth_field_subject"
+   },
+   "selfie_legacy": {
+    "detector_kwargs": {},
+    "rig_fn": "selfie",
+    "subject_fn": "legacy_subject"
+   },
+   "studio_ring_legacy": {
+    "detector_kwargs": {},
+    "rig_fn": "studio_ring",
+    "subject_fn": "legacy_subject"
+   }
+  },
+  "seeds": [
+   1000,
+   1001,
+   1002,
+   1003,
+   1004,
+   1005,
+   1006,
+   1007,
+   1008,
+   1009,
+   1010,
+   1011,
+   1012,
+   1013,
+   1014,
+   1015,
+   1016,
+   1017,
+   1018,
+   1019,
+   1020,
+   1021,
+   1022,
+   1023,
+   1024,
+   1025,
+   1026,
+   1027,
+   1028,
+   1029
+  ]
+ },
+ "per_seed_first3": {
+  "camera_roll_legacy": [
+   {
+    "config_rms_mm": 5.89807789,
+    "coverage_1s": 0.520833333,
+    "coverage_2s": 0.729166667,
+    "distance_rel_err": 0.0181152586,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.0206694304,
+    "log_scale_err": 5.75022005e-05,
+    "nees_per_dof": 3.31431283,
+    "now7_rms_mm": 6.14772427,
+    "rmse_px": 38.3689547,
+    "seed": 1000
+   },
+   {
+    "config_rms_mm": 5.09868708,
+    "coverage_1s": 0.614583333,
+    "coverage_2s": 0.895833333,
+    "distance_rel_err": 0.115608674,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00549824444,
+    "log_scale_err": -0.110962739,
+    "nees_per_dof": 2.33206662,
+    "now7_rms_mm": 8.78298289,
+    "rmse_px": 20.4143524,
+    "seed": 1001
+   },
+   {
+    "config_rms_mm": 4.99124546,
+    "coverage_1s": 0.583333333,
+    "coverage_2s": 0.802083333,
+    "distance_rel_err": 0.0861045584,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.0112826275,
+    "log_scale_err": -0.0661828485,
+    "nees_per_dof": 1.92892402,
+    "now7_rms_mm": 6.57485871,
+    "rmse_px": 71.8639026,
+    "seed": 1002
+   }
+  ],
+  "rear_phone_legacy": [
+   {
+    "config_rms_mm": 3.88252992,
+    "coverage_1s": 0.625,
+    "coverage_2s": 0.854166667,
+    "distance_rel_err": 0.0162341937,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.000865450928,
+    "log_scale_err": 0.0155728977,
+    "nees_per_dof": 1.89085132,
+    "now7_rms_mm": 4.34886175,
+    "rmse_px": 31.68472,
+    "seed": 1000
+   },
+   {
+    "config_rms_mm": 3.50921334,
+    "coverage_1s": 0.729166667,
+    "coverage_2s": 0.885416667,
+    "distance_rel_err": 0.115376859,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00768845556,
+    "log_scale_err": -0.108325151,
+    "nees_per_dof": 1.6624762,
+    "now7_rms_mm": 8.20056182,
+    "rmse_px": 19.752519,
+    "seed": 1001
+   },
+   {
+    "config_rms_mm": 5.66709739,
+    "coverage_1s": 0.666666667,
+    "coverage_2s": 0.8125,
+    "distance_rel_err": 0.0747070661,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00355713302,
+    "log_scale_err": -0.0692782254,
+    "nees_per_dof": 2.23595922,
+    "now7_rms_mm": 7.13106095,
+    "rmse_px": 29.0509082,
+    "seed": 1002
+   }
+  ],
+  "rear_phone_nobias": [
+   {
+    "config_rms_mm": 3.39159549,
+    "coverage_1s": 0.71875,
+    "coverage_2s": 0.90625,
+    "distance_rel_err": 0.0324916795,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00240213504,
+    "log_scale_err": 0.0270887623,
+    "nees_per_dof": 1.6490256,
+    "now7_rms_mm": 4.07678452,
+    "rmse_px": 31.3792146,
+    "seed": 1000
+   },
+   {
+    "config_rms_mm": 3.050846,
+    "coverage_1s": 0.770833333,
+    "coverage_2s": 0.90625,
+    "distance_rel_err": 0.0996051252,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00544604281,
+    "log_scale_err": -0.10037855,
+    "nees_per_dof": 1.30102262,
+    "now7_rms_mm": 7.54861622,
+    "rmse_px": 19.7880939,
+    "seed": 1001
+   },
+   {
+    "config_rms_mm": 5.45810728,
+    "coverage_1s": 0.760416667,
+    "coverage_2s": 0.864583333,
+    "distance_rel_err": 0.066003489,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00219590928,
+    "log_scale_err": -0.0681507916,
+    "nees_per_dof": 1.84888434,
+    "now7_rms_mm": 6.92600619,
+    "rmse_px": 28.8287633,
+    "seed": 1002
+   }
+  ],
+  "rear_phone_outliers": [
+   {
+    "config_rms_mm": 4.35982909,
+    "coverage_1s": 0.53125,
+    "coverage_2s": 0.8125,
+    "distance_rel_err": 0.00976255076,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.000528658399,
+    "log_scale_err": 0.00450526923,
+    "nees_per_dof": 2.25623176,
+    "now7_rms_mm": 5.06953931,
+    "rmse_px": 31.0740185,
+    "seed": 1000
+   },
+   {
+    "config_rms_mm": 6.56257443,
+    "coverage_1s": 0.5625,
+    "coverage_2s": 0.854166667,
+    "distance_rel_err": 0.123340814,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.0181953413,
+    "log_scale_err": -0.13168736,
+    "nees_per_dof": 4.72754073,
+    "now7_rms_mm": 10.7291482,
+    "rmse_px": 29.9100473,
+    "seed": 1001
+   },
+   {
+    "config_rms_mm": 10.9058834,
+    "coverage_1s": 0.53125,
+    "coverage_2s": 0.739583333,
+    "distance_rel_err": 0.126431017,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00889439161,
+    "log_scale_err": -0.116976543,
+    "nees_per_dof": 6.04621292,
+    "now7_rms_mm": 12.8349192,
+    "rmse_px": 55.4623549,
+    "seed": 1002
+   }
+  ],
+  "rear_phone_smooth": [
+   {
+    "config_rms_mm": 4.06504374,
+    "coverage_1s": 0.645833333,
+    "coverage_2s": 0.885416667,
+    "distance_rel_err": 0.0730090883,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00515863316,
+    "log_scale_err": -0.0719637833,
+    "nees_per_dof": 1.74709084,
+    "now7_rms_mm": 6.66764738,
+    "rmse_px": 32.098979,
+    "seed": 1000
+   },
+   {
+    "config_rms_mm": 3.84933995,
+    "coverage_1s": 0.708333333,
+    "coverage_2s": 0.885416667,
+    "distance_rel_err": 0.121893769,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00594624213,
+    "log_scale_err": -0.119900057,
+    "nees_per_dof": 1.70129671,
+    "now7_rms_mm": 9.09413338,
+    "rmse_px": 18.8886644,
+    "seed": 1001
+   },
+   {
+    "config_rms_mm": 5.60739485,
+    "coverage_1s": 0.604166667,
+    "coverage_2s": 0.8125,
+    "distance_rel_err": 0.0568035683,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00518261273,
+    "log_scale_err": -0.0507279551,
+    "nees_per_dof": 2.22947798,
+    "now7_rms_mm": 6.4191234,
+    "rmse_px": 29.1605278,
+    "seed": 1002
+   }
+  ],
+  "selfie_legacy": [
+   {
+    "config_rms_mm": 4.35551512,
+    "coverage_1s": 0.645833333,
+    "coverage_2s": 0.833333333,
+    "distance_rel_err": 0.0402622715,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.0169828185,
+    "log_scale_err": 0.0107382245,
+    "nees_per_dof": 1.85054482,
+    "now7_rms_mm": 4.55162942,
+    "rmse_px": 24.6808919,
+    "seed": 1000
+   },
+   {
+    "config_rms_mm": 14.4380109,
+    "coverage_1s": 0.458333333,
+    "coverage_2s": 0.802083333,
+    "distance_rel_err": 0.185970502,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.0384204395,
+    "log_scale_err": -0.157431424,
+    "nees_per_dof": 7.31396132,
+    "now7_rms_mm": 16.7719003,
+    "rmse_px": 51.3689872,
+    "seed": 1001
+   },
+   {
+    "config_rms_mm": 23.2759876,
+    "coverage_1s": 0.385416667,
+    "coverage_2s": 0.635416667,
+    "distance_rel_err": 0.370046673,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.226147232,
+    "log_scale_err": -0.177072609,
+    "nees_per_dof": 7.79300713,
+    "now7_rms_mm": 24.0205099,
+    "rmse_px": 54.1525159,
+    "seed": 1002
+   }
+  ],
+  "studio_ring_legacy": [
+   {
+    "config_rms_mm": 3.45249218,
+    "coverage_1s": 0.677083333,
+    "coverage_2s": 0.927083333,
+    "distance_rel_err": 0.0302164464,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.0242714946,
+    "log_scale_err": 0.00679327621,
+    "nees_per_dof": 1.75218018,
+    "now7_rms_mm": 3.63328951,
+    "rmse_px": 31.7802264,
+    "seed": 1000
+   },
+   {
+    "config_rms_mm": 3.70082099,
+    "coverage_1s": 0.666666667,
+    "coverage_2s": 0.885416667,
+    "distance_rel_err": 0.119115928,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00566271592,
+    "log_scale_err": -0.101996312,
+    "nees_per_dof": 1.78914646,
+    "now7_rms_mm": 7.87002394,
+    "rmse_px": 33.0560138,
+    "seed": 1001
+   },
+   {
+    "config_rms_mm": 3.3214447,
+    "coverage_1s": 0.71875,
+    "coverage_2s": 0.895833333,
+    "distance_rel_err": 0.0664935767,
+    "error": "",
+    "failed": false,
+    "focal_rel_err": 0.00560104761,
+    "log_scale_err": -0.0631983599,
+    "nees_per_dof": 1.20726263,
+    "now7_rms_mm": 5.5376511,
+    "rmse_px": 35.9965205,
+    "seed": 1002
+   }
+  ]
+ },
+ "scenarios": {
+  "camera_roll_legacy": {
+   "config_rms_mm": {
+    "mad": 0.774747852,
+    "median": 4.99124546,
+    "n_ok": 29
+   },
+   "coverage_1s": {
+    "mad": 0.0416666667,
+    "median": 0.614583333,
+    "n_ok": 29
+   },
+   "coverage_2s": {
+    "mad": 0.0416666667,
+    "median": 0.84375,
+    "n_ok": 29
+   },
+   "distance_rel_err": {
+    "mad": 0.0446398402,
+    "median": 0.0697252069,
+    "n_ok": 29
+   },
+   "focal_rel_err": {
+    "mad": 0.00732684007,
+    "median": 0.0113832766,
+    "n_ok": 29
+   },
+   "log_scale_err": {
+    "mad": 0.0433294126,
+    "median": -0.0611485893,
+    "n_ok": 29
+   },
+   "nees_per_dof": {
+    "mad": 0.718170363,
+    "median": 2.37974866,
+    "n_ok": 29
+   },
+   "now7_rms_mm": {
+    "mad": 1.59302112,
+    "median": 7.01712857,
+    "n_ok": 29
+   },
+   "rmse_px": {
+    "mad": 9.32762041,
+    "median": 21.7802093,
+    "n_ok": 29
+   }
+  },
+  "rear_phone_legacy": {
+   "config_rms_mm": {
+    "mad": 0.374903209,
+    "median": 4.08845623,
+    "n_ok": 30
+   },
+   "coverage_1s": {
+    "mad": 0.0260416667,
+    "median": 0.640625,
+    "n_ok": 30
+   },
+   "coverage_2s": {
+    "mad": 0.0208333333,
+    "median": 0.875,
+    "n_ok": 30
+   },
+   "distance_rel_err": {
+    "mad": 0.0261963525,
+    "median": 0.0363673052,
+    "n_ok": 30
+   },
+   "focal_rel_err": {
+    "mad": 0.0068389228,
+    "median": 0.0119929653,
+    "n_ok": 30
+   },
+   "log_scale_err": {
+    "mad": 0.0282979951,
+    "median": -0.0241910361,
+    "n_ok": 30
+   },
+   "nees_per_dof": {
+    "mad": 0.273527028,
+    "median": 2.10379727,
+    "n_ok": 30
+   },
+   "now7_rms_mm": {
+    "mad": 0.78112128,
+    "median": 5.03852289,
+    "n_ok": 30
+   },
+   "rmse_px": {
+    "mad": 3.31183773,
+    "median": 17.5772777,
+    "n_ok": 30
+   }
+  },
+  "rear_phone_nobias": {
+   "config_rms_mm": {
+    "mad": 0.410934286,
+    "median": 3.70532118,
+    "n_ok": 30
+   },
+   "coverage_1s": {
+    "mad": 0.03125,
+    "median": 0.697916667,
+    "n_ok": 30
+   },
+   "coverage_2s": {
+    "mad": 0.0208333333,
+    "median": 0.90625,
+    "n_ok": 30
+   },
+   "distance_rel_err": {
+    "mad": 0.0197121744,
+    "median": 0.032366848,
+    "n_ok": 30
+   },
+   "focal_rel_err": {
+    "mad": 0.0072447745,
+    "median": 0.0110772435,
+    "n_ok": 30
+   },
+   "log_scale_err": {
+    "mad": 0.0257701616,
+    "median": -0.0173173361,
+    "n_ok": 30
+   },
+   "nees_per_dof": {
+    "mad": 0.341390319,
+    "median": 1.67459277,
+    "n_ok": 30
+   },
+   "now7_rms_mm": {
+    "mad": 0.883906802,
+    "median": 4.65350571,
+    "n_ok": 30
+   },
+   "rmse_px": {
+    "mad": 3.39046081,
+    "median": 17.7460934,
+    "n_ok": 30
+   }
+  },
+  "rear_phone_outliers": {
+   "config_rms_mm": {
+    "mad": 0.588328888,
+    "median": 4.715749,
+    "n_ok": 30
+   },
+   "coverage_1s": {
+    "mad": 0.0416666667,
+    "median": 0.604166667,
+    "n_ok": 30
+   },
+   "coverage_2s": {
+    "mad": 0.0208333333,
+    "median": 0.833333333,
+    "n_ok": 30
+   },
+   "distance_rel_err": {
+    "mad": 0.0307875993,
+    "median": 0.0471759372,
+    "n_ok": 30
+   },
+   "focal_rel_err": {
+    "mad": 0.00623863287,
+    "median": 0.0128161135,
+    "n_ok": 30
+   },
+   "log_scale_err": {
+    "mad": 0.0327067514,
+    "median": -0.0398250988,
+    "n_ok": 30
+   },
+   "nees_per_dof": {
+    "mad": 0.415302372,
+    "median": 2.68012789,
+    "n_ok": 30
+   },
+   "now7_rms_mm": {
+    "mad": 1.40440885,
+    "median": 6.46375429,
+    "n_ok": 30
+   },
+   "rmse_px": {
+    "mad": 7.37756627,
+    "median": 31.1001315,
+    "n_ok": 30
+   }
+  },
+  "rear_phone_smooth": {
+   "config_rms_mm": {
+    "mad": 0.356898645,
+    "median": 4.09077912,
+    "n_ok": 30
+   },
+   "coverage_1s": {
+    "mad": 0.03125,
+    "median": 0.645833333,
+    "n_ok": 30
+   },
+   "coverage_2s": {
+    "mad": 0.015625,
+    "median": 0.880208333,
+    "n_ok": 30
+   },
+   "distance_rel_err": {
+    "mad": 0.0236999289,
+    "median": 0.0377871151,
+    "n_ok": 30
+   },
+   "focal_rel_err": {
+    "mad": 0.00550108683,
+    "median": 0.00998577084,
+    "n_ok": 30
+   },
+   "log_scale_err": {
+    "mad": 0.0268872548,
+    "median": -0.0336409744,
+    "n_ok": 30
+   },
+   "nees_per_dof": {
+    "mad": 0.315978031,
+    "median": 2.01903897,
+    "n_ok": 30
+   },
+   "now7_rms_mm": {
+    "mad": 0.784066522,
+    "median": 5.28907194,
+    "n_ok": 30
+   },
+   "rmse_px": {
+    "mad": 3.62199294,
+    "median": 17.8779169,
+    "n_ok": 30
+   }
+  },
+  "selfie_legacy": {
+   "config_rms_mm": {
+    "mad": 1.88815784,
+    "median": 6.98812413,
+    "n_ok": 30
+   },
+   "coverage_1s": {
+    "mad": 0.078125,
+    "median": 0.505208333,
+    "n_ok": 30
+   },
+   "coverage_2s": {
+    "mad": 0.046875,
+    "median": 0.8125,
+    "n_ok": 30
+   },
+   "distance_rel_err": {
+    "mad": 0.0343064647,
+    "median": 0.0521633447,
+    "n_ok": 30
+   },
+   "focal_rel_err": {
+    "mad": 0.0176109541,
+    "median": 0.0264720351,
+    "n_ok": 30
+   },
+   "log_scale_err": {
+    "mad": 0.0538730749,
+    "median": -0.0528849808,
+    "n_ok": 30
+   },
+   "nees_per_dof": {
+    "mad": 1.01206786,
+    "median": 3.46585501,
+    "n_ok": 30
+   },
+   "now7_rms_mm": {
+    "mad": 3.42933932,
+    "median": 9.27268206,
+    "n_ok": 30
+   },
+   "rmse_px": {
+    "mad": 10.7134932,
+    "median": 50.4834681,
+    "n_ok": 30
+   }
+  },
+  "studio_ring_legacy": {
+   "config_rms_mm": {
+    "mad": 0.24032172,
+    "median": 3.45851217,
+    "n_ok": 30
+   },
+   "coverage_1s": {
+    "mad": 0.0416666667,
+    "median": 0.677083333,
+    "n_ok": 30
+   },
+   "coverage_2s": {
+    "mad": 0.0260416667,
+    "median": 0.885416667,
+    "n_ok": 30
+   },
+   "distance_rel_err": {
+    "mad": 0.0215394423,
+    "median": 0.0339694872,
+    "n_ok": 30
+   },
+   "focal_rel_err": {
+    "mad": 0.00480236579,
+    "median": 0.0122365822,
+    "n_ok": 30
+   },
+   "log_scale_err": {
+    "mad": 0.0288361726,
+    "median": -0.0258231332,
+    "n_ok": 30
+   },
+   "nees_per_dof": {
+    "mad": 0.324725791,
+    "median": 1.68632092,
+    "n_ok": 30
+   },
+   "now7_rms_mm": {
+    "mad": 0.822143403,
+    "median": 4.48826772,
+    "n_ok": 30
+   },
+   "rmse_px": {
+    "mad": 3.33971158,
+    "median": 28.5925652,
+    "n_ok": 30
+   }
+  }
+ }
+}

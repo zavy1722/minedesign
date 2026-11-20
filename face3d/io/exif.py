@@ -12,6 +12,7 @@ Units: focal lengths and lens spec in mm, subject_distance_m in metres.
 """
 from __future__ import annotations
 
+import math
 import struct
 from dataclasses import dataclass
 from pathlib import Path
@@ -96,7 +97,9 @@ def _parse_tiff(buf: bytes) -> dict:
         raise ValueError("bad TIFF magic")
     out: dict = {}
 
-    def value(typ: int, count: int, raw: bytes, off_field: int):
+    raw_rat: dict = {}
+
+    def value(typ: int, count: int, raw: bytes, off_field: int, tag_raw=None):
         size = _TYPE_SIZES.get(typ, 1) * count
         data = raw if size <= 4 else buf[off_field:off_field + size]
         if typ == 2:
@@ -108,7 +111,9 @@ def _parse_tiff(buf: bytes) -> dict:
         elif typ in (5, 10):
             fmt = "I" if typ == 5 else "i"
             nums = struct.unpack(e + fmt * 2 * count, data[:8 * count])
-            vals = tuple(nums[i] / nums[i + 1] if nums[i + 1] else 0.0 for i in range(0, len(nums), 2))
+            vals = tuple(nums[i] / nums[i + 1] if nums[i + 1] else None for i in range(0, len(nums), 2))
+            if tag_raw is not None and count == 1:
+                raw_rat[tag_raw] = (nums[0], nums[1])
         elif typ == 11:
             vals = struct.unpack(e + "f" * count, data[:4 * count])
         elif typ == 12:
@@ -136,13 +141,14 @@ def _parse_tiff(buf: bytes) -> dict:
             if name in ("gps_ifd", "makernote"):  # presence only, never parsed
                 out.setdefault(name, True)
                 continue
-            v = value(typ, count, raw, off_field)
+            v = value(typ, count, raw, off_field, tag)
             if name == "exif_ifd" and isinstance(v, int):
                 walk(v, depth + 1)
             elif v is not None:
                 out.setdefault(name, v)
 
     walk(struct.unpack(e + "I", buf[4:8])[0])
+    out["_raw_rat"] = raw_rat
     return out
 
 
@@ -191,8 +197,17 @@ def _info_from_tiff(tiff: bytes) -> ExifInfo:
         return ExifInfo()
     f35 = t.get("focal_35mm")
     spec = t.get("lens_spec")
+    rr = t.get("_raw_rat", {})
     sd = t.get("subject_distance")
     dz = t.get("digital_zoom")
+    # EXIF sentinels: SubjectDistance 0 = unknown, 0xFFFFFFFF = infinity;
+    # DigitalZoomRatio 0 = digital zoom not used; zero denominator = invalid.
+    if 0x9206 in rr:
+        n, d = rr[0x9206]
+        sd = None if (d == 0 or n == 0) else (math.inf if n == 0xFFFFFFFF else sd)
+    if 0xA404 in rr:
+        n, d = rr[0xA404]
+        dz = None if d == 0 else (1.0 if n == 0 else dz)
     cr = t.get("custom_rendered")
     return ExifInfo(
         focal_length_mm=float(t["focal_length"]) if t.get("focal_length") else None,
@@ -207,7 +222,7 @@ def _info_from_tiff(tiff: bytes) -> ExifInfo:
         software=t.get("software") or None,
         digital_zoom_ratio=float(dz) if isinstance(dz, (int, float)) else None,
         lens_make=t.get("lens_make") or None,
-        lens_specification=tuple(float(x) for x in spec) if isinstance(spec, tuple) and len(spec) == 4 else None,
+        lens_specification=tuple(float(x) for x in spec) if isinstance(spec, tuple) and len(spec) == 4 and None not in spec else None,
         subject_distance_m=float(sd) if isinstance(sd, (int, float)) else None,
         custom_rendered=int(cr) if isinstance(cr, int) else None,
         artist=t.get("artist") or None,

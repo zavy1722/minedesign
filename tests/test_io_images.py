@@ -258,3 +258,155 @@ def test_colour_helpers():
     g = ops.to_gray(np.ones((2, 2, 3)))
     np.testing.assert_allclose(g, 1.0)
     assert ops.to_gray(np.array([[[1.0, 0, 0]]]))[0, 0] == pytest.approx(0.2126)
+
+
+# ---------------------------------------------------------------- review fixes
+def test_heif_imir_axes_match_iso_and_exif():
+    rng = np.random.default_rng(0)
+    img = rng.integers(0, 255, (5, 7, 3), dtype=np.uint8)
+    # ISO/IEC 23008-12: axis 0 swaps top/bottom (= EXIF 4), axis 1 left/right (= EXIF 2)
+    assert np.array_equal(ops.apply_heif_ops(img, [("mirror", 1)]), ops.apply_orientation(img, 2))
+    assert np.array_equal(ops.apply_heif_ops(img, [("mirror", 0)]), ops.apply_orientation(img, 4))
+    assert np.array_equal(ops.apply_heif_ops(img, [("rotate_ccw", 90), ("mirror", 0)]),
+                          ops.apply_orientation(img, 5))
+    assert np.array_equal(ops.apply_heif_ops(img, [("rotate_ccw", 270), ("mirror", 0)]),
+                          ops.apply_orientation(img, 7))
+    # point maps agree with the EXIF maps
+    for hops, o in (([("mirror", 1)], 2), ([("mirror", 0)], 4),
+                    ([("rotate_ccw", 90), ("mirror", 0)], 5),
+                    ([("rotate_ccw", 270), ("mirror", 0)], 7)):
+        pts = np.array([[0.5, 0.5], [3.25, 1.75]])
+        np.testing.assert_allclose(ops.heif_point_map(hops, 7, 5)(pts),
+                                   ops.orientation_point_map(o, 7, 5)(pts))
+
+
+def test_clap_rounding_and_zero_denominator():
+    img = np.arange(30 * 40).reshape(30, 40)
+    clap = dict(width_n=10, width_d=1, height_n=8, height_d=1, horiz_off_n=6, horiz_off_d=1,
+                vert_off_n=-4, vert_off_d=1)
+    out = ops.apply_heif_ops(img, [("crop", clap)])
+    assert out.shape == (8, 10) and out[0, 0] == img[15 - 4 - 4, 20 + 6 - 5]
+    odd = dict(clap, width_n=39, horiz_off_n=0, horiz_off_d=1)  # half-integer left edge -> floor
+    assert ops.apply_heif_ops(img, [("crop", odd)]).shape[1] == 39
+    bad = dict(clap, width_d=0)
+    with pytest.raises(ValueError):
+        ops.apply_heif_ops(img, [("crop", bad)])
+
+
+def test_flip_uv_rejects_non_permutation():
+    uv = 100 + np.arange(8, dtype=float).reshape(4, 2)
+    with pytest.raises(ValueError):
+        ops.flip_uv(uv, 1000.0, [1, 0, 0, 3])
+
+
+def test_colour_helper_robustness():
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        ops.srgb_to_linear([-0.1, 0.5])
+    ga = np.stack([np.full((2, 2), 0.3), np.ones((2, 2))], axis=-1)
+    assert np.allclose(ops.to_gray(ga), 0.3)
+
+
+def test_exif_sentinels(tmp_path):
+    def read(tags):
+        ex = Image.Exif()
+        sub = ex.get_ifd(0x8769)
+        for k, v in tags.items():
+            sub[k] = v
+        p = tmp_path / "s.jpg"
+        Image.new("RGB", (8, 8)).save(p, exif=ex)
+        return read_exif(p)
+    assert read({0x9206: IFDRational(0, 1)}).subject_distance_m is None
+    assert read({0x9206: IFDRational(0xFFFFFFFF, 1)}).subject_distance_m == float("inf")
+    assert read({0x9206: IFDRational(5, 2)}).subject_distance_m == 2.5
+    assert read({0xA404: IFDRational(0, 100)}).digital_zoom_ratio == 1.0
+    assert read({0xA404: IFDRational(3, 2)}).digital_zoom_ratio == 1.5
+
+
+def test_exif_makernote_flag(tmp_path):
+    ex = Image.Exif()
+    ex.get_ifd(0x8769)[0x927C] = b"abcdefgh"
+    p = tmp_path / "m.jpg"
+    Image.new("RGB", (8, 8)).save(p, exif=ex)
+    assert read_exif(p).has_makernote
+
+
+def _png_chunk(t, d):
+    import zlib
+    c = struct.pack(">I", len(d)) + t + d
+    return c + struct.pack(">I", zlib.crc32(t + d))
+
+
+def test_png_all_filter_types_independent_encoder():
+    import zlib
+    rng = np.random.default_rng(1)
+    H, W, bpp = 10, 9, 3
+    img = rng.integers(0, 256, (H, W, bpp), dtype=np.uint8)
+    prev = bytearray(W * bpp)
+    raw = bytearray()
+    for y in range(H):
+        row = img[y].tobytes()
+        ft = y % 5
+        out = bytearray()
+        for i, x in enumerate(row):
+            a = row[i - bpp] if i >= bpp else 0
+            b = prev[i]
+            c = prev[i - bpp] if i >= bpp else 0
+            if ft == 0:
+                pred = 0
+            elif ft == 1:
+                pred = a
+            elif ft == 2:
+                pred = b
+            elif ft == 3:
+                pred = (a + b) // 2
+            else:
+                pa, pb, pc = abs(b - c), abs(a - c), abs(a + b - 2 * c)
+                pred = a if pa <= pb and pa <= pc else (b if pb <= pc else c)
+            out.append((x - pred) & 255)
+        raw += bytes([ft]) + out
+        prev = bytearray(row)
+    data = (b"\x89PNG\r\n\x1a\n" + _png_chunk(b"IHDR", struct.pack(">IIBBBBB", W, H, 8, 2, 0, 0, 0))
+            + _png_chunk(b"IDAT", zlib.compress(bytes(raw))) + _png_chunk(b"IEND", b""))
+    assert np.array_equal(read_png(data), img)
+
+
+def _heif_variant(exif_tiff, large=False, ipma_flags=0, clap=None):
+    def box(t, p):
+        if large:
+            return struct.pack(">I4sQ", 1, t, 16 + len(p)) + p
+        return _box(t, p)
+
+    def full(t, ver, flags, p):
+        return box(t, bytes([ver]) + flags.to_bytes(3, "big") + p)
+    ftyp = _box(b"ftyp", b"avif" + b"\0\0\0\0" + b"mif1avif")
+    pitm = full(b"pitm", 1, 0, struct.pack(">I", 1))
+    infe = full(b"infe", 2, 0, struct.pack(">HH4s", 1, 0, b"av01") + b"\0")
+    iinf = full(b"iinf", 0, 0, struct.pack(">H", 1) + infe)
+    ispe = full(b"ispe", 0, 0, struct.pack(">II", 40, 30))
+    props, idx = ispe, [1]
+    if clap:
+        props += box(b"clap", struct.pack(">IIIIiIiI", *clap))
+        idx.append(2)
+    if ipma_flags & 1:
+        ent = b"".join(struct.pack(">H", 0x8000 | i) for i in idx)
+        ipma = full(b"ipma", 1, 1, struct.pack(">I", 1) + struct.pack(">IB", 1, len(idx)) + ent)
+    else:
+        ent = bytes(0x80 | i for i in idx)
+        ipma = full(b"ipma", 0, 0, struct.pack(">I", 1) + struct.pack(">HB", 1, len(idx)) + ent)
+    iprp = box(b"iprp", box(b"ipco", props) + ipma)
+    return ftyp + full(b"meta", 0, 0, pitm + iinf + iprp)
+
+
+@pytest.mark.parametrize("large,flags", [(False, 0), (True, 0), (False, 1)])
+def test_heif_variants_largesize_ipma15_clap(large, flags):
+    clap = (10, 1, 8, 1, 6, 1, -4, 1)
+    info = parse_heif(_heif_variant(b"", large=large, ipma_flags=flags, clap=clap))
+    assert info.primary_item_id == 1 and (info.width, info.height) == (40, 30)
+    assert info.clap == dict(width_n=10, width_d=1, height_n=8, height_d=1,
+                             horiz_off_n=6, horiz_off_d=1, vert_off_n=-4, vert_off_d=1)
+    img = np.arange(30 * 40).reshape(30, 40)
+    out = ops.apply_heif_ops(img, orientation_ops(info))
+    # window centre = (20+6, 15-4) = (26, 11); left = 21, top = 7
+    assert out.shape == (8, 10) and out[0, 0] == img[7, 21]

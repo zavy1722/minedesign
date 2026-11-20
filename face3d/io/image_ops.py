@@ -18,6 +18,8 @@ Conventions
 """
 from __future__ import annotations
 
+import math
+
 import numpy as np
 
 _O_ARRAY = {
@@ -91,13 +93,17 @@ def _heif_steps(ops, W: int, H: int):
         kind = op[0]
         if kind == "crop":
             c = op[1]
+            if not c["width_d"] or not c["height_d"]:
+                raise ValueError("clap has a zero denominator in width/height")
             cw = c["width_n"] / c["width_d"]
             ch = c["height_n"] / c["height_d"]
             ho = c["horiz_off_n"] / c["horiz_off_d"] if c["horiz_off_d"] else 0.0
             vo = c["vert_off_n"] / c["vert_off_d"] if c["vert_off_d"] else 0.0
-            x0 = int(round(w / 2 + ho - cw / 2))
-            y0 = int(round(h / 2 + vo - ch / 2))
-            nw, nh = int(round(cw)), int(round(ch))
+            # Documented rounding (matches libheif): floor for the left/top edge,
+            # floor(x + 0.5) (half up) for the window size.
+            x0 = math.floor(w / 2 + ho - cw / 2)
+            y0 = math.floor(h / 2 + vo - ch / 2)
+            nw, nh = math.floor(cw + 0.5), math.floor(ch + 0.5)
             x0 = max(0, min(x0, w - 1))
             y0 = max(0, min(y0, h - 1))
             nw = max(1, min(nw, w - x0))
@@ -128,7 +134,7 @@ def apply_heif_ops(img: np.ndarray, ops) -> np.ndarray:
         elif kind == "rotate_ccw":
             a = np.rot90(a, k=p // 90)
         else:
-            a = np.flip(a, axis=1 if p == 0 else 0)
+            a = np.flip(a, axis=p)   # imir axis 0: top<->bottom, 1: left<->right (ISO 23008-12)
     return np.ascontiguousarray(a)
 
 
@@ -143,9 +149,9 @@ def heif_point_map(ops, W: int, H: int) -> AffinePointMap:
                  90: AffinePointMap([[0, 1], [-1, 0]], [0, w], out),
                  180: AffinePointMap([[-1, 0], [0, -1]], [w, h], out),
                  270: AffinePointMap([[0, -1], [1, 0]], [h, 0], out)}[p]
-        elif p == 0:   # mirror about the vertical axis (left <-> right)
+        elif p == 1:   # imir axis 1: left <-> right, u' = w - u
             s = AffinePointMap([[-1, 0], [0, 1]], [w, 0], out)
-        else:          # mirror about the horizontal axis (top <-> bottom)
+        else:          # imir axis 0: top <-> bottom, v' = h - v
             s = AffinePointMap([[1, 0], [0, -1]], [0, h], out)
         m = m.then(s)
     return m
@@ -165,6 +171,8 @@ def flip_uv(uv, W: float, perm) -> np.ndarray:
     perm = np.asarray(perm, dtype=np.int64)
     if uv.shape[0] != perm.shape[0]:
         raise ValueError("perm length must match number of landmarks")
+    if not np.array_equal(np.sort(perm), np.arange(perm.shape[0])):
+        raise ValueError("perm must be a permutation of range(N)")
     out = np.empty_like(uv)
     out[perm] = np.stack([W - uv[:, 0], uv[:, 1]], axis=1)
     return out
@@ -179,7 +187,7 @@ def resize_uv(uv, W: float, H: float, W2: float, H2: float) -> np.ndarray:
 def srgb_to_linear(x) -> np.ndarray:
     """IEC 61966-2-1 decode: sRGB-encoded [0,1] -> linear light."""
     x = np.asarray(x, dtype=np.float64)
-    return np.where(x <= 0.04045, x / 12.92, ((x + 0.055) / 1.055) ** 2.4)
+    return np.where(x <= 0.04045, x / 12.92, np.power(np.maximum(x + 0.055, 0.0) / 1.055, 2.4))
 
 
 def linear_to_srgb(x) -> np.ndarray:
@@ -196,6 +204,6 @@ def to_gray(img) -> np.ndarray:
     a = np.asarray(img, dtype=np.float64)
     if a.ndim == 2:
         return a
-    if a.shape[2] == 1:
+    if a.shape[2] in (1, 2):   # grey or grey+alpha
         return a[..., 0]
     return a[..., :3] @ _REC709

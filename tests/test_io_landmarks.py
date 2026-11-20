@@ -75,3 +75,36 @@ def test_from_mediapipe_normalized_and_select_face():
     assert select_face(ls, 1) is ls.faces[1]
     with pytest.raises(IndexError):
         select_face(ls, 2)
+
+
+def test_licence_written_and_shapes_validated(tmp_path):
+    ls = LandmarkSet("s", {"licence": "Apache-2.0"}, {"coords": "px_corner"},
+                     [Face(1.0, np.zeros((5, 2)), np.ones(5, bool))])
+    p = tmp_path / "a.json"
+    save_landmarks(ls, p)
+    assert json.loads(p.read_text())["licence"] == "Apache-2.0"
+    load_landmarks(p)
+    bad = LandmarkSet("s", {}, {"coords": "px_corner"},
+                      [Face(1.0, np.zeros((5, 2)), np.ones(3, bool), np.zeros((2, 2, 2)))])
+    with pytest.raises(FormatError):
+        save_landmarks(bad, tmp_path / "b.json")
+    doc = json.loads(p.read_text())
+    doc["faces"][0]["visible"] = [True, False]
+    p.write_text(json.dumps(doc))
+    with pytest.raises(FormatError):
+        load_landmarks(p)
+
+
+def test_npy_reference_must_stay_in_folder(tmp_path):
+    (tmp_path / "sub").mkdir()
+    np.save(tmp_path / "other.npy", np.zeros((5, 2)))
+    import hashlib
+    sha = hashlib.sha256((tmp_path / "other.npy").read_bytes()).hexdigest()
+    for ref in ("../other.npy", str(tmp_path / "other.npy")):
+        doc = {"format": "face3d.landmarks", "version": 1, "scheme": "s",
+               "image": {"coords": "px_corner"},
+               "faces": [{"score": 1.0, "uv": {"file": ref, "sha256": sha}, "visible": None}]}
+        p = tmp_path / "sub" / "lm.json"
+        p.write_text(json.dumps(doc))
+        with pytest.raises(FormatError):
+            load_landmarks(p)
