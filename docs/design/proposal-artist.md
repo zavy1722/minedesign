@@ -19,12 +19,12 @@ FaceBuilder sets the interaction bar: pins on any surface point, a live re-solve
 Automation speeds the artist up but never decides for them: every automatic decision arrives as a card with *why*, *what changes* and *undo*.
 
 **Principles**
-- **P1 Live, then thorough.** Adding a photo or dragging a pin re-solves cameras and coarse shape at ≥20 fps. If an update would take more than ~50 ms, it solves on release instead (guided-workflow-accessibility 🧠). Refinement runs in the background.
-- **P2 Plain-language uncertainty.** Every number comes with a range in mm and a basis: *measured*, *partly measured* or *guessed from average proportions*.
-- **P3 Non-destructive.** Originals stay untouched. Solves are immutable. Fit, asymmetry and sculpt are separate layers, and a refit never touches the artist's changes.
-- **P4 Flags, not corrections.** Nothing the photos support is pulled toward a norm (requirements_anatomy §6).
-- **P5 Accessible.** Overlays are shape-coded and colour-blind-safe, every action has a key, nothing moves on its own, and expert detail is opt-in.
-- **P6 Consent first.** No stage runs without a consent record covering it (ethics §3).
+- **P1 Live, then thorough.** Photos and pin drags re-solve cameras and coarse shape at ≥20 fps, or on release if an update exceeds ~50 ms (guided-workflow-accessibility 🧠).
+- **P2 Plain-language uncertainty.** Ranges in mm with a basis: *measured*, *partly measured* or *guessed from average proportions*.
+- **P3 Non-destructive.** Untouched originals, immutable solves, separate fit/asymmetry/sculpt layers.
+- **P4 Flags, not corrections** toward norms (requirements_anatomy §6).
+- **P5 Accessible:** shape-coded colour-blind-safe overlays, full keymap, no automatic motion.
+- **P6 Consent first** (ethics §3).
 
 **Journey:** 7–9 photos to a sculpt-ready head in ~20 min.
 
@@ -141,24 +141,13 @@ Results are immutable; *Revert* re-activates an older one.
 
 ### 2.6 Assets: how we obtain and verify them
 
-**Template: `minehead`** (open-template-head-kit).
-- A project-owned CC0 quad head re-authored from:
-  - the hm08 crop (CC0 📄), which keeps the targets and the MPFB round trip via `head_to_hm08`; or
-  - the Blender Studio Human Base Mesh (CC0 ✅), whichever passes topology QA. QA (face-retopology 🧠): no non-quads in deforming zones, poles at least 2 rings from lids, lips and alae, and an exact x = 0 midline.
-- `tools/template_pack/build.py` pins the source SHA-256 and writes a mirror bijection (checked: M(M(i)) = i), contour rings and eye/teeth bindings.
-- It transfers the hm08 targets barycentrically and adds one Catmull–Clark level if the face has fewer than 6k quads (W4).
+**Template `minehead`** (open-template-head-kit). A project-owned CC0 quad head re-authored from the hm08 crop (CC0 📄; keeps the targets and the MPFB round trip via `head_to_hm08`) or the Blender Studio Human Base Mesh (CC0 ✅), whichever passes topology QA (face-retopology 🧠: no non-quads in deforming zones, poles ≥2 rings from lids, lips and alae, exact x = 0 midline). `tools/template_pack/build.py` pins the source SHA-256; writes a mirror bijection (asserting M(M(i)) = i), contour rings and eye/teeth bindings; transfers the hm08 targets barycentrically; and adds one Catmull–Clark level if the face has fewer than 6k quads (W4).
 
-**Anatomical embedding.** Two annotators work from craniometric-landmarks definitions.
-- A point is accepted when they agree within 1.0 mm (en, ex, ch, sn) or 2.5 mm (g′, zy′, go′) (R4.1).
-- Their spread feeds σ_def.
-- Extremal points are stored as candidate sets plus a rule.
+**Anatomical embedding.** Two annotators work from the craniometric-landmarks definitions. A point is accepted when they agree within 1.0 mm (en, ex, ch, sn) or 2.5 mm (g′, zy′, go′) (R4.1); their spread feeds σ_def. Extremal points are stored as candidate sets plus a rule.
 
-**MediaPipe → template.**
-- Maintainers register the SHA-pinned Apache-2.0 canonical mesh with our own NICP (MM-12), seeded by about 20 point pairs.
-- A render-and-detect pass then locks the offsets, shrunk by n/(n + 2) (landmark-index-correspondence 🧠).
-- If the CC0 rule forbids shipping the derived table (ethics C7), it is built on the user's machine on first run.
+**MediaPipe → template.** Maintainers register the SHA-pinned Apache-2.0 canonical mesh with our own NICP (MM-12), seeded by ~20 point pairs, then lock offsets by render-and-detect, shrunk by n/(n + 2) (landmark-index-correspondence 🧠). If the CC0 rule forbids shipping the derived table (ethics C7), it is built locally on first run.
 
-**Tests** use a procedural pack from `synthetic.py`. Tests that need the real assets skip when they are absent.
+**Tests** use a procedural pack from `synthetic.py`; tests needing real assets skip when they are absent.
 
 ---
 
@@ -178,12 +167,9 @@ E = Σ_v w_v Σ_i ρ(‖L_vi⁻¹(π_v(X_i) − u_vi)‖) + E_curve + E_contour 
   - The old fixed 0.75 % IOD gave novices 3–30× too much weight.
 - **Iris centres move with gaze** and are never used as shape landmarks.
 
-**Robustness.**
-- Huber δ = 2, then a final Tukey round, then rejection at 3.03σ (1 % false alarms).
-- A view is rejected above its 99 % reduced-χ² bound (validation-test-bed 🧠).
-- View weight is w_v = 1/n_bin, and no view gets more than 40 % of the total (R1.8 🧠).
+**Robustness.** Huber δ = 2, a final Tukey round, then rejection at 3.03σ (1 % false alarms); a view is rejected above its 99 % reduced-χ² bound (validation-test-bed 🧠). w_v = 1/n_bin, capped at 40 % of the total (R1.8 🧠).
 
-**Solver.** LM (exists) with multiplicative rotation updates. P ≈ 110, so each mouse event runs 2–5 warm-started iterations.
+**Solver.** LM (exists) with multiplicative rotation updates; P ≈ 110, so 2–5 warm-started iterations per mouse event.
 
 ### 3.2 Cameras
 
@@ -201,14 +187,9 @@ E = Σ_v w_v Σ_i ρ(‖L_vi⁻¹(π_v(X_i) − u_vi)‖) + E_curve + E_contour 
 
 Views in the same focal group are tied with σ 0.02.
 
-**Camera model per view.**
-- Main or tele lens, face within 25° of the axis: k = 0.
-- Front camera, or face beyond 25°: k1 ~ N(0, 0.02²).
-- Ultra-wide or face at the frame edge: a local virtual camera with f′ = f·sec²(θ/2), or σ_px ×3.
+**Camera model per view:** main or tele lens with the face within 25° of the axis, k = 0; front camera or face beyond 25°, k1 ~ N(0, 0.02²); ultra-wide or face at the frame edge, a local virtual camera with f′ = f·sec²(θ/2), or σ_px ×3.
 
-**Distance prior.** Z ≈ f_px·88 mm/outer-IOD_px on near-frontal views, or a tape measure (σ 5 cm, R2.4). Bounds 0.25–10 m.
-
-**Pose tags** (R2.7 🧠): yaw σ 10°, pitch 5°, roll 3°.
+**Other priors.** Distance Z ≈ f_px·88 mm/outer-IOD_px on near-frontal views, or a tape measure (σ 5 cm, R2.4), bounded to 0.25–10 m. Pose tags (R2.7 🧠): yaw σ 10°, pitch 5°, roll 3°.
 
 ### 3.3 Observability
 
@@ -221,11 +202,7 @@ From Σ = (JᵀWJ + Λ_prior)⁻¹:
 
 ### 3.4 Shape prior and rigidity
 
-**Default: `TargetSpace`** (open-template-head-kit 🧠/↔️).
-- Each hm08 modifier splits into non-negative columns c⁺, c⁻ ∈ [0, 1], with a penalty λ·c⁺c⁻.
-- An optional mass-weighted SVD keeps K ≈ 40–80.
-- Σ_c is calibrated by moment matching against about 25 Farkas measurements: min ‖JΣ_cJᵀ − Σ_m‖_F subject to Σ_c ⪰ 0.
-- This constrains proportions, not detail. The UI therefore says "guessed from average proportions", never "typical of people like the sitter".
+**Default `TargetSpace`** (open-template-head-kit 🧠/↔️). Each hm08 modifier splits into non-negative columns c⁺, c⁻ ∈ [0, 1] with a penalty λ·c⁺c⁻; an optional mass-weighted SVD keeps K ≈ 40–80. Σ_c is moment-matched to ~25 Farkas measurements: min ‖JΣ_cJᵀ − Σ_m‖_F subject to Σ_c ⪰ 0. That constrains proportions, not detail, so the UI says "guessed from average proportions", never "typical of people like the sitter".
 
 **Rigidity.** E_shape = ½λ(r)·cᵀΣ_c⁻¹c, with λ(r) = 10^(2r−1) (facebuilder-blender 🧠). The slider is labelled "Stay close to an average head" at one end and "Follow my pins exactly" at the other.
 
@@ -242,24 +219,13 @@ From Σ = (JᵀWJ + Λ_prior)⁻¹:
 - `outer_bound` (hair, beard, hat): max(0, r);
 - `inner_bound`: max(0, −r).
 
-**Contour matching.**
-- The model contour comes from n·v zero-crossings along the template's contour rings, with a visibility test.
-- Pairs are re-matched every outer iteration and gated at 0.15·IOD_px, shrinking to 5σ_n. Pairs whose normals differ by more than 30–45° are rejected.
-- Distances use an EDT instead of the dense O(M·P) matrix.
-- σ_n² = σ_edge² + (0.5·s_model)² + σ_blur², floored at 0.005·IOD_px.
-- The main fix to existing code: `fit_silhouettes` today back-projects the full 2D correction, so the contour drifts along itself.
+**Contour matching.** The model contour is the n·v zero-crossing on the template's contour rings, visibility-tested. Pairs are re-matched every outer iteration, gated at 0.15·IOD_px shrinking to 5σ_n, and rejected beyond a 30–45° normal mismatch; an EDT replaces the O(M·P) matrix. σ_n² = σ_edge² + (0.5·s_model)² + σ_blur², floored at 0.005·IOD_px. This fixes today's `fit_silhouettes`, which back-projects the full 2D correction and so drifts along the contour.
 
-**Masks** come from a user lasso, the MediaPipe oval, or optional Apache-2.0 helpers (MediaPipe selfie, multiclass or hair segmenters; SAM 2). Parsers trained on CelebAMask or LaPa are never used.
+**Masks:** user lasso, MediaPipe oval, or optional Apache-2.0 helpers (MediaPipe segmenters, SAM 2); never CelebAMask- or LaPa-trained parsers.
 
-**Cranium** (cranium-under-hair 🧠).
-- Vault parameters L = g′–op′, B = eu′–eu′ and H = t–v get log-normal priors: σ 0.035, 0.037 and 0.045 for a matched population; 0.05 and 0.065 for L and B when ancestry is "unknown". The user chooses this; it is never inferred.
-- Hair outlines are `outer_bound` terms weighted ≥10×. The hairline, parting and nape are skin points (σ 1–2 mm). A slicked-hair view is `hard` (σ 1.5–3 mm). The tape circumference is an arc-length term.
-- The face is never stretched to fit the vault. |z| > 3 on L, B or circumference reads "check scale or focal".
+**Cranium** (cranium-under-hair 🧠). Vault parameters L = g′–op′, B = eu′–eu′, H = t–v have log-normal priors with σ 0.035 / 0.037 / 0.045 (matched population), or L 0.05 and B 0.065 when the user picks "unknown" (never inferred). Hair outlines are `outer_bound` terms weighted ≥10×. Hairline, parting and nape are skin points (σ 1–2 mm), a slicked-hair view is `hard` (σ 1.5–3 mm), and the tape circumference is an arc-length term. The face is never stretched to fit the vault; |z| > 3 reads "check scale or focal".
 
-**Ears** (ear-reconstruction-sculpting 🧠).
-- Each ear is a separate part: E = R(θ)·s·(ē + Uα) + t, hinged at otobasion and anchored at tragion.
-- Priors: tilt N(20°, 7°), protrusion N(25°, 8°), twist N(0°, 6°). U holds hand-authored CC0 ear keys.
-- An ear gets weight 0 when |yaw| < 30° or hair covers it.
+**Ears** (ear-reconstruction-sculpting 🧠). A separate part, E = R(θ)·s·(ē + Uα) + t, hinged at otobasion and anchored at tragion. Priors: tilt N(20°, 7°), protrusion N(25°, 8°), twist N(0°, 6°). U holds hand-authored CC0 ear keys. Weight is 0 when |yaw| < 30° or hair covers the ear.
 
 ### 3.6 Expression and mirror handling
 
@@ -274,17 +240,9 @@ From Σ = (JᵀWJ + Λ_prior)⁻¹:
 
 A warned view keeps ×0.25 of its identity weight.
 
-**Default (no expression basis).**
-- Identity is fitted from neutral views.
-- Open mouths drop their lip points, and squints drop their lid points (R3.7).
-- A per-view jaw hinge, x′_j = x_j + ω_j(R(θ_v·a)(x_j − c) − (x_j − c)), has its centre c 10–13 mm in front of the tragion (BA-1 🧠) and θ_v ~ N(1.5°, 1°²).
+**Default (no expression basis).** Identity comes from neutral views; open mouths drop lip points and squints drop lid points (R3.7). A per-view jaw hinge, x′_j = x_j + ω_j(R(θ_v·a)(x_j − c) − (x_j − c)), centred 10–13 mm in front of tragion (BA-1 🧠) with θ_v ~ N(1.5°, 1°²), absorbs small openings. **With a basis:** X_v = X + Eψ_v plus a neutral anchor ‖mean_N ψ_v‖/0.1 (BA-9).
 
-**With a basis.** X_v = X + Eψ_v, with a neutral anchor ‖mean_N ψ_v‖/0.1 (BA-9).
-
-**Mirror test.**
-- Compare E_v with E_v^flip (u → W − u, L/R swapped).
-- Suggest a flip at a 10 % margin for front-camera views (smartphone-camera-pipeline 🧠), otherwise at 30 % (guided-workflow-accessibility 🧠). In both cases the margin must also exceed the χ² noise 2√(2n_v) (derived).
-- Below the threshold the card says "can't tell". The photo is never flipped automatically.
+**Mirror test.** Compare E_v with E_v^flip (u → W − u, L/R swapped). Suggest a flip at a 10 % margin for front-camera views (smartphone-camera-pipeline 🧠) and 30 % otherwise (guided-workflow-accessibility 🧠); the margin must also exceed the χ² noise 2√(2n_v) (derived). Otherwise the card says "can't tell". Never flip automatically.
 
 ### 3.7 Warp schedule and asymmetry
 
@@ -323,14 +281,7 @@ Shape resolves to ~5 mm wavelength; finer detail is displacement, gated by mm/px
 
 ### 3.10 Coaching: next best photo
 
-Each pose-ring bin (yaw {0, ±20, ±45, ±90} × elevation {−25, 0, +25}) is scored as a candidate shot:
-1. Predict its Jacobian J_c.
-2. Marginalise the candidate's pose by Schur complement: H′ = H_cc + J_cᵀWJ_c − J_cᵀWJ_p(J_pᵀWJ_p)⁻¹J_pᵀWJ_c, with subscript c here meaning the shape coefficients.
-3. Score Δ = Σ_r w_r[tr_rΣ − tr_rΣ′], where tr_r(Σ) = Σ_{j∈r} tr(S_jΣS_jᵀ).
-
-The perceptual weights w_r are: lids 1.0, brows 0.9, lips 0.8, nose 0.7, ears 0.1–0.2 (face-perception-likeness 🧠).
-
-The winner is shown as one sentence, for example "Next: left profile, eye height, 1.5–2 m". Nose and chin projection count as measured only with a front view plus a view at |yaw| ≥ 60° (R5.9).
+Each pose-ring bin (yaw {0, ±20, ±45, ±90} × elevation {−25, 0, +25}) is a candidate. Predict its Jacobian, marginalise its own pose by Schur complement, H′ = H_cc + J_cᵀWJ_c − J_cᵀWJ_p(J_pᵀWJ_p)⁻¹J_pᵀWJ_c (c = shape coefficients), and score Δ = Σ_r w_r[tr_rΣ − tr_rΣ′] with tr_r(Σ) = Σ_{j∈r} tr(S_jΣS_jᵀ). Perceptual weights: lids 1.0, brows 0.9, lips 0.8, nose 0.7, ears 0.1–0.2 (face-perception-likeness 🧠). The winner becomes one sentence ("Next: left profile, eye height, 1.5–2 m"). Nose and chin projection count as measured only with a front view plus |yaw| ≥ 60° (R5.9).
 
 ### 3.11 QA in plain language
 
@@ -370,32 +321,17 @@ tags = ["Sculpt", "Modeling", "Camera"]
 files = "Read reference photos and write project and landmark files"
 ```
 
-**What ships.**
-- No wheels: the add-on uses Blender's NumPy, so one zip covers every platform.
-- Only CC0 assets are bundled (`minehead` and its targets).
-- `network` stays undeclared until a consented downloader exists (ethics A3).
-- `blender_version_min` names only versions CI tests (packaging ↔️). The engine itself runs on Python 3.11 and 3.13 with NumPy 1.26 and 2.x (A4).
+**What ships.** No wheels (Blender's NumPy; one zip for every platform) and only CC0 assets (`minehead` and its targets). `network` stays undeclared until a consented downloader exists (ethics A3). `blender_version_min` names only versions CI tests (packaging ↔️); the engine itself runs on Python 3.11/3.13 with NumPy 1.26/2.x (A4).
 
-**How landmarks arrive.**
-- **Path A:** a helper script runs in a venv the user creates and writes JSON. Nothing is pip-installed at runtime.
-- **Path B:** an optional platform-split onnxruntime build.
-- **Always available, no downloads:** manual pins plus imported JSON (ethics A4).
+**How landmarks arrive.** Path A: a helper script in a venv the user creates writes JSON; nothing is pip-installed at runtime. Path B: an optional platform-split onnxruntime build. Always available without downloads: manual pins plus imported JSON (ethics A4).
 
 ### 4.2 Panels: a guided rail
 
 The **Face3D** sidebar tab has a Guide with ten stages: Consent → Photos → Check → Landmarks → Cameras → Shape → Confidence → Sculpt → Texture → Share.
 
-Each stage shows:
-- an icon *and* a word (Done, Needs attention, Not started);
-- a "done when" line;
-- one primary button gated by `poll()`. `poll_message_set` explains why it is disabled ("2 photos still have blocking issues").
+Each stage shows an icon *and* a word (Done, Needs attention, Not started), a "done when" line, and one primary button gated by `poll()`; `poll_message_set` says why it is disabled ("2 photos still have blocking issues").
 
-**Expert options** sit in `DEFAULT_CLOSED` sub-panels:
-- σ values and badges;
-- symmetry: assist, prior or enforce;
-- expressions: off, jaw only, or basis;
-- per-group focal mode;
-- *Revert to solve #n*.
+**Expert options** sit in `DEFAULT_CLOSED` sub-panels: σ values and badges; symmetry (assist / prior / enforce); expressions (off / jaw only / basis); per-group focal mode; *Revert to solve #n*.
 
 **Optional 2-minute onboarding.** The user places 6 crisp landmarks twice, which personalises σ: σ_crisp = max(RMS(Δ)/√2 + 0.3, 0.5) mm (guided-workflow-accessibility 🧠).
 
@@ -405,8 +341,8 @@ All operators use REGISTER + UNDO and report through `self.report`; no traceback
 
 | Operator | Key | Behaviour |
 |---|---|---|
-| Pin tool (`WorkSpaceTool`) | P | Click places a pin; drag uses an offset loupe; Shift-drag moves at ¼ speed. Arrows nudge 1 px (Shift: 0.25). X deletes; H / Alt-H hide and reveal. The status bar shows hints |
-| `face3d.review_next` / `_prev` | Tab / Shift-Tab | Spell-checker queue ordered by normalised residual. Shows the plain name, an illustration and the epipolar line |
+| Pin tool (`WorkSpaceTool`) | P | Click places; drag with offset loupe; Shift-drag ¼ speed; arrows nudge 1 px (Shift 0.25); X deletes; H / Alt-H hide/reveal |
+| `face3d.review_next` / `_prev` | Tab / Shift-Tab | Spell-checker queue by normalised residual: plain name, illustration, epipolar line |
 | `face3d.view_next` / `_prev` | PageDown / PageUp | Also bound to timeline markers |
 | `face3d.solve_refine` / cancel | Ctrl-R / Esc | Esc keeps the last good state |
 | `face3d.card_accept` / `_dismiss` | Ctrl-Enter / Ctrl-Backspace | Acts on the focused card |
@@ -434,52 +370,25 @@ Residuals use labelled cividis bins: <1, 1–2, 2–3 and >3σ.
 
 **Legibility.** Every glyph has a dark outline and a light halo, giving ≥3:1 contrast on any skin tone (WCAG 2.2). Pins are 9 px with a 12 px hit radius, and every target is ≥24 px.
 
-**Motion.** Nothing moves on its own:
-- Flip-compare works only while the key is held. It replaces R8.1's 3 Hz blink, which sits in the photosensitivity range 🧠.
-- Live re-solve can be switched to "on release" (↔️, to be A/B tested).
-
-**Text.** All strings go through `bpy.app.translations`. Blender has no screen-reader support, so every finding is also written to the Info log and to the HTML/text report.
+**Motion and text.** Flip-compare is hold-to-view, replacing R8.1's 3 Hz blink, which sits in the photosensitivity range 🧠; live re-solve can switch to "on release" (↔️, A/B test). Strings go through `bpy.app.translations`; Blender has no screen reader, so findings also go to the Info log and the HTML/text report.
 
 ### 4.5 Undo, history, background jobs
 
-**Mesh writes.** `foreach_get` → float64 → `foreach_set` + `mesh.update()`, done in OBJECT mode with the previous mode restored. Writes are refused on a topology-hash mismatch or while in Edit Mode (A3, K1, K4).
+**Mesh writes.** `foreach_get` → float64 → `foreach_set` + `mesh.update()` in OBJECT mode, restoring the previous mode; refused on a topology-hash mismatch or in Edit Mode (A3, K1, K4).
 
-**Undo.**
-- While dragging, previews go to a muted `f3d_live` key via a timer, which stays off the undo stack.
-- Releasing the pin pushes one `undo_push("Move pin")`.
-- Pins live in PropertyGroups, never in globals. `undo_post` re-resolves IDs by name and re-runs the live solve (A5).
+**Undo.** While dragging, previews go to a muted `f3d_live` key from a timer, off the undo stack; release pushes one `undo_push("Move pin")`. Pins live in PropertyGroups, never globals, and `undo_post` re-resolves IDs by name and re-runs the live solve (A5).
 
-**Background work.**
-- Short solves run in a thread on copied arrays.
-- Refine and texture run in a `sys.executable -I` subprocess that exchanges `.npz` files.
-- A modal timer applies results in 30–50 ms per tick.
-- `blender -b` runs everything synchronously.
+**Background work.** Short solves run in a thread on copied arrays; Refine and texture run in a `sys.executable -I` subprocess exchanging `.npz`. A modal timer applies results at 30–50 ms per tick. `blender -b` runs everything synchronously.
 
 ### 4.6 Shape keys and Multires hand-off
 
-**Key stack** (K2, SK-1):
-- `Basis`: the template mean.
-- `ID_fit`: the symmetric fit. `slider_max` is 1.5; values above 1 are a caricature preview (R5.8 ↔️).
-- `Asym`: the subject's asymmetry.
-- `artist`: the artist's sculpt.
-- muted `stage_*` diagnostics.
+**Key stack** (K2, SK-1): `Basis` = template mean; `ID_fit` = symmetric fit (`slider_max` 1.5, >1 is a caricature preview, R5.8 ↔️); `Asym` and `artist` both with `relative_key = ID_fit`; muted `stage_*` diagnostics. Per-photo expression keys need RIG_ANIMATE consent (ethics F4).
 
-Per-photo expression keys are written only under RIG_ANIMATE consent (ethics F4).
+**Refit rebase.** Keys store absolute positions, so new `artist` = old `artist` + (new `ID_fit` − old `ID_fit`) keeps the sculpt delta exactly; Basis writes add Δ to every dependent key (K3).
 
-**Refit rebase.** new `artist` = old `artist` + (new `ID_fit` − old `ID_fit`). Basis writes add Δ to every dependent key (K3).
+**Sculpt copy.** Bake the mix, clear keys, add Multires L2 (likeness) and L3 (detail) (SK-3); keep the fit snapshot hidden. Later refits go through `multires_reshape` (K5). Whether detail follows the base is unverified (Q4), so a test scene guards it and the fallback is a new copy.
 
-**Sculpt copy.**
-- Bake the key mix, clear the keys, and add Multires L2 (likeness) and L3 (detail) (SK-3).
-- The fit snapshot stays hidden in the scene.
-- Later refits go through `multires_reshape` (K5). Whether detail follows the base is unverified (Q4); a test scene guards it, and the fallback is a new copy.
-
-**Also written.**
-- 15–25 region vertex groups.
-- Attributes: `f3d_support`, `f3d_sigma_mm`, `cranium_confidence`.
-- A *Protect measured regions* operator that copies (1 − support) into `.sculpt_mask` (a FLOAT attribute since 4.1, 📄).
-- Brow and hairline curves.
-- Rigid 24 mm eyes.
-- A locked camera per photo, with a background image (α 0.4) and its own marker, and "Lock Camera to View" off (sculpting-likeness-workflow 🧠).
+**Also written:** 15–25 region vertex groups; `f3d_support`, `f3d_sigma_mm` and `cranium_confidence` attributes; brow and hairline curves; rigid 24 mm eyes; one locked camera per photo with a background image (α 0.4) and its own marker, with "Lock Camera to View" off (sculpting-likeness-workflow 🧠). *Protect measured regions* copies (1 − support) into `.sculpt_mask`, a FLOAT attribute since 4.1 (📄).
 
 **Artist feedback into the fit.** A painted sculpt mask m becomes data weight (1 − m) plus a pin at σ 0.2 mm (W5).
 
@@ -487,24 +396,11 @@ Per-photo expression keys are written only under RIG_ANIMATE consent (ethics F4)
 
 ### 4.7 From anatomy research to in-app guidance
 
-**Capture checklist** (R1.4, reference-photography-protocol, cranium-under-hair). Each item ticks automatically when the photo checks confirm it:
-- hair off the ears;
-- glasses off for 10–15 min beforehand;
-- a fixed gaze mark;
-- the lens at eye height;
-- ≥1.5 m away;
-- a phone's 2–5× lens;
-- no portrait or beauty mode;
-- optionally, a cap view plus tape measurements.
+**Capture checklist** (R1.4, reference-photography-protocol, cranium-under-hair): hair off the ears, glasses off 10–15 min beforehand, a fixed gaze mark, lens at eye height, ≥1.5 m, the phone's 2–5× lens, no portrait or beauty mode; optionally a cap view and tape measurements. Items tick themselves when the photo checks confirm them.
 
 **Likeness checklist,** in perceptual rank (face-perception-likeness 🧠): lids → brows → lips → eye spacing → nose → facial thirds → jaw and hair → age → ears. Each item opens the camera that shows it best.
 
-**Measurement panel.**
-- Measures: en–en, ex–ex, al–al, ch–ch, n–sn, sn–sto, n–gn, zy–zy, go–go, g–op, eu–eu, ear length, and the nasolabial, gonial and cervicomental angles.
-- Each shows the value ± 2σ and its support.
-- A population z-score appears only when method and landmark variant match (R1.3, R2.2).
-- Caliper entries become constraints: E_cal = Σ((‖X_a − X_b‖ − d − o)/σ)² (R5.7).
-- |z| > 2.5 in an unobserved region produces a note, never a correction (R8.2).
+**Measurement panel:** en–en, ex–ex, al–al, ch–ch, n–sn, sn–sto, n–gn, zy–zy, go–go, g–op, eu–eu, ear length, and nasolabial, gonial and cervicomental angles, each as value ± 2σ with its support. A population z-score appears only when method and landmark variant match (R1.3, R2.2); |z| > 2.5 in an unobserved region is a note, never a correction (R8.2). Caliper entries become constraints, E_cal = Σ((‖X_a − X_b‖ − d − o)/σ)² (R5.7).
 
 **Warning catalogue** (`guidance/warnings.toml`): problem → why → fix → source and badge. Example: "Photo 3 was taken from about 40 cm, so the nose will come out too large. Retake from 1.5 m or more and zoom in. [Use for texture only] [Keep]". The R5.2 ordering hinges are included.
 
@@ -531,30 +427,14 @@ Blender smoke scripts (Q3) run in an optional external CI.
 
 ### 5.2 Honest uncertainty
 
-Calibration must hold over ≥30 seeds (validation-test-bed 🧠), including runs with definition bias and with 5 % outliers:
-- aligned 1σ coverage between 0.60 and 0.76;
-- NEES/dof between 0.8 and 1.25.
-
-If a run misses, the displayed ranges are inflated by the measured factor, and the report says so.
-
-**Tuning order.** Tune the σ ratios first, for accuracy; then the global σ scale, for coverage. Screen parameters with Morris elementary effects and validate leave-one-subject-out.
-
-**Every report carries:**
-- `scale_mode`;
-- "not validated against a scan", until a tier-3/4 comparison exists;
-- no claim finer than the capture modality allows (Q4);
-- the count of active 🧠 defaults.
+Over ≥30 seeds, including definition-bias and 5 % outlier runs, aligned 1σ coverage must be 0.60–0.76 and NEES/dof 0.8–1.25 (validation-test-bed 🧠); on a miss, displayed ranges are inflated by the measured factor and the report says so. Tune σ ratios first (accuracy), then the global σ scale (coverage). Every report carries `scale_mode`, "not validated against a scan" until a tier-3/4 comparison exists, no claim finer than the capture modality (Q4), and the count of active 🧠 defaults.
 
 ### 5.3 Likeness checks for the artist
 
-- A camera-matched overlay with an opacity control.
-- Compare modes: silhouette, edges, hold-to-flip, greyscale, thumbnail, and blur at σ = 3 % of face width (this keeps the 8–16 cycles/face-width identity band; face-perception-likeness 📄).
-- A held-out photo chosen by the artist.
-- Worst-first residuals in mm.
-- The wobble view.
-- A familiar-viewer sheet: a photo-versus-render grid with 5 questions, judged blind A/B by ≥5 people who know the sitter (guided-workflow-accessibility 🧠). Its use is limited to what the consent covers.
-- A caricature preview, S(α) = M + α(S − M) with α from 0.9 to 1.2, preview only (↔️).
-- Identity-embedding scores are off by default (IDENTITY_CHECK scope, 1:1 comparison, kept in RAM only).
+- **Compare modes** on a camera-matched overlay with opacity control: silhouette, edges, hold-to-flip, greyscale, thumbnail, and blur at σ = 3 % of face width, which keeps the 8–16 cycles/face-width identity band (face-perception-likeness 📄).
+- **Honest checks:** a held-out photo the artist picks, worst-first residuals in mm, and the wobble view.
+- **Familiar-viewer sheet:** a photo-versus-render grid with 5 questions, judged blind A/B by ≥5 people who know the sitter, within the consent scope (guided-workflow-accessibility 🧠).
+- **Caricature preview** S(α) = M + α(S − M), α 0.9–1.2, preview only (↔️). Identity-embedding scores are off by default (IDENTITY_CHECK, 1:1, RAM only).
 
 **Usability testing:** think-aloud with ~5 users per round over ≥3 rounds, then a summative SUS with 15–20 users, target ≥80.
 
