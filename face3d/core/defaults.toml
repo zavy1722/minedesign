@@ -1,0 +1,12 @@
+# face3d defaults override template (DESIGN 2.1 invariant 4, ethics digest A2).
+#
+# Every tunable default is registered in code with a badge and a source
+# (face3d.core.config.register_defaults). To override one, add a table named
+# after its namespace and a quoted key with the new value, e.g.
+#
+#   [solve.noise]
+#   'sigma_px' = 0.8
+#
+# Overrides are validated against the registered bounds; an out-of-bounds or
+# unknown key raises ValueError naming the key. Units are those documented on
+# the registered Default. No values are active in this template.
