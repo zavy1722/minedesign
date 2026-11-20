@@ -1,10 +1,60 @@
 {
   "topic": "instagram-social-sculptors",
   "sources": [
-    {"n": 1, "title": "Portrait Sculptors (@societyofportraitsculptors) Instagram profile", "url": "https://www.instagram.com/societyofportraitsculptors/", "kind": "social", "year": "n.d."},
-    {"n": 2, "title": "Inese Veismane (@cooleblumen) Instagram profile", "url": "https://www.instagram.com/cooleblumen/", "kind": "social", "year": "n.d."},
-    {"n": 3, "title": "Character Sculpt (@charactersculpt) Instagram profile", "url": "https://www.instagram.com/charactersculpt/", "kind": "social", "year": "n.d."},
-    {"n": 4, "title": "Sculptor Artists (@sculptor_artists) Instagram profile", "url": "https://www.instagram.com/sculptor_artists/", "kind": "social", "year": "n.d."},
-    {"n": 5, "title": "CLAYSHAPER (@clayshaper) Instagram profile", "url": "https://www.instagram.com/Clayshaper/", "kind": "social", "year": "n.d."}
+    {
+      "n": 1,
+      "title": "Portrait Sculptors (@societyofportraitsculptors) Instagram profile",
+      "url": "https://www.instagram.com/societyofportraitsculptors/",
+      "kind": "social",
+      "year": "n.d."
+    },
+    {
+      "n": 2,
+      "title": "Inese Veismane (@cooleblumen) Instagram profile",
+      "url": "https://www.instagram.com/cooleblumen/",
+      "kind": "social (excluded as off-topic)",
+      "year": "n.d."
+    },
+    {
+      "n": 3,
+      "title": "Character Sculpt (@charactersculpt) Instagram profile",
+      "url": "https://www.instagram.com/charactersculpt/",
+      "kind": "social",
+      "year": "n.d."
+    },
+    {
+      "n": 4,
+      "title": "Sculptor Artists (@sculptor_artists) Instagram profile",
+      "url": "https://www.instagram.com/sculptor_artists/",
+      "kind": "social",
+      "year": "n.d."
+    },
+    {
+      "n": 5,
+      "title": "CLAYSHAPER (@clayshaper) Instagram profile",
+      "url": "https://www.instagram.com/Clayshaper/",
+      "kind": "social",
+      "year": "n.d."
+    }
+  ],
+  "references_by_name": [
+    "Edouard Lanteri, Modelling and Sculpting the Human Figure (Dover reprint of Modelling, early 1900s)",
+    "Philippe Faraut, Mastering Portraiture: Advanced Analyses of the Face Sculpted in Clay",
+    "Philippe Faraut, Portrait Sculpting: Anatomy & Expressions in Clay",
+    "Bruno Lucchesi & Margit Malmstrom, Modeling the Head in Clay (1979)",
+    "Daisy Grubbs, Modeling a Likeness in Clay (1982)",
+    "Malvina Hoffman, Sculpture Inside and Out (1939)",
+    "Uldis Zarins & Sandis Kondrats, Anatomy for Sculptors (2014)",
+    "Uldis Zarins, Anatomy of Facial Expression (2017)",
+    "Scott Spencer, ZBrush Digital Sculpting Human Anatomy (2010)",
+    "Leslie G. Farkas, Anthropometry of the Head and Face (2nd ed., 1994)",
+    "Farkas et al., Vertical and horizontal proportions of the face in young adult North American Caucasians: revision of neoclassical canons (1985)",
+    "Rhodes, Brennan & Carey, Identification and ratings of caricatures (Cognitive Psychology, 1987)",
+    "Sinha & Poggio, I think I know that face... (Nature, 1996)",
+    "Ward et al., Nasal distortion in short-distance photographs: the selfie effect (JAMA Facial Plastic Surgery, 2018)",
+    "Fried et al., Perspective-aware manipulation of portrait photos (SIGGRAPH, 2016)",
+    "Dodgson, Variation and extrema of human interpupillary distance (Proc. SPIE, 2004)",
+    "Leonardo da Vinci, notebooks / Treatise on Painting (mirror check)",
+    "Tools (time-sensitive status/licence/price): fSpy, KeenTools FaceBuilder, PureRef"
   ]
 }

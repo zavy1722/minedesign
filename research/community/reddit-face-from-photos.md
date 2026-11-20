@@ -2,7 +2,7 @@
 
 > On r/blender, r/3Dmodeling, r/photogrammetry, r/ZBrush and r/computergraphics, "make a 3D head of a real person from photos" recurs constantly. Answers point to four routes: template photo-fitting, photogrammetry of a live sitter, sculpting by eye over references and, increasingly, AI image-to-3D. Experienced users agree no automatic route gives a finished likeness: each gives a base that a manual pass must correct for depth, proportions, eyes and hair. Recurring failures are about inputs more than tools: selfie perspective, unmatched front/side photos, mirrored or filtered phone images, sitter motion, hair, beards, eyes and shine. No Reddit thread was retrieved for this note, so everything is the author's synthesis of long-running discussion plus camera arithmetic: hypotheses to verify, not quotes.
 >
-> Evidence status: 0 ✅ / 0 📄 / 52 🧠 / 6 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 0 📄 / 58 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -33,8 +33,8 @@
 **Likeness craft (mostly r/ZBrush)**
 - **Shape before detail.** Block big proportions and planes first; check silhouette, profile and 3/4; flip the canvas; judge at thumbnail size, where likeness is decided; compare against many photos from one period 🧠
 - **Recurring critique points:** face too flat or head too shallow front-to-back; eyes not set deep enough under the brow; ears too high or too far forward; neck too thin or too vertical; cranium behind the ears too small 🧠
-- **Symmetry.** Rough in with symmetry on, then turn it off: real asymmetry is part of the likeness 🧠 ↔️ (the "uncanny symmetric face" claim is common, but its size is unmeasured)
-- **3DMM methods.** Single-image 3DMM methods (DECA, EMOCA, MICA, SMIRK, Deep3DFaceRecon, 3DDFA_V2) score about 1–1.5 mm mean scan error on NoW, yet r/computergraphics users call their likeness weak: errors sit where identity lives (nose projection, eye depth, jaw), priors pull towards the training-set mean, and the FLAME and BFM licences are mostly non-commercial. See `reconstruction/single-image-regression.md` 🧠
+- **Symmetry.** Rough in with symmetry on, then turn it off: real asymmetry is part of the likeness ↔️ (the "uncanny symmetric face" claim is common, but its size is unmeasured)
+- **3DMM methods.** Single-image 3DMM methods (DECA, EMOCA, MICA, SMIRK, Deep3DFaceRecon, 3DDFA_V2) score about 1.1–1.5 mm mean scan error on NoW, yet r/computergraphics users call their likeness weak: errors sit where identity lives (nose projection, eye depth, jaw), priors pull towards the training-set mean, and the FLAME and BFM licences are mostly non-commercial. See `reconstruction/single-image-regression.md` 🧠
 - **Consent.** Requests to model an ex, a stranger or a celebrity draw warnings about consent and publicity rights. A deceased relative from a few old photos gets sympathy and the realistic answer "artist sculpt, not a scan" 🧠
 
 ## Numbers & reference tables
@@ -45,9 +45,9 @@
 |---|---|---|---|
 | 0.3 | close selfie | 1.33–1.40 | 🧠 |
 | 0.5 | arm's-length selfie | 1.20–1.24 | 🧠 |
-| 1.0 | phone held by another person | 1.10–1.12 | 🧠 |
-| 2.0 | 85–135 mm portrait | 1.05–1.06 | 🧠 |
-| 3.0 | telephoto headshot | 1.033–1.040 | 🧠 |
+| 1.0 | phone held by another person; 85 mm headshot | 1.10–1.12 | 🧠 |
+| 2.0 | 135–180 mm headshot | 1.05–1.06 | 🧠 |
+| 3.0 | 200 mm+ telephoto | 1.033–1.040 | 🧠 |
 | 5.0 | press/long-lens photo | 1.020–1.024 | 🧠 |
 
 **Table 2 — Full-frame-equivalent focal length needed to frame a 40 cm-tall head-and-shoulders field** (f = 36 mm × d / 0.40 m; portrait orientation; arithmetic)
@@ -101,7 +101,7 @@ Phone main and front cameras are about 22–30 mm equivalent 🧠. That is why a
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Capture for the solver.** Views: frontal, 3/4 left and right (yaw ±35–45°), both profiles, one slightly below and one slightly above (pitch ±20°). Camera 1.5–2.5 m away at 85–135 mm equivalent, or the phone's optical 2–3× lens, never digital zoom. Sitter neutral, lips lightly closed, eyes open on a fixed target, hair back, no glasses. Even, diffuse light. Keep originals with EXIF.
+1. **Capture for the solver.** Views: frontal, 3/4 left and right (yaw ±35–45°), both profiles, one slightly below and one slightly above (pitch ±20°). Camera 1.5–2.5 m away at 85–135 mm equivalent or the phone's optical 2–3× lens, cropping later; avoid digital zoom (loses detail, EXIF focal may be inconsistent). Sitter neutral, lips lightly closed, eyes open on a fixed target, hair back, no glasses. Even, diffuse light. Keep originals with EXIF.
 2. **Photogrammetry is a separate pass** of rings (Table 3); the sitter breathes out and holds still for each ring.
 3. **Quarantine bad inputs:** beauty-filtered images, screenshots and social re-uploads; mirrored front-camera shots (check a hair parting or mole); other years; smiles (keep for expression checks only).
 4. **Never trace selfies in orthographic views.** Solve a perspective camera per photo and use it as a Blender camera with the photo as background (`blender/reference-camera-setup.md`).
@@ -138,32 +138,21 @@ Phone main and front cameras are about 22–30 mm equivalent 🧠. That is why a
 - **Hair and beard masks.** Exclude silhouette and contour points that fall inside segmented hair or beard regions. Rebuild the hairline and jaw under a beard from the skull and shape prior.
 - **Separate identity from expression.** Use one identity vector and a per-view expression vector with prior N(0, 1) in model units. Views tagged neutral have expression fixed at 0.
 - **Symmetry prior, not a constraint.** Use σ ≈ 1–2 mm per mirrored landmark pair, consistent with the 0.6–4.6 mm left-right differences in `anatomy/facial-asymmetry.md`. Let multi-view evidence override it.
-- **Coverage-driven mode.**
-  - Compute the yaw coverage of the views.
-  - If max |yaw| < 20°, label depth "prior-driven" and ask for a profile photo.
-  - Write a per-vertex confidence attribute to the Blender mesh, from the triangulation spread (`triangulate_points`) and prior dominance, usable as a sculpt mask.
-- **AI-generated meshes as weak priors only.** Align with `umeyama`, then add a low-weight shape term (σ ≈ 3–5 mm). Never use such a mesh as landmark ground truth.
-- **Built-in QA.**
-  - Held-out-view reprojection error in pixels.
-  - Overlay and Difference renders through `to_blender_camera`.
-  - One-click flip and thumbnail views.
-  - Optionally, identity-embedding cosine as a secondary score (`reconstruction/identity-embeddings.md`).
+- **Coverage-driven mode.** If max |yaw| < 20°, label depth "prior-driven" and ask for a profile. Write a per-vertex confidence attribute (triangulation spread from `triangulate_points`, prior dominance) to the Blender mesh for use as a sculpt mask.
+- **AI-generated meshes are weak priors only:** align with `umeyama`, add a low-weight shape term (σ ≈ 3–5 mm), never use as landmark ground truth.
+- **Built-in QA:** held-out-view reprojection error in pixels; overlay and Difference renders through `to_blender_camera`; one-click flip and thumbnail views; optional identity-embedding cosine as a secondary score (`reconstruction/identity-embeddings.md`).
 
 ## Disagreements, myths & open questions
 
 - ↔️ **AI generators and likeness.** "AI is good enough now" against "AI cannot do likeness." Users agree it is fine for blockout. Whether recent models (2025–26) keep identity from several photos is unsettled and changes fast.
 - ↔️ **Swivel chair or orbiting camera** for single-camera scans of people (Key facts).
 - ↔️ **Symmetry.** Some sculptors say a likeness lives in its asymmetries. Others say proportions matter far more, and that sculpting asymmetry early adds error.
-- **Myth: "telephoto flattens faces."** Distance sets perspective. A long lens only lets you stand far enough away.
-- **Myth: "iPhone LiDAR scans faces."** It is too coarse; TrueDepth or photos do better.
-- **Myth: "more photos are always better."** Blurred, mismatched or expressive photos hurt the solve. Prune them.
-- **Myth: "a splat or NeRF is a sculptable model."** It is not a clean surface.
+- **Myth: "telephoto flattens faces."** Distance sets perspective. A long lens only lets you stand far enough away 🧠
+- **Myth: "iPhone LiDAR scans faces."** It is too coarse; TrueDepth or photos do better 🧠
+- **Myth: "more photos are always better."** Blurred, mismatched or expressive photos hurt the solve; prune them 🧠
+- **Myth: "a splat or NeRF is a sculptable model."** It is not a clean surface 🧠
 - **Myth: "eyes are 90% of the likeness."** Human face-recognition research points to eyes and brows plus overall configuration (Sinha et al., 2006), not the eyes alone 🧠
-- **Open questions:**
-  - Has anyone measured the likeness (mm error or recognition rate) of FaceBuilder, Headshot or the AI generators against ground-truth scans?
-  - What fraction of real threads involve a single photo against controlled multi-view sets?
-  - What are the current prices and licences?
-  - Earlier, domain-filtered search on reddit.com returned HTTP 400, so verification should use unfiltered queries containing "reddit" plus the subreddit name.
+- **Open questions:** Has anyone measured the likeness (mm error or recognition rate) of FaceBuilder, Headshot or AI generators against ground-truth scans? What fraction of threads involve one photo versus controlled multi-view sets? What are current prices and licences? (Process note: domain-filtered search on reddit.com returned HTTP 400 earlier, so verify with unfiltered queries containing "reddit" plus the subreddit name.)
 
 ## Sources
 
@@ -182,4 +171,5 @@ No harvested sources exist for this topic, so no URLs are cited.
 - Kerbl et al., "3D Gaussian Splatting for Real-Time Radiance Field Rendering", SIGGRAPH 2023
 - Sinha et al., "Face recognition by humans: nineteen results all computer vision researchers should know about", Proc. IEEE 2006
 - Farkas, *Anthropometry of the Head and Face*, 1994
+- Dodgson, "Variation and extrema of human interpupillary distance", Proc. SPIE, 2004
 - Faraut, *Portrait Sculpting: Anatomy & Expressions in Clay*

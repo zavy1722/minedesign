@@ -1,114 +1,113 @@
 # Single-image 3D face reconstruction methods
 
-> Single-image regressors map one photo to the coefficients of a morphable model plus a camera. DECA, EMOCA, MICA, SMIRK, TEASER and Pixel3DMM use FLAME; 3DDFA_V2, Deep3DFaceRecon and HRN use the Basel Face Model (BFM). Some also output albedo, lighting or a detail map. On NoW, the standard neutral-shape benchmark, the best widely used identity regressor (MICA) scores about 0.9 mm median and 1.1 mm mean error. A correctly scaled *average* FLAME face scores about 1.5 mm mean, so a regressor captures only part of what makes a face recognisably that person [2][4]. Expression regressors (EMOCA, SMIRK, TEASER) are judged on perceptual metrics rather than shape accuracy, and the region-wise REALY benchmark ranks methods differently from NoW. For a likeness tool, treat these networks as initialisers and priors for a multi-view, perspective-calibrated fit, not as finished heads. Most research weights, and the FLAME and BFM assets they depend on, carry non-commercial terms that must be verified before shipping.
+> Single-image regressors map one photo to morphable-model coefficients plus a camera. DECA, EMOCA, MICA, SMIRK, TEASER and Pixel3DMM use FLAME. 3DDFA_V2, Deep3DFaceRecon and HRN use the Basel Face Model (BFM). On NoW, the standard neutral-shape benchmark, the best widely used identity regressor (MICA) reaches about 0.9 mm median and 1.1 mm mean error. A correctly scaled *average* FLAME face already reaches about 1.5 mm mean, so regressors capture only part of what makes a face recognisable [2][4]. Expression regressors are judged on perceptual metrics rather than shape accuracy, and REALY ranks methods differently from NoW. Use them as initialisers and priors for a multi-view, perspective-calibrated fit. Most research weights, and the FLAME and BFM assets they depend on, carry non-commercial terms.
 >
-> Evidence status: 3 ✅ / 15 📄 / 39 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 5 ✅ / 21 📄 / 50 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
-**Benchmarks and what they measure**
-- **NoW protocol.** The prediction is rigidly aligned to the ground-truth scan using 7 landmarks. Error is then reported in mm as median, mean and std over all subjects [2][4]. ✅
-- **NoW details** (Sanyal et al., CVPR 2019). The dataset has about 2,054 iPhone images of 100 subjects in four conditions: neutral, expression, occlusion and selfie. The validation split has 20 subjects and the test split has 80, with hidden ground truth. The error is the distance from each scan vertex to the predicted *surface*. The standard ("non-metrical") challenge also solves for scale. MICA added a *metrical* variant that does not. 🧠
-- **Metrics differ between papers.** Some report Chamfer distance instead of NoW scan-to-mesh error, so cross-paper tables are not strictly comparable [5]. 📄
-- **NoW is blind to fine detail.** DECA's detail layer moves median error from 1.18 to 1.19 mm [1][3]. ✅
-- **What NoW does not measure.** NoW scores neutral shape only. It does not measure expression fidelity, absolute size (scale is solved away), texture or perceived likeness. Errors are averaged over the whole face, which dilutes the eye, lip and nose differences that drive recognition. 🧠
-- **REALY** (Chai et al., ECCV 2022) uses about 100 Headspace/LYHM scans. It aligns each region separately and reports errors for the nose, mouth, forehead and cheek, so it penalises local shape errors that NoW averages out. 🧠
+**Benchmarks**
+- **NoW protocol.** The prediction is aligned to the ground-truth scan using 7 landmarks. Error is reported in mm as median, mean and std over subjects [2][4]. ✅
+- **NoW details** (Sanyal et al., CVPR 2019). About 2,054 iPhone images of 100 subjects, in four conditions: neutral, expression, occlusion and selfie. Validation has 20 subjects and test has 80, with hidden ground truth. Error is measured from each scan vertex to the predicted *surface*. The standard ("non-metrical") challenge also solves for scale. MICA added a metrical variant that does not. 🧠
+- **Metrics differ.** Some papers report Chamfer distance instead of NoW scan-to-mesh error [5]. 📄
+- **NoW is blind to detail.** DECA's detail layer moves median error from 1.18 to 1.19 mm [1][3]. ✅
+- **NoW does not score** expression, absolute size, texture or likeness; whole-face averaging dilutes the eye, lip and nose errors that drive recognition. 🧠
+- **REALY** (Chai et al., ECCV 2022) uses about 100 Headspace/LYHM scans. It aligns each region separately and reports nose, mouth, forehead and cheek errors, so local errors are not averaged away. 🧠
 
 **Methods**
-- **DECA** (SIGGRAPH 2021). On NoW **validation** it scores 1.18 / 1.46 / 1.25 mm (median / mean / std) for the coarse mesh and 1.19 / 1.47 / 1.25 mm for the detailed mesh [1]. Two later papers repeat these figures [2][3]. ✅
-- **DECA's second row.** A DECA row of 1.09 / 1.38 / 1.18 mm also appears in [1] 📄. This is almost certainly the NoW **test**-split figure, which also appears on the public leaderboard 🧠.
-- **DECA outputs.** A ResNet-50 regresses, from a 224 px crop:
-  - FLAME shape (100 coefficients) and expression (50);
-  - global and jaw pose;
-  - a weak-perspective camera (scale plus 2D translation);
-  - albedo (50) and spherical-harmonic lighting (27);
-  - a 128-d detail code that decodes to a UV displacement map conditioned on expression.
-  
-  It was trained on roughly 2 M in-the-wild images. 🧠
-- **EMOCA** (Daněček, Black, Bolkart, CVPR 2022) adds an expression encoder trained with an emotion-consistency loss. Identity comes from DECA's frozen coarse encoder, so its NoW shape numbers equal DECA's. EMOCA v2 lives in the authors' "inferno" repository. 🧠
-- **MICA** predicts a *metrical*, neutral-expression FLAME shape from one image. It takes identity features from a face-recognition network and is trained with supervision [4]. 📄 MICA reports 15 % lower error than prior methods on NoW and 24 % lower on the metrical evaluation [4]. 📄
-- **MICA details.** The face-recognition network is ArcFace, mostly frozen. The output is 300 FLAME shape coefficients in metres. MICA was trained on about 2,300 subjects pooled from eight registered 3D datasets. It is paired with the authors' *metrical-tracker* for video. 🧠
-- **MICA scores** range from 0.90 to 0.94 mm median and 1.11 to 1.19 mm mean, depending on the paper and protocol [2][5][6]. ↔️ The value 0.90 / 1.11 / 0.92 matches the public test leaderboard. 🧠
-- **Baseline: the average FLAME mesh** scores 1.92 mm mean, or 1.53 mm once its scale is optimised [4]. 📄
-- **"Towards Realistic Generative 3D Face Models"** reports 23 % (coarse) and 20 % (detailed) better median error than DECA [2]. 📄
-- **SMIRK** (CVPR 2024) replaces the differentiable rasteriser with a neural renderer. The renderer takes the predicted FLAME geometry plus sparse pixels from the input image, so the image reconstruction loss trains the expression geometry [7]. 📄 The paper and repository [8] come from the same authors, so they are not independent sources.
-- **SMIRK training data** mixes FFHQ, CelebA, MEAD and LRS3 [7]. 📄 The repo snapshot showed about 396 stars and a last update on 31 May 2024 [8]. 📄 (stale)
-- **SMIRK outputs** FLAME expression plus eyelid parameters, jaw and head pose, and a weak-perspective camera. It uses MediaPipe landmarks. 🧠
-- **TEASER** (ICLR 2025) adds multi-scale appearance tokens and a token-guided neural renderer on top of a SMIRK-style pipeline. A search summary credits it with better expression accuracy than SMIRK [9]. 📄 This was not checked against the paper's tables. ↔️
-- **3DDFA_V2** (ECCV 2020) has an official PyTorch implementation [10][11]. It detects faces with FaceBoxes and claims more than 50 fps [10][11]. 📄 Face detection dominates its latency at about 15 ms per 720p frame, and alignment can fail above about 90° pose [10]. 📄 A community TFLite port exists [12]. 📄
-- **3DDFA_V2 details.** A MobileNet regresses 62 parameters: a 12-value 3×4 pose matrix, 40 BFM shape coefficients and 10 expression coefficients. The mesh is a reduced BFM. Identity capacity is low, so use it for pose and landmarks, not likeness. 🧠
-- **Deep3DFaceRecon** (Deng et al., CVPR-W 2019, Microsoft) uses a ResNet-50 that regresses 257 BFM coefficients:
-  - 80 identity, 64 expression and 80 texture coefficients;
-  - 3 rotation and 3 translation values;
-  - 27 SH lighting values.
+- **DECA (SIGGRAPH 2021), NoW validation scores** (median / mean / std):
+  - coarse mesh: 1.18 / 1.46 / 1.25 mm;
+  - detailed mesh: 1.19 / 1.47 / 1.25 mm.
 
-  It uses a *perspective* camera with a fixed focal length (about 1015 px for a 224 px crop). Training is weakly supervised, combining a photometric, a landmark and a face-recognition perceptual loss. The output is a face-only mesh with no ears or back of the head. 🧠
-- **HRN** (Lei et al., CVPR 2023, Alibaba) is a hierarchical model. A BFM base carries the low frequencies, a deformation map the mid frequencies and a displacement map the high frequencies. It outputs a textured OBJ and has a multi-view variant (MV-HRN). At release it led REALY. 🧠
-- **Pixel3DMM** (Giebenhain et al., 2025) fine-tunes a DINO-family ViT to predict per-pixel surface normals and FLAME UV coordinates, then *optimises* FLAME against them. It is slow but strong on posed expressions, and introduced a NeRSemble-based benchmark. 🧠
-- **Newer and parallel work:**
-  - SEREP [13] (expression), KaoLRM [5] (an LRM backbone regressing FLAME) and a profile-only regressor [6]. 📄
-  - TokenFace, FlowFace, FOCUS (robust to occlusion) and SPECTRE (accurate on speech and lips). 🧠
-- **MediaPipe Face Landmarker** is not a 3DMM. It outputs 478 3D landmarks, 52 blendshape scores and a head transform, under Apache-2.0, and runs in real time on CPU. 🧠
-- **Licences.**
-  - The DECA, EMOCA and MICA code is under MPI-style non-commercial research licences. 🧠
-  - The 3DDFA_V2 and Deep3DFaceRecon_pytorch code is MIT-licensed, but both depend on BFM, which requires registration and is for non-commercial use. 🧠
-  - FLAME was historically non-commercial. A later "FLAME 2023 Open" release is reportedly CC-BY-4.0. ↔️
+  These come from [1] and are repeated by [2][3]. ✅
+- **DECA's second row** (1.09 / 1.38 / 1.18 mm) also appears in [1] 📄. It is almost certainly the **test** split, the same figure as on the public leaderboard 🧠.
+- **DECA architecture.** A ResNet-50 takes a 224 px crop and regresses:
+  - FLAME shape (100 coefficients), expression (50), and global and jaw pose;
+  - a weak-perspective camera (scale plus 2D translation);
+  - albedo (50) and spherical-harmonic (SH) lighting (27);
+  - a 128-d detail code, decoded to an expression-conditioned UV displacement map.
+
+  It was trained on roughly 2 M in-the-wild images. 🧠
+- **EMOCA** (CVPR 2022) adds an emotion-supervised expression encoder. It keeps DECA's frozen identity encoder, so its NoW scores equal DECA's. v2 lives in the authors' "inferno" repository. 🧠
+- **MICA** predicts a *metrical*, neutral FLAME shape from one image. It uses identity features from a face-recognition network and is trained with supervision [4] 📄. It reports 15 % lower error than prior methods on NoW and 24 % lower on the metrical evaluation [4]. 📄
+- **MICA details.** The backbone is ArcFace, mostly frozen. The output is 300 FLAME shape coefficients in metres. It was trained on about 2,300 subjects from eight registered 3D datasets. Its companion *metrical-tracker* handles video. 🧠
+- **MICA score spread** across papers and protocols: median 0.90–0.94 mm, mean 1.11–1.19 mm [2][5][6] ↔️. The 0.90 / 1.11 / 0.92 row matches the public test leaderboard. 🧠
+- **Baseline: the average FLAME mesh** scores 1.92 mm mean, or 1.53 mm once scale is optimised [4]. 📄
+- **"Towards Realistic Generative 3D Face Models"** reports 23 % (coarse) and 20 % (detailed) lower median error than DECA [2]. 📄
+- **SMIRK** (CVPR 2024) replaces the differentiable rasteriser with a neural renderer. The renderer is fed the predicted FLAME geometry plus sparse input pixels, so the photometric loss trains the expression geometry [7]. 📄 The repo [8] is by the same authors, so it is not an independent source.
+- **SMIRK training data** is FFHQ, CelebA, MEAD and LRS3 [7]. 📄 Repo snapshot: about 396 stars, last update 31 May 2024 [8]. 📄 (stale) Outputs: FLAME expression, eyelids, jaw/head pose, weak-perspective camera; uses MediaPipe landmarks. 🧠
+- **TEASER** (ICLR 2025) adds multi-scale tokens and a token-guided neural renderer to a SMIRK-style design. A search summary claims it is more expression-accurate than SMIRK [9]. 📄 The paper's tables have not been checked. ↔️
+- **3DDFA_V2** (ECCV 2020) has an official PyTorch implementation [10][11].
+  - It detects faces with FaceBoxes and claims more than 50 fps [10][11]. 📄
+  - Detection takes about 15 ms per 720p frame, and alignment fails above about 90° pose [10]. 📄
+  - A community TFLite port exists [12]. 📄
+- **3DDFA_V2 model.** A MobileNet regresses 62 parameters: a 12-value 3×4 pose matrix, 40 BFM shape coefficients and 10 expression coefficients. It has low identity capacity, so use it for pose and landmarks only. 🧠
+- **Deep3DFaceRecon** (Deng et al., CVPR-W 2019). A ResNet-50 regresses 257 BFM coefficients: identity 80, expression 64, texture 80, pose 6 and SH lighting 27.
+  - It uses a perspective camera with a fixed focal length of about 1015 px at 224 px.
+  - Training is weakly supervised with photometric, landmark and face-recognition losses.
+  - The output is a face-only mesh with no ears or back of head. 🧠
+- **HRN** (Lei et al., CVPR 2023) stacks a BFM base for low frequencies, a deformation map for mid frequencies and a displacement map for high frequencies. It outputs a textured OBJ and has a multi-view variant. It led REALY at release. 🧠
+- **Pixel3DMM** (Giebenhain et al., 2025) uses a DINO-family ViT to predict per-pixel normals and FLAME UV coordinates, then *optimises* FLAME against them. It is slow but strong on posed expressions, and comes with a NeRSemble-based benchmark. 🧠
+- **Newer and parallel work.** SEREP [13], KaoLRM (an LRM regressing FLAME) [5] and a profile-only regressor [6]. 📄 Also TokenFace, FlowFace, FOCUS (robust to occlusion) and SPECTRE (lip accuracy). 🧠
+- **MediaPipe Face Landmarker** gives 478 3D landmarks, 52 blendshape scores and a head transform. It is Apache-2.0 and runs in real time on CPU. 🧠
+- **Licences** (verify before shipping):
+  - The DECA, EMOCA and MICA code is under non-commercial research licences. 🧠
+  - The 3DDFA_V2 and Deep3DFaceRecon_pytorch code is MIT, but both need BFM, which is registration-only and non-commercial. 🧠
+  - FLAME was historically non-commercial; a "FLAME 2023 Open" release is reportedly CC-BY-4.0. ↔️
   - The SMIRK, TEASER, HRN and Pixel3DMM licences are unconfirmed.
 
 ## Numbers & reference tables
 
-**Table 1: NoW errors (mm).** Population: NoW subjects (20 in validation, 80 in test 🧠). The prediction is aligned with a similarity transform unless the row is labelled metrical.
+**Table 1: NoW errors in mm.** Population: NoW subjects. Errors use a similarity alignment unless the row is marked metrical. "Leaderboard" means the public NoW leaderboard, cited by name and not linked; n/s means the split was not stated.
 
 | Method / variant | Split | Median | Mean | Std | Source | Status |
 |---|---|---|---|---|---|---|
 | Average FLAME, no scale fit | n/s | – | 1.92 | – | [4] | 📄 |
 | Average FLAME, scale optimised | n/s | – | 1.53 | – | [4] | 📄 |
-| PRNet | test | ≈1.50 | ≈1.98 | ≈1.88 | leaderboard (name) | 🧠 |
-| 3DDFA_V2 | test | ≈1.23 | ≈1.57 | ≈1.39 | leaderboard (name) | 🧠 |
-| RingNet | test | ≈1.21 | ≈1.53 | ≈1.31 | leaderboard (name) | 🧠 |
-| Deep3DFaceRecon (PyTorch) | test | ≈1.11 | ≈1.41 | ≈1.21 | leaderboard (name) | 🧠 |
+| PRNet | test | ≈1.50 | ≈1.98 | ≈1.88 | leaderboard | 🧠 |
+| 3DDFA_V2 | test | ≈1.23 | ≈1.57 | ≈1.39 | leaderboard | 🧠 |
+| RingNet | test | ≈1.21 | ≈1.53 | ≈1.31 | leaderboard | 🧠 |
+| Deep3DFaceRecon (PyTorch) | test | ≈1.11 | ≈1.41 | ≈1.21 | leaderboard | 🧠 |
 | DECA coarse | val | 1.18 | 1.46 | 1.25 | [1][2] | ✅ |
 | DECA detailed | val | 1.19 | 1.47 | 1.25 | [1][3] | ✅ |
-| DECA (summary row) | test (🧠) | 1.09 | 1.38 | 1.18 | [1] | 📄 |
-| EMOCA v1 | test | = DECA | = DECA | = DECA | (name) | 🧠 |
+| DECA summary row | test (🧠) | 1.09 | 1.38 | 1.18 | [1] | 📄 |
+| EMOCA v1 | test | = DECA | = DECA | = DECA | paper | 🧠 |
 | MICA row A | n/s | 0.913 | 1.130 | 0.948 | [2] | ↔️ |
-| MICA row B (= leaderboard test) | test (🧠) | 0.90 | 1.11 | 0.92 | [2] | ↔️ |
+| MICA row B | test (🧠) | 0.90 | 1.11 | 0.92 | [2] | ↔️ |
 | MICA, profile images | profile | 0.9432 | 1.1606 | – | [6] | 📄 |
 | MICA, Chamfer-style | val | – | ≈1.19 | – | [5] | 📄 |
-| TokenFace | test | ≈0.76 | ≈0.95 | ≈0.82 | (name) | 🧠 |
+| TokenFace | test | ≈0.76 | ≈0.95 | ≈0.82 | leaderboard | 🧠 |
 
-**Table 2: Method cards.** Speeds are order-of-magnitude figures for one face on a recent consumer GPU, excluding detection, unless a citation is given.
+**Table 2: Method cards.** Speed is an order-of-magnitude figure for one face on a recent consumer GPU, excluding detection, unless a source is cited.
 
-| Method | Model, parameters | Camera | Metric scale? | Code | Licence (code / assets) | Speed | Status |
+| Method | Model, parameters | Camera | Metric? | Code | Licence (code / assets) | Speed | Status |
 |---|---|---|---|---|---|---|---|
-| DECA | FLAME 100 shape / 50 expression + detail UV | weak-perspective | no | yes | non-commercial / FLAME | ~10 ms | 🧠 |
+| DECA | FLAME 100 shape / 50 expression + detail map | weak-perspective | no | yes | non-commercial / FLAME | ~10 ms | 🧠 |
 | EMOCA | DECA + expression encoder | weak-perspective | no | yes | non-commercial / FLAME | ~10 ms | 🧠 |
-| MICA | FLAME 300 shape, neutral | none (shape only) | yes, learned | yes | non-commercial / FLAME + ArcFace | ~10 ms + detection | 🧠 |
-| SMIRK | FLAME shape, expression and eyelids | weak-perspective | no | [8] | unconfirmed | ~10 ms | 📄/🧠 |
-| TEASER | FLAME (SMIRK-style) | weak-perspective | no | unconfirmed | unconfirmed | ~10 ms | 🧠 |
-| 3DDFA_V2 | BFM 40 shape / 10 expression, 3×4 pose | weak-perspective (affine) | no | [10] | MIT / BFM | >50 fps [10][11] | 📄 |
-| Deep3DFaceRecon | BFM 80 / 64 / 80, 257 coefficients | perspective, f≈1015 px @224 | no | yes | MIT / BFM | ~10 ms | 🧠 |
+| MICA | FLAME 300 shape, neutral | none | learned | yes | non-commercial / FLAME + ArcFace | ~10 ms | 🧠 |
+| SMIRK | FLAME shape / expression / eyelids | weak-perspective | no | [8] | unconfirmed | ~10 ms | 📄 |
+| TEASER | FLAME, SMIRK-style | weak-perspective | no | unconfirmed | unconfirmed | ~10 ms | 🧠 |
+| 3DDFA_V2 | BFM 40 shape / 10 expression | 3×4 affine | no | [10] | MIT / BFM | >50 fps [10][11] | 📄 |
+| Deep3DFaceRecon | BFM, 257 coefficients | perspective, f≈1015 @224 | no | yes | MIT / BFM | ~10 ms | 🧠 |
 | HRN | BFM + deformation and displacement maps | perspective | no | yes | unconfirmed | sub-second | 🧠 |
-| Pixel3DMM | FLAME, fitted to ViT normals and UVs | perspective (optimised) | partial | yes | unconfirmed | tens of s+ | 🧠 |
-| MediaPipe | 478 landmarks, 52 blendshape scores | perspective transform | no | yes | Apache-2.0 | real-time on CPU | 🧠 |
+| Pixel3DMM | FLAME fitted to normals and UVs | perspective | partial | yes | unconfirmed | tens of seconds+ | 🧠 |
+| MediaPipe | 478 landmarks + 52 blendshape scores | perspective | no | yes | Apache-2.0 | real-time on CPU | 🧠 |
 
 **Table 3: Morphable-model assets.**
 
 | Asset | Vertices | Bases | Training population | Status |
 |---|---|---|---|---|
-| FLAME (2017/2020) | 5,023 vertices, 9,976 triangles; full head with neck, ears and eyeballs | 300 shape, 100 expression, 5 joints | about 3,800 CAESAR heads (Western adults) plus 4D expression scans | 🧠 |
-| BFM 2009 | 53,490 | 199 shape / 199 texture | 200 adults, 100 female and 100 male, mostly European | 🧠 |
-| BFM as cropped by Deep3D | about 35,709 | 80 identity + 64 expression | as above, with FaceWarehouse expressions | 🧠 |
+| FLAME 2017/2020 | 5,023 vertices, 9,976 triangles; head, neck, ears, eyeballs | 300 shape / 100 expression / 5 joints | about 3,800 CAESAR adults + 4D expression scans | 🧠 |
+| BFM 2009 | 53,490 | 199 shape / 199 texture | 200 adults (100 F / 100 M), mostly European | 🧠 |
+| BFM as cropped by Deep3D | ≈35,709 | 80 identity + 64 expression | as above, plus FaceWarehouse expressions | 🧠 |
 
-**Table 4: Selfie distortion (geometry).** Magnification of the nose tip relative to the ears is (D+d)/D, with depth difference d ≈ 0.09 m.
+**Table 4: Selfie distortion.** Magnification of the nose tip relative to the ears is (D+d)/D, with depth difference d ≈ 0.09 m. Status 🧠 (arithmetic).
 
-| Camera distance D | 0.3 m | 0.5 m | 1 m | 2 m | 3 m |
+| Distance D | 0.3 m | 0.5 m | 1 m | 2 m | 3 m |
 |---|---|---|---|---|---|
-| Nose-tip vs ear magnification | ≈1.30 | ≈1.18 | ≈1.09 | ≈1.045 | ≈1.03 |
+| Magnification | ≈1.30 | ≈1.18 | ≈1.09 | ≈1.045 | ≈1.03 |
 
-Status: 🧠 (arithmetic)
-
-**Table 5: REALY, frontal track, average over regions (mm).** The figures are approximate.
+**Table 5: REALY frontal error, averaged over regions, in mm (approximate).**
 
 | Group | Error | Status |
 |---|---|---|
@@ -119,82 +118,88 @@ Status: 🧠 (arithmetic)
 ## Applying this to photo→3D face sculpting in Blender
 
 1. **Photo intake.**
-   - Have the subject keep a neutral expression with lips closed and relaxed.
-   - Keep hair off the forehead and ears, and remove glasses.
-   - Shoot from ≥1.5–2 m with a lens of 85 mm or longer (full-frame equivalent).
-   - Take 5–9 views: frontal, ±30–45°, both profiles, and slightly high and low.
+   - Subject: neutral expression, lips closed, hair off forehead and ears, no glasses.
+   - Camera: ≥1.5–2 m away with an 85 mm+ (full-frame equivalent) lens.
+   - Views: 5–9, covering frontal, ±30–45°, both profiles, and slightly high and low.
 
-   Selfies taken at 0.3–0.5 m inflate the nose and mid-face by 18–30 % relative to the ears (Table 4). Weak-perspective regressors (DECA, EMOCA, SMIRK, 3DDFA_V2) bake that inflation into the *shape*.
-2. **Pick a backend per job.**
-   - Use MICA (or a MICA average over several photos) for the neutral identity and an initial size estimate [4].
-   - Use SMIRK, EMOCA or TEASER only to *measure* expression. Reject frames where expression or jaw opening is non-trivial [7][9].
-   - Use 3DDFA_V2 or MediaPipe for pose and landmarks [10].
-3. **Set expectations.** The base mesh will still carry about 1 mm mean error with a heavy tail (std 0.9–1.25 mm) [1][2]. The error concentrates in depth (nose projection, chin, orbits), because a frontal image observes depth weakly. Budget a correction pass for the profile silhouette and lips.
-4. **Fix scale explicitly.** NoW figures say nothing about absolute size, because scale is solved during alignment [4].
-   - Anchor scale with a measured quantity: a ruler in frame, measured head breadth, or iris diameter (adult average about 11.7 mm, SD about 0.5 mm 🧠).
-   - Check the anthropometrics: bizygomatic breadth 120–150 mm and head length 175–205 mm for adults 🧠.
-   - FLAME's native unit is metres. Keep the Blender unit scale at 1.0.
-5. **Neutralise before sculpting.** Fit expression per photo, then zero the expression and jaw values on the identity mesh. Expressive photos leak into DECA-style identity estimates. MICA is more robust here because its identity features are expression-invariant [4].
-6. **Check in Blender.**
-   - Load each photo as a camera background, using the solved perspective camera rather than the regressor's orthographic one.
-   - Compare landmark reprojection; the target is under about 1–2 % of interocular distance.
-   - Compare the profile silhouette overlay.
-   - Mirror-compare the two halves: PCA regressors suppress real asymmetry.
-7. **Expect these failures:**
-   - regression toward the mean, which looks "generic" or "everyone looks alike";
-   - flattened depth;
-   - generic ears and cranial vault, since they are never observed under hair;
-   - a jawline hidden by beards;
-   - wrong eyelid aperture;
-   - lower accuracy for children and under-represented populations (FLAME and BFM training sets are mostly Western adults).
-8. **Topology.** FLAME (5,023 vertices) is a usable sculpt cage: add multires levels and keep the base as a shape key. BFM outputs are a face mask with no back of head, so warp a full template onto them instead. Treat DECA and HRN detail as a separate displacement layer and do not judge likeness from it [1].
-9. **Latency.** For live preview, detect once and then track. Detection, not regression, dominates the per-frame cost [10].
+   Selfies taken at 0.3–0.5 m inflate the mid-face by 18–30 % relative to the ears (Table 4). Weak-perspective regressors bake that inflation into the shape.
+2. **Backend per job.**
+   - MICA, median-averaged over photos, gives the neutral identity and a size guess [4].
+   - SMIRK, EMOCA or TEASER only *measure* expression; reject frames where it is non-trivial [7][9].
+   - 3DDFA_V2 or MediaPipe give pose and landmarks [10].
+3. **Expectations.** Expect about 1 mm mean error with a heavy tail (std 0.9–1.25 mm) [1][2]. The error concentrates in depth (nose projection, chin, orbits), so budget a correction pass on the profile silhouette and the lips.
+4. **Scale.** NoW says nothing about size, because scale is solved during alignment [4].
+   - Anchor scale with a measurement: a ruler in frame, head breadth, or iris diameter (adult about 11.7 mm, SD about 0.5 mm 🧠).
+   - Sanity-check the adult ranges: bizygomatic breadth 120–150 mm and head length 175–205 mm 🧠.
+   - FLAME units are metres, so keep the Blender unit scale at 1.0.
+5. **Neutralise.** Fit expression per photo, then zero the expression and jaw on the identity mesh. DECA-style identity absorbs expression. MICA's ArcFace features resist it [4].
+6. **Checks.**
+   - Use each photo as a camera background under the *solved perspective* camera.
+   - Landmark reprojection should be under about 1–2 % of interocular distance.
+   - Overlay the profile silhouette.
+   - Mirror-compare left and right, because PCA regressors suppress asymmetry.
+7. **Typical failures.**
+   - Regression to the mean ("everyone looks alike").
+   - Flattened depth.
+   - Generic ears and cranial vault.
+   - Beards hiding the jawline.
+   - Wrong eyelid aperture.
+   - Worse results on children and under-represented groups, because FLAME and BFM training data is mostly Western adults.
+8. **Topology.**
+   - FLAME (5,023 vertices) works as a sculpt cage. Add multires and keep the regressor shape as a shape key.
+   - BFM outputs are face masks, so warp a full-head template onto them.
+   - Keep DECA or HRN detail as a separate displacement layer, and never judge likeness from it [1].
+9. **Latency.** Detect once, then track. Detection dominates the per-frame cost [10].
 
 ## Algorithmic implications
 
 - **Backend contract.** Each backend returns:
-  - topology (FLAME or BFM), coefficients and landmarks;
-  - landmark convention: iBUG-68 2D, 3D-consistent, or MediaPipe-478;
+  - topology, coefficients and landmarks;
+  - landmark convention (iBUG-68 2D, 3D-consistent, or MediaPipe-478);
   - camera type (weak-perspective, affine or perspective);
-  - a flag for whether the output is metric;
-  - its licence.
+  - a metric flag and its licence.
 
-  Ship the default path with only MIT and Apache components (MediaPipe plus our own fitter). Make research backends user-installed opt-ins.
-- **Converting weak perspective to perspective (derived).** DECA-style projections are x = s·(X + t) in [−1, 1] crop coordinates. For a square crop of side W_b pixels in the original image and a focal length of f px (from EXIF, or a default 50 mm equivalent):
-  - initial depth Z₀ = 2f / (s·W_b);
-  - lateral position = (pixel offset of the crop-space translation) · Z₀ / f.
+  Ship a default path built only from MIT and Apache parts: MediaPipe plus our own fitter. Research backends are opt-in user installs.
+- **Weak-perspective to perspective (derived).** DECA-style projection is x = s·(X + t) in crop coordinates [−1, 1]. For a square crop of side W_b px in the original image and a focal length f px (from EXIF, else a default 50 mm equivalent):
+  - initial depth Z₀ = 2f/(s·W_b);
+  - lateral offset = (pixel offset of the projected origin) · Z₀/f.
 
-  For 3DDFA_V2, split its 3×4 matrix into scale and rotation by SVD before refining. 🧠
-- **Identity prior.** FLAME shape coefficients have nominally unit variance 🧠. Run the regressor on each of the N photos and take the median code β̄ per component, so that one bad frame does not drag the estimate.
-  - Prior: β ~ N(β̄, diag(σ²)), where σ_k is the spread of β_k across photos with a floor of about 0.3 (MICA) or 0.6 (DECA).
-  - Components the regressor does not predict (DECA's 101–300) get σ = 1.
-  - These σ values are design defaults, not sourced values. Tune them on held-out scans.
-- **Residual model.** The draft's own derivation assumes half-normal errors, which gives median ≈ 0.674σ, mean ≈ 0.798σ and std ≈ 0.603σ.
-  - Then MICA's 0.90 / 1.11 / 0.92 mm implies σ ≈ 1.33–1.53 mm, and DECA validation implies σ ≈ 1.75–2.07 mm.
-  - In both cases mean/median ≈ 1.23, against 1.18 for a true half-normal, so the tails are heavy.
-  - Use Huber or Student-t losses with scale ≈ 1.4 mm for MICA initialisation and ≈ 1.8 mm for DECA.
-- **Scale prior.** Use a separate log-scale prior with σ ≈ 0.04–0.05 for MICA-derived scale (a statistical guess) and ≥ 0.10 for non-metric backends. Tighten it to ≈ 0.01 with a user measurement. These are design defaults. 🧠
-- **Contour landmarks.** 2D detectors place jawline points on the visible silhouette, while 3D-consistent schemes fix them on the mesh. Use sliding contour correspondences or a silhouette term, or yaw-dependent bias will distort jaw width. 🧠
-- **Factorisation.** Share identity β and scale across views. Fit expression ψ, jaw and pose per view. Set ψ to 0 at hand-off. Gate out frames with |yaw| ≳ 90° for 3DDFA_V2 initialisation [10], and down-weight views where backends disagree.
-- **Evaluation harness.** Implement a NoW-style metric: 7-landmark alignment, scan-to-surface distance, and median, mean and std [2][4]. Run it in both a similarity mode and a metric (no-scale) mode, and add REALY-style per-region errors. Log the split, metric and mesh variant [5].
+  For 3DDFA_V2, split the 3×4 matrix into scale and rotation with an SVD. 🧠
+- **Identity prior.** FLAME shape coefficients are nominally unit-variance 🧠.
+  - Take the per-component median β̄ over N photos.
+  - Prior: β ~ N(β̄, diag(σ²)), where σ_k is the spread across photos, floored at about 0.3 (MICA) or 0.6 (DECA).
+  - Components the regressor does not predict get σ = 1.
+  - These are design defaults, not sourced values; tune them on held-out scans.
+- **Residual model (derived; the half-normal shape is an assumption).** For half-normal errors, median ≈ 0.674σ, mean ≈ 0.798σ and std ≈ 0.603σ.
+  - MICA's 0.90 / 1.11 / 0.92 mm then implies σ ≈ 1.33–1.53 mm.
+  - DECA's validation scores imply σ ≈ 1.75–2.07 mm.
+  - Both have mean/median ≈ 1.23, against 1.18 for a true half-normal, so the tails are heavy.
+  - Use a Huber or Student-t loss with scale ≈ 1.4 mm for MICA initialisation and ≈ 1.8 mm for DECA.
+- **Scale prior.** Use a log-scale prior with σ ≈ 0.04–0.05 for MICA (its scale is a statistical guess) and σ ≥ 0.10 for non-metric backends. Tighten it to ≈ 0.01 with a user measurement. These are design defaults. 🧠
+- **Contour landmarks.** 2D detectors put jaw points on the silhouette, while 3D-consistent schemes fix them on the mesh. Use sliding correspondences or a silhouette term, or jaw width will be biased with yaw. 🧠
+- **Factorisation.**
+  - Share identity β and scale across views.
+  - Fit expression ψ, jaw and pose per view, and set ψ to 0 at hand-off.
+  - Do not initialise from 3DDFA_V2 on frames with |yaw| ≳ 90° [10].
+  - Down-weight frames where the backends disagree.
+- **Evaluation harness.**
+  - NoW-style: 7-landmark alignment, then scan-to-surface median, mean and std [2][4].
+  - Run in both similarity and metric (no scale) modes.
+  - Add REALY-style per-region errors.
+  - Log split, metric and mesh variant [5].
 
 ## Disagreements, myths & open questions
 
-- **DECA's two rows.** 1.09 / 1.38 mm is the test split and 1.18 / 1.46 mm is the validation split (attribution 🧠; numbers [1][2][3]). Always cite the split with the number.
-- **MICA spread.** MICA's median ranges from 0.90 to 0.94 mm and its mean from 1.11 to 1.19 mm across [2][5][6]. Metric and split differences are the likely causes. ↔️
-- **Refuted: "MICA's NoW mean is 1.53 mm."** That figure is the scale-optimised *average-mesh* baseline [4].
-- **Myth: "a detailed mesh is more accurate."** On NoW it is not [1][3].
-- **Myth: "a lower NoW score means better likeness."** NoW is a whole-face, scale-free, neutral-shape metric, and REALY reorders methods. ↔️
-- **Myth: "MICA gives true metric size."** MICA's scale is learned from appearance–size correlations, which makes it a prior, not a measurement. 🧠
-- **Myth: "a regressor's fps equals pipeline fps."** Detection dominates [10].
-- **Myth: "generic image-to-3D models (LRMs) beat 3DMMs for faces."** They produce plausible but non-metric and identity-drifting meshes. KaoLRM [5] constrains an LRM to FLAME for this reason. ↔️
-- **"TEASER beats SMIRK"** is unverified [9]. Pixel3DMM's improvement claims and HRN's REALY lead are also unverified (🧠).
-- **Open questions.**
-  - Every licence, especially FLAME 2023 Open and the SMIRK, HRN, Pixel3DMM and TEASER repositories.
-  - Measured GPU timings.
-  - NoW scores for SMIRK, HRN and Pixel3DMM.
-  - The exact REALY numbers.
-  - Whether the [4] average-mesh baseline used the same split as the other NoW rows.
+- **DECA's two rows.** 1.09 / 1.38 mm is the test split and 1.18 / 1.46 mm is validation (split attribution 🧠; numbers from [1][2][3]). Always cite the split with the number.
+- **MICA spread.** Median 0.90–0.94 mm and mean 1.11–1.19 mm across [2][5][6], probably because of different metrics and splits. ↔️
+- **Refuted: "MICA's NoW mean is 1.53 mm."** That figure is the scale-optimised average-mesh baseline [4].
+- **Myth: "the detailed mesh is more accurate."** Not on NoW [1][3].
+- **Myth: "lower NoW means better likeness."** NoW is whole-face, scale-free and neutral-only, and REALY reorders methods. ↔️
+- **Myth: "MICA gives true metric size."** Its scale is learned from correlations between appearance and size, so it is a prior, not a measurement. 🧠
+- **Myth: "the regressor's fps is the pipeline's fps."** Detection dominates [10].
+- **Myth: "generic image-to-3D LRMs beat 3DMMs on faces."** Their meshes are plausible but non-metric and drift in identity. KaoLRM [5] constrains an LRM to FLAME for that reason. ↔️
+- **Unverified claims.** "TEASER beats SMIRK" [9], Pixel3DMM's gains and HRN's lead on REALY (🧠).
+- **Open questions:** licences (FLAME 2023 Open, SMIRK, HRN, Pixel3DMM, TEASER), measured GPU timings, NoW scores for SMIRK/HRN/Pixel3DMM, exact REALY numbers, and which split the [4] baseline used.
 
 ## Sources
 
@@ -214,17 +219,13 @@ Status: 🧠 (arithmetic)
 14. A survey and classification of face alignment methods based on face models — https://arxiv.org/pdf/2311.03082 — paper — 2023
 
 **Further reading (by name, not yet linked)**
-- Sanyal, Bolkart, Feng, Black — Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision (RingNet; NoW benchmark), CVPR 2019
+- Sanyal, Bolkart, Feng, Black — Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision (RingNet, NoW), CVPR 2019
 - Li, Bolkart, Black, Li, Romero — Learning a Model of Facial Shape and Expression from 4D Scans (FLAME), SIGGRAPH Asia 2017
-- Paysan, Knothe, Amberg, Romdhani, Vetter — A 3D Face Model for Pose and Illumination Invariant Face Recognition (BFM 2009), AVSS 2009
-- Blanz & Vetter — A Morphable Model for the Synthesis of 3D Faces, SIGGRAPH 1999
+- Paysan et al. — A 3D Face Model for Pose and Illumination Invariant Face Recognition (BFM 2009), AVSS 2009
 - Daněček, Black, Bolkart — EMOCA: Emotion Driven Monocular Face Capture and Animation, CVPR 2022
 - Deng et al. — Accurate 3D Face Reconstruction with Weakly-Supervised Learning: From Single Image to Image Set, CVPR Workshops 2019
 - Chai et al. — REALY: Rethinking the Evaluation of 3D Face Reconstruction, ECCV 2022
 - Lei et al. — A Hierarchical Representation Network for Accurate and Detailed Face Reconstruction from In-The-Wild Images (HRN), CVPR 2023
 - Giebenhain et al. — Pixel3DMM: Versatile Screen-Space Priors for Single-Image 3D Face Reconstruction, 2025
-- Feng et al. — Joint 3D Face Reconstruction and Dense Alignment with Position Map Regression Network (PRNet), ECCV 2018
-- Filntisis et al. — Visual Speech-Aware Perceptual 3D Facial Expression Reconstruction from Videos (SPECTRE), 2022
 - Kartynnik et al. — Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs (MediaPipe Face Mesh), CVPR Workshops 2019
 - Egger et al. — 3D Morphable Face Models: Past, Present, and Future, ACM TOG 2020
-- Zollhöfer et al. — State of the Art on Monocular 3D Face Reconstruction, Tracking, and Applications, Eurographics STAR 2018

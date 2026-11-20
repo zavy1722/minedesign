@@ -1,113 +1,161 @@
 # Blender add-ons for heads and faces
 
-> The Blender head/face add-on landscape splits into three layers that a photo→likeness pipeline must connect. The first is landmark capture: MediaPipe-based tools, where MediaPipe Face Mesh outputs 468 landmarks, or 478 with refinement. The second is parametric base humans: MPFB2/MakeHuman is the best-documented open option, with GPL-3-or-later code, CC0/CC-BY assets and distribution through Blender Extensions. The third is expression and rig tooling: Faceit is paid and generates ARKit-style shape keys, while CaptureForge and Face Shape Key Rig are GPL tools that convert to or drive ARKit-style keys. None of the tools in this evidence set is described as fitting a specific person's identity shape to photos, and that gap is what this project's fitting engine must fill. **Verification caveat:** this run's own cross-check searches could not execute because the shared web-search budget was used up, and GitHub API access to the third-party repos was not available. The badges below therefore reflect only the harvester's evidence. MB-Lab, CharMorph, Human Generator, the FLAME Blender add-on, Auto-Rig Pro and FaceBuilder have **no collected evidence** yet.
+> No Blender add-on in this evidence set fits a specific person's identity to photos with open code, open data and a commercial-safe licence; that gap is what this project fills. The ecosystem has three layers: landmark capture (MediaPipe: 468 points, 478 with eye/lip/iris refinement), parametric base humans (MPFB2/MakeHuman is the only actively released option with GPL-3-or-later code and CC0/CC-BY assets; FLAME is research-licensed; MB-Lab, CharMorph and Human Generator are legacy, niche or proprietary-content), and expression/rig tools converging on the ARKit 52 basis (Faceit, CaptureForge, Face Shape Key Rig, Auto-Rig Pro, Rigify). KeenTools FaceBuilder is the incumbent photo→head tool, with a closed core and a commercial licence. Recommended architecture: fit identity on a frozen MPFB2 topology, write it as one neutral shape key or MPFB target, add detail with Multires, and hand expressions to the ARKit layer; version claims churn (5.0 broke the Python API; 5.2 LTS and 5.3 are current per the library note `blender/blender-version-status-2026.md`), so treat every version row as perishable.
+Evidence status: 3 ✅ / 21 📄 / 44 🧠 / 6 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 ### Landmark capture (MediaPipe)
-- MediaPipe Face Mesh estimates **468 3D face landmarks** per face in real time [3][2] ✅
-- When refined landmarks are enabled, the output grows to **478 landmarks** per face. An attention-mesh model refines coordinates around the eyes and lips and adds iris landmarks [2]. ⚠️ The official legacy page [3] was not re-checked for the 478 figure in this run.
-- No add-on literally named "FaceMesh Capture" was found. The closest match, `mozi1924/mediapipe-facecap-for-blender`, has two parts: an external **transmitter** program runs MediaPipe, and a Blender add-on (**receiver**) takes in the stream [1] ⚠️. Its licence, its Blender-version range and whether it outputs raw landmarks or only animation channels were not captured.
-- Other MediaPipe face-mesh projects are listed under the GitHub topic `mediapipe-facemesh` [4]. None was reviewed individually. ⚠️
+- Face Mesh estimates **468 3D landmarks** per face in real time [3][2] ✅
+- With refinement on, output is **478**: an attention-mesh stage refines eyes and lips and adds iris points [2] 📄. The 10 extra points are two 5-point iris sets (centre + 4 rim), indices 468–472 and 473–477; which set is "left" is described inconsistently across sources 🧠
+- The MediaPipe Tasks **Face Landmarker** (successor to the legacy solution) returns 478 landmarks plus optional **52 blendshape scores** with ARKit-style names (to my knowledge including `_neutral` and omitting `tongueOut`) and a 4×4 facial transformation matrix 🧠
+- x, y are normalised by image width/height; z is depth relative to the head centre in roughly x's scale (smaller = nearer). z is **not metric** and is pulled strongly toward the mean face 🧠 (confirm wording in [3])
+- The "face geometry" module aligns a fixed **468-vertex canonical face model** (centimetres) by Procrustes, so its "metric" scale is the canonical face's, not the subject's 🧠
+- MediaPipe code is Apache-2.0 🧠; model-card terms not captured.
+- No add-on named "FaceMesh Capture" was found. The nearest is `mozi1924/mediapipe-facecap-for-blender`: an external **transmitter** runs MediaPipe, a Blender **receiver** add-on ingests the stream [1] 📄. Licence, Blender range and raw-landmark access uncaptured. More projects sit under the GitHub topic [4] 📄
+- **BlendArMocap** (MediaPipe face/hands/pose → Rigify, GPL) was the best-known Blender MediaPipe add-on; to my knowledge development stopped, so expect breakage on 4.2+/5.x 🧠
 
 ### Expression and rig layer
-- **Faceit** is a paid add-on sold on Superhive (formerly Blender Market). It semi-automatically generates facial shape keys and ships presets for ARKit-style expressions, Audio2Face, tongue and phonemes. A **bake** step turns modifier-stack, pose and sculpt deformation into shape keys [5] ⚠️
-- Faceit's listing states **Blender 3.0–5.2** compatibility [5] ⚠️. The price was not captured.
-- **Face Shape Key Rig** is a free add-on under GPL on Blender Extensions. It builds in-viewport sliders and 2D pads, driven by bones and drivers, that animate **existing** shape keys, and it supports iFacialMocap capture and audio lipsync [6][7] ⚠️
-- Face Shape Key Rig's GitHub page states that it **requires Blender 5.2 or newer** [7] ⚠️
-- Face Shape Key Rig does **not** generate shape keys. Faceit is the comparable tool that creates them [6][5] ⚠️
-- **CaptureForge** is a Blender extension suite under **GPL-3.0**. It converts a posed face rig into the **ARKit 52** blendshapes and drives them from video or webcam without an iPhone. It also lists a quality inspector and an auto face rig [8] ⚠️
-- Leads whose content was not examined: wk FaceRig, a commercial add-on on Superhive [10], and a Faceit notes file inside the `met4citizen/TalkingHead` repository [9].
+- **Faceit** (paid, Superhive) semi-automatically generates facial shape keys with ARKit-style, Audio2Face, tongue and phoneme presets; a **bake** converts modifier, pose and sculpt deformation into shape keys [5] 📄. Listing states **Blender 3.0–5.2** [5] 📄; price not captured.
+- Faceit workflow 🧠: register parts (face, eyes, teeth, tongue) → fit a landmark guide (front, then side) → generate a Rigify-derived face rig → bind with automatic (bone-heat) weights → pose expressions → bake. It also imports ARKit capture recordings (Live Link Face-style CSV).
+- **Face Shape Key Rig** (free, GPL, Blender Extensions): viewport sliders and 2D pads driving **existing** shape keys through bones/drivers; iFacialMocap and audio lipsync [6][7] 📄. Requires **Blender 5.2+** [7] 📄. It creates no shapes; Faceit does [6][5] 📄
+- **CaptureForge** (GPL-3.0) converts a posed face rig to the **ARKit 52** blendshapes and drives them from video/webcam without an iPhone; lists a quality inspector and auto face rig [8] 📄
+- **Auto-Rig Pro** (paid): marker-based "Smart" body placement, a bone-based face rig (jaw, lips, eyelids, tongue, teeth), FBX presets for Unity/Unreal and a retargeting module. Not, to my knowledge, an ARKit-key generator; 5.x status unverified 🧠
+- **Rigify** ships with Blender; most free face rigs derive from its face sub-rigs 🧠
+- Unexamined leads: wk FaceRig [10] 📄 and Faceit notes in TalkingHead [9] 📄
 
-### Parametric base human (MPFB2 / MakeHuman)
-- MPFB2 code is licensed **GPL v3 or later**, per the Blender Extensions listing and the repo's `LICENSE.CODE.md` [11][14] ✅. Both are primary documents controlled by the project.
-- MPFB asset packs are **CC0 or CC-BY** according to the Extensions listing [11]. A third-party project's notes say MakeHuman base assets are **CC0 1.0** [16] ↔️
-- Latest version **2.0.18**, compatible with **Blender 4.2 LTS and newer** [11][12] ⚠️. Both facts come from search-result snippets, not fetched pages. The release date "October 10, 2026" rests on a single snippet.
-- The project's preferred install method is the Blender extension platform [13] ⚠️
-- MPFB1 (`makehuman-plugin-for-blender`) is **deprecated** and replaced by MPFB2 [15] ⚠️
+### Parametric base humans
+- **MPFB2** code is **GPL-3.0-or-later** [11][14] ✅
+- Assets: "CC0 or CC-BY" per the Extensions listing [11]; a third-party note says MakeHuman base assets are CC0 1.0 [16] ↔️. My understanding: base mesh, targets and system assets CC0, community packs vary 🧠
+- Latest **2.0.18**, **Blender 4.2 LTS+** [11][12] 📄 (snippets; the 10 Oct 2026 date is single-snippet). Preferred install is the Extensions platform [13] 📄; MPFB1 is deprecated [15] 📄
+- MPFB2 internals 🧠: base mesh `hm08` (≈13.4k body vertices, ≈19.2k with helper geometry for clothes fitting, joints and hair, hidden by a Mask modifier); **macro** sliders (gender, age, muscle, weight, height, proportions, population blends) interpolate stored targets; hundreds of local face targets named `region-feature-decr|incr`; **MakeTarget** saves a sculpted shape key as a `.target`; import scale option (metres default); rigs include default, game-engine and a Rigify meta-rig.
+- **FLAME** (Li et al. 2017) 🧠: 5,023 vertices, 9,976 triangles, eyeballs included, no mouth interior; FLAME 2020 has 300 shape, 100 expression and 15 pose parameters (global, neck, jaw, two eyes); shape space learnt from ~3.8k CAESAR scans. The MPI **FLAME Blender add-on** loads it as shape keys plus armature with sliders and pose correctives; model files need a registered download.
+- FLAME licence: non-commercial research; commercial use licensed separately (MPI/Meshcapade) 🧠. I have an unconfirmed recollection of a more permissive "FLAME 2023 Open" release ↔️; treat FLAME as non-commercial until the official download page says otherwise.
+- **MB-Lab** 🧠: community continuation of ManuelbastioniLAB (discontinued 2018); AGPL-3.0 code; generated characters under a different licence (possibly CC-BY 4.0) ↔️; releases I know target 2.8x–3.x, so 4.2+/5.x is unknown. Its centimetre body-measurement sliders are a useful UI precedent.
+- **CharMorph** 🧠: GPL-3 MB-Lab-inspired rewrite; characters (e.g. "Antonia") ship in a separate data repo; Rigify rigging and asset fitting; maintenance, 5.x status and per-character data licences unknown.
+- **Human Generator** 🧠: paid; proprietary realistic content library, one-click expressions and face rig; the GPL-code/proprietary-asset split typical of paid add-ons; price and 5.x status unverified.
+- **ICT-FaceKit** (USC ICT, Li et al. 2020) 🧠: morphable head with ~100 identity components and ~53 ARKit-style expression shapes under the MIT licence; the most commercial-friendly FLAME alternative I know of. Verify licence and counts.
 
-### Not covered (no evidence collected)
-MB-Lab, CharMorph, Human Generator, the FLAME Blender add-on, Auto-Rig Pro and KeenTools FaceBuilder (along with alternatives to it). The **Open questions** section lists the exact fields to collect for each.
+### Photo→head: FaceBuilder and alternatives
+- **KeenTools FaceBuilder** 🧠: pin-based fit of a fixed KeenTools head topology to several photos, texture projection, ARKit-compatible blendshapes; GPL Python front-end that downloads a proprietary core library; subscription with trial. The library note `community/blenderartists-forum.md` records (single forum source) neural auto-pinning since 2021.1, per-photo focal estimation and expression-tolerant fitting, with manual pin fixes still needed. Siblings: FaceTracker and GeoTracker for video.
+- Alternatives 🧠: (a) photogrammetry (Meshroom/AliceVision MPL-2.0, COLMAP BSD, RealityScan) then wrap a template; (b) FLAME regressors outside Blender (see `reconstruction/single-image-regression.md`, `reconstruction/multi-view-fitting.md`), mostly non-commercial; (c) Character Creator Headshot + CC Blender Tools; (d) MetaHuman (Mesh to MetaHuman), whose 2025 licence change reportedly allows use outside Unreal; (e) fSpy (GPL) + its Blender importer for single-image camera calibration; (f) native modifiers: Shrinkwrap, Surface Deform, Laplacian Deform (anchor-constrained), Data Transfer.
+- **Extensions platform** (4.2+) 🧠: `blender_manifest.toml`; GPL-compatible code licence (`SPDX:GPL-3.0-or-later`); bundled platform-specific wheels; declared `permissions` (`files`, `network`, `clipboard`, `camera`, `microphone`) with reasons; legacy add-ons still install from disk.
 
 ## Numbers & reference tables
 
-**Table 1 — MediaPipe Face Mesh landmark counts** (model output specification; no population sample)
+**Table 1 — Landmark and expression output counts** (model specifications, no population)
 
-| Mode | Landmarks per face | Derived | Status | Source |
+| Item | Count | Units | Status | Source |
 |---|---|---|---|---|
-| Default | 468 | — | ✅ | [3][2] |
-| Refined landmarks on | 478 | +10 vs default (478−468); iris added, eyes and lips refined | ⚠️ | [2] |
+| MediaPipe Face Mesh, default | 468 | landmarks | ✅ | [3][2] |
+| Refined landmarks on | 478 (+10) | landmarks | 📄 | [2] |
+| Iris sets | 2 × 5 (idx 468–477) | landmarks | 🧠 | — |
+| Face Landmarker blendshapes | 52 (incl. `_neutral`, no `tongueOut`) | scores 0–1 | 🧠 | — |
+| ARKit blendshapes | 52 | shapes | 📄 | [8] |
+| MediaPipe canonical face model | 468 | vertices, cm | 🧠 | — |
 
-**Table 2 — Stated Blender version support** (Blender release numbers)
+**Table 2 — Template topologies a fitter might target**
 
-| Add-on | Add-on version | Blender min | Blender max stated | Status | Source |
+| Template | Vertices | Identity params | Expression / pose | Data licence | Status |
 |---|---|---|---|---|---|
-| Faceit | not captured | 3.0 | 5.2 | ⚠️ | [5] |
-| Face Shape Key Rig | not captured | 5.2 | open ("or newer") | ⚠️ | [7] |
-| MPFB2 | 2.0.18 | 4.2 LTS | open ("and newer") | ⚠️ snippet only | [11][12] |
-| CaptureForge | not captured | not captured | — | — | [8] |
-| mediapipe-facecap-for-blender | not captured | not captured | — | — | [1] |
+| FLAME 2020 | 5,023 (9,976 tris) | 300 PCA | 100 PCA + 15 pose | research NC ↔️ | 🧠 |
+| MakeHuman hm08 (MPFB2) | ≈13.4k body / ≈19.2k with helpers (quads) | macros + local targets | via rig / face poses | CC0 base ↔️ | 🧠 |
+| Basel Face Model 2009 | 53,490 | 199 PCA | none | research licence | 🧠 |
+| ICT-FaceKit | not recalled | ~100 | ~53 shapes | MIT | 🧠 |
+| MediaPipe canonical | 468 | none | none | Apache-2.0 | 🧠 |
 
-**Table 3 — Licence, cost and role**
+**Table 3 — Stated Blender support** (Blender release numbers)
 
-| Tool | Code licence | Asset/model licence | Cost | Role | Generates shape keys | Source |
-|---|---|---|---|---|---|---|
-| MPFB2 | GPL-3.0-or-later ✅ | CC0 or CC-BY (listing) / CC0 1.0 (third-party note) ↔️ | not captured | parametric base human | n/a | [11][14][16] |
-| Faceit | not captured | — | paid | expression shape-key generator + bake | yes | [5] |
-| Face Shape Key Rig | GPL | — | free | slider/pad controller for existing keys | no | [6][7] |
-| CaptureForge | GPL-3.0 | — | not captured | rig → ARKit 52 conversion, video/webcam drive | converts | [8] |
-| mediapipe-facecap-for-blender | not captured | MediaPipe model terms not captured | not captured | live capture (transmitter + receiver) | not captured | [1] |
+| Add-on | Version | Min | Max stated | Status | Source |
+|---|---|---|---|---|---|
+| Faceit | not captured | 3.0 | 5.2 | 📄 | [5] |
+| Face Shape Key Rig | not captured | 5.2 | open | 📄 | [7] |
+| MPFB2 | 2.0.18 | 4.2 LTS | open | 📄 snippet | [11][12] |
+| CaptureForge, mediapipe-facecap | not captured | — | — | — | [8][1] |
+| MB-Lab, CharMorph, Human Generator, ARP, FLAME add-on, FaceBuilder, BlendArMocap | unverified | — | — | 🧠 | — |
 
-**Table 4 — Expression basis size**
+Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 LTS satisfies all three sourced ranges.
 
-| Basis | Count | Used by | Status | Source |
-|---|---|---|---|---|
-| ARKit blendshapes | 52 | CaptureForge target set; Faceit offers "ARKit-style" presets | ⚠️ | [8][5] |
+**Table 4 — Licence, cost, role**
+
+| Tool | Code | Data/assets | Cost | Role | Status |
+|---|---|---|---|---|---|
+| MPFB2 | GPL-3.0+ | CC0 / CC-BY ↔️ | free | parametric base | ✅ code, ↔️ assets [11][14][16] |
+| Faceit | not captured | — | paid | shape-key generator + bake | 📄 [5] |
+| Face Shape Key Rig | GPL | — | free | controller for existing keys | 📄 [6][7] |
+| CaptureForge | GPL-3.0 | — | not captured | rig → ARKit 52, video drive | 📄 [8] |
+| mediapipe-facecap | not captured | MediaPipe models | not captured | live capture | 📄 [1] |
+| FLAME add-on | add-on code open | FLAME NC research ↔️ | free (research) | PCA head | 🧠 |
+| MB-Lab | AGPL-3.0 | separate licence ↔️ | free | parametric body | 🧠 |
+| CharMorph | GPL-3 | per character | free | parametric body | 🧠 |
+| Human Generator | GPL (presumed) | proprietary | paid | realistic humans | 🧠 |
+| Auto-Rig Pro | GPL (presumed) | — | paid | body + bone face rig | 🧠 |
+| FaceBuilder | GPL front + closed core | EULA | subscription | photo→head | 🧠 |
+| ICT-FaceKit | MIT | MIT | free | PCA head + ARKit-style shapes | 🧠 |
+
+**Table 5 — ARKit 52 by region** 🧠 (total 52 matches [8] 📄)
+
+| Region | Count | Members |
+|---|---|---|
+| Eyes | 14 | blink, lookDown, lookIn, lookOut, lookUp, squint, wide × L/R |
+| Jaw | 4 | jawOpen, jawForward, jawLeft, jawRight |
+| Mouth | 23 | close, funnel, pucker, left, right, rollUpper/Lower, shrugUpper/Lower; smile, frown, dimple, stretch, press, lowerDown, upperUp × L/R |
+| Brows | 5 | browDown L/R, browInnerUp, browOuterUp L/R |
+| Cheeks | 3 | cheekPuff, cheekSquint L/R |
+| Nose | 2 | noseSneer L/R |
+| Tongue | 1 | tongueOut |
+
+**Table 6 — Suggested solver defaults** (design choices 🧠, not measurements; IOD = inter-ocular distance in the image)
+
+| Quantity | Default | Notes |
+|---|---|---|
+| Anchor landmarks (eye/mouth corners, nose tip, subnasale) | σ = 1.5% IOD | fixed correspondence |
+| Eyelid/lip contour points | σ = 2.5% IOD | slide along the contour |
+| Face-oval/jaw points | σ = 4% IOD | silhouette residual, re-associate each iteration |
+| Iris centre | σ = 1% IOD | 478 mode only |
+| MediaPipe z | weight 0 (≥2 views); ≤0.1·w_xy (1 view) | relative, mean-face-biased |
+| Horizontal iris diameter scale prior | 11.7 ± 0.5 mm | figure used by MediaPipe Iris |
+| Interpupillary distance prior, adults | mean ≈ 63 mm, σ ≈ 3.5 mm | user-measured value overrides (σ 1 mm) |
+| EXIF focal → pixels | f_px = f35 · √(W²+H²) / 43.27 | 43.27 mm = 35 mm-frame diagonal |
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Landmark input.** Run MediaPipe Face Mesh outside Blender, as the transmitter/receiver split in [1] does, and send landmarks into the add-on. This keeps MediaPipe's dependencies out of Blender's bundled Python. Turn on refined landmarks and **check the count per frame**: 468 means no iris or refined eye and lip points, and 478 means refined [2][3]. Never hard-code one count.
-2. **Choosing a base mesh.** For an open-source tool, MPFB2 is the safest documented base among the tools checked: the code is GPL-3-or-later and the assets are CC0/CC-BY [11][14]. **Before shipping any derived mesh, check the licence of each asset**, because CC-BY assets need attribution and CC0 assets do not, and the sources disagree on which applies [11][16] ↔️. Ignore MPFB1 tutorials, since that plugin is deprecated [15].
-3. **Keep the topology frozen through the likeness sculpt.** The expression add-ons downstream work on shape keys. Faceit generates and bakes them [5], CaptureForge converts a posed rig to the ARKit 52 set [8], and Face Shape Key Rig drives keys that already exist [6]. Shape keys require the same vertex count and order as the base, so do not use Remesh or Dyntopo on the head that will receive these keys. Sculpt directly on the fitted base mesh, or on a Multires level of it, and apply the result back to that base.
-4. **Fit on a neutral expression.** Identity fitting from photos should target a neutral face. Leave expressions to the ARKit-style layer, and use Faceit's sculpt-to-shape-key bake [5] only after the likeness is locked.
-5. **Check versions before you commit to a stack.** Face Shape Key Rig runs only on Blender 5.2+ [7]. Faceit states support up to 5.2 [5], and MPFB2 states 4.2 LTS+ [11]. The only overlap among all three is Blender 5.2. Test the user's Blender version at registration and warn if it is outside a dependency's stated range.
-6. **What goes wrong**
-   - *Name confusion.* A search for "FaceMesh Capture" finds a repo with a different name [1]. Check where a tool came from before you depend on it.
-   - *Controller vs generator.* Face Shape Key Rig alone produces no expressions [6].
-   - *Licence contamination.* FLAME's licence status is unverified, so never bundle FLAME data until it is checked (see Open questions).
-   - *Snippet-only metadata.* The MPFB2 version and date [12] may be stale or wrong.
+1. **Choose the stack by licence first.** Shippable: MediaPipe (out of process) → own numpy fitter → MPFB2 base → Multires detail → expressions via Faceit (user-bought), CaptureForge or Face Shape Key Rig → Rigify or Auto-Rig Pro. Research-only: FLAME add-on and FLAME regressors; outputs inherit non-commercial terms. Read FaceBuilder's EULA before reusing its exported mesh as a base.
+2. **Prepare the MPFB2 base.** New human, metres, macros set from known age/height/sex; no proxy; keep helpers (masked). Record vertex count and an index-order hash and assert them at every write-back. Fitting a proxy, or deleting helpers, breaks targets and clothes fitting 🧠.
+3. **Landmarks.** Run MediaPipe outside Blender, as the transmitter/receiver split in [1] does; use 478 mode and check the count per image [2][3]. Un-mirror front-camera selfies (otherwise L/R swap), apply EXIF orientation, keep native resolution.
+4. **Cameras.** Seed focal length from EXIF (Table 6). Phone main lenses (~24–28 mm equivalent) at arm's length enlarge the nose and hide the ears; prefer 2–3× tele at ≥1 m (see `blender/reference-camera-setup.md`). Fix the principal point at centre; allow only k1 for wide lenses.
+5. **Write the result non-destructively**: one neutral shape key (e.g. `ID_fit_v1`), optionally exported through MakeTarget as an MPFB `.target` so clothes, proxies and rigs follow.
+6. **Sculpt.** Add Multires only after identity keys are final: shape keys live at base level and Multires detail does not propagate into them 🧠. Never Remesh, Dyntopo, Decimate or merge-Symmetrize the delivery mesh, because shape keys need identical vertex count and order. Bake normal/displacement maps from the top level.
+7. **Expressions.** Before Faceit or Auto-Rig Pro binding: apply rotation and scale, face −Y, separate eyes/teeth/tongue, remove interior or duplicate faces; bone-heat binding fails on non-manifold or self-intersecting geometry 🧠. Then generate/bake the ARKit set [5]. On Blender >5.2, confirm Faceit support first [5].
+8. **Validate in Blender.** One camera per photo with its background image; overlay reprojected landmarks; report reprojection RMS in px and %IOD; compare model IPD with a measured IPD; inspect the profile silhouette (nasal projection, chin, forehead slope), where single-view fits fail most.
+
+**What goes wrong:** name confusion ("FaceMesh Capture" is not a real add-on name) [1]; controller mistaken for generator [6]; licence contamination (FLAME, BFM, MetaHuman, Human Generator assets); snippet-only versions [12]; MediaPipe jaw-line points biased toward the mean face; unit mismatches (MediaPipe cm, FLAME m, MakeHuman natively decimetres) 🧠; vertex order silently changed by Join, Separate, Sort Elements or applying Mirror; Blender 5.0 `mathutils` buffers are float32 and non-contiguous, so copy explicitly into float64 numpy arrays (library version note, unconfirmed).
 
 ## Algorithmic implications
 
-- **Landmark-scheme abstraction.** Model the input as `LandmarkSet{scheme ∈ {mp468, mp478}, xyz[N], visibility}`. Branch on `N` rather than on a flag, because 468 and 478 are both valid outputs [3][2]. Treat the 10 extra points (indices 468–477, derived from the counts) as optional eye and iris observations, and confirm the index ranges against [2][3] before relying on them.
-- **Depth prior.** Until the MediaPipe coordinate convention is confirmed from [3], weight MediaPipe `z` well below `x,y` in the solver (default `w_z = 0.1·w_xy`, a design choice rather than a sourced value). Recover metric depth from multi-view PnP/triangulation, which already exist in `face3d/solve/`.
-- **Correspondence table per base mesh.** Store a mapping from landmark index to vertex ID or barycentric point for each supported base mesh, starting with MPFB2. Version this table by the base mesh's version (e.g. MPFB2 2.0.18 [12]), because it breaks whenever the topology changes.
-- **Licence as data.** Every prior, base mesh and asset should carry `{licence, attribution, commercial_ok}`. The export step should refuse to bundle assets with `commercial_ok=false` or with an unknown licence. This covers FLAME by default until its licence is checked.
-- **Separate identity from expression.** Output a neutral identity mesh plus an optional set of ARKit-52-named shape keys, so the result works with Faceit, CaptureForge and Face Shape Key Rig [5][8][6]. Fit a small expression basis together with identity only to *absorb* expression in the input photos, then discard it.
-- **Topology invariance as a hard constraint.** The solver may only move vertices, never add or remove them. Assert the vertex count and order before writing results back to the mesh.
-- **Packaging defaults.** Release as a Blender extension with GPL-3.0-or-later code. This matches MPFB2 [14] and CaptureForge [8], which lets their code be reused. Declare a minimum of Blender 4.2, the same as MPFB2 [11], and gate features that rely on newer releases (5.2+ for Face Shape Key Rig interop [7]).
+- **Input schema:** `LandmarkSet{scheme ∈ {mp468, mp478}, xy_px[N], z_rel[N], image_wh, mirrored, exif_rotation}`. Branch on N, not a flag [3][2]; treat 468–477 as optional iris observations 🧠.
+- **Landmark classes with per-class σ** (Table 6) and a Huber loss (δ = 2σ). Drop a point from a view beyond 4σ after the first solve. Treat face-oval points as silhouette constraints (nearest occluding-contour vertex), never fixed vertex IDs, because they slide with yaw 🧠.
+- **Scale:** combine the iris-diameter prior (11.7 ± 0.5 mm) and the IPD prior (63 ± 3.5 mm); a user-measured IPD or ruler in frame overrides with σ ≈ 1 mm. Never take scale from MediaPipe's canonical model 🧠.
+- **Shape priors:** MPFB macros ∈ [0,1] with a box constraint, Gaussian toward user-supplied age/height (σ ≈ 0.15); local face targets ∈ [−1,1], N(0, 0.5²) plus box; FLAME β ~ N(0,1) using the first 50–100 components. Fit a small expression basis (σ ≈ 0.3) only to absorb expression in the photos, then discard it 🧠.
+- **Residual warp:** after the parametric fit, solve per-vertex offsets with Laplacian/ARAP regularisation, λ annealed high→low (e.g. 10→1); cap offsets near 5 mm unless several views agree; soft symmetry prior with σ ≈ 1–2 mm (see `anatomy/facial-asymmetry.md`), never hard mirroring 🧠.
+- **Correspondence tables** (landmark → vertex or barycentric point) versioned per base and base version (MPFB2 2.0.18 `hm08` [12]); validate vertex count on load.
+- **Topology invariance:** the solver moves vertices only; assert count and order before write-back.
+- **Licence as data:** each prior, base and asset carries `{licence, attribution, commercial_ok}`; export refuses unknown or `commercial_ok=false` items, FLAME included by default.
+- **Outputs:** neutral identity mesh, optional ARKit-52-named keys (Table 5) so Faceit, CaptureForge and FSKR can consume them [5][8][6], an MPFB `.target`, and OBJ with stable vertex order.
+- **Packaging:** extension with GPL-3.0-or-later code, matching MPFB2 [14] and CaptureForge [8]; `blender_version_min = "4.2.0"` like MPFB2 [11]; CI-test 4.5 LTS, 5.2 LTS and current 5.x; gate 5.2+ features (FSKR interop [7]); MediaPipe out of process or as an optional wheel; declare `camera` permission only for webcam capture 🧠.
 
-## Disagreements, myths & refuted claims
+## Disagreements, myths & open questions
 
-- **"MediaPipe gives 468 landmarks" vs "478"** — both are correct; the count depends on whether refinement is on [3][2].
-- **MPFB/MakeHuman asset licence** ↔️: the Extensions listing says the asset packs are CC0 *or* CC-BY [11]. A third-party note says the base assets are CC0 1.0 [16]. The likeliest explanation is that the licence differs by asset (base mesh vs extra packs), but this has not been confirmed against MakeHuman's own licence files.
-- **"Face Shape Key Rig is a Faceit alternative"**: only partly true. It controls existing keys and does not generate them [6][5].
-- **"FaceMesh Capture" as an add-on name**: not confirmed. The closest project found has a different name and a two-part design [1].
-- **Release date for MPFB2 2.0.18 (October 10, 2026)**: from one search snippet only. Treat it as unconfirmed.
-- **Refuted:** none. No claim could be tested against an independent source in this run, so nothing was refuted. That is not the same as everything being confirmed.
-
-## Open questions
-
-Collect the following for each add-on still to check: code licence; model/asset licence; commercial use allowed; price; latest version and date; stated Blender min/max; whether it is on Blender Extensions; base-mesh vertex count; size and naming of the shape-key set; and whether it supports **photo-based identity fitting**.
-
-1. **KeenTools FaceBuilder** and alternatives to it: licence, pricing, Blender 5.x status and output topology. This is the main competitor for photo→head, and nothing about it was collected.
-2. **FLAME Blender add-on**: does the FLAME model licence (reported by its authors as research-only and non-commercial, unverified here) allow redistribution inside, or use by, a commercial or GPL add-on? Read the licence text itself.
-3. **MB-Lab** and **CharMorph**: are they maintained in 2025–2026, do they run on Blender 4.2+/5.x, and under what licences are their code and base models released?
-4. **Human Generator**: licence, price and Blender 5.x support.
-5. **Auto-Rig Pro**: face-rig features, whether it exports ARKit-style keys, and Blender 5.x support.
-6. **MediaPipe coordinates**: the convention and scale of `z`, and the exact iris index ranges, from the official docs [3].
-7. **Faceit after 5.2**: is support listed for Blender releases newer than 5.2 [5]?
-8. **mediapipe-facecap-for-blender** [1]: its licence, and whether the receiver exposes raw landmarks that a fitter could consume.
+- **468 vs 478:** both correct; the count depends on refinement [3][2].
+- **MPFB/MakeHuman asset licence** ↔️: "CC0 or CC-BY" [11] vs "CC0 1.0" [16]. Likely per-asset (base CC0, packs vary); unconfirmed against MakeHuman's own files.
+- **"Face Shape Key Rig replaces Faceit":** partly; it controls but does not create keys [6][5].
+- **MPFB2 2.0.18 dated 10 Oct 2026:** one snippet only.
+- **Myth: MediaPipe gives a 3D head.** z is relative and mean-face-biased; metric depth needs multi-view geometry or scale priors 🧠.
+- **"FLAME is free"** ↔️: free for research, not commercial; whether a permissive 2023 variant exists is unconfirmed 🧠.
+- **"Every bpy add-on must be GPL"** ↔️: Blender Foundation's position, legally untested; paid add-ons split GPL code from proprietary assets or binaries 🧠.
+- **Myth: ARKit 52 = FACS.** ARKit shapes are FACS-inspired, not action units; the mapping is many-to-many (see `anatomy/facs-expressions.md`) 🧠.
+- **Myth: FaceBuilder output is the likeness.** It is a pinned fit of a low-dimensional head; forum reports say pins need manual correction 🧠.
+- **Open:** FaceBuilder EULA terms on exported meshes and current pricing; MediaPipe z convention and iris L/R indexing in [3]; licence and raw-landmark access of [1]; Faceit beyond 5.2 [5]; MB-Lab and CharMorph maintenance on 4.2+/5.x; ICT-FaceKit and MetaHuman licence terms; no accuracy benchmark (mm error) exists here for any Blender add-on's photo fit.
 
 ## Sources
 
@@ -122,8 +170,21 @@ Collect the following for each add-on still to check: code licence; model/asset 
 [9] TalkingHead blender/Faceit/FACEIT.md — https://github.com/met4citizen/TalkingHead/blob/main/blender/Faceit/FACEIT.md — repo doc — n.d.
 [10] wk FaceRig (Superhive) — https://superhivemarket.com/products/wk-facerig — commercial listing — n.d.
 [11] MPFB, Blender Extensions listing — https://extensions.blender.org/add-ons/mpfb/ — official listing — n.d.
-[12] MPFB version history, Blender Extensions — https://extensions.blender.org/add-ons/mpfb/versions/ — official listing — 2026 (per one snippet)
+[12] MPFB version history, Blender Extensions — https://extensions.blender.org/add-ons/mpfb/versions/ — official listing — 2026 (single snippet)
 [13] makehumancommunity/mpfb2 — https://github.com/makehumancommunity/mpfb2 — repo — n.d.
 [14] mpfb2 LICENSE.CODE.md — https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md — licence file — n.d.
 [15] makehuman-plugin-for-blender (MPFB1, deprecated) — https://github.com/makehumancommunity/makehuman-plugin-for-blender — repo — n.d.
 [16] kblood/CharacterCreator LICENSE-NOTES.md — https://github.com/kblood/CharacterCreator/blob/master/LICENSE-NOTES.md — third-party notes — n.d.
+
+**Further reading (by name, not yet linked)**
+- Kartynnik, Ablavatski, Grishchenko, Grundmann, "Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs", 2019 (MediaPipe Face Mesh).
+- Grishchenko et al., "Attention Mesh: High-fidelity Face Mesh Prediction in Real-time", 2020.
+- Ablavatski et al., "Real-time Pupil Tracking from Monocular Video for Digital Puppetry", 2020 (MediaPipe Iris; 11.7 mm iris figure).
+- Li, Bolkart, Black, Li, Romero, "Learning a model of facial shape and expression from 4D scans" (FLAME), SIGGRAPH Asia 2017.
+- Paysan et al., "A 3D Face Model for Pose and Illumination Invariant Face Recognition" (Basel Face Model), 2009.
+- Li et al., "Learning Formation of Physically-Based Face Attributes" (ICT-FaceKit), CVPR 2020.
+- Sorkine et al., "Laplacian Surface Editing", 2004; Sorkine & Alexa, "As-Rigid-As-Possible Surface Modeling", 2007.
+- Amberg, Romdhani, Vetter, "Optimal Step Nonrigid ICP Algorithms for Surface Registration", CVPR 2007.
+- Dodgson, "Variation and extrema of human interpupillary distance", 2004.
+- Apple ARKit documentation, `ARFaceAnchor.BlendShapeLocation`.
+- Blender Manual: Extensions and `blender_manifest.toml`; Rigify.

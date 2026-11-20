@@ -1,108 +1,212 @@
 # Realistic skin shading in Blender
 
-> In current Blender, skin shading is controlled on the Principled BSDF. The relevant inputs are Subsurface Weight, Radius, Scale and Method, plus Subsurface IOR and Subsurface Anisotropy, which only Cycles uses. The manual quotes a measured skin anisotropy of 0.8. The skin-specific **Random Walk (Skin)** method only works in Cycles. According to the developer pull request, its surface entry mixes Lambertian diffuse transmission with GGX refraction at a fixed roughness of 1, because a pure random walk lets light travel too deep into skin. Random walk scatters light through the volume of the mesh, so the head needs closed, non-overlapping geometry at real-world scale. That is a hard requirement on any mesh a photo-fitting pipeline produces. **Verification status:** the independent cross-check could not run because the shared web-search budget ran out before the first query. Every claim below rests on one harvested source. Measured skin optics, EEVEE Next behaviour, roughness, specular and displacement maps, and texture resources are still not covered.
+> Since Blender 4.0, skin is a Principled BSDF with Subsurface Weight 1, Base Color as the diffuse albedo, and a per-channel scattering Radius × Scale that is a real distance, so it only works on a head at metric scale [1]. Subsurface IOR, Subsurface Anisotropy (the manual quotes 0.8 as measured for skin) and the Random Walk (Skin) method are Cycles-only, and random walk scatters through the true mesh volume, so the fitted head must be watertight, non-overlapping and finely subdivided at render time [1][2][5]. Most fake-looking skin comes from four mistakes: wrong scale (wax), uniform low roughness with glass IOR (plastic), lighting baked into photo albedo (painted), and over-scaled pore displacement (orange peel). The physical starting values used here come from expert knowledge and are queued for checking: Jensen et al. 2001 diffuse mean free paths of roughly 3.7–4.8 mm (red) to 0.7–1.1 mm (blue), skin IOR ≈ 1.4, regional roughness, and micro-displacement amplitudes. EEVEE Next only approximates SSS, in screen space.
+>
+> Evidence status: 1 ✅ / 11 📄 / 33 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
-- **Subsurface Radius is a distance, set separately for each colour channel.** It is the average distance light scatters below the surface. Red can be set to scatter deeper than blue [1]. ⚠️
-- **Subsurface Scale multiplies the radius.** A search snippet of the current manual gives the slider range as 0–50 cm. This was not checked against the full page text [1]. ⚠️
-- **Subsurface Anisotropy: 0 means light scatters equally in all directions.** The manual uses skin as its example and says skin has been measured at **0.8**. The original measurement paper was not traced in this run [1]. ⚠️
-- **Subsurface IOR only works in Cycles.** It applies to rays entering the subsurface part of the shader and can differ from the main IOR. The manual suggests this as a way to imitate the layers of skin [1]. ⚠️
-- **Main IOR:** the manual says most materials fall between 1.0 (vacuum or air) and 4.0 (germanium). The default of 1.5 approximates glass, not skin [1]. ⚠️
-- **Random Walk (Skin) only works in Cycles and is tuned for skin.** A snippet of the manual says its radius is adjusted automatically from the colour texture [2]. A forum post says it lacks the Burley-matching scaling that the legacy random walk applies [7]. These two statements may describe different things and could not be reconciled. ↔️
-- **How Random Walk (Skin) enters the surface:** at each entry it randomly chooses between Lambertian diffuse transmission and GGX refraction with roughness fixed at **1**. Diffuse is mixed in because a pure random walk goes too deep into skin [5]. Forum users say the same thing in practical terms: results look like the older random walk, but you lose control of the entry roughness [10][6]. ⚠️ (primary source, echoed by users)
-- **Random Walk needs clean, closed meshes.** It scatters light through the actual volume inside the mesh. Overlapping faces, holes and open meshes cause errors, and closed meshes work best [2]. ⚠️
-- **Thin-wall mode turns off the scattering controls.** Subsurface Radius, Scale and Method have no effect in it [1]. ⚠️
-- **Specular Anisotropy only works in Cycles.** Positive values stretch highlights along the tangent and negative values stretch them across it [1]. No harvested source says skin needs anisotropic specular. ⚠️
-- **Input and method names change between versions.** The 3.6 manual uses older names such as "Subsurface Anisotropy" and "Anisotropic", and describes random-walk modes whose radius depends on colour [4][11]. A forum post says Blender 5.2 splits random walk into legacy and newer variants [7]. That does not match the 5.3 manual excerpt and is not confirmed in official docs. ↔️
-- **Users report artifacts.** SSS can produce flat-shaded artifacts on some meshes [8]. Users also disagree on what matters most. One says zero-anisotropy random walk looks fake because it lacks a "thin film" of surface detail [7]. Another says radius and colour matter more than anisotropy for a close match [6]. ⚠️ (user opinion)
+**Principled BSDF inputs (manual and developer notes)**
+- **Subsurface Radius** is the average distance light scatters below the surface, set per RGB channel so red can go deeper than blue [1] 📄. **Subsurface Scale** multiplies it. The UI slider runs 0–50 cm (taken from a search snippet) [1] 📄. Radius × Scale is a world-space length: a head scaled to normalized units gets the wrong translucency, and so does any object scale left unapplied 🧠.
+- **Subsurface Anisotropy:** 0 means light scatters equally in all directions. The manual says skin has been measured at **0.8** [1] 📄. Tissue-optics literature puts the anisotropy factor g of epidermis and dermis at about 0.8–0.95 in visible light (van Gemert et al. 1989; Tuchin) 🧠.
+- **Subsurface IOR** is Cycles-only. It applies to rays entering the subsurface component and can differ from the main IOR; the manual suggests this to imitate skin layers [1] 📄.
+- **Main IOR:** most materials fall between 1.0 and 4.0. The default of 1.5 is glass [1] 📄. Graphics convention uses ≈1.4 for skin (F0 ≈ 0.028, as in d'Eon & Luebke, GPU Gems 3) 🧠. Tissue optics reports up to about 1.55 for the stratum corneum ↔️.
+- **Thin-wall mode** turns off Radius, Scale and Method [1] 📄. It is in the current manual; the version that introduced it was not captured.
+- **Specular Anisotropy** is Cycles-only [1] 📄. Skin highlights are not anisotropic at portrait scale, so keep it at 0 🧠.
+- **Principled v2 (4.0+):** the Subsurface Color input is gone, so Base Color drives the subsurface albedo. Subsurface Weight blends diffuse with SSS and should normally be 0 or 1. Specular IOR Level 0.5 means "use the F0 from IOR" (0 removes reflection, 1 roughly doubles F0). Specular Tint is a colour and must stay white for skin 🧠.
+- **4.x defaults:** Weight 0, Radius (1.0, 0.2, 0.1), Scale 0.05 m, Subsurface IOR 1.4, Anisotropy 0. That gives an effective red radius of 50 mm, roughly 10–15× too large for a real-scale head 🧠.
+
+**Methods**
+- **Random Walk (Skin)** is a Cycles-only method tuned for skin. A manual snippet says its radius is adjusted automatically from the colour texture [2] 📄. A forum post says it lacks the Burley-matching scaling of the legacy random walk [7] ↔️.
+- **How it enters the surface:** at each entry it randomly picks Lambertian diffuse transmission or GGX refraction with roughness fixed at 1. Diffuse is mixed in because pure random walk sends light too deep into skin [5]. Users confirm that you lose control of the entry roughness [10][6] ✅ (developer source plus independent user reports).
+- **Random walk needs clean geometry:** it scatters through the actual volume, so holes, open meshes and overlapping faces cause errors [2] 📄. It follows true geometry, not interpolated shading normals, so a coarse smooth-shaded mesh shows facets in the SSS. That is the likely cause of the reported "flat-shaded artifacts" [8], though the thread's own diagnosis was not captured 🧠.
+- **Christensen-Burley** is a surface diffusion-profile approximation. It is cheaper and less noisy, but it ignores thickness and concavity, so ear and nostril translucency come out wrong. It is fine for mid-distance shots 🧠. Random walk is slower and noisier, more so at high anisotropy 🧠 (a forum attributes this to the docs; not located).
+- **Names change between versions.** Blender 3.0 introduced a colour-adaptive "Random Walk" with IOR and anisotropy, and kept the old behaviour as "Random Walk (Fixed Radius)" 🧠. The 3.6 manual uses older socket names [4][11] 📄. A forum post claims 5.2 splits random walk into legacy and new variants [7] ↔️ (unconfirmed).
+
+**Engines**
+- Cycles-only inputs: Subsurface IOR, Subsurface Anisotropy, Specular Anisotropy and Random Walk (Skin) [1][2] 📄 (one publisher).
+- **EEVEE Next (4.2+)** does subsurface scattering in screen space from Radius × Scale. It estimates transmission through thin parts from shadow-map thickness and ignores Method, Subsurface IOR and Anisotropy. It breaks at silhouettes and when the radius is large on screen 🧠.
+- **Displacement:** Cycles has true displacement (Material ▸ Settings ▸ Displacement and Bump) plus adaptive subdivision, historically behind the Experimental feature set; its 5.x status needs checking. EEVEE uses bump, and EEVEE Next adds vertex displacement on existing geometry without adaptive dicing 🧠.
+
+**Physical skin**
+- **Measured scattering (Jensen et al. 2001):** diffuse mean free path (R, G, B) is about (3.67, 1.37, 0.68) mm for "skin1" and (4.82, 1.69, 1.09) mm for "skin2". These are the values behind Blender Internal's old Skin1/Skin2 SSS presets. The sample was a handful of subjects 🧠.
+- **Specular:** skin reflects like an untinted dielectric (sebum on stratum corneum). Weyrich et al. 2006 measured roughly 150 faces and found specular strength and roughness vary by region; the oily T-zone (forehead, nose, chin) is sharper and stronger 🧠. Measured BRDF fits favour two lobes, one sharp and one broad 🧠.
+- **Albedo:** reflectance is high in red, dips near 540–580 nm from haemoglobin, and is suppressed at short wavelengths by melanin (Anderson & Parrish 1981). Linear diffuse albedo ranges from about 0.55–0.65 in red for very light skin down to ≤0.05 in blue for very dark skin ↔️.
+- **Microgeometry:** pore openings are about 0.05–0.25 mm (enlarged pores up to about 0.5 mm). Microrelief furrows are about 20–100 µm deep and wrinkles about 0.1 mm to over 1 mm. Pores and furrows stretch along tension lines (Langer's lines) and more so with age ↔️.
+- **Thin regions:** eyelid skin is the thinnest on the face (well under 1 mm). Ear helix and nasal alae are thin over cartilage and show the most translucency 🧠.
+
+**Texture resources (prices and licences change; check before use)** 🧠
+- **Commercial scans:** TexturingXYZ sells multichannel face displacement maps (RGB = secondary, tertiary and micro bands) and full-head "VFace" UDIM sets. 3D Scan Store (Ten24) sells scanned heads with albedo and displacement.
+- **Research and open data:** Wikihuman / Digital Emily (USC ICT); check the licence.
+- **Open-source Blender tools:** the MPFB2/MakeHuman ecosystem (assets largely CC0).
+- **Commercial Blender add-on:** Human Generator.
+- **MetaHuman:** licence terms reportedly widened in 2025; check them.
+- **Best albedo for a likeness:** the subject's own cross-polarized photos. Vendor maps are for microdetail, not identity.
 
 ## Numbers & reference tables
 
-All values come from Blender documentation or developer notes. None of them is a measured human-skin dataset: this run found no primary skin-optics measurements.
+**A. Principled BSDF values (metre scene)**
 
-| Parameter | Value / range | Units | Engine | Population / basis | Source | Status |
+| Parameter | Value | Units | Basis | Source | Status |
+|---|---|---|---|---|---|
+| Subsurface Anisotropy, skin | 0.8 | — | "measured" per manual; study untraced | [1] | 📄 |
+| Subsurface Scale slider | 0–50 | cm | UI range (snippet) | [1] | 📄 |
+| IOR typical span / default | 1.0–4.0 / 1.5 | — | doc | [1] | 📄 |
+| Random Walk (Skin) entry roughness | 1 (fixed) | GGX | implementation | [5][6][10] | ✅ |
+| 4.x defaults: Radius / Scale / SS-IOR | (1, 0.2, 0.1) / 0.05 / 1.4 | — / m / — | UI defaults | — | 🧠 |
+
+**B. Skin optics**
+
+| Quantity | R | G | B | Units | Population | Status |
 |---|---|---|---|---|---|---|
-| Subsurface Anisotropy, skin | 0.8 | dimensionless | Cycles | "Skin has been measured" according to the manual; study and sample size not given | [1] | ⚠️ |
-| Subsurface Anisotropy, isotropic | 0 | dimensionless | Cycles | Definition | [1] | ⚠️ |
-| Subsurface Scale slider range | 0–50 | cm | Cycles/EEVEE (not separated) | UI range, from a search snippet | [1] | ⚠️ |
-| Main IOR, typical span of materials | 1.0–4.0 | dimensionless | both | 1.0 = vacuum/air, 4.0 = germanium | [1] | ⚠️ |
-| Main IOR, default | 1.5 | dimensionless | both | Approximates glass | [1] | ⚠️ |
-| Random Walk (Skin) entry-refraction roughness | 1 (fixed) | GGX roughness | Cycles | Implementation detail | [5] | ⚠️ |
+| Diffuse mfp, skin1 (Jensen 2001) | 3.67 | 1.37 | 0.68 | mm | few subjects, light skin | 🧠 |
+| Diffuse mfp, skin2 (Jensen 2001) | 4.82 | 1.69 | 1.09 | mm | as above | 🧠 |
+| Ratio to red (skin1 / skin2) | 1 | 0.37 / 0.35 | 0.19 / 0.23 | — | derived | 🧠 |
+| Anisotropy g | 0.8–0.95 | | | — | tissue optics, visible | ↔️ |
+| Skin IOR → F0 = ((n−1)/(n+1))² | n 1.35–1.55 → F0 0.022–0.047; n 1.4 → 0.028 | | | — | convention vs tissue data | ↔️ |
 
-Arithmetic, not a sourced claim: at normal incidence the Fresnel reflectance is F0 = ((n−1)/(n+1))². For the default n = 1.5 that gives F0 = 0.04. Changing the IOR therefore changes the strength of the specular highlight at head-on angles. Do not take a skin IOR from this note: none was sourced in this run.
+**C. Starting values and priors for a Cycles skin material (Blender ≥4.0, metre units)**
+
+| Input | Start | Plausible range | Prior σ | Status |
+|---|---|---|---|---|
+| Subsurface Weight | 1.0 | 0.8–1.0 | fixed | ↔️ |
+| Method | Random Walk (Skin) | Random Walk / Burley | — | 🧠 |
+| Radius | (3.67, 1.37, 0.68) | ratios ±0.05 | — | 🧠 |
+| Scale (so red mfp = 3.7 mm) | 0.001 | 0.0004–0.0013 | log-normal, σ_ln ≈ 0.35 | ↔️ |
+| Subsurface Anisotropy | 0.8 | 0.7–0.9 | 0.05 | 📄 [1] |
+| Subsurface IOR | 1.4 | 1.33–1.45 | 0.03 | 🧠 |
+| IOR | 1.4 | 1.36–1.55 | 0.04 | ↔️ |
+| Specular IOR Level | 0.5 | 0.4–0.6 | 0.05 | 🧠 |
+| Roughness, base (Blender perceptual) | 0.45 | 0.35–0.60 | 0.07 | ↔️ |
+| Roughness offset: nose / forehead / chin | −0.12 / −0.08 / −0.05 | ±0.05 | 0.04 | 🧠 |
+| Roughness offset: cheeks / neck / ears | +0.05 | 0 to +0.1 | 0.04 | 🧠 |
+| Roughness offset: lips (moist) | −0.12 | −0.2 to 0 | 0.06 | 🧠 |
+| Coat weight / roughness (oily second lobe) | 0.05 / 0.25 | 0–0.25 / 0.15–0.35 | — | 🧠 |
+| Sheen weight (vellus hair) | 0.1 | 0–0.3 | — | 🧠 |
+| Metallic / Specular Tint | 0 / white | fixed | — | 🧠 |
+
+**D. Microdetail and texel density**
+
+| Item | Value | Units | Basis | Status |
+|---|---|---|---|---|
+| Pore opening diameter | 0.05–0.25 (≤0.5 enlarged) | mm | dermatology / profilometry | ↔️ |
+| Microrelief furrow depth | 0.02–0.1 | mm | replica profilometry | ↔️ |
+| Wrinkle depth, fine → coarse | 0.1 → >1 | mm | as above | ↔️ |
+| Facial epidermis thickness | 0.05–0.15 | mm | histology | 🧠 |
+| Head + neck surface | ≈0.15–0.17 | m² | rule of nines, 9% of 1.7–1.9 m² | 🧠 |
+| Texel pitch: 4K / 8K whole head, 70% UV fill | ≈0.12 / ≈0.06 | mm | arithmetic | 🧠 |
+| Texel pitch: face on own 8K UDIM (face ≈0.04 m²) | ≈0.03 | mm | arithmetic, face area assumed | 🧠 |
+| Multires level for ≈0.1 mm edges, 16k-quad base | 5 (≈16 M quads) | — | 16k × 4⁵ | 🧠 |
+| Render subdivision for facet-free SSS, 16k base | ≥2 (≈0.8 mm edges) | — | edge ≲ ¼ red mfp | 🧠 |
+
+**E. Scale sanity checks for the fitted head**
+
+| Measure | Adult value | Units | Source | Status |
+|---|---|---|---|---|
+| Interpupillary distance | mean ≈63, most 55–72 | mm | Dodgson 2004 | 🧠 |
+| Head breadth (eu–eu) | ≈140–160 | mm | Farkas 1994 | 🧠 |
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Work at real-world scale.** The radius is a scattering distance multiplied by Scale [1]. A head fitted in normalized units (for example an inter-ocular distance of 1.0) will look like wax or plastic with any physically chosen radius. Apply scale before shading. The fitting engine should output metres. Check the head's width in the Blender viewport against a plausible real head width before tuning anything.
-2. **Close the mesh before rendering with random walk** [2]:
-   - Cap the neck cut. An open neck is a hole that random walk handles badly.
-   - Make sure the mouth bag, nostrils and ear canals are closed, manifold surfaces.
-   - Remove duplicated or overlapping shells left by retopology or shrinkwrap.
-   - Keep the eyeballs, teeth and tongue as separate objects with their own materials, so their surfaces do not overlap the skin volume.
-   Run a non-manifold edge check (Select → All by Trait → Non Manifold) as a pre-render gate.
-3. **Never enable thin-wall on the head.** It silently turns off radius, scale and method [1].
-4. **Do lookdev in Cycles.** Subsurface IOR, Subsurface Anisotropy, Specular Anisotropy and Random Walk (Skin) are all Cycles-only [1][2]. Changing them in EEVEE has no visible effect, which leads to settings that "look right" in one engine and wrong in the other. How EEVEE Next approximates SSS was **not** covered by this run (see Open questions).
-5. **Choose the method deliberately.**
-   - Random Walk (Skin) suits skin: it blends diffuse transmission into the entry, which limits how deep light travels [5].
-   - Its entry roughness is fixed, so if you need to control the surface roughness of the scattering entry, users say the plain or legacy random walk keeps that control [10][6].
-   - Because method names differ between versions, record the exact Blender version in every preset [4][7].
-6. **Things that commonly look fake (user reports, weak evidence):**
-   - Zero anisotropy with random walk lacks surface definition [7].
-   - A wrong radius or colour hurts realism more than anisotropy does [6].
-   - Faceted, flat-shaded SSS on some meshes [8]. Check smooth shading, normals and topology first. The thread's diagnosis was not captured.
-7. **Not covered by evidence in this run:** roughness and specular map values by facial region, pore displacement amplitude, microdetail workflow, and texture vendors. Do not hard-code values for these from this note.
+1. **Scale gate.** Apply all transforms and keep Unit Scale at 1.0. Measure IPD and head breadth in the viewport (Table E). If they are off by more than about 10%, fix scale before touching the shader; any SSS tuning done at the wrong scale is wasted.
+2. **Geometry gate** [2]:
+   - Cap the neck and close the mouth bag and nostrils.
+   - Select ▸ Select All by Trait ▸ Non Manifold must return nothing.
+   - Keep eyes, teeth and tongue as separate closed objects that do not intersect the skin.
+   - Add render-level subdivision so face edges are ≲1 mm. This removes the SSS faceting [8].
+   - Never enable thin-wall on the head [1].
+3. **Albedo capture from the consenting subject:**
+   - Flat, diffuse light; RAW files; a colour chart in frame; locked white balance and exposure.
+   - Ideally cross-polarize: linear film on the lights, camera polarizer at 90°. This strips the specular, so what remains is close to diffuse albedo. A parallel-polarized pair minus the cross-polarized one isolates specular for a roughness and specular reference.
+   - Project the photos through the matched cameras (see `portrait-lighting-compare.md`) and blend by visibility and cos(view angle).
+   - De-light residual shading by dividing out a low-frequency shading estimate. Any shadow or highlight left in Base Color is shaded a second time and reads as "painted".
+4. **Shader (Cycles):** use Table C. Base Color sRGB; Roughness, Normal and Displacement maps Non-Color (a roughness map loaded as sRGB is a classic silent error). Leave the radius alone in Base Color: tint comes from colour, depth from Radius.
+5. **Microdetail:**
+   - Secondary forms (wrinkles, creases) go in displacement with Displacement and Bump mode and adaptive or high subdivision. Pores and microrelief go in bump or normal maps.
+   - For a 0–1 vendor map, set Displacement node Midlevel 0.5 and Scale equal to the peak-to-peak height in metres (0.0002–0.0005 for pores and microrelief).
+   - For a signed 32-bit EXR, Midlevel 0.
+   - Above about 1 mm peak-to-peak on pores you get orange peel.
+   - Vary pore size by region: largest on the nose and medial cheeks, almost none on the eyelids, vertical striations on the lips.
+6. **Lookdev under three lights, camera-matched to the subject's photos:** soft frontal, 45° key, and a rim or backlight. Check:
+   - the shadow terminator shows a narrow warm (red-orange) band;
+   - ears and alae glow a little under backlight but not under frontal light;
+   - highlight size and shape on the nose tip, forehead and lower lip match the photos.
+   Use the AgX view transform; Standard clips skin highlights to yellow. Keep denoising albedo and normal passes on, and check pores at 100% crop, because denoisers smear them.
+7. **What looks fake (diagnosis)** 🧠:
+
+| Symptom | Usual cause | Fix |
+|---|---|---|
+| Wax, jade, gummy | radius too large (scale mismatch, 4.x default Scale 0.05) | fix scale, red mfp ≈ 2–4 mm; do not drop Weight |
+| Plastic | uniform roughness < 0.35, IOR 1.5, no cavity breakup | roughness map, IOR 1.4, raise roughness in pores and creases |
+| Clay or dead | Weight 0, roughness > 0.65, desaturated albedo | Weight 1, regional roughness, check albedo against chart |
+| Sunburnt, orange terminator | red radius ≫ G/B or saturated Base Color | ratios near 1 : 0.37 : 0.19; desaturate albedo |
+| Painted | lighting or specular baked into albedo | cross-polarized capture, de-lighting |
+| Orange peel or reptile | uniform, over-scaled pore displacement | regional masks, ≤0.5 mm amplitude, follow skin flow |
+| Faceted SSS | low render subdivision under random walk | subdivide [8] |
+| Tinted highlights | Specular Tint not white, or Metallic > 0 | white, 0 |
 
 ## Algorithmic implications
 
-- **The add-on should write materials by version.** Detect `bpy.app.version`. Look up Principled inputs by identifier, with fallbacks for renamed sockets (3.6 names differ from 4.x/5.x [4][11]). Read the list of `subsurface_method` options at runtime instead of hard-coding enum strings, because names like legacy, fixed-radius and skin have shifted between versions [7]. Store the Blender version and engine in the preset.
-- **Geometry gate before shading.** The fitting engine's output contract should include:
-  - a watertight head (no boundary edges once the neck cap is added)
-  - no self-intersections or overlapping faces
-  - separate closed shells for eyes, teeth and tongue
-  This follows directly from how random walk behaves on open or overlapping meshes [2]. Score violations as a hard constraint, not a soft penalty.
-- **Metric scale prior.** Because Radius × Scale is a physical distance [1], the solver should end in metres. Convert to scene units only through `unit_settings.scale_length`, never by rescaling the mesh.
-- **Shading parameter schema** (defaults marked TBD are deliberately left unset until sourced):
-  - `ss_method`: Random Walk (Skin) when the engine is Cycles [2][5]
-  - `ss_anisotropy`: 0.8, labelled "manual-cited" [1]
-  - `ss_ior`: TBD, kept separate from `ior` [1]
-  - `ior`: TBD (the default 1.5 is glass [1])
-  - `ss_radius_rgb`: TBD, ordered R ≥ G ≥ B. The ordering follows the manual's per-channel description [1]; the magnitudes have no source here.
-  - `ss_scale`: TBD in metres, clamped to the 0–0.5 m UI range [1]
-  - `spec_anisotropy`: 0 (design default; no source supports anisotropy for skin)
-  - `thin_wall`: forced False [1]
-- **Engine flag.** When the target is EEVEE, mark the Cycles-only inputs as ignored. Do not pretend they have an effect.
-- **No priors for measured skin optics yet.** Region-specific roughness, specular, radius and displacement amplitude priors need primary measurements first (see Open questions). Until then, expose them as user parameters with no claimed physical default.
+- **Output contract for the fitting engine** (hard constraints, not penalties):
+  - metric units (metres), with IPD and head-breadth checks against Table E (IPD prior mean 63 mm, σ ≈ 3.5 mm);
+  - watertight skin with no self-intersections;
+  - separate closed eye, teeth and tongue shells;
+  - a recommended render subdivision level, computed so that edge length ≤ ¼ × red mfp.
+- **Region masks live on the template.** The template has fixed topology and UVs, so T-zone, cheek, lip, eyelid, ear and neck masks are authored once (vertex groups or a UV mask) and carry over to every fitted head for free. Roughness offsets, pore density and SSS tweaks are then per-region parameters (Table C σ values).
+- **Distortion-aware microdetail:** compute per-face area ratio against the template. Where stretch exceeds about 25%, warn, or re-tile or rescale the displacement so pores keep their physical size (🧠 threshold heuristic).
+- **Versioned material writer:**
+  - read `bpy.app.version` and look sockets up by identifier with fallbacks [4][11];
+  - read the `subsurface_method` enum items at runtime instead of hard-coding them [7];
+  - store Blender version and engine in each preset;
+  - flag Cycles-only inputs as inert when the target is EEVEE.
+- **Store radius as physical mfp in mm, plus ratios.** Write Radius = mfp_mm and Scale = 0.001 / `unit_settings.scale_length`. That keeps presets independent of the scene's unit scale.
+- **Photometric losses must model SSS.** Skin shading is low-pass filtered over a few millimetres (red ≫ blue). A Lambertian shape-from-shading term will sharpen or flatten geometry to explain the softness. Restrict shading terms to low frequencies or use the blue or green channel; mask specular pixels (bright, desaturated); prefer cross-polarized captures 🧠.
+- **Specular highlights constrain normals.** With an on-axis flash, highlight centres sit where the surface normal points back at the camera. Each highlight is a cheap normal constraint at that pixel (σ about 5–10°, 🧠 heuristic).
+- **Synthetic validation:** render fitted heads in Cycles with Random Walk (Skin) while randomizing radius (log-normal), roughness (±σ) and lighting, to test landmark-detector robustness against the photographic domain.
 
-## Disagreements, myths & refuted claims
+## Disagreements, myths & open questions
 
-- **What Random Walk (Skin) does to the radius.** The manual snippet says the radius is adjusted automatically from the colour texture [2]. A forum post says the method lacks the Burley-matching scaling of the legacy random walk [7]. These may be compatible (colour-driven radius adjustment versus a Burley-equivalence rescale), but the full manual text was not read. ↔️
-- **Version naming.** Harvest notes mention "Random Walk (Fixed Radius)" in a 3.4 page and "Random Walk (Legacy)" in a non-English 4.x page. A forum post claims 5.2 splits the modes into legacy and new [7]. None of this is confirmed against the 5.x English manual. ↔️
-- **"Random walk costs more render time and noise in dense media like skin."** A forum post attributes this to the Blender docs, but it was not found in the retrieved docs pages. Treat it as unconfirmed.
-- **Anisotropy versus radius and colour as the key realism lever.** The forum posts disagree [6][7]. Practitioner opinion only.
-- **Refuted:** none. No claim could be tested against an independent source in this run, so nothing was confirmed or refuted.
-
-## Open questions
-
-- **Verification still owed.** Every fact above needs a second, independent source. A follow-up run with search budget should first check the 0.8 skin anisotropy (trace it to its measurement study and sample size), the 0–50 cm Scale range, the Random Walk (Skin) radius behaviour, and the details of PR #110989.
-- **Default values in 4.x/5.x** for Subsurface Radius, Scale, IOR and Method were not captured. Read them from the full manual page.
-- **EEVEE Next (4.2+):** does it support any random-walk SSS, which subsurface inputs does it honour, and what are its screen-space limits? Not covered.
-- **Primary skin optics.** Measured scattering distances per channel (mm), skin IOR, specular roughness by facial region, and their population and sample sizes. Leads from background knowledge, **not retrieved or verified in this run** (check titles and contents before citing): Jensen et al., "A Practical Model for Subsurface Light Transport"; Donner & Jensen, "Light Diffusion in Multi-Layered Translucent Materials"; Weyrich et al., "Analysis of Human Faces using a Measurement-Based Skin Reflectance Model"; Christensen & Burley, "Approximate Reflectance Profiles for Efficient Subsurface Scattering".
-- **Displacement microdetail.** Pore and wrinkle displacement amplitudes, multi-channel displacement workflows, and Cycles adaptive subdivision versus baked normal detail. Not covered.
-- **Skin texture resources, licences and prices.** Not covered. Commercial scan-derived displacement vendors are an obvious lead but were not sourced.
-- **Capturing albedo and specular from the user's own photos.** Cross-polarised versus parallel-polarised separation, and how it maps to Base Color and roughness. Not covered.
-- **Cause of the flat-shaded SSS artifacts** [8]. Not captured.
+- **What Random Walk (Skin) does to the radius:** colour-driven adjustment [2] versus missing Burley-matching scale [7]. These may describe different things ↔️.
+- **Blender 5.x method names:** the claimed legacy/new split in 5.2 [7] is unconfirmed. Harvest notes also mention "Random Walk (Fixed Radius)" in a 3.4 manual page and "Random Walk (Legacy)" in a non-English 4.x page ↔️.
+- **Myth: "SSS weight 0.1–0.3 is realistic."** This is a carry-over from Principled v1, where Subsurface mixed in a separate Subsurface Color, and from wrong scale. In v2, Weight 1 with a correct radius is physical. Practitioners still disagree ↔️.
+- **Myth: "Subsurface colour should be red."** In v2, redness at the terminator comes from the R > G > B radius ratio, not from a redder albedo 🧠.
+- **Measured versus tuned radius:** Jensen's values often look slightly too translucent in practice, and artists end at 40–100% of them ↔️.
+- **Skin IOR** 1.4 versus up to 1.55; F0 0.028 versus 0.047 ↔️.
+- **Roughness:** converting measured Beckmann m (about 0.25–0.45 by region) to Blender's perceptual roughness (√α) gives about 0.5–0.67, above typical artist values of 0.35–0.5. The gap is partly closed by the second, sharper lobe ↔️.
+- **Anisotropy versus radius and colour as the main realism lever** is practitioner opinion [6][7].
+- **Unconfirmed:** that random walk costs more time and noise in dense media "per the docs".
+- **Open:** EEVEE Next SSS internals in 5.x; whether adaptive subdivision has left Experimental; pore density by region; regional SSS maps versus geometry-driven thickness; peach fuzz as Sheen versus real curves.
 
 ## Sources
 
 [1] Principled BSDF — Blender 5.3 Manual — https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html — official-docs — 2026
 [2] Principled BSDF — Blender 4.3 Manual — https://docs.blender.org/manual/en/4.3/render/shader_nodes/shader/principled.html — official-docs — 2024
-[3] Subsurface Scattering — Blender 5.3 Manual — https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/sss.html — official-docs — 2026 (harvested; no specific claim extracted)
+[3] Subsurface Scattering — Blender 5.3 Manual — https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/sss.html — official-docs — 2026 (harvested; no claim extracted)
 [4] Subsurface Scattering — Blender 3.6 Manual — https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/sss.html — official-docs — 2023
-[5] Cycles: Tweak Principled BSDF Subsurface parameters (PR #110989) — https://projects.blender.org/blender/blender/pulls/110989 — repo / developer notes — 2023
-[6] Subsurface Scattering colour — Blender Artists — https://blenderartists.org/t/subsurface-scattering-colour/1502627 — forum (practitioner opinion) — year unknown
-[7] Principled BSDF: Subsurface Anisotropy — Blender Artists — https://blenderartists.org/t/principled-bsdf-subsurface-anisotropy/1629688 — forum (practitioner opinion) — year unknown
-[8] Subsurface Scattering is producing flat-shaded artifacts — Blender Artists — https://blenderartists.org/t/subsurface-scattering-is-producing-flat-shaded-artifacts/1594573 — forum — year unknown
-[9] Volumetric SSS — Blender Tests — Blender Artists — https://blenderartists.org/t/volumetric-sss/1102733 — forum — year unknown (harvested; no specific claim extracted)
-[10] This material? How to — Blender Artists — https://blenderartists.org/t/this-material-how-to/1233888 — forum (practitioner opinion) — year unknown
-[11] Principled BSDF — Blender 3.6 Manual — https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/principled.html — official-docs — 2023 (URL cited in harvest facts)
+[5] Cycles: Tweak Principled BSDF Subsurface parameters (PR #110989) — https://projects.blender.org/blender/blender/pulls/110989 — repo — 2023
+[6] Subsurface Scattering colour — Blender Artists — https://blenderartists.org/t/subsurface-scattering-colour/1502627 — forum — unknown
+[7] Principled BSDF: Subsurface Anisotropy — Blender Artists — https://blenderartists.org/t/principled-bsdf-subsurface-anisotropy/1629688 — forum — unknown
+[8] Subsurface Scattering is producing flat-shaded artifacts — Blender Artists — https://blenderartists.org/t/subsurface-scattering-is-producing-flat-shaded-artifacts/1594573 — forum — unknown
+[9] Volumetric SSS — Blender Tests — Blender Artists — https://blenderartists.org/t/volumetric-sss/1102733 — forum — unknown (no claim extracted)
+[10] This material? How to — Blender Artists — https://blenderartists.org/t/this-material-how-to/1233888 — forum — unknown
+[11] Principled BSDF — Blender 3.6 Manual — https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/principled.html — official-docs — 2023
+
+**Further reading (by name, not yet linked)**
+- Jensen, Marschner, Levoy & Hanrahan, "A Practical Model for Subsurface Light Transport", SIGGRAPH 2001
+- Donner & Jensen, "Light Diffusion in Multi-Layered Translucent Materials", SIGGRAPH 2005; "A Spectral BSSRDF for Shading Human Skin", EGSR 2006
+- Weyrich et al., "Analysis of Human Faces using a Measurement-Based Skin Reflectance Model", SIGGRAPH 2006
+- d'Eon & Luebke, "Advanced Techniques for Realistic Real-Time Skin Rendering", GPU Gems 3, 2007
+- Christensen & Burley, "Approximate Reflectance Profiles for Efficient Subsurface Scattering", Pixar technical memo, 2015
+- Jimenez et al., "Separable Subsurface Scattering", Computer Graphics Forum, 2015
+- Burley, "Physically-Based Shading at Disney", SIGGRAPH 2012 course notes
+- Debevec et al., "Acquiring the Reflectance Field of a Human Face", SIGGRAPH 2000
+- Ma et al., "Rapid Acquisition of Specular and Diffuse Normal Maps from Polarized Spherical Gradient Illumination", EGSR 2007
+- Graham et al., "Measurement-Based Synthesis of Facial Microgeometry", Eurographics 2013
+- Nagano et al., "Skin Microstructure Deformation with Displacement Map Convolution", SIGGRAPH 2015
+- Igarashi, Nishino & Nayar, "The Appearance of Human Skin: A Survey", Foundations and Trends in Computer Graphics and Vision, 2007
+- Anderson & Parrish, "The Optics of Human Skin", Journal of Investigative Dermatology, 1981
+- van Gemert et al., "Skin Optics", IEEE Transactions on Biomedical Engineering, 1989
+- Tuchin, *Tissue Optics*
+- Dodgson, "Variation and Extrema of Human Interpupillary Distance", SPIE 2004
+- Farkas, *Anthropometry of the Head and Face*, 1994
+- Blender 3.0, 4.0 and 4.2 release notes (Cycles subsurface, Principled v2, EEVEE Next)

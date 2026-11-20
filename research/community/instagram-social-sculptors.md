@@ -1,8 +1,8 @@
 # Instagram and social media sculptors' tips
 
-> Portrait and likeness sculptors on Instagram, TikTok, X and Threads, working in clay and digitally, keep repeating a small set of process rules. Settle the big masses before the features. Check the silhouette from many angles. Look again with fresh eyes (mirror, flip, squint, blink-compare). Shoot reference from a distance with a longer lens. Measure from fixed points. Turn symmetry off once the primary forms are in. The web harvest for this topic reached only five Instagram profile pages, whose snippets held bios and no technique, so the sourced part of this note is thin. Almost all of the practical content below is expert knowledge, badged 🧠, with the photographic and anthropometric numbers worked out from pinhole geometry or taken from named canonical literature. For the fitting engine, the useful result is that each recurring studio check has an exact computational counterpart: matched-camera silhouette error, landmark reprojection residuals, estimated camera distance, a symmetry weight schedule and caliper distance constraints.
+> Portrait and likeness sculptors on Instagram, TikTok, X and Threads, in clay and digitally, keep repeating a small set of process rules: settle the big masses before the features, check the silhouette from many angles, look again with fresh eyes (mirror, flip, squint, blink-compare), shoot reference from a distance with a longer lens, measure from fixed points, and turn symmetry off once the primary forms are in. The web harvest reached only five Instagram profile pages, whose snippets held bios and no technique, so the sourced part of this note is thin. Almost all of the practical content is expert knowledge, with the numbers worked out from pinhole geometry or taken from named canonical literature. For the fitting engine, each recurring studio check has an exact computational counterpart: matched-camera silhouette error, landmark reprojection residuals, estimated camera distance, a symmetry weight schedule and caliper distance constraints.
 >
-> Evidence status: 0 ✅ / 4 📄 / 49 🧠 / 14 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 4 📄 / 51 🧠 / 15 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -11,26 +11,26 @@
 - The Instagram account `@societyofportraitsculptors` describes itself as "Professional sculptors committed to making portrait sculpture accessible to a wider public" (bio from a search snippet; no technique content was visible) [1]. 📄 The organisation behind it is understood to be the UK's Society of Portrait Sculptors. 🧠
 - A search for Instagram portrait-sculptor tips on likeness and proportion returned `@charactersculpt`, `@sculptor_artists` and `@clayshaper`. The snippets showed only bio and follower data [3][4][5]. 📄
 - `@cooleblumen` (Inese Veismane) came up as a clay-tutorial account, but the tutorials appear to be about clay flowers. It is off-topic and excluded [2]. 📄
-- Search snippets of Instagram profile pages show bios, not post captions or reel text. None of the five results exposed any sculptor's actual advice, and no TikTok, X or Threads content was retrieved [1][2][3][4][5]. 📄 The earlier verification pass confirmed nothing and refuted nothing, so every technique claim below is unsourced in this library.
+- Profile-page snippets show bios, not post captions or reel text: none of the five results exposed actual advice, and no TikTok, X or Threads content was retrieved [1][2][3][4][5]. 📄 The earlier verification pass confirmed and refuted nothing, so every technique claim below is unsourced here.
 
 **Recurring practitioner advice (expert knowledge, consistent across clay and digital teaching)**
 
-- **Big to small.** Most of a likeness sits in the primary masses: cranial shape, jaw width and angle, brow-to-chin length, nose projection and cheek mass. Detailing features early locks proportion errors into the sculpt. 🧠
-- **Work by profiles.** This tradition goes back to Lanteri. Rotate the sitter and the bust together and compare the outermost contour at 8–16 stations (every 45°–22.5°). The digital version is a turntable comparison against photos taken from known angles. 🧠
-- **Fresh-eye checks.** Use a mirror (Leonardo's advice for painters), flip the image horizontally, shrink or blur the view, squint, or step away. Each one breaks perceptual adaptation, so errors you have stopped seeing show up again. 🧠
+- **Big to small.** Most of a likeness sits in the primary masses (cranial shape, jaw width and angle, brow-to-chin length, nose projection, cheek mass); detailing early locks proportion errors in. 🧠
+- **Work by profiles** (the Lanteri tradition). Rotate sitter and bust together and compare the outermost contour at 8–16 stations (every 45°–22.5°); digitally, a turntable comparison against photos from known angles. 🧠
+- **Fresh-eye checks.** Use a mirror (Leonardo's advice for painters), flip the image, shrink or blur the view, squint, or step away. Each breaks perceptual adaptation, so errors you have stopped seeing reappear. 🧠
 - **Blink comparison.** Flick quickly between the photo and a render or photo of the sculpt taken from the same angle. Differences show up as motion. 🧠
-- **Lens and distance.** Experienced likeness artists reject phone selfies. Perspective depends only on camera distance; focal length only crops. Reference shot from about 1.5 m or more, typically with an 85–135 mm-equivalent lens, keeps the depth distortion between nose and ears to a few percent (see Table 1). 🧠
-- **Calipers from fixed points.** Clay portraitists working from life take repeated caliper readings from stable bony or cartilage points (tragi, nasion, menton) to each feature and transfer them to the clay. In effect this is 3D trilateration. 🧠
+- **Lens and distance.** Likeness artists reject phone selfies. Perspective depends only on camera distance; focal length only crops. Shooting from about 1.5 m or more, typically with an 85–135 mm-equivalent lens, keeps nose-to-ear depth distortion to a few percent (Table 1). 🧠
+- **Calipers from fixed points.** Clay portraitists working from life take caliper readings from stable points (tragi, nasion, menton) to each feature and transfer them to the clay: in effect, 3D trilateration. 🧠
 - **Symmetry off after the primaries.** Real faces are measurably asymmetric (see the library's facial-asymmetry note). Teachers disagree on when to switch symmetry off: right after blocking, or only for finishing. ↔️
-- **Eyes.** Set eyeball spheres first (axial length about 23–25 mm) and build the lids over them. Make the lids thick, not paper-thin. Seen from the side, the outer canthus sits well behind the inner canthus. 🧠
-- **Hair, hairline and head carriage.** These do a large share of the recognition work: the same inner face reads as a different person under different hair (Sinha & Poggio, 1996). Sculptors stress the hairline shape and the tilt of the head on the neck. 🧠
-- **Characteristic expression versus neutral.** Some sculptors argue that a faint habitual expression (brow set, mouth corners) is what people recognise. Others insist on a neutral base with expression added later. ↔️
+- **Eyes.** Set eyeball spheres first (axial length about 23–25 mm) and build thick lids over them; in profile the outer canthus sits well behind the inner. 🧠
+- **Hair, hairline and head carriage** do much of the recognition work: the same inner face reads as a different person under different hair (Sinha & Poggio, 1996). 🧠
+- **Characteristic versus neutral expression.** Some sculptors hold that a faint habitual expression (brow set, mouth corners) is what people recognise; others insist on a neutral base with expression added later. ↔️
 - **"Push it slightly."** Exaggerating distinctive traits a little can raise recognisability. This is the caricature advantage, robust in 2D line drawings (Rhodes, Brennan & Carey, 1987) but less clearly established for realistic 3D. ↔️
 - **Lighting.** Judge form under a single raking key light, roughly 30–60° above and to the side, and under several directions. Flat ring lights and generic matcaps hide planar errors. 🧠
-- **Reference hygiene.** Stay inside one age and body-weight window. Remove glasses: corrective lenses visibly shrink or enlarge the eyes. Use relaxed lips with the teeth lightly together, because the mandible's rest position adds a few mm of lower-face height. Shoot from the sitter's eye height. 🧠
-- **Proportion grids** (eyes at half, thirds, "five eyes wide") are useful blocking scaffolds. They are not likeness. Farkas's anthropometry found that many neoclassical canons hold in only a minority of adults. ↔️
-- **Social formats mislead.** Timelapse "speed sculpts" hide the hours of correction, square and 4:5 crops plus phone lenses distort the photos of the work itself, and side-by-side "likeness" posts are often matched to a single flattering photo. 🧠
-- **Artists whose public work is widely reshared** (names only; this library has not verified any specific piece of advice attributed to them):
+- **Reference hygiene.** One age and body-weight window; no glasses (corrective lenses shrink or enlarge the eyes); teeth lightly together, because the mandible's rest position adds a few mm of lower-face height; camera at the sitter's eye height. 🧠
+- **Proportion grids** (eyes at half, thirds, "five eyes wide") are blocking scaffolds, not likeness; Farkas's anthropometry found many neoclassical canons hold in only a minority of adults. ↔️
+- **Social formats mislead.** Timelapse "speed sculpts" hide hours of correction, phone lenses distort photos of the work itself, and side-by-side "likeness" posts are often matched to one flattering photo. 🧠
+- **Widely reshared artists** (names only; no advice attributed to them is verified here):
   - clay: Philippe Faraut (books and demos on portrait anatomy in clay)
   - hyperreal: Kazu Hiro (Kazuhiro Tsuji)
   - digital likeness: Rafael Grassetti, Glauco Longhi, Adam Skutt, Hossein Diba, Pablo Muñoz Gómez
@@ -41,7 +41,7 @@
 
 ## Numbers & reference tables
 
-**Table 1. Perspective distortion versus camera distance (pinhole geometry).** The nose tip and the ear plane are taken to lie Δz ≈ 0.10 m apart in depth, from a range of about 0.09–0.11 m. The relative magnification of the nose against the ears is (d+Δz)/d, where d is the distance from the camera to the nose tip. The last column is the full-frame focal length that frames 0.40 m vertically with the 36 mm side upright: f = 36·d/0.40.
+**Table 1. Perspective distortion versus camera distance (pinhole geometry).** Nose tip and ear plane are taken as Δz ≈ 0.10 m apart in depth (range about 0.09–0.11 m). Nose-versus-ear magnification is (d+Δz)/d, with d the camera-to-nose-tip distance. The last column frames 0.40 m vertically on full frame with the 36 mm side upright: f = 36·d/0.40.
 
 | d (m) | Nose:ear magnification | Excess | f35 to frame a 0.40 m field | Typical capture | Badge |
 |---|---|---|---|---|---|
@@ -52,7 +52,7 @@
 | 2.0 | 1.05 | 5% | 180 mm (or 85 mm cropped) | recommended | 🧠 |
 | 3.0 | 1.033 | 3.3% | 270 mm (or 85–135 mm cropped) | near-orthographic | 🧠 |
 
-A clinical study of the "selfie effect" (Ward et al., 2018) reported that the nasal base looks roughly 30% wider at about 30 cm than at about 1.5 m. That is the same order as this table, but the figure is unverified here. 🧠
+A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base looking roughly 30% wider at about 30 cm than at about 1.5 m; same order as this table, unverified here. 🧠
 
 **Table 2. Scale anchors for photo fitting (adults, mixed populations, approximate).** Population-specific values belong in the anatomy notes.
 
@@ -93,17 +93,17 @@ A clinical study of the "selfie effect" (Ward et al., 2018) reported that the na
 ## Applying this to photo→3D face sculpting in Blender
 
 1. **Capture to Table 4, and reject selfies automatically.** For each photo, estimate the subject distance as d ≈ f_px·IPD_mm/ipd_px (frontal views), with `focal_px_from_35mm` when EXIF is present. If d < 1.0 m, warn. If d < 0.6 m, refuse the photo as a shape cue, because the nose comes out 15–20% or more too large relative to the ears. 🧠
-2. **Use matched cameras, not orthographic planes.** Front and side image planes assume parallel projection and are only valid for far, telephoto shots. Export each solved camera with `to_blender_camera`, put the photo in the camera's own Background Images, and evaluate the sculpt only through that camera. Blender's default camera and viewport lens are both 50 mm, which almost never matches a phone photo. 🧠
-3. **Block out in this order.** Cranium and jaw silhouette first, then profile line (glabella–nasion–pronasale–subnasale–labrale–pogonion–menton), then eye sockets and eye spheres, then nose, then mouth barrel, then ears, then lids, lips and finally hairline. At each stage, cycle through every matched camera before moving on. This is "work by profiles" with exact cameras. 🧠
+2. **Use matched cameras, not orthographic planes.** Front and side image planes assume parallel projection, valid only for far telephoto shots. Export each solved camera with `to_blender_camera`, put the photo in that camera's Background Images, and judge the sculpt only through it. Blender's default camera and viewport lens are 50 mm, which rarely matches a phone photo. 🧠
+3. **Block out in order:** cranium and jaw silhouette; profile line (glabella–nasion–pronasale–subnasale–labrale–pogonion–menton); eye sockets and spheres; nose; mouth barrel; ears; lids, lips, hairline. Cycle through every matched camera at each stage: "work by profiles" with exact cameras. 🧠
 4. **Build the fresh-eye checks as operators.**
-   - Blink compare: toggle between the photo and a Workbench render through the same camera at about 1–2 Hz.
-   - Flipped pair: show the flipped render and the flipped photo side by side. Blender has no one-click viewport mirror that we know of; a camera with scale.x = −1 or an Image Editor flip are the candidates to test.
+   - Blink compare: toggle photo and a Workbench render through the same camera at about 1–2 Hz.
+   - Flipped pair: flipped render beside flipped photo. Blender has no known one-click viewport mirror; test a camera with scale.x = −1 or an Image Editor flip.
    - Blur and shrink preview.
-   - Single-key "studio" light at 30–60° to replace the matcap during review.
+   - Single-key light at 30–60° replacing the matcap during review.
 
    🧠
-5. **Set up sculpt mode carefully.** Set the brush Radius Unit to Scene, so that strokes are in mm on a true-scale head, not in screen pixels. Model at real scale: a head is about 0.23 m tall in metres units. Do the voxel-remesh blockout at about 1–2 mm, then hand over to multires. Check the X-mirror toggle before each session. 🧠
-6. **Eyes.** Use 24 mm spheres, with the corneal apex about 15–17 mm in front of the lateral orbital rim, and refine from the profile photo. The most common digital error is eyes too proud of the face or too sunken; it shows instantly in the 3/4 matched view. 🧠
+5. **Set up sculpt mode carefully.** Set the brush Radius Unit to Scene so strokes are in mm, not screen pixels. Model at real scale (a head is about 0.23 m tall). Voxel-remesh the blockout at about 1–2 mm, then hand over to multires. Check the X-mirror toggle each session. 🧠
+6. **Eyes.** Use 24 mm spheres with the corneal apex about 15–17 mm in front of the lateral orbital rim, refined from the profile photo. Eyes too proud or too sunken is the most common digital error; it shows instantly in the 3/4 matched view. 🧠
 7. **Common failures.**
    - Mixing photos from different ages or weights.
    - Smiling photos used as neutral.
@@ -129,7 +129,7 @@ A clinical study of the "selfie effect" (Ward et al., 2018) reported that the na
 - **Symmetry weight schedule.** σ_sym starts at about 1 mm during Stage A/B and relaxes to the bundle default of 2 mm, or looser, in C/D. Only occluded regions keep a strong symmetry pull. 🧠
 - **Caliper constraints.** Accept user-entered live measurements as distance residuals (‖X_i − X_j‖ − m)/σ, with σ ≈ 1–2 mm for soft tissue (compression and landmark ambiguity). Fixed triplets such as both tragi plus nasion trilaterate any other landmark, which is the sculptor's method made exact; it fits beside `triangulate.py`. 🧠
 - **Distinctiveness control (caricature).** Shape priors shrink fits toward the mean, which is exactly the "it looks generic" complaint. Offer X' = μ + (1+k)(X − μ) with k ∈ [0, 0.15] as a preview slider, default k = 0. Never apply it automatically. ↔️
-- **Silhouette energy.** Use per-view mask IoU with hair segmented out of the cranial contour. Weight the profile-view silhouette and the midline landmarks most heavily.
+- **Silhouette energy.** Use per-view mask IoU with hair segmented out of the cranial contour. Weight the profile-view silhouette and the midline landmarks most heavily. 🧠
 - **Diagnostics as outputs.** The solver should return:
   - per-view IoU and per-region mismatch
   - per-landmark reprojection error, sorted worst first
@@ -137,20 +137,20 @@ A clinical study of the "selfie effect" (Ward et al., 2018) reported that the na
   - the left/right asymmetry vector
 
   These are the measurable versions of the sculptors' checks. 🧠
-- **Claim registry (kept from the earlier draft).** Store practitioner tips with `source_kind`, `n_independent_sources`, `medium`, `rule_type` (construction or diagnostic), value, units and status. Social-only claims may drive UI hints. They become priors only when a non-social source corroborates them.
+- **Claim registry (kept from the earlier draft).** Store practitioner tips with `source_kind`, `n_independent_sources`, `medium`, `rule_type` (construction or diagnostic), value, units and status. Social-only claims may drive UI hints; they become priors only when a non-social source corroborates them. 🧠
 
 ## Disagreements, myths & open questions
 
-- **"50 mm is like the human eye", or "longer lenses flatten the face."** Focal length does not change perspective; distance does. A longer lens simply makes the larger distance practical. 🧠
-- **"Front and side photo planes give accurate proportions."** Only true when the photos are taken from far away (Table 1). 🧠
-- **Measure versus trust your eye.** The caliper tradition and "measuring kills life" are both popular positions. For photo-based work, the matched camera settles the argument. ↔️
-- **Life-size versus slightly over life-size.** Some sculptors scale busts up about 5–10% because life-size reads as small. A digital twin should stay at 1:1. ↔️
+- **"50 mm is like the human eye" / "long lenses flatten the face."** Distance, not focal length, sets perspective; a longer lens just makes the distance practical. 🧠
+- **"Front and side photo planes give accurate proportions."** Only for distant shots (Table 1). 🧠
+- **Measure versus trust your eye.** The caliper tradition and "measuring kills life" are both popular; for photo-based work the matched camera settles it. ↔️
+- **Life-size or slightly over?** Some sculptors enlarge busts about 5–10% because life-size reads small; a digital twin stays 1:1. ↔️
 - **When to drop symmetry**, and **neutral versus characteristic expression**: both remain unsettled (see above). ↔️
 - **Open questions.**
   - No post-level content (captions, reels, threads) from named sculptors has been retrieved yet.
   - Which checks recur across independent artists on TikTok, X and Threads specifically?
   - Does a 3D caricature boost measurably improve rated likeness?
-  - Do engagement metrics track technical accuracy at all? Probably not answerable from search alone.
+  - Do engagement metrics track technical accuracy at all?
 
 ## Sources
 

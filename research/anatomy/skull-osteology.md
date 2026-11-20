@@ -1,128 +1,202 @@
 # Skull osteology that shapes the face surface
 
-> The face surface is a skull plus a soft-tissue layer whose thickness changes from landmark to landmark. The pooled 2023 global review puts it at about 3.0 mm at rhinion, 5.5 mm at glabella and 6.0 mm at nasion [1]. The thin midline points (glabella, nasion, rhinion) and the orbital rims [23] are where bone shows through the skin most reliably. Frontal landmarks with clear skin correlates (nasion, orbitale, pogonion) can be read from the surface more reliably than lateral ones (zygion, gonion) [11]. Chin and jaw shape follow mandibular growth direction [18][20][21], but the soft tissue moves less than the bone [18]. Thickness depends on sex, BMI, population and imaging method, and the direction of the sex difference changes by region [2][4][5]. **Verification caveat:** this pass ran no independent searches of its own. The shared WebSearch budget ran out on the first query, and one direct fetch of PMC failed at DNS. A claim is marked ✅ only where two or more independent harvested sources agree. Everything else is ⚠️ and still needs a full-text check.
+> The face surface is the skull plus a soft-tissue cover whose thickness varies roughly tenfold, from about 3 mm on the bony nasal dorsum to 15–25 mm over the cheek and masseter. Bone therefore "reads" through skin only in predictable zones: forehead and brow ridge, orbital rims, nasal bones, zygomatic body and arch, and the chin and lower jaw border. At the thin midline points (glabella ≈5–5.5 mm, nasion ≈6–7 mm, rhinion ≈3 mm, pogonion ≈11–12 mm) a photo-derived surface must follow bone almost exactly [1][7][31]. Thick zones (buccal, philtrum, gonion) follow muscle, fat, age and BMI more than bone [2][4]. Bone also sets the plane breaks sculptors use (temporal line, lateral orbital rim, malar body, zygomatic arch, mandibular border and angle). Frontal bony points are observable from skin, but lateral ones (zygion, gonion) are not [11], and depth tables are population averages with large individual error, so they are priors, not answers [45][47][48].
+>
+> Evidence status: 19 ✅ / 47 📄 / 52 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
-- **Thin points read bone.** In pooled global data (CT, CBCT, ultrasound and MRI mixed), the total weighted mean soft-tissue thickness is 5.5 mm at glabella and 6.0 mm at nasion. The mean at rhinion is 3.0 mm, about half of that, so the bony nasal dorsum is the most directly visible skeletal contour on the midline [1]. ⚠️
-- **Thickness is regional, and so is sex dimorphism.** In Korean adults, men have thicker tissue at supraglabella, nasion, rhinion, mid-philtrum, supradentale and supraglenoid. Women have thicker tissue at lateral orbit, inferior malar and gonion [2]. Thai ultrasound data agree that males are thicker at nasal and perioral sites, notably prosthion and supracanine [5]. ✅ (men thicker at nasal/perioral midline points); ⚠️ (women thicker laterally: one source)
-- **Adiposity matters.** An Iranian midline MRI study found thickness generally increased with BMI [4]. Thai, Azerbaijani and Chinese studies also model BMI or age as covariates [5][6][7]. ⚠️ (direction of effect from one source)
-- **Skeletal class changes the lower-face soft tissue.** Korean CBCT data show thicker soft tissue at subnasale, upper lip and menton in skeletal Class III than in Classes I and II [3]. ⚠️
-- **Surface observability is uneven.** Frontal bony points (nasion, orbitale, pogonion) have clear soft-tissue correlates. Lateral points (gonion, zygion) and deep points (sella, basion) are less reliably located from skin [11]. This comes from a 2026 preprint that has not been peer reviewed. ⚠️
-- **Orbital rim construction.** The frontal bone forms the superior rim. The zygomatic bone contributes to the lateral and inferior rim and the maxilla to the inferior rim. The rim is thicker than the orbital walls, and the **lateral rim is the least projected** [23]. ⚠️ The zygoma's role at the lateral orbit and cheek is also stated in [12]. ✅
-- **Foramina as surface anchors.** The supraorbital notch or foramen sits in the medial third of the superior rim. The infraorbital foramen lies below the inferior rim [23]. ⚠️
-- **Cheekbone high point.** The anterior, slightly convex lateral surface of the zygomatic body forms the malar eminence, just below the lateral orbit. Malar (sagittal) projection is an aesthetic parameter, and malar hypoplasia is under-projection of the zygomatic body [12]. ⚠️
-- **Piriform aperture predicts part of the nose.** In Korean CT data, 26 of 76 nose-to-aperture relationships were significantly correlated [17]. Regression equations predicting nasal shape from the aperture (n = 665, juveniles and adults) explain more variance when sex and age group are included [16]. ✅ Both samples are Korean, and it was not confirmed whether the two research groups are independent.
-- **The aperture is sexually dimorphic.** In 40 North Indian dry skulls, nasal bone and aperture shape and size differed significantly by sex [13]. In 70 crania, aperture length, width and area were significantly higher in males, and the "pear" type was the most common (42.86%) [14]. ✅ (dimorphism exists); the reported areas are flagged below.
-- **Chin follows mandibular rotation and growth type.** Björk (as cited in [18]) found that posteriorly rotated mandibles have a receding chin and anteriorly rotated ones a prominent symphysis. Chin size increases from vertical to horizontal growth type [20]. Hyperdivergent faces have a shallower mental sulcus and a more obtuse soft-tissue chin angle [21]. The chin is the projecting part of the mandibular symphysis, and the shape of the symphysis shapes the soft-tissue chin over it [22]. ✅
-- **Soft tissue under-follows bone at the chin.** After advancement genioplasty, soft-tissue change corresponded to bone change at ratios of about 1:0.75 to 1:0.92 [18]. This is a secondary citation inside [18]. ⚠️
-- **Jaw asymmetry is skeletal.** Soft-tissue thickness at the mandibular angle was not significantly related to chin deviation and changed little after orthognathic surgery. Asymmetry tracked the lengths of the mandibular functional units [19]. ⚠️
+**Frontal bone and brow**
+- Palpable frontal landmarks on the living face: supraorbital margins, frontal eminences and superciliary arches [26] 📄. The supraorbital notch or foramen lies in the medial third of the upper rim, about 2 cm from the midline, and transmits the supraorbital nerve and vessels [23][24][25] ✅.
+- The superior temporal line runs up and back from the zygomatic process of the frontal bone. It is the "corner" where the forehead's front plane turns into its side plane 🧠, and the inferior temporal line bounds the temporal fossa above [33] 📄.
+- Sex tendencies 🧠: males have a larger glabella and superciliary arches (partly frontal-sinus volume), blunt rounded supraorbital margins and a more sloping forehead. Females have a more vertical forehead with frontal eminences retained, thin sharp supraorbital margins and a small glabella. Visual cranial sexing is only about 80–90 % accurate in published tests, so treat these as tendencies, not rules.
+- Forehead soft tissue is thicker in males at all ages and most regions (MRI) [32], and men are thicker at supraglabella and nasion [2] ✅.
+
+**Orbit**
+- The rim is built by the frontal bone (superior), the zygomatic bone (lateral and inferolateral) and the maxilla (inferomedial; its frontal process forms the medial rim) [23][27][28] ✅. The floor is maxilla, palatine and the orbital plate of the zygoma [27] 📄.
+- The rim is thicker than the orbital walls, and the lateral rim is the least projected [23] 📄. In profile at eye level the front-to-back order is typically brow/supraorbital rim → corneal apex → infraorbital rim → lateral orbital rim 🧠.
+- The corneal apex normally sits about 12–20 mm in front of the lateral orbital rim (the normal Hertel exophthalmometry range; higher on average in people of African ancestry) 🧠. When the cornea projects in front of the infraorbital rim and cheek (a "negative vector" orbit, usually with maxillary under-projection), the eyes look prominent 🧠.
+- The orbital aperture is about 35 mm high × 40 mm wide [23] 📄, wider than tall, with its long axis tilting down laterally 🧠.
+- Canthal anchors 🧠: the medial canthal tendon attaches to the anterior lacrimal crest on the maxilla's frontal process. The lateral canthal tendon attaches to Whitnall's tubercle a few mm inside the lateral rim, which is why the lateral canthus sits deep and usually slightly higher than the medial one.
+- The infraorbital foramen lies about 6 mm below the inferior rim, with a reported range of about 5–8.5 mm (and up to about 1 cm) depending on population and method [28][29] ↔️.
+- The lid–cheek junction and tear trough follow ligaments anchored on the inferior rim. In youth the junction sits near the rim, and with age it descends while the rim edge shows through 🧠.
+
+**Nasal skeleton**
+- The nasal bones form the bony bridge and meet the frontal bone at nasion [24] 📄. Their mean length was ≈21 mm in Korean 3D-CT (n = 75) [15] 📄. Rhinion, the bony–cartilaginous junction, has the thinnest midline cover at about 3 mm [1] 📄, and the dorsal hump usually straddles it 🧠.
+- The anterior nasal spine sits at the inferior midline margin of the piriform aperture [40] 📄. With the premaxilla it supports the columella base and subnasale 🧠.
+- The aperture predicts the external nose only partly. In Korean CT, 26 of 76 nose–aperture relationships were significant [17], and regressions improve when sex and age are included [16]. In CBCT (n = 96), aperture width grows proportionally more than nasal breadth [41]. Several of six profile-prediction methods performed poorly [39], and geometric-morphometric approximation gave weak correlations (RV < 0.4) for nose and mouth [42] ✅.
+- The aperture and nasal bones are sexually dimorphic, larger in males [13][14] ✅.
+
+**Zygomatic bone, arch and temporal fossa**
+- The anterolateral convexity of the zygomatic body is the malar eminence, just below the lateral orbit, and the zygoma forms the lateral orbit and the cheek prominence [12][23] ✅. The "cheekbone" highlight people see is the zygomatic body plus the malar fat over it, not the arch 🧠.
+- The arch (temporal process of the zygoma plus zygomatic process of the temporal bone) runs back to just in front of the tragus, roughly along the Frankfort horizontal 🧠. Zygion, its most lateral point, sets bizygomatic breadth, the widest facial dimension 🧠. Zygion is poorly observable from skin [11] 📄, and tissue over zygion and gonion was more than 2 mm thicker in older than in younger Azerbaijani adults [7] 📄.
+- Bone sets malar width. Burring prominent zygomas without reducing bizygomatic width flattens the malar area and makes the face look wider [49] 📄.
+- The temporal fossa is bounded by the inferior temporal line (superior), the squamosal suture (posterior), the lateral orbital rim (anterior) and the zygomatic arch (inferior) [33] 📄. Its volume is reported as stable through adulthood and between sexes, and temple variation comes mainly from temporalis and fat pads (secondhand citation) [33] 📄. Temporalis thickness is measured 1 cm above and 1 cm lateral to the lateral canthus, and it tended to be thinner in females [34] 📄. With age or weight loss the temple hollows and the temporal line and the frontal process of the zygoma show as ridges 🧠.
+
+**Maxilla** 🧠
+- Surface-relevant features: the frontal process (medial orbital rim and side wall of the nasal root), the canine fossa (a concavity below the infraorbital foramen, hidden under thick cheek tissue), the canine eminence (a ridge over the canine root), and the zygomaticoalveolar ("key") ridge sloping from the malar body to the first molar, which marks the lower edge of the malar mass. The alveolar process and teeth form the "dental barrel" the lips wrap around. Midface projection is maxillary, so maxillary retrusion flattens the paranasal area and steepens the nasolabial region.
+
+**Mandible**
+- The gonial angle is ≈160° at birth and ≈120° in adults [35]. Young adult male dry mandibles averaged 120.17° [36] ✅. A reported 90° (male) / 110° (female) pair conflicts with this [35] ↔️.
+- The chin is the projecting part of the symphysis, and symphysis shape shapes the soft-tissue chin [22]. The mental protuberance is larger in males, with sex differences in symphysis size and shape [37] ✅.
+- Growth rotation couples angle and chin. Posteriorly rotated, high-angle mandibles have a receding chin, a shallower mental sulcus and narrow, elongated symphyses. Anteriorly rotated, low-angle ones have a prominent, wide, bulbous symphysis [18][20][21][38] ✅.
+- After advancement genioplasty, soft-tissue change follows bone change at about 0.75–0.92 [18] 📄. Jaw asymmetry tracks mandibular functional-unit lengths, not angle soft tissue [19] 📄.
+- Gonion is poorly observable from skin [11] 📄 and its cover is thicker in women [2] 📄. The masseter dominates the lateral jaw silhouette above the angle 🧠.
+- The mental tubercles at the chin corners set chin width and squareness 🧠. The mental foramen usually lies below the premolars, on roughly the same vertical line (about 2–3 cm from the midline, near the mid-pupillary line) as the supraorbital notch and infraorbital foramen 🧠.
+
+**Soft-tissue cover and covariates**
+- Midline thin points agree across sources: pooled glabella 5.5 / nasion 6.0 / rhinion 3.0 mm [1]; CBCT glabella 5.11 / nasion 6.78 / pogonion 11.71 / gnathion 8.46 mm [31]; Azerbaijani CT pogonion ≈12.3 mm in males and ≈11.0 mm in females [7] ✅.
+- The skin layer itself is only about 1.1–1.6 mm thick [30] 📄. The rest of the depth is fat, muscle and fascia.
+- The sex difference flips by region. Men are thicker at supraglabella, nasion, rhinion, mid-philtrum, supradentale and supraglenoid. Women are thicker at lateral orbit, inferior malar and gonion [2]. Thai ultrasound agrees that men are thicker at nasal and perioral sites [5] ✅ (men, midline); 📄 (women, lateral).
+- BMI raises thickness: nasion rose from 5.57 to 8.25 mm across BMI groups in Iranian MRI [4] 📄. Skeletal Class III has thicker subnasale, upper lip and menton [3] 📄.
+- Ultrasound depth depends on posture, and cadaver values are distorted by postmortem changes and the supine position [44] 📄. Supine CT also lets cheek and jowl tissue fall back relative to upright photos 🧠.
+- Age 🧠: the facial skeleton remodels. The orbital aperture enlarges (superomedial and inferolateral rim), the piriform aperture widens, the maxilla retrudes, and mandibular height decreases. Tooth loss collapses lower-face height and opens the gonial angle.
 
 ## Numbers & reference tables
 
-**Table 1: Pooled mean facial soft-tissue thickness (FSTT), midline**
+**Table 1 — Soft-tissue depth over bone (adults; perpendicular-to-bone where stated)**
 
-| Landmark (bone → skin) | Mean (mm) | Population / method | Source | Status |
+| Landmark | Depth (mm) | Population / method | Src | Status |
 |---|---|---|---|---|
-| Glabella → glabella′ | 5.5 (total weighted mean) | Global pooled, 140 years of studies; CT/CBCT/US/MRI mixed | [1] | ⚠️ |
-| Nasion → soft-tissue nasion | 6.0 (total weighted mean) | same | [1] | ⚠️ |
-| Rhinion | 3.0 (mean) | same | [1] | ⚠️ |
+| Glabella | 5.5 pooled; 5.11 | global pooled CT/CBCT/US/MRI; CBCT | [1][31] | ✅ |
+| Nasion | 6.0 pooled; 6.78; 5.57→8.25 by BMI | pooled; CBCT; Iranian MRI | [1][31][4] | ✅ |
+| Rhinion | 3.0 | pooled | [1] | 📄 |
+| Supraglabella / mid-forehead | ~4–6; M > F | MRI, Korean CBCT | [32][2] | 🧠 range, ✅ direction |
+| Supraorbital (mid-brow) | ~6–9 | expert range from pooled tables | — | 🧠 |
+| Infraorbital rim | ~5–10, rises with age | expert range | — | 🧠 |
+| Lateral orbit | ~6–10; F > M | Korean | [2] | 🧠 range, 📄 direction |
+| Zygion (arch) | ~6–10; +>2 with age | Azerbaijani CT | [7] | 🧠 range, 📄 age |
+| Inferior malar | ~10–18; F > M | Korean | [2] | 🧠 range, 📄 direction |
+| Buccal / mid-masseter / occlusal line | ~15–25 (thickest) | expert range | — | 🧠 |
+| Gonion | ~8–18; F > M; +>2 with age | Korean; Azerbaijani | [2][7] | 🧠 range, 📄 direction |
+| Mid-philtrum | ~11–16 | expert range | — | 🧠 |
+| Pogonion | 12.3 M / 11.0 F; 11.71 | Azerbaijani CT; CBCT | [7][31] | ✅ |
+| Gnathion | 8.46 | CBCT (Stephan–Simpson landmarks) | [31] | 📄 |
+| Menton | ~6–9 | expert range | — | 🧠 |
+| Skin layer only (epidermis + dermis) | ~1.1–1.6 (median) | high-frequency US, several regions | [30] | 📄 |
 
-No standard deviations, and no values for zygion, gonion, pogonion, the temporal region or the maxillary cheek, could be extracted in this run (only abstracts and snippets were available).
+**Table 2 — Bony dimensions and angles**
 
-**Table 2: FSTT datasets worth mining (sample design only)**
-
-| Study | Modality | n | Landmarks | Source | Status |
-|---|---|---|---|---|---|
-| Thai, above middle age | B-mode ultrasound on unembalmed cadavers, ≤120 h postmortem | 100 | 11 midline + 32 bilateral | [5] | ⚠️ |
-| Chinese adults | CT; split into skin/fat/muscle layers | 1,174 | 33 | [6] | ⚠️ |
-| Azerbaijani adults | CT | not extracted | 20 (10 midline + 10 bilateral) | [7] | ⚠️ |
-| Greek adults | head CT | 100 (50 M / 50 F) | 22 (5 midsagittal + 17 bilateral) | [8] | ⚠️ |
-| Cretan pilot | CT | 64 | 36, sex-specific means | [9] | ⚠️ |
-| Korean adults | CBCT, upright | 100 | 31 (10 midline + 21 bilateral) | [10] (attribution unconfirmed) | ⚠️ |
-
-**Table 3: Bony landmark dimensions**
-
-| Quantity | Value | Population / n | Source | Status |
+| Quantity | Value | Population / n | Src | Status |
 |---|---|---|---|---|
-| Orbit height | ≈35 mm | not stated | [23] | ⚠️ |
-| Orbit width, rim to rim | ≈40 mm | not stated | [23] | ⚠️ |
-| Nasal bone length | ≈21 mm (mean) | Korean patients, 3D CT, n = 75; type A most common, no D or E types | [15] | ⚠️ |
-| Piriform aperture index | 0.79 (mostly platyrrhine) | North Indian dry skulls, n = 40 | [13] | ⚠️ (index definition not confirmed) |
-| Piriform aperture area | 12.6 cm² F / 16.0 cm² M | adult crania, n = 70 | [14] | ⚠️ **suspect** (see Disagreements) |
-| Piriform "pear" type frequency | 42.86% | same | [14] | ⚠️ |
-| Chin soft-tissue/bone response, advancement genioplasty | 0.75–0.92 | secondary citation in review | [18] | ⚠️ |
-
-**Table 4: Direction of sex difference by region (qualitative prior)**
-
-| Region | Thicker in | Source |
-|---|---|---|
-| Supraglabella, nasion, rhinion, mid-philtrum, supradentale, supraglenoid | Men | [2] |
-| Nasal and perioral sites (prosthion, supracanine) | Men | [5] |
-| Lateral orbit, inferior malar, gonion | Women | [2] |
+| Orbital aperture h × w | ≈35 × 40 mm | not stated | [23] | 📄 |
+| Supraorbital notch from midline | ≈20 mm (medial third of rim) | not stated | [23][24][25] | ✅ |
+| Infraorbital foramen below rim | 5.8 R / 6.2 L; 8.5 M / 7.8 F; ~6 (5–8.5); ~10 | N. Indian skulls; cadavers | [28][29] | ↔️ |
+| Cornea apex ahead of lateral orbital rim | ~12–20 mm | Hertel norms, ancestry-dependent | — | 🧠 |
+| Nasal bone length | ≈21 mm | Korean 3D-CT, n = 75 | [15] | 📄 |
+| Piriform aperture width × height | ~22–26 × 30–35 mm | expert range | — | 🧠 |
+| Piriform index | 0.79 (mostly platyrrhine) | N. Indian skulls, n = 40 | [13] | 📄 |
+| Piriform aperture area | 12.6 cm² F / 16.0 cm² M | crania, n = 70 | [14] | ↔️ suspect |
+| Soft alar width minus aperture width | ~8–16 mm (rules disagree) | forensic rules of thumb | — | ↔️ 🧠 |
+| Gonial angle, adult | ≈120°; 120.17° | StatPearls; young adult male dry bone | [35][36] | ✅ |
+| Gonial angle, typical adult spread | ~110–135° | expert range | — | 🧠 |
+| Gonial angle, birth | ≈160° | — | [35] | 📄 |
+| Bizygomatic breadth (soft) | ~125–145 mm (M > F) | Farkas-type norms | — | 🧠 |
+| Bigonial / bizygomatic | ~0.70–0.80 | expert range | — | 🧠 |
+| Lower face ANS–Me / N–Me | ≈0.55 | cephalometric norm | — | 🧠 |
+| Mandibular plane angle | SN–MP ~32° ± 5; FMA ~25° ± 5 | Steiner / Tweed norms | — | 🧠 |
+| Soft/bone chin response (genioplasty) | 0.75–0.92 | secondary citation | [18] | 📄 |
+| Normal chin deviation from midsagittal | ≲2–4 mm | clinical rule of thumb | — | 🧠 |
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Sculpt from the bone outward at the thin points.** At glabella, nasion and rhinion the skin is only about 3–6 mm thick [1], so the silhouette there is effectively the skull. In a profile photo, the brow-to-nasion concavity and the nasal-bone dorsum down to rhinion should be matched almost exactly. Errors there read as a different person. Further down the nose, below rhinion, the shape is controlled by cartilage and the aperture rather than by bone [16][17]. Expect the dorsal hump (bony to cartilaginous transition) to show.
-2. **Use tissue-depth pegs if you have a skull.** The forensic workflow behind [1][5]–[10] places a skin point at a measured offset from a bony landmark. In Blender, create an Empty per landmark on a skull mesh with Display Size set to the tissue depth along the local surface normal. Then shrinkwrap or sculpt the skin to touch the peg tips. Use sex-specific tables where they exist [9], and remember the sex differences flip by region (Table 4).
-3. **Orbits: the rim sets the eye's frame.** The brow sits on the superior rim (frontal bone), and the cheek-lid junction tracks the inferior rim (maxilla and zygoma) [23]. The lateral rim is the least projected [23], so in a ¾ or top view the lateral orbit must recede. A flat front rim is a common mistake that makes a sculpt look "masky". For a mm-scaled scene, check that each orbit opening is roughly 35 × 40 mm [23]. This is a sanity range only (⚠️, single source).
-4. **Cheekbone: put the high point on the zygomatic body.** Place it just below the lateral orbit [12], not out on the arch. In women, add softer transitions at the inferior malar and lateral orbit, where tissue is thicker [2]. Do not read malar projection from a frontal photo alone: zygion is poorly observable from the skin [11]. Use a ¾ view and the specular highlight.
-5. **Jaw angle and chin.** Gonion is hard to locate from the surface [11], and tissue there is thicker in women [2]. Set the jaw angle from profile and ¾ photos, not from the frontal outline. Treat a visible jaw asymmetry as skeletal, because it tracks the bone, not the soft tissue [19], so do not symmetrize it away. Couple the chin to jaw divergence: a long, steep jaw goes with a receding chin, a shallower mental sulcus and a more obtuse soft-tissue chin angle [18][20][21].
-6. **When editing the "bone" layer, move the skin less.** At the chin, use a skin/bone ratio of about 0.75–0.92 [18], for example a Smooth Corrective or Displace modifier weighted below 1.
-7. **Temporal fossa (gap).** No source in this pass gives any data on the temple. What follows is standard anatomy that was not source-checked here. The temporal fossa lies behind the lateral orbital rim, between the temporal line and the zygomatic arch, and is filled by temporalis and fat. The temple hollow therefore depends on soft tissue, not bone. Sculpt it from photos (shadow under lateral brow light) rather than from a skull prior.
-8. **What goes wrong.** One global tissue depth everywhere (it doubles from rhinion to nasion [1]); zygion and gonion used as hard constraints [11]; ignoring BMI [4]; copying means across populations and imaging methods [1][5].
+1. **Work in millimetres.** Set Scene ▸ Units to Metric, Unit Scale 0.001, Length Millimeters, so tissue depths and Table 2 checks read directly. After scaling, sanity-check orbit width (~40 mm), nasal bone (~20–25 mm) and bizygomatic breadth (~125–145 mm) 🧠.
+2. **Orient to Frankfort.** In the profile photo, level the line from tragion to the lower-lid/cheek junction (a soft proxy for porion–orbitale). The zygomatic arch should then run near-horizontal 🧠.
+3. **Place bone empties before sculpting.** Add empties at glabella, nasion, rhinion, supraorbital notch, frontozygomatic suture, malar point, zygion, orbitale, ANS, pogonion, menton and gonion. Check the vertical notch → infraorbital foramen → mental foramen line 🧠, and check that the lateral orbital rim sits 12–20 mm behind the corneal apex 🧠.
+4. **Sculpt in order of bone confidence.** (a) Forehead → glabella → nasion → nasal bones → rhinion silhouette, matched to the profile within about 1 mm, because the cover is 3–7 mm here [1][31]. (b) Orbital rims and eyeball placement, with the lateral rim receding [23]. (c) Malar body high point, just below the lateral orbit and not on the arch [12]. (d) Mandibular border, angle and chin box (mental tubercles). (e) Thick zones last (buccal, temple, philtrum, jowl), driven by photo shading, not bone.
+5. **Measure depth.** With a skull mesh, use Geometry Nodes on the skin: *Geometry Proximity* (target = skull) → distance → *Store Named Attribute* → colour ramp, or *Raycast* along the inverted normal. Flag areas outside the Table 1 ranges. Version caveat: node names should be checked in the current Blender release 🧠.
+6. **Light-check bone cues.** Match the photo's key light and check the malar highlight, the shadow under the arch, the temple hollow, the brow shadow on the upper lid and the jawline shadow line. These are bone-driven and identity-critical 🧠.
+7. **Sex, age and BMI.** Do not paste a male brow ridge onto a female sculpt, or the reverse. For older or edentulous subjects, shorten lower-face height and open the jaw angle 🧠. Raise thickness with BMI, mostly in the cheek and submental area [4].
+8. **What goes wrong:** eyes too proud or too sunk (Hertel range ignored); a flat front orbital rim that looks "masky" [23]; the cheekbone placed on the arch or too low; the jaw angle read from the frontal outline (masseter and fat) [11]; a skeletal jaw asymmetry symmetrised away [19]; one global tissue depth everywhere [1]; the nose forced to follow the aperture [17][42].
 
 ## Algorithmic implications
 
-- **Two-layer parameterisation.** Represent skin = skull + d(landmark)·n̂. Give each landmark its own thickness prior d ~ N(μ, σ), with μ from Table 1 (glabella 5.5, nasion 6.0, rhinion 3.0 mm [1]). σ is not sourced in this pass. Use wide priors and mark them TODO until the full-text SDs are extracted.
-- **Observability-weighted landmark loss.** Give nasion, orbitale and pogonion high weight [11], glabella and rhinion high weight because their tissue is thin [1], and gonion and zygion low weight [11]. In the existing `face3d/synthetic.py` landmark set (glabella, nasion, pogonion, zygion, gonion, tragion…), down-weight `zygion` and `gonion` in reprojection and Levenberg–Marquardt residuals and in skull-inference residuals.
-- **Covariates.** Use sex as a per-region sign flip, not a global scale (Table 4 [2][5]), plus a scalar BMI/adiposity parameter that thickens tissue [4]. Region-specific BMI slopes are unknown here. Skeletal class is a lower-face modifier, with Class III giving thicker subnasale, upper lip and menton [3].
-- **Coupled chin prior.** Link the mandibular divergence parameter to chin projection, mental sulcus depth and soft-tissue chin angle [18][20][21]. Propagate bone edits to skin with a gain in [0.75, 0.92] [18].
-- **Asymmetry.** Do not regularise jaw asymmetry toward symmetry. Model it on the bone layer, as functional-unit lengths [19].
-- **Orbit constraints.** The lateral rim must lie posterior to the superior and medial rim [23]. Add a soft check that the orbit opening is about 35 × 40 mm [23] (⚠️).
-- **Nose from aperture.** Aperture-to-nose regressions [16][17] are useful for consistency checks or for generating a skull from a nose. They are only partial: 26 of 76 relationships were significant [17]. Do not hard-constrain the nose to the aperture.
-- **Provenance.** Store with each prior its population, modality (living or cadaver) and status, so that pooled means [1] are not mixed silently with single-population or postmortem data [5].
+- **Two-layer model.** skin = S(β_bone) + t(x; sex, age, BMI)·n̂(x). Use a few anatomical bone knobs: brow projection, orbit size, malar projection, bizygomatic width, maxillary projection, gonial angle, ramus height, bigonial width, chin projection, chin height, chin width and lower-face height.
+- **Thickness priors.** Use log-normal per landmark, μ from Table 1, with σ_log ≈ 0.15–0.20 at glabella, nasion, rhinion and gnathion, ≈0.25 at pogonion and the orbital rims, and ≈0.30–0.40 at malar, buccal and gonion 🧠. Sex enters as a per-region sign (Table 1 directions [2][5]), not a global scale. BMI enters as a positive slope, smallest on the nasal dorsum and forehead and largest in the cheek and submental area 🧠 (direction [4]). Class III raises lower-face depth [3].
+- **Observation weights** (`ViewObs.weights`): nasion, glabella, pogonion and the canthi 1.0; tragion 0.5; zygion and gonion 0.1–0.2 [11]. Better still, replace the zygion and gonion point residuals with silhouette or contour residuals.
+- **Anisotropic position priors** (`Priors.sigma` as (N,3) in mm): glabella and nasion about (3, 4, 2) (x, y vertical, z depth), since the profile pins depth but not height. Pogonion about (3, 4, 3); zygion and gonion about (6, 8, 8) 🧠.
+- **Symmetry.** Keep `sigma_sym` ≈1.5–2 mm for the upper face, but use ≈3–4 mm for gonion and lateral chin points, and never pull toward exact symmetry [19] 🧠.
+- **Ordering hinge constraints** in the Frankfort frame: z(glabella) > z(nasion); z(cornea) − z(lateral orbital rim) ∈ [12, 20] mm; z(supraorbital rim) > z(lateral orbital rim) [23]; zygion within ±10 mm of FH height; orbit w/h ≈1.1–1.2 🧠.
+- **Feature-preserving warps.** Tag template curves (temporal line, lateral orbital rim, arch, key ridge, mandibular border, mental tubercles) and give the cotan-Laplacian smoothness term lower weights across them, so warping does not smear plane breaks 🧠.
+- **Couplings.** Gonial angle up should push chin projection down and lower-face height up [18][20][21][38]. Propagate bone edits to skin with gain 0.75–0.92 at the chin [18]. The nose and lips are only soft consistency checks against the aperture [17][39][42].
+- **Provenance.** Store population, modality (living or cadaver, supine or upright) and status with every prior [44].
 
-## Disagreements, myths & refuted claims
+## Disagreements, myths & open questions
 
-- **Population and method spread.** Means differ across populations and across CT, CBCT, ultrasound and MRI, so the pooled means [1] are not directly comparable with single-population tables [2][5]–[10]. ↔️
-- **Cadaver vs living.** [5] measured cadavers up to 120 h postmortem. Tissue change after death was not quantified in any source found. ↔️
-- **Sex rule.** "Men have thicker facial tissue" is a myth if applied globally. It holds at nasal and perioral points, but women are thicker at lateral orbit, inferior malar and gonion [2][5].
-- **Piriform aperture area flagged as suspect.** [14] reports 12.6 cm² (F) and 16.0 cm² (M). Treating the orbital entrance from [23] as a 35 × 40 mm ellipse gives π/4·35·40 ≈ 11 cm². The reported female aperture would then be larger than an entire orbital opening, which is implausible for a skull. Possible causes include a units or definition error (mm² vs cm²) or a snippet error. Do not use this value until the full text has been checked. It has not been refuted by an independent source.
-- **Climate explanations.** Climate-adaptation explanations for nasal bone and aperture form (cold or dry air) are hypotheses in [13], not established findings.
-- **Data-source caveats.** The arXiv observability grouping [11] comes from a non-peer-reviewed preprint. The attribution of 100 adults / 31 landmarks to [10] was not confirmed from the full text.
-- **Refuted:** none. No independent search could be run to refute anything.
-
-## Open questions
-
-- Standard deviations and per-landmark means for zygion, gonion, pogonion, gnathion, supraorbital, infraorbital, mid-ramus and the temporal region, from [1], [6] and [8], with full text.
-- Temporal fossa: how much of temple contour is temporalis versus fat versus bone, and how it changes with age and BMI. No source was found.
-- Primary-text confirmation of the orbit dimensions [23] and of the piriform aperture area units [14].
-- Per-landmark observability errors (mm) from photos rather than CT surfaces [11]; layer values from [6].
-- Not covered: brow-ridge sexual dimorphism, maxillary cheek planes, and age-related change in bone and soft tissue.
+- **Gonial angle** ↔️: ≈120° [35][36] against a 90°/110° pair. As adult means, 90°/110° are implausible 🧠, possibly a different measure or a snippet error. Panoramic, cephalometric and dry-bone values also differ by a few degrees.
+- **Infraorbital foramen depth** ↔️: 5.8–10 mm across populations [28][29].
+- **Depth tables** ↔️: means differ by population and modality [1][5]–[10]; there is no standard landmark set [47]; cadaver and posture artefacts [44]; individual error is unavoidable [45][48]. Pooled "T-table" advocates argue ancestry splits add little, while others build population tables 🧠.
+- **Approximation accuracy** ↔️: Manchester-method practitioners (Neave, late 1970s; tissue pegs plus muscle build-up) report the best results when a portrait or soft tissue is available [46][47][51]. Critics say muscle size cannot be read from bone and that tests are scarce [48]. Accuracy assessment is not standardised [43].
+- **Piriform area** ↔️: the 12.6–16.0 cm² figures [14] are 2–3× an expert estimate of ~4–7 cm² for a ~24 × 32 mm pear-shaped opening 🧠. Do not use them until the full text has been checked.
+- **Nose from aperture** ↔️: "add ~10 mm" and ratio rules disagree, and evidence shows only partial prediction [16][17][39][42].
+- **Myths:** "men are thicker everywhere" (false laterally [2][5]); "cheekbone = arch" (it is mostly the body plus fat 🧠); "faces are symmetric, so symmetrise" (jaw asymmetry is skeletal [19]); "the eyebrow sits on the brow ridge" (the male brow sits on the rim, the female brow usually above it — an aesthetic convention ↔️). Climate explanations for nose form are hypotheses [13].
+- **Open:** per-landmark SDs for the lateral landmarks; temporal depth in mm; dense thickness maps (Skull-to-Face is limited by small paired datasets [50]); supine-to-upright correction; photo-based (not CT-surface) observability errors [11]; the magnitude of age remodelling.
 
 ## Sources
 
-[1] Global facial soft tissue thicknesses for craniofacial identification (2023): a review of 140 years of data since Welcker's first study — https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/ — paper (review) — 2023
-[2] Soft-tissue thickness of South Korean adults with normal facial profiles — https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959/ — paper — year not confirmed
-[3] Facial Soft Tissue Thickness Differences among Three Skeletal Classes in Korean Population Using CBCT — https://pmc.ncbi.nlm.nih.gov/articles/PMC9914978/ — paper — year not confirmed
-[4] Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/ — paper — year not confirmed
+[1] Global facial soft tissue thicknesses for craniofacial identification (2023): a review of 140 years of data since Welcker's first study — https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/ — review — 2023
+[2] Soft-tissue thickness of South Korean adults with normal facial profiles — https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959/ — paper — year unconfirmed
+[3] Facial Soft Tissue Thickness Differences among Three Skeletal Classes in Korean Population Using CBCT — https://pmc.ncbi.nlm.nih.gov/articles/PMC9914978/ — paper — year unconfirmed
+[4] Facial Soft Tissue Thickness of Midline in an Iranian Sample: MRI Study — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5543663/ — paper — year unconfirmed
 [5] Sex, age, and body mass index influence on facial soft tissue thickness in a Thai population above middle age by ultrasonographic imaging — https://pubmed.ncbi.nlm.nih.gov/41701465/ — paper — 2026
-[6] Layer-specific facial soft-tissue thickness in 1174 Chinese adults: Implications for finite-element headforms and ergonomic design — https://pubmed.ncbi.nlm.nih.gov/42385786/ — paper — year not confirmed
-[7] Facial soft tissue thicknesses of Azerbaijan adult population: CT study — https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/ — paper — year not confirmed
-[8] Facial soft tissue depth of a contemporary adult Greek population — https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/ — paper — year not confirmed
-[9] Medical Imaging and Facial Soft Tissue Thickness Studies for Forensic Craniofacial Approximation: A Pilot Study on Modern Cretans — https://pubmed.ncbi.nlm.nih.gov/31313259/ — paper — year not confirmed
-[10] Facial soft tissue thickness database for craniofacial reconstruction in Korean adults — https://pubmed.ncbi.nlm.nih.gov/22621203/ — paper — year not confirmed
+[6] Layer-specific facial soft-tissue thickness in 1174 Chinese adults — https://pubmed.ncbi.nlm.nih.gov/42385786/ — paper — year unconfirmed
+[7] Facial soft tissue thicknesses of Azerbaijan adult population: CT study — https://pmc.ncbi.nlm.nih.gov/articles/PMC13241017/ — paper — year unconfirmed
+[8] Facial soft tissue depth of a contemporary adult Greek population — https://pmc.ncbi.nlm.nih.gov/articles/PMC11490456/ — paper — year unconfirmed
+[9] Medical Imaging and Facial Soft Tissue Thickness Studies for Forensic Craniofacial Approximation: A Pilot Study on Modern Cretans — https://pubmed.ncbi.nlm.nih.gov/31313259/ — paper — year unconfirmed
+[10] Facial soft tissue thickness database for craniofacial reconstruction in Korean adults — https://pubmed.ncbi.nlm.nih.gov/22621203/ — paper — year unconfirmed
 [11] Surface-to-Skeleton 3D Cephalometry: Estimating Hidden Skeletal Landmarks from CT-Derived External Soft-Tissue Surfaces — https://arxiv.org/pdf/2608.12537 — preprint (not peer reviewed) — 2026
-[12] Zygomatic bone (StatPearls, NCBI Bookshelf) — https://www.ncbi.nlm.nih.gov/books/NBK544257/ — medical reference — year not confirmed
-[13] Morphometric Study of Nasal Bone and Piriform Aperture in Human Dry Skull of Indian Origin — https://pubmed.ncbi.nlm.nih.gov/26894050/ — paper — year not confirmed
-[14] Morphometric and morphological assessment of the piriform aperture in dry crania: anatomical observations and surgical implications — https://pubmed.ncbi.nlm.nih.gov/42262393/ — paper — 2026
-[15] Analysis of the nasal bone and nasal pyramid by three-dimensional computed tomography — https://pubmed.ncbi.nlm.nih.gov/17929046/ — paper — year not confirmed
+[12] Zygomatic bone (StatPearls) — https://www.ncbi.nlm.nih.gov/books/NBK544257/ — medical reference — year unconfirmed
+[13] Morphometric Study of Nasal Bone and Piriform Aperture in Human Dry Skull of Indian Origin — https://pubmed.ncbi.nlm.nih.gov/26894050/ — paper — year unconfirmed
+[14] Morphometric and morphological assessment of the piriform aperture in dry crania — https://pubmed.ncbi.nlm.nih.gov/42262393/ — paper — 2026
+[15] Analysis of the nasal bone and nasal pyramid by three-dimensional computed tomography — https://pubmed.ncbi.nlm.nih.gov/17929046/ — paper — year unconfirmed
 [16] Regression analysis of nasal shape from juvenile to adult ages for forensic facial reconstruction — https://pubmed.ncbi.nlm.nih.gov/38065055/ — paper — 2023
-[17] Craniofacial anthropometric investigation of relationships between the nose and nasal aperture using 3D computed tomography of Korean subjects — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7527952/ — paper — 2020
-[18] Comparisons of soft tissue chin thickness in adult patients with various mandibular divergence patterns — https://pmc.ncbi.nlm.nih.gov/articles/PMC8650451/ — paper — year not confirmed
-[19] Effects of the Mandibular Functional Units and Soft Tissue on Facial Asymmetry — https://pubmed.ncbi.nlm.nih.gov/36917036/ — paper — year not confirmed
-[20] The human chin and its relationship to mandibular morphology — https://pubmed.ncbi.nlm.nih.gov/290281/ — paper — year not confirmed
-[21] Comparisons of facial soft tissue characteristics in adult patients with various mandibular divergence patterns — https://pmc.ncbi.nlm.nih.gov/articles/PMC12042354 — paper — year not confirmed
-[22] Factors associated with the morphology of the mandibular symphysis and soft tissue chin — https://pmc.ncbi.nlm.nih.gov/articles/PMC8439184/ — paper — year not confirmed
-[23] Bony Anatomy of the Orbit (AAO EyeWiki) — https://eyewiki.aao.org/Bony_Anatomy_of_the_Orbit — medical reference — year not confirmed
+[17] Craniofacial anthropometric investigation of relationships between the nose and nasal aperture using 3D CT of Korean subjects — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7527952/ — paper — 2020
+[18] Comparisons of soft tissue chin thickness in adult patients with various mandibular divergence patterns — https://pmc.ncbi.nlm.nih.gov/articles/PMC8650451/ — paper — year unconfirmed
+[19] Effects of the Mandibular Functional Units and Soft Tissue on Facial Asymmetry — https://pubmed.ncbi.nlm.nih.gov/36917036/ — paper — year unconfirmed
+[20] The human chin and its relationship to mandibular morphology — https://pubmed.ncbi.nlm.nih.gov/290281/ — paper — year unconfirmed
+[21] Comparisons of facial soft tissue characteristics in adult patients with various mandibular divergence patterns — https://pmc.ncbi.nlm.nih.gov/articles/PMC12042354 — paper — year unconfirmed
+[22] Factors associated with the morphology of the mandibular symphysis and soft tissue chin — https://pmc.ncbi.nlm.nih.gov/articles/PMC8439184/ — paper — year unconfirmed
+[23] Bony Anatomy of the Orbit (AAO EyeWiki) — https://eyewiki.aao.org/Bony_Anatomy_of_the_Orbit — medical reference — year unconfirmed
+[24] Taylor & Francis chapter on the frontal bone and supraorbital notch — https://www.taylorfrancis.com/books/9780429114076/chapters/10.3109/9781420019292-29 — textbook — year unconfirmed
+[25] Kenhub: The frontal bone — https://www.kenhub.com/en/library/anatomy/the-frontal-bone — educational reference — year unconfirmed
+[26] Elsevier: Frontal bone (surface anatomy) — https://www.elsevier.com/resources/anatomy/skeletal-system/axial-skeleton/frontal-bone/20545 — reference — year unconfirmed
+[27] Anatomy of the Orbit — https://pmc.ncbi.nlm.nih.gov/articles/PMC7561454/ — paper — year unconfirmed
+[28] Anatomic characteristics of the infraorbital foramen: a cadaver study — https://pubmed.ncbi.nlm.nih.gov/10981979/ — paper — year unconfirmed
+[29] Morphological and Morphometric Relations of Infraorbital Foramen in North Indian Population — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9981513/ — paper — year unconfirmed
+[30] Quantitative Analysis of the Human Face Skin Thickness: A High-Frequency Ultrasound Study — https://pmc.ncbi.nlm.nih.gov/articles/PMC12693017/ — paper — year unconfirmed
+[31] Application of cone beam computed tomography in facial soft tissue thickness measurements for craniofacial reconstruction — https://pmc.ncbi.nlm.nih.gov/articles/PMC6503801/ — paper — year unconfirmed
+[32] The Influence of Age and Gender on Forehead Soft Tissue Thickness: An MRI-Based Study — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12594695/ — paper — year unconfirmed
+[33] Temporal fossa / temporalis morphometry article (OAE Publishing) — https://www.oaepublish.com/articles/2347-9264.2020.221 — paper — 2020–2021 (unconfirmed)
+[34] Temporalis muscle thickness ultrasound study — https://pmc.ncbi.nlm.nih.gov/articles/PMC8053578 — paper — year unconfirmed
+[35] StatPearls: Anatomy, Head and Neck, Mandible — https://www.ncbi.nlm.nih.gov/sites/books/NBK532292/ — medical reference — year unconfirmed
+[36] Evaluation of location of mandibular and mental foramina in dry, young, adult human male, dentulous mandibles — https://pubmed.ncbi.nlm.nih.gov/12089867/ — paper — year unconfirmed
+[37] Variation in Chin and Mandibular Symphysis Size and Shape in Males and Females: A CT-Based Study — https://pmc.ncbi.nlm.nih.gov/articles/PMC7345472/ — paper — year unconfirmed
+[38] Geometric morphometric analysis of mandibular symphysis in Class III skeletal base — https://pmc.ncbi.nlm.nih.gov/articles/PMC9747342/ — paper — year unconfirmed
+[39] Appraisal of traditional and recently proposed relationships between the hard and soft dimensions of the nose in profile (LJMU) — https://researchonline.ljmu.ac.uk/id/eprint/5340/3/Appraisal%20of%20traditional%20and%20recently%20proposed%20relationships%20between%20the%20hard%20and%20soft%20dimensions%20of%20the%20nose%20in%20profile.pdf — paper — year unconfirmed
+[40] Piriform aperture / nasal study (PMC) — https://pmc.ncbi.nlm.nih.gov/articles/5017614 — paper — year unconfirmed
+[41] USP thesis: CBCT study of piriform aperture and nasal breadth — https://teses.usp.br/teses/disponiveis/23/23153/tde-24052016-115026/fr.php — thesis — year unconfirmed
+[42] A computerized facial approximation method based on facial soft tissue thickness depths and geometric morphometrics — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10557396/ — paper — 2023
+[43] Assessment of accuracy and recognition of 3D computerized forensic craniofacial reconstruction (PLOS ONE) — https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0196770 — paper — year unconfirmed
+[44] The facial soft tissue thickness related facial reconstruction by ultrasonographic imaging: A review — https://www.sciencedirect.com/science/article/abs/pii/S0379073822001955 — review — year unconfirmed
+[45] Considerations associated with computer forensic facial reconstructions: the limits of soft tissues' thickness determination — https://pubmed.ncbi.nlm.nih.gov/20191828/ — paper — year unconfirmed
+[46] Wilkinson, The Manchester method of facial reconstruction, in Forensic Facial Reconstruction — https://www.cambridge.org/core/books/forensic-facial-reconstruction/manchester-method-of-facial-reconstruction/327A6447C593EA972C92D93E3EB33A1D — textbook chapter — 2004
+[47] Survey of tissue depth landmarks for facial approximation (OJP abstract) — https://ojp.gov/ncjrs/virtual-library/abstracts/survey-tissue-depth-landmarks-facial-approximation — abstract — year unconfirmed
+[48] Anthropological facial "reconstruction": recognizing the fallacies, "unembracing" the errors, and realizing method limits — https://www.researchgate.net/publication/8927033_Anthropological_facial_'reconstruction--recognizing_the_fallacies_'unembracing'_the_errors_and_realizing_method_limits — paper (critique) — year unconfirmed
+[49] Temporal and malar-zygomatic reduction and augmentation — https://pubmed.ncbi.nlm.nih.gov/2015750/ — paper — year unconfirmed
+[50] Skull-to-Face: Anatomy-Guided 3D Facial Reconstruction and Editing — https://arxiv.org/pdf/2403.16207 — preprint — 2024
+[51] FutureLearn: Forensic facial reconstruction (Manchester method step) — https://futurelearn.com/info/courses/forensic-facial-reconstruction/0/steps/31185 — course — year unconfirmed
+
+**Further reading (by name, not yet linked)**
+- Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994.
+- Wilkinson C, *Forensic Facial Reconstruction*, Cambridge University Press, 2004.
+- Stephan CN & Simpson EK, "Facial soft tissue depths in craniofacial identification (part I)", J Forensic Sci, 2008 (T-tables); Stephan CN, "2018 tallied facial soft tissue thicknesses for adults and sub-adults", Forensic Sci Int.
+- Rhine JS & Moore CE, *Tables of facial tissue thickness of American Caucasoids*, Maxwell Museum Technical Series 1, 1984.
+- De Greef S et al., large-scale in-vivo Caucasian facial soft tissue thickness database, Forensic Sci Int, 2006.
+- Gietzen T et al., dense statistics of soft tissue thickness for automatic facial reconstruction, PLOS ONE, 2019.
+- Buikstra JE & Ubelaker DH, *Standards for Data Collection from Human Skeletal Remains*, 1994; Walker PL, "Sexing skulls using discriminant function analysis of visually assessed traits", AJPA, 2008.
+- Shaw RB & Kahn DM, "Aging of the midface bony elements: a three-dimensional CT study", Plast Reconstr Surg, 2007; Mendelson B & Wong CH, "Changes in the facial skeleton with aging", Aesthetic Plast Surg, 2012.
+- Rynn C, Wilkinson CM & Peters HL, "Prediction of nasal morphology from the skull", Forensic Sci Med Pathol, 2010.
+- Migliori ME & Gladstone GJ, normal exophthalmometric values for Black and white adults, Am J Ophthalmol, 1984.
+- Haddock NT et al., "The tear trough and lid/cheek junction: anatomy and implications for surgical correction", Plast Reconstr Surg, 2009.
+- Björk A, "Prediction of mandibular growth rotation", Am J Orthod, 1969; McNamara JA, "A method of cephalometric evaluation", Am J Orthod, 1984.
+- Goldfinger E, *Human Anatomy for Artists*, 1991; Zarins U, *Anatomy of Facial Expression*, 2017; the Asaro planes-of-the-head teaching model.

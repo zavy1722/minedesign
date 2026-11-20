@@ -1,132 +1,195 @@
 # External ear
 
-> The auricle (pinna) has a cartilage frame: the helix rim, the Y-shaped antihelix with its two crura, the tragus, the antitragus and the concha bowl. Its lowest part, the lobule, has no cartilage. Its shape varies enough between people that it is used for biometric and forensic identification, so a generic template ear visibly weakens likeness. In the harvested adult studies, mean ear length falls between about 57 and 69 mm and mean width between about 29 and 33 mm. Men's ears are reliably longer than women's, but sex differences in width are inconsistent. Protrusion norms disagree between sources (20–30° versus under 25° with ≤2 cm projection). No sourced norms were found for the ear's axis tilt or its height relative to the brow and nose base. **Verification caveat:** the shared web-search budget ran out before this agent's cross-check searches could run. Every claim below comes from the harvester's search results only. Most items are therefore single-source and should be re-checked in a follow-up pass.
+> The auricle is one plate of elastic cartilage (helix, Y-shaped antihelix with two crura, tragus, antitragus, concha) under thin, tightly bound skin, plus a cartilage-free lobule. Its relief is crisp and individual enough to serve as a biometric, so a generic template ear visibly weakens likeness. Harvested adult means put length at about 57–63 mm and width at about 29–33 mm (width ≈ 0.47–0.54 × length), with males longer; length keeps creeping up through adult life. The ear hangs from the skull at the ear canal, so its height is best anchored to the Frankfort horizontal (tragion ≈ orbitale level) rather than to the "brow to nose base" canon, which is only approximate; its long axis leans back roughly 10–30°, and protrusion norms disagree (20–30° vs <25° with ≤20 mm projection). In photo fitting, perspective, head pitch, the ear's outward flare and hair occlusion cause larger errors than anatomical variation does.
+>
+> Evidence status: 3 ✅ / 24 📄 / 47 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
-- **Helix:** the outer posterosuperior rim, curving slightly inward toward the external acoustic meatus [1][2] ⚠️ (both URLs are StatPearls content, so they are not independent).
-- **Antihelix:** a Y-shaped ridge that rises from the antitragus and separates the concha, the triangular fossa and the scapha. Its two upper arms are the crura (superior and inferior), and they bound the deep part of the conchal bowl [1][2] ⚠️
-- **Concha:** the hollow beside the ear canal, bounded by the tragus, intertragal notch, antitragus, antihelix, inferior crus and the root of the helix. The external auditory meatus opens into it [1][2] ⚠️
-- **Tragus and antitragus:** the tragus is a cartilage flap in front of the canal that partly covers the meatus. The antitragus is the smaller projection opposite it, forming the lower boundary of the concha and the back wall of the intertragal notch [1][2] ⚠️
-- **Lobule:** the lowest part of the auricle, soft and fleshy with no cartilage framework [1][2] ⚠️ (textbook-standard, but only one publisher was harvested).
-- **Adult ear length:** reported means range from about 57.6 mm (mixed sample, n=200) to about 62.9 mm (Sundanese men). A review of studies covering ages about 17–30 puts male auricle height between 59.5 and 68.5 mm [3][5][16][17] ↔️ (a range across populations, not a disagreement about a single value).
-- **Adult ear width:** reported means range from about 28.8 mm (Sundanese women) to 32.8 mm (North Indian, left ear). Between-study spread in male width is about 12 mm [3][5][16][17] ↔️
-- **Width vs length:** width is roughly half of length. Ratios derived from the cited means fall between 0.47 and 0.54 (this note's arithmetic) [3][5][16] ↔️
-- **Sex differences:** men have longer ears than women in North Indian, Central Indian, Saudi pediatric and Sundanese samples [3][9][12][16] ✅
-- **Width by sex:** significantly larger in males in Central Indian and Saudi pediatric samples [9][12], but not significantly different in Eastern Saudi adults, with similar Turkish results reported [10][13] ↔️
-- **Lobule by sex and sex estimation:** lobule height and lobule index often show no significant sex difference [10][13], although lobule measures were larger in males in a Saudi pediatric sample [9] ↔️. Absolute length and width discriminate sex better than proportional indices [13] ⚠️
-- **Prominent-ear criteria (2011, n=44):** an ear counts as prominent if upper protrusion exceeds 21.5 mm or lower protrusion exceeds 20.0 mm in boys, or 17.5 mm and 15.5 mm in girls. The authors argue the sexes need separate criteria [7] ⚠️
-- **Otoplasty symmetry criterion:** the common success target of under 3 mm left-right asymmetry may be too strict [7] ⚠️
-- **Auriculocephalic (protrusion) angle:** one source gives a normal range of 20–30°. Another says the auricle normally projects no more than 2 cm from the mastoid, at an angle under 25° [8] ↔️ (the harvester could not confirm which page holds the 20–30° figure).
-- **Measurement methods:** studies measure ear length, protrusion, long-axis inclination and ear level in different ways, including superior-to-inferior projection, superaurale–subaurale, ruler, photogrammetry and 3D plane fits. Raw numbers from different studies are therefore not directly comparable [8][16][17] ✅
-- **Growth:** in a Chinese growth study, ear length reached mature size by age 14 in both sexes, with sex and ethnic differences in how it develops [11] ⚠️
-- **Shape stability:** a secondary source claims ear shape is fully formed by about four months after birth and later changes only in size. The same harvest also reports significant shape change between about 4 months and 8 years, and size and shape staying steady until about age 70. These claims partly conflict and were not checked against primary papers [14] ⚠️
-- **Ear as an identity feature:** ears are used for biometric recognition and forensic comparison [14][15] ✅. Recognition rates are usually above 90% but fall to about 80% or lower as the imaging angle changes [15] ⚠️. Combining ear and face reached a 97.1% recognition rate in one border-control study [15] ⚠️. Forensic ear comparison is about 40 years old, and an early system used twelve ear measurements [14] ⚠️
-- **Tissue elasticity:** ear tissue is elastic and can be deliberately deformed to fool recognition systems [14] ⚠️
-- **Shape classes:** one Central Indian study classified ear shapes as round, oval, rectangular or triangular and found shape less useful for sex estimation than measurements [12] ⚠️
+Note: [1] and [2] are both StatPearls content, so together they count as one source (📄, not ✅). No independent verification pass has run on this note yet; nothing has been refuted.
+
+**Structure**
+- **Tissue.** The shape comes from one continuous elastic-cartilage plate; the lobule is soft and fleshy with no cartilage [1][2] 📄. Lateral (front) skin is thin and adherent with almost no fat, so folds read sharply; skin on the cranial (back) surface is looser and its relief softer 🧠.
+- **Helix.** Outer posterosuperior rim, curving inward toward the meatus [1][2] 📄. It begins as the crus (root) of the helix inside the concha above the canal, climbs the front edge, arcs over the top and runs down the back to fade into the lobule. The free edge is usually rolled forward over the scapha (the groove inside the rim), and roll width varies a lot between people. Darwin's tubercle, a nodule on the posterosuperior rim, is common, but reported prevalence varies widely 🧠.
+- **Antihelix.** Y-shaped ridge rising from the antitragus that separates concha, triangular fossa and scapha [1][2] 📄. Correction to the earlier draft: the two crura enclose the *triangular fossa*. The superior crus is broad and soft, the inferior crus sharper, and the inferior crus also forms the upper wall of the cymba conchae 🧠.
+- **Concha.** Hollow beside the canal, bounded by tragus, intertragal notch, antitragus, antihelix, inferior crus and helical root; the meatus opens into it [1][2] 📄. The helical crus splits it into a small upper cymba and a larger, deeper lower cavum. It is the deepest pit of the ear, very roughly 10–20 mm 🧠.
+- **Tragus / antitragus.** Tragus: projection in front of the canal that partly covers it; antitragus: smaller opposing projection forming the lower conchal boundary and back wall of the intertragal notch [1][2] 📄. The mandibular condyle sits directly in front of the tragus. Tragion (notch at the upper margin of the tragus) is the soft-tissue stand-in for bony porion 🧠.
+- **Why ears protrude.** An under-folded antihelix and an over-deep concha are the two classic causes, often combined. Prominent ears are commonly quoted at about 5% of people of European descent 🧠 ↔️.
+
+**Size, sex, age**
+- **Length and width.** Means range about 57.6–62.9 mm (length) and 28.8–32.8 mm (width) [3][5][16]; a review puts male means at 59.5–68.5 mm [17] ↔️ (a spread across populations and methods, not one disputed value).
+- **Shape ratio.** W/L ≈ 0.47–0.54 from those means (this note's arithmetic) [3][5][16] 📄.
+- **Sex.** Males have longer ears in North Indian, Central Indian, Saudi paediatric and Sundanese samples [3][9][12][16] ✅. Width difference is inconsistent: significant in [9][12], not in Eastern Saudi adults or a Turkish sample [10][13] ↔️. Lobule measures: larger in males in [9], no difference in [10][13] ↔️. Absolute length and width discriminate sex better than indices [13] 📄.
+- **Growth.** Length reaches mature size by about 14 in a Chinese sample [11] 📄. It then keeps increasing slowly in adulthood (Heathcote's often-quoted cross-sectional estimate is about 0.2 mm/year), largely via lobule elongation and soft-tissue change, so a 70-year-old's ears are typically several mm to about 1 cm longer than at 25 🧠 ↔️. This conflicts with the "size and shape steady until ~70" claim relayed by [14].
+
+**Position and orientation**
+- **Skull anchor.** The ear canal is fixed in the temporal bone, so ear height follows the skull. With the head in Frankfort horizontal (FH), tragion lies at about the level of the lower orbital rim, and the tragus sits near mid-height of the auricle 🧠.
+- **Brow / nose-base canon.** "Top of ear at brow level, bottom at nose base" holds roughly on average, because brow-to-subnasale distance is close to ear length. The related neoclassical "nasoaural" canon (ear length = nose height nasion–subnasale) mostly fails in Farkas's tests, since ears are usually about 5–12 mm longer than the nose 🧠 ↔️. Individual offsets of 5–10 mm are normal, and lobes sit lower with age 🧠.
+- **Axis tilt.** The long axis leans back roughly 10–30° from vertical (typical ~20°) with the head in FH. The canon "ear axis parallel to the nasal dorsum" held in only a minority of Farkas's subjects; the ear is usually more upright than the dorsum 🧠 ↔️.
+- **Front-back position.** The helical root sits roughly one ear length (55–70 mm) behind the lateral canthus, the rule used to place reconstructed ears in microtia surgery 🧠. Deformational plagiocephaly can shift one ear forward by several mm 🧠.
+- **Flare.** The ear plane faces forward-outward, flared very roughly 20–35° from the sagittal plane, so a true-profile photo foreshortens ear width 🧠.
+- **Measurement methods** for length, protrusion, inclination and ear level differ (projection extremes vs superaurale–subaurale, ruler, photogrammetry, 3D), so raw numbers do not transfer between studies [8][16][17] ✅.
+
+**Protrusion**
+- **Prominent-ear thresholds (2011, n=44):** upper protrusion >21.5 mm or lower >20.0 mm in boys; >17.5 mm or >15.5 mm in girls; the authors argue for sex-specific criteria [7] 📄.
+- **Auriculocephalic angle:** normal 20–30° in one summary; ≤20 mm projection from the mastoid and <25° in another [8] ↔️.
+- **Otoplasty aesthetic goals** (McDowell, 1968): helix-to-mastoid 10–12 mm in the upper third, 16–18 mm middle, 20–22 mm lower; helix visible beyond the antihelix in front view; sides matching within 3 mm 🧠. These are surgical targets, not population means. [7] argues the 3 mm criterion is too strict 📄.
+- **Fold angles:** conchoscaphal angle about 90° in a well-folded ear, opening toward about 120–150° when the antihelix is unfolded; conchomastoid angle about 90° 🧠.
+
+**Identity**
+- Ears are used for biometric recognition and forensic comparison [14][15] ✅. Recognition is usually >90% but falls to about 80% or lower as imaging angle changes [15] 📄; ear + face fusion reached 97.1% in one border-control study [15] 📄.
+- Forensic ear comparison is about 40 years old, and an early system used twelve measurements [14] 📄; that is Iannarelli's system 🧠.
+- Ear tissue is elastic and can be deliberately deformed to fool recognition [14] 📄.
+- Shape classes (round, oval, rectangular, triangular) were less useful for sex estimation than metrics [12] 📄.
+- Ear morphology is highly heritable and polygenic; earlobe attachment is a continuum, not a single-gene "attached/free" switch 🧠.
+- Highest-salience likeness cues: how much ear shows from the front; whether the antihelix projects beyond the helix rim in front view; lobule size and attachment; helix roll width; Darwin's tubercle; concha size; acquired marks (cauliflower ear, stretched or torn piercings, keloids) 🧠.
 
 ## Numbers & reference tables
 
-Values originally in cm are converted to mm (×10). "n.s." means the sample size was not stated in the harvested material.
+All values in mm (cm × 10). "n.s." = sample size not stated in the harvested material.
 
 **Table 1: Adult auricle length and width**
 
-| Population / sample | Sex | n | Length (mm) | Width (mm) | Length definition | Source | Status |
-|---|---|---|---|---|---|---|---|
-| North India, adults | M+F | n.s. | R 62.8, L 62.3 | R 32.1, L 32.8 | not stated | [3][4] | ⚠️ |
-| Sundanese (West Java), photogrammetry | M | n.s. | 62.9 (SD 4.7) | 29.5 (SD 2.6) | superaurale–subaurale | [16] | ⚠️ |
-| Sundanese (West Java), photogrammetry | F | n.s. | 60.9 (SD 4.2) | 28.8 (SD 2.5) | superaurale–subaurale | [16] | ⚠️ |
-| Mixed adults | M+F | 200 | R 57.62 ± 5.03, L 57.89 ± 4.89 | R 29.72 ± 2.79, L 31.21 ± 2.95 | not stated | [5] | ⚠️ |
-| Review of studies, ages ~17–30 | M | multiple studies | 59.5–68.5 (range of study values) | ~12 mm spread between studies | most superior to most inferior projection | [17] | ⚠️ |
+| Population / method | Sex | n | Length | Width | W/L | Length definition | Src | Status |
+|---|---|---|---|---|---|---|---|---|
+| North India adults | M+F | n.s. | R 62.8, L 62.3 | R 32.1, L 32.8 | 0.51 / 0.53 | not stated | [3][4] | 📄 |
+| Sundanese, photogrammetry | M | n.s. | 62.9 (SD 4.7) | 29.5 (SD 2.6) | 0.47 | superaurale–subaurale | [16] | 📄 |
+| Sundanese, photogrammetry | F | n.s. | 60.9 (SD 4.2) | 28.8 (SD 2.5) | 0.47 | superaurale–subaurale | [16] | 📄 |
+| Mixed adults | M+F | 200 | R 57.62 ± 5.03, L 57.89 ± 4.89 | R 29.72 ± 2.79, L 31.21 ± 2.95 | 0.52 / 0.54 | not stated | [5] | 📄 |
+| Review, ages ~17–30 | M | several studies | 59.5–68.5 (study means) | ~12 mm spread | – | extreme projections | [17] | 📄 |
+| Age 70 vs 25, same person | M+F | – | ≈ +5–10 | small change | falls | – | Heathcote-type data | 🧠 ↔️ |
 
-**Table 2: Width/length ratio** (derived by this note from Table 1 means)
+The lower Sundanese W/L may partly reflect profile foreshortening of width in photogrammetry (see Table 5) 🧠.
 
-| Sample | Ratio |
-|---|---|
-| North India R / L | 0.511 / 0.526 |
-| Sundanese M / F | 0.469 / 0.473 |
-| Mixed n=200 R / L | 0.516 / 0.539 |
+**Table 2: Protrusion and fold angles**
 
-**Table 3: Protrusion**
-
-| Measure | Value | Population | Source | Status |
+| Measure | Value | Population / type | Src | Status |
 |---|---|---|---|---|
-| Upper protrusion, prominent if > | boys 21.5 mm; girls 17.5 mm | patients, n=44 (2011) | [7] | ⚠️ |
-| Lower protrusion, prominent if > | boys 20.0 mm; girls 15.5 mm | patients, n=44 (2011) | [7] | ⚠️ |
-| Auriculocephalic angle, normal | 20–30° | not stated | [8] (page mapping unconfirmed) | ↔️ |
-| Auriculocephalic angle, normal | < 25°, with projection ≤ 20 mm from the mastoid | not stated | [8] | ↔️ |
-| Otoplasty asymmetry target | < 3 mm (called possibly too strict) | patients, n=44 | [7] | ⚠️ |
+| Upper protrusion, prominent if > | boys 21.5; girls 17.5 | patients, n=44 (2011) | [7] | 📄 |
+| Lower protrusion, prominent if > | boys 20.0; girls 15.5 | patients, n=44 (2011) | [7] | 📄 |
+| Auriculocephalic angle, normal | 20–30° | not stated | [8] | ↔️ |
+| Auriculocephalic angle, normal | <25°, projection ≤20 | not stated | [8] | ↔️ |
+| Helix–mastoid, aesthetic goal | 10–12 / 16–18 / 20–22 (upper/mid/lower third) | surgical target | McDowell | 🧠 |
+| L–R protrusion match | ≤3 goal, called too strict | surgical | [7] + McDowell | ↔️ |
+| Conchoscaphal angle | ~90° normal; ~120–150° unfolded antihelix | clinical | – | 🧠 |
+| Conchomastoid angle | ~90° | clinical | – | 🧠 |
 
-The upper and lower measurement points used in [7] were not given in the harvest. Check the full text before encoding them.
+The measurement points used in [7] were not in the harvest; check the full text before encoding them.
 
-**Table 4: Age, identity and recognition**
+**Table 3: Position and orientation (head in FH)**
 
-| Item | Value | Source | Status |
+| Relation | Typical | Spread | Status |
 |---|---|---|---|
-| Ear length reaches mature size | by age 14 (M and F), Chinese population | [11] | ⚠️ |
-| Ear recognition rate, typical | > 90%, falling to ~80% or lower with angle change | [15] | ⚠️ |
-| Ear + face fusion, border control | 97.1% recognition | [15] | ⚠️ |
-| Forensic ear comparison in use | ~40 years; early system used 12 measurements | [14] | ⚠️ |
+| Tragion height vs soft-tissue orbitale | same level | ±5 | 🧠 |
+| Tragion position along ear height | 40–55% down from superaurale | – | 🧠 |
+| Superaurale vs brow (lower edge, mid-pupil) | about level | ±10 | 🧠 ↔️ |
+| Subaurale vs subnasale | level to ~10 below | ±10; lower with age | 🧠 ↔️ |
+| Long-axis tilt, back from vertical | ~20° | ~10–30° | 🧠 ↔️ |
+| Ear axis vs nasal dorsum | ear more upright | parallel in a minority | 🧠 ↔️ |
+| Ear length minus nose height (n–sn) | +5 to +12 | – | 🧠 ↔️ |
+| Helical root behind lateral canthus | ≈ one ear length (55–70) | – | 🧠 |
+| Ear-plane flare from sagittal | ~20–35° | – | 🧠 |
+
+**Table 4: Sub-feature planning ranges (adult; rough, not norms)**
+
+| Feature | Range | Status |
+|---|---|---|
+| Lobule height (intertragal notch to subaurale) | 15–22 | 🧠 |
+| Lobule width | 15–22 | 🧠 |
+| Concha width / depth | 15–20 / 10–20 | 🧠 |
+| Total ear thickness at helix rim | 3–6 | 🧠 |
+
+**Table 5: Photo geometry that distorts ear measurements (computed)**
+
+| Effect (camera distance → ) | 0.3 m | 0.5 m | 1 m | 2 m | Status |
+|---|---|---|---|---|---|
+| Frontal: ear scale vs nose-tip scale (ear plane ~110 deeper; distance to nose tip) | 0.73 | 0.82 | 0.90 | 0.95 | 🧠 |
+| Profile: near-ear scale vs midsagittal profile (ear ~80 nearer; distance to midline) | 1.36 | 1.19 | 1.09 | 1.04 | 🧠 |
+
+Pitch: ear-vs-brow height shifts by about 100 mm × sin(pitch), so ~9 mm at 5° and ~17 mm at 10°; chin-down makes ears look higher. True-profile width foreshortening: × cos(flare) ≈ 0.82–0.94 🧠.
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Use the profile photo for ear size, not the frontal one.** In a frontal photo the ear is foreshortened, partly hidden by the cheek and further from the camera than the nose. At close camera distances perspective shrinks and hides it more. Read ear length (top of helix to bottom of lobule) and width (perpendicular to that) from a near-true profile. Convert to mm using the head scale the solver has already fixed. Do not use a per-ear scale.
-2. **Sanity-check the ratio.** Width/length should fall roughly between 0.47 and 0.54 (Table 2). A ratio well below that usually means the ear is rotated away from the camera or the profile is not true, not that the ear is narrow. Re-check the camera yaw before believing the number.
-3. **Check absolute size against the population range.** For an adult, a length outside roughly 55–70 mm (Table 1 means ± about one SD) is a flag to re-check scale, not proof of an error. Children are different: ear length matures by about 14 [11], so a child's ears are large relative to the face. Do not shrink them with the rest of the head.
-4. **Recover protrusion from the frontal and back views.** In the frontal photo, protrusion shows as how far the helix silhouette extends beyond the temporal and mastoid contour. If a rear or top view exists, measure the helix-to-head distance at the upper pole and near the lobule, then compare with Table 3. The most common failure in frontal-only reconstructions is ears glued flat against the head, which loses an identity cue many people recognise at a glance.
-5. **Measure tilt and height on this subject; do not apply a canon.** Mark superaurale and subaurale in the profile. Record the long-axis angle and the vertical offsets of the ear top from the brow line and the ear bottom from the nose base (subnasale). No sourced population norm for either was obtained in this run (see Open questions), so the subject's own photo is the only authority.
-6. **Sculpt by tissue type.** Model the helix rim as one continuous edge loop that curls into the helix root above the canal. Make the antihelix Y and its two crura crisp cartilage folds around the triangular fossa and scapha. Keep the concha a genuinely deep bowl with the canal opening behind the tragus. Make the lobule soft and rounded with no sharp ridges, since it has no cartilage [1].
-7. **Symmetry.** Block out with X-mirror, then turn it off for details and placement. Population-mean left-right differences are 0.3–1.5 mm (Table 1), individuals vary more, and one surgical study suggests a 3 mm protrusion-asymmetry target is strict [7]. Visible asymmetry in the photos is therefore real data.
-8. **Known traps.** Hair occlusion (mark the ear unknown rather than guessing). Earrings that pull the lobule down. Glasses arms, headphones or hats pressing the elastic ear [14]. Lens distortion in phone selfies. Studies that used a different length definition (Table 1, last column).
+1. **Capture for ears on purpose.** Ask for both true profiles, plus one shot per side about 20–35° *behind* profile (perpendicular to the ear plane), a back view, hair tucked behind the ears, no earrings, glasses, hats or headphones, camera at 1.5 m or more with a longer lens. Frontal selfies at arm's length shrink ears to about three quarters of nose scale and hide them behind the cheeks (Table 5).
+2. **Solve the camera before measuring.** Measure length (superaurale–subaurale) and width (preaurale–postaurale) on the 3D model reprojected through the solved cameras, never with a 2D scale taken from the nose: at 1 m a profile photo inflates the near ear by about 9% relative to midline features.
+3. **Level the head before judging height and tilt.** Rotate the head to FH (tragion–orbitale horizontal). Only then compare ear top with the brow and ear bottom with subnasale, and read the tilt. A 10° nod moves the ear about 17 mm relative to the brow, larger than any canon tolerance.
+4. **Block out from the skull outward.** Place tragion first (just behind the condyle, on the FH line), then set tilt, length, width and flare with a lattice or an ear "cage", and only then detail. Sanity checks: W/L 0.45–0.58; adult length 55–70 mm (longer in older people); helical root about one ear length behind the lateral canthus.
+5. **Get protrusion from front and back.** In the frontal view, match how far the helix silhouette stands outside the temporal and mastoid contour and whether the antihelix or the helix forms the outer edge. From the back, measure helix-to-head distance at upper, middle and lower thirds and compare with Table 2. The most common failure is ears glued flat against the head.
+6. **Sculpt by tissue.** Build the big forms as a shell: the C of the helix, the Y of the antihelix, the bowl of the concha. Then cut crisp cartilage folds (Draw Sharp, Crease, Pinch along the rim), push the concha genuinely deep behind the tragus, and keep the lobule soft and rounded with no ridges (Inflate, Smooth). Keep the back surface softer than the front.
+7. **Topology.** Give the helix rim one continuous edge loop that turns into the helical crus, separate loops around the concha and the triangular fossa, and a ring of loops around the ear root to join the head. The ear needs far more polygons per cm² than the cheek; many artists sculpt it as a separate object and bridge it in before Multires.
+8. **Symmetry.** Mirror only for blockout. Real left-right differences in size, height, tilt and protrusion are common and identity-bearing.
+9. **Traps.** Hair occlusion (mark unknown, don't guess); lobes stretched by earrings; ears pressed by glasses arms or hats; phone lens distortion; red backlit translucency that hides edges; comparing against studies that used another length definition.
+10. **Validate.** Overlay renders from every solved camera on its photo. Check the helix contour in profile, the frontal silhouette, and both ears against each other.
 
 ## Algorithmic implications
 
-- **Parameterization (per side):** `ear_length_mm`, `ear_width_mm` (or `width_ratio`), `axis_tilt_deg`, `protrusion_upper_mm`, `protrusion_lower_mm` (or `auriculocephalic_deg`), `top_offset_from_brow_mm`, `bottom_offset_from_subnasale_mm`, an anteroposterior position, and a low-dimensional relief/shape code for helix, antihelix, concha and lobule. Keep left and right as separate parameters tied by a soft symmetry term, not a hard mirror.
-- **Priors (derived, provisional):** length roughly N(60 mm, 5 mm) for adults. The mean is placed between the 57.6–62.9 mm means and the SD matches the 4.2–5.0 mm SDs [5][16]. Add an optional sex offset of about +2 mm for males (Sundanese 62.9 vs 60.9 mm [16], one population only). Width ratio roughly N(0.50, 0.04) from Table 2. Store a population tag so a priors table can be swapped in. Treat these as weak priors: the measured profile should dominate.
-- **Unsourced parameters:** axis tilt and the vertical offsets get flat or very wide priors bounded only by plausibility, and are flagged in the UI as "no population norm loaded".
-- **Protrusion constraint:** use a soft penalty that grows beyond the prominent-ear thresholds in Table 3 (sex-specific if sex is known) and on angles outside the contested 20–30° band. The penalty is a warning, not a clamp, because prominent ears are real and identity-defining.
-- **View gating:** recognition accuracy falls as imaging angle changes [15]. Weight ear-shape landmarks by estimated head yaw: full weight near profile, near zero in frontal views. Frontal photos may constrain only protrusion (silhouette) and coarse vertical extent. Solve camera focal length and distance jointly before using any ear landmark, because perspective acts strongly on features far from the nose.
-- **Landmarks:** at minimum superaurale and subaurale (named in [16]), the tragus, the intertragal notch, the helix-root junction, the most lateral helix point and the lowest lobule point. Each landmark gets a visibility/confidence flag (hair, jewellery). Store each measurement together with its definition, because studies differ [17][16].
-- **Units and provenance:** normalise everything to mm on ingest (several sources use cm). Keep `source_url`, `n` and `status` with every prior row (see `research/data/ear.json`).
-- **Identity loss:** when a profile view exists, include an ear-silhouette/contour term in the likeness objective. Ear and face fusion beat either alone in [15], so ears belong in identity checks rather than being left to defaults.
+- **Frame.** Express ear parameters in an FH-aligned head frame anchored at tragion, never in image axes, so pitch error cannot masquerade as ear height or tilt.
+- **Parameters per side:** `tragion_xyz` (in the skull frame), `length_mm`, `width_ratio`, `tilt_deg`, `flare_deg` (or auriculocephalic angle), derived `helix_mastoid_mm[3]`, and a low-dimensional shape code (helix roll, antihelix/crura prominence, concha depth, lobule size and attachment). Left and right are separate, linked by soft symmetry.
+- **Suggested priors (provisional, adult; replace with population tables when verified):**
 
-## Disagreements, myths & refuted claims
+| Parameter | Prior | Hard bounds | Basis |
+|---|---|---|---|
+| length_mm | N(61, 4.5) + 2 if male + 0.2·max(0, age−25) | 45–85 | [3][5][16]; sex [16]; age slope 🧠 |
+| width_ratio | N(0.50, 0.05) | 0.38–0.65 | [3][5][16] |
+| tilt_deg (top back, from FH vertical) | N(20, 7) | −5 to 45 | 🧠 |
+| tragion height vs orbitale (mm) | N(0, 5) | ±20 | 🧠 |
+| auriculocephalic_deg | N(25, 8); warn >35 | 5–70 | [8] ↔️ + 🧠 |
+| L–R difference: length / tilt / tragion / protrusion | σ 2 mm / 4° / 3 mm / 3 mm | – | 🧠; [7] |
 
-- **Protrusion norm:** 20–30° versus under 25° with ≤20 mm projection [8]. The two overlap but give different upper limits. Encode the range and flag the conflict.
-- **Width by sex:** significant in [9][12], not significant in [10][13]. Lobule by sex is likewise mixed [9] vs [10][13].
-- **Length definitions:** "most superior to most inferior projection" [17] versus superaurale–subaurale [16]. Cross-study differences of a few mm can be pure method.
-- **Shape stability:** "fully formed at 4 months", "significant change until 8 years" and "stable until about 70" all come through one secondary source [14] and partly conflict. Unverified.
-- **Suspect value:** the Sundanese abstract's women's concha width (0.42 cm) looks like a typo [16]. It is excluded from the tables.
-- **Classical art canon** (top of ear level with the brow, bottom level with the nose base, long axis parallel to the nasal bridge): widely taught in drawing instruction, but no anthropometric source was obtained in this run to confirm or refute it. Treat it as an unverified convention and measure the subject instead.
-- **Dropped (no traceable URL):** molded-ear figures (cephaloauricular angle 47.7° vs 31.1°; scaphaconchal angle 132.6° vs 106.7°) and a 3D method defining the auriculocephalic angle from plane normals fitted to the mastoid and auricle surfaces. These are not used above.
-- **Refuted:** none. No independent verification searches could be run, so nothing could be positively refuted.
+- **Canon checks, not priors.** Brow and subnasale alignment and nasal-dorsum parallelism become UI warnings (for example beyond ±12 mm or ±15°), never energy terms, because they are emergent and often violated.
+- **View weighting.** Weight ear-contour residuals by `max(0, cos(angle between camera ray and ear-plane normal))²`: full weight from the ear-normal view, about 0.7 in true profile, near zero frontally. Frontal views contribute only silhouette and protrusion.
+- **Full perspective.** Never use weak perspective or orthographic for ears; the 10–36% scale errors in Table 5 exceed the whole population SD.
+- **Occlusion and robustness.** Gate ear landmarks with a hair/accessory segmentation mask and use a robust loss (Huber or Cauchy). Allow a small per-photo elastic nuisance deformation because glasses and hats bend the ear [14].
+- **Rigidity.** Auricular muscles are vestigial, so ears are effectively rigid relative to the cranium across expressions 🧠. Visible tragion and helix points make good extra anchors for head pose in multi-expression photo sets.
+- **Landmarks.** Minimum Farkas set: superaurale, subaurale, preaurale, postaurale, otobasion superius and inferius, tragion; plus intertragal notch and lobule low point. Optionally a dense ear contour such as the 55-point in-the-wild ear annotation scheme 🧠. Store each measurement with its definition [16][17].
+- **Template and shape code.** Generic head models (for example FLAME) carry coarse, low-detail ears, and most monocular face regressors mask ears out 🧠. Fit the ear as a separate part with its own PCA or morphable model (York Ear Model; the ear part of the Universal Head Model) and blend it at the root ring; check those models' licences first 🧠.
+- **Identity metric.** Face-recognition embeddings are trained mostly on frontal crops and largely ignore ears 🧠, so add an explicit ear-contour term (Chamfer distance in ear-normal and profile views). Ear + face beat either alone in [15].
+- **Provenance.** Normalise to mm on ingest; keep `source_url`, `n`, `status` and `definition` on every prior row (`research/data/ear.json`).
 
-## Open questions
+## Disagreements, myths & open questions
 
-- Population norms for ear height relative to the brow and subnasale, and for long-axis inclination (needed for priors in this note's parameterization).
-- Primary-source confirmation of the 20–30° and <25° auriculocephalic norms, and the measurement points used in [7].
-- Full-text checks of [3], [5] and [16] (sample sizes, landmark definitions), and of [6] (cross-sectional morphometry from adolescence to mid-adulthood), for age-change data.
-- Ear growth through adult life: the harvest has no figures beyond age 14 [11] and an unverified stability claim [14].
-- 2D/3D ear landmark datasets and ear morphable models that could seed a shape code. Not searched.
-- Practitioner Blender, Polycount and BlenderArtists ear-sculpting workflows and topology conventions. Not obtained.
-- Identity-relevant sub-features (for example lobule attachment, helix-rim nodules, concha depth): standard in anatomy teaching, but none sourced in this harvest.
+- **Protrusion norm:** 20–30° vs <25° with ≤20 mm projection [8]; McDowell's 3 mm symmetry goal vs [7]'s "too strict". Encode ranges, warn rather than clamp.
+- **Width and lobule by sex:** [9][12] vs [10][13].
+- **Length definitions:** extreme projections [17] vs superaurale–subaurale [16]; a few mm of cross-study difference can be pure method.
+- **Stability vs growth:** "shape fixed by 4 months", "significant change to 8 years" and "stable until ~70" all come via one secondary source [14] (Iannarelli-era claims) and conflict with adult lengthening data 🧠 ↔️.
+- **Myth: classical canons are rules.** Brow-to-nose-base placement, ear length = nose length, and axis parallel to the nasal dorsum are drawing conventions; Farkas found the last two hold only in a minority 🧠 ↔️.
+- **Myth: "ears are unique like fingerprints".** Ears are discriminative, but uniqueness is unproven and earprint evidence has been successfully challenged in court 🧠 ↔️.
+- **Myth: attached vs free earlobe is a simple Mendelian trait.** It is polygenic and continuous 🧠.
+- **Suspect value:** the Sundanese women's concha width (0.42 cm) looks like a typo [16] and is excluded.
+- **Dropped (no traceable URL):** molded-ear angles (cephaloauricular 47.7° vs 31.1°; scaphaconchal 132.6° vs 106.7°) and a 3D auriculocephalic angle defined from plane normals fitted to mastoid and auricle (worth adopting as the engine's own protrusion measure, 🧠).
+- **Open:** sourced norms for ear height vs brow/subnasale and for axis tilt across populations; the measurement points in [7]; full-text checks of [3], [5], [16] and of [6] (adolescence to mid-adulthood); availability and licences of ear morphable models and landmark datasets; Blender/Polycount ear-sculpting conventions.
 
 ## Sources
 
-[1] NCBI Bookshelf (StatPearls) chapter on external ear anatomy — https://www.ncbi.nlm.nih.gov/books/NBK470359/ — medical-reference — n.d. (not confirmed)
-[2] StatPearls ear anatomy entry (same publisher as [1]) — https://statpearls.com/sp/al/13/20828/ — medical-reference — n.d. (not confirmed)
-[3] Anthropometric assessment of human auricle in North Indian population — https://pubmed.ncbi.nlm.nih.gov/36051810/ — paper — n.d. (not confirmed)
-[4] Anthropometric assessment of human auricle in North Indian population (PMC copy of [3]) — https://pmc.ncbi.nlm.nih.gov/articles/PMC9426708/ — paper — n.d. (not confirmed)
-[5] Mixed adult sample ear measurements, n=200 (title not confirmed) — https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/ — paper — n.d. (not confirmed)
-[6] Morphometry of the normal human ear: a cross-sectional study from adolescence to mid-adulthood — https://pubmed.ncbi.nlm.nih.gov/10731092/ — paper — n.d. (not confirmed)
+[1] NCBI Bookshelf (StatPearls) chapter on external ear anatomy — https://www.ncbi.nlm.nih.gov/books/NBK470359/ — medical-reference — n.d.
+[2] StatPearls ear anatomy entry (same publisher as [1]) — https://statpearls.com/sp/al/13/20828/ — medical-reference — n.d.
+[3] Anthropometric assessment of human auricle in North Indian population — https://pubmed.ncbi.nlm.nih.gov/36051810/ — paper — n.d.
+[4] Same as [3], PMC copy — https://pmc.ncbi.nlm.nih.gov/articles/PMC9426708/ — paper — n.d.
+[5] Mixed adult sample ear measurements, n=200 (title not confirmed) — https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/ — paper — n.d.
+[6] Morphometry of the normal human ear: a cross-sectional study from adolescence to mid-adulthood — https://pubmed.ncbi.nlm.nih.gov/10731092/ — paper — n.d.
 [7] Defining the protruding ear — https://pubmed.ncbi.nlm.nih.gov/22067874/ — paper — 2011
-[8] NCBI Bookshelf auriculocephalic angle reference (figure mapping not confirmed) — https://www.ncbi.nlm.nih.gov/books/NBK538320/ — medical-reference — n.d. (not confirmed)
-[9] Anthropometric Measurement of Human External Ear: Single-Center Experiment in a Pediatric Saudi Population — https://pmc.ncbi.nlm.nih.gov/articles/PMC12297175/ — paper — n.d. (not confirmed)
-[10] Morphometric Parameters of the Ear and Their Sexual Dimorphism in the Eastern Province of Saudi Arabia — https://pmc.ncbi.nlm.nih.gov/articles/PMC10775136/ — paper — n.d. (not confirmed)
-[11] Anthropometric growth study of the ear in a Chinese population — https://pubmed.ncbi.nlm.nih.gov/29169692/ — paper — n.d. (not confirmed)
-[12] Stature and sex estimation: auricular morphometry and morphology (Central Indian sample) — https://pmc.ncbi.nlm.nih.gov/articles/PMC13150244/ — paper — n.d. (not confirmed)
-[13] Diagnostic Accuracy of Auricular Morphometry in Sex Estimation: Logistic Regression with ROC Validation — https://pmc.ncbi.nlm.nih.gov/articles/PMC13298092/ — paper — n.d. (not confirmed)
+[8] NCBI Bookshelf auriculocephalic angle reference (figure mapping not confirmed) — https://www.ncbi.nlm.nih.gov/books/NBK538320/ — medical-reference — n.d.
+[9] Anthropometric Measurement of Human External Ear: Single-Center Experiment in a Pediatric Saudi Population — https://pmc.ncbi.nlm.nih.gov/articles/PMC12297175/ — paper — n.d.
+[10] Morphometric Parameters of the Ear and Their Sexual Dimorphism in the Eastern Province of Saudi Arabia — https://pmc.ncbi.nlm.nih.gov/articles/PMC10775136/ — paper — n.d.
+[11] Anthropometric growth study of the ear in a Chinese population — https://pubmed.ncbi.nlm.nih.gov/29169692/ — paper — n.d.
+[12] Stature and sex estimation: auricular morphometry and morphology (Central Indian sample) — https://pmc.ncbi.nlm.nih.gov/articles/PMC13150244/ — paper — n.d.
+[13] Diagnostic Accuracy of Auricular Morphometry in Sex Estimation: Logistic Regression with ROC Validation — https://pmc.ncbi.nlm.nih.gov/articles/PMC13298092/ — paper — n.d.
 [14] Ear Recognition (Anagnostopoulos), Introduction to Biometrics — https://arxiv.org/pdf/2101.10540 — paper/book chapter — 2021 (from arXiv ID)
-[15] A comprehensive survey and deep learning-based approach for human recognition using ear biometric — https://pmc.ncbi.nlm.nih.gov/articles/PMC8061142/ — paper — n.d. (not confirmed)
-[16] Sundanese auricle photogrammetry study (title not confirmed) — https://www.pubmed.gov/36217409/ — paper — n.d. (not confirmed)
-[17] Nature Index topic page: anthropometric analysis of human auricles — https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles — aggregator — n.d. (not confirmed)
+[15] A comprehensive survey and deep learning-based approach for human recognition using ear biometric — https://pmc.ncbi.nlm.nih.gov/articles/PMC8061142/ — paper — n.d.
+[16] Sundanese auricle photogrammetry study (title not confirmed) — https://www.pubmed.gov/36217409/ — paper — n.d.
+[17] Nature Index topic page: anthropometric analysis of human auricles — https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles — aggregator — n.d.
+
+**Further reading (by name, not yet linked)**
+- Farkas, *Anthropometry of the Head and Face*, 2nd ed., 1994 (ear landmarks and norms).
+- Farkas, Hreczko, Kolar & Munro, "Vertical and horizontal proportions of the face in young adult North American Caucasians: revision of neoclassical canons", Plastic and Reconstructive Surgery, 1985.
+- McDowell, "Goals in otoplasty for protruding ears", Plastic and Reconstructive Surgery, 1968.
+- Heathcote, "Why do old men have big ears?", BMJ, 1995.
+- Iannarelli, *Ear Identification*, 1989.
+- Emeršič, Štruc & Peer, "Ear recognition: More than a survey", Neurocomputing, 2017.
+- Zhou & Zafeiriou, "Deformable models of ears in-the-wild for alignment and recognition", IEEE FG, 2017 (55-point ear landmarks).
+- Dai, Pears & Smith, York Ear Model (3D morphable model of the ear), c. 2018.
+- Ploumpis et al., "Combining 3D Morphable Models: A Large Scale Face-and-Head Model", CVPR 2019 (Universal Head Model).
+- Adhikari et al., "A genome-wide association study identifies multiple loci for variation in human ear morphology", Nature Communications, 2015.
+- Shaffer et al., earlobe-attachment multiethnic GWAS, American Journal of Human Genetics, 2017.
+- Brent; Nagata: microtia reconstruction literature (ear placement rules).
+- Standring (ed.), *Gray's Anatomy* (auricle chapter).

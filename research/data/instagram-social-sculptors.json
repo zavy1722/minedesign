@@ -1,0 +1,304 @@
+{
+ "topic": "instagram-social-sculptors",
+ "tables": [
+  {
+   "name": "perspective_distortion_vs_distance",
+   "units": "m, ratio, %, mm (35 mm-equivalent)",
+   "columns": [
+    "distance_to_nose_tip_m",
+    "nose_vs_ear_magnification",
+    "excess_pct",
+    "f35_to_frame_0.40m_vertical_mm",
+    "typical_capture"
+   ],
+   "rows": [
+    [
+     0.3,
+     1.333,
+     33.3,
+     27,
+     "arm's-length selfie"
+    ],
+    [
+     0.5,
+     1.2,
+     20.0,
+     45,
+     "close phone shot"
+    ],
+    [
+     1.0,
+     1.1,
+     10.0,
+     90,
+     "casual portrait"
+    ],
+    [
+     1.5,
+     1.067,
+     6.7,
+     135,
+     "good likeness reference"
+    ],
+    [
+     2.0,
+     1.05,
+     5.0,
+     180,
+     "recommended"
+    ],
+    [
+     3.0,
+     1.033,
+     3.3,
+     270,
+     "near-orthographic"
+    ]
+   ],
+   "population": "pinhole model; nose-tip to ear-plane depth dz = 0.10 m (assumed adult range 0.09-0.11 m)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Derived: magnification = (d+dz)/d; f = 36*d/0.40 for full-frame with 36 mm side vertical. Higher-resolution sensors allow 85-135 mm at 2-3 m with cropping. Ward et al. 2018 (selfie effect) reportedly found ~30% nasal-base widening at ~30 cm vs ~1.5 m; unverified."
+  },
+  {
+   "name": "photo_scale_anchors_adult",
+   "units": "mm",
+   "columns": [
+    "quantity",
+    "mean_low",
+    "mean_high",
+    "range_low",
+    "range_high",
+    "use"
+   ],
+   "rows": [
+    [
+     "interpupillary distance",
+     61,
+     65,
+     54,
+     74,
+     "absolute scale prior; SD about 3.5-4 mm; men ~2 mm above women"
+    ],
+    [
+     "horizontal visible iris diameter",
+     11.5,
+     12.0,
+     10.7,
+     12.8,
+     "per-photo scale when iris spans >= 20 px"
+    ],
+    [
+     "eyeball axial length",
+     23.0,
+     24.5,
+     22,
+     26,
+     "eye sphere size"
+    ],
+    [
+     "corneal apex anterior to lateral orbital rim (Hertel)",
+     15,
+     17,
+     12,
+     20,
+     "eye depth placement; varies by ancestry"
+    ],
+    [
+     "palpebral fissure width",
+     27,
+     33,
+     null,
+     null,
+     "five-eyes check"
+    ],
+    [
+     "head height vertex-menton",
+     210,
+     240,
+     null,
+     null,
+     "life-size sanity check"
+    ],
+    [
+     "ear length",
+     55,
+     68,
+     null,
+     null,
+     "ear scale; increases with age"
+    ],
+    [
+     "freeway space (rest vs occlusion)",
+     2,
+     4,
+     null,
+     null,
+     "lower-face height change if teeth not together"
+    ]
+   ],
+   "population": "adults, mixed populations, approximate",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Expert-knowledge ranges, not yet checked against sources in this library; Hertel row is contested across populations. Prefer population-specific values from the anatomy notes."
+  },
+  {
+   "name": "proportion_canons_vs_measured",
+   "units": "ratio or mm",
+   "columns": [
+    "canon_as_posted",
+    "measured_adult_tendency",
+    "status"
+   ],
+   "rows": [
+    [
+     "eyes at half head height",
+     "pupil line ~0.47-0.53 of vertex-menton in adults; lower in children",
+     "contested"
+    ],
+    [
+     "equal facial thirds",
+     "approximate; lower third often >= middle; upper third depends on hairline",
+     "contested"
+    ],
+    [
+     "head = five eye-widths",
+     "fits head breadth at temples/ears (~145-160 mm) better than bizygomatic (~125-145 mm)",
+     "contested"
+    ],
+    [
+     "intercanthal = one eye width",
+     "often close; intercanthal frequently slightly larger",
+     "contested"
+    ],
+    [
+     "nose width = intercanthal",
+     "nose often wider, esp. men and many non-European populations",
+     "contested"
+    ],
+    [
+     "mouth corners at pupils",
+     "mouth ~45-55 mm vs IPD ~63 mm; corners usually inside pupil lines",
+     "knowledge"
+    ],
+    [
+     "ear length = nose length",
+     "ear usually 10-25% longer than nose",
+     "contested"
+    ]
+   ],
+   "population": "adults (Farkas anthropometry, by name)",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Use as blocking scaffolds and UI sanity checks only, never as hard fitting targets."
+  },
+  {
+   "name": "reference_photo_set",
+   "units": "views, degrees, m, mm",
+   "columns": [
+    "item",
+    "setting"
+   ],
+   "rows": [
+    [
+     "yaw ring at eye height",
+     "8 views (45 deg) minimum, 12-16 preferred, including back"
+    ],
+    [
+     "elevation views",
+     "+30 to +45 deg (crown) and -20 to -30 deg (under jaw)"
+    ],
+    [
+     "distance and lens",
+     ">=1.5 m, 85-135 mm equivalent or phone tele; never arm's-length front camera"
+    ],
+    [
+     "subject",
+     "neutral, teeth lightly together, hair off ears/hairline, no glasses"
+    ],
+    [
+     "light",
+     "soft even set plus one raking-light set"
+    ],
+    [
+     "scale",
+     "ruler at face depth, or measured IPD / head circumference"
+    ]
+   ],
+   "population": "practitioner consensus",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Add-on capture checklist defaults."
+  },
+  {
+   "name": "engine_defaults_proposed",
+   "units": "mm, m, ratio",
+   "columns": [
+    "parameter",
+    "default",
+    "notes"
+   ],
+   "rows": [
+    [
+     "scale prior IPD",
+     "N(63, 4) mm",
+     "fallback when no ruler/caliper"
+    ],
+    [
+     "scale prior iris diameter",
+     "N(11.7, 0.5) mm per eye",
+     "only if iris >= 20 px"
+    ],
+    [
+     "distance warn threshold",
+     "d < 1.0 m",
+     "nose:ear magnification > 1.10"
+    ],
+    [
+     "distance reject-as-shape-cue threshold",
+     "d < 0.6 m",
+     "magnification > ~1.17"
+    ],
+    [
+     "cross-view distance mismatch flag",
+     "> 1.5x median",
+     ""
+    ],
+    [
+     "sigma_sym schedule",
+     "1 mm (stages A/B) -> 2 mm or looser (C/D)",
+     "bundle default 2 mm"
+    ],
+    [
+     "landmark prior sigma schedule",
+     "8 mm (stage B) -> 3-4 mm (stage C)",
+     "coarse-to-fine"
+    ],
+    [
+     "caliper distance sigma",
+     "1-2 mm",
+     "soft-tissue compression and landmark ambiguity"
+    ],
+    [
+     "corneal apex to lateral orbital rim",
+     "N(16, 2) mm",
+     "eye placement prior"
+    ],
+    [
+     "caricature k",
+     "0 default, slider 0-0.15",
+     "X' = mu + (1+k)(X - mu); preview only"
+    ],
+    [
+     "focal prior log-sigma",
+     "0.35",
+     "existing engine default"
+    ]
+   ],
+   "population": "engineering defaults derived from practitioner checks",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Proposed defaults; validate on held-out multi-view captures before shipping."
+  }
+ ]
+}

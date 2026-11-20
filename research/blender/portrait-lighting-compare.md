@@ -1,118 +1,154 @@
 # Matching photo lighting and verifying likeness renders
 
-> Checking a likeness render against a reference photo breaks into three separate jobs. First recover the camera (focal length, sensor/aspect, pose). Then approximate the light: get the direction right before the balance. Finally compare render and photo in a controlled compositing setup. Still-photo camera matching in Blender relies on third-party vanishing-point tools (fSpy, Simple Camera Match) and facade-oriented add-ons. Those tools need orthogonal straight edges or a level, upright camera, which head-and-shoulders portraits rarely provide. That makes a landmark-based perspective-n-point solve the better fit for faces. Two independent lighting tutorials, one for Blender and one for Maya, both start by rotating the environment until the light direction on the subject matches the reference, and only then refine local intensity. For comparison overlays, Blender's compositor blends in linear colour and its blend operations ignore layer alpha. Difference and overlay results therefore differ from After Effects and have to be masked. **Verification status of this pass:** the web-search budget ran out before any independent cross-check could run, so almost every claim below is single-source practitioner or vendor material. No numeric value could be sourced.
+> Checking a likeness render against a photo is three separate jobs. First rebuild the camera: focal length *with* sensor width, principal point and pose. Then approximate the light, getting direction right before balance and low-frequency light before sharp detail. Finally compare render and photo in a colour-managed, masked compositor graph. Blender's still-photo camera matchers are third-party vanishing-point or facade tools built for architecture, so bare portraits need a landmark-based perspective solve. Two independent tutorials rotate the environment until light direction matches and only then refine locally. Physics adds a limit: diffuse face shading pins down only about 9 spherical-harmonic lighting coefficients, so cast shadows, catchlights and highlights have to carry the rest. Blender blends in linear light and ignores alpha, so Difference maps must be masked, and geometric checks must gate photometric or identity scores, because a lighting error looks like a shape error.
+>
+> Evidence status: 1 ✅ / 26 📄 / 50 🧠 / 6 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
-- Still-image camera matching in Blender is done with third-party tools. The harvest found three: **fSpy**, a standalone app announced as the successor to the BLAM add-on; **Simple Camera Match**, a Blender extension; and **Photo-Match Camera**, a paid archviz add-on. An 80.lv article covers a "still image camera matching app" for Blender workflows (title only). The claim that Blender has no built-in still-photo matcher is the harvester's inference and was not confirmed against the manual. [1][2][3][11] ⚠️ single-source
-- fSpy's developer describes still-image camera matching as computing field of view and camera orientation from an image, given vanishing points. With only one discernible vanishing point, the user has to supply the focal length or find it by trial and error. [1] ⚠️ single-source
-- In Simple Camera Match, the user draws X, Y and Z vanishing lines over a background image in the camera view, and the add-on solves focal length, location and rotation. The guidance is to trace orthogonal references such as building edges or box edges, one axis per line set. [2] ⚠️ single-source
-- Photo-Match Camera assumes a flat upright facade. The photo plane stands upright, the camera is placed level with no tilt or roll, and focal length is estimated from a known real-world width and the camera distance. [3] ⚠️ single-source
-- Camera-matching solvers need **sensor size as well as focal length**. A community thread questions whether Blender's focal-length and sensor-size values are accurate. [4] ⚠️ single-source
-- One user reports that the Blender **viewport** lens has to be set to roughly **2×** the camera focal length to match the camera view. Per the thread, a maintainer disputed that this is a bug. The bug tracker was not checked. [4] ↔️ contested
-- **Lighting match: orientation first.** The Lightmap Blender tutorial first rotates the HDRI to agree with the backplate photo. A Maya lighting course separately rotates the environment light until the light direction on the object matches the reference. Both are practitioner tutorials, and neither measures accuracy. [6][7] ✅ verified (two independent sources agree on the method)
-- **Then refine the map locally.** After fixing orientation, the Lightmap tutorial edits the HDRI itself: it reduces light coming from under the tires and brightens the headlight reflection. [6] ⚠️ single-source
-- Poly Light Match is a paid Blender add-on that builds an image-based lighting rig from a reference photo. It has movie, portrait, landscape and product presets, plus intensity, distance, height and rotation controls. [5] ⚠️ single-source (vendor docs)
-- In the Blender compositor, the **Mix** node's Factor sets the blend amount regardless of alpha, while **Alpha Over** respects the foreground alpha. [8] ⚠️ single-source
-- Blender compositing works in **linear** colour, while After Effects blends in display space by default, so the same blend mode (e.g. Difference) gives different numbers in the two apps. [10] ⚠️ single-source
-- After Effects limits blend modes to a layer's alpha by default. Blender blend operations do not, so black outside a render's alpha takes part in the blend. [10] ⚠️ single-source
-- Blend modes are per-pixel formulas that combine foreground and background pixels. A shader only sees its own (foreground) result, so background-dependent modes such as Overlay cannot be rebuilt inside a material. Photo comparison belongs in the compositor, not in a shader. [9] ⚠️ single-source
+**Camera**
+- Still-image camera matching for Blender is done with third-party tools: fSpy (a standalone successor to the BLAM add-on), Simple Camera Match (an extension) and Photo-Match Camera (a paid archviz add-on). 80.lv covered a still-image matching app, but only its title was seen [1][2][3][11] 📄. Blender's built-in camera solver is in the Movie Clip Editor and needs a tracked image sequence with parallax, so it does not solve a single still 🧠.
+- fSpy computes field of view and camera orientation from vanishing points. With only one vanishing point, the user has to supply the focal length or find it by trial and error [1] 📄.
+- Simple Camera Match: draw X/Y/Z lines along orthogonal edges, such as buildings or boxes, over the camera background image; it solves focal length, location and rotation [2] 📄.
+- Photo-Match Camera: assumes an upright flat facade and a level camera with no tilt or roll; focal length comes from a known width and the camera distance [3] 📄.
+- Solvers need sensor size as well as focal length [4] 📄. FOV depends only on the ratio of focal length to sensor width. A focal length without its sensor width, or a 35 mm-equivalent value typed into a non-36 mm sensor, gives the wrong FOV 🧠.
+- A forum user reports that the free viewport needs about 2× the camera lens value to show the same view, and a maintainer disputed that this is a bug [4] ↔️. Likely resolution 🧠: as I recall Blender's source, the non-camera perspective viewport applies a fixed zoom factor of 2 (`CAMERA_PARAM_ZOOM_INIT_PERSP`). A 50 mm viewport lens then shows roughly the FOV of a 25 mm camera lens. The effect is real and intended, so both sides are right. Never read lens values off the free viewport.
+
+**Lighting**
+- Direction comes first. One tutorial rotates the HDRI to agree with the backplate; another rotates the environment light until the light direction on the object matches the reference [6][7] ✅. Neither measures accuracy.
+- Then the map is edited locally: light from under the tires is reduced and the headlight reflection is brightened [6] 📄.
+- Poly Light Match (paid) builds an image-based-lighting rig from a reference photo. It has a portrait preset and intensity, distance, height and rotation controls [5] 📄. Its accuracy is undocumented.
+- Lambertian irradiance from distant light is well approximated by order-2 spherical harmonics: 9 coefficients per channel, holding roughly 98–99 % of the reflectance kernel's energy (Ramamoorthi & Hanrahan 2001; Basri & Jacobs 2003) 🧠. So diffuse shading cannot tell an HDRI from a blurred copy of it. Sharp-light information lives only in cast shadows (nose, brow, chin, ear), shadow-edge softness, specular highlights and catchlights 🧠.
+- The cornea acts as a convex mirror with an anterior radius of about 7.5–8 mm. Catchlight position gives the light direction, and its shape and size give the source shape and angular size. Two eyes give two estimates (Nishino & Nayar, "Eyes for Relighting", 2004) 🧠.
+- The classic portrait patterns (butterfly, loop, Rembrandt, split) are named by the geometry of the nose shadow. Each corresponds to a band of key azimuth and elevation (Table D), which makes them the fastest way to set the key by eye 🧠.
+- Shadow softness depends on the source's angular size as seen from the face. Penumbra width ≈ occluder-to-receiver distance × angular diameter. In Blender this is the Sun light's Angle, or an area light's Size at a given distance 🧠.
+- On-set capture uses a chrome ball (environment and direction), an 18 % grey ball (diffuse response) and a colour chart, with bracketed exposures merged to HDR (Debevec & Malik 1997; Debevec 1998) 🧠. For existing photos without probes, learned estimators infer the light: SfSNet 2018, Sun et al. 2019, LeGendre et al. 2020, DiffusionLight 2024. Their accuracy on arbitrary portraits is unestablished, and this field moves fast 🧠.
+
+**Comparison**
+- The Mix node's Factor blends regardless of alpha; Alpha Over respects foreground alpha [8] 📄.
+- Blender composites in linear light, while After Effects blends in display space by default, so Difference results differ between them [10] 📄. AE limits blends to layer alpha and Blender does not, so black outside the render participates in Blender [10] 📄.
+- A shader sees only its own (foreground) result, so Overlay- or Difference-style comparison cannot be built in a material [9] 📄.
+- Since Blender 4.0 the default view transform is AgX, which replaced Filmic. Both apply a tone curve, so for numeric comparison set View Transform = Standard, Look = None, Exposure 0 and Gamma 1, and tag the photo as sRGB so it is linearised 🧠. Camera JPEGs are themselves tone-mapped, so linear-space residuals against them are approximate. Use RAW decoded to linear when possible 🧠.
+- Denoising and the pixel filter (Cycles default: Blackman-Harris, about 1.5 px) soften silhouettes, and the softened edges show up as rim lines in difference maps 🧠.
+- Viewing distance changes facial proportions. A selfie at about 30 cm makes the nose look roughly 30 % wider relative to the face than at about 1.5 m (Ward et al. 2018) 🧠. A likeness check is therefore valid only through the matched camera.
+- Viewing a face upside down hides distortions of individual features (the Thatcher illusion; Thompson 1980). Use inversion for silhouette and proportion checks, not for checking eyes or mouth 🧠.
 
 ## Numbers & reference tables
 
-No sourced numeric values were obtained in this pass: no focal-length error, no lighting-match accuracy, no colour-difference magnitudes, no likeness thresholds. The tables below are qualitative and sourced, apart from Table C, which is plain pinhole geometry derived here and labelled as such. No data JSON was written because there were no sourced values to put in it.
+**Table A — Still-image camera matchers (from their own pages)**
 
-**Table A — Still-image camera-matching tools (as described by their own pages/threads)**
-
-| Tool | Form | User input | Solves | Hard assumptions | Fit for portrait photos (inference) | Source |
-|---|---|---|---|---|---|---|
-| fSpy | Standalone app (successor to BLAM) | Vanishing points | FOV, camera orientation | Needs ≥2 VPs to recover focal; 1 VP → focal supplied by user | Poor unless the background has architecture | [1] |
-| Simple Camera Match | Blender extension | X/Y/Z vanishing lines drawn on camera background image | Focal length, location, rotation | Orthogonal straight edges (buildings, boxes) | Poor for tight face crops | [2] |
-| Photo-Match Camera | Paid add-on (archviz) | Known real-world width + camera distance | Focal length, placement | Upright flat facade; level camera, no tilt/roll | Not applicable to heads | [3] |
-| Poly Light Match | Paid add-on (lighting) | Reference photo + preset (incl. portrait) | IBL rig with intensity/distance/height/rotation controls | Not documented in harvest | Unknown; untested | [5] |
+| Tool | Input | Solves | Hard assumption | Portrait fit | Badge |
+|---|---|---|---|---|---|
+| fSpy | Vanishing points | FOV, orientation | ≥2 VPs for focal; 1 VP → user supplies focal | Poor without architecture | 📄 [1] |
+| Simple Camera Match | X/Y/Z lines on camera background image | Focal, location, rotation | Orthogonal straight edges | Poor for face crops | 📄 [2] |
+| Photo-Match Camera | Known width + distance | Focal, placement | Upright facade, level camera | Not applicable | 📄 [3] |
+| Poly Light Match | Reference photo + preset | IBL rig | Undocumented | Untested | 📄 [5] |
 
 **Table B — Compositor operations for render-vs-photo checks**
 
-| Operation | Alpha behaviour | Colour space | Use in likeness checks | Source |
-|---|---|---|---|---|
-| Alpha Over (render over photo) | Respects foreground alpha | Linear (Blender compositor) | Clean overlay of head on photo | [8][10] |
-| Mix, Factor 0–1 | Ignores alpha; Factor alone sets blend | Linear | Opacity "ghost" overlay or wipe | [8][10] |
-| Mix, Difference mode | Not limited to alpha; black outside alpha participates | Linear (differs from AE display-space result) | Error heat-map; must be masked by render alpha | [10] |
-| Overlay-type modes in a material shader | n/a | n/a | Not possible: a shader sees no background | [9] |
+| Operation | Alpha behaviour | Use | Badge |
+|---|---|---|---|
+| Alpha Over (render over photo) | Respects foreground alpha | Clean overlay | 📄 [8] |
+| Mix, Factor 0–1 | Ignores alpha | Opacity "ghost" | 📄 [8] |
+| Mix › Difference | Not alpha-limited; must be multiplied by render alpha × face mask | Error map | 📄 [10] |
+| Blend inside a material | No background available | Impossible | 📄 [9] |
+| Split node (renamed from "Split Viewer" in 4.x, as recalled) | n/a | Wipe A/B | 🧠 |
+| RGB to BW → Map Range (0–0.1 → 0–1) → Color Ramp | n/a | Luminance-only heat map | 🧠 |
 
-**Table C — Pinhole relations used for camera export (derived, not externally sourced; implemented in `face3d/geometry/camera.py`)**
+**Table C — Pinhole ↔ Blender relations (derived; engine `face3d/geometry/camera.py`)**
 
-| Quantity | Relation | Units |
+| Quantity | Relation | Badge |
 |---|---|---|
-| Pixel focal from sensor | f_px = f_mm · W_px / sensor_width_mm | px |
-| Horizontal FOV | FOV_x = 2·atan(W_px / (2·f_px)) | degrees |
-| Blender lens for a given sensor width (sensor_fit = HORIZONTAL) | lens_mm = f_px · sensor_width_mm / W_px | mm |
-| Principal-point offset → Blender shift | shift_x = (W/2 − c_x)/max(W,H); shift_y = (c_y − H/2)/max(W,H) | fraction of larger image side |
+| Pixel focal | f_px = f_mm · W_px / sensor_w_mm | 🧠 |
+| Horizontal FOV | 2·atan(W_px / 2f_px) | 🧠 |
+| Blender lens (Sensor Fit = Horizontal) | lens = f_px · sensor_w / W_px | 🧠 |
+| Lens shift | shift = offset_px / D, where D = W for Horizontal fit, H for Vertical, max(W,H) for Auto (Blender source, as recalled) | ↔️ |
 
-The lens value only reproduces the photo when sensor width, sensor fit and render resolution are set together. That follows from [4]'s point that solvers need sensor size as well as focal length.
+The engine divides by max(W,H) while forcing Horizontal fit. That is correct for landscape photos, but for portrait-orientation photos it would be off by a factor of H/W (1.33 at 3:4). Verify with a round-trip render before trusting it.
+
+**Table D — Portrait key-light patterns (typical bands; sources vary)** 🧠
+
+| Pattern | Key azimuth from camera axis | Key elevation | Readable cue |
+|---|---|---|---|
+| Butterfly / Paramount | 0–10° | 30–50° | Symmetric shadow under nose, shadow under chin |
+| Loop | 25–45° | 25–40° | Small nose-shadow loop toward mouth corner, not touching the cheek shadow |
+| Rembrandt | 45–60° | 35–50° | Nose shadow merges with the cheek shadow; lit triangle under the far eye |
+| Split | 80–100° | 0–20° | Face halved along the nose line |
+| Rim / kicker | 110–160° | 0–40° | Bright edge on the jaw or ear, no frontal key |
+
+**Table E — Lighting-ratio conventions** ↔️ (the two definitions disagree)
+
+| Label | Def. A: (key+fill):fill, lit/shadow difference | Def. B: key:fill, lit/shadow difference |
+|---|---|---|
+| 2:1 | 1.00 stop | 1.58 stops |
+| 3:1 | 1.58 | 2.00 |
+| 4:1 | 2.00 | 2.32 |
+| 8:1 | 3.00 | 3.17 |
+
+To measure the ratio, sample linear luminance on lit-cheek and shadow-cheek patches that face the camera similarly; stops = log2(lit/shadow). Commercial portraits typically fall around 2:1–4:1 (Def. A) 🧠.
+
+**Table F — Objective comparison metrics** 🧠
+
+| Metric | Measures | Lighting-sensitive? | Reference scale |
+|---|---|---|---|
+| Landmark NME (÷ outer inter-ocular distance) | 2D geometry | No | Detector noise floor ≈ 3–4 % IOD on 300-W-style sets (convention-dependent ↔️) |
+| Contour distance / silhouette IoU (unoccluded jaw and cheek) | Outline | No | Pixel-level; IoU is saturated by large areas, so prefer contour distance |
+| Masked linear MAE per region | Shading + albedo | Yes | Only after geometry passes |
+| SSIM (Wang et al. 2004) | Local structure | Partly | 0–1, no universal threshold |
+| LPIPS (Zhang et al. 2018) / ꟻLIP (Andersson et al. 2020) | Perceptual difference | Yes | ꟻLIP is designed for flip-comparison |
+| CIEDE2000 ΔE00 | Colour | Yes | ≈1 is about a just-noticeable difference; 2–3 noticeable at a glance |
+| ArcFace cosine | Identity | Yes (domain gap) | Normalise by a photo-vs-photo baseline of the same person; see identity-embeddings note |
+
+**Table G — Typical portrait cameras and perspective strength (Δ ≈ 0.12 m nose-tip-to-ear depth assumed; derived 1+Δ/z)** 🧠
+
+| Scenario | f (35 mm-eq.) | Distance z | Nose-tip : ear-plane scale |
+|---|---|---|---|
+| Phone selfie, arm's length | 22–30 mm | 0.25–0.6 m | 1.20–1.48 |
+| Phone main camera, head and shoulders | 23–28 mm | 0.5–1.0 m | 1.12–1.24 |
+| Phone tele / "portrait mode" | 48–120 mm | 1–2.5 m | 1.05–1.12 |
+| Portrait lens | 85–135 mm | 1.5–3 m | 1.04–1.08 |
+| Long tele | ≥200 mm | ≥4 m | ≤1.03 |
 
 ## Applying this to photo→3D face sculpting in Blender
 
-**1. Solve the camera before touching the sculpt.** A wrong focal length or camera distance changes apparent facial proportions in ways no amount of sculpting can reconcile across several photos.
-- Treat EXIF focal length (35 mm-equivalent, when present) as a **prior, not truth**. The engine's `focal_px_from_35mm` converts it on the image diagonal.
-- Use vanishing-point tools [1][2] only when the photo contains real orthogonal straight edges, such as a door frame or wall corner. Even then they recover the *camera*, not the head pose. A single vanishing point leaves focal length unsolved [1]. For plain-background portraits, use landmark-based PnP with focal estimation (`face3d/solve/pnp.py`).
-- Set the render resolution to the photo's exact pixel dimensions, and set lens, sensor width, sensor fit and shift together (`to_blender_camera`). Judge alignment in **camera view**, never with the free-viewport lens, which is disputed and may not equal the camera lens [4].
-- Show the photo as the camera's background image, the same mechanism Simple Camera Match uses [2], and use it to check the silhouette, jaw line, ear position and hairline before working on detail.
+1. **Camera before sculpt.** Solve focal length and pose from landmarks (`face3d/solve/pnp.py`); see `reference-camera-setup.md`. Set the render resolution to the photo's exact pixels at 100 %, Sensor Fit = Horizontal, sensor width, lens and shift together. Show the photo as a camera background image and judge alignment only in camera view, never with the free-viewport lens [4]. Use vanishing-point tools only when real orthogonal edges are visible, and treat their focal length as a prior [1][2]. Undistort wide-angle selfies; do not try to distort the render.
+2. **Shape check under neutral light.** Use a mid-grey matte material (linear albedo about 0.18–0.4), Film → Transparent on, Cycles, with denoising off or held fixed. Check the silhouette, jaw line, ear position, hairline and eye/mouth corners first. A MatCap in Solid mode is good for reading form, but it lights in view space and cannot match a photo.
+3. **Read the photo's light.** Find the nose-shadow pattern (Table D) for key azimuth and elevation. Read the catchlight clock position and shape for direction and source shape. Use the penumbra width for size: sun Angle, or area Size at distance. Measure lit/shadow cheek stops for the key:fill ratio (Table E). Read the rim highlights for any back light.
+4. **Build the rig.** Either rotate an HDRI (Environment Texture → Mapping Z rotation) until the shadow and terminator directions match, then rebalance locally [6][7]. Or use one area key, the world as fill, and an optional rim. Match the colour temperature with a Blackbody input after white-balancing the photo on a known neutral (a grey card or white clothing). Sclera and teeth are tinted, so do not balance on them. Light linking (Cycles 4.0+) keeps a rim light off the shoulders 🧠. If the photo has shallow depth of field, enable camera DOF at its f-stop so the ears and hair blur alike.
+5. **Compositor graph** (Table B). Load the photo in an Image node set to the sRGB colour space and scale it to the render size. Build Alpha Over for the overlay [8], Mix with an exposed Factor for the ghost [8], and Difference → BW × render alpha × face mask → heat map for the error map [10], plus a Split wipe. Keep the view transform at Standard while comparing. Never compare against numbers from AE or Photoshop [10].
+6. **Human protocol.** View side by side at the same size and eye line, then blink between the two at 1–4 Hz, then mirror both horizontally, then compare in greyscale, then blur or squint. Check at least front, ¾ and profile; a single view can be matched by a wrong shape paired with a wrong focal length.
 
-**2. Match the light: direction first, then balance.**
-- If an HDRI is used, rotate it (or the key light) until the light *direction* on the head matches the photo, before changing any intensity [6][7]. On a face, the most readable direction cues are the nose cast shadow, the cheek and jaw terminator line and the eye catchlights. This cue list is practitioner reasoning that was not sourced here.
-- Then refine locally: suppress unwanted fill and boost the dominant specular source, as Lightmap does by editing the HDRI map [6]. A portrait preset from a tool such as Poly Light Match can be a starting rig [5], but its accuracy is undocumented.
-- For **shape** verification, render with a neutral material so skin texture and albedo errors do not hide geometry errors. Use a textured render only for final appearance checks. This too is reasoning, not a sourced claim.
-
-**3. Compare in the compositor, with masks.**
-- Render with an alpha channel, then Alpha Over the render onto the photo for a clean overlay [8].
-- Use a Mix node with an animatable Factor for the ghost or opacity view. Mix ignores alpha [8].
-- Use Mix in Difference mode for an error map, and multiply it by the render's alpha (and ideally a face mask). Blender blend operations are not alpha-limited, so the photo's background would otherwise flood the map [10].
-- Expect different numbers from the same comparison done in After Effects or Photoshop, because Blender blends in linear space and AE in display space by default [10]. Pick one space and keep it.
-- Do not try to build the overlay or difference inside a material [9].
-
-**What goes wrong**
-- Difference maps light up from lighting mismatch as well as from shape error, which leads to "fixing" geometry that was correct. Check shape with silhouettes and landmarks first, and read the difference map only after the lighting direction is matched.
-- Sub-pixel misregistration produces bright edge outlines that are not shape errors.
-- Viewport-lens readings are mistaken for camera lens values [4].
-- Focal length is assumed from one vanishing point [1].
-- Results are compared across apps with different blend spaces [10].
+**What goes wrong:** "fixing" geometry because of a lighting-driven difference; one-pixel misregistration showing up as bright outlines; contour landmarks treated as fixed points when they slide along the jaw; AgX or Filmic left on; a JPEG treated as linear; a portrait-orientation photo with a lens-shift mismatch (Table C); EXIF focal length used after a crop; and the free-viewport lens mistaken for the camera lens [4].
 
 ## Algorithmic implications
 
-- **Camera model.** Use full perspective with focal length as a free parameter under a soft prior (log-normal from EXIF when present) and multi-hypothesis initialisation. The engine already does this. Its defaults (35 mm-equivalent hypotheses 24–200 mm, prior log-σ 0.35) are engineering choices, not research-derived, and need validating on real portraits. Vanishing-point solving should be an optional input path for photos with architecture [1][2], not the default.
-- **Export contract.** Always export lens, sensor_width, sensor_fit, shift_x/shift_y and resolution together, never lens alone, because sensor size is part of the solution [4]. Generate an automatic check that renders the solved camera's landmark projections over the photo.
-- **Two-stage verification metric.** Keep geometry and photometry separate:
-  - (a) Geometric: landmark reprojection RMSE in pixels (`PnPResult.rmse_px`), plus silhouette/contour agreement between the render alpha and a segmented face mask. Neither depends on lighting.
-  - (b) Photometric: a linear-space difference restricted to render alpha ∩ face mask and reported per region (forehead, nose, cheeks, jaw). Run it only after the lighting direction is fixed.
-  Thresholds are not sourced and must be calibrated (see Open questions).
-- **Lighting parameterisation.** Optimise environment or key-light *rotation* (yaw/pitch) first, and intensity and local balance second, mirroring the two-stage practice in [6][7]. A low-order analytic lighting model would be the natural fitting-side representation. That is unsourced in this pass, so it is listed as an open question rather than encoded as fact.
-- **Colour management.** Convert the photo to the compositor's linear space before differencing, and record the source colour space and view transform with every comparison, because the blend space changes results [10].
-- **Compositor graph generation (add-on).** The add-on can build the comparison graph from Python: Alpha Over for overlay, Mix (Factor) for ghosting and Mix (Difference) × alpha for the error map. The Factor should be exposed as a UI slider [8][10]. Node identifiers and API changes in Blender 5.x were **not verified**. Check them against the 5.0 manual [13] before coding.
-- **Never auto-accept likeness** from a photometric score alone: lighting confounds it. Gate acceptance on geometric metrics, and show the overlay and difference views to a human.
+- **Camera priors.** Fit log-focal with σ ≈ 0.05–0.1 when EXIF focal length and sensor are known and the image is uncropped, and keep the engine's 0.35 (with 24–200 mm hypotheses) when it is a guess. These are engineering values, not research-derived. Fix the principal point at the image centre unless crop data exists. Add a metric-scale prior from the visible iris diameter, 11.7 ± 0.5 mm, as stated in Google's MediaPipe Iris material (recalled, verify), to break the focal/depth ambiguity.
+- **Export contract.** Export lens, sensor_width, sensor_fit, shift (divided by the sensor-fit dimension), resolution and matrix_world. Then run a round-trip test that projects solved landmarks through a Blender render and asserts sub-pixel agreement; this catches the shift issue in Table C.
+- **Lighting stage 1 (SH9).** Fit 27 coefficients (9 per RGB channel) by linear least squares, E(n) = Σ Â_l L_lm Y_lm(n), with Â₀ = π, Â₁ = 2π/3, Â₂ = π/4, on mask pixels with constant per-channel albedo. Use Huber weights (δ ≈ 0.05 linear). Exclude eyes, brows, lips, nostrils, hair and beard, the brightest 2–5 % of pixels (specular), and grazing normals (n·v < 0.3). Ridge-regularise band 2. A profile view sees only half the normal sphere, so add a weak light-from-above prior: elevation ~N(30°, 25°), azimuth ~N(0°, 60°).
+- **Stage 2 (hard light).** Take the key direction from the band-1 vector (L₁,₁, L₁,₋₁, L₁,₀) → (x, y, z), and the ambient from L₀₀. Refine it by maximising IoU between the rendered and segmented nose/brow cast-shadow masks, and take the source angular size from the penumbra. Map to Blender by calibrating with renders of a grey sphere (render, measure, rescale). Avoid closed-form watt conversions, which drift across engines and versions.
+- **Gated verification, in order.** (G1) Landmark NME, using point-to-curve distance for jaw and contour points. (G2) Contour distance on unoccluded jaw and cheek. (G3) Photometric MAE, SSIM, LPIPS or ꟻLIP per region, reported only once G1 and G2 pass. (G4) Identity cosine normalised by the photo-vs-photo baseline. Starting gates, to be calibrated: NME ≤ 2–3 % IOD with landmark σ ≈ 1.5–3 % IOD; contour mean ≤ 1 % of face height. Never auto-accept on G3 or G4 alone.
+- **Multi-view.** Require at least 2 views at least 30° apart in yaw before reporting depth-dependent likeness (nose projection, ear position).
+- **Reproducibility record** stored with every comparison: Blender version, engine, samples, denoiser, filter width, view transform, look, exposure, gamma, photo colour space, camera parameters, light parameters and seed.
+- **Add-on graph builder.** Generate the Table B graph from Python behind a version guard. As I recall, Blender 5.0 moved compositing to node-group data-blocks (`scene.compositing_node_group` instead of `scene.node_tree`) and replaced the Composite node with Group Output. Verify this before coding [13].
 
-## Disagreements, myths & refuted claims
+## Disagreements, myths & open questions
 
-- **"Viewport lens ≈ 2× camera lens."** One user reports it, and a maintainer in the same thread disputed it as a bug [4]. Unresolved; the primary bug tracker was not checked. ↔️
-- **"The same blend mode gives the same result everywhere."** False per [10]: linear vs display blending and alpha limiting differ between Blender and After Effects. The explanation is single-source.
-- **"Vanishing-point matchers work for any reference photo."** This is a myth by implication. The tools' own requirements are orthogonal edges [2], at least two vanishing points to recover focal length [1], or a level camera facing an upright facade [3]. Tight face crops meet none of these.
-- **"An Overlay or Difference comparison can be done in a shader."** A shader has no background pixels, so it cannot [9].
-- **Refuted:** none. Without independent searches, no harvested claim could be shown false. None of the claims should be treated as confirmed either.
-
-## Open questions
-
-- **Search budget exhausted** in both the harvest (5 of 8 queries never ran) and this verification pass (0 independent searches completed). Every ⚠️ claim needs a follow-up cross-check, with priority on [4] (viewport vs camera lens) and [10] (linear blending, alpha behaviour).
-- Blender 5.0 manual content: camera sensor fit, lens, shift and background-image (opacity/depth) settings [13], and the current compositor Mix/Alpha Over node names and Python identifiers. These were not retrieved.
-- Objective likeness metrics with published numbers: landmark error normalisation, silhouette IoU, perceptual or identity-embedding similarity, and thresholds for "same person". None were sourced.
-- How strongly does camera distance or focal length distort facial proportions (e.g. selfie distance vs portrait-lens distance)? Clinical literature on this exists, but none was retrieved, so no figures are given.
-- Light-probe practice (grey or chrome ball, on-set HDRI) and how accurately a portrait key/fill ratio can be recovered from a single photo: no sources.
-- Is a low-order lighting model, fitted jointly with shape, accurate enough to replace manual HDRI rotation? Unsourced.
-- Whether Blender's motion-tracking camera solver could help with multi-photo stills of a non-rigid face: not investigated.
+- **Viewport ≈ 2× lens:** reported and disputed [4] ↔️. Most likely a deliberate zoom factor, not a bug 🧠.
+- **Lighting-ratio label:** Def. A versus Def. B differ by up to about 0.6 stop at 2:1 (Table E) ↔️. Always store stops, not labels.
+- **"Same blend mode, same result everywhere":** false. Linear versus display space and alpha limiting both differ between apps [10].
+- **"Vanishing-point matchers work on any photo":** they need orthogonal edges [2], at least 2 VPs for focal length [1], or a level camera facing a facade [3].
+- **"Overlay or Difference in a shader":** impossible [9].
+- **"The exact HDRI can be recovered from a portrait":** diffuse shading constrains only about 9 SH terms per channel 🧠. Beyond that the choice is underdetermined, and any HDRI with the right low-frequency content and shadow direction is equally valid.
+- **"Difference map = shape error":** lighting, albedo, depth of field and the tone curve all show up in it.
+- **"A high identity score proves likeness":** the render-versus-photo domain gap and per-model thresholds make it a relative measure only ↔️ (see the identity-embeddings note).
+- **Engine shift units versus Blender** (Table C) ↔️: pending a round-trip test.
+- **Refuted:** none. No harvested claim was contradicted. Except for the two-source orientation-first method, everything sourced here is still single-source.
+- **Open:** calibrated thresholds for NME, contour and photometric gates on real consented portraits; how accurate learned portrait light estimators are when converted to a Blender rig; current Blender 5.x compositor node and Python identifiers; the selfie-distortion magnitude and the anthropometric Δ (from the anthropometry notes); whether jointly fitting SH lighting and shape beats manual HDRI rotation for sculptors.
 
 ## Sources
 
 [1] Retiring BLAM and announcing fSpy – a stand alone camera matching app (Blender Artists) — https://blenderartists.org/t/retiring-blam-and-announcing-fspy-a-stand-alone-camera-matching-app — forum (developer announcement) — n.d.
-[2] Simple Camera Match (Blender Extensions listing) — https://extensions.blender.org/add-ons/simple-camera-match/ — extension listing — n.d.
+[2] Simple Camera Match (Blender Extensions listing) — https://extensions.blender.org/add-ons/simple-camera-match/ — repo / extension listing — n.d.
 [3] Photo-Match Camera (Superhive Market listing) — https://superhivemarket.com/products/photo-match-camera — commercial — n.d.
 [4] Blender's camera focal length / sensor size values inaccurate? (Blender Artists) — https://blenderartists.org/t/blenders-camera-focal-length-sensor-size-values-inaccurate/1271788 — forum — n.d.
 [5] Poly Light Match – Image Based Lighting Setup (docs) — https://superhivemarket.com/products/poly-light-match---image-based-lighting-setup/docs — commercial (vendor docs) — n.d.
@@ -124,3 +160,23 @@ The lens value only reproduces the photo when sensor width, sensor fit and rende
 [11] Improving Blender workflows with still image camera matching app (80.lv) — https://80.lv/articles/improving-blender-workflows-with-still-image-camera-matching-app — news (title only) — n.d.
 [12] How to Setup HDRI Lighting in Blender 2.93 (BlenderNation) — https://www.blendernation.com/2021/06/30/how-to-setup-hdri-lighting-in-blender-2-93/ — news (title/snippet only; not cited in text) — 2021
 [13] Blender 5.0 Manual: Cameras — https://docs.blender.org/manual/en/5.0/render/cameras.html — official docs (content not retrieved) — n.d.
+
+**Further reading (by name, not yet linked)**
+- Debevec & Malik, "Recovering High Dynamic Range Radiance Maps from Photographs", SIGGRAPH 1997
+- Debevec, "Rendering Synthetic Objects into Real Scenes", SIGGRAPH 1998
+- Ramamoorthi & Hanrahan, "An Efficient Representation for Irradiance Environment Maps", SIGGRAPH 2001
+- Basri & Jacobs, "Lambertian Reflectance and Linear Subspaces", IEEE TPAMI 2003
+- Nishino & Nayar, "Eyes for Relighting", SIGGRAPH 2004
+- Blanz & Vetter, "A Morphable Model for the Synthesis of 3D Faces", SIGGRAPH 1999
+- Sengupta et al., "SfSNet", CVPR 2018; Sun et al., "Single Image Portrait Relighting", SIGGRAPH 2019; LeGendre et al., "Learning Illumination from Diverse Portraits", SIGGRAPH Asia 2020; Phongthawee et al., "DiffusionLight", CVPR 2024
+- Wang, Bovik, Sheikh & Simoncelli, "Image Quality Assessment: From Error Visibility to Structural Similarity", IEEE TIP 2004
+- Zhang et al., "The Unreasonable Effectiveness of Deep Features as a Perceptual Metric" (LPIPS), CVPR 2018
+- Andersson et al., "FLIP: A Difference Evaluator for Alternating Images", HPG 2020
+- Sharma, Wu & Dalal, CIEDE2000 implementation notes, Color Research & Application 2005
+- Deng et al., "ArcFace", CVPR 2019
+- Fried, Shechtman, Goldman & Finkelstein, "Perspective-aware Manipulation of Portrait Photos", SIGGRAPH 2016
+- Ward et al., "Nasal Distortion in Short-Distance Photographs: The Selfie Effect", JAMA Facial Plastic Surgery 2018
+- Thompson, "Margaret Thatcher: A New Illusion", Perception 1980
+- Hunter, Biver & Fuqua, *Light: Science and Magic* (portrait lighting patterns)
+- Hartley & Zisserman, *Multiple View Geometry in Computer Vision*, 2nd ed., 2004
+- Blender source: `BKE_camera_params_compute_viewplane`, `CAMERA_PARAM_ZOOM_INIT_PERSP` (shift units, viewport zoom)

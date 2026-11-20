@@ -9,10 +9,23 @@
         ["flame-head-tracker", "landmark", 0.9, "RTX 4090", "v4.1", "2025-08-02"],
         ["flame-head-tracker", "photometric", 1.9, "RTX 4090", "v4.1", "2025-08-02"]
       ],
-      "population": "Author-reported benchmark; image resolution, iteration count and sequence not stated in harvested material",
+      "population": "Author-reported benchmark; image resolution, iteration count and test sequence not stated in harvested material",
       "source_urls": ["https://github.com/peizhiyan/flame-head-tracker"],
-      "status": "single-source",
-      "notes": "Values are approximate ('about'). Offline tool; requires NVIDIA GPU and Ubuntu, Windows untested. No independent cross-check possible in this run (search budget exhausted)."
+      "status": "sourced",
+      "notes": "Approximate ('about'). Offline tool; requires NVIDIA GPU and Ubuntu, Windows untested. Do not compare directly with other tools' timings."
+    },
+    {
+      "name": "tracker_processing_time_estimates",
+      "units": "seconds",
+      "columns": ["job", "frames_or_images", "landmark_mode_s", "photometric_mode_s"],
+      "rows": [
+        ["video clip", 300, 270, 570],
+        ["identity photo set", 12, 10.8, 22.8]
+      ],
+      "population": "Derived arithmetic: count x author-reported s/frame of flame-head-tracker v4.1 on RTX 4090",
+      "source_urls": ["https://github.com/peizhiyan/flame-head-tracker"],
+      "status": "sourced",
+      "notes": "Planning figures only; per-sequence initialisation overhead and resolution effects are ignored."
     },
     {
       "name": "tracker_speedups",
@@ -23,7 +36,7 @@
       ],
       "population": "README update note seen on a Gitee mirror of the VHAP repository",
       "source_urls": ["https://gitee.com/hu-hanqing/VHAP"],
-      "status": "single-source",
+      "status": "sourced",
       "notes": "Approximate ('about 3x'); baseline hardware and settings not given. Mirror, not upstream."
     },
     {
@@ -31,9 +44,9 @@
       "units": "categorical",
       "columns": ["tool", "inputs", "fitting_signal", "flame_versions", "default_landmarks", "licence", "realtime"],
       "rows": [
-        ["VHAP", "video", "photometric (differentiable mesh rasterization) + adaptive regional appearance priors + landmarks", "FLAME 2023 (required, with vertex masks); FLAME 2020 supported", "STAR (face-alignment optional: faster, less accurate)", "not verified", false],
+        ["VHAP", "video (multi-view support from expert knowledge only)", "photometric (differentiable mesh rasterization) + adaptive regional appearance priors + landmarks", "FLAME 2023 (required, with vertex masks); FLAME 2020 supported", "STAR (face-alignment optional: faster, less accurate)", "not verified", false],
         ["flame-head-tracker", "single image; monocular video", "landmark or photometric", "FLAME (downloaded separately due to licensing)", "not stated in harvest", "FLAME files licence-gated; repo licence not verified", false],
-        ["Metrical Tracker", "monocular RGB (extended to multi-view in 2608.04722)", "optimization-based; MICA identity", "FLAME", "not stated in harvest", "not verified", false],
+        ["Metrical Tracker", "monocular RGB (extended to multi-view in arXiv 2608.04722)", "optimization-based; MICA identity", "FLAME", "not stated in harvest", "not verified", false],
         ["video-head-tracker", "video", "FLAME tracking", "FLAME", "not stated in harvest", "CC BY-NC 3.0", null]
       ],
       "population": "Open-source FLAME tracking tools",
@@ -44,21 +57,99 @@
         "https://arxiv.org/pdf/2608.09238",
         "https://github.com/philgras/video-head-tracker"
       ],
-      "status": "single-source",
-      "notes": "Offline/optimization nature of Metrical Tracker and VHAP is corroborated by two independent sources (2608.04722, 2608.09238); other cells single-source. null = not stated."
+      "status": "sourced",
+      "notes": "Offline/optimisation nature of Metrical Tracker and VHAP is corroborated by two sources (2608.04722, 2608.09238) = verified; other cells single-source. null = not stated. Expert-knowledge additions (not sourced): Metrical Tracker uses MediaPipe dense + 68-pt landmarks and SH photometric term; VHAP originates from GaussianAvatars and handles NeRSemble 16-camera data; video-head-tracker is from Neural Head Avatars (CVPR 2022)."
     },
     {
       "name": "multiview_setups",
       "units": "count of cameras; qualitative gain",
-      "columns": ["work", "n_views", "shared_parameters", "residual_type", "quantified_gain_vs_single_view"],
+      "columns": ["work", "n_views", "shared_parameters", "residual_type", "quantified_gain_vs_single_view", "status"],
       "rows": [
-        ["Multi-View Face and Gesture Animation with Dynamic Gaussians (2026)", 15, "single FLAME fit; identity from MICA", "2D keypoints from all front-facing cameras", null],
-        ["RealDenseFace multi-view extension (2026)", null, "single set of FLAME parameters", "correspondence residuals across all views", null]
+        ["Multi-View Face and Gesture Animation with Dynamic Gaussians (2026)", 15, "single FLAME fit; identity from MICA", "2D keypoints from all front-facing cameras", null, "sourced"],
+        ["RealDenseFace multi-view extension (2026)", null, "single set of FLAME parameters", "correspondence residuals across all views", null, "sourced"],
+        ["GaussianAvatars / NeRSemble tracking (VHAP)", 16, "identity; per-frame expression and pose", "landmarks + photometric", null, "knowledge"],
+        ["MVF-Net (CVPR 2019)", 3, "one 3DMM regressed from all views", "learned regression with multi-view consistency", null, "knowledge"]
       ],
-      "population": "Two 2026 papers; snippet-level evidence",
+      "population": "Published multi-view face fitting setups",
       "source_urls": ["https://arxiv.org/pdf/2608.04722", "https://arxiv.org/pdf/2608.09238"],
-      "status": "single-source",
-      "notes": "Joint single-parameter-set multi-view fitting is corroborated by both papers (verified as a principle); camera count 15 is single-source; neither snippet gave a numeric accuracy gain (null)."
+      "status": "sourced",
+      "notes": "Joint single-parameter-set fitting is verified as a principle (both 2026 papers). Rows 3-4 are expert knowledge without URLs. No row has a quantified accuracy gain (null)."
+    },
+    {
+      "name": "perspective_magnification_vs_distance",
+      "units": "distance m; magnification ratio (dimensionless); 35mm-equivalent focal mm",
+      "columns": ["camera_to_nose_distance_m", "nose_vs_ear_plane_magnification", "head_and_shoulders_lens_35mm_eq_mm"],
+      "rows": [
+        [0.30, 1.33, 24],
+        [0.45, 1.22, 36],
+        [0.60, 1.17, 48],
+        [1.00, 1.10, 80],
+        [1.50, 1.07, 120],
+        [2.00, 1.05, 160]
+      ],
+      "population": "Adult head; assumed nose-tip-to-tragus depth 0.10 m (plausible range 0.09-0.12 m); framing ~0.45 m on the 36 mm long side",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Derived: magnification = 1 + depth/d; lens = 36 mm * d / 0.45 m. Heuristic: focal length is weakly observable from a face alone when d/depth > ~12 (d > ~1.2 m); then lock focal to EXIF."
+    },
+    {
+      "name": "metric_scale_cues",
+      "units": "mm",
+      "columns": ["cue", "mean_mm", "sd_mm_or_tolerance", "relative_1sigma_pct", "notes"],
+      "rows": [
+        ["horizontal visible iris diameter", 11.7, "0.4-0.5", "~4", "MediaPipe Iris assumes ~11.7 mm"],
+        ["interpupillary distance, far gaze", "61-64", "3-4", "5-6", "near gaze shortens it"],
+        ["population-mean head template (head breadth)", null, null, "4-5", "scale error floor of prior-only fits"],
+        ["A4 sheet", "210 x 297", "exact (ISO 216)", "0", "flat, near face plane"],
+        ["ID-1 card", "85.60 x 53.98", "exact (ISO/IEC 7810)", "0", "hold at cheek depth"]
+      ],
+      "population": "Adults (anthropometric values); manufactured objects (exact)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Anthropometric means/SDs from expert knowledge; verify before using as default priors. Object dimensions are standard sizes."
+    },
+    {
+      "name": "suggested_fitting_priors",
+      "units": "mixed (see column unit)",
+      "columns": ["term", "suggested_value", "unit", "engine_knob", "engine_default"],
+      "rows": [
+        ["identity beta", "N(0,1); flag |beta|>3", "PCA std units", "new 3DMM layer", null],
+        ["expression psi, neutral-tagged views", 0.3, "sigma, PCA std units", "per-view block", null],
+        ["expression psi, expressive views", 1.0, "sigma, PCA std units", "per-view block", null],
+        ["jaw rotation, neutral views", "2-3", "deg sigma", "per-view block", null],
+        ["crisp landmarks", "1-1.5", "% of inter-ocular distance in px", "ViewObs.sigma_px", 1.0],
+        ["contour landmarks (jaw, brows)", "3-5", "% of inter-ocular distance in px", "ViewObs.weights", null],
+        ["Huber threshold", "2x median residual after pass 1", "px", "huber_px", 3.0],
+        ["focal, trusted EXIF", "0.05-0.10", "sigma of log f", "f_prior_log_sigma", 0.35],
+        ["focal, unknown", "0.35-0.5", "sigma of log f", "f_prior_log_sigma", 0.35],
+        ["bilateral symmetry", "1.5-3", "mm", "Priors.sigma_sym", 2.0],
+        ["midline", "1-2", "mm", "Priors.sigma_mid", 1.5],
+        ["independent landmark prior", "5-10 (replace with PCA covariance)", "mm", "Priors.sigma", 8.0],
+        ["video rotation smoothness at 30 fps", "0.5-2", "deg/frame", null, null],
+        ["video translation smoothness at 30 fps", "1-5", "mm/frame", null, null],
+        ["post-3DMM per-vertex offsets", "<= 3-5 typical, Laplacian-regularised", "mm", "laplacian_deform", null]
+      ],
+      "population": "Starting values for a FLAME-style multi-view landmark fitter; tune via leave-one-view-out error",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Engine defaults read from face3d/solve/bundle.py and face3d/solve/pnp.py in this repo. Suggested values are expert heuristics, not sourced."
+    },
+    {
+      "name": "flame_model_constants",
+      "units": "counts; units metres",
+      "columns": ["quantity", "value"],
+      "rows": [
+        ["vertices", 5023],
+        ["triangles", 9976],
+        ["shape components (public release)", 300],
+        ["expression components (public release)", 100],
+        ["articulated joints (neck, jaw, left eye, right eye) + global rotation, axis-angle params each", 3],
+        ["native length unit", "metre"]
+      ],
+      "population": "FLAME public releases (2017/2020/2023)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Read the actual model file at load time rather than hard-coding; engine works in mm (x1000)."
     }
   ]
 }

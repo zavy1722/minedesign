@@ -10,5 +10,20 @@
     {"n": 7, "title": "Model human face from random photos - Modeling - Blender Artists Community", "url": "https://blenderartists.org/t/model-human-face-from-random-photos/1211277", "kind": "forum", "year": "n.d."},
     {"n": 8, "title": "Photo to 3D - Basics & Interface - Blender Artists Community", "url": "https://blenderartists.org/t/photo-to-3d/1313606", "kind": "forum", "year": "n.d."},
     {"n": 9, "title": "Want to Create a 3D Model Face of Myself? - Modeling - Blender Artists Community", "url": "https://blenderartists.org/t/want-to-create-a-3d-model-face-of-myself/1606840", "kind": "forum", "year": "n.d."}
+  ],
+  "references_by_name": [
+    "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+    "Farkas, Hreczko, Kolar & Munro, Vertical and horizontal proportions of the face in young adult North American Caucasians: revision of neoclassical canons, Plastic and Reconstructive Surgery, 1985",
+    "Dodgson, Variation and extrema of human interpupillary distance, SPIE Stereoscopic Displays and Virtual Reality Systems XI, 2004",
+    "Ward et al., Nasal distortion in short-distance photographs: the selfie effect, JAMA Facial Plastic Surgery, 2018",
+    "Li, Bolkart, Black, Li & Romero, Learning a model of facial shape and expression from 4D scans (FLAME), ACM Transactions on Graphics, 2017",
+    "Paysan et al., A 3D Face Model for Pose and Illumination Invariant Face Recognition (Basel Face Model), 2009",
+    "Blanz & Vetter, A Morphable Model for the Synthesis of 3D Faces, SIGGRAPH 1999",
+    "Hartley & Zisserman, Multiple View Geometry in Computer Vision",
+    "Zarins, Anatomy of Facial Expression, 2017",
+    "Blender Manual: Camera properties (sensor fit, shift, background images)",
+    "KeenTools FaceBuilder documentation",
+    "MPFB2 documentation",
+    "fSpy documentation"
   ]
 }
