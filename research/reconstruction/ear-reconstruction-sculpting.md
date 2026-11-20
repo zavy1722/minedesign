@@ -1,6 +1,6 @@
 # Reconstructing and sculpting the ear from photos
 
-> Generic photo-to-3D tools handle the ear badly: face 3DMMs carry coarse, averaged ears, face landmarkers stop at the tragus, recognition crops leave the ear out, and hair hides it. The route that works is to fit each ear as its own part, hinged on the otobasion line and anchored at tragion in a Frankfort-horizontal (FH) frame, with its own tilt, protrusion and twist. Fit it to profile, near-profile, rear-oblique and back photos taken with the hair clipped away and a raking light, then sculpt the folds by hand. As far as recalled, the ear-specific landmark sets and statistical models (iBUG 55-point, York Ear Model, UHM) are research-only, so a permissive tool needs CC0/MIT geometry plus its own ear modes. With no harvest or draft, every claim is expert knowledge or a pointer to a sibling library note.
+> Generic photo-to-3D tools handle the ear badly: face 3DMMs carry coarse, averaged ears, face landmarkers stop at the tragus, recognition crops leave the ear out, and hair hides it. The route that works is to fit each ear as its own part, hinged on the otobasion line and anchored at tragion in a Frankfort-horizontal (FH) frame, with its own tilt, protrusion and twist. Fit it to profile, near-profile, rear-oblique and back photos taken with the hair clipped away and a raking light, then sculpt the folds by hand. As far as recalled, the ear-specific landmark sets and statistical models (iBUG 55-point, York Ear Model, UHM) are research-only, so a shippable tool needs a CC0 ear plus its own ear modes. With no harvest or draft, every claim is expert knowledge or a pointer to a sibling library note.
 >
 > Evidence status: 0 ✅ / 0 📄 / 66 🧠 / 33 ↔️ — 🧠 items are queued for web verification.
 
@@ -19,10 +19,10 @@
 - **UHM** (Ploumpis et al., CVPR 2019; TPAMI 2021) fuses LSFM face statistics with LYHM cranium statistics. The TPAMI version adds a YEM ear, eyes and the mouth interior. Academic, non-commercial (lib: `reconstruction/3dmm-overview.md`). 🧠
 - **FLAME ears are coarse.** Its edges are 3–6 mm long against folds 1–3 mm wide, so helix roll and crura cannot be represented. `FLAME_masks.pkl` has per-ear masks. FLAME 2023 Open is CC BY 4.0; earlier versions are non-commercial (lib: `reconstruction/flame-model.md`, confirmed there). 🧠 BFM ears are generic, and NPHM-style neural heads are non-commercial 🧠.
 - **Permissive geometry, but no ear statistics.**
-  - ICT-FaceKit (MIT): scan-derived ears in its head identity model 🧠.
+  - ICT-FaceKit: scan-derived ears in its head identity model. The repo carries an MIT file, but USC says to contact it for commercial use (lib: `blender/open-template-head-kit.md`) ↔️.
   - MPFB2/MakeHuman: GPL code with CC0 base mesh and targets (lib: `blender/blender-face-addons.md`, sourced there). Its ear targets cover size, position, rotation, protrusion ("wing"), lobe and shape, with names that vary by version ↔️.
   - Blender Human Base Meshes (2023): CC0, sculpt-ready heads with ears 🧠.
-- **Verdict.** No permissively licensed ear 3DMM is known to this author ↔️. Ship hand-authored shape keys on a CC0 ear, or let users train an ear PCA locally on CC-BY scans after checking licence and consent scope 🧠.
+- **Verdict.** No permissively licensed ear 3DMM is known to this author ↔️. extensions.blender.org bundles only CC0 assets (lib: `blender/open-template-head-kit.md`), so ship hand-authored shape keys on a CC0 ear, and let users train an ear PCA locally on CC-BY scans after checking licence and consent scope 🧠.
 - **Ear-specific reconstruction papers are few.** They are YEM fitting from 2D landmarks and AudioEar (Huang et al., AAAI 2023), which does single-view ear reconstruction with a 2D landmark set and a small 3D set ↔️. The state of the art in 2025–2026 was not recalled 🧠.
 
 **Geometry that drives the fit** (anatomy: `anatomy/ear.md`)
@@ -65,8 +65,8 @@
 |---|---|---|---|---|
 | York Ear Model | ear-only 3DMM, ≈500 training ears | research, on request | no | ↔️ |
 | UHM (TPAMI) | head 3DMM + YEM ear | academic NC | no | 🧠 |
-| FLAME / FLAME 2023 Open | coarse ear, 3–6 mm edges | NC / CC BY 4.0 | 2023 Open only, attributed | 🧠 |
-| ICT-FaceKit | scan-derived head + ears | MIT | yes (verify) | 🧠 |
+| FLAME / FLAME 2023 Open | coarse ear, 3–6 mm edges | NC / CC BY 4.0 | user-supplied (extensions bundle CC0 only) | 🧠 |
+| ICT-FaceKit | scan-derived head + ears | MIT file vs "contact for commercial" | not until resolved | ↔️ |
 | MPFB2 / MakeHuman | ear morph targets | CC0 assets, GPL code | yes | 🧠 |
 | Blender Human Base Meshes | generic sculpt-ready ears | CC0 | yes | 🧠 |
 | HUTUBS / SYMARE / SONICOM / CHEDAR | acoustic head-and-ear scans | HUTUBS CC BY 4.0?; others unknown | train locally | ↔️ |

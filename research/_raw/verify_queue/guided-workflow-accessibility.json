@@ -1,0 +1,37 @@
+{
+ "id": "guided-workflow-accessibility",
+ "area": "blender",
+ "title": "Guided workflow and accessibility for non-expert users",
+ "queue": [
+  {
+   "claim": "Inter-operator landmark placement error on 3D facial images is about 0.5\u20131 mm for crisp points (canthi, cheilia, subnasale) and 2\u20134 mm or more for gonion, zygion and orbitale. Novices are about 1.3\u20132\u00d7 worse on ambiguous points. These values set the default user-pin \u03c3 (crisp 0.8/1.2 mm, nose tip 2 mm, nasion vertical 3.5 mm).",
+   "query": "inter-operator variability manual annotation 3D facial landmarks mm stereophotogrammetry reproducibility endocanthion gonion",
+   "domains": "ncbi.nlm.nih.gov,bmcmedimaging.biomedcentral.com"
+  },
+  {
+   "claim": "On 2D in-the-wild face images, human annotators disagree by roughly 3\u20136% of interocular distance over full 68-point sets. The COFW human performance figure is about 5.6% normalised error.",
+   "query": "COFW human performance normalized mean error 5.6 Burgos-Artizzu robust face landmark estimation under occlusion",
+   "domains": ""
+  },
+  {
+   "claim": "Blender Python API facts: Operator.poll_message_set exists since 3.0; UILayout.progress exists since 4.0; built-in gpu shader names lost their 2D_/3D_ prefixes and bgl was removed in 4.0; POLYLINE shaders are needed for wide lines on Metal/Vulkan; the sculpt mask is stored as attribute '.sculpt_mask' in 4.x; WorkSpace.status_text_set accepts a draw function.",
+   "query": "Blender Python API UILayout.progress poll_message_set gpu.shader.from_builtin POLYLINE_UNIFORM_COLOR sculpt_mask attribute",
+   "domains": "docs.blender.org,developer.blender.org"
+  },
+  {
+   "claim": "ISO/IEC 29794-5 (face image quality) is published, and BSI's OFIQ is its open-source reference implementation, with component measures for sharpness, exposure, pose, expression neutrality, eyes open, mouth closed, occlusion and inter-eye distance. The ICAO/ISO 19794-5 minimum eye distance is about 90 px, with 120 px recommended.",
+   "query": "OFIQ open source face image quality BSI ISO/IEC 29794-5 quality components licence",
+   "domains": ""
+  },
+  {
+   "claim": "Capture-coaching features as of 2026: RealityScan shows an AR coverage or quality map (red-to-green), Scaniverse processes on the device, MetaHuman Creator runs inside the Unreal Editor since UE 5.6, and Mesh to MetaHuman tracks editable contour curves.",
+   "query": "RealityScan app capture coverage quality map AR guidance 2025 Scaniverse on-device processing",
+   "domains": ""
+  },
+  {
+   "claim": "MediaPipe blendshape score thresholds for neutral-expression gating: smile above 0.25 warns and above 0.5 excludes; jawOpen above 0.10 warns and above 0.25 excludes; eyeBlink above 0.4 warns.",
+   "query": "MediaPipe face landmarker blendshapes score calibration neutral face mouthSmile jawOpen threshold",
+   "domains": "ai.google.dev,github.com"
+  }
+ ]
+}
