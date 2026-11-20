@@ -1,0 +1,37 @@
+{
+ "id": "cranium-under-hair",
+ "area": "anatomy",
+ "title": "Cranial vault and back-of-head shape under hair",
+ "queue": [
+  {
+   "claim": "ANSUR II / Farkas-type head priors: head length g\u2013op \u2248192\u2013200 mm (M) / 182\u2013190 (F), SD 6\u20137; head breadth eu\u2013eu \u2248150\u2013157 / 143\u2013149, SD 5\u20136; head circumference \u2248565\u2013580 / 545\u2013560, SD \u224815; tragion\u2013top of head \u2248125\u2013140 / 120\u2013133",
+   "query": "ANSUR II headlength headbreadth headcircumference tragiontopofhead mean standard deviation male female",
+   "domains": "openlab.psu.edu,apps.dtic.mil"
+  },
+  {
+   "claim": "Within a population, face dimensions predict vault dimensions only weakly to moderately: bizygomatic width \u2192 head breadth r \u22480.4\u20130.6, face size \u2192 head length r \u22480.1\u20130.35; face shape after size removal explains R\u00b2 \u22480.05\u20130.2 of vault shape",
+   "query": "correlation between bizygomatic breadth and head breadth head length living adults anthropometry",
+   "domains": ""
+  },
+  {
+   "claim": "No open, commercially usable statistical cranium (vault) prior exists; LYHM, UHM and Headspace are academic, non-commercial; FLAME 2023 Open (CC BY 4.0) has a scalp but its training scans were not hair-controlled",
+   "query": "Liverpool-York Head Model LYHM Universal Head Model UHM download licence non-commercial 2026",
+   "domains": "york.ac.uk,github.com"
+  },
+  {
+   "claim": "Infant positional plagiocephaly/brachycephaly prevalence: Hutchison et al. 2004 NZ cohort 16% at 6 weeks, 19.7% at 4 months, 9.2% at 8 months, 6.8% at 12 months, 3.3% at 24 months; Mawji et al. 2013 Canada 46.6% at 7\u201312 weeks",
+   "query": "Hutchison 2004 Pediatrics plagiocephaly brachycephaly first two years prospective cohort prevalence 6 weeks 4 months 24 months",
+   "domains": "pubmed.ncbi.nlm.nih.gov,publications.aap.org"
+  },
+  {
+   "claim": "Scalp soft-tissue thickness over the vault \u22484\u20137 mm (vertex/parietal), 5\u20138 mm at opisthocranion, 6\u201310 mm at inion/nuchal; living head length exceeds skull length by \u22489\u201313 mm and breadth by \u224810\u201316 mm",
+   "query": "scalp soft tissue thickness vertex opisthocranion inion CT adults mm",
+   "domains": ""
+  },
+  {
+   "claim": "Cephalic index population means: West African/African-American \u224872\u201378, NW European \u224875\u201380, Central European/Balkan \u224880\u201386, East Asian \u224880\u201388, within-population SD \u22483\u20134",
+   "query": "cephalic index adult population means comparison East Asian African European 3D head scans",
+   "domains": ""
+  }
+ ]
+}

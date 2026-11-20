@@ -1,0 +1,22 @@
+{
+  "topic": "cranium-under-hair",
+  "sources": [],
+  "references_by_name": [
+    "Farkas LG, Anthropometry of the Head and Face, 2nd ed., 1994",
+    "Gordon CC et al., 2012 Anthropometric Survey of U.S. Army Personnel: Methods and Summary Statistics (ANSUR II)",
+    "Dai H, Pears N, Smith W, Duncan C, A 3D Morphable Model of Craniofacial Shape and Texture Variation, ICCV 2017",
+    "Dai H, Pears N, Smith W, Duncan C, Statistical Modeling of Craniofacial Shape and Texture, IJCV 2020",
+    "Ploumpis S et al., Combining 3D Morphable Models: A Large Scale Face-and-Head Model, CVPR 2019",
+    "Ploumpis S et al., Towards a Complete 3D Morphable Model of the Human Head, IEEE TPAMI 2021",
+    "Hutchison BL, Hutchison LA, Thompson JM, Mitchell EA, Plagiocephaly and brachycephaly in the first two years of life: a prospective cohort study, Pediatrics 2004",
+    "Mawji A et al., The incidence of positional plagiocephaly: a cohort study, Pediatrics 2013",
+    "Argenta L, Clinical classification of positional plagiocephaly, J Craniofac Surg 2004",
+    "Ball R, Shu C, Xi P et al., A comparison between Chinese and Caucasian head shapes, Applied Ergonomics 2010",
+    "Lieberman DE, Pearson OM, Mowbray KM, Basicranial influence on overall cranial shape, J Hum Evol 2000",
+    "Enlow DH, Hans MG, Essentials of Facial Growth",
+    "Sparks CS, Jantz RL, A reassessment of human cranial plasticity: Boas revisited, PNAS 2002",
+    "Gravlee CC, Bernard HR, Leonard WR, Heredity, environment, and cranial form: a reanalysis of Boas's immigrant data, American Anthropologist 2003",
+    "Li T, Bolkart T, Black MJ, Li H, Romero J, Learning a model of facial shape and expression from 4D scans (FLAME), SIGGRAPH Asia 2017",
+    "Loomis A, Drawing the Head and Hands, 1956"
+  ]
+}

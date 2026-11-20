@@ -1,0 +1,655 @@
+{
+  "topic": "open-template-head-kit",
+  "tables": [
+    {
+      "name": "candidate_templates",
+      "units": "mixed (counts; scale factor to metres)",
+      "columns": [
+        "template",
+        "licence",
+        "bundle_on_extensions_platform",
+        "ship_offplatform_in_gpl3",
+        "vertices",
+        "faces",
+        "face_type",
+        "coverage",
+        "submeshes",
+        "uv",
+        "scale_to_m",
+        "up_axis",
+        "face_direction",
+        "shape_prior",
+        "mirror_map_shipped"
+      ],
+      "rows": [
+        [
+          "Blender Studio Human Base Meshes head",
+          "CC0-1.0",
+          "yes",
+          "yes",
+          null,
+          null,
+          "quads",
+          "head, neck, ears (body variants exist)",
+          "inspect (eyes/teeth/mouth bag unknown)",
+          "yes? (inspect)",
+          1.0,
+          "+Z",
+          "-Y",
+          "none",
+          "no (compute; modelled symmetric)"
+        ],
+        [
+          "MakeHuman hm08 (MPFB2)",
+          "CC0-1.0 base, targets, proxies; packs CC0 or CC-BY",
+          "yes (CC0 parts only)",
+          "yes",
+          13400,
+          null,
+          "quads",
+          "full body",
+          "eyes, teeth, tongue, brows, lashes as proxies",
+          "single body-wide tile",
+          0.1,
+          "+Y (native); +Z after MPFB import",
+          "+Z (native); -Y after MPFB import",
+          "local targets decr|incr (piecewise linear) + multilinear macros",
+          "no (MakeTarget can mirror targets)"
+        ],
+        [
+          "FLAME 2023 Open",
+          "CC-BY-4.0 (model); auxiliary files unknown; texture model reported CC BY-NC-SA 4.0",
+          "no (not CC0)",
+          "yes with attribution and change note",
+          5023,
+          9976,
+          "triangles",
+          "head, neck (open base), coarse ears, eyeball shells",
+          "eyeballs only",
+          "separate template OBJ (licence unknown)",
+          1.0,
+          "+Y",
+          "+Z",
+          "beta ~ N(0, I); component count unknown",
+          "no (compute on mean)"
+        ],
+        [
+          "ICT-FaceKit",
+          "MIT claimed in repo; VGL page says contact for commercial use",
+          "no (not CC0)",
+          "yes with notice if MIT holds",
+          26700,
+          null,
+          "quads",
+          "face (dense), head and neck (coarse), ears",
+          "mouth socket, eye sockets, gums+tongue, teeth, eyeballs, lacrimal, eye blend/occlusion",
+          "yes",
+          0.01,
+          "+Y",
+          "+Z",
+          "100 identity PCA (Light), 53 expressions",
+          "no (compute)"
+        ],
+        [
+          "MediaPipe canonical face model",
+          "Apache-2.0",
+          "no (not CC0; open question)",
+          "yes with NOTICE",
+          468,
+          898,
+          "triangles",
+          "face only",
+          "none",
+          "frontal UV",
+          0.01,
+          "+Y",
+          "+Z",
+          "none",
+          "landmark pairs symmetric by construction"
+        ]
+      ],
+      "population": "template meshes as recalled; hm08 vertex count is body-only (~19,200 with helpers); ICT count ~26.7k recalled",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Licence rows for Blender Studio (CC0), MPFB2/MakeHuman (CC0 base) and FLAME 2023 Open (CC BY 4.0) were source-checked in sibling notes; all counts, units and axes are recollections to assert on import. null = not recalled."
+    },
+    {
+      "name": "flame2023_open_contents",
+      "units": "categorical",
+      "columns": [
+        "item",
+        "status",
+        "value_or_note"
+      ],
+      "rows": [
+        [
+          "licence",
+          "established (sibling notes)",
+          "CC BY 4.0; only CC-BY FLAME release"
+        ],
+        [
+          "download",
+          "established (sibling notes)",
+          "registration and licence agreement required"
+        ],
+        [
+          "expression conversion script",
+          "established (sibling notes)",
+          "maps expression params flame2023.pkl -> flame2023_Open.pkl"
+        ],
+        [
+          "listing date",
+          "established (sibling notes)",
+          "11/25, read as November 2025"
+        ],
+        [
+          "topology",
+          "inferred",
+          "shared 5,023-vertex FLAME topology"
+        ],
+        [
+          "expression basis",
+          "inferred",
+          "differs from FLAME 2023 (else no converter needed)"
+        ],
+        [
+          "identity basis",
+          "inferred, weak",
+          "possibly unchanged (no shape converter reported)"
+        ],
+        [
+          "shape/expression component counts",
+          "unknown",
+          "check shapedirs.shape on download"
+        ],
+        [
+          "posedirs, J_regressor, LBS weights",
+          "unknown",
+          "check keys"
+        ],
+        [
+          "masks, landmark embeddings, UV template licence",
+          "unknown",
+          "may remain non-commercial"
+        ],
+        [
+          "jaw handling",
+          "contested",
+          "two papers report FLAME 2023 folds jaw rotation into the expression basis"
+        ]
+      ],
+      "population": "FLAME 2023 Open release",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Established rows come from reconstruction/flame-model.md verification; the rest is inference."
+    },
+    {
+      "name": "template_budget",
+      "units": "vertices; mm (edge length at Multires level 0)",
+      "columns": [
+        "submesh",
+        "verts_min",
+        "verts_max",
+        "edge_mm_min",
+        "edge_mm_max",
+        "notes"
+      ],
+      "rows": [
+        [
+          "skin head+neck+ears (closed scalp, open neck)",
+          8000,
+          12000,
+          1.0,
+          12.0,
+          "lids 1-2, lips 1.5-3, nose 1.5-3, cheek 4-7, scalp/neck 6-12; exact x=0 midline"
+        ],
+        [
+          "lid tuck into socket (loops)",
+          2,
+          3,
+          null,
+          1.5,
+          "loops, not vertices; ends behind globe or closes into socket sac"
+        ],
+        [
+          "mouth bag",
+          300,
+          800,
+          4.0,
+          8.0,
+          "continuous with inner lip loops; 30-40 mm deep"
+        ],
+        [
+          "eyeball (each, sclera+cornea shells)",
+          500,
+          1000,
+          null,
+          null,
+          "globe ~24 mm, cornea radius ~7.8 mm"
+        ],
+        [
+          "teeth and gums (upper+lower)",
+          600,
+          3000,
+          null,
+          null,
+          "rigid; follow skull and jaw"
+        ],
+        [
+          "tongue",
+          300,
+          800,
+          null,
+          null,
+          "rigid in neutral"
+        ],
+        [
+          "skin faces at Multires level 4",
+          2000000,
+          3100000,
+          0.15,
+          0.5,
+          "x256 faces; pores need level 4-5"
+        ]
+      ],
+      "population": "adult head template at 1 Blender unit = 1 m",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Design defaults, consistent with blender/face-retopology.md budgets."
+    },
+    {
+      "name": "landmark_conventions",
+      "units": "count",
+      "columns": [
+        "convention",
+        "n_points",
+        "n_surface",
+        "n_contour",
+        "storage"
+      ],
+      "rows": [
+        [
+          "mediapipe_478",
+          478,
+          432,
+          36,
+          "432 surface (tri,bary) via canonical-mesh registration + 36 face-oval semi-contour + 10 iris points bound to the eyeball limbus model"
+        ],
+        [
+          "ibug_68",
+          68,
+          51,
+          17,
+          "51 (tri,bary); 17 jaw points -> candidate rings"
+        ],
+        [
+          "wflw_98",
+          98,
+          65,
+          33,
+          "same pattern as iBUG"
+        ],
+        [
+          "flame_static51_dynamic17",
+          68,
+          51,
+          17,
+          "FLAME only; dynamic contour yaw-binned (79 bins)"
+        ],
+        [
+          "farkas_anthropometric",
+          40,
+          null,
+          null,
+          "fixed vertex ids or extremal rule over candidate set (eu, zy, go, v, op, tr)"
+        ]
+      ],
+      "population": "detector conventions",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Iris points (468-477) are not skin-surface landmarks; bind them to the eyeball model."
+    },
+    {
+      "name": "region_residual_sigma",
+      "units": "mm (1 SD per-vertex offset after basis fit); weight unitless",
+      "columns": [
+        "region",
+        "sigma_mm_min",
+        "sigma_mm_max",
+        "landmark_weight_min",
+        "landmark_weight_max",
+        "comment"
+      ],
+      "rows": [
+        [
+          "lids_canthi",
+          1.0,
+          1.5,
+          1.0,
+          1.0,
+          "thin tissue, well observed"
+        ],
+        [
+          "lips_vermilion",
+          1.5,
+          2.5,
+          1.0,
+          1.0,
+          "expression contaminates"
+        ],
+        [
+          "nose",
+          2.0,
+          3.0,
+          1.0,
+          1.0,
+          "profile and silhouette"
+        ],
+        [
+          "brow_forehead",
+          2.0,
+          3.0,
+          0.7,
+          0.7,
+          "brow points mark hair, not bone"
+        ],
+        [
+          "cheek_malar",
+          2.5,
+          4.0,
+          0.5,
+          0.5,
+          "fat variation"
+        ],
+        [
+          "jaw_chin",
+          2.0,
+          4.0,
+          0.7,
+          0.7,
+          "contour-driven"
+        ],
+        [
+          "ears",
+          3.0,
+          5.0,
+          0.3,
+          0.5,
+          "poorly observed"
+        ],
+        [
+          "scalp_back_of_head",
+          3.0,
+          6.0,
+          0.1,
+          0.1,
+          "hair; prior dominates"
+        ],
+        [
+          "neck",
+          5.0,
+          10.0,
+          0.1,
+          0.2,
+          "posture"
+        ],
+        [
+          "mouth_interior_eyeballs_teeth",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          "rigid or excluded"
+        ]
+      ],
+      "population": "adult faces; design defaults",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Tune on held-out views."
+    },
+    {
+      "name": "symmetry_sigma",
+      "units": "mm",
+      "columns": [
+        "region",
+        "sigma_sym_mm",
+        "reference"
+      ],
+      "rows": [
+        [
+          "face_central",
+          1.5,
+          "mirror RMSD ~0.8 mm closest-point (anatomy/facial-asymmetry.md)"
+        ],
+        [
+          "face_lateral_and_lower",
+          2.5,
+          "landmark pair differences 0.6-4.6 mm (anatomy/facial-asymmetry.md)"
+        ],
+        [
+          "ears",
+          3.5,
+          "design default"
+        ]
+      ],
+      "population": "healthy adults",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Correspondence-based mirror residuals read higher than closest-point RMSD; values are design defaults."
+    },
+    {
+      "name": "axis_conversion_to_blender",
+      "units": "mapping; scale factor to metres",
+      "columns": [
+        "source",
+        "map_xyz_to_blender",
+        "scale_to_m",
+        "status"
+      ],
+      "rows": [
+        [
+          "FLAME",
+          "(x, -z, y)",
+          1.0,
+          "knowledge"
+        ],
+        [
+          "MediaPipe canonical",
+          "(x, -z, y)",
+          0.01,
+          "contested"
+        ],
+        [
+          "ICT-FaceKit",
+          "(x, -z, y)",
+          0.01,
+          "contested (use if head breadth reads ~15)"
+        ],
+        [
+          "MakeHuman native",
+          "(x, -z, y)",
+          0.1,
+          "knowledge"
+        ],
+        [
+          "Blender Studio / MPFB import",
+          "identity",
+          1.0,
+          "knowledge"
+        ]
+      ],
+      "population": "Blender frame: Z up, face toward -Y, +X subject's left",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "(x,-z,y) is +90 deg about X. Sanity: adult en-en 31-41 mm; eu-eu ~140-160 mm."
+    },
+    {
+      "name": "mediapipe_canonical_topology",
+      "units": "count",
+      "columns": [
+        "element",
+        "count",
+        "note"
+      ],
+      "rows": [
+        [
+          "vertices",
+          468,
+          "canonical_face_model.obj"
+        ],
+        [
+          "triangles_obj_closed",
+          898,
+          "eyes and mouth closed over"
+        ],
+        [
+          "triangles_tessellation_open",
+          852,
+          "FACEMESH_TESSELATION, eyes and mouth open"
+        ],
+        [
+          "face_oval_boundary_edges",
+          36,
+          "single outer boundary"
+        ],
+        [
+          "eye_hole_edges_each",
+          16,
+          ""
+        ],
+        [
+          "mouth_hole_edges",
+          20,
+          ""
+        ],
+        [
+          "fill_triangles",
+          46,
+          "14+14+18"
+        ]
+      ],
+      "population": "MediaPipe face geometry module",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Triangle counts recalled and checked only for Euler consistency (V-E+F=1 closed disk; =-2 with three holes)."
+    },
+    {
+      "name": "fitting_defaults",
+      "units": "mixed",
+      "columns": [
+        "parameter",
+        "value",
+        "units",
+        "note"
+      ],
+      "rows": [
+        [
+          "transfer_accept_distance",
+          2.5,
+          "mm",
+          "2-3 mm after NICP"
+        ],
+        [
+          "transfer_accept_normal_cos",
+          0.5,
+          "cosine",
+          ""
+        ],
+        [
+          "mirror_match_tolerance",
+          1e-05,
+          "m",
+          "exact-symmetric templates"
+        ],
+        [
+          "landmark_sigma_robust_points",
+          0.015,
+          "fraction of inter-ocular distance",
+          "eye corners, nose tip"
+        ],
+        [
+          "landmark_sigma_contour_points_min",
+          0.03,
+          "fraction of inter-ocular distance",
+          ""
+        ],
+        [
+          "landmark_sigma_contour_points_max",
+          0.05,
+          "fraction of inter-ocular distance",
+          ""
+        ],
+        [
+          "hm08_basis_K_min",
+          40,
+          "components",
+          "after mass-weighted SVD"
+        ],
+        [
+          "hm08_basis_K_max",
+          80,
+          "components",
+          ""
+        ],
+        [
+          "macro_sigma",
+          0.15,
+          "slider units [0,1]",
+          "toward user-supplied age/height/sex"
+        ],
+        [
+          "amm_samples_min",
+          2000,
+          "synthetic heads",
+          "anthropometric morphable model"
+        ],
+        [
+          "amm_samples_max",
+          5000,
+          "synthetic heads",
+          ""
+        ],
+        [
+          "amm_variance_kept_min",
+          0.95,
+          "fraction",
+          ""
+        ],
+        [
+          "amm_variance_kept_max",
+          0.99,
+          "fraction",
+          ""
+        ],
+        [
+          "assumed_measurement_correlation_min",
+          0.3,
+          "rho",
+          "within size-related groups"
+        ],
+        [
+          "assumed_measurement_correlation_max",
+          0.6,
+          "rho",
+          ""
+        ],
+        [
+          "region_mask_falloff_min",
+          5,
+          "mm",
+          ""
+        ],
+        [
+          "region_mask_falloff_max",
+          10,
+          "mm",
+          ""
+        ]
+      ],
+      "population": "engine design defaults",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Tune on held-out views and consented scans."
+    }
+  ]
+}

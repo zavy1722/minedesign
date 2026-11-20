@@ -1,0 +1,22 @@
+{
+  "topic": "open-template-head-kit",
+  "sources": [],
+  "references_by_name": [
+    "Li, Bolkart, Black, Li, Romero, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), ACM TOG / SIGGRAPH Asia 2017",
+    "Li et al., \"Learning Formation of Physically-Based Face Attributes\" (ICT-FaceKit), CVPR 2020",
+    "Kartynnik, Ablavatski, Grishchenko, Grundmann, \"Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs\", CVPR Workshops 2019",
+    "Grishchenko et al., \"Attention Mesh: High-fidelity Face Mesh Prediction in Real-time\", CVPR Workshops 2020",
+    "Bastioni, Re, Misra, \"Ideas and methods for modeling 3D human figures\" (MakeHuman), ACM COMPUTE 2008",
+    "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+    "Sagonas et al., 300-W challenge (iBUG 68-point scheme), ICCV Workshops 2013",
+    "Wu et al., \"Look at Boundary: A Boundary-Aware Face Alignment Algorithm\" (WFLW), CVPR 2018",
+    "Amberg, Romdhani, Vetter, \"Optimal Step Nonrigid ICP Algorithms for Surface Registration\", CVPR 2007",
+    "Jacobson et al., \"Bounded Biharmonic Weights for Real-Time Deformation\", SIGGRAPH 2011",
+    "Creative Commons, CC BY 4.0 and CC0 1.0 legal codes",
+    "Free Software Foundation, \"Various Licenses and Comments about Them\" (GPL compatibility list)",
+    "Blender Studio, Human Base Meshes asset bundle (2023)",
+    "MakeHuman Community licence page; MakeTarget; MPFB2 documentation",
+    "extensions.blender.org Terms of Service (asset and add-on licensing rules)",
+    "Library cross-references: reconstruction/flame-model.md, reconstruction/3dmm-overview.md, blender/blender-extensions-packaging.md, blender/blender-face-addons.md, blender/face-retopology.md, blender/import-export-scans.md, community/youtube-likeness-blender.md, community/awesome-lists-resources.md, ethics/README.md, anatomy/facial-asymmetry.md, anatomy/anthropometric-norms.md"
+  ]
+}

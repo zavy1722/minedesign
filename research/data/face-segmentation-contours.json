@@ -1,0 +1,844 @@
+{
+ "topic": "face-segmentation-contours",
+ "tables": [
+  {
+   "name": "segmentation_model_candidates",
+   "units": "input_px (square side, px); weights_mb (fp32 download, MB, approx); cpu_s (seconds per image on one ~8-core laptop CPU via ONNX Runtime, order of magnitude; for SAM-family the image encoder); commercial_ship (yes/no/likely/unclear)",
+   "columns": [
+    "model",
+    "task_or_classes",
+    "input_px",
+    "weights_mb_min",
+    "weights_mb_max",
+    "cpu_s_min",
+    "cpu_s_max",
+    "code_licence",
+    "weights_licence",
+    "training_data_terms",
+    "commercial_ship",
+    "status"
+   ],
+   "rows": [
+    [
+     "MediaPipe selfie segmenter",
+     "person (binary)",
+     256,
+     0.2,
+     0.3,
+     0.002,
+     0.01,
+     "Apache-2.0",
+     "per model card (verify)",
+     "Google internal",
+     "likely",
+     "contested"
+    ],
+    [
+     "MediaPipe selfie multiclass",
+     "background, hair, body-skin, face-skin, clothes, others",
+     256,
+     10,
+     20,
+     0.02,
+     0.08,
+     "Apache-2.0",
+     "per model card (verify)",
+     "Google internal",
+     "likely",
+     "contested"
+    ],
+    [
+     "MediaPipe hair segmenter",
+     "hair (binary)",
+     512,
+     0.5,
+     1.0,
+     0.02,
+     0.08,
+     "Apache-2.0",
+     "per model card (verify)",
+     "Google internal",
+     "likely",
+     "contested"
+    ],
+    [
+     "MobileSAM",
+     "promptable",
+     1024,
+     35,
+     45,
+     0.2,
+     0.6,
+     "Apache-2.0",
+     "Apache-2.0",
+     "SA-1B subset (distillation)",
+     "yes",
+     "knowledge"
+    ],
+    [
+     "SAM 2.1 tiny",
+     "promptable",
+     1024,
+     140,
+     160,
+     1,
+     3,
+     "Apache-2.0",
+     "Apache-2.0",
+     "SA-1B, SA-V (CC BY 4.0), internal",
+     "yes",
+     "knowledge"
+    ],
+    [
+     "SAM 2.1 small",
+     "promptable",
+     1024,
+     170,
+     190,
+     1.5,
+     4,
+     "Apache-2.0",
+     "Apache-2.0",
+     "SA-1B, SA-V, internal",
+     "yes",
+     "knowledge"
+    ],
+    [
+     "SAM ViT-B (v1)",
+     "promptable",
+     1024,
+     350,
+     380,
+     2,
+     8,
+     "Apache-2.0",
+     "Apache-2.0",
+     "SA-1B",
+     "yes",
+     "knowledge"
+    ],
+    [
+     "SAM 2.1 large",
+     "promptable",
+     1024,
+     850,
+     950,
+     8,
+     30,
+     "Apache-2.0",
+     "Apache-2.0",
+     "SA-1B, SA-V, internal",
+     "yes",
+     "knowledge"
+    ],
+    [
+     "SAM 3",
+     "text concepts + prompts",
+     1008,
+     3000,
+     3600,
+     30,
+     120,
+     "custom SAM licence (verify)",
+     "custom, gated (verify)",
+     "Meta data engine",
+     "verify",
+     "contested"
+    ],
+    [
+     "u2netp",
+     "salient object",
+     320,
+     4.5,
+     5,
+     0.05,
+     0.15,
+     "Apache-2.0",
+     "Apache-2.0",
+     "DUTS-TR (research)",
+     "weights yes; data contested",
+     "contested"
+    ],
+    [
+     "U2-Net",
+     "salient object",
+     320,
+     170,
+     180,
+     0.3,
+     1,
+     "Apache-2.0",
+     "Apache-2.0",
+     "DUTS-TR (research)",
+     "weights yes; data contested",
+     "contested"
+    ],
+    [
+     "IS-Net general-use",
+     "dichotomous foreground",
+     1024,
+     160,
+     180,
+     1,
+     3,
+     "Apache-2.0",
+     "Apache-2.0",
+     "DIS5K (research)",
+     "weights yes; data contested",
+     "contested"
+    ],
+    [
+     "BiRefNet lite",
+     "dichotomous foreground",
+     1024,
+     160,
+     200,
+     1,
+     4,
+     "MIT",
+     "MIT",
+     "DIS5K, HRSOD, UHRSD, P3M etc. (research)",
+     "weights yes; data contested",
+     "contested"
+    ],
+    [
+     "BiRefNet (Swin-L)",
+     "dichotomous foreground",
+     1024,
+     850,
+     950,
+     5,
+     20,
+     "MIT",
+     "MIT",
+     "DIS5K, HRSOD, UHRSD, P3M etc. (research)",
+     "weights yes; data contested",
+     "contested"
+    ],
+    [
+     "RMBG-1.4 (BRIA)",
+     "foreground",
+     1024,
+     170,
+     180,
+     1,
+     3,
+     "custom",
+     "non-commercial",
+     "licensed (BRIA)",
+     "no",
+     "knowledge"
+    ],
+    [
+     "RMBG-2.0 (BRIA)",
+     "foreground",
+     1024,
+     850,
+     900,
+     5,
+     20,
+     "custom",
+     "CC BY-NC 4.0",
+     "licensed (BRIA)",
+     "no",
+     "knowledge"
+    ],
+    [
+     "BiSeNet face-parsing.PyTorch",
+     "19 CelebAMask-HQ classes",
+     512,
+     45,
+     55,
+     0.05,
+     0.3,
+     "MIT",
+     "MIT repo, NC data",
+     "CelebAMask-HQ (non-commercial)",
+     "no",
+     "knowledge"
+    ],
+    [
+     "FaRL ViT-B/16 parser (facer)",
+     "19 (CelebAMask-HQ) or 11 (LaPa)",
+     448,
+     300,
+     400,
+     0.5,
+     2,
+     "MIT (facer)",
+     "unclear",
+     "LAION-FACE + CelebAMask-HQ/LaPa",
+     "no",
+     "knowledge"
+    ],
+    [
+     "SegFace Swin-B",
+     "19 / 11 classes, long-tail focus",
+     512,
+     350,
+     450,
+     1,
+     3,
+     "verify",
+     "verify",
+     "CelebAMask-HQ, LaPa, Helen (research)",
+     "no",
+     "knowledge"
+    ],
+    [
+     "MODNet",
+     "portrait alpha matte",
+     512,
+     24,
+     26,
+     0.1,
+     0.3,
+     "Apache-2.0 (verify)",
+     "unclear",
+     "unclear",
+     "unclear",
+     "contested"
+    ],
+    [
+     "RVM mobilenetv3",
+     "portrait alpha matte",
+     512,
+     14,
+     16,
+     0.05,
+     0.2,
+     "GPL-3.0",
+     "GPL-3.0",
+     "research matting sets",
+     "GPL-compatible; data contested",
+     "contested"
+    ]
+   ],
+   "population": "n/a (software artefacts); timings assume fp32 ONNX Runtime CPU EP, single image, head crop",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "All licence fields are time-sensitive and from training knowledge; re-check model cards/repos before shipping. Add onnxruntime wheel 5-20 MB and 0.2-2 s session creation; transformer peak RAM ~2-4x weights at 1024^2; dynamic int8 quantisation ~4x smaller, 1.5-3x faster."
+  },
+  {
+   "name": "face_parsing_datasets",
+   "units": "images (count); resolution (px)",
+   "columns": [
+    "dataset",
+    "images_approx",
+    "resolution_px",
+    "classes",
+    "has_ears",
+    "has_accessories",
+    "terms",
+    "status"
+   ],
+   "rows": [
+    [
+     "CelebAMask-HQ",
+     30000,
+     512,
+     19,
+     true,
+     true,
+     "non-commercial research",
+     "knowledge"
+    ],
+    [
+     "LaPa",
+     22000,
+     null,
+     11,
+     false,
+     false,
+     "research only",
+     "knowledge"
+    ],
+    [
+     "Helen (Smith et al. labels)",
+     2300,
+     null,
+     11,
+     false,
+     false,
+     "research",
+     "knowledge"
+    ],
+    [
+     "FaceSynthetics",
+     100000,
+     null,
+     19,
+     true,
+     true,
+     "research only",
+     "knowledge"
+    ]
+   ],
+   "population": "in-the-wild celebrity/Flickr faces (CelebAMask-HQ, Helen), mixed web faces (LaPa), synthetic (FaceSynthetics)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Reported mean F1 for SOTA parsers: CelebAMask-HQ ~86-89%, LaPa ~92-93% (contested, varies by paper and protocol). Region F1 does not measure boundary accuracy."
+  },
+  {
+   "name": "occluder_policy",
+   "units": "dilation in mm (convert via IOD ~63 mm) unless stated; bias in mm along outward contour normal (negative = move observed contour inward)",
+   "columns": [
+    "occluder",
+    "contour_kind",
+    "dilate_mm",
+    "bias_mm",
+    "sigma_add_mm",
+    "flag_landmarks",
+    "status"
+   ],
+   "rows": [
+    [
+     "loose hair / fringe",
+     "exclude skin; hair edge outer_bound",
+     2.5,
+     null,
+     null,
+     [
+      "g'",
+      "trichion"
+     ],
+     "knowledge"
+    ],
+    [
+     "scalp hair over vault",
+     "outer_bound + cranial prior",
+     0,
+     null,
+     null,
+     [],
+     "knowledge"
+    ],
+    [
+     "full beard / moustache",
+     "exclude; outer_bound",
+     2.0,
+     null,
+     null,
+     [
+      "sn",
+      "ls",
+      "li",
+      "pg'",
+      "gn'",
+      "me'"
+     ],
+     "knowledge"
+    ],
+    [
+     "stubble < 3 mm",
+     "hard (skin) with bias",
+     0,
+     -1.0,
+     1.0,
+     [],
+     "knowledge"
+    ],
+    [
+     "glasses frame",
+     "exclude",
+     1.5,
+     null,
+     null,
+     [
+      "n'",
+      "en",
+      "ex"
+     ],
+     "knowledge"
+    ],
+    [
+     "contour seen through lens",
+     "exclude to lens rim",
+     null,
+     null,
+     null,
+     [],
+     "knowledge"
+    ],
+    [
+     "hat / headband",
+     "exclude vault; tight beanie outer_bound",
+     3.0,
+     null,
+     null,
+     [],
+     "knowledge"
+    ],
+    [
+     "earrings / piercings",
+     "exclude lobe region",
+     1.5,
+     null,
+     null,
+     [
+      "earlobe"
+     ],
+     "knowledge"
+    ],
+    [
+     "collar / scarf / hand",
+     "exclude",
+     3.0,
+     null,
+     null,
+     [
+      "gn'",
+      "me'",
+      "cervical"
+     ],
+     "knowledge"
+    ]
+   ],
+   "population": "adult capture subjects",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Stubble bias range -0.5 to -1.5 mm. Swim cap ~0.3-1 mm restores the cranial vault silhouette. Spectacle magnification ~1/(1 - d*P) with d = 0.012 m: -4 D -> 0.954, +4 D -> 1.05."
+  },
+  {
+   "name": "profile_pose_bias",
+   "units": "mm",
+   "columns": [
+    "error_type",
+    "feature",
+    "radius_mm_min",
+    "radius_mm_max",
+    "bias_5deg_min",
+    "bias_5deg_max",
+    "bias_10deg_min",
+    "bias_10deg_max",
+    "formula",
+    "status"
+   ],
+   "rows": [
+    [
+     "yaw (silhouette ahead of midline)",
+     "forehead",
+     90,
+     90,
+     0.34,
+     0.34,
+     1.37,
+     1.37,
+     "R*(1-cos(delta))",
+     "knowledge"
+    ],
+    [
+     "yaw (silhouette ahead of midline)",
+     "chin",
+     30,
+     30,
+     0.11,
+     0.11,
+     0.46,
+     0.46,
+     "R*(1-cos(delta))",
+     "knowledge"
+    ],
+    [
+     "yaw (silhouette ahead of midline)",
+     "nasal dorsum/tip",
+     8,
+     8,
+     0.03,
+     0.03,
+     0.12,
+     0.12,
+     "R*(1-cos(delta))",
+     "knowledge"
+    ],
+    [
+     "pitch (extremum slides along contour)",
+     "prn",
+     3,
+     6,
+     0.3,
+     0.5,
+     0.5,
+     1.0,
+     "rho*delta_rad",
+     "knowledge"
+    ],
+    [
+     "pitch (extremum slides along contour)",
+     "pg'",
+     10,
+     20,
+     0.9,
+     1.7,
+     1.7,
+     3.5,
+     "rho*delta_rad",
+     "knowledge"
+    ],
+    [
+     "pitch (extremum slides along contour)",
+     "g'",
+     30,
+     80,
+     2.6,
+     7.0,
+     5.2,
+     14.0,
+     "rho*delta_rad",
+     "knowledge"
+    ]
+   ],
+   "population": "adult head, cylinder/circle local approximations",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Pinhole/geometry arithmetic; radii (transverse R, sagittal rho) are rough anatomical estimates. Concavity points (n', sn, sto, B') defined by max distance from chord are rotation-invariant."
+  },
+  {
+   "name": "profile_point_sigma_along_contour",
+   "units": "mm (1 sigma, along the contour); normal-direction sigma = edge sigma",
+   "columns": [
+    "point",
+    "definition_cue",
+    "sigma_min_mm",
+    "sigma_max_mm",
+    "status"
+   ],
+   "rows": [
+    [
+     "prn",
+     "anterior-most convexity, sharpest curvature",
+     0.5,
+     1.0,
+     "knowledge"
+    ],
+    [
+     "sto",
+     "concave cusp between lips (closed)",
+     0.5,
+     1.0,
+     "knowledge"
+    ],
+    [
+     "sn",
+     "concavity, max distance from prn-ls chord",
+     0.7,
+     1.5,
+     "knowledge"
+    ],
+    [
+     "ls",
+     "anterior-most upper-lip convexity",
+     1.0,
+     2.0,
+     "knowledge"
+    ],
+    [
+     "li",
+     "anterior-most lower-lip convexity",
+     1.0,
+     2.0,
+     "knowledge"
+    ],
+    [
+     "n'",
+     "concavity, max distance from g'-prn chord",
+     1.5,
+     3.0,
+     "knowledge"
+    ],
+    [
+     "pg'",
+     "anterior-most chin convexity",
+     2.0,
+     4.0,
+     "knowledge"
+    ],
+    [
+     "gn'",
+     "constructed (bisector or pg'-me' midpoint)",
+     2.0,
+     5.0,
+     "contested"
+    ],
+    [
+     "me'",
+     "lowest chin point",
+     3.0,
+     6.0,
+     "knowledge"
+    ],
+    [
+     "g'",
+     "anterior-most forehead point between brows",
+     3.0,
+     8.0,
+     "knowledge"
+    ]
+   ],
+   "population": "adults, sharp profile photo, |yaw-90| < 10 deg",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Use as initialisation/QA; fit geometry with silhouette residuals. QA ranges: nasofrontal ~115-135 deg, nasolabial ~90-110 deg, convexity g'-sn-pg' ~12+/-4 deg."
+  },
+  {
+   "name": "contour_observation_defaults",
+   "units": "as stated per row",
+   "columns": [
+    "parameter",
+    "value",
+    "units",
+    "status"
+   ],
+   "rows": [
+    [
+     "sigma_n snapped crisp edge",
+     "0.5-1",
+     "px (full res)",
+     "knowledge"
+    ],
+    [
+     "sigma_n raw 256 px mask upsampled",
+     "3-10",
+     "px (full res)",
+     "knowledge"
+    ],
+    [
+     "sigma_n floor",
+     "0.005",
+     "x IOD_px",
+     "knowledge"
+    ],
+    [
+     "sigma_n formula",
+     "sqrt(sigma_edge^2 + (0.5*s_model)^2 + sigma_blur^2)",
+     "px",
+     "knowledge"
+    ],
+    [
+     "correlation length l_c",
+     "max(3, s_model)",
+     "px",
+     "knowledge"
+    ],
+    [
+     "sigma inflation for correlated samples",
+     "sqrt(l_c/ds)",
+     "factor",
+     "knowledge"
+    ],
+    [
+     "max effective samples per view",
+     "30-50",
+     "count",
+     "knowledge"
+    ],
+    [
+     "Huber delta",
+     "2",
+     "sigma",
+     "knowledge"
+    ],
+    [
+     "initial correspondence gate",
+     "0.15",
+     "x IOD_px",
+     "knowledge"
+    ],
+    [
+     "final correspondence gate",
+     "5",
+     "sigma_n",
+     "knowledge"
+    ],
+    [
+     "max normal angle for match",
+     "30-45",
+     "deg",
+     "knowledge"
+    ],
+    [
+     "face-skin/body-skin boundary sigma inflation",
+     "3-5",
+     "factor",
+     "contested"
+    ],
+    [
+     "head crop for segmentation",
+     "2.2",
+     "x face box",
+     "knowledge"
+    ],
+    [
+     "guided filter radius",
+     "0.01",
+     "x face height px",
+     "knowledge"
+    ],
+    [
+     "guided filter eps",
+     "1e-3",
+     "(linear RGB in [0,1])^2",
+     "knowledge"
+    ],
+    [
+     "edge snap search window",
+     "3",
+     "x sigma_mask along normal",
+     "knowledge"
+    ],
+    [
+     "sRGB 50% edge bias",
+     "0.78-0.79",
+     "x blur sigma toward darker side",
+     "knowledge"
+    ],
+    [
+     "profile curvature smoothing",
+     "1.0 (0.016 x IOD)",
+     "mm",
+     "knowledge"
+    ],
+    [
+     "profile curvature scales",
+     "0.5, 1, 2",
+     "mm",
+     "knowledge"
+    ],
+    [
+     "profile arc-length window",
+     "+/-25",
+     "% of Farkas norm",
+     "knowledge"
+    ],
+    [
+     "profile detector yaw validity",
+     "|yaw-90| < 10",
+     "deg",
+     "knowledge"
+    ],
+    [
+     "hair thickness prior (short/flat hair)",
+     "3-10",
+     "mm",
+     "knowledge"
+    ],
+    [
+     "cranial breadth/length prior sigma",
+     "4-6",
+     "mm",
+     "knowledge"
+    ],
+    [
+     "bundled model size cap",
+     "20",
+     "MB",
+     "knowledge"
+    ]
+   ],
+   "population": "n/a (engine defaults; to be tuned on a consented hand-traced test set)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Design recommendations, not measured values."
+  }
+ ]
+}

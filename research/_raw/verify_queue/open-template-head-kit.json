@@ -1,0 +1,37 @@
+{
+ "id": "open-template-head-kit",
+ "area": "blender",
+ "title": "Open-licence template head kit for fitting and sculpting",
+ "queue": [
+  {
+   "claim": "FLAME 2023 Open uses the shared 5,023-vertex topology. Its expression basis differs from FLAME 2023 (a conversion script exists), and its identity basis may be unchanged. Shape and expression component counts are unknown. It is also unknown whether FLAME_masks.pkl, the landmark embeddings and the UV template are released under CC BY 4.0 or stay non-commercial.",
+   "query": "FLAME 2023 Open flame2023_Open.pkl contents shape expression components masks landmark embedding license",
+   "domains": "flame.is.tue.mpg.de,github.com"
+  },
+  {
+   "claim": "extensions.blender.org requires bundled non-code assets to be CC0 and forbids requiring externally downloaded components, so Apache-2.0, MIT or CC BY mesh data cannot sit in a listed add-on zip.",
+   "query": "extensions.blender.org terms of service add-on bundled assets license CC0 GPL",
+   "domains": "extensions.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "ICT-FaceKit is MIT-licensed in its GitHub repo, while the USC VGL page asks for contact for commercial use. As recalled, it has about 26.7k quad vertices in named sub-mesh blocks, 100 identity PCA modes (Light) and 53 ARKit-like expressions (ARKit 52 minus tongueOut, with browInnerUp and cheekPuff split left and right).",
+   "query": "ICT-FaceKit LICENSE MIT USC-ICT identity shapes expression shapes vertex count",
+   "domains": "github.com,vgl.ict.usc.edu"
+  },
+  {
+   "claim": "The FSF regards CC BY 4.0 (and Apache-2.0 and MIT) as compatible with GNU GPLv3, so CC-BY-4.0 FLAME 2023 Open data, or a basis transferred from it, can be distributed inside a GPL-3.0-or-later extension off-platform with attribution.",
+   "query": "FSF license list Creative Commons Attribution 4.0 compatible GNU GPL version 3",
+   "domains": "gnu.org,creativecommons.org"
+  },
+  {
+   "claim": "The MakeHuman hm08 base mesh has about 13.4k body vertices (about 19.2k with helpers). Its face targets are region-feature-decr|incr pairs applied piecewise-linearly, and its proxies (eyes, teeth, tongue) bind each vertex to three base vertices plus a weighted offset. The base mesh, targets and proxies are CC0.",
+   "query": "MakeHuman hm08 base mesh vertex count targets decr incr modifier proxy file format CC0",
+   "domains": "makehumancommunity.org,github.com"
+  },
+  {
+   "claim": "Blender Studio's Human Base Meshes (2023, CC0) include a realistic head with sculpt-grade quad topology. Whether it has eyeballs, teeth, a mouth bag and UVs, and its vertex counts, are unknown.",
+   "query": "Blender Studio Human Base Meshes contents realistic head eyes teeth mouth bag topology",
+   "domains": "studio.blender.org,blender.org"
+  }
+ ]
+}

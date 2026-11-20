@@ -1,0 +1,37 @@
+{
+ "id": "face-segmentation-contours",
+ "area": "reconstruction",
+ "title": "Face, hair and skin segmentation for silhouettes and occlusion",
+ "queue": [
+  {
+   "claim": "MediaPipe selfie multiclass (256x256; background, hair, body-skin, face-skin, clothes, others; ~16 MB) and hair segmenter (512x512, ~0.8 MB) weights are licensed permissively (Apache-2.0 per model card) and can be bundled in a commercial GPL add-on",
+   "query": "MediaPipe selfie multiclass segmentation model card license hair segmenter",
+   "domains": "ai.google.dev,github.com,storage.googleapis.com"
+  },
+  {
+   "claim": "SAM 3 (Meta, Nov 2025) is released under a custom SAM licence with gated checkpoints (not Apache-2.0) and has ~0.85B parameters; SAM 2/2.1 code and checkpoints are Apache-2.0",
+   "query": "SAM 3 Segment Anything with Concepts license checkpoints commercial use",
+   "domains": "github.com,huggingface.co,ai.meta.com"
+  },
+  {
+   "claim": "BiRefNet code and released weights are MIT-licensed, while its general model is trained on research datasets (DIS5K, HRSOD, UHRSD, P3M etc.)",
+   "query": "BiRefNet license MIT weights training datasets DIS5K HRSOD",
+   "domains": "github.com,huggingface.co"
+  },
+  {
+   "claim": "BRIA RMBG-2.0 is CC BY-NC 4.0 and RMBG-1.4 is non-commercial (commercial use requires a BRIA agreement); rembg's model zoo includes these",
+   "query": "briaai RMBG-2.0 license commercial use CC BY-NC",
+   "domains": "huggingface.co,github.com"
+  },
+  {
+   "claim": "All public face parsers with ear/earring/glasses classes (BiSeNet face-parsing.PyTorch, FaRL/facer, SegFace) are trained on CelebAMask-HQ/LaPa/Helen, whose terms are non-commercial research only",
+   "query": "CelebAMask-HQ license non-commercial LaPa dataset license SegFace",
+   "domains": "github.com"
+  },
+  {
+   "claim": "MediaPipe multiclass face-skin vs body-skin boundary follows the jaw contour, and beards are labelled hair vs face-skin (unknown)",
+   "query": "mediapipe selfie_multiclass_256x256 beard label face skin body skin categories",
+   "domains": ""
+  }
+ ]
+}

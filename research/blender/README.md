@@ -52,7 +52,7 @@ Thirty rules that recur across the notes, grouped by stage. Each keeps the badge
 
 **Eyes, hair, skin, texture**
 
-20. **Do not fit globe size; fit lids, eye position and gaze.** The globe is about 24.2 mm wide with a range of 21–27 mm 📄, and "big eyes" come from the lids. The anterior corneal radius of about 7.8 mm is firm ✅. In Cycles, turn off the cornea's shadow or use MNEE, or the iris renders dark 🧠. — [eyes](./eyes-modeling-blender.md)
+20. **Do not fit globe size; fit lids, eye position and gaze.** The globe is about 24.2 mm wide with a range of 21–27 mm 📄, and "big eyes" come from the lids. The anterior corneal radius of about 7.8 mm is firm ✅. In Cycles a glass cornea darkens the iris: enable MNEE shadow caustics (cast on the cornea, receive on iris and sclera, toggle on each light 📄) or turn off the cornea's shadow visibility 🧠. — [eyes](./eyes-modeling-blender.md)
 21. **Fit skin and skull under the hair from priors; take only the envelope, hairline, parting, whorl and flow from photos.** Brow landmarks mark hair, not bone (σ 3–5 mm for the skull fit). Grow hair as Curves on a dedicated non-overlapping HairUV map with Add Rest Position. 🧠 — [hair](./hair-blender.md)
 22. **Skin is Subsurface Weight 1 with a physical radius.** Subsurface Radius is a real scattering distance per channel 📄, so Radius × Scale only works on a metric head 🧠, and the 4.x default Scale of 0.05 m gives a ~50 mm red radius, about 10–15× too large 🧠. Random walk needs a watertight, non-overlapping mesh 📄; Random Walk (Skin), Subsurface IOR and Subsurface Anisotropy are Cycles-only 📄. — [skin](./skin-shading.md)
 23. **Fix UVs once on the template and project through the solved cameras.** Never re-unwrap per subject and never use mirrored or overlapping UVs. Blender's paint occlusion sees only the painted object and Blender has no visibility-weighted multi-photo blend, so the engine should make the albedo and confidence maps. 🧠 — [texture painting](./texture-projection-painting.md)
@@ -80,15 +80,15 @@ All values are copied from the notes, with corrections from their verification l
 
 | Line | Released | Support ends | Bundled Python / NumPy | Badge | Src |
 |---|---|---|---|---|---|
-| 4.2 LTS | Jul 2024 | Jul 2026 (ended; MPFB2 still targets it) | 3.11 | 🧠 | [version](./blender-version-status-2026.md) |
-| 4.5 LTS | Jul 2025 | Jul 2027 | 3.11 / ≈1.24–1.26 | 📄 date, 🧠 Python | [version](./blender-version-status-2026.md) |
+| 4.2 LTS | Jul 2024 | Jul 2026 (ended; MPFB2 still targets it) | 3.11 | 📄 end, 🧠 Python | [version](./blender-version-status-2026.md) |
+| 4.5 LTS | Jul 2025 | Jul 2027 | 3.11 / ≈1.24–1.26 | ✅ end, 🧠 Python | [version](./blender-version-status-2026.md) |
 | 5.0 | 18 Nov 2025 | — | 3.11 likely | 📄 date, ↔️ Python | [version](./blender-version-status-2026.md) |
 | 5.1 | Mar 2026 (plan) | — | 3.13 (release notes); NumPy 2.3.x requested in the dev tracker | 📄 | [packaging](./blender-extensions-packaging.md), [version](./blender-version-status-2026.md) |
 | 5.2 LTS | 14 Jul 2026 | Jul 2028 | 3.13.13 (library tracker); NumPy not confirmed | 📄 | [version](./blender-version-status-2026.md), [ML deps](./blender-python-ml-deps.md) |
 | 5.2.4 | 10 Nov 2026 (corrected; 16/17 Nov were stale plans) | — | — | 📄 | [version](./blender-version-status-2026.md) |
 | 5.3 | 10 Nov 2026, current feature release | next release | not stated (3.13 expected) | ✅ current, 📄 date | [version](./blender-version-status-2026.md) |
 
-Add-on windows: Faceit lists 3.0–5.2 📄, Face Shape Key Rig needs ≥5.2 📄, MPFB2 needs ≥4.2 📄, so only **5.2 LTS** satisfies all three ([face add-ons](./blender-face-addons.md)). FaceBuilder 2026.1.0 supports up to 5.1 📄; 5.2/5.3 support is unconfirmed ([FaceBuilder](./facebuilder-blender.md)). RetopoFlow 4 lists Blender 4.2–5.2 📄 ([retopology](./face-retopology.md)).
+Add-on windows: Faceit lists 3.0–5.2 📄, Face Shape Key Rig needs ≥5.2 📄, MPFB2 needs ≥4.2 📄, so only **5.2 LTS** satisfies all three ([face add-ons](./blender-face-addons.md)). FaceBuilder 2026.1.0 supports up to 5.1 📄; 5.2/5.3 support is unconfirmed ([FaceBuilder](./facebuilder-blender.md)). RetopoFlow 4 lists Blender 4.2–5.2 📄 ([retopology](./face-retopology.md)). Auto-Rig Pro is reported as guaranteed for 2.93–4.5 with some fixes for 5.x ↔️ ([rigging](./face-rigging.md)).
 
 ### R2 — Pinhole ↔ Blender camera
 
@@ -242,8 +242,9 @@ Legacy Python OBJ/PLY importers were removed in 4.0 📄; the STL add-on was onl
 | MetaHuman | UE EULA since UE 5.6 (Jun 2025): other engines and DCCs allowed, no engine royalty outside UE | ✅ | [bridges](./metahuman-cc-bridges.md) |
 | Character Creator, Daz Genesis | no raw base-mesh redistribution | ↔️ | [bridges](./metahuman-cc-bridges.md) |
 | extensions.blender.org | add-ons GPL-3.0-or-later, bundled assets CC0, no remote code or externally downloaded components | 📄 | [packaging](./blender-extensions-packaging.md) |
-| FaceBuilder | subscription (Freelancer 19.99 USD/month or 191.88 USD/year), 15-day trial; GPL front end plus closed core | 📄 price/trial, ↔️ licence split | [FaceBuilder](./facebuilder-blender.md) |
+| FaceBuilder | subscription (Freelancer 19.99 USD/month or 191.88 USD/year; Studio 699 USD/year), 15-day trial, commercial use allowed; GPL front end plus closed core | 📄 price/trial/use, ↔️ licence split | [FaceBuilder](./facebuilder-blender.md), [face add-ons](./blender-face-addons.md) |
 | Faceit / Face Shape Key Rig / CaptureForge | paid / free GPL / GPL-3.0 | 📄 | [face add-ons](./blender-face-addons.md) |
+| CelebAMask-HQ (and hair parsers trained on it) | non-commercial research only, including derived data | 📄 | [hair](./hair-blender.md) |
 | RetopoFlow / Quad Remesher | GPL source sold on Superhive / paid, 109.90–139.90 USD perpetual | 📄 | [retopology](./face-retopology.md) |
 
 ### R11 — Version-sensitive APIs and the probe to use
@@ -252,8 +253,10 @@ Legacy Python OBJ/PLY importers were removed in 4.0 📄; the STL add-on was onl
 |---|---|---|---|---|
 | 4.0 | operator context-override dicts removed | always `with context.temp_override(...)` | 🧠 | [bpy API](./bpy-mesh-api.md) |
 | 4.1 | Auto Smooth removed | `hasattr(bpy.types.Mesh, "corner_normals")` | 🧠 | [version](./blender-version-status-2026.md) |
+| all | Blender ignores `PYTHONPATH` and user site-packages unless `--python-use-system-env` | install worker deps into a private folder | ✅ | [ML deps](./blender-python-ml-deps.md) |
+| all | a script that raises still exits 0 unless `--python-exit-code N` is passed; `BLENDER_USER_RESOURCES` relocates all user files | always pass both in CI | 📄 | [packaging](./blender-extensions-packaging.md) |
 | 4.2 | extensions, `online_access`, `extension_path_user` | `__package__.startswith("bl_ext.")` | 🧠 / 📄 manifest | [packaging](./blender-extensions-packaging.md) |
-| 4.3 | brush assets; `paint.brush_set` removed | `hasattr(bpy.ops.brush, "asset_activate")` | 📄 | [sculpt features](./blender-sculpt-features-5x.md) |
+| 4.3 | brush assets; `paint.brush_set` removed; sculpt refactor (entering Sculpt Mode ≈5× faster on a 16M-face mesh, brushes ≈8×, memory ≈30 % lower) | `hasattr(bpy.ops.brush, "asset_activate")` | 📄 | [sculpt features](./blender-sculpt-features-5x.md) |
 | 4.4 | slotted Actions (channelbag API) | `Action.fcurves` removal in 5.0 unconfirmed | 📄 / ↔️ | [rigging](./face-rigging.md) |
 | 5.0 | `sculpt_tool` → `sculpt_brush_type` | `"sculpt_brush_type" in Brush.bl_rna.properties` | 📄 | [sculpt features](./blender-sculpt-features-5x.md) |
 | 5.0 | mathutils → NumPy float32 non-contiguous view | `np.asarray(Vector((0,0,0))).dtype` | 📄 | [version](./blender-version-status-2026.md) |
@@ -310,7 +313,7 @@ Legacy Python OBJ/PLY importers were removed in 4.0 📄; the STL add-on was onl
 - [ ] Eye bone at the rotation centre (~13–14 mm behind the apex), Damped Track plus ~4–5° kappa offset.
 
 **Hair** ([hair](./hair-blender.md))
-- [ ] HairUV map, Add Rest Position, Curves with Interpolate (Part by Mesh Islands) → Clump → Curl → Trim → Shrinkwrap → Restore Segment Length.
+- [ ] HairUV map, Add Rest Position, Curves with Interpolate (Part by Mesh Islands) → Clump → Curl → Trim → Shrinkwrap → restore segment length (that asset's name is unverified; some bundled hair groups failed to import in 5.0).
 - [ ] Irregular 3–10 mm hairline transition; colour from Melanin/Redness matched on a swatch under the matched rig, never eyedropped.
 - [ ] After any warp: snap roots to surface (Deform), restore segment length, re-run Shrinkwrap.
 
@@ -332,7 +335,7 @@ Legacy Python OBJ/PLY importers were removed in 4.0 📄; the STL add-on was onl
 |---|---|---|---|
 | 1 | **Lens-shift units.** "Fraction of the sensor-fit dimension, W under HORIZONTAL" 🧠 vs developer PRs that describe AUTO fit differently ↔️; the shift divisor is unverified in every note. | [bpy API](./bpy-mesh-api.md), [reference](./reference-camera-setup.md), [lighting](./portrait-lighting-compare.md) | Always write `HORIZONTAL` and divide by W; make a Blender round-trip test (`calc_matrix_camera`, ≤ 0.01 px, landscape and portrait, centred and shifted) the arbiter. The notes' "engine divides by max(W, H)" bug is fixed in the current `face3d/geometry/camera.py` (checked 2026-11-20); only the Blender-side test is missing. |
 | 2 | **Bundled Python in 5.x.** bpy API data says 5.2–5.3 "3.11 or 3.13"; ML-deps says 5.1 unknown; packaging and version notes say 5.1 = 3.13 📄 and 5.2 = 3.13.13 📄. | [version](./blender-version-status-2026.md), [packaging](./blender-extensions-packaging.md), [ML deps](./blender-python-ml-deps.md), [bpy API](./bpy-mesh-api.md) | Use R1: 5.1 and 5.2 bundle 3.13 (📄), 5.3 unstated, NumPy 2.3.x from 5.1 per dev tracker. Still probe `sys.version_info` and `numpy.__version__` at runtime and test the engine on 3.11 + NumPy 1.26 and 3.13 + NumPy 2.x. |
-| 3 | **`sculpt_tool` → `sculpt_brush_type`:** 4.3 (version note and its data table, 🧠) vs **5.0** (sculpt-features verification, 📄). | [version](./blender-version-status-2026.md), [sculpt features](./blender-sculpt-features-5x.md), [sculpting](./sculpting-likeness-workflow.md) | 5.0, per the verification log. Probe the property; never branch on version. |
+| 3 | **`sculpt_tool` → `sculpt_brush_type`:** the version note said 4.3 🧠 until its pass-2 correction to **5.0** 📄, which matches the sculpt-features log; the version data table (`api_breaking_changes_for_face_addon`) still lists 4.3. | [version](./blender-version-status-2026.md), [sculpt features](./blender-sculpt-features-5x.md), [sculpting](./sculpting-likeness-workflow.md) | 5.0, per both verification logs; fix the data row. Probe the property; never branch on version. |
 | 4 | **Where extension wheels go.** Packaging (manual, 📄): each extension's own site-packages. ML-deps (2024 tracker, 📄): one shared module namespace, a conflicting version fails to install. | [packaging](./blender-extensions-packaging.md), [ML deps](./blender-python-ml-deps.md) | Unresolved. Design so it does not matter: the core ships no wheels; an optional ONNX build pins versions and is tested alongside another extension that bundles the same package. |
 | 5 | **Can a listed extension bundle compiled wheels?** Packaging (ToS reading): no pre-compiled external packages, no externally downloaded components. ML-deps: wheels must be bundled, unmodified, and runtime pip is banned. | [packaging](./blender-extensions-packaging.md), [ML deps](./blender-python-ml-deps.md) | Both agree on "no runtime pip, no downloaded code". Keep the listed core pure Python; ship any onnxruntime build separately or confirm with moderators first; model weights only by user-supplied path or explicit opt-in download outside the listing. |
 | 6 | **`blender_version_min`:** "4.2.0" (version, face add-ons, MPFB precedent) vs "4.5.0" (packaging manifest example). | [version](./blender-version-status-2026.md), [packaging](./blender-extensions-packaging.md) | Declare only what CI tests. With CI on 4.5, 5.2 and 5.3, use 4.5.0; drop to 4.2.0 only if 4.2 joins CI. |

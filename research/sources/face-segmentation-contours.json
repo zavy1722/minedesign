@@ -1,0 +1,33 @@
+{
+ "topic": "face-segmentation-contours",
+ "sources": [],
+ "references_by_name": [
+  "Lee, Liu, Wu & Luo, 'MaskGAN: Towards Diverse and Interactive Facial Image Manipulation' (CelebAMask-HQ), CVPR 2020",
+  "Liu et al., LaPa face-parsing dataset, AAAI 2020",
+  "Yu et al., 'BiSeNet: Bilateral Segmentation Network for Real-time Semantic Segmentation', ECCV 2018",
+  "Zheng et al., 'General Facial Representation Learning in a Visual-Linguistic Manner' (FaRL), CVPR 2022",
+  "Narayan et al., 'SegFace: Face Segmentation of Long-Tail Classes', AAAI 2025",
+  "Kirillov et al., 'Segment Anything', ICCV 2023",
+  "Ravi et al., 'SAM 2: Segment Anything in Images and Videos', 2024",
+  "Meta, 'SAM 3: Segment Anything with Concepts', 2025",
+  "Zhang et al., 'Faster Segment Anything' (MobileSAM), 2023",
+  "Zheng et al., 'Bilateral Reference for High-Resolution Dichotomous Image Segmentation' (BiRefNet), 2024",
+  "Qin et al., 'U2-Net: Going Deeper with Nested U-Structure for Salient Object Detection', Pattern Recognition 2020",
+  "Qin et al., 'Highly Accurate Dichotomous Image Segmentation' (IS-Net, DIS5K), ECCV 2022",
+  "Ke et al., 'MODNet: Real-Time Trimap-Free Portrait Matting via Objective Decomposition', AAAI 2022",
+  "Lin et al., 'Robust High-Resolution Video Matting with Temporal Guidance' (RVM), WACV 2022",
+  "He, Sun & Tang, 'Guided Image Filtering', ECCV 2010 / TPAMI 2013",
+  "Levin, Lischinski & Weiss, 'A Closed-Form Solution to Natural Image Matting', TPAMI 2008",
+  "Rother, Kolmogorov & Blake, 'GrabCut', SIGGRAPH 2004",
+  "Devernay, sub-pixel non-maxima suppression for edge detection, INRIA research report, 1995",
+  "Felzenszwalb & Huttenlocher, 'Distance Transforms of Sampled Functions', Theory of Computing 2012",
+  "Hertzmann & Zorin, 'Illustrating Smooth Surfaces', SIGGRAPH 2000",
+  "Cipolla & Giblin, 'Visual Motion of Curves and Surfaces', Cambridge University Press 2000",
+  "Zhu et al., 'High-Fidelity Pose and Expression Normalization for Face Recognition in the Wild', CVPR 2015",
+  "Zhu et al., 'Face Alignment Across Large Poses: A 3D Solution' (3DDFA), CVPR 2016",
+  "Wood et al., 'Fake It Till You Make It: Face analysis in the wild using synthetic data alone' (FaceSynthetics), ICCV 2021",
+  "Farkas, 'Anthropometry of the Head and Face', 2nd ed., 1994",
+  "Legan & Burstone, soft-tissue cephalometric analysis for orthognathic surgery, J Oral Surg 1980",
+  "Google MediaPipe model cards: Selfie Segmentation, Selfie Multiclass Segmentation, Hair Segmentation"
+ ]
+}

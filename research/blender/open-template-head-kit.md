@@ -1,7 +1,7 @@
 # Open-licence template head kit for fitting and sculpting
 
 > extensions.blender.org accepts only CC0 non-code assets inside an add-on, so the shippable default is a project-owned quad head derived from a CC0 source (Blender Studio's Human Base Meshes head or the MakeHuman/MPFB2 hm08 head), released as CC0 with a versioned sidecar: landmark barycentrics, anthropometric vertices, contour rings, region masks, a mirror map and priors. hm08's CC0 face targets, transferred barycentrically and calibrated against anthropometric norms, give a bundled identity prior that may be used commercially. FLAME 2023 Open (CC BY 4.0), ICT-FaceKit (MIT claimed, contested) and the MediaPipe canonical mesh (Apache-2.0) are GPL-3-compatible in principle but not CC0, so they load from user paths through one barycentric adapter, or ship only in builds distributed off-platform with attribution. FLAME 2023 Open's licence is settled in sibling notes, but its contents (component counts, masks, UVs, landmark files and their licences) are not. No harvest or draft existed for this topic: **lib✓** marks facts source-checked in the sibling note named, and every count is a recollection or design default to assert on import.
-> Evidence status: 0 ✅ / 0 📄 / 71 🧠 / 15 ↔️ — 🧠 items are queued for web verification (19 of them are lib✓, already checked in sibling notes).
+> Evidence status: 0 ✅ / 0 📄 / 93 🧠 / 27 ↔️ — 🧠 items are queued for web verification (8 of them, marked lib✓, were already source-checked in sibling notes).
 
 ## Key facts
 
@@ -53,45 +53,45 @@
 | Shape prior | none | targets (piecewise linear) 🧠 | β ~ N(0, I), K unknown ↔️ | 100 PCA 🧠 | none |
 | Mirror map shipped | no; compute (modelled symmetric) 🧠 | no; MakeTarget mirrors targets 🧠 | no; compute on mean ↔️ | no; compute ↔️ | landmark pairs by construction 🧠 |
 
-**Table 2: proposed template budget** (adult head at 1 unit = 1 m; edge lengths at Multires level 0) 🧠
+**Table 2: proposed template budget** (adult head at 1 unit = 1 m; edge lengths at Multires level 0; design defaults)
 
-| Sub-mesh | Vertices | Edge length | Notes |
-|---|---|---|---|
-| Skin: head, neck, ears; closed scalp, open neck | 8,000–12,000 | lids 1–2 mm across loops; lips 1.5–3; nose 1.5–3; cheek 4–7; scalp and neck 6–12 | exact x = 0 midline; poles ≥ 2 rings from margins |
-| Lid tuck into the socket | 2–3 loops | ≤ 1.5 mm | ends behind the globe, or closes into a socket sac |
-| Mouth bag, continuous with the inner lip loops | 300–800 | 4–8 mm | ≈30–40 mm deep |
-| Eyeballs (sclera + cornea shells) ×2 | 500–1,000 each | — | globe ≈24 mm (lib 📄), cornea R ≈7.8 mm (lib ✅) |
-| Teeth and gums (upper, lower) | 600–3,000 | — | rigid; follow skull and jaw |
-| Tongue | 300–800 | — | rigid in neutral |
-| Multires at level 4 (×256 faces) | ≈2–3M faces on skin | 0.15–0.5 mm | pores need level 4–5 |
+| Sub-mesh | Vertices | Edge length | Notes | Badge |
+|---|---|---|---|---|
+| Skin: head, neck, ears; closed scalp, open neck | 8,000–12,000 | lids 1–2 mm across loops; lips 1.5–3; nose 1.5–3; cheek 4–7; scalp and neck 6–12 | exact x = 0 midline; poles ≥ 2 rings from margins | 🧠 |
+| Lid tuck into the socket | 2–3 loops | ≤ 1.5 mm | ends behind the globe, or closes into a socket sac | 🧠 |
+| Mouth bag, continuous with the inner lip loops | 300–800 | 4–8 mm | ≈30–40 mm deep | 🧠 |
+| Eyeballs (sclera + cornea shells) ×2 | 500–1,000 each | — | globe ≈24 mm (lib 📄), cornea R ≈7.8 mm (lib ✅) | 🧠 |
+| Teeth and gums (upper, lower) | 600–3,000 | — | rigid; follow skull and jaw | 🧠 |
+| Tongue | 300–800 | — | rigid in neutral | 🧠 |
+| Multires at level 4 (×256 faces) | ≈2–3M faces on skin | 0.15–0.5 mm | pores need level 4–5 | 🧠 |
 
-**Table 3: landmark conventions the sidecar embeds** 🧠
+**Table 3: landmark conventions the sidecar embeds**
 
-| Convention | Points | Kind | Storage |
-|---|---|---|---|
-| MediaPipe 468 (+10 iris) | 478 | surface; the 36 face-oval points are semi-contour; iris on the eyeball model | (tri, bary) via canonical-mesh registration; iris → limbus circle |
-| iBUG-68 (dlib, FAN, 300-W) | 68 | 51 surface + 17 jaw contour | 51 (tri, bary); 17 → candidate rings |
-| WFLW-98 | 98 | 65 surface + 33 contour | same pattern |
-| FLAME static 51 + dynamic 17 | 68 | as iBUG, yaw-binned (79 bins, lib) | only when FLAME is loaded |
-| Farkas anthropometric | ≈40 | fixed vertex, or extremal over a candidate set | see Applying, step 4 |
+| Convention | Points | Kind | Storage | Badge |
+|---|---|---|---|---|
+| MediaPipe 468 (+10 iris) | 478 | surface; the 36 face-oval points are semi-contour; iris on the eyeball model | (tri, bary) via canonical-mesh registration; iris → limbus circle | 🧠 |
+| iBUG-68 (dlib, FAN, 300-W) | 68 | 51 surface + 17 jaw contour | 51 (tri, bary); 17 → candidate rings | 🧠 |
+| WFLW-98 | 98 | 65 surface + 33 contour | same pattern | 🧠 |
+| FLAME static 51 + dynamic 17 | 68 | as iBUG, yaw-binned (79 bins, lib) | only when FLAME is loaded | 🧠 lib |
+| Farkas anthropometric | ≈40 | fixed vertex, or extremal over a candidate set | see Applying, step 4 | 🧠 |
 
-**Table 4: region masks and per-region residual σ** (per-vertex offset after the basis fit, at 1 SD) 🧠 design defaults
+**Table 4: region masks and per-region residual σ** (per-vertex offset after the basis fit, at 1 SD; design defaults, adults)
 
-| Region | σ offset (mm) | Landmark weight | Comment |
-|---|---|---|---|
-| Lids, canthi | 1.0–1.5 | 1.0 | thin tissue, well observed |
-| Lips, vermilion | 1.5–2.5 | 1.0 | expression contaminates |
-| Nose | 2–3 | 1.0 | profile and silhouette drive it |
-| Brow, forehead | 2–3 | 0.7 | brow points mark hair, not bone |
-| Cheek, malar | 2.5–4 | 0.5 | fat variation; shading cues |
-| Jaw, chin | 2–4 | 0.7 (contour) | silhouette-driven |
-| Ears | 3–5 | 0.3–0.5 | poorly observed, highly individual |
-| Scalp, back of head | 3–6 | 0.1 | hair; prior dominates |
-| Neck | 5–10 | 0.1–0.2 | posture, not identity |
-| Mouth interior, eyeballs, teeth | 0 (rigid or excluded) | 0 | own models |
-| Symmetry residual | face 1.5, lateral and lower 2.5, ears 3.5 | — | mirror RMSD ≈0.8 mm (closest point); landmark pairs differ 0.6–4.6 mm (lib 📄 `anatomy/facial-asymmetry.md`) |
+| Region | σ offset (mm) | Landmark weight | Comment | Badge |
+|---|---|---|---|---|
+| Lids, canthi | 1.0–1.5 | 1.0 | thin tissue, well observed | 🧠 |
+| Lips, vermilion | 1.5–2.5 | 1.0 | expression contaminates | 🧠 |
+| Nose | 2–3 | 1.0 | profile and silhouette drive it | 🧠 |
+| Brow, forehead | 2–3 | 0.7 | brow points mark hair, not bone | 🧠 |
+| Cheek, malar | 2.5–4 | 0.5 | fat variation; shading cues | 🧠 |
+| Jaw, chin | 2–4 | 0.7 (contour) | silhouette-driven | 🧠 |
+| Ears | 3–5 | 0.3–0.5 | poorly observed, highly individual | 🧠 |
+| Scalp, back of head | 3–6 | 0.1 | hair; prior dominates | 🧠 |
+| Neck | 5–10 | 0.1–0.2 | posture, not identity | 🧠 |
+| Mouth interior, eyeballs, teeth | 0 (rigid or excluded) | 0 | own models | 🧠 |
+| Symmetry residual | face 1.5, lateral and lower 2.5, ears 3.5 | — | mirror RMSD ≈0.8 mm (closest point); landmark pairs differ 0.6–4.6 mm (lib 📄 `anatomy/facial-asymmetry.md`) | ↔️ |
 
-**Table 5: axis conversions into Blender** (Z-up, face toward −Y, +X = subject's left) 🧠
+**Table 5: axis conversions into Blender** (Z-up, face toward −Y, +X = subject's left)
 
 | Source | (x, y, z) → Blender | Scale to m | Badge |
 |---|---|---|---|
