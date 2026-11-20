@@ -2,7 +2,7 @@
 
 > Hair hides the vault. A photo-only pipeline sees an upper bound (the hair envelope) plus a few true scalp observations: hairline, parting, nape margin and the skin around the ears. Everything else comes from measurements and priors. Adult vault *size* is tightly distributed (CV ≈ 3–4 % for g–op and eu–eu, ≈ 3 % for circumference). Vault *shape* varies between populations (mean cephalic index ≈ 72–88) and within them, through deformational flattening acquired in infancy. Face shape predicts the vault only weakly, so the cheap, strong fixes are a controlled-hair capture (wet, slicked or capped hair) and three tape measurements, which the engine encodes as one-sided silhouette constraints and arc-length equalities. No harvest or earlier draft existed for this topic: everything is expert knowledge awaiting verification, cross-checked against sibling notes marked (lib: …).
 >
-> Evidence status: 0 ✅ / 0 📄 / 56 🧠 / 34 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 1 📄 / 55 🧠 / 34 ↔️ — 🧠 items are queued for web verification. 2026-11-20 pass: 1 confirmed (NZ cohort), 2 partly sourced (LYHM licence, bizygomatic→breadth r), 3 unconfirmed (ANSUR II values, scalp thickness, CI means).
 
 ## Key facts
 
@@ -50,7 +50,7 @@
 **Face → cranium**
 - **Correlations within a population:**
   - bizygomatic width → head breadth: r ≈ 0.4–0.6;
-  - face size → head length: r ≈ 0.1–0.35;
+  - face size → head length: r ≈ 0.1–0.35 (a Swedish adult sample found head breadth–bizygomatic r ≈ 0.51 M / 0.77 F, with no significant head length–breadth correlation [4]; source text garbled, so treat as indicative);
   - face size → circumference: r ≈ 0.4–0.6;
   - face shape after size removal → vault shape: R² ≈ 0.05–0.2 ↔️.
 - **Integration runs through the cranial base** (Lieberman et al. 2000; Enlow's dolicho→lepto, brachy→eury counterpart principle). It is strong across species and populations but weak for predicting an individual ↔️. At r = 0.5 the residual SD is still 87 % of the prior 🧠.
@@ -62,7 +62,7 @@
   - It completes the cranium by fitting the PCA to the visible face and reading the vault off the covariance 🧠.
 - **UHM** (Ploumpis et al., CVPR 2019; TPAMI 2021) fuses LSFM's ≈ 9.7k-person face space with LYHM by face→head regression and covariance combination. Its vault variability is therefore still the ≈ 1,200 Headspace subjects 🧠. HIFI3D++ also includes Headspace ↔️.
 - **No open, commercially usable statistical vault prior is known to me.**
-  - LYHM, UHM and Headspace are academic and non-commercial, and their status is time-sensitive ↔️.
+  - LYHM and Headspace are academic and non-commercial per the University of York user agreements [2][3]; UHM terms were not found, and the status is time-sensitive ↔️.
   - FLAME 2023 Open (CC BY 4.0) has a scalp, but CAESAR scans were not hair-controlled, so its vault is a smoothed scalp-plus-hair surface ↔️.
   - MPFB/MakeHuman head targets are artist-made 🧠.
 
@@ -116,7 +116,7 @@
 
 | Item | Value | Status |
 |---|---|---|
-| NZ cohort: 6 wk / 4 mo / 8 mo / 12 mo / 24 mo | 16 / 19.7 / 9.2 / 6.8 / 3.3 % | 🧠 |
+| NZ cohort: 6 wk / 4 mo / 8 mo / 12 mo / 24 mo | 16 / 19.7 / 9.2 / 6.8 / 3.3 % [1] | 📄 |
 | Canada, 7–12 weeks | ≈ 47 %, mostly mild | 🧠 |
 | Adults, visible asymmetry | unknown; low single-digit % plausible | ↔️ |
 | CVAI levels (CHOA) | < 3.5; 3.5–6.25; 6.25–8.75; 8.75–11; > 11 % | 🧠 |
@@ -185,7 +185,14 @@
 
 ## Sources
 
-No harvest or earlier draft existed, so no URLs are cited. Related library notes: `anatomy/anthropometric-norms.md`, `anatomy/population-variation.md`, `anatomy/craniometric-landmarks.md`, `anatomy/forehead-brow-temple-hairline.md`, `anatomy/soft-tissue-thickness.md`, `blender/hair-blender.md`, `reconstruction/3dmm-overview.md`, `reconstruction/face-scan-datasets.md`, `reconstruction/flame-model.md`.
+Sources cited (verification pass 2026-11-20):
+1. Hutchison BL et al., Pediatrics 2004;114(4):970-80, https://pubmed.ncbi.nlm.nih.gov/15466093/
+2. Liverpool-York Head Model user agreement, https://www-users.york.ac.uk/~np7/research/LYHM/LYHMagreement08.pdf
+3. The Headspace dataset, University of York, https://www-users.york.ac.uk/~np7/research/Headspace
+4. Head and face dimension correlations in mature Swedish adults, Acta Odontologica, https://medicaljournalssweden.se/actaodontologica/article/download/37863/43029/95612
+5. Britannica, Cephalic index, https://www.britannica.com/science/cephalic-index
+
+No harvest or earlier draft existed otherwise. Related library notes: `anatomy/anthropometric-norms.md`, `anatomy/population-variation.md`, `anatomy/craniometric-landmarks.md`, `anatomy/forehead-brow-temple-hairline.md`, `anatomy/soft-tissue-thickness.md`, `blender/hair-blender.md`, `reconstruction/3dmm-overview.md`, `reconstruction/face-scan-datasets.md`, `reconstruction/flame-model.md`.
 
 **Further reading (by name, not yet linked)**
 - Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994.
@@ -202,3 +209,14 @@ No harvest or earlier draft existed, so no URLs are cited. Related library notes
 - Gravlee CC, Bernard HR, Leonard WR, "Heredity, environment, and cranial form: a reanalysis of Boas's immigrant data", American Anthropologist 2003.
 - Li T et al., FLAME, SIGGRAPH Asia 2017.
 - Loomis A, *Drawing the Head and Hands*, 1956.
+
+## Verification log (2026-11-20)
+
+| Claim | Outcome | Source |
+|---|---|---|
+| ANSUR II / Farkas head length, breadth, circumference, tragion-top priors | unconfirmed: sources located (ANSUR II CSVs, Natick report) but no values retrieved | https://apps.dtic.mil/sti/pdfs/ADA611869.pdf |
+| Face dimensions weakly/moderately predict vault (bizygomatic→breadth r 0.4–0.6, etc.) | contested/partial: Swedish adults r 0.51 M, 0.77 F for breadth; head length not correlated with breadth; no figure for face size→length or R² | https://medicaljournalssweden.se/actaodontologica/article/download/37863/43029/95612 |
+| No open commercial vault prior; LYHM/UHM/Headspace non-commercial; FLAME 2023 scalp not hair-controlled | partial: LYHM and Headspace non-commercial confirmed; UHM and FLAME unconfirmed; negative claim unverifiable | https://www-users.york.ac.uk/~np7/research/LYHM/LYHMagreement08.pdf ; https://www-users.york.ac.uk/~np7/research/Headspace |
+| Hutchison 2004 NZ cohort 16 / 19.7 / 9.2 / 6.8 / 3.3 % | confirmed (one source, 📄); Mawji 2013 46.6 % not verified | https://pubmed.ncbi.nlm.nih.gov/15466093/ |
+| Scalp thickness 4–7 / 5–8 / 6–10 mm; living vs skull +9–13 / +10–16 mm | unconfirmed: searches returned facial tissue depths only | none |
+| Cephalic index population means | unconfirmed: Britannica gives <75 for southern Africans, 75–80 for Europeans and Chinese (older framing), which does not match the note's East Asian 80–88; left as ↔️ | https://www.britannica.com/science/cephalic-index |

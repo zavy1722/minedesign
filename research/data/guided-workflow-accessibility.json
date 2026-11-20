@@ -1,0 +1,694 @@
+{
+  "topic": "guided-workflow-accessibility",
+  "tables": [
+    {
+      "name": "photo_check_thresholds",
+      "units": "per column (IOD = outer inter-canthal distance in image px, adult ~88 mm; blendshape scores are MediaPipe 0-1; luminance on 8-bit sRGB)",
+      "columns": [
+        "check",
+        "measure",
+        "warn_if",
+        "exclude_or_block_if",
+        "units",
+        "status"
+      ],
+      "rows": [
+        [
+          "face_present",
+          "face detector count",
+          ">1 face: ask which",
+          "0 faces: block",
+          "count",
+          "knowledge"
+        ],
+        [
+          "resolution",
+          "outer IOD in pixels",
+          "<250",
+          "<100",
+          "px",
+          "contested"
+        ],
+        [
+          "sharpness",
+          "variance of Laplacian on face crop resampled to IOD=256 px",
+          "<0.6 x photo-set median",
+          "<0.3 x photo-set median",
+          "ratio to set median",
+          "knowledge"
+        ],
+        [
+          "clipped_highlights",
+          "share of face-mask pixels with any channel >=250",
+          ">1",
+          ">5",
+          "%",
+          "knowledge"
+        ],
+        [
+          "crushed_shadows",
+          "share of face-mask pixels <=5",
+          ">2",
+          ">10",
+          "%",
+          "knowledge"
+        ],
+        [
+          "lighting_asymmetry",
+          "left/right cheek mean luminance ratio",
+          ">1.5",
+          ">2.5 (for texture use)",
+          "ratio",
+          "knowledge"
+        ],
+        [
+          "camera_distance",
+          "Z = f_px * 88 mm / IOD_px",
+          "<1.2",
+          "<0.7 (strong warn)",
+          "m",
+          "knowledge"
+        ],
+        [
+          "exif_focal_35mm_eq",
+          "35 mm-equivalent focal length when face fills frame",
+          "<35",
+          "<28",
+          "mm",
+          "knowledge"
+        ],
+        [
+          "eyes_closed",
+          "eyeBlink_L/R",
+          ">0.4",
+          ">0.6: ignore lids in this view",
+          "score 0-1",
+          "knowledge"
+        ],
+        [
+          "mouth_open",
+          "jawOpen",
+          ">0.10",
+          ">0.25: drop view from identity fit",
+          "score 0-1",
+          "knowledge"
+        ],
+        [
+          "smile",
+          "mouthSmile_L/R",
+          ">0.25",
+          ">0.5: drop view from identity fit",
+          "score 0-1",
+          "knowledge"
+        ],
+        [
+          "brow_raise_or_frown",
+          "browInnerUp, browDown",
+          ">0.35",
+          null,
+          "score 0-1",
+          "knowledge"
+        ],
+        [
+          "expression_drift",
+          "L2 distance of 52-blendshape vector vs user-marked neutral photo",
+          ">0.4",
+          ">0.8",
+          "L2 of scores",
+          "knowledge"
+        ],
+        [
+          "hairline_hidden",
+          "hair-mask share of forehead band",
+          ">50: forehead/hairline will be prior-driven",
+          null,
+          "%",
+          "knowledge"
+        ],
+        [
+          "ear_hidden",
+          "ear-region visibility in views with |yaw|>=60 deg",
+          "<50",
+          null,
+          "%",
+          "knowledge"
+        ],
+        [
+          "mirrored_photo",
+          "RMSE reduction when the view is x-flipped (others unchanged)",
+          ">30: flag, never auto-flip",
+          null,
+          "%",
+          "knowledge"
+        ]
+      ],
+      "population": "Adult portrait photo sets for photo-to-head fitting (design heuristics, not measured norms)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Suggested starting defaults to calibrate on real capture sets. Sharpness is relative to the photo set because absolute Laplacian variance depends on camera and content. The ICAO/ISO frontal minimum eye distance (~90-120 px) is from memory and is contested until verified. MediaPipe blendshape scores are not calibrated probabilities; compare against the user's own neutral photo."
+    },
+    {
+      "name": "landmark_placement_error_and_user_pin_sigma",
+      "units": "mm (normal direction, full image resolution); pct_outer_iod assumes outer IOD = 88 mm",
+      "columns": [
+        "class",
+        "examples",
+        "trained_error_mm_lo",
+        "trained_error_mm_hi",
+        "novice_error_mm_lo",
+        "novice_error_mm_hi",
+        "user_sigma_mm_expert",
+        "user_sigma_mm_novice",
+        "user_sigma_pct_outer_iod_novice",
+        "tangent_sigma_mm",
+        "status"
+      ],
+      "rows": [
+        [
+          "crisp_corner",
+          "en, ex, ch, sn, iris centre, closed stomion",
+          0.5,
+          1.0,
+          0.8,
+          1.5,
+          0.8,
+          1.2,
+          1.4,
+          "same as normal",
+          "knowledge"
+        ],
+        [
+          "vermilion_midline",
+          "ls, li",
+          0.5,
+          1.0,
+          1.0,
+          1.5,
+          0.8,
+          1.0,
+          1.1,
+          2.0,
+          "knowledge"
+        ],
+        [
+          "feature_contour",
+          "lid margins, vermilion borders, alar rim",
+          0.5,
+          1.0,
+          1.0,
+          1.5,
+          0.8,
+          1.0,
+          1.1,
+          "free (point-to-curve)",
+          "knowledge"
+        ],
+        [
+          "profile_silhouette",
+          "nose, brow, chin edge in side views",
+          0.5,
+          1.0,
+          1.0,
+          1.5,
+          0.8,
+          1.0,
+          1.1,
+          "free (point-to-curve)",
+          "knowledge"
+        ],
+        [
+          "nose_tip",
+          "prn",
+          1.0,
+          2.0,
+          2.0,
+          3.0,
+          1.5,
+          2.0,
+          2.3,
+          2.0,
+          "contested"
+        ],
+        [
+          "soft_tissue_nasion_vertical",
+          "n', se (vertical component; horizontal ~0.5-1 mm, sigma 1.0)",
+          2.0,
+          4.0,
+          3.0,
+          5.0,
+          3.0,
+          3.5,
+          4.0,
+          null,
+          "knowledge"
+        ],
+        [
+          "alar_base",
+          "ac, al, sbal",
+          1.0,
+          1.5,
+          1.5,
+          2.5,
+          1.3,
+          1.8,
+          2.0,
+          null,
+          "knowledge"
+        ],
+        [
+          "ear_points",
+          "sa, sba, obs, obi, t (side views)",
+          1.0,
+          2.0,
+          2.0,
+          3.0,
+          2.0,
+          2.5,
+          2.8,
+          null,
+          "knowledge"
+        ],
+        [
+          "palpation_defined",
+          "go, zy, or, me, g",
+          2.0,
+          4.0,
+          3.0,
+          6.0,
+          4.0,
+          5.0,
+          5.7,
+          "offer as curve/silhouette only",
+          "contested"
+        ],
+        [
+          "hair_defined",
+          "trichion, brows",
+          2.0,
+          5.0,
+          3.0,
+          8.0,
+          4.0,
+          5.0,
+          5.7,
+          "never use for skull fit",
+          "knowledge"
+        ]
+      ],
+      "population": "Trained operators on 3D stereophotogrammetry/clinical landmarking (literature recalled from memory); novice values extrapolated (about 1.3-2x on ambiguous points)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Engine design defaults, not measurements. Combine sigma = sqrt(sigma_class^2 + sigma_motor^2); motor term 0.5-1 screen px (trained) or 0.7-1.5 screen px (novice) times image px per screen px at placement zoom (about 0.4 mm per screen px at fit-to-window on a 12 MP portrait, negligible at 100% zoom). Huber threshold 2 sigma. Library default user-pin sigma 0.75% IOD (~0.66 mm) matches only the expert crisp-corner row (contested). Expert sigma values in this row are design choices slightly below the trained-error midpoint."
+    },
+    {
+      "name": "user_pin_sigma_calibration",
+      "units": "as stated",
+      "columns": [
+        "parameter",
+        "value",
+        "units",
+        "status"
+      ],
+      "rows": [
+        [
+          "onboarding_repeat_landmarks",
+          6,
+          "crisp landmarks placed twice",
+          "knowledge"
+        ],
+        [
+          "sigma_rep_formula",
+          "RMS(difference)/sqrt(2)",
+          "mm",
+          "knowledge"
+        ],
+        [
+          "convention_allowance",
+          0.3,
+          "mm added to sigma_rep",
+          "knowledge"
+        ],
+        [
+          "sigma_crisp_floor",
+          0.5,
+          "mm",
+          "knowledge"
+        ],
+        [
+          "inflate_if_whitened_residual_MAD_scale_above",
+          1.5,
+          "sigma units",
+          "knowledge"
+        ],
+        [
+          "conflict_flag_normalised_residual",
+          3.0,
+          "sigma",
+          "knowledge"
+        ],
+        [
+          "conflict_flag_epipolar_distance",
+          3.0,
+          "sigma",
+          "knowledge"
+        ],
+        [
+          "user_pin_replaces_auto_within",
+          3.0,
+          "% outer IOD",
+          "knowledge"
+        ],
+        [
+          "max_user_pins_per_feature_per_view_before_warning",
+          "3-5",
+          "pins",
+          "knowledge"
+        ],
+        [
+          "single_view_pin_share_warning",
+          60,
+          "% of all user pins",
+          "knowledge"
+        ]
+      ],
+      "population": "n/a (design defaults)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Self-calibration underestimates systematic convention bias, hence the additive allowance."
+    },
+    {
+      "name": "pose_coverage_targets",
+      "units": "degrees (yaw + = subject's left side toward camera; pitch - = camera below)",
+      "columns": [
+        "view",
+        "yaw_deg_lo",
+        "yaw_deg_hi",
+        "pitch_deg_lo",
+        "pitch_deg_hi",
+        "priority",
+        "constrains",
+        "status"
+      ],
+      "rows": [
+        [
+          "frontal",
+          -5,
+          5,
+          -5,
+          5,
+          "required",
+          "widths, eye and mouth shape, asymmetry, texture",
+          "knowledge"
+        ],
+        [
+          "three_quarter_left_and_right",
+          30,
+          45,
+          -10,
+          10,
+          "required (both sides)",
+          "nose projection, cheek and jaw depth, triangulation baseline",
+          "knowledge"
+        ],
+        [
+          "profiles",
+          80,
+          90,
+          0,
+          0,
+          "strongly advised",
+          "nose, brow and chin profile silhouette; ear position",
+          "knowledge"
+        ],
+        [
+          "low_camera_below",
+          0,
+          30,
+          -25,
+          -15,
+          "advised",
+          "submental, jaw underside, nostrils",
+          "knowledge"
+        ],
+        [
+          "high_camera_above",
+          0,
+          0,
+          15,
+          20,
+          "optional",
+          "brow ridge, top of head",
+          "knowledge"
+        ],
+        [
+          "ear_closeups",
+          90,
+          90,
+          0,
+          0,
+          "optional",
+          "helix, concha, lobule",
+          "knowledge"
+        ]
+      ],
+      "population": "Adult neutral-expression capture at >=1.5 m camera distance",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Yaw ranges are magnitudes applied to both sides. Minimum viable set: frontal + both 3/4 (3 photos); good set: 5-7 photos, one expression throughout."
+    },
+    {
+      "name": "overlay_encoding_okabe_ito",
+      "units": "sRGB hex; sizes in px x preferences.system.ui_scale",
+      "columns": [
+        "role",
+        "hex",
+        "colour_name",
+        "shape",
+        "status"
+      ],
+      "rows": [
+        [
+          "auto_pin",
+          "#56B4E9",
+          "sky blue",
+          "filled circle, dark outline + light halo",
+          "knowledge"
+        ],
+        [
+          "user_pin",
+          "#E69F00",
+          "orange",
+          "filled square, dark outline + light halo",
+          "knowledge"
+        ],
+        [
+          "conflict_gt_3sigma",
+          "#D55E00",
+          "vermillion",
+          "cross plus residual line",
+          "knowledge"
+        ],
+        [
+          "selected",
+          "#F0E442",
+          "yellow",
+          "2 px ring",
+          "knowledge"
+        ],
+        [
+          "model_contours_silhouette",
+          "#009E73",
+          "bluish green",
+          "1.5-2 px polyline (POLYLINE shader)",
+          "knowledge"
+        ],
+        [
+          "prior_driven_region",
+          "#CC79A7",
+          "reddish purple",
+          "hatching, not fill",
+          "knowledge"
+        ],
+        [
+          "outline_text",
+          "#000000",
+          "black",
+          "outline / text",
+          "knowledge"
+        ]
+      ],
+      "population": "n/a (palette)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Okabe-Ito Color Universal Design palette (hex values from memory; verify). Residual magnitude uses cividis in 4 bins: <1, 1-2, 2-3, >3 sigma; residual lines drawn at true length, x3 optional and labelled."
+    },
+    {
+      "name": "accessibility_minima",
+      "units": "as stated",
+      "columns": [
+        "item",
+        "value",
+        "units",
+        "status"
+      ],
+      "rows": [
+        [
+          "non_text_contrast_min",
+          3.0,
+          "contrast ratio (WCAG 2.2 SC 1.4.11)",
+          "knowledge"
+        ],
+        [
+          "text_contrast_min",
+          4.5,
+          "contrast ratio (WCAG 2.2 SC 1.4.3, AA)",
+          "knowledge"
+        ],
+        [
+          "target_size_min",
+          24,
+          "CSS px square (WCAG 2.2 SC 2.5.8, AA)",
+          "knowledge"
+        ],
+        [
+          "pin_draw_radius",
+          9,
+          "px x ui_scale",
+          "knowledge"
+        ],
+        [
+          "pin_hit_radius",
+          12,
+          "px x ui_scale",
+          "knowledge"
+        ],
+        [
+          "red_green_cvd_prevalence_men",
+          8,
+          "% (Northern European ancestry)",
+          "knowledge"
+        ],
+        [
+          "red_green_cvd_prevalence_women",
+          0.5,
+          "% (Northern European ancestry)",
+          "knowledge"
+        ],
+        [
+          "live_solve_min_fps",
+          20,
+          "frames per second",
+          "knowledge"
+        ],
+        [
+          "live_solve_lm_iterations_per_mouse_event",
+          "2-5",
+          "iterations (warm-started)",
+          "knowledge"
+        ],
+        [
+          "solve_on_release_if_iteration_exceeds",
+          50,
+          "ms",
+          "knowledge"
+        ],
+        [
+          "modal_timer_budget_per_tick",
+          "30-50",
+          "ms",
+          "knowledge"
+        ]
+      ],
+      "population": "General users; CVD prevalence for Northern European ancestry (lower in many other populations)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "WCAG applies to web content; used here by analogy for viewport overlays. Timing values are design targets, not measurements."
+    },
+    {
+      "name": "support_map_bins",
+      "units": "support s = 1 - sigma_post^2 / sigma_prior^2 (0-1)",
+      "columns": [
+        "label_plain_language",
+        "s_lo",
+        "s_hi",
+        "status"
+      ],
+      "rows": [
+        [
+          "measured from photos",
+          0.7,
+          1.0,
+          "knowledge"
+        ],
+        [
+          "partly measured",
+          0.3,
+          0.7,
+          "knowledge"
+        ],
+        [
+          "guessed from average head",
+          0.0,
+          0.3,
+          "knowledge"
+        ]
+      ],
+      "population": "n/a (design defaults)",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Write as point attributes f3d_support and f3d_sigma_mm; offer an operator that copies (1 - support) into the sculpt mask. Wobble preview: 8-12 posterior samples."
+    },
+    {
+      "name": "usability_testing_parameters",
+      "units": "as stated",
+      "columns": [
+        "item",
+        "value",
+        "units",
+        "status"
+      ],
+      "rows": [
+        [
+          "formative_think_aloud_users_per_round",
+          5,
+          "participants",
+          "contested"
+        ],
+        [
+          "formative_rounds_min",
+          3,
+          "rounds",
+          "knowledge"
+        ],
+        [
+          "summative_task_metrics_users_min",
+          "15-20",
+          "participants",
+          "knowledge"
+        ],
+        [
+          "sus_cross_study_mean",
+          68,
+          "SUS points (0-100)",
+          "knowledge"
+        ],
+        [
+          "sus_good_threshold",
+          80,
+          "SUS points (~top 10-15%)",
+          "knowledge"
+        ],
+        [
+          "likeness_judges_familiar_min",
+          5,
+          "people who know the subject",
+          "knowledge"
+        ]
+      ],
+      "population": "Usability-testing practice for desktop creative tools",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "The '5 users find ~85% of problems' rule (Nielsen & Landauer 1993) is contested (Faulkner 2003); valid for iterative formative rounds, not for estimating rates. Pin-accuracy tests should use synthetic renders with known landmarks and report RMS mm per landmark class."
+    }
+  ]
+}

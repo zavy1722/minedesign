@@ -56,10 +56,10 @@
      0.02,
      0.08,
      "Apache-2.0",
-     "per model card (verify)",
+     "Apache-2.0 (hair model card)",
      "Google internal",
-     "likely",
-     "contested"
+     "yes (card)",
+     "verified"
     ],
     [
      "MobileSAM",
@@ -139,11 +139,11 @@
      3600,
      30,
      120,
-     "custom SAM licence (verify)",
-     "custom, gated (verify)",
+     "custom SAM licence",
+     "custom SAM licence, gated",
      "Meta data engine",
-     "verify",
-     "contested"
+     "yes with use restrictions; read licence",
+     "verified"
     ],
     [
      "u2netp",
@@ -197,9 +197,9 @@
      4,
      "MIT",
      "MIT",
-     "DIS5K, HRSOD, UHRSD, P3M etc. (research)",
+     "DIS5K, HRSOD, UHRSD, DUTS etc. (research)",
      "weights yes; data contested",
-     "contested"
+     "verified (weights licence); data taint contested"
     ],
     [
      "BiRefNet (Swin-L)",
@@ -211,9 +211,9 @@
      20,
      "MIT",
      "MIT",
-     "DIS5K, HRSOD, UHRSD, P3M etc. (research)",
+     "DIS5K, HRSOD, UHRSD, DUTS etc. (research)",
      "weights yes; data contested",
-     "contested"
+     "verified (weights licence); data taint contested"
     ],
     [
      "RMBG-1.4 (BRIA)",
@@ -238,10 +238,10 @@
      5,
      20,
      "custom",
-     "CC BY-NC 4.0",
+     "CC BY-NC 4.0 (some HF metadata: custom bria-rmbg-2.0)",
      "licensed (BRIA)",
      "no",
-     "knowledge"
+     "verified"
     ],
     [
      "BiSeNet face-parsing.PyTorch",
@@ -340,8 +340,8 @@
      19,
      true,
      true,
-     "non-commercial research",
-     "knowledge"
+     "non-commercial research only",
+     "verified"
     ],
     [
      "LaPa",

@@ -2,7 +2,7 @@
 
 > Silhouettes recover what landmarks miss: the profile line (g′–n′–prn–sn–ls–li–pg′), the jaw and cheek outline, and ear protrusion. Segmentation should supply *semantics* (which stretch of an outline is skin against background, and which is hair, beard, glasses or clothing); sub-pixel image edges should supply *position*. For a commercial GPL add-on, only a few models are clean: MediaPipe's selfie, multiclass and hair segmenters (tiny; weight terms to re-check), SAM/SAM 2 and U²-Net/IS-Net (Apache-2.0), and BiRefNet (MIT weights, research training data). Every public face parser with ear, glasses and earring classes (BiSeNet, FaRL, SegFace) inherits non-commercial CelebAMask-HQ/LaPa terms, and BRIA's RMBG is non-commercial outright. Turn masks into normal-only contour residuals, each with its own σ and a *kind* (two-sided for skin|background, one-sided outer bound for hair, beard and hats); re-pick correspondences every iteration; and find the profile points by ordered curvature analysis.
 >
-> Evidence status: 0 ✅ / 0 📄 / 64 🧠 / 20 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 8 📄 / 60 🧠 / 16 ↔️ — verification pass of 2026-11-20 done; remaining 🧠 items are unverified.
 
 There was no harvest file or earlier draft, so no URL is cited. Related notes: `ethics/licences-tos.md` (licence rows, taint chain), `blender/blender-python-ml-deps.md` (worker, wheels), `reconstruction/landmark-detection.md` and `deformation-fitting-math.md` (contour σ, marching), `monocular-depth-normals.md` (Sapiens, DAViD) and `anatomy/jaw-chin-neck.md` (profile norms). The engine's current fitter is `face3d/fit/silhouette.py`.
 
@@ -24,12 +24,12 @@ There was no harvest file or earlier draft, so no URL is cited. Related notes: `
 - **Face-skin vs body-skin.** In MediaPipe multiclass, this boundary roughly follows the jaw contour under a level head. Its semantics are undocumented, so snap it to an image edge and inflate σ 3–5×. ↔️
 
 **Models (licences are time-sensitive)**
-- **MediaPipe segmenters.** *Selfie*: binary, about 0.25 MB. *Selfie multiclass*: 256², with background, hair, body-skin, face-skin, clothes and others; roughly 16 MB. *Hair*: 512², about 0.8 MB; the legacy graph took the previous mask as a 4th channel, so pass zeros for stills. Code is Apache-2.0, but weight terms come from per-model cards that differ and have changed. ↔️ They were built for selfie effects: smooth edges, missed strands, and no face detector needed, so they still run in full profile. 🧠
+- **MediaPipe segmenters.** *Selfie*: binary, about 0.25 MB. *Selfie multiclass*: 256², with background, hair, body-skin, face-skin, clothes and others; roughly 16 MB. *Hair*: 512², about 0.8 MB; the legacy graph took the previous mask as a 4th channel, so pass zeros for stills. Code is Apache-2.0, but weight terms come from per-model cards that differ and have changed. The hair model card states Apache-2.0 [1]; the multiclass card's licence text was not retrievable, though its six classes (background, hair, body-skin, face-skin, clothes, others) are confirmed [2]. ↔️ They were built for selfie effects: smooth edges, missed strands, and no face detector needed, so they still run in full profile. 🧠
 - **SAM / SAM 2.1.** Apache-2.0 code and checkpoints. Landmark-derived point or box prompts give person, head or hair masks; multimask output resolves the ambiguity. Edges are good but not matting-grade. SAM 2's video mode can carry one prompt across a turntable sequence. MobileSAM (Apache-2.0, about 40 MB) is the CPU option. 🧠
-- **SAM 3** (Meta, November 2025). Text "concepts" such as *beard* or *glasses*; custom SAM licence; gated checkpoints; about 0.85 B parameters, so impractical on CPU. Verify before use. ↔️
-- **BiRefNet.** MIT code and weights, in general, lite, portrait/matting and 2K variants; the best hair edges of the permissive set. Training mixes DIS5K, HRSOD, UHRSD, P3M and other research data: the weights are clean, but data taint is contested. ↔️
+- **SAM 3** (Meta, November 2025). Text "concepts" such as *beard* or *glasses*; custom SAM licence (royalty-free, commercial use allowed, with use restrictions and revocable terms) [3]; checkpoints gated on Hugging Face [3]; about 0.85 B parameters (not verified), so impractical on CPU. Read the full licence before use. 📄
+- **BiRefNet.** MIT code and weights [4], in general, lite, portrait/matting and 2K variants; the best hair edges of the permissive set. Training mixes DIS5K-TR, HRSOD, UHRSD, DUTS and other research data [7] (P3M not seen in the sources): the weights are clean, but data taint is contested. 📄
 - **U²-Net / u2netp / IS-Net.** Apache-2.0, trained on DUTS-TR and DIS5K (research data). ↔️ **rembg** is MIT, but its download zoo mixes clean and NC models (BRIA among them) and its dependencies (pymatting → numba/scipy) are heavy. Load whitelisted ONNX files directly instead. 🧠
-- **RMBG-1.4 / 2.0 (BRIA).** Non-commercial (2.0 is CC BY-NC 4.0); commercial use needs a BRIA agreement. 🧠
+- **RMBG-1.4 / 2.0 (BRIA).** Non-commercial (2.0 is CC BY-NC 4.0 per the official README, though some Hugging Face metadata labels it a custom "bria-rmbg-2.0" licence; 1.4 not checked); commercial use needs a BRIA agreement [5]. 📄
 - **Face parsers.** *BiSeNet* (face-parsing.PyTorch): MIT code, ResNet-18 at 512 px, 19 CelebAMask-HQ classes including ears, earring, glasses, hat and neck. *FaRL*: LAION-FACE pretraining, then CelebAMask-HQ or LaPa fine-tuning. *SegFace* (AAAI 2025): long-tail classes. All carry non-commercial data. 🧠
 - **Matting.** MODNet (about 25 MB) has unclear weight terms. ↔️ RVM is GPL-3.0 in code and weights, so it is compatible with a GPL add-on, but it was trained on research data. ↔️ The guided filter, closed-form matting and GrabCut are licence-free algorithms. 🧠
 - **Masks already in the photo.** iPhone Portrait HEICs can embed reduced-resolution hair, skin, teeth and glasses mattes. These are the subject's own data; extracting them through libheif is unverified. ↔️
@@ -48,15 +48,15 @@ There was no harvest file or earlier draft, so no URL is cited. Related notes: `
 |---|---|---|---|---|---|---|
 | MP selfie | person | 256 | ~0.25 | <0.01 | likely (card) | ↔️ |
 | MP selfie multiclass | 6 classes | 256 | ~16 | 0.02–0.08 | likely (card) | ↔️ |
-| MP hair | hair | 512 | ~0.8 | 0.02–0.08 | likely (card) | ↔️ |
+| MP hair | hair | 512 | ~0.8 | 0.02–0.08 | Apache-2.0 (card) [1] | 📄 |
 | MobileSAM | prompted | 1024 | ~40 | 0.2–0.6 (encoder) | Apache-2.0 | 🧠 |
 | SAM 2.1 tiny / small | prompted | 1024 | ~150 / ~180 | 1–4 | Apache-2.0 | 🧠 |
 | SAM ViT-B / SAM 2.1 large | prompted | 1024 | ~360 / ~900 | 2–8 / 8–30 | Apache-2.0 | 🧠 |
-| SAM 3 | text + prompts | ~1000 | ~3400 | 30–120+ | custom, verify | ↔️ |
+| SAM 3 | text + prompts | ~1000 | ~3400 | 30–120+ | custom SAM licence [3] | 📄 |
 | u2netp / U²-Net | salient object | 320 | 4.7 / 176 | 0.05–0.15 / 0.3–1 | weights yes | 🧠 |
 | IS-Net general | dichotomous | 1024 | ~170 | 1–3 | weights yes | 🧠 |
-| BiRefNet lite / full | dichotomous | 1024 | ~180 / ~900 | 1–4 / 5–20 | MIT | 🧠 |
-| RMBG-1.4 / 2.0 | foreground | 1024 | ~176 / ~885 | 1–3 / 5–20 | no (NC) | 🧠 |
+| BiRefNet lite / full | dichotomous | 1024 | ~180 / ~900 | 1–4 / 5–20 | MIT [4] | 📄 |
+| RMBG-1.4 / 2.0 | foreground | 1024 | ~176 / ~885 | 1–3 / 5–20 | no (NC) [5] | 📄 |
 | BiSeNet parser | 19 face classes | 512 | ~50 | 0.05–0.3 | no | 🧠 |
 | FaRL ViT-B parser | 19 / 11 classes | 448 | ~350 | 0.5–2 | no | 🧠 |
 | SegFace Swin-B | 19 / 11 classes | 512 | ~400 | 1–3 | no | 🧠 |
@@ -68,7 +68,7 @@ Also budget for the onnxruntime wheel (5–20 MB) and session creation (0.2–2 
 
 | Dataset | Size | Classes | Terms | Badge |
 |---|---|---|---|---|
-| CelebAMask-HQ | 30 k at 512² | 19, incl. ears, earring, glasses, hat | non-commercial | 🧠 |
+| CelebAMask-HQ | 30 k at 512² | 19, incl. ears, earring, glasses, hat | non-commercial research only [6] | 📄 |
 | LaPa | ~22 k | 11, no ears or accessories | research | 🧠 |
 | Helen (Smith labels) | ~2.3 k | 11 | research | 🧠 |
 | Reported mean F1 | CelebAMask-HQ ≈ 86–89 %; LaPa ≈ 92–93 % | — | — | ↔️ |
@@ -164,7 +164,13 @@ QA ranges from the library: nasofrontal about 115–135°, nasolabial about 90�
 
 ## Sources
 
-No harvest or earlier draft existed for this topic; no URLs are cited.
+1. Google, MediaPipe Hair Segmentation model card (Apache-2.0) — https://dcmpx.remotevs.com/com/googleapis/storage/SL/mediapipe-assets/Model%20Card%20-%20Hair%20Segmentation.pdf
+2. Google, MediaPipe Image Segmenter guide (multiclass classes) — https://developers.google.com/edge/mediapipe/solutions/vision/image_segmenter
+3. Meta, SAM 3 licence on Hugging Face — https://huggingface.co/facebook/sam3/blob/main/LICENSE (repo: https://github.com/facebookresearch/sam3)
+4. BiRefNet official model card (MIT) — https://huggingface.co/ZhengPeng7/BiRefNet
+5. BRIA RMBG-2.0 README (CC BY-NC 4.0, commercial agreement) — https://github.com/Bria-AI/RMBG-2.0
+6. CelebAMask-HQ project page (non-commercial research only) — https://mmlab.ie.cuhk.edu.hk/projects/CelebA/CelebAMask_HQ.html
+7. Zheng et al., BiRefNet paper (training sets) — https://arxiv.org/html/2401.03407v7
 
 **Further reading (by name, not yet linked)**
 - Lee et al., "MaskGAN" (CelebAMask-HQ), CVPR 2020; Liu et al., LaPa, AAAI 2020
@@ -178,3 +184,14 @@ No harvest or earlier draft existed for this topic; no URLs are cited.
 - Zhu et al., HPEN, CVPR 2015; Zhu et al., 3DDFA, CVPR 2016; Wood et al., FaceSynthetics, ICCV 2021
 - Farkas, *Anthropometry of the Head and Face*, 1994; Legan & Burstone, soft-tissue cephalometric analysis, 1980
 - Google MediaPipe model cards: Selfie, Selfie Multiclass and Hair Segmentation
+
+## Verification log (2026-11-20)
+
+| Claim | Outcome | Source |
+|---|---|---|
+| MediaPipe multiclass (256², six classes, ~16 MB) and hair (512², ~0.8 MB) weights are Apache-2.0 and bundle-able | Partly confirmed: hair card is Apache-2.0; multiclass licence text not retrieved (classes confirmed); size not checked. Row stays ↔️ for multiclass | [1] https://dcmpx.remotevs.com/com/googleapis/storage/SL/mediapipe-assets/Model%20Card%20-%20Hair%20Segmentation.pdf ; [2] https://developers.google.com/edge/mediapipe/solutions/vision/image_segmenter |
+| SAM 3: custom SAM licence, gated checkpoints, ~0.85 B params; SAM 2/2.1 Apache-2.0 | Confirmed (licence, gating); params and SAM 2 Apache not checked | https://huggingface.co/facebook/sam3/blob/main/LICENSE ; https://github.com/facebookresearch/sam3 |
+| BiRefNet MIT code/weights; trained on DIS5K, HRSOD, UHRSD, P3M etc. | Confirmed MIT; datasets confirmed as DIS5K-TR, HRSOD, UHRSD, DUTS (P3M not seen) | https://huggingface.co/ZhengPeng7/BiRefNet ; https://arxiv.org/html/2401.03407v7 |
+| RMBG-2.0 CC BY-NC 4.0; RMBG-1.4 NC; rembg zoo includes them | Confirmed for 2.0 (some HF metadata uses a custom licence label); 1.4 and rembg unconfirmed | https://github.com/Bria-AI/RMBG-2.0 |
+| Face parsers (BiSeNet, FaRL, SegFace) inherit NC dataset terms | CelebAMask-HQ NC confirmed; LaPa only via secondary source; parser-specific terms unconfirmed (bullet stays 🧠) | https://mmlab.ie.cuhk.edu.hk/projects/CelebA/CelebAMask_HQ.html |
+| MP multiclass face-skin/body-skin boundary follows jaw; beard labelling | Unconfirmed: classes listed, no beard or boundary documentation found | https://developers.google.com/edge/mediapipe/solutions/vision/image_segmenter |

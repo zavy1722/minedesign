@@ -1,0 +1,24 @@
+{
+ "topic": "ear-reconstruction-sculpting",
+ "sources": [],
+ "references_by_name": [
+  "Zhou & Zafeiriou, \"Deformable Models of Ears in-the-Wild for Alignment and Recognition\", IEEE FG 2017",
+  "Emeršič, Štruc & Peer, \"Ear recognition: More than a survey\", Neurocomputing 2017",
+  "Unconstrained Ear Recognition Challenge (UERC) papers, 2017 and 2019",
+  "Dai, Pears & Smith, York Ear Model (data-augmented 3D morphable ear model), IEEE FG 2018",
+  "Ploumpis et al., \"Combining 3D Morphable Models: A Large Scale Face-and-Head Model\", CVPR 2019",
+  "Ploumpis et al., UHM TPAMI 2021 follow-up (complete head model with ears, eyes, mouth interior)",
+  "Algazi, Duda, Thompson & Avendano, \"The CIPIC HRTF Database\", IEEE WASPAA 2001",
+  "Jin et al., SYMARE (Sydney York Morphological and Acoustic Recordings of Ears) database, 2014",
+  "Brinkmann et al., HUTUBS HRTF and 3D head-mesh database, 2019",
+  "Huang et al., AudioEar (single-view ear reconstruction for personalized spatial audio), AAAI 2023",
+  "Yan & Bowyer, 3D ear biometrics (UND collections), IEEE TPAMI 2007",
+  "Hoang, EarVN1.0 ear image dataset, Data in Brief 2019",
+  "Lee et al., MaskGAN / CelebAMask-HQ, CVPR 2020",
+  "Iannarelli, Ear Identification, 1989",
+  "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "McDowell, goals in otoplasty for protruding ears, Plastic and Reconstructive Surgery, 1968",
+  "Blender Studio, Human Base Meshes asset bundle, 2023",
+  "MakeHuman / MPFB2 documentation (ear modifiers / targets)"
+ ]
+}

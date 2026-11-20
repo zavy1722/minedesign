@@ -1,0 +1,761 @@
+{
+ "topic": "ear-reconstruction-sculpting",
+ "tables": [
+  {
+   "name": "ear_landmark_segmentation_resources",
+   "units": "images / subjects (counts recalled, approximate)",
+   "columns": [
+    "resource",
+    "content",
+    "images_approx",
+    "subjects_approx",
+    "landmarks",
+    "licence_recalled",
+    "commercial_ok"
+   ],
+   "rows": [
+    [
+     "iBUG in-the-wild ears (Zhou & Zafeiriou, FG 2017), landmark collection",
+     "2D in-the-wild",
+     600,
+     null,
+     55,
+     "research only",
+     "no"
+    ],
+    [
+     "iBUG in-the-wild ears, identity collection",
+     "2D in-the-wild",
+     2000,
+     null,
+     null,
+     "research only",
+     "no"
+    ],
+    [
+     "AWE (Ljubljana)",
+     "2D in-the-wild identities",
+     1000,
+     100,
+     null,
+     "research, request form",
+     "no"
+    ],
+    [
+     "AMI ear database",
+     "2D constrained",
+     700,
+     100,
+     null,
+     "research",
+     "no"
+    ],
+    [
+     "EarVN1.0",
+     "2D in-the-wild identities",
+     28000,
+     164,
+     null,
+     "possibly CC BY (verify)",
+     "check"
+    ],
+    [
+     "UND Collection J2",
+     "2D + 3D range",
+     null,
+     400,
+     null,
+     "licence agreement",
+     "no"
+    ],
+    [
+     "CelebAMask-HQ",
+     "face parsing incl. l_ear, r_ear, earring masks",
+     30000,
+     null,
+     null,
+     "non-commercial",
+     "no"
+    ],
+    [
+     "COCO keypoints / MediaPipe Pose",
+     "1 point per ear",
+     null,
+     null,
+     1,
+     "CC BY annotations / Apache-2.0",
+     "yes (check weights)"
+    ]
+   ],
+   "population": "mixed in-the-wild web images and lab captures",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "All sizes and licences are recalled; iBUG and EarVN1.0 rows are contested and queued for verification. Never bundle research-only landmark data or models trained on it."
+  },
+  {
+   "name": "ear_3d_geometry_sources",
+   "units": "categorical",
+   "columns": [
+    "model",
+    "ear_content",
+    "licence_recalled",
+    "commercial_ok",
+    "use_in_addon"
+   ],
+   "rows": [
+    [
+     "York Ear Model (FG 2018)",
+     "ear-only 3DMM, ~500 training ears (recalled)",
+     "research, on request",
+     "no",
+     "user-supplied, local only"
+    ],
+    [
+     "UHM (CVPR 2019 / TPAMI 2021)",
+     "head 3DMM with YEM-derived ear",
+     "academic non-commercial",
+     "no",
+     "user-supplied, local only"
+    ],
+    [
+     "FLAME 2017-2023",
+     "coarse ear, 3-6 mm edges",
+     "non-commercial",
+     "no",
+     "user-supplied"
+    ],
+    [
+     "FLAME 2023 Open",
+     "coarse ear",
+     "CC BY 4.0",
+     "yes, attributed",
+     "allowed"
+    ],
+    [
+     "ICT-FaceKit",
+     "scan-derived head with ears",
+     "MIT",
+     "yes (verify)",
+     "allowed"
+    ],
+    [
+     "MPFB2 / MakeHuman",
+     "ear morph targets (size, position, rotation, protrusion, lobe, shape)",
+     "CC0 assets, GPL-3.0 code",
+     "yes",
+     "allowed"
+    ],
+    [
+     "Blender Human Base Meshes (2023)",
+     "generic sculpt-ready ears",
+     "CC0",
+     "yes",
+     "allowed"
+    ],
+    [
+     "HUTUBS",
+     "~96 head-and-ear meshes (acoustics)",
+     "CC BY 4.0 (recalled)",
+     "verify",
+     "train locally"
+    ],
+    [
+     "SYMARE / SONICOM / CHEDAR",
+     "head/ear scans or synthetic heads (acoustics)",
+     "unknown",
+     "unknown",
+     "verify first"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "No permissively licensed ear-specific 3DMM is known to the author. MPFB2 licence and FLAME 2023 Open are sourced in sibling notes (blender/blender-face-addons.md, reconstruction/flame-model.md); the rest is recalled."
+  },
+  {
+   "name": "ear_subfeature_dimensions",
+   "units": "mm unless column says deg",
+   "columns": [
+    "feature",
+    "value_low",
+    "value_typical",
+    "value_high",
+    "population",
+    "status"
+   ],
+   "rows": [
+    [
+     "ear length sa-sba (mean range across studies)",
+     57,
+     61,
+     63,
+     "several adult samples (lib anatomy/ear.md)",
+     "knowledge"
+    ],
+    [
+     "width/length ratio",
+     0.47,
+     0.5,
+     0.54,
+     "same",
+     "knowledge"
+    ],
+    [
+     "pinna height (CIPIC d5)",
+     null,
+     64,
+     null,
+     "CIPIC, 45 subjects (recalled)",
+     "contested"
+    ],
+    [
+     "pinna width (CIPIC d6)",
+     null,
+     29,
+     null,
+     "CIPIC (recalled)",
+     "contested"
+    ],
+    [
+     "cavum concha height (CIPIC d1)",
+     null,
+     19,
+     null,
+     "CIPIC (recalled)",
+     "contested"
+    ],
+    [
+     "cymba concha height (CIPIC d2)",
+     null,
+     7,
+     null,
+     "CIPIC (recalled)",
+     "contested"
+    ],
+    [
+     "cavum concha width (CIPIC d3)",
+     null,
+     16,
+     null,
+     "CIPIC (recalled)",
+     "contested"
+    ],
+    [
+     "triangular fossa height (CIPIC d4)",
+     null,
+     15,
+     null,
+     "CIPIC (recalled)",
+     "contested"
+    ],
+    [
+     "intertragal incisure width (CIPIC d7)",
+     null,
+     5,
+     null,
+     "CIPIC (recalled)",
+     "contested"
+    ],
+    [
+     "cavum concha depth (CIPIC d8)",
+     8,
+     10,
+     20,
+     "CIPIC mean (recalled); planning range",
+     "contested"
+    ],
+    [
+     "pinna rotation / long-axis tilt, deg",
+     10,
+     20,
+     30,
+     "mixed; CIPIC ~24 (recalled)",
+     "contested"
+    ],
+    [
+     "pinna flare / auriculocephalic angle, deg",
+     20,
+     25,
+     30,
+     "clinical; CIPIC flare ~28 (recalled)",
+     "contested"
+    ],
+    [
+     "helix-mastoid distance upper third",
+     10,
+     11,
+     12,
+     "surgical goal (McDowell)",
+     "knowledge"
+    ],
+    [
+     "helix-mastoid distance middle third",
+     16,
+     17,
+     18,
+     "surgical goal",
+     "knowledge"
+    ],
+    [
+     "helix-mastoid distance lower third",
+     20,
+     21,
+     22,
+     "surgical goal",
+     "knowledge"
+    ],
+    [
+     "lobule height",
+     15,
+     18,
+     22,
+     "rough planning",
+     "knowledge"
+    ],
+    [
+     "helix rim total thickness",
+     3,
+     4.5,
+     6,
+     "rough planning",
+     "knowledge"
+    ],
+    [
+     "attachment length obs-obi / ear length",
+     0.6,
+     0.7,
+     0.8,
+     "low confidence",
+     "knowledge"
+    ]
+   ],
+   "population": "adults; mixed",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "CIPIC values are recalled means and must be verified before use as priors; measurement definitions (photo vs caliper, flare reference plane) differ."
+  },
+  {
+   "name": "ear_fit_priors",
+   "units": "mm, deg, log-scale (see column)",
+   "columns": [
+    "parameter",
+    "mean",
+    "sigma",
+    "lower",
+    "upper",
+    "unit",
+    "basis"
+   ],
+   "rows": [
+    [
+     "log_scale (ear length ~61 mm)",
+     0.0,
+     0.075,
+     null,
+     null,
+     "log",
+     "lib anatomy/ear.md; +2 mm male, +0.2 mm/yr over 25"
+    ],
+    [
+     "length_mm (hard bounds)",
+     61,
+     4.5,
+     45,
+     85,
+     "mm",
+     "lib anatomy/ear.md"
+    ],
+    [
+     "width_over_length",
+     0.5,
+     0.05,
+     0.38,
+     0.65,
+     "ratio",
+     "lib anatomy/ear.md"
+    ],
+    [
+     "tilt_deg (top back from FH vertical)",
+     20,
+     7,
+     -5,
+     45,
+     "deg",
+     "lib, contested"
+    ],
+    [
+     "protrusion_deg (auriculocephalic, hinge)",
+     25,
+     8,
+     5,
+     70,
+     "deg",
+     "lib, contested; warn above 35"
+    ],
+    [
+     "helix_mastoid_mid_mm",
+     17,
+     4,
+     5,
+     35,
+     "mm",
+     "lib community/likeness-mistakes.md"
+    ],
+    [
+     "twist_deg (about long axis)",
+     0,
+     6,
+     -20,
+     20,
+     "deg",
+     "knowledge"
+    ],
+    [
+     "tragion_vertical_vs_orbitale_mm",
+     0,
+     4.5,
+     -20,
+     20,
+     "mm",
+     "lib anatomy/ear.md"
+    ],
+    [
+     "tragion_behind_exocanthion_mm (FH depth)",
+     65,
+     8,
+     40,
+     95,
+     "mm",
+     "derived from lib depth estimates"
+    ],
+    [
+     "shape_alpha_k",
+     0,
+     1,
+     null,
+     null,
+     "sd units",
+     "flag ||alpha||^2 > chi2_K 99.9%"
+    ],
+    [
+     "per_vertex_offset_max_mm",
+     null,
+     null,
+     0,
+     2,
+     "mm",
+     "Laplacian-smoothed residual"
+    ],
+    [
+     "LR_delta_length_mm",
+     0,
+     2,
+     null,
+     null,
+     "mm",
+     "lib"
+    ],
+    [
+     "LR_delta_tilt_deg",
+     0,
+     4,
+     null,
+     null,
+     "deg",
+     "lib"
+    ],
+    [
+     "LR_delta_tragion_mm",
+     0,
+     3,
+     null,
+     null,
+     "mm",
+     "lib"
+    ],
+    [
+     "LR_delta_protrusion_mm",
+     0,
+     3,
+     null,
+     null,
+     "mm",
+     "lib"
+    ],
+    [
+     "LR_delta_alpha",
+     0,
+     0.5,
+     null,
+     null,
+     "sd units",
+     "knowledge"
+    ]
+   ],
+   "population": "adults",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Provisional; replace with verified population tables. Canons (brow/subnasale alignment, ear parallel to nose) are warnings, not priors."
+  },
+  {
+   "name": "ear_observation_sigmas",
+   "units": "mm on the ear surface",
+   "columns": [
+    "observation",
+    "sigma_low",
+    "sigma_high",
+    "loss",
+    "notes"
+   ],
+   "rows": [
+    [
+     "hand-pinned fixed points (tragion, intertragal notch, subaurale, superaurale, antitragus tip)",
+     1.0,
+     1.5,
+     "Huber 1.5 sigma",
+     ""
+    ],
+    [
+     "detector fixed points",
+     2.0,
+     3.0,
+     "Huber 1.5 sigma",
+     ""
+    ],
+    [
+     "contour semi-landmarks (helix, concha rims), point-to-curve",
+     1.5,
+     2.5,
+     "Huber 1.5 sigma",
+     "re-associate each iteration"
+    ],
+    [
+     "hair-adjacent points",
+     null,
+     null,
+     "Huber",
+     "multiply sigma by 2-3"
+    ],
+    [
+     "points >50% under hair/accessory mask",
+     null,
+     null,
+     "excluded",
+     "one-sided carving term instead"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "View weight for in-plane terms = max(0, n_ear . v)^2; silhouettes full weight in front/back views; ear terms weight 0 until pitch constrained by >=2 views."
+  },
+  {
+   "name": "ear_photo_protocol",
+   "units": "deg yaw (0 = front), m distance",
+   "columns": [
+    "shot",
+    "yaw_deg",
+    "pitch_deg",
+    "min_distance_m",
+    "purpose"
+   ],
+   "rows": [
+    [
+     "front",
+     0,
+     0,
+     1.5,
+     "protrusion silhouette, L/R height"
+    ],
+    [
+     "profile",
+     90,
+     0,
+     1.5,
+     "helix outline, tilt, length, tragion vs orbitale"
+    ],
+    [
+     "bracket front-of-profile",
+     75,
+     0,
+     1.5,
+     "ear-normal candidate (concha widest)"
+    ],
+    [
+     "bracket behind-profile",
+     105,
+     0,
+     1.5,
+     "ear-normal candidate"
+    ],
+    [
+     "rear-oblique",
+     135,
+     0,
+     1.5,
+     "helix-mastoid gap, ear back, sulcus"
+    ],
+    [
+     "back",
+     180,
+     0,
+     1.5,
+     "both protrusions"
+    ],
+    [
+     "raking-light close-up",
+     90,
+     "0 to +15",
+     0.8,
+     "concha depth, crura; keep lateral canthus in frame"
+    ]
+   ],
+   "population": "consenting adult subject",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Yaw values are per side (mirror for left). Raking key 30-45 deg above and slightly in front of the ear; no backlight; f/8; hair clipped up, not tucked behind the ear; aim >=300 px ear length."
+  },
+  {
+   "name": "ear_expected_accuracy",
+   "units": "mm or deg",
+   "columns": [
+    "quantity",
+    "condition",
+    "error_low",
+    "error_high",
+    "unit",
+    "status"
+   ],
+   "rows": [
+    [
+     "ear length",
+     "multi-view + caliper scale",
+     1,
+     2,
+     "mm",
+     "contested"
+    ],
+    [
+     "ear length",
+     "multi-view, scale from IPD prior",
+     3,
+     4,
+     "mm",
+     "contested"
+    ],
+    [
+     "tilt",
+     "pitch solved from >=2 views",
+     3,
+     5,
+     "deg",
+     "contested"
+    ],
+    [
+     "tilt",
+     "single profile, pitch unsolved",
+     5,
+     10,
+     "deg",
+     "knowledge"
+    ],
+    [
+     "tragion height vs orbitale",
+     "multi-view",
+     2,
+     4,
+     "mm",
+     "contested"
+    ],
+    [
+     "protrusion (helix-mastoid)",
+     "front + back or rear-oblique",
+     2,
+     3,
+     "mm",
+     "contested"
+    ],
+    [
+     "protrusion (helix-mastoid)",
+     "profile only (prior)",
+     5,
+     8,
+     "mm",
+     "knowledge"
+    ],
+    [
+     "concha depth",
+     "raking-light oblique + sculpt",
+     2,
+     3,
+     "mm",
+     "contested"
+    ],
+    [
+     "ear surface",
+     "generic AI image-to-3D generators",
+     5,
+     15,
+     "mm",
+     "contested"
+    ]
+   ],
+   "population": "author estimates",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Unmeasured author estimates; no public benchmark scores ear accuracy from few-photo capture."
+  },
+  {
+   "name": "ear_sculpt_mesh_budgets",
+   "units": "faces / mm",
+   "columns": [
+    "item",
+    "low",
+    "typical",
+    "high",
+    "unit"
+   ],
+   "rows": [
+    [
+     "base quad ear (Multires L0)",
+     300,
+     500,
+     1000,
+     "quads"
+    ],
+    [
+     "root ring edges",
+     16,
+     20,
+     24,
+     "edges"
+    ],
+    [
+     "voxel size to hold helix rim",
+     0.2,
+     0.3,
+     0.4,
+     "mm"
+    ],
+    [
+     "whole-head faces at that voxel size",
+     1000000,
+     2000000,
+     3000000,
+     "faces"
+    ],
+    [
+     "ear landmark resolution target",
+     300,
+     450,
+     560,
+     "px of ear length"
+    ]
+   ],
+   "population": "n/a",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Base quad budget from lib blender/face-retopology.md; voxel/face counts are area arithmetic; px from 85 mm/24 MP and 3x tele/12 MP at 1.5 m."
+  }
+ ]
+}

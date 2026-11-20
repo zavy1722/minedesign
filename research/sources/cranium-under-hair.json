@@ -1,6 +1,32 @@
 {
   "topic": "cranium-under-hair",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "Hutchison et al. 2004, Plagiocephaly and brachycephaly in the first two years of life",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15466093/"
+    },
+    {
+      "n": 2,
+      "title": "LYHM user agreement (non-commercial)",
+      "url": "https://www-users.york.ac.uk/~np7/research/LYHM/LYHMagreement08.pdf"
+    },
+    {
+      "n": 3,
+      "title": "The Headspace dataset",
+      "url": "https://www-users.york.ac.uk/~np7/research/Headspace"
+    },
+    {
+      "n": 4,
+      "title": "Head and face correlations, Swedish adults, Acta Odontologica",
+      "url": "https://medicaljournalssweden.se/actaodontologica/article/download/37863/43029/95612"
+    },
+    {
+      "n": 5,
+      "title": "Britannica, Cephalic index",
+      "url": "https://www.britannica.com/science/cephalic-index"
+    }
+  ],
   "references_by_name": [
     "Farkas LG, Anthropometry of the Head and Face, 2nd ed., 1994",
     "Gordon CC et al., 2012 Anthropometric Survey of U.S. Army Personnel: Methods and Summary Statistics (ANSUR II)",

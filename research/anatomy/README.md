@@ -30,7 +30,7 @@ Engine-facing requirements (priors with σ, data formats, failure modes, licence
 | 🧠 | Expert knowledge, not yet source-checked | Provisional: a tunable default, a sanity range or a sculpting heuristic, never a constant |
 | ↔️ | Contested | Encode the range, not a point; read the note's disagreement section |
 
-Across the 27 notes the tally is **221 ✅ / 595 📄 / 1,591 🧠 / 553 ↔️**: 72% of claims are unverified or contested. Most numbers here are therefore working defaults. The best-supported material is soft-tissue depth at thin midline points, landmark definitions, eye and cornea dimensions, masseter thickness, Hertel norms and the failure of the canons. The newest note, [cranium-under-hair](./cranium-under-hair.md), has no verification pass yet.
+Across the 27 notes the tally is **221 ✅ / 596 📄 / 1,590 🧠 / 553 ↔️**: 72% of claims are unverified or contested. Most numbers here are therefore working defaults. The best-supported material is soft-tissue depth at thin midline points, landmark definitions, eye and cornea dimensions, masseter thickness, Hertel norms and the failure of the canons. The newest note, [cranium-under-hair](./cranium-under-hair.md), has no verification pass yet.
 
 **Verification logs win.** Most notes end with one or two "Verification log" sections in which a fact-checker confirmed or corrected claims. Corrections in the logs override the original text (the later pass wins), and this README and the requirements digest already apply them. Examples: supraorbital tissue depth 5.7–6.7 mm (not 6–9); resting incisor display by age; Hertel upper limits; canthal height 2–4 mm; Western lid-crease height ≈7 mm; no consistent sex difference in gonial angle; supraorbital notch ≈25 mm from the midline, with the infraorbital foramen ≈4 mm further out; the FLAME and dlib licences. Where a note's body or data file still carries a pre-correction value, the conflict is listed under [contradictions](#cross-topic-contradictions-and-how-to-resolve-them).
 
@@ -451,30 +451,31 @@ Evidence counts are ✅ / 📄 / 🧠 / ↔️ from each note's header.
 |---|---|---|
 | [aging-face](./aging-face.md) | Layered ageing of bone, fat, ligaments, muscle and skin; age-dependent priors; age as sliders | 3 / 18 / 51 / 29 |
 | [anthropometric-norms](./anthropometric-norms.md) | Farkas and 3DFN millimetre norms, population and method offsets, log-space norm priors and z-score gates | 6 / 40 / 82 / 16 |
-| [child-growth](./child-growth.md) | Craniofacial growth from birth to adulthood, age-conditioned priors, iris scale for children, minor safeguards | 1 / 17 / 81 / 14 |
-| [craniometric-landmarks](./craniometric-landmarks.md) | Bony and skin landmark definitions, naming traps, Frankfort frame, dlib/MediaPipe mapping, landmark σ | 36 / 27 / 71 / 18 |
-| [ear](./ear.md) | Auricle anatomy, size and growth, FH-anchored position and tilt, protrusion, ear-specific photo errors | 3 / 26 / 51 / 21 |
-| [eye-region](./eye-region.md) | Globe, cornea, orbit, Hertel protrusion, fissure, lids, crease, epicanthus, brows; iris as metric ruler | 18 / 33 / 78 / 19 |
-| [face-perception-likeness](./face-perception-likeness.md) | How people recognise faces, cue priorities, caricature and prior shrinkage, likeness review protocol | 0 / 4 / 61 / 17 |
+| [child-growth](./child-growth.md) | Craniofacial growth from birth to adulthood, age-conditioned priors, iris scale for children, minor safeguards | 1 / 19 / 81 / 14 |
+| [craniometric-landmarks](./craniometric-landmarks.md) | Bony and skin landmark definitions, naming traps, Frankfort frame, dlib/MediaPipe mapping, landmark σ | 37 / 27 / 71 / 18 |
+| [cranium-under-hair](./cranium-under-hair.md) | Vault size and shape under hair, cephalic index, infant flattening, hair-envelope offsets, tape and silhouette constraints | 0 / 1 / 55 / 34 |
+| [ear](./ear.md) | Auricle anatomy, size and growth, FH-anchored position and tilt, protrusion, ear-specific photo errors | 3 / 27 / 50 / 21 |
+| [eye-region](./eye-region.md) | Globe, cornea, orbit, Hertel protrusion, fissure, lids, crease, epicanthus, brows; iris as metric ruler | 20 / 33 / 76 / 20 |
+| [face-perception-likeness](./face-perception-likeness.md) | How people recognise faces, cue priorities, caricature and prior shrinkage, likeness review protocol | 0 / 5 / 61 / 16 |
 | [facial-asymmetry](./facial-asymmetry.md) | Normal asymmetry magnitudes, perception thresholds, pose-induced asymmetry, symmetric/asymmetric decomposition | 4 / 18 / 45 / 9 |
-| [facial-proportions-canons](./facial-proportions-canons.md) | Neoclassical canons and their failure, the golden-ratio myth, artist rules vs measurements, ratio priors | 7 / 30 / 46 / 12 |
-| [facs-expressions](./facs-expressions.md) | FACS action units, intensities, ARKit/MediaPipe 52, neutral-frame gating, expression shape keys | 10 / 17 / 62 / 9 |
-| [fat-compartments](./fat-compartments.md) | Superficial and deep fat compartments, groove formation, weight and age responses, region-wise thickness fields | 0 / 4 / 63 / 12 |
+| [facial-proportions-canons](./facial-proportions-canons.md) | Neoclassical canons and their failure, the golden-ratio myth, artist rules vs measurements, ratio priors | 7 / 31 / 46 / 11 |
+| [facs-expressions](./facs-expressions.md) | FACS action units, intensities, ARKit/MediaPipe 52, neutral-frame gating, expression shape keys | 10 / 19 / 60 / 9 |
+| [fat-compartments](./fat-compartments.md) | Superficial and deep fat compartments, groove formation, weight and age responses, region-wise thickness fields | 0 / 5 / 62 / 12 |
 | [forehead-brow-temple-hairline](./forehead-brow-temple-hairline.md) | Frontal bone and brow ridge, temple layers, forehead tissue depth (corrected), hairline and brows as hair | 14 / 28 / 67 / 17 |
-| [forensic-reconstruction](./forensic-reconstruction.md) | Skull-to-face methods and rules, their accuracy, and their inverted use as weak priors for hidden anatomy | 0 / 5 / 54 / 26 |
-| [jaw-chin-neck](./jaw-chin-neck.md) | Mandible, chin and neck: gonial angle, vertical pattern, cervicomental angle, profile identifiability | 2 / 0 / 49 / 22 |
-| [mouth-lips-teeth](./mouth-lips-teeth.md) | Lip surface anatomy, vermilion ratios, dental support and incisor display, smile arc, mouth priors | 3 / 29 / 44 / 23 |
+| [forensic-reconstruction](./forensic-reconstruction.md) | Skull-to-face methods and rules, their accuracy, and their inverted use as weak priors for hidden anatomy | 0 / 7 / 53 / 25 |
+| [jaw-chin-neck](./jaw-chin-neck.md) | Mandible, chin and neck: gonial angle, vertical pattern, cervicomental angle, profile identifiability | 2 / 1 / 46 / 24 |
+| [mouth-lips-teeth](./mouth-lips-teeth.md) | Lip surface anatomy, vermilion ratios, dental support and incisor display, smile arc, mouth priors | 3 / 30 / 44 / 23 |
 | [muscles-lower-face](./muscles-lower-face.md) | Orbicularis oris, DAO, DLI, mentalis, platysma, modiolus; lip–chin profile; lower-face AUs | 12 / 50 / 39 / 25 |
 | [muscles-mastication-jaw](./muscles-mastication-jaw.md) | Masseter and temporalis size, clenching, bruxism and toxin; bone/muscle/fat split of jaw width | 18 / 31 / 33 / 20 |
-| [muscles-mid-face](./muscles-mid-face.md) | Lip elevators and zygomatici, nasolabial fold, smile mechanics and direction priors | 15 / 33 / 44 / 26 |
-| [muscles-upper-face](./muscles-upper-face.md) | Frontalis, corrugator, procerus, orbicularis oculi, levator; resting brow and lid; wrinkle directions | 13 / 26 / 56 / 25 |
+| [muscles-mid-face](./muscles-mid-face.md) | Lip elevators and zygomatici, nasolabial fold, smile mechanics and direction priors | 15 / 33 / 44 / 27 |
+| [muscles-upper-face](./muscles-upper-face.md) | Frontalis, corrugator, procerus, orbicularis oculi, levator; resting brow and lid; wrinkle directions | 16 / 23 / 56 / 25 |
 | [nose](./nose.md) | Nasal skeleton and cartilage, landmarks, which view shows what, profile angles, nose parameter block | 15 / 14 / 71 / 19 |
-| [population-variation](./population-variation.md) | Within- vs between-group variation, traits that differ, bias in priors and tools, balanced-prior design | 0 / 1 / 88 / 27 |
+| [population-variation](./population-variation.md) | Within- vs between-group variation, traits that differ, bias in priors and tools, balanced-prior design | 0 / 6 / 80 / 27 |
 | [sexual-dimorphism](./sexual-dimorphism.md) | Size and shape differences by sex, effect sizes and overlap, sex as a continuous latent axis | 10 / 43 / 87 / 23 |
-| [skin-wrinkles-microdetail](./skin-wrinkles-microdetail.md) | Skin thickness, wrinkle classes, tension lines, pores, resolution gates, procedural detail | 0 / 1 / 74 / 31 |
-| [skull-osteology](./skull-osteology.md) | Skull features that shape the surface, thin vs thick tissue zones, bony priors and ordering constraints | 18 / 44 / 52 / 16 |
+| [skin-wrinkles-microdetail](./skin-wrinkles-microdetail.md) | Skin thickness, wrinkle classes, tension lines, pores, resolution gates, procedural detail | 0 / 2 / 73 / 31 |
+| [skull-osteology](./skull-osteology.md) | Skull features that shape the surface, thin vs thick tissue zones, bony priors and ordering constraints | 16 / 44 / 52 / 20 |
 | [smas-ligaments](./smas-ligaments.md) | The five-layer laminate, retaining ligaments, glide spaces, grooves as tether/mass boundaries | 5 / 15 / 54 / 18 |
-| [soft-tissue-thickness](./soft-tissue-thickness.md) | Forensic tissue-depth tables, covariates and method effects, log-normal two-layer priors | 4 / 25 / 52 / 20 |
-| **Total** | 26 notes | **217 / 579 / 1,555 / 514** |
+| [soft-tissue-thickness](./soft-tissue-thickness.md) | Forensic tissue-depth tables, covariates and method effects, log-normal two-layer priors | 4 / 26 / 51 / 20 |
+| **Total** | 27 notes | **221 / 596 / 1,590 / 553** |
 
 Related notes in other areas that these notes lean on: [`../blender/reference-camera-setup.md`](../blender/reference-camera-setup.md), [`../blender/eyes-modeling-blender.md`](../blender/eyes-modeling-blender.md), [`../blender/skin-shading.md`](../blender/skin-shading.md), [`../reconstruction/landmark-detection.md`](../reconstruction/landmark-detection.md), [`../reconstruction/camera-pose-solving.md`](../reconstruction/camera-pose-solving.md) and [`../reconstruction/identity-embeddings.md`](../reconstruction/identity-embeddings.md).

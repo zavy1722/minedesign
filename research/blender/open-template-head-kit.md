@@ -1,15 +1,15 @@
 # Open-licence template head kit for fitting and sculpting
 
 > extensions.blender.org accepts only CC0 non-code assets inside an add-on, so the shippable default is a project-owned quad head derived from a CC0 source (Blender Studio's Human Base Meshes head or the MakeHuman/MPFB2 hm08 head), released as CC0 with a versioned sidecar: landmark barycentrics, anthropometric vertices, contour rings, region masks, a mirror map and priors. hm08's CC0 face targets, transferred barycentrically and calibrated against anthropometric norms, give a bundled identity prior that may be used commercially. FLAME 2023 Open (CC BY 4.0), ICT-FaceKit (MIT claimed, contested) and the MediaPipe canonical mesh (Apache-2.0) are GPL-3-compatible in principle but not CC0, so they load from user paths through one barycentric adapter, or ship only in builds distributed off-platform with attribution. FLAME 2023 Open's licence is settled in sibling notes, but its contents (component counts, masks, UVs, landmark files and their licences) are not. No harvest or draft existed for this topic: **lib✓** marks facts source-checked in the sibling note named, and every count is a recollection or design default to assert on import.
-> Evidence status: 0 ✅ / 0 📄 / 93 🧠 / 27 ↔️ — 🧠 items are queued for web verification (8 of them, marked lib✓, were already source-checked in sibling notes).
+> Evidence status: 4 ✅ / 7 📄 / 87 🧠 / 27 ↔️ — 🧠 items remain queued for web verification; verification on 2026-11-20 (10 searches) upgraded 6 facts, see the log.
 
 ## Key facts
 
 **Licence and redistribution**
-- **Platform rule:** add-on code must be GPL-3.0-or-later and bundled non-code assets must be CC0. Requiring externally downloaded components is not allowed. 🧠 lib✓ (`blender/blender-extensions-packaging.md`, Terms of Service). So FLAME-, ICT- or MediaPipe-derived meshes cannot sit in the listed zip.
+- **Platform rule:** add-on code must be GPL-3.0-or-later and bundled non-code assets must be CC0. Requiring externally downloaded components is not allowed. 📄 [1][7] lib✓ (`blender/blender-extensions-packaging.md`, Terms of Service). Verification: the CC0 rule for add-on assets is confirmed; the ToS text says uploads must be compatible with GPL v2 or v3 (docs say GPL-3.0-or-later for add-ons), and the no-external-download rule was not seen in the results. So FLAME-, ICT- or MediaPipe-derived meshes cannot sit in the listed zip.
 - **Outside the platform** (own repository), the test is GPL-3 compatibility: CC0, MIT, Apache-2.0 and CC BY 4.0 qualify in the FSF's reading; non-commercial (NC) terms do not. 🧠 CC BY 4.0 requires credit, a licence link and a change note, and forbids added restrictions or technological measures. 🧠
-- **MPFB2:** code GPL-3.0-or-later. MakeHuman's base mesh, targets, proxies and system assets are CC0; asset packs are CC0 or CC-BY, so check each pack. 🧠 lib✓ (`blender/blender-face-addons.md`)
-- **Blender Studio Human Base Meshes** (asset bundle, June 2023) are CC0. 🧠 lib✓ two sources (`community/youtube-likeness-blender.md`)
+- **MPFB2:** code GPL-3.0-or-later. MakeHuman's base mesh, targets, proxies and system assets are CC0; asset packs are CC0 or CC-BY, so check each pack. 📄 [2][3] (CC0 for base mesh, targets, proxies confirmed; pack-level terms not checked) lib✓ (`blender/blender-face-addons.md`)
+- **Blender Studio Human Base Meshes** (asset bundle, June 2023) are CC0. ✅ [4][5] lib✓ two sources (`community/youtube-likeness-blender.md`). Note: the official bundle listing names a Stylized Head and (4.0) a Planar Head; a "realistic head" was not seen in the results.
 - **FLAME 2023 Open** is CC BY 4.0, the only CC-BY FLAME. Download still needs registration, a script converts expression parameters from `flame2023.pkl` to `flame2023_Open.pkl`, and the site lists it as 11/25. 🧠 lib✓ (`reconstruction/flame-model.md`). The FLAME texture model is reported as CC BY-NC-SA 4.0 ↔️ (`ethics/README.md` C6).
 - **ICT-FaceKit:** I recall an MIT LICENSE in the GitHub repo, but the USC VGL page says to contact it for commercial use ↔️ (lib, `community/awesome-lists-resources.md`). The consent scope of the scan subjects is unknown. 🧠
 
@@ -21,7 +21,7 @@
 - **FLAME:** 5,023 vertices and 9,976 triangles covering head, neck and two eyeball shells, with an open neck base, low-resolution ears and no mouth interior. Metres, Y-up, facing +Z. A fitting cage, not a sculpt topology. 🧠 lib (`reconstruction/flame-model.md`)
 - **ICT-FaceKit** (recalled; verify all of it) 🧠 ↔️:
   - ≈26.7k quad vertices, in named index blocks: face ≈9.4k (dense), head and neck (coarse), mouth socket, left and right eye sockets, gums and tongue, teeth, eyeballs, lacrimal fluid, and eye-blend and occlusion shells.
-  - 100 identity PCA modes in the "Light" release (200+ in "Full", lib) and 53 expressions.
+  - 100 identity PCA modes in the "Light" release (200+ in "Full", lib) and 53 expressions. 📄 [6]
   - My reconstruction of the 53: ARKit's 52 minus `tongueOut`, with `browInnerUp` and `cheekPuff` split left and right.
   - It is the best existing template for sub-mesh structure.
 - **MediaPipe canonical mesh** (`face_geometry/data/canonical_face_model.obj`, Apache-2.0 with the repo): 468 vertices with UVs, face only, all triangles, believed cm 🧠. The OBJ should have **898 triangles** with the eyes and mouth closed over; the landmark tessellation has 852 with them open. The Euler check fits: a 36-edge face-oval boundary, and 16 + 16 + 20 hole edges filled by 46 triangles 🧠. It *defines* the MediaPipe landmark convention; it is not a base head.
@@ -41,16 +41,16 @@
 
 | | Blender Studio head | hm08 (MPFB2) | FLAME 2023 Open | ICT-FaceKit | MediaPipe canonical |
 |---|---|---|---|---|---|
-| Licence | CC0 🧠 lib✓ | CC0 base and targets 🧠 lib✓ | CC BY 4.0 🧠 lib✓ | MIT? ↔️ | Apache-2.0 🧠 |
+| Licence | CC0 ✅ [4][5] | CC0 base and targets 📄 [2][3] | CC BY 4.0 🧠 lib✓ | MIT? ↔️ | Apache-2.0 🧠 |
 | Bundle on extensions.blender.org | yes | yes (CC0 parts) | no (not CC0) | no | no (C7 open) ↔️ |
 | Ship off-platform in GPL-3+ | yes | yes | yes, with attribution and change note 🧠 | yes, with notice, if MIT holds ↔️ | yes, with NOTICE 🧠 |
-| Vertices / faces | not recalled | ≈13.4k body / ≈19.2k all, quads 🧠 | 5,023 / 9,976 tris 🧠 | ≈26.7k, quads 🧠 | 468 / 898 tris 🧠 |
+| Vertices / faces | not recalled | ≈13.4k body / ≈19.2k all, quads 🧠 | 5,023 / 9,976 tris 🧠 | ≈26.7k, quads 🧠 (not confirmed; one paper reports 12,549 cropped face+eyeball vertices) | 468 / 898 tris 🧠 |
 | Edge flow | sculpt loops 🧠 | animation loops, coarse face 🧠 | none (tris) | production loops 🧠 | none |
 | Head, neck, ears | yes 🧠 | full body 🧠 | yes, open neck, coarse ears 🧠 | yes, coarse back of head 🧠 | face only |
 | Eyes, teeth, tongue, mouth bag, sockets | inspect ↔️ | eyes, teeth, tongue as proxies 🧠 | eyeballs only 🧠 | all 🧠 | none |
 | UVs | yes? ↔️ | body-wide tile 🧠 | separate template OBJ, licence? ↔️ | yes 🧠 | frontal UV 🧠 |
 | Units, up, face direction | m, +Z, −Y 🧠 | dm, +Y, +Z (MPFB: m) 🧠 | m, +Y, +Z 🧠 | cm?, +Y, +Z ↔️ | cm, +Y, +Z ↔️ |
-| Shape prior | none | targets (piecewise linear) 🧠 | β ~ N(0, I), K unknown ↔️ | 100 PCA 🧠 | none |
+| Shape prior | none | targets (piecewise linear) 🧠 | β ~ N(0, I), K unknown ↔️ | 100 PCA 📄 [6] | none |
 | Mirror map shipped | no; compute (modelled symmetric) 🧠 | no; MakeTarget mirrors targets 🧠 | no; compute on mean ↔️ | no; compute ↔️ | landmark pairs by construction 🧠 |
 
 **Table 2: proposed template budget** (adult head at 1 unit = 1 m; edge lengths at Multires level 0; design defaults)
@@ -173,7 +173,15 @@ Unit check for any import: adult en–en spans ≈31–41 mm (lib ✅ `blender/i
 
 ## Sources
 
-No harvest or draft existed, so no URLs are cited; lib✓ facts carry their URLs in the sibling notes below.
+No harvest or draft existed; lib✓ facts carry their URLs in the sibling notes below. Sources added in verification (2026-11-20):
+
+1. Blender manual, Extension Licenses (assets in add-ons must be CC0; add-ons GPL-3.0-or-later) — https://sources.debian.org/src/blender-doc/4.3-1/manual/advanced/extensions/licenses.rst and https://docs.blender.org/manual/en/dev/extensions/licenses.html
+2. MakeHuman licence page (core assets CC0) — https://static.makehumancommunity.org/about/license.html
+3. MakeHuman FAQ, "What changed regarding the license in 2020?" — https://static.makehumancommunity.org/oldsite/faq/what_changed_regarding_the_license_in_2020.html
+4. Blender wiki, Human Base Meshes Bundle — https://wiki.blender.org/features/asset_system/asset_bundles/human_base_meshes/
+5. CG Channel, Blender Studio's free Human Base Meshes (28 June 2023) — https://www.cgchannel.com/2023/06/download-blender-studios-free-human-base-meshes
+6. USC VGL, ICT Face Model page (100 PCA Light, 200+ Full, 53 expressions; contact for commercial use) — https://vgl.ict.usc.edu/Data/ICTFaceModel
+7. Extensions platform Terms of Service — https://extensions.blender.org/terms-of-service
 
 **Library cross-references (internal):** `reconstruction/flame-model.md`, `reconstruction/3dmm-overview.md`, `blender/blender-extensions-packaging.md`, `blender/blender-face-addons.md`, `blender/face-retopology.md`, `blender/import-export-scans.md`, `community/youtube-likeness-blender.md`, `community/awesome-lists-resources.md`, `ethics/README.md`, `anatomy/facial-asymmetry.md`, `anatomy/anthropometric-norms.md`.
 
@@ -190,3 +198,14 @@ No harvest or draft existed, so no URLs are cited; lib✓ facts carry their URLs
 - Jacobson et al., "Bounded Biharmonic Weights for Real-Time Deformation", SIGGRAPH 2011
 - CC BY 4.0 and CC0 1.0 legal codes; FSF, "Various Licenses and Comments about Them"
 - Blender Studio, Human Base Meshes (2023); MakeHuman licence page, MakeTarget and MPFB2 docs
+
+## Verification log (2026-11-20)
+
+| Claim | Outcome | Source |
+|---|---|---|
+| FLAME 2023 Open contents (topology, component counts, masks/landmarks/UV licences) | unconfirmed: searches returned nothing relevant; flame.is.tue.mpg.de only appeared as a registration page | https://flame.is.tue.mpg.de/register.php |
+| Extensions platform: bundled non-code assets must be CC0 | confirmed (CC0 assets; docs say add-ons GPL-3.0-or-later, ToS says GPL v2 or v3 compatible). "No externally downloaded components" not seen | [1] https://sources.debian.org/src/blender-doc/4.3-1/manual/advanced/extensions/licenses.rst ; [7] https://extensions.blender.org/terms-of-service |
+| ICT-FaceKit: 100 identity (Light) / 53 expressions; contact for commercial use | confirmed (partial); MIT LICENSE and ≈26.7k vertices unconfirmed (a paper reports 12,549 vertices after cropping) | [6] https://vgl.ict.usc.edu/Data/ICTFaceModel ; https://arxiv.org/pdf/2505.22416 |
+| FSF: CC BY 4.0 GPL-3 compatible | unconfirmed: only secondary evidence (Trisquel mirror of the GNU list, a WordPress post); gnu.org entry not seen | https://www.gnu.org/l/license-list.html |
+| MakeHuman hm08: CC0 base, targets, proxies | confirmed (CC0 since 2020 licence change); vertex count (≈13.4k/19.2k), decr/incr piecewise-linear and proxy binding unconfirmed | [2] https://static.makehumancommunity.org/about/license.html ; [3] https://static.makehumancommunity.org/oldsite/faq/what_changed_regarding_the_license_in_2020.html |
+| Blender Studio Human Base Meshes: CC0, 2023 | CC0 and 2023 release confirmed (two sources). A "realistic head" with sculpt topology, eyes, teeth, mouth bag, UVs and counts unconfirmed: the listing names Eye, Foot, Hand, Jaw, Stylized Female/Head/Male (and a Planar Head in 4.0) | [4] https://wiki.blender.org/features/asset_system/asset_bundles/human_base_meshes/ ; [5] https://www.cgchannel.com/2023/06/download-blender-studios-free-human-base-meshes |

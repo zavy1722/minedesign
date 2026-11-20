@@ -1,6 +1,42 @@
 {
  "topic": "face-segmentation-contours",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "title": "MediaPipe Hair Segmentation model card",
+   "url": "https://dcmpx.remotevs.com/com/googleapis/storage/SL/mediapipe-assets/Model%20Card%20-%20Hair%20Segmentation.pdf"
+  },
+  {
+   "n": 2,
+   "title": "MediaPipe Image Segmenter guide",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/image_segmenter"
+  },
+  {
+   "n": 3,
+   "title": "SAM 3 licence (Hugging Face)",
+   "url": "https://huggingface.co/facebook/sam3/blob/main/LICENSE"
+  },
+  {
+   "n": 4,
+   "title": "BiRefNet model card",
+   "url": "https://huggingface.co/ZhengPeng7/BiRefNet"
+  },
+  {
+   "n": 5,
+   "title": "BRIA RMBG-2.0 README",
+   "url": "https://github.com/Bria-AI/RMBG-2.0"
+  },
+  {
+   "n": 6,
+   "title": "CelebAMask-HQ project page",
+   "url": "https://mmlab.ie.cuhk.edu.hk/projects/CelebA/CelebAMask_HQ.html"
+  },
+  {
+   "n": 7,
+   "title": "BiRefNet paper",
+   "url": "https://arxiv.org/html/2401.03407v7"
+  }
+ ],
  "references_by_name": [
   "Lee, Liu, Wu & Luo, 'MaskGAN: Towards Diverse and Interactive Facial Image Manipulation' (CelebAMask-HQ), CVPR 2020",
   "Liu et al., LaPa face-parsing dataset, AAAI 2020",
