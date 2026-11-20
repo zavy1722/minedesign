@@ -2,17 +2,15 @@
 
 *Design angle: geometric and perceptual likeness accuracy. Written 2026-11-20 against `face3d/` at `fe13b73` (42 tests passing) and `research/_raw/requirements_*.md`.*
 
-**Citations** take the form `[area/topic badge]` or a digest rule ID. Areas: `rec` reconstruction, `anat` anatomy, `bl` blender, `com` community, `eth` ethics. Badges: ✅ verified, 📄 single-sourced, 🧠 expert, ↔️ contested.
-- **Every 🧠 number is a named, tunable default.**
-- *(design default)* marks this proposal's own uncalibrated starting values, which M1 tunes.
+**Citations:** `[area/topic badge]` or a digest rule ID (`rec`, `anat`, `bl`, `com`, `eth`). Every 🧠 number is a named, tunable default. *(design default)* marks this proposal's own uncalibrated values, which M1 tunes.
 
 ## 0. Principles
 
-1. **Measure before building.** A stage merges only after the synthetic harness shows it lowers per-region error in millimetres.
-2. **Declare what each signal can determine.** A prior is never reported as a measurement.
-3. **Ship the uncertainty.** Every vertex carries a σ, and every region is labelled *measured*, *partial* or *prior-driven*.
+1. **Measure before building.** A stage merges only if the harness shows lower per-region error in mm.
+2. **Never report a prior as a measurement.**
+3. **Ship the uncertainty.** Per-vertex σ; regions labelled *measured*, *partial* or *prior-driven*.
 4. **Priors fill only what nothing observes.** Likeness is deviation from the mean, so shrinkage is audited [anat/face-perception-likeness 🧠].
-5. **Fabricate nothing.** Templates, landmark tables and prior tables are built by scripts from licensed sources, with hashes and badges (§2.4).
+5. **Fabricate nothing** (§2.4).
 
 ## 1. Vision and user journey
 
@@ -52,16 +50,9 @@
 ### 2.1 Layers
 
 ```
-L0 policy/            consent gates, licence taint, data classes
-L1 io/, schemes/      project, landmark, template, result formats
-L2 obs/               noise, visibility, contours, quality, mirror
-L3 model/, priors/    shape adapters, anatomical priors
-L4 solve/             PnP, joint LM + Schur, observability, scale, expression
-L5 fit/, texture/     silhouettes, dense warp, photo-consistency, shading, projection
-L6 eval/, synth/      metrics, regions, procedural test bed, numpy rasteriser
-L7 pipeline.py, cli.py   staged orchestration (subprocess entry point)
-L8 addon/face3d_blender/ GPL extension: bridge, operators, panels, overlays, jobs
-L9 tools/             detector helper, template kit, prior builder (not imported by engine)
+L0 policy/  L1 io/,schemes/  L2 obs/  L3 model/,priors/  L4 solve/
+L5 fit/,texture/  L6 eval/,synth/  L7 pipeline.py,cli.py      (engine, numpy-only)
+L8 addon/face3d_blender/  (GPL extension)   L9 tools/  (helpers, never imported)
 ```
 
 - L0–L7 import only `numpy`, `math`, `json`, `zlib` and `tomllib`, and are NumPy 1/2-neutral [bl A1, A4].
@@ -203,10 +194,7 @@ The dolly-zoom direction is now one coordinate, and the weak-perspective limit �
 - **Contours:** κ ≥ 5, so points slide along the curve. R_i follows the projected model curve and is refreshed every outer iteration [rec BA-2].
 - **η** = N/N_eff (N_eff 60–100) for dense MediaPipe points [rec BA-2 🧠]. Without it, 478 correlated points over-count by about 5×.
 - **P_vi** = ∂û/∂X carries expression covariance into the image (§3.6).
-- **Visibility:**
-  - weight ramps from 0 at n·(−v) = cos 80° to 1 at cos 60°;
-  - far-side oval points are dropped when |yaw| > 25°;
-  - MediaPipe z is ignored with ≥ 2 views [rec BA-3, bl D2 🧠].
+- **Visibility:** weight ramps from 0 at n·(−v) = cos 80° to 1 at cos 60°; far-side oval points are dropped when |yaw| > 25°; MediaPipe z is ignored with ≥ 2 views [rec BA-3, bl D2 🧠].
 - **Known detector biases** (an epicanthal fold read as en, σ 2.5 mm; prn pulled 1–2 mm toward the highlight [anat §6]) enter as embedding offsets.
 - **Robust loss:** Huber δ = 2σ. After convergence, drop > 4σ and re-solve. Flag a view when > 15% of its points are rejected [rec BA-5 🧠].
 - **Extremal points** (g′, zy′, go′, pg′) are a softmax argmax over a region, temperature 1–2 mm, re-evaluated per pose [anat R3.2].
@@ -271,11 +259,9 @@ The unknowns are θ = {cameras, φ_g, g, β, c, ψ_v, θ_jaw,v, D_iris}:
 
 The global scale g is fused from independent sources:
 
-| Source | Term |
-|---|---|
-| Measured references | (‖X_a − X_b‖ − L)/σ_L. Caliper 0.5 mm; ID-1 card 85.60 mm σ 0.5 [com §4 🧠]. Warn when references disagree by > 1% [rec BA-10]. |
-| Iris | Shared D ~ N(11.8, 0.6²) mm ✅; limbus σ 0.5–1 px [rec OPT-4 🧠]. Only when the iris is ≥ 20 px, edges are sharp and there are no spectacles [anat R3.4]. |
-| Population | Exactly **one** of: global size σ 0.035 [anat §4 🧠], or IPD 63 ± 3.8 mm with vergence correction (≈ 2 mm at 0.35 m [bl C3 🧠]). |
+- **Measured references:** (‖X_a − X_b‖ − L)/σ_L. Caliper 0.5 mm; ID-1 card 85.60 mm, σ 0.5 [com §4 🧠]. Warn when references disagree by > 1% [rec BA-10].
+- **Iris:** a shared D ~ N(11.8, 0.6²) mm ✅; limbus σ 0.5–1 px [rec OPT-4 🧠]. Used only when the iris is ≥ 20 px, edges are sharp and there are no spectacles [anat R3.4].
+- **Population:** exactly **one** of global size (σ 0.035 [anat §4 🧠]) or IPD 63 ± 3.8 mm with vergence correction (≈ 2 mm at 0.35 m [bl C3 🧠]).
 
 IPD and head size are correlated, so using both would understate σ_g. Iris alone cannot beat ≈ 5%. Without a reference, the output is tagged "scale: iris/prior ±x%".
 
@@ -283,7 +269,7 @@ IPD and head size are correlated, so using both would understate σ_g. Iris alon
 
 **Inputs.** Masks are painted in Blender, or come from an optional SAM 2 helper (Apache-2.0 [eth §5]). They become labelled polylines.
 
-**Model contour, sub-vertex.** On each edge where g = n·(x − C_v) changes sign, the contour point is p = x_a + g_a/(g_a − g_b)·(x_b − x_a). Only points on the rasterised mask boundary are kept. The vertex-level contours in the current code carry up to half an edge of bias (1–2 mm).
+**Model contour, sub-vertex.** On each edge where q = n·(x − C_v) changes sign, the contour point is p = x_a + q_a/(q_a − q_b)·(x_b − x_a). Only points on the rasterised mask boundary are kept. The vertex-level contours in the current code carry up to half an edge length of bias, which is millimetre-scale on a 13k-vertex head.
 
 **Residuals** (correspondences fixed per outer iteration):
 - **Forward:** n_cᵀ(π(p) − c_j)/σ_sil, σ 1–2 px [bl S2 🧠].
@@ -421,13 +407,7 @@ All operators carry the `face3d.` prefix.
 
 ### 4.5 Shape keys and Multires hand-off
 
-**Keys** [bl K2, rec SK-1]:
-- `Basis` = template;
-- `f3d_S1…S4` stage keys;
-- `f3d_ID_fit` (slider max 1.5);
-- `f3d_asym`, `f3d_detail_measured`, `f3d_detail_inferred`;
-- `f3d_caricature`, a preview of S(α) = M + α(S − M) [com R6.2];
-- `artist`, which refits never overwrite [bl K3].
+**Keys** [bl K2, rec SK-1]: `Basis` = template; stage keys `f3d_S1…S4`; `f3d_ID_fit` (slider max 1.5); `f3d_asym`, `f3d_detail_measured`, `f3d_detail_inferred`; `f3d_caricature`, a preview of S(α) = M + α(S − M) [com R6.2]; and `artist`, which refits never overwrite [bl K3].
 
 Writes to Basis propagate Δ to dependent keys [bl K3]. `fit_<photo>` expression keys need the `RIG_ANIMATE` scope [eth F4]. Sculpt masks become data weights (1 − m) plus pins at σ 0.1–0.3 mm [bl W5].
 
@@ -435,11 +415,7 @@ Writes to Basis propagate Δ to dependent keys [bl K3]. `fit_<photo>` expression
 
 ### 4.6 Landmark helper
 
-`tools/detect_landmarks.py` runs in the user's own Python with a user-installed `mediapipe`, via the Tasks `FaceLandmarker`:
-- IMAGE mode;
-- `num_faces=2`, to detect bystanders [eth F1];
-- blendshapes and transform enabled;
-- the `.task` path supplied by the user and SHA-256-pinned.
+`tools/detect_landmarks.py` runs in the user's own Python with a user-installed `mediapipe`. It uses the Tasks `FaceLandmarker` in IMAGE mode with `num_faces=2` (to detect bystanders [eth F1]), blendshapes and transform enabled, and a user-supplied, SHA-256-pinned `.task` path.
 
 It runs 6–10 test-time-augmentation passes (jitter plus a flip via `mirror_index`) to estimate σ [rec BA-2], and writes `*.lmk.json`.
 
@@ -467,28 +443,16 @@ An optional "detector pack" extension may bundle wheels only if the platform all
 | Regression | Golden region table (rtol 1e-5 [bl Q2]). Fail CI when likeness-weighted error worsens > 2%. |
 | Policy | AST check: no `bpy` under `face3d/`. Socket guard [eth A7]. Manifest checked with `tomllib`. SPDX entry for every bundled file. |
 
-**Metrics** [rec EV-1, EV-2]:
-- exact point-to-triangle distance;
-- NoW-style 7-landmark rigid alignment, plus similarity-ICP;
-- median, RMS, p95, F@0.5/1/2 mm and signed bias per region;
-- E_like = Σ w_r RMS_r / Σ w_r.
+**Metrics** [rec EV-1, EV-2]: exact point-to-triangle distance after NoW-style 7-landmark rigid alignment (plus similarity-ICP); per-region median, RMS, p95, F@0.5/1/2 mm and signed bias; and E_like = Σ w_r RMS_r / Σ w_r.
 
 ### 5.3 Honest-uncertainty reporting
 
-Every result states:
-- tier;
-- scale mode and σ;
-- focal status;
-- per region: RMS-to-data, γσ, k and label;
-- LOVO error on ≥ 2 held-out photos [com R8.2];
-- flags, worst first.
-
-It never claims better than the reference modality (0.2–1 mm) [bl Q4].
+Every result states its tier, scale mode and σ, focal status, per-region RMS-to-data, γσ, k and label, LOVO error on ≥ 2 held-out photos [com R8.2], and flags, worst first. It never claims better than the reference modality (0.2–1 mm) [bl Q4].
 
 ### 5.4 Likeness checks shown to the artist
 
-- **Matched-camera comparison** per photo: a clay render, a 3 Hz blink, an edge overlay and a 64 px thumbnail (the 8–16 cycles-per-face band [anat/face-perception-likeness 📄]).
-- **Held-out views,** shown before their error is.
+- **Matched-camera comparison** per photo: clay render, 3 Hz blink, edge overlay, 64 px thumbnail (the 8–16 cycles-per-face band [anat/face-perception-likeness 📄]).
+- **Held-out views**, rendered before their error is shown.
 - **Region bars** against export tolerances. Lids, vermilion and alar rim 0.2–0.3 mm; nose tip and chin 0.5 mm [com R8.6 🧠]. Exceeding them blocks "approved".
 - **Shrinkage audit** with a protect list of the 3–5 largest |z| deviations.
 - **Familiar-viewer checklist.**
@@ -500,7 +464,7 @@ Each milestone ships tagged, with CI passing here.
 | M | Deliverable | Acceptance |
 |---|---|---|
 | **M1** Measure first | `eval/`, `synth/`, `mesh/raster.py`, `mesh/distance.py`; baseline report of the current engine | Analytic distances exact to 1e-9; rasteriser silhouette = `silhouette_vertices` on convex meshes; baseline table committed; suite < 90 s |
-| **M2** Observations and cameras | `obs/*`, schemes, inverse-depth cameras, PnP restarts, robust rejection, mirror test, observability | Calibration and observability rows pass; nose-projection error ≥ 20% below M1 on T1 sweeps |
+| **M2** Observations and cameras | `obs/*`, schemes, inverse-depth cameras, PnP restarts, robust rejection, mirror test, observability | Calibration and observability rows pass; likeness-weighted error below the M1 baseline on T1 sweeps |
 | **M3** Metric scale | `solve/scale.py`, iris limbus fit, references | ≤ 1.5% with a caliper; iris-only σ 4–6% with true error inside 2σ in ≥ 95% of trials |
 | **M4** Shape and expression | `model/*`, `priors/*`, `solve/joint.py`, expression marginalisation and EM, jaw | Eyes, lips and nose accuracy rows; smile robustness; χ² and shrinkage gates fire on crafted cases |
 | **M5** Silhouettes | Sub-vertex contours, two-way chamfer, hair hinge, PNG masks | prn and pg ≤ 1.5 mm; jaw ≤ 2.0 mm; "focal or distance wrong" fires on a mis-set focal |
@@ -512,13 +476,13 @@ Each milestone ships tagged, with CI passing here.
 
 ### Risks
 
-- **No permissive statistical covariance.** Unobserved depth in T0 and T1 stays near the template. *Mitigation:* honest labels, the next-best view, and the FLAME Open adapter (its contents are unverified 📄).
-- **All 🧠 σ values and gates are uncalibrated,** and synthetic noise misses real detector bias. *Mitigation:* γ calibration and the validation-test-bed captures.
-- **The MediaPipe weights licence is ↔️** and its index map is 🧠. *Mitigation:* an external helper, pins as fallback, and index verification in the template kit.
-- **Phone pipelines** (HDR, beauty and face warping, portrait blur) corrupt geometry and photo-consistency. *Mitigation:* gates, the capture protocol, and NCC rejection.
-- **numpy performance.** The shared system stays ≤ 2,000 parameters; the sweep is O(V·pairs·steps), so it is scheduled per region.
+- **No permissive statistical covariance:** unobserved depth stays near the template. *Mitigation:* labels, next-best view, FLAME Open adapter (contents unverified 📄).
+- **Uncalibrated 🧠 σ and gates;** synthetic noise misses real detector bias. *Mitigation:* γ calibration and validation-test-bed captures.
+- **MediaPipe weights licence ↔️, index map 🧠.** *Mitigation:* external helper, pins, index verification in the template kit.
+- **Phone pipelines** (HDR, beauty and face warping) corrupt geometry. *Mitigation:* gates, capture protocol, NCC rejection.
+- **numpy performance:** the shared system is ≤ 2,000 parameters; the sweep is scheduled per region.
 - **Extension rules** on wheels, downloads and non-CC0 tables are ↔️.
-- **No millimetre likeness threshold** is known [com §11]. The perceptual weights are 🧠.
+- **No mm likeness threshold** is known [com §11].
 
 ### Deliberately left out
 

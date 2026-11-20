@@ -1,0 +1,37 @@
+{
+ "id": "phone-video-depth-capture",
+ "area": "reconstruction",
+ "title": "Phone video and depth-sensor capture as engine input",
+ "queue": [
+  {
+   "claim": "Fused iPhone TrueDepth face scans deviate about 0.5-1.5 mm (mean) from clinical stereophotogrammetry over the central face and 2-3+ mm laterally and at the ears; single raw TrueDepth depth frames have roughly 0.5-2 mm noise at 30-40 cm (basis for the depth sigma0 = 0.7 mm default and the 1-2 % scale prior).",
+   "query": "iPhone TrueDepth face scan accuracy compared with 3dMD stereophotogrammetry mean deviation mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "iPhone QuickTime videos carry mdta keys com.apple.quicktime.camera.lens_model and com.apple.quicktime.camera.focal_length.35mm_equivalent (whether the value reflects the stabilised 16:9 video crop is unknown), while stock Android camera MP4s carry no focal-length tag.",
+   "query": "com.apple.quicktime.camera.focal_length.35mm_equivalent iPhone video metadata exiftool",
+   "domains": ""
+  },
+  {
+   "claim": "ARKit ARFaceGeometry has 1,220 vertices and 2,304 triangles in a fixed topology, in metres, with +x toward the face's own left, +y up and +z out of the face; ARFaceAnchor updates at up to 60 Hz while capturedDepthData arrives at about 15 Hz.",
+   "query": "ARFaceGeometry 1220 vertices 2304 triangles face anchor coordinate system capturedDepthData frame rate",
+   "domains": "developer.apple.com"
+  },
+  {
+   "claim": "PyAV is BSD-3-Clause and its PyPI binary wheels bundle FFmpeg built in an LGPL configuration, with cp313 wheels available for Python 3.13 (bundled by Blender 5.1+).",
+   "query": "PyAV av wheels bundled FFmpeg LGPL license cp313",
+   "domains": "pypi.org,github.com,pyav.basswood-io.com"
+  },
+  {
+   "claim": "In Blender 5.x the VSE Python API uses strips instead of sequences (old name removed in 5.0); Blender reads 10-bit/HDR (HLG/PQ) video with colour-space tagging and honours video rotation metadata; there is no Python per-frame pixel access for MOVIE images or MovieClips.",
+   "query": "Blender 5.0 release notes Python API sequences renamed strips video HDR 10-bit reading rotation metadata",
+   "domains": "developer.blender.org,projects.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Record3D .r3d exports contain JSON metadata with intrinsics K and per-frame poses plus LZFSE-compressed float32 depth and JPG colour (export and streaming are paid unlocks); Polycam developer-mode raw export provides per-frame fx, fy, cx, cy, pose, blur_score and depth.",
+   "query": "Record3D r3d export format metadata K poses depth lzfse",
+   "domains": "record3d.app,github.com"
+  }
+ ]
+}

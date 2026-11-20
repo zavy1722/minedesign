@@ -1,0 +1,37 @@
+{
+ "id": "validation-test-bed",
+ "area": "reconstruction",
+ "title": "Ground-truth test bed and threshold calibration for the fitting engine",
+ "queue": [
+  {
+   "claim": "Population coefficient of variation of overall head/face size is about 4-5% (proposed log-normal scale prior sigma about 0.045 for the engine)",
+   "query": "adult head breadth face height interpupillary distance standard deviation coefficient of variation anthropometry",
+   "domains": ""
+  },
+  {
+   "claim": "MediaPipe Face Landmarker regresses 478 landmarks from a roughly 256 px face crop with about 3-4.5% inter-ocular NME and reliable yaw to about 45 degrees, so landmark noise scales with face size (basis of AUTO_SIGMA_FRACTION_OF_DIAG = 0.006)",
+   "query": "MediaPipe Face Landmarker model card face mesh v2 input size accuracy inter-ocular normalized error",
+   "domains": "ai.google.dev,developers.google.com,storage.googleapis.com,arxiv.org"
+  },
+  {
+   "claim": "3D Scan Store (Ten24) and Triplegangers free sample scans may be used in projects but not redistributed, and Triplegangers' terms forbid scraping and AI/ML training",
+   "query": "Triplegangers license agreement free sample 3D scan AI training redistribution",
+   "domains": "triplegangers.com,3dscanstore.com"
+  },
+  {
+   "claim": "Smithsonian 3D (3d.si.edu) offers downloadable scans of the Lincoln life masks (Volk 1860, Mills 1865) under CC0 via Smithsonian Open Access",
+   "query": "Smithsonian 3D Lincoln life mask download CC0 open access",
+   "domains": "si.edu"
+  },
+  {
+   "claim": "The NoW validation split (20 subjects) provides neutral 3dMD scans together with iPhone photos (neutral, expression, occlusion, selfie) under an MPI non-commercial research licence; the 80-subject test set is scored by submission",
+   "query": "NoW benchmark validation set scans images download non-commercial license RingNet",
+   "domains": "now.is.tue.mpg.de,ringnet.is.tue.mpg.de,github.com"
+  },
+  {
+   "claim": "Sketchfab's store migrated into Epic's Fab (launched October 2024) while CC0/CC BY downloadable models remain obtainable, with uploaders choosing among the seven Creative Commons options",
+   "query": "Sketchfab Fab migration 2025 free downloadable Creative Commons models still available",
+   "domains": ""
+  }
+ ]
+}
