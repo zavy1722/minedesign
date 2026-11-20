@@ -73,22 +73,22 @@ Evidence status: 10 ✅ / 30 📄 / 45 🧠 / 21 ↔️ — 🧠 items are queue
 
 | Quantity | Value | Sample | Source | Status |
 |---|---|---|---|---|
-| Most common midface pattern (LLSAN + LLS + ZMj) | 44 % | 50 hemifaces | [29] | 📄 |
+| Commonest midface pattern (LLSAN + LLS + ZMj) | 44 % | 50 hemifaces | [29] | 📄 |
 | Bifid/double ZMj | ≈ 34 % | cadavers; primary n unconfirmed | [10][12] | 📄 |
 | NLF muscle-height study | 56 specimens / 34 adults | embalmed, Korean | [17] | 📄 |
-| ZMj activity, device-free vs device-held smile | ≈ +40 % (orbicularis oculi ≈ +15 %) | experimental | [23] | 📄 |
+| ZMj, device-free vs device-held smile | ≈ +40 % (orbicularis oculi ≈ +15 %) | experimental | [23] | 📄 |
 | ZMj max contraction, smiling | 9.8 ± 3.1 % | 33 healthy adults | [24] | 📄 |
 | ZMj force, smiling | 0.93 ± 0.48 N | same | [24] | 📄 |
-| Primary facial muscle pairs in a biomechanical model | 26 | model | [31] | 📄 |
+| Muscle pairs, face-head-neck model | 26 | model | [31] | 📄 |
 
 **Table 3. Smile kinematics and population frequencies (candidate priors)**
 
 | Quantity | Typical value | Population | Status |
 |---|---|---|---|
-| Commissure excursion, full smile | ≈ 7–15 mm per side | adults (Paletz/Manktelow-type studies) | 🧠 ↔️ |
-| Commissure direction | ≈ 20–50° above horizontal (frontal), plus 3–6 mm backward | adults | 🧠 ↔️ |
+| Commissure excursion, full smile | ≈ 7–15 mm per side | adults (Paletz, Manktelow) | 🧠 ↔️ |
+| Commissure direction | ≈ 20–50° above horizontal (frontal), 3–6 mm backward | adults | 🧠 ↔️ |
 | Intercommissure width gain | ≈ 15–35 % | adults | 🧠 |
-| Upper-lip elevation, rest → posed smile | ≈ 4–9 mm; spontaneous smiles larger | adults | 🧠 ↔️ |
+| Upper-lip elevation, posed smile | ≈ 4–9 mm (spontaneous larger) | adults | 🧠 ↔️ |
 | Smile types (Rubin 1974) | commissure ≈ 67 %, canine ≈ 31 %, full-denture ≈ 2 % | US clinical sample | 🧠 ↔️ |
 | Smile line (Tjan 1984) | low ≈ 20 %, average ≈ 69 %, high ≈ 11 % | dental patients | 🧠 |
 | "Gummy smile" threshold | gingival display > 2–4 mm | thresholds vary | ↔️ |
