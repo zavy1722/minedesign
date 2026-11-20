@@ -1,0 +1,17 @@
+{
+ "id": "texture-projection-painting",
+ "area": "blender",
+ "title": "Projection painting and texturing heads in Blender",
+ "queue": [
+  {
+   "claim": "Blender 4.3 added the 'Minimum Stretch' (SLIM) UV unwrapping method and turned brushes into assets (scripts must activate brush assets).",
+   "query": "Blender 4.3 release notes Minimum Stretch unwrap SLIM",
+   "domains": "developer.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Tool licensing: ArmorPaint source is zlib-licensed (ArmorTools repo) with paid binaries; Substance 3D Painter is an Adobe subscription with a perpetual Steam edition and may not import cameras for projection; Foundry Mari projects from imported cameras and is commercial.",
+   "query": "ArmorPaint license zlib price binaries 2026",
+   "domains": ""
+  }
+ ]
+}

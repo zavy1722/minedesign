@@ -1,0 +1,17 @@
+{
+ "id": "youtube-likeness-blender",
+ "area": "community",
+ "title": "YouTube: face from photos / likeness in Blender",
+ "queue": [
+  {
+   "claim": "Epic made RealityCapture free for small studios (under about 1M USD revenue) in 2024 and later renamed it RealityScan. Meshroom is MPL-2.0 and historically needs an NVIDIA CUDA GPU for depth maps.",
+   "query": "RealityCapture free under 1 million revenue RealityScan 2.0 rename 2025",
+   "domains": "realityscan.com,unrealengine.com,capturingreality.com"
+  },
+  {
+   "claim": "Blender version facts behind tutorial follow-along: 'Images as Planes' became core in 4.2, brushes became assets in 4.3, and a new mesh's default voxel remesh size is about 0.1 m.",
+   "query": "Blender 4.2 Images as Planes core feature; Blender 4.3 brush assets release notes; remesh voxel size default",
+   "domains": "developer.blender.org,docs.blender.org,blender.org"
+  }
+ ]
+}

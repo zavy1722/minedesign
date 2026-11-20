@@ -1,0 +1,17 @@
+{
+ "id": "child-growth",
+ "area": "anatomy",
+ "title": "Craniofacial growth: child and adolescent faces",
+ "queue": [
+  {
+   "claim": "The 2025 US FTC COPPA rule amendments add biometric identifiers (including face geometry) to 'personal information' for under-13s. GDPR Art. 9 treats identifying face geometry as special-category data, and Art. 8 sets child-consent ages of 13\u201316.",
+   "query": "FTC COPPA final rule amendments 2025 biometric identifiers personal information effective compliance date",
+   "domains": "ftc.gov"
+  },
+  {
+   "claim": "The Large Scale Facial Model (LSFM, Booth et al. CVPR 2016, ~10,000 faces) includes children and age-specific sub-models, while FLAME and the Basel model are adult-trained.",
+   "query": "LSFM large scale facial model 10000 faces age range children age-specific models licence",
+   "domains": ""
+  }
+ ]
+}

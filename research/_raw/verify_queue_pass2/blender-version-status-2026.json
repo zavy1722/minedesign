@@ -1,0 +1,17 @@
+{
+ "id": "blender-version-status-2026",
+ "area": "blender",
+ "title": "Blender release status and roadmap as of late 2026",
+ "queue": [
+  {
+   "claim": "4.2 LTS support ended July 2026 and 4.5 LTS is supported until July 2027 (two-year LTS window); the next LTS is due July 2027",
+   "query": "Blender LTS support schedule 4.2 end of life July 2026 4.5 LTS July 2027",
+   "domains": "blender.org"
+  },
+  {
+   "claim": "Blender 4.3 brush assets: tool_settings.sculpt.brush can no longer be assigned from bpy.data; use bpy.ops.brush.asset_activate; Brush.sculpt_tool renamed to sculpt_brush_type",
+   "query": "Blender 4.3 Python API brush assets asset_activate sculpt_brush_type",
+   "domains": "developer.blender.org,docs.blender.org"
+  }
+ ]
+}

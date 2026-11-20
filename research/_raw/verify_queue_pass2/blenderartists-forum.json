@@ -1,0 +1,17 @@
+{
+ "id": "blenderartists-forum",
+ "area": "community",
+ "title": "BlenderArtists forum knowledge on faces",
+ "queue": [
+  {
+   "claim": "From pinhole geometry, the nose-tip plane appears about 20% larger than the ear plane at 0.5 m and about 10% larger at 1 m. That is why the note proposes a perspective-guard warning below about 0.8 m. The Ward et al. 2018 'selfie effect' study is expected to report around 30% nasal widening at about 30 cm.",
+   "query": "Ward 2018 nasal distortion short-distance photographs selfie effect JAMA Facial Plastic Surgery percent",
+   "domains": ""
+  },
+  {
+   "claim": "The MakeHuman hm08 base mesh used by MPFB2 has about 13,380 body vertices (about 19,158 including helper geometry). FLAME has 5,023 vertices and 9,976 triangles, with 300 shape and 100 expression components.",
+   "query": "MakeHuman hm08 base mesh vertex count 13380 19158 helpers",
+   "domains": ""
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "id": "craniometric-landmarks",
+ "area": "anatomy",
+ "title": "Hard- and soft-tissue anthropometric landmarks",
+ "queue": [
+  {
+   "claim": "MediaPipe is Apache-2.0 licensed, while dlib's distributed shape_predictor_68_face_landmarks model is trained on iBUG 300-W images whose licence excludes commercial use.",
+   "query": "dlib shape_predictor_68_face_landmarks.dat license iBUG 300-W commercial use restriction",
+   "domains": "github.com,dlib.net"
+  }
+ ]
+}

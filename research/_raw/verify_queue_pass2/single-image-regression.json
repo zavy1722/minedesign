@@ -1,0 +1,12 @@
+{
+ "id": "single-image-regression",
+ "area": "reconstruction",
+ "title": "Single-image 3D face reconstruction methods",
+ "queue": [
+  {
+   "claim": "Best-method claims: Pixel3DMM is more than 15% better on posed expressions, HRN led REALY at release (region-averaged frontal error about 1.5\u20131.6 mm against about 2 mm for DECA), and TEASER beats SMIRK on expression accuracy. The SMIRK, HRN, Pixel3DMM and TEASER licences are unknown.",
+   "query": "Pixel3DMM NoW REALY results license; HRN REALY benchmark frontal nose mouth forehead cheek mm",
+   "domains": "arxiv.org, github.com"
+  }
+ ]
+}

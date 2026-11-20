@@ -1,0 +1,17 @@
+{
+ "id": "soft-tissue-thickness",
+ "area": "anatomy",
+ "title": "Facial soft-tissue thickness (forensic tissue depth tables)",
+ "queue": [
+  {
+   "claim": "Supine-to-upright change is under 1 mm at midline sites and ~1-3 mm at lateral and lower-face sites (Munn & Stephan 2018, Forensic Sci Int); hence a sigma inflation of 0.05-0.10 for supine CT/MRI-derived data",
+   "query": "Munn Stephan 2018 changes in face topography supine to upright soft tissue correction values craniofacial identification",
+   "domains": "pubmed.ncbi.nlm.nih.gov,sciencedirect.com"
+  },
+  {
+   "claim": "Blender Geometry Nodes workflow: Object Info -> Geometry Proximity or Raycast -> Store Named Attribute (fstt_mm) -> Color Ramp; the Solidify modifier vertex-group thickness factor works for a variable-thickness envelope",
+   "query": "Blender manual Geometry Proximity node Raycast node Store Named Attribute Solidify modifier vertex group thickness factor",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

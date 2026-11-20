@@ -1,0 +1,17 @@
+{
+ "id": "sota-2025-2026",
+ "area": "reconstruction",
+ "title": "State of the art 2025-2026 in 3D face reconstruction",
+ "queue": [
+  {
+   "claim": "VGGT (CVPR 2025 best paper, about 1B parameters) first shipped non-commercial weights; a commercial-use checkpoint was released later. DUSt3R and MASt3R are CC BY-NC-SA 4.0.",
+   "query": "VGGT commercial checkpoint license facebookresearch vggt VGGT-1B-Commercial",
+   "domains": "github.com,huggingface.co"
+  },
+  {
+   "claim": "LAM (SIGGRAPH 2025) has public code, reportedly Apache-2.0. Avat3r code availability is unconfirmed. CAP4D and FaceLift have public code with unverified licences.",
+   "query": "LAM Large Avatar Model one-shot animatable Gaussian head aigc3d github license",
+   "domains": "github.com"
+  }
+ ]
+}

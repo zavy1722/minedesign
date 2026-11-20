@@ -1,0 +1,17 @@
+{
+ "id": "face-retopology",
+ "area": "blender",
+ "title": "Face retopology and edge flow",
+ "queue": [
+  {
+   "claim": "Real-time budgets: mobile/VR head 1.5k-8k triangles; PC/console hero head LOD0 10k-50k triangles; MetaHuman LOD0 head about 24k vertices; ARKit face mesh 1,220 vertices",
+   "query": "MetaHuman LOD0 head mesh vertex count triangles",
+   "domains": ""
+  },
+  {
+   "claim": "R3DS Wrap is now sold under the Faceform name and remains the reference commercial wrapping tool",
+   "query": "R3DS Wrap Faceform rebrand Wrap 2025",
+   "domains": ""
+  }
+ ]
+}

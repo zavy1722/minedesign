@@ -1,0 +1,17 @@
+{
+ "id": "photogrammetry-heads",
+ "area": "reconstruction",
+ "title": "Photogrammetry of human heads",
+ "queue": [
+  {
+   "claim": "Agisoft Metashape Standard lacks markers, scale bars, coded targets and Python scripting, which are Professional-only. Both editions are perpetual licences.",
+   "query": "Agisoft Metashape Standard vs Professional edition feature comparison scale bars markers coded targets Python price",
+   "domains": "agisoft.com"
+  },
+  {
+   "claim": "Meshroom/AliceVision needs CUDA for depth maps and falls back to a default field of view (reportedly 45\u00b0) when a camera is missing from its sensor database. The current release line, and whether it now includes segmentation or masking nodes, is unknown.",
+   "query": "Meshroom AliceVision CameraInit default field of view 45 sensor database CUDA depth map latest release",
+   "domains": "github.com,alicevision.org"
+  }
+ ]
+}

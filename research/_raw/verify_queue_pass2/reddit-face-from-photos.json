@@ -1,0 +1,17 @@
+{
+ "id": "reddit-face-from-photos",
+ "area": "community",
+ "title": "Reddit: face-from-photos problems and answers",
+ "queue": [
+  {
+   "claim": "RealityCapture became free for individuals and companies with under about US$1M annual revenue in 2024, has since been folded into RealityScan, and needs an NVIDIA CUDA GPU for meshing.",
+   "query": "RealityCapture free under 1 million revenue RealityScan 2.0 rename CUDA requirement",
+   "domains": "capturingreality.com,realityscan.com,unrealengine.com"
+  },
+  {
+   "claim": "The open-weights licence for Hunyuan3D 2.x excludes the EU, UK and South Korea; TRELLIS and TripoSR are MIT-licensed.",
+   "query": "Hunyuan3D 2.1 Tencent community license territory European Union United Kingdom South Korea excluded",
+   "domains": "github.com,huggingface.co"
+  }
+ ]
+}

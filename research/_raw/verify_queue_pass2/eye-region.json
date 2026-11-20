@@ -1,0 +1,17 @@
+{
+ "id": "eye-region",
+ "area": "anatomy",
+ "title": "Eye, eyelids and orbit",
+ "queue": [
+  {
+   "claim": "Upper eyelid crease height above the margin is ~8-11 mm in Western women and ~6-8 mm in men; in East Asians it is absent or low (3-6 mm). Normal MRD1 is 4-5 mm and MRD2 5-5.5 mm.",
+   "query": "upper eyelid crease height mm normal women men Asian Caucasian MRD1 normal values",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "The globe centre sits ~1-2 mm superolateral to the orbital aperture centre (Stephan & Davidson 2008), and the corneal apex lies within a few mm of the mid-supraorbital to mid-infraorbital tangent.",
+   "query": "Stephan Davidson placement of the human eyeball and canthi in craniofacial identification",
+   "domains": ""
+  }
+ ]
+}

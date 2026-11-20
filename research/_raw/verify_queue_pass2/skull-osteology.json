@@ -1,0 +1,17 @@
+{
+ "id": "skull-osteology",
+ "area": "anatomy",
+ "title": "Skull osteology that shapes the face surface",
+ "queue": [
+  {
+   "claim": "Soft-tissue alar width exceeds piriform aperture width by roughly 8-16 mm; the forensic rules (e.g. 'add ~10 mm', ratio rules) disagree.",
+   "query": "prediction of alar width from piriform aperture width forensic facial approximation Rynn Wilkinson nasal morphology",
+   "domains": ""
+  },
+  {
+   "claim": "The supraorbital notch, infraorbital foramen and mental foramen lie on roughly one vertical line about 2-3 cm from the midline, and the infraorbital foramen sits about 6-8.5 mm below the orbital rim.",
+   "query": "supraorbital notch infraorbital foramen mental foramen same vertical line distance from midline mm study",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

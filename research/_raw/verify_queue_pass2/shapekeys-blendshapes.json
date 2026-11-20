@@ -1,0 +1,17 @@
+{
+ "id": "shapekeys-blendshapes",
+ "area": "blender",
+ "title": "Shape keys and blendshape standards",
+ "queue": [
+  {
+   "claim": "In ARKit, 'Left' blendshapes (eyeBlinkLeft and similar) refer to the subject's own left, as MediaPipe's do. In Blender (character facing -Y) they map to the +X side.",
+   "query": "ARKit eyeBlinkLeft user's left eye or right eye front camera mirrored blendShapes",
+   "domains": "developer.apple.com"
+  },
+  {
+   "claim": "Blender's FBX and glTF exporters ignore a shape key's vertex_group mask and non-Basis relative_key (and FBX can drop shape keys when non-Armature modifiers are applied), so these must be baked before export.",
+   "query": "Blender glTF FBX exporter shape key vertex group relative key ignored morph target export",
+   "domains": "docs.blender.org,github.com,projects.blender.org"
+  }
+ ]
+}

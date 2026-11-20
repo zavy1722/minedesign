@@ -1,0 +1,17 @@
+{
+ "id": "blender-sculpt-features-5x",
+ "area": "blender",
+ "title": "Blender sculpt mode feature set (4.x-5.x)",
+ "queue": [
+  {
+   "claim": "Multires 'Reshape' (bpy.ops.object.multires_reshape) copies vertex coordinates from another object with topology matching the current multires level, giving a Python write path for multires detail",
+   "query": "Blender multires reshape copy vertex coordinates from other object same topology python",
+   "domains": "docs.blender.org"
+  },
+  {
+   "claim": "The sculpt-mode C++ refactor across 4.2-4.4 gave multi-x speedups (reported roughly 2-10x for sculpt-mode entry and some brushes) and lower memory",
+   "query": "Blender 4.3 sculpt mode performance refactor entering sculpt mode faster",
+   "domains": "developer.blender.org,code.blender.org"
+  }
+ ]
+}

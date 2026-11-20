@@ -1,0 +1,17 @@
+{
+ "id": "texture-extraction",
+ "area": "reconstruction",
+ "title": "Building a UV texture from photos",
+ "queue": [
+  {
+   "claim": "A 3\u00d73 linear colour-correction matrix fitted to a 24-patch ColorChecker typically gives a post-correction mean \u0394E2000 of about 1.5\u20133 for camera captures.",
+   "query": "ColorChecker 24 patch 3x3 colour correction matrix camera mean delta E 2000 typical results",
+   "domains": ""
+  },
+  {
+   "claim": "De-lighting tools: Agisoft Texture De-Lighter is a free standalone tool; Unity's De-Lighting tool (2017) is likely unmaintained.",
+   "query": "Agisoft Texture De-Lighter free download current version",
+   "domains": "agisoft.com"
+  }
+ ]
+}

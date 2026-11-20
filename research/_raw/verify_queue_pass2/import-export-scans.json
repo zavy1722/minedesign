@@ -1,0 +1,17 @@
+{
+ "id": "import-export-scans",
+ "area": "blender",
+ "title": "Importing scans and reconstructions into Blender",
+ "queue": [
+  {
+   "claim": "Blender defaults: Merge by Distance 0.0001 m, mesh voxel remesh size 0.1 m, viewport clip 0.01/1000 m, Surface Deform falloff 4, and the OBJ exporter writes 6 decimal places.",
+   "query": "Blender OBJ exporter decimal precision merge by distance default 0.0001 surface deform falloff default",
+   "domains": "docs.blender.org,projects.blender.org"
+  },
+  {
+   "claim": "R3DS Wrap has been rebranded as Faceform, and its licensing or price has changed (time-sensitive).",
+   "query": "R3DS Wrap Faceform rebrand Wrap 2025 license price",
+   "domains": ""
+  }
+ ]
+}

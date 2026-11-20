@@ -1,0 +1,17 @@
+{
+ "id": "eyes-modeling-blender",
+ "area": "blender",
+ "title": "Modeling and shading realistic eyes in Blender",
+ "queue": [
+  {
+   "claim": "In Blender Cycles, MNEE shadow caustics (Blender 3.2+) are enabled via Object > Shading > Caustics cast/receive and a Shadow Caustics toggle on lights. Disabling the cornea's shadow Ray Visibility is the alternative fix for a dark iris. EEVEE Next (4.2+) uses Raytraced Transmission plus a Material Output Thickness socket.",
+   "query": "Blender manual shadow caustics MNEE cast receive object light settings EEVEE raytraced transmission thickness",
+   "domains": "docs.blender.org,developer.blender.org,projects.blender.org"
+  },
+  {
+   "claim": "Eyelash counts and lengths: about 90-160 upper lashes (8-12 mm) and about 50-80 lower lashes (6-8 mm). Lower tear meniscus height is about 0.2-0.5 mm. The caruncle is about 3-5 mm across.",
+   "query": "number of eyelashes upper lower eyelid length mm study tear meniscus height OCT normal",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

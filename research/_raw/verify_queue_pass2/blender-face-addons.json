@@ -1,0 +1,17 @@
+{
+ "id": "blender-face-addons",
+ "area": "blender",
+ "title": "Blender add-ons for heads and faces",
+ "queue": [
+  {
+   "claim": "Faceit's stated Blender range is 3.0 to 5.2 and Face Shape Key Rig needs 5.2 or newer, so Blender 5.2 LTS is the only version all three sourced ranges share and 5.3 is outside Faceit's stated support.",
+   "query": "Faceit Blender 5.3 compatibility",
+   "domains": "superhivemarket.com,github.com"
+  },
+  {
+   "claim": "KeenTools FaceBuilder for Blender has a GPL Python front-end with a proprietary core, is sold as a subscription with a trial, has ARKit-compatible blendshapes, and its EULA terms on exported meshes are unknown.",
+   "query": "KeenTools FaceBuilder for Blender license pricing EULA exported mesh 2026",
+   "domains": "keentools.io"
+  }
+ ]
+}

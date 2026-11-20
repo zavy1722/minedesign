@@ -1,0 +1,17 @@
+{
+ "id": "scan-cleanup-wrapping",
+ "area": "community",
+ "title": "Cleaning scans and wrapping base topology",
+ "queue": [
+  {
+   "claim": "Mesh to MetaHuman (UE 5.6/5.7) conforms MetaHuman topology from tracked markers and drifts at the nasal tip, vermilion and lid aperture; texture transfer is limited; template-mesh conform exists from 5.6",
+   "query": "Mesh to MetaHuman UE 5.7 conform template mesh texture likeness",
+   "domains": "dev.epicgames.com"
+  },
+  {
+   "claim": "Acceptance thresholds for a template-to-scan wrap: face median distance under 0.3 mm, RMS under 0.5 mm, p95 under 1.5 mm",
+   "query": "non-rigid ICP face template registration scan residual RMS mm",
+   "domains": ""
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "id": "muscles-lower-face",
+ "area": "anatomy",
+ "title": "Muscles of the lower face, lips and chin",
+ "queue": [
+  {
+   "claim": "Mentalis measured 5 mm lateral to the chin point: depth 6.7 \u00b1 1.4 mm, thickness 4.0 \u00b1 1.4 mm, bone-to-muscle gap 1.1 \u00b1 1.0 mm (PMC7911364)",
+   "query": "Effective Locations for Injecting Botulinum Toxin into the Mentalis Muscle cadaveric ultrasonographic study depth thickness",
+   "domains": "pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Lower-lip depressor widths: DLI 20 \u00b1 4 mm, DAO 14 \u00b1 3 mm in cadavers (J Craniofac Surg, SCS.0000000000007622); sample size and measurement site unknown",
+   "query": "Anatomical Features in Lower-Lip Depressor Muscles depressor labii inferioris width depressor anguli oris width cadaver",
+   "domains": "journals.lww.com,pubmed.ncbi.nlm.nih.gov,diva-portal.org"
+  }
+ ]
+}

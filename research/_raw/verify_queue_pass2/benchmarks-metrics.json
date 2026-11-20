@@ -1,0 +1,17 @@
+{
+ "id": "benchmarks-metrics",
+ "area": "reconstruction",
+ "title": "Benchmarks and metrics for face reconstruction accuracy",
+ "queue": [
+  {
+   "claim": "The FaceScape benchmark (Zhu et al., TPAMI) scores Chamfer distance, complete rate and mean normal error, binned by yaw and focal length; FaceScape has about 938 subjects \u00d7 20 expressions, mostly East Asian, and is research-only by application",
+   "query": "FaceScape benchmark single-view 3D face reconstruction Chamfer distance complete rate mean normal error focal length yaw",
+   "domains": ""
+  },
+  {
+   "claim": "Florence/MICC protocol: ground truth cropped to about 95 mm around the nose tip, point-to-plane error after ICP, with 2018-era methods at about 1.5\u20132 mm; Stirling/ESRC FG2018 has about 2,000 test images of about 130 subjects",
+   "query": "MICC Florence 95 mm nose tip point-to-plane error Genova 2018 unsupervised 3D morphable model regression",
+   "domains": "arxiv.org"
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "id": "muscles-mastication-jaw",
+ "area": "anatomy",
+ "title": "Masseter, temporalis and the jaw line",
+ "queue": [
+  {
+   "claim": "Bunkyo Health Study (older Japanese adults, MRI): masseter volume is about 35 mL in men and 25 mL in women (from a search summary; whether per side is unknown).",
+   "query": "Bunkyo Health Study masseter muscle volume MRI men women mL osteoporosis",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Botulinum toxin and bone: a CBCT study (n=20) reports bone-volume loss at the mandibular angle after repeated injections, while a 12-month placebo-controlled CT trial (150 vs 37) found no change in bigonial width, gonial angle or cortical thickness. Soft-tissue bulk falls about 25-30%, with recovery reported at about 6 months versus 6-12 months.",
+   "query": "onabotulinumtoxinA masseter muscle prominence 12-month placebo-controlled CT mandibular bone morphology gonial angle",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

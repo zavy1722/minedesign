@@ -1,0 +1,17 @@
+{
+ "id": "traditional-portrait-sculpture",
+ "area": "community",
+ "title": "Traditional portrait sculpture methods",
+ "queue": [
+  {
+   "claim": "Water-based sculpture clay shrinks about 8\u201315% linearly in total through drying and firing, and lost-wax bronze about 1\u20133%. Scale the model up by 1/(1\u2212s).",
+   "query": "sculpture clay earthenware stoneware total linear shrinkage drying and firing percent",
+   "domains": ""
+  },
+  {
+   "claim": "The Asaro head is a copyrighted commercial cast sold in several current variants, so the add-on must not ship a copy of its facet layout.",
+   "query": "Asaro head planes of the head John Asaro variants copyright license",
+   "domains": ""
+  }
+ ]
+}

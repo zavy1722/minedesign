@@ -1,0 +1,17 @@
+{
+ "id": "muscles-mid-face",
+ "area": "anatomy",
+ "title": "Muscles of the mid face",
+ "queue": [
+  {
+   "claim": "Zygomaticus minor is often absent: the most common pattern in 50 hemifaces (44%) was levator alae nasi + levator labii superioris + zygomaticus major, implying no separate zygomaticus minor",
+   "query": "\"Variability of the midfacial muscles\" 50 hemifacial cadaver dissections zygomaticus minor absent percentage",
+   "domains": "pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Zygomaticus major dimensions in adults: length about 50-75 mm, width about 7-15 mm, thickness about 1.5-4 mm",
+   "query": "zygomaticus major muscle length width thickness cadaver ultrasound measurement mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

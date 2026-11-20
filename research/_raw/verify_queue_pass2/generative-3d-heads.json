@@ -1,0 +1,17 @@
+{
+ "id": "generative-3d-heads",
+ "area": "reconstruction",
+ "title": "Generative / large reconstruction models for heads (2024-2026)",
+ "queue": [
+  {
+   "claim": "The licences of PanoHead, SphereHead, FaceLift, Arc2Avatar and Arc2Face are non-commercial or unconfirmed. InsightFace pretrained weights, the ArcFace backbone used by ID-guided head generators, are non-commercial research only.",
+   "query": "InsightFace pretrained models license non-commercial research Arc2Face license PanoHead license",
+   "domains": "github.com"
+  },
+  {
+   "claim": "TRELLIS and Hunyuan3D 2.x condition on DINOv2-family encoders at about 518 px, and the default extraction grids are 256 (Hunyuan octree resolution 256; TRELLIS FlexiCubes 256^3; TripoSR marching cubes 256).",
+   "query": "Hunyuan3D-2 octree_resolution default 256 DINOv2 518 TRELLIS FlexiCubes 256 resolution TripoSR mc-resolution",
+   "domains": "github.com"
+  }
+ ]
+}

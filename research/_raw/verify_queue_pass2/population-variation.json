@@ -1,0 +1,17 @@
+{
+ "id": "population-variation",
+ "area": "anatomy",
+ "title": "Craniofacial variation across human populations",
+ "queue": [
+  {
+   "claim": "Craniometric variation apportionment: ~11\u201314% among major regions (Relethford 2002) vs ~88% for skin colour; Rosenberg 2002 93\u201395% within populations",
+   "query": "Relethford 2002 apportionment global human genetic diversity craniometrics skin color percentage among regions",
+   "domains": ""
+  },
+  {
+   "claim": "Albedo/skin-tone bias in face reconstruction documented by TRUST and FAIR benchmark (Feng et al., ECCV 2022)",
+   "query": "Towards racially unbiased skin tone estimation via scene disambiguation TRUST FAIR benchmark",
+   "domains": "arxiv.org,github.com"
+  }
+ ]
+}

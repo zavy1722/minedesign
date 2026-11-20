@@ -1,0 +1,17 @@
+{
+ "id": "mouth-lips-teeth",
+ "area": "anatomy",
+ "title": "Lips, mouth and dental support",
+ "queue": [
+  {
+   "claim": "Commissure (cheilion) depth is about 10\u201320 mm behind the most anterior upper-lip point (prior 15 mm, \u03c3 4).",
+   "query": "3D facial anthropometry cheilion labrale superius depth distance stereophotogrammetry lip curvature",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "MediaPipe Face Mesh lip indices are 61/291 for the mouth corners, 0/17 for the outer midlines and 13/14 for the inner midlines; iBUG-68 uses 48\u201359 for the outer lip, 60\u201367 for the inner lip and 48/54 for the corners.",
+   "query": "MediaPipe face mesh landmark indices lips 61 291 0 17 13 14 mouth corners",
+   "domains": "github.com,ai.google.dev"
+  }
+ ]
+}

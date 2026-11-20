@@ -1,0 +1,17 @@
+{
+ "id": "camera-perspective-distortion",
+ "area": "reconstruction",
+ "title": "Focal length, subject distance and perspective distortion",
+ "queue": [
+  {
+   "claim": "The snippet finding that 50 mm portraits are rated less sex-typical, attractive and dominant matches T\u0159ebick\u00fd et al. 2016 (PLoS ONE). The harvested URL PMC3440305 may instead be Bryan, Perona & Adolphs 2012.",
+   "query": "T\u0159ebick\u00fd 2016 Focal length affects depicted shape and perception of facial images PLoS ONE",
+   "domains": "journals.plos.org,ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Marked focal lengths carry a manufacturing tolerance of about \u00b15% (ISO 517), and the effective focal length changes with focus distance by (1+m) for unit-focusing lenses.",
+   "query": "ISO 517 focal length marking tolerance 5 percent photographic lenses",
+   "domains": ""
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "id": "sexual-dimorphism",
+ "area": "anatomy",
+ "title": "Sexual dimorphism of the face and skull",
+ "queue": [
+  {
+   "claim": "The facial width-to-height ratio (fWHR) is not meaningfully sexually dimorphic (Kramer 2017 meta-analysis; Geniole et al. 2015, d \u2248 0.1), despite Weston et al. 2007.",
+   "query": "Kramer 2017 sexual dimorphism facial width-to-height ratio skulls faces meta-analysis",
+   "domains": ""
+  },
+  {
+   "claim": "The adult gonial angle differs only about 2\u20136\u00b0 by sex (men smaller, heavy overlap). The '90\u00b0 male / 110\u00b0 female' pair is wrong.",
+   "query": "gonial angle sex difference adults male female mean degrees cephalometric panoramic study",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

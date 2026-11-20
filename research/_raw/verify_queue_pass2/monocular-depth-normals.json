@@ -1,0 +1,17 @@
+{
+ "id": "monocular-depth-normals",
+ "area": "reconstruction",
+ "title": "Monocular depth and surface normals for faces",
+ "queue": [
+  {
+   "claim": "Microsoft DAViD released compact human depth/normal/segmentation models as ONNX, trained on ~300K synthetic images",
+   "query": "microsoft DAViD data-efficient accurate vision models synthetic ONNX depth normal release license",
+   "domains": "github.com,arxiv.org"
+  },
+  {
+   "claim": "Marigold v1.x is SD2-based, fine-tuned on ~74K synthetic samples, needs 1-4 denoising steps in newer checkpoints; weight licence unverified",
+   "query": "prs-eth marigold normals v1-1 license denoising steps huggingface",
+   "domains": "huggingface.co,github.com"
+  }
+ ]
+}

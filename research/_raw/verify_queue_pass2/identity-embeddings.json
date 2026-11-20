@@ -1,0 +1,17 @@
+{
+ "id": "identity-embeddings",
+ "area": "reconstruction",
+ "title": "Face recognition embeddings as identity signals",
+ "queue": [
+  {
+   "claim": "EU AI Act: Art. 5 ban on untargeted facial-image scraping applies from 2 Feb 2025; Art. 50 deepfake transparency duties scheduled for 2 Aug 2026, possibly delayed by the 2025 digital omnibus proposal.",
+   "query": "EU AI Act Article 50 deepfake transparency application date digital omnibus delay 2026",
+   "domains": "eur-lex.europa.eu,digital-strategy.ec.europa.eu"
+  },
+  {
+   "claim": "Possibly permissive alternatives: OpenCV Zoo SFace (128-d) and YuNet are Apache-2.0 or MIT; dlib face recognition ResNet weights are public domain/CC0 (0.6 Euclidean threshold, ~99.38% LFW).",
+   "query": "opencv_zoo face_recognition_sface license Apache 2.0 dlib_face_recognition_resnet_model_v1 license",
+   "domains": "github.com"
+  }
+ ]
+}

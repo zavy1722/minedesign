@@ -1,0 +1,17 @@
+{
+ "id": "aging-face",
+ "area": "anatomy",
+ "title": "Facial aging mechanics",
+ "queue": [
+  {
+   "claim": "Eyebrow position with age: the classic teaching is lateral brow ptosis (Knize 1996), but Matros et al. 2009 report that the brow stays level or rises with age, especially in women.",
+   "query": "Matros 2009 changes in eyebrow position and shape with aging Plastic and Reconstructive Surgery",
+   "domains": "pubmed.ncbi.nlm.nih.gov,journals.lww.com"
+  },
+  {
+   "claim": "Apparent-age estimation error: human raters are off by about 5\u20138 years MAE on unconstrained photos, and current models by about 2\u20133 years on curated benchmarks (MORPH II) and 4\u20136 years in the wild. Common datasets (IMDB-WIKI, UTKFace, APPA-REAL) and models (e.g. MiVOLO) carry licence limits.",
+   "query": "state of the art age estimation MAE 2026 MORPH II in-the-wild benchmark MiVOLO licence",
+   "domains": ""
+  }
+ ]
+}

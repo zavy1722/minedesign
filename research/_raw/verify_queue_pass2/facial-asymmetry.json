@@ -1,0 +1,17 @@
+{
+ "id": "facial-asymmetry",
+ "area": "anatomy",
+ "title": "Natural facial asymmetry",
+ "queue": [
+  {
+   "claim": "In dentofacial-deformity patients with asymmetry, the chin was involved in about 74\u201375% of cases, the midface in about 36% and the upper face in about 5% (Severt & Proffit 1997). This supports the ranking lower > middle > upper.",
+   "query": "Severt Proffit 1997 prevalence of facial asymmetry dentofacial deformities chin deviation midface upper face percent",
+   "domains": "pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "In Blender, Sculpt mode writes into the active (non-Basis) shape key on a plain mesh. Shape keys are not supported with Dyntopo, and Multires detail levels cannot hold shape keys. Sculpt symmetry and the Mirror modifier mirror about the object's local origin and axes.",
+   "query": "Blender manual sculpt mode shape keys multires dyntopo support symmetry local axes",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

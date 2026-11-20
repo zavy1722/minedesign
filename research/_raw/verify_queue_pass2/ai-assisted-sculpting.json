@@ -1,0 +1,17 @@
+{
+ "id": "ai-assisted-sculpting",
+ "area": "community",
+ "title": "AI-assisted head creation: practitioner reviews",
+ "queue": [
+  {
+   "claim": "Local VRAM needs: Hunyuan3D 2.0 about 6 GB shape / 16 GB with texture; Hunyuan3D 2.1 about 10 GB shape, 21 GB texture, 29 GB both; TRELLIS 16 GB or more; TripoSR and SF3D about 6 GB.",
+   "query": "Hunyuan3D-2.1 VRAM requirements shape generation texture generation GB",
+   "domains": "github.com"
+  },
+  {
+   "claim": "TRELLIS and Hunyuan3D condition on DINOv2-style image features at about 518 px, so a full-body photo leaves the face about 37 px wide and a head-only crop about 242 px.",
+   "query": "TRELLIS image conditioning DINOv2 518 resolution preprocess Hunyuan3D image encoder resolution",
+   "domains": "github.com,arxiv.org"
+  }
+ ]
+}

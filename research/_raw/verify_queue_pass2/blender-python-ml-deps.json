@@ -1,0 +1,17 @@
+{
+ "id": "blender-python-ml-deps",
+ "area": "blender",
+ "title": "Running MediaPipe / OpenCV / ONNX inside Blender",
+ "queue": [
+  {
+   "claim": "Blender ignores PYTHONPATH and the user site-packages by default unless --python-use-system-env is passed, so `pip install --user` via sys.executable lands where Blender cannot import it.",
+   "query": "Blender --python-use-system-env user site-packages PYTHONPATH ignored",
+   "domains": "docs.blender.org,developer.blender.org"
+  },
+  {
+   "claim": "OpenCV PyPI wheels are abi3 (one wheel works for all CPython >= 3.7) and NumPy-2 compatible from 4.10.0.84, whereas onnxruntime wheels are per-CPython-version, with NumPy 2 support starting around 1.19.",
+   "query": "opencv-python wheel abi3 cp37 numpy 2 4.10.0.84 onnxruntime numpy 2 support version",
+   "domains": "pypi.org,github.com,onnxruntime.ai"
+  }
+ ]
+}

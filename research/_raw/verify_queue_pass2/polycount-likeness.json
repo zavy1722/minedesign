@@ -1,0 +1,17 @@
+{
+ "id": "polycount-likeness",
+ "area": "community",
+ "title": "Polycount: likeness sculpting knowledge",
+ "queue": [
+  {
+   "claim": "Realtime head budgets: current-gen hero heads \u2248 30k\u2013100k+ tris at LOD0; MetaHuman LOD0 face is tens of thousands of vertices (exact count unknown)",
+   "query": "MetaHuman LOD0 face mesh vertex count triangles",
+   "domains": "dev.epicgames.com,epicgames.com"
+  },
+  {
+   "claim": "Polycount forum and wiki status in 2026 (still active, wiki host and topology/edge-loop page names) and R3DS Wrap reportedly rebranded as Faceform Wrap",
+   "query": "Polycount wiki face topology edge loops page; R3DS Wrap Faceform rebrand",
+   "domains": "polycount.com,wiki.polycount.com,faceform.com,r3ds.com"
+  }
+ ]
+}

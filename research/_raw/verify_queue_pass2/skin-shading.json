@@ -1,0 +1,17 @@
+{
+ "id": "skin-shading",
+ "area": "blender",
+ "title": "Realistic skin shading in Blender",
+ "queue": [
+  {
+   "claim": "Weyrich et al. 2006 measured about 150 faces and found region-dependent specular roughness (Beckmann m \u2248 0.25\u20130.45), with the T-zone more specular; this underpins the regional roughness offsets and base roughness 0.45 \u00b1 0.07",
+   "query": "Weyrich 2006 \"Analysis of Human Faces using a Measurement-Based Skin Reflectance Model\" Torrance-Sparrow roughness face regions subjects",
+   "domains": ""
+  },
+  {
+   "claim": "The Subsurface Anisotropy value of 0.8 for skin quoted by the Blender manual matches tissue-optics measurements (g \u2248 0.8\u20130.95 in visible light)",
+   "query": "skin optical properties anisotropy factor g 0.8 epidermis dermis visible wavelength van Gemert skin optics",
+   "domains": ""
+  }
+ ]
+}

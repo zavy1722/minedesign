@@ -1,0 +1,12 @@
+{
+ "id": "anthropometric-norms",
+ "area": "anatomy",
+ "title": "Quantitative facial anthropometry norms (Farkas and successors)",
+ "queue": [
+  {
+   "claim": "FaceBase 3DFN: summary-level data openly downloadable, individual-level via Data Access Request; Headspace (~1,500 3dMD head scans) available under research licence",
+   "query": "FaceBase 3D Facial Norms data access summary level download Headspace dataset licence University of York",
+   "domains": "facebase.org,york.ac.uk"
+  }
+ ]
+}

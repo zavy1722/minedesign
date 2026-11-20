@@ -1,0 +1,17 @@
+{
+ "id": "hair-eyes-teeth-recon",
+ "area": "reconstruction",
+ "title": "Reconstructing hair, eyes and teeth from images",
+ "queue": [
+  {
+   "claim": "Appearance-based gaze networks reach about 4\u20135\u00b0 error within the lab datasets (MPIIGaze, ETH-XGaze) and about 10\u201311\u00b0 on Gaze360. IR-glint eye trackers reach about 0.5\u20131\u00b0. Fitting the iris edge on high-resolution photos plausibly reaches 1\u20133\u00b0.",
+   "query": "L2CS-Net MPIIGaze Gaze360 angular error degrees appearance-based gaze estimation",
+   "domains": "arxiv.org"
+  },
+  {
+   "claim": "MediaPipe Iris assumes a horizontal iris diameter of about 11.7 mm (\u00b10.5) for metric depth (Ablavatski et al. 2020). MediaPipe Face Landmarker outputs 478 points, with 468\u2013477 on the irises (5 per eye), plus 52 ARKit-style blendshape scores.",
+   "query": "MediaPipe Iris 11.7 mm horizontal iris diameter depth estimation relative error landmarks 468-477",
+   "domains": ""
+  }
+ ]
+}

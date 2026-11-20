@@ -1,0 +1,17 @@
+{
+ "id": "hair-blender",
+ "area": "blender",
+ "title": "Hair in Blender for head reconstructions",
+ "queue": [
+  {
+   "claim": "Essentials hair node-group assets (Interpolate with Part by Mesh Islands, Clump, Curl, Shrinkwrap Hair Curves, Restore Curve Segment Length, Set Hair Curve Profile, Create Guide Index Map) shipped in 3.5 and still exist under these names in 5.x; legacy particle hair still present in 5.x",
+   "query": "Blender hair node groups essentials assets Interpolate Hair Curves Part by Mesh Islands manual 5.x particle hair deprecated",
+   "domains": "docs.blender.org,developer.blender.org"
+  },
+  {
+   "claim": "Licences of the hair segmentation and strand-reconstruction stack: CelebAMask-HQ (non-commercial) and parsers trained on it, MediaPipe hair segmentation (Apache-2.0), Neural Haircut / HairStep / MonoHair / Gaussian Haircut / Perm / DiffLocks code and weights",
+   "query": "CelebAMask-HQ license non-commercial face parsing hair segmentation MediaPipe hair segmenter license",
+   "domains": ""
+  }
+ ]
+}

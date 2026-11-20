@@ -1,0 +1,17 @@
+{
+ "id": "deformation-fitting-math",
+ "area": "reconstruction",
+ "title": "Math for landmark-driven mesh fitting",
+ "queue": [
+  {
+   "claim": "menpo3d non-rigid ICP default schedule: stiffness_weights [50, 20, 5, 2, 0.8, 0.5, 0.35, 0.2], landmark weights [5, 2, 0.5, 0, 0, 0, 0, 0].",
+   "query": "menpo3d non_rigid_icp stiffness_weights default 50 20 5 2 0.8 0.5 0.35 0.2 landmark_weights",
+   "domains": "github.com"
+  },
+  {
+   "claim": "FLAME has 5,023 vertices (9,976 triangles), 300 identity and 100 expression components, trained on ~3,800 scans; BFM 2009 has 53,490 vertices and 199 PCs from 200 subjects.",
+   "query": "FLAME head model 5023 vertices 300 shape 100 expression components CAESAR scans",
+   "domains": ""
+  }
+ ]
+}

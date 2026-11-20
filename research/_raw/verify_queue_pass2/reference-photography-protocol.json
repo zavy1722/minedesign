@@ -1,0 +1,12 @@
+{
+ "id": "reference-photography-protocol",
+ "area": "community",
+ "title": "How to shoot reference photos for 3D faces",
+ "queue": [
+  {
+   "claim": "Close-range photos inflate apparent nasal width by about 30% at ~30 cm compared with ~1.5 m (Ward et al. 2018, JAMA Facial Plastic Surgery). This is the rationale for the \u22651.5 m rule; simple magnification geometry predicts a smaller effect of ~12%.",
+   "query": "Ward 2018 nasal distortion short-distance photographs selfie effect 30% 12 inches 5 feet",
+   "domains": "jamanetwork.com,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

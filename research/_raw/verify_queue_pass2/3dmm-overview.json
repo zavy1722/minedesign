@@ -1,0 +1,17 @@
+{
+ "id": "3dmm-overview",
+ "area": "reconstruction",
+ "title": "3D morphable models: survey",
+ "queue": [
+  {
+   "claim": "FLAME identity space was trained on about 3,800 CAESAR scans (adults, ages ~18-65, North America and Europe); LSFM on about 9,663 scans, ~80% White, with ~158 global components.",
+   "query": "FLAME CAESAR 3800 scans identity shape space; LSFM 9663 subjects 158 components demographics",
+   "domains": "arxiv.org,ibug.doc.ic.ac.uk"
+  },
+  {
+   "claim": "HIFI3D++ merges FaceScape, Headspace and HIFI3D into ~1,957 identities with ~526 components on a ~20,481-vertex topology; FaceScape bilinear v1.6 is ~50 identity \u00d7 52 expressions from ~847 identities.",
+   "query": "REALY HIFI3D++ 3DMM 1957 identities 526 basis vertices; FaceScape bilinear model v1.6 identity expression dimensions",
+   "domains": "arxiv.org,github.com"
+  }
+ ]
+}

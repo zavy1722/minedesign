@@ -1,0 +1,17 @@
+{
+ "id": "fat-compartments",
+ "area": "anatomy",
+ "title": "Facial fat compartments",
+ "queue": [
+  {
+   "claim": "SOOF has medial (medial limbus to lateral canthus) and lateral (lateral canthus to temporal fat) parts below the ORL. Deep medial cheek fat lies on the maxilla beside the pyriform aperture, deep to the nasolabial and medial cheek fat.",
+   "query": "Rohrich 2009 anatomy of suborbicularis fat medial lateral SOOF boundaries deep medial cheek fat pyriform",
+   "domains": "pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Rapid weight loss on GLP-1 agonists ('Ozempic face') deflates temple, cheek and periorbital fat. The evidence is mainly case reports and reviews.",
+   "query": "semaglutide tirzepatide facial fat volume loss study 2025 MRI 3D imaging facial aging",
+   "domains": ""
+  }
+ ]
+}

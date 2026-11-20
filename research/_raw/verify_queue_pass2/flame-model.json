@@ -1,0 +1,17 @@
+{
+ "id": "flame-model",
+ "area": "reconstruction",
+ "title": "FLAME head model in depth",
+ "queue": [
+  {
+   "claim": "The landmark embeddings are a static set of 51 iBUG inner points and a dynamic 17-point jaw contour over 79 yaw bins (-39 to +39 degrees). MICA's MediaPipe embedding has about 105 points. The eyeballs are the last ~1,092 vertices, ~546 each.",
+   "query": "flame_dynamic_embedding 79 lmk_faces_idx mediapipe_landmark_embedding.npz 105 MICA",
+   "domains": "github.com"
+  },
+  {
+   "claim": "A positive x rotation of the FLAME jaw opens the mouth. A plausible jaw-open range is about 0 to 0.5 rad, and neutral-view priors are \u03c3 2\u20133\u00b0.",
+   "query": "FLAME jaw_pose positive rotation open mouth DECA jaw pose range",
+   "domains": "github.com"
+  }
+ ]
+}

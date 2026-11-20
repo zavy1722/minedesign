@@ -1,0 +1,17 @@
+{
+ "id": "portrait-lighting-compare",
+ "area": "blender",
+ "title": "Matching photo lighting and verifying likeness renders",
+ "queue": [
+  {
+   "claim": "Blender's free perspective viewport applies a fixed zoom factor of 2 (CAMERA_PARAM_ZOOM_INIT_PERSP), so a viewport lens value needs about 2x the camera lens for the same field of view (resolving the contested forum report [4])",
+   "query": "CAMERA_PARAM_ZOOM_INIT_PERSP blender viewport lens vs camera focal length 2x",
+   "domains": "projects.blender.org,github.com,blender.stackexchange.com"
+  },
+  {
+   "claim": "State-of-the-art 68-point landmark detectors reach about 3-4% NME (inter-ocular normalised) on the full 300-W set, used to size landmark noise sigma at 1.5-3% IOD and the NME gate at 2-3% IOD",
+   "query": "300-W full set NME inter-ocular 68 landmarks state of the art HRNet STAR",
+   "domains": "arxiv.org,paperswithcode.com,openaccess.thecvf.com"
+  }
+ ]
+}

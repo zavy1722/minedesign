@@ -1,0 +1,17 @@
+{
+ "id": "sculpting-likeness-workflow",
+ "area": "blender",
+ "title": "Blender portrait likeness sculpting workflow",
+ "queue": [
+  {
+   "claim": "Mild caricature (exaggerating deviations from the average face) improves rated likeness (Rhodes, Brennan & Carey 1987; Benson & Perrett 1991). The note proposes an exaggeration slider with range 0\u201320%, default 0.",
+   "query": "Benson Perrett 1991 photographic quality facial caricatures optimal exaggeration likeness rating",
+   "domains": ""
+  },
+  {
+   "claim": "Voxel remesh (Ctrl+R; size in scene units) discards UVs, shape keys, multires and vertex groups; only mask, face sets and colour attributes survive, via the Preserve options; output face count \u2248 surface area / voxel\u00b2 (about 33k faces at 2 mm on a real-scale head).",
+   "query": "Blender voxel remesh preserve volume paint mask face sets color attributes voxel size manual",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

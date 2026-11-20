@@ -1,0 +1,17 @@
+{
+ "id": "art-anatomy-books",
+ "area": "community",
+ "title": "Classic art-anatomy references for heads",
+ "queue": [
+  {
+   "claim": "Bridgman's 1920 and 1924 books are US public domain. Loomis (died 1959) is public domain in Canada, but US renewal status is unclear for Drawing the Head and Hands (1956). This decides whether diagrams can ship in the add-on docs.",
+   "query": "Andrew Loomis Drawing the Head and Hands copyright renewal public domain status United States",
+   "domains": ""
+  },
+  {
+   "claim": "Uldis Zarins's 'Anatomy of Facial Expression' was published around 2017 by Anatomy Next/Exonicus. It is co-authored or edited with Sandis Kondrats, and it is organized muscle by muscle into compound emotions.",
+   "query": "Uldis Zarins Anatomy of Facial Expression publisher year Sandis Kondrats Anatomy Next",
+   "domains": ""
+  }
+ ]
+}

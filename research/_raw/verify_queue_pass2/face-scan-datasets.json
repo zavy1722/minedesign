@@ -1,0 +1,17 @@
+{
+ "id": "face-scan-datasets",
+ "area": "reconstruction",
+ "title": "Public 3D face scan datasets",
+ "queue": [
+  {
+   "claim": "FaceScape: 938 subjects x 20 expressions = 18,760 models from about 60-70 DSLRs, a uniform base mesh of about 26k vertices with 4K displacement maps, calibrated multi-view images for a subset, mostly Chinese adults about 16-70.",
+   "query": "FaceScape 938 subjects 18760 models DSLR cameras topologically uniform vertices multi-view",
+   "domains": "arxiv.org,github.com"
+  },
+  {
+   "claim": "NeRSemble: more than 220 subjects, 16 cameras at about 7.1 MP and about 73 fps, more than 4,700 sequences, no scanner ground truth, EULA access. FaMoS: 95 subjects x 28 sequences, about 600k frames in FLAME topology.",
+   "query": "NeRSemble dataset 16 cameras 73 fps subjects sequences license; FaMoS TEMPEH 95 subjects 600K frames",
+   "domains": "arxiv.org,github.com"
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "id": "jaw-chin-neck",
+ "area": "anatomy",
+ "title": "Mandible, chin and neck",
+ "queue": [
+  {
+   "claim": "The mandibular condyle lies about 10-15 mm anterior to the tragus. The jaw rotates for the first 20-25 mm of incisal opening and then translates; normal maximum opening is about 40-55 mm.",
+   "query": "mandibular condyle distance anterior to tragus mm palpation TMJ rotation translation opening",
+   "domains": ""
+  },
+  {
+   "claim": "The thyroid cartilage laminae meet at about 90 deg in men and about 120 deg in women. The laryngeal prominence sits at about C4-C5, about 1-2 cm below the hyoid, and rises about 1.5-3 cm on swallowing.",
+   "query": "thyroid cartilage laminae angle 90 degrees men 120 degrees women laryngeal prominence",
+   "domains": ""
+  }
+ ]
+}

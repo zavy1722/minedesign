@@ -1,0 +1,17 @@
+{
+ "id": "skin-wrinkles-microdetail",
+ "area": "anatomy",
+ "title": "Skin thickness, wrinkles, pores and microdetail",
+ "queue": [
+  {
+   "claim": "Blender 5.x: Cycles adaptive subdivision may still be behind the Experimental feature set; Bake from Multires (displacement/normals) is still available.",
+   "query": "Blender 5 Cycles adaptive subdivision experimental status bake from multires displacement",
+   "domains": "docs.blender.org,developer.blender.org,projects.blender.org"
+  },
+  {
+   "claim": "Wrinkle spacing scales with skin thickness as thin-film buckling, lambda proportional to t*(E_skin/E_sub)^(1/3) (Cerda & Mahadevan 2003), giving roughly 0.5-1.5 mm eyelid, 2-5 mm crow's feet, 6-15 mm forehead.",
+   "query": "Cerda Mahadevan geometry and physics of wrinkling skin wrinkle wavelength thickness scaling",
+   "domains": ""
+  }
+ ]
+}

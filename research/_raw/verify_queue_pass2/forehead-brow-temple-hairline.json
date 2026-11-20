@@ -1,0 +1,17 @@
+{
+ "id": "forehead-brow-temple-hairline",
+ "area": "anatomy",
+ "title": "Forehead, brow ridge, temple and hairline",
+ "queue": [
+  {
+   "claim": "Nasofrontal angle (g\u2032\u2013n\u2032\u2013nasal dorsum) is normally 115\u2013135\u00b0 (Powell & Humphreys: 115\u2013130\u00b0) and more obtuse in women; prior \u03bc 125\u00b0, \u03c3 7\u00b0.",
+   "query": "nasofrontal angle normal range degrees Powell Humphreys proportions of the aesthetic face",
+   "domains": ""
+  },
+  {
+   "claim": "The supraorbital notch/foramen lies about 2 cm from the midline (sourced); other series put it at 2\u20133 cm, roughly above the medial limbus.",
+   "query": "supraorbital notch foramen distance from midline mm cadaver morphometric study",
+   "domains": "ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

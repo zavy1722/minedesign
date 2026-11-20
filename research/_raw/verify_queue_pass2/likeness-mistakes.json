@@ -1,0 +1,17 @@
+{
+ "id": "likeness-mistakes",
+ "area": "community",
+ "title": "Common likeness mistakes and diagnostics",
+ "queue": [
+  {
+   "claim": "Canthal tilt (outer corner above inner corner) is about +2\u00b0 to +8\u00b0 in adults. Alar width (al-al) is about 31-40 mm in European-descent samples and often over 40 mm in African-descent samples. The al-al/en-en ratio is about 0.9-1.4.",
+   "query": "normal canthal tilt intercanthal axis degrees adults ethnicity alar width norms al-al by ethnicity anthropometry",
+   "domains": "pubmed.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "In current Blender (4.x/5.x): camera background images have a 'Flip Horizontally' option plus Opacity and Depth Front; the viewport's default focal length is 50 mm; AgX has a 'Greyscale' look; and the compositor Difference blend is available for diagnostics.",
+   "query": "Blender 5.0 manual camera background images flip horizontally AgX Greyscale look",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

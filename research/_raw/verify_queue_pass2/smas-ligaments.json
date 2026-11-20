@@ -1,0 +1,17 @@
+{
+ "id": "smas-ligaments",
+ "area": "anatomy",
+ "title": "SMAS and facial retaining ligaments",
+ "queue": [
+  {
+   "claim": "The main zygomatic ligament (McGregor's patch) lies about 4.5 cm anterior to the tragus at the junction of the zygomatic body and arch.",
+   "query": "McGregor's patch zygomatic ligament distance anterior to tragus cm cadaver study",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "The lid-cheek junction is about 10-13 mm below the lower-lid margin in young adults and lengthens with age, contested by Lambros's serial-photograph finding that the junction height is fairly stable.",
+   "query": "lid-cheek junction vertical position aging lower eyelid height mm Lambros observations periorbital midface aging",
+   "domains": "pubmed.ncbi.nlm.nih.gov,journals.lww.com"
+  }
+ ]
+}

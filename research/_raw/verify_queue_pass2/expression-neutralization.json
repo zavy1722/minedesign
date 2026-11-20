@@ -1,0 +1,17 @@
+{
+ "id": "expression-neutralization",
+ "area": "reconstruction",
+ "title": "Separating identity from expression",
+ "queue": [
+  {
+   "claim": "The mechanisms named for separating identity from expression are accurate: DECA's detail-consistency loss (swapping detail codes between photos of the same person), EMOCA keeping DECA's identity encoder, MICA's neutral-only output from ArcFace features, and SMIRK's augmented-expression cycle loss. No 2025\u20132026 method clearly supersedes them for neutral identity from expressive photos.",
+   "query": "identity expression disentanglement FLAME neutral shape from expressive images 2025 SMIRK augmented expression cycle MICA",
+   "domains": "arxiv.org"
+  },
+  {
+   "claim": "FLAME 2023 revised the expression space (including eyelids), and a 'FLAME 2023 Open' release is reportedly CC-BY-4.0.",
+   "query": "FLAME 2023 Open license CC-BY-4.0 expression basis eyelids release",
+   "domains": "flame.is.tue.mpg.de"
+  }
+ ]
+}

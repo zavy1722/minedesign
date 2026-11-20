@@ -1,0 +1,17 @@
+{
+ "id": "landmark-detection",
+ "area": "reconstruction",
+ "title": "Facial landmark detectors",
+ "queue": [
+  {
+   "claim": "Sapiens (Meta, ECCV 2024) pose models predict 308 keypoints including ~243 facial keypoints with ears, at 1024x768, and are released under a custom non-commercial Sapiens License",
+   "query": "Sapiens Meta 308 keypoints 243 face keypoints license",
+   "domains": "github.com,arxiv.org"
+  },
+  {
+   "claim": "Wood et al. 2022 '3D Face Reconstruction with Dense Landmarks' predicts 703 landmarks each with mean and isotropic sigma (Gaussian NLL, synthetic-only training) and the model/weights are not publicly released",
+   "query": "Wood 2022 3D Face Reconstruction with Dense Landmarks 703 landmarks uncertainty code release",
+   "domains": "microsoft.github.io,arxiv.org,github.com"
+  }
+ ]
+}

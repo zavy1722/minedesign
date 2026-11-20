@@ -1,0 +1,17 @@
+{
+ "id": "reference-camera-setup",
+ "area": "blender",
+ "title": "Reference images and camera matching in Blender",
+ "queue": [
+  {
+   "claim": "EXIF FocalLengthIn35mmFilm is normally computed from the diagonal crop factor (engine assumption), though some makers use width; the Exif standard does not specify.",
+   "query": "FocalLengthIn35mmFilm definition diagonal crop factor Exif CIPA DC-008 4:3 sensor",
+   "domains": ""
+  },
+  {
+   "claim": "fSpy-Blender importer compatibility with Blender 4.5/5.x is unconfirmed (open issue #89), and fSpy/perspective-match are GPL-3.0.",
+   "query": "fSpy-Blender importer Blender 4.5 5.0 compatibility issue license GPL",
+   "domains": "github.com"
+  }
+ ]
+}

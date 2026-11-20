@@ -1,0 +1,17 @@
+{
+ "id": "neural-head-avatars",
+ "area": "reconstruction",
+ "title": "NeRF and Gaussian-splatting head avatars",
+ "queue": [
+  {
+   "claim": "NeRSemble capture: 16 synchronised cameras, ~7.1 MP (3208x2200), 73 fps, >220 subjects, >4,700 sequences; GaussianAvatars trains at ~802x550; research-only access.",
+   "query": "NeRSemble multi-view radiance field reconstruction human heads 16 cameras 73 fps 7.1 megapixel 220 subjects 4700 sequences",
+   "domains": "arxiv.org"
+  },
+  {
+   "claim": "SurFhead (ICLR 2025) binds 2D Gaussian surfels to the mesh with Jacobian/affine blending and gives the best sculpt-usable depth/normals among animatable Gaussian head avatars; recommended geometry route.",
+   "query": "SurFhead affine rig blending 2D Gaussian surfel head avatars ICLR 2025 normal depth accuracy",
+   "domains": "arxiv.org,openreview.net"
+  }
+ ]
+}

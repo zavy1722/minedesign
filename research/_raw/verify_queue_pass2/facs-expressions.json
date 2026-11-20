@@ -1,0 +1,17 @@
+{
+ "id": "facs-expressions",
+ "area": "anatomy",
+ "title": "FACS action units and expression mechanics",
+ "queue": [
+  {
+   "claim": "Adult jaw numbers: interocclusal rest gap (freeway space) about 2\u20134 mm; maximum voluntary interincisal opening about 40\u201360 mm; roughly the first 20\u201325 mm of opening is mainly condylar rotation. These give a neutral jaw prior of about N(1.5\u00b0, 1\u00b0\u00b2) with bounds of 0\u201330\u00b0.",
+   "query": "freeway space interocclusal rest distance normal mm maximum interincisal opening normal range adults rotation translation",
+   "domains": "pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "MediaPipe is licensed Apache-2.0 and OpenFace 2.0 under an academic non-commercial licence. OpenFace 2.0 estimates intensity for 17 AUs and presence for 18.",
+   "query": "OpenFace 2.0 license commercial use action units intensity 17 presence 18 MediaPipe Apache 2.0",
+   "domains": "github.com"
+  }
+ ]
+}

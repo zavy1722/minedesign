@@ -1,0 +1,17 @@
+{
+ "id": "facial-proportions-canons",
+ "area": "anatomy",
+ "title": "Facial proportions, neoclassical canons and the golden-ratio myth",
+ "queue": [
+  {
+   "claim": "The Malaysian finding that only 17.1% of facial proportions conformed to the golden ratio, with no link to ratings, comes from 'Multiracial Facial Golden Ratio and Evaluation of Facial Appearance' (PMC4642949)",
+   "query": "Multiracial facial golden ratio and evaluation of facial appearance 17.1% Malaysian",
+   "domains": "pmc.ncbi.nlm.nih.gov,journals.plos.org"
+  },
+  {
+   "claim": "Moving the upper boundary of the middle third from nasion up to glabella (soft-tissue g is ~10-15 mm above n) makes middle and lower thirds near-equal (~1:1.05), explaining why brow-based artist thirds hold better than Farkas nasion-based thirds",
+   "query": "soft tissue glabella to nasion vertical distance mm facial thirds glabella subnasale menton ratio",
+   "domains": ""
+  }
+ ]
+}

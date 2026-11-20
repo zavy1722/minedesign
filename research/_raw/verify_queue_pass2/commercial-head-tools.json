@@ -1,0 +1,17 @@
+{
+ "id": "commercial-head-tools",
+ "area": "reconstruction",
+ "title": "Commercial photo-to-head tools",
+ "queue": [
+  {
+   "claim": "Reallusion Headshot 2 (2023, CC4) has a photo mode and a Mesh mode for any-topology heads, and runs locally. Character Creator 5 shipped in 2025 with a denser head. CC/Headshot licences are perpetual, a few hundred USD each.",
+   "query": "Reallusion Headshot 2 Character Creator 5 mesh mode price",
+   "domains": "reallusion.com"
+  },
+  {
+   "claim": "R3DS Wrap was rebranded as Faceform and is sold as subscription tiers, including an indie tier with a revenue cap. Its pipeline is point pairs, then rigid alignment, then regularised wrapping, then optional optical-flow wrapping, then texture and blendshape transfer.",
+   "query": "Faceform Wrap R3DS rebrand pricing indie license",
+   "domains": ""
+  }
+ ]
+}

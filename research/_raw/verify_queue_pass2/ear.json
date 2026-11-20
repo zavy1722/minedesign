@@ -1,0 +1,17 @@
+{
+ "id": "ear",
+ "area": "anatomy",
+ "title": "External ear",
+ "queue": [
+  {
+   "claim": "Ear shape models and landmark data exist and can be used: the York Ear Model (Dai, Pears & Smith, ~2018), the ear part of the Universal Head Model (Ploumpis et al., CVPR 2019), and a 55-point in-the-wild ear landmark scheme (Zhou & Zafeiriou, FG 2017). Licences not yet checked.",
+   "query": "York Ear Model 3D morphable model ear download licence",
+   "domains": ""
+  },
+  {
+   "claim": "Adult ear length/width priors N(61 mm, 4.5) and width/length ratio N(0.50, 0.05), with a male offset of about +2 mm, based on single-source harvested means (North Indian, Sundanese, mixed n=200) plus Farkas-type norms.",
+   "query": "Farkas ear length width norms adults mm superaurale subaurale preaurale postaurale males females",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

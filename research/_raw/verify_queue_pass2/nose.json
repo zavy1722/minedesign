@@ -1,0 +1,17 @@
+{
+ "id": "nose",
+ "area": "anatomy",
+ "title": "Nose anatomy and morphology",
+ "queue": [
+  {
+   "claim": "Alar\u2013columellar relationship: 2\u20134 mm of columellar show in profile, with the nostril long-axis line 1\u20132 mm from both the alar rim and the columellar rim (Gunter, Rohrich & Friedman 1996).",
+   "query": "Gunter Rohrich Friedman 1996 classification alar-columellar discrepancies columellar show 2-4 mm",
+   "domains": "pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Nasal soft-tissue cover: skin plus fat over the supratip and tip is ~2\u20134 mm in thin skin and \u22654\u20136 mm in thick sebaceous skin; rhinion ~2\u20134 mm (Lessard & Daniel 1985).",
+   "query": "nasal skin soft tissue thickness rhinion supratip tip nasion measurements Lessard Daniel",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

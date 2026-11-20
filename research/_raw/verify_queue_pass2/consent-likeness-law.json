@@ -1,0 +1,17 @@
+{
+ "id": "consent-likeness-law",
+ "area": "ethics",
+ "title": "Consent, right of publicity and deepfake law",
+ "queue": [
+  {
+   "claim": "Post-mortem publicity terms: California 70, New York 40, Tennessee 10 years then continuing while used, Indiana and Oklahoma 100, Texas and Illinois 50, Washington 10/75, Florida 40, Ohio 60, Pennsylvania 30, Virginia 20, Germany KUG 10 years.",
+   "query": "post-mortem right of publicity duration by state California 70 Indiana 100 Washington 75 Ohio 60 Pennsylvania 30 Virginia 20 years",
+   "domains": ""
+  },
+  {
+   "claim": "India: MeitY's October 2025 draft IT Rules amendment requires labelling of 'synthetically generated information' (visible label over at least 10% of the display area). The DPDP Rules were notified in November 2025 with a 12\u201318 month phase-in.",
+   "query": "IT Amendment Rules synthetically generated information labelling notified final MeitY 2026",
+   "domains": "meity.gov.in"
+  }
+ ]
+}

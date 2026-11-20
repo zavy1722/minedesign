@@ -1,0 +1,17 @@
+{
+ "id": "forensic-reconstruction",
+ "area": "anatomy",
+ "title": "Forensic facial reconstruction rules (skull to face)",
+ "queue": [
+  {
+   "claim": "In blind tests of computer-modelled Manchester-method reconstructions against CT of living subjects (Wilkinson et al. 2006; Lee et al. 2012; Short et al. 2014), about 50\u201370 % of the surface fell within \u00b12\u20132.5 mm. Automated CT-template methods report about 2\u20134 mm mean error.",
+   "query": "blind accuracy assessment computer-modeled forensic facial reconstruction CT live subjects percentage surface within 2 mm Wilkinson",
+   "domains": "pubmed.ncbi.nlm.nih.gov,link.springer.com,onlinelibrary.wiley.com"
+  },
+  {
+   "claim": "The OrtogOnBlender add-on and C\u00edcero Moraes's Blender method of deforming a donor CT head exist as an open-source forensic approximation toolchain (status, licence and Blender compatibility in 2026 unverified).",
+   "query": "OrtogOnBlender add-on license Blender version Cicero Moraes forensic facial approximation",
+   "domains": ""
+  }
+ ]
+}

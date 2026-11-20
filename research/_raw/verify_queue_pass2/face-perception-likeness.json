@@ -1,0 +1,17 @@
+{
+ "id": "face-perception-likeness",
+ "area": "anatomy",
+ "title": "Psychology of face recognition and likeness",
+ "queue": [
+  {
+   "claim": "3D shape and 2D surface reflectance (pigmentation) contribute roughly equally to face recognition (O'Toole, Vetter & Blanz 1999; Russell & Sinha 2007).",
+   "query": "O'Toole Vetter Blanz 1999 three-dimensional shape two-dimensional surface reflectance contributions face recognition",
+   "domains": ""
+  },
+  {
+   "claim": "Familiar faces remain recognisable after large uniform horizontal or vertical stretching (reportedly up to about 2\u00d7), but not when only one half is stretched (Hole et al. 2002; Sandford & Burton 2014).",
+   "query": "Hole George Eaves Rasek 2002 effects of geometric distortions on face recognition performance stretched faces",
+   "domains": ""
+  }
+ ]
+}

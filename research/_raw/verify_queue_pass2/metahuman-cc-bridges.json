@@ -1,0 +1,17 @@
+{
+ "id": "metahuman-cc-bridges",
+ "area": "blender",
+ "title": "Bridges to MetaHuman, Character Creator, Daz",
+ "queue": [
+  {
+   "claim": "Reallusion and Daz licence terms: CC3+ and Genesis base meshes and morphs may not be redistributed as raw editable assets; some CC content needs an export licence or edition for engine use; Daz games and interactive use need a per-product Interactive License; recent EULAs restrict AI/ML use.",
+   "query": "Reallusion Character Creator EULA redistribute base mesh export license Daz 3D interactive license EULA AI",
+   "domains": "reallusion.com,daz3d.com"
+  },
+  {
+   "claim": "Blender's glTF exporter splits vertices at UV seams and sharp normals, while the FBX and OBJ exporters preserve control-vertex count and order. Exporting with Apply Modifiers while Multires is at a viewport level above 0 changes the vertex count.",
+   "query": "Blender glTF exporter splits vertices UV seams shape keys vertex order OBJ FBX preserve vertex order morph",
+   "domains": "docs.blender.org,blender.stackexchange.com"
+  }
+ ]
+}

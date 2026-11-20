@@ -1,0 +1,17 @@
+{
+ "id": "multi-view-fitting",
+ "area": "reconstruction",
+ "title": "Multi-image and video 3DMM fitting",
+ "queue": [
+  {
+   "claim": "The Metrical Tracker is presented in the MICA paper (Zielonka, Bolkart, Thies, ECCV 2022) and released as a 'metrical-tracker' repo that uses MediaPipe dense + 68-point landmarks and a spherical-harmonic photometric term",
+   "query": "Zielon metrical-tracker MICA ECCV 2022 face tracker license mediapipe",
+   "domains": "github.com,arxiv.org"
+  },
+  {
+   "claim": "No source quantifies how much multi-view fitting improves accuracy over single-image fitting (in mm on a scan benchmark)",
+   "query": "multi-view 3DMM face reconstruction accuracy versus number of views mm error benchmark",
+   "domains": "arxiv.org,openaccess.thecvf.com"
+  }
+ ]
+}

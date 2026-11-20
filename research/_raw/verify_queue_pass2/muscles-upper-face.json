@@ -1,0 +1,17 @@
+{
+ "id": "muscles-upper-face",
+ "area": "anatomy",
+ "title": "Muscles of the upper face",
+ "queue": [
+  {
+   "claim": "Frontalis thickness is about 1-2.5 mm on ultrasound, though it is disputed whether a thick hypoechoic layer is muscle or fat.",
+   "query": "frontalis muscle thickness ultrasound mm healthy adults forehead layers",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Depressor supercilii inserts about 13-14 mm above the medial canthal tendon and has two heads in most specimens (Cook et al. 2001). This is used as the prior 13.5\u00b12 mm.",
+   "query": "Cook Lucarelli Lemke 2001 depressor supercilii insertion 13 mm medial canthal tendon two heads",
+   "domains": "pubmed.ncbi.nlm.nih.gov,journals.lww.com"
+  }
+ ]
+}

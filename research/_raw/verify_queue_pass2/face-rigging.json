@@ -1,0 +1,17 @@
+{
+ "id": "face-rigging",
+ "area": "blender",
+ "title": "Face rigging for a reconstructed head",
+ "queue": [
+  {
+   "claim": "ARKit blendshape left/right names refer to the subject's own side, the same convention MediaPipe documents. mouthClose is meant to be used together with jawOpen (as a relative/combination shape), not on its own.",
+   "query": "ARFaceAnchor BlendShapeLocation mouthClose jawOpen eyeBlinkLeft face's left coordinate system",
+   "domains": "developer.apple.com"
+  },
+  {
+   "claim": "Tool compatibility as of late 2026: Faceit is listed for Blender 3.0\u20135.2, Face Shape Key Rig needs 5.2+, and Auto-Rig Pro's Blender 5.x/5.3 support is unverified.",
+   "query": "Auto-Rig Pro Blender 5.3 compatibility release notes face rig",
+   "domains": "superhivemarket.com,blendermarket.com"
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "id": "zbrush-to-blender-likeness",
+ "area": "community",
+ "title": "ZBrush likeness methods translated to Blender",
+ "queue": [
+  {
+   "claim": "Blender (as of late 2026) has no native non-destructive sculpt layers; shape keys cannot hold Multires detail; remeshing and Dyntopo destroy shape keys.",
+   "query": "Blender sculpt layers feature status 2026 multires shape keys",
+   "domains": "projects.blender.org,devtalk.blender.org,code.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Selfie effect: nasal base appears about 30% wider at about 30 cm than at about 1.5 m (Ward, Ward, Fried, Paskhover, JAMA Facial Plastic Surgery 2018).",
+   "query": "Ward Paskhover 2018 nasal distortion short-distance photographs selfie effect nasal base 30%",
+   "domains": ""
+  }
+ ]
+}

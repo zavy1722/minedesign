@@ -1,0 +1,17 @@
+{
+ "id": "blender-extensions-packaging",
+ "area": "blender",
+ "title": "Packaging as a Blender extension",
+ "queue": [
+  {
+   "claim": "Headless CI: 'blender -b --factory-startup --python-exit-code 1 -P script' (Blender exits 0 on Python exceptions without --python-exit-code); 'blender --command extension install-file -r user_default -e <zip>' installs and enables; BLENDER_USER_RESOURCES relocates user dirs",
+   "query": "blender command line arguments python-exit-code extension install-file BLENDER_USER_RESOURCES",
+   "domains": "docs.blender.org"
+  },
+  {
+   "claim": "extensions.blender.org upload size limit (unknown) and whether Blender 5.0 dropped Intel macOS builds (macos-x64)",
+   "query": "extensions.blender.org maximum upload file size extension zip",
+   "domains": "extensions.blender.org,devtalk.blender.org,docs.blender.org"
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "id": "instagram-social-sculptors",
+ "area": "community",
+ "title": "Instagram and social media sculptors' tips",
+ "queue": [
+  {
+   "claim": "Corneal apex lies about 15-17 mm (range 12-20 mm) anterior to the lateral orbital rim (Hertel exophthalmometry normals), used as the eye-placement prior N(16,2) mm",
+   "query": "Hertel exophthalmometry normal values adults mm by ethnicity",
+   "domains": "pubmed.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Farkas et al. 1985: most neoclassical facial canons (ear length = nose length, intercanthal = eye width, nose width = intercanthal, equal thirds) hold in only a minority of adults",
+   "query": "Farkas 1985 revision of neoclassical canons vertical horizontal proportions face young adult North American Caucasians frequency",
+   "domains": ""
+  }
+ ]
+}

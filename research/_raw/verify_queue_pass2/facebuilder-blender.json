@@ -1,0 +1,17 @@
+{
+ "id": "facebuilder-blender",
+ "area": "blender",
+ "title": "KeenTools FaceBuilder for Blender in practice",
+ "queue": [
+  {
+   "claim": "FaceBuilder exposes shape, expression, blinking and neck-movement rigidity settings, and editing the live FaceBuilder mesh is overwritten, so sculpting must happen on a duplicate",
+   "query": "KeenTools FaceBuilder Blender shape rigidity expression rigidity blinking neck rigidity documentation",
+   "domains": "keentools.io"
+  },
+  {
+   "claim": "FaceTracker for Blender was released around 2024 and GeoTracker for Blender around 2022\u20132023, in the same KeenTools add-on",
+   "query": "KeenTools FaceTracker for Blender release date GeoTracker for Blender release",
+   "domains": "keentools.io,blenderartists.org"
+  }
+ ]
+}

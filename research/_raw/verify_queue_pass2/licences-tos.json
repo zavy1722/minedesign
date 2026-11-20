@@ -1,0 +1,17 @@
+{
+ "id": "licences-tos",
+ "area": "ethics",
+ "title": "Licences and platform terms",
+ "queue": [
+  {
+   "claim": "InsightFace pretrained model packs (buffalo_l, antelopev2, incl. 2d106/1k3d68 landmarkers) are licensed for non-commercial research only, with paid commercial licences",
+   "query": "insightface pretrained models non-commercial research purposes only license buffalo_l",
+   "domains": "github.com,insightface.ai"
+  },
+  {
+   "claim": "Instagram Basic Display API reached end of life on 4 Dec 2024; Instagram Terms of Use prohibit automated collection without express permission; X terms carry liquidated damages of $15,000 per 1M posts in 24h",
+   "query": "Instagram Basic Display API end of life December 4 2024 deprecation",
+   "domains": "developers.facebook.com,help.instagram.com,x.com"
+  }
+ ]
+}

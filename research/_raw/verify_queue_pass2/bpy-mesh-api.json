@@ -1,0 +1,17 @@
+{
+ "id": "bpy-mesh-api",
+ "area": "blender",
+ "title": "Blender Python API for procedural heads",
+ "queue": [
+  {
+   "claim": "MeshPolygon.loop_total is read-only in current Blender (derived from loop_start offsets); fast mesh creation sets only loop_start plus the corner vertex indices, then calls me.update(calc_edges=True).",
+   "query": "Blender Python API MeshPolygon loop_total read-only release notes",
+   "domains": "developer.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Blender 5.0 Python API removals and changes: bgl removed; bpy.props values no longer readable via id['x']; np.asarray(mathutils.Vector) returns a float32 non-contiguous view.",
+   "query": "Blender 5.0 Python API release notes bgl removed IDProperty bpy.props mathutils buffer protocol",
+   "domains": "developer.blender.org"
+  }
+ ]
+}

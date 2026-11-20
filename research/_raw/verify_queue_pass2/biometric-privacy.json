@@ -1,0 +1,17 @@
+{
+ "id": "biometric-privacy",
+ "area": "ethics",
+ "title": "Biometric privacy law and face geometry",
+ "queue": [
+  {
+   "claim": "EU AI Act Art. 50(4) deepfake disclosure obligations were due to apply on 2 August 2026, and the November 2025 Digital Omnibus proposed delays.",
+   "query": "AI Act Article 50 transparency deepfake obligations application date Digital Omnibus adopted delay 2026",
+   "domains": ""
+  },
+  {
+   "claim": "Texas HB 149 (TRAIGA, effective 1 January 2026) amended CUBI so that a publicly available image implies no consent unless the person published it, and carved out AI training not used to identify.",
+   "query": "Texas HB 149 TRAIGA amendment Business and Commerce Code 503.001 biometric identifier publicly available image consent",
+   "domains": ""
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "id": "open-source-pipelines",
+ "area": "reconstruction",
+ "title": "Open-source end-to-end photo-to-3D-face pipelines",
+ "queue": [
+  {
+   "claim": "The code licences of VHAP, flame-head-tracker, SMIRK and Pixel3DMM are unverified; GaussianAvatars-lineage code is possibly CC BY-NC-SA.",
+   "query": "ShenhanQian VHAP LICENSE github",
+   "domains": "github.com"
+  },
+  {
+   "claim": "Old pinned environments (PyTorch 1.x, CUDA 10/11) fail on RTX 50-series Blackwell GPUs, which need PyTorch built with CUDA 12.8 or later (sm_120).",
+   "query": "RTX 5090 sm_120 PyTorch CUDA 12.8 'no kernel image is available'",
+   "domains": "pytorch.org,github.com"
+  }
+ ]
+}

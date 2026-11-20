@@ -1,0 +1,17 @@
+{
+ "id": "awesome-lists-resources",
+ "area": "community",
+ "title": "Curated resource lists and communities",
+ "queue": [
+  {
+   "claim": "The Infinite-Realities 'Lee Perry-Smith' head scan is freely available under CC BY 3.0 (the one used in the three.js examples)",
+   "query": "Lee Perry-Smith head scan Infinite Realities license Creative Commons three.js",
+   "domains": ""
+  },
+  {
+   "claim": "Maintained awesome lists exist for talking-head generation (harlanhong/awesome-talking-head-generation, Kedreamix/Awesome-Talking-Head-Synthesis), 3DGS (MrNeRF/awesome-3D-gaussian-splatting), and there are active 'awesome-3DMM' / 'awesome-gaussian-avatars' repos as of late 2026",
+   "query": "awesome gaussian head avatars github list 3DMM awesome-3D-face",
+   "domains": "github.com"
+  }
+ ]
+}

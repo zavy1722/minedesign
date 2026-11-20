@@ -1,0 +1,17 @@
+{
+ "id": "camera-pose-solving",
+ "area": "reconstruction",
+ "title": "Solving camera pose and intrinsics from face images",
+ "queue": [
+  {
+   "claim": "In OpenCV 4.x, SOLVEPNP_DLS and SOLVEPNP_UPNP both fall back to EPnP, UPnP does not estimate focal length, SOLVEPNP_ITERATIVE needs at least 6 non-planar points for its DLT initialisation (at least 4 planar), P3P/AP3P take exactly 4 points, and SQPnP takes at least 3.",
+   "query": "OpenCV solvePnP flags SOLVEPNP_UPNP SOLVEPNP_DLS broken implementation EPnP fallback SOLVEPNP_ITERATIVE 6 points DLT",
+   "domains": "docs.opencv.org"
+  },
+  {
+   "claim": "fSpy is a standalone open-source camera-matching app (1\u20132 vanishing points, .fspy export, separate Blender importer) whose last release (about 1.0.3) is several years old. Its compatibility with current Blender 4.x/5.x and its licence are unconfirmed.",
+   "query": "fSpy latest release version license fSpy-Blender importer Blender 4.2 4.5 compatibility",
+   "domains": "github.com,fspy.io"
+  }
+ ]
+}

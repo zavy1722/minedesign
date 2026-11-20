@@ -1,0 +1,17 @@
+{
+ "id": "albedo-lighting-inverse-rendering",
+ "area": "reconstruction",
+ "title": "Albedo, lighting and inverse rendering for faces",
+ "queue": [
+  {
+   "claim": "ColorChecker Classic reference sRGB values (light skin 194,150,130; dark skin 115,82,68; neutrals 243/200/160/122/85/52) and their linear equivalents (Neutral 5 \u2248 0.19)",
+   "query": "ColorChecker Classic sRGB values post November 2014 light skin 194 150 130 dark skin 115 82 68 neutral 5 122",
+   "domains": "babelcolor.com,xrite.com,calibrite.com"
+  },
+  {
+   "claim": "Deep3DFaceRecon has a 257-coefficient layout (80 id + 64 exp + 80 tex + 3 rot + 27 SH + 3 trans), folds non-standard SH band factors (2\u03c0/\u221a3, 2\u03c0/\u221a8), and initialises the SH DC term with +0.8",
+   "query": "Deep3DFaceRecon_pytorch init_lit 0.8 a1 2*np.pi/np.sqrt(3) SH coefficients 257",
+   "domains": "github.com"
+  }
+ ]
+}
