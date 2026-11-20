@@ -4,7 +4,7 @@
 >
 > Evidence status: 0 ✅ / 0 📄 / 59 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
 
-*No web harvest or earlier draft existed for this topic, so nothing here is web-sourced. Where a sibling note holds a sourced or verified related claim, its path is given in backticks. Vendor menus, models and library versions are time-sensitive (written 2026-11-20).*
+*No harvest or earlier draft existed, so nothing here is web-sourced; sibling notes with related sourced claims are named in backticks. Menus, models and library versions are time-sensitive (2026-11-20).*
 
 ## Key facts
 
@@ -46,7 +46,6 @@
 | Field angle θ | Radial/tangential stretch 1/cos θ | Area vs centre 1/cos³θ | Stereographic scale sec²(θ/2) | Badge |
 |---|---|---|---|---|
 | 15° | 1.035 | 1.11 | 1.017 | 🧠 |
-| 25° | 1.103 | 1.34 | 1.049 | 🧠 |
 | 30° | 1.155 | 1.54 | 1.072 | 🧠 |
 | 40° | 1.305 | 2.23 | 1.132 | 🧠 |
 | 50° | 1.556 | 3.77 | 1.217 | 🧠 |
@@ -58,7 +57,6 @@
 | Ultra-wide (13 mm) | 106° | 53° | 59° | 🧠 |
 | Front (≈20–30; 23 mm shown) | 74° | 37° | 43° | ↔️ |
 | Main (24–26; 26 mm shown) | 67° | 34° | 40° | 🧠 |
-| 2× crop (48 mm) | 40° | 20° | 24° | 🧠 |
 | 3× tele (77 mm) | 25° | 13° | 16° | 🧠 |
 | 5× tele (120 mm) | 16° | 8° | 10° | 🧠 |
 
@@ -87,17 +85,16 @@
 |---|---|---|---|
 | pillow-heif + Pillow | BSD-3 binding; wheels bundle libheif, libde265 (LGPL-3.0), x265 (GPL-2.0+); Pillow MIT-CMU | HEIC, EXIF/XMP, depth (version-dependent) | ↔️ |
 | rawpy (LibRaw) | MIT; LibRaw LGPL-2.1 or CDDL-1.0 | Bayer/linear DNG, vendor raws; opcode warps mostly not applied | ↔️ |
-| tifffile | BSD-3 | DNG tags, OpcodeList bytes | 🧠 |
-| ExifTool | GPL or Artistic | all tags, Apple MakerNotes, aux images | 🧠 |
+| tifffile / ExifTool | BSD-3 / GPL or Artistic | DNG opcodes; all tags, Apple MakerNotes | 🧠 |
 | lensfunpy | MIT; Lensfun LGPL-3, database CC BY-SA 3.0 | lens profiles (not phones) | 🧠 |
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Ingest originals** (AirDrop, cable, "original" export). Dump EXIF and Apple MakerNotes to a JSON sidecar *before* converting: PNG usually drops EXIF, which corrects the "convert HEIC to PNG" step in `community/reference-photography-protocol.md` 🧠. iPhone Settings → Camera → Formats → Most Compatible captures JPEG 🧠
-2. **Triage:** module (`LensModel`, FocalLength), zoom (f35/FocalLength vs module baseline), aspect, native or edited size, front camera, Portrait (`CustomRendered` 7/8), night (exposure > 1/15 s), and the face's field angle. Reject ultra-wide and beyond-optical zoom; down-weight faces > 25° off-axis 🧠
-3. **New references:** 4:3 at native resolution, which removes Table 4's ambiguity; face central 🧠
-4. **Mirror-check** every front-camera photo against hair parting, moles, background text 🧠
-5. **Portrait iPhone photos:** turn the effect off before export; keep the depth map for a distance prior 🧠
+1. **Ingest originals** (AirDrop, cable, "original" export). Dump EXIF and MakerNotes to a JSON sidecar *before* converting, since PNG usually drops EXIF (this amends the "convert HEIC to PNG" step in `community/reference-photography-protocol.md`) 🧠. iPhone Formats → Most Compatible captures JPEG 🧠
+2. **Triage:** module, zoom (f35/FocalLength vs baseline), aspect, native size, front camera, Portrait (`CustomRendered` 7/8), night (exposure > 1/15 s), face field angle. Reject ultra-wide and beyond-optical zoom; down-weight faces > 25° off-axis 🧠
+3. **New references:** 4:3, native resolution, face central (removes Table 4's ambiguity) 🧠
+4. **Mirror-check** front-camera photos (hair parting, moles, background text) 🧠
+5. **Portrait iPhone photos:** effect off before export; keep the depth map as a distance prior 🧠
 6. **Settings checklist** (menu names vary by OS version ↔️):
 
 | Phone | Switch off or set | Badge |
@@ -106,14 +103,14 @@
 | Pixel | Face retouching off; Save selfies as previewed off; Night Sight off; pick the lens in Pro controls (8 Pro+); RAW+JPEG on | ↔️ |
 | Samsung | Face effects 0; Save selfies as previewed off; Scene optimizer off; no zoom beyond optical; Ultra-wide shape correction irrelevant if the ultra-wide is avoided; Expert RAW for linear DNG | ↔️ |
 | Xiaomi / Oppo / Vivo / Honor / Huawei | Beautify 0 including slimming, eye, nose and chin sliders; AI camera off | 🧠 |
-| Any | Manual app (Halide, ProCamera, Open Camera, Blackmagic Camera) to lock one physical lens; video stabilisation off for frame grabs | 🧠 |
+| Any | Manual app (Halide, Open Camera, Blackmagic Camera) to lock one lens; stabilisation off for video frame grabs | 🧠 |
 
-7. **Decode in Blender:** HEIC via bundled pillow-heif wheels (wheel tags and the no-runtime-pip store rule: `blender/blender-python-ml-deps.md`); RAW via rawpy `postprocess(gamma=(1, 1), no_auto_bright=True, output_bps=16, use_camera_wb=True)`, flipped vertically for `Image.pixels.foreach_set`, linear colourspace; apply WarpRectilinear yourself 🧠
+7. **Decode in Blender:** HEIC via bundled pillow-heif wheels (`blender/blender-python-ml-deps.md`); RAW via rawpy `postprocess(gamma=(1, 1), no_auto_bright=True, output_bps=16)`, flipped vertically for `Image.pixels.foreach_set`, linear colourspace; apply WarpRectilinear yourself 🧠
 8. **What goes wrong** 🧠: selfie nose "too big" (shot at 0.35 m; `reconstruction/camera-perspective-distortion.md`); an off-centre group-shot face looks right but solves with wrong yaw (content-aware warp); one lens yields two focal lengths (16:9 vs 4:3, or a 2× crop); jaw too narrow (beauty slimming); L/R swapped (mirror); ears and hair dissolve (Portrait blur); HEIC rotated twice (HEIF `irot` *and* EXIF Orientation applied).
 
 ## Algorithmic implications
 
-- **Metadata reader** (`face3d/io/exif.py` reads JPEG/TIFF only): add HEIC (ISOBMFF `meta` → `iinf` `Exif` item → `iloc`; payload starts with a 4-byte big-endian offset to the TIFF header); apply HEIF `irot/imir/clap`, then ignore EXIF Orientation; add tags 0xA404, 0x9206, 0x9214, 0xA401, 0xA432/0xA433, 0x0131, 0x829A and DNG OpcodeList1/2/3 (0xC740/0xC741/0xC74E) 🧠
+- **Metadata reader** (`face3d/io/exif.py` reads JPEG/TIFF only): add HEIC (ISOBMFF `meta` → `iinf` `Exif` item → `iloc`; payload = 4-byte big-endian offset, then TIFF); apply HEIF `irot/imir/clap`, then ignore EXIF Orientation; add 0xA404, 0x9206, 0x9214, 0xA401, 0xA434, 0x0131, 0x829A and OpcodeList1–3 (0xC740/0xC741/0xC74E) 🧠
 - **Native frame:** phones are 4:3 native. Otherwise carry two hypotheses, static tag (diagonal = 1.25 × long side for 16:9 and 3:2; 5/3 × side for 1:1) and updated tag (delivered diagonal); fit both and choose by intrinsics-group consistency, else σ_log f = 0.09 🧠
 - **Zoom detector:** c = f35/FocalLength; c₀ = mode of c per (Make, Model, LensModel); zoom = c/c₀ > 1.02 means a centred crop: principal point stays central, σ_log f 0.06 (UI rounding) 🧠
 - **Intrinsics:** fx = fy, skew 0; principal point at the delivered centre, σ = 1% of width (OIS, assembly), fixed unless ≥ 5 views share the group; f35 from an uncropped 4:3 original σ_log f 0.04 (as `reconstruction/camera-perspective-distortion.md`) 🧠
@@ -125,9 +122,9 @@
 - **Mirror hypothesis:** fit front-camera views both ways; keep the lower cost if the margin is > 10%, else ask the user 🧠
 - **Distance priors (σ on log z)** 🧠: SubjectDistance 0.5; Apple FocusDistanceRange log-uniform over the range widened ×1.5; Android focus distance CALIBRATED 0.2, APPROXIMATE 0.4, UNCALIBRATED ignored; median face depth from TrueDepth 0.05–0.1, from rear disparity 0.2–0.3.
 - **Gravity:** Apple `AccelerationVector` → camera pitch/roll prior, σ 5° on pitch because head tilt is unknown 🧠
-- **Processing-risk score** per view (front camera, Portrait, night, beyond-optical zoom, non-native size, editor in `Software`, AI-edit/C2PA marker) sets robust weights and UI warnings. Pixels cannot reveal geometric beauty, so flag a view whose eye-width/IOD or bigonial/IOD departs > 3σ from the multi-view consensus 🧠
+- **Processing-risk score** per view (front, Portrait, night, beyond-optical zoom, non-native size, editor, C2PA AI-edit marker) sets robust weights and warnings. Geometric beauty is invisible in pixels: flag a view whose eye-width/IOD or bigonial/IOD departs > 3σ from the multi-view consensus 🧠
 - **Line-straightness QA:** fit curvature of long background edges; bending beyond Table 3's residual means uncorrected distortion or a content-aware warp 🧠
-- **Tests:** synthetic images per warp type (k1 sweep, stereographic face warp, static-tag 16:9 crop, mirror); assert the right model is chosen and shape error stays < 1 mm 🧠
+- **Tests:** synthetic k1 sweep, stereographic face warp, static-tag 16:9 crop and mirror; assert the right model is chosen and shape error < 1 mm 🧠
 
 ## Disagreements, myths & open questions
 
@@ -139,13 +136,11 @@
 
 ## Sources
 
-None: no harvest or earlier draft existed for this topic. Sibling notes with sourced or verified related claims: `reconstruction/camera-perspective-distortion.md` (distance-driven perspective; f35 convention, contested); `reconstruction/camera-pose-solving.md` (undistort before PnP); `community/reference-photography-protocol.md` (phone lenses; iPhone 17 Pro 4× = 100 mm, sourced); `blender/blender-python-ml-deps.md` (extension wheels).
+None (no harvest or draft existed). Related sourced claims: `reconstruction/camera-perspective-distortion.md`, `reconstruction/camera-pose-solving.md`, `community/reference-photography-protocol.md` (iPhone 17 Pro 4× = 100 mm), `blender/blender-python-ml-deps.md`.
 
 **Further reading (by name, not yet linked)**
 - Shih, Lai & Liang, "Distortion-free wide-angle portraits on camera phones", ACM TOG (SIGGRAPH), 2019
-- Hasinoff et al., "Burst photography for high dynamic range and low-light imaging on mobile cameras", SIGGRAPH Asia 2016
-- Wronski et al., "Handheld multi-frame super-resolution", SIGGRAPH 2019
-- Wadhwa et al., "Synthetic depth-of-field with a single-camera mobile phone", SIGGRAPH 2018
+- Hasinoff et al., HDR+ burst photography, SIGGRAPH Asia 2016; Wronski et al., "Handheld multi-frame super-resolution", SIGGRAPH 2019
 - Apple Developer Documentation: AVCameraCalibrationData, AVDepthData, AVCapturePhotoSettings; WWDC 2017 "Capturing Depth in iPhone Photography"
 - Android Developers: CameraCharacteristics, DngCreator; Android Dynamic Depth 1.0 specification (2019)
 - Adobe, Digital Negative (DNG) Specification 1.4–1.7
