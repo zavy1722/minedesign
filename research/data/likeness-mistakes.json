@@ -44,11 +44,11 @@
         [
           "mrd1",
           "pupil centre to upper lid margin",
-          4,
+          3.5,
           5,
           "mm",
           "<2.5 or >6 without photo support",
-          "knowledge"
+          "contested"
         ],
         [
           "inferior_scleral_show",

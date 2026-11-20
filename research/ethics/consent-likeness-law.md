@@ -8,7 +8,7 @@
 >
 > Written, scoped, revocable consent is necessary but not sufficient: it does not cure photo or tattoo copyright, a non-commercial model licence, or a duty to disclose realistic fakes. For the add-on, safe design means default-deny consent gating, local processing, no stored embeddings, no celebrity presets and provenance metadata on export. There was no harvest or earlier draft, so all of this is expert knowledge as of mid-2026, awaiting verification; it is not legal advice.
 >
-> Evidence status: 0 ✅ / 0 📄 / 53 🧠 / 27 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 5 📄 / 52 🧠 / 25 ↔️ — 🧠 items are still unverified; 4 queued claims were checked on 2026-11-20 (see Verification log).
 
 ## Key facts
 
@@ -21,10 +21,10 @@
 - **False endorsement** (Lanham Act §43(a)) runs in parallel. 🧠 One-off fine art fares better than multiples, STLs or ads (*ETW v. Jireh*, 6th Cir. 2003). 🧠
 
 **Digital-replica statutes**
-- **Tennessee ELVIS Act** (signed 21 Mar 2024, effective 1 Jul 2024). 🧠
+- **Tennessee ELVIS Act** (signed 21 Mar 2024, effective 1 Jul 2024). 📄 [3][4]
   - It adds actual or simulated voice.
   - It creates liability for knowingly making an unauthorised likeness available.
-  - It also covers distributing any "algorithm, software, tool, or other technology" whose **primary purpose or function** is producing a *particular, identified* person's likeness without authorisation.
+  - It also covers distributing any "algorithm, software, tool, or other technology" whose **primary purpose or function** is producing an individual's photograph, voice or likeness without authorisation (the statute text says "an individual's"; "primary purpose" is undefined and commentators flag First Amendment and scope questions). 📄 [3][4]
   - It exempts news, commentary, parody, documentary and fleeting use.
   - A general fitter is not aimed at one person; a shipped celebrity preset might be. ↔️
 - **California.** 🧠
@@ -40,13 +40,13 @@
 - **NO FAKES Act** (federal). 🧠
   - It was introduced in July 2024 and reintroduced in April 2025 (S.1367/H.R.2794), backed by SAG-AFTRA, RIAA, MPA, YouTube and OpenAI.
   - It would create a federal right against unauthorised "digital replicas" (highly realistic, readily identifiable voice or likeness), with post-mortem terms renewable up to 70 years, written time-limited licences, notice-and-takedown, liability for products "primarily designed" to replicate specific people, First Amendment exclusions and partial pre-emption.
-  - **It was not enacted at my cutoff (mid-2026).** ↔️
+  - **Not enacted as of Nov 2026, but advancing (corrected in verification).** A revised version (S. 4591) was introduced on 20 May 2026 (adding a DMCA-style counter-notification process), and the Senate Judiciary Committee advanced it unanimously by voice vote on 18 June 2026. No Senate floor vote or House action was found. 📄 [1][2] The 2025 terms listed above (70-year renewals, "primarily designed" liability, pre-emption) were not re-checked against the bill text. 🧠
 - The **US Copyright Office** *Digital Replicas* report (July 2024) urged a federal right for everyone, not only celebrities. 🧠
 - **TAKE IT DOWN Act** (signed 19 May 2025). Publishing non-consensual intimate images is a federal crime, including AI "digital forgeries". Platforms must remove them within **48 h** of a valid request, with platform duties in force from May 2026 under FTC enforcement. 🧠 Most states also have intimate- and election-deepfake laws, some of the election laws enjoined on First Amendment grounds (*Kohls v. Bonta*). ↔️
 - **Pre-emption.** A December 2025 executive order targets state AI laws; its reach over likeness statutes is unclear. ↔️
 
 **Biometric and data-protection law**
-- **Illinois BIPA** (740 ILCS 14) treats a "scan of face geometry" (not a photograph) as a biometric identifier. It requires informed written consent *before* collection, a public retention policy, and destruction when the purpose ends or within 3 years of the last interaction. Damages are $1,000 per negligent and $5,000 per reckless violation, with no harm needed (*Rosenbach*, 2019); SB 2979 (2024) counts repeat scans of one person as one violation. 🧠
+- **Illinois BIPA** (740 ILCS 14) treats a "scan of face geometry" (not a photograph) as a biometric identifier. It requires informed written consent *before* collection, a public retention policy, and destruction when the purpose ends or within 3 years of the last interaction. Damages are $1,000 per negligent and $5,000 per reckless violation, with no harm needed (*Rosenbach*, 2019); SB 2979 (signed 2 Aug 2024, effective immediately) counts repeat collection from one person as a single violation with one recovery, and adds electronic signatures to "written release". 📄 [5][6] The other BIPA figures remain unverified. 🧠
 - **Is a fitted mesh "face geometry"?** This is contested. *Zellmer v. Meta* (9th Cir. 2024) excluded data that cannot identify a person. ↔️ Assume it is covered.
 - **Texas CUBI** is AG-enforced at up to $25,000 per violation (Meta settled for $1.4B in 2024). Washington and Colorado have similar laws. 🧠
 - **GDPR.** 🧠
@@ -57,7 +57,7 @@
 - **India's DPDP Act 2023** requires free, specific, informed, unambiguous consent. Its Rules were notified in November 2025 and phase in over about 12–18 months. ↔️
 
 **EU AI Act (Regulation (EU) 2024/1689)**
-- **Timeline.** In force since 1 Aug 2024. Art. 5 bans applied from 2 Feb 2025, including untargeted scraping of facial images to build recognition databases. **Art. 50 transparency applies from 2 Aug 2026.** 🧠
+- **Timeline.** In force since 1 Aug 2024. Art. 5 bans applied from 2 Feb 2025, including untargeted scraping of facial images to build recognition databases. **Art. 50 transparency applies from 2 Aug 2026.** ✅ [7][8] 
 - **Art. 50(2).** Providers of generators of synthetic image, audio, video or text must mark outputs machine-readably; assistive editing is exempt. 🧠
 - **Art. 50(4).** Deployers must disclose **deep fakes** (Art. 3(60): content resembling existing persons that would falsely appear authentic). For evidently artistic or satirical work, a non-intrusive disclosure is enough. 🧠
 - **Fines** for Art. 50 breaches reach €15M or 3 % of turnover. 🧠
@@ -66,7 +66,7 @@
   - Classical least-squares fitting is probably not an "AI system" (the Commission's February 2025 guidelines exclude mathematical optimisation).
   - Neural landmark detectors and regressors probably are.
   - Meshes are not among the output types Art. 50(2) lists.
-- **Dates may move.** The labelling code of practice and the November 2025 "Digital Omnibus" (which proposed an Art. 50(2) grace period) could change them. ↔️
+- **Dates moved for Art. 50(2) only (corrected in verification).** The Digital Omnibus gives generative AI systems already on the market before 2 Aug 2026 until 2 Dec 2026 to comply with the Art. 50(2) marking duty; systems placed on the market from 2 Aug 2026 get no grace period, and Arts. 50(1), 50(3), 50(4) keep the original date. The Code of Practice on transparency of AI-generated content was reported finalised on 10 June 2026 (voluntary). 📄 [7][8][9]
 
 **Other jurisdictions**
 - **Germany.** Under KUG §22, portraits may be distributed only with consent, and relatives' consent is needed for 10 years after death. §23 exempts contemporary history and uncommissioned art serving a "higher interest". 🧠
@@ -96,7 +96,7 @@
 | Florida | 40 years | | 🧠 |
 | Ohio / Pennsylvania / Virginia | 60 / 30 / 20 years | | ↔️ |
 | Germany (KUG) | 10 years | relatives' consent | 🧠 |
-| NO FAKES (proposed) | 10 years, renewable up to 70 | not law | ↔️ |
+| NO FAKES (proposed) | 10 years, renewable up to 70 | not law; cleared Senate Judiciary June 2026 (2025 terms, not re-checked) | ↔️ |
 
 **Table 2: Damages, fines, deadlines**
 
@@ -169,11 +169,22 @@ Statistical sigmas do not apply here. The priors are **policy defaults** that th
   - Does Art. 50 reach CGI made by classical fitting? Probably not, but neural steps change that.
   - First Amendment limits on broad replica rights.
   - Whether consent survives death: SAG-AFTRA terms say yes unless limited.
-- **Open (time-sensitive):** NO FAKES votes and pre-emption scope; the Digital Omnibus outcome and labelling code; India's final IT Rules; Danish enactment; a UK personality right; the December 2025 US executive order.
+- **Open (time-sensitive):** NO FAKES Senate floor and House action and pre-emption scope; uptake of the labelling code; India's final IT Rules; Danish enactment; a UK personality right; the December 2025 US executive order.
 
 ## Sources
 
-No web harvest or earlier draft existed for this topic, so no URLs are cited. Related notes: `reconstruction/identity-embeddings.md`, `blender/metahuman-cc-bridges.md`, `blender/blender-face-addons.md`, `community/ai-assisted-sculpting.md`, `reconstruction/photogrammetry-heads.md`.
+Sources added in the 2026-11-20 verification pass (most claims in this note remain unsourced expert knowledge):
+1. Blackburn press release, NO FAKES Act passes Senate Judiciary Committee (June 2026): https://www.blackburn.senate.gov/2026/6/blackburn-coons-bipartisan-bill-to-protect-individuals-and-creators-from-deepfakes-passes-senate-judiciary-committee
+2. Congress text of S. 4591 (119th Congress), GovInfo: https://www.govinfo.gov/content/pkg/BILLS-119s4591rs/html/BILLS-119s4591rs.htm
+3. AGORA, ELVIS Act (Tennessee) (unofficial text): https://agora.eto.tech/instrument/1378
+4. Skadden, Tennessee Law Addresses Proliferation of Deepfakes (Apr 2024): https://www.skadden.com/insights/publications/2024/04/tennessee-law-addresses-proliferation-of-deepfakes
+5. Illinois General Assembly, SB 2979 (103rd GA): https://www.ilga.gov/documents/legislation/103/SB/10300SB2979.htm
+6. Greenberg Traurig, BIPA update (Aug 2024): https://www.gtlaw.com/de/insights/2024/8/bipa-update-illinois-limits-liability-and-clarifies-electronic-consent-for-biometric-data-collection
+7. Ropes & Gray, operationalising the EU AI Act's transparency obligations (2026): https://www.ropesgray.com/en/insights/viewpoints/2026/08/102nfqm/you-talkin-to-me-operationalising-the-eu-ai-acts-transparency-obligations
+8. Morgan Lewis, EU AI Act transparency rules: what went into effect on 2 August: https://www.morganlewis.com/ru/blogs/sourcingatmorganlewis/2026/08/eu-ai-acts-transparency-rules-what-went-into-effect-on-2-august
+9. Addleshaw Goddard, EU AI Act code of practice on marking and labelling AI-generated content (18 Jun 2026): https://www.addleshawgoddard.com/en/insights/insights-briefings/2026/technology/eu-ai-act-code-practice-marking-labelling-ai-generated-content/
+
+Related notes: `reconstruction/identity-embeddings.md`, `blender/metahuman-cc-bridges.md`, `blender/blender-face-addons.md`, `community/ai-assisted-sculpting.md`, `reconstruction/photogrammetry-heads.md`.
 
 **Further reading (by name, not yet linked)**
 - Regulation (EU) 2024/1689 (AI Act), Arts. 2(12), 3(60), 5, 50, 99; GDPR Arts. 2, 4(14), 7, 9, Recital 51
@@ -183,3 +194,10 @@ No web harvest or earlier draft existed for this topic, so no URLs are cited. Re
 - Kunsturhebergesetz §§22–23; *Fenty v Arcadia* [2015] EWCA Civ 3
 - J. Thomas McCarthy, *The Rights of Publicity and Privacy*; Jennifer E. Rothman, *The Right of Publicity: Privacy Reimagined for a Public World* (2018)
 - SAG-AFTRA 2023 TV/Theatrical and 2025 Interactive Media agreements; C2PA specification; IPTC Digital Source Type vocabulary
+
+## Verification log (2026-11-20)
+
+- **NO FAKES Act status and terms**: corrected. Not enacted, but a revised S. 4591 (introduced 20 May 2026) cleared Senate Judiciary by voice vote on 18 Jun 2026 (one source says 26 Jun); no floor or House vote found. 2025 key terms (70-year renewals, "primarily designed", pre-emption) unconfirmed. https://www.blackburn.senate.gov/2026/6/blackburn-coons-bipartisan-bill-to-protect-individuals-and-creators-from-deepfakes-passes-senate-judiciary-committee ; https://www.govinfo.gov/content/pkg/BILLS-119s4591rs/html/BILLS-119s4591rs.htm
+- **EU AI Act Art. 50 from 2 Aug 2026**: confirmed (two sources). **Digital Omnibus grace period**: corrected, 2 Dec 2026 for pre-existing generative systems under Art. 50(2) only. **Code of Practice**: finalised 10 Jun 2026 per one law-firm source (an older source called it in draft). **Art. 2(12) open-source exemption excludes Art. 50**: unconfirmed in these results. https://www.ropesgray.com/en/insights/viewpoints/2026/08/102nfqm/you-talkin-to-me-operationalising-the-eu-ai-acts-transparency-obligations ; https://www.morganlewis.com/ru/blogs/sourcingatmorganlewis/2026/08/eu-ai-acts-transparency-rules-what-went-into-effect-on-2-august
+- **Tennessee ELVIS Act**: confirmed (dates; tool-distribution clause, "primary purpose or function"). Corrected nuance: the text says "an individual's" likeness, not "particular, identified". https://agora.eto.tech/instrument/1378 ; https://www.skadden.com/insights/publications/2024/04/tennessee-law-addresses-proliferation-of-deepfakes
+- **Illinois BIPA SB 2979**: confirmed (single recovery for repeat collection, signed 2 Aug 2024, e-signatures). **"Scan of face geometry", $1,000/$5,000, 3-year destruction**: unconfirmed here. **Zellmer v. Meta**: unconfirmed (not in results). https://www.ilga.gov/documents/legislation/103/SB/10300SB2979.htm ; https://www.gtlaw.com/de/insights/2024/8/bipa-update-illinois-limits-liability-and-clarifies-electronic-consent-for-biometric-data-collection

@@ -1,6 +1,27 @@
 {
   "topic": "likeness-mistakes",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "Ward et al., Nasal Distortion in Short-Distance Photographs: The Selfie Effect (2018)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805"
+    },
+    {
+      "n": 2,
+      "title": "Rutgers news release on selfie study",
+      "url": "https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery"
+    },
+    {
+      "n": 3,
+      "title": "Adult eyelid measurements (MRD1, PFH)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10371930"
+    },
+    {
+      "n": 4,
+      "title": "LEV102 blepharoptosis trial protocol",
+      "url": "https://cdn.clinicaltrials.gov/large-docs/46/NCT05715346/Prot_000.pdf"
+    }
+  ],
   "references_by_name": [
     "Farkas, Anthropometry of the Head and Face, 1994",
     "Cohen & Bennett, 'Why can't most people draw what they see?', Journal of Experimental Psychology: Human Perception and Performance, 1997",

@@ -1,6 +1,49 @@
 {
  "topic": "biometric-privacy",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "title": "Colorado HB24-1130 bill page",
+   "url": "https://www.leg.colorado.gov/bills/hb24-1130",
+   "verified": "2026-11-20"
+  },
+  {
+   "n": 2,
+   "title": "Zellmer v. Meta (9th Cir. 2024) opinion",
+   "url": "https://www.law.berkeley.edu/wp-content/uploads/2025/04/20-Zellmer-v-Meta-Platforms-Inc.pdf",
+   "verified": "2026-11-20"
+  },
+  {
+   "n": 3,
+   "title": "Goldman, Hartman v. Meta (BIPA AR filters)",
+   "url": "https://blog.ericgoldman.org/archives/2024/09/augmented-reality-filters-may-violate-privacy-law-hartman-v-meta.htm",
+   "verified": "2026-11-20"
+  },
+  {
+   "n": 4,
+   "title": "Sidley: 7th Cir. BIPA retroactivity (Clay)",
+   "url": "https://datamatters.sidley.com/2026/04/08/seventh-circuit-limits-potential-damages-under-bipa-holds-2024-amendment-applies-retroactively/",
+   "verified": "2026-11-20"
+  },
+  {
+   "n": 5,
+   "title": "Foley: BIPA alert 7th Cir. retroactivity",
+   "url": "https://www.foley.com/insights/publications/2026/04/bipa-alert-seventh-circuit-ruling-applies-bipa-amendments-retroactively-ending-per-scan-exposure-for-companies-operating-in-illinois/",
+   "verified": "2026-11-20"
+  },
+  {
+   "n": 6,
+   "title": "EDPB Guidelines 3/2019 video devices",
+   "url": "https://www.edpb.europa.eu/sites/default/files/files/file1/edpb_guidelines_201903_video_devices_en_0.pdf",
+   "verified": "2026-11-20"
+  },
+  {
+   "n": 7,
+   "title": "ICO: What is special category data?",
+   "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/special-category-data/what-is-special-category-data/",
+   "verified": "2026-11-20"
+  }
+ ],
  "references_by_name": [
   "Illinois Biometric Information Privacy Act, 740 ILCS 14 (2008), as amended by Public Act 103-0769 (2024)",
   "Texas Business & Commerce Code §503.001 (Capture or Use of Biometric Identifier); Texas HB 149 (TRAIGA, 2025)",

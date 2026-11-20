@@ -2,21 +2,21 @@
 
 > A photo→3D likeness pipeline produces what biometric laws regulate: landmark geometry, fitted shape coefficients, a metric face mesh and, if likeness is scored with ArcFace-style embeddings, a textbook faceprint. Illinois BIPA excludes photographs, but courts have treated face geometry *derived from* photos as a "scan of face geometry"; GDPR calls data biometric when it *can* uniquely identify someone and makes it Art. 9 special-category data when processed *to* identify. Whether a likeness mesh never used for recognition is regulated is contested, and a high-likeness head is identifying by design, so the safe engineering stance treats every derived artifact as biometric. Local processing largely takes the add-on developer out of the chain, but every duty (written release, purpose, retention, disclosure limits) then sits with the artist or studio running it. Not legal advice; the law moved in 2024–2026.
 >
-> Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 2 📄 / 58 🧠 / 13 ↔️ — verified 2026-11-20 for four queued claims; remaining 🧠 items are unverified.
 
 ## Key facts
 
 **Is face geometry "biometric"?**
 - **BIPA (740 ILCS 14, Illinois, 2008).** "Biometric identifier" = retina or iris scan, fingerprint, voiceprint, or *scan of hand or face geometry*; photographs, physical descriptions and demographic data are excluded. "Biometric information" = information based on an identifier and *used to identify* someone. "Scan of face geometry" is undefined. 🧠
 - **Derived geometry is not "a photograph".** Rivera v. Google (N.D. Ill. 2017) and the Facebook Tag Suggestions litigation (Patel v. Facebook, 9th Cir. 2019) treated templates computed from uploaded photos as scans of face geometry. 🧠
-- **Must it be able to identify?** Zellmer v. Meta (9th Cir. 2024): face signatures that could not identify a non-user were not biometric identifiers. Virtual try-on suits (AR make-up, eyewear; since ~2022) split: some survived dismissal with no recognition purpose, others failed for not alleging identification capability. A likeness mesh is untested. ↔️
+- **Must it be able to identify?** Zellmer v. Meta (9th Cir. 2024): face signatures that could not identify a non-user were not biometric identifiers. Virtual try-on suits (AR make-up, eyewear; since ~2022) split: some survived dismissal with no recognition purpose, others failed for not alleging identification capability. A likeness mesh is untested. Zellmer was decided on summary judgment and requires identification capability [2]; try-on rulings so far mostly let claims past dismissal by treating capability as a pleading-stage fact question, though results vary by claim [3]. ↔️
 - **Meshes do identify.** 3D-only recognition on FRGC v2.0 (≈4,000 scans of ≈466 people) reached roughly 97–99 % verification at 0.1 % false-accept rate in late-2000s methods. 🧠
 - **Texas CUBI (Bus. & Com. Code §503.001, 2009)** covers a "record of hand or face geometry", only when captured **for a commercial purpose**. 🧠
 - **Washington RCW 19.375 (2017)** excludes photographs "or data generated therefrom"; the **My Health My Data Act** (RCW 19.373, 2024) is broader (face imagery from which a template can be extracted) and has a private right of action. 🧠
 - **US comprehensive state laws** (≈19–20 states) make biometric data processed to identify "sensitive", needing opt-in consent. Virginia-model text excludes photos and data generated from them; Connecticut-style text adds "unless generated to identify a specific individual". 🧠
-- **Colorado HB 24-1130 (from 1 July 2025)** binds any controller collecting biometric identifiers, whatever its size: written policy, consent, deletion by the earliest of purpose met, 24 months after last interaction, or 45 days after no longer needed. 🧠
+- **Colorado HB 24-1130 (from 1 July 2025)** binds any controller collecting biometric identifiers, whatever its size: written policy, consent, deletion by the earliest of purpose met, 24 months after last interaction, or 45 days after no longer needed (45-day period extendable by up to 45 days) [1]. 📄
 - **GDPR Art. 4(14):** biometric data = personal data from *specific technical processing* of physical characteristics that *allow or confirm unique identification*, "such as facial images". **Recital 51:** photos are special-category only when processed by technical means allowing unique identification. **Art. 9(1)** bans processing biometric data "for the purpose of uniquely identifying" a person unless Art. 9(2) applies (here, realistically, explicit consent). 🧠
-- **GDPR reading here:** a fitted head is personal data and very likely biometric data (technical processing, identification-capable); in the mainstream (EDPB, UK ICO 2024) reading, Art. 9 turns on purpose. A likeness sculpt needs an Art. 6 basis; 1:1 identity scoring with embeddings comes close to "confirming" identity. ↔️
+- **GDPR reading here:** a fitted head is personal data and very likely biometric data (technical processing, identification-capable); in the mainstream (EDPB, UK ICO 2024) reading, Art. 9 turns on purpose. A likeness sculpt needs an Art. 6 basis; 1:1 identity scoring with embeddings comes close to "confirming" identity. EDPB says processing that does not aim to uniquely identify anyone falls outside Art. 9 [6]; ICO says photos are biometric only after technical processing that allows or confirms identification, and warns that using biometric data to learn about or treat someone differently is likely identification [7]. ✅
 - **CCPA/CPRA (Cal. Civ. Code §1798.100 ff.):** "biometric information" includes face imagery from which a faceprint *can* be extracted, so the photos qualify; it is "sensitive personal information" (right to limit) only when processed *to uniquely identify*. 🧠
 - **Elsewhere:** Japan's APPI lists computer-processed facial-feature positions and shapes as identification codes; China PIPL Arts. 28–29 (sensitive, separate consent); Brazil LGPD Art. 5(II); Quebec requires 60 days' notice to its regulator before a biometric database goes live; Australia treats biometric templates as sensitive. 🧠
 
@@ -24,7 +24,7 @@
 - **BIPA §15:** (a) public retention policy, destroying when the purpose is met or **3 years** after last interaction, whichever is first; (b) before collecting: written notice, specific purpose and term, **written release**; (c) no profiting; (d) no disclosure without consent; (e) security at least equal to other sensitive data. 🧠
 - **"Private entity" includes individuals; there is no service-provider exemption.** A freelance artist is covered and cloud vendors have been sued directly; courts generally require an affirmative act of collection, or control for possession (e.g., Heard v. Becton Dickinson, N.D. Ill. 2020). ↔️
 - **BIPA damages (§20):** $1,000 negligent / $5,000 intentional or reckless per violation, plus fees. Rosenbach v. Six Flags (Ill. 2019): no actual harm needed. Tims (Ill. 2023): 5-year limitation. Cothron v. White Castle (Ill. 2023): each scan accrues a claim. 🧠
-- **P.A. 103-0769 (SB 2979, Aug 2024)** made repeated collection from one person by one method a single violation and accepts e-signatures as a written release; courts split on pending cases. ↔️
+- **P.A. 103-0769 (SB 2979, Aug 2024)** made repeated collection from one person by one method a single violation and accepts e-signatures as a written release; the Seventh Circuit (Clay v. Union Pacific, 1 Apr 2026) held the per-person damages limit applies retroactively to pending cases [4][5]; state-court treatment not verified (corrected in verification). ✅
 - **CUBI:** notice and consent (not necessarily written) before capture; no sale or disclosure; reasonable care; destroy **≤1 year after the purpose expires**; Attorney General only, **≤$25,000 per violation**. Texas settled with Meta for $1.4 billion (2024) and Google for $1.375 billion (2025). 🧠
 - **Texas HB 149 (TRAIGA, from 1 Jan 2026)** reportedly amended CUBI: a public image implies no consent unless the person published it; AI training not used to identify is carved out. ↔️
 - **GDPR controller duties** fall on the artist or studio; a hobbyist has the **Art. 2(2)(c) household exemption**, lost once results are published to the world (CJEU Lindqvist, 2003). Duties: Art. 6 basis; Art. 9(2)(a) explicit consent where Art. 9 applies; withdrawable, provable consent (Art. 7); minimisation and storage limitation (Art. 5); by design (Art. 25); Art. 28 contract with cloud processors; transfer rules (EU–US Data Privacy Framework since 2023); DPIA at large scale (Art. 35). 🧠
@@ -46,11 +46,11 @@
 |---|---|---|---|
 | BIPA | Retention cap | earlier of purpose met or 3 yr after last interaction | 🧠 |
 | BIPA | Damages per violation | $1,000 negligent / $5,000 intentional or reckless | 🧠 |
-| BIPA | Violation count since 2024 | one per person per method (retroactivity disputed) | ↔️ |
+| BIPA | Violation count since 2024 | one per person per method (retroactive per 7th Cir., Clay v. Union Pacific, Apr 2026) [4][5] (corrected in verification) | ✅ |
 | BIPA | Limitation period | 5 yr | 🧠 |
 | CUBI | Destruction | ≤1 yr after purpose expires | 🧠 |
 | CUBI | Civil penalty (AG only) | ≤$25,000 per violation | 🧠 |
-| Colorado | Deletion | earliest of purpose met / 24 months after last interaction / 45 days after no longer needed | 🧠 |
+| Colorado | Deletion | earliest of purpose met / 24 months after last interaction / 45 days after no longer needed [1] | 📄 |
 | GDPR | Maximum fine | €20 M or 4 % worldwide turnover, whichever higher | 🧠 |
 | GDPR | Breach notice | 72 h | 🧠 |
 | GDPR | Subject-request reply | 1 month (+2 extendable) | 🧠 |
@@ -114,12 +114,22 @@ No anatomical priors or sigmas come from this topic; it sets data classes, gates
 - **Myth: "An MIT/GPL disclaimer covers users."** It does not change the duties of whoever collects. 🧠
 - ↔️ **Capability vs purpose.** GDPR: biometric by capability, Art. 9 by purpose (majority) or capability alone (minority). BIPA: Zellmer requires capability; some Illinois courts ask only whether geometry was scanned.
 - ↔️ **Is a hand-sculpted head still a "scan"?** Heavy manual sculpting may make it an artist's depiction, like a painted portrait. Untested.
-- ↔️ **Time-sensitive:** BIPA 2024 retroactivity; the AI Act Art. 50 date and whether 3D renders count as deepfakes; TRAIGA's carve-outs; whether the EU Cyber Resilience Act reaches donation-funded add-ons; EU–US transfers after Latombe v Commission (2025, appeal pending).
+- ↔️ **Time-sensitive:** BIPA 2024 retroactivity in state courts (federal 7th Cir. settled it for federal cases, Apr 2026); the AI Act Art. 50 date and whether 3D renders count as deepfakes; TRAIGA's carve-outs; whether the EU Cyber Resilience Act reaches donation-funded add-ons; EU–US transfers after Latombe v Commission (2025, appeal pending).
 - **Open:** the iris resolution at which a texture becomes an "iris scan"; whether 3DMM coefficients are "templates"; a US federal privacy law (none enacted, as far as the author knows).
 
 ## Sources
 
-No harvest file or earlier draft existed for this topic, so no URLs are cited. Related notes: `research/reconstruction/identity-embeddings.md`, `research/blender/metahuman-cc-bridges.md`, `research/community/ai-assisted-sculpting.md`.
+Verified sources (2026-11-20):
+
+1. Colorado General Assembly, HB24-1130 Privacy of Biometric Identifiers & Data: https://www.leg.colorado.gov/bills/hb24-1130
+2. Zellmer v. Meta Platforms (9th Cir. 2024) opinion: https://www.law.berkeley.edu/wp-content/uploads/2025/04/20-Zellmer-v-Meta-Platforms-Inc.pdf
+3. Eric Goldman, Hartman v. Meta (AR filters, BIPA): https://blog.ericgoldman.org/archives/2024/09/augmented-reality-filters-may-violate-privacy-law-hartman-v-meta.htm
+4. Sidley, Seventh Circuit holds 2024 BIPA amendment applies retroactively: https://datamatters.sidley.com/2026/04/08/seventh-circuit-limits-potential-damages-under-bipa-holds-2024-amendment-applies-retroactively/
+5. Foley, BIPA alert on Seventh Circuit retroactivity ruling: https://www.foley.com/insights/publications/2026/04/bipa-alert-seventh-circuit-ruling-applies-bipa-amendments-retroactively-ending-per-scan-exposure-for-companies-operating-in-illinois/
+6. EDPB Guidelines 3/2019 on video devices: https://www.edpb.europa.eu/sites/default/files/files/file1/edpb_guidelines_201903_video_devices_en_0.pdf
+7. UK ICO, What is special category data?: https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/special-category-data/what-is-special-category-data/
+
+Related notes: `research/reconstruction/identity-embeddings.md`, `research/blender/metahuman-cc-bridges.md`, `research/community/ai-assisted-sculpting.md`.
 
 **Further reading (by name, not yet linked)**
 
@@ -137,3 +147,10 @@ No harvest file or earlier draft existed for this topic, so no URLs are cited. R
 - FTC Policy Statement on Biometric Information (2023); In re Everalbum (2021)
 - Japan APPI; China PIPL; Brazil LGPD; Quebec IT framework act
 - Phillips et al., Overview of the Face Recognition Grand Challenge, CVPR 2005
+
+## Verification log (2026-11-20)
+
+1. BIPA geometry without identification: contested (stays ↔️). Zellmer requires identification capability; try-on rulings mostly survive dismissal, with mixed results. Sources: https://www.law.berkeley.edu/wp-content/uploads/2025/04/20-Zellmer-v-Meta-Platforms-Inc.pdf ; https://blog.ericgoldman.org/archives/2024/09/augmented-reality-filters-may-violate-privacy-law-hartman-v-meta.htm
+2. Colorado HB 24-1130 deletion rule: confirmed (📄); 24 months and 45 days match. The "any controller regardless of volume" point was not separately verified. Source: https://www.leg.colorado.gov/bills/hb24-1130
+3. Illinois P.A. 103-0769: corrected (✅). Seventh Circuit held the amendment retroactive (Clay v. Union Pacific, 1 Apr 2026), so "courts split" is outdated at the federal appellate level; state-court status unverified. The e-signature provision was not separately confirmed. Sources: https://datamatters.sidley.com/2026/04/08/seventh-circuit-limits-potential-damages-under-bipa-holds-2024-amendment-applies-retroactively/ ; https://www.foley.com/insights/publications/2026/04/bipa-alert-seventh-circuit-ruling-applies-bipa-amendments-retroactively-ending-per-scan-exposure-for-companies-operating-in-illinois/
+4. GDPR Art. 9 turns on purpose (EDPB/ICO): confirmed (✅), with the ICO caveat that using biometrics to learn about someone likely counts as identification. Sources: https://www.edpb.europa.eu/sites/default/files/files/file1/edpb_guidelines_201903_video_devices_en_0.pdf ; https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/special-category-data/what-is-special-category-data/

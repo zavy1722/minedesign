@@ -147,9 +147,12 @@
     ]
    ],
    "population": "n/a (statutory text as recalled by author)",
-   "source_urls": [],
-   "status": "knowledge",
-   "notes": "Author knowledge, not verified in this library. BIPA per-violation counting changed by P.A. 103-0769 (Aug 2024): one violation per person per method; retroactivity contested. CPI-adjusted CCPA amounts are time-sensitive (next adjustment due January 2027). Not legal advice."
+   "source_urls": [
+    "https://www.leg.colorado.gov/bills/hb24-1130",
+    "https://datamatters.sidley.com/2026/04/08/seventh-circuit-limits-potential-damages-under-bipa-holds-2024-amendment-applies-retroactively/"
+   ],
+   "status": "partially_verified",
+   "notes": "Author knowledge, not verified in this library. BIPA per-violation counting changed by P.A. 103-0769 (Aug 2024): one violation per person per method; the Seventh Circuit held it retroactive for pending federal cases (Clay v. Union Pacific, 1 Apr 2026; corrected in verification 2026-11-20). CPI-adjusted CCPA amounts are time-sensitive (next adjustment due January 2027). Not legal advice. Colorado 24-month / 45-day deletion values verified 2026-11-20 against the bill page; other rows remain author knowledge."
   },
   {
    "name": "enforcement_benchmarks",

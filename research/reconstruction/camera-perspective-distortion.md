@@ -29,13 +29,9 @@ No topic harvest existed; cited URLs come from sibling harvests. Companions: `re
 - Practitioners advise holding the phone at arm's length for selfies [1] 📄. That helps without curing anything: at 0.5–0.6 m the ears are still ~17–20% too small 🧠
 
 **Focal length, EXIF and crop factor**
-- f_px = f_mm·W/S_w = f35·√(W²+H²)/43.27, using the diagonal convention as `face3d/geometry/camera.py` does 🧠. Crop factor = 43.27 mm ÷ sensor diagonal 🧠
-- EXIF `FocalLength` (0x920A) is the real focal length in mm. `FocalLengthIn35mmFilm` (0xA405) is an integer, where 0 means unknown 🧠. Makers may derive it from the diagonal or from the width, which differ by ~4% on 4:3 sensors ↔️
-- "1/x-inch" sensor names are legacy video-tube sizes: the real diagonal is about two-thirds of the named figure, so a "1-inch" sensor measures ~16 mm 🧠
-- EXIF focal length is the nominal value at infinity focus 🧠
-  - With unit focusing, the effective pinhole focal length grows by (1 + m): +2% for a phone main camera at 0.35 m, +6% for 85 mm at 1.5 m, +11% for 50 mm at 0.5 m.
-  - Internal-focus lenses may shrink instead (focus breathing).
-  - Marked focal lengths carry a manufacturing tolerance, which I recall as ±5% in ISO 517.
+- f_px = f_mm·W/S_w = f35·√(W²+H²)/43.27 (diagonal convention, as in `face3d/geometry/camera.py`); crop factor = 43.27 mm ÷ sensor diagonal 🧠. Makers may derive f35 from the diagonal or the width, ~4% apart on 4:3 sensors ↔️ (EXIF fields: Table 5)
+- "1/x-inch" sensor names are legacy video-tube sizes; the real diagonal is about two-thirds of the figure (a "1-inch" sensor is ~16 mm) 🧠
+- EXIF focal length is the nominal infinity-focus value. Unit focusing raises the effective pinhole focal length by (1 + m) (Table 3), internal focusing may lower it (breathing), and marked focal lengths carry a tolerance I recall as ±5% (ISO 517) 🧠
 - Blender's `lens` means something only together with the sensor width and sensor fit [11] 📄. Typing f35 into `lens` is exact only for 3:2 images with a 36 mm horizontal sensor; 4:3 needs ×1.040 🧠
 - The Blender **viewport** focal length is not a camera. A community thread reports the viewport needing ~2× the camera focal length to match, and a maintainer disputed that this is a bug [12] 📄. My recollection is that the viewport applies a fixed 2× zoom, which makes a 50 mm viewport roughly a 25 mm camera on a 36 mm sensor 🧠
 - KeenTools FaceBuilder sets focal length and sensor per photo automatically [15] 📄. fSpy solves focal length from vanishing lines [13], and with a single vanishing point you must supply it [14] 📄. A face has no straight edges, so vanishing points must come from the background 🧠
@@ -49,7 +45,7 @@ No topic harvest existed; cited URLs come from sibling harvests. Companions: `re
 - Learned single-image calibrators exist (GeoCalib [16], Perspective Fields [17]) 📄. They rely on scene geometry and are untested on face close-ups 🧠
 
 **Camera models**
-- In increasing fidelity: orthographic, weak perspective (scaled orthographic, 6 DoF), paraperspective (Aloimonos 1990), affine, full perspective, then perspective plus lens distortion 🧠. Weak-perspective image error ≈ (f/z)·X·Δ/z, a relative error of Δ/z 🧠
+- In increasing fidelity: orthographic (drawings, photos ≥3–5 m), weak perspective (scaled orthographic, 6 DoF; valid while Δ/z ≲ 2–3%, i.e. whole head ≳3 m, interior points ≳1 m), paraperspective (Aloimonos 1990; off-centre faces), affine, full perspective (R, t, f; always valid), then + k1, k2 for uncorrected, ultrawide or webcam lenses 🧠. Weak-perspective image error ≈ (f/z)·X·Δ/z 🧠
 - Many monocular 3DMM regressors assume weak perspective. On near photos they therefore bake perspective into the shape: a bigger nose and a narrower face 🧠. Perspective-aware face reconstruction calibrates K offline and then runs PnP [6] 📄, or estimates metric shape directly [10] 📄
 - Under weak perspective, pose is measured relative to the ray through the face. An off-centre face θ off-axis therefore picks up a pose bias of ≈θ unless the principal point is honoured 🧠
 
@@ -115,16 +111,6 @@ Between 0.3 and 1.5 m the geometric nose-to-face change is 12% (16% from 0.25 m)
 | LensMake/LensModel/LensSpecification (0xA433/0xA434/0xA432) | which module, e.g. "front camera" | intrinsics-group key | 🧠 |
 | Orientation (0x0112) | rotation | apply before landmarking | 🧠 |
 | SubjectDistance (0x9206); maker-note focus distance | distance prior | rare and coarse; weak prior only | 🧠 |
-
-**Table 6 — Camera models**
-
-| Model | Free parameters | Valid when | Role | Badge |
-|---|---|---|---|---|
-| Orthographic | R, t_xy | drawings; photos ≥3–5 m | blueprint tracing | 🧠 |
-| Weak perspective | R, t_xy, s | Δ/z ≲ 2–3% (whole head ≳3 m; interior ≳1 m) | initialisation; many regressors | 🧠 |
-| Paraperspective | + off-axis face position | off-centre faces, moderate z | initialisation | 🧠 |
-| Full perspective | R, t, f (c fixed) | always | final fit and Blender export | 🧠 |
-| + k1, k2 | distortion | uncorrected lens, ultrawide, webcam | rarely for phones | 🧠 |
 
 ## Applying this to photo→3D face sculpting in Blender
 

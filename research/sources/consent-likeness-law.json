@@ -1,6 +1,52 @@
 {
   "topic": "consent-likeness-law",
-  "sources": [],
+  "sources": [
+    {
+      "url": "https://www.blackburn.senate.gov/2026/6/blackburn-coons-bipartisan-bill-to-protect-individuals-and-creators-from-deepfakes-passes-senate-judiciary-committee",
+      "title": "NO FAKES Act passes Senate Judiciary Committee",
+      "verified": "2026-11-20"
+    },
+    {
+      "url": "https://www.govinfo.gov/content/pkg/BILLS-119s4591rs/html/BILLS-119s4591rs.htm",
+      "title": "S. 4591 NO FAKES Act of 2026 text",
+      "verified": "2026-11-20"
+    },
+    {
+      "url": "https://agora.eto.tech/instrument/1378",
+      "title": "ELVIS Act (Tennessee), AGORA",
+      "verified": "2026-11-20"
+    },
+    {
+      "url": "https://www.skadden.com/insights/publications/2024/04/tennessee-law-addresses-proliferation-of-deepfakes",
+      "title": "Skadden: Tennessee law addresses deepfakes",
+      "verified": "2026-11-20"
+    },
+    {
+      "url": "https://www.ilga.gov/documents/legislation/103/SB/10300SB2979.htm",
+      "title": "Illinois SB 2979",
+      "verified": "2026-11-20"
+    },
+    {
+      "url": "https://www.gtlaw.com/de/insights/2024/8/bipa-update-illinois-limits-liability-and-clarifies-electronic-consent-for-biometric-data-collection",
+      "title": "Greenberg Traurig: BIPA update",
+      "verified": "2026-11-20"
+    },
+    {
+      "url": "https://www.ropesgray.com/en/insights/viewpoints/2026/08/102nfqm/you-talkin-to-me-operationalising-the-eu-ai-acts-transparency-obligations",
+      "title": "Ropes & Gray: AI Act transparency",
+      "verified": "2026-11-20"
+    },
+    {
+      "url": "https://www.morganlewis.com/ru/blogs/sourcingatmorganlewis/2026/08/eu-ai-acts-transparency-rules-what-went-into-effect-on-2-august",
+      "title": "Morgan Lewis: AI Act transparency rules",
+      "verified": "2026-11-20"
+    },
+    {
+      "url": "https://www.addleshawgoddard.com/en/insights/insights-briefings/2026/technology/eu-ai-act-code-practice-marking-labelling-ai-generated-content/",
+      "title": "Addleshaw Goddard: code of practice on AI content labelling",
+      "verified": "2026-11-20"
+    }
+  ],
   "references_by_name": [
     "Regulation (EU) 2024/1689 (AI Act), Arts. 2(12), 3(60), 5, 50, 99",
     "Commission Guidelines on the definition of an AI system (Feb 2025)",
