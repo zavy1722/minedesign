@@ -1,32 +1,53 @@
 {
-  "topic": "face-scan-datasets",
-  "sources": [],
-  "references_by_name": [
-    "Yang et al., \"FaceScape: a Large-scale High Quality 3D Face Dataset and Detailed Riggable 3D Face Prediction\", CVPR 2020; Zhu et al., FaceScape benchmark extension, IEEE TPAMI",
-    "Dai, Pears, Smith & Duncan, \"A 3D Morphable Model of Craniofacial Shape and Texture Variation\" (LYHM/Headspace), ICCV 2017",
-    "Cao et al., \"FaceWarehouse: a 3D Facial Expression Database for Visual Computing\", IEEE TVCG 2014",
-    "Yin et al., BU-3DFE, IEEE FG 2006",
-    "Yin et al., BU-4DFE, IEEE FG 2008",
-    "Zhang et al., BP4D-Spontaneous, Image and Vision Computing 2014; Zhang et al., BP4D+ (multimodal), CVPR 2016",
-    "Cosker, Krumhuber & Hilton, D3DFACS (FACS-valid 3D dynamic action unit database), ICCV 2011",
-    "Ranjan, Bolkart, Sanyal & Black, \"Generating 3D Faces using Convolutional Mesh Autoencoders\" (CoMA), ECCV 2018",
-    "Cudeiro et al., \"Capture, Learning, and Synthesis of 3D Speaking Styles\" (VOCA/VOCASET), CVPR 2019",
-    "Bolkart, Li & Black, \"Instant Multi-View Head Capture through Learnable Registration\" (TEMPEH/FaMoS), CVPR 2023",
-    "Li, Bolkart, Black, Li & Romero, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), SIGGRAPH Asia 2017",
-    "Wuu et al., \"Multiface: A Dataset for Neural Face Rendering\", 2022",
-    "Kirschstein et al., \"NeRSemble: Multi-view Radiance Field Reconstruction of Human Heads\", ACM TOG 2023",
-    "Pan et al., RenderMe-360, NeurIPS 2023 Datasets & Benchmarks",
-    "Martinez et al., Codec Avatar Studio (Ava-256), NeurIPS 2024",
-    "Cheng et al., 4DFAB, CVPR 2018",
-    "Sanyal et al., RingNet and the NoW benchmark, CVPR 2019",
-    "Chai et al., \"REALY: Rethinking the Evaluation of 3D Face Reconstruction\", ECCV 2022",
-    "Phillips et al., Face Recognition Grand Challenge (FRGC), CVPR 2005",
-    "Savran et al., Bosphorus 3D face database, 2008",
-    "Bagdanov, Del Bimbo & Masi, The Florence 2D/3D Hybrid Face Dataset, 2011",
-    "Robinette et al., CAESAR final report, 2002",
-    "Weinberg et al., 3D Facial Norms database (FaceBase, NIDCR)",
-    "Booth et al., \"A 3D Morphable Model learnt from 10,000 faces\" (LSFM), CVPR 2016",
-    "Paysan et al., Basel Face Model, AVSS 2009",
-    "Farkas, Anthropometry of the Head and Face, 1994"
-  ]
+ "topic": "face-scan-datasets",
+ "sources": [
+  {
+   "n": 1,
+   "url": "https://nju-3dv.github.io/projects/FaceScape",
+   "title": "FaceScape project page"
+  },
+  {
+   "n": 2,
+   "url": "https://github.com/jackzhousz/multiface",
+   "title": "Multiface README (fork of facebookresearch/multiface)"
+  },
+  {
+   "n": 3,
+   "url": "https://www-users.york.ac.uk/~np7/research/LYHM",
+   "title": "Liverpool-York Head Model / Headspace"
+  },
+  {
+   "n": 4,
+   "url": "https://arxiv.org/abs/2207.11243",
+   "title": "Multiface: A Dataset for Neural Face Rendering"
+  }
+ ],
+ "references_by_name": [
+  "Yang et al., \"FaceScape: a Large-scale High Quality 3D Face Dataset and Detailed Riggable 3D Face Prediction\", CVPR 2020; Zhu et al., FaceScape benchmark extension, IEEE TPAMI",
+  "Dai, Pears, Smith & Duncan, \"A 3D Morphable Model of Craniofacial Shape and Texture Variation\" (LYHM/Headspace), ICCV 2017",
+  "Cao et al., \"FaceWarehouse: a 3D Facial Expression Database for Visual Computing\", IEEE TVCG 2014",
+  "Yin et al., BU-3DFE, IEEE FG 2006",
+  "Yin et al., BU-4DFE, IEEE FG 2008",
+  "Zhang et al., BP4D-Spontaneous, Image and Vision Computing 2014; Zhang et al., BP4D+ (multimodal), CVPR 2016",
+  "Cosker, Krumhuber & Hilton, D3DFACS (FACS-valid 3D dynamic action unit database), ICCV 2011",
+  "Ranjan, Bolkart, Sanyal & Black, \"Generating 3D Faces using Convolutional Mesh Autoencoders\" (CoMA), ECCV 2018",
+  "Cudeiro et al., \"Capture, Learning, and Synthesis of 3D Speaking Styles\" (VOCA/VOCASET), CVPR 2019",
+  "Bolkart, Li & Black, \"Instant Multi-View Head Capture through Learnable Registration\" (TEMPEH/FaMoS), CVPR 2023",
+  "Li, Bolkart, Black, Li & Romero, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), SIGGRAPH Asia 2017",
+  "Wuu et al., \"Multiface: A Dataset for Neural Face Rendering\", 2022",
+  "Kirschstein et al., \"NeRSemble: Multi-view Radiance Field Reconstruction of Human Heads\", ACM TOG 2023",
+  "Pan et al., RenderMe-360, NeurIPS 2023 Datasets & Benchmarks",
+  "Martinez et al., Codec Avatar Studio (Ava-256), NeurIPS 2024",
+  "Cheng et al., 4DFAB, CVPR 2018",
+  "Sanyal et al., RingNet and the NoW benchmark, CVPR 2019",
+  "Chai et al., \"REALY: Rethinking the Evaluation of 3D Face Reconstruction\", ECCV 2022",
+  "Phillips et al., Face Recognition Grand Challenge (FRGC), CVPR 2005",
+  "Savran et al., Bosphorus 3D face database, 2008",
+  "Bagdanov, Del Bimbo & Masi, The Florence 2D/3D Hybrid Face Dataset, 2011",
+  "Robinette et al., CAESAR final report, 2002",
+  "Weinberg et al., 3D Facial Norms database (FaceBase, NIDCR)",
+  "Booth et al., \"A 3D Morphable Model learnt from 10,000 faces\" (LSFM), CVPR 2016",
+  "Paysan et al., Basel Face Model, AVSS 2009",
+  "Farkas, Anthropometry of the Head and Face, 1994"
+ ]
 }

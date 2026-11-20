@@ -1,13 +1,13 @@
 # Face rigging for a reconstructed head
 
 > A photo-fitted head can be rigged three ways. It can get a bone rig (Rigify, which ships with Blender, or the paid Auto-Rig Pro). It can get a shape-key rig with Apple ARKit key names, which phone or webcam capture drives directly. Or it can get the industry-standard hybrid: bones for the head, neck, jaw and eyes, ARKit-named keys for the rest, plus correctives. The decisive choice for this project is to **rig the fitting template once, not each scan**. Every fit shares the template's vertex count and order, so weights and keys carry over by index; only the bone positions and the expression deltas are recomputed, and the person's own smile, blink and brows are refitted from their expression photos. Live capture (Live Link Face, Face Cap, iFacialMocap, MediaPipe) arrives as 0–1 coefficients and needs per-performer calibration plus filtering that preserves blinks. This topic had no harvest or draft, so the cited URLs come from two sibling harvests (blender-face-addons, facs-expressions).
-Evidence status: 8 ✅ / 22 📄 / 71 🧠 / 13 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 9 ✅ / 22 📄 / 70 🧠 / 13 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Rig families**
 - **Rigify** ships with Blender and generates a rig from an editable meta-rig: Human → Generate Rig 🧠.
-  - Since 3.0 the face is a modular "skin" system 🧠: glued chains for the lids, lips, brows, nose and cheeks, plus jaw, eye and tongue rigs. The legacy `super_face` has an "Upgrade Face Rig" button.
+  - Since 3.0 the face is a modular "skin" system [24][25] ✅: glued chains for the lids, lips, brows, nose and cheeks, plus jaw, eye and tongue rigs. The legacy `super_face` has an "Upgrade Face Rig" button [24][25]. (Tongue rig and 4.2+/5.x bundling not seen in the sources checked.)
   - Only `DEF-` bones deform 🧠.
   - It expects the model facing −Y, with Z up and transforms applied 🧠.
   - Bones are placed by hand 🧠, so the landmarks our fitter produces can place them automatically.
@@ -59,7 +59,7 @@ Evidence status: 8 ✅ / 22 📄 / 71 🧠 / 13 ↔️ — 🧠 items are queued
   - Mesh Deform for cages.
   - Corrective Smooth placed after Armature.
 - **Driver simple expressions** (arithmetic, `min`, `max`) run without Python or auto-run permission 🧠.
-- **Slotted Actions** arrived in 4.4: F-curves are written through layers, strips and channelbags, and `Action.fcurves` was reportedly removed in 5.0 ↔️.
+- **Slotted Actions** arrived in 4.4: F-curves are written through layers, strips and channelbags [26], and `Action.fcurves` was reportedly removed in 5.0 ↔️ (removal not confirmed in verification).
 
 ## Numbers & reference tables
 
@@ -87,8 +87,8 @@ Evidence status: 8 ✅ / 22 📄 / 71 🧠 / 13 ↔️ — 🧠 items are queued
 | Motion | Range | Badge |
 |---|---|---|
 | Maximum interincisal opening | 40–60 mm | 🧠 |
-| Mostly-rotation phase | first ≈20–25 mm | ↔️ |
-| Jaw rotation at maximum | ≈20–30° | ↔️ |
+| Mostly-rotation phase | first ≈20–25 mm [23] | ↔️ |
+| Jaw rotation at maximum | ≈20–34° [27] | ↔️ |
 | Condylar translation at maximum | ≈10–20 mm | ↔️ |
 | Lateral excursion; protrusion | ≈8–12 mm; ≈6–10 mm | 🧠 |
 | Palpebral fissure, height × width | 8–12 × 27–32 mm | 🧠 |
@@ -245,6 +245,11 @@ Evidence status: 8 ✅ / 22 📄 / 71 🧠 / 13 ↔️ — 🧠 items are queued
 [20] mpfb2 LICENSE.CODE.md — https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md — repo — n.d. (face-addons harvest)
 [21] TalkingHead blender/Faceit/FACEIT.md — https://github.com/met4citizen/TalkingHead/blob/main/blender/Faceit/FACEIT.md — repo doc — n.d. (lead, unread)
 [22] wk FaceRig (Superhive) — https://superhivemarket.com/products/wk-facerig — commercial listing — n.d. (lead, unread)
+[23] Location of centers of rotation and existence of terminal hinge axes during jaw movements (PMC) — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12553608/ — paper — 2025 (verification)
+[24] Blender 3.0 release notes: Add-ons — https://developer.blender.org/docs/release_notes/3.0/add_ons/ — official release notes — (verification)
+[25] Blender Manual: Rigify face rig types — https://docs.blender.org/manual/en/dev/addons/rigify/rig_types/face.html — official docs — (verification)
+[26] Blender Python API 4.4: ActionChannelbag — https://docs.blender.org/api/4.4/bpy.types.ActionChannelbag.html — official docs — (verification)
+[27] Associations between incisor and mandibular condylar movements during maximum mouth opening in humans — https://utsouthwestern.elsevierpure.com/en/publications/associations-between-incisor-and-mandibular-condylar-movements-du — paper abstract — (verification)
 
 **Further reading (by name, not yet linked)**
 - Blender Manual: Rigify; the Data Transfer, Surface Deform and Corrective Smooth modifiers; the Follow Track constraint. Blender 4.4/5.0 Python API release notes
@@ -258,3 +263,10 @@ Evidence status: 8 ✅ / 22 📄 / 71 🧠 / 13 ↔️ — 🧠 items are queued
 - Casiez, Roussel & Vogel, "1€ Filter", CHI 2012
 - Becker & Fuchs, "Lid-eye coordination during vertical gaze changes in man and monkey", J Neurophysiol 1988
 - Osipa, *Stop Staring: Facial Modeling and Animation Done Right*, 3rd ed., 2010
+
+## Verification log (2026-11-20)
+
+- **Jaw priors (condyle position, rotation then translation, 40–60 mm, 20–30°, 10–20 mm)** — contested. A patent and Posselt's older view put translation onset at about 20–25 mm; a 2025 in vivo study finds combined rotation and translation from the start; one 3D study reports max rotation about 32–34° (range widened to ≈20–34°). Condyle-to-tragion offsets not confirmed. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12553608/ , https://utsouthwestern.elsevierpure.com/en/publications/associations-between-incisor-and-mandibular-condylar-movements-du
+- **Live Link Face 61 values, UDP port 11111, CSV** — unconfirmed. Head and eye yaw/pitch/roll columns appear in CSV tools (https://github.com/alexdjulin/LiveLinkFace-CSV-Retarget-For-Motionbuilder), but the 61 count could not be tied to a URL and port 11111 was not found anywhere. Left as 🧠.
+- **Slotted Actions / Action.fcurves removal** — unconfirmed. Channelbag API exists in 4.4 (https://docs.blender.org/api/4.4/bpy.types.ActionChannelbag.html); removal of `Action.fcurves` in 5.0 not found. Left as ↔️.
+- **Rigify modular skin face since 3.0, Upgrade Face Rig** — confirmed (2 sources, ✅). https://developer.blender.org/docs/release_notes/3.0/add_ons/ , https://docs.blender.org/manual/en/dev/addons/rigify/rig_types/face.html . Tongue rig and "ships with 4.2+/5.x" not seen.

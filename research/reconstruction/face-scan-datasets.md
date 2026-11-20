@@ -2,19 +2,19 @@
 
 > Public 3D face data comes in four families: static identity scans (Headspace, FRGC, Bosphorus, FaceBase, NoW), static expression sets (FaceScape, FaceWarehouse, BU-3DFE), 4D sequences (BU-4DFE, BP4D, D3DFACS, CoMA, VOCASET, FaMoS, 4DFAB) and calibrated multi-view video (Multiface, NeRSemble, RenderMe-360, Ava-256). Nearly all are non-commercial and research-only, released after an application that usually needs an institutional signatory, and the scans behind the big morphable models (CAESAR for FLAME, MeIn3D for LSFM) are not freely available. Populations are narrow: FaceScape is mostly Chinese, Headspace mostly white British, the MPI and TUM sets mostly young Europeans, and only Headspace shows the cranium, because subjects wore tight caps. In this project, datasets serve local validation and, where the licence allows, prior estimation; they are never shipped, and the add-on reads them through user-supplied adapters that declare units, axes, landmark convention and licence. No harvest or earlier draft existed for this topic, so every item is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 0 📄 / 41 🧠 / 42 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 2 📄 / 39 🧠 / 41 ↔️ — 🧠 items are queued for web verification; 4 claims checked on 2026-11-20 (see Verification log).
 
 ## Key facts
 
 Counts, capture and licence per dataset are in Table 1; these bullets cover what the table cannot.
 
-- **Headspace is the only cranium source.** University of York with Alder Hey Children's Hospital, Liverpool. Subjects wore tight caps on a 3dMD head rig, so the vault survives; metadata covers age, sex, self-declared ethnicity, glasses and beard. 🧠 1,519 is the usual full-set count and 1,212 the LYHM subset ↔️.
+- **Headspace is the only cranium source.** University of York with Alder Hey Children's Hospital, Liverpool. Subjects wore tight caps on a 3dMD head rig, so the vault survives; metadata covers age, sex, self-declared ethnicity, glasses and beard. 1,519 is the full-set count (3dMD head system, tight latex caps) and 1,212 the LYHM subset 📄 [3].
 - **REALY ground truth is ≈100 Headspace subjects**, so priors built with Headspace (LYHM, HIFI3D++) leak into REALY scores (lib: `benchmarks-metrics.md`). 🧠
 - **Model scans are not public.** LSFM (MeIn3D, ≈9,663 scans) and BFM (200) release only models. CAESAR, whose ≈3,800 heads trained FLAME identity, is sold, and its head sampling is coarse. 🧠
 - **FaceScape is the richest static set.** It ships a topologically uniform base mesh, 4K displacement and texture maps, a bilinear model, landmark indices and calibrated multi-view images for part of the set. Its TPAMI benchmark bins test images by yaw and focal length, which no other benchmark does. 🧠
 - **FaceWarehouse is coarse.** Kinect v1 gives smooth surfaces with no pores; its value is the per-person FACS-like blendshapes and bilinear tensor. 🧠
 - **Raw vs registered 4D.** BU-4DFE and BP4D are raw per-frame meshes with no correspondence. CoMA, VOCASET and FaMoS are registered to FLAME (5,023 vertices, metres). D3DFACS fed FLAME's expression space. 🧠 FaMoS (released with TEMPEH) is the largest registered 4D set and adds calibrated images. ↔️
-- **Multiface is the open one.** Under CC BY-NC 4.0 with download scripts, it is the only calibrated set with tracked meshes an unaffiliated developer can get without applying. 🧠
+- **Multiface is the open one.** Under CC BY-NC 4.0 [2] with download scripts, it is the only calibrated set with tracked meshes an unaffiliated developer can get without applying. 🧠
 - **Multi-view video ≠ scans.** NeRSemble, RenderMe-360 and Ava-256 give calibrated images and fitted FLAME or tracked meshes, not scanner ground truth. 🧠
 - **AFLW2000-3D and 300W-LP are not scans.** Their "3D" is a 3DMM fitted to 2D landmarks: fine for landmark tests, useless for millimetres. 🧠
 - **Recurring scan artefacts.** These show up on every scanner:
@@ -25,7 +25,7 @@ Counts, capture and licence per dataset are in Table 1; these bullets cover what
   - holes under the chin and in the nostrils;
   - ridges where camera pods meet;
   - lighting baked into textures. 🧠
-- **Typical licence terms.** Non-commercial research only, no redistribution, signed by an academic institution: FaceScape, Headspace, BU-3DFE/4DFE/BP4D, FaceWarehouse, NeRSemble, D3DFACS. 🧠 Students usually need a supervisor's signature ↔️.
+- **Typical licence terms.** Non-commercial research only, no redistribution, signed by an academic institution: FaceScape, Headspace, BU-3DFE/4DFE/BP4D, FaceWarehouse, NeRSemble, D3DFACS (FaceScape [1] and Headspace [3] checked: non-commercial, signed agreement; Headspace needs a university employee's signature). 📄 Students usually need a supervisor's signature ↔️.
 - **MPI sets.** CoMA, VOCASET, FaMoS, NoW and FLAME need a website account and click-through non-commercial licence; individuals can register. Commercial FLAME use is negotiated separately. ↔️
 - **Derived works are covered.** Most licences extend to trained models and PCA bases, so a prior learned from the data inherits non-commercial terms. ↔️
 - **Use restrictions.** FaceScape lets only a listed subset of subjects appear in publications, and agreements forbid re-identification. ↔️ Binghamton has charged fees for some sets (BP4D+). ↔️
@@ -41,7 +41,7 @@ Counts, capture and licence per dataset are in Table 1; these bullets cover what
 | FRGC v2.0 (2005) | static face | 466 | 4,007 scans | Minolta Vivid laser, 640×480 range | none | US, mostly young | research licence | 🧠 |
 | Bosphorus (2008) | static, pose/occlusion/AU | 105 | ≈4,666 scans | structured light | 24 landmarks | mostly Turkish/European | research licence | 🧠 |
 | CAESAR (2002) | whole body | ≈4,400 | 1 per subject | Cyberware laser | none | US, NL, IT adults 18–65 | purchased | 🧠 |
-| FaceScape (2020) | static expressions | 938 | 20 each = 18,760 | DSLR array ≈60–70 cams | uniform base mesh + 4K displacement | mostly Chinese, ≈16–70 y | NC research, application | ↔️ |
+| FaceScape (2020) | static expressions | 938 (CVPR paper; 847 in the public release [1]) | 20 each = 18,760 | DSLR array ≈60–70 cams | uniform base mesh + 4K displacement | mostly Chinese, ≈16–70 y | NC research, application | ↔️ |
 | FaceWarehouse (2014) | static expressions | 150 | 20 each = 3,000 | Kinect v1 RGB-D | 11,510 verts, 74 lm | mixed, 7–80 y | NC research, emailed agreement | 🧠 |
 | BU-3DFE (2006) | static expressions | 100 (≈56 F/44 M) | 25 each = 2,500 | 3dMD | raw, 83 landmarks | mixed, White majority, 18–70 y | research agreement, Binghamton | 🧠 |
 | BU-4DFE (2008) | 4D posed | 101 (≈58 F/43 M) | 606 seq ≈100 frames, 25 fps | Di3D | raw, ≈35k verts per frame | mixed, 18–45 y | research agreement, Binghamton | 🧠 |
@@ -51,7 +51,7 @@ Counts, capture and licence per dataset are in Table 1; these bullets cover what
 | VOCASET (2019) | 4D speech | 12 | 480 seq, 60 fps | 3dMD | FLAME | European adults | MPI NC account | 🧠 |
 | FaMoS (2023) | 4D expressions, head rotations | 95 | 28 seq each, ≈600k frames | 3dMD multi-view 60 fps | FLAME + calibrated images | mostly European | MPI NC account | ↔️ |
 | 4DFAB (2018) | 4D, 4 sessions over ≈5 y | 180 | >1.8 M meshes | DI4D | raw | mixed | NC, Imperial | ↔️ |
-| Multiface (2022) | multi-view video | 13 | ≈40/150 cams, 2048×1334, 30 fps | Mugsy domes | tracked meshes + UV textures | Meta volunteers | CC BY-NC 4.0, open download | ↔️ |
+| Multiface (2022) | multi-view video | 13 | ≈40 (v1) / 150–160 (v2) cams (paper says 150, GitHub README says 160) [4], 2048×1334, 30 fps | Mugsy domes | tracked meshes + UV textures | Meta volunteers | CC BY-NC 4.0, open download | ↔️ |
 | NeRSemble (2023) | multi-view video | >220 | 16 cams, ≈7.1 MP, ≈73 fps, >4,700 seq | machine-vision rig | FLAME tracking (later releases) | mostly young European | NC, EULA application | ↔️ |
 | RenderMe-360 (2023) | multi-view video | ≈500 | 60 cams, ≈2448×2048 | dome | FLAME fits | Asia-recruited ↔️ | NC application | ↔️ |
 | Ava-256 (2024) | multi-view + headset | 256 | dome ≈80 cams ↔️ | Codec Avatar Studio | tracked | varied | CC BY-NC-type ↔️ | ↔️ |
@@ -132,7 +132,14 @@ Counts, capture and licence per dataset are in Table 1; these bullets cover what
 
 ## Sources
 
-No harvest or earlier draft was available for this topic, so no URLs are cited; every item is queued for verification.
+Numbered sources added in the 2026-11-20 verification pass:
+
+1. FaceScape project page and licence terms: https://nju-3dv.github.io/projects/FaceScape
+2. Multiface README (fork mirroring facebookresearch/multiface; CC BY-NC 4.0): https://github.com/jackzhousz/multiface
+3. Liverpool-York Head Model / Headspace page, University of York: https://www-users.york.ac.uk/~np7/research/LYHM
+4. Wuu et al., Multiface, arXiv:2207.11243: https://arxiv.org/abs/2207.11243
+
+No earlier harvest existed, so all other items remain unverified.
 
 **Further reading (by name, not yet linked)**
 - Yang et al., FaceScape, CVPR 2020; Zhu et al., FaceScape benchmark, IEEE TPAMI
@@ -156,3 +163,10 @@ No harvest or earlier draft was available for this topic, so no URLs are cited; 
 - Weinberg et al., 3D Facial Norms (FaceBase)
 - Booth et al., LSFM, CVPR 2016; Paysan et al., BFM, AVSS 2009
 - Farkas, Anthropometry of the Head and Face, 1994
+
+## Verification log (2026-11-20)
+
+- Licence terms (FaceScape, Headspace, NeRSemble, Binghamton non-commercial and signed; Multiface CC BY-NC 4.0; derived models covered): partly confirmed. FaceScape non-commercial with signed agreement [1]; Headspace non-commercial with agreement signed by a university employee [3]; Multiface CC BY-NC 4.0 [2]. NeRSemble, Binghamton and the derived-model clause: unconfirmed. FaceScape also found to have 847 subjects released versus 938 in the paper [1].
+- Multiface (13 identities, 2048x1334, tracked meshes, CC BY-NC 4.0): confirmed [4][2]. Camera count contested: about 40 (v1) / 150 (v2) in the paper, 40-160 in the README. "Download without application" unconfirmed.
+- Headspace (1,519 scans, 3dMD head, tight caps; LYHM from 1,212): confirmed [3]. "About 100 Headspace subjects in REALY" and population mix: unconfirmed.
+- Noise floor (3dMD sigma 0.2-0.5 mm, landmark repeatability 0.5-1.5 mm, Kinect 1-4 mm): unconfirmed. Validation studies report mean errors mostly under 1 mm on mannequins (https://pmc.ncbi.nlm.nih.gov/articles/PMC6005204) but give no sigma figures.

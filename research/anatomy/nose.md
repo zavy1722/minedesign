@@ -1,7 +1,7 @@
 # Nose anatomy and morphology
 
 > The external nose has three tiers: bony (paired nasal bones), cartilaginous (upper lateral cartilages fused to the dorsal septum) and mobile (alar cartilages, fibrofatty alae, columella), under skin thinnest at rhinion (≈3 mm) and thick at nasion and over a sebaceous tip. Only the upper third follows the skull; tip, alae and columella are weakly predictable from bone, so photos must supply them. Width reads in frontal views; projection, rotation and dorsal profile read almost only in profile, ¾ and basal views, and camera distance, pitch and lighting distort the nose more than any other feature. Surgical "ideal" angles and ratios (nasofrontal, nasolabial, nasofacial, Goode) are measurement frames and warnings, not population priors.
-> Evidence status: 15 ✅ / 13 📄 / 74 🧠 / 19 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 15 ✅ / 14 📄 / 71 🧠 / 19 ↔️ — 🧠 items are queued for web verification.
 
 No nose-specific harvest or earlier draft existed. Every URL below already appears in a sibling harvest (`_raw/harvests/*.json`) or library note (marked "via").
 
@@ -34,7 +34,7 @@ No nose-specific harvest or earlier draft existed. Every URL below already appea
 - **Age:** tip ptosis and lost rotation, a few mm of lengthening, columella retraction, a closing nasolabial angle (`aging-face.md`) 🧠. Children: short, upturned, low-bridged; projection matures at puberty (`child-growth.md`) 🧠.
 
 **Reading the nose in photos**
-- Distance, not focal length, sets perspective [34][35] ✅ (practitioner sources). The tip is the nearest point and is enlarged most. The reported selfie effect is ≈30% wider nasal base at 12 in than 5 ft (Ward et al. 2018) 🧠 ↔️, against ~10–12% from geometry alone (`reference-camera-setup.md`).
+- Distance, not focal length, sets perspective [34][35] ✅ (practitioner sources). The tip is the nearest point and is enlarged most. The reported selfie effect is ≈30% wider nasal base at 12 in than 5 ft (Ward et al. 2018) [40] 📄 ↔️, against ~10–12% from geometry alone (`reference-camera-setup.md`).
 - prn sits ~25–30 mm in front of n′ and the alar base, so pitch moves it ≈0.5 mm per degree against them; a camera 10° low shortens and up-tilts the nose and shows the nostrils 🧠.
 - Dorsal aesthetic lines (brow to tip-defining points), tip highlights, supratip and alar-groove shadows are lighting cues, not edges; detected prn drifts toward the highlight (`landmark-detection.md`) 🧠.
 - Head-pose pipelines lean on the nose tip, e.g. one of six PnP points with focal ≈ image width as an uncalibrated approximation [36] 📄.
@@ -78,8 +78,8 @@ Nasal index classes (living): leptorrhine < 70, mesorrhine 70–84.9, platyrrhin
 
 | Quantity | Definition | Typical / "ideal" | Prior σ | Status |
 |---|---|---|---|---|
-| Nasofrontal angle | g′–n′–prn | 115–135°; M ~120–130, F ~125–135 | 7° | 🧠 ↔️ |
-| Nasolabial angle | columella tangent, sn, upper-lip tangent | 90–120°; M ~90–105, F ~95–115 | 9–10° | 🧠 ↔️ |
+| Nasofrontal angle | g′–n′–prn | 115–135°; M ~120–130, F ~125–135 | 7° | ↔️ [41]; Turkish samples 124–142° |
+| Nasolabial angle | columella tangent, sn, upper-lip tangent | 90–120°; M ~90–105, F ~95–115 | 9–10° | ↔️ [41]; samples 98–116°, sex difference inconsistent |
 | Nasofacial angle | dorsum line vs facial plane g′–pg′ | 30–40° (ideal 36°, Powell & Humphreys) | 4° | 🧠 |
 | Nasomental angle | n′–prn vs prn–pg′ | 120–132° | 5° | 🧠 |
 | Columella–lobule angle | columella vs infratip lobule | 30–45° | 7° | 🧠 |
@@ -206,6 +206,8 @@ Goode, Crumley and the nasofacial angle are one right triangle: asin(0.55–0.60
 [37] NIH Elements of Morphology: Anatomy of the Philtrum — https://elementsofmorphology.nih.gov/anatomy-philtrum.shtml — official docs — n.d.
 [38] Soft-tissue thickness of South Korean adults with normal facial profiles (via `skull-osteology.md`) — https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959/ — paper — n.d.
 [39] Morphometric Study of Nasal Bone and Piriform Aperture in Human Dry Skull of Indian Origin (via `skull-osteology.md`) — https://pubmed.ncbi.nlm.nih.gov/26894050/ — paper — n.d.
+[40] Rutgers news: selfies drive self image and may lead many to seek plastic surgery (summary of Ward et al. 2018) — https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery — institutional press release — 2018
+[41] Facial Angle Profiles in Turkish Healthy Population — https://search.bvsalud.org/gim/resource/en/sea-214813 — paper record — n.d.
 
 **Further reading (by name, not yet linked)**
 - Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994; Farkas LG, Kolar JC & Munro IR, "Geography of the nose: a morphometric study", *Aesthetic Plast Surg*, 1986; Farkas LG et al., international anthropometric study of facial morphology across ethnic groups, *J Craniofac Surg*, 2005.
@@ -221,3 +223,10 @@ Goode, Crumley and the nasofacial angle are one right triangle: asin(0.55–0.60
 - Adhikari K et al., "A genome-wide association scan implicates DCHS2, RUNX2, GLI3, PAX1 and EDAR in human facial variation", *Nat Commun*, 2016; Zaidi AA et al., "Investigating the case of human nose shape and climate adaptation", *PLoS Genet*, 2017.
 - Rynn C, Wilkinson CM & Peters HL, "Prediction of nasal morphology from the skull", *Forensic Sci Med Pathol*, 2010; Stephan CN, Henneberg M & Sampson W, pronasale prediction, *Am J Phys Anthropol*, 2003.
 - Ekman P, Friesen WV & Hager JC, *Facial Action Coding System* manual, 2002.
+
+## Verification log (2026-11-20)
+
+- Nasolabial (~90-120, prior 100/105) and nasofrontal (~115-135, prior 125/130) angle norms: contested. Samples give nasolabial about 98-116 deg and nasofrontal about 124-142 deg (Turkish photogrammetry: NLA 99.5 M / 100.5 F, NFA 138.5 M / 141.6 F; a second Turkish sample NFA 124 M / 133 F); sex differences inconsistent across studies. https://search.bvsalud.org/gim/resource/en/sea-214813 ; Leong & White 2006 not found, left unconfirmed.
+- Goode 0.55-0.60, Crumley 3:4:5, nasofacial 30-40 (ideal 36), Byrd & Hobar 0.67 baseline: unconfirmed. Only flashcard/eponym pages surfaced (not reliable); a 0.67 threshold appeared in an Asian rhinoplasty source without Byrd/Hobar attribution; nasofacial target was given as 36-40. No source citable.
+- Farkas adult norms (al-al 34.9/31.4, n-sn, n-prn, sn-prn): unconfirmed. The search found only a Hong Kong comparison paper (https://repository.hku.hk/bitstream/10722/196268/1/Content.pdf) without visible values.
+- Selfie effect (about 30% wider nasal base at 12 in vs 5 ft, Ward et al. 2018): confirmed as the paper's reported result (one source, press summary); the ~10-12% geometric figure is unconfirmed, and a letter (Cooper) argues the effect is perceptual. https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery

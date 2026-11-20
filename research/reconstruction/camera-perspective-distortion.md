@@ -2,7 +2,7 @@
 
 > Facial perspective is set by camera distance, not the lens: a feature Δ mm behind the nose tip images (1 + Δ/z)× smaller, and a longer lens only lets you stand farther back at the same framing. At selfie distance (0.25–0.4 m) pinhole geometry inflates nose width against the cheek outline by 12–19% and images the ears 20–29% smaller relative to the nose tip; the one clinical model study reports ~30%, and at 1.5–3 m the effect falls to 2–7%. Beyond ~1 m a face's own perspective no longer reveals focal length, and between-person variation in nose-to-face ratio is as large as the whole distance effect, so focal length must come from EXIF, calibration or a prior. The engine should fit each photo with a full-perspective camera parameterised by scale and inverse distance and report how observable distance was; the sculptor should judge likeness only through that matched camera, never a wide viewport or ortho tracings of near photos.
 >
-> Evidence status: 2 ✅ / 15 📄 / 81 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 17 📄 / 78 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
 
 No topic harvest existed; cited URLs come from sibling harvests. Companions: `reconstruction/camera-pose-solving.md`, `blender/reference-camera-setup.md`, `community/reference-photography-protocol.md`.
 
@@ -16,17 +16,17 @@ No topic harvest existed; cited URLs come from sibling harvests. Companions: `re
 - Phones correct main-camera lens distortion in-pipeline; some also warp faces near wide-frame edges (Shih, Lai & Liang 2019), which is not pinhole 🧠
 
 **Studies that quantify it**
-- **Ward et al. (2018)**, computational head model: at 12 in (~30 cm) the nasal base appears ~30% (men) / ~29% (women) wider than at 5 ft (~1.5 m) 🧠. Pure magnification gives ~12% for the nose-to-face-width ratio (Table 1) ↔️
+- **Ward et al. (2018)**, computational head model: at 12 in (~30 cm) the nasal base appears ~30% (men) / ~29% (women) wider than at 5 ft (~1.5 m) [19][21] ✅ (the abstract's baseline is an orthographic projection, bizygomatic breadth held constant; the 5 ft framing is from the press release). Pure magnification gives ~12% for the nose-to-face-width ratio (Table 1) ↔️
 - Snippet-level: 50 mm portraits were rated less sex-typical, attractive and dominant than longer focal lengths [5] 📄. This matches Třebický et al. (2016), who held framing constant (so distance varied) and measured shape change by geometric morphometrics 🧠; the article behind [5] is unconfirmed ↔️
 - **Noyes & Jenkins (2017):** the same faces at ~0.3 m and ~2.7 m differ in configuration enough to impair unfamiliar-face matching 🧠
 - Distance perspective implicitly shifts social judgements (Bryan, Perona & Adolphs 2012); distance can be regressed from landmark configuration, which people judge poorly (Burgos-Artizzu, Ronchi & Perona 2014); Fried et al. (2016) re-render portraits from new distances via a fitted 3D head 🧠. Valente et al. [3] and Zhao et al. [4] estimate and undo near-range distortion 📄
 
 **Capture recommendations**
-- Clinical photography uses 90–105 mm macro (range 85–135 mm) at ≥1 m ↔️; ID-photo standards specify ~1.2–2.5 m 🧠 (Table 4)
+- Clinical photography uses 90–105 mm macro (range 85–135 mm) at ≥1 m ↔️; ISO/IEC 39794-5 specifies a camera-to-subject distance of 0.7–4 m for 1:1 comparison [20] 📄 (corrected in verification; the earlier 1.2–2.5 m figure appears only in a NIST studio-layout diagram, and the ICAO report's own figure is unconfirmed) (Table 4)
 - "Hold the phone at arm's length" [1] 📄 helps but does not cure: at 0.5–0.6 m the nose tip still images 17–20% larger than the ear plane 🧠
 
 **Focal length, EXIF and crop factor**
-- f_px = f_mm·W/S_w = f35·√(W²+H²)/43.27 (diagonal convention, as in `face3d/geometry/camera.py`); crop factor = 43.27 mm ÷ sensor diagonal 🧠. Makers may derive f35 from the diagonal or the width, ~4% apart on 4:3 sensors ↔️ (EXIF fields: Table 5)
+- f_px = f_mm·W/S_w = f35·√(W²+H²)/43.27 (diagonal convention, as in `face3d/geometry/camera.py`); crop factor = 43.27 mm ÷ sensor diagonal 🧠. Makers may derive f35 from the diagonal (the CIPA formula, 43.27 mm ÷ sensor diagonal [22]) or the width, ~4% apart on 4:3 sensors ↔️ (EXIF fields: Table 5)
 - "1/x-inch" sensor names are legacy tube sizes; the real diagonal is about two-thirds of the figure (a "1-inch" sensor is ~16 mm) 🧠
 - EXIF focal length is the nominal infinity-focus value: unit focusing raises the effective pinhole focal length by (1 + m) (Table 3), internal focusing may lower it (breathing), and markings carry a tolerance I recall as ±5% (ISO 517) 🧠
 - Blender's `lens` only means something with sensor width and fit [11] 📄; typing f35 into it is exact only for 3:2 images on a 36 mm horizontal sensor (4:3 needs ×1.040) 🧠
@@ -91,7 +91,7 @@ Between 0.3 and 1.5 m the geometric nose-to-face change is 12% (16% from 0.25 m)
 |---|---|---|---|---|
 | Likeness/identity set | 1.5–3 m | 85–135 mm, or phone 3–5× tele | 3–7% | 🧠 |
 | Clinical standard (Ettorre 2006; Yavuzer 2001; Galdino 2001) | ≥1 m, often ~1.5 m | 90–105 mm macro (85–135 seen) | ≤10% | ↔️ |
-| ID/passport (ICAO guidance; ISO/IEC 19794-5, 39794-5) | ~1.2–2.5 m | not lens-specific | 4–8% | 🧠 |
+| ID/passport (ISO/IEC 39794-5 [20]; ICAO guidance unconfirmed) | 0.7–4 m (corrected in verification) | not lens-specific | 2.5–14% | 📄 |
 | Focal-identification shot (known intrinsics only) | 0.4–0.6 m | phone main | 17–25% | 🧠 |
 | Ortho tracing | ≥3 m, with solved yaw and pitch ≈0 | tele | ≤3.3% | 🧠 |
 | Not for proportions | front camera at 0.25–0.5 m; any ultrawide | — | 20–40% | 🧠 |
@@ -169,6 +169,10 @@ Between 0.3 and 1.5 m the geometric nose-to-face change is 12% (16% from 0.25 m)
 [16] GeoCalib: single-image calibration (arXiv 2409.06704v2) — https://arxiv.org/html/2409.06704v2 — paper — 2024
 [17] Perspective Fields for Single Image Camera Calibration (CVPR 2023) — https://openaccess.thecvf.com/content/CVPR2023/papers/Jin_Perspective_Fields_for_Single_Image_Camera_Calibration_CVPR_2023_paper.pdf — paper — 2023
 [18] Proko – How to Draw the Head from Any Angle — https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle — blog — n.d.
+[19] Ward et al., Nasal Distortion in Short-Distance Photographs: The Selfie Effect (JAMA Facial Plast Surg 2018, PMC) — https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 — paper — 2018
+[20] State of the Art of Quality Assessment of Facial Images (cites ISO/IEC 39794-5:2019 Table D.2) — https://arxiv.org/pdf/2211.08030 — paper — 2022
+[21] Rutgers news: selfies drive self image and may lead many to seek plastic surgery — https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery — press-release — 2018
+[22] 35 mm equivalent focal length (Wikipedia; cites the CIPA diagonal formula) — https://en.wikipedia.org/wiki/35_mm_equivalent_focal_length — reference — n.d.
 
 **Further reading (by name, not yet linked):**
 - Ward, Ward, Fried & Paskhover, "Nasal distortion in short-distance photographs: the selfie effect", JAMA Facial Plastic Surgery, 2018
@@ -191,3 +195,10 @@ Between 0.3 and 1.5 m the geometric nose-to-face change is 12% (16% from 0.25 m)
 - Farkas, *Anthropometry of the Head and Face*, 2nd ed., 1994
 - Dodgson, "Variation and extrema of human interpupillary distance", Proc. SPIE, 2004
 - Google MediaPipe Iris (2020; iris diameter 11.7 mm as a metric cue)
+
+## Verification log (2026-11-20)
+
+- Ward et al. (2018), ~30% men / ~29% women at 12 in: **confirmed** (✅). The abstract compares with an orthographic projection; the Rutgers release gives the 5 ft framing. https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 ; https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
+- EXIF FocalLengthIn35mmFilm derived from diagonal crop factor: **contested** (kept ↔️). CIPA formula is diagonal-based, but the tag's normative wording was not read and width-based derivations exist. https://en.wikipedia.org/wiki/35_mm_equivalent_focal_length
+- Blender viewport fixed 2x zoom (CAMERA_PARAM_ZOOM_INIT_PERSP): **unconfirmed** (kept 🧠); no source found.
+- ICAO / ISO 19794-5 / 39794-5 ID-photo distance 1.2–2.5 m: **corrected**. ISO/IEC 39794-5:2019 gives 0.7–4 m (1:1) per a review paper; 1.2–2.5 m appears only in a NIST lighting-layout diagram; ICAO report figure unconfirmed. https://arxiv.org/pdf/2211.08030

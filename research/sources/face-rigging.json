@@ -154,6 +154,41 @@
    "url": "https://superhivemarket.com/products/wk-facerig",
    "kind": "commercial listing",
    "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "Location of centers of rotation and existence of terminal hinge axes during jaw movements (PMC)",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12553608/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "Blender 3.0 release notes: Add-ons (Rigify)",
+   "url": "https://developer.blender.org/docs/release_notes/3.0/add_ons/",
+   "kind": "official release notes",
+   "year": "n.d."
+  },
+  {
+   "n": 25,
+   "title": "Blender Manual: Rigify face rig types",
+   "url": "https://docs.blender.org/manual/en/dev/addons/rigify/rig_types/face.html",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 26,
+   "title": "Blender Python API 4.4: ActionChannelbag",
+   "url": "https://docs.blender.org/api/4.4/bpy.types.ActionChannelbag.html",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 27,
+   "title": "Associations between incisor and mandibular condylar movements during maximum mouth opening in humans",
+   "url": "https://utsouthwestern.elsevierpure.com/en/publications/associations-between-incisor-and-mandibular-condylar-movements-du",
+   "kind": "paper abstract",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

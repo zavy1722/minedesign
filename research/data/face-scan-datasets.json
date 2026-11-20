@@ -6,7 +6,7 @@
       "units": "subjects = people; volume = models, sequences or frames; null = not recalled",
       "columns": ["dataset", "year", "kind", "subjects_min", "subjects_max", "volume", "capture", "registered_topology", "population", "ages", "licence", "access", "commercial_ok_default", "has_cranium", "has_calibrated_images", "status"],
       "rows": [
-        ["Headspace", "2015-2017", "static head", 1212, 1519, "1 neutral per subject", "3dMD head system, tight cap", "raw; LYHM registrations", "mostly white British", "child-elderly", "academic non-commercial", "signed institutional agreement (York)", false, true, false, "contested"],
+        ["Headspace", "2015-2017", "static head", 1212, 1519, "1 neutral per subject", "3dMD head system, tight cap", "raw; LYHM registrations", "mostly white British", "child-elderly", "academic non-commercial", "signed institutional agreement (York)", false, true, false, "verified"],
         ["FaceBase 3D Facial Norms", null, "static face", 2400, 2500, "1 per subject + linear measurements", "3dMDface", "landmarks only", "European ancestry", "3-40", "controlled data-use agreement", "application", false, false, false, "contested"],
         ["FRGC v2.0", "2005", "static face", 466, 466, "4007 scans", "Minolta Vivid laser, 640x480 range", "none", "US, mostly young", "adult", "research licence", "signed agreement", false, false, false, "knowledge"],
         ["Bosphorus", "2008", "static face, pose/occlusion/AU", 105, 105, "about 4666 scans", "structured light", "24 landmarks", "mostly Turkish/European", "adult", "research licence", "signed agreement", false, false, false, "knowledge"],

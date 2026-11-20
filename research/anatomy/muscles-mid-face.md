@@ -1,7 +1,7 @@
 # Muscles of the mid face
 
 > The mid-face elevators fan out from bone to the upper lip and mouth corner. From medial to lateral they are levator labii superioris alaeque nasi (LLSAN), levator labii superioris (LLS), zygomaticus minor (ZMn) and zygomaticus major (ZMj), with levator anguli oris (LAO) and buccinator deep and risorius variable. Their dermal insertions along the cheek fat's medial edge make the nasolabial fold (NLF), a fixed hinge line present at every age that smiling deepens but does not create. ZMj drives the smile (AU12). The other elevators set lip, tooth and gum show, buccinator and risorius pull the corner back or sideways, and nasalis moves only the nostril. Attachments vary between people and imaging cannot resolve them in vivo, so a fitter should encode them as lines of action and expression priors, not identity geometry; most numbers here await verification.
-Evidence status: 15 ✅ / 31 📄 / 45 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 15 ✅ / 33 📄 / 44 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -10,7 +10,7 @@ Evidence status: 15 ✅ / 31 📄 / 45 🧠 / 26 ↔️ — 🧠 items are queue
 - Runs inferomedially and forward at about 45–65° from horizontal in frontal view (dimensions in Table 4) 🧠. Freilinger layer 2: deep to the nasolabial and medial-cheek fat, superficial to the buccal fat pad, LAO and buccinator, with the facial artery and vein deep to it 🧠.
 - Zygomatic and buccal branches of CN VII supply both zygomatici [9] 📄.
 - Principal smile muscle (AU12) [23][24][25] ✅. Device-free smiles drew about 40 % more ZMj activity than smiles made holding a Smile Stick or chopsticks (orbicularis oculi about 15 % more) [23] 📄. In 33 adults (2026), maximum sEMG-based contraction in smiling was 9.8 ± 3.1 % with force 0.93 ± 0.48 N [24] 📄; whether "contraction" means strain or %MVC is unclear ↔️. ZMj crosstalk dominates high-density facial EMG [25] 📄.
-- A bifid or double ZMj appears in about 34 % of specimens, per a 2025 review citing a 1998 paper [10][12] 📄. These are not independent, and the primary sample is unconfirmed. The review proposes five morphological types [10] 📄. An inferior slip inserting into dermis is the classic explanation for cheek dimples 🧠 ↔️.
+- A bifid or double ZMj appears in about 34 % of specimens, per a 2025 review citing a 1998 paper [10][12] 📄. These are not independent; the primary paper [12] reports 17 of 50 cadaver hemifaces (34 %) (confirmed in verification). The review proposes five morphological types [10] 📄. An inferior slip with a dermal attachment is the explanation the 1998 paper suggests for cheek dimples, an interpretation of cadaver findings, not a demonstrated mechanism [12] 📄 ↔️ (confirmed in verification).
 - A 2025 review argues that ZMj's two layers age differently and links weakening to bone resorption (Wolff's law), without new data [27] 📄 ↔️.
 
 **Zygomaticus minor (ZMn)**
@@ -74,7 +74,7 @@ Evidence status: 15 ✅ / 31 📄 / 45 🧠 / 26 ↔️ — 🧠 items are queue
 | Quantity | Value | Sample | Source | Status |
 |---|---|---|---|---|
 | Commonest midface pattern (LLSAN + LLS + ZMj) | 44 % | 50 hemifaces | [29] | 📄 |
-| Bifid/double ZMj | ≈ 34 % | cadavers; primary n unconfirmed | [10][12] | 📄 |
+| Bifid/double ZMj | ≈ 34 % | 17 of 50 cadaver hemifaces [12] | [10][12] | 📄 |
 | NLF muscle-height study | 56 specimens / 34 adults | embalmed, Korean | [17] | 📄 |
 | ZMj, device-free vs device-held smile | ≈ +40 % (orbicularis oculi ≈ +15 %) | experimental | [23] | 📄 |
 | ZMj max contraction, smiling | 9.8 ± 3.1 % | 33 healthy adults | [24] | 📄 |
@@ -132,7 +132,7 @@ Evidence status: 15 ✅ / 31 📄 / 45 🧠 / 26 ↔️ — 🧠 items are queue
 | 14 | commissure | (0.40, 0.10, −0.90) |
 | 20 | commissure | (0.90, −0.20, −0.35) |
 
-- **Neutral gate.** Score frames on commissure angle to the stomion line, mouth width against its multi-frame minimum, upper-lip height, NLF contrast and cheek height, plus MediaPipe-style blendshape scores (mouthSmile, cheekSquint, noseSneer, mouthUpperUp, mouthDimple, mouthStretch; version-sensitive). Fit identity to a robust multi-frame median and down-weight frames > 2σ off 🧠.
+- **Neutral gate.** Score frames on commissure angle to the stomion line, mouth width against its multi-frame minimum, upper-lip height, NLF contrast and cheek height, plus MediaPipe-style blendshape scores (mouthSmile, cheekSquint, noseSneer, mouthUpperUp, mouthDimple, mouthStretch; version-sensitive; the 52-score count is confirmed [41] 📄, individual names unconfirmed). Fit identity to a robust multi-frame median and down-weight frames > 2σ off 🧠.
 - **Identity vs expression.** Half-normal prior (σ ≈ 0.05) on AU weights in neutral frames; orthogonalize the midface identity basis against the AU9–14 subspace so identity cannot absorb a slight smile 🧠.
 - **Variation switches** that never alter neutral geometry: `zmj_bifid` (p ≈ 0.3 ↔️ [10][12]), on only if smile frames show a dynamic dimple; `zmn_present` (p 0.5–0.9 ↔️ [29]) scales AU11; `risorius_present` affects AU20 only.
 - **Warp stiffness (relative, to tune)** 🧠: upper lip 0.3 (as in the lower-face note), cheek fat 0.5, zygomatic body 1.5–2.0. On the NLF loop, anchor position to the traced curve but cut bending weight to 0.2–0.3 so a crease forms.
@@ -144,7 +144,7 @@ Evidence status: 15 ✅ / 31 📄 / 45 🧠 / 26 ↔️ — 🧠 items are queue
 - **Cheek dimples:** bifid ZMj [12] is the usual explanation, buccinator or other dermal slips the alternatives 🧠 ↔️.
 - **Myths** 🧠: "risorius is the smile muscle" (it gives a fearful lateral stretch, AU20; the smile is ZMj [23][36]); "the NLF is an ageing wrinkle" (a fat-boundary fold present from infancy [17][19]); "the Duchenne cheek lift is ZMj" (mostly AU6, though strong AU12 also raises the cheek); "frowning takes 43 muscles, smiling 17" (no basis).
 - **Harvest notes:** the year of [17] is unconfirmed and [13] has none; [37][38] are StatPearls like [9][21][36]; [5] keeps its ":443" URL; titles of [34][35] were not captured; [27] matches PubMed 41413726 in the lower-face note. Refuted so far: none.
-- **Open:** ZMn and risorius absence by ancestry; the bifid-ZMj primary sample; in-vivo thickness norms; quantitative NLF geometry by age, sex and ancestry (none sourced); what "contraction %" means in [24]; full texts of [10][17][24]; code and licences for [31][32].
+- **Open:** ZMn and risorius absence by ancestry; in-vivo thickness norms; quantitative NLF geometry by age, sex and ancestry (none sourced); what "contraction %" means in [24]; full texts of [10][17][24]; code and licences for [31][32].
 
 ## Sources
 
@@ -188,6 +188,7 @@ Evidence status: 15 ✅ / 31 📄 / 45 🧠 / 26 ↔️ — 🧠 items are queue
 [38] StatPearls: levator anguli oris article — https://statpearls.com/sp/al/48/24224/ — textbook — n.d.
 [39] Cleveland Clinic: Facial muscles — https://my.clevelandclinic.org/health/body/21672-facial-muscles — patient education — n.d.
 [40] Ultrasound study of a facial-exercise device (title not captured) — https://pmc.ncbi.nlm.nih.gov/articles/PMC5888959/ — paper — n.d. (≈ a decade old)
+[41] MediaPipe Face Landmarker guide (52 blendshape scores) — https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker — official docs — n.d.
 
 **Further reading (by name, not yet linked)**
 - Standring S (ed.), *Gray's Anatomy: The Anatomical Basis of Clinical Practice*, recent editions (elevators, buccinator, modiolus).
@@ -208,3 +209,10 @@ Evidence status: 15 ✅ / 31 📄 / 45 🧠 / 26 ↔️ — 🧠 items are queue
 - Ichim AE, Kadleček P, Kavan L, Pauly M, "Phace: physics-based face modeling and animation", ACM TOG (SIGGRAPH), 2017.
 - Faigin G, *The Artist's Complete Guide to Facial Expression*, 1990.
 - Zarins U, *Anatomy of Facial Expression* (Anatomy for Sculptors), 2017.
+
+## Verification log (2026-11-20)
+
+- Smile commissure excursion 7-15 mm, 20-50 degrees, 3-6 mm backward (Paletz/Manktelow): unconfirmed. Searches found the 1994 abstract (20 subjects, cine) but no values. Other studies give a similar magnitude (about 7-22 mm normal excursion; mean 9.08 mm spontaneous smile) but are not the cited source. Stays 🧠. https://core.ac.uk/download/437440106.pdf ; https://jamanetwork.com/journals/jamaotolaryngology/fullarticle/2705598
+- NLF endpoint offsets and length 30-50 mm: unconfirmed, no source gave these values. Stays 🧠. https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499
+- MediaPipe Face Landmarker 52 blendshape scores: confirmed for the count (📄); the specific names were not shown in results, so unconfirmed. https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker
+- Bifid ZMj about 34 %: confirmed, 17 of 50 cadaver hemifaces (Clin Anat 1998). Dimple link is the paper's suggested interpretation, kept ↔️. https://pubmed.ncbi.nlm.nih.gov/9725574/

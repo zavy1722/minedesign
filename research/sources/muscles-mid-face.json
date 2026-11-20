@@ -280,6 +280,13 @@
    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5888959/",
    "kind": "paper",
    "year": "n.d. (≈ a decade old)"
+  },
+  {
+   "n": 41,
+   "title": "MediaPipe Face Landmarker guide (52 blendshape scores)",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+   "kind": "official docs",
+   "year": "n.d."
   }
  ],
  "references_by_name": [
