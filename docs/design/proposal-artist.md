@@ -313,28 +313,13 @@ A warned view keeps ×0.25 of its identity weight.
 
 ### 3.8 Detail refinement
 
-**Split.** Shape resolves to about 5 mm wavelength. Anything finer is displacement, gated by mm/px: pores ≤0.033, fine lines ≤0.08, line positions ≤0.25 (R5.11 🧠).
-
-**Default output.** No photometric detail. Instead, sculpt guides:
-- per-region best-view stencils;
-- crease curves from image edges that reproject within 2σ in ≥2 views;
-- `f3d_support`.
-
-**Optional.** SH9 refinement (OPT-1), labelled *estimated*.
+Shape resolves to ~5 mm wavelength; finer detail is displacement, gated by mm/px: pores ≤0.033, fine lines ≤0.08, line positions ≤0.25 (R5.11 🧠). The default adds no photometric detail; it writes sculpt guides instead: best-view stencils, crease curves from edges that reproject within 2σ in ≥2 views, and `f3d_support`. Optional SH9 refinement (OPT-1) is labelled *estimated*.
 
 ### 3.9 Texture projection
 
 **Gates.** TEXTURE consent, a known rights basis, and reprojection error ≤1.5 px median and ≤3 px max (T2).
 
-**Pipeline.**
-1. **Visibility.** vis = [z_v(p_t) ≤ zbuf + max(1 mm, 2σ_geom)] (TEX-1).
-2. **View weight.** w = vis·cos²θ·fade(60°→75°)·footprint·edge (TEX-2 ↔️).
-3. **Exposure gains.** log I_v = log g_v + log a, with Σ log g_v = 0 (TEX-3).
-4. **Blending.** Two bands: the low band is a 3 mm blend; the high band comes from the best view (TEX-4).
-
-**Mirroring.** Low band only; detail is never mirrored (TEX-5).
-
-**Outputs.** Linear albedo, confidence and view index. Without a colour chart, the albedo is labelled "absolute colour unknown".
+**Pipeline.** vis = [z_v(p_t) ≤ zbuf + max(1 mm, 2σ_geom)] (TEX-1); w = vis·cos²θ·fade(60°→75°)·footprint·edge (TEX-2 ↔️); gains log I_v = log g_v + log a with Σ log g_v = 0 (TEX-3); two-band blend, 3 mm low band, high band from the best view (TEX-4). Only the low band may be mirrored (TEX-5). Outputs: linear albedo, confidence, view index; "absolute colour unknown" without a chart.
 
 ### 3.10 Coaching: next best photo
 
