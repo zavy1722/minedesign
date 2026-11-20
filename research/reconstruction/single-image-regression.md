@@ -2,7 +2,7 @@
 
 > Single-image regressors map one photo to morphable-model coefficients plus a camera. DECA, EMOCA, MICA, SMIRK, TEASER and Pixel3DMM use FLAME. 3DDFA_V2, Deep3DFaceRecon and HRN use the Basel Face Model (BFM). On NoW, the standard neutral-shape benchmark, the best widely used identity regressor (MICA) reaches about 0.9 mm median and 1.1 mm mean error. A correctly scaled *average* FLAME face already reaches about 1.5 mm mean, so regressors capture only part of what makes a face recognisable [2][4]. Expression regressors are judged on perceptual metrics rather than shape accuracy, and REALY ranks methods differently from NoW. Use them as initialisers and priors for a multi-view, perspective-calibrated fit. Most research weights, and the FLAME and BFM assets they depend on, carry non-commercial terms.
 >
-> Evidence status: 5 ✅ / 21 📄 / 48 🧠 / 9 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 7 ✅ / 25 📄 / 42 🧠 / 7 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -20,7 +20,7 @@
   - detailed mesh: 1.19 / 1.47 / 1.25 mm.
 
   These come from [1] and are repeated by [2][3]. ✅
-- **DECA's second row** (1.09 / 1.38 / 1.18 mm) also appears in [1] 📄. It is almost certainly the **test** split, the same figure as on the public leaderboard 🧠.
+- **DECA's second row** (1.09 / 1.38 / 1.18 mm) also appears in [1] 📄. It is the **test** split, the same figure as on the public NoW non-metrical leaderboard [16]. 📄
 - **DECA architecture.** A ResNet-50 takes a 224 px crop and regresses:
   - FLAME shape (100 coefficients), expression (50), and global and jaw pose;
   - a weak-perspective camera (scale plus 2D translation);
@@ -29,9 +29,9 @@
 
   It was trained on roughly 2 M in-the-wild images. 🧠
 - **EMOCA** (CVPR 2022) adds an emotion-supervised expression encoder. It keeps DECA's frozen identity encoder, so its NoW scores equal DECA's. v2 lives in the authors' "inferno" repository. 🧠
-- **MICA** predicts a *metrical*, neutral FLAME shape from one image. It uses identity features from a face-recognition network and is trained with supervision [4] 📄. It reports 15 % lower error than prior methods on NoW and 24 % lower on the metrical evaluation [4]. 📄
+- **MICA** predicts a *metrical*, neutral FLAME shape from one image. It uses identity features from a face-recognition network and is trained with supervision [4] 📄. It reports 15 % lower error than prior methods on NoW and 24 % lower on the metrical evaluation [4][18]. 📄
 - **MICA details.** The backbone is ArcFace, mostly frozen. The output is 300 FLAME shape coefficients in metres. It was trained on about 2,300 subjects from eight registered 3D datasets. Its companion *metrical-tracker* handles video. 🧠
-- **MICA score spread** across papers and protocols: median 0.90–0.94 mm, mean 1.11–1.19 mm [2][5][6] ↔️. The 0.90 / 1.11 / 0.92 row matches the public test leaderboard. 🧠
+- **MICA score spread** across papers and protocols: median 0.90–0.94 mm, mean 1.11–1.19 mm [2][5][6] ↔️. The 0.90 / 1.11 / 0.92 row matches the public test leaderboard [16]. 📄
 - **Baseline: the average FLAME mesh** scores 1.92 mm mean, or 1.53 mm once scale is optimised [4]. 📄
 - **"Towards Realistic Generative 3D Face Models"** reports 23 % (coarse) and 20 % (detailed) lower median error than DECA [2]. 📄
 - **SMIRK** (CVPR 2024) replaces the differentiable rasteriser with a neural renderer. The renderer is fed the predicted FLAME geometry plus sparse input pixels, so the photometric loss trains the expression geometry [7]. 📄 The repo [8] is by the same authors, so it is not an independent source.
@@ -52,8 +52,8 @@
 - **MediaPipe Face Landmarker** gives 478 3D landmarks, 52 blendshape scores and a head transform. It is Apache-2.0 and runs in real time on CPU. 🧠
 - **Licences** (verify before shipping):
   - The DECA, EMOCA and MICA code is under non-commercial research licences. 🧠
-  - The 3DDFA_V2 and Deep3DFaceRecon_pytorch code is MIT, but both need BFM, which is registration-only and non-commercial. 🧠
-  - FLAME was historically non-commercial; a "FLAME 2023 Open" release is reportedly CC-BY-4.0. ↔️
+  - The 3DDFA_V2 and Deep3DFaceRecon_pytorch code is MIT, but both need BFM, which is registration-only and non-commercial [17] 📄 (the MIT claim is unconfirmed 🧠).
+  - FLAME was historically non-commercial; a "FLAME 2023 Open" release is CC-BY-4.0, and only that release is commercial-friendly; textures carry separate BY-NC-SA terms [15]. 📄
   - The SMIRK, TEASER, HRN and Pixel3DMM licences are unconfirmed.
 
 ## Numbers & reference tables
@@ -70,13 +70,13 @@
 | Deep3DFaceRecon (PyTorch) | test | ≈1.11 | ≈1.41 | ≈1.21 | leaderboard | 🧠 |
 | DECA coarse | val | 1.18 | 1.46 | 1.25 | [1][2] | ✅ |
 | DECA detailed | val | 1.19 | 1.47 | 1.25 | [1][3] | ✅ |
-| DECA summary row | test (🧠) | 1.09 | 1.38 | 1.18 | [1] | 📄 |
+| DECA summary row | test | 1.09 | 1.38 | 1.18 | [1][16] | ✅ |
 | EMOCA v1 | test | = DECA | = DECA | = DECA | paper | 🧠 |
 | MICA row A | n/s | 0.913 | 1.130 | 0.948 | [2] | ↔️ |
-| MICA row B | test (🧠) | 0.90 | 1.11 | 0.92 | [2] | ↔️ |
+| MICA row B | test | 0.90 | 1.11 | 0.92 | [2][16] | ✅ |
 | MICA, profile images | profile | 0.9432 | 1.1606 | – | [6] | 📄 |
 | MICA, Chamfer-style | val | – | ≈1.19 | – | [5] | 📄 |
-| TokenFace | test | ≈0.76 | ≈0.95 | ≈0.82 | leaderboard | 🧠 |
+| TokenFace | test | 0.76 | 0.95 | 0.82 | [16] | 📄 |
 
 **Table 2: Method cards.** Speed is an order-of-magnitude figure for one face on a recent consumer GPU, excluding detection, unless a source is cited.
 
@@ -190,7 +190,7 @@
 
 ## Disagreements, myths & open questions
 
-- **DECA's two rows.** 1.09 / 1.38 mm is the test split and 1.18 / 1.46 mm is validation (split attribution 🧠; numbers from [1][2][3]). Always cite the split with the number.
+- **DECA's two rows.** 1.09 / 1.38 mm is the test split and 1.18 / 1.46 mm is validation (split attribution confirmed by leaderboard [16]; numbers from [1][2][3]). Always cite the split with the number.
 - **MICA spread.** Median 0.90–0.94 mm and mean 1.11–1.19 mm across [2][5][6], probably because of different metrics and splits. ↔️
 - **Refuted: "MICA's NoW mean is 1.53 mm."** That figure is the scale-optimised average-mesh baseline [4].
 - **Myth: "the detailed mesh is more accurate."** Not on NoW [1][3].
@@ -217,6 +217,10 @@
 12. 1996scarlet/Dense-Head-Pose-Estimation (3DDFAv2 TFLite reimplementation) — https://github.com/1996scarlet/Dense-Head-Pose-Estimation — repo — 2020
 13. SEREP: Semantic Facial Expression Representation for Robust In-the-Wild Capture and Retargeting — https://arxiv.org/pdf/2412.14371 — paper — 2024
 14. A survey and classification of face alignment methods based on face models — https://arxiv.org/pdf/2311.03082 — paper — 2023
+15. FLAME model license (FLAME 2023 Open, CC-BY-4.0; other releases non-commercial) — https://flame.is.tue.mpg.de/modellicense.html — official — 2023
+16. NoW challenge, non-metrical evaluation leaderboard — https://now.is.tue.mpg.de/nonmetricalevaluation.html — official — 2025
+17. Basel Face Model non-commercial license agreement — https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf — official — 2009
+18. Towards Metrical Reconstruction of Human Faces (MICA), ECCV 2022 version — https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136730249.pdf — paper — 2022
 
 **Further reading (by name, not yet linked)**
 - Sanyal, Bolkart, Feng, Black — Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision (RingNet, NoW), CVPR 2019
@@ -229,3 +233,10 @@
 - Giebenhain et al. — Pixel3DMM: Versatile Screen-Space Priors for Single-Image 3D Face Reconstruction, 2025
 - Kartynnik et al. — Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs (MediaPipe Face Mesh), CVPR Workshops 2019
 - Egger et al. — 3D Morphable Face Models: Past, Present, and Future, ACM TOG 2020
+
+## Verification log (2026-11-20)
+
+- **FLAME licence** (FLAME 2023 Open is CC-BY-4.0; older releases non-commercial): confirmed, 📄. https://flame.is.tue.mpg.de/modellicense.html . Extra: textures are BY-NC-SA 4.0. The DECA/EMOCA/MICA code licences were not confirmed (🧠).
+- **NoW test-split scores**: DECA 1.09/1.38/1.18, MICA 0.90/1.11/0.92 and TokenFace 0.76/0.95/0.82 confirmed (DECA and MICA now ✅ with the papers). https://now.is.tue.mpg.de/nonmetricalevaluation.html . 3DDFA_V2 and Deep3DFaceRecon non-metrical rows: unconfirmed (the page says those results are taken from DECA; the search showed only metrical values: 3DDFA_V2 1.53/2.06/1.95, Deep3DFaceRecon PyTorch 1.62/2.21/2.08). The 80 test / 20 validation split: unconfirmed.
+- **3DDFA_V2 / Deep3DFaceRecon_pytorch MIT code; MediaPipe Apache-2.0**: unconfirmed (only third-party listings). BFM non-commercial terms confirmed, 📄: https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf
+- **MICA 15 % / 24 % lower error**: confirmed (already 📄), https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136730249.pdf . 300 coefficients in metres, and the 1.92 / 1.53 mm baseline values and protocol: unconfirmed in this pass (existing [4] citation kept).

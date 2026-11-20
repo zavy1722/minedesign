@@ -486,7 +486,7 @@
      11.7,
      0.5,
      null,
-     "MediaPipe Iris (2020) figure; per eye"
+     "MediaPipe Iris (2020) figure; per eye; confirmed 11.7±0.5 mm in Google Research blog (2026-11-20 verification)"
     ],
     [
      "interpupillary distance, adults",
@@ -500,9 +500,11 @@
     ]
    ],
    "population": "adults",
-   "source_urls": [],
+   "source_urls": [
+    "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/"
+   ],
    "status": "knowledge",
-   "notes": "Use as priors on metric scale; a user-measured IPD or ruler in frame is better."
+   "notes": "Use as priors on metric scale; a user-measured IPD or ruler in frame is better. Iris value verified; IPD SD 3.5-4 mm not confirmed against Dodgson."
   },
   {
    "name": "solver_priors_suggested",
@@ -600,7 +602,7 @@
      "apparent nasal base width increase (selfie effect)",
      30,
      "~30 cm vs ~1.5 m",
-     "Ward et al. 2018 as recalled; verify exact figures"
+     "Ward et al. 2018: ~30% (modeled, 12 in vs 60 in); confirmed via Rutgers press release and PMC abstract; later letter disputes cause"
     ],
     [
      "nose-width/face-width ratio change from pure magnification",
@@ -610,7 +612,10 @@
     ]
    ],
    "population": "adult faces",
-   "source_urls": [],
+   "source_urls": [
+    "https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805"
+   ],
    "status": "contested",
    "notes": "Gap between geometric and reported values probably from occluding-contour shift and width definitions."
   },

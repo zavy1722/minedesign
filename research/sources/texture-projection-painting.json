@@ -1,0 +1,21 @@
+{
+ "topic": "texture-projection-painting",
+ "note": "No harvest file or earlier draft existed for this topic; no URL is cited. All claims are expert knowledge or arithmetic awaiting verification.",
+ "sources": [],
+ "references_by_name": [
+  "Blender Manual: Texture Paint (Tool Settings > Options, Texture Slots, External panel), UV Editor > Unwrapping, Cycles > Baking, UV Project modifier, Texture Coordinate node",
+  "Levy, Petitjean, Ray, Maillot, Least Squares Conformal Maps for Automatic Texture Atlas Generation (SIGGRAPH 2002)",
+  "Sheffer, Levy, Mogilnitsky, Bogomyakov, ABF++: Fast and Robust Angle Based Flattening (ACM TOG 2005)",
+  "Rabinovich, Poranne, Panozzo, Sorkine-Hornung, Scalable Locally Injective Mappings (ACM TOG 2017)",
+  "Sander, Snyder, Gortler, Hoppe, Texture Mapping Progressive Meshes (SIGGRAPH 2001)",
+  "Heckbert, Fundamentals of Texture Mapping and Image Warping (MS thesis, UC Berkeley, 1989)",
+  "Debevec, Taylor, Malik, Modeling and Rendering Architecture from Photographs (SIGGRAPH 1996)",
+  "Lempitsky & Ivanov, Seamless Mosaicing of Image-Based Texture Maps (CVPR 2007)",
+  "Waechter, Moehrle, Goesele, Let There Be Color! Large-Scale Texturing of 3D Reconstructions (ECCV 2014)",
+  "Prada, Kazhdan, Chuang, Hoppe, Gradient-Domain Processing within a Texture Atlas (SIGGRAPH 2018)",
+  "Adobe Substance 3D Painter documentation (Projection tool)",
+  "ArmorPaint / ArmorTools repository and manual",
+  "Foundry Mari documentation (Projectors)",
+  "Ucupaint Blender add-on repository"
+ ]
+}

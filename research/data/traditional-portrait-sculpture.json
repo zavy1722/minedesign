@@ -1,0 +1,528 @@
+{
+ "topic": "traditional-portrait-sculpture",
+ "tables": [
+  {
+   "name": "sculptor_caliper_set",
+   "units": "mm (3D chord between skin landmarks, live caliper); live_sigma = repeatability of one careful reading, not population SD",
+   "columns": [
+    "pair_id",
+    "landmark_a",
+    "landmark_b",
+    "controls",
+    "male_low",
+    "male_high",
+    "female_low",
+    "female_high",
+    "live_caliper_sigma_mm",
+    "tier",
+    "row_status"
+   ],
+   "rows": [
+    [
+     "v-gn",
+     "v",
+     "gn",
+     "total head height",
+     220,
+     235,
+     205,
+     220,
+     2.5,
+     "C (vertex through hair)",
+     "knowledge"
+    ],
+    [
+     "g-op",
+     "g",
+     "op",
+     "head length",
+     194,
+     199,
+     184,
+     189,
+     2.0,
+     "A/C (op through hair)",
+     "knowledge"
+    ],
+    [
+     "eu-eu",
+     "eu",
+     "eu",
+     "head breadth above ears",
+     149,
+     154,
+     141,
+     146,
+     2.5,
+     "C (through hair)",
+     "knowledge"
+    ],
+    [
+     "t-t",
+     "t_L",
+     "t_R",
+     "bitragion breadth (ear hole to ear hole)",
+     140,
+     150,
+     132,
+     142,
+     1.5,
+     "A",
+     "contested"
+    ],
+    [
+     "n-gn",
+     "n",
+     "gn",
+     "morphological face height",
+     121,
+     121,
+     112,
+     112,
+     1.25,
+     "A",
+     "knowledge"
+    ],
+    [
+     "t-n",
+     "t",
+     "n",
+     "upper face depth (each side)",
+     115,
+     125,
+     108,
+     117,
+     1.75,
+     "A",
+     "contested"
+    ],
+    [
+     "t-sn",
+     "t",
+     "sn",
+     "midface depth (each side)",
+     120,
+     130,
+     112,
+     121,
+     1.75,
+     "A",
+     "contested"
+    ],
+    [
+     "t-gn",
+     "t",
+     "gn",
+     "lower face depth (each side)",
+     135,
+     150,
+     125,
+     138,
+     2.0,
+     "A",
+     "contested"
+    ],
+    [
+     "zy-zy",
+     "zy",
+     "zy",
+     "bizygomatic width, pressed caliper",
+     135,
+     140,
+     127,
+     132,
+     2.5,
+     "A (pressed)",
+     "knowledge"
+    ],
+    [
+     "go-go",
+     "go",
+     "go",
+     "bigonial width, pressed caliper",
+     94,
+     100,
+     88,
+     94,
+     3.0,
+     "A (pressed)",
+     "knowledge"
+    ],
+    [
+     "ex-ex",
+     "ex",
+     "ex",
+     "biocular width",
+     88,
+     92,
+     85,
+     89,
+     1.0,
+     "A",
+     "knowledge"
+    ],
+    [
+     "sn-prn",
+     "sn",
+     "prn",
+     "nasal tip projection",
+     18,
+     22,
+     17,
+     20,
+     1.25,
+     "A",
+     "knowledge"
+    ],
+    [
+     "ch-ch",
+     "ch",
+     "ch",
+     "mouth width, lips relaxed",
+     51,
+     55,
+     48,
+     52,
+     1.75,
+     "B",
+     "knowledge"
+    ],
+    [
+     "sa-sba",
+     "sa",
+     "sba",
+     "ear length",
+     60,
+     65,
+     56,
+     61,
+     1.0,
+     "A",
+     "knowledge"
+    ]
+   ],
+   "population": "Young adults (about 18-30 y), North American White-type means, consistent with anatomy/anthropometric-norms.md; other populations shift (see that note's Table 5)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "t-n, t-sn, t-gn and t-t ranges are reconstructed from typical head geometry, not read from Farkas tables: verify before using as priors. As population priors use sigma 6-8 mm for t-depths; tighten to the live_sigma only when the subject was measured. Pressed readings (zy, go, eu) need a positive offset to compare with an uncompressed 3D surface (see caliper_to_surface_offsets)."
+  },
+  {
+   "name": "contour_check_views",
+   "units": "degrees (yaw about the head's vertical axis, 0 = frontal; pitch positive = camera above looking down)",
+   "columns": [
+    "view",
+    "yaw_deg",
+    "pitch_deg",
+    "controls",
+    "typically_in_photo_sets",
+    "priority"
+   ],
+   "rows": [
+    [
+     "front",
+     0,
+     0,
+     "widths, outline, symmetry, eye spacing",
+     "yes",
+     1
+    ],
+    [
+     "three_quarter_L",
+     -45,
+     0,
+     "cheekbone corner, mouth barrel, socket depth, nose vs cheek",
+     "often",
+     1
+    ],
+    [
+     "three_quarter_R",
+     45,
+     0,
+     "cheekbone corner, mouth barrel, socket depth, nose vs cheek",
+     "often",
+     1
+    ],
+    [
+     "profile_L",
+     -90,
+     0,
+     "profile line, ear position, face depth",
+     "sometimes",
+     1
+    ],
+    [
+     "profile_R",
+     90,
+     0,
+     "profile line, ear position, face depth",
+     "rarely both",
+     1
+    ],
+    [
+     "rear_three_quarter_L",
+     -135,
+     0,
+     "jaw-ear-neck junction, occiput, ear set-back",
+     "rarely",
+     2
+    ],
+    [
+     "rear_three_quarter_R",
+     135,
+     0,
+     "jaw-ear-neck junction, occiput, ear set-back",
+     "rarely",
+     2
+    ],
+    [
+     "back",
+     180,
+     0,
+     "cranial breadth, ear protrusion",
+     "rarely",
+     2
+    ],
+    [
+     "above",
+     null,
+     60,
+     "cranial plan, forehead curve, nose projection vs cheeks, ear set-back (pitch range 45-90)",
+     "almost never",
+     2
+    ],
+    [
+     "below",
+     null,
+     -35,
+     "jaw, chin, nose underside, neck (pitch range -30 to -45)",
+     "almost never",
+     3
+    ]
+   ],
+   "population": "n/a (studio practice)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Classic turntable practice: 8 yaw steps of 45 deg, refined to 16 steps of 22.5 deg, plus above and below. Pitch values for above/below are representative midpoints of the stated ranges. A missing view must be reported as prior-only, never counted as agreement."
+  },
+  {
+   "name": "scale_and_material_compensation",
+   "units": "linear scale factor (dimensionless); shrink as fraction of linear size",
+   "columns": [
+    "item",
+    "factor_low",
+    "factor_high",
+    "kind",
+    "row_status",
+    "note"
+   ],
+   "rows": [
+    [
+     "life-size portrait bust",
+     1.0,
+     1.0,
+     "display_scale",
+     "knowledge",
+     ""
+    ],
+    [
+     "slightly over life bust",
+     1.05,
+     1.15,
+     "display_scale",
+     "contested",
+     "so it does not read small indoors; convention varies"
+    ],
+    [
+     "heroic",
+     1.25,
+     1.5,
+     "display_scale",
+     "contested",
+     "cutoffs vary by source"
+    ],
+    [
+     "colossal",
+     2.0,
+     null,
+     "display_scale",
+     "contested",
+     ">= 2x"
+    ],
+    [
+     "water clay drying + firing",
+     0.08,
+     0.15,
+     "shrink",
+     "contested",
+     "scale model up by 1/(1-s); confirm with clay body and kiln"
+    ],
+    [
+     "lost-wax bronze casting",
+     0.01,
+     0.03,
+     "shrink",
+     "contested",
+     "foundry-dependent, cumulative over mould generations"
+    ],
+    [
+     "oil clay or plaster",
+     0.0,
+     0.005,
+     "shrink",
+     "knowledge",
+     "negligible"
+    ]
+   ],
+   "population": "n/a (materials and studio convention)",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Use for an output_scale / material_shrink export parameter. All ranges are expert knowledge and should be checked with the supplier, kiln or foundry."
+  },
+  {
+   "name": "studio_check_digital_defaults",
+   "units": "mixed (see column)",
+   "columns": [
+    "studio_check",
+    "digital_equivalent",
+    "parameter",
+    "default_low",
+    "default_high",
+    "unit"
+   ],
+   "rows": [
+    [
+     "clay beside sitter",
+     "photo as camera background; A/B blink",
+     "overlay opacity",
+     0.3,
+     0.7,
+     "fraction"
+    ],
+    [
+     "step back 3-5 m",
+     "thumbnail render",
+     "face width",
+     64,
+     128,
+     "px"
+    ],
+    [
+     "squint",
+     "Gaussian blur of photo and render",
+     "blur sigma",
+     0.03,
+     0.05,
+     "fraction of face width"
+    ],
+    [
+     "single studio light",
+     "one area light matched to photo key",
+     "key elevation and azimuth",
+     30,
+     45,
+     "deg"
+    ],
+    [
+     "turning contours",
+     "flat black-on-white silhouette per solved camera",
+     "stage-advance chamfer threshold",
+     2,
+     3,
+     "mm"
+    ],
+    [
+     "overnight rest / fresh eye",
+     "held-out photos; familiar viewer",
+     "held-out photo count",
+     2,
+     null,
+     "photos"
+    ],
+    [
+     "orthographic template allowed",
+     "treat photo as ortho only beyond this subject distance",
+     "min camera distance",
+     3,
+     null,
+     "m"
+    ]
+   ],
+   "population": "n/a (engineering defaults derived from studio practice)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Engineering proposals mapping traditional checks to defaults; blur and thumbnail values match community/likeness-mistakes.md."
+  },
+  {
+   "name": "landmark_tiers_caliper_sigma",
+   "units": "mm",
+   "columns": [
+    "tier",
+    "landmarks",
+    "caliper_sigma_low",
+    "caliper_sigma_high",
+    "role"
+   ],
+   "rows": [
+    [
+     "A",
+     "n, t, ex, en, prn, sn, pg, gn, zy, go, sa, sba",
+     1.0,
+     2.0,
+     "equality constraints; registration anchors (Procrustes on >=3)"
+    ],
+    [
+     "B",
+     "ch, sto, ls, li, al",
+     2.0,
+     4.0,
+     "equality constraints, down-weighted; expression-dependent"
+    ],
+    [
+     "C",
+     "v, eu, op, tr",
+     5.0,
+     10.0,
+     "one-sided bounds only (scalp inside hair silhouette); never for scale"
+    ]
+   ],
+   "population": "adults, live caliper by a careful operator",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Caliper technical error of measurement in non-expert hands is an open question; widen by ~1.5x for a first-time operator."
+  },
+  {
+   "name": "caliper_to_surface_offsets",
+   "units": "mm (add to pressed caliper reading to estimate uncompressed surface chord, both sides combined)",
+   "columns": [
+    "pair",
+    "offset_low",
+    "offset_high",
+    "note"
+   ],
+   "rows": [
+    [
+     "zy-zy",
+     2,
+     5,
+     "soft tissue over zygomatic arch compressed by caliper tips"
+    ],
+    [
+     "go-go",
+     2,
+     5,
+     "masseter and fat compressed; photo silhouette jaw width is larger still (see anthropometric-norms Table 6)"
+    ],
+    [
+     "eu-eu (hair compressed)",
+     2,
+     5,
+     "scalp only; hair adds more in photos"
+    ]
+   ],
+   "population": "adults",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Starting values for the o_ab term in E_cal; to be calibrated against paired caliper/3D-scan data."
+  }
+ ]
+}

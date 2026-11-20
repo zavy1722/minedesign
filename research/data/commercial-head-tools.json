@@ -4,18 +4,128 @@
     {
       "name": "tool_profiles",
       "units": "categorical; views = photo count",
-      "columns": ["tool", "input", "min_views", "good_views", "solver", "output", "expression_set", "processing", "status"],
+      "columns": [
+        "tool",
+        "input",
+        "min_views",
+        "good_views",
+        "solver",
+        "output",
+        "expression_set",
+        "processing",
+        "status"
+      ],
       "rows": [
-        ["KeenTools FaceBuilder (Blender)", "photos", 1, "5-9 incl. both profiles", "pins + morphable head, per-view cameras, camera groups", "KeenTools head + projected texture", "51 ARKit-style (recalled)", "local", "knowledge"],
-        ["Reallusion Headshot photo mode", "frontal photo", 1, "1", "landmarks + learned depth", "CC head + texture", "CC facial profile", "local (believed)", "knowledge"],
-        ["Reallusion Headshot 2 mesh mode", "mesh", null, "n/a", "alignment points + conform", "rigged CC character", "CC facial profile", "local (believed)", "knowledge"],
-        ["Mesh to MetaHuman", "textured mesh", 1, "frontal frame + 3/4 frames", "2D curve markers + identity solve", "DNA rig", "~250 RigLogic controls", "cloud autorig", "contested"],
-        ["FaceGen PhotoFit", "photos", 1, "3 (front + profiles)", "manual feature points + 3DMM", "FaceGen meshes", "expression/phoneme morphs", "local", "knowledge"],
-        ["Daz Face Transfer", "frontal photo", 1, "1", "learned fit", "Genesis morph + texture", "Genesis", "local", "knowledge"],
-        ["R3DS/Faceform Wrap", "scan + template", null, "n/a", "point pairs + regularised NRICP", "user template", "transfers user blendshapes", "local", "knowledge"],
-        ["Polywink", "neutral mesh", null, "n/a", "automatic transfer", "blendshapes or Maya rig", "ARKit 52; larger FACS set", "cloud", "contested"],
-        ["Avaturn", "selfies", 3, "3", "learned regression", "GLB full body", "ARKit + visemes", "cloud", "contested"],
-        ["Ready Player Me", "selfie", 1, "1", "learned, stylised", "GLB", "ARKit + visemes", "reportedly closed early 2026", "contested"]
+        [
+          "KeenTools FaceBuilder (Blender)",
+          "photos",
+          1,
+          "5-9 incl. both profiles",
+          "pins + morphable head, per-view cameras, camera groups",
+          "KeenTools head + projected texture",
+          "51 ARKit-style (recalled)",
+          "local",
+          "knowledge"
+        ],
+        [
+          "Reallusion Headshot photo mode",
+          "frontal photo",
+          1,
+          "1",
+          "landmarks + learned depth",
+          "CC head + texture",
+          "CC facial profile",
+          "local (believed)",
+          "knowledge"
+        ],
+        [
+          "Reallusion Headshot 2 mesh mode",
+          "mesh",
+          null,
+          "n/a",
+          "alignment points + conform",
+          "rigged CC character",
+          "CC facial profile",
+          "local (believed)",
+          "knowledge"
+        ],
+        [
+          "Mesh to MetaHuman",
+          "textured mesh",
+          1,
+          "frontal frame + 3/4 frames",
+          "2D curve markers + identity solve",
+          "DNA rig",
+          "~250 RigLogic controls",
+          "cloud autorig",
+          "contested"
+        ],
+        [
+          "FaceGen PhotoFit",
+          "photos",
+          1,
+          "3 (front + profiles)",
+          "manual feature points + 3DMM",
+          "FaceGen meshes",
+          "expression/phoneme morphs",
+          "local",
+          "knowledge"
+        ],
+        [
+          "Daz Face Transfer",
+          "frontal photo",
+          1,
+          "1",
+          "learned fit",
+          "Genesis morph + texture",
+          "Genesis",
+          "local",
+          "knowledge"
+        ],
+        [
+          "R3DS/Faceform Wrap",
+          "scan + template",
+          null,
+          "n/a",
+          "point pairs + regularised NRICP",
+          "user template",
+          "transfers user blendshapes",
+          "local",
+          "knowledge"
+        ],
+        [
+          "Polywink",
+          "neutral mesh",
+          null,
+          "n/a",
+          "automatic transfer",
+          "blendshapes or Maya rig",
+          "ARKit 52; larger FACS set",
+          "cloud",
+          "contested"
+        ],
+        [
+          "Avaturn",
+          "selfies",
+          3,
+          "3",
+          "learned regression",
+          "GLB full body",
+          "ARKit + visemes",
+          "cloud",
+          "contested"
+        ],
+        [
+          "Ready Player Me",
+          "selfie",
+          1,
+          "1",
+          "learned, stylised",
+          "GLB",
+          "ARKit + visemes",
+          "reportedly closed early 2026",
+          "contested"
+        ]
       ],
       "population": "n/a (product specifications as recalled)",
       "source_urls": [],
@@ -25,51 +135,227 @@
     {
       "name": "cost_licence_order_of_magnitude",
       "units": "USD (order of magnitude only)",
-      "columns": ["tool", "pricing_model", "cost_low_usd", "cost_high_usd", "cost_period", "licence_gist", "status"],
+      "columns": [
+        "tool",
+        "pricing_model",
+        "cost_low_usd",
+        "cost_high_usd",
+        "cost_period",
+        "licence_gist",
+        "status"
+      ],
       "rows": [
-        ["KeenTools FaceBuilder", "subscription with trial", 100, 300, "per seat-year", "GPL front end + proprietary core; outputs owned by user", "contested"],
-        ["Character Creator + Headshot", "perpetual, bundles", 100, 999, "per product", "no redistribution of raw base mesh or morphs", "contested"],
-        ["MetaHuman", "free with Epic account", 0, 0, "n/a", "UE EULA; outside-UE use reportedly allowed since UE 5.6", "contested"],
-        ["FaceGen", "perpetual tiers", 100, 999, "per product", "SDK licensed separately", "contested"],
-        ["R3DS/Faceform Wrap", "subscription tiers", 100, 3000, "per year", "indie tier with revenue cap", "contested"],
-        ["Polywink", "per character", 100, 999, "per character", "third-party upload of subject's head", "contested"],
-        ["Avaturn", "freemium + developer plans", 0, null, "per plan", "export terms per plan", "contested"]
+        [
+          "KeenTools FaceBuilder",
+          "subscription with trial",
+          179,
+          499,
+          "per seat-year",
+          "GPL front end + proprietary core; outputs owned by user",
+          "contested"
+        ],
+        [
+          "Character Creator + Headshot",
+          "perpetual, bundles",
+          100,
+          999,
+          "per product",
+          "no redistribution of raw base mesh or morphs",
+          "contested"
+        ],
+        [
+          "MetaHuman",
+          "free with Epic account",
+          0,
+          0,
+          "n/a",
+          "UE EULA since UE 5.6; usable with any engine/software; revenue-based UE terms",
+          "confirmed"
+        ],
+        [
+          "FaceGen",
+          "perpetual tiers",
+          100,
+          999,
+          "per product",
+          "SDK licensed separately",
+          "contested"
+        ],
+        [
+          "R3DS/Faceform Wrap",
+          "subscription tiers",
+          100,
+          3000,
+          "per year",
+          "indie tier with revenue cap",
+          "contested"
+        ],
+        [
+          "Polywink",
+          "per character",
+          100,
+          999,
+          "per character",
+          "third-party upload of subject's head",
+          "contested"
+        ],
+        [
+          "Avaturn",
+          "freemium + developer plans",
+          0,
+          null,
+          "per plan",
+          "export terms per plan",
+          "contested"
+        ]
       ],
       "population": "n/a",
-      "source_urls": [],
+      "source_urls": [
+        "https://www.metahuman.com/license",
+        "https://www.unrealengine.com/eula/mhc",
+        "https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/",
+        "https://keentools.io/buy",
+        "https://keentools.io/news/new-licensing"
+      ],
       "status": "contested",
-      "notes": "Placeholder ranges from memory, deliberately wide. Do not display as prices; queue for verification against vendor pages."
+      "notes": "Placeholder ranges from memory, deliberately wide. Do not display as prices; queue for verification against vendor pages. Verified 2026-11-20: MetaHuman licence confirmed; FaceBuilder range corrected to 179-499 USD/yr (contested)."
     },
     {
       "name": "accuracy_ladder",
       "units": "mm, face-region surface error vs reference scan",
-      "columns": ["route", "face_low_mm", "face_high_mm", "profile_low_mm", "profile_high_mm", "status", "note"],
-      "rows": [
-        ["mean FLAME face, scale optimised (NoW mean)", 1.5, 1.5, null, null, "knowledge", "verified in reconstruction/single-image-regression.md"],
-        ["best research single-image regressor (NoW median)", 0.9, 1.2, null, null, "knowledge", "verified in reconstruction/single-image-regression.md"],
-        ["commercial single photo (Headshot photo, avatar SDKs, Face Transfer, FaceGen 1-view)", 1.2, 3.0, 2.0, 6.0, "contested", "estimate"],
-        ["multi-view pin fit, 5-9 views with profiles", 0.8, 2.0, 1.0, 3.0, "contested", "estimate"],
-        ["handheld photogrammetry + wrap", 0.5, 2.0, 0.5, 2.0, "contested", "consistent with reconstruction/photogrammetry-heads.md"],
-        ["synchronised rig + Wrap", 0.1, 0.5, 0.1, 0.5, "contested", "consistent with reconstruction/photogrammetry-heads.md"],
-        ["extra local drift from vendor conform (Mesh to MetaHuman, Headshot mesh)", 0.5, 2.0, 0.5, 2.0, "contested", "additive, at nose, lips, lids"]
+      "columns": [
+        "route",
+        "face_low_mm",
+        "face_high_mm",
+        "profile_low_mm",
+        "profile_high_mm",
+        "status",
+        "note"
       ],
-      "population": "adult faces; no vendor or independent benchmark exists for commercial tools",
-      "source_urls": [],
+      "rows": [
+        [
+          "mean FLAME face, scale optimised (NoW mean)",
+          1.5,
+          1.5,
+          null,
+          null,
+          "knowledge",
+          "verified in reconstruction/single-image-regression.md"
+        ],
+        [
+          "best research single-image regressor (NoW median)",
+          0.9,
+          1.2,
+          null,
+          null,
+          "knowledge",
+          "verified in reconstruction/single-image-regression.md"
+        ],
+        [
+          "commercial single photo (Headshot photo, avatar SDKs, Face Transfer, FaceGen 1-view)",
+          1.2,
+          3.0,
+          2.0,
+          6.0,
+          "contested",
+          "estimate"
+        ],
+        [
+          "multi-view pin fit, 5-9 views with profiles",
+          0.8,
+          2.0,
+          1.0,
+          3.0,
+          "contested",
+          "estimate"
+        ],
+        [
+          "handheld photogrammetry + wrap",
+          0.5,
+          2.0,
+          0.5,
+          2.0,
+          "contested",
+          "consistent with reconstruction/photogrammetry-heads.md"
+        ],
+        [
+          "synchronised rig + Wrap",
+          0.1,
+          0.5,
+          0.1,
+          0.5,
+          "contested",
+          "consistent with reconstruction/photogrammetry-heads.md"
+        ],
+        [
+          "extra local drift from vendor conform (Mesh to MetaHuman, Headshot mesh)",
+          0.5,
+          2.0,
+          0.5,
+          2.0,
+          "contested",
+          "additive, at nose, lips, lids"
+        ]
+      ],
+      "population": "adult faces; no independent benchmark for FaceBuilder, Mesh to MetaHuman or avatar SDKs; one clinical study of Headshot 1 reports 1.77 mm whole-face RMSE",
+      "source_urls": [
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9487071/"
+      ],
       "status": "contested",
       "notes": "Rows 3-7 are design estimates for priors and UI expectations, not measurements."
     },
     {
       "name": "output_contracts",
       "units": "count",
-      "columns": ["contract", "count", "detail", "status"],
+      "columns": [
+        "contract",
+        "count",
+        "detail",
+        "status"
+      ],
       "rows": [
-        ["ARKit blendshapes", 52, "includes tongueOut; coefficients 0-1", "knowledge"],
-        ["FaceBuilder blendshapes", 51, "ARKit set without tongue (recalled)", "contested"],
-        ["MediaPipe Face Landmarker blendshape scores", 52, "includes _neutral, omits tongueOut", "knowledge"],
-        ["MetaHuman raw expression controls", 250, "approximate; CTRL_expressions_*", "knowledge"],
-        ["MetaHuman LOD0 head vertices", 24000, "approximate, recalled", "knowledge"],
-        ["Polywink ARKit set", 52, "", "contested"],
-        ["Polywink larger FACS set", "150-240", "recalled range", "contested"]
+        [
+          "ARKit blendshapes",
+          52,
+          "includes tongueOut; coefficients 0-1",
+          "knowledge"
+        ],
+        [
+          "FaceBuilder blendshapes",
+          51,
+          "ARKit set without tongue (recalled)",
+          "contested"
+        ],
+        [
+          "MediaPipe Face Landmarker blendshape scores",
+          52,
+          "includes _neutral, omits tongueOut",
+          "knowledge"
+        ],
+        [
+          "MetaHuman raw expression controls",
+          250,
+          "approximate; CTRL_expressions_*",
+          "knowledge"
+        ],
+        [
+          "MetaHuman LOD0 head vertices",
+          24000,
+          "approximate, recalled",
+          "knowledge"
+        ],
+        [
+          "Polywink ARKit set",
+          52,
+          "",
+          "contested"
+        ],
+        [
+          "Polywink larger FACS set",
+          "150-240",
+          "recalled range",
+          "contested"
+        ]
       ],
       "population": "n/a",
       "source_urls": [],
@@ -79,24 +365,109 @@
     {
       "name": "suggested_solver_defaults",
       "units": "mixed (see column unit)",
-      "columns": ["parameter", "value", "unit", "status"],
+      "columns": [
+        "parameter",
+        "value",
+        "unit",
+        "status"
+      ],
       "rows": [
-        ["user pin sigma", 0.75, "% inter-ocular distance", "knowledge"],
-        ["auto pin sigma, corners", 1.5, "% IOD", "knowledge"],
-        ["auto pin sigma, lid/lip contours", 2.5, "% IOD", "knowledge"],
-        ["auto pin sigma, face oval", 4.0, "% IOD", "knowledge"],
-        ["Huber delta", 2.0, "x sigma", "knowledge"],
-        ["EXIF focal log-sigma", 0.03, "log units", "knowledge"],
-        ["no-EXIF focal init", 50, "mm (35 mm equivalent)", "knowledge"],
-        ["no-EXIF focal log-sigma", 0.5, "log units", "knowledge"],
-        ["rigidity slider to lambda_shape", "10^(2r-1), r in [0,1]", "dimensionless, default 1", "knowledge"],
-        ["residual per-vertex offset cap", 5, "mm unless >=2 views agree", "knowledge"],
-        ["vendor head sigma, single-photo tool", 2.5, "mm (4 mm on profile regions)", "knowledge"],
-        ["vendor head sigma, multi-view pin fit", "1.0-1.5", "mm", "knowledge"],
-        ["vendor head sigma, scan + wrap", 0.5, "mm", "knowledge"],
-        ["texture weight exponent k in cos(theta)^k", "2-4", "dimensionless", "knowledge"],
-        ["texture grazing-angle rejection", "70-75", "degrees", "knowledge"],
-        ["texture seam feather", "8-16", "texels", "knowledge"]
+        [
+          "user pin sigma",
+          0.75,
+          "% inter-ocular distance",
+          "knowledge"
+        ],
+        [
+          "auto pin sigma, corners",
+          1.5,
+          "% IOD",
+          "knowledge"
+        ],
+        [
+          "auto pin sigma, lid/lip contours",
+          2.5,
+          "% IOD",
+          "knowledge"
+        ],
+        [
+          "auto pin sigma, face oval",
+          4.0,
+          "% IOD",
+          "knowledge"
+        ],
+        [
+          "Huber delta",
+          2.0,
+          "x sigma",
+          "knowledge"
+        ],
+        [
+          "EXIF focal log-sigma",
+          0.03,
+          "log units",
+          "knowledge"
+        ],
+        [
+          "no-EXIF focal init",
+          50,
+          "mm (35 mm equivalent)",
+          "knowledge"
+        ],
+        [
+          "no-EXIF focal log-sigma",
+          0.5,
+          "log units",
+          "knowledge"
+        ],
+        [
+          "rigidity slider to lambda_shape",
+          "10^(2r-1), r in [0,1]",
+          "dimensionless, default 1",
+          "knowledge"
+        ],
+        [
+          "residual per-vertex offset cap",
+          5,
+          "mm unless >=2 views agree",
+          "knowledge"
+        ],
+        [
+          "vendor head sigma, single-photo tool",
+          2.5,
+          "mm (4 mm on profile regions)",
+          "knowledge"
+        ],
+        [
+          "vendor head sigma, multi-view pin fit",
+          "1.0-1.5",
+          "mm",
+          "knowledge"
+        ],
+        [
+          "vendor head sigma, scan + wrap",
+          0.5,
+          "mm",
+          "knowledge"
+        ],
+        [
+          "texture weight exponent k in cos(theta)^k",
+          "2-4",
+          "dimensionless",
+          "knowledge"
+        ],
+        [
+          "texture grazing-angle rejection",
+          "70-75",
+          "degrees",
+          "knowledge"
+        ],
+        [
+          "texture seam feather",
+          "8-16",
+          "texels",
+          "knowledge"
+        ]
       ],
       "population": "n/a (design choices)",
       "source_urls": [],

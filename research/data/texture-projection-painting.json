@@ -1,0 +1,361 @@
+{
+ "topic": "texture-projection-painting",
+ "tables": [
+  {
+   "name": "blender_paint_bake_defaults_vs_head_suggestions",
+   "units": "as stated; Blender units with 1 BU = 1 m",
+   "columns": [
+    "setting",
+    "blender_default",
+    "suggested_for_head",
+    "api_hint"
+   ],
+   "rows": [
+    [
+     "texture paint seam bleed",
+     "2 px",
+     "4 px at 2K, 8 px at 4K, 16 px at 8K",
+     "ToolSettings.image_paint.seam_bleed"
+    ],
+    [
+     "texture paint normal fade angle",
+     "approx 80 deg",
+     "70 deg per-view layer (60-75)",
+     "ToolSettings.image_paint.normal_angle"
+    ],
+    [
+     "occlude / backface culling",
+     "on / on",
+     "on / on",
+     "image_paint.use_occlude / use_backface_culling"
+    ],
+    [
+     "screen grab size (Quick Edit)",
+     "512 x 512",
+     "viewport size, <= 4096",
+     "image_paint.screen_grab_size"
+    ],
+    [
+     "bake margin",
+     "16 px",
+     "N/256 px",
+     "bake(margin=...)"
+    ],
+    [
+     "bake margin type",
+     "Adjacent Faces or Extend (approx 3.1+)",
+     "Adjacent Faces",
+     "bake(margin_type=...)"
+    ],
+    [
+     "bake cage extrusion",
+     0,
+     "0.001-0.003 m",
+     "bake(cage_extrusion=...)"
+    ],
+    [
+     "bake max ray distance",
+     "0 (unlimited)",
+     "0.005-0.01 m",
+     "bake(max_ray_distance=...)"
+    ],
+    [
+     "emit / diffuse-color bake samples",
+     "scene samples",
+     "1-4, denoise off",
+     "scene.cycles.samples"
+    ],
+    [
+     "unwrap margin",
+     0.001,
+     "approx 0.004 (16 px at 4K)",
+     "uv.unwrap(margin=...)"
+    ],
+    [
+     "smart UV project angle limit",
+     "66 deg",
+     "do not use on face",
+     "uv.smart_project(angle_limit=...)"
+    ]
+   ],
+   "population": "Blender 4.x-5.x defaults recalled from memory",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Defaults and RNA property names unverified for 5.2 LTS / 5.3; probe at runtime."
+  },
+  {
+   "name": "texel_density_by_map_size_head",
+   "units": "px/cm and mm/texel",
+   "columns": [
+    "map_px",
+    "px_per_cm",
+    "mm_per_texel",
+    "face_mm_per_texel_at_1.5x_density"
+   ],
+   "rows": [
+    [
+     1024,
+     21.4,
+     0.467,
+     0.311
+    ],
+    [
+     2048,
+     42.8,
+     0.233,
+     0.156
+    ],
+    [
+     4096,
+     85.7,
+     0.117,
+     0.078
+    ],
+    [
+     8192,
+     171.3,
+     0.058,
+     0.039
+    ]
+   ],
+   "population": "Adult head + neck surface approx 0.16 m^2, 70 % UV fill (arithmetic)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Matches reconstruction/texture-extraction Table 1. Texel pitch finer than the photo sampling (approx 0.07-0.15 mm/px) adds no real detail."
+  },
+  {
+   "name": "affine_per_vertex_projection_error",
+   "units": "mm (edge length L, error e)",
+   "columns": [
+    "edge_L_mm",
+    "error_mm_at_z_0.5m",
+    "error_mm_at_z_1.0m"
+   ],
+   "rows": [
+    [
+     5,
+     0.0088,
+     0.0044
+    ],
+    [
+     10,
+     0.035,
+     0.0175
+    ],
+    [
+     20,
+     0.14,
+     0.07
+    ],
+    [
+     40,
+     0.56,
+     0.28
+    ],
+    [
+     80,
+     2.24,
+     1.12
+    ]
+   ],
+   "population": "Arithmetic: e approx L*dz/(4z), dz = 0.7*L (45 deg tilt); applies to UV Project modifier and Project From View UVs",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Inverse: L_max approx sqrt(4*e*z); e = 0.05 mm at z = 500 mm gives approx 10 mm. Shader projection via camera Object coordinates and paint.project_image are per-pixel and do not have this error."
+  },
+  {
+   "name": "view_spacing_vs_worst_incidence",
+   "units": "deg; ratio",
+   "columns": [
+    "views_deg",
+    "spacing_deg",
+    "worst_incidence_deg",
+    "stretch_1_over_cos",
+    "cos_squared_weight"
+   ],
+   "rows": [
+    [
+     "0,+-90",
+     90,
+     45.0,
+     1.414,
+     0.5
+    ],
+    [
+     "0,+-60",
+     60,
+     30.0,
+     1.155,
+     0.75
+    ],
+    [
+     "0,+-45,+-90",
+     45,
+     22.5,
+     1.082,
+     0.854
+    ]
+   ],
+   "population": "Horizontal ring of views around a head (arithmetic)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Add one low view 20-30 deg below for chin, columella and nostrils (60-80 deg incidence in a level front view)."
+  },
+  {
+   "name": "image_ram_rgba",
+   "units": "MiB (uncompressed, before undo, mips, GPU copy)",
+   "columns": [
+    "map_px",
+    "rgba_8bit_MiB",
+    "rgba_16bit_MiB",
+    "rgba_float_MiB"
+   ],
+   "rows": [
+    [
+     2048,
+     16.0,
+     32.0,
+     64.0
+    ],
+    [
+     4096,
+     64.0,
+     128.0,
+     256.0
+    ],
+    [
+     8192,
+     256.0,
+     512.0,
+     1024.0
+    ]
+   ],
+   "population": "Arithmetic",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": ""
+  },
+  {
+   "name": "uv_area_budget_single_tile_head",
+   "units": "fraction of 0-1 UV tile",
+   "columns": [
+    "island",
+    "share_min",
+    "share_max"
+   ],
+   "rows": [
+    [
+     "face mask (hairline to under-chin, ear to ear)",
+     0.45,
+     0.55
+    ],
+    [
+     "scalp and back of head",
+     0.15,
+     0.25
+    ],
+    [
+     "ear (each)",
+     0.03,
+     0.05
+    ],
+    [
+     "neck",
+     0.08,
+     0.15
+    ],
+    [
+     "mouth bag, lid and nostril interiors",
+     0.02,
+     0.05
+    ]
+   ],
+   "population": "Likeness heads on a single UV tile; convention, not a standard",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "VFX pipelines often split across UDIM tiles instead."
+  },
+  {
+   "name": "addon_engine_texturing_defaults",
+   "units": "as stated",
+   "columns": [
+    "parameter",
+    "default",
+    "range_or_sigma",
+    "row_status"
+   ],
+   "rows": [
+    [
+     "map size (px)",
+     4096,
+     "2048 phone; 8192 >= 24 MP",
+     "knowledge"
+    ],
+    [
+     "face : rest texel density ratio",
+     1.5,
+     "1.0-2.0",
+     "contested"
+    ],
+    [
+     "UV per-face log area ratio gate (face)",
+     0.25,
+     "sigma approx 0.12",
+     "knowledge"
+    ],
+    [
+     "UV conformal ratio sigma1/sigma2 gate",
+     "1.3 face; 2.0 ears",
+     "",
+     "knowledge"
+    ],
+    [
+     "UV pack margin (px at 4K)",
+     16,
+     ">= bake margin",
+     "contested"
+    ],
+    [
+     "landmark reprojection gate before projecting (px)",
+     "median 1.5, max 3",
+     "sigma_px approx 0.7",
+     "knowledge"
+    ],
+    [
+     "facing fade (deg)",
+     "60 -> 75",
+     "55-80",
+     "knowledge"
+    ],
+    [
+     "per-vertex projection error budget (mm)",
+     0.05,
+     "<= 0.5 px",
+     "knowledge"
+    ],
+    [
+     "number of texture views",
+     "5-7",
+     ">= 3; spacing <= 45 deg plus one low view",
+     "knowledge"
+    ],
+    [
+     "scan-to-template transfer bake extrusion / max ray (mm)",
+     "2 / 8",
+     "1-3 / 5-10",
+     "knowledge"
+    ],
+    [
+     "camera-projection checker agreement across backends (px)",
+     0.5,
+     "max",
+     "knowledge"
+    ]
+   ],
+   "population": "Engineering defaults for the Blender add-on and numpy engine",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Starting values to tune on synthetic renders; consistent with reconstruction/texture-extraction Table 4."
+  }
+ ]
+}

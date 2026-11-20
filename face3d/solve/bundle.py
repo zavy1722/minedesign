@@ -56,6 +56,11 @@ class BundleResult:
     cost: float
     iterations: int
     per_view_residuals: list[np.ndarray]
+    # 1-sigma posterior uncertainty of each 3D landmark (mm, per axis, head frame),
+    # from the Gauss-Newton covariance (J^T J)^-1 of the whitened problem. Large
+    # values mark landmarks the photos barely constrain (e.g. depth of a frontal-only
+    # nose tip) where the result is mostly prior.
+    point_sigma_mm: np.ndarray | None = None
 
 
 class _Layout:
@@ -199,6 +204,16 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
                 irls[k] = w
 
     X = p[lay.pts_off:].reshape(N, 3).copy()
+    point_sigma = None
+    try:
+        Jf = jacobian(p)
+        H = Jf.T @ Jf
+        H[np.diag_indices_from(H)] += 1e-12 * max(np.trace(H) / len(H), 1e-300)
+        cov = np.linalg.inv(H)
+        d = np.diag(cov)[lay.pts_off:].reshape(N, 3)
+        point_sigma = np.sqrt(np.maximum(d, 0.0))
+    except np.linalg.LinAlgError:
+        pass
     cams, rmses, per_view = [], [], []
     for k, (v, o) in enumerate(zip(views, lay.view_off)):
         R, t, f = _unpack_cam(p, v, o)
@@ -210,4 +225,4 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
         e[m] = np.linalg.norm(c.project(X[m]) - v.uv[m], axis=1)
         per_view.append(e)
         rmses.append(float(np.sqrt(np.nanmean(e[m] ** 2))) if m.any() else float("nan"))
-    return BundleResult(X, cams, rmses, res.cost, res.iterations, per_view)
+    return BundleResult(X, cams, rmses, res.cost, res.iterations, per_view, point_sigma)

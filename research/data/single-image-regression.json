@@ -10,9 +10,9 @@
         ["Average FLAME mesh", "scale optimised", "not stated", null, 1.53, null, ["https://ar5iv.labs.arxiv.org/html/2204.06607"], "sourced"],
         ["DECA", "coarse", "validation", 1.18, 1.46, 1.25, ["https://arxiv.org/abs/2012.04012", "https://arxiv.org/pdf/2304.12483"], "verified"],
         ["DECA", "detailed", "validation", 1.19, 1.47, 1.25, ["https://arxiv.org/abs/2012.04012", "https://arxiv.org/pdf/2108.05465"], "verified"],
-        ["DECA", "summary row", "test (attribution from expert knowledge)", 1.09, 1.38, 1.18, ["https://arxiv.org/abs/2012.04012"], "sourced"],
+        ["DECA", "summary row", "test", 1.09, 1.38, 1.18, ["https://arxiv.org/abs/2012.04012", "https://now.is.tue.mpg.de/nonmetricalevaluation.html"], "verified"],
         ["MICA", "row A as reported by 2304.12483", "not stated", 0.913, 1.130, 0.948, ["https://arxiv.org/pdf/2304.12483"], "contested"],
-        ["MICA", "row B as reported by 2304.12483 (matches public test leaderboard per expert knowledge)", "test (knowledge)", 0.90, 1.11, 0.92, ["https://arxiv.org/pdf/2304.12483"], "contested"],
+        ["MICA", "row B as reported by 2304.12483 (matches public test leaderboard)", "test", 0.90, 1.11, 0.92, ["https://arxiv.org/pdf/2304.12483", "https://now.is.tue.mpg.de/nonmetricalevaluation.html"], "verified"],
         ["MICA", "profile-view evaluation", "profile subset", 0.9432, 1.1606, null, ["https://arxiv.org/html/2605.01746"], "sourced"],
         ["MICA", "Chamfer-style overall (approximate)", "validation", null, 1.19, null, ["https://arxiv.org/pdf/2601.12736"], "sourced"]
       ],

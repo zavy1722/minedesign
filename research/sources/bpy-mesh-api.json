@@ -1,6 +1,22 @@
 {
   "topic": "bpy-mesh-api",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "Blender T98890: Basis shape key edits via script do not update mesh vertices",
+      "url": "https://developer.blender.org/T98890"
+    },
+    {
+      "n": 2,
+      "title": "Blender 5.1 Python API release notes",
+      "url": "https://developer.blender.org/docs/release_notes/5.1/python_api/"
+    },
+    {
+      "n": 3,
+      "title": "Speed up FBX export of vertex cos with numpy #104448",
+      "url": "https://projects.blender.org/blender/blender-addons/pulls/104448"
+    }
+  ],
   "references_by_name": [
     "Blender Python API Reference: bpy_prop_collection.foreach_get/foreach_set, Mesh, ShapeKey, VertexGroup, CameraBackgroundImage, Image, bpy.app.timers, Operator modal templates, 'Gotchas' pages",
     "Blender bmesh module and bmesh.ops documentation",

@@ -1,0 +1,344 @@
+{
+ "topic": "muscles-upper-face",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Frontalis muscle (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Frontalis_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "Frontalis muscle (Radiopaedia)",
+   "url": "https://radiopaedia.org/articles/92665",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Frontalis muscle (Elsevier anatomy)",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/frontalis-muscle/18057",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "Anatomy, Head and Neck; Frontalis Muscle (StatPearls; surfaced, no fact extracted)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK557752/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Dynamic Evaluation of Skin Displacement by the Frontalis Muscle Contraction Using 3D Skin Displacement Vector Analysis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10307676/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Optimizing Botulinum Toxin A Administration for Forehead Wrinkles: Lines and Dots (LADs) Technique",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10893323/",
+   "kind": "paper",
+   "year": "2024 (per harvest)"
+  },
+  {
+   "n": 7,
+   "title": "A personalized treatment approach of frontalis muscle with Bont-A related to functional anatomy: case studies (surfaced, not read)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32223472/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Why, When, and How to Treat Dynamic Forehead Lines with Botulinum Toxin Type A (surfaced, not read)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12737568/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "Corrugator supercilii (Elsevier anatomy)",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/corrugator-supercilii/16419",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Corrugator supercilii muscle (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Corrugator_supercilii_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "Corrugator supercilii muscle anatomy (GPnotebook)",
+   "url": "https://gpnotebook.com/en-AU/pages/neurology/corrugator-supercilii-muscle-anatomy",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 12,
+   "title": "Corrugator supercilii (Radiopaedia)",
+   "url": "https://radiopaedia.org/articles/corrugator-supercilii-2?lang=us",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "Corrugator supercilii muscle (Kenhub)",
+   "url": "https://www.kenhub.com/en/library/anatomy/corrugator-supercilii-muscle",
+   "kind": "educational reference",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Anatomy, Head and Neck, Eye Corrugator Muscle (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK542280/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "[The corrugator supercilii muscle. A review]",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/18835209/",
+   "kind": "review",
+   "year": "2008"
+  },
+  {
+   "n": 16,
+   "title": "Anatomy of the corrugator supercilii muscle",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12975140/",
+   "kind": "paper",
+   "year": "2003"
+  },
+  {
+   "n": 17,
+   "title": "Corrugator Supercilii Muscle and Its Relationship with Neurovascular Structures of the Frontal Region: A Cadaveric Study",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13433588/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 18,
+   "title": "The influence of repeated frowning and smiling on corrugator muscle activity and wrinkles between eyebrows",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39789039/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 19,
+   "title": "Dynamic Evaluation of Glabellar Area Muscles Movement and Skin Displacement Using 3D Skin Displacement Vector Analysis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12715876/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 20,
+   "title": "Anatomy, Head and Neck: Glabella (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK555993/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "Procerus muscle (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Procerus_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 22,
+   "title": "Procerus muscle (Elsevier anatomy)",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/procerus-muscle/18373",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "Procerus muscle (Kenhub)",
+   "url": "https://www.kenhub.com/en/library/anatomy/procerus-muscle",
+   "kind": "educational reference",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "Depressor supercilii (Elsevier anatomy)",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/depressor-supercilii/21131",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 25,
+   "title": "Depressor supercilii muscle: anatomy, histology and cosmetic implications (Cook et al. 2001, abstract as hosted)",
+   "url": "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications",
+   "kind": "paper",
+   "year": "2001"
+  },
+  {
+   "n": 26,
+   "title": "Depressor supercilii muscle (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Depressor_supercilii_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 27,
+   "title": "Depressor supercilii muscle (Radiopaedia)",
+   "url": "https://radiopaedia.org/articles/depressor-supercilii-muscle?lang=gb",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 28,
+   "title": "Palpebral part of orbicularis oculi (Elsevier anatomy, eye section)",
+   "url": "https://www.elsevier.com/resources/anatomy/eye-accessory-visual-structures/circumorbital-muscles/palpebral-part-of-orbicularis-oculi-muscle/15241",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "Palpebral part of orbicularis oculi (Elsevier anatomy, head muscles)",
+   "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-head/palpebral-part-of-orbicularis-oculi/21807",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 30,
+   "title": "Orbital part of orbicularis oculi (Elsevier anatomy)",
+   "url": "https://elsevier.com/resources/anatomy/muscular-system/muscles-of-head/orbital-part-of-orbicularis-oculi/23847",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 31,
+   "title": "Anatomy, Head and Neck: Orbicularis Oculi Muscle (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK441907/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 32,
+   "title": "Orbicularis oculi muscle (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Orbicularis_oculi_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 33,
+   "title": "Levator palpebrae superioris (Elsevier anatomy)",
+   "url": "https://www.elsevier.com/resources/anatomy/eye-accessory-visual-structures/extraocular-muscles/levator-palpebrae-superioris/16321",
+   "kind": "reference atlas",
+   "year": "n.d."
+  },
+  {
+   "n": 34,
+   "title": "Levator palpebrae superioris (StatPearls)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK536921/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 35,
+   "title": "Levator palpebrae superioris muscle (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Levator_palpebrae_superioris_muscle",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 36,
+   "title": "Levator palpebrae superioris (Loyola dissector)",
+   "url": "https://www.meddean.luc.edu/lumen/MedEd/GrossAnatomy/dissector/muscles/lps.htm",
+   "kind": "dissection guide",
+   "year": "n.d."
+  },
+  {
+   "n": 37,
+   "title": "The severity of wrinkling at the forehead is related to the degree of ptosis of the upper eyelid",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20456101/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 38,
+   "title": "Continuous Improvement of Frontal Rhytids Following Glabella Only Treatments With Neuromodulators: Clinical Prospective Pilot Study",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/40772568/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 39,
+   "title": "A Study of Glabellar Contraction Patterns in African Descendants",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39761145/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 40,
+   "title": "Efficacy and safety of microfocused ultrasound for temporary eyebrow lift and glabellar wrinkle reduction",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39920474/",
+   "kind": "paper",
+   "year": "2025"
+  },
+  {
+   "n": 41,
+   "title": "The Neuromuscular Junction Distribution in the Upper Face: Anatomy-to-Practice Review",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13172661/",
+   "kind": "review",
+   "year": "n.d."
+  },
+  {
+   "n": 42,
+   "title": "Anatomy, Head and Neck: Face (StatPearls; surfaced, no fact extracted)",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK551530/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 43,
+   "title": "Anatomy, Head and Neck: Facial Muscles (StatPearls; surfaced, no fact extracted)",
+   "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK493209/",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 44,
+   "title": "Facial Muscles – Upper Group (Physiopedia)",
+   "url": "https://www.physio-pedia.com/Facial_Muscles_-_Upper_Group",
+   "kind": "educational reference",
+   "year": "n.d."
+  },
+  {
+   "n": 45,
+   "title": "Muscle- and Gland-Specific Dosing of Botulinum Toxin in Facial Aesthetics (dosing review)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13709392",
+   "kind": "review",
+   "year": "n.d. (2026 per muscles-lower-face harvest)"
+  },
+  {
+   "n": 46,
+   "title": "Forehead ultrasound layer study (title not captured)",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11635371/",
+   "kind": "paper",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Standring S (ed.), *Gray's Anatomy: The Anatomical Basis of Clinical Practice*, recent editions.",
+  "Ekman P, Friesen WV, Hager JC, *Facial Action Coding System* manual, 2002.",
+  "Knize DM, anatomically based study of the mechanism of eyebrow ptosis, Plast Reconstr Surg, 1996.",
+  "Cook BE Jr, Lucarelli MJ, Lemke BN, \"Depressor supercilii muscle: anatomy, histology, and cosmetic implications\", Ophthal Plast Reconstr Surg, 2001.",
+  "Janis JE et al., \"Anatomy of the corrugator supercilii muscle: part I. Corrugator topography\", Plast Reconstr Surg, 2007.",
+  "Spiegel JH et al., frontalis midline dehiscence cadaver study, J Plast Reconstr Aesthet Surg, ≈ 2009 (details unconfirmed).",
+  "de Almeida ART et al., \"Glabellar contraction patterns: a tool to optimize botulinum toxin treatment\", Dermatol Surg, 2012.",
+  "Kane MAC, \"Classification of crow's feet patterns among Caucasian women: the key to individualizing treatment\", Plast Reconstr Surg, 2003.",
+  "Matros E et al., photographic analysis of brow position with age, Plast Reconstr Surg, 2009.",
+  "Whitnall SE, *The Anatomy of the Human Orbit and Accessory Organs of Vision*, 1921.",
+  "Duchenne de Boulogne GB, *Mécanisme de la physionomie humaine*, 1862.",
+  "Darwin C, *The Expression of the Emotions in Man and Animals*, 1872.",
+  "Borges AF, work on relaxed skin tension lines, 1980s.",
+  "Faigin G, *The Artist's Complete Guide to Facial Expression*, 1990.",
+  "Zarins U, *Anatomy of Facial Expression* (Anatomy for Sculptors), 2017."
+ ]
+}

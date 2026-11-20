@@ -1,6 +1,27 @@
 {
   "topic": "sota-2025-2026",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "FLAME model license (official)",
+      "url": "https://flame.is.tue.mpg.de/modellicense.html"
+    },
+    {
+      "n": 2,
+      "title": "Pixel3DMM, ICLR 2026 poster",
+      "url": "https://iclr.cc/virtual/2026/poster/10009198"
+    },
+    {
+      "n": 3,
+      "title": "Pixel3DMM official repository",
+      "url": "https://github.com/SimonGiebenhain/pixel3dmm"
+    },
+    {
+      "n": 4,
+      "title": "NoW non-metrical evaluation leaderboard",
+      "url": "https://now.is.tue.mpg.de/nonmetricalevaluation.html"
+    }
+  ],
   "references_by_name": [
     "Giebenhain et al. - Pixel3DMM: Versatile Screen-Space Priors for Single-Image 3D Face Reconstruction, 2025",
     "Retsinas et al. - 3D Facial Expressions through Analysis-by-Neural-Synthesis (SMIRK), CVPR 2024",

@@ -1,6 +1,39 @@
 {
  "topic": "landmark-detection",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "url": "https://developers.googleblog.com/en/mediapipe-3d-face-transform/"
+  },
+  {
+   "n": 2,
+   "url": "https://github.com/davisking/dlib-models"
+  },
+  {
+   "n": 3,
+   "url": "https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/"
+  },
+  {
+   "n": 4,
+   "url": "https://arxiv.org/pdf/2104.03100"
+  },
+  {
+   "n": 5,
+   "url": "https://arxiv.org/pdf/2306.02763"
+  },
+  {
+   "n": 6,
+   "url": "https://arxiv.org/pdf/2508.14929"
+  },
+  {
+   "n": 7,
+   "url": "https://arxiv.org/pdf/2210.07233"
+  },
+  {
+   "n": 8,
+   "url": "https://sources.debian.org/src/dlib/20.0%2Bdfsg-2/python_examples/face_landmark_detection.py"
+  }
+ ],
  "references_by_name": [
   "Kartynnik, Ablavatski, Grishchenko, Grundmann, Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs, CVPR Workshops 2019",
   "Grishchenko et al., Attention Mesh: High-fidelity Face Mesh Prediction in Real-time, CVPR Workshops 2020",

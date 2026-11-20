@@ -2,7 +2,7 @@
 
 > Multi-image or video fitting of a 3D morphable model (in practice FLAME) optimises **one shared identity vector β** against per-image camera, pose and expression. The losses are landmark reprojection and, optionally, a photometric render-and-compare term [1][2][4]. The open-source references are the Metrical Tracker (monocular, MICA identity prior), VHAP (photometric, with adaptive appearance priors) and flame-head-tracker (about 0.9–1.9 s/frame on an RTX 4090), and all three run offline [2][9]. 2026 multi-camera papers fit one FLAME parameter set to residuals from all views and report better robustness, but **no source here quantifies the gain over single-image fitting** [1][2]. From expert knowledge, the gain comes from side views turning depth (nose and chin projection, forehead slope) into image-plane measurements. It is capped by FLAME's capacity and by landmark-definition bias, and absolute scale stays unknown without a known baseline or an object of known size in shot.
 >
-> Evidence status: 5 ✅ / 15 📄 / 43 🧠 / 3 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 7 ✅ / 16 📄 / 43 🧠 / 3 ↔️ — 🧠 items are queued for web verification (4 claims checked 2026-11-20).
 
 ## Key facts
 
@@ -166,3 +166,10 @@
 - Schönberger & Frahm, "Structure-from-Motion Revisited" (COLMAP), CVPR 2016
 - Hartley & Zisserman, *Multiple View Geometry in Computer Vision*, 2nd ed., 2004
 - Farkas, *Anthropometry of the Head and Face*, 1994
+
+## Verification log (2026-11-20)
+
+- FLAME 2020 research-only; FLAME 2023 Open is CC BY 4.0 with commercial use allowed: confirmed (one official source, two pages of the same site). https://flame.is.tue.mpg.de/modellicense.html ; https://flame.is.tue.mpg.de/
+- Adult horizontal visible iris diameter about 11.7 mm, SD about 0.4-0.5 mm: confirmed with refinement. Studies give means 11.64-11.81 mm and SD 0.24-0.49 mm; some biometers read 12.3-12.4 mm. The MediaPipe Iris 11.7 mm assumption was not verified. https://arxiv.org/pdf/1906.09149 ; https://doaj.org/article/0840ccb0d3d443789243e436aad55af0
+- FLAME 5,023 vertices, 300 shape, 100 expression components: confirmed. 9,976 triangles and metre units: unconfirmed (no result stated them). https://arxiv.org/pdf/2404.09819 ; https://arxiv.org/pdf/2608.09238 ; https://flame.is.tue.mpg.de/
+- VHAP is GaussianAvatars' tracker, supports 16-camera NeRSemble multi-view, repo licence: unconfirmed. A search summary said the repo is CC-BY-NC-SA-4.0 and derived from GaussianAvatars' multi-view head tracker, but this could not be tied to a specific result URL, so the note keeps it as unverified. Candidate pages: https://github.com/ShenhanQian/VHAP

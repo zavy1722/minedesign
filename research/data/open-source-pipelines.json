@@ -386,7 +386,7 @@
    "population": "Model assets, not people",
    "source_urls": [],
    "status": "knowledge",
-   "notes": "Use as adapter assertions; 3DDFA_V2 count and BFM/Deep3D units are moderate-confidence recollections. MICA demo mesh may be written x1000 (mm) - contested."
+   "notes": "Use as adapter assertions; 3DDFA_V2 count and BFM/Deep3D units are moderate-confidence recollections. MICA demo mesh is written x1000 (mm), confirmed against demo.py in verification 2026-11-20."
   },
   {
    "name": "camera_convention_to_blender",

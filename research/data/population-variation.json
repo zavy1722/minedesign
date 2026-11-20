@@ -1,0 +1,633 @@
+{
+  "topic": "population-variation",
+  "tables": [
+    {
+      "name": "variance_apportionment",
+      "units": "percent of total variance",
+      "columns": [
+        "data_type",
+        "within_populations_pct_low",
+        "within_populations_pct_high",
+        "among_regions_pct_low",
+        "among_regions_pct_high",
+        "reference_by_name"
+      ],
+      "rows": [
+        [
+          "classical_genetic_markers",
+          85,
+          86,
+          6,
+          7,
+          "Lewontin 1972 (additional ~8% among populations within region)"
+        ],
+        [
+          "microsatellites_377_HGDP",
+          93,
+          95,
+          3,
+          5,
+          "Rosenberg et al. 2002"
+        ],
+        [
+          "craniometrics_howells",
+          86,
+          89,
+          11,
+          14,
+          "Relethford 2002"
+        ],
+        [
+          "skin_reflectance",
+          10,
+          14,
+          86,
+          90,
+          "Relethford 2002"
+        ]
+      ],
+      "population": "global samples",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Recalled values; single-trait apportionment can be far higher (see between_share_from_d)."
+    },
+    {
+      "name": "between_share_from_d",
+      "units": "d in within-group SD; share as fraction of total variance",
+      "columns": [
+        "d",
+        "between_group_share"
+      ],
+      "rows": [
+        [
+          0.5,
+          0.059
+        ],
+        [
+          1,
+          0.2
+        ],
+        [
+          1.5,
+          0.36
+        ],
+        [
+          2,
+          0.5
+        ],
+        [
+          3,
+          0.692
+        ],
+        [
+          4,
+          0.8
+        ]
+      ],
+      "population": "two equal-sized groups, equal within-group variance",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "share = d^2/(d^2+4); derived, not empirical."
+    },
+    {
+      "name": "trait_population_ranges_adult",
+      "units": "see units column",
+      "columns": [
+        "trait_id",
+        "units",
+        "eur_low",
+        "eur_high",
+        "eas_low",
+        "eas_high",
+        "afrw_low",
+        "afrw_high",
+        "within_sd",
+        "extreme_d_low",
+        "extreme_d_high",
+        "status"
+      ],
+      "rows": [
+        [
+          "al_al_male",
+          "mm",
+          33,
+          36,
+          37,
+          41,
+          40,
+          46,
+          2.25,
+          3,
+          4,
+          "contested"
+        ],
+        [
+          "al_al_female",
+          "mm",
+          30,
+          32,
+          34,
+          38,
+          36,
+          42,
+          2.0,
+          3,
+          4,
+          "contested"
+        ],
+        [
+          "nasal_index_living",
+          "index",
+          60,
+          70,
+          72,
+          85,
+          85,
+          105,
+          7.5,
+          3,
+          4,
+          "contested"
+        ],
+        [
+          "sn_prn_tip_protrusion_male",
+          "mm",
+          18,
+          22,
+          15,
+          19,
+          15,
+          19,
+          2.0,
+          1,
+          2,
+          "contested"
+        ],
+        [
+          "radix_projection_rel_eur",
+          "mm",
+          0,
+          0,
+          -6,
+          -3,
+          -6,
+          -3,
+          2.5,
+          1.5,
+          2.5,
+          "contested"
+        ],
+        [
+          "nasolabial_angle",
+          "deg",
+          95,
+          115,
+          85,
+          105,
+          75,
+          95,
+          11,
+          1.5,
+          2,
+          "contested"
+        ],
+        [
+          "visible_en_en",
+          "mm",
+          31,
+          34,
+          35,
+          41,
+          33,
+          37,
+          2.5,
+          2,
+          3,
+          "contested"
+        ],
+        [
+          "interpupillary_far",
+          "mm",
+          60,
+          66,
+          60,
+          66,
+          61,
+          67,
+          3.25,
+          0,
+          0.5,
+          "knowledge"
+        ],
+        [
+          "visible_ex_en",
+          "mm",
+          29,
+          32,
+          27,
+          31,
+          29,
+          32,
+          1.25,
+          0.5,
+          1,
+          "knowledge"
+        ],
+        [
+          "upper_lid_crease_height_if_present",
+          "mm above lash line",
+          8,
+          11,
+          4,
+          7,
+          null,
+          null,
+          1.5,
+          null,
+          null,
+          "contested"
+        ],
+        [
+          "epicanthal_fold_adult_prevalence",
+          "percent",
+          0,
+          5,
+          40,
+          90,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "contested"
+        ],
+        [
+          "hertel_exophthalmometry",
+          "mm",
+          14,
+          18,
+          12,
+          16,
+          16,
+          21,
+          2.0,
+          1,
+          1.5,
+          "contested"
+        ],
+        [
+          "upper_vermilion_ls_sto",
+          "mm",
+          7.5,
+          10,
+          8,
+          11,
+          10,
+          14,
+          1.5,
+          1.5,
+          2.5,
+          "contested"
+        ],
+        [
+          "lower_vermilion_sto_li",
+          "mm",
+          9,
+          11,
+          9.5,
+          12,
+          11,
+          15,
+          1.5,
+          1.5,
+          2.5,
+          "contested"
+        ],
+        [
+          "lower_lip_to_E_line",
+          "mm (+ ahead)",
+          -4,
+          0,
+          0,
+          2,
+          2,
+          6,
+          2.25,
+          1.5,
+          2.5,
+          "contested"
+        ],
+        [
+          "soft_tissue_convexity_180_minus_G_Sn_Pg",
+          "deg",
+          8,
+          16,
+          10,
+          16,
+          12,
+          20,
+          4,
+          0.5,
+          1,
+          "contested"
+        ],
+        [
+          "zy_zy_male",
+          "mm",
+          135,
+          140,
+          139,
+          147,
+          135,
+          145,
+          5,
+          1,
+          1.5,
+          "knowledge"
+        ],
+        [
+          "nasomalar_angle_skull_fmo_n_fmo",
+          "deg",
+          135,
+          140,
+          143,
+          150,
+          138,
+          144,
+          4,
+          1.5,
+          2.5,
+          "contested"
+        ],
+        [
+          "cephalic_index",
+          "index",
+          76,
+          84,
+          80,
+          88,
+          72,
+          78,
+          3.5,
+          2,
+          4,
+          "contested"
+        ]
+      ],
+      "population": "adults; EUR = European-ancestry samples, EAS = East Asian, AFR-W = West African / African American; sample labels, not types",
+      "source_urls": [],
+      "status": "contested",
+      "notes": "Recalled ranges of published sample means; direction reliable, magnitude rough. Use for prior widening and sanity gates only, never as sculpt targets. null = not recalled. Lid crease absent in ~40-60% of EAS adults (bimodal trait)."
+    },
+    {
+      "name": "index_category_bands_martin_saller",
+      "units": "index",
+      "columns": [
+        "index",
+        "category",
+        "min_inclusive",
+        "max_exclusive"
+      ],
+      "rows": [
+        [
+          "nasal",
+          "hyperleptorrhine",
+          null,
+          55
+        ],
+        [
+          "nasal",
+          "leptorrhine",
+          55,
+          70
+        ],
+        [
+          "nasal",
+          "mesorrhine",
+          70,
+          85
+        ],
+        [
+          "nasal",
+          "platyrrhine",
+          85,
+          100
+        ],
+        [
+          "nasal",
+          "hyperplatyrrhine",
+          100,
+          null
+        ],
+        [
+          "cephalic",
+          "dolichocephalic",
+          null,
+          76
+        ],
+        [
+          "cephalic",
+          "mesocephalic",
+          76,
+          81
+        ],
+        [
+          "cephalic",
+          "brachycephalic",
+          81,
+          85.5
+        ],
+        [
+          "cephalic",
+          "hyperbrachycephalic",
+          85.5,
+          null
+        ]
+      ],
+      "population": "living subjects",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Martin & Saller bands as recalled."
+    },
+    {
+      "name": "prior_widening_unknown_population",
+      "units": "k = sigma_pooled / sigma_within (dimensionless)",
+      "columns": [
+        "trait_group",
+        "k_low",
+        "k_high",
+        "prior_form"
+      ],
+      "rows": [
+        [
+          "al_al_nasal_index_alar_base",
+          2.0,
+          2.5,
+          "lognormal"
+        ],
+        [
+          "radix_projection_nasomalar_depth",
+          1.8,
+          2.2,
+          "normal"
+        ],
+        [
+          "visible_en_en",
+          1.8,
+          1.8,
+          "normal_plus_fold_offset"
+        ],
+        [
+          "vermilion_heights_lip_protrusion_SnPg",
+          1.6,
+          1.8,
+          "lognormal_or_normal"
+        ],
+        [
+          "cephalic_index_head_length",
+          1.6,
+          2.0,
+          "normal"
+        ],
+        [
+          "nasolabial_angle_tip_protrusion",
+          1.3,
+          1.5,
+          "normal"
+        ],
+        [
+          "zy_zy_ch_ch",
+          1.2,
+          1.3,
+          "lognormal"
+        ],
+        [
+          "n_gn_ex_en_ipd_ear_length",
+          1.0,
+          1.15,
+          "lognormal"
+        ],
+        [
+          "lid_crease_epicanthal_fold",
+          null,
+          null,
+          "categorical_latent"
+        ]
+      ],
+      "population": "pooled-balanced prior",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Engineering suggestion derived from Table 2 spreads; true_en = visible_en + delta*medial, delta ~ HalfNormal(2 mm) if fold else N(0, 0.7 mm)."
+    },
+    {
+      "name": "face_model_training_populations",
+      "units": "subjects",
+      "columns": [
+        "model_or_dataset",
+        "year",
+        "n_subjects_approx",
+        "population",
+        "notes"
+      ],
+      "rows": [
+        [
+          "BFM 2009/2017",
+          2009,
+          200,
+          "mostly European (Basel)",
+          "100 M/100 F, ages ~8-62"
+        ],
+        [
+          "FLAME identity space",
+          2017,
+          3800,
+          "CAESAR: North America, Netherlands, Italy",
+          "mostly European ancestry"
+        ],
+        [
+          "LSFM (MeIn3D)",
+          2016,
+          9700,
+          "London museum visitors, large White majority",
+          "per-group sub-models released"
+        ],
+        [
+          "LYHM / Headspace",
+          2017,
+          1200,
+          "UK, mostly White",
+          "~1,200 of ~1,500 Headspace scans"
+        ],
+        [
+          "FaceScape",
+          2020,
+          900,
+          "Chinese",
+          "~900+ subjects"
+        ],
+        [
+          "FaceWarehouse",
+          2014,
+          150,
+          "captured in China",
+          "ages 7-80"
+        ],
+        [
+          "BU-3DFE",
+          2006,
+          100,
+          "deliberately mixed, 6 groups",
+          ""
+        ],
+        [
+          "MICA training union",
+          2022,
+          2300,
+          "mixed, mostly European and East Asian",
+          "~8 source datasets"
+        ],
+        [
+          "3DFN (FaceBase)",
+          2015,
+          2454,
+          "European-ancestry US",
+          "ages 3-40"
+        ]
+      ],
+      "population": "3D face datasets",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Time-sensitive; counts, composition and licences need verification."
+    },
+    {
+      "name": "bias_audit_targets",
+      "units": "dimensionless",
+      "columns": [
+        "metric",
+        "target"
+      ],
+      "rows": [
+        [
+          "abs_signed_bias_per_group_in_within_sd",
+          0.25
+        ],
+        [
+          "worst_to_best_group_error_ratio",
+          1.2
+        ],
+        [
+          "max_prior_share_of_objective_multiview",
+          0.2
+        ],
+        [
+          "prior_determined_fraction_triggering_view_request",
+          0.7
+        ]
+      ],
+      "population": "engine design",
+      "source_urls": [],
+      "status": "knowledge",
+      "notes": "Proposed engineering thresholds, not literature values."
+    }
+  ]
+}

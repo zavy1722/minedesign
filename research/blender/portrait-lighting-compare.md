@@ -2,7 +2,7 @@
 
 > Checking a likeness render against a photo is three separate jobs. First rebuild the camera: focal length *with* sensor width, principal point and pose. Then approximate the light, direction before balance and low-frequency before sharp. Finally compare render and photo in a colour-managed, masked compositor graph. Blender's still-photo camera matchers are third-party vanishing-point or facade tools built for architecture, so portraits need a landmark-based perspective solve. Two independent tutorials rotate the environment until light direction matches and only then refine locally. Diffuse face shading pins down only about 9 spherical-harmonic lighting terms, so cast shadows, catchlights and highlights carry the rest. Blender blends in linear light and ignores alpha, so Difference maps must be masked, and geometric checks must gate photometric or identity scores.
 >
-> Evidence status: 1 ✅ / 19 📄 / 40 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 21 📄 / 39 🧠 / 12 ↔️ — verification pass 2026-11-20 settled 4 queued claims (2 confirmed, 2 contested); remaining 🧠 items are still unverified.
 
 ## Key facts
 
@@ -28,7 +28,7 @@
 - A shader sees only its own (foreground) result, so Overlay- or Difference-style comparison cannot be built in a material [9] 📄.
 - AgX has been the default view transform since 4.0, replacing Filmic, and both apply tone curves. For numeric comparison use Standard, Look None, Exposure 0 and Gamma 1, and tag the photo sRGB so it is linearised 🧠. Camera JPEGs are tone-mapped, so linear residuals against them are approximate; RAW decoded to linear is better 🧠.
 - Denoising and the pixel filter (Cycles default: Blackman-Harris, about 1.5 px) soften silhouettes, which shows up as rim lines in difference maps 🧠.
-- At selfie distance (about 30 cm) the nose looks roughly 30 % wider relative to the face than at about 1.5 m (Ward et al. 2018) 🧠. Compare only through the matched camera.
+- At selfie distance (about 30 cm) the nose looks roughly 30 % wider relative to the face than at about 1.5 m (Ward et al. 2018) ↔️: coverage of the study gives the 30 % figure against a 5 ft reference [17][18] but also against an infinite camera distance [17]; the paper's own text was not retrieved, and a later letter argues the effect is viewing-distance mismatch rather than photo distortion. Compare only through the matched camera.
 - Viewing upside down hides local feature distortions (Thatcher illusion; Thompson 1980). Use it for silhouette and proportion checks, not for eyes or mouth 🧠.
 
 ## Numbers & reference tables
@@ -62,7 +62,7 @@
 | Lens (Sensor Fit = Horizontal) | lens = f_px · sensor_w / W_px | 🧠 |
 | Lens shift | shift = offset_px / D, with D = W (Horizontal fit), H (Vertical), max(W,H) (Auto) | ↔️ |
 
-The shift units come from my memory of Blender's source. The engine divides by max(W,H) while forcing Horizontal fit. That is correct for landscape images, but for portrait-orientation photos the shift would be off by H/W (×1.33 at 3:4). Verify with a round-trip render.
+Developer discussions say shift is stored as a fraction of the sensor size [19][20], but sources disagree on Auto fit (larger dimension vs always sensor X) ↔️; the rest is from my memory of Blender's source. The engine divides by max(W,H) while forcing Horizontal fit. That is correct for landscape images, but for portrait-orientation photos the shift would be off by H/W (×1.33 at 3:4). Verify with a round-trip render.
 
 **Table D — Portrait key patterns (typical bands; sources vary)**
 
@@ -139,7 +139,7 @@ Measure stops as log2(lit/shadow), using linear luminance from cheek patches tha
 
 ## Algorithmic implications
 
-- **Camera priors.** Use log-focal σ ≈ 0.05–0.1 when EXIF focal length and sensor are known and the image is uncropped. Keep the engine's 0.35 and its 24–200 mm hypotheses when the focal length is guessed. Both are engineering values. Fix the principal point at the image centre unless crop data exists. Add an iris-diameter scale prior of 11.7 ± 0.5 mm, recalled from Google's MediaPipe Iris material (verify), to break the focal/depth ambiguity.
+- **Camera priors.** Use log-focal σ ≈ 0.05–0.1 when EXIF focal length and sensor are known and the image is uncropped. Keep the engine's 0.35 and its 24–200 mm hypotheses when the focal length is guessed. Both are engineering values. Fix the principal point at the image centre unless crop data exists. Add an iris-diameter scale prior of 11.7 ± 0.5 mm, stated in Google's MediaPipe Iris write-up [16] 📄, to break the focal/depth ambiguity.
 - **Export contract.** Export lens, sensor_width, sensor_fit, shift (divided by the sensor-fit dimension), resolution and matrix_world. Add a round-trip test that projects solved landmarks through a real Blender render and asserts sub-pixel agreement.
 - **Lighting stage 1 (SH9).**
   - Model: 27 coefficients (9 per RGB channel), fitted by linear least squares to E(n) = Σ Â_l L_lm Y_lm(n), with Â₀ = π, Â₁ = 2π/3, Â₂ = π/4 and constant per-channel albedo.
@@ -157,7 +157,7 @@ Measure stops as log2(lit/shadow), using linear luminance from cheek patches tha
   Starting gates, to calibrate: NME ≤ 2–3 % IOD with landmark σ ≈ 1.5–3 % IOD, and contour mean ≤ 1 % of face height. Never auto-accept on G3 or G4.
 - **Multi-view.** Require at least 2 views at least 30° apart in yaw before reporting depth-dependent likeness (nose projection, ear position).
 - **Reproducibility record** with every comparison: Blender version, engine and sampling settings, colour-management settings, photo colour space, camera and light parameters, and seed.
-- **Graph builder.** Generate Table B from Python behind a version guard. As I recall, Blender 5.0 moved compositing to node groups (`scene.compositing_node_group` instead of `scene.node_tree`) and replaced the Composite node with Group Output. Verify against [13] and the API docs.
+- **Graph builder.** Generate Table B from Python behind a version guard. Blender 5.0 moved compositing to node-group data-blocks (`scene.compositing_node_group` instead of `scene.node_tree`) and replaced the Composite node with Group Output [14][15] 📄. The Split Viewer → Split rename in 4.x is still unverified.
 
 ## Disagreements, myths & open questions
 
@@ -186,6 +186,13 @@ Measure stops as log2(lit/shadow), using linear luminance from cheek patches tha
 [11] Improving Blender workflows with still image camera matching app (80.lv) — https://80.lv/articles/improving-blender-workflows-with-still-image-camera-matching-app — news (title only) — n.d.
 [12] How to Setup HDRI Lighting in Blender 2.93 (BlenderNation) — https://www.blendernation.com/2021/06/30/how-to-setup-hdri-lighting-in-blender-2-93/ — news (snippet only; not cited) — 2021
 [13] Blender 5.0 Manual: Cameras — https://docs.blender.org/manual/en/5.0/render/cameras.html — official docs (not retrieved) — n.d.
+[14] Compositor - Blender 5.0 release notes — https://developer.blender.org/docs/release_notes/5.0/compositor/ — official docs — 2025
+[15] Blender 5.0: Python API release notes — https://developer.blender.org/docs/release_notes/5.0/python_api/ — official docs — 2025
+[16] MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research) — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/ — vendor research blog — 2020
+[17] Ward et al., Nasal Distortion in Short-Distance Photographs: The Selfie Effect (PMC) — https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 — paper (snippet only) — 2018
+[18] Selfies make the nose look bigger (ScienceDaily) — https://www.sciencedaily.com/releases/2018/03/180301115349.htm — news — 2018
+[19] Improve USD camera import/export and round-tripping (Blender PR 112905) — https://projects.blender.org/blender/blender/pulls/112905 — developer discussion — 2023
+[20] Fix #92287: focal length not correctly computed when tracking vertical videos (Blender PR 114253) — https://projects.blender.org/blender/blender/pulls/114253 — developer discussion — 2023
 
 **Further reading (by name, not yet linked)**
 - Debevec & Malik, "Recovering High Dynamic Range Radiance Maps from Photographs", SIGGRAPH 1997; Debevec, "Rendering Synthetic Objects into Real Scenes", SIGGRAPH 1998
@@ -196,3 +203,10 @@ Measure stops as log2(lit/shadow), using linear luminance from cheek patches tha
 - Fried et al., "Perspective-aware Manipulation of Portrait Photos", SIGGRAPH 2016; Ward et al., "Nasal Distortion in Short-Distance Photographs: The Selfie Effect", JAMA Facial Plastic Surgery 2018; Thompson, "Margaret Thatcher: A New Illusion", Perception 1980
 - Hunter, Biver & Fuqua, *Light: Science and Magic*; Hartley & Zisserman, *Multiple View Geometry in Computer Vision*, 2004
 - Blender source: `BKE_camera_params_compute_viewplane`, `CAMERA_PARAM_ZOOM_INIT_PERSP`; Google MediaPipe Iris documentation (iris-diameter constant)
+
+## Verification log (2026-11-20)
+
+- Lens shift normalised by sensor-fit dimension; engine misplaces principal point on portrait photos — contested (↔️). Shift is a fraction of sensor size [19][20]; Auto fit described as larger dimension in one PR and as always sensor X in another; round-trip test still needed. https://projects.blender.org/blender/blender/pulls/112905 ; https://projects.blender.org/blender/blender/pulls/114253
+- Blender 5.0 compositing_node_group and Composite → Group Output — confirmed (📄). https://developer.blender.org/docs/release_notes/5.0/compositor/ ; https://developer.blender.org/docs/release_notes/5.0/python_api/. Split Viewer → Split rename in 4.x — unconfirmed (🧠).
+- Iris 11.7 ± 0.5 mm (MediaPipe Iris) — confirmed (📄). https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/
+- Selfie effect ~30 % wider nasal base at 12 in vs 5 ft (Ward 2018) — contested (↔️): reference distance reported as 5 ft by some coverage and as infinity by others; full text not retrieved. https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 ; https://www.sciencedaily.com/releases/2018/03/180301115349.htm

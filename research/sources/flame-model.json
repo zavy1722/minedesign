@@ -1,0 +1,25 @@
+{
+  "topic": "flame-model",
+  "sources": [],
+  "references_by_name": [
+    "Li, Bolkart, Black, Li, Romero, \"Learning a model of facial shape and expression from 4D scans\" (FLAME), ACM TOG / SIGGRAPH Asia 2017",
+    "Loper et al., \"SMPL: A Skinned Multi-Person Linear Model\", SIGGRAPH Asia 2015",
+    "Pavlakos et al., \"Expressive Body Capture\" (SMPL-X), CVPR 2019",
+    "Sanyal, Bolkart, Feng, Black, RingNet and the NoW benchmark, CVPR 2019",
+    "Feng, Feng, Black, Bolkart, DECA, SIGGRAPH 2021",
+    "Danecek, Black, Bolkart, EMOCA, CVPR 2022",
+    "Zielonka, Bolkart, Thies, \"Towards Metrical Reconstruction of Human Faces\" (MICA), ECCV 2022",
+    "Retsinas et al., SMIRK, CVPR 2024",
+    "Smith et al., \"A Morphable Face Albedo Model\" (AlbedoMM), CVPR 2020",
+    "Qian et al., GaussianAvatars, CVPR 2024",
+    "Cosker, Krumhuber, Hilton, D3DFACS, ICCV 2011",
+    "Robinette et al., CAESAR final report, 2002",
+    "TimoBolkart/FLAME-Universe (GitHub curated list)",
+    "TimoBolkart/TF_FLAME (GitHub)",
+    "Rubikplayer/flame-fitting (GitHub)",
+    "soubhiksanyal/FLAME_PyTorch (GitHub)",
+    "TimoBolkart/BFM_to_FLAME (GitHub)",
+    "HavenFeng/photometric_optimization (GitHub)",
+    "MPI FLAME Blender add-on (FLAME website downloads, registration required)"
+  ]
+}

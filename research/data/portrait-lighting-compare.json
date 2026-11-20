@@ -76,14 +76,14 @@
         ["log_focal_prior_sigma_exif_known_uncropped", 0.0, 0.075, "log units (range 0.05-0.1)", "engineering suggestion"],
         ["log_focal_prior_sigma_guess", 0.0, 0.35, "log units", "engine default face3d/solve/pnp.py"],
         ["f35_hypotheses", "24,35,50,85,135,200", null, "mm 35 mm-equivalent", "engine default face3d/solve/pnp.py"],
-        ["horizontal_visible_iris_diameter", 11.7, 0.5, "mm", "MediaPipe Iris documentation (recalled; verify)"],
+        ["horizontal_visible_iris_diameter", 11.7, 0.5, "mm", "MediaPipe Iris write-up, Google Research (confirmed 2026-11-20)"],
         ["corneal_anterior_radius", 7.8, 0.25, "mm (range ~7.5-8.0)", "ophthalmic schematic-eye knowledge"],
         ["principal_point_offset_if_free", 0.0, 0.015, "fraction of image width", "engineering suggestion"]
       ],
       "population": "Adults (iris, cornea); others are engineering defaults",
-      "source_urls": [],
+      "source_urls": ["https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/"],
       "status": "knowledge",
-      "notes": "Engineering sigmas are not research-derived; calibrate on consented test portraits with known camera data."
+      "notes": "Iris row confirmed 2026-11-20; engineering sigmas are not research-derived; calibrate on consented test portraits with known camera data."
     },
     {
       "name": "lighting_fit_defaults",

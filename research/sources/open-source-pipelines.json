@@ -240,6 +240,38 @@
    "kind": "extension listing",
    "year": "n.d.",
    "via_harvest": "blender-face-addons harvest"
+  },
+  {
+   "n": 31,
+   "title": "FLAME model license page",
+   "url": "https://flame.is.tue.mpg.de/modellicense.html",
+   "kind": "official site",
+   "year": "n.d.",
+   "via_harvest": "verification 2026-11-20"
+  },
+  {
+   "n": 32,
+   "title": "nvdiffrast LICENSE.txt (Hugging Face mirror)",
+   "url": "https://huggingface.co/spaces/ginipick/SORA-3D/blob/e3df509037b8d7a49ea8599caebb1c08922cea96/extensions/nvdiffrast/LICENSE.txt",
+   "kind": "licence text copy",
+   "year": "2020",
+   "via_harvest": "verification 2026-11-20"
+  },
+  {
+   "n": 33,
+   "title": "microsoft/TRELLIS issue 298 on nvdiffrast licensing",
+   "url": "https://github.com/microsoft/TRELLIS/issues/298",
+   "kind": "issue thread",
+   "year": "n.d.",
+   "via_harvest": "verification 2026-11-20"
+  },
+  {
+   "n": 34,
+   "title": "Zielon/MICA demo.py",
+   "url": "https://www.github.com/Zielon/MICA/blob/master/demo.py",
+   "kind": "source code",
+   "year": "n.d.",
+   "via_harvest": "verification 2026-11-20"
   }
  ],
  "references_by_name": [

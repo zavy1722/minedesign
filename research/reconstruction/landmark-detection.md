@@ -2,7 +2,7 @@
 
 > In photo→3D likeness work, a landmark detector supplies the correspondences behind camera solving, multi-view triangulation and the first template warp. It does not supply the likeness, because every learned detector pulls its output toward the mean face. MediaPipe Face Landmarker (478 points, 52 blendshape scores, a 4×4 transform; Apache-2.0; milliseconds on CPU) is the only widely used detector whose code and weights are both permissively licensed, so it is the default. The 68/98-point heatmap models (FAN, HRNet, SPIGA, STAR) are research-licensed cross-checks. Good detectors reach about 3–4.5 % inter-ocular NME on benchmark photos, roughly 3–4 mm per point at face scale; inner anchors do about twice as well, jaw contours do worse, and error climbs past about 45° yaw. The model of choice for a fitter is Wood et al. 2022: about 700 landmarks, each with a predicted σ and trained on synthetic data only, but its weights are, to my knowledge, unreleased.
 >
-> Evidence status: 0 ✅ / 0 📄 / 73 🧠 / 19 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 2 ✅ / 2 📄 / 71 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
 
 This topic had no harvest file and no earlier draft. Every item below is either expert knowledge or a design recommendation. Related sourced material is in `blender/blender-face-addons.md` (MediaPipe's 468/478 counts are cited there), `reconstruction/camera-pose-solving.md` and `blender/portrait-lighting-compare.md`.
 
@@ -11,7 +11,7 @@ This topic had no harvest file and no earlier draft. Every item below is either 
 **MediaPipe Face Landmarker** (MediaPipe Tasks)
 - **Pipeline.** A BlazeFace short-range detector feeds a mesh regressor (v2 with attention refinement, about a 256 px crop; legacy Face Mesh used 192 px). An optional blendshape head and a geometry stage follow. All of it ships as one `face_landmarker.task` bundle of a few MB. 🧠
 - **Outputs.** 478 landmarks: 468 mesh vertices plus two 5-point iris sets, 468–472 and 473–477. 52 blendshape scores in [0,1] with ARKit-style names; the set includes `_neutral` and lacks `tongueOut`. Optionally, a 4×4 `facial_transformation_matrixes` (sic) per face. 🧠
-- **Coordinates.** x is normalised by image width and y by image height. z is depth relative to the head centre, smaller meaning nearer, on "roughly the same scale as x". z is **not metric** and is strongly mean-biased. 🧠
+- **Coordinates.** x is normalised by image width and y by image height. z is depth relative to the head centre, smaller meaning nearer, on "roughly the same scale as x" [1]. z is **not metric** and is strongly mean-biased. 📄
 - **Transform matrix.** It aligns a fixed canonical face (in cm) under an *assumed* perspective camera; the legacy config used a vertical FOV of about 63°. Its rotation is a usable initialiser. Its translation and scale describe the canonical face and that assumed FOV, not the subject or the lens. ↔️
 - **Blendshapes.** A small model reads a subset of the landmarks (reportedly 146). Scores are not calibrated per identity: hooded lids or downturned mouth corners read as non-zero `eyeSquint` or `mouthFrown` at rest. 🧠
 - **Pose range.** Reliable to about ±45° yaw and usable to about ±60–70°; at full profile, detection usually fails. Self-occluded points are still returned, hallucinated from the prior, because face landmarks carry no visibility or presence values. 🧠
@@ -20,7 +20,7 @@ This topic had no harvest file and no earlier draft. Every item below is either 
 
 **dlib 68** (Kazemi & Sullivan ERT, 2014)
 - **Model and speed.** Regression trees on pixel-difference features. About 1–3 ms per face on CPU, plus 20–100 ms for the HOG detector. The HOG detector is near-frontal only, to about ±30–40° yaw. 🧠
-- **Licence trap.** The code is Boost-licensed. `shape_predictor_68_face_landmarks.dat` (about 95–100 MB) is trained on iBUG 300-W, whose terms exclude commercial use. ↔️
+- **Licence trap.** The code is Boost-licensed. `shape_predictor_68_face_landmarks.dat` (about 95–100 MB) is trained on iBUG 300-W, whose terms exclude commercial use [2][3]. ✅ (Debian packaging lists the .dat as CC0 [8]; dlib's own notes still warn against commercial use.)
 - **Accuracy.** About 6–6.5 % NME on 300-W full. Output collapses toward the mean shape at large pose or with an open mouth. 🧠
 
 **FAN / 3D-FAN** (Bulat & Tzimiropoulos, ICCV 2017; the `face_alignment` package)
@@ -55,7 +55,7 @@ This topic had no harvest file and no earlier draft. Every item below is either 
 | Detector | Points | Convention | Input | CPU time | Usable yaw | Code / weights licence | Status |
 |---|---|---|---|---|---|---|---|
 | MediaPipe Face Landmarker | 478 (+52 scores, 4×4) | 3D mesh, relative z | ~256 px crop | ~2–20 ms | ±60–70° | Apache-2.0 / Apache-2.0 | ↔️ |
-| dlib ERT 68 | 68 | 2D | full image | ~1–3 ms | ±30–40° | BSL-1.0 / 300-W non-commercial | ↔️ |
+| dlib ERT 68 | 68 | 2D | full image | ~1–3 ms | ±30–40° | BSL-1.0 / 300-W non-commercial [2][3] | ✅ |
 | FAN / 3D-FAN | 68 (+z) | 2D / 3D | 256 px | 0.1–1 s | ±90° (3D) | BSD-3 / research data | 🧠 |
 | HRNetV2-W18 | 68 / 98 | 2D | 256 px | ~10–50 ms | ~±60° | MIT / research data | 🧠 |
 | SPIGA | 98 / 68 + head pose | 2D (+visibility) | 256 px | ~50–300 ms | ~±90° | BSD-3? / research data | ↔️ |
@@ -71,7 +71,7 @@ This topic had no harvest file and no earlier draft. Every item below is either 
 |---|---|---|---|---|---|
 | ERT (dlib-style) | – | – | ≈6.4 | – | 🧠 |
 | LAB 2018 | ≈3.0 | ≈5.2 | ≈3.5 | ≈5.3 | 🧠 |
-| HRNetV2-W18 | ≈2.9 | ≈5.2 | ≈3.3 | ≈4.6 | 🧠 |
+| HRNetV2-W18 | ≈2.9 | ≈5.2 | ≈3.3 [6] | ≈4.6 [4] | 📄 |
 | PIPNet-R101 | ≈2.8 | ≈4.9 | ≈3.2 | ≈4.3 | 🧠 |
 | ADNet 2021 | ≈2.5 | ≈4.6 | ≈2.9 | ≈4.1 | 🧠 |
 | SPIGA 2022 | ≈2.6 | ≈4.7 | ≈3.0 | ≈4.06 | 🧠 |
@@ -194,7 +194,14 @@ This topic had no harvest file and no earlier draft. Every item below is either 
 
 ## Sources
 
-None: this topic had no harvest or earlier draft, so no URLs are cited. Sourced MediaPipe point counts are linked in `blender/blender-face-addons.md`.
+1. https://developers.googleblog.com/en/mediapipe-3d-face-transform/ (MediaPipe 3D Face Transform: z relative, scaled like x)
+2. https://github.com/davisking/dlib-models (dlib models README: 300-W licence excludes commercial use)
+3. https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/ (iBUG annotations: research use only)
+4. https://arxiv.org/pdf/2104.03100 (HIH paper: HRNetW18C WFLW 4.60)
+5. https://arxiv.org/pdf/2306.02763 (STAR paper: STAR 4.02, ADNet 4.14 on WFLW)
+6. https://arxiv.org/pdf/2508.14929 (Heatmap Regression without Soft-Argmax: HRNet 300-W full 3.32)
+7. https://arxiv.org/pdf/2210.07233 (SPIGA paper: 300-W 2.99; WFLW 4.06 not seen)
+8. https://sources.debian.org/src/dlib/20.0%2Bdfsg-2/python_examples/face_landmark_detection.py (dlib example: commercial-use warning); Debian copyright file lists CC0 for the .dat
 
 **Further reading (by name, not yet linked)**
 - Kartynnik et al. — Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs, CVPR Workshops 2019
@@ -216,3 +223,10 @@ None: this topic had no harvest or earlier draft, so no URLs are cited. Sourced 
 - Zhu et al. — Face Alignment Across Large Poses: A 3D Solution, CVPR 2016
 - Guo et al. — Towards Fast, Accurate and Stable 3D Dense Face Alignment (3DDFA_V2), ECCV 2020
 - Farkas — Anthropometry of the Head and Face, 1994
+
+## Verification log (2026-11-20)
+
+- MediaPipe face_landmarker.task weights Apache-2.0 per model card; wheel/CPython support: unconfirmed. Search found only a third-party Hugging Face copy that points to the BlazeFace card; no official card text seen. Badge left as is.
+- dlib 68-point model trained on 300-W, not for commercial use: confirmed (✅). Sources: https://github.com/davisking/dlib-models, https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/, https://sources.debian.org/src/dlib/20.0%2Bdfsg-2/python_examples/face_landmark_detection.py. Caveat: Debian lists the .dat as CC0, so legal status is still murky. The 5-point model claim was not checked.
+- MediaPipe z relative, scaled like x: confirmed (📄) https://developers.googleblog.com/en/mediapipe-3d-face-transform/. Canonical model in cm and the ~63 deg legacy vertical FOV: unconfirmed (the blog confirms an assumed virtual perspective camera, no value); transform-matrix badge stays ↔️.
+- WFLW/300-W NME: HRNetV2-W18 WFLW 4.60 confirmed (https://arxiv.org/pdf/2104.03100) and 300-W full 3.32 confirmed (https://arxiv.org/pdf/2508.14929), so the row is 📄. STAR 4.02 and ADNet 4.14 on WFLW confirmed (https://arxiv.org/pdf/2306.02763), consistent with the table's rounded values; their rows stay 🧠 because the 300-W values were not checked. SPIGA WFLW 4.06 unconfirmed (300-W 2.99 seen, https://arxiv.org/pdf/2210.07233). STAR 300-W full 2.87 and the "best 2023-25" range unconfirmed.

@@ -2,13 +2,13 @@
 
 > Blender runs its own bundled CPython (3.11 in 4.1–4.5; unconfirmed for 5.x) with its own NumPy. Every compiled wheel must therefore match Blender's CPython tag, OS/architecture and NumPy ABI, and must never replace that NumPy. There are three ways to deliver MediaPipe, OpenCV or ONNX Runtime: pip into a private folder at runtime (an "Install dependencies" button), per-platform wheels bundled in a 4.2+ extension, or an out-of-process worker that exchanges files or socket messages with Blender. Existing face tools lean toward the third: mediapipe-facecap splits a MediaPipe "transmitter" from a Blender "receiver" [1], and the FaceFit prototype solves in an external server [2]. For a photo→head tool, run the fitter as pure NumPy inside Blender, run ONNX Runtime (or MediaPipe) on the CPU in an isolated worker as the default detector, and keep a dependency-free JSON landmark import as the fallback. The CPU has more than enough headroom for still photos (tens of ms per image). The real constraints are import time, install size, and whether wheels exist for each new Blender Python.
 >
-> Evidence status: 1 ✅ / 19 📄 / 63 🧠 / 13 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 25 📄 / 64 🧠 / 8 ↔️ — verification pass 2026-11-20 done; remaining 🧠 items are unverified.
 
 ## Key facts
 
 **Blender's Python**
 - Official builds bundle CPython and NumPy in `<X.Y>/python/`. `sys.executable` points to that interpreter, which has been the case since about 2.91; before that it was `bpy.app.binary_path_python` 🧠. Bundled versions: 3.9 (2.93–3.0), 3.10 (3.1–4.0), 3.11 (4.1–4.5) 🧠.
-- 5.x: the 5.0.1 release fixed "the Python 3.14 build" and a test for Python newer than 3.11 [18] 📄. Those fixes concern builds against newer system Pythons and do not show that the bundle changed. 5.1–5.3 may bundle 3.11 or 3.13 ↔️. 5.3 is the current release [21] 📄, and 5.2 LTS is supported until Jul 2028 [19] 📄.
+- 5.x: the 5.0.1 release fixed "the Python 3.14 build" and a test for Python newer than 3.11 [18] 📄. Those fixes concern builds against newer system Pythons and do not show that the bundle changed. 5.2 LTS bundles Python 3.13 (3.13.13) [24] 📄 (corrected in verification); its NumPy version, and the Python/NumPy of 5.1 and 5.3, remain unconfirmed 🧠. 5.3 is the current release [21] 📄, and 5.2 LTS is supported until Jul 2028 [19] 📄.
 - Since 5.0, `mathutils` exposes a float32, non-contiguous buffer to NumPy [17] 📄. This matters at the bridge, not for detector output.
 - By default Blender ignores `PYTHONPATH` and the user site-packages; `--python-use-system-env` turns them back on 🧠. That explains the classic case where pip reports success but Blender cannot import the package: `pip install --user` run via `sys.executable` writes to a user site that the subprocess sees and Blender does not 🧠 (moderate confidence).
 - `bpy.utils.user_resource('SCRIPTS', path="modules")` is on `sys.path` at startup and is separate for each Blender version 🧠.
@@ -16,14 +16,14 @@
 
 **Delivery mechanisms**
 - **Runtime pip.** Run `[sys.executable, "-m", "ensurepip"]`, then `pip install --target DIR --only-binary=:all: --no-deps …`. Official bundles include ensurepip, and recent ones already include pip 🧠 (moderate confidence).
-- **Extension wheels (4.2+).** List the files in `blender_manifest.toml` as `wheels = ["./wheels/…whl"]` together with `platforms` (`windows-x64`, `windows-arm64`, `macos-arm64`, `macos-x64`, `linux-x64`). Blender extracts them on install into a site-packages directory that all extensions share (`extensions/.local/lib/pythonX.Y/site-packages`) 🧠. `blender --command extension build --split-platforms` builds one zip per platform 🧠. Because the directory is shared, two extensions that bundle different versions of the same package collide ↔️ (resolution rule unverified).
-- **extensions.blender.org policy:** add-ons may not pip-install or download executable code at runtime, so dependencies ship as bundled wheels; code must be GPL-compatible; network access must be declared as a `network` permission and gated on `bpy.app.online_access` 🧠 (time-sensitive; verify).
+- **Extension wheels (4.2+).** List the files in `blender_manifest.toml` as `wheels = ["./wheels/…whl"]` together with `platforms` (`windows-x64`, `windows-arm64`, `macos-arm64`, `macos-x64`, `linux-x64`). Blender extracts them on install into a site-packages directory that all extensions share (`extensions/.local/lib/pythonX.Y/site-packages`; the manual confirms an extension-own site-packages directory [27] 📄, exact path 🧠). `blender --command extension build --split-platforms` builds one zip per platform 🧠. Because the directory is shared, two extensions that bundle different versions of the same package conflict: the Blender design notes say both cannot be installed, and the conflicting install fails with an error [28] 📄 (corrected in verification; it is an install error, not a silent collision).
+- **extensions.blender.org policy:** add-ons may not pip-install or download executable code at runtime, so dependencies ship as bundled wheels [25][26][27] 📄 (the add-on guidelines say add-ons must not install PIP packages or wheels themselves; wheels must be bundled unmodified from the package index with their dependencies). No numeric size cap is published; a ~200 MB zip hit HTTP 413 in one review, so use `--split-platforms` 🧠. GPL-compatible code and the `network` permission / `bpy.app.online_access` gate remain 🧠 (time-sensitive).
 - **Out of process.** Two variants: Blender's own interpreter in isolated mode (`[sys.executable, "-I", "worker.py"]`) with a private deps folder that can hold its own NumPy, or a separate Python/venv of any version 🧠. Either way a native crash in the worker cannot take unsaved sculpt work with it 🧠. Precedents: the transmitter/receiver split [1] 📄, and FaceFit, which fits MPFB2 heads using 57 of MediaPipe's 478 points with an external MCP solver and was tested on 4.2.3 LTS [2] 📄. MPFB2 itself has no ML dependencies and targets "4.2 LTS and newer" [22] 📄.
 - **Native core download.** KeenTools FaceBuilder fetches a per-platform core library, online or from a file, instead of using pip 🧠. Its 2021.1 auto-alignment uses "a couple of neural networks" to place pins, and manual correction is still sometimes needed [3] 📄.
 - **Other precedents:** BlendArMocap (MediaPipe → Rigify) had a preferences button that pip-installed mediapipe, often needed admin rights on Windows, and its maintenance has stalled 🧠. Dream Textures used pip or per-platform release zips holding multi-GB PyTorch 🧠.
 
 **The packages**
-- **MediaPipe** (Apache-2.0 code 🧠). The Tasks `FaceLandmarker` returns 478 landmarks: 468 mesh points plus iris points at 468–477 [8][9][10][11] ✅. It optionally adds 52 blendshape scores in [0, 1], off by default (`output_face_blendshapes`) [4][5][6] 📄. Labels are relative to the subject, so a mirrored input swaps L/R [4] 📄. Doc pages disagree on the detector input (192² vs 128²); both give the landmarker as 256² [4][7] ↔️. The model ships separately as `face_landmarker.task` 🧠. Desktop Python runs on the CPU via TFLite/XNNPACK, and the GPU delegate is effectively Linux-only 🧠. Wheels are built per CPython version and appear late for new Pythons. pip metadata pulls `opencv-contrib-python`, `matplotlib`, `protobuf` (pinned `<5` in many 0.10.x releases), and in some releases `jax`/`jaxlib` 🧠. The legacy `mp.solutions` API is deprecated and may be missing in recent wheels ↔️.
+- **MediaPipe** (Apache-2.0 code 🧠). The Tasks `FaceLandmarker` returns 478 landmarks: 468 mesh points plus iris points at 468–477 [8][9][10][11] ✅. It optionally adds 52 blendshape scores in [0, 1], off by default (`output_face_blendshapes`) [4][5][6] 📄. Labels are relative to the subject, so a mirrored input swaps L/R [4] 📄. Doc pages disagree on the detector input (192² vs 128²); both give the landmarker as 256² [4][7] ↔️. The model ships separately as `face_landmarker.task` 🧠. Desktop Python runs on the CPU via TFLite/XNNPACK, and the GPU delegate is effectively Linux-only 🧠. Wheels are built per CPython version and appear late for new Pythons. pip metadata pulls `opencv-contrib-python`, `matplotlib`, `protobuf` (pinned `<5` in many 0.10.x releases), and in some releases `jax`/`jaxlib` 🧠. The legacy `mp.solutions` API was removed from wheels starting with 0.10.30 (maintainers direct users to the Tasks API) [29] 📄 (corrected in verification; community issue reports, not release notes). cp313, NumPy-2-built and win-arm64 wheels: unconfirmed (one report says 1.2.0 lists 3.13/3.14; the official wheels carried `numpy<2`) 🧠.
 - **MediaPipe without mediapipe.** Community ONNX conversions of the Face Mesh weights exist [10] 📄, so onnxruntime plus NumPy can replace the whole mediapipe dependency tree. Check the conversion's licence 🧠.
 - **ONNX Runtime** (MIT 🧠). The CPU wheel is built per cp tag. macOS wheels include the CoreML execution provider 🧠. `onnxruntime-gpu` and `onnxruntime-directml` provide the same import name, so they conflict with the CPU package 🧠. NumPy-2-built releases begin around 1.19 ↔️.
 - **OpenCV** (Apache-2.0 since 4.5 🧠). The PyPI wheels are `abi3`: one wheel per OS/arch covers CPython ≥ 3.7, so it survives a Blender Python bump 🧠. The four variants (`opencv-python`, `-headless`, `-contrib-python`, `-contrib-python-headless`) all install `cv2`, so never install two of them 🧠. Inside Blender, use headless. In `solvePnP`, EPnP needs n ≥ 4 points, DLS silently falls back to EPnP, and points must be undistorted first [16] 📄.
@@ -40,7 +40,8 @@
 | 3.1–4.0 | 3.10 | cp310 | 1.2x | 🧠 |
 | 4.1–4.5 LTS (until Jul 2027 [20]) | 3.11 | cp311 | ≈1.24–1.26 | 🧠 (📄 support date) |
 | 5.0 | 3.11 likely | cp311 | unknown | ↔️ [18] |
-| 5.1–5.3; 5.2 LTS until Jul 2028 | 3.11 or 3.13 | cp311 / cp313 | 1.26 or 2.x | ↔️ [19][21] |
+| 5.2 LTS (until Jul 2028) | 3.13 (3.13.13) | cp313 | unknown | 📄 [24][19] (corrected in verification) |
+| 5.1, 5.3 | unknown | unknown | unknown | 🧠 |
 
 **Table 2 – Packages (one platform, CPU builds)**
 
@@ -127,7 +128,7 @@ A TFLite reimplementation of 3DDFA_V2 also claims real-time CPU performance [23]
 - **Schools of thought** ↔️: never modify Blender's Python and always use a worker (isolation, any Python, crash safety); bundled extension wheels as the only store-compliant option; runtime pip as the most convenient route for GitHub-distributed tools. This note backs the worker as the default and wheels as the store build.
 - **Myth: "run Blender as administrator to install dependencies."** It leaves root-owned files in the install tree that the next update overwrites. Install per user instead 🧠.
 - **Myth: "MediaPipe needs a GPU."** The desktop Python package runs on the CPU, and still photos take tens of ms 🧠.
-- **Myth: "extension wheels are private to each add-on."** The site-packages directory is shared, so versions collide ↔️.
+- **Myth: "extension wheels are private to each add-on."** Wheels live in a shared module namespace, so two versions of one package cannot coexist and the later install fails with an error [28] 📄.
 - **Myth: "MediaPipe z is metric depth."** It is relative and biased toward the mean face 🧠.
 - **Open questions:**
   1. Which Python and NumPy do 5.1, 5.2 LTS and 5.3 bundle?
@@ -162,6 +163,12 @@ A TFLite reimplementation of 3DDFA_V2 also claims real-time CPU performance [23]
 [21] Blender Release Notes — Developer Documentation (index) — https://developer.blender.org/docs/release_notes/ — official docs — n.d.
 [22] MPFB version history, Blender Extensions — https://extensions.blender.org/add-ons/mpfb/versions/ — official listing — 2026
 [23] 1996scarlet/Dense-Head-Pose-Estimation (3DDFAv2 TFLite reimplementation) — https://github.com/1996scarlet/Dense-Head-Pose-Estimation — repo — 2020
+[24] Library changes for Blender 5.2 LTS (#153974) — https://projects.blender.org/blender/blender/issues/153974 — tracker — 2026
+[25] Add-on Guidelines — https://developer.blender.org/docs/handbook/extensions/addon_guidelines/ — official docs — n.d.
+[26] Extensions moderation guidelines — https://developer.blender.org/docs/features/extensions/moderation/guidelines/ — official docs — n.d.
+[27] Python Wheels, Blender manual — https://docs.blender.org/manual/en/latest/advanced/extensions/python_wheels.html — official docs — 2026
+[28] Extensions Platform: support bundling wheels (#119681) — https://projects.blender.org/blender/blender/issues/119681 — tracker — 2024
+[29] AttributeError: module 'mediapipe' has no attribute 'solutions' (#6204) — https://github.com/google-ai-edge/mediapipe/issues/6204 — tracker — 2026
 
 No harvest or earlier draft existed for this topic, so every URL above comes from a sibling harvest in this library. Related notes: `blender-version-status-2026.md`, `bpy-mesh-api.md`, `blender-face-addons.md`.
 
@@ -175,3 +182,10 @@ No harvest or earlier draft existed for this topic, so every URL above comes fro
 - Kartynnik et al., "Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs", 2019; Bazarevsky et al., "BlazeFace", 2019
 - Wu, Peng, Yu, "YuNet: A Tiny Millisecond-level Face Detector", 2023; Guo et al., SCRFD, 2021
 - BlendArMocap (cgtinker) and Dream Textures (carson-katri), as dependency-installer precedents; uv / python-build-standalone (Astral) for provisioning a worker Python
+
+## Verification log (2026-11-20)
+
+- Blender 5.1/5.2 LTS/5.3 bundled Python and NumPy: corrected/partial. 5.2 LTS bundles Python 3.13.13; NumPy and 5.1/5.3 unconfirmed. https://projects.blender.org/blender/blender/issues/153974
+- extensions.blender.org no runtime pip / bundled wheels: confirmed (📄). Numeric upload size cap: unconfirmed (only an anecdotal 413 for ~200 MB). https://developer.blender.org/docs/handbook/extensions/addon_guidelines/ ; https://developer.blender.org/docs/features/extensions/moderation/guidelines/ ; https://docs.blender.org/manual/en/latest/advanced/extensions/python_wheels.html
+- mediapipe wheels: `mp.solutions` removed from 0.10.30 onward: corrected (📄, https://github.com/google-ai-edge/mediapipe/issues/6204). cp313 / NumPy-2 / win-arm64 wheels: unconfirmed (single community report of 3.13 support in 1.2.0).
+- Shared extension site-packages: confirmed that wheels share one module namespace and conflicting versions fail to install (corrected from "collide"); exact `.local/lib/pythonX.Y/site-packages` path unconfirmed. https://projects.blender.org/blender/blender/issues/119681

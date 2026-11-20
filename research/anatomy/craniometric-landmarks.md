@@ -221,6 +221,7 @@ East Asian adults average a larger en–en and African-descent adults a much wid
 [40] Observer Reliability of Three-Dimensional Cephalometric Landmark Identification on Cone-Beam CT — https://pmc.ncbi.nlm.nih.gov/articles/PMC2642991 — paper — unknown
 [41] VGCLUB/facefit-mpfb (FaceFit MPFB2 add-on prototype) — https://github.com/VGCLUB/facefit-mpfb — repo — unknown
 [42] H0wZy/captureforge (GPL-3.0 Blender face rig extension) — https://github.com/H0wZy/captureforge — repo — unknown
+[54] MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research blog) — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/ — official docs — 2020
 
 Eleven further harvested sources not used for claims (including the earlier draft's [16]–[21]) are numbered [43]–[53] in `research/sources/craniometric-landmarks.json`.
 
@@ -235,3 +236,12 @@ Eleven further harvested sources not used for claims (including the earlier draf
 - Kazemi V, Sullivan J, "One Millisecond Face Alignment with an Ensemble of Regression Trees", CVPR 2014 (dlib); Kartynnik Y et al., "Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs", 2019 (MediaPipe Face Mesh); Ablavatski A et al., MediaPipe Iris paper, 2020.
 - Zhu X et al., "Face Alignment Across Large Poses: A 3D Solution", CVPR 2016; Bulat A, Tzimiropoulos G, "How far are we from solving the 2D & 3D Face Alignment problem?", ICCV 2017; Wu W et al., "Look at Boundary" (WFLW), CVPR 2018.
 - Dodgson NA, "Variation and extrema of human interpupillary distance", Proc SPIE, 2004.
+
+## Verification log (2026-11-20)
+
+4 queued claims, 4 web searches used.
+
+1. **Farkas/Martin-Saller gn = lowest midline chin point; living-subject FH via tragion and soft-tissue orbitale** — unconfirmed (left 🧠). Results showed generic definitions (gnathion/menton as lowest symphysis point; FH via orbitale plus porion or tragion) but no source quoting Farkas's gn or tragion-or′ construction could be tied to a specific URL. Nearest: https://columbia.edu/itc/hs/medical/humanAnatomy/yuan/craniologyISlides_files/slide0061.html (already [1]).
+2. **Farkas young-adult North American White means (Table 2)** — unconfirmed (left 🧠). No table values retrieved; candidate full texts: https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015 and https://pubmed.ncbi.nlm.nih.gov/26703056/ (already [17], [19]). Weinberg-type comparison confirms only that 3D norms differ considerably from Farkas.
+3. **MediaPipe index map (1, 2, 168, 33/133, 362/263, 61/291, 0/17, 13/14, 152, 234/454, 468/473) and z relative** — unconfirmed (left 🧠). Only the 468 + 10 iris layout was re-seen (Google docs), already ✅. No index table or z-scale statement retrieved.
+4. **Iris diameter 11.7 ± 0.5 mm as MediaPipe Iris assumption** — confirmed 📄 (one source): https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/ [54]. The blog also reports 4.3% mean relative depth error (SD 2.4%), consistent with the ~±4% prior; the ±4% figure as a scale prior remains an inference.

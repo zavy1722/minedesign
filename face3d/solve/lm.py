@@ -44,11 +44,14 @@ def levenberg_marquardt(fun: Callable[[np.ndarray], np.ndarray], x0: np.ndarray,
     updates); `jac` must then be the Jacobian w.r.t. that local step. Default is
     plain addition.
     """
+    # Damping follows Nielsen's rule (Madsen, Nielsen & Tingleff 2004) with
+    # Marquardt diagonal scaling: on success lam *= max(1/3, 1-(2*rho-1)^3), nu = 2;
+    # on failure lam *= nu, nu *= 2, where rho = actual / predicted cost reduction.
     step_fn = retract if retract is not None else (lambda a, b: a + b)
     x = np.asarray(x0, float).copy()
     r = fun(x)
     cost = 0.5 * float(r @ r)
-    lam = lam0
+    lam, nu = lam0, 2.0
     for it in range(1, max_iter + 1):
         J = jac(x) if jac is not None else numeric_jacobian(fun, x, r, fd_step)
         g = J.T @ r
@@ -58,24 +61,29 @@ def levenberg_marquardt(fun: Callable[[np.ndarray], np.ndarray], x0: np.ndarray,
         diag = np.diag(H).copy()
         diag[diag <= 0] = 1e-12
         improved = False
-        for _ in range(20):
+        for _ in range(30):
             try:
                 dx = -np.linalg.solve(H + lam * np.diag(diag), g)
             except np.linalg.LinAlgError:
-                lam *= 10.0
+                lam *= nu
+                nu *= 2.0
                 continue
             x_new = step_fn(x, dx)
             r_new = fun(x_new)
             cost_new = 0.5 * float(r_new @ r_new)
-            if np.isfinite(cost_new) and cost_new < cost:
+            predicted = 0.5 * float(dx @ (lam * diag * dx - g))
+            if np.isfinite(cost_new) and cost_new < cost and predicted > 0:
+                rho = (cost - cost_new) / predicted
                 rel = (cost - cost_new) / max(cost, 1e-300)
                 x, r, cost = x_new, r_new, cost_new
-                lam = max(lam / 3.0, 1e-12)
+                lam = max(lam * max(1.0 / 3.0, 1.0 - (2.0 * rho - 1.0) ** 3), 1e-15)
+                nu = 2.0
                 improved = True
                 if rel < tol or np.linalg.norm(dx) < tol * (np.linalg.norm(x) + tol):
                     return LMResult(x, cost, it, True)
                 break
-            lam *= 4.0
+            lam *= nu
+            nu *= 2.0
         if not improved:
             return LMResult(x, cost, it, True)
     return LMResult(x, cost, max_iter, False)

@@ -1,8 +1,8 @@
 # Blender Python API for procedural heads
 
-> On the Blender side, a photo→head pipeline should be a thin bridge over the pure-NumPy engine that does not depend on context. Bulk geometry moves through `foreach_get`/`foreach_set` with contiguous NumPy buffers of exactly the right type (float32 coordinates, int32 indices). Fits are written as shape keys on a template whose topology never changes, region masks are vertex groups, and every photo gets its own camera and background image. Use `bpy.ops` only where no data-API equivalent exists, and always call it through `context.temp_override`. bpy is not thread-safe, so solve on copied arrays in a worker thread or subprocess and apply the results from a main-thread timer or modal operator. Blender 4.1–4.5 bundle Python 3.11, while 5.x is unconfirmed (Python 3.11 or 3.13, NumPy 1.26 or 2.x). This topic had no harvest and no earlier draft, so everything here is expert knowledge awaiting verification.
+> On the Blender side, a photo→head pipeline should be a thin bridge over the pure-NumPy engine that does not depend on context. Bulk geometry moves through `foreach_get`/`foreach_set` with contiguous NumPy buffers of exactly the right type (float32 coordinates, int32 indices). Fits are written as shape keys on a template whose topology never changes, region masks are vertex groups, and every photo gets its own camera and background image. Use `bpy.ops` only where no data-API equivalent exists, and always call it through `context.temp_override`. bpy is not thread-safe, so solve on copied arrays in a worker thread or subprocess and apply the results from a main-thread timer or modal operator. Blender 4.1–4.5 bundle Python 3.11, while 5.1 bundles Python 3.13 [2] (other 5.x versions and the NumPy version are unconfirmed: Python 3.11 or 3.13, NumPy 1.26 or 2.x). This topic had no harvest and no earlier draft, so everything here is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 0 📄 / 86 🧠 / 5 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 2 📄 / 86 🧠 / 5 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -22,7 +22,7 @@
 **Shape keys**
 - `obj.shape_key_add(name="Basis", from_mix=False)` creates the first key, which becomes the reference. Add later keys the same way, fill them with `kb.data.foreach_set("co", buf)`, then call `me.update()`, and also `obj.update_tag()` if the viewport stays stale 🧠.
 - Keys store **absolute** positions, not deltas. A relative mix is basis + Σ valueᵢ·wᵢ·(keyᵢ − relative_keyᵢ), with wᵢ from `kb.vertex_group` 🧠. `slider_min` and `slider_max` accept −10…10, which allows anti-caricature or exaggeration (for example −1…2) 🧠.
-- Once keys exist, the reference key is the source of truth for rest positions. A write to `me.vertices` alone is overwritten from Basis on the next entry into edit mode, so write the Basis key or both 🧠.
+- Once keys exist, the reference key is the source of truth for rest positions. A write to `me.vertices` alone is overwritten from Basis on the next entry into edit mode, so write the Basis key or both 📄 [1].
 - The normal modifier Apply refuses meshes that have shape keys. `bpy.ops.object.modifier_apply_as_shapekey(modifier=…, keep_modifier=True)` turns a modifier's result into a key instead 🧠. Multires detail cannot live in a shape key 🧠.
 
 **Vertex groups**
@@ -45,7 +45,7 @@
 - `sys.executable` is the bundled Python interpreter (since roughly 2.91), so `subprocess.Popen([sys.executable, worker, in.npz, out.npz])` gives an isolated solver that cannot crash Blender 🧠.
 
 **Versions** (release dates and probes are in library note blender-version-status-2026)
-- **Bundled Python:** 3.10 in 4.0 and 3.11 in 4.1–4.5 🧠. 5.0 probably still bundles 3.11, and 5.1–5.3 bundle 3.11 or 3.13 ↔️. NumPy is 1.2x in 4.x and unknown in 5.x (1.26 or 2.x) ↔️.
+- **Bundled Python:** 3.10 in 4.0 and 3.11 in 4.1–4.5 🧠. 5.0 probably still bundles 3.11, 5.1 bundles Python 3.13 📄 [2] (corrected in verification), and 5.2–5.3 bundle 3.11 or 3.13 ↔️. NumPy is 1.2x in 4.x and unknown in 5.x (1.26 or 2.x) ↔️.
 - **API changes that touch this topic** 🧠:
   - 4.0: override dicts and face maps removed; node-group sockets moved to `NodeTree.interface.new_socket`.
   - 4.1: Auto Smooth removed, replaced by `corner_normals` and `set_sharp_from_angle`.
@@ -168,7 +168,12 @@
 
 ## Sources
 
-No URL sources. Neither a harvest file nor an earlier draft existed for this topic, and this pass had no web access. Related library notes: `blender/blender-version-status-2026.md` (it sources the 5.0 mathutils change and lists release dates and probes) and `blender/reference-camera-setup.md` (camera intrinsics and overlays).
+Verified sources (2026-11-20):
+1. Blender issue T98890, editing the Basis shape key from a script does not update mesh vertices; edit-mode round trip re-syncs them: https://developer.blender.org/T98890
+2. Blender 5.1 Python API release notes (Python upgraded to 3.13): https://developer.blender.org/docs/release_notes/5.1/python_api/
+3. Blender FBX export patch using a buffer that matches the C type of `co` in foreach_get/set (supporting context only, no badge change): https://projects.blender.org/blender/blender-addons/pulls/104448
+
+No other URL sources; remaining facts are unsourced. Related library notes: `blender/blender-version-status-2026.md` (it sources the 5.0 mathutils change and lists release dates and probes) and `blender/reference-camera-setup.md` (camera intrinsics and overlays).
 
 **Further reading (by name, not yet linked)**
 - Blender Python API Reference: `bpy_prop_collection.foreach_get/foreach_set`, `Mesh`, `ShapeKey`, `VertexGroup`, `CameraBackgroundImage`, `Image`, `bpy.app.timers`, the modal `Operator` templates, and the "Gotchas" pages
@@ -178,3 +183,12 @@ No URL sources. Neither a harvest file nor an earlier draft existed for this top
 - Blender Extensions handbook: the `blender_manifest.toml` schema and the Python wheels guidance
 - "Blender as a Python Module" (the `bpy` package on PyPI); `fake-bpy-module` (community type stubs)
 - NumPy 2.0 migration guide; NEP 50
+
+## Verification log (2026-11-20)
+
+| Claim | Outcome | Source |
+|---|---|---|
+| Camera shift multiplied by fitted dimension (W under HORIZONTAL); engine divides by max(W,H) | unconfirmed (search returned only source headers and a bug report; no source states the shift units) | https://developer.blender.org/T74577 (context only) |
+| Bundled Python 3.11 in 4.1–4.5; 5.0 ~3.11; 5.1–5.3 3.11 or 3.13; NumPy unknown in 5.x | corrected for 5.1: Python 3.13. 5.0, 5.2, 5.3 and NumPy versions unconfirmed | https://developer.blender.org/docs/release_notes/5.1/python_api/ |
+| foreach_get/set fast path only for matching dtype and contiguous; silent 5–20× slow fallback otherwise | unconfirmed (a patch supports that matching the C type avoids per-element casting, but no source for silent fallback or the 5–20× figure; Blender tests show some mismatched int/float dtypes raise TypeError) | https://projects.blender.org/blender/blender-addons/pulls/104448 |
+| With shape keys, writes to me.vertices co revert from Basis on next edit-mode entry; write the Basis key | confirmed (one source) | https://developer.blender.org/T98890 |

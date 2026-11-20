@@ -2,7 +2,7 @@
 
 > A reference photo is a perspective projection from one point, so sculpting against it means rebuilding that camera in Blender: focal length in pixels (lens relative to sensor), principal point, pose, and any uncorrected distortion. Camera background images are drawn only through a camera, framed by its sensor fit and the render aspect. Image empties are scene objects that replaced the pre-2.8 per-viewport backgrounds [1][2][4]. fSpy solves cameras from vanishing lines, which suits architecture but rarely a bare portrait, so for faces you solve from landmarks with focal length free and an anatomical scale prior [10][18]. Facial perspective is set by distance, not focal length: at ~0.3 m the nose tip images about a third larger relative to the ears than from far away. Ortho tracing of near photos bakes this into the mesh, and a single-view overlay cannot reveal depth errors 🧠.
 >
-> Evidence status: 2 ✅ / 23 📄 / 49 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 2 ✅ / 25 📄 / 47 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
 
 All 📄 items rest on harvested search snippets, not on opened pages. No claim has been refuted.
 
@@ -21,11 +21,11 @@ All 📄 items rest on harvested search snippets, not on opened pages. No claim 
 **Optics of faces**
 - Perspective depends only on camera-to-subject distance. Focal length and sensor set the framing, so a long lens is a crop of a wide one taken from the same spot 🧠 (Hartley & Zisserman).
 - "Wide-angle distortion" is two things, near-distance perspective and rectilinear edge stretch; a matched pinhole camera reproduces both 🧠.
-- At selfie distance (~30 cm) the apparent nasal base is roughly 30% wider than at ~1.5 m (Ward et al. 2018) 🧠. Camera distance alters facial configuration enough to impair identity matching (Noyes & Jenkins 2017) and shift social judgements (Bryan, Perona & Adolphs 2012) 🧠.
+- At selfie distance (~30 cm) the apparent nasal base is roughly 30% wider than at ~1.5 m (Ward et al. 2018; a modeled figure, 12 in vs 60 in) [27][28] 📄. Camera distance alters facial configuration enough to impair identity matching (Noyes & Jenkins 2017) and shift social judgements (Bryan, Perona & Adolphs 2012) 🧠.
 - Phone JPEG/HEIC output is usually distortion-corrected; some phones also unwarp faces in wide shots (Shih, Lai & Liang 2019), breaking the pinhole model near frame edges 🧠.
 - Clinical facial photography uses long lenses at ≥1 m, but recommendations range from 85 to 135 mm full-frame equivalent, most often 90–105 mm (e.g. Ettorre et al. 2006) ↔️.
 - The EXIF 35 mm-equivalent focal length is usually derived from the diagonal crop factor, but some makers use width ↔️. The engine (`face3d/geometry/camera.py`) assumes the diagonal.
-- Scale anchors: horizontal visible iris diameter ≈11.7 ± 0.5 mm (Google MediaPipe Iris, 2020) 🧠. Adult IPD mean ≈63 mm, SD ≈3.5–4 mm, most adults 50–75 mm (Dodgson 2004) 🧠. Vergence at 35 cm shrinks the photographed inter-pupil distance by ~2 mm 🧠 (derived).
+- Scale anchors: horizontal visible iris diameter ≈11.7 ± 0.5 mm (Google MediaPipe Iris, 2020) [26] 📄. Adult IPD mean ≈63 mm, SD ≈3.5–4 mm, most adults 50–75 mm (Dodgson 2004) 🧠. Vergence at 35 cm shrinks the photographed inter-pupil distance by ~2 mm 🧠 (derived).
 
 **fSpy and other matchers**
 - **fSpy** is an open-source, cross-platform still-image matcher. It computes approximate focal length, orientation and position from user-placed control points and vanishing lines, and is usually exported to Blender [10][11] ✅.
@@ -198,6 +198,9 @@ Sensor-format sizes and crop factors are in the data file `research/data/referen
 [23] Blender-AI-Camera-Match — https://github.com/parthmital/Blender-AI-Camera-Match — repo — unknown
 [24] Perspective Plotter docs — https://perspective-plotter.readthedocs.io/ — official-docs — unknown
 [25] Blenspy — camera matching from photos — https://superhivemarket.com/products/blenspy — commercial — unknown
+[26] MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research) — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/ — official-docs — 2020
+[27] Selfies drive self image and may lead many to seek plastic surgery (Rutgers) — https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery — news — 2018
+[28] Nasal Distortion in Short-Distance Photographs: The Selfie Effect (PMC) — https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 — paper — 2018
 
 **Further reading (by name, not yet linked)**
 - Hartley & Zisserman, *Multiple View Geometry in Computer Vision*, 2nd ed., 2004
@@ -218,3 +221,10 @@ Sensor-format sizes and crop factors are in the data file `research/data/referen
 - CIPA DC-008, Exif standard (FocalLengthIn35mmFilm tag)
 - Blender Python API reference: `CameraBackgroundImage`, `Object.empty_image_*`, `Camera.view_frame`, `bpy_extras.object_utils.world_to_camera_view`
 - OpenCV documentation, calib3d module (calibrateCamera, undistort)
+
+## Verification log (2026-11-20)
+
+- Lens shift units (fraction of sensor-fit dimension): unconfirmed. The Blender manual pages found describe shift only by example and do not state the units. Remains 🧠. Pages seen: https://docs.blender.org/manual/en/4.5/render/cameras.html
+- Iris diameter 11.7 ± 0.5 mm: confirmed 📄 [26]. https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/
+- Adult IPD mean ~63 mm, SD 3.5–4 mm, range 50–75 mm (Dodgson 2004): unconfirmed. Only secondary summaries were seen (mean ~63.36 mm, range 50–75 mm); no SD from Dodgson's paper. Remains 🧠. Paper: https://pubmed.ncbi.nlm.nih.gov/12090630/ (not verified to be the paper's record)
+- Selfie nasal-base widening ~30% (Ward et al. 2018): confirmed 📄 [27][28], with the caveat that it is a geometric model, not a measurement, and a later letter disputes its cause. https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery ; https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805

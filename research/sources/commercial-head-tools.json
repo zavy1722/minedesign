@@ -1,21 +1,58 @@
 {
-  "topic": "commercial-head-tools",
-  "sources": [],
-  "references_by_name": [
-    "KeenTools, FaceBuilder for Blender user guide and release notes",
-    "Reallusion, Character Creator 4 online manual (Headshot 2: image and mesh modes) and Reallusion EULA",
-    "Epic Games, MetaHuman documentation (Mesh to MetaHuman, MetaHuman Creator, MetaHuman Animator) and the Unreal Engine EULA",
-    "Singular Inversions, FaceGen Modeller and FaceGen SDK documentation",
-    "R3DS / Faceform, Wrap user documentation",
-    "Polywink product documentation",
-    "Avaturn developer documentation",
-    "Avatar SDK (itSeez3D) documentation",
-    "Blanz & Vetter, 'A Morphable Model for the Synthesis of 3D Faces', SIGGRAPH 1999",
-    "Egger et al., '3D Morphable Face Models - Past, Present, and Future', ACM Transactions on Graphics 2020",
-    "Oosterhof & Todorov, 'The functional basis of face evaluation', PNAS 2008",
-    "Sanyal et al., 'Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision' (RingNet, NoW benchmark), CVPR 2019",
-    "Chai et al., 'REALY: Rethinking the Evaluation of 3D Face Reconstruction', ECCV 2022",
-    "Amberg, Romdhani & Vetter, 'Optimal Step Nonrigid ICP Algorithms for Surface Registration', CVPR 2007",
-    "Apple ARKit documentation, ARFaceAnchor.BlendShapeLocation"
-  ]
+ "topic": "commercial-head-tools",
+ "sources": [
+  {
+   "url": "https://www.metahuman.com/license",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://www.unrealengine.com/eula/mhc",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://keentools.io/buy",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://keentools.io/news/new-licensing",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9487071/",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://www.cgchannel.com/2024/03/keentools-ships-facebuilder-2024-1-for-blender/",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://techcrunch.com/2025/12/19/netflix-acquires-gaming-avatar-maker-ready-player-me/",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://www.pocketgamer.biz/netflix-acquires-avatar-creation-platform-ready-player-me",
+   "accessed": "2026-11-20"
+  }
+ ],
+ "references_by_name": [
+  "KeenTools, FaceBuilder for Blender user guide and release notes",
+  "Reallusion, Character Creator 4 online manual (Headshot 2: image and mesh modes) and Reallusion EULA",
+  "Epic Games, MetaHuman documentation (Mesh to MetaHuman, MetaHuman Creator, MetaHuman Animator) and the Unreal Engine EULA",
+  "Singular Inversions, FaceGen Modeller and FaceGen SDK documentation",
+  "R3DS / Faceform, Wrap user documentation",
+  "Polywink product documentation",
+  "Avaturn developer documentation",
+  "Avatar SDK (itSeez3D) documentation",
+  "Blanz & Vetter, 'A Morphable Model for the Synthesis of 3D Faces', SIGGRAPH 1999",
+  "Egger et al., '3D Morphable Face Models - Past, Present, and Future', ACM Transactions on Graphics 2020",
+  "Oosterhof & Todorov, 'The functional basis of face evaluation', PNAS 2008",
+  "Sanyal et al., 'Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision' (RingNet, NoW benchmark), CVPR 2019",
+  "Chai et al., 'REALY: Rethinking the Evaluation of 3D Face Reconstruction', ECCV 2022",
+  "Amberg, Romdhani & Vetter, 'Optimal Step Nonrigid ICP Algorithms for Surface Registration', CVPR 2007",
+  "Apple ARKit documentation, ARFaceAnchor.BlendShapeLocation"
+ ]
 }

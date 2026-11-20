@@ -1,7 +1,7 @@
 # FLAME head model in depth
 
 > FLAME (Li, Bolkart, Black, Li and Romero, SIGGRAPH Asia 2017) is an articulated head-and-neck model with 5,023 vertices and 9,976 triangles: a mean template plus linear identity, expression and pose-corrective blendshapes, driven by linear blend skinning (LBS) over a root and four joints (neck, jaw, two eyeballs). Nearly every open photo→3D face method from 2019 to 2026 targets it, so trackers and regressors usually emit FLAME *parameters* rather than meshes. For this project it is a fitting cage and interchange format, not a likeness: its identity space comes mostly from about 3,800 North American and European adults (CAESAR), so ears, the nose tip and asymmetry are under-modelled, and it has no mouth interior, teeth or hair. Its licence decides what can ship, and the reported CC BY 4.0 "FLAME 2023 Open" release is the fact most worth verifying. In Blender, protect three things: metres, the Y-up frame and vertex order.
-> Evidence status: 0 ✅ / 0 📄 / 61 🧠 / 9 ↔️ — 🧠 items are queued for web verification. This step had no harvest file and no earlier draft, so no URL is cited. Where a sibling note already cites a related fact, it is named inline as (lib: path).
+> Evidence status: 0 ✅ / 0 📄 / 85 🧠 / 12 ↔️ — 🧠 items are queued for web verification. This step had no harvest file and no earlier draft, so no URL is cited. Where a sibling note already cites a related fact, it is named inline as (lib: path).
 
 ## Key facts
 

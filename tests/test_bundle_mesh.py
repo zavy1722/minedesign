@@ -125,3 +125,20 @@ def test_reconstruct_with_exif_prior_long_lens():
         ph.f_prior_px = c.f * rng.uniform(0.95, 1.05)
     res = reconstruct_landmarks(photos, pri)
     assert procrustes_rmse(res.X, subj) < 2.0
+
+
+def test_point_uncertainty_reflects_coverage():
+    names, T, subj, cams, photos, pri = _scene()
+    res = reconstruct_landmarks(photos, pri)
+    sig = res.point_sigma_mm
+    assert sig is not None and sig.shape == subj.shape
+    assert np.all(sig < 8.0)                      # never worse than the prior
+    seen = np.stack([~np.isnan(ph.uv[:, 0]) for ph in photos]).sum(0)
+    many, few = seen >= 4, seen <= 2
+    if many.any() and few.any():
+        assert np.median(sig[few]) > np.median(sig[many])
+    # Single frontal photo: depth (z) is far less certain than x/y.
+    _, T, subj, cams, photos, pri = _scene(n_views=1, yaws=(0,))
+    res1 = reconstruct_landmarks(photos, pri)
+    s1 = res1.point_sigma_mm
+    assert np.median(s1[:, 2]) > 2 * np.median(s1[:, 0])

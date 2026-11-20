@@ -175,6 +175,27 @@
    "url": "https://superhivemarket.com/products/blenspy",
    "kind": "commercial",
    "year": "unknown"
+  },
+  {
+   "n": 26,
+   "title": "MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research)",
+   "url": "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/",
+   "kind": "official-docs",
+   "year": "unknown"
+  },
+  {
+   "n": 27,
+   "title": "Selfies drive self image and may lead many to seek plastic surgery (Rutgers)",
+   "url": "https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery",
+   "kind": "news",
+   "year": "unknown"
+  },
+  {
+   "n": 28,
+   "title": "Nasal Distortion in Short-Distance Photographs: The Selfie Effect (PMC)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805",
+   "kind": "paper",
+   "year": "unknown"
   }
  ],
  "references_by_name": [

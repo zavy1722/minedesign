@@ -13,7 +13,14 @@
     {"n": 10, "title": "Can't replicate After Effects result in Blender with basic nodes (Blender Artists)", "url": "https://blenderartists.org/t/cant-replicate-after-effects-result-in-blender-with-basic-nodes-compositing-and-post-processing/1524574", "kind": "forum", "year": "n.d."},
     {"n": 11, "title": "Improving Blender workflows with still image camera matching app (80.lv)", "url": "https://80.lv/articles/improving-blender-workflows-with-still-image-camera-matching-app", "kind": "news", "year": "n.d."},
     {"n": 12, "title": "How to Setup HDRI Lighting in Blender 2.93 (BlenderNation)", "url": "https://www.blendernation.com/2021/06/30/how-to-setup-hdri-lighting-in-blender-2-93/", "kind": "news", "year": "2021"},
-    {"n": 13, "title": "Blender 5.0 Manual: Cameras", "url": "https://docs.blender.org/manual/en/5.0/render/cameras.html", "kind": "official-docs", "year": "n.d."}
+    {"n": 13, "title": "Blender 5.0 Manual: Cameras", "url": "https://docs.blender.org/manual/en/5.0/render/cameras.html", "kind": "official-docs", "year": "n.d."},
+    {"n": 14, "title": "Compositor - Blender 5.0 release notes", "url": "https://developer.blender.org/docs/release_notes/5.0/compositor/", "kind": "official-docs", "year": "2025"},
+    {"n": 15, "title": "Blender 5.0: Python API release notes", "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/", "kind": "official-docs", "year": "2025"},
+    {"n": 16, "title": "MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research)", "url": "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/", "kind": "vendor", "year": "2020"},
+    {"n": 17, "title": "Ward et al., Nasal Distortion in Short-Distance Photographs: The Selfie Effect (PMC)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805", "kind": "paper", "year": "2018"},
+    {"n": 18, "title": "Selfies make the nose look bigger (ScienceDaily)", "url": "https://www.sciencedaily.com/releases/2018/03/180301115349.htm", "kind": "news", "year": "2018"},
+    {"n": 19, "title": "Improve USD camera import/export and round-tripping (Blender PR 112905)", "url": "https://projects.blender.org/blender/blender/pulls/112905", "kind": "forum", "year": "2023"},
+    {"n": 20, "title": "Fix #92287 focal length when tracking vertical videos (Blender PR 114253)", "url": "https://projects.blender.org/blender/blender/pulls/114253", "kind": "forum", "year": "2023"}
   ],
   "references_by_name": [
     "Debevec & Malik, Recovering High Dynamic Range Radiance Maps from Photographs, SIGGRAPH 1997",

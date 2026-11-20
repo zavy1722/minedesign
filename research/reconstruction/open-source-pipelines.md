@@ -2,7 +2,7 @@
 
 > Every runnable open photo→3D-face pipeline is a research codebase. Each needs Linux plus an NVIDIA CUDA GPU and pinned PyTorch, and most also need model files you register to download (FLAME, BFM). Most carry non-commercial terms on the code, the weights or the rasteriser. They fall into three classes. Per-image regressors (DECA/EMOCA, MICA, SMIRK, 3DDFA_V2, Deep3DFaceRecon_pytorch, HRN, FaceVerse) take milliseconds, but they use weak-perspective or affine cameras and PCA-limited identity. Offline FLAME trackers and optimisers (metrical-tracker, VHAP, flame-head-tracker, Pixel3DMM) take about 1–2 s per frame on an RTX 4090 and are much harder to install [1][3][6]. What Blender needs from any of them is not their renders but a mesh on fixed topology (FLAME's 5,023 vertices or a known BFM crop), plus cameras and landmarks. So the add-on should treat them as optional, user-installed initialisers that run outside Blender behind a strict adapter contract. The default path should ship only permissive parts: MediaPipe, our own numpy multi-view perspective fitter, and an MPFB2-style template.
 >
-> Evidence status: 8 ✅ / 32 📄 / 47 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 8 ✅ / 36 📄 / 50 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
 
 *Provenance: this topic had no harvest file and no earlier draft. The URLs below are reused from sibling harvests in this library (multi-view-fitting, single-image-regression, identity-embeddings, facs-expressions, craniometric-landmarks, blender-face-addons, blender-version-status-2026). Everything else is author knowledge (🧠), reliable to about mid-2025.*
 
@@ -43,7 +43,7 @@
 - **MICA** predicts a metrical, neutral FLAME shape from one image, using face-recognition (ArcFace) features [12]. Most of ArcFace is frozen; only the last three ResNet blocks are fine-tuned [13]. 📄 Both links are the same paper, so they are not independent.
   - NoW: about 0.90 / 1.11 mm [11]. 📄
   - Average FLAME mesh: 1.92 mm, or 1.53 mm once scale is optimised [12]. 📄
-- **MICA demo outputs:** a mesh (PLY/OBJ) plus a `.npy` file holding the 300-dimensional identity code, which metrical-tracker reads. 🧠 I recall the demo writes vertices ×1000 (millimetres) while FLAME's native unit is metres. ↔️ Check one measurement on import.
+- **MICA demo outputs:** a mesh (PLY/OBJ) plus a `.npy` file holding the 300-dimensional identity code, which metrical-tracker reads. 🧠 The demo writes the mesh with vertices ×1000 (millimetres) [34], while FLAME's native unit is metres. 📄 Check one measurement on import.
 - **SMIRK** (CVPR 2024) trains geometry through a neural renderer [14]. Its repo snapshot showed about 396 stars and a last update of May 2024 [15]. 📄 It needs FLAME 2020, a MediaPipe landmarker file and a checkpoint hosted on Google Drive. Its encoders are small enough that CPU inference is plausible. 🧠
 - **TEASER** (2025) reportedly beats SMIRK on expression accuracy [16]. 📄 That claim is unverified against the paper's tables. ↔️
 - **3DDFA_V2** (official repo [17], paper [18]):
@@ -75,7 +75,7 @@
 **Cross-cutting install and runtime facts**
 - **Gated assets.** FLAME, BFM and the DECA/EMOCA models need a registered account. The `fetch_data.sh`-style scripts prompt for those credentials, so an add-on cannot legally bundle the files or fetch them silently. 🧠
 - **chumpy.** The FLAME `.pkl` files unpickle through chumpy. chumpy breaks with NumPy ≥ 1.24 because of removed aliases such as `np.bool`, and it also breaks on newer Python 3. Convert each `.pkl` once to `.npz`. 🧠
-- **Rasterisers.** PyTorch3D has prebuilt wheels only for some combinations of Python, torch and CUDA, so a source build takes tens of minutes. nvdiffrast compiles at first use (JIT) and carries an NVIDIA **non-commercial** source licence. ↔️
+- **Rasterisers.** PyTorch3D has prebuilt wheels only for some combinations of Python, torch and CUDA, so a source build takes tens of minutes. nvdiffrast compiles at first use (JIT) 🧠 and carries an NVIDIA Source Code License (1-Way Commercial) that limits others to non-commercial use [32][33]. 📄
 - **New GPUs vs pinned environments.** Repos pinned to PyTorch 1.x and CUDA 10/11 do not run on RTX 50-series (Blackwell) cards, which need recent CUDA 12.x builds; the usual error is "no kernel image is available". 🧠
 - **Mac and Windows.** Apple Silicon has no CUDA, so the trackers and rasterisers are effectively unavailable there. Windows users typically use WSL2. 🧠
 - **Blender's Python.** Blender ships its own Python. Installing torch into it is fragile and bloats the add-on. 🧠
@@ -208,14 +208,14 @@
 - **Myth: "on GitHub = open source = free to use."**
   - The code may be MIT (3DDFA_V2, Deep3D) while the model files (BFM, FLAME), the rasteriser (nvdiffrast) or the weights (InsightFace [21], dlib-68) are non-commercial.
   - Whether *outputs* inherit those terms depends on each licence's wording. ↔️
-- **FLAME 2023 "Open".** Is it CC BY-4.0, and does it cover the expression basis? This is unresolved across the library. ↔️
+- **FLAME 2023 "Open".** The official licence page says the CC BY 4.0 terms apply only to the FLAME 2023 Open model, and that all other FLAME models stay non-commercial [31]. 📄 Whether Open includes the full expression basis is still unconfirmed. 🧠
 - **Myth: "the tracker is end-to-end for a photo set."**
   - VHAP and metrical-tracker assume a video, or a calibrated rig, from one camera model.
   - Unordered stills with different focal lengths need our own bundle adjustment.
   - flame-head-tracker does accept single images [1].
 - **"Photometric beats landmarks."** True for video avatars [3][8], but unproven for metric identity from mixed-lighting stills. ↔️
 - **"Pixel3DMM / TEASER is best."** Each claims its gain on its own benchmark or in summaries [16]. Independent NoW or REALY confirmation is lacking. ↔️
-- **MICA output units** (mm or m in the demo files): verify on import. ↔️
+- **MICA output units**: the demo multiplies vertices by 1000, so the files are in mm [34]; verify on import. 📄
 - **Open questions:**
   - the code licences of SMIRK, VHAP, flame-head-tracker, Pixel3DMM and HRN;
   - measured VRAM for each pipeline;
@@ -254,6 +254,10 @@
 28. MPFB2 LICENSE.CODE.md — https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md — repo — n.d. (blender-face-addons harvest)
 29. 3D Face Tracking from 2D Video through Iterative Dense UV to Image Flow — https://arxiv.org/html/2404.09819v1 — paper — 2024 (multi-view-fitting harvest)
 30. MPFB on Blender Extensions — https://extensions.blender.org/add-ons/mpfb/ — extension listing — n.d. (blender-face-addons harvest)
+31. FLAME model license page — https://flame.is.tue.mpg.de/modellicense.html — official site — n.d. (verification 2026-11-20)
+32. nvdiffrast LICENSE.txt (Hugging Face mirror; 'Nvidia Source Code License (1-Way Commercial)') — https://huggingface.co/spaces/ginipick/SORA-3D/blob/e3df509037b8d7a49ea8599caebb1c08922cea96/extensions/nvdiffrast/LICENSE.txt — licence text copy — 2020 (verification 2026-11-20)
+33. microsoft/TRELLIS issue 298 on nvdiffrast licensing — https://github.com/microsoft/TRELLIS/issues/298 — issue thread — n.d. (verification 2026-11-20)
+34. Zielon/MICA demo.py — https://www.github.com/Zielon/MICA/blob/master/demo.py — source code — n.d. (verification 2026-11-20)
 
 **Further reading (by name, not yet linked)**
 - Feng, Feng, Black, Bolkart — DECA, SIGGRAPH 2021; Daněček, Black, Bolkart — EMOCA, CVPR 2022
@@ -268,3 +272,10 @@
 - Grassal et al. — Neural Head Avatars from Monocular RGB Videos, CVPR 2022
 - Ravi et al. — Accelerating 3D Deep Learning with PyTorch3D, 2020; Laine et al. — Modular Primitives for High-Performance Differentiable Rendering (nvdiffrast), SIGGRAPH Asia 2020
 - Kartynnik et al. — Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs (MediaPipe Face Mesh), CVPR-W 2019
+
+## Verification log (2026-11-20)
+
+- FLAME 2023 Open under CC BY 4.0, other FLAME models non-commercial: **confirmed** (📄) — https://flame.is.tue.mpg.de/modellicense.html [31]. The "possibly without the full expression basis" part was not addressed by the source and stays unconfirmed.
+- nvdiffrast under NVIDIA Source Code License, non-commercial for others: **confirmed** (📄), with the exact licence name "Nvidia Source Code License (1-Way Commercial)" — https://huggingface.co/spaces/ginipick/SORA-3D/blob/e3df509037b8d7a49ea8599caebb1c08922cea96/extensions/nvdiffrast/LICENSE.txt [32] (mirror of the licence text, not the official repo) and https://github.com/microsoft/TRELLIS/issues/298 [33]. Which pipelines use it was not checked.
+- MICA demo writes vertices x1000 (mm): **confirmed** (📄) — https://www.github.com/Zielon/MICA/blob/master/demo.py [34]. The 300-dimension size of identity.npy was not shown in the snippet; stays unconfirmed.
+- 3DDFA_V2 OBJ/PLY in image-pixel coordinates on a ~38,365-vertex no-neck BFM crop: **unconfirmed** (🧠) — searches found no vertex count for bfm_noneck_v3 (a different project cites 35,709 for its own BFM, and SynergyNet about 45K for a neck-free BFM). Check by counting vertices in an exported OBJ.

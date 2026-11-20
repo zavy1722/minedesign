@@ -1,7 +1,7 @@
 # Commercial photo-to-head tools
 
 > Every commercial "photo to head" product is a template fitter: it bends one fixed vendor topology inside a learned shape space until landmarks or user pins reproject onto the photos, then projects the photos as texture. Likeness is bounded by that shape space, the camera model and how many views constrain depth, and no vendor publishes millimetre error against ground-truth scans. In 2026 the field splits into a Blender-native pin fitter (KeenTools FaceBuilder), rig-ecosystem converters (Reallusion Headshot → Character Creator; Mesh to MetaHuman / MetaHuman Creator), a legacy statistical fitter (FaceGen), a scan-to-template wrapper (R3DS/Faceform Wrap), a downstream blendshape service (Polywink) and selfie-avatar SDKs (Avaturn, Avatar SDK) filling the space Ready Player Me reportedly left. They set the UX and output contracts to match (pins, per-photo cameras, camera groups, ARKit names, wrap-to-template) and expose the gap: an open, metric, auditable multi-view fit. With no harvest, everything is expert knowledge or contested recollection; prices, versions and licences are perishable.
-Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 43 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 4 ✅ / 2 📄 / 63 🧠 / 40 ↔️ — 🧠 items are queued for web verification; 4 claim groups checked 2026-11-20 (see log).
 
 ## Key facts
 
@@ -9,7 +9,7 @@ Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 43 ↔️ — 🧠 items are queued 
 - **Template + shape space + 2D constraints + camera + projection.** A pin binds an image point to a surface point; the solver minimises reprojection error over shape, expression, head pose and sometimes focal length 🧠.
 - **One photo cannot fix depth.** Single-image modes infer nasal projection, chin and forehead slope from the prior 🧠.
 - **Projected texture is not albedo:** light, shadow, specular and vignetting are baked in (`reconstruction/albedo-lighting-inverse-rendering.md`) 🧠.
-- **No independent benchmark.** I know of no peer-reviewed mm-level comparison of FaceBuilder, Headshot, MetaHuman conform or avatar SDKs against scans; evidence is vendor demos and forum impressions ↔️.
+- **No independent benchmark.** I know of no peer-reviewed mm-level comparison of FaceBuilder, MetaHuman conform or avatar SDKs against scans (Headshot 1 has one clinical study [9]); evidence is vendor demos and forum impressions; one peer-reviewed clinical study did test Headshot v1.0 (Character Creator 3) against optical face scans, whole-face RMSE 1.77 mm (perioral 1.26 mm) [9], but none found for FaceBuilder, Mesh to MetaHuman or avatar SDKs 📄 (corrected in verification).
 - **Processing location matters for consent.** FaceBuilder, FaceGen, Wrap and (I believe) Headshot run locally; the MetaHuman autorig, Polywink, Avaturn and cloud avatar SDKs process faces on vendor servers 🧠. Identifying face geometry is biometric data under GDPR Art. 9 and Illinois BIPA ↔️ (not legal advice).
 
 ### KeenTools FaceBuilder for Blender
@@ -17,7 +17,7 @@ Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 43 ↔️ — 🧠 items are queued 
 - **Pins:** neural auto-pinning ("Align face") since 2021.1, often needing manual correction (forum-sourced, same note) 🧠. Shape- and expression-rigidity settings limit how far pins pull the mesh from the prior 🧠.
 - **Expressions:** an expression mode tolerates non-neutral photos; neutral photos still fit better (forum-sourced) 🧠.
 - **Output:** fixed KeenTools topology with selectable density and optional parts (ears, eyes, neck, mouth) ↔️; several UV layouts (recalled: Butterfly, Legacy, Spherical, Maxface, MakeHuman) ↔️; texture baked from chosen views 🧠; ARKit-compatible blendshapes recalled as 51 (ARKit 52 minus `tongueOut`) with Live Link Face CSV import ↔️.
-- **Licence:** GPL Python add-on that downloads a proprietary core 🧠; paid, with a trial (a forum user mentions 30 days) and subscription pricing; tiers, price and Blender 5.x support unverified ↔️.
+- **Licence:** GPL Python add-on that downloads a proprietary core 🧠; paid, with a trial (a forum user mentions 30 days) and subscription pricing; list price contested: about US$179/yr (individual Freelancer plan, 2024 CG Channel report [5]) to US$499/yr (floating plan on the current store page [4]), and KeenTools says it raised prices [6]; Blender 5.x support and the 51-shape count unverified ↔️.
 - **Siblings:** GeoTracker (objects) and FaceTracker (facial performance on a FaceBuilder head; Blender version recalled from 2024) ↔️.
 - **Limits:** front and ¾ likeness good; profile only as good as profile photos and pins 🧠; no radial-distortion model that I know of ↔️; the low-dimensional space flattens alar shape, lid folds and vermilion border, which you must sculpt 🧠.
 
@@ -33,7 +33,7 @@ Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 43 ↔️ — 🧠 items are queued 
 - **No first-party "photo → MetaHuman"** that I know of; the usual chain is photos → FaceBuilder or photogrammetry → mesh → Mesh to MetaHuman or Creator conform ↔️.
 - **Input contract:** neutral, eyes open, lips closed, clear brow, real scale in cm, one combined textured mesh 🧠.
 - **Output:** DNA rig with RigLogic (≈250 raw expression controls; LOD0 head ≈24k vertices, recalled) 🧠.
-- **Licence:** free; since 5.6 MetaHumans reportedly fall under the UE EULA, usable in other engines and DCCs (Blender, Maya, Unity, Godot) and sellable on Fab; outside-UE royalty and seat terms unverified ↔️. The autorig needs an Epic account and cloud 🧠.
+- **Licence:** free; since UE 5.6 MetaHumans fall under the standard Unreal Engine EULA [1][2] (Creator EULA only for the cloud tool on 5.5 and earlier), usable with any engine or creative software [1] and sellable or usable in Unity or Godot [3]; the UE EULA's revenue-based terms (free under US$1M/yr, seats above) apply, and the exact license text for Blender/Unity/Fab use was not located ✅. The autorig needs an Epic account and cloud 🧠.
 - **Drift:** conform pulls toward Epic's scan database at nasal tip and alae, vermilion, lid aperture and jaw angle; 5.6's parametric model claims a wider range, unmeasured ↔️.
 
 ### FaceGen (Singular Inversions)
@@ -52,7 +52,7 @@ Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 43 ↔️ — 🧠 items are queued 
 
 ### Avaturn, Ready Player Me and successors
 - **Avaturn:** three selfies → realistic full-body avatar; GLB with a Mixamo-compatible skeleton, ARKit blendshapes and visemes; web SDK; free personal use, paid developer plans ↔️.
-- **Ready Player Me** (Wolf3D) made stylised cross-game selfie avatars with Unity and Unreal SDKs 🧠. My moderate-confidence recollection: Netflix acquired it in late 2025 and public developer services closed in early 2026 ↔️.
+- **Ready Player Me** (Wolf3D) made stylised cross-game selfie avatars with Unity and Unreal SDKs 🧠. Netflix agreed to acquire it in December 2025 [7][8] ✅; coverage reports services winding down on 31 Jan 2026 (date not pinned to a single URL, so shutdown stays unconfirmed) 🧠.
 - **Other options:** Avatar SDK / MetaPerson (itSeez3D; one selfie → realistic head or body, local SDK option), in3D (phone-video body scans), Meshcapade (SMPL-family bodies; commercial SMPL/FLAME licensing), Didimo (B2B); status and terms unverified ↔️.
 - **All target real-time avatars**, not sculpt-grade likeness: game-density meshes, smoothed features, selfie perspective baked in 🧠. Generalist image-to-3D (Tripo, Meshy, Rodin, Hunyuan3D, TRELLIS) is untopologised and non-metric (`community/ai-assisted-sculpting.md`) 🧠.
 
@@ -77,9 +77,9 @@ Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 43 ↔️ — 🧠 items are queued 
 
 | Tool | Model | Rough cost | Licence gist | Badge |
 |---|---|---|---|---|
-| FaceBuilder | subscription, trial | ~100–300 per seat-year | GPL front + closed core; outputs yours | ↔️ |
+| FaceBuilder | subscription, trial | ~180–500 per seat-year (contested, corrected in verification) [4][5][6] | GPL front + closed core; outputs yours [4] | ↔️ |
 | Character Creator + Headshot | perpetual, bundles | hundreds each | no raw base/morph redistribution | ↔️ |
-| MetaHuman | free, Epic account | 0 | UE EULA; outside-UE use since 5.6 | ↔️ |
+| MetaHuman | free, Epic account | 0 | UE EULA; outside-UE use since 5.6 [1][2][3] | ✅ |
 | FaceGen | perpetual tiers | hundreds | SDK separate | ↔️ |
 | Wrap | subscription tiers | hundreds to low thousands per year | indie revenue cap | ↔️ |
 | Polywink | per character | hundreds | third-party upload | ↔️ |
@@ -91,7 +91,7 @@ Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 43 ↔️ — 🧠 items are queued 
 |---|---|---|---|
 | Mean FLAME face, scale optimised (NoW mean) | ≈1.5 | not scored | 🧠 |
 | Best research single-image regressor (NoW median) | ≈0.9–1.2 | not scored | 🧠 |
-| Commercial single photo (Headshot photo, avatar SDKs, Face Transfer, FaceGen 1-view) | 1.2–3 | 2–6 | ↔️ |
+| Commercial single photo (Headshot photo, avatar SDKs, Face Transfer, FaceGen 1-view; Headshot 1 clinical study RMSE 1.77 mm [9]) | 1.2–3 | 2–6 | ↔️ |
 | Multi-view pin fit, 5–9 views with profiles | 0.8–2 | 1–3 | ↔️ |
 | Handheld photogrammetry + wrap | 0.5–2 | 0.5–2 | ↔️ |
 | Synchronised rig + Wrap | 0.1–0.5 | 0.1–0.5 | ↔️ |
@@ -140,11 +140,21 @@ Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 43 ↔️ — 🧠 items are queued 
 - **"One good photo is enough."** No single-image tool recovers metric depth; a scaled mean face already scores about 1.5 mm on NoW 🧠.
 - **"There is an official MetaHuman from a photo."** Not first-party to my knowledge; third-party chains such as MetahumanModeler exist (`community/blenderartists-forum.md`) ↔️.
 - **"Mesh to MetaHuman preserves the scan."** It conforms a template and autorigs from a database; drift is reported but unmeasured ↔️.
-- **Open questions** ↔️: FaceBuilder price, tiers, Blender 5.x support and blendshape count; Headshot under CC5; MetaHuman after 5.7 and exact outside-UE terms; Ready Player Me's status; Faceform branding and Wrap prices; Polywink set sizes; any independent mm-level benchmark of commercial tools.
+- **Open questions** ↔️: FaceBuilder price, tiers, Blender 5.x support and blendshape count; Headshot under CC5; MetaHuman after 5.7 and exact outside-UE terms; Ready Player Me's status; Faceform branding and Wrap prices; Polywink set sizes; any independent mm-level benchmark of FaceBuilder, Mesh to MetaHuman and avatar SDKs.
 
 ## Sources
 
-No harvested sources exist for this topic, so no URLs are cited. Related notes: `blender/metahuman-cc-bridges.md`, `blender/blender-face-addons.md`, `community/blenderartists-forum.md` (FaceBuilder release threads), `community/reddit-face-from-photos.md`, `reconstruction/photogrammetry-heads.md`, `reconstruction/single-image-regression.md`.
+1. https://www.metahuman.com/license
+2. https://www.unrealengine.com/eula/mhc
+3. https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/
+4. https://keentools.io/buy
+5. https://www.cgchannel.com/2024/03/keentools-ships-facebuilder-2024-1-for-blender/ (2024 CG Channel coverage; the search summary did not say which 2024 article carried the $179/yr figure)
+6. https://keentools.io/news/new-licensing
+7. https://techcrunch.com/2025/12/19/netflix-acquires-gaming-avatar-maker-ready-player-me/
+8. https://www.pocketgamer.biz/netflix-acquires-avatar-creation-platform-ready-player-me
+9. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9487071/
+
+Related notes: `blender/metahuman-cc-bridges.md`, `blender/blender-face-addons.md`, `community/blenderartists-forum.md` (FaceBuilder release threads), `community/reddit-face-from-photos.md`, `reconstruction/photogrammetry-heads.md`, `reconstruction/single-image-regression.md`.
 
 **Further reading (by name, not yet linked)**
 - Vendor documentation: KeenTools FaceBuilder for Blender; Reallusion Character Creator 4 manual (Headshot 2) and EULA; Epic MetaHuman docs and Unreal Engine EULA; FaceGen Modeller/SDK; R3DS/Faceform Wrap; Polywink; Avaturn; Avatar SDK
@@ -155,3 +165,10 @@ No harvested sources exist for this topic, so no URLs are cited. Related notes: 
 - Chai et al., "REALY: Rethinking the Evaluation of 3D Face Reconstruction", ECCV 2022
 - Amberg, Romdhani & Vetter, "Optimal Step Nonrigid ICP Algorithms for Surface Registration", CVPR 2007
 - Apple ARKit documentation, `ARFaceAnchor.BlendShapeLocation`
+
+## Verification log (2026-11-20)
+
+- MetaHuman 5.6 under UE EULA, usable outside UE, sellable: confirmed. https://www.metahuman.com/license ; https://www.unrealengine.com/eula/mhc ; https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/ . Revenue-based terms noted; specific Blender/Unity/Fab license text not located. No first-party photo path: unconfirmed (not searched directly).
+- FaceBuilder price and licence: contested (US$179/yr to US$499/yr; prior note said 100-300). https://keentools.io/buy ; https://keentools.io/news/new-licensing ; https://www.cgchannel.com/2024/03/keentools-ships-facebuilder-2024-1-for-blender/ . GPL add-on with proprietary core, 51 ARKit blendshapes, Live Link CSV and Blender 5.x support: unconfirmed.
+- Ready Player Me / Netflix: acquisition confirmed (December 2025). https://techcrunch.com/2025/12/19/netflix-acquires-gaming-avatar-maker-ready-player-me/ ; https://www.pocketgamer.biz/netflix-acquires-avatar-creation-platform-ready-player-me . Closure on 31 Jan 2026: reported in search summary, not tied to a URL, unconfirmed.
+- No peer-reviewed benchmark: corrected. A clinical study tested Headshot v1.0 vs optical scans (RMSE 1.77 mm). https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9487071/ . None found for FaceBuilder, Mesh to MetaHuman or avatar SDKs.

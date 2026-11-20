@@ -1,64 +1,54 @@
 # Muscles of the upper face
 
-> The upper face has one brow elevator and several depressors. Frontalis, a galea-anchored sheet with no bony attachment, is the only muscle that raises the brow. Corrugator supercilii, depressor supercilii, procerus and the orbital orbicularis oculi pull it down. Levator palpebrae superioris, with Müller's muscle, opens the lid against the palpebral orbicularis. For likeness these muscles matter less as volumes than in three other ways. Their balance sets the resting brow and lid position. Their fibre directions predict the dynamic lines: horizontal forehead lines, vertical and oblique glabellar lines, a horizontal radix line and radial crow's feet. And they contaminate the "neutral" photo through compensatory brow raising, squinting and gaze-dependent lid height. The attachments are textbook-stable except in the details (frontalis insertion, corrugator insertion, whether depressor supercilii is a muscle of its own). Quantitative muscle dimensions are scarce, so most numbers offered here as priors are expert knowledge awaiting verification.
-Evidence status: 19 ✅ / 38 📄 / 75 🧠 / 22 ↔️ — 🧠 items are queued for web verification.
+> Frontalis, anchored to the galea with no bony attachment, is the only brow elevator; corrugator, depressor supercilii, procerus and orbital orbicularis oculi all lower the brow, and levator palpebrae superioris (with Müller's muscle) opens the lid against palpebral orbicularis. For likeness their balance sets resting brow and lid position, their fibre directions predict every dynamic line, and their activity (compensatory brow raising, squint, gaze-dependent lid height) is the main contaminant of a "neutral" photo. Attachments are stable except in details that are still disputed. Measured muscle dimensions are scarce, so most numeric priors here are expert knowledge.
+Evidence status: 13 ✅ / 25 📄 / 57 🧠 / 25 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Frontalis**
-- Paired, thin, quadrilateral frontal belly of occipitofrontalis. It arises from the galea aponeurotica (anterior vs posterior part disputed) and has no bony attachment [1][2][3] ✅.
-- Insertion is reported as brow and nasal-root skin [3], the upper border of orbicularis oculi [1][2], or, in one histology study, the galea ↔️. Its lower fibres interdigitate with procerus, corrugator and orbital orbicularis and anchor in the brow dermis 🧠.
-- Fibres run vertically. It raises the brows and gathers the forehead skin into transverse lines. It is supplied by the temporal (frontal) branch of VII, and its antagonists are orbicularis oculi, corrugator and procerus [1][3] ✅.
-- Medial fibres produce AU1 (inner brow raiser) and lateral fibres AU2 (outer brow raiser) 🧠.
-- The lateral border ends near the temporal fusion line. The brow tail beyond it has no elevator but is pulled down by orbital orbicularis, which explains lateral hooding with age and why forehead lines stop short of the temple 🧠 (Knize 1996).
-- The two bellies usually leave a midline gap of variable height ("midline dehiscence"). The gap breaks or V-bends the central lines 🧠 ↔️. A cadaver series reportedly describes four frontalis shapes matching four line patterns: full and straight-parallel, or V-shaped and wavy. It is not yet confirmed 🧠 ↔️.
-- On 3D skin-displacement analysis, only the lower forehead moved upward in 53 % of an Asian cohort, which differs from an earlier study [5] 📄 ↔️. Upper-forehead mobility, and so the muscle–galea junction, varies between people.
-- Deep lines come mainly from frontalis overactivity plus ageing: elasticity loss, flattening, fat atrophy and lid ptosis [5] 📄. Wrinkle severity tracks upper-lid ptosis through compensatory frontalis activation [37] 📄. Upgaze also recruits frontalis 🧠.
+- **Attachments.** The paired, thin front belly of occipitofrontalis arises from the galea, has no bony attachment and runs vertically [1][2][3] ✅. Which part of the galea, and the insertion (brow and nasal-root skin [3], orbicularis border [1][2], or galea in one histology study), are disputed ↔️. Lower fibres interlace with procerus, corrugator and orbicularis in the brow dermis 🧠.
+- **Action and nerve.** It raises the brows and makes transverse forehead lines. Its nerve is the temporal branch of VII, and its antagonists are orbicularis oculi, corrugator and procerus [1][3] ✅. Medial fibres produce AU1 (inner brow raise), lateral fibres AU2 (outer brow raise) 🧠.
+- **Lateral border.** It stops near the temporal fusion line. Beyond it the brow tail has no elevator, only the orbicularis pulling it down. This drives lateral hooding with age, and it is why forehead lines stop short of the temple 🧠 (Knize 1996).
+- **Midline gap.** The two bellies usually leave a midline gap of variable height, which breaks the central lines or bends them into a V 🧠 ↔️. A reported four-shape cadaver classification links muscle shape to line pattern (straight-parallel vs V-shaped and wavy), but it is unconfirmed 🧠 ↔️.
+- **How much of the forehead moves.** In 53 % of an Asian cohort only the lower forehead moved upward, unlike an earlier study [5] 📄 ↔️. Upper-forehead mobility varies between people.
+- **Deep lines.** They come mainly from frontalis overactivity plus ageing [5] 📄. They track upper-lid ptosis through compensatory frontalis activity [37] 📄. Looking upward also recruits frontalis 🧠.
 
 **Corrugator supercilii**
-- A small, narrow muscle at the medial brow, arising from the medial superciliary arch [9][13] ✅, with some fibres from orbicularis [13] 📄. Its fibres run superolaterally between the palpebral and orbital orbicularis [9][10][11] ✅. It lies deep at its origin and becomes superficial as it pierces frontalis and orbicularis to reach the dermis 🧠. The 41 % piercing-both-layers figure is unconfirmed 🧠.
-- Insertion is reported as skin above the supraorbital margin [9], deep to the skin above the middle of the margin [12], or the medial forehead up to mid-brow [11] ↔️. Laterally it usually reaches about the mid-pupillary line 🧠 ↔️.
-- It usually has a larger, near-horizontal transverse head and a smaller, more vertical oblique head that is often merged with depressor supercilii 🧠. One study describes its origin as 3–4 thin rectangular panels [16] 📄 (snippet).
-- It draws the brow inferomedially, making vertical glabellar furrows [9][10] ✅. It lies deeper and extends further laterally than procerus, and is more directly tied to the vertical lines [14][15] ✅.
-- On frowning, its skin insertion puckers into a small pit above mid-brow and the brow head bunches forward over the rim 🧠.
-- It shares temporal-branch supply with frontalis and procerus [14][44] ✅. It is intimate with the supratrochlear and supraorbital nerves and vessels [17] 📄.
-- Repeated frowning and smiling increased corrugator activity and glabellar wrinkling [18] 📄.
+- **Origin and course.** It is a small, narrow muscle arising from the medial superciliary arch [9][13] ✅, with some fibres from orbicularis [13] 📄. It runs superolaterally between the palpebral and orbital orbicularis [9][10][11] ✅. It lies deep at its origin and becomes superficial where it pierces into the dermis 🧠. The figure of 41 % piercing both layers is unconfirmed 🧠.
+- **Insertion.** Sources disagree ↔️: skin above the supraorbital margin [9], deep to the skin over its middle [12], or up to mid-brow [11]. It usually reaches about the mid-pupillary line 🧠 ↔️.
+- **Heads.** It usually has a larger near-horizontal transverse head and a smaller oblique head, which is often merged with depressor supercilii 🧠. One study describes the origin as 3–4 thin panels [16] 📄.
+- **Action.** It pulls the brow inferomedially, making vertical glabellar furrows [9][10] ✅. It is deeper and reaches further laterally than procerus, and is more directly tied to the vertical lines [14][15] ✅. On frowning the skin at its insertion dimples above mid-brow, and the brow head bunches forward over the rim 🧠.
+- **Nerves and vessels.** It shares temporal-branch supply with frontalis and procerus [14][44] ✅. It lies close to the supratrochlear and supraorbital nerves and vessels [17] 📄. Repeated frowning and smiling raise its activity and deepen glabellar wrinkles [18] 📄.
 
-**Procerus**
-- A small pyramidal midline slip running from the lower nasal bone and upper-lateral-cartilage junction to glabellar or lower-forehead skin [21][22][23] ✅; the insertion level is disputed ↔️. Its vertical fibres continue upward into medial frontalis 🧠.
-- It pulls the medial brow and glabellar skin down, making horizontal radix lines that become permanent with repetition [20][21] ✅. FACS files it as "depressor glabellae" under AU4; radix lines also appear with AU9 🧠.
-
-**Depressor supercilii**
-- Runs from the medial orbital rim (frontal process of maxilla; one source adds the superciliary arch) into the skin of the medial brow [24][26][27] ✅.
-- Inserts ≈ 13–14 mm above the medial canthal tendon, has two heads in most specimens (one in a few), and is supplied by the temporal branch [25] 📄.
-- It lowers the brow head and adds oblique glabellar lines 🧠.
-- Whether it is a muscle of its own is disputed ↔️ [25]: some treat it as separate (Cook 2001; Hur & Lee 2022 per harvest), others as part of orbicularis oculi, and some as corrugator's oblique head.
-- The glabellar complex comprises procerus, corrugator, depressor supercilii and fibres of orbicularis and frontalis [20] 📄.
+**Procerus and depressor supercilii**
+- **Procerus.** A pyramidal midline slip from the lower nasal bones and upper lateral cartilages to the skin of the glabella or lower forehead [21][22][23] ✅; the exact level is disputed ↔️. It is continuous with medial frontalis 🧠.
+  - It pulls the medial brow and glabella down and makes horizontal lines across the nasal root, which become permanent with repetition [20][21] ✅.
+  - FACS names it depressor glabellae and codes it under AU4; root lines also appear in AU9 🧠.
+- **Depressor supercilii.** Runs from the medial orbital rim (frontal process of the maxilla) to the skin of the medial brow [24][26][27] ✅.
+  - It inserts ≈ 13–14 mm above the medial canthal tendon and usually has two heads; its nerve is the temporal branch [25] 📄.
+  - It lowers the brow head and adds oblique lines 🧠.
+  - Whether it is a separate muscle, part of orbicularis or corrugator's oblique head is disputed [25] ↔️.
+- **Glabellar complex.** It comprises procerus, corrugator, depressor supercilii, and fibres of orbicularis and frontalis [20] 📄.
 
 **Orbicularis oculi**
-- A superficial sphincter. The orbital part closes the eye forcefully and voluntarily; the palpebral part closes it gently and in reflex blinks [31][32] ✅ (orbital part also in [30]).
-- **Orbital part.** Arises from the nasal frontal bone, the frontal process of maxilla and the medial palpebral ligament. Its fibres form unbroken ellipses with no lateral bony attachment 🧠, and it spreads beyond the rim over frontalis, temporalis and the cheek muscles [31] 📄. It contracts toward its medial anchor: the brow comes down (it is the main lateral-brow depressor), the cheek and lower lid go up, and crow's feet form. This is AU6 🧠.
-- **Palpebral part.** Runs from the medial palpebral ligament to the lateral palpebral raphe [29][31] ✅; one source adds an origin at the lateral ligament ↔️. It divides into preseptal, pretarsal and ciliary (Riolan) parts [31] 📄. Deep pretarsal slips (Horner's muscle) reach the posterior lacrimal crest 🧠. Its actions are AU7 (lid tightener) and AU45 (blink) 🧠.
+- **Parts.** It is a superficial sphincter with two parts: orbital for forceful voluntary closure, palpebral for gentle and reflex blinking [31][32] ✅ [30].
+- **Orbital part.** Arises from the nasal part of the frontal bone, the frontal process of the maxilla and the medial palpebral ligament, forming unbroken ellipses with no lateral bony attachment 🧠. It spreads beyond the rim over frontalis, temporalis and the cheek muscles [31] 📄.
+  - It contracts toward its medial anchor. That lowers the brow (it is the main depressor of the lateral brow) and raises the cheek and lower lid, making crow's feet: AU6 🧠.
+- **Palpebral part.** Runs from the medial palpebral ligament to the lateral raphe [29][31] ✅; whether it also arises from the lateral ligament is disputed ↔️.
+  - It has preseptal, pretarsal and ciliary (Riolan) subdivisions [31] 📄. Its deep pretarsal slips (Horner's muscle) attach to the posterior lacrimal crest 🧠.
+  - Actions: AU7 (lid tightening) and AU45 (blink) 🧠.
 - **Surface forms** 🧠:
-  - the pretarsal roll under the lower lashes, larger in a smile and present at rest in some young faces (*aegyo-sal*);
-  - a faint convex ring over the infraorbital rim;
-  - crow's feet in full, upper, lower or central fans (Kane 2003). In a smile the lower fan is partly cheek push from AU12 ↔️.
+  - the pretarsal roll under the lower lashes, larger in a smile and present at rest in some young faces;
+  - the infraorbital orbicularis convexity;
+  - crow's-feet fans, classed as full, upper, lower or central (Kane 2003). In a smile the lower fan is partly cheek push from AU12 ↔️.
 
 **Levator palpebrae superioris (LPS)**
-- Arises from the lesser wing of the sphenoid above the optic canal and runs forward over superior rectus. It widens into an aponeurosis inserting on the anterior superior tarsus and the upper-lid skin [33][34][35] ✅ (also [36]). It is supplied by the superior division of CN III, with smooth Müller's (superior tarsal) muscle beneath it [34] 📄.
-- It turns from horizontal to vertical at Whitnall's ligament. Aponeurotic slips pass through orbicularis to the skin and form the lid crease. Its lateral horn splits the lacrimal gland 🧠.
-- AU5 is lid raise beyond rest. AU43 (eyes closed) is levator relaxation. AU41/42 are droop codes 🧠.
-- In many East Asian lids the septum fuses lower on the aponeurosis and preaponeurotic fat descends, so the crease is low or absent 🧠.
-- With age the aponeurosis stretches and disinserts. The result is ptosis with a high crease, a deep sulcus 🧠 and compensatory forehead lines [37] 📄.
-- The upper lid follows vertical gaze. Looking down lowers the lid and hides the crease; looking up raises it and often the brows 🧠.
+- **Course.** Arises from the lesser wing of the sphenoid above the optic canal and runs forward over superior rectus. Its aponeurosis inserts on the anterior superior tarsus and the skin of the upper lid [33][34][35] ✅ [36]. Its nerve is the superior division of CN III, and Müller's smooth muscle lies beneath it [34] 📄.
+- **Crease.** It turns vertical at Whitnall's ligament; aponeurotic slips reaching the skin form the crease. AU5 raises the lid; AU43 is levator relaxation 🧠. In many East Asian lids the septum fuses lower and fat descends, so the crease is low or absent 🧠.
+- **Ageing and gaze.** A stretched aponeurosis gives ptosis with a high crease and deep sulcus 🧠, plus compensatory forehead lines [37] 📄. The lid follows vertical gaze; downgaze lowers it and hides the crease 🧠.
 
-**Treated and modified faces**
-- Several clinical findings bear on what a photo shows:
-  - Glabella-only neuromodulator left brow position unchanged in an 18-person pilot [38] 📄.
-  - Microfocused ultrasound lifted the brow by about 2 mm [40] 📄.
-  - Glabellar contraction patterns were classified in 103 patients of African descent [39] 📄.
-  - Dosing frameworks exist [6][41][45] 📄, and co-treating corrugator and procerus is advised when frontalis drags the glabella [5] 📄.
-- Treated foreheads look flat. Some show a peaked lateral brow (the "Spock brow") or a lowered brow 🧠.
+**Treated faces**
+- Glabella-only toxin left the brow unchanged (n = 18) [38] 📄; microfocused ultrasound lifted it ≈ 2 mm [40] 📄; glabellar patterns were classed in 103 patients of African descent [39] 📄; dosing frameworks exist [6][41][45] 📄. Signs of treatment: a flat forehead, a peaked lateral "Spock" brow, or a lowered brow 🧠.
 
 ## Numbers & reference tables
 
@@ -69,7 +59,7 @@ Evidence status: 19 ✅ / 38 📄 / 75 🧠 / 22 ↔️ — 🧠 items are queue
 | Depressor supercilii insertion above medial canthal tendon | ≈ 13–14 mm | cadavers (Cook 2001; n not extracted) | [25] | 📄 |
 | Depressor supercilii heads | 2 in most, 1 in a few | same | [25] | 📄 |
 | Corrugator origin bundles | 3–4 thin panels | 2003 anatomical study (snippet) | [16] | 📄 |
-| Lower forehead only moves in frontalis contraction | 53 % | Asian cohort, 3D vector analysis | [5] | 📄 ↔️ |
+| Only lower forehead moves in frontalis contraction | 53 % | Asian cohort, 3D vector analysis | [5] | 📄 ↔️ |
 | Frown vector mainly on brow ("lateral pattern") | 89.66 % | 2025 3D study; n ≈ 29 inferred | [19] | 📄 |
 | Asymmetric frown displacement | 62.07 % | same | [19] | 📄 |
 | Brow lift after microfocused ultrasound | 1.99 mm (wk 4), 1.57 mm (wk 16) | 38 patients | [40] | 📄 |
@@ -83,18 +73,18 @@ Evidence status: 19 ✅ / 38 📄 / 75 🧠 / 22 ↔️ — 🧠 items are queue
 | Frontalis thickness | ≈ 1–2.5 mm | ultrasound; layer identity disputed [46] | ↔️ |
 | Corrugator lateral reach from midline | ≈ 25–45 mm (≈ mid-pupil) | insertion variants [9][11][12] | ↔️ |
 | Corrugator belly thickness | ≈ 1–3 mm, thickest medially | | 🧠 |
-| Forehead lines | 2–6 lines, 6–15 mm apart | matches `skin-wrinkles-microdetail.md` | ↔️ |
+| Forehead lines | 2–6 lines, 6–15 mm apart | as `skin-wrinkles-microdetail.md` | ↔️ |
 | Glabellar vertical lines | 1–3 per side, pair 8–15 mm apart | | ↔️ |
 | Crow's feet | 3–7 lines, 2–5 mm apart, ≈ 10–30 mm long | | 🧠 |
-| Maximal brow raise (AU1+2) at mid-brow | ≈ 5–15 mm | individual | 🧠 |
-| Brow head travel in frown (AU4) | ≈ 2–6 mm medial, similar downward | | 🧠 |
+| Maximal brow raise (AU1+2), mid-brow | ≈ 5–15 mm | individual | 🧠 |
+| Brow-head travel in frown (AU4) | ≈ 2–6 mm medial, similar downward | | 🧠 |
 | LPS muscle / aponeurosis length | ≈ 40 / 15–20 mm | | 🧠 |
-| Levator excursion (lid travel from down- to upgaze) | 12–18 mm normal; < 5 mm poor | | 🧠 |
+| Levator excursion (lid travel down-gaze → up-gaze) | 12–18 mm normal; < 5 mm poor | | 🧠 |
 | Müller's contribution | ≈ 2 mm (Horner ptosis 1–2 mm) | | 🧠 |
-| Upper / lower tarsus height | ≈ 8–12 / 3.5–5 mm | upper is shorter in East Asian lids | 🧠 |
+| Upper / lower tarsus height | ≈ 8–12 / 3.5–5 mm | upper shorter in East Asian lids | 🧠 |
 | Upper-lid crease above lashes | European women ≈ 8–11, men ≈ 6–9 mm; East Asian ≈ 2–6 mm or absent | | ↔️ |
 | MRD1 / MRD2 | 4–5 / ≈ 5 mm | as `eyes-modeling-blender.md` | 🧠 |
-| Lateral canthus vs medial canthus | ≈ 1–3 mm higher | tilt varies with ancestry and age | ↔️ |
+| Lateral canthus above medial | ≈ 1–3 mm | varies with ancestry, age | ↔️ |
 
 **Table 3. Fibres, actions and coding (rig and wrinkle-direction priors)**
 
@@ -102,84 +92,79 @@ Evidence status: 19 ✅ / 38 📄 / 75 🧠 / 22 ↔️ — 🧠 items are queue
 |---|---|---|---|---|---|
 | Frontalis, medial | vertical | inner brow up | AU1 | browInnerUp | horizontal, bowed up centrally |
 | Frontalis, lateral | vertical | outer brow up | AU2 | browOuterUp L/R | horizontal, lateral |
-| Corrugator | from medial origin, lateral and ≈ 10–30° upward | brow head medial and down | AU4 | browDown L/R | vertical, oblique glabellar |
-| Depressor supercilii | near-vertical | brow head down | AU4 | browDown L/R | oblique medial brow |
+| Corrugator | medial origin → lateral, ≈ 10–30° upward | brow head medial and down | AU4 | browDown L/R | vertical, oblique glabellar |
+| Depressor supercilii | near-vertical | brow head down | AU4 | browDown L/R | oblique, medial brow |
 | Procerus | vertical, midline | glabella down | AU4 (AU9) | browDown, noseSneer | horizontal radix |
 | Orbicularis, orbital | ellipses round the rim | brow down, cheek up, toward medial canthus | AU6 | cheekSquint L/R | radial crow's feet, lower lid |
-| Orbicularis, palpebral | arcs in lids | lid closure, tightening | AU7, AU45 | eyeSquint, eyeBlink | fine lid crinkles |
-| LPS | front–back in orbit, then vertical in lid | upper lid up | AU5 (AU43 = relaxed) | eyeWide | crease deepens |
+| Orbicularis, palpebral | arcs in lids | close, tighten lids | AU7, AU45 | eyeSquint, eyeBlink | fine lid crinkles |
+| LPS | front–back in orbit, vertical in lid | upper lid up | AU5 (AU43 relaxed) | eyeWide | crease deepens |
 
-Muscle-to-AU and AU-to-ARKit mappings agree with `anatomy/facs-expressions.md`.
+Mappings agree with `anatomy/facs-expressions.md`.
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Get a true resting brow.** Have the subject close their eyes, relax the forehead, then open the eyes slowly without lifting the brows, with the camera at eye height. Shooting from below or asking the subject to "look up" recruits frontalis. Hooded or ptotic lids raise the brows chronically [37], and so does taking off glasses. Use diffuse light to avoid squinting (AU4/6/7) 🧠.
-2. **Shoot an expression set.** AU1, AU2, AU1+2, AU4, AU5, AU6, AU7, eyes gently closed, and one smile. Any line visible in neutral is static and belongs in the base mesh. A line that appears only with an AU belongs in that AU's shape key or normal map. The set also shows the subject's own patterns: forehead lines (full, central or interrupted), glabellar shape (de Almeida: U, V, omega, converging arrows, inverted omega) and crow's-feet fan 🧠.
-3. **Ask about treatment.** Toxin, fillers, brow lifts, threads or microfocused ultrasound can shift the brow by about 2 mm [40] and erase lines [38]. A flat forehead with a peaked lateral brow means toxin, not anatomy 🧠.
-4. **Measure per side** on the camera-matched frontal view, at the subject's real gaze. Scale with the iris (HVID ≈ 11.7 mm). Record: brow head, peak and tail relative to the bony rim and pupil; MRD1 and MRD2; crease height; tarsal platform show; brow fat span. Brows differing by 1–3 mm are common and usually real. Check the gaze before reading lid values: a downward gaze of 10° visibly lowers the upper lid 🧠.
-5. **Sculpt in layers** with one Face Set per region (frontalis L/R, glabella, brow pad, upper lid, pretarsal lower lid, orbital ring). Work in this order: bone (rim, superciliary arch, glabella) → fat (brow pad/ROOF, central forehead) → muscle signatures → skin. 🧠 Muscle signatures are subtle:
-   - in lean or bald men, two broad frontalis swells with a shallow midline groove;
-   - a glabellar mound in chronic frowners;
-   - the pretarsal roll;
-   - the infraorbital orbicularis convexity.
-6. **Wrinkles follow fibres.** Lay lines perpendicular to the pull: forehead lines arch with the brow and stop at the temporal fusion lines; the glabellar "11s" are near-vertical and may converge downward; the procerus line crosses the radix near the canthal level; crow's feet radiate from the lateral canthus. Paint a fibre-direction guide on the reference with an annotation layer first, then cut with the Crease or Draw Sharp brushes 🧠.
-7. **Shape keys.** Make separate L/R keys for AU1, AU2, AU4, AU5, AU6, AU7 and blink, plus correctives for the combinations AU1+4 (Darwin's "grief" brow) and AU1+2+4 (fear). Rotate lids about the globe centre; never translate them. Frontalis keys slide the forehead over the bone and should not inflate it 🧠.
-8. **What goes wrong** 🧠:
-   - brows built from brow-hair shadow;
-   - forehead lines or raised brows baked into neutral;
-   - a squint baked in from sunlight;
-   - mirrored brows;
-   - crow's feet from a smiling reference on a young face;
-   - lids with no thickness, or lids clipping into the cornea;
-   - a crease modelled on a crease-less lid;
-   - lid height misread because the gaze was down;
-   - a toxin-flattened forehead taken as identity.
+1. **Capture a true resting brow.** Ask the subject to close the eyes, relax, then open slowly without lifting the brows, with the camera at eye height 🧠.
+   - Low cameras, "look up" cues, hooded or ptotic lids [37], and removed glasses all trigger frontalis 🧠.
+   - Use diffuse light to prevent squinting (AU4/6/7) 🧠.
+2. **Capture an expression set:** AU1, AU2, AU1+2, AU4, AU5, AU6, AU7, eyes gently closed, and a smile. Use it to separate the two kinds of line 🧠:
+   - lines visible in neutral are static and go in the base mesh;
+   - lines that appear only with an AU go in that AU's key or normal map.
+   
+   The set also shows the subject's own patterns: forehead lines (full, central or interrupted), glabellar shape (de Almeida: U, V, omega, converging arrows, inverted omega) and crow's-feet fan 🧠.
+3. **Ask about treatment.** Toxin and energy devices move the brow by about 2 mm [40] and erase lines [38]. A flat forehead with peaked tails is treatment, not anatomy 🧠.
+4. **Measure each side** on the camera-matched frontal view, scaled by the iris (HVID ≈ 11.7 mm): brow head, peak and tail against rim and pupil; MRD1/MRD2; crease height; tarsal platform show; brow fat span 🧠. A 1–3 mm brow asymmetry is usually real. Check gaze before reading lid values, since downgaze lowers the upper lid 🧠.
+5. **Sculpt in layers,** with one Face Set per region: each frontalis half, glabella, brow pad, upper lid, pretarsal lower lid, orbital ring 🧠.
+   - Order: bone (rim, superciliary arch) → fat (brow pad/ROOF) → muscle signatures → skin.
+   - The muscle signatures are subtle: twin frontalis swells with a midline groove in lean or bald men, a glabellar mound in chronic frowners, the pretarsal roll, and the infraorbital convexity.
+6. **Cut wrinkles across the fibres** with the Crease or Draw Sharp brush 🧠. Annotate the fibre directions on the reference first.
+   - Forehead lines arch with the brow and stop at the temporal fusion lines.
+   - The glabellar "11s" are near-vertical, often converging downward.
+   - The procerus line crosses the radix near canthal level.
+   - Crow's feet radiate from the lateral canthus.
+7. **Build shape keys** with L/R pairs for AU1, AU2, AU4, AU5, AU6, AU7 and blink 🧠.
+   - Add correctives for AU1+4 (the oblique "grief" brow) and AU1+2+4.
+   - Rotate the lids about the globe centre rather than translating them.
+   - Frontalis keys slide the forehead over bone; they do not inflate it.
+8. **What goes wrong** 🧠: brows built from brow-hair shadow; raised brows, forehead lines or a sun squint baked into neutral; mirrored brows; smile-reference crow's feet on a young neutral; paper-thin lids clipping the cornea; a crease on a crease-less lid; lid height misread from downgaze; a toxin-flattened forehead taken as identity.
 
 ## Algorithmic implications
 
-- **Landmarks.** `face3d/synthetic.py` has `brow_inner`, `brow_outer`, `glabella`, `nasion`, `endocanthion`, `exocanthion` and `pupil`. Add `brow_peak_L/R`, `upper_lid_apex_L/R`, `lower_lid_nadir_L/R`, `crease_apex_L/R` and a bone-layer `supraorbitale_L/R`.
-  - Brow points are hair features: give them σ 3–5 mm for bone and use them fully only for the brow curve, as in `forehead-brow-temple-hairline.md`.
-  - MediaPipe indices (0-based; verify per model): brows 70/63/105/66/107 and 300/293/334/296/336; lids 159/145 and 386/374; canthi 33/133 and 263/362; iris 468/473 🧠.
-- **Expression basis grounded in fibre lines.** Define each AU on the template as a vertex mask plus a displacement field along the muscle's line (Table 3):
-  - frontalis: +y, peak at the brow, decaying to 0 at a per-subject `galea_junction_height`, plus `frontalis_upper_mobility` ∈ [0, 1] with a prior that favours low values [5];
-  - corrugator: insertion moves toward the origin (left side roughly −0.93x −0.34y +0.1z);
-  - procerus and depressor supercilii: −y at the glabella and brow head;
+- **Landmarks.** Extend `face3d/synthetic.py` (`brow_inner`, `brow_outer`, `glabella`, `nasion`, canthi, `pupil`) with `brow_peak_L/R`, `upper_lid_apex_L/R`, `lower_lid_nadir_L/R`, `crease_apex_L/R` and a bone-layer `supraorbitale_L/R`.
+  - Treat brows as hair: σ 3–5 mm for bone, as in `forehead-brow-temple-hairline.md`.
+  - MediaPipe indices (0-based, verify): brows 70/63/105/66/107 and 300/293/334/296/336; lids 159/145 and 386/374; iris 468/473 🧠.
+- **Expression basis along fibres.** Give each AU a vertex mask plus a displacement field along its muscle line (Table 3) 🧠:
+  - frontalis: +y, peaking at the brow and falling to zero at a per-subject `galea_junction_height`, with `frontalis_upper_mobility` ∈ [0, 1] and a prior skewed low [5];
+  - corrugator: insertion moves toward origin, ≈ (−0.93, −0.34, +0.1) on the left side;
+  - procerus and depressor supercilii: −y;
   - orbital orbicularis: contraction toward a point near the medial canthus;
-  - lids: rotations about the eyeball centre.
+  - lids: rotation about the globe centre.
 
   Project this subspace out of the identity fit.
-- **Sliding, not stretching.** Forehead tissue glides on the subgaleal plane. For expression warps, constrain forehead vertices to move tangentially to an offset bone surface (normal σ ≈ 0.3 mm, tangential free within AU limits) 🧠.
-- **Lid constraints.** Keep lid margins on a sphere of globe radius plus ≈ 0.5–1 mm. Couple upper-lid elevation to eye pitch at close to 1:1 in angle over moderate gaze 🧠. Hinge penalty on sclera above the iris unless at least 2 views show it.
-- **Priors** (adults, Gaussian, mm; 🧠 unless cited; widen σ when sex or ancestry is unknown):
-  - MRD1 4.5 ± 1; MRD2 5 ± 1;
-  - crease height 8 ± 2 (European women), 7 ± 2 (European men), 4 ± 2.5 (East Asian, with a Bernoulli "no crease" switch), or 6.5 ± 3 when unknown ↔️;
-  - L–R brow height difference 0 ± 1.5;
-  - depressor supercilii insertion 13.5 ± 2 above the medial canthal tendon [25];
-  - corrugator lateral end 35 ± 7 from the midline ↔️;
-  - AU weights in neutral frames under an L2 prior with σ 0.1, clamped AU1+2 brow travel ≤ 15, AU4 brow-head travel ≤ 8.
-- **Neutral gate.** Score each frame on forehead-line energy, brow height against the subject's multi-frame median, glabellar line energy, lower-lid elevation and lid aperture. Drop brow or forehead residuals when brow height exceeds 2.5 mm over the median or brow blendshapes exceed 0.2–0.3 (consistent with `facs-expressions.md`) 🧠.
-- **Warp stiffness** (relative, heuristic 🧠): lid margins 3.0, upper tarsal plate 2.0 (near-rigid), medial canthus 2.5, lateral canthus 1.5, brow 0.7, forehead 0.5 with sliding, glabella 0.4 with a crease allowance.
-- **Wrinkle synthesis.** Store a per-vertex orientation field (forehead horizontal and following the brow, glabella vertical, radix horizontal, crow's feet radial about exocanthion). Generate AU-driven normal maps perpendicular to it. Keep separate parameters for static and dynamic lines.
-- **Asymmetry.** Fit left and right separately with a soft symmetry prior. Frowns are asymmetric in 62 % of one sample [19], so never symmetrize dynamic keys.
+- **Sliding, not stretching.** The forehead glides on the subgaleal plane. Constrain expression warps to motion tangential to an offset bone surface, with normal σ ≈ 0.3 mm 🧠.
+- **Lids** 🧠:
+  - keep margins on a sphere of globe radius + 0.5–1 mm;
+  - couple upper-lid elevation to eye pitch at close to 1:1 in angle over moderate gaze;
+  - add a hinge penalty on sclera above the iris unless ≥ 2 views show it.
+- **Priors** (Gaussian, mm, adults; widen σ when sex or ancestry is unknown) 🧠: MRD1 4.5 ± 1; MRD2 5 ± 1; crease 8 ± 2 (European women), 7 ± 2 (men), 4 ± 2.5 (East Asian, plus a Bernoulli "no crease" term), 6.5 ± 3 if unknown ↔️; L–R brow difference 0 ± 1.5; depressor supercilii insertion 13.5 ± 2 [25]; corrugator lateral end 35 ± 7 from midline ↔️; neutral-frame AU weights σ 0.1; clamps: brow raise ≤ 15, frown brow-head travel ≤ 8.
+- **Neutral gate.** Score each frame on forehead and glabellar line energy, brow height against the subject's multi-frame median, lower-lid lift and aperture. Drop brow and forehead residuals when brow height is more than 2.5 mm above the median, or brow blendshapes exceed 0.2–0.3 🧠.
+- **Warp stiffness** (relative, heuristic) 🧠: lid margins 3.0, upper tarsus 2.0, medial canthus 2.5, lateral canthus 1.5, brow 0.7, forehead 0.5 (sliding), glabella 0.4 with a crease allowance.
+- **Wrinkles.** Store a per-vertex orientation field (forehead horizontal, glabella vertical, radix horizontal, crow's feet radial about exocanthion). Generate AU-driven normal maps perpendicular to it, and keep static and dynamic lines as separate parameters 🧠.
+- **Asymmetry.** Fit each side separately under a soft symmetry prior. Frowns were asymmetric in 62 % of one sample [19], so never symmetrize the dynamic keys.
 
 ## Disagreements, myths & open questions
 
-- **Attachments** ↔️:
-  - frontalis origin and insertion [1][2][3];
-  - corrugator insertion [9][11][12];
-  - procerus insertion level [21][23];
-  - palpebral orbicularis origin (medial only [29] or both ligaments [31]);
-  - depressor supercilii as a muscle of its own [25].
-- **Forehead motion and layers** ↔️: lower-forehead-only motion [5] vs an earlier study; whether a thick hypoechoic ultrasound layer is frontalis or fat [46].
-- **Brow ageing** ↔️: classic lateral descent (Knize) vs photographic stability or a medial rise through frontalis compensation (Matros 2009); see `aging-face.md`.
-- **Myth: "the brow is lowered only by corrugator."** Procerus, depressor supercilii and above all orbital orbicularis lower it, and the latter alone acts on the brow tail 🧠.
-- **Myth: "frowning uses more muscles than smiling."** There is no anatomical basis for the muscle counts quoted 🧠.
-- **Myth: "crow's feet are purely orbicularis."** Smile-driven lower crow's feet partly come from AU12 cheek push 🧠 ↔️.
-- **Myth: "AU6 is a reliable marker of genuine smiles."** This is contested; see `facs-expressions.md` ↔️.
+- **Attachments** ↔️: frontalis [1][2][3], corrugator insertion [9][11][12], procerus level [21][23], palpebral origin ([29] vs [31]), depressor supercilii as a muscle of its own [25].
+- **Forehead** ↔️: lower-forehead-only motion [5] vs an earlier study; ultrasound frontalis vs fat [46].
+- **Brow ageing** ↔️: lateral descent (Knize) vs stability or medial rise (Matros 2009); see `aging-face.md`.
+- **Myths** 🧠:
+  - "Corrugator alone lowers the brow." Orbital orbicularis is the main depressor of the brow tail.
+  - "Frowning uses more muscles than smiling." The counts have no anatomical basis.
+  - "Crow's feet are purely orbicularis." The lower fan is partly AU12 ↔️.
+  - "AU6 marks genuine smiles." Contested; see `facs-expressions.md` ↔️.
 - **Open questions:**
-  - in-vivo thickness, length and fibre-angle data for every muscle here (the harvest found none);
-  - full text for the four-shape frontalis classification, the 41 % corrugator figure, n and definitions in [19], and Hur & Lee 2022;
-  - ancestry differences in corrugator and frontalis patterns ([39] is a start);
+  - in-vivo thickness, length and fibre angles for all these muscles;
+  - full text behind the four-shape frontalis claim, the 41 % figure, [19]'s n, and Hur & Lee 2022;
+  - ancestry differences [39];
   - gaze–lid coupling coefficients;
   - no community (Polycount, BlenderArtists) material was retrieved.
 

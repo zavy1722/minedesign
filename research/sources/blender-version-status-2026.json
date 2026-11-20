@@ -1,25 +1,167 @@
 {
   "topic": "blender-version-status-2026",
   "sources": [
-    {"n": 1, "title": "Blender 5.0 — Blender", "url": "https://www.blender.org/releases/5-0/", "kind": "official-docs", "year": "2025"},
-    {"n": 2, "title": "Blender 5.0 Release Notes - Blender Developer Documentation", "url": "https://developer.blender.org/docs/release_notes/5.0/", "kind": "official-docs", "year": "2025"},
-    {"n": 3, "title": "Blender 5.0: Python API", "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/", "kind": "official-docs", "year": "2025"},
-    {"n": 4, "title": "Blender 5.0: Corrective Releases", "url": "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/", "kind": "official-docs", "year": "2025"},
-    {"n": 5, "title": "Index - Blender Developer Documentation (compatibility)", "url": "https://developer.blender.org/docs/release_notes/compatibility/", "kind": "official-docs", "year": "n.d."},
-    {"n": 6, "title": "5.2 LTS — Blender", "url": "https://www.blender.org/download/releases/5-2/", "kind": "official-docs", "year": "2026"},
-    {"n": 7, "title": "Blender 5.2 LTS — Blender", "url": "https://www.blender.org/releases/5-2/", "kind": "official-docs", "year": "2026"},
-    {"n": 8, "title": "Blender 5.2 LTS Release — Blender (press)", "url": "https://www.blender.org/press/blender-5-2-lts-release/", "kind": "official-docs", "year": "2026"},
-    {"n": 9, "title": "Projects to Look Forward to in 2026 — Blender", "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/", "kind": "official-docs", "year": "2026"},
-    {"n": 10, "title": "5.2 LTS - blender - Blender Projects (milestone)", "url": "https://projects.blender.org/blender/blender/milestone/33", "kind": "repo", "year": "2026"},
-    {"n": 11, "title": "5.0 - blender - Blender Projects (milestone)", "url": "https://projects.blender.org/blender/blender/milestone/20", "kind": "repo", "year": "2025"},
-    {"n": 12, "title": "Blender Release Notes - Blender Developer Documentation (index)", "url": "https://developer.blender.org/docs/release_notes/", "kind": "official-docs", "year": "n.d."},
-    {"n": 13, "title": "Release Notes — Blender (index)", "url": "https://www.blender.org/download/releases/", "kind": "official-docs", "year": "n.d."},
-    {"n": 14, "title": "Cameras - Blender 5.3 Manual (via reference-camera-setup harvest)", "url": "https://docs.blender.org/manual/en/latest/render/cameras.html", "kind": "official-docs", "year": "2026"},
-    {"n": 15, "title": "Principled BSDF - Blender 5.3 Manual (via skin-shading harvest)", "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html", "kind": "official-docs", "year": "2026"},
-    {"n": 16, "title": "Fragid/face-shapekey-rig (GitHub) (via blender-face-addons harvest)", "url": "https://github.com/Fragid/face-shapekey-rig", "kind": "repo", "year": "n.d."},
-    {"n": 17, "title": "Faceit: Facial Expressions and Performance Capture (Superhive) (via blender-face-addons harvest)", "url": "https://superhivemarket.com/products/faceit", "kind": "commercial", "year": "n.d."},
-    {"n": 18, "title": "MPFB version history, Blender Extensions (via blender-face-addons harvest)", "url": "https://extensions.blender.org/add-ons/mpfb/versions/", "kind": "official-listing", "year": "2026"},
-    {"n": 19, "title": "VGCLUB/facefit-mpfb (FaceFit MPFB2 Blender add-on prototype) (via craniometric-landmarks harvest)", "url": "https://github.com/VGCLUB/facefit-mpfb", "kind": "repo", "year": "n.d."}
+    {
+      "n": 1,
+      "title": "Blender 5.0 — Blender",
+      "url": "https://www.blender.org/releases/5-0/",
+      "kind": "official-docs",
+      "year": "2025"
+    },
+    {
+      "n": 2,
+      "title": "Blender 5.0 Release Notes - Blender Developer Documentation",
+      "url": "https://developer.blender.org/docs/release_notes/5.0/",
+      "kind": "official-docs",
+      "year": "2025"
+    },
+    {
+      "n": 3,
+      "title": "Blender 5.0: Python API",
+      "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/",
+      "kind": "official-docs",
+      "year": "2025"
+    },
+    {
+      "n": 4,
+      "title": "Blender 5.0: Corrective Releases",
+      "url": "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/",
+      "kind": "official-docs",
+      "year": "2025"
+    },
+    {
+      "n": 5,
+      "title": "Index - Blender Developer Documentation (compatibility)",
+      "url": "https://developer.blender.org/docs/release_notes/compatibility/",
+      "kind": "official-docs",
+      "year": "n.d."
+    },
+    {
+      "n": 6,
+      "title": "5.2 LTS — Blender",
+      "url": "https://www.blender.org/download/releases/5-2/",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 7,
+      "title": "Blender 5.2 LTS — Blender",
+      "url": "https://www.blender.org/releases/5-2/",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 8,
+      "title": "Blender 5.2 LTS Release — Blender (press)",
+      "url": "https://www.blender.org/press/blender-5-2-lts-release/",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 9,
+      "title": "Projects to Look Forward to in 2026 — Blender",
+      "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 10,
+      "title": "5.2 LTS - blender - Blender Projects (milestone)",
+      "url": "https://projects.blender.org/blender/blender/milestone/33",
+      "kind": "repo",
+      "year": "2026"
+    },
+    {
+      "n": 11,
+      "title": "5.0 - blender - Blender Projects (milestone)",
+      "url": "https://projects.blender.org/blender/blender/milestone/20",
+      "kind": "repo",
+      "year": "2025"
+    },
+    {
+      "n": 12,
+      "title": "Blender Release Notes - Blender Developer Documentation (index)",
+      "url": "https://developer.blender.org/docs/release_notes/",
+      "kind": "official-docs",
+      "year": "n.d."
+    },
+    {
+      "n": 13,
+      "title": "Release Notes — Blender (index)",
+      "url": "https://www.blender.org/download/releases/",
+      "kind": "official-docs",
+      "year": "n.d."
+    },
+    {
+      "n": 14,
+      "title": "Cameras - Blender 5.3 Manual (via reference-camera-setup harvest)",
+      "url": "https://docs.blender.org/manual/en/latest/render/cameras.html",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 15,
+      "title": "Principled BSDF - Blender 5.3 Manual (via skin-shading harvest)",
+      "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 16,
+      "title": "Fragid/face-shapekey-rig (GitHub) (via blender-face-addons harvest)",
+      "url": "https://github.com/Fragid/face-shapekey-rig",
+      "kind": "repo",
+      "year": "n.d."
+    },
+    {
+      "n": 17,
+      "title": "Faceit: Facial Expressions and Performance Capture (Superhive) (via blender-face-addons harvest)",
+      "url": "https://superhivemarket.com/products/faceit",
+      "kind": "commercial",
+      "year": "n.d."
+    },
+    {
+      "n": 18,
+      "title": "MPFB version history, Blender Extensions (via blender-face-addons harvest)",
+      "url": "https://extensions.blender.org/add-ons/mpfb/versions/",
+      "kind": "official-listing",
+      "year": "2026"
+    },
+    {
+      "n": 19,
+      "title": "VGCLUB/facefit-mpfb (FaceFit MPFB2 Blender add-on prototype) (via craniometric-landmarks harvest)",
+      "url": "https://github.com/VGCLUB/facefit-mpfb",
+      "kind": "repo",
+      "year": "n.d."
+    },
+    {
+      "n": 20,
+      "title": "Library changes for Blender 5.1 (#147201)",
+      "url": "https://projects.blender.org/blender/blender/issues/147201",
+      "kind": "repo",
+      "year": "2025"
+    },
+    {
+      "n": 21,
+      "title": "Deps: Library changes for Blender 5.1 (PR #149852)",
+      "url": "https://projects.blender.org/blender/blender/pulls/149852",
+      "kind": "repo",
+      "year": "2025"
+    },
+    {
+      "n": 22,
+      "title": "Library changes for Blender 5.2 LTS (#153974)",
+      "url": "https://projects.blender.org/blender/blender/issues/153974",
+      "kind": "repo",
+      "year": "2026"
+    },
+    {
+      "n": 23,
+      "title": "Blender 5.3",
+      "url": "https://www.blender.org/releases/5-3/",
+      "kind": "official-docs",
+      "year": "2026"
+    }
   ],
   "references_by_name": [
     "Blender Python API reference, incl. 'Gotchas' pages (bpy, mathutils, gpu, foreach_get)",

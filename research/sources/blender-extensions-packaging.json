@@ -1,43 +1,216 @@
 {
-  "topic": "blender-extensions-packaging",
-  "sources": [
-    {"n": 1, "title": "MPFB, Blender Extensions listing (via blender-face-addons harvest)", "url": "https://extensions.blender.org/add-ons/mpfb/", "kind": "official-listing", "year": "n.d."},
-    {"n": 2, "title": "MPFB version history, Blender Extensions (via blender-face-addons harvest)", "url": "https://extensions.blender.org/add-ons/mpfb/versions/", "kind": "official-listing", "year": "2026"},
-    {"n": 3, "title": "mpfb2 LICENSE.CODE.md (via blender-face-addons harvest)", "url": "https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md", "kind": "repo", "year": "n.d."},
-    {"n": 4, "title": "makehumancommunity/mpfb2 (via blender-face-addons harvest)", "url": "https://github.com/makehumancommunity/mpfb2", "kind": "repo", "year": "n.d."},
-    {"n": 5, "title": "Face Shape Key Rig (Blender Extensions) (via blender-face-addons harvest)", "url": "https://extensions.blender.org/add-ons/face-shapekey-rig/", "kind": "official-listing", "year": "n.d."},
-    {"n": 6, "title": "Fragid/face-shapekey-rig (via blender-face-addons harvest)", "url": "https://github.com/Fragid/face-shapekey-rig", "kind": "repo", "year": "n.d."},
-    {"n": 7, "title": "H0wZy/captureforge, GPL-3.0 Blender extension suite (via blender-face-addons harvest)", "url": "https://github.com/H0wZy/captureforge", "kind": "repo", "year": "n.d."},
-    {"n": 8, "title": "Simple Camera Match, Blender Extensions listing (via portrait-lighting-compare harvest)", "url": "https://extensions.blender.org/add-ons/simple-camera-match/", "kind": "official-listing", "year": "n.d."},
-    {"n": 9, "title": "voki6/perspective-match, Blender extension porting fSpy's solver (via reference-camera-setup harvest)", "url": "https://github.com/voki6/perspective-match", "kind": "repo", "year": "n.d."},
-    {"n": 10, "title": "Blender 5.0: Python API (via blender-version-status-2026 harvest)", "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/", "kind": "official-docs", "year": "2025"},
-    {"n": 11, "title": "Blender 5.0: Corrective Releases (via blender-version-status-2026 harvest)", "url": "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/", "kind": "official-docs", "year": "2025"},
-    {"n": 12, "title": "5.2 LTS — Blender, download/releases (via blender-version-status-2026 harvest)", "url": "https://www.blender.org/download/releases/5-2/", "kind": "official-docs", "year": "2026"},
-    {"n": 13, "title": "Blender 5.2 LTS (via blender-version-status-2026 harvest)", "url": "https://www.blender.org/releases/5-2/", "kind": "official-docs", "year": "2026"},
-    {"n": 14, "title": "Release Notes — Blender, index (via blender-version-status-2026 harvest)", "url": "https://www.blender.org/download/releases/", "kind": "official-docs", "year": "n.d."},
-    {"n": 15, "title": "Blender Release Notes — Developer Documentation, index (via blender-version-status-2026 harvest)", "url": "https://developer.blender.org/docs/release_notes/", "kind": "official-docs", "year": "n.d."},
-    {"n": 16, "title": "Compatibility index — Blender Developer Documentation (via blender-version-status-2026 harvest)", "url": "https://developer.blender.org/docs/release_notes/compatibility/", "kind": "official-docs", "year": "n.d."},
-    {"n": 17, "title": "InsightFace model zoo docs (via identity-embeddings harvest)", "url": "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md", "kind": "repo", "year": "n.d."},
-    {"n": 18, "title": "peizhiyan/flame-head-tracker (via multi-view-fitting harvest)", "url": "https://github.com/peizhiyan/flame-head-tracker", "kind": "repo", "year": "n.d."},
-    {"n": 19, "title": "philgras/video-head-tracker, CC BY-NC 3.0 (via multi-view-fitting harvest)", "url": "https://github.com/philgras/video-head-tracker", "kind": "repo", "year": "n.d."},
-    {"n": 20, "title": "VGCLUB/facefit-mpfb, FaceFit MPFB2 add-on prototype (via craniometric-landmarks harvest)", "url": "https://github.com/VGCLUB/facefit-mpfb", "kind": "repo", "year": "n.d."},
-    {"n": 21, "title": "Projects to Look Forward to in 2026 — Blender (via blender-version-status-2026 harvest)", "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/", "kind": "official-docs", "year": "2026"},
-    {"n": 22, "title": "Faceit: Facial Expressions and Performance Capture, Superhive (via blender-face-addons harvest)", "url": "https://superhivemarket.com/products/faceit", "kind": "commercial", "year": "n.d."},
-    {"n": 23, "title": "wangyifan349/insightface-face-similarity, third-party README (via identity-embeddings harvest)", "url": "https://github.com/wangyifan349/insightface-face-similarity", "kind": "repo", "year": "n.d."}
-  ],
-  "references_by_name": [
-    "Blender Extensions developer handbook: Getting started, Manifest, Python Wheels, Command-line arguments, Creating an extensions repository",
-    "extensions.blender.org Terms of Service and extension guidelines/policies",
-    "Blender Manual: Command Line Arguments; Add-ons and Extensions preferences",
-    "Blender Python API reference: bpy.utils.extension_path_user, bpy.app.online_access",
-    "GNU General Public License v3 text",
-    "FSF, Frequently Asked Questions about the GNU Licenses (plugins, aggregation, license compatibility)",
-    "SPDX License List",
-    "REUSE specification (FSFE)",
-    "Python Packaging User Guide: platform compatibility tags; PEP 425, PEP 600 (manylinux), PEP 384 (stable ABI)",
-    "fake-bpy-module (PyPI)",
-    "bpy module on PyPI",
-    "NumPy 2.0 migration guide and downstream ABI notes",
-    "GDPR Article 9 (special categories incl. biometric data)"
-  ]
+ "topic": "blender-extensions-packaging",
+ "sources": [
+  {
+   "n": 1,
+   "title": "MPFB, Blender Extensions listing (via blender-face-addons harvest)",
+   "url": "https://extensions.blender.org/add-ons/mpfb/",
+   "kind": "official-listing",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "MPFB version history, Blender Extensions (via blender-face-addons harvest)",
+   "url": "https://extensions.blender.org/add-ons/mpfb/versions/",
+   "kind": "official-listing",
+   "year": "2026"
+  },
+  {
+   "n": 3,
+   "title": "mpfb2 LICENSE.CODE.md (via blender-face-addons harvest)",
+   "url": "https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "makehumancommunity/mpfb2 (via blender-face-addons harvest)",
+   "url": "https://github.com/makehumancommunity/mpfb2",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Face Shape Key Rig (Blender Extensions) (via blender-face-addons harvest)",
+   "url": "https://extensions.blender.org/add-ons/face-shapekey-rig/",
+   "kind": "official-listing",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Fragid/face-shapekey-rig (via blender-face-addons harvest)",
+   "url": "https://github.com/Fragid/face-shapekey-rig",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "H0wZy/captureforge, GPL-3.0 Blender extension suite (via blender-face-addons harvest)",
+   "url": "https://github.com/H0wZy/captureforge",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Simple Camera Match, Blender Extensions listing (via portrait-lighting-compare harvest)",
+   "url": "https://extensions.blender.org/add-ons/simple-camera-match/",
+   "kind": "official-listing",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "voki6/perspective-match, Blender extension porting fSpy's solver (via reference-camera-setup harvest)",
+   "url": "https://github.com/voki6/perspective-match",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Blender 5.0: Python API (via blender-version-status-2026 harvest)",
+   "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "n": 11,
+   "title": "Blender 5.0: Corrective Releases (via blender-version-status-2026 harvest)",
+   "url": "https://developer.blender.org/docs/release_notes/5.0/corrective_releases/",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "n": 12,
+   "title": "5.2 LTS \u2014 Blender, download/releases (via blender-version-status-2026 harvest)",
+   "url": "https://www.blender.org/download/releases/5-2/",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 13,
+   "title": "Blender 5.2 LTS (via blender-version-status-2026 harvest)",
+   "url": "https://www.blender.org/releases/5-2/",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 14,
+   "title": "Release Notes \u2014 Blender, index (via blender-version-status-2026 harvest)",
+   "url": "https://www.blender.org/download/releases/",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "Blender Release Notes \u2014 Developer Documentation, index (via blender-version-status-2026 harvest)",
+   "url": "https://developer.blender.org/docs/release_notes/",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Compatibility index \u2014 Blender Developer Documentation (via blender-version-status-2026 harvest)",
+   "url": "https://developer.blender.org/docs/release_notes/compatibility/",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "InsightFace model zoo docs (via identity-embeddings harvest)",
+   "url": "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 18,
+   "title": "peizhiyan/flame-head-tracker (via multi-view-fitting harvest)",
+   "url": "https://github.com/peizhiyan/flame-head-tracker",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 19,
+   "title": "philgras/video-head-tracker, CC BY-NC 3.0 (via multi-view-fitting harvest)",
+   "url": "https://github.com/philgras/video-head-tracker",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "VGCLUB/facefit-mpfb, FaceFit MPFB2 add-on prototype (via craniometric-landmarks harvest)",
+   "url": "https://github.com/VGCLUB/facefit-mpfb",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "Projects to Look Forward to in 2026 \u2014 Blender (via blender-version-status-2026 harvest)",
+   "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 22,
+   "title": "Faceit: Facial Expressions and Performance Capture, Superhive (via blender-face-addons harvest)",
+   "url": "https://superhivemarket.com/products/faceit",
+   "kind": "commercial",
+   "year": "n.d."
+  },
+  {
+   "n": 23,
+   "title": "wangyifan349/insightface-face-similarity, third-party README (via identity-embeddings harvest)",
+   "url": "https://github.com/wangyifan349/insightface-face-similarity",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 24,
+   "title": "How to Create Extensions, Blender 5.2 LTS Manual",
+   "url": "https://docs.blender.org/manual/en/latest/advanced/extensions/getting_started.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 25,
+   "title": "Extension manifest schema 1.0.0",
+   "url": "https://developer.blender.org/docs/features/extensions/schema/1.0.0/",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 26,
+   "title": "Terms of Service, Blender Extensions",
+   "url": "https://extensions.blender.org/terms-of-service/",
+   "kind": "official",
+   "year": "2026"
+  },
+  {
+   "n": 27,
+   "title": "Python Wheels, Blender 5.2 LTS Manual",
+   "url": "https://docs.blender.org/manual/en/latest/advanced/extensions/python_wheels.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 28,
+   "title": "Blender 5.1: Python API",
+   "url": "https://developer.blender.org/docs/release_notes/5.1/python_api/",
+   "kind": "official-docs",
+   "year": "2026"
+  }
+ ],
+ "references_by_name": [
+  "Blender Extensions developer handbook: Getting started, Manifest, Python Wheels, Command-line arguments, Creating an extensions repository",
+  "extensions.blender.org Terms of Service and extension guidelines/policies",
+  "Blender Manual: Command Line Arguments; Add-ons and Extensions preferences",
+  "Blender Python API reference: bpy.utils.extension_path_user, bpy.app.online_access",
+  "GNU General Public License v3 text",
+  "FSF, Frequently Asked Questions about the GNU Licenses (plugins, aggregation, license compatibility)",
+  "SPDX License List",
+  "REUSE specification (FSFE)",
+  "Python Packaging User Guide: platform compatibility tags; PEP 425, PEP 600 (manylinux), PEP 384 (stable ABI)",
+  "fake-bpy-module (PyPI)",
+  "bpy module on PyPI",
+  "NumPy 2.0 migration guide and downstream ABI notes",
+  "GDPR Article 9 (special categories incl. biometric data)"
+ ]
 }

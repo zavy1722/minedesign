@@ -4,41 +4,221 @@
     {
       "name": "manifest_keys",
       "units": "n/a (key, required flag, example, constraint)",
-      "columns": ["key", "required", "example", "constraint", "row_status"],
+      "columns": [
+        "key",
+        "required",
+        "example",
+        "constraint",
+        "row_status"
+      ],
       "rows": [
-        ["schema_version", true, "1.0.0", "only schema version known", "knowledge"],
-        ["id", true, "face_likeness_fit", "Python-identifier-like; becomes bl_ext.<repo>.<id>; never rename", "knowledge"],
-        ["version", true, "0.3.0", "semver MAJOR.MINOR.PATCH; must increase per upload", "knowledge"],
-        ["name", true, "Face Likeness Fit", "display name", "knowledge"],
-        ["tagline", true, "Fit a sculpt-ready head to photos of a consenting person", "max 64 chars, no trailing punctuation", "knowledge"],
-        ["maintainer", true, "Name <email>", "name plus email", "knowledge"],
-        ["type", true, "add-on", "add-on | theme", "knowledge"],
-        ["blender_version_min", true, "4.2.0", ">= 4.2.0 (extension format introduced in 4.2)", "knowledge"],
-        ["blender_version_max", false, "6.0.0", "exclusive upper bound (first unsupported version)", "knowledge"],
-        ["license", true, ["SPDX:GPL-3.0-or-later"], "list of SPDX ids with 'SPDX:' prefix; GPL-compatible for extensions.blender.org", "knowledge"],
-        ["copyright", false, ["2026 Project contributors"], "required by some licences", "knowledge"],
-        ["website", false, null, "URL", "knowledge"],
-        ["tags", false, ["Sculpt", "Modeling", "Camera"], "fixed vocabulary per type; validated at build", "knowledge"],
-        ["platforms", false, ["windows-x64", "windows-arm64", "macos-x64", "macos-arm64", "linux-x64"], "omit = all platforms; arm64 values to verify", "contested"],
-        ["wheels", false, ["./wheels/name-ver-cp311-cp311-win_amd64.whl"], "paths relative to manifest", "knowledge"],
-        ["permissions", false, {"files": "Read reference photos and write landmark sidecar files"}, "keys: files, network, clipboard, camera, microphone; value = short reason", "knowledge"],
-        ["build.paths_exclude_pattern", false, ["__pycache__/", "/.git/", "/*.zip", "/dev/"], "gitignore-style patterns", "knowledge"]
+        [
+          "schema_version",
+          true,
+          "1.0.0",
+          "only schema version known",
+          "confirmed"
+        ],
+        [
+          "id",
+          true,
+          "face_likeness_fit",
+          "Python-identifier-like; becomes bl_ext.<repo>.<id>; never rename",
+          "knowledge"
+        ],
+        [
+          "version",
+          true,
+          "0.3.0",
+          "semver MAJOR.MINOR.PATCH; must increase per upload",
+          "knowledge"
+        ],
+        [
+          "name",
+          true,
+          "Face Likeness Fit",
+          "display name",
+          "knowledge"
+        ],
+        [
+          "tagline",
+          true,
+          "Fit a sculpt-ready head to photos of a consenting person",
+          "max 64 chars, no trailing punctuation",
+          "confirmed"
+        ],
+        [
+          "maintainer",
+          true,
+          "Name <email>",
+          "name plus email",
+          "knowledge"
+        ],
+        [
+          "type",
+          true,
+          "add-on",
+          "add-on | theme",
+          "knowledge"
+        ],
+        [
+          "blender_version_min",
+          true,
+          "4.2.0",
+          ">= 4.2.0 (extension format introduced in 4.2)",
+          "knowledge"
+        ],
+        [
+          "blender_version_max",
+          false,
+          "6.0.0",
+          "exclusive upper bound (first unsupported version)",
+          "confirmed"
+        ],
+        [
+          "license",
+          true,
+          [
+            "SPDX:GPL-3.0-or-later"
+          ],
+          "list of SPDX ids with 'SPDX:' prefix; add-ons on extensions.blender.org must be GPL v3-or-later",
+          "confirmed"
+        ],
+        [
+          "copyright",
+          false,
+          [
+            "2026 Project contributors"
+          ],
+          "required by some licences",
+          "knowledge"
+        ],
+        [
+          "website",
+          false,
+          null,
+          "URL",
+          "knowledge"
+        ],
+        [
+          "tags",
+          false,
+          [
+            "Sculpt",
+            "Modeling",
+            "Camera"
+          ],
+          "fixed vocabulary per type; validated at build",
+          "knowledge"
+        ],
+        [
+          "platforms",
+          false,
+          [
+            "windows-x64",
+            "windows-arm64",
+            "macos-x64",
+            "macos-arm64",
+            "linux-x64"
+          ],
+          "omit = all platforms; windows-arm64 listed in docs, linux-arm64 not listed",
+          "confirmed"
+        ],
+        [
+          "wheels",
+          false,
+          [
+            "./wheels/name-ver-cp311-cp311-win_amd64.whl"
+          ],
+          "paths relative to manifest",
+          "knowledge"
+        ],
+        [
+          "permissions",
+          false,
+          {
+            "files": "Read reference photos and write landmark sidecar files"
+          },
+          "keys: files, network, clipboard, camera, microphone; value = short reason",
+          "confirmed"
+        ],
+        [
+          "build.paths_exclude_pattern",
+          false,
+          [
+            "__pycache__/",
+            "/.git/",
+            "/*.zip",
+            "/dev/"
+          ],
+          "gitignore-style patterns",
+          "knowledge"
+        ]
       ],
       "population": "Blender 4.2-5.3 extension manifest schema 1.0.0",
-      "source_urls": ["https://extensions.blender.org/add-ons/mpfb/versions/"],
-      "status": "knowledge",
+      "source_urls": [
+        "https://extensions.blender.org/add-ons/mpfb/versions/",
+        "https://docs.blender.org/manual/en/latest/advanced/extensions/getting_started.html",
+        "https://developer.blender.org/docs/features/extensions/schema/1.0.0/",
+        "https://extensions.blender.org/terms-of-service/"
+      ],
+      "status": "partially confirmed",
       "notes": "Schema is expert knowledge; only the 4.2 LTS floor precedent (MPFB lists 4.2 LTS and newer) is sourced. Character limits and the tag vocabulary need verification against the Extensions handbook."
     },
     {
       "name": "platform_to_wheel_tag",
       "units": "n/a",
-      "columns": ["manifest_platform", "wheel_platform_tags", "notes", "row_status"],
+      "columns": [
+        "manifest_platform",
+        "wheel_platform_tags",
+        "notes",
+        "row_status"
+      ],
       "rows": [
-        ["linux-x64", ["manylinux_2_17_x86_64", "manylinux_2_28_x86_64"], "Blender Linux builds assume glibc >= 2.28; wheel glibc tag must be <= 2_28", "knowledge"],
-        ["windows-x64", ["win_amd64"], "watch MAX_PATH 260 under %APPDATA%", "knowledge"],
-        ["windows-arm64", ["win_arm64"], "only in newer Blender builds; acceptance in manifest to verify", "contested"],
-        ["macos-arm64", ["macosx_11_0_arm64", "universal2"], "Apple Silicon", "knowledge"],
-        ["macos-x64", ["macosx_10_9_x86_64", "macosx_11_0_x86_64", "universal2"], "Intel Mac builds reportedly end with 4.5", "contested"]
+        [
+          "linux-x64",
+          [
+            "manylinux_2_17_x86_64",
+            "manylinux_2_28_x86_64"
+          ],
+          "Blender Linux builds assume glibc >= 2.28; wheel glibc tag must be <= 2_28",
+          "knowledge"
+        ],
+        [
+          "windows-x64",
+          [
+            "win_amd64"
+          ],
+          "watch MAX_PATH 260 under %APPDATA%",
+          "knowledge"
+        ],
+        [
+          "windows-arm64",
+          [
+            "win_arm64"
+          ],
+          "only in newer Blender builds; acceptance in manifest to verify",
+          "contested"
+        ],
+        [
+          "macos-arm64",
+          [
+            "macosx_11_0_arm64",
+            "universal2"
+          ],
+          "Apple Silicon",
+          "knowledge"
+        ],
+        [
+          "macos-x64",
+          [
+            "macosx_10_9_x86_64",
+            "macosx_11_0_x86_64",
+            "universal2"
+          ],
+          "Intel Mac builds reportedly end with 4.5",
+          "contested"
+        ]
       ],
       "population": "Official Blender builds",
       "source_urls": [],
@@ -48,50 +228,205 @@
     {
       "name": "ci_support_windows",
       "units": "dates (YYYY-MM or YYYY-MM-DD)",
-      "columns": ["blender_line", "track", "released", "support_end", "python_abi", "row_status", "source_urls"],
+      "columns": [
+        "blender_line",
+        "track",
+        "released",
+        "support_end",
+        "python_abi",
+        "row_status",
+        "source_urls"
+      ],
       "rows": [
-        ["4.5", "LTS", "2025-07", "2027-07", "cp311", "sourced", ["https://www.blender.org/download/releases/"]],
-        ["5.2", "LTS", "2026-07-14", "2028-07", "unconfirmed", "verified", ["https://www.blender.org/download/releases/5-2/", "https://www.blender.org/releases/5-2/", "https://github.com/Fragid/face-shapekey-rig"]],
-        ["5.3", "feature", "2026-11-10", null, "unconfirmed", "sourced", ["https://developer.blender.org/docs/release_notes/"]]
+        [
+          "4.5",
+          "LTS",
+          "2025-07",
+          "2027-07",
+          "cp311",
+          "sourced",
+          [
+            "https://www.blender.org/download/releases/"
+          ]
+        ],
+        [
+          "5.2",
+          "LTS",
+          "2026-07-14",
+          "2028-07",
+          "unconfirmed",
+          "verified",
+          [
+            "https://www.blender.org/download/releases/5-2/",
+            "https://www.blender.org/releases/5-2/",
+            "https://github.com/Fragid/face-shapekey-rig"
+          ]
+        ],
+        [
+          "5.3",
+          "feature",
+          "2026-11-10",
+          null,
+          "unconfirmed",
+          "sourced",
+          [
+            "https://developer.blender.org/docs/release_notes/"
+          ]
+        ]
       ],
       "population": "Blender release lines in support on 2026-11-20",
-      "source_urls": ["https://www.blender.org/download/releases/", "https://www.blender.org/download/releases/5-2/", "https://developer.blender.org/docs/release_notes/"],
+      "source_urls": [
+        "https://www.blender.org/download/releases/",
+        "https://www.blender.org/download/releases/5-2/",
+        "https://developer.blender.org/docs/release_notes/"
+      ],
       "status": "sourced",
       "notes": "5.2 'verified' means its existence (first-party pages plus a third-party add-on requiring 5.2); dates are single-publisher. 4.5 release month and cp311 are expert knowledge."
     },
     {
       "name": "dependency_candidates",
       "units": "MB per platform wheel (order of magnitude)",
-      "columns": ["package", "licence", "wheel_mb_min", "wheel_mb_max", "gpl3_compatible", "verdict", "row_status"],
+      "columns": [
+        "package",
+        "licence",
+        "wheel_mb_min",
+        "wheel_mb_max",
+        "gpl3_compatible",
+        "verdict",
+        "row_status"
+      ],
       "rows": [
-        ["numpy", "BSD-3-Clause", 15, 20, true, "never bundle; Blender ships it", "knowledge"],
-        ["scipy", "BSD-3-Clause", 30, 40, true, "avoid; its minimum NumPy must be <= Blender's", "knowledge"],
-        ["opencv-python-headless", "Apache-2.0", 30, 50, true, "not in core", "knowledge"],
-        ["onnxruntime (CPU)", "MIT", 5, 15, true, "optional platform-split wheel", "knowledge"],
-        ["mediapipe", "Apache-2.0", 30, 50, true, "out of process only (heavy deps)", "knowledge"],
-        ["Pillow", "HPND / MIT-CMU", 2, 5, true, "unnecessary; parse EXIF in pure Python", "knowledge"],
-        ["InsightFace buffalo_l w600k_r50.onnx (model)", "non-commercial (reported)", 166, 166, false, "never bundle", "sourced"]
+        [
+          "numpy",
+          "BSD-3-Clause",
+          15,
+          20,
+          true,
+          "never bundle; Blender ships it",
+          "knowledge"
+        ],
+        [
+          "scipy",
+          "BSD-3-Clause",
+          30,
+          40,
+          true,
+          "avoid; its minimum NumPy must be <= Blender's",
+          "knowledge"
+        ],
+        [
+          "opencv-python-headless",
+          "Apache-2.0",
+          30,
+          50,
+          true,
+          "not in core",
+          "knowledge"
+        ],
+        [
+          "onnxruntime (CPU)",
+          "MIT",
+          5,
+          15,
+          true,
+          "optional platform-split wheel",
+          "knowledge"
+        ],
+        [
+          "mediapipe",
+          "Apache-2.0",
+          30,
+          50,
+          true,
+          "out of process only (heavy deps)",
+          "knowledge"
+        ],
+        [
+          "Pillow",
+          "HPND / MIT-CMU",
+          2,
+          5,
+          true,
+          "unnecessary; parse EXIF in pure Python",
+          "knowledge"
+        ],
+        [
+          "InsightFace buffalo_l w600k_r50.onnx (model)",
+          "non-commercial (reported)",
+          166,
+          166,
+          false,
+          "never bundle",
+          "sourced"
+        ]
       ],
       "population": "PyPI wheels / model files relevant to a face-fitting add-on",
-      "source_urls": ["https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md", "https://github.com/wangyifan349/insightface-face-similarity"],
+      "source_urls": [
+        "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md",
+        "https://github.com/wangyifan349/insightface-face-similarity"
+      ],
       "status": "knowledge",
       "notes": "Only the InsightFace row is sourced (third-party README size; secondary licence claim). Other sizes are rough recollections; check current PyPI file listings. Apache-2.0 is GPLv3-compatible but not GPLv2-only-compatible."
     },
     {
       "name": "headless_cli_flags",
       "units": "n/a",
-      "columns": ["flag_or_env", "effect", "row_status"],
+      "columns": [
+        "flag_or_env",
+        "effect",
+        "row_status"
+      ],
       "rows": [
-        ["-b / --background", "run without UI; no event loop, timers and modal operators do not run", "knowledge"],
-        ["--factory-startup", "ignore user preferences and startup.blend", "knowledge"],
-        ["--python-exit-code N", "exit with N on uncaught Python exception; default 0 = disabled", "knowledge"],
-        ["-P file / --python file", "run script", "knowledge"],
-        ["--python-expr EXPR", "run expression", "knowledge"],
-        ["--offline-mode / --online-mode", "force bpy.app.online_access", "knowledge"],
-        ["-noaudio", "disable audio init (containers)", "knowledge"],
-        ["--", "end of Blender args; rest goes to sys.argv", "knowledge"],
-        ["BLENDER_USER_RESOURCES", "relocate all user dirs (config, scripts, extensions)", "knowledge"],
-        ["--command extension validate|build|install-file|server-generate|list", "extension tooling; build --split-platforms; install-file -r <repo> -e (enable)", "knowledge"]
+        [
+          "-b / --background",
+          "run without UI; no event loop, timers and modal operators do not run",
+          "knowledge"
+        ],
+        [
+          "--factory-startup",
+          "ignore user preferences and startup.blend",
+          "knowledge"
+        ],
+        [
+          "--python-exit-code N",
+          "exit with N on uncaught Python exception; default 0 = disabled",
+          "knowledge"
+        ],
+        [
+          "-P file / --python file",
+          "run script",
+          "knowledge"
+        ],
+        [
+          "--python-expr EXPR",
+          "run expression",
+          "knowledge"
+        ],
+        [
+          "--offline-mode / --online-mode",
+          "force bpy.app.online_access",
+          "knowledge"
+        ],
+        [
+          "-noaudio",
+          "disable audio init (containers)",
+          "knowledge"
+        ],
+        [
+          "--",
+          "end of Blender args; rest goes to sys.argv",
+          "knowledge"
+        ],
+        [
+          "BLENDER_USER_RESOURCES",
+          "relocate all user dirs (config, scripts, extensions)",
+          "knowledge"
+        ],
+        [
+          "--command extension validate|build|install-file|server-generate|list",
+          "extension tooling; build --split-platforms; install-file -r <repo> -e (enable)",
+          "knowledge"
+        ]
       ],
       "population": "Blender 4.2+ command line",
       "source_urls": [],
@@ -101,25 +436,114 @@
     {
       "name": "suggested_budgets_and_test_tolerances",
       "units": "as stated",
-      "columns": ["quantity", "value", "units", "row_status"],
+      "columns": [
+        "quantity",
+        "value",
+        "units",
+        "row_status"
+      ],
       "rows": [
-        ["core zip size (code + tables)", 5, "MB max", "knowledge"],
-        ["core zip with template mesh", 25, "MB max", "knowledge"],
-        ["optional platform zip", 50, "MB max", "knowledge"],
-        ["register() wall time", 100, "ms max", "knowledge"],
-        ["synthetic head scale s (bizygomatic)", 0.14, "m", "knowledge"],
-        ["synthetic camera distance", [0.5, 1.5], "m", "knowledge"],
-        ["synthetic focal length (35 mm equiv)", [50, 85], "mm", "knowledge"],
-        ["synthetic cameras", [3, 5], "count", "knowledge"],
-        ["synthetic landmarks", [68, 100], "count", "knowledge"],
-        ["noiseless reprojection RMS threshold", 1e-06, "px", "knowledge"],
-        ["noiseless vertex RMS threshold", 1e-06, "x s", "knowledge"],
-        ["noisy test sigma", 1.0, "px", "knowledge"],
-        ["noisy reprojection RMS fail threshold", 1.2, "x sigma", "knowledge"],
-        ["golden-file rtol", 1e-05, "relative", "knowledge"]
+        [
+          "core zip size (code + tables)",
+          5,
+          "MB max",
+          "knowledge"
+        ],
+        [
+          "core zip with template mesh",
+          25,
+          "MB max",
+          "knowledge"
+        ],
+        [
+          "optional platform zip",
+          50,
+          "MB max",
+          "knowledge"
+        ],
+        [
+          "register() wall time",
+          100,
+          "ms max",
+          "knowledge"
+        ],
+        [
+          "synthetic head scale s (bizygomatic)",
+          0.14,
+          "m",
+          "knowledge"
+        ],
+        [
+          "synthetic camera distance",
+          [
+            0.5,
+            1.5
+          ],
+          "m",
+          "knowledge"
+        ],
+        [
+          "synthetic focal length (35 mm equiv)",
+          [
+            50,
+            85
+          ],
+          "mm",
+          "knowledge"
+        ],
+        [
+          "synthetic cameras",
+          [
+            3,
+            5
+          ],
+          "count",
+          "knowledge"
+        ],
+        [
+          "synthetic landmarks",
+          [
+            68,
+            100
+          ],
+          "count",
+          "knowledge"
+        ],
+        [
+          "noiseless reprojection RMS threshold",
+          1e-06,
+          "px",
+          "knowledge"
+        ],
+        [
+          "noiseless vertex RMS threshold",
+          1e-06,
+          "x s",
+          "knowledge"
+        ],
+        [
+          "noisy test sigma",
+          1.0,
+          "px",
+          "knowledge"
+        ],
+        [
+          "noisy reprojection RMS fail threshold",
+          1.2,
+          "x sigma",
+          "knowledge"
+        ],
+        [
+          "golden-file rtol",
+          1e-05,
+          "relative",
+          "knowledge"
+        ]
       ],
       "population": "Suggested defaults for this project's CI, not measured values",
-      "source_urls": ["https://developer.blender.org/docs/release_notes/5.0/python_api/"],
+      "source_urls": [
+        "https://developer.blender.org/docs/release_notes/5.0/python_api/"
+      ],
       "status": "knowledge",
       "notes": "Expected noisy RMS approx sigma*sqrt(1 - p/n) for p parameters and n residuals. Never bit-exact goldens: the 5.0 mathutils buffer path is float32 and BLAS differs per platform."
     }
