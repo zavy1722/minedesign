@@ -126,6 +126,13 @@
       "url": "https://www.openlab.psu.edu/ansur2/",
       "kind": "official-docs",
       "year": "2014"
+    },
+    {
+      "n": 22,
+      "title": "3D Facial Norms Technical Notes (FaceBase)",
+      "url": "https://www.facebase.org/resources/human/facial_norms/notes/",
+      "kind": "official-docs",
+      "year": "n.d."
     }
   ],
   "references_by_name": [

@@ -14,7 +14,7 @@ A partial verification pass ran on 2026-11-20 (see the log at the end). The harv
 - **Farkas's international study** (Farkas, Katic, Forrest et al., J Craniofac Surg 2005;16(4):615–646, exists [19] 📄; the study used 14 measurements [19] 📄 [20]; the figures of roughly 1,470 young adults and about 25 populations were not confirmed 🧠) found, per its abstract summary, nose width significantly greater in Asian and Black groups than NAW, so NAW values do not represent other groups [19] 📄.
 - **Inter-ethnic review** (Fang, Clapham & Chung, 2011): 11 neoclassical measurements, 2,359 people, 27 groups, compared by CV; forehead height varied most [5] 📄. Wen et al.'s 2015 Bayesian meta-analysis is a separate work [6] 📄.
 - **3DFN**: 2,454 people aged 3–40 (952 M, 1,502 F), cross-sectional, one record per person, captured by stereophotogrammetry [1][2] ✅.
-  - Summary-level landmarks, measurements and demographics can be downloaded freely; individual-level data need a Data Access Request [2] 📄.
+  - Summary-level landmarks, measurements and demographics can be downloaded freely; individual-level data (measurements, landmark coordinates, 3D surfaces) need a Data Access Request to the FaceBase Data Access Committee [2][22] 📄.
   - It ships sex-specific 3D growth curves and a MATLAB toolbox [2] 📄, and reports 34 inter-landmark measurements [1] 📄.
   - Participants are described as healthy Caucasian (a Pittsburgh project page says about 2,500 Caucasians aged 3–40) [18] 📄, captured with 3dMD at several US sites (FaceBase says three main sites, the CPCJ paper four) [1][2] ↔️. It therefore adds no population diversity over Farkas.
 - **3DFN vs Farkas**: the differences are considerable. The authors attribute them partly to measurement method, and possibly to secular trend and ethnic mix [3] 📄.
@@ -196,6 +196,7 @@ A partial verification pass ran on 2026-11-20 (see the log at the end). The harv
 [19] Farkas et al., International anthropometric study of facial morphology in various ethnic groups/races (J Craniofac Surg 2005) — https://avesis.omu.edu.tr/yayin/8ae669cb-3f4f-4b93-bcf5-b3193aeefce1/international-anthropometric-study-of-facial-morphology-in-various-ethnic-groups-races — paper (record) — 2005
 [20] Farkas et al. 2005 abstract record (14 measurements; nose very/extremely wide in Asian and Black groups vs NAW) — https://acikerisim.omu.edu.tr/entities/publication/faa15b82-bd5a-4e41-b1a1-b11d0ae6a11e — paper (record) — 2005
 [21] Penn State OpenLab ANSUR II page (public data 4,082 M / 1,986 F; 2012 survey report NATICK/TR-15/007, DTIC) — https://www.openlab.psu.edu/ansur2/ ; https://apps.dtic.mil/sti/pdfs/ADA611869.pdf — official-docs — 2014
+[22] 3D Facial Norms Technical Notes (FaceBase): summary-level phenotypic data non-controlled; individual-level data via DAR to the Data Access Committee — https://www.facebase.org/resources/human/facial_norms/notes/ — official-docs — n.d.
 
 **Further reading (by name, not yet linked)**
 - Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., Raven Press, 1994 (1st ed. 1981).
@@ -232,3 +233,10 @@ No claim list was supplied with the task, so the most load-bearing, searchable c
 - Farkas 2005 international study: 14 measurements confirmed (📄); ~1,470 subjects and ~25 populations unconfirmed (🧠); nose very/extremely wider in Asian and Black groups vs NAW confirmed qualitatively, Middle Eastern nose width equal to NAW. Table 5 magnitudes (+2 to +6 etc.) unconfirmed, left 🧠 ↔️. https://acikerisim.omu.edu.tr/entities/publication/faa15b82-bd5a-4e41-b1a1-b11d0ae6a11e
 - ANSUR II sample size: contested. Public release is 4,082 M / 1,986 F; the full survey report (NATICK/TR-15/007) cites 7,435 M / 3,922 F. https://www.openlab.psu.edu/ansur2/ , https://apps.dtic.mil/sti/pdfs/ADA611869.pdf
 - Head length/breadth means and CV (g–op, eu–eu): unconfirmed; ANSUR means not retrievable from search results. Left 🧠.
+
+## Verification log, pass 2 (2026-11-20)
+
+1 of 2 searches used.
+
+- FaceBase 3DFN access (summary-level open, individual-level by Data Access Request): confirmed (📄, now also [22]); individual-level data cover measurements, landmark coordinates and 3D surfaces; genotypic data are controlled. https://www.facebase.org/resources/human/facial_norms/notes/
+- Headspace (~1,500 3dMD head scans) under research licence: unconfirmed; the search returned nothing on Headspace or University of York licensing. Left 🧠.

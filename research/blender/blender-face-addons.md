@@ -1,7 +1,7 @@
 # Blender add-ons for heads and faces
 
 > No Blender add-on in this evidence set fits a specific person's identity to photos with open code, open data and a commercial-safe licence; that is the gap this project fills. The ecosystem has three layers: landmark capture (MediaPipe: 468 points, 478 refined), parametric base humans (MPFB2/MakeHuman is the only actively released option with GPL-3-or-later code and CC0/CC-BY assets; FLAME is research-licensed; MB-Lab, CharMorph and Human Generator are legacy, niche or proprietary-content), and expression/rig tools converging on ARKit 52 (Faceit, CaptureForge, Face Shape Key Rig, Auto-Rig Pro, Rigify). KeenTools FaceBuilder is the closed-core, commercial incumbent for photo→head. Recommended: fit identity on a frozen MPFB2 topology, store it as one neutral shape key or MPFB target, add detail with Multires, and leave expressions to the ARKit layer; version rows are perishable (5.2 LTS and 5.3 are current per `blender/blender-version-status-2026.md`).
-Evidence status: 4 ✅ / 34 📄 / 49 🧠 / 4 ↔️ — verified 2026-11-20 (see log); remaining 🧠 items are still unverified.
+Evidence status: 4 ✅ / 36 📄 / 49 🧠 / 4 ↔️ — verified 2026-11-20 (see logs, pass 2 added FaceBuilder pricing/trial); remaining 🧠 items are still unverified.
 
 ## Key facts
 
@@ -37,7 +37,7 @@ Evidence status: 4 ✅ / 34 📄 / 49 🧠 / 4 ↔️ — verified 2026-11-20 (s
 - **ICT-FaceKit** (USC ICT, Li et al. 2020) 🧠: morphable head with ~100 identity components and ~53 ARKit-style expression shapes under the MIT licence; the most commercial-friendly FLAME alternative I know of. Verify licence and counts.
 
 ### Photo→head: FaceBuilder and alternatives
-- **KeenTools FaceBuilder** 🧠: pin-based fit of a fixed KeenTools head topology to several photos, texture projection, ARKit-compatible blendshapes; GPL Python front-end that downloads a proprietary core library; subscription with trial. The library note `community/blenderartists-forum.md` records (single forum source) neural auto-pinning since 2021.1, per-photo focal estimation and expression-tolerant fitting, with manual pin fixes still needed. Siblings: FaceTracker and GeoTracker for video.
+- **KeenTools FaceBuilder** subscription with a 15-day no-restriction trial; Freelancer $19.99/month monthly or $15.99/month billed yearly, Studio $699/year, commercial use allowed; separate licence per platform [21] 📄. Rest of this bullet 🧠 (GPL front-end/closed core, ARKit blendshapes and EULA terms on exported meshes not found in the pass-2 results): pin-based fit of a fixed KeenTools head topology to several photos, texture projection, ARKit-compatible blendshapes; GPL Python front-end that downloads a proprietary core library; subscription with trial. The library note `community/blenderartists-forum.md` records (single forum source) neural auto-pinning since 2021.1, per-photo focal estimation and expression-tolerant fitting, with manual pin fixes still needed. Siblings: FaceTracker and GeoTracker for video.
 - Alternatives 🧠: (a) photogrammetry (Meshroom/AliceVision MPL-2.0, COLMAP BSD, RealityScan) then wrap a template; (b) FLAME regressors outside Blender (see `reconstruction/single-image-regression.md`, `reconstruction/multi-view-fitting.md`), mostly non-commercial; (c) Character Creator Headshot + CC Blender Tools; (d) MetaHuman (Mesh to MetaHuman), whose 2025 licence change reportedly allows use outside Unreal; (e) fSpy (GPL) + its Blender importer for single-image camera calibration; (f) native modifiers: Shrinkwrap, Surface Deform, Laplacian Deform (anchor-constrained), Data Transfer.
 - **Extensions platform** (4.2+) 🧠: `blender_manifest.toml`; GPL-compatible code licence (`SPDX:GPL-3.0-or-later`); bundled platform-specific wheels; declared `permissions` (`files`, `network`, `clipboard`, `camera`, `microphone`) with reasons; legacy add-ons still install from disk.
 
@@ -90,7 +90,7 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 | CharMorph | GPL-3 | per character | free | parametric body | 🧠 |
 | Human Generator | GPL (presumed) | proprietary | paid | realistic humans | 🧠 |
 | Auto-Rig Pro | GPL (presumed) | — | paid | body + bone face rig | 🧠 |
-| FaceBuilder | GPL front + closed core | EULA | subscription | photo→head | 🧠 |
+| FaceBuilder | GPL front + closed core | EULA | subscription, 15-day trial [21] | photo→head | 🧠 code/EULA, 📄 cost [21] |
 | ICT-FaceKit | MIT | MIT | free | PCA head + ARKit-style shapes | 🧠 |
 
 **Table 5 — ARKit 52 by region** 🧠 (total 52 matches [8] 📄)
@@ -178,6 +178,8 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 [18] MakeHuman Community licence — https://static.makehumancommunity.org/about/license.html — official docs — n.d.
 [19] MakeHuman asset packs — https://static.makehumancommunity.org/assets/assetpacks.html — official docs — n.d.
 [20] MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research) — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/ — official blog — 2020
+
+[21] FaceBuilder for Blender (KeenTools) — https://keentools.io/products/facebuilder-for-blender — official product page — n.d.
 
 **Further reading (by name, not yet linked)**
 - Kartynnik, Ablavatski, Grishchenko, Grundmann, "Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs", 2019 (MediaPipe Face Mesh).
