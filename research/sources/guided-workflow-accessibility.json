@@ -1,6 +1,32 @@
 {
   "topic": "guided-workflow-accessibility",
-  "sources": [],
+  "sources": [
+    {
+      "n": 1,
+      "title": "BSI - Open Source Face Image Quality 1.0 (OFIQ 1.0)",
+      "url": "https://www.bsi.bund.de/dok/OFIQ1-e"
+    },
+    {
+      "n": 2,
+      "title": "Epic - MetaHuman Creator in Unreal Engine (integrated from UE 5.6)",
+      "url": "https://dev.epicgames.com/documentation/metahuman/metahuman-creator-in-unreal-engine"
+    },
+    {
+      "n": 3,
+      "title": "Blender 4.1 Python API release notes (.sculpt_mask attribute)",
+      "url": "https://wiki.blender.org/release_notes/4.1/python_api/"
+    },
+    {
+      "n": 4,
+      "title": "Google - MediaPipe Face Landmarker guide",
+      "url": "https://ai.google.dev/mediapipe/solutions/vision/face_landmarker"
+    },
+    {
+      "n": 5,
+      "title": "Fagertun et al. 2014 - 3D facial landmarks: inter-operator variability of manual annotation",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4205300/"
+    }
+  ],
   "notes": "No web harvest (_raw/harvests/guided-workflow-accessibility.json) or earlier draft existed for this topic; no URLs are cited. All claims in blender/guided-workflow-accessibility.md are expert knowledge (badge 🧠 or ↔️) pending web verification.",
   "references_by_name": [
     "Reynish, W. — The Evolution of Blender's User Interface (2008)",

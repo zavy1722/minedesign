@@ -2,7 +2,7 @@
 
 > Non-expert artists rarely fail in the solver; they fail at capture (wide-angle selfies, smiles, hair over the ears, mirrored photos) and in correction (pinning ambiguous points, over-pinning one view). Tools that work for novices coach capture with immediate feedback (RealityScan, Scaniverse, Apple's Face ID ring), keep edits inside a plausible shape space (MetaHuman, FaceBuilder rigidity) and make every step cheap to undo. A Blender add-on should be a staged sidebar workflow built on Blender's conventions, with NumPy photo checks that explain problems in plain words. Overlays should mark pin type and error by shape as well as colour, the head should carry a "measured vs guessed" map, and user-pin σ should depend on landmark class, expertise and zoom. No harvest or earlier draft existed, so every claim here is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 0 📄 / 92 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 2 📄 / 91 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -27,7 +27,7 @@
 
   🧠 See [FaceBuilder](./facebuilder-blender.md).
 - **Headshot:** a one-photo auto mode, and a pro mode with named alignment points shown on a reference illustration, plus region morphs. Headshot 2 adds mesh input. ↔️
-- **MetaHuman Identity:** on a promoted neutral frame the tracker draws editable *contour curves* for lids, lips and brows, not loose points. Creator edits stay inside a learned space (preset blending, region handles), so novices cannot make an implausible face. ↔️ (moved into the editor around UE 5.6; licence terms change)
+- **MetaHuman Identity:** on a promoted neutral frame the tracker draws editable *contour curves* for lids, lips and brows, not loose points. Creator edits stay inside a learned space (preset blending, region handles), so novices cannot make an implausible face. ↔️ (moved into the editor in UE 5.6, confirmed [2]; licence terms change)
 - **Polycam, RealityScan and Scaniverse:**
   - Auto-shutter, a photo count, and AR or painted coverage of what is captured.
   - RealityScan's coverage map is red-to-green, which colour-blind users cannot read.
@@ -54,7 +54,7 @@
 - **Accessibility reach:** Blender exposes nothing to screen readers, so target low vision (UI scale, themes), colour-vision deficiency (CVD), motor limits (remappable `keyconfigs.addon` keymaps, F3-searchable operators, tablet) and cognitive load. 🧠
 
 **Photo checks and feedback**
-- ISO/IEC 29794-5 and BSI's open-source OFIQ define per-component face-image quality scores: sharpness, exposure, illumination uniformity, pose, expression neutrality, eyes open, mouth closed, occlusion and inter-eye distance. They assume one frontal photo; here pose is a coverage target across the set. Reimplement the cheap measures in NumPy. 🧠 (licence and status time-sensitive)
+- ISO/IEC 29794-5 and BSI's open-source OFIQ define per-component face-image quality scores: sharpness, exposure, illumination uniformity, pose, expression neutrality, eyes open, mouth closed, occlusion and inter-eye distance. They assume one frontal photo; here pose is a coverage target across the set. Reimplement the cheap measures in NumPy. 📄 [1] (OFIQ is the BSI reference implementation of ISO/IEC 29794-5 with these components; licence and status time-sensitive)
 - **Sharpness:** variance of the Laplacian on a face crop resampled to a fixed IOD, judged against the set median. 🧠
 - **Expression:** MediaPipe blendshape scores catch smiles, open jaws, blinks and raised brows. They are not calibrated probabilities, so compare against the photo the user marks as most neutral. 🧠
 - **Ears, hairline and beard:** these need segmentation. MediaPipe's hair segmenter is Apache-2.0; CelebAMask-HQ face-parsing models are non-commercial. ↔️ See [licences](../ethics/licences-tos.md).
@@ -192,7 +192,7 @@
    - Add `f3d_support` (0–1) and `f3d_sigma_mm` point attributes.
    - An operator copies (1 − support) into the sculpt mask, so measured regions stay protected while the artist sculpts the guessed ones.
 
-   🧠 (that 4.x stores the mask as attribute `.sculpt_mask` is ↔️)
+   🧠 (that 4.1+ stores the mask as the FLOAT attribute `.sculpt_mask` is 📄 [3]; corrected in verification: from 4.1, not all 4.x)
 
 **What goes wrong:**
 - **Over-pinning.** Warn above ~3–5 user pins per feature per view, or when one view holds more than 60 % of them.
@@ -241,7 +241,13 @@
 
 ## Sources
 
-No web harvest or earlier draft existed for this topic, so no URLs are cited. Related library notes: [FaceBuilder](./facebuilder-blender.md), [face add-ons](./blender-face-addons.md), [reference cameras](./reference-camera-setup.md), [extension packaging](./blender-extensions-packaging.md), [landmark detection](../reconstruction/landmark-detection.md), [commercial head tools](../reconstruction/commercial-head-tools.md), [craniometric landmarks](../anatomy/craniometric-landmarks.md), [photo protocol](../community/reference-photography-protocol.md), [biometric privacy](../ethics/biometric-privacy.md).
+1. BSI, OFIQ 1.0 — https://www.bsi.bund.de/dok/OFIQ1-e
+2. Epic, MetaHuman Creator in Unreal Engine — https://dev.epicgames.com/documentation/metahuman/metahuman-creator-in-unreal-engine
+3. Blender 4.1 Python API release notes — https://wiki.blender.org/release_notes/4.1/python_api/
+4. MediaPipe Face Landmarker guide — https://ai.google.dev/mediapipe/solutions/vision/face_landmarker
+5. Fagertun et al. 2014, BMC Med Imaging — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4205300/
+
+Related library notes: [FaceBuilder](./facebuilder-blender.md), [face add-ons](./blender-face-addons.md), [reference cameras](./reference-camera-setup.md), [extension packaging](./blender-extensions-packaging.md), [landmark detection](../reconstruction/landmark-detection.md), [commercial head tools](../reconstruction/commercial-head-tools.md), [craniometric landmarks](../anatomy/craniometric-landmarks.md), [photo protocol](../community/reference-photography-protocol.md), [biometric privacy](../ethics/biometric-privacy.md).
 
 **Further reading (by name, not yet linked)**
 - Reynish — The Evolution of Blender's User Interface (2008); Blender Developer Docs — Human Interface Guidelines; Blender Python API (Operator, UILayout, gpu, WorkSpace)
@@ -252,3 +258,12 @@ No web harvest or earlier draft existed for this topic, so no URLs are cited. Re
 - Toma et al. (2009) Orthod Craniofac Res; Plooij et al. (2009) Int J Oral Maxillofac Surg; Aynechi et al. (2011) Angle Orthod; Fagertun et al. — 3D facial landmarks: inter-operator variability, BMC Med Imaging (2014)
 - Carroll — The Nurnberg Funnel (1990); Grossman, Fitzmaurice & Attar — software learnability survey, CHI 2009; Grossman & Fitzmaurice — ToolClips, CHI 2010; Kelleher & Pausch — Stencils-based tutorials, CHI 2005
 - Green & Petre — Cognitive Dimensions (1996); Brooke — SUS (1996); Hart & Staveland — NASA-TLX (1988); Cherry & Latulipe — Creativity Support Index, TOCHI (2014); Nielsen & Landauer (1993); Faulkner — Beyond the five-user assumption (2003); Tversky & Kahneman (1974)
+
+## Verification log (2026-11-20)
+
+- Human 3D landmark error values (0.5–1 mm crisp, 2–4 mm gonion etc.; novices 1.3–2×): unconfirmed. Fagertun 2014 [5] confirms inter-operator variability is landmark-dependent but search snippets gave no per-landmark mm values. Stays 🧠/↔️. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4205300/
+- 2D human annotator disagreement 3–6 % IOD and COFW human 5.6 %: unconfirmed (COFW paper/supplement says human error is reported, number not visible in results). https://pdollar.github.io/files/papers/BurgosArtizzuICCV13rcprSupp.pdf
+- Blender API: `.sculpt_mask` FLOAT attribute confirmed from 4.1 (corrected from "4.x"). 📄 https://wiki.blender.org/release_notes/4.1/python_api/ . `poll_message_set` and `UILayout.progress` (4.0) exist per forum/commit snippets but no official version page seen: unconfirmed. gpu shader renames, bgl removal, POLYLINE on Metal/Vulkan, `status_text_set` draw function: unconfirmed.
+- ISO/IEC 29794-5 / OFIQ: confirmed as reference implementation with the listed components. 📄 https://www.bsi.bund.de/dok/OFIQ1-e . The 90/120 px ICAO eye-distance figure: unconfirmed.
+- Capture coaching: MetaHuman Creator integrated into Unreal Editor from UE 5.6 confirmed. https://dev.epicgames.com/documentation/metahuman/metahuman-creator-in-unreal-engine . RealityScan red-to-green coverage map, Scaniverse on-device, Mesh to MetaHuman contour curves: unconfirmed (RealityScan AR guidance only from a review snippet).
+- MediaPipe blendshape thresholds (smile 0.25/0.5, jawOpen 0.10/0.25, blink 0.4): unconfirmed; official docs give no per-blendshape thresholds, so these remain heuristics to calibrate. https://ai.google.dev/mediapipe/solutions/vision/face_landmarker

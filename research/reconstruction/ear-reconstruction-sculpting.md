@@ -2,7 +2,7 @@
 
 > Generic photo-to-3D tools handle the ear badly: face 3DMMs carry coarse, averaged ears, face landmarkers stop at the tragus, recognition crops leave the ear out, and hair hides it. The route that works is to fit each ear as its own part, hinged on the otobasion line and anchored at tragion in a Frankfort-horizontal (FH) frame, with its own tilt, protrusion and twist. Fit it to profile, near-profile, rear-oblique and back photos taken with the hair clipped away and a raking light, then sculpt the folds by hand. As far as recalled, the ear-specific landmark sets and statistical models (iBUG 55-point, York Ear Model, UHM) are research-only, so a shippable tool needs a CC0 ear plus its own ear modes. With no harvest or draft, every claim is expert knowledge or a pointer to a sibling library note.
 >
-> Evidence status: 0 ✅ / 0 📄 / 64 🧠 / 35 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 0 📄 / 63 🧠 / 35 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -23,7 +23,7 @@
   - MPFB2/MakeHuman: GPL code with CC0 base mesh and targets (lib: `blender/blender-face-addons.md`, sourced there). Its ear targets cover size, position, rotation, protrusion ("wing"), lobe and shape, with names that vary by version ↔️.
   - Blender Human Base Meshes (2023): CC0, sculpt-ready heads with ears 🧠.
 - **Verdict.** No permissively licensed ear 3DMM is known to this author ↔️. extensions.blender.org bundles only CC0 assets (lib: `blender/open-template-head-kit.md`), so ship hand-authored shape keys on a CC0 ear, and let users train an ear PCA locally on CC-BY scans after checking licence and consent scope 🧠.
-- **Ear-specific reconstruction papers are few.** They are YEM fitting from 2D landmarks and AudioEar (Huang et al., AAAI 2023), which does single-view ear reconstruction with a 2D landmark set and a small 3D set ↔️. The state of the art in 2025–2026 was not recalled 🧠.
+- **Ear-specific reconstruction papers are few:** YEM fitting from 2D landmarks, and AudioEar (Huang et al., AAAI 2023; single-view, with 2D landmark and small 3D sets) ↔️. The 2025–2026 state of the art was not recalled 🧠.
 
 **Geometry that drives the fit** (anatomy: `anatomy/ear.md`)
 - **Tragion sits at about orbitale height in FH**, just behind the mandibular condyle (lib: `anatomy/ear.md`) 🧠. The helix and lobule are rigid relative to the cranium; tragion moves about 1–2 mm when the jaw opens 🧠.
@@ -101,7 +101,7 @@
 | Raking-light close-up | ≈90°, pitch 0 to +15° | concha depth, crura; tele at 0.8–1 m or more, lateral canthus in frame | 🧠 |
 | Caliper or ruler sa–sba | — | metric scale, ±1 mm | 🧠 |
 
-At 1.5 m, an 85 mm lens on 24 MP gives ≈9 px/mm, so the ear is ≈560 px long. A 3× phone tele on 12 MP gives ≈340 px. Aim for at least 300 px. 🧠
+At 1.5 m: 85 mm on 24 MP ≈ 560 px of ear; 3× phone tele on 12 MP ≈ 340 px. Aim for ≥300 px. 🧠
 
 **Table 5 — Expected accuracy** (author estimates)
 
@@ -192,8 +192,7 @@ At 1.5 m, an 85 mm lens on 24 MP gives ≈9 px/mm, so the ear is ≈560 px long.
 - **Ear-normal camera.** `anatomy/ear.md` says to shoot 20–35° *behind* profile and gives a 20–35° flare from sagittal. The geometry above puts the ear plane near sagittal, facing forward when prominent. Shoot the ±15° bracket until this is measured. ↔️
 - **Permissive ear statistics.** The licences of YEM, UHM, AudioEar and the HRTF corpora are unconfirmed and time-sensitive. ↔️
 - **Myth: ears are unique like fingerprints.** They are discriminative; uniqueness is unproven. 🧠
-- **Myth: ears never change.** The lobule lengthens with age (lib: `anatomy/ear.md`). 🧠
-- **Do parametric ears help likeness?** They fix position, size and protrusion. Artists still hand-sculpt the folds. ↔️
+- **Parametric ears** fix position, size and protrusion; artists still hand-sculpt folds. ↔️
 - **Open:**
   - single-view ear benchmark errors;
   - ear-detector accuracy under hair;
@@ -202,7 +201,7 @@ At 1.5 m, an 85 mm lens on 24 MP gives ≈9 px/mm, so the ear is ≈560 px long.
 
 ## Sources
 
-No harvest or earlier draft existed, so no URLs are cited. Sourced versions of related claims sit in the library notes named inline, mainly `anatomy/ear.md`, `reconstruction/flame-model.md` and `blender/blender-face-addons.md`.
+No harvest or earlier draft existed, so no URLs are cited; sourced versions of related claims sit in the library notes named inline.
 
 **Further reading (by name, not yet linked)**
 - Zhou & Zafeiriou, "Deformable Models of Ears in-the-Wild for Alignment and Recognition", IEEE FG 2017

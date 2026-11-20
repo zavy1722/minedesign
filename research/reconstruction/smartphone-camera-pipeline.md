@@ -2,7 +2,7 @@
 
 > A phone photo is not a raw pinhole image. The ISP has already removed most lens distortion, so main and telephoto JPEG/HEIC files are near-rectilinear (residual |k1| ≲ 0.02, negligible for a centred face). It may also have applied what a pinhole solver cannot model: face-aware wide-angle warps near the frame edge, geometric beauty filters, mirroring, zoom and aspect crops that EXIF describes inconsistently, and generative zoom. The engine should trust main or telephoto pixels with the face near the centre, give front, ultra-wide and edge-of-frame faces a different camera model, and use EXIF focal length only after testing crop and zoom hypotheses. Real calibration exists (Apple AVCameraCalibrationData, Android LENS_INTRINSIC_CALIBRATION/LENS_DISTORTION and Dynamic Depth, DNG WarpRectilinear) but rarely survives in a camera-roll file, so the capture protocol matters more than any parser.
 >
-> Evidence status: 0 ✅ / 0 📄 / 59 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 0 📄 / 74 🧠 / 28 ↔️ — 🧠 items are queued for web verification.
 
 *No harvest or earlier draft existed, so nothing here is web-sourced; sibling notes with related sourced claims are named in backticks. Menus, models and library versions are time-sensitive (2026-11-20).*
 
@@ -120,10 +120,10 @@
   3. Ultra-wide or front with the face beyond 25°, or content-aware warp likely: **local virtual camera**, i.e. rotate so the face-centre ray is the axis, f′ = f·sec²(θ/2), principal point at the face centre (the stereographic similarity); or inflate σ_px ×3.
   4. Known calibration (Apple inverse LUT, Android `LENS_DISTORTION`, DNG warp, Dynamic Depth) on an uncorrected image: undistort landmarks, then k = 0.
 - **Mirror hypothesis:** fit front-camera views both ways; keep the lower cost if the margin is > 10%, else ask the user 🧠
-- **Distance priors (σ on log z)** 🧠: SubjectDistance 0.5; Apple FocusDistanceRange log-uniform over the range widened ×1.5; Android focus distance CALIBRATED 0.2, APPROXIMATE 0.4, UNCALIBRATED ignored; median face depth from TrueDepth 0.05–0.1, from rear disparity 0.2–0.3.
+- **Distance priors (σ on log z)** 🧠: SubjectDistance 0.5; Apple FocusDistanceRange log-uniform, range ×1.5; Android focus CALIBRATED 0.2, APPROXIMATE 0.4, UNCALIBRATED ignored; median face depth from TrueDepth 0.05–0.1, rear disparity 0.2–0.3.
 - **Gravity:** Apple `AccelerationVector` → camera pitch/roll prior (pitch σ 5°; head tilt unknown) 🧠
 - **Processing-risk score** per view (front, Portrait, night, beyond-optical zoom, non-native size, editor, C2PA AI-edit marker) sets robust weights and warnings. Geometric beauty is invisible in pixels: flag a view whose eye-width/IOD or bigonial/IOD departs > 3σ from the multi-view consensus 🧠
-- **Line-straightness QA:** fit curvature of long background edges; bending beyond Table 3's residual means uncorrected distortion or a content-aware warp 🧠
+- **Line-straightness QA:** background-edge curvature beyond Table 3's residual means uncorrected distortion or a content-aware warp 🧠
 - **Tests:** synthetic k1 sweep, stereographic face warp, static-tag 16:9 crop and mirror; assert the right model is chosen and shape error < 1 mm 🧠
 
 ## Disagreements, myths & open questions
