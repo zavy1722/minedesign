@@ -20,6 +20,21 @@
       "n": 4,
       "title": "NoW non-metrical evaluation leaderboard",
       "url": "https://now.is.tue.mpg.de/nonmetricalevaluation.html"
+    },
+    {
+      "n": 5,
+      "title": "VGGT official repository",
+      "url": "https://github.com/facebookresearch/vggt"
+    },
+    {
+      "n": 6,
+      "title": "VGGT-1B-Commercial model card",
+      "url": "https://huggingface.co/facebook/VGGT-1B-Commercial"
+    },
+    {
+      "n": 7,
+      "title": "LAM official repository",
+      "url": "https://github.com/aigc3d/LAM"
     }
   ],
   "references_by_name": [

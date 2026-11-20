@@ -90,7 +90,7 @@ The t-depth rows are reconstructed from typical head geometry, not read from a t
 | Heroic | ≈1.25–1.5 | ↔️ |
 | Colossal | ≥2 | ↔️ |
 | Water clay, drying + firing | shrinks ≈8–15% in total; scale up by 1/(1−s) | 🧠 ↔️ |
-| Lost-wax bronze | ≈1–3% in total, foundry-dependent | ↔️ |
+| Lost-wax bronze | ≈1–3% in total, foundry-dependent; one conservation paper gives 2.5–3.18% for good practice [1] | ↔️ |
 | Oil clay, plaster | negligible (<0.5%) | 🧠 |
 
 **Table 4. Studio check → digital default**
@@ -156,7 +156,9 @@ The t-depth rows are reconstructed from typical head geometry, not read from a t
 
 ## Sources
 
-None: no harvest existed, so no URLs are cited; cross-references are to sibling notes by path.
+1. Journal of the American Institute for Conservation 1983, 23(1), art. 4 (bronze casting shrinkage): https://cool.culturalheritage.org/jaic/articles/jaic23-01-004.html
+
+Otherwise no harvest existed; cross-references are to sibling notes by path.
 
 **Further reading (by name, not yet linked)**
 - Edouard Lanteri, *Modelling: A Guide for Teachers and Students* (3 vols, c. 1902–1911; Dover reprint as *Modelling and Sculpting the Human Figure*)
@@ -183,3 +185,8 @@ All four claims stayed unconfirmed after 4 searches (badges unchanged, 🧠). Se
 2. Live caliper repeatability 1–2 mm bony, 2–4 mm soft: unconfirmed. Partial hint only: https://pmc.ncbi.nlm.nih.gov/articles/PMC6669702 (random error mostly about 1 mm, soft pogonion 3–4 mm); not specific to the claimed landmarks.
 3. Pressed zy–zy, go–go, eu–eu offsets of +2 to +5 mm: unconfirmed. No study quantified compression. A 2D-photo study (https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2021.813058/full) found bizygomatic and bigonial breadth differ between direct and photogrammetric methods, but gave no usable offset.
 4. Bitragion breadth 140–150 mm M / 132–142 mm F: unconfirmed. ANSUR II pages found (https://ph.health.mil/topics/workplacehealth/ergo/Pages/Anthropometric-Database.aspx) but no value retrieved.
+
+## Verification log, pass 2 (2026-11-20)
+
+1. Water clay shrinks about 8–15% in total; lost-wax bronze about 1–3%: clay part unconfirmed (search gave only the ASTM C326 method, no typical values). Bronze part contested, stays ↔️: JAIC 1983 reports 2.5–3.18% expected with good procedure, so the range is about 1–3.2% [1]. https://cool.culturalheritage.org/jaic/articles/jaic23-01-004.html
+2. Asaro head is a copyrighted commercial cast sold in several variants: unconfirmed. Listings suggest a 1976 design and at least one newer edition, but no source addressed copyright or variants (e.g. https://www.proko.com/course-lesson/asaro-head-value-study/notes). Stays 🧠.

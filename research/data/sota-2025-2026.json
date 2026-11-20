@@ -132,10 +132,10 @@
           "FLAME-driven Gaussian head, one forward pass",
           "no",
           true,
-          "reportedly Apache-2.0",
+          "code Apache-2.0 (README); weights under separate LICENSE_WEIGHT",
           "appearance",
           "preview",
-          "contested"
+          "verified"
         ],
         [
           "Avat3r",
@@ -240,10 +240,10 @@
           "cameras, depth, point maps, tracks; about 1B parameters",
           "up to scale",
           true,
-          "non-commercial weights; later commercial checkpoint reported",
+          "original checkpoint non-commercial; VGGT-1B-Commercial checkpoint (no military use)",
           "cameras",
           "camera initialiser",
-          "contested"
+          "verified"
         ],
         [
           "Sapiens",

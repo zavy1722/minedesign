@@ -1,7 +1,7 @@
 # Skin thickness, wrinkles, pores and microdetail
 
 > Facial skin (epidermis plus dermis) is a 0.4–2.5 mm sheet, thinnest on the eyelids and thickest on the nasal tip, upper lip, chin and glabella–forehead; its thickness sets how crisply bone and cartilage read through and the scale at which it folds. Wrinkles are dynamic, static, compression (sleep) or atrophic (crepey); expression lines lie perpendicular to their muscle's pull, along relaxed skin tension lines (RSTL), which a tool can store as a vector field on the template. Pores are pilosebaceous openings ≈0.05–0.4 mm across, largest and densest on the nose and medial cheeks and absent from the eyelids and vermilion; microrelief furrows 0.01–0.1 mm deep lie beneath them. This tertiary layer mostly signals age (identity lives only in marks such as moles, scars and distinctive lines), and pores need ≤0.03–0.05 mm/px photos, far finer than a normal portrait; with no harvest or draft for this topic, every item is expert knowledge.
-Evidence status: 0 ✅ / 1 📄 / 74 🧠 / 31 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 0 ✅ / 2 📄 / 73 🧠 / 31 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -154,7 +154,7 @@ Worked examples 🧠:
 7. **Follow the flow.** Rotate alphas to the RSTL field and never tile uniformly. Mask the lids, the vermilion (vertical grooves instead) and the brows. Never mirror detail (`anatomy/facial-asymmetry.md`) 🧠.
 8. **Let thickness control crispness.** Keep the lid crease, dorsum, alar groove and ear sharp; keep a thick-skinned nasal tip, the upper lip and the chin pad soft 🧠.
 9. **Procedural fallback.** With Object coordinates in metres, Voronoi Distance to Edge at Scale ≈ 1/cell size (0.4 mm → ≈2500) makes microrelief, and Smooth F1 at 1/pore spacing (0.7 mm → ≈1430) makes pores; drive both with region masks 🧠.
-10. **Bake and render.** Bake Multires displacement to a 32-bit EXR. Use Cycles Displacement and Bump with adaptive subdivision (Experimental status in 5.x unverified), or bump only in EEVEE. A face-only 8K UDIM gives ≈0.03 mm texels; a whole head on 4K (≈0.12 mm) aliases pores 🧠.
+10. **Bake and render.** Bake Multires displacement to a 32-bit EXR. Use Cycles Displacement and Bump with adaptive subdivision (no longer experimental since Blender 5.0, always available in the Subdivision Surface modifier; corrected in verification) 📄 [4], or bump only in EEVEE. A face-only 8K UDIM gives ≈0.03 mm texels; a whole head on 4K (≈0.12 mm) aliases pores. Bake from Multires remains available, and 16/32-bit formats are advised [5] 🧠.
 11. **Do not displace from albedo blindly.** "Dark is deep" turns freckles, vessels, stubble and flat moles into dents. Shading darkens all channels together, whereas pigment shifts chroma 🧠.
 12. **Validate at photo resolution.** Render from the solved cameras and compare high-pass images for line positions. If detail is invisible at the photo's resolution, stop: extra line depth adds apparent years 🧠.
 
@@ -203,6 +203,9 @@ Worked examples 🧠:
 1. DermNet NZ, Skin tension lines: https://dermnetnz.org/topics/skin-tension-lines
 2. Wikipedia, Relaxed skin tension lines (Borges 1984 vs Langer): https://en.wikipedia.org/wiki/Relaxed_skin_tension_lines
 3. Quantitative Analysis of the Human Face Skin Thickness, a High-Frequency Ultrasound Study (J Clin Med 2025; nasal apex median 1907 µm, thickest site): https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12693017/
+4. Blender 5.0 release notes, Cycles: https://developer.blender.org/docs/release_notes/5.0/cycles/
+5. Blender manual, Multiresolution Modifier (Bake from Multires): https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html
+6. Cerda & Mahadevan, Geometry and physics of wrinkling, PRL 2003 (publication page): https://softmath.seas.harvard.edu/publication/geometry-and-physics-of-wrinkling/
 
 The sourced HFUS skin-thickness values are cited in `anatomy/smas-ligaments.md` and `anatomy/skull-osteology.md`.
 
@@ -237,3 +240,9 @@ The sourced HFUS skin-thickness values are cited in `anatomy/smas-ligaments.md` 
 - Pore diameter 0.05–0.4 mm, spacing, sebaceous density 400–900/cm²: unconfirmed. Only qualitative support (enlarged pores more prominent on nose and forehead than cheek): https://pubmed.ncbi.nlm.nih.gov/29393550/
 - Static wrinkle depths and microrelief furrow depth: unconfirmed. Results gave only profilometry accuracy (about ±14–15 µm), not depths per line.
 - RSTL (Borges 1984) vs Langer lines on the face: confirmed 📄 (Langer lines differ; on the face the two sets often run at right angles). https://dermnetnz.org/topics/skin-tension-lines , https://en.wikipedia.org/wiki/Relaxed_skin_tension_lines
+
+## Verification log, pass 2 (2026-11-20)
+
+- Blender 5.x adaptive subdivision experimental status: corrected. The 5.0 release notes say adaptive subdivision is no longer experimental and is always available in the Subdivision Surface modifier; the note's "Experimental status unverified" text was replaced. https://developer.blender.org/docs/release_notes/5.0/cycles/
+- Bake from Multires still available: confirmed with the 5.x manual (5.0 also added vector displacement baking from multires; 16/32-bit formats advised). Single source, left as unverified-badge in the text. https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html
+- Wrinkle spacing as buckling, lambda proportional to t(E_skin/E_sub)^(1/3), and the 0.5-1.5 / 2-5 / 6-15 mm spacings: unconfirmed. The Cerda & Mahadevan 2003 paper exists (https://softmath.seas.harvard.edu/publication/geometry-and-physics-of-wrinkling/), but results only showed the (B/K)^(1/4) form with foundation stiffness; the exact 1/3 exponent and the observed facial spacings were not found.

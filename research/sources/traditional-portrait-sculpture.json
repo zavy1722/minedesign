@@ -1,6 +1,13 @@
 {
  "topic": "traditional-portrait-sculpture",
- "sources": [],
+ "sources": [
+  {
+   "n": 1,
+   "url": "https://cool.culturalheritage.org/jaic/articles/jaic23-01-004.html",
+   "title": "JAIC 1983 23(1) art. 4, bronze casting shrinkage",
+   "note": "2.5-3.18% expected shrinkage with good procedure, alloy dependent"
+  }
+ ],
  "references_by_name": [
   "Edouard Lanteri, Modelling: A Guide for Teachers and Students (3 vols, c. 1902-1911; Dover reprint as Modelling and Sculpting the Human Figure)",
   "Peter Rubino, The Portrait in Clay (1997)",
