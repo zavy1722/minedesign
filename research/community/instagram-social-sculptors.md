@@ -2,7 +2,7 @@
 
 > Portrait and likeness sculptors on Instagram, TikTok, X and Threads, in clay and digitally, keep repeating a small set of process rules: settle the big masses before the features, check the silhouette from many angles, look again with fresh eyes (mirror, flip, squint, blink-compare), shoot reference from a distance with a longer lens, measure from fixed points, and turn symmetry off once the primary forms are in. The web harvest reached only five Instagram profile pages, whose snippets held bios and no technique, so the sourced part of this note is thin. Almost all of the practical content is expert knowledge, with the numbers worked out from pinhole geometry or taken from named canonical literature. For the fitting engine, each recurring studio check has an exact computational counterpart: matched-camera silhouette error, landmark reprojection residuals, estimated camera distance, a symmetry weight schedule and caliper distance constraints.
 >
-> Evidence status: 0 ✅ / 5 📄 / 49 🧠 / 16 ↔️ — verified 2026-11-20: selfie-effect 30% figure press-confirmed (📄), iris diameter contested (↔️); IPD and nose-ear depth remain unconfirmed (🧠).
+> Evidence status: 0 ✅ / 5 📄 / 48 🧠 / 17 ↔️ — verified 2026-11-20 (passes 1 and 2): selfie-effect 30% figure press-confirmed (📄), iris diameter and Hertel eye depth contested (↔️); IPD, nose-ear depth and Farkas 1985 canon frequencies remain unconfirmed (🧠).
 
 ## Key facts
 
@@ -61,7 +61,7 @@ A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base loo
 | Interpupillary distance | 61–65 mm (men about 2 mm above women) | SD about 3.5–4 mm; range about 54–74 mm | Absolute scale when no ruler is in shot | 🧠 |
 | Horizontal visible iris diameter | 11.6–12.4 mm (device-dependent: Orbscan 11.77 ± 0.40, IOLMaster 700 12.40 ± 0.43) [8] | SD about 0.4–0.5 mm; overall about 10–13 mm | Per-photo scale when the iris spans ≥20 px | ↔️ |
 | Eyeball axial length | 23–24.5 mm | about 22–26 mm | Eye-sphere size | 🧠 |
-| Corneal apex in front of lateral orbital rim (Hertel) | about 15–17 mm | about 12–20 mm; varies by ancestry | Eye depth placement | ↔️ |
+| Corneal apex in front of lateral orbital rim (Hertel) | about 15–17 mm for white, Hispanic and Chinese Han adults (reported means 15.0–16.7 mm) [10][12][13][14]; about 17.5–18.5 mm for Black adults [10][11] | upper normal limits about 19–25 mm by group, so 12–20 mm fits only non-Black groups; varies by ancestry | Eye depth placement | ↔️ |
 | Palpebral fissure width | 27–33 mm | n/a | "Five eyes" check | 🧠 |
 | Head height, vertex to menton | 210–240 mm | n/a | Life-size sanity check | 🧠 |
 | Ear length | 55–68 mm | grows with age | Ear scale | 🧠 |
@@ -103,7 +103,7 @@ A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base loo
 
    🧠
 5. **Set up sculpt mode carefully.** Set the brush Radius Unit to Scene so strokes are in mm, not screen pixels. Model at real scale (a head is about 0.23 m tall). Voxel-remesh the blockout at about 1–2 mm, then hand over to multires. Check the X-mirror toggle each session. 🧠
-6. **Eyes.** Use 24 mm spheres with the corneal apex about 15–17 mm in front of the lateral orbital rim, refined from the profile photo. Eyes too proud or too sunken is the most common digital error; it shows instantly in the 3/4 matched view. 🧠
+6. **Eyes.** Use 24 mm spheres with the corneal apex about 15–17 mm in front of the lateral orbital rim (about 17.5–18.5 mm for Black adults [10][11]; contested by ancestry), refined from the profile photo. Eyes too proud or too sunken is the most common digital error; it shows instantly in the 3/4 matched view. ↔️
 7. **Common failures.**
    - Mixing photos from different ages or weights.
    - Smiling photos used as neutral.
@@ -163,6 +163,11 @@ A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base loo
 [7] HealthDay, Nasal distortive effect described in selfies — https://consumer.healthday.com/cosmetic-surgery-29/nose-surgery-500/nasal-distortive-effect-described-in-selfies-731642.html — press summary — 2018
 [8] White-to-white measurements across four devices, PLoS ONE — https://pmc.ncbi.nlm.nih.gov/articles/PMC8284630 — journal — 2021
 [9] Pupillary distance (cites Dodgson 2004) — https://en.wikipedia.org/wiki/Pupillary_distance — secondary — n.d.
+[10] Determination of the normal range of exophthalmometric values for black and white adults — https://pubmed.ncbi.nlm.nih.gov/6486215/ — journal — 1984
+[11] Normative data for Hertel exophthalmometry in a normal adult black population — https://pubmed.ncbi.nlm.nih.gov/1635761/ — journal — 1992
+[12] Normal Values of Hertel Exophthalmometry in a Chinese Han Population from Shenyang — https://pmc.ncbi.nlm.nih.gov/articles/PMC4336939/ — journal — 2015
+[13] Hertel Exophthalmometry Values in a Greek Adult Outpatient Clinic-Based Population — https://pmc.ncbi.nlm.nih.gov/articles/PMC10023137/ — journal — 2023
+[14] Normative exophthalmometry values in Hispanic individuals — https://pubmed.ncbi.nlm.nih.gov/36738924 — journal — 2023
 
 **Further reading (by name, not yet linked)**
 
@@ -188,3 +193,8 @@ A clinical "selfie effect" study (Ward et al., 2018) reported the nasal base loo
 - Horizontal visible iris diameter 11.5-12.0 mm: contested. Device-dependent means 11.77 to 12.42 mm, SD 0.4-0.5. https://pmc.ncbi.nlm.nih.gov/articles/PMC8284630
 - Ward et al. 2018 selfie effect (~30% nasal base at ~30 cm): confirmed via press (📄), with baseline ambiguity (5 ft per Rutgers, orthographic per HealthDay). https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery ; https://consumer.healthday.com/cosmetic-surgery-29/nose-surgery-500/nasal-distortive-effect-described-in-selfies-731642.html
 - Nose-tip to ear-plane depth 9-11 cm: unconfirmed. No tragion-pronasale values found.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Corneal apex 15-17 mm (12-20) anterior to lateral orbital rim, N(16,2) prior: contested (↔️). Hertel means are about 15.0-16.7 mm in white, Hispanic, Chinese Han and Greek adults, but about 17.5-18.5 mm in Black adults, with upper normal limits about 19-25 mm. N(16,2) suits non-Black adults; use about N(18,2) for Black adults. https://pubmed.ncbi.nlm.nih.gov/6486215/ ; https://pubmed.ncbi.nlm.nih.gov/1635761/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC4336939/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC10023137/ ; https://pubmed.ncbi.nlm.nih.gov/36738924
+- Farkas et al. 1985: most neoclassical canons hold in only a minority of adults: unconfirmed. Search confirmed only the citation (Plast Reconstr Surg 75(3):328-338) and the paper's conclusion that the canons are not an acceptable representation; no per-canon frequencies were found. Left as 🧠/↔️ as before. https://bibbase.org/network/publication/farkas-hreczko-kolar-munro-verticalandhorizontalproportionsofthefaceinyoungadultnorthamericancaucasiansrevisionofneoclassicalcanons-1985

@@ -25,7 +25,11 @@
   {"n": 22, "title": "Influence of incisor display and lower lip height on smile esthetics and perceived age", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13316878/", "kind": "paper", "year": "n.d."},
   {"n": 23, "title": "Aging of the mandible and its aesthetic implications", "url": "https://pubmed.ncbi.nlm.nih.gov/20048624/", "kind": "paper", "year": "2010"},
   {"n": 24, "title": "The kinetics of anterior tooth display", "url": "https://pubmed.ncbi.nlm.nih.gov/349139/", "kind": "paper", "year": "1978"},
-  {"n": 25, "title": "Why do old men have big ears? (Heathcote, BMJ 1995; secondary report)", "url": "https://www.discovermagazine.com/british-ears-39808", "kind": "secondary", "year": "1995"}
+  {"n": 25, "title": "Why do old men have big ears? (Heathcote, BMJ 1995; secondary report)", "url": "https://www.discovermagazine.com/british-ears-39808", "kind": "secondary", "year": "1995"},
+  {"n": 26, "title": "Changes in eyebrow position and shape with aging (Matros et al., Plast Reconstr Surg 2009)", "url": "https://pubmed.ncbi.nlm.nih.gov/19935315/", "kind": "paper", "year": "2009"},
+  {"n": 27, "title": "Plastic and Reconstructive Surgery, Global Open (Sep 2019) record; meta-analysis of eyebrow height with aging", "url": "https://doaj.org/article/b9daf30bac5a46339ddca80d56e2f953", "kind": "paper", "year": "2019"},
+  {"n": 28, "title": "Hierarchical Attention-based Age Estimation and Bias Analysis (MORPH II SE MAE 2.53)", "url": "https://arxiv.org/html/2103.09882v2", "kind": "paper", "year": "2021"},
+  {"n": 29, "title": "Relative Age Estimation Using Face Images (MORPH II SE MAE 2.47)", "url": "https://arxiv.org/pdf/2502.04852", "kind": "paper", "year": "2025"}
  ],
  "references_by_name": [
   "Shaw RB Jr, Kahn DM, Aging of the midface bony elements: a three-dimensional computed tomographic study, Plast Reconstr Surg, 2007",

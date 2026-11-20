@@ -2,7 +2,7 @@
 
 > Every runnable open photo→3D-face pipeline is a research codebase. Each needs Linux plus an NVIDIA CUDA GPU and pinned PyTorch, and most also need model files you register to download (FLAME, BFM). Most carry non-commercial terms on the code, the weights or the rasteriser. They fall into three classes. Per-image regressors (DECA/EMOCA, MICA, SMIRK, 3DDFA_V2, Deep3DFaceRecon_pytorch, HRN, FaceVerse) take milliseconds, but they use weak-perspective or affine cameras and PCA-limited identity. Offline FLAME trackers and optimisers (metrical-tracker, VHAP, flame-head-tracker, Pixel3DMM) take about 1–2 s per frame on an RTX 4090 and are much harder to install [1][3][6]. What Blender needs from any of them is not their renders but a mesh on fixed topology (FLAME's 5,023 vertices or a known BFM crop), plus cameras and landmarks. So the add-on should treat them as optional, user-installed initialisers that run outside Blender behind a strict adapter contract. The default path should ship only permissive parts: MediaPipe, our own numpy multi-view perspective fitter, and an MPFB2-style template.
 >
-> Evidence status: 8 ✅ / 36 📄 / 50 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 8 ✅ / 40 📄 / 47 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
 
 *Provenance: this topic had no harvest file and no earlier draft. The URLs below are reused from sibling harvests in this library (multi-view-fitting, single-image-regression, identity-embeddings, facs-expressions, craniometric-landmarks, blender-face-addons, blender-version-status-2026). Everything else is author knowledge (🧠), reliable to about mid-2025.*
 
@@ -76,7 +76,7 @@
 - **Gated assets.** FLAME, BFM and the DECA/EMOCA models need a registered account. The `fetch_data.sh`-style scripts prompt for those credentials, so an add-on cannot legally bundle the files or fetch them silently. 🧠
 - **chumpy.** The FLAME `.pkl` files unpickle through chumpy. chumpy breaks with NumPy ≥ 1.24 because of removed aliases such as `np.bool`, and it also breaks on newer Python 3. Convert each `.pkl` once to `.npz`. 🧠
 - **Rasterisers.** PyTorch3D has prebuilt wheels only for some combinations of Python, torch and CUDA, so a source build takes tens of minutes. nvdiffrast compiles at first use (JIT) 🧠 and carries an NVIDIA Source Code License (1-Way Commercial) that limits others to non-commercial use [32][33]. 📄
-- **New GPUs vs pinned environments.** Repos pinned to PyTorch 1.x and CUDA 10/11 do not run on RTX 50-series (Blackwell) cards, which need recent CUDA 12.x builds; the usual error is "no kernel image is available". 🧠
+- **New GPUs vs pinned environments.** Repos pinned to PyTorch 1.x and CUDA 10/11 do not run on RTX 50-series (Blackwell) cards, which need PyTorch built with CUDA 12.8 or later (sm_120; cu126 and older wheels lack the kernels); the usual error is "no kernel image is available" [36][37]. 📄
 - **Mac and Windows.** Apple Silicon has no CUDA, so the trackers and rasterisers are effectively unavailable there. Windows users typically use WSL2. 🧠
 - **Blender's Python.** Blender ships its own Python. Installing torch into it is fragile and bloats the add-on. 🧠
   - Blender 5.0 changed `mathutils` buffers to float32 and non-contiguous [26] 📄.
@@ -94,13 +94,13 @@
 | DECA (YadiraF/DECA) | 1 image | FLAME 5,023 + dense detail mesh | weak-perspective | OBJ + texture, normal and displacement maps | CUDA preferred, about 2–4 GB | 3 | MPI non-commercial / FLAME | 🧠 |
 | EMOCA v2 (radekd91/emoca, "inferno") | 1 image | FLAME | weak-perspective | OBJ, FLAME codes | CUDA | 4 | MPI non-commercial / FLAME | 🧠 |
 | MICA (Zielonka/MICA) | 1 image | FLAME, neutral, 300 shape | none | PLY/OBJ + `identity.npy` | CUDA preferred | 3 | non-commercial / FLAME + InsightFace [21] | ↔️ |
-| SMIRK (georgeretsi/smirk) | 1 image | FLAME | weak-perspective | FLAME parameters (export is DIY) | small; CPU plausible | 2–3 | unconfirmed / FLAME | 📄 [14][15]; 🧠 rest |
+| SMIRK (georgeretsi/smirk) | 1 image | FLAME | weak-perspective | FLAME parameters (export is DIY) | small; CPU plausible | 2–3 | unconfirmed / FLAME | 📄 [14][15]; licence unconfirmed; 🧠 rest |
 | HRN (youngLBW/HRN) | 1 image or multi-view | BFM + maps | perspective | textured OBJ + maps | CUDA (nvdiffrast) | 3–4 | unconfirmed / BFM | 🧠 |
 | FaceVerse (LizhenWangT/FaceVerse) | 1 image or video | own topology | perspective | OBJ | CUDA | 3 | agreement-gated | ↔️ |
-| flame-head-tracker (PeizhiYan) | 1 image or video | FLAME | perspective | FLAME parameters per frame | NVIDIA, Ubuntu | 4 | unverified / FLAME | 📄 [1] |
+| flame-head-tracker (PeizhiYan) | 1 image or video | FLAME | perspective | FLAME parameters per frame | NVIDIA, Ubuntu | 4 | MIT / FLAME | 📄 [1] |
 | metrical-tracker (Zielonka) | video + MICA code | FLAME | perspective (K, R, t) | per-frame checkpoints, meshes | CUDA, PyTorch3D | 4 | non-commercial / FLAME | ↔️ |
-| VHAP (ShenhanQian/VHAP) | video; NeRSemble multi-view 🧠 | FLAME 2023 / 2020 | perspective | FLAME parameters (`.npz`), NeRF-style cameras | CUDA, nvdiffrast 🧠 | 4–5 | unverified / FLAME | 📄 [3]; 🧠 rest |
-| Pixel3DMM (SimonGiebenhain/pixel3dmm) | 1 image or video | FLAME | perspective | FLAME mesh and parameters | large VRAM (≥16–24 GB?) | 5 | unverified / FLAME | 🧠 |
+| VHAP (ShenhanQian/VHAP) | video; NeRSemble multi-view 🧠 | FLAME 2023 / 2020 | perspective | FLAME parameters (`.npz`), NeRF-style cameras | CUDA, nvdiffrast 🧠 | 4–5 | CC-BY-NC-SA-4.0 (derived from GaussianAvatars; Toyota Motor Europe commercial restriction) / FLAME | 📄 [3]; 🧠 rest |
+| Pixel3DMM (SimonGiebenhain/pixel3dmm) | 1 image or video | FLAME | perspective | FLAME mesh and parameters | large VRAM (≥16–24 GB?) | 5 | CC BY-NC 4.0 / FLAME | 📄 [35]; 🧠 rest |
 | video-head-tracker (philgras) | video | FLAME | perspective | FLAME parameters | CUDA | 4 | CC BY-NC 3.0 | 📄 [5] |
 
 **Table 2 — Sourced speed and accuracy anchors**
@@ -217,7 +217,7 @@
 - **"Pixel3DMM / TEASER is best."** Each claims its gain on its own benchmark or in summaries [16]. Independent NoW or REALY confirmation is lacking. ↔️
 - **MICA output units**: the demo multiplies vertices by 1000, so the files are in mm [34]; verify on import. 📄
 - **Open questions:**
-  - the code licences of SMIRK, VHAP, flame-head-tracker, Pixel3DMM and HRN;
+  - the code licences of SMIRK and HRN (VHAP is CC-BY-NC-SA-4.0 [3], flame-head-tracker is MIT [1], Pixel3DMM is CC BY-NC 4.0 [35], all 📄 from README text, verified 2026-11-20);
   - measured VRAM for each pipeline;
   - which repos work today with Python 3.11+, NumPy 2 and CUDA 12.8;
   - whether flame-head-tracker supports multi-view stills.
@@ -258,6 +258,9 @@
 32. nvdiffrast LICENSE.txt (Hugging Face mirror; 'Nvidia Source Code License (1-Way Commercial)') — https://huggingface.co/spaces/ginipick/SORA-3D/blob/e3df509037b8d7a49ea8599caebb1c08922cea96/extensions/nvdiffrast/LICENSE.txt — licence text copy — 2020 (verification 2026-11-20)
 33. microsoft/TRELLIS issue 298 on nvdiffrast licensing — https://github.com/microsoft/TRELLIS/issues/298 — issue thread — n.d. (verification 2026-11-20)
 34. Zielon/MICA demo.py — https://www.github.com/Zielon/MICA/blob/master/demo.py — source code — n.d. (verification 2026-11-20)
+35. SimonGiebenhain/pixel3dmm README (CC BY-NC 4.0) — https://github.com/SimonGiebenhain/pixel3dmm — repo — 2025 (verification pass 2, 2026-11-20)
+36. PyTorch Forums: Is there a PyTorch build that supports RTX 5090 (sm_120)? — https://discuss.pytorch.org/t/is-there-a-pytorch-build-that-supports-nvidia-rtx-5090-compute-capability-12-0-sm-120/223536 — forum — 2025 (verification pass 2, 2026-11-20)
+37. PyTorch Forums: Pytorch support for sm120 (p.4; cu128 wheels include sm_120, cu126 do not) — https://discuss.pytorch.org/t/pytorch-support-for-sm120/216099?page=4 — forum — 2025 (verification pass 2, 2026-11-20)
 
 **Further reading (by name, not yet linked)**
 - Feng, Feng, Black, Bolkart — DECA, SIGGRAPH 2021; Daněček, Black, Bolkart — EMOCA, CVPR 2022
@@ -279,3 +282,8 @@
 - nvdiffrast under NVIDIA Source Code License, non-commercial for others: **confirmed** (📄), with the exact licence name "Nvidia Source Code License (1-Way Commercial)" — https://huggingface.co/spaces/ginipick/SORA-3D/blob/e3df509037b8d7a49ea8599caebb1c08922cea96/extensions/nvdiffrast/LICENSE.txt [32] (mirror of the licence text, not the official repo) and https://github.com/microsoft/TRELLIS/issues/298 [33]. Which pipelines use it was not checked.
 - MICA demo writes vertices x1000 (mm): **confirmed** (📄) — https://www.github.com/Zielon/MICA/blob/master/demo.py [34]. The 300-dimension size of identity.npy was not shown in the snippet; stays unconfirmed.
 - 3DDFA_V2 OBJ/PLY in image-pixel coordinates on a ~38,365-vertex no-neck BFM crop: **unconfirmed** (🧠) — searches found no vertex count for bfm_noneck_v3 (a different project cites 35,709 for its own BFM, and SynergyNet about 45K for a neck-free BFM). Check by counting vertices in an exported OBJ.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Code licences of VHAP, flame-head-tracker, SMIRK, Pixel3DMM: **partly confirmed** (📄, README text via search summary, not LICENSE files). VHAP is CC-BY-NC-SA-4.0 with a Toyota Motor Europe commercial-use restriction inherited from GaussianAvatars (https://github.com/ShenhanQian/VHAP [3]); flame-head-tracker is MIT, with dependency terms still applying (https://github.com/peizhiyan/flame-head-tracker [1]); Pixel3DMM is CC BY-NC 4.0 (https://github.com/SimonGiebenhain/pixel3dmm [35]). SMIRK: **unconfirmed** (🧠), no result for the repo.
+- RTX 50-series (Blackwell, sm_120) fails on old pinned PyTorch and needs a CUDA 12.8+ build: **confirmed** (📄) by two forum threads — https://discuss.pytorch.org/t/is-there-a-pytorch-build-that-supports-nvidia-rtx-5090-compute-capability-12-0-sm-120/223536 [36] and https://discuss.pytorch.org/t/pytorch-support-for-sm120/216099?page=4 [37]. Both are user and moderator forum posts, not official release notes, so kept at 📄. The "PyTorch 1.x / CUDA 10/11" detail is consistent but not stated explicitly.

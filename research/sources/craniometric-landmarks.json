@@ -378,6 +378,20 @@
    "url": "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/",
    "kind": "official docs",
    "year": "2020"
+  },
+  {
+   "n": 55,
+   "title": "davisking/dlib-models: trained model files for dlib example programs",
+   "url": "https://github.com/davisking/dlib-models",
+   "kind": "repo",
+   "year": "unknown"
+  },
+  {
+   "n": 56,
+   "title": "dlib face_landmark_detection_ex.cpp",
+   "url": "https://dlib.net/face_landmark_detection_ex.cpp.html",
+   "kind": "official docs",
+   "year": "unknown"
   }
  ],
  "references_by_name": [

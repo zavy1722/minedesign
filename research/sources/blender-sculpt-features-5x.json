@@ -91,6 +91,20 @@
    "url": "https://developer.blender.org/docs/release_notes/5.3/sculpt/",
    "kind": "official-docs",
    "year": "2026"
+  },
+  {
+   "n": 14,
+   "title": "Multiresolution Modifier - Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 15,
+   "title": "This Summer's Sculpt Mode Refactor - Blender Developers Blog",
+   "url": "https://code.blender.org/2024/11/this-summers-sculpt-mode-refactor/",
+   "kind": "official-docs",
+   "year": "2024"
   }
  ],
  "references_by_name": [

@@ -390,7 +390,7 @@
         [
           "--python-exit-code N",
           "exit with N on uncaught Python exception; default 0 = disabled",
-          "knowledge"
+          "source [29]"
         ],
         [
           "-P file / --python file",
@@ -420,7 +420,7 @@
         [
           "BLENDER_USER_RESOURCES",
           "relocate all user dirs (config, scripts, extensions)",
-          "knowledge"
+          "source [29]"
         ],
         [
           "--command extension validate|build|install-file|server-generate|list",

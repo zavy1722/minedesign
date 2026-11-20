@@ -2,7 +2,7 @@
 
 > A face-recognition network such as ArcFace turns a 112×112 face crop, aligned on five keypoints, into a 512-dimensional vector. Two faces count as the same person when the cosine similarity of their L2-normalised vectors clears a threshold, and that threshold must be calibrated per model, per image domain and ideally per subject. In photo→3D work the embedding plays three roles. It is a frozen **identity encoder** for a scan-supervised shape regressor (MICA, whose loss is geometric, not an ArcFace identity loss), an **identity loss** on renders (Genova 2018, Deng 2019, GANFIT, DECA), and an offline **likeness scorecard** for camera-matched renders of the sculpt. The scorecard can be fooled: it is blind to scale, weak on depth, ears and cranium, and dominated by texture, eyes and brows, so measure it on clay renders against a calibrated genuine/impostor baseline. The common InsightFace weights are reportedly non-commercial only, and embeddings are biometric data, which limits how an add-on ships the model and stores its outputs.
 >
-> Evidence status: 6 ✅ / 28 📄 / 37 🧠 / 9 ↔️ — 🧠 items are queued for web verification; last verification pass 2026-11-20.
+> Evidence status: 6 ✅ / 29 📄 / 36 🧠 / 8 ↔️ — remaining 🧠 items stay unconfirmed after two verification passes; last pass 2026-11-20.
 
 ## Key facts
 
@@ -31,12 +31,12 @@
 - **buffalo_l** is the SCRFD-10GF detector plus a ResNet50 recogniser trained on WebFace600K, about **326 MB** in total [6]. 📄 Its recogniser `w600k_r50.onnx` is about **166 MB** and outputs **512-d** vectors [7][6]. 📄
 - The pack also ships `2d106det.onnx` (106 2D landmarks), `1k3d68.onnx` (68 3D landmarks) and `genderage.onnx`. **antelopev2** swaps in a ResNet100 trained on Glint360K, and **buffalo_s/sc** use MobileFaceNet. 🧠
 - **Licence.** The pretrained models are reported as **non-commercial research only**, separately from the MIT-licensed code [7][6][11]; commercial use of buffalo_l, antelopev2 etc. is offered only through a separate licence on request [11][12]. 📄 Mirrors on SourceForge, Hugging Face and GitHub releases are unofficial [8][10]. 📄 The legacy CLI command is `insightface-cli model.download buffalo_l`, which saves to `~/.insightface/models/buffalo_l/` [6]. 📄
-- **Possibly more permissive alternatives, all needing licence checks:** OpenCV Zoo SFace (128-d, with the YuNet detector), dlib's ResNet (128-d, Euclidean threshold 0.6) and facenet-pytorch (InceptionResNetV1 on VGGFace2). Whatever the code licence says, weights carry their training data's consent and licence baggage. ↔️
+- **Possibly more permissive alternatives, all needing licence checks:** OpenCV Zoo SFace (128-d, with the YuNet detector), dlib's ResNet (128-d, Euclidean threshold 0.6) and facenet-pytorch (InceptionResNetV1 on VGGFace2). Whatever the code licence says, weights carry their training data's consent and licence baggage. Third-party listings give SFace as Apache-2.0 and YuNet as MIT [18], but open opencv_zoo issues ask about SFace's training data and commercial use, unresolved [17]; the dlib licence was not found. ↔️
 
 **Bias and ethics**
 - **Demographic effects.** NIST FRVT Part 3 (NISTIR 8280, 2019) found that, for many algorithms, false-match rates differ between demographic groups by factors of roughly 10–100. Impostor scores run higher between people of the same sex, age band and ancestry. 🧠 Impostor statistics must therefore be matched to the subject's demographics.
 - **Training data.** MS-Celeb-1M was withdrawn in 2019 over consent concerns, and most recogniser weights descend from web-scraped celebrity data. 🧠
-- **Law (time-sensitive, not legal advice).** GDPR Art. 9 makes biometric data used for unique identification a special category; Illinois BIPA requires written consent and a retention policy; the EU AI Act has banned untargeted scraping for face-recognition databases since February 2025, and its Art. 50 deepfake-labelling duties were scheduled for August 2026, with delay proposals pending. ↔️
+- **Law (time-sensitive, not legal advice).** GDPR Art. 9 makes biometric data used for unique identification a special category; Illinois BIPA requires written consent and a retention policy; the EU AI Act has banned untargeted scraping for face-recognition databases since February 2025 (not re-checked), and its Art. 50 deepfake-labelling duties apply from 2 August 2026 [15]. The digital-omnibus proposal does not delay that date; it only adds a grace period, to 2 December 2026, for the Art. 50(2) marking duty of systems already on the market, and its adoption was not confirmed [15][16] (corrected in verification). 📄 GDPR and BIPA points were not re-checked.
 
 ## Numbers & reference tables
 
@@ -169,6 +169,10 @@
 [12] InsightFace enterprise model licensing — https://www.insightface.ai/solutions/face-recognition-licensing — official-docs (vendor page) — 2026
 [13] InsightFace face_align.py (arcface_dst template) — https://github.com/deepinsight/insightface/blob/master/python-package/insightface/utils/face_align.py — repo — 2024
 [14] OpenCV DNN face detection and recognition tutorial (SFace thresholds) — https://docs.opencv.org/4.13.0/d0/dd4/tutorial_dnn_face.html — official-docs — 2026
+[15] Transparency obligations under Article 50 of the AI Act (Commission FAQ) — https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act — official-docs — 2026
+[16] EUR-Lex 52025PC0836, Digital Omnibus on AI proposal — https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52025PC0836 — official-docs — 2025
+[17] opencv_zoo issue 318, commercial use and training data of SFace weights — https://github.com/opencv/opencv_zoo/issues/318 — forum — 2026
+[18] Third-party release listing YuNet MIT / SFace Apache-2.0 (unverified) — https://github.com/nyarrow-studio/daysta-thirdparty-sources/releases/tag/mobile-models-20261024 — forum — 2026
 
 **Further reading (by name, not yet linked)**
 - Liu et al., *SphereFace: Deep Hypersphere Embedding for Face Recognition*, CVPR 2017
@@ -198,3 +202,8 @@
 - **ArcFace ONNX contract** — partly confirmed. The 5-point `arcface_dst` template is in `face_align.py` (📄); the 112×112 RGB input, (px−127.5)/127.5 normalisation, Sub/Mul exception and un-normalised 512-d output were not found in results and stay 🧠 unconfirmed. https://github.com/deepinsight/insightface/blob/master/python-package/insightface/utils/face_align.py
 - **Cosine threshold anchors** — partly confirmed. OpenCV's SFace tutorial uses cosine 0.363 / L2 1.128 (📄). deepface ≈0.68 distance, practitioner 0.28–0.45 and genuine 0.5–0.8 were not checked; unconfirmed. https://docs.opencv.org/4.13.0/d0/dd4/tutorial_dnn_face.html
 - **MICA masked L1 loss with no ArcFace term, ArcFace encoder, 24 % benchmark naming** — unconfirmed. Results only support that ArcFace is the identity encoder and that a masked mesh loss is used (secondary papers); the L1 form, the absence of an identity term and the 24 % benchmark were not found. Secondary result (OFER) says layers are frozen "except the last", which may conflict with the note's "last 3 blocks"; left unchanged, to check against the paper. https://github.com/Zielon/MICA · https://arxiv.org/html/2410.21629
+
+## Verification log, pass 2 (2026-11-20)
+
+- **EU AI Act Art. 5 scraping ban from 2 Feb 2025; Art. 50 duties 2 Aug 2026, possibly delayed by omnibus** — corrected (📄). Art. 50 applies from 2 August 2026 and is not itself delayed; the omnibus only gives systems placed on the market before that date a grace period to 2 December 2026 for the Art. 50(2) marking duty (the original proposal said 2 February 2027), and adoption was not confirmed. The Art. 5 date was not in the results (unconfirmed). https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act · https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52025PC0836
+- **SFace and YuNet permissive licences; dlib ResNet public domain/CC0** — contested (↔️). SFace Apache-2.0 and YuNet MIT appear only in third-party listings; open opencv_zoo issues question training data and commercial use; dlib licence and its 0.6 / 99.38 % figures were not found (unconfirmed). https://github.com/nyarrow-studio/daysta-thirdparty-sources/releases/tag/mobile-models-20261024 · https://github.com/opencv/opencv_zoo/issues/318

@@ -203,3 +203,9 @@ Faceit's 5.2 ceiling excludes 5.3; FSKR's 5.2 floor excludes 4.5 LTS. Only 5.2 L
 - Iris diameter 11.7 ± 0.5 mm (MediaPipe Iris): confirmed — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/
 - Adult IPD 63 mm, σ 3.5 mm: unconfirmed (not addressed by results)
 - Face Landmarker 52 blendshapes incl. `_neutral`, omitting `tongueOut`; iris indices 468–472 / 473–477: unconfirmed (478 landmarks and 52 scores confirmed at https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker, but names and index split not shown)
+
+## Verification log, pass 2 (2026-11-20)
+
+- Faceit range 3.0 to 5.2, FSKR 5.2+, 5.2 LTS the only shared version, 5.3 outside Faceit support: unconfirmed (search returned no Faceit Blender add-on page or 5.3 statement; stays 🧠/📄 as before)
+- KeenTools FaceBuilder subscription with trial: confirmed (15-day trial; $19.99/mo monthly, $15.99/mo annual, Studio $699/yr; commercial use allowed) — https://keentools.io/products/facebuilder-for-blender
+- FaceBuilder GPL Python front-end with proprietary core, ARKit-compatible blendshapes, EULA terms on exported meshes: unconfirmed (EULA text not in results; install page only says the licence agreement must be accepted) — https://keentools.io/download/facebuilder-for-blender

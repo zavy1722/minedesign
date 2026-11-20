@@ -30,10 +30,11 @@
    "population": "Cadaver dissections (lower-lip depressor myectomy context); sample size not in the search snippet",
    "source_urls": [
     "https://journals.lww.com/10.1097/SCS.0000000000007622",
-    "https://uu.diva-portal.org/smash/get/diva2:1356617/FULLTEXT06.pdf"
+    "https://uu.diva-portal.org/smash/get/diva2:1356617/FULLTEXT06.pdf",
+    "https://journals.lww.com/jcraniofacialsurgery/abstract/2021/09000/anatomical_features_in_lower_lip_depressor_muscles.67.aspx"
    ],
    "status": "sourced",
-   "notes": "Single study ([32] is probably the full text of [11]). Measurement site (origin vs mid-belly) unconfirmed. Use as a weak prior for deformation-region width, scaled by mouth width (ch-ch / 52 mm)."
+   "notes": "Values confirmed in the 2021 abstract (pass 2); single study ([32] is probably the full text of [11]). Measurement site (origin vs mid-belly) unconfirmed. Use as a weak prior for deformation-region width, scaled by mouth width (ch-ch / 52 mm)."
   },
   {
    "name": "dao_insertion_offset_from_commissure",

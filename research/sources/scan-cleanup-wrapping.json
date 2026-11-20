@@ -127,6 +127,20 @@
    "url": "https://docs.blender.org/manual/en/latest/modeling/modifiers/deform/shrinkwrap.html",
    "kind": "official docs",
    "year": "2026"
+  },
+  {
+   "n": 19,
+   "title": "From Template Mesh, MetaHuman documentation (Epic)",
+   "url": "https://dev.epicgames.com/documentation/en-us/metahuman/from-template-mesh",
+   "kind": "official docs",
+   "year": "2026"
+  },
+  {
+   "n": 20,
+   "title": "Mesh to MetaHuman, MetaHuman documentation (Epic)",
+   "url": "https://dev.epicgames.com/documentation/metahuman/mesh-to-metahuman?lang=en-US",
+   "kind": "official docs",
+   "year": "2026"
   }
  ],
  "references_by_name": [

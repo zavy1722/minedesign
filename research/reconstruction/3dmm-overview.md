@@ -9,7 +9,7 @@
 >
 > No large-population model is plainly free for commercial use. ICT-FaceKit (MIT) is the main permissive exception, and "FLAME 2023 Open" is CC BY 4.0 per the official FLAME site [1] (verified; the other FLAME releases stay non-commercial). Use a 3DMM as a *prior and initialiser* behind an adapter. Ship a CC0 or MIT template, and treat research models as user-supplied plug-ins.
 >
-> Evidence status: 0 ✅ / 3 📄 / 57 🧠 / 24 ↔️ — 🧠 items are queued for web verification; 4 claims checked 2026-11-20 (see Verification log).
+> Evidence status: 0 ✅ / 3 📄 / 57 🧠 / 24 ↔️ — 🧠 items are queued for web verification; 4 claims checked 2026-11-20 (see Verification log); pass 2 (2026-11-20) cited partial evidence for FLAME ≈3,800 scans, LSFM 9,663 scans and HIFI3D 20,481 vertices without changing badges, because the rest of each fact is unverified (see Verification log, pass 2).
 
 *No web harvest or earlier draft existed for this topic, so nothing here is web-sourced. Where a sibling note cites a source for a related claim, it is named in backticks. Per-model counts are in Table 1.*
 
@@ -72,7 +72,7 @@
 - **MICA** registered eight scan datasets (about 2,300 subjects) into FLAME topology. This gives FLAME the most *metric* identity supervision of any public model. 🧠
 
 **Large-population and full-head models**
-- **LSFM** (Booth et al. 2016/2018) is built from about 9,663 3dMD scans of Science Museum (London) visitors, children included. Besides the global model it releases age-bracket and ethnicity-specific (White, Chinese, Black) sub-models. 🧠
+- **LSFM** (Booth et al. 2016/2018) is built from about 9,663 [3] 3dMD scans of Science Museum (London) visitors, children included. Besides the global model it releases age-bracket and ethnicity-specific (White, Chinese, Black) sub-models. 🧠
 - **LYHM** (Dai et al. 2017) is built from Headspace, whose subjects wore tight caps. It is the only mainstream model with cranium shape not hidden by hair. 🧠
 - **UHM** (Ploumpis et al. 2019/2021) fuses LSFM face statistics with LYHM cranium statistics by covariance completion. The TPAMI version adds ears (York Ear Model), eyes and the mouth interior. 🧠
 - **Surrey Face Model** (Huber et al. 2016): a multi-resolution academic model, with the permissively licensed `eos` fitter. 🧠
@@ -107,7 +107,7 @@
 | BFM 2019 | face12, bfm, full head | up to full head | not recalled | not recalled | – | NC research | ↔️ |
 | FaceWarehouse (2014) | 11,510 | face, front of head | bilinear ≈ 50 × 25–47 | 150 people × 20 expressions, Kinect | 7–80 y, mixed | research, on request | ↔️ |
 | LSFM (2016) | not recalled | face | ≈ 158 + sub-models | ≈ 9,663 3dMD scans | incl. children, ≈ 80 % White | NC, on request | 🧠 |
-| FLAME 2017/2020 | 5,023; 9,976 tris | head, neck, eyeballs | 300 / 100 + 15 pose | ≈ 3,800 CAESAR (identity) + 4D (expression) | 18–65 y, N. America + Europe | NC; commercial via MPI or Meshcapade | 🧠 |
+| FLAME 2017/2020 | 5,023; 9,976 tris | head, neck, eyeballs | 300 / 100 + 15 pose | ≈ 3,800 CAESAR (identity) [4] + 4D (expression) | 18–65 y, N. America + Europe | NC; commercial via MPI or Meshcapade | 🧠 |
 | FLAME 2023 | 5,023 | same | 300 / 100 (verify) | not recalled | – | NC; "FLAME 2023 Open" is CC BY 4.0 [1] (corrected in verification) | 📄 |
 | LYHM (2017) | not recalled | full head + cranium | global + age/sex sub-models | ≈ 1,200 of ≈ 1,500 Headspace | UK, children–elderly | academic | 🧠 |
 | UHM (2019/21) | not recalled | head + ears, eyes, mouth | LSFM ⊕ LYHM | ≈ 9.7k + ≈ 1.2k | as parents | academic NC | 🧠 |
@@ -115,7 +115,7 @@
 | FaceScape (2020) | ≈ 26k + 4K displacement | face, front of head | bilinear ≈ 50 × 52 (v1.6) | 938 people × 20 expressions = 18,760 | mostly Chinese adults | NC, application | ↔️ |
 | ICT-FaceKit (2020) | quads, count not recalled | head, eyes, mouth interior | ≈ 100 / 53 | Light Stage | diverse | MIT | ↔️ |
 | FaceVerse (2022) | not recalled | head | PCA + neural detail | ≈ 60k RGB-D frames + ≈ 2k scans, ≈ 128 people | East Asian | NC (believed) | ↔️ |
-| HIFI3D++ (2022) | ≈ 20,481 | face, front of head | ≈ 526 | ≈ 1,957 identities | mixed, Asian-weighted | research | ↔️ |
+| HIFI3D++ (2022) | ≈ 20,481 (HIFI3D topology: 20,481 vertices, 40,832 faces [5]) | face, front of head | ≈ 526 | ≈ 1,957 identities | mixed, Asian-weighted | research | ↔️ |
 | NPHM (2023) | implicit SDF | head | latent identity + expression | ≈ 5,200 scans, ≈ 255 people | mostly European | NC | 🧠 |
 
 **Table 2: Load-time assertions** (fail loudly on mismatch)
@@ -218,6 +218,11 @@
 1. FLAME model license page (FLAME 2023 Open = CC-BY-4.0): https://flame.is.tue.mpg.de/modellicense.html (homepage: https://flame.is.tue.mpg.de/)
 2. What does 2D geometric information really tell us about 3D face shape? (cites BFM 2009 with 53,490 vertices): https://arxiv.org/pdf/1708.06703
 
+3. Booth et al., A 3D Morphable Model learnt from 10,000 faces (LSFM, 9,663 identities): https://www.doc.ic.ac.uk/~aroussos/Booth_etal_3DMMlearntFrom10000Faces_CVPR16.pdf
+4. FLAME paper (linear shape space trained from 3800 head scans; >33,000 scans in total): https://download.is.tue.mpg.de/flame/flame_paper.pdf
+5. REALY supplementary material (HIFI3D topology nv = 20481, nf = 40832; FaceScape nv = 26317): https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136680072-supp.pdf
+6. FaceScape benchmark paper (18,760 models, 938 subjects x 20 expressions): https://arxiv.org/pdf/2111.01082
+
 No other harvested URLs were provided. Sibling notes with sourced related claims:
 - `reconstruction/single-image-regression.md`
 - `reconstruction/multi-view-fitting.md`
@@ -253,3 +258,12 @@ No other harvested URLs were provided. Sibling notes with sourced related claims
 | ICT-FaceKit MIT, ~100 id / 53 expression shapes, quads, eyes/teeth/gums/tongue | unconfirmed (only a secondary news post said MIT, and cited >150 blendshapes; no repo LICENSE seen) | none usable |
 | Units and vertex counts (FLAME m; BFM 2009 sub-mm/µm; BFM 2017 face12 28,588 / bfm 53,149) | unconfirmed; only BFM 2009 = 53,490 vertices and "absolute distance units" seen, no unit named, no 2017 counts | https://arxiv.org/pdf/1708.06703 |
 | FLAME basis pre-scaled to unit variance; BFM orthonormal PCs with separate sigma/variance | unconfirmed (no source on shapedirs/shapeEV/pcaVariance conventions) | none usable |
+
+## Verification log, pass 2 (2026-11-20)
+
+| Claim | Outcome | Source |
+|---|---|---|
+| FLAME identity space from about 3,800 CAESAR scans | partly confirmed: paper says shape space trained from 3800 head scans (and elsewhere roughly 4000 CAESAR body scans); age range and region not confirmed. Badge left 🧠 | https://download.is.tue.mpg.de/flame/flame_paper.pdf |
+| LSFM about 9,663 scans, about 80 % White, about 158 global components | 9,663 identities confirmed; 80 % White and 158 components unconfirmed. Badge left 🧠 | https://www.doc.ic.ac.uk/~aroussos/Booth_etal_3DMMlearntFrom10000Faces_CVPR16.pdf |
+| HIFI3D++ about 1,957 identities, about 526 components, about 20,481 vertices | vertices confirmed (HIFI3D topology 20,481); identities and components unconfirmed; REALY itself is 100 LYHM-based scans, so the merge description remains unverified. Badge left ↔️ | https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136680072-supp.pdf ; https://arxiv.org/pdf/2203.09729 |
+| FaceScape bilinear v1.6 about 50 x 52 from about 847 identities | unconfirmed (dataset is 938 subjects x 20 expressions = 18,760 models; no v1.6 bilinear dimensions found; FaceScape topology 26,317 vertices) | https://arxiv.org/pdf/2111.01082 ; https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136680072-supp.pdf |

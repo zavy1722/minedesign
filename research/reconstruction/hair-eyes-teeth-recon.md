@@ -2,7 +2,7 @@
 
 > Hair, eyes and teeth break photo→3D face pipelines first: hair is a fibre volume whose interior is never seen, the cornea is a transparent refractor on a rotating globe, and teeth are translucent and visible only when the mouth moves. The dependable route is **model-based**: a fixed-size parametric eye with per-view gaze fitted to limbus edges; a dental arch of per-tooth templates fitted to smile photos, or better, the person's own intraoral scan registered to the face; and hair as envelope + hairline + parting + flow field driving a procedural groom. Strand reconstruction from phone video or one image (Neural Haircut, GaussianHaircut, MonoHair, DiffLocks) works in research but is slow, scored on synthetic data and mostly non-commercial: an optional source of guide curves to re-comb. No harvest or draft existed: this is author knowledge (to about mid-2025) cross-checked against sibling notes marked "(lib: file)"; 2025–26 names, licences and runtimes need verification.
 >
-> Evidence status: 0 ✅ / 1 📄 / 52 🧠 / 27 ↔️ — 🧠 items are queued for web verification; 2026-11-20 pass checked 4 claims (1 confirmed, 1 partly confirmed, 2 unconfirmed; see Verification log).
+> Evidence status: 0 ✅ / 2 📄 / 51 🧠 / 27 ↔️ — 🧠 items are queued for web verification; 2026-11-20 pass 1 checked 4 claims (1 confirmed, 1 partly confirmed, 2 unconfirmed); pass 2 checked 2 claims (1 confirmed, 1 partly confirmed; see Verification logs).
 
 ## Key facts
 
@@ -28,8 +28,8 @@
 - **The limbus is a projected circle.** One ellipse plus known radius gives the circle's 3D pose in closed form with a two-fold ambiguity (Safaee-Rad et al. 1992; Wang, Sung & Venkateswarlu 2003); an eyeball centre shared across views resolves it. 🧠
 - **Ellipse shape barely encodes near-frontal gaze:** cos 10° = 0.985, a 1.5 % aspect change (~0.3 px on a 40 px iris). Use the limbus centre's offset from the head-rigid eyeball centre instead. 🧠
 - **Fit medial and lateral arcs only;** lids hide top and bottom. Limbus refraction is negligible; the photographed pupil is the entrance pupil, ≈13 % larger (lib). 🧠
-- **MediaPipe Face Landmarker:** 478 points (468–477 = 5 per iris) and 52 ARKit-style blendshapes including eyeLook*; good initialisers, jittery at low resolution. MediaPipe Iris assumes HVID ≈11.7 mm for metric depth (Ablavatski et al. 2020). 🧠
-- **Gaze accuracy:** appearance-based networks ≈4–5° within MPIIGaze/ETH-XGaze, ≈10–11° on unconstrained Gaze360, worse cross-dataset; IR-glint trackers ≈0.5–1°; model-based limbus fits on sharp high-res photos plausibly 1–3°. ↔️
+- **MediaPipe Face Landmarker:** 478 points (468–477 = 5 per iris) and 52 ARKit-style blendshapes including eyeLook*; good initialisers, jittery at low resolution. MediaPipe Iris assumes HVID ≈11.7 ± 0.5 mm for metric depth (Ablavatski et al. 2020) [5][6]. 📄
+- **Gaze accuracy:** appearance-based networks ≈4–5° within MPIIGaze/ETH-XGaze (L2CS-Net reports 3.92° on MPIIGaze) [4], ≈10–11° on unconstrained Gaze360 (L2CS-Net 10.41°) [4], worse cross-dataset; IR-glint trackers ≈0.5–1°; model-based limbus fits on sharp high-res photos plausibly 1–3°. ↔️
 - **High-end capture:** Bérard et al. 2014 (eyes are not spheres; the iris deforms with the pupil), 2016 (parametric eye from few images), 2019 (no fixed-pivot rotation); EyeNeRF (2022); Wood et al. 2016 eye-region morphable model. 🧠
 - **FLAME** has rigid eyeballs on their own 3-DoF joints, fitted to iris landmarks by trackers; blinks are poorly spanned, so trackers add eyelid blendshapes; Gaussian avatars often paint the iris onto the eyeball and control gaze weakly. ↔️
 - **Lids follow gaze:** the upper margin tracks vertical gaze with an angular gain of roughly 0.6–1.0, so a down-gaze view shows a lower lid, not hooding. ↔️
@@ -185,6 +185,9 @@ Numbered sources below were added in the 2026-11-20 verification; most facts rem
 1. Rosu et al., DiffLocks, arXiv 2505.06166 — https://arxiv.org/abs/2505.06166v1
 2. DiffLocks, CVPR 2025 open access — https://openaccess.thecvf.com/content/CVPR2025/html/Rosu_DiffLocks_Generating_3D_Hair_from_a_Single_Image_using_Diffusion_CVPR_2025_paper.html
 3. DiffLocks software licence — https://difflocks.is.tue.mpg.de/license.html
+4. Abdelrahman et al., L2CS-Net: Fine-Grained Gaze Estimation in Unconstrained Environments, arXiv 2203.03339 — https://arxiv.org/abs/2203.03339
+5. Google Research, MediaPipe Iris: Real-time Iris Tracking & Depth Estimation — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/
+6. MediaPipe Face Landmarker guide (478 landmarks, 52 blendshapes) — https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker
 
 **Further reading (by name, not yet linked)**
 - Hair capture: Paris, Briceño & Sillion, SIGGRAPH 2004; Paris et al., "Hair Photobooth", 2008; Luo, Li & Rusinkiewicz, "Structure-Aware Hair Capture", 2013; Beeler et al., facial hair and skin, SIGGRAPH 2012; Shen et al., "CT2Hair", 2023
@@ -200,3 +203,8 @@ Numbered sources below were added in the 2026-11-20 verification; most facts rem
 - **Wheeler-type crown sizes and intercanine widths (Table 5):** unconfirmed; searches found only book listings (https://shop.elsevier.com/books/wheelers-dental-anatomy-physiology-and-occlusion/nelson/978-0-323-63878-4), no values. Stays 🧠.
 - **Upper-lid gain 0.6–1.0, g ~ N(0.8, 0.2²):** unconfirmed. Only qualitative downgaze lid-lowering and mm-scale changes found (https://pubmed.ncbi.nlm.nih.gov/8090463/); no degrees-per-degree gain. Stays ↔️.
 - **DiffLocks CVPR 2025, single image, curly hair, ~40K Blender-rendered styles:** confirmed (one source family: paper/arXiv/CVPR page) 📄 [1][2]. "Strongest single-image prior" is a judgment, kept ↔️ in Table 1. Im2Haircut, TANGLED, StrandHead, SimAvatar: unconfirmed.
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Appearance-based gaze 4–5° lab / 10–11° Gaze360; IR trackers 0.5–1°; limbus fit 1–3°:** partly confirmed. L2CS-Net reports 3.92° on MPIIGaze and 10.41° on Gaze360 (front 180°) [4] (https://arxiv.org/abs/2203.03339). ETH-XGaze figures, IR-tracker accuracy and the 1–3° model-based estimate: unconfirmed. Stays ↔️.
+- **MediaPipe Iris HVID 11.7 ± 0.5 mm; Face Landmarker 478 points (iris 468–477) and 52 blendshapes:** confirmed. Iris assumption from the Google Research blog [5] (https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/); 478 landmarks and 52 blendshapes from the official guide [6] (https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker). The 468–477 index split and "eyeLook*" naming were not seen in the results. Badge 📄 (both Google sources).

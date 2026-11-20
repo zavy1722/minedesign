@@ -20,6 +20,21 @@
    "id": 4,
    "title": "GaussianAvatars (arXiv 2312.02069)",
    "url": "https://arxiv.org/html/2312.02069"
+  },
+  {
+   "id": 5,
+   "title": "NeRSemble (arXiv 2305.03027)",
+   "url": "https://arxiv.org/abs/2305.03027"
+  },
+  {
+   "id": 6,
+   "title": "SurFhead (arXiv 2410.11682)",
+   "url": "https://arxiv.org/html/2410.11682v2"
+  },
+  {
+   "id": 7,
+   "title": "SurFhead ICLR 2025 poster",
+   "url": "https://iclr.cc/virtual/2025/poster/31173"
   }
  ],
  "references_by_name": [

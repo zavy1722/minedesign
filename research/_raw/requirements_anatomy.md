@@ -1,6 +1,6 @@
 # Engine requirements digest: face & head anatomy
 
-Compiled 2026-11-20 from the 26 notes in `research/anatomy/`, with verification-log corrections applied, for the numpy-only fitting engine (`face3d`) and the Blender add-on. Human-facing summary: [`anatomy/README.md`](../anatomy/README.md).
+Compiled 2026-11-20 from the 26 `research/anatomy/` notes (verification-log corrections applied) for the `face3d` engine and Blender add-on. Summary: [`anatomy/README.md`](../anatomy/README.md).
 
 **Badges.** ✅ verified (≥2 sources) · 📄 single source · 🧠 expert knowledge, unverified · ↔️ contested. 72% of the area's 2,865 badged claims are 🧠 (1,555) or ↔️ (514). **Every 🧠 value is provisional: ship it as a named, tunable default carrying its badge, never as a constant.**
 
@@ -10,18 +10,18 @@ Compiled 2026-11-20 from the 26 notes in `research/anatomy/`, with verification-
 
 - **R1.1** Units mm and degrees. Head frame +x subject's left, +y up, +z forward, origin on the midsagittal plane, levelled to Frankfort horizontal (FH). Blender mapping (x, y, z) → (x, −z, y); `.L` = +X [CRL].
 - **R1.2** Left/right is the subject's side in dlib, MediaPipe and ARKit; mirrored inputs swap labels [CRL, FACS].
-- **R1.3** Every prior row carries `population, sex, age_band, method (caliper|3d_surface|photo2d|ct|cbct|mri|us|cadaver), posture (upright|supine), landmark_variant, badge, source`. Compare with a norm only when method and variant match, or after an explicit offset [ANT, SKO, STT].
+- **R1.3** Every prior row carries `population, sex, age_band, method, posture (upright|supine), landmark_variant, badge, source`; compare with a norm only when method and variant match [ANT, SKO, STT].
 - **R1.4** Likeness is the sitter's deviation from the mean. Priors fill only what no view observes; with landmarks seen in ≥2 pose-solved views, cap prior weight at 10–20% of the objective 🧠 [ANT, POP, PER].
-- **R1.5** Noise belongs in the data term (`ViewObs.sigma_px`, `weights`), population spread in `Priors.sigma`; perceptual weight drives only evaluation and view requests 🧠 [PER].
+- **R1.5** Noise goes in the data term (`ViewObs.sigma_px`), population spread in `Priors.sigma`; perceptual weight only drives evaluation 🧠 [PER].
 
 ## 2. Data formats and landmark schemes
 
 - **R2.1 Landmark registry** [CRL]: `abbr, aliases, tissue (bone|skin|hair), side, bookstein_type, variant, kind ∈ {vertex, barycentric, extremal(dir, region), constructed(fn), contour(sliding|silhouette)}, visibility, sigma_t, sigma_n, source_ids`. Required variants: `go: outer|bisector|tangents`, `gn: ceph_mid|anthro_lowest` (Farkas gn = cephalometric menton), `sto: single|sup|inf`, `ls: border|prominent`, `n′: deepest|over_n`. Route `synthetic.py` names (`pogonion`, `labrale_superius`, `vertex_front`) through aliases.
 - **R2.2 NormRecord** [ANT]: `{id, a, b, distance: chord|proj_x|proj_y|proj_z|arc, frame: FH|camera, method, landmark_variant, population, sex, age_band, n, mean, sd, source_ids, status}`.
 - **R2.3 dlib-68** (0-based): jaw 0–16, right brow 17–21, left brow 22–26, nose 27–35, right eye 36–41, left eye 42–47, mouth 48–67 ✅. Points: ex 36/45, en 39/42, ch 48/54, prn 30, sn 33, ls 51, li 57, sto = mean(62, 66). Jaw and brow points are sliding contours, never gonion or glabella 📄 [CRL].
-- **R2.4 MediaPipe 478** = 468 mesh + 10 iris points (468–477) ✅. Anatomical candidates (prn 1, n′ ~168, en 133/362, ex 33/263, ch 61/291, ls 0, li 17, sto mean(13, 14), me′ ~152, zy silhouette 234/454, iris 468/473) are 🧠: render labels on the canonical mesh and version-lock the map. Lids 159/145, 386/374 📄. z is relative, not mm: ignore or σ ≥ 10 mm 🧠. No vertex exists for t, po, tr or v; index 10 is mesh top, not trichion [CRL, FHB, MUF].
+- **R2.4 MediaPipe 478** = 468 mesh + 10 iris points (468–477) ✅. Anatomical candidates (prn 1, n′ ~168, en 133/362, ex 33/263, ch 61/291, ls 0, li 17, sto mean(13, 14), me′ ~152, zy silhouette 234/454, iris 468/473) are 🧠: render labels on the canonical mesh and version-lock the map. Lids 159/145, 386/374 📄. z is relative, not mm: ignore or σ ≥ 10 mm 🧠. No vertex for t, po, tr, v; 10 is mesh top, not trichion [CRL, FHB, MUF].
 - **R2.5 Expressions**: shape keys use ARKit-52 names; MediaPipe gives 52 scores in [0, 1] (count 📄, names unconfirmed) via `output_face_blendshapes` [FACS, MMF].
-- **R2.6 Template annotations** on fixed topology: region masks; 17-region fat atlas [FAT]; ligament paths `lig_*` and fold curves `fold_nlf`, `fold_marionette` on the bone layer [SMAS]; plane-break curves (temporal crest, lateral orbital rim, arch, key ridge, mandibular border, mental tubercles) [SKO, FHB]; RSTL field, skin-thickness and pore-spacing maps [SKIN]; vertex mirror map [ASY]; stable nose vertex IDs [NOSE].
+- **R2.6 Template annotations** on fixed topology: fat-region atlas [FAT]; ligament paths `lig_*` and fold curves on the bone layer [SMAS]; plane-break curves (temporal crest, orbital rim, arch, mandibular border) [SKO, FHB]; RSTL, skin-thickness and pore maps [SKIN]; vertex mirror map [ASY].
 - **R2.7 Subject metadata**, consented and never inferred from photos: age (months for minors), `sex_prior` or numeric s, BMI, dental status, toxin/filler/surgery history, `hrt_years`. No ancestry label is stored [SEX, POP, CHI, AGE].
 - **R2.8 Defaults** live in `research/data/<topic>.json` = `{topic, tables:[{name, units, columns, rows, population, source_urls}]}`, e.g. `skull-osteology:engine_priors_suggested`, `facial-asymmetry:fitting_prior_sigmas`.
 
@@ -30,8 +30,8 @@ Compiled 2026-11-20 from the 26 notes in `research/anatomy/`, with verification-
 - **R3.1** Full perspective everywhere: weak-perspective errors at ear (4–36%) and nose exceed population SDs 🧠 [EAR, NOSE].
 - **R3.2** Recompute extremal landmarks (softmax argmax ⟨p, d⟩ over a region mask, temperature 1–2 mm) after every pose update; a tilt θ slides them ≈ R·θ 🧠 [CRL].
 - **R3.3** Fit the symmetry plane by reflection Procrustes (`umeyama`) with weights upper face 1.0, midface 0.5, lower face 0.25, ears 0.1, Huber ≈1 mm; re-estimate every outer iteration, since a 2° frame error reads as ≈3 mm of asymmetry 🧠 [ASY].
-- **R3.4** Inverse-variance scale fusion; any caliper value (≈0.5 mm) overrides the iris, IPD and global priors. Use the iris only with both limbus edges sharp (ellipse major axis) and no spectacles (≈1–1.5% per dioptre). Never use trichion, vertex or hair 🧠 [ANT, EYE, CRL].
-- **R3.5** Head–neck pitch is per photo, N(0, 10²)° [JAW].
+- **R3.4** Inverse-variance scale fusion; a caliper value (≈0.5 mm) overrides iris, IPD and global priors. Iris only with both limbus edges sharp and no spectacles (≈1–1.5% per dioptre); never trichion, vertex or hair 🧠 [ANT, EYE, CRL].
+- **R3.5** Head–neck pitch per photo: N(0, 10²)° [JAW].
 
 ## 4. Default priors
 
@@ -45,7 +45,6 @@ Log-normal μ values are medians. Use Student-t (ν ≈ 4) or Huber on identity 
 | Global scale s | 1.0 | 0.035 | ratio | 🧠 | ANT |
 | Globe radius / corneal radius | 12.0 / 7.8 | 0.5 / 0.27 | mm | 🧠 / ✅ | EYE |
 | Hertel: cornea ahead of lateral rim | 16 white, 18 Black, 14 East Asian; L–R 0 | 2; L–R 0.7 | mm | ✅ corrected; L–R 🧠 | EYE |
-| Globe offset superior, lateral | +1, +1 | 1.5 | mm | 📄 sign | FOR |
 | Fissure length / height | 30 / 9.5 | 1.6 / 1.0 | mm | 🧠 | EYE |
 | Canthal tilt vs FH | +5 (East Asian +8) | 3 (3.5) | ° | 🧠 ↔️; ex 2–4 mm above en ✅ | EYE |
 | ex depth behind en | 10.5 | 2.5 | mm | 🧠 ↔️ | EYE |
@@ -74,17 +73,15 @@ Log-normal μ values are medians. Use Student-t (ν ≈ 4) or Huber on identity 
 | ls–sto | 8.0 − 0.05·(age − 25) | 1.5 | mm | 📄 | MLT, AGE |
 | sto–li / ls–sto | 1.3, clamp 0.8–2.3 | 0.3 | ratio | ↔️ | MLT |
 | Resting upper-incisor display | interpolate (25, 3.4), (35, 1.6), (45, 1.0), (55, 0.5), (65, 0) | 1.2 | mm | 📄 corrected | AGE, MLT |
-| cph–cph | 11.5 | 1.5 | mm | 📄 | MLT |
 | Modiolus from cheilion | 12 lateral, −3 vertical | 4 / 5 | mm | 🧠 | MLF, MMF |
 | Mentolabial depth / angle | 4 / 125 | 2 / 12 | mm / ° | 🧠 / ↔️ | MLF |
 | Lower lip to E-line | −2 | 2 (3 if ancestry unknown) | mm | ↔️ | MLF, JAW |
 | Ear length | 61, +2 male, +0.2·max(0, age − 25) | 4.5 | mm | 📄 | EAR, AGE |
 | Ear width/length; tilt; tragion vs orbitale | 0.50; 20°; 0 mm | 0.05; 7°; 5 mm | — | 📄; 🧠; 🧠 | EAR |
-| Forehead inclination | M 12, F 8 | 5 | ° | ↔️ | FHB |
 | Expression weights ψ, neutral views | half-normal + L1 | 0.05–0.10 (expression views 0.5) | — | 🧠 | FACS |
 | Jaw angle, neutral views | 1.5, bounds 0–30 | 1 | ° | 🧠 | FACS |
 
-- **R4.1 Landmark σ.** Replace scalar `Priors.sigma = 8.0` with per-landmark (N, 3) arrays at 1.0–1.5× population SD; keep 8 mm as fallback only 🧠 [PER, SEX]. Across/along contour: sharp junctions (en, ex, ch, sn, closed sto) 1.0–1.5/1.0–1.5 mm; curvature extremes (prn, pg′, me′) 1–2/2–4; flat extremal (g′, zy′, go′, v) 1.5–3/5–10; jaw oval 1.5–2.5/free; brows 3–5/free [CRL]. Anisotropic (x, y, z): g, n (3, 4, 2); pg (3, 4, 3); zy, go (6, 8, 8). Observation weights: n, g, pg, canthi 1.0; tragion 0.5; zy, go 0.1–0.2 [SKO].
+- **R4.1 Landmark σ.** Replace scalar `Priors.sigma = 8.0` with per-landmark (N, 3) arrays at 1.0–1.5× population SD, 8 mm as fallback only 🧠 [PER, SEX]. Across/along contour (mm): sharp junctions (en, ex, ch, sn) 1.0–1.5/1.0–1.5; prn, pg′, me′ 1–2/2–4; g′, zy′, go′ 1.5–3/5–10; jaw oval 1.5–2.5/free; brows 3–5/free [CRL]. Anisotropic (x, y, z): g, n (3, 4, 2); zy, go (6, 8, 8). Observation weights: n, g, pg, canthi 1.0; tragion 0.5; zy, go 0.1–0.2 [SKO].
 - **R4.2 Symmetry σ** per axis on d = X_l − M·X_r (= 2A): canthi, pupils, lids 0.7–1.0; brows 1.5 (vertical 2.0); alare, orbitale, zygion 1.0–1.5; cheilion 1.5–2.0; gonion 2.5–3.0; ears 3–4. Midline x: nasion, glabella 0.75–1.0; prn, sn 1.5–2.0; pg, me 2–3 mm 🧠. `sigma_sym` must become a per-pair array; modes `assist` (×0.25), `prior`, `enforce` (block-out only) [ASY].
 - **R4.3 Ratio priors** on log ratio, σ same/any population: en–en/ex–en 1.05 (0.08/0.14); al–al/en–en 1.02 (0.09/0.16); ch–ch/al–al 1.55 (0.07/0.13); sn–gn/n–sn 1.27 (0.08/0.10); ch–ch/IPD ≈0.83–0.85 QA only 🧠 [CAN, MLT]. Encode each fact once (Goode, Crumley and nasofacial are one triangle); with a 3DMM prior, ratios become diagnostics or σ ×2 [NOSE, CAN].
 - **R4.4 Norm widening**: log d ~ N(log μ, (k·CV)²), k = 1 matched; 1.5 unknown population (low-variance measures); 2.5 or a balanced mixture for al–al, en–en; ×1.2 Farkas-to-3D drift 🧠 [ANT, POP].
@@ -97,16 +94,16 @@ Log-normal μ values are medians. Use Student-t (ν ≈ 4) or Huber on identity 
 - **R5.3 Eyes** are rigid spheres excluded from warps; upper lid follows corneal pitch ≈0.8–1.0, lower ≈0.3 in downgaze 🧠 [EYE, CHI].
 - **R5.4 Sex**: X = k·R(μ̄ + (s/2)Δ_sex + Σc_iφ_i) + t, PCs from within-sex covariance; hinges only, no sex-specific bounds 🧠 [SEX].
 - **R5.5 Population**: balanced pooled prior μ = (1/K)Σμ_k, Σ = (1/K)Σ[Σ_k + (μ_k − μ)(μ_k − μ)ᵀ], or a uniform-weight mixture driven by geometry only. Crease {absent, low, standard} and epicanthus {none, palpebral, tarsal, inversus} are categorical latents; true en = visible en + δ, δ ~ HalfNormal(2 mm) with a fold 🧠 [POP, EYE].
-- **R5.6 Expression**: shared identity β; per view ψ_v (51–52) and jaw θ_v about the condyles (rotation for the first 20–25 mm of opening, then translation); only neutral views constrain β; the AU subspace (muscle-line displacement fields) is projected out of the identity basis; antagonist penalties only for impossible pairs [FACS, MMF, MUF, MLF, JAW].
+- **R5.6 Expression**: shared identity β; per view ψ_v (51–52) and jaw θ_v about the condyles (translation beyond 20–25 mm opening); only neutral views constrain β; the AU subspace is projected out of the identity basis [FACS, MMF, MUF, MLF, JAW].
 - **R5.7 Age basis**, separate from identity: `laxity`, `deep_cheek_volume`, `orbital_fat_prolapse`, `temporal_hollow`, `orbit_rim_recession`, `maxilla_retrusion_deg`, `mandible_loss` (gated by dental status), `alveolar_collapse_mm`, `skin_age` (texture only); age σ 1 y declared, 6 y estimated 🧠 [AGE, SMAS].
 - **R5.8 Soft tissue**: δ_r = μ_r + a_r·z_adip + b_r·z_age + ε_r per fat region [FAT]; σ_t(x) = σ_lig + (σ_space − σ_lig)·m(x) with 1.0/3.5 mm, m from a Laplace solve [SMAS]; jaw width = bone + 2(masseter·(1 + κc) + fat) + parotid, clench c per image [MMJ] 🧠.
-- **R5.9 Warping**: `laplacian_deform` needs per-vertex smoothness weights: ligament strips ×3–5, spaces ×0.5–0.7, lips 0.3, lid margins 3.0, forehead 0.5 (tangential sliding), zygomatic body 1.5–2.0, NLF bending 0.2–0.3, lower weights across plane-break curves 🧠. Never symmetrise targets; export Asym = warp(S + A) − warp(S) as a shape key [SMAS, MUF, MMF, MLF, SKO, ASY].
+- **R5.9 Warping**: `laplacian_deform` needs per-vertex smoothness weights: ligament strips ×3–5, spaces ×0.5–0.7, lips 0.3, lid margins 3.0, forehead 0.5, NLF bending 0.2–0.3, lower across plane-break curves 🧠. Never symmetrise targets; export Asym = warp(S + A) − warp(S) as a shape key [SMAS, MUF, MMF, SKO, ASY].
 - **R5.10 Silhouettes**: jawline, chin, neck, nose profile, ear helix and lip outline beyond ≈35–45° yaw are occluding contours re-matched every iteration; ear contours weighted max(0, cos(ray, ear normal))² [JAW, MMJ, NOSE, MLT, EAR].
 - **R5.11 Detail and texture**: fit shape to wavelengths ≥ ≈5 mm, residual to UV displacement in mm; gate by mm/px (pores ≤ 0.033, fine lines ≤ 0.08, line positions ≤ 0.25); never mirror texture or detail; never pull skin tone toward an albedo mean 🧠 [SKIN, ASY, POP].
 
 ## 6. Failure modes to detect
 
-Flags ask the user; nothing is auto-corrected toward a norm [STT, CAN, ASY].
+Flags ask the user; never auto-correct toward a norm [STT, CAN].
 
 | Failure | Test and threshold | Src |
 |---|---|---|
@@ -117,9 +114,8 @@ Flags ask the user; nothing is auto-corrected toward a norm [STT, CAN, ASY].
 | Mirrored photo | refit with u → W − u and swapped labels lowers error consistently 🧠 | ASY |
 | Close camera, wrong focal | al–al/zy–zy or prn magnification above population bound, or norm |z| > 3: refit focal 🧠 | ANT, CAN |
 | Prior-dominated region | k = 1 − σ²_post/σ²_prior < 0.8 on top-5 regions, or > 70% prior at radix, tip, lips, occiput: request a view 🧠 | PER, POP |
-| Symmetrised or broken fit | whole-face RMSD vs mirror < 0.3 or > 1.5 mm 🧠 | ASY |
-| Visible asymmetry | eyelid ≥ 2, brow or mouth ≥ 3 mm, cant ≥ 3°: confirm with user | ASY |
-| Single-view asymmetry | < 2 views ≥ 30° apart: σ_A ÷ 4; display only |d| > 2σ_post 🧠 | ASY |
+| Symmetrised or broken fit | whole-face RMSD vs mirror < 0.3 or > 1.5 mm; confirm eyelid ≥ 2, brow/mouth ≥ 3 mm, cant ≥ 3° 🧠 | ASY |
+| Single-view asymmetry | < 2 views ≥ 30° apart: σ_A ÷ 4 🧠 | ASY |
 | Implausible tissue depth | FSTT |z| > 2.5 on a heatmap 🧠 | STT |
 | Eye anomaly | Hertel L–R or dystopia > 2 mm 🧠 | EYE |
 | Sex-prior conflict | |s − s₀| > 2σ_s: check lens, pitch, beard, makeup 🧠 | SEX |
@@ -141,17 +137,14 @@ Flags ask the user; nothing is auto-corrected toward a norm [STT, CAN, ASY].
 
 ## 8. Open questions
 
-1. Farkas 1994 and 3DFN summary means to replace 🧠 linear norms [ANT, CRL].
-2. Verified MediaPipe indices and blendshape names; ARKit AU map and L/R convention [CRL, FACS, MUF].
-3. tragion→porion and or′→orbitale offsets [CRL].
-4. T-table landmark values, BMI slopes, supine-to-upright corrections, lateral sex sign [STT, SEX].
-5. MAP vs de-shrunk estimates for likeness; 3D just-noticeable displacement for familiar viewers [PER, ASY].
-6. Does symmetrising measurably lower likeness? [ASY]
-7. Per-AU displacement in mm (D3DFACS) [FACS].
-8. Multi-population 3D norms; radix and crease norms; bias audits (|bias| < 0.25 SD, worst/best ratio < 1.2) [POP].
-9. Sub-adult FSTT; child-capable 3DMM licences [CHI].
-10. Upright compartment volumes, regional SMAS thickness, 3D ligament positions [FAT, SMAS].
-11. Sourced nasal angle and projection norms by population [NOSE].
-12. Ear tilt and height norms [EAR]; ex depth and Hertel L–R threshold [EYE].
-13. Photo reliability of cervicomental and gonial angles vs CBCT [JAW].
-14. Pore, wrinkle-depth and microrelief atlases [SKIN].
+1. Farkas 1994 / 3DFN summary means to replace 🧠 linear norms [ANT, CRL].
+2. Verified MediaPipe indices and blendshape names; ARKit AU map [CRL, FACS].
+3. Tragion→porion and or′→orbitale offsets [CRL].
+4. T-table values, BMI slopes, supine-to-upright corrections, lateral sex sign [STT, SEX].
+5. MAP vs de-shrunk estimates; 3D just-noticeable displacement; does symmetrising lower likeness? [PER, ASY]
+6. Per-AU displacement in mm (D3DFACS) [FACS].
+7. Multi-population 3D, radix and crease norms; bias audits (|bias| < 0.25 SD, worst/best ratio < 1.2) [POP].
+8. Sub-adult FSTT; child-capable 3DMM licences [CHI].
+9. Upright compartment volumes, SMAS thickness, ligament positions [FAT, SMAS].
+10. Nasal angle norms by population [NOSE]; ear tilt and height [EAR]; ex depth, Hertel L–R threshold [EYE].
+11. Photo reliability of cervicomental and gonial angles [JAW]; pore and wrinkle atlases [SKIN].

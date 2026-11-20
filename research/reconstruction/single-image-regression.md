@@ -2,7 +2,7 @@
 
 > Single-image regressors map one photo to morphable-model coefficients plus a camera. DECA, EMOCA, MICA, SMIRK, TEASER and Pixel3DMM use FLAME. 3DDFA_V2, Deep3DFaceRecon and HRN use the Basel Face Model (BFM). On NoW, the standard neutral-shape benchmark, the best widely used identity regressor (MICA) reaches about 0.9 mm median and 1.1 mm mean error. A correctly scaled *average* FLAME face already reaches about 1.5 mm mean, so regressors capture only part of what makes a face recognisable [2][4]. Expression regressors are judged on perceptual metrics rather than shape accuracy, and REALY ranks methods differently from NoW. Use them as initialisers and priors for a multi-view, perspective-calibrated fit. Most research weights, and the FLAME and BFM assets they depend on, carry non-commercial terms.
 >
-> Evidence status: 7 ✅ / 25 📄 / 42 🧠 / 7 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 7 ✅ / 26 📄 / 42 🧠 / 7 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -47,7 +47,7 @@
   - Training is weakly supervised with photometric, landmark and face-recognition losses.
   - The output is a face-only mesh with no ears or back of head. 🧠
 - **HRN** (Lei et al., CVPR 2023) stacks a BFM base for low frequencies, a deformation map for mid frequencies and a displacement map for high frequencies. It outputs a textured OBJ and has a multi-view variant. It led REALY at release. 🧠
-- **Pixel3DMM** (Giebenhain et al., 2025) uses a DINO-family ViT to predict per-pixel normals and FLAME UV coordinates, then *optimises* FLAME against them. It is slow but strong on posed expressions, and comes with a NeRSemble-based benchmark. 🧠
+- **Pixel3DMM** (Giebenhain et al., 2025) uses a DINO-family ViT to predict per-pixel normals and FLAME UV coordinates, then *optimises* FLAME against them. It is slow but strong on posed expressions, and comes with a NeRSemble-based benchmark. 🧠 On NoW it matches FlowFace (the best optimisation-based approach) and is worse than TokenFace [19]. 📄
 - **Newer and parallel work.** SEREP [13], KaoLRM (an LRM regressing FLAME) [5] and a profile-only regressor [6]. 📄 Also TokenFace, FlowFace, FOCUS (robust to occlusion) and SPECTRE (lip accuracy). 🧠
 - **MediaPipe Face Landmarker** gives 478 3D landmarks, 52 blendshape scores and a head transform. It is Apache-2.0 and runs in real time on CPU. 🧠
 - **Licences** (verify before shipping):
@@ -221,6 +221,7 @@
 16. NoW challenge, non-metrical evaluation leaderboard — https://now.is.tue.mpg.de/nonmetricalevaluation.html — official — 2025
 17. Basel Face Model non-commercial license agreement — https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf — official — 2009
 18. Towards Metrical Reconstruction of Human Faces (MICA), ECCV 2022 version — https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136730249.pdf — paper — 2022
+19. Pixel3DMM: Versatile Screen-Space Priors for Single-Image 3D Face Reconstruction — https://arxiv.org/abs/2505.00615 — paper — 2025
 
 **Further reading (by name, not yet linked)**
 - Sanyal, Bolkart, Feng, Black — Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision (RingNet, NoW), CVPR 2019
@@ -240,3 +241,10 @@
 - **NoW test-split scores**: DECA 1.09/1.38/1.18, MICA 0.90/1.11/0.92 and TokenFace 0.76/0.95/0.82 confirmed (DECA and MICA now ✅ with the papers). https://now.is.tue.mpg.de/nonmetricalevaluation.html . 3DDFA_V2 and Deep3DFaceRecon non-metrical rows: unconfirmed (the page says those results are taken from DECA; the search showed only metrical values: 3DDFA_V2 1.53/2.06/1.95, Deep3DFaceRecon PyTorch 1.62/2.21/2.08). The 80 test / 20 validation split: unconfirmed.
 - **3DDFA_V2 / Deep3DFaceRecon_pytorch MIT code; MediaPipe Apache-2.0**: unconfirmed (only third-party listings). BFM non-commercial terms confirmed, 📄: https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf
 - **MICA 15 % / 24 % lower error**: confirmed (already 📄), https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136730249.pdf . 300 coefficients in metres, and the 1.92 / 1.53 mm baseline values and protocol: unconfirmed in this pass (existing [4] citation kept).
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Pixel3DMM more than 15% better on posed expressions**: unconfirmed (🧠 kept). The search surfaced no figure. https://arxiv.org/abs/2505.00615 . New fact added, 📄: on NoW it matches FlowFace and is worse than TokenFace. The paper says code, model and benchmark are planned for release; licence terms not found (unconfirmed).
+- **HRN led REALY, region-averaged frontal error about 1.5-1.6 mm vs about 2 mm for DECA**: unconfirmed (🧠 kept). No per-region numbers found. One REALY source describes the metric as normalised mean square error, so the mm units in Table 5 may be wrong; check the REALY paper (https://arxiv.org/pdf/2203.09729) before relying on them.
+- **TEASER beats SMIRK**: unconfirmed in this pass (no results).
+- **SMIRK, HRN, Pixel3DMM and TEASER licences**: unconfirmed (no results).

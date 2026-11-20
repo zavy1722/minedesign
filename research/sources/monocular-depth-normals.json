@@ -175,6 +175,27 @@
    "url": "https://github.com/DepthAnything/Depth-Anything-V2",
    "kind": "official code repo",
    "year": "n.d."
+  },
+  {
+   "n": 26,
+   "title": "DAViD project page (Microsoft)",
+   "url": "https://microsoft.github.io/DAViD",
+   "kind": "official project page",
+   "year": "2025"
+  },
+  {
+   "n": 27,
+   "title": "Marigold Normals v1-1 Model Card",
+   "url": "https://huggingface.co/prs-eth/marigold-normals-v1-1",
+   "kind": "model card",
+   "year": "n.d."
+  },
+  {
+   "n": 28,
+   "title": "Diffusers documentation: Marigold pipelines",
+   "url": "https://huggingface.co/docs/diffusers/v0.33.0/api/pipelines/marigold",
+   "kind": "official docs",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

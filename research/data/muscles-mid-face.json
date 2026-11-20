@@ -387,9 +387,12 @@
     ]
    ],
    "population": "Adults, unspecified",
-   "source_urls": [],
-   "status": "knowledge",
-   "notes": "Low confidence; for ecorche reference or muscle-actuator scale only, never for identity geometry. Thickness varies with sex, age and measurement method (cadaver vs ultrasound)."
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13604665",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3713303/"
+   ],
+   "status": "contested",
+   "notes": "Low confidence; for ecorche reference or muscle-actuator scale only, never for identity geometry. Thickness varies with sex, age and measurement method (cadaver vs ultrasound). ZMj row contested in pass 2: in vivo CT length ~42 mm, width ~4-6 mm; ultrasound thickness 1.5-1.8 mm near insertion vs 3.3-5.8 mm earlier."
   },
   {
    "name": "expression_direction_priors",

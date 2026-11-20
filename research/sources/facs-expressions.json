@@ -17,7 +17,13 @@
 {"n":16,"title":"Facial Expressions as a Nexus for Health Assessment","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC12938733/","kind":"paper (surfaced; no facts extracted)","year":"n.d."},
 {"n":17,"title":"Tian, Kanade & Cohn, Recognizing Action Units for Facial Expression Analysis","url":"https://www.ri.cmu.edu/pub_files/pub3/cohn_jeffrey_2001_1/cohn_jeffrey_2001_1.pdf","kind":"paper","year":"2001"},
 {"n":18,"title":"CVTHead: One-shot Controllable Head Avatar with Vertex-feature Transformer","url":"https://arxiv.org/pdf/2311.06443","kind":"paper","year":"2023"},
-{"n":19,"title":"FLAME model license (MPI-IS)","url":"https://flame.is.tue.mpg.de/modellicense.html","kind":"official","year":"n.d."}
+{"n":19,"title":"FLAME model license (MPI-IS)","url":"https://flame.is.tue.mpg.de/modellicense.html","kind":"official","year":"n.d."},
+{"n": 20, "title": "Complete Rehabilitation of a Patient with Occlusal Wear: A Case Report", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3416936/", "kind": "paper", "year": "n.d."},
+{"n": 21, "title": "Surgical Treatment of Mandibular Coronoid Process Hypertrophy Syndrome", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12295069", "kind": "paper", "year": "n.d."},
+{"n": 22, "title": "Arthrocentesis vs other modalities in TMD, systematic review", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13094472/", "kind": "paper", "year": "n.d."},
+{"n": 23, "title": "Normal Mouth Opening in an Adult Indian Population", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3428458/", "kind": "paper", "year": "n.d."},
+{"n": 24, "title": "OpenFace Copyright.txt", "url": "https://github.com/TadasBaltrusaitis/OpenFace/blob/master/Copyright.txt", "kind": "licence", "year": "n.d."},
+{"n": 25, "title": "OpenFace repository", "url": "https://github.com/TadasBaltrusaitis/OpenFace", "kind": "official repo", "year": "n.d."}
 ],
 "references_by_name":[
 "Hjortsjö C-H, Man's Face and Mimic Language (1969/1970)",

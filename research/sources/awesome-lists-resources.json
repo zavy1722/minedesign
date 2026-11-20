@@ -25,14 +25,29 @@
       "n": 5,
       "url": "https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters",
       "title": "Creative Bloq MetaHuman"
+    },
+    {
+      "n": 6,
+      "url": "https://neofixer.arizona.edu/css/CSSOrbit/asteroidJS/three/examples/models/gltf/LeePerrySmith/LeePerrySmith_License.txt",
+      "title": "three.js LeePerrySmith licence"
+    },
+    {
+      "n": 7,
+      "url": "https://www.cgchannel.com/2010/09/infinite-realities-releases-free-photorealistic-head-model/",
+      "title": "CG Channel: Infinite Realities free head model"
+    },
+    {
+      "n": 8,
+      "url": "https://github.com/harlanhong/awesome-talking-head-generation",
+      "title": "awesome-talking-head-generation"
     }
   ],
   "references_by_name": [
     "Blanz V, Vetter T. A Morphable Model for the Synthesis of 3D Faces. SIGGRAPH 1999",
     "Paysan P, Knothe R, Amberg B, Romdhani S, Vetter T. A 3D Face Model for Pose and Illumination Invariant Face Recognition (Basel Face Model), 2009",
     "Li T, Bolkart T, Black MJ, Li H, Romero J. Learning a model of facial shape and expression from 4D scans (FLAME). SIGGRAPH Asia 2017",
-    "Zollhöfer M et al. State of the Art on Monocular 3D Face Reconstruction, Tracking, and Applications. Eurographics STAR 2018",
-    "Egger B et al. 3D Morphable Face Models — Past, Present, and Future. ACM TOG 2020",
+    "Zollh\u00f6fer M et al. State of the Art on Monocular 3D Face Reconstruction, Tracking, and Applications. Eurographics STAR 2018",
+    "Egger B et al. 3D Morphable Face Models \u2014 Past, Present, and Future. ACM TOG 2020",
     "Morales A, Piella G, Sukno FM. Survey on 3D face reconstruction from uncalibrated images. Computer Science Review 2021",
     "Tewari A et al. State of the Art on Neural Rendering (2020); Advances in Neural Rendering (2022)",
     "Booth J et al. Large Scale Facial Model (LSFM). CVPR 2016 / IJCV 2018",
@@ -50,5 +65,5 @@
     "Zarins U. Anatomy of Facial Expression (Anatomy For Sculptors)",
     "Farkas LG. Anthropometry of the Head and Face, 1994"
   ],
-  "notes": "No harvest file and no earlier draft existed for this topic; every claim in the note is author knowledge (🧠) or contested (↔️). GitHub owner/repo names cited in the note (sindresorhus/awesome, MrNeRF/awesome-3D-gaussian-splatting, harlanhong/awesome-talking-head-generation, Kedreamix/Awesome-Talking-Head-Synthesis, patrikhuber/eos, Rubikplayer/flame-fitting, soubhiksanyal/FLAME_PyTorch, HavenFeng/photometric_optimization, cleardusk/3DDFA_V2, 1adrianb/face-alignment) are from memory and must be checked before linking."
+  "notes": "No harvest file and no earlier draft existed for this topic; every claim in the note is author knowledge (\ud83e\udde0) or contested (\u2194\ufe0f). GitHub owner/repo names cited in the note (sindresorhus/awesome, MrNeRF/awesome-3D-gaussian-splatting, harlanhong/awesome-talking-head-generation, Kedreamix/Awesome-Talking-Head-Synthesis, patrikhuber/eos, Rubikplayer/flame-fitting, soubhiksanyal/FLAME_PyTorch, HavenFeng/photometric_optimization, cleardusk/3DDFA_V2, 1adrianb/face-alignment) are from memory and must be checked before linking."
 }

@@ -2,7 +2,7 @@
 
 > A child's head is not a scaled-down adult head. The brain case follows the fast "neural" curve and reaches ~90–95 % of adult size by age 6–7. The face follows the slower "somatic" curve, growing down and forward from under the cranium into the late teens (girls) or early twenties (boys). The younger the subject, the bigger the cranium relative to the face, the lower the eye line, the larger the eyes relative to the face, and the smaller and more upturned the nose, over a short lower face and a soft chin. A child-likeness pipeline needs age-conditioned priors, a scale anchor that stops growing early (the cornea), a short capture window and hard safeguards for minors.
 >
-> Evidence status: 1 ✅ / 17 📄 / 81 🧠 / 14 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 19 📄 / 81 🧠 / 14 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -49,7 +49,7 @@ This topic had no harvest or draft of its own. 📄 items cite URLs from sibling
 **Data resources**
 - Farkas norms: direct anthropometry, 2,326 North American White adults and children [3] 📄; Kolar criticised their protocols (relayed by [1]) 📄.
 - 3D Facial Norms (3DFN): 2,454 people aged 3–40 (952 M, 1,502 F), cross-sectional stereophotogrammetry, with sex-specific growth curves and a MATLAB toolbox. Summary data are open; individual data need a FaceBase request [1][2][17][18] ✅. It differs considerably from Farkas (method, secular trend, ethnic mix) [3] 📄.
-- Most 3D morphable models (3DMMs) are adult-trained (FLAME; the Basel model from ~200 mostly young adults). The Large Scale Facial Model (LSFM) reportedly includes children and age-specific models 🧠 (verify the age range and licence).
+- Most 3D morphable models (3DMMs) are adult-trained (FLAME; the Basel model from ~200 mostly young adults). The Large Scale Facial Model (LSFM, 9,663 identities from ~10,000 scans) supports age-, gender- and ethnicity-specific models; the pipeline code is BSD, but the models are available only on application to medical-research users [22] 📄. Whether it includes children, and the age range, is unconfirmed 🧠.
 
 ## Numbers & reference tables
 
@@ -130,7 +130,7 @@ This topic had no harvest or draft of its own. 📄 items cite URLs from sibling
 - **Symmetry.** Infants: σ_sym 3–5 mm for the ears and occiput, 1–2 mm for midface points [7] 🧠.
 - **Identity loss.** Down-weight face-recognition embeddings for children: they are trained mostly on adults, and NIST demographic tests reported elevated errors for children 🧠.
 - **Capture check.** Read EXIF dates; warn beyond the Table 4 span, and refuse beyond twice the span for infants 🧠.
-- **Minor safeguards (design requirement).** Record guardian consent plus child assent; process locally by default; limit photo retention; embed provenance metadata; irreversibly block sexualised or nude pipelines for minor-flagged projects. GDPR treats identifying face geometry as special-category data (Art. 9; Art. 8 child-consent ages 13–16). The 2025 US COPPA amendments (under 13) reportedly add biometric identifiers. Sexualised synthetic depictions of minors are illegal in many jurisdictions 🧠 (legal, time-sensitive: verify).
+- **Minor safeguards (design requirement).** Record guardian consent plus child assent; process locally by default; limit photo retention; embed provenance metadata; irreversibly block sexualised or nude pipelines for minor-flagged projects. GDPR treats identifying face geometry as special-category data (Art. 9; Art. 8 child-consent ages 13–16). The 2025 US COPPA amendments (under 13) add biometric identifiers to "personal information" (effective 2025-06-23, compliance by 2026-04-22) [20][21] 📄; the GDPR Art. 9 and Art. 8 points are unchecked 🧠. Sexualised synthetic depictions of minors are illegal in many jurisdictions 🧠 (legal, time-sensitive: verify).
 
 ## Disagreements, myths & open questions
 
@@ -165,6 +165,9 @@ These URLs come from sibling harvests in `research/_raw/harvests/` (child-growth
 [17] FaceBase 3D Facial Norms Summary Statistics — https://www.facebase.org/resources/human/facial_norms/summary/ — official docs — n.d.
 [18] Large-scale open-source three-dimensional growth curves for clinical facial assessment and objective description of facial dysmorphism — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8190313/ — paper — 2021
 [19] Human ocular biometry (corneal and globe growth) — https://scholarship.miami.edu/esploro/outputs/journalArticle/Human-ocular-biometry/991031597091702976 — paper — n.d.
+[20] FTC Finalizes Changes to Children's Privacy Rule Limiting Companies' Ability to Monetize Kids' Data — https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-changes-childrens-privacy-rule-limiting-companies-ability-monetize-kids-data — official docs — 2025
+[21] COPPA Rule final amendments, Federal Register 2025-05904 — https://www.federalregister.gov/documents/full_text/html/2025/04/22/2025-05904.html — statute — 2025
+[22] A 3D Morphable Model Learnt From 10,000 Faces (Booth et al., CVPR 2016) — https://openaccess.thecvf.com/content_cvpr_2016/html/Booth_A_3D_Morphable_CVPR_2016_paper.html — paper — 2016
 
 **Further reading (by name, not yet linked)**
 - Farkas LG (ed.), *Anthropometry of the Head and Face*, 2nd ed., 1994; Farkas, Posnick & Hreczko, 1992 growth-pattern series, *Cleft Palate–Craniofacial Journal*.
@@ -183,3 +186,10 @@ These URLs come from sibling harvests in `research/_raw/harvests/` (child-growth
 - **Farkas percent-of-adult values and maturation ages** — contested/unconfirmed. Abstract gives maturity ~12–15 y in males and ~2 y earlier in females (note says 13–15 F / 15–18+ M); percentage values not found (full text not reachable). https://pubmed.ncbi.nlm.nih.gov/1643058/
 - **Eyeball axial length and IPD by age** — partly confirmed. Mean 21.8 mm at 3 y (inside the note's 21.5–22.3) confirmed [16]; search summaries also gave 20.6 mm at 1 y and 23.1 mm at 10 y (a 2023 normative study, no URL tied), consistent with the table. Birth, 6 y and IPD values unconfirmed. https://pubmed.ncbi.nlm.nih.gov/34116120/
 - **FaceBase 3DFN growth curves, open summary data, controlled individual data** — confirmed (two sources). https://www.facebase.org/resources/human/facial_norms/summary/ and https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8190313/
+
+## Verification log, pass 2 (2026-11-20)
+
+- **COPPA 2025 amendments add biometric identifiers (face geometry) to personal information for under-13s** — confirmed (one source set). FTC press release and Federal Register notice: effective 2025-06-23, compliance by 2026-04-22; the final text covers identifiers usable for automated recognition (faceprints, facial templates), narrower than the proposal. https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-changes-childrens-privacy-rule-limiting-companies-ability-monetize-kids-data and https://www.federalregister.gov/documents/full_text/html/2025/04/22/2025-05904.html
+- **GDPR Art. 9 special-category face geometry; Art. 8 child-consent ages 13-16** — unconfirmed (not searched; left 🧠).
+- **LSFM: ~10,000 faces, age-specific sub-models, children included** — partly confirmed/corrected. Built from 9,663 identities (about 10,000 scans); age-, gender- and ethnicity-specific models exist; code is BSD, models only on application to medical-research users. Presence of children and the age range: unconfirmed. https://openaccess.thecvf.com/content_cvpr_2016/html/Booth_A_3D_Morphable_CVPR_2016_paper.html
+- **FLAME and Basel adult-trained** — not searched; left 🧠.

@@ -14,7 +14,21 @@
   {
    "n": 3,
    "title": "DiffLocks software licence (non-commercial; commercial via Meshcapade)",
-   "url": "https://difflocks.is.tue.mpg.de/license.html"
+   "url": "https://difflocks.is.tue.mpg.de/license.html"  },
+  {
+   "n": 4,
+   "title": "L2CS-Net: Fine-Grained Gaze Estimation in Unconstrained Environments (arXiv 2203.03339)",
+   "url": "https://arxiv.org/abs/2203.03339"
+  },
+  {
+   "n": 5,
+   "title": "MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research)",
+   "url": "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/"
+  },
+  {
+   "n": 6,
+   "title": "MediaPipe Face Landmarker guide",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker"
   }
  ],
  "references_by_name": [

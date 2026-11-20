@@ -1,7 +1,7 @@
 # Muscles of the mid face
 
 > The mid-face elevators fan out from bone to the upper lip and mouth corner. From medial to lateral they are levator labii superioris alaeque nasi (LLSAN), levator labii superioris (LLS), zygomaticus minor (ZMn) and zygomaticus major (ZMj), with levator anguli oris (LAO) and buccinator deep and risorius variable. Their dermal insertions along the cheek fat's medial edge make the nasolabial fold (NLF), a fixed hinge line present at every age that smiling deepens but does not create. ZMj drives the smile (AU12). The other elevators set lip, tooth and gum show, buccinator and risorius pull the corner back or sideways, and nasalis moves only the nostril. Attachments vary between people and imaging cannot resolve them in vivo, so a fitter should encode them as lines of action and expression priors, not identity geometry; most numbers here await verification.
-Evidence status: 15 ✅ / 33 📄 / 44 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 15 ✅ / 33 📄 / 44 🧠 / 27 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -16,7 +16,7 @@ Evidence status: 15 ✅ / 33 📄 / 44 🧠 / 26 ↔️ — 🧠 items are queue
 **Zygomaticus minor (ZMn)**
 - Arises from the zygomatic bone superomedial to ZMj, just behind the zygomaticomaxillary suture 🧠, and inserts into the upper lip lateral to LLS [3][5] ✅. Its insertion pattern is poorly described [3] 📄: angle of the mouth or upper-lip muscles [3][5] ↔️.
 - The most superficial elevator (Freilinger layer 1), often fused with orbicularis oculi or LLS; FACS AU11, the nasolabial deepener 🧠.
-- Often missing: in 50 hemifaces the commonest pattern (44 %) was LLSAN + LLS + ZMj [29] 📄, implying no separate ZMn there (inference from the pattern name). No absence rate was found ↔️.
+- Often missing: in 50 hemifaces the commonest pattern (44 %) was LLSAN + LLS + ZMj [29] 📄, implying no separate ZMn there (inference from the pattern name; the 44 % figure was reconfirmed in verification pass 2, the PubMed abstract gives no ZMn absence rate). No absence rate was found ↔️.
 
 **Levator labii superioris (LLS)**
 - From the infraorbital margin above the foramen, deep to orbicularis oculi, to the upper lip between LLSAN and ZMn. It raises and slightly everts the lip and deepens the upper-middle NLF (AU10). The infraorbital bundle emerges between LLS and the deeper LAO 🧠.
@@ -97,7 +97,7 @@ Evidence status: 15 ✅ / 33 📄 / 44 🧠 / 26 ↔️ — 🧠 items are queue
 
 | Muscle | Length mm | Width mm | Thickness mm |
 |---|---|---|---|
-| ZMj | 50–75 | 7–15 | 1.5–4 |
+| ZMj ↔️ (in vivo CT [42]: length ≈ 42, width ≈ 4–6; ultrasound thickness 1.5–1.8 near insertion [43] vs ≈ 3.3–5.8 in earlier work; 50–75 / 7–15 / 1.5–4 unconfirmed) | 50–75 | 7–15 | 1.5–4 |
 | ZMn, LLSAN | 25–45 | 5–15 | 1–2 |
 | LLS | 25–40 | 15–25 at origin | 1.5–3 |
 | LAO | 25–35 | 8–12 | 2–3 |
@@ -189,6 +189,8 @@ Evidence status: 15 ✅ / 33 📄 / 44 🧠 / 26 ↔️ — 🧠 items are queue
 [39] Cleveland Clinic: Facial muscles — https://my.clevelandclinic.org/health/body/21672-facial-muscles — patient education — n.d.
 [40] Ultrasound study of a facial-exercise device (title not captured) — https://pmc.ncbi.nlm.nih.gov/articles/PMC5888959/ — paper — n.d. (≈ a decade old)
 [41] MediaPipe Face Landmarker guide (52 blendshape scores) — https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker — official docs — n.d.
+[42] Bone-Anchored CT Angiography Framework for In Vivo Assessment of Zygomaticus Major Morphology — https://pmc.ncbi.nlm.nih.gov/articles/PMC13604665 — paper — n.d.
+[43] Diagnosis of Zygomaticus Muscle Paralysis Using Needle Electromyography With Ultrasonography — https://pmc.ncbi.nlm.nih.gov/articles/PMC3713303/ — case report — n.d.
 
 **Further reading (by name, not yet linked)**
 - Standring S (ed.), *Gray's Anatomy: The Anatomical Basis of Clinical Practice*, recent editions (elevators, buccinator, modiolus).
@@ -216,3 +218,8 @@ Evidence status: 15 ✅ / 33 📄 / 44 🧠 / 26 ↔️ — 🧠 items are queue
 - NLF endpoint offsets and length 30-50 mm: unconfirmed, no source gave these values. Stays 🧠. https://pmc.ncbi.nlm.nih.gov/articles/PMC7402499
 - MediaPipe Face Landmarker 52 blendshape scores: confirmed for the count (📄); the specific names were not shown in results, so unconfirmed. https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker
 - Bifid ZMj about 34 %: confirmed, 17 of 50 cadaver hemifaces (Clin Anat 1998). Dimple link is the paper's suggested interpretation, kept ↔️. https://pubmed.ncbi.nlm.nih.gov/9725574/
+
+## Verification log, pass 2 (2026-11-20)
+
+- Most common midface pattern (LLSAN + LLS + ZMj) 44 % of 50 hemifaces: confirmed (already 📄 [29]). The "no separate ZMn" reading and any absence rate remain unconfirmed (abstract only calls ZMn/risorius specimens relatively uncommon; no figure). https://pubmed.ncbi.nlm.nih.gov/9810983/
+- ZMj dimensions (length 50-75, width 7-15, thickness 1.5-4 mm): contested ↔️. In vivo CT gives length 41.8 ± 6.2 mm, proximal width 5.95 mm, distal 4.4 mm [42]; ultrasound thickness 1.5-1.8 mm near insertion versus earlier 3.3-5.8 mm [43]. Table 4 values stay as weak priors, flagged. https://pmc.ncbi.nlm.nih.gov/articles/PMC13604665 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC3713303/

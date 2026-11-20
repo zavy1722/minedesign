@@ -230,15 +230,15 @@
         ],
         [
           "MetaHuman LOD0 face",
+          24000,
           null,
-          null,
-          "tens of thousands of vertices; exact count to verify"
+          "UDIM-style; ~24,000 vertices for head at LOD0 (Epic spec table, guideline; vertices not triangles; verified 2026-11-20)"
         ]
       ],
       "population": "game-art practice; orders of magnitude only",
-      "source_urls": [],
+      "source_urls": ["https://dev.epicgames.com/documentation/en-us/metahuman/platform-support-and-lod-specifications-for-metahumans"],
       "status": "contested",
-      "notes": "Rough ranges from game-art discussion, not standards. Verify MetaHuman LOD0 counts against Epic documentation before using as an output-topology default."
+      "notes": "Rough ranges from game-art discussion, not standards. MetaHuman head LOD0 ~24,000 vertices per Epic spec table (confirmed 2026-11-20); tri counts for the other rows unconfirmed."
     },
     {
       "name": "retopo_bake_likeness_tolerances",

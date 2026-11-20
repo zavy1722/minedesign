@@ -2,7 +2,7 @@
 
 > Facial perspective is set by camera distance, not the lens: a feature Δ mm behind the nose tip images (1 + Δ/z)× smaller, and a longer lens only lets you stand farther back at the same framing. At selfie distance (0.25–0.4 m) pinhole geometry inflates nose width against the cheek outline by 12–19% and images the ears 20–29% smaller relative to the nose tip; the one clinical model study reports ~30%, and at 1.5–3 m the effect falls to 2–7%. Beyond ~1 m a face's own perspective no longer reveals focal length, and between-person variation in nose-to-face ratio is as large as the whole distance effect, so focal length must come from EXIF, calibration or a prior. The engine should fit each photo with a full-perspective camera parameterised by scale and inverse distance and report how observable distance was; the sculptor should judge likeness only through that matched camera, never a wide viewport or ortho tracings of near photos.
 >
-> Evidence status: 3 ✅ / 17 📄 / 78 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 18 📄 / 77 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
 
 No topic harvest existed; cited URLs come from sibling harvests. Companions: `reconstruction/camera-pose-solving.md`, `blender/reference-camera-setup.md`, `community/reference-photography-protocol.md`.
 
@@ -17,7 +17,7 @@ No topic harvest existed; cited URLs come from sibling harvests. Companions: `re
 
 **Studies that quantify it**
 - **Ward et al. (2018)**, computational head model: at 12 in (~30 cm) the nasal base appears ~30% (men) / ~29% (women) wider than at 5 ft (~1.5 m) [19][21] ✅ (the abstract's baseline is an orthographic projection, bizygomatic breadth held constant; the 5 ft framing is from the press release). Pure magnification gives ~12% for the nose-to-face-width ratio (Table 1) ↔️
-- Snippet-level: 50 mm portraits were rated less sex-typical, attractive and dominant than longer focal lengths [5] 📄. This matches Třebický et al. (2016), who held framing constant (so distance varied) and measured shape change by geometric morphometrics 🧠; the article behind [5] is unconfirmed ↔️
+- Snippet-level: 50 mm portraits were rated less sex-typical, attractive and dominant than longer focal lengths [5] 📄. This matches Třebický et al. (2016), who held framing constant (so distance varied) and measured shape change by geometric morphometrics at 50, 85 and 105 mm [23] 📄; the article behind [5] (PMC3440305) is not the Třebický paper (PMC4760932) and stays unconfirmed ↔️
 - **Noyes & Jenkins (2017):** the same faces at ~0.3 m and ~2.7 m differ in configuration enough to impair unfamiliar-face matching 🧠
 - Distance perspective implicitly shifts social judgements (Bryan, Perona & Adolphs 2012); distance can be regressed from landmark configuration, which people judge poorly (Burgos-Artizzu, Ronchi & Perona 2014); Fried et al. (2016) re-render portraits from new distances via a fitted 3D head 🧠. Valente et al. [3] and Zhao et al. [4] estimate and undo near-range distortion 📄
 
@@ -173,6 +173,7 @@ Between 0.3 and 1.5 m the geometric nose-to-face change is 12% (16% from 0.25 m)
 [20] State of the Art of Quality Assessment of Facial Images (cites ISO/IEC 39794-5:2019 Table D.2) — https://arxiv.org/pdf/2211.08030 — paper — 2022
 [21] Rutgers news: selfies drive self image and may lead many to seek plastic surgery — https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery — press-release — 2018
 [22] 35 mm equivalent focal length (Wikipedia; cites the CIPA diagonal formula) — https://en.wikipedia.org/wiki/35_mm_equivalent_focal_length — reference — n.d.
+[23] Třebický et al., Focal Length Affects Depicted Shape and Perception of Facial Images (PLoS ONE 2016) — https://pmc.ncbi.nlm.nih.gov/articles/PMC4760932 — paper — 2016
 
 **Further reading (by name, not yet linked):**
 - Ward, Ward, Fried & Paskhover, "Nasal distortion in short-distance photographs: the selfie effect", JAMA Facial Plastic Surgery, 2018
@@ -202,3 +203,8 @@ Between 0.3 and 1.5 m the geometric nose-to-face change is 12% (16% from 0.25 m)
 - EXIF FocalLengthIn35mmFilm derived from diagonal crop factor: **contested** (kept ↔️). CIPA formula is diagonal-based, but the tag's normative wording was not read and width-based derivations exist. https://en.wikipedia.org/wiki/35_mm_equivalent_focal_length
 - Blender viewport fixed 2x zoom (CAMERA_PARAM_ZOOM_INIT_PERSP): **unconfirmed** (kept 🧠); no source found.
 - ICAO / ISO 19794-5 / 39794-5 ID-photo distance 1.2–2.5 m: **corrected**. ISO/IEC 39794-5:2019 gives 0.7–4 m (1:1) per a review paper; 1.2–2.5 m appears only in a NIST lighting-layout diagram; ICAO report figure unconfirmed. https://arxiv.org/pdf/2211.08030
+
+## Verification log, pass 2 (2026-11-20)
+
+- 50 mm portraits rated less sex-typical, attractive and dominant; matches Třebický et al. (2016): **confirmed** (📄). 45 participants photographed at 50, 85 and 105 mm; shorter focal length gave smaller facial width-to-height ratio and altered shape; 50 mm rated less feminine/masculine, less attractive, less dominant. The harvested [5] URL (PMC3440305) differs from the Třebický paper (PMC4760932), so [5] identity remains unconfirmed. https://pmc.ncbi.nlm.nih.gov/articles/PMC4760932 ; https://www.pubmed.gov/26894832/
+- Marked focal length tolerance ~±5% (ISO 517) and unit-focusing (1+m) gain: **unconfirmed** (kept 🧠). Search found ISO 517:2008 covers aperture/f-number markings and defines focal length at infinity focus, but no ±5% focal-length figure was visible. https://www.iso.org/fr/standard/50089.html

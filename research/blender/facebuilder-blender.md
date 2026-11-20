@@ -1,7 +1,7 @@
 # KeenTools FaceBuilder for Blender in practice
 
 > FaceBuilder is a pin-driven template fitter. Each photo becomes a view with its own camera, and dragging points of a fixed KeenTools head onto the photo makes a closed-source core re-solve head shape, per-view pose, optional per-view expression and, if allowed, focal length. Since 2021.1 neural auto-alignment drafts the pins, which the vendor says can need manual correction [1]; since the ~2020 revamp focal length and sensor size are set per photo [2]. In practice it is the fastest route in Blender to matched cameras plus a plausible, textured, ARKit-ready base head, but likeness stops at its shape space: lids, alae, vermilion, ears and the hair-covered cranium must be sculpted, and pinhole-only cameras, cropped photos and mirrored selfies quietly corrupt the fit. No vendor or independent millimetre benchmark exists, and version, Blender support, price and trial terms are perishable (verified 2026-11-20 only against vendor pages: 2026.1.0 supports Blender 5.1; 15-day trial; Freelancer Annual 191.88 USD/yr) [5][7]; for this project FaceBuilder sets the UX bar (surface pins, live re-solve, rigidity sliders, per-view cameras) and supplies an external observation, not ground truth.
-> Evidence status: 1 ✅ / 15 📄 / 47 🧠 / 23 ↔️ — verification pass 2026-11-20 (see log); remaining 🧠 items are unconfirmed.
+> Evidence status: 1 ✅ / 19 📄 / 47 🧠 / 19 ↔️ — verification passes 1 and 2, 2026-11-20 (see logs); remaining 🧠 items are unconfirmed.
 
 ## Key facts
 
@@ -18,13 +18,13 @@
 - **Model:** one fixed head topology (cranium cap, face, ears, neck, eye sockets) with toggleable parts and density options inside a low-dimensional learned shape space; you cannot load your own topology ↔️ (part and density names vary by version).
 - **Views:** each image becomes a view with a Blender camera; the head stays put and the cameras move 🧠. Opening a view enters pin mode, looking through that camera at the photo.
 - **Pins:** drag any surface point, not only predefined landmarks, onto the photo; the solver re-runs live while dragging; right-click deletes 🧠. Shape is shared, so a pin in one view moves every other view's fit 🧠.
-- **Rigidity:** shape and expression rigidity sliders (later also blinking and neck-movement rigidity) set how far pins may pull away from the prior ↔️ (names and defaults vary).
+- **Rigidity:** shape and expression rigidity sliders (later also blinking and neck-movement rigidity) set how far pins may pull away from the prior: separate shape and expression rigidity arrived in 2.1.1 (defaults 1 and 2) [11], and 2022.1 split out blinking and neck-movement rigidity [10] 📄 (UI regrouped in 2024.1, so names and layout vary by release).
 - **Focal length:** per-view focal from EXIF, typed manually, or estimated from pins, per view or shared across views ↔️ (UI differs by release). Estimation is ill-conditioned for frontal, long-lens, distant shots (Table D) 🧠.
 - **Expressions:** when on, each view gets its own expression coefficients over one shared identity; when off, every view is fitted as neutral 🧠.
 - **Camera model:** pinhole with the principal point at the image centre; I know of no radial-distortion term in FaceBuilder ↔️.
 - **Texture:** projects selected views into the head's UVs with angle-weighted blending (an "angle strictness"-type control), optional brightness and colour equalisation and gap filling; several UV layouts (recalled: Butterfly, Legacy, Spherical, Maxface) ↔️. Lighting, specular and shadows are baked in 🧠.
 - **Blendshapes:** 51 built-in ARKit-compatible FACS blendshapes and Live Link Face CSV import, both introduced in 2021.1 [8] 📄; whether `tongueOut` is among the 51 is unconfirmed.
-- **Siblings:** GeoTracker (object and camera tracking) and FaceTracker (facial performance on a FaceBuilder head) ship in the same add-on; FaceTracker for Blender arrived around 2024 ↔️.
+- **Siblings:** GeoTracker (object and camera tracking) and FaceTracker (facial performance on a FaceBuilder head) ship in the same add-on; GeoTracker for Blender went stable in KeenTools 2023.3.0 (21 Nov 2023) after betas [12], and FaceTracker for Blender had its open beta in 2024.2 (20 Aug 2024) and went stable in 2024.3 (20 Nov 2024) [13][14] 📄 (corrected in verification; that they share one add-on remains unconfirmed).
 - **Mesh ownership:** the head mesh is regenerated from the model, so Edit-mode or sculpt edits on the FaceBuilder object are overwritten or break it. Sculpt on a duplicate 🧠.
 
 **Accuracy and reception**
@@ -42,8 +42,8 @@
 | Revamped FaceBuilder | ~2020 | per-photo focal and sensor; expressions | 📄 | [2] |
 | 2021.1 | 2021 | neural auto-alignment | 📄 | [1] |
 | 2021.1 (22 Dec 2020) | Dec 2020 | 51 ARKit-compatible blendshapes, Live Link Face CSV (corrected in verification: 2021.1, not 2021–2022) | 📄 | [8] |
-| 2022–2023 | — | GeoTracker for Blender | ↔️ | — |
-| ~2024 | — | FaceTracker for Blender | ↔️ | — |
+| 2023.3.0 (21 Nov 2023) | 2023 | GeoTracker for Blender stable, after 2023 betas (corrected in verification: 2023, not 2022–2023) | 📄 | [12] |
+| 2024.2 (20 Aug 2024); 2024.3 (20 Nov 2024) | 2024 | FaceTracker for Blender open beta, then stable (corrected in verification) | 📄 | [13][14] |
 | 2025.3 (4 Dec 2025); 2026.1.0 (9 Apr 2026) | 2025–2026 | 2025.3 first added Blender 5.0; 2026.1.0 adds Blender 5.1 (latest found); installable from the Blender extensions menu; Blender 5.2 LTS / 5.3 support not confirmed | 📄 | [5][6][7] |
 
 **Table B — View set that FaceBuilder fits well** (adults; yaw 0° = frontal)
@@ -179,6 +179,11 @@ No topic harvest or earlier draft existed. The four URLs below are reused from t
 7. FaceBuilder for Blender product page (pricing, trial, extensions-menu install) — https://keentools.io/products/facebuilder-for-blender — vendor — undated, possibly stale
 8. KeenTools version 2021.1 (22 Dec 2020) release notes — https://keentools.io/news/2021-1 — vendor — 2020
 9. Revamped FaceBuilder and other improvements in KeenTools 2.1.0 — https://link.keentools.io/210-post — vendor — n.d.
+10. KeenTools 2022.1 (7 April 2022) release notes — https://keentools.io/news/2022-1 — vendor — 2022
+11. KeenTools version 2.1.1 (1 Oct 2020) release notes — https://keentools.io/news/211 — vendor — 2020
+12. KeenTools 2023.3.0 (21 November 2023) release notes — https://keentools.io/news/2023-3 — vendor — 2023
+13. KeenTools 2024.2.0 (20 August 2024) release notes — https://keentools.io/news/2024-2 — vendor — 2024
+14. KeenTools 2024.3.0 (20 November 2024) release notes — https://keentools.io/news/2024-3 — vendor — 2024
 
 Related notes: `reconstruction/commercial-head-tools.md`, `community/blenderartists-forum.md`, `blender/blender-face-addons.md`, `blender/reference-camera-setup.md`, `community/reference-photography-protocol.md`, `anatomy/anthropometric-norms.md`, `blender/blender-version-status-2026.md`.
 
@@ -198,3 +203,11 @@ Related notes: `reconstruction/commercial-head-tools.md`, `community/blenderarti
 - **Pricing / trial / licence** — corrected. Trial is 15 days per add-on (not 30); Freelancer Annual 191.88 USD/yr, Monthly 19.99, Studio Annual 699 (a bundle exists); subscription confirmed; EULA exists but its terms and the GPL-front-end-plus-closed-core claim were not found (unconfirmed). Product page may be stale. https://keentools.io/products/facebuilder-for-blender
 - **Pinhole camera, centred principal point, no distortion model; focal from EXIF/manual/estimate** — partly confirmed: v2.1.0 sets focal and sensor per photo from EXIF [https://link.keentools.io/210-post]; typed or estimated focal confirmed for FaceTracker only. Pinhole/no-distortion unconfirmed (stays 🧠/↔️).
 - **51 ARKit blendshapes, Live Link Face CSV** — confirmed (one vendor source): both in 2021.1 (22 Dec 2020). tongueOut absence unconfirmed. https://keentools.io/news/2021-1
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Shape, expression, blinking and neck-movement rigidity settings** — confirmed (vendor release notes, 📄): separate shape/expression rigidity in 2.1.1 (defaults 1 and 2); 2022.1 split out blinking and neck-movement rigidity; UI regrouped in 2024.1. https://keentools.io/news/211 , https://keentools.io/news/2022-1
+- **Editing the live FaceBuilder mesh is overwritten, so sculpt on a duplicate** — unconfirmed (no source found; stays 🧠).
+- **GeoTracker for Blender ~2022-2023** — corrected: betas in 2023, stable in 2023.3.0 (21 Nov 2023). https://keentools.io/news/2023-3
+- **FaceTracker for Blender ~2024** — confirmed: open beta 2024.2 (20 Aug 2024), stable 2024.3 (20 Nov 2024). https://keentools.io/news/2024-2 , https://keentools.io/news/2024-3
+- **Same add-on** — unconfirmed by these results.

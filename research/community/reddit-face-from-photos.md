@@ -2,7 +2,7 @@
 
 > On r/blender, r/3Dmodeling, r/photogrammetry, r/ZBrush and r/computergraphics, "make a 3D head of a real person from photos" recurs constantly. Answers point to four routes: template photo-fitting, photogrammetry of a live sitter, sculpting by eye over references and, increasingly, AI image-to-3D. Experienced users agree no automatic route gives a finished likeness: each gives a base that a manual pass must correct for depth, proportions, eyes and hair. Recurring failures are about inputs more than tools: selfie perspective, unmatched front/side photos, mirrored or filtered phone images, sitter motion, hair, beards, eyes and shine. No Reddit thread was retrieved for this note, so everything is the author's synthesis of long-running discussion plus camera arithmetic: hypotheses to verify, not quotes.
 >
-> Evidence status: 1 ✅ / 1 📄 / 57 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 1 📄 / 56 🧠 / 7 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -91,11 +91,11 @@ Phone main and front cameras are about 22–30 mm equivalent 🧠. That is why a
 | Daz Face Transfer | 1 frontal photo | free base | "plastic", Daz-only | 🧠 |
 | FaceGen Modeller | 1–3 photos | paid | dated, generic | 🧠 |
 | MetaHuman (Mesh/footage to MetaHuman) | scan or depth video | free with Unreal; use outside Unreal changed 2025 (UE 5.6; other tools incl. Blender allowed, but Blender export is clunky) [2][3] | best rig, needs a clean neutral scan | ✅ |
-| RealityCapture/RealityScan | photos | free under about US$1 M revenue (2024 change) | top quality, CUDA | 🧠 |
+| RealityCapture/RealityScan | photos | free under about US$1 M annual revenue (2024 change); renamed RealityScan 2.0 in June 2025 [4][5] (CUDA-only claim not confirmed: one source lists NVIDIA CUDA or AMD GPUs) | top quality, CUDA | ✅ |
 | Agisoft Metashape | photos | Standard/Pro perpetual licences | robust, runs on Mac | 🧠 |
 | Meshroom / COLMAP | photos | open source (MPL-2.0 / BSD) | free, slower, CUDA for dense | 🧠 |
 | 3DF Zephyr Free | photos | free, capped at 50 photos | fine for small sets | 🧠 |
-| Hunyuan3D 2.x | 1+ images | open weights, licence excludes EU/UK/South Korea | best open generator, no likeness | ↔️ |
+| Hunyuan3D 2.x | 1+ images | open weights, licence territory excludes EU/UK/South Korea [6][7] | best open generator, no likeness | ✅ |
 | TRELLIS / TripoSR | 1 image | MIT | blockout only | 🧠 |
 | Meshy / Tripo / Rodin | 1+ images | freemium credits | blockout, retopology needed | 🧠 |
 
@@ -159,6 +159,10 @@ Phone main and front cameras are about 22–30 mm equivalent 🧠. That is why a
 1. Rutgers news, selfies and nasal distortion: https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
 2. CG Channel, MetaHumans in Unity/Godot (June 2025): https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/
 3. Creative Bloq, MetaHuman outside Unreal: https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters
+4. CG Channel, RealityScan 2.0 release (June 2025): https://www.cgchannel.com/2025/06/epic-games-releases-realityscan-2-0-and-realityscan-mobile-1-7/
+5. Capturing Reality, pricing changes: https://capturingreality.com/pricing-changes
+6. Tencent Hunyuan3D-2 licence (Hugging Face): https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE
+7. Tencent Hunyuan3D-2.1 licence (mirror): https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE
 
 **Further reading (by name, not yet linked)**
 - Ward, Ward, Fried, Paskhover, "Nasal distortion in short-distance photographs: the selfie effect", JAMA Facial Plastic Surgery, 2018
@@ -182,3 +186,10 @@ Phone main and front cameras are about 22–30 mm equivalent 🧠. That is why a
 - Ward et al. 2018 30% at 12 in vs 5 ft: corrected/confirmed (nasal base about 30%, tip about 7%). https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
 - Nose-to-tragion depth 10-12 cm (Farkas): unconfirmed; no values found. 🧠 kept.
 - MetaHuman usable outside Unreal incl. Blender, UE 5.6 era (2025): confirmed (Blender export unofficial/clunky). https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/ ; https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters
+
+## Verification log, pass 2 (2026-11-20)
+
+- RealityCapture free under about US$1M revenue (2024) and renamed/folded into RealityScan: confirmed. https://www.cgchannel.com/2025/06/epic-games-releases-realityscan-2-0-and-realityscan-mobile-1-7/ ; https://capturingreality.com/pricing-changes
+- RealityCapture/RealityScan needs NVIDIA CUDA for meshing: unconfirmed. A search summary of radiancefields.com lists "NVIDIA CUDA or AMD Radeon"; no official requirement page seen. 🧠 kept on the CUDA statements (Key facts hardware line, table verdict).
+- Hunyuan3D licence territory excludes EU, UK, South Korea: confirmed (2.0 and 2.1 licence texts). https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE ; https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE
+- TRELLIS and TripoSR MIT-licensed: unconfirmed (no result; search budget spent). 🧠 kept.

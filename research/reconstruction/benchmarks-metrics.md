@@ -2,7 +2,7 @@
 
 > Every published face-reconstruction error rests on three choices: alignment (landmarks, ICP, with or without scale), distance (scan-to-surface, Chamfer, nearest vertex) and crop; change one and numbers stop being comparable. NoW, the de facto identity-shape benchmark, is near saturation: a correctly scaled *average* FLAME face scores ≈1.5 mm mean, MICA ≈1.1 mm and the best entries ≈0.95 mm, so single-image methods remove only a quarter to two fifths of the mean face's error. REALY re-aligns each region and reorders methods, FaceScape adds yaw and focal-length sweeps, and Florence/MICC and Stirling/ESRC are older protocols whose numbers do not transfer. None scores absolute size, inter-feature configuration, lids, ears or likeness, so our tool reports a NoW-compatible number plus metric scale, regional signed error, configuration, profile and held-out-view checks. No harvest or draft existed: everything is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 6 📄 / 54 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 10 📄 / 56 🧠 / 24 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -10,8 +10,8 @@
 - **NoW** (Sanyal, Bolkart, Feng & Black, CVPR 2019, with RingNet): ≈2,054 iPhone images of 100 adults in four conditions (neutral, expression, occlusion, selfie), with one neutral active-stereo (3dMD-type) scan per subject. Validation has 20 subjects; test has 80, with ground truth hidden behind a submission server. Expression images are scored against the *neutral* scan, so NoW measures expression-invariant identity shape. 🧠
 - **NoW protocol.** The submitter supplies 7 landmarks on the prediction (4 eye corners, a nose point, 2 mouth corners). A similarity fit on these seeds a rigid refinement minimising scan-to-mesh distance. Each scan vertex is measured to the nearest point on the predicted *surface*; median, mean, std and a cumulative curve are reported. Scale is solved ("non-metrical"); MICA (ECCV 2022) added a metrical track without it. The procedure follows Feng et al., FG 2018. 📄 [1][2] (7 landmarks, rigid alignment, scan-to-surface distance and scale handling confirmed; landmark identities and the similarity-seed step not checked)
 - **REALY** (Chai et al., ECCV 2022): ≈100 Headspace/LYHM subjects, frontal and multi-view images, scans masked into nose, mouth, forehead and cheek. After a keypoint global alignment it re-aligns *each region* (region-aware ICP) and reports per-region mean nearest-point error and the average, arguing that whole-face ICP lets one region's error shift another's alignment. It also released the HIFI3D++ morphable model. 📄 [3] (100 scans and four regions confirmed; region-wise alignment confirmed; the report's units are mm/10 in its table header, so check scaling) Exact correspondence rule ↔️.
-- **Stirling/ESRC**: Di3D stereophotogrammetry scans (neutral and expressions, research licence) behind the FG 2018 in-the-wild reconstruction challenge (Feng, Huber, Kittler, Hancock et al.), with high- and low-quality image subsets scored as 3D-RMSE after landmark + ICP alignment. Recalled size ≈2,000 test images of ≈130 subjects ↔️.
-- **FaceScape** (Yang et al., CVPR 2020): ≈938 subjects × 20 expressions (≈18,760 textured models) from a dense DSLR rig. Its benchmark extension (Zhu et al., IEEE TPAMI) scores Chamfer distance (mm), complete rate (%) and mean normal error, binned by **yaw and focal length**, the only major benchmark that probes perspective. Mostly East Asian subjects; research-only, by application. 🧠 Bin edges and set sizes ↔️.
+- **Stirling/ESRC**: 3dMDface structured-light scans (neutral and expressions, research licence) behind the FG 2018 in-the-wild reconstruction challenge (Feng, Huber, Kittler, Hancock et al.), with high- (656) and low-quality (1,344) image subsets scored as 3D-RMSE in mm. Test set is 2,000 neutral images of 135 subjects 📄 [6] (corrected in verification: ground truth is 3dMDface, not Di3D; 135 subjects, not ≈130; the "landmark + ICP alignment" detail was not checked).
+- **FaceScape** (Yang et al., CVPR 2020): ≈938 subjects × 20 expressions (≈18,760 textured models) from a dense DSLR rig 📄 [7] (938 subjects, 20 expressions, 18,760 models confirmed for the CVPR paper; the TPAMI extension releases 847 subjects / 17,940 models). Its benchmark extension (Zhu et al., IEEE TPAMI) reports accuracy by **camera pose and focal length** 📄 [8], the only major benchmark that probes perspective; the Chamfer/complete-rate/normal-error metric names were not seen in sources 🧠. Mostly East Asian subjects; research-only, by application 🧠. Bin edges and set sizes ↔️.
 - **Florence/MICC** (Bagdanov, Del Bimbo & Masi, 2011): 53 subjects, 3dMD scans, cooperative, PTZ and outdoor video. Two incompatible protocols: Tran et al. 2017 / Genova et al. 2018 crop ground truth to ≈95 mm around the nose tip and report point-to-plane error after ICP (≈1.5–2 mm for 2018-era methods) ↔️; VRN/PRNet/3DDFA-style papers report NME in % of outer inter-ocular distance (≈3–6 %) ↔️.
 - **AFLW2000-3D** (Zhu et al., CVPR 2016): 2,000 in-the-wild images whose "ground truth" is a 3DMM fit, scored as 68-landmark NME over bounding-box size. It measures agreement with another fitter, not shape. 🧠
 - **Newer:** DAD-3DHeads (CVPR 2022; dense head annotations, Chamfer and pose metrics) and the Pixel3DMM benchmark (2025; NeRSemble multi-view ground truth, neutral *and* posed expressions). Adoption by late 2026 unknown. ↔️
@@ -39,7 +39,7 @@
 |---|---|---|---|---|---|---|---|
 | NoW (2019) | neutral active-stereo scan | 100 / ≈2,054 | neutral, expression, occlusion, selfie | 7 lm → rigid; scale solved (metrical track: none) | scan→surface median/mean/std, mm | size, local regions, ears | 🧠 |
 | REALY (2022) | Headspace scans, region masks | ≈100 | frontal + multi-view | keypoints, then per-region ICP | per-region mean nearest-point, mm | inter-region configuration, size | ↔️ |
-| Stirling/ESRC FG 2018 | Di3D scans | ≈130 / ≈2,000 | HQ and LQ in-the-wild | 7 lm + ICP | 3D-RMSE, mm | size, regions | ↔️ |
+| Stirling/ESRC FG 2018 | 3dMDface scans | 135 / 2,000 | HQ and LQ in-the-wild | 7 lm + ICP | 3D-RMSE, mm | size, regions | 📄 [6] (corrected in verification) |
 | FaceScape (2020; TPAMI ext.) | 68-camera multi-view stereo | ≈938 × 20 expressions | lab and wild; yaw and focal bins | ICP-type | Chamfer mm, complete rate %, normal error | likeness; skews East Asian | ↔️ |
 | Florence/MICC (2011) | 3dMD | 53 | cooperative / PTZ / outdoor video | ICP (± scale), 95 mm crop | point-to-plane mm, or NME % | protocol-dependent | ↔️ |
 | AFLW2000-3D (2016) | 3DMM fit (pseudo-GT) | 2,000 images | in the wild, large pose | none (2D) | 68-lm NME, % bbox | true shape | 🧠 |
@@ -145,6 +145,9 @@ Sources added in verification are numbered below; the rest of the note is expert
 3. Chai et al., REALY, https://arxiv.org/pdf/2203.09729
 4. NoW metrical leaderboard, https://now.is.tuebingen.mpg.de/metricalevaluation.html
 5. Scientific Reports 2024 scanner comparison, https://www.nature.com/articles/s41598-024-57370-x.pdf
+6. Feng et al., Evaluation of Dense 3D Reconstruction from 2D Face Images in the Wild (FG 2018 challenge), https://arxiv.org/pdf/1803.05536.pdf
+7. Yang et al., FaceScape (CVPR 2020), https://arxiv.org/pdf/2003.13989.pdf
+8. Zhu et al., FaceScape benchmark (TPAMI extension), https://arxiv.org/abs/2111.01082
 
 **Further reading (by name, not yet linked)**
 - Sanyal, Bolkart, Feng & Black, RingNet and the NoW benchmark ("Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision"), CVPR 2019
@@ -168,3 +171,9 @@ Sources added in verification are numbered below; the rest of the note is expert
 - NoW protocol: confirmed (7 landmarks, rigid alignment, scan-to-surface distance, scale in non-metrical only). Landmark identities not seen. https://gitee.com/hu-ruigang/now_evaluation , https://arxiv.org/pdf/2204.06607
 - Scanner accuracy and live repeat variation: contested. Nominal 0.2 mm RMS; live repeats about 0.2-0.5 mm, lower than the recalled 0.3-1 mm. https://www.nature.com/articles/s41598-024-57370-x.pdf
 - REALY: protocol confirmed (100 scans, four regions, region-wise alignment). Average of 1.5-2.2 mm and mouth spread unconfirmed; table units are mm/10. https://arxiv.org/pdf/2203.09729
+
+## Verification log, pass 2 (2026-11-20)
+
+- FaceScape (938 subjects x 20 expressions, 18,760 models): confirmed [7]. Benchmark reports accuracy by camera pose and focal length: confirmed [8]. Chamfer / complete rate / mean normal error, East Asian skew and research-only licence: unconfirmed (not in search results). Note: TPAMI extension releases 847 subjects / 17,940 models. https://arxiv.org/pdf/2003.13989.pdf , https://arxiv.org/abs/2111.01082
+- Stirling/ESRC FG 2018: corrected. 2,000 neutral images (656 HQ, 1,344 LQ) of 135 subjects, 3dMDface structured-light ground truth (not Di3D), 3D-RMSE in mm [6]. https://arxiv.org/pdf/1803.05536.pdf
+- Florence/MICC 95 mm crop, point-to-plane after ICP, 1.5-2 mm for 2018-era methods: unconfirmed (no usable result for Genova et al. or Tran et al.).

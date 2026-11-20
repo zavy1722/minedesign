@@ -42,14 +42,38 @@
    "title": "ICO: What is special category data?",
    "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/special-category-data/what-is-special-category-data/",
    "verified": "2026-11-20"
+  },
+  {
+   "n": 8,
+   "title": "Texas Bus. & Com. Code ch. 503",
+   "url": "https://statutes.capitol.texas.gov/Docs/BC/htm/BC.503.htm",
+   "verified": "2026-11-20"
+  },
+  {
+   "n": 9,
+   "title": "Texas HB 149 enrolled text",
+   "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm",
+   "verified": "2026-11-20"
+  },
+  {
+   "n": 10,
+   "title": "Goodwin, AI Act transparency obligations in force",
+   "url": "https://www.goodwinlaw.com/en/insights/publications/2026/08/alerts-technology-dpc-eu-ai-act-transparency-obligations-now-in-force",
+   "verified": "2026-11-20"
+  },
+  {
+   "n": 11,
+   "title": "Morgan Lewis, AI Act transparency rules 2 Aug",
+   "url": "https://www.morganlewis.com/blogs/sourcingatmorganlewis/2026/08/eu-ai-acts-transparency-rules-what-went-into-effect-on-2-august",
+   "verified": "2026-11-20"
   }
  ],
  "references_by_name": [
   "Illinois Biometric Information Privacy Act, 740 ILCS 14 (2008), as amended by Public Act 103-0769 (2024)",
-  "Texas Business & Commerce Code §503.001 (Capture or Use of Biometric Identifier); Texas HB 149 (TRAIGA, 2025)",
+  "Texas Business & Commerce Code \u00a7503.001 (Capture or Use of Biometric Identifier); Texas HB 149 (TRAIGA, 2025)",
   "Washington RCW 19.375 (biometric identifiers) and RCW 19.373 (My Health My Data Act)",
   "Colorado Privacy Act as amended by HB 24-1130",
-  "California Consumer Privacy Act as amended by the CPRA, Cal. Civ. Code §1798.100 et seq.; Cal. Civ. Code §3344",
+  "California Consumer Privacy Act as amended by the CPRA, Cal. Civ. Code \u00a71798.100 et seq.; Cal. Civ. Code \u00a73344",
   "Regulation (EU) 2016/679 (GDPR), Arts. 2(2)(c), 4(14), 6, 7, 9, 25, 28, 35, 83; Recitals 51 and 78",
   "Regulation (EU) 2024/1689 (AI Act), Arts. 5(1)(e), 50; Regulation (EU) 2024/2847 (Cyber Resilience Act)",
   "Rosenbach v. Six Flags Entertainment Corp., 2019 IL 123186",

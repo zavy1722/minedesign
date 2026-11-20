@@ -2,7 +2,7 @@
 
 > A photo→3D likeness pipeline produces what biometric laws regulate: landmark geometry, fitted shape coefficients, a metric face mesh and, if likeness is scored with ArcFace-style embeddings, a textbook faceprint. Illinois BIPA excludes photographs, but courts have treated face geometry *derived from* photos as a "scan of face geometry"; GDPR calls data biometric when it *can* uniquely identify someone and makes it Art. 9 special-category data when processed *to* identify. Whether a likeness mesh never used for recognition is regulated is contested, and a high-likeness head is identifying by design, so the safe engineering stance treats every derived artifact as biometric. Local processing largely takes the add-on developer out of the chain, but every duty (written release, purpose, retention, disclosure limits) then sits with the artist or studio running it. Not legal advice; the law moved in 2024–2026.
 >
-> Evidence status: 3 ✅ / 2 📄 / 58 🧠 / 13 ↔️ — verified 2026-11-20 for four queued claims; remaining 🧠 items are unverified.
+> Evidence status: 4 ✅ / 3 📄 / 59 🧠 / 11 ↔️ — verified 2026-11-20 (pass 1: four claims; pass 2: two claims); remaining 🧠 items are unverified.
 
 ## Key facts
 
@@ -26,11 +26,11 @@
 - **BIPA damages (§20):** $1,000 negligent / $5,000 intentional or reckless per violation, plus fees. Rosenbach v. Six Flags (Ill. 2019): no actual harm needed. Tims (Ill. 2023): 5-year limitation. Cothron v. White Castle (Ill. 2023): each scan accrues a claim. 🧠
 - **P.A. 103-0769 (SB 2979, Aug 2024)** made repeated collection from one person by one method a single violation and accepts e-signatures as a written release; the Seventh Circuit (Clay v. Union Pacific, 1 Apr 2026) held the per-person damages limit applies retroactively to pending cases [4][5]; state-court treatment not verified (corrected in verification). ✅
 - **CUBI:** notice and consent (not necessarily written) before capture; no sale or disclosure; reasonable care; destroy **≤1 year after the purpose expires**; Attorney General only, **≤$25,000 per violation**. Texas settled with Meta for $1.4 billion (2024) and Google for $1.375 billion (2025). 🧠
-- **Texas HB 149 (TRAIGA, from 1 Jan 2026)** reportedly amended CUBI: a public image implies no consent unless the person published it; AI training not used to identify is carved out. ↔️
+- **Texas HB 149 (TRAIGA, from 1 Jan 2026)** amended CUBI: capturing or storing biometric identifiers for a commercial purpose based solely on images found online or in other public sources is not consented, unless the individual made that media public; the bill analysis also describes an exemption for training, processing or storage of biometric data not used to identify, while possession and destruction duties still apply [8][9]. 📄
 - **GDPR controller duties** fall on the artist or studio; a hobbyist has the **Art. 2(2)(c) household exemption**, lost once results are published to the world (CJEU Lindqvist, 2003). Duties: Art. 6 basis; Art. 9(2)(a) explicit consent where Art. 9 applies; withdrawable, provable consent (Art. 7); minimisation and storage limitation (Art. 5); by design (Art. 25); Art. 28 contract with cloud processors; transfer rules (EU–US Data Privacy Framework since 2023); DPIA at large scale (Art. 35). 🧠
 - **Clearview AI** (scraped faceprints): ≈€20 M each from Italy, Greece and France (2022), €30.5 M from the Netherlands (2024); BIPA class settled in 2025 for an equity stake. 🧠
 - **FTC:** biometric Policy Statement (2023); Everalbum (2021) ordered deletion of *models trained* on improperly obtained face data. 🧠
-- **EU AI Act:** Art. 5(1)(e) has banned untargeted face scraping into recognition databases since 2 Feb 2025; Art. 50(4) deepfake disclosure was due 2 Aug 2026, with 2025 "Digital Omnibus" delay proposals. ↔️
+- **EU AI Act:** Art. 5(1)(e) has banned untargeted face scraping into recognition databases since 2 Feb 2025; Art. 50(4) deepfake disclosure has applied since 2 Aug 2026. The Digital Omnibus on AI (adopted mid-2026, in force 27 July 2026 per law-firm reports) left Art. 50(4) untouched and only moved the Art. 50(2) marking deadline (reported as 2 Dec 2026 for systems already on the market); its main delay is for high-risk systems [10][11] (corrected in verification). ✅
 - **Likeness law sits alongside:** right of publicity (e.g., Cal. Civ. Code §3344), digital-replica statutes (California AB 2602/AB 1836; Tennessee ELVIS Act, 2024), US TAKE IT DOWN Act (2025). The amended COPPA Rule (2025) adds facial templates to children's personal information. 🧠
 
 **Local vs cloud**
@@ -114,7 +114,7 @@ No anatomical priors or sigmas come from this topic; it sets data classes, gates
 - **Myth: "An MIT/GPL disclaimer covers users."** It does not change the duties of whoever collects. 🧠
 - ↔️ **Capability vs purpose.** GDPR: biometric by capability, Art. 9 by purpose (majority) or capability alone (minority). BIPA: Zellmer requires capability; some Illinois courts ask only whether geometry was scanned.
 - ↔️ **Is a hand-sculpted head still a "scan"?** Heavy manual sculpting may make it an artist's depiction, like a painted portrait. Untested.
-- ↔️ **Time-sensitive:** BIPA 2024 retroactivity in state courts (federal 7th Cir. settled it for federal cases, Apr 2026); the AI Act Art. 50 date and whether 3D renders count as deepfakes; TRAIGA's carve-outs; whether the EU Cyber Resilience Act reaches donation-funded add-ons; EU–US transfers after Latombe v Commission (2025, appeal pending).
+- ↔️ **Time-sensitive:** BIPA 2024 retroactivity in state courts (federal 7th Cir. settled it for federal cases, Apr 2026); whether 3D renders count as deepfakes under Art. 50(4) (in force since 2 Aug 2026); TRAIGA's carve-outs; whether the EU Cyber Resilience Act reaches donation-funded add-ons; EU–US transfers after Latombe v Commission (2025, appeal pending).
 - **Open:** the iris resolution at which a texture becomes an "iris scan"; whether 3DMM coefficients are "templates"; a US federal privacy law (none enacted, as far as the author knows).
 
 ## Sources
@@ -128,6 +128,10 @@ Verified sources (2026-11-20):
 5. Foley, BIPA alert on Seventh Circuit retroactivity ruling: https://www.foley.com/insights/publications/2026/04/bipa-alert-seventh-circuit-ruling-applies-bipa-amendments-retroactively-ending-per-scan-exposure-for-companies-operating-in-illinois/
 6. EDPB Guidelines 3/2019 on video devices: https://www.edpb.europa.eu/sites/default/files/files/file1/edpb_guidelines_201903_video_devices_en_0.pdf
 7. UK ICO, What is special category data?: https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/special-category-data/what-is-special-category-data/
+8. Texas Business & Commerce Code ch. 503 (CUBI, current text): https://statutes.capitol.texas.gov/Docs/BC/htm/BC.503.htm
+9. Texas H.B. 149, enrolled text (89R): https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm
+10. Goodwin, EU AI Act transparency obligations now in force: https://www.goodwinlaw.com/en/insights/publications/2026/08/alerts-technology-dpc-eu-ai-act-transparency-obligations-now-in-force
+11. Morgan Lewis, EU AI Act transparency rules that went into effect on 2 August: https://www.morganlewis.com/blogs/sourcingatmorganlewis/2026/08/eu-ai-acts-transparency-rules-what-went-into-effect-on-2-august
 
 Related notes: `research/reconstruction/identity-embeddings.md`, `research/blender/metahuman-cc-bridges.md`, `research/community/ai-assisted-sculpting.md`.
 
@@ -154,3 +158,8 @@ Related notes: `research/reconstruction/identity-embeddings.md`, `research/blend
 2. Colorado HB 24-1130 deletion rule: confirmed (📄); 24 months and 45 days match. The "any controller regardless of volume" point was not separately verified. Source: https://www.leg.colorado.gov/bills/hb24-1130
 3. Illinois P.A. 103-0769: corrected (✅). Seventh Circuit held the amendment retroactive (Clay v. Union Pacific, 1 Apr 2026), so "courts split" is outdated at the federal appellate level; state-court status unverified. The e-signature provision was not separately confirmed. Sources: https://datamatters.sidley.com/2026/04/08/seventh-circuit-limits-potential-damages-under-bipa-holds-2024-amendment-applies-retroactively/ ; https://www.foley.com/insights/publications/2026/04/bipa-alert-seventh-circuit-ruling-applies-bipa-amendments-retroactively-ending-per-scan-exposure-for-companies-operating-in-illinois/
 4. GDPR Art. 9 turns on purpose (EDPB/ICO): confirmed (✅), with the ICO caveat that using biometrics to learn about someone likely counts as identification. Sources: https://www.edpb.europa.eu/sites/default/files/files/file1/edpb_guidelines_201903_video_devices_en_0.pdf ; https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/special-category-data/what-is-special-category-data/
+
+## Verification log, pass 2 (2026-11-20)
+
+1. EU AI Act Art. 50(4) date and Digital Omnibus: corrected (✅). Art. 50(4) has applied since 2 Aug 2026 and was not delayed; the Omnibus adopted in 2026 only shifted the Art. 50(2) marking deadline (reported as 2 Dec 2026 for existing systems) and high-risk dates. Exact Omnibus dates come from law-firm summaries and should be checked against the Official Journal. Sources: https://www.goodwinlaw.com/en/insights/publications/2026/08/alerts-technology-dpc-eu-ai-act-transparency-obligations-now-in-force ; https://www.morganlewis.com/blogs/sourcingatmorganlewis/2026/08/eu-ai-acts-transparency-rules-what-went-into-effect-on-2-august
+2. Texas HB 149 / CUBI amendment: confirmed (📄). Enrolled text bars commercial capture or storage based solely on publicly available images unless the individual made them public; the AI-training exemption is described in the bill analysis (possession and destruction duties remain). Sources: https://statutes.capitol.texas.gov/Docs/BC/htm/BC.503.htm ; https://capitol.texas.gov/tlodocs/89R/billtext/html/HB00149F.htm

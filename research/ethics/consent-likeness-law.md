@@ -8,7 +8,7 @@
 >
 > Written, scoped, revocable consent is necessary but not sufficient: it does not cure photo or tattoo copyright, a non-commercial model licence, or a duty to disclose realistic fakes. For the add-on, safe design means default-deny consent gating, local processing, no stored embeddings, no celebrity presets and provenance metadata on export. There was no harvest or earlier draft, so all of this is expert knowledge as of mid-2026, awaiting verification; it is not legal advice.
 >
-> Evidence status: 1 ✅ / 5 📄 / 52 🧠 / 25 ↔️ — 🧠 items are still unverified; 4 queued claims were checked on 2026-11-20 (see Verification log).
+> Evidence status: 1 ✅ / 6 📄 / 52 🧠 / 25 ↔️ — 🧠 items are still unverified; 4 queued claims were checked on 2026-11-20 (pass 1) and 2 more in pass 2 (see Verification logs).
 
 ## Key facts
 
@@ -73,7 +73,7 @@
 - **France.** Civil Code Art. 9 grounds the *droit à l'image*. The 2024 SREN law penalises sharing AI depictions made without consent unless they are obviously synthetic (Penal Code 226-8), and penalises sexual deepfakes more heavily (226-8-1). 🧠
 - **Denmark** proposed (2025) a right over one's own face, body and voice. ↔️ **Italy's** Law 132/2025 criminalises harmful deepfakes. ↔️
 - **UK.** There is no image right; claims run through passing off (*Irvine v Talksport*; *Fenty v Arcadia*, the Rihanna T-shirt), privacy, UK GDPR and defamation. 🧠 Sharing intimate deepfakes became an offence in 2024; creating them became one under the Data (Use and Access) Act 2025 (check commencement). ↔️ Guernsey has a registrable image right. 🧠
-- **India.** There is no statute. Delhi and Bombay High Court injunctions protect personality rights against AI cloning: Amitabh Bachchan (2022), Anil Kapoor (2023), Arijit Singh (voice, 2024) and a 2025 wave. 🧠 MeitY's October 2025 draft IT Rules would label "synthetically generated information" over ≥10 % of the display area. ↔️ (final form)
+- **India.** There is no statute. Delhi and Bombay High Court injunctions protect personality rights against AI cloning: Amitabh Bachchan (2022), Anil Kapoor (2023), Arijit Singh (voice, 2024) and a 2025 wave. 🧠 MeitY's October 2025 draft IT Rules would have labelled "synthetically generated information" over ≥10 % of the display area [13]. The final IT Amendment Rules 2026 were notified on 10 Feb 2026 and took effect 20 Feb 2026 (with tighter takedown timelines) [14]; whether the 10 % figure survived is disputed: Khaitan & Co reports it was replaced by a qualitative standard [11], while a LawSikho summary still states 10 % [12]. A further draft (comments to 7 May 2026) proposed continuous visible labelling; its status was not found. ↔️ DPDP Rules notified Nov 2025 with a 12–18 month phase-in: not verified. 🧠 (corrected in verification)
 - **China.** Civil Code Art. 1019 bars IT-forged portraits, and AI-content labelling has been mandatory since 1 Sep 2025. 🧠
 
 **Contracts and practice**
@@ -88,7 +88,7 @@
 | Jurisdiction | Term after death | Notes | Badge |
 |---|---|---|---|
 | California | 70 years | §3344.1 | 🧠 |
-| New York | 40 years | §50-f, from 2020 | 🧠 |
+| New York | 40 years | §50-f, from 2020 [10] | 📄 |
 | Tennessee | 10 years, then while used | lapses after 2 years of non-use | 🧠 |
 | Indiana / Oklahoma | 100 years | broadest | 🧠 |
 | Texas / Illinois | 50 years | | 🧠 |
@@ -111,7 +111,7 @@
 | TAKE IT DOWN prison | ≤2 (≤3 if minor) | years | ↔️ |
 | AI Act Art. 50 | 15M / 3 % | EUR / turnover, whichever higher | 🧠 |
 | GDPR upper tier | 20M / 4 % | EUR / turnover | 🧠 |
-| India draft label | ≥10 | % of display area | ↔️ |
+| India SGI label (Oct 2025 draft; final Feb 2026 rules disputed: qualitative [11] vs 10 % [12]) | ≥10 (draft) | % of display area | ↔️ |
 
 ## Applying this to photo→3D face sculpting in Blender
 
@@ -169,7 +169,7 @@ Statistical sigmas do not apply here. The priors are **policy defaults** that th
   - Does Art. 50 reach CGI made by classical fitting? Probably not, but neural steps change that.
   - First Amendment limits on broad replica rights.
   - Whether consent survives death: SAG-AFTRA terms say yes unless limited.
-- **Open (time-sensitive):** NO FAKES Senate floor and House action and pre-emption scope; uptake of the labelling code; India's final IT Rules; Danish enactment; a UK personality right; the December 2025 US executive order.
+- **Open (time-sensitive):** NO FAKES Senate floor and House action and pre-emption scope; uptake of the labelling code; India's further SGI labelling amendment (draft comments closed 7 May 2026) and DPDP phase-in; Danish enactment; a UK personality right; the December 2025 US executive order.
 
 ## Sources
 
@@ -183,6 +183,12 @@ Sources added in the 2026-11-20 verification pass (most claims in this note rema
 7. Ropes & Gray, operationalising the EU AI Act's transparency obligations (2026): https://www.ropesgray.com/en/insights/viewpoints/2026/08/102nfqm/you-talkin-to-me-operationalising-the-eu-ai-acts-transparency-obligations
 8. Morgan Lewis, EU AI Act transparency rules: what went into effect on 2 August: https://www.morganlewis.com/ru/blogs/sourcingatmorganlewis/2026/08/eu-ai-acts-transparency-rules-what-went-into-effect-on-2-august
 9. Addleshaw Goddard, EU AI Act code of practice on marking and labelling AI-generated content (18 Jun 2026): https://www.addleshawgoddard.com/en/insights/insights-briefings/2026/technology/eu-ai-act-code-practice-marking-labelling-ai-generated-content/
+
+10. Fross Zelnick, New York passes post-mortem right of publicity law: https://www.fr.com/news-insights/articles/new-york-passes-post-mortem-right-of-publicity-law/
+11. Khaitan & Co, ERGO: IT Rules Amendment (16 Feb 2026): https://khaitanco.com/sites/default/files/2026-02/ERGO%20-%20IT%20Rules%20Amendment%20-%2016%20February%202026.pdf
+12. LawSikho, IT Rules 2026: deepfake takedown 3-hour rule and AI labelling explained: https://lawsikho.com/blog/?p=5812
+13. YourStory, Govt proposes tweaks in IT rules; moots labelling (Oct 2025): https://yourstory.com/2025/10/govt-proposes-tweaks-in-it-rules
+14. Analytics India Magazine, India tightens IT rules on deepfakes: https://analyticsindiamag.com/ai-news/india-tightens-it-rules-on-deepfakes-mandates-labelling-faster-takedowns-under-it-rules
 
 Related notes: `reconstruction/identity-embeddings.md`, `blender/metahuman-cc-bridges.md`, `blender/blender-face-addons.md`, `community/ai-assisted-sculpting.md`, `reconstruction/photogrammetry-heads.md`.
 
@@ -201,3 +207,8 @@ Related notes: `reconstruction/identity-embeddings.md`, `blender/metahuman-cc-br
 - **EU AI Act Art. 50 from 2 Aug 2026**: confirmed (two sources). **Digital Omnibus grace period**: corrected, 2 Dec 2026 for pre-existing generative systems under Art. 50(2) only. **Code of Practice**: finalised 10 Jun 2026 per one law-firm source (an older source called it in draft). **Art. 2(12) open-source exemption excludes Art. 50**: unconfirmed in these results. https://www.ropesgray.com/en/insights/viewpoints/2026/08/102nfqm/you-talkin-to-me-operationalising-the-eu-ai-acts-transparency-obligations ; https://www.morganlewis.com/ru/blogs/sourcingatmorganlewis/2026/08/eu-ai-acts-transparency-rules-what-went-into-effect-on-2-august
 - **Tennessee ELVIS Act**: confirmed (dates; tool-distribution clause, "primary purpose or function"). Corrected nuance: the text says "an individual's" likeness, not "particular, identified". https://agora.eto.tech/instrument/1378 ; https://www.skadden.com/insights/publications/2024/04/tennessee-law-addresses-proliferation-of-deepfakes
 - **Illinois BIPA SB 2979**: confirmed (single recovery for repeat collection, signed 2 Aug 2024, e-signatures). **"Scan of face geometry", $1,000/$5,000, 3-year destruction**: unconfirmed here. **Zellmer v. Meta**: unconfirmed (not in results). https://www.ilga.gov/documents/legislation/103/SB/10300SB2979.htm ; https://www.gtlaw.com/de/insights/2024/8/bipa-update-illinois-limits-liability-and-clarifies-electronic-consent-for-biometric-data-collection
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Post-mortem publicity terms (Table 1)**: partly confirmed. New York 40 years confirmed (statute described as up to 40 years): https://www.fr.com/news-insights/articles/new-york-passes-post-mortem-right-of-publicity-law/ . California 70, Indiana/Oklahoma 100, Tennessee 10 and a Virginia 20 lower bound appeared in search summaries but could not be tied to a specific URL, so they stay 🧠; Washington 75 likely but snippet cut off; Ohio 60, Pennsylvania 30, Florida 40, Texas 50, Illinois 50 and Germany 10: unconfirmed.
+- **India SGI labelling and DPDP Rules**: contested/corrected. Draft (Oct 2025) 10 % figure confirmed (https://yourstory.com/2025/10/govt-proposes-tweaks-in-it-rules). Final IT Amendment Rules 2026 notified 10 Feb 2026, effective 20 Feb 2026 (https://analyticsindiamag.com/ai-news/india-tightens-it-rules-on-deepfakes-mandates-labelling-faster-takedowns-under-it-rules); Khaitan says the 10 % mandate was replaced by a qualitative standard (https://khaitanco.com/sites/default/files/2026-02/ERGO%20-%20IT%20Rules%20Amendment%20-%2016%20February%202026.pdf), LawSikho still states 10 % (https://lawsikho.com/blog/?p=5812). DPDP Rules notification and 12-18 month phase-in: unconfirmed (no results).

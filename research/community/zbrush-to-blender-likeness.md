@@ -2,7 +2,7 @@
 
 > The ZBrush likeness tradition (Scott Spencer, Rafael Grassetti, Pablo Muñoz Gómez, Ryan Kingslien and peers) is one loop: collect many long-lens photos, block primary forms at low resolution, match a perspective camera to each photo, overlay it (Spotlight, See-through, grid images), and move big masses until silhouette and features agree in every view at once, then break symmetry, test changes on Layers, and judge with hair and matched light. Blender has every ingredient plus one structural advantage: each photo keeps its own persistent camera object with the photo as a front-depth background image, so you flip between solved views instead of re-matching ZBrush's single canvas camera. Its weak spots are sculpt layers and a morph brush (shape keys and Geometry Nodes only partly replace them) and a default viewport whose "50 mm" is, we believe, wide-angle. No harvest or earlier draft existed, so everything here is expert knowledge or pinhole arithmetic. For the fitting engine this becomes a joint multi-view perspective solve, coarse-to-fine stages exported as dialable shape keys, and a symmetry prior relaxed late.
 >
-> Evidence status: 0 ✅ / 1 📄 / 59 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 2 📄 / 59 🧠 / 20 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -77,7 +77,7 @@ A phone's 1× camera framing a head tightly forces selfie distance. Shoot at 2�
 |---|---|---|---|---|---|---|---|
 | Ratio | 1.333 | 1.200 | 1.100 | 1.067 | 1.050 | 1.033 | 1.020 |
 
-Badge 🧠. Matches the library's Instagram-sculptors note and the reported "selfie effect": nasal base about 30 % wider at ~30 cm than at ~1.5 m (Ward et al., 2018). ↔️ (figure recalled, to verify)
+Badge 🧠. Matches the library's Instagram-sculptors note and the reported "selfie effect": nasal base about 30 % wider at ~30 cm than at ~1.5 m (Ward et al., 2018). 📄 (Rutgers release on the study: a selfie at about 12 in (≈30 cm) makes the nasal base look about 30 % wider and the nasal tip about 7 % wider than a photo at 5 ft (≈1.5 m) [6]; a model-based result, and a published letter disputes whether the effect is physical distortion versus viewing-distance mismatch [7])
 
 **Table 4 — Typical phone camera 35 mm-equivalent focal lengths** (2020s flagships; varies by model). ↔️ time-sensitive.
 
@@ -159,6 +159,8 @@ Numbered sources (added in verification):
 3. Blender tracker T78320: https://developer.blender.org/T78320
 4. Blender tracker T43039: https://developer.blender.org/T43039
 5. Review citing Dodgson (2004) mean IPD 63.36 mm: https://pmc.ncbi.nlm.nih.gov/articles/PMC5497600
+6. Rutgers, selfies and plastic surgery (Ward et al. study): https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
+7. Fried and Paskhover letter exchange on the selfie effect (NSF PAR copy): https://par.nsf.gov/servlets/purl/10081075
 
 Related notes in this library: `research/blender/reference-camera-setup.md`, `research/community/instagram-social-sculptors.md`, `research/anatomy/facial-asymmetry.md`, `research/blender/blender-face-addons.md`.
 
@@ -186,3 +188,8 @@ Related notes in this library: `research/blender/reference-camera-setup.md`, `re
 - Blender camera export conventions (lens, shift_x/shift_y, OpenCV axis flip): UNCONFIRMED. Search found only a loosely related conversion script (https://jsan3386.github.io/avatar/camera.html) giving c_x = w(0.5 - shift_x); no source states the max(W,H) normalisation. Stays 🧠.
 - Adult IPD mean about 63 mm, SD 3.5-4 mm, near PD 3 mm less: PARTLY CONFIRMED. A secondary review attributes a 63.36 mm mean to Dodgson [5]; SD and near-PD offset unconfirmed. Row stays 🧠.
 - ZBrush Universal Camera and Spotlight shortcuts: Universal Camera with real focal length CONFIRMED [1]; Shift+Z (Spotlight) and Z (dial) CONFIRMED [2] (badge 📄). 4R8/2017 date, storable cameras, and perspective-off default UNCONFIRMED.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Blender has no native sculpt layers; shape keys cannot hold Multires detail; remesh and Dyntopo destroy shape keys: UNCONFIRMED (badge unchanged). The layered-sculpting design task is archived (https://developer.blender.org/T68898) and add-ons exist (https://extensions.blender.org/add-ons/edit-layers/versions/), consistent with no native layers, but no release-note statement was found. Dyntopo/voxel-remesh limits appear only in vendor docs (https://superhivemarket.com/products/sculpt-layers-non-destructive-sculpt-layers-with-masks-and-strength-sliders-for-blender/docs).
+- Selfie effect, nasal base about 30 % wider at about 30 cm than at about 1.5 m (Ward et al., 2018): CONFIRMED (📄) via the Rutgers release, 12 in vs 5 ft, nasal tip about 7 % [6] (https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery). Caveat: press coverage also quotes 30 % (men) and 29 % (women) against infinite distance, a different baseline; a letter disputes the physical-distortion interpretation [7] (https://par.nsf.gov/servlets/purl/10081075). Original JAMA page not opened.

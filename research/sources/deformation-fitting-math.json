@@ -189,6 +189,20 @@
    "url": "https://mirror.linux.duke.edu/pub/cran/web/packages/robustbase/vignettes/psi_functions.pdf",
    "kind": "docs",
    "year": "n.d."
+  },
+  {
+   "n": 28,
+   "title": "menpo3d, correspond/nicp.py",
+   "url": "https://github.com/menpo/menpo3d/blob/master/menpo3d/correspond/nicp.py",
+   "kind": "source-code",
+   "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision",
+   "url": "https://arxiv.org/pdf/1905.06817",
+   "kind": "paper",
+   "year": "2019"
   }
  ],
  "references_by_name": [

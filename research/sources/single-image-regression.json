@@ -18,7 +18,8 @@
     {"n": 15, "title": "FLAME model license (FLAME 2023 Open, CC-BY-4.0)", "url": "https://flame.is.tue.mpg.de/modellicense.html", "kind": "official", "year": "2023"},
     {"n": 16, "title": "NoW challenge, non-metrical evaluation leaderboard", "url": "https://now.is.tue.mpg.de/nonmetricalevaluation.html", "kind": "official", "year": "2025"},
     {"n": 17, "title": "Basel Face Model non-commercial license agreement", "url": "https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf", "kind": "official", "year": "2009"},
-    {"n": 18, "title": "Towards Metrical Reconstruction of Human Faces (MICA), ECCV 2022", "url": "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136730249.pdf", "kind": "paper", "year": "2022"}
+    {"n": 18, "title": "Towards Metrical Reconstruction of Human Faces (MICA), ECCV 2022", "url": "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136730249.pdf", "kind": "paper", "year": "2022"},
+    {"n": 19, "title": "Pixel3DMM: Versatile Screen-Space Priors for Single-Image 3D Face Reconstruction", "url": "https://arxiv.org/abs/2505.00615", "kind": "paper", "year": "2025"}
   ],
   "references_by_name": [
     "Sanyal, Bolkart, Feng, Black - Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision (RingNet, NoW benchmark), CVPR 2019",

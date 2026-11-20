@@ -87,7 +87,7 @@
       "population": "n/a (software templates)",
       "source_urls": [],
       "status": "knowledge",
-      "notes": "Vertex counts are recalled approximations (MetaHuman = LOD0 head mesh only; CC3+ count not recalled). The engine must count vertices and hash face indices of the user's own template at runtime and never hard-code these. 2026-11-20: MetaHuman licence gist confirmed (cgchannel, digitalproduction, metahuman.com/license); vertex counts remain unconfirmed, so table status stays knowledge."
+      "notes": "Vertex counts are recalled approximations (MetaHuman = LOD0 head mesh only; CC3+ count not recalled). The engine must count vertices and hash face indices of the user's own template at runtime and never hard-code these. 2026-11-20: MetaHuman licence gist confirmed (cgchannel, digitalproduction, metahuman.com/license); vertex counts remain unconfirmed, so table status stays knowledge. Pass 2 (2026-11-20): CC/Daz licence gist supported by Reallusion EULA, Daz EULA and Daz Interactive License pages (sources 11-13)."
     },
     {
       "name": "blender_to_target_axis_conversion",

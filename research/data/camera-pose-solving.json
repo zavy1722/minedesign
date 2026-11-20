@@ -714,8 +714,8 @@
      "SOLVEPNP_UPNP",
      4,
      false,
-     "falls back to EPnP in OpenCV",
-     "knowledge"
+     "falls back to EPnP in OpenCV (docs: broken implementation)",
+     "sourced"
     ],
     [
      "SOLVEPNP_ITERATIVE",
@@ -748,10 +748,11 @@
    ],
    "population": "OpenCV 4.x",
    "source_urls": [
-    "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html"
+    "https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html",
+    "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html"
    ],
    "status": "contested",
-   "notes": "Mixed status per row; only EPnP and DLS rows are from the harvested docs. Version-sensitive."
+   "notes": "Mixed status per row; EPnP, DLS and UPNP rows are from the docs. Version-sensitive."
   }
  ]
 }

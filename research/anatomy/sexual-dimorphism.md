@@ -31,7 +31,7 @@ A partial verification pass ran on 2026-11-20 (see the log at the end). The harv
 - **Mouth.** ch–ch (d ≈ 0.9) and sn–sto (d ≈ 1.0–1.3) are larger in men. Vermilion heights barely differ (d ≈ 0.3–0.5), so female lips are fuller only relative to the lower face 🧠. Resting upper-incisor display is ≈3.4 mm in women and ≈1.9 mm in men (Vig & Brundo 1978) 🧠.
 - **Midline soft tissue** is thicker in men: mid-philtrum 16.41 vs 13.95 mm (Iranian MRI) [16], most landmarks (Korean CBCT) [17], and nasal and perioral regions (Thai) [18] ✅.
 - **Mandible.** It is larger in men, with a taller ramus and symphysis, a wider bigonial span and more everted gonia 🧠. The mental protuberance is larger, and chin and symphysis shape differ (CT) [11] 📄.
-- **Gonial angle.** Men average only ~2–6° smaller ↔️. The "90° M / 110° F" pair conflicts with the adult ≈120° [12] and the 120.17° of young male mandibles [13] ✅. It is rejected.
+- **Gonial angle.** Reported sex differences are small and inconsistent: no significant difference in a 250-subject panoramic study (127.08° F vs 127.27° M) [43], women 1.6° larger on cephalographs (122.7° vs 121.1°) [42], and one digital study 7.8° larger in women (130.8° vs 123.0°). The earlier "men ~2–6° smaller" is contested, range ≈0–8° with direction not consistent ↔️. The "90° M / 110° F" pair conflicts with the adult ≈120° [12] and the 120.17° of young male mandibles [13] ✅. It is rejected.
 - **Jaw taper.** The bony go–go/zy–zy ratio barely differs (≈0.71 vs 0.70) 🧠 ↔️. The tapered female lower face comes from smaller masseters, a narrower, rounder chin and fat distribution 🧠.
   - Masseter volume is ≈35 vs 25 mL (older Japanese, MRI) [23][24] 📄, and masseter thickness is greater in men, relaxed and contracted [27] 📄.
   - Pogonion soft tissue is ≈12.3 vs 11.0 mm (Azerbaijan CT) [14] 📄.
@@ -94,7 +94,7 @@ A partial verification pass ran on 2026-11-20 (see the log at the end). The harv
 | go–go/zy–zy (bone) | ≈0.71 | ≈0.70 | silhouette ratio differs more (masseter) | — | 🧠 ↔️ |
 | sn–gn / n–gn | ≈0.59–0.61 | ≈0.57–0.59 | male lower face relatively taller | — | 🧠 |
 | fWHR (zy–zy / brow-or-n to upper lip) | ≈1.8–2.0 | ≈1.8–2.0 | d ≈ 0–0.3, sign inconsistent | — | ↔️ |
-| Gonial angle | ≈2–6° smaller | ≈120–125° | 90°/110° claim rejected | [12][13] | ↔️ |
+| Gonial angle | ≈120–127° | ≈122–127° | sex difference ≈0–8°, direction inconsistent; 90°/110° claim rejected | [12][13][42][43] | ↔️ |
 | Nasolabial angle | ≈90–105° | ≈95–115° | aesthetic and population data mixed | — | 🧠 ↔️ |
 | Nasofrontal angle | ≈115–130° | ≈120–140° | female more obtuse | — | 🧠 ↔️ |
 | Incisor display at rest | ≈1.9 mm | ≈3.4 mm | Vig & Brundo 1978 | — | 🧠 |
@@ -168,8 +168,8 @@ A partial verification pass ran on 2026-11-20 (see the log at the end). The harv
 
 ## Disagreements, myths & open questions
 
-- **fWHR** ↔️. Weston et al. (2007) reported skull fWHR dimorphism. Meta-analyses (Geniole et al. 2015; Kramer 2017) found a tiny or absent sex difference. Do not use fWHR as a sex cue or a prior.
-- **Gonial angle** ↔️. The 90°/110° pair is wrong [12][13]. The real difference is small.
+- **fWHR** ↔️ [41]. Weston et al. (2007) reported skull fWHR dimorphism. Meta-analyses (Geniole et al. 2015; Kramer 2017) found a tiny or absent sex difference. A 2018 commentary [41] disputes Kramer's reading and says skull-based dimorphism replicates Geniole; the d ≈ 0.1 figure is unconfirmed. Do not use fWHR as a sex cue or a prior.
+- **Gonial angle** ↔️. The 90°/110° pair is wrong [12][13]. The real difference is small and inconsistent in sign [42][43].
 - **"Men are thicker everywhere."** One compiled review cites a study finding exactly that [22] 📄, but Thai data contradict it laterally [18] ↔️. It holds at the midline and perioral sites [16][17] ✅.
 - **"Women have bigger eyes."** Eyeballs match [29]. Orbits and openings look larger only relative to a smaller face and higher brows 🧠.
 - **"High female cheekbones."** These come from fat and a narrower lower face, not from a higher zygoma 🧠.
@@ -227,6 +227,9 @@ Sourced facts come from sibling-topic harvests in `research/_raw/harvests` (anth
 [38] Using data-driven phenotyping to investigate the impact of sex on 3D human facial surface morphology (Matthews et al., J Anat) — https://scholarworks.indianapolis.iu.edu/items/f5dfa487-8bd0-4118-aefb-fa5929e6007c — paper — 2023
 [39] FLAME: Faces Learned with an Articulated Model and Expressions (male, female, generic models; licences) — https://flame.is.tue.mpg.de/ — project page — n.d.
 [40] Basel Face Model non-commercial licence agreement — https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf — licence — n.d.
+[41] Commentary: Sexual Dimorphism of Facial Width-to-Height Ratio in Human Skulls and Faces: A Meta-Analytical Approach — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5949324/ — paper — 2018
+[42] Sex estimation in Indians by digital analysis of the gonial angle on lateral cephalographs — https://pmc.ncbi.nlm.nih.gov/articles/PMC6981352/ — paper — n.d.
+[43] Forensic Gender Prediction by Using Mandibular Morphometric Indices: A Panoramic Radiograph Study — https://pmc.ncbi.nlm.nih.gov/articles/PMC11031626/ — paper — n.d.
 
 **Further reading (by name, not yet linked)**
 - Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994.
@@ -252,3 +255,8 @@ Sourced facts come from sibling-topic harvests in `research/_raw/harvests` (anth
 - Whole-face 3D sex classification about 90-96%, raters about 95%, D about 3-3.5: corrected/partly confirmed. Full-face geometric morphometrics reached 97% (Matthews 2023); other 3D studies gave 91.4% and 95.5%, so the range is now about 90-97%. Mahalanobis D and Bruce et al. 1993 figure unconfirmed. Source: https://scholarworks.indianapolis.iu.edu/items/f5dfa487-8bd0-4118-aefb-fa5929e6007c
 - Regional soft-tissue sex differences (gamma values, women thicker at malar, gonion): unconfirmed. Results only support that men are generally thicker with differences often under 1 mm (https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959, https://pubmed.ncbi.nlm.nih.gov/36758899/).
 - BFM 2009 attributes and FLAME variants: partly confirmed. FLAME offers male, female and generic models (https://flame.is.tue.mpg.de/); BFM 2009 is non-commercial (https://faces.dmi.unibas.ch/bfm/content/basel_face_model/downloads/BFM_NonCommercial_License_Agreement.pdf). BFM 2009 gender attribute directions unconfirmed.
+
+## Verification log, pass 2 (2026-11-20)
+
+- fWHR not meaningfully dimorphic (Kramer 2017; Geniole 2015, d ≈ 0.1): contested, badge stays ↔️. A commentary says Kramer's meta-analysis calls fWHR's dimorphism into question, but that the skull-based result replicates Geniole's dimorphism and the face-only effect is trend-level. The d ≈ 0.1 value was not confirmed. Source: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5949324/
+- Gonial angle differs 2–6° by sex (men smaller): contested, badge stays ↔️. Studies show no significant difference (127.08° F vs 127.27° M), women 1.6° larger, or women 7.8° larger; the "men smaller" direction is not supported. The 90°/110° pair stays rejected. Sources: https://pmc.ncbi.nlm.nih.gov/articles/PMC11031626/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC6981352/

@@ -24,7 +24,7 @@ All 📄 items rest on harvested search snippets, not on opened pages. No claim 
 - At selfie distance (~30 cm) the apparent nasal base is roughly 30% wider than at ~1.5 m (Ward et al. 2018; a modeled figure, 12 in vs 60 in) [27][28] 📄. Camera distance alters facial configuration enough to impair identity matching (Noyes & Jenkins 2017) and shift social judgements (Bryan, Perona & Adolphs 2012) 🧠.
 - Phone JPEG/HEIC output is usually distortion-corrected; some phones also unwarp faces in wide shots (Shih, Lai & Liang 2019), breaking the pinhole model near frame edges 🧠.
 - Clinical facial photography uses long lenses at ≥1 m, but recommendations range from 85 to 135 mm full-frame equivalent, most often 90–105 mm (e.g. Ettorre et al. 2006) ↔️.
-- The EXIF 35 mm-equivalent focal length is usually derived from the diagonal crop factor, but some makers use width ↔️. The engine (`face3d/geometry/camera.py`) assumes the diagonal.
+- The EXIF 35 mm-equivalent focal length is usually derived from the diagonal crop factor, but some makers use width [29] ↔️. The engine (`face3d/geometry/camera.py`) assumes the diagonal.
 - Scale anchors: horizontal visible iris diameter ≈11.7 ± 0.5 mm (Google MediaPipe Iris, 2020) [26] 📄. Adult IPD mean ≈63 mm, SD ≈3.5–4 mm, most adults 50–75 mm (Dodgson 2004) 🧠. Vergence at 35 cm shrinks the photographed inter-pupil distance by ~2 mm 🧠 (derived).
 
 **fSpy and other matchers**
@@ -32,7 +32,7 @@ All 📄 items rest on harvested search snippets, not on opened pages. No claim 
 - fSpy is the successor to the **BLAM** add-on [12] 📄. With one vanishing point the user must supply focal length [12] 📄. Two orthogonal vanishing points yield focal length, assuming the principal point is at the image centre 🧠.
 - fSpy needs real scene lines and struggles without clear vanishing points [10][18] ✅. Workflows use one to three vanishing points [19] 📄.
 - The **fSpy-Blender importer** reads principal point, horizontal FOV and image size from the `.fspy` JSON (principal point → lens shift, size → render resolution). It rejects project versions other than 1 [13] 📄 (from a search summary of `fspy.py`).
-- Open issue #89 (Sept 2025) asks whether the importer works in Blender 4.5, and #88 reports failures with strong vanishing points [14] 📄. Compatibility with 4.5 and 5.x is **unconfirmed**.
+- Open issue #89 (Sept 2025) asks whether the importer works in Blender 4.5, and #88 reports failures with strong vanishing points [14] 📄. Compatibility with 4.5 and 5.x is **unconfirmed**: #89 is still open, #90 reports install failure on 4.5.1 and asks about 5.0+ [30], and a PR (#92, Mar 2026) proposes 4.2/5+ support with merge status unknown.
 - **perspective-match** says it ports fSpy's solver, names GPL-3.0, and follows fSpy's camera mapping [17] 📄.
 - GeoCalib calls classical vanishing-point geometry accurate but not robust, which motivates learned calibration [20] 📄. Perspective Fields (CVPR 2023) is another learned calibrator [21] 📄. Neither has known accuracy on close-up faces 🧠.
 - Also seen: fSpy feature requests #119 (known-size shapes) and #53 (zoom) [15][16], and tools known by title only [22]–[25] 📄.
@@ -201,6 +201,8 @@ Sensor-format sizes and crop factors are in the data file `research/data/referen
 [26] MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research) — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/ — official-docs — 2020
 [27] Selfies drive self image and may lead many to seek plastic surgery (Rutgers) — https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery — news — 2018
 [28] Nasal Distortion in Short-Distance Photographs: The Selfie Effect (PMC) — https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 — paper — 2018
+[29] 35 mm equivalent focal length (Wikipedia, citing CIPA DCG-001) — https://wikipedia.com/wiki/35mm_equivalent — other — unknown
+[30] Blender v5+ (fSpy-Blender issue #90) — https://github.com/stuffmatic/fSpy-Blender/issues/90 — repo — 2025
 
 **Further reading (by name, not yet linked)**
 - Hartley & Zisserman, *Multiple View Geometry in Computer Vision*, 2nd ed., 2004
@@ -228,3 +230,9 @@ Sensor-format sizes and crop factors are in the data file `research/data/referen
 - Iris diameter 11.7 ± 0.5 mm: confirmed 📄 [26]. https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/
 - Adult IPD mean ~63 mm, SD 3.5–4 mm, range 50–75 mm (Dodgson 2004): unconfirmed. Only secondary summaries were seen (mean ~63.36 mm, range 50–75 mm); no SD from Dodgson's paper. Remains 🧠. Paper: https://pubmed.ncbi.nlm.nih.gov/12090630/ (not verified to be the paper's record)
 - Selfie nasal-base widening ~30% (Ward et al. 2018): confirmed 📄 [27][28], with the caveat that it is a geometric model, not a measurement, and a later letter disputes its cause. https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery ; https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805
+
+## Verification log, pass 2 (2026-11-20)
+
+- EXIF FocalLengthIn35mmFilm usually diagonal-derived, some makers use width: contested, stays ↔️ [29]. A search summary of Wikipedia (citing CIPA guidance) says the diagonal basis is most common and a horizontal-angle definition is sometimes used. The DC-008 tag text itself was not seen, so "the Exif standard does not specify" is unconfirmed. https://wikipedia.com/wiki/35mm_equivalent
+- fSpy-Blender importer on Blender 4.5/5.x: unconfirmed, stays unconfirmed. Issue #89 is open, #90 reports an install failure on 4.5.1, PR #92 (Mar 2026) is of unknown merge status. https://github.com/stuffmatic/fSpy-Blender/issues ; https://github.com/stuffmatic/fSpy-Blender/issues/90
+- fSpy / perspective-match GPL-3.0: unconfirmed. Results contained no licence text. 🧠 status unchanged.

@@ -196,6 +196,24 @@
    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12475843/",
    "kind": "paper",
    "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "Object settings, Cycles (Blender Manual)",
+   "url": "https://docs.blender.org/manual/en/latest/render/cycles/object_settings/object_data.html",
+   "kind": "official docs"
+  },
+  {
+   "n": 30,
+   "title": "Light Settings, Cycles (Blender Manual)",
+   "url": "https://docs.blender.org/manual/en/5.2/render/cycles/light_settings.html",
+   "kind": "official docs"
+  },
+  {
+   "n": 31,
+   "title": "Retrospective review of eyelash number in patients who have undergone full-thickness eyelid resection",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/24398479",
+   "kind": "paper"
   }
  ],
  "references_by_name": [

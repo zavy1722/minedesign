@@ -2,7 +2,7 @@
 
 > A photo→3D likeness is clean only when three separate permission chains are all clean: the subject's consent (`ethics/consent-likeness-law.md`); the copyright in every photograph, which belongs to whoever pressed the shutter rather than to the subject, and which public visibility on a platform never grants; and the licence of every model, dataset and template that touches the fit. The third chain is where open face tooling usually fails. Code is MIT, BSD or Apache, but FLAME, BFM, InsightFace weights, dlib's 68-point model and most research regressors carry non-commercial or no-redistribution terms, and converting them to ONNX does not lift those terms. An add-on that imports `bpy` should be GPL-3.0-or-later, but the GPL does not reach the meshes and renders it makes, and a bpy-free numpy engine can stay permissive. Instagram, Facebook, X, TikTok and LinkedIn all forbid automated collection, so the clean route for social photos is the subject's own data export plus each photographer's permission. No harvest or earlier draft existed, so this is expert knowledge as of mid-2026. It is not legal advice.
 >
-> Evidence status: 0 ✅ / 3 📄 / 65 🧠 / 29 ↔️ — verified 2026-11-20 (one pass, 4 searches); remaining 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 7 📄 / 63 🧠 / 27 ↔️ — verified 2026-11-20 (two passes, 6 searches); remaining 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -18,7 +18,7 @@
 - **Landmark detectors.**
   - **MediaPipe Face Landmarker.** Apache-2.0 code. Its model cards are believed to state Apache-2.0 for the weights and to list identification as out of scope. ↔️
   - **dlib.** Boost-licensed code, but `shape_predictor_68_face_landmarks.dat` was trained on iBUG 300-W, whose terms exclude commercial use. 🧠
-  - **InsightFace.** MIT code; its pretrained packs (buffalo_l, antelopev2, including the 2d106 and 1k3d68 landmarkers) are "non-commercial research only", with paid licences available. 🧠
+  - **InsightFace.** MIT code; its pretrained packs (buffalo_l, antelopev2, including the 2d106 and 1k3d68 landmarkers) are "non-commercial research only", with paid licences available. 📄 [4][5]
   - **FAN.** BSD-3 code; weights trained on research datasets. ↔️
 - **Hidden-dependency traps.**
   - BiSeNet face-parsing weights ship with MIT code but were trained on CelebAMask-HQ, which is non-commercial. 🧠
@@ -55,7 +55,7 @@
 
 **Platform terms**
 - **Instagram's Terms of Use** forbid unauthorised or automated collection of information without express permission (paraphrase). Users license their content to *Meta*; third parties get nothing. 🧠
-- **No API route to someone's photos.** The Instagram Basic Display API was retired on 4 Dec 2024, and the Graph API serves only business and creator accounts' own media. ↔️
+- **No API route to someone's photos.** The Instagram Basic Display API was retired on 4 Dec 2024, and the Graph API serves only business and creator accounts' own media. 📄 [6]
 - **The sanctioned route is the subject's own export** through Accounts Center, "Download your information", which also covers Facebook and Threads. 🧠
 - **X's terms** ban scraping without prior written consent and reportedly add liquidated damages. ↔️ TikTok, LinkedIn, Pinterest and Reddit also prohibit automated collection. 🧠
 - **US scraping case law.**
@@ -91,7 +91,7 @@
 | MediaPipe canonical face OBJ | Apache-2.0 | n/a | yes | yes, with NOTICE | 🧠 |
 | ONNX / ONNX Runtime | Apache-2.0 / MIT | n/a | yes | yes (wheel) | 🧠 |
 | dlib 68-point | BSL-1.0 | 300-W, non-commercial | no | no | 🧠 |
-| InsightFace packs | MIT | non-commercial; paid licence | no | no | 🧠 |
+| InsightFace packs | MIT | non-commercial; paid licence | no | no | 📄 |
 | 3DDFA_V2 | MIT | BFM + 300W-LP, non-commercial | no | no | 🧠 |
 | DECA / EMOCA / MICA | MPI non-commercial | FLAME | no | no | 🧠 |
 | FLAME 2020/2023 | n/a | MPI non-commercial | via licence | no | 🧠 |
@@ -126,7 +126,7 @@
 | Clearview AI: Italy / Greece / France | 20M each (2022) | EUR | 🧠 |
 | Clearview AI: Netherlands | 30.5M (2024) | EUR | 🧠 |
 | Clearview AI: UK ICO | 7.5M (2022); appeals contested | GBP | ↔️ |
-| Instagram Basic Display API end of life | 4 Dec 2024 | date | ↔️ |
+| Instagram Basic Display API end of life | 4 Dec 2024 | date | 📄 [6] |
 
 ## Applying this to photo→3D face sculpting in Blender
 
@@ -186,6 +186,9 @@ Policy defaults, not statistical priors; sigmas do not apply. 🧠
 1. MakeHuman Community, licence page. https://static.makehumancommunity.org/about/license.html
 2. MakeHuman Community, Asset Packs. https://static.makehumancommunity.org/assets/assetpacks.html
 3. Blender Manual, Extension Licenses. https://docs.blender.org/manual/en/dev/extensions/licenses.html
+4. InsightFace README (library MIT; pretrained models non-commercial research only). https://github.com/deepinsight/insightface/blob/master/python-package/README.md
+5. InsightFace model zoo and licensing pages. https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md ; https://www.insightface.ai/solutions/face-recognition-licensing
+6. Meta for Developers, Update on Instagram Basic Display API (4 Sep 2024). https://developers.facebook.com/blog/post/2024/09/04/update-on-instagram-basic-display-api/
 
 Sibling harvests' licence URLs: `blender/blender-extensions-packaging.md`, `reconstruction/multi-view-fitting.md`, `reconstruction/identity-embeddings.md`.
 
@@ -204,3 +207,10 @@ Sibling harvests' licence URLs: `blender/blender-extensions-packaging.md`, `reco
 - **MPFB2/MakeHuman base mesh and targets CC0, some packs CC-BY:** confirmed (📄). Core assets and base mesh/targets are CC0 since the 2020 change; some asset packs are CC-BY. https://static.makehumancommunity.org/about/license.html ; https://static.makehumancommunity.org/assets/assetpacks.html
 - **FLAME non-commercial and "FLAME 2023 Open" under CC BY 4.0:** unconfirmed. Search returned only unrelated "FLAME" projects; no official MPI-IS page found.
 - **Blender Extensions policy:** corrected in part. Docs require GPL-3.0-or-later for add-ons (older 4.2 pages recommended GPL-2.0-or-later) and CC0 for bundled assets, not just "free". Bundled wheels / no runtime pip and runtime model download rules remain unconfirmed. https://docs.blender.org/manual/en/dev/extensions/licenses.html
+
+## Verification log, pass 2 (2026-11-20)
+
+- **InsightFace pretrained packs (buffalo_l, antelopev2) non-commercial research only, paid licences available:** confirmed (📄). README states library code is MIT while pretrained models are non-commercial research only; model zoo says the same; insightface.ai offers separate commercial licensing incl. buffalo_l. The 2d106/1k3d68 landmarkers were not named individually in results. https://github.com/deepinsight/insightface/blob/master/python-package/README.md ; https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md ; https://www.insightface.ai/solutions/face-recognition-licensing
+- **Instagram Basic Display API end of life 4 Dec 2024:** confirmed (📄). Meta's blog and changelog say the API stops being available on that date, with business/creator use cases directed to the newer Instagram API. https://developers.facebook.com/blog/post/2024/09/04/update-on-instagram-basic-display-api/
+- **Instagram Terms of Use prohibit automated collection:** unconfirmed (not retrieved; left 🧠).
+- **X terms liquidated damages $15,000 per 1M posts in 24h:** unconfirmed (not retrieved; left ↔️).

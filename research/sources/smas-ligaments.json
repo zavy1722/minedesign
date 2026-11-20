@@ -182,6 +182,27 @@
    "url": "https://pubmed.ncbi.nlm.nih.gov/18333409/",
    "kind": "paper",
    "year": "2008"
+  },
+  {
+   "n": 27,
+   "title": "Malar / Midface Descent (EyeWiki)",
+   "url": "https://eyewiki.aao.org/Malar_/_Midface_Descent",
+   "kind": "medical reference",
+   "year": "n.d."
+  },
+  {
+   "n": 28,
+   "title": "Blending the Lower Lid Cheek Junction (Plastic Surgery Key)",
+   "url": "https://plasticsurgerykey.com/blending-the-lower-lid-cheek-junction/",
+   "kind": "book chapter",
+   "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "Arch Plast Surg 2017;44(4):266-275 (review noting McGregor's patch extent not definitively described)",
+   "url": "https://thieme-connect.de/products/ejournals/html/10.5999/aps.2017.44.4.266",
+   "kind": "paper",
+   "year": "2017"
   }
  ],
  "provenance_note": "This topic's own harvest (_raw/harvests/smas-ligaments.json) and earlier draft were absent; all URLs were taken from sibling harvests in this library (muscles-lower-face, muscles-mid-face, muscles-upper-face, muscles-mastication-jaw, skull-osteology, soft-tissue-thickness). Facts rest on search snippets.",

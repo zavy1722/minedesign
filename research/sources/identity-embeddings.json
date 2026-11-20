@@ -98,6 +98,34 @@
       "url": "https://docs.opencv.org/4.13.0/d0/dd4/tutorial_dnn_face.html",
       "kind": "official-docs",
       "year": "2026"
+    },
+    {
+      "n": 15,
+      "title": "Transparency obligations under Article 50 of the AI Act (Commission FAQ)",
+      "url": "https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 16,
+      "title": "EUR-Lex 52025PC0836 (Digital Omnibus on AI proposal)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52025PC0836",
+      "kind": "official-docs",
+      "year": "2025"
+    },
+    {
+      "n": 17,
+      "title": "opencv_zoo issue 318: commercial use of SFace weights, training data provenance",
+      "url": "https://github.com/opencv/opencv_zoo/issues/318",
+      "kind": "forum",
+      "year": "2026"
+    },
+    {
+      "n": 18,
+      "title": "Third-party release listing YuNet MIT / SFace Apache-2.0",
+      "url": "https://github.com/nyarrow-studio/daysta-thirdparty-sources/releases/tag/mobile-models-20261024",
+      "kind": "forum",
+      "year": "2026"
     }
   ],
   "references_by_name": [

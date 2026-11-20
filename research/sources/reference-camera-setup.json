@@ -196,6 +196,20 @@
    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805",
    "kind": "paper",
    "year": "unknown"
+  },
+  {
+   "n": 29,
+   "title": "35 mm equivalent focal length (Wikipedia, citing CIPA DCG-001)",
+   "url": "https://wikipedia.com/wiki/35mm_equivalent",
+   "kind": "other",
+   "year": "unknown"
+  },
+  {
+   "n": 30,
+   "title": "Blender v5+ (fSpy-Blender issue #90)",
+   "url": "https://github.com/stuffmatic/fSpy-Blender/issues/90",
+   "kind": "repo",
+   "year": "2025"
   }
  ],
  "references_by_name": [

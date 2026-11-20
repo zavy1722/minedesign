@@ -2,7 +2,7 @@
 
 > A believable eye is a small optical system, not a textured ball. It has a ~24 mm globe, a steeper corneal cap (anterior radius ~7.8 mm) that stands ~2.5 mm proud of the limbus, a near-planar iris ~3 mm behind the corneal apex that is always seen through refraction, and wet adnexa (tear meniscus, caruncle, a ~2 mm lid margin, lashes) that hide the lid–globe seam. In Blender the robust build is an opaque sclera/iris/pupil mesh inside a transparent cornea shell (single-surface IOR ~1.336–1.376) whose shadow is switched off or rendered as shadow caustics. For photo→3D likeness, the visible iris/corneal diameter (~11.8 mm, SD ~0.5–0.8) is the best metric ruler on the face and a strong gaze cue. Globe size should almost never be fitted, because "big eyes" come from the lids. Globe and cornea geometry is sourced. Adnexa numbers and Blender settings are expert knowledge awaiting verification.
 >
-> Evidence status: 8 ✅ / 17 📄 / 62 🧠 / 10 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 8 ✅ / 18 📄 / 60 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -27,7 +27,7 @@
 - **The lid margin is a 1.5–2 mm flat band.** Lashes sit at its anterior edge and the meibomian orifices behind them, while the posterior edge rides on the globe. Paper-thin lids are the commonest CG error. 🧠
 - **Caruncle:** a pink, wet, ~3–5 mm nodule with fine hairs, in the lacrimal lake. The plica semilunaris fold lies lateral to it. The medial ~5–7 mm of each lid margin (the punctal part) has no lashes. 🧠
 - **Tear meniscus:** the lower one is 0.2–0.5 mm high and forms the bright wet line in photos. 🧠
-- **Lashes:** upper ~90–160 in 2–3 rows, 8–12 mm long; lower ~50–80 in 1–2 rows, 6–8 mm long. Base diameter is ~0.06–0.12 mm, tapering. They are longest in the central-to-lateral third, curve away from the eye, and clump. 🧠
+- **Lashes:** upper ~72–160 (reviews quote 90–160; a 38-patient chart review gave a control mean of 72.1 [31]) in 2–3 rows; lower ~38–80 (control mean 38.2 [31]; reviews quote 75–80). ↔️ Lengths (upper 8–12 mm, lower 6–8 mm) and rows are unverified. Base diameter is ~0.06–0.12 mm, tapering. They are longest in the central-to-lateral third, curve away from the eye, and clump. 🧠
 - **The sclera is not white.** It is off-white under conjunctiva, with vessels denser toward the canthi and often a pinguecula in adults. The dark **limbal ring** fades with age. 🧠
 - **Corneal Fresnel F0** is ≈ 2.1–2.5 % (n 1.336–1.376). The catchlight comes from the mirror-smooth tear film. 🧠
 - **Cycles shadow rays stop at Glass/Transmission surfaces, so a refractive cornea darkens the iris.** Fixes:
@@ -35,7 +35,7 @@
   - a Light Path *Is Shadow Ray* → Transparent mix;
   - MNEE shadow caustics (3.2+): cast on the cornea, receive on the iris/sclera, and enable on each light.
 
-  🧠 (version-sensitive)
+  📄 [29][30] (MNEE cast/receive object toggles and per-light Shadow Caustics toggle confirmed in the manual; the Ray Visibility alternative and the 3.2+ version number were not tied to a source, 🧠.) (version-sensitive)
 - **EEVEE refraction is approximate.** EEVEE Next (4.2+) uses *Raytraced Transmission* + Thickness, so iris parallax differs from Cycles. 🧠 (version-sensitive)
 - **Lashes:** use hair *Curves* with the Geometry Nodes hair assets (Clump/Curl/Interpolate, 3.5+) and Principled Hair BSDF. 🧠 (version-sensitive)
 - **Damped Track to a gaze target is a shortest-arc rotation from the primary position, which is Listing's law.** Track To with an up-axis adds false torsion at oblique gaze. 🧠
@@ -85,8 +85,8 @@
 | Caruncle size | ~3–5 | mm | 🧠 |
 | Lower tear meniscus height (OCT) | 0.2–0.5 | mm | 🧠 |
 | Tear film thickness | ~3–10 | µm | ↔️ method |
-| Upper lashes: count / length | 90–160 / 8–12 | n / mm | 🧠 |
-| Lower lashes: count / length | 50–80 / 6–8 | n / mm | 🧠 |
+| Upper lashes: count / length | 72–160 / 8–12 | n / mm | ↔️ count [31]; length 🧠 |
+| Lower lashes: count / length | 38–80 / 6–8 | n / mm | ↔️ count [31]; length 🧠 |
 | Lash base diameter | 0.06–0.12 | mm | 🧠 |
 | Apex ahead of lateral rim (Hertel) | means 14.4–18.5 by population; upper limit 19.3–24.7; L–R ≤ 2 unverified | mm | ↔️ ethnicity [22][23][24][25][26] |
 | Far interpupillary distance | ≈63 (SD ~3.5–4) | mm | 🧠 |
@@ -239,6 +239,9 @@
 26. Determination of the normal range of exophthalmometric values for black and white adults — https://pubmed.ncbi.nlm.nih.gov/6486215/ — paper — 1984
 27. Anterior chamber width measurement by high-speed optical coherence tomography (mean ACD 2.99 mm) — https://pubmed.ncbi.nlm.nih.gov/15691557 — paper — 2005
 28. Validation of an AI-based anterior chamber depth estimation (ACD generally 2.79–3.26 mm) — https://pmc.ncbi.nlm.nih.gov/articles/PMC12475843/ — paper
+29. Object settings, Cycles (Blender Manual; Caustics cast/receive) — https://docs.blender.org/manual/en/latest/render/cycles/object_settings/object_data.html — official docs
+30. Light Settings, Cycles (Blender Manual; Shadow Caustics) — https://docs.blender.org/manual/en/5.2/render/cycles/light_settings.html — official docs
+31. Retrospective review of eyelash number in patients who have undergone full-thickness eyelid resection (controls: 72.1 upper, 38.2 lower) — https://pubmed.ncbi.nlm.nih.gov/24398479 — paper
 
 **Further reading (by name, not yet linked)**
 - Bérard et al. — "High-Quality Capture of Eyes" (SIGGRAPH Asia 2014); "Lightweight Eye Capture Using a Parametric Model" (SIGGRAPH 2016); "Practical Person-Specific Eye Rigging" (Eurographics 2019)
@@ -264,3 +267,15 @@
 | Rotation centre 13–14 mm behind apex (13.3 default) | Unconfirmed from reliable sources (only patent text gave ~13.5 mm, not clinical). | none |
 | Angle kappa +3 to +6 deg | Unconfirmed (nothing returned). | none |
 | Hertel 12–20 mm (typ. 15–17), L–R ≤ 2 mm, ethnic variation | Contested: ethnic variation confirmed; means 14.4–18.5 mm, upper limits 19.3–24.7 mm; L–R ≤ 2 mm unverified. | https://pmc.ncbi.nlm.nih.gov/articles/PMC4336939/ ; https://pubmed.ncbi.nlm.nih.gov/1635761/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC10023137/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC8358757/ ; https://pubmed.ncbi.nlm.nih.gov/6486215/ |
+
+## Verification log, pass 2 (2026-11-20)
+
+| Claim | Outcome | Sources |
+|---|---|---|
+| MNEE shadow caustics via Object Caustics cast/receive plus light Shadow Caustics toggle (3.2+) | Confirmed for the toggles (one source type, official manual); 3.2 version number not stated in results. | https://docs.blender.org/manual/en/latest/render/cycles/object_settings/object_data.html ; https://docs.blender.org/manual/en/5.2/render/cycles/light_settings.html |
+| Cornea Ray Visibility Shadow-off as alternative fix | Unconfirmed (nothing returned). | none |
+| EEVEE Next (4.2+) Raytraced Transmission plus Thickness | Unconfirmed (nothing returned). | none |
+| Upper 90–160 / lower 50–80 lashes | Contested: reviews quote 90–160 upper and 75–80 lower (page not identifiable from results); a small chart review gave control means 72.1 upper, 38.2 lower. Range widened to 72–160 / 38–80. | https://pubmed.ncbi.nlm.nih.gov/24398479 |
+| Lash lengths 8–12 / 6–8 mm | Unconfirmed (no shaft-length study found). | none |
+| Lower tear meniscus height 0.2–0.5 mm | Unconfirmed (no OCT data returned). | none |
+| Caruncle ~3–5 mm | Unconfirmed (nothing returned). | none |

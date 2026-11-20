@@ -133,6 +133,27 @@
    "url": "https://scholarship.miami.edu/esploro/outputs/journalArticle/Human-ocular-biometry/991031597091702976",
    "kind": "paper",
    "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "FTC Finalizes Changes to Children's Privacy Rule Limiting Companies' Ability to Monetize Kids' Data",
+   "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-changes-childrens-privacy-rule-limiting-companies-ability-monetize-kids-data",
+   "kind": "official-docs",
+   "year": "2025"
+  },
+  {
+   "n": 21,
+   "title": "COPPA Rule final amendments, Federal Register 2025-05904",
+   "url": "https://www.federalregister.gov/documents/full_text/html/2025/04/22/2025-05904.html",
+   "kind": "statute",
+   "year": "2025"
+  },
+  {
+   "n": 22,
+   "title": "A 3D Morphable Model Learnt From 10,000 Faces (Booth et al., CVPR 2016)",
+   "url": "https://openaccess.thecvf.com/content_cvpr_2016/html/Booth_A_3D_Morphable_CVPR_2016_paper.html",
+   "kind": "paper",
+   "year": "2016"
   }
  ],
  "references_by_name": [

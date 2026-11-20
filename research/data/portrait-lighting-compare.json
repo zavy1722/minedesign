@@ -111,7 +111,7 @@
       "columns": ["gate", "metric", "threshold_or_sigma", "units", "status_note"],
       "rows": [
         ["G1", "landmark NME (outer inter-ocular normalised)", "<= 0.02-0.03", "fraction of IOD", "engineering; calibrate"],
-        ["G1", "landmark noise sigma for fitting", "0.015-0.03", "fraction of IOD", "detector noise floor ~3-4% IOD on 300-W-style sets (recalled; conventions vary)"],
+        ["G1", "landmark noise sigma for fitting", "0.015-0.03", "fraction of IOD", "best published 300-W full-set NME ~2.9-3.3% IOD (HRNet-W18 3.32, STAR 2.87); conventions vary; corrected in verification, status: sourced"],
         ["G2", "mean contour distance, unoccluded jaw/cheek", "<= 0.01", "fraction of face height", "engineering; calibrate"],
         ["G3", "CIEDE2000 colour difference", "~1 JND; 2-3 visible at a glance", "Delta E00", "perceptual rule of thumb"],
         ["G4", "ArcFace cosine / photo-photo baseline", "relative only", "ratio", "see identity-embeddings note"],

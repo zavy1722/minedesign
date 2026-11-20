@@ -2,7 +2,7 @@
 
 > In late November 2026 Blender ships on two tracks: **5.3**, the feature release of 10 Nov 2026 that the developer docs and the "latest" manual both label current, and **5.2 LTS**, released 14 Jul 2026, supported until Jul 2028, with 5.2.4 out between 10 and 17 Nov [6][7][10][12][14][15]. **4.5 LTS** is supported until Jul 2027 [13], while 4.2 LTS ran out of support in Jul 2026, though face add-ons still target it [18][19]. Python 3.13 is the bundled interpreter from 5.1 on (5.1 dependency PR: Python 3.13.9; 5.2 LTS library tracker: Python 3.13.13) and NumPy moved to 2.3.x in the 5.1 cycle [20][21][22]; these are development-tracker sources, not the shipped release notes, so check `sys.version` and `numpy.__version__` at runtime (corrected in verification). The 5.0.1 fixes [4] fit with 5.0 still bundling Python 3.11. The breaks that matter most for a photo→head add-on are 5.0's `mathutils` buffer protocol, through which NumPy now gets float32, non-contiguous views [3], plus (from expert knowledge) the 4.2 extension platform, the 4.3 brush assets and several 5.0 removals. So the add-on should read versions at runtime, probe for features instead of version numbers, and keep the solver in float64 pure NumPy.
 >
-> Evidence status: 5 ✅ / 24 📄 / 64 🧠 / 3 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 6 ✅ / 26 📄 / 61 🧠 / 3 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -10,8 +10,8 @@
 - **5.3 is the current feature release.** The developer-docs index lists it as current stable, dated 10 Nov 2026 [12]. Two separately harvested manual pages under `/manual/en/latest/` are titled "Blender 5.3 Manual" [14][15]. ✅ that it shipped and is current (all first-party pages); the exact date is 📄.
 - **5.2 LTS was released on 14 Jul 2026 and is supported until Jul 2028** [6][7] 📄 (two pages, one publisher). Third-party add-ons already target it: Face Shape Key Rig requires 5.2 or newer [16], and Faceit lists compatibility with 3.0–5.2 [17]. ✅ that 5.2 exists and ships.
 - **5.2.4** is dated 10 Nov 2026 on the download page [6], and the releases page says the LTS entry was "last updated to 5.2.4 on November 10, 2026" [23] 📄 (corrected in verification). The 16 and 17 Nov dates on the 5.2 LTS milestone views [10] were stale plans.
-- **4.5 LTS is supported until Jul 2027** [13] 📄. It is the last 4.x release 🧠.
-- **4.2 LTS** (Jul 2024) ran out of support in Jul 2026 under the same two-year rule 🧠. Even so, MPFB2 2.0.18 lists "4.2 LTS and newer" [18], and the FaceFit prototype was tested on 4.2.3 LTS [19] 📄.
+- **4.5 LTS is supported until Jul 2027** [13][26][27] ✅. It is the last 4.x release 🧠.
+- **4.2 LTS** (Jul 2024) ran out of support in Jul 2026 under the same two-year rule [26][28] 📄. Even so, MPFB2 2.0.18 lists "4.2 LTS and newer" [18], and the FaceFit prototype was tested on 4.2.3 LTS [19] 📄.
 - **5.0 was released on 18 Nov 2025** [1][2] 📄 (one publisher, seen only at snippet level).
 - **Cadence:** the 2026 plan named 5.1 (Mar), 5.2 LTS (Jul) and 5.3 (Nov) [9]. Both 5.2 and 5.3 arrived on plan [6][12] ✅. The pattern is three releases a year, an LTS every July, and two years of LTS support [6][9][13] 📄. The version number of the July 2027 LTS is not sourced 🧠.
 
@@ -27,7 +27,7 @@
 - **4.0:** passing a context-override dict to an operator was removed; use `with context.temp_override(...)` 🧠. The `gpu` built-in shaders lost their `2D_`/`3D_` prefixes (`UNIFORM_COLOR`, `POLYLINE_UNIFORM_COLOR`) 🧠.
 - **4.1:** Auto Smooth was removed (`use_auto_smooth`, `calc_normals_split`). The replacements are the "Smooth by Angle" modifier and `Mesh.corner_normals` 🧠.
 - **4.2 LTS: Extensions platform.** It introduced `blender_manifest.toml` with id, version, `blender_version_min` ≥ "4.2.0", an SPDX licence, `permissions`, `wheels` and `platforms`. It also added `bpy.app.online_access` and `bpy.utils.extension_path_user()`. Legacy `bl_info` add-ons can still be installed from disk 🧠.
-- **4.3: Brush assets.** Brushes now live in asset libraries, so a script can no longer simply assign `tool_settings.sculpt.brush`. Activation goes through `bpy.ops.brush.asset_activate` 🧠. `Brush.sculpt_tool` became `sculpt_brush_type` 🧠 (moderate confidence).
+- **4.3: Brush assets.** Brushes now live in asset libraries, so a script can no longer simply assign `tool_settings.sculpt.brush`. Activation goes through `bpy.ops.brush.asset_activate` [24][25] 📄 (the 4.3 notes say `paint.brush_set` was removed in favour of it; the "can no longer assign `tool_settings.sculpt.brush`" wording is not stated in the sources 🧠). `Brush.sculpt_tool` became `sculpt_brush_type` in **5.0**, not 4.3: 4.3 still used `sculpt_tool` [3][25] 📄 (corrected in verification).
 - **4.4:** slotted Actions arrived 🧠.
 - **5.0 removals** (moderate confidence, ≈60–70 % each):
   - `bgl` removed [3] 📄;
@@ -56,8 +56,8 @@
 
 | Version | Track | Released | Support ends | Bundled Python | Badge | Src |
 |---|---|---|---|---|---|---|
-| 4.2 | LTS | Jul 2024 | Jul 2026 (ended) | 3.11 | 🧠 | [18][19] (still targeted) |
-| 4.5 | LTS | Jul 2025 | Jul 2027 | 3.11 | 📄 support end; 🧠 rest | [13] |
+| 4.2 | LTS | Jul 2024 | Jul 2026 (ended) | 3.11 | 📄 support end; 🧠 rest | [26][28]; [18][19] (still targeted) |
+| 4.5 | LTS | Jul 2025 | Jul 2027 | 3.11 | ✅ support end; 🧠 rest | [13][26][27] |
 | 5.0 | feature | 2025-11-18 | — | 3.11 likely | 📄 date; ↔️ Python | [1][2][4] |
 | 5.1 | feature | Mar 2026 (plan) | — | 3.13 (3.13.9 in dev PR) | 📄 plan; 📄 Python (corrected in verification) | [9][21] |
 | 5.2 | LTS | 2026-07-14 | Jul 2028 | 3.13 (3.13.13 per tracker) | 📄 | [6][7][22] |
@@ -173,6 +173,11 @@
 [21] Deps: Library changes for Blender 5.1 (PR #149852) — https://projects.blender.org/blender/blender/pulls/149852 — repo — 2025
 [22] Library changes for Blender 5.2 LTS (#153974) — https://projects.blender.org/blender/blender/issues/153974 — repo — 2026
 [23] Blender 5.3 — https://www.blender.org/releases/5-3/ (and https://www.blender.org/download/releases/) — official-docs — 2026
+[24] Blender 4.3: Sculpt, Paint, Texture — https://developer.blender.org/docs/release_notes/4.3/sculpt/ — official-docs — 2024
+[25] Brush Operators — Blender Python API — https://docs.blender.org/api/current/bpy.ops.brush.html — official-docs — 2026
+[26] LTS — Blender — https://www.blender.org/download/lts/ — official-docs — 2026
+[27] Blender 4.5 LTS — Blender — https://www.blender.org/download/lts/4-5/ — official-docs — 2026
+[28] Blender 4.2 LTS — Blender — https://www.blender.org/download/lts/4-2/ — official-docs — 2026
 
 **Further reading (by name, not yet linked)**
 - Blender Python API reference, including its "Gotchas" pages (bpy, mathutils, gpu, `foreach_get`)
@@ -192,3 +197,13 @@
 | Bundled NumPy / move to 2.x | Corrected: 5.1 tracker requests NumPy 2.3.x (matching VFX 2026); deps PR names NumPy 2.3.4. Shipped version unconfirmed | https://projects.blender.org/blender/blender/issues/147201 ; https://projects.blender.org/blender/blender/pulls/149852 |
 | 5.0 Python API breaks | Confirmed: BGL removed; bpy.props no longer stored with custom properties (no dict-style access). Unconfirmed: EEVEE id rename, compositing_node_group, COLLADA removal, Action.fcurves removal (not surfaced in results). mathutils float32 buffer: already sourced [3], not re-surfaced | https://developer.blender.org/docs/release_notes/5.0/python_api/ |
 | 5.3 current, released 10 Nov 2026; 5.2.4 date | Confirmed 5.3 released 10 Nov 2026 and current. 5.2.4 corrected to 10 Nov 2026 (milestone dates 16/17 Nov were plans) | https://www.blender.org/releases/5-3/ ; https://www.blender.org/download/releases/ ; https://developer.blender.org/docs/release_notes/ |
+
+## Verification log, pass 2 (2026-11-20)
+
+| Claim | Outcome | Source |
+|---|---|---|
+| 4.2 LTS support ended Jul 2026 | Confirmed (4.2 LTS page says end-of-life) | https://www.blender.org/download/lts/4-2/ ; https://www.blender.org/download/lts/ |
+| 4.5 LTS supported until Jul 2027 (two-year window) | Confirmed (4.5 LTS page; developer docs: LTS maintained two years) | https://www.blender.org/download/lts/4-5/ ; https://developer.blender.org/docs/release_notes/ |
+| Next LTS due Jul 2027 / its version number | Unconfirmed; not stated in results (5.2 LTS is the current newer LTS) | none |
+| 4.3 brush activation via `bpy.ops.brush.asset_activate` | Confirmed (`paint.brush_set` removed in favour of it); the "cannot assign `tool_settings.sculpt.brush`" wording not stated: unconfirmed | https://developer.blender.org/docs/release_notes/4.3/sculpt/ ; https://docs.blender.org/api/current/bpy.ops.brush.html |
+| `Brush.sculpt_tool` renamed `sculpt_brush_type` in 4.3 | Corrected: the rename is in 5.0; 4.3 still used `sculpt_tool` | https://developer.blender.org/docs/release_notes/5.0/python_api/ |

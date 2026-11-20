@@ -80,7 +80,7 @@
   },
   {
    "n": 12,
-   "title": "5.2 LTS \u2014 Blender, download/releases (via blender-version-status-2026 harvest)",
+   "title": "5.2 LTS — Blender, download/releases (via blender-version-status-2026 harvest)",
    "url": "https://www.blender.org/download/releases/5-2/",
    "kind": "official-docs",
    "year": "2026"
@@ -94,21 +94,21 @@
   },
   {
    "n": 14,
-   "title": "Release Notes \u2014 Blender, index (via blender-version-status-2026 harvest)",
+   "title": "Release Notes — Blender, index (via blender-version-status-2026 harvest)",
    "url": "https://www.blender.org/download/releases/",
    "kind": "official-docs",
    "year": "n.d."
   },
   {
    "n": 15,
-   "title": "Blender Release Notes \u2014 Developer Documentation, index (via blender-version-status-2026 harvest)",
+   "title": "Blender Release Notes — Developer Documentation, index (via blender-version-status-2026 harvest)",
    "url": "https://developer.blender.org/docs/release_notes/",
    "kind": "official-docs",
    "year": "n.d."
   },
   {
    "n": 16,
-   "title": "Compatibility index \u2014 Blender Developer Documentation (via blender-version-status-2026 harvest)",
+   "title": "Compatibility index — Blender Developer Documentation (via blender-version-status-2026 harvest)",
    "url": "https://developer.blender.org/docs/release_notes/compatibility/",
    "kind": "official-docs",
    "year": "n.d."
@@ -143,7 +143,7 @@
   },
   {
    "n": 21,
-   "title": "Projects to Look Forward to in 2026 \u2014 Blender (via blender-version-status-2026 harvest)",
+   "title": "Projects to Look Forward to in 2026 — Blender (via blender-version-status-2026 harvest)",
    "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/",
    "kind": "official-docs",
    "year": "2026"
@@ -196,6 +196,27 @@
    "url": "https://developer.blender.org/docs/release_notes/5.1/python_api/",
    "kind": "official-docs",
    "year": "2026"
+  },
+  {
+   "n": 29,
+   "title": "Command Line Arguments, Blender 5.3 Manual",
+   "url": "https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 30,
+   "title": "Extensions Command Line Arguments, Blender 5.2 LTS Manual",
+   "url": "https://docs.blender.org/manual/en/latest/advanced/command_line/extension_arguments.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 31,
+   "title": "Support for uploading larger file sizes #130, extensions-website tracker",
+   "url": "https://projects.blender.org/infrastructure/extensions-website/issues/130",
+   "kind": "issue-tracker",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

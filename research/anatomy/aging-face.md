@@ -1,7 +1,7 @@
 # Facial aging mechanics
 
 > The face ages in layers, and each layer changes on its own schedule. Bone recedes at the orbital rims, the maxilla, the pyriform aperture and, after tooth loss, the mandible. Fat compartments deflate or grow unevenly. Retaining ligaments hold their lines while the tissue between them loosens. Skin thins, loses elasticity and keeps the creases of repeated expressions. Likeness depends on getting this order right: an older face is a different volume and contour first and a wrinkle texture second, so age is best modelled as a few anatomical parameters (bone, deflation, laxity, skin) rather than one "old" shape. For a consenting subject, chronological age, dental status and cosmetic history should be asked; photo-based age estimation is a fallback prior.
-Evidence status: 3 ✅ / 18 📄 / 51 🧠 / 29 ↔️ — 🧠 items remaining are unverified; 4 queued claims checked on 2026-11-20.
+Evidence status: 3 ✅ / 18 📄 / 51 🧠 / 29 ↔️ — 🧠 items remaining are unverified; 4 queued claims checked on 2026-11-20 (pass 1); 2 more checked in pass 2 with no badge changes.
 
 Ligament detail: `anatomy/smas-ligaments.md`; mandible norms: `anatomy/jaw-chin-neck.md`.
 
@@ -25,7 +25,7 @@ Ligament detail: `anatomy/smas-ligaments.md`; mandible norms: `anatomy/jaw-chin-
 - Depressor pull (DAO, platysma, buccinator) moves the modiolus down and inward and deepens the labiomandibular (marionette) fold [4][5][6] ✅.
 - Whether ageing muscles weaken (atrophy) or shorten with higher resting tone is debated; the 2025 review argues for chronic shortening and links muscle weakening to bone loss [6][7] ↔️. Resting masseter thickness is lower after 55 than at 18–35 [8] 📄, and MRI temporalis thickness spans 3.7–16.9 mm across ages 35–84, tracking weight and BMI [9] 📄; muscle loss adds to temporal hollowing and a softer jaw angle 🧠.
 - Retaining ligaments act as fixed lines; the masses between them deflate and slide. The lateral face (parotid, masseter, temporal fascia) barely moves, and change concentrates in front of the masseteric ligament line 🧠 (Mendelson; smas-ligaments note).
-- Lateral brow ptosis is the classic teaching 🧠 (Knize 1996), but photographic studies found the brow, especially in women, stays level or rises with age through frontalis compensation ↔️ (Matros 2009). Forehead wrinkle severity tracks upper-lid ptosis [19] 📄, which fits that compensation.
+- Lateral brow ptosis is the classic teaching 🧠 (Knize 1996), but photographic studies found the brow, especially in women, stays level or rises with age through frontalis compensation (Matros 2009: women aged 20–30 vs 50–60, brows elevate [26]); a 2016 study found stability and a 2019 meta-analysis found only small rises of about 1.2–1.4 mm [27] ↔️. Forehead wrinkle severity tracks upper-lid ptosis [19] 📄, which fits that compensation.
 - The lower lid lengthens vertically and the lid–cheek junction becomes a visible "double convexity" (lid bag above the groove, malar mass below). Serial photographs suggest the junction itself stays close to the bone while volume changes above and below it ↔️ (Lambros 2007).
 - Canthal laxity rounds the lateral canthus (scleral show); levator stretch raises the lid crease and deepens the sulcus 🧠.
 
@@ -43,7 +43,7 @@ Ligament detail: `anatomy/smas-ligaments.md`; mandible norms: `anatomy/jaw-chin-
 - Facial asymmetry rises with age (mean RMSD 0.8 ± 0.2 mm in 191 people aged 0.3–88) [3] 📄.
 
 **Perceived age**
-- People judge age from shape, skin texture, colour evenness and eye/lip luminance contrast, which falls with age 🧠 (Porcheron 2013; Fink 2006). Human estimates in unconstrained photos are typically off by about 5–8 years; good algorithms reach about 2–3 years on curated benchmarks and 4–6 years in the wild ↔️ (time-sensitive).
+- People judge age from shape, skin texture, colour evenness and eye/lip luminance contrast, which falls with age 🧠 (Porcheron 2013; Fink 2006). Human estimates in unconstrained photos are typically off by about 5–8 years; good algorithms reach about 2–3 years on curated benchmarks (MORPH II, SE protocol: 2.26–2.53 years [28][29]) and 4–6 years in the wild ↔️ (time-sensitive).
 
 ## Numbers & reference tables
 
@@ -154,6 +154,10 @@ This topic's own harvest and earlier draft did not exist. All URLs come from sib
 [23] Aging of the mandible and its aesthetic implications (Shaw et al. 2010) — https://pubmed.ncbi.nlm.nih.gov/20048624/ — paper — 2010
 [24] The kinetics of anterior tooth display (Vig and Brundo 1978) — https://pubmed.ncbi.nlm.nih.gov/349139/ — paper — 1978 (age-group values read from an OCR'd reprint: https://www.scribd.com/document/447112379/vig1978-pdf)
 [25] Why do old men have big ears? (Heathcote, BMJ 1995; 0.22 mm/yr as reported in) — https://www.discovermagazine.com/british-ears-39808 — secondary report — 1995
+[26] Changes in eyebrow position and shape with aging (Matros et al., 2009) — https://pubmed.ncbi.nlm.nih.gov/19935315/ — paper — 2009
+[27] Plastic and Reconstructive Surgery, Global Open (Sep 2019) record; meta-analysis of eyebrow height with aging — https://doaj.org/article/b9daf30bac5a46339ddca80d56e2f953 — paper — 2019
+[28] Hierarchical Attention-based Age Estimation and Bias Analysis — https://arxiv.org/html/2103.09882v2 — paper — 2021
+[29] Relative Age Estimation Using Face Images — https://arxiv.org/pdf/2502.04852 — paper — 2025
 
 **Further reading (by name, not yet linked)**
 - Shaw RB Jr, Kahn DM, "Aging of the midface bony elements: a three-dimensional computed tomographic study", Plast Reconstr Surg, 2007.
@@ -194,3 +198,8 @@ This topic's own harvest and earlier draft did not exist. All URLs come from sib
 2. Mandible (Shaw et al. 2010): **confirmed** in direction (ramus height, body height and body length fall; gonial angle rises; 120 Caucasian subjects) [23] https://pubmed.ncbi.nlm.nih.gov/20048624/. Another study (https://3dj.gums.ac.ir/article-1-38-fa.pdf) found some of these changes non-significant, so the line stays ↔️. "A few degrees", "most change follows tooth loss" and Tallgren 1972: unconfirmed.
 3. Upper-incisor display (Vig and Brundo 1978): **corrected**. Display falls with age (https://pubmed.ncbi.nlm.nih.gov/349139/), but not as 3 mm to 0–1 mm linearly: about 3.4 / 1.6 / 1.0 / 0.5 mm for <30 / 30s / 40s / 50s, from an OCR'd reprint (https://www.scribd.com/document/447112379/vig1978-pdf); JCO review https://www.jco-online.com/archive/1998/07/432-esthetic-factors-involved-in-anterior-tooth-display-and-the-smile-vertical-dimension/ confirms the gradual decrease. Prior reworked as an interpolation. Women about 3.4 mm vs men about 1.9 mm in the adult sample.
 4. Ear growth (Heathcote 1995): **confirmed** at about 0.22 mm a year, cross-sectional, 206 patients aged 30–93, both sexes (not only men) [25] https://www.discovermagazine.com/british-ears-39808. The conflict with the ear-biometrics claim [21] is unresolved, so ↔️ stays.
+
+## Verification log, pass 2 (2026-11-20)
+
+1. Eyebrow position (Knize 1996 vs Matros 2009): **confirmed for Matros, contested overall**. Matros et al. photographed women aged 20–30 and 50–60 and found brows paradoxically elevate with age [26] https://pubmed.ncbi.nlm.nih.gov/19935315/. A 2016 study reported stability and a 2019 meta-analysis found small rises of about 1.2–1.4 mm [27] https://doaj.org/article/b9daf30bac5a46339ddca80d56e2f953. Badge stays ↔️ (the line pits this against classic ptosis). Knize 1996 not checked: 🧠.
+2. Apparent-age error: **unconfirmed** overall. Curated-benchmark part is supported: MORPH II SE-protocol MAE 2.26–2.53 years [28] https://arxiv.org/html/2103.09882v2, [29] https://arxiv.org/pdf/2502.04852 (random-split results are leakage-inflated). Human 5–8 years, in-the-wild 4–6 years, and dataset/MiVOLO licence limits were not found in results; badge stays ↔️/🧠.

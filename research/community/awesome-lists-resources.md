@@ -2,13 +2,13 @@
 
 > GitHub "awesome" lists for 3D faces, 3DMMs, talking heads and Gaussian avatars are discovery indexes, not vetted catalogues. They give the paper, venue and code link, almost never the licence, weight terms, benchmark protocol or whether the code still installs, and many freeze when the maintainer graduates. Nearly every listed method reuses upstream assets from about a dozen labs, and most of those assets are licensed for non-commercial research. That licence, not the method's code licence, decides what an open-source add-on may ship. For artists the lasting resources are anatomy references (Anatomy For Sculptors, Complete Anatomy, the open Blender-native Z-Anatomy), licensed scan heads (3D Scan Store, Texturing.XYZ, Triplegangers) and searchable forums. No harvest or earlier draft existed for this topic, so everything below is expert knowledge awaiting verification, and every name, licence and status is time-sensitive.
 >
-> Evidence status: 2 ✅ / 3 📄 / 75 🧠 / 22 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 4 ✅ / 3 📄 / 74 🧠 / 20 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Awesome lists: what they are and what they omit**
 - **Origin.** The format comes from Sindre Sorhus's `sindresorhus/awesome` meta-list, which has inclusion rules. Most computer-vision paper lists are not part of it and follow no standard. 🧠
-- **Lists I am fairly confident exist:** `MrNeRF/awesome-3D-gaussian-splatting`, `harlanhong/awesome-talking-head-generation`, `Kedreamix/Awesome-Talking-Head-Synthesis`. 🧠
+- **Lists I am fairly confident exist:** `MrNeRF/awesome-3D-gaussian-splatting`, `harlanhong/awesome-talking-head-generation`, `Kedreamix/Awesome-Talking-Head-Synthesis`. `harlanhong/awesome-talking-head-generation` was seen in search results [8]; the other two were not returned (unconfirmed). 🧠
 - **Ambiguous names.** "awesome-3D-face", "awesome-3DMM" and "awesome-gaussian-avatars" each exist under several owners. Check which copy is maintained with a GitHub topic search sorted by recent updates. ↔️
 - **What entries give:** title, venue and year, arXiv, project page, code. **What they rarely give:** code licence, weight licence, data licence, benchmark numbers with protocol, GPU needs, whether the code runs on current PyTorch and CUDA. 🧠
 - **Inclusion is not endorsement.** Lists only grow: superseded methods stay and no negative results are added. Many entries are the authors' own pull requests. 🧠
@@ -47,7 +47,7 @@
 - **3D Scan Store** (Ten24, UK) sells cleaned, retopologised heads, expression sets and multi-angle photo sets under a commercial licence, with occasional free samples. 🧠
 - **Texturing.XYZ** sells multichannel displacement (secondary, tertiary and micro detail packed into RGB) and VFace full-head UDIM sets (`blender/skin-shading.md`). 🧠
 - **Triplegangers** sells scanned heads, including expression sets. 🧠
-- **The "Lee Perry-Smith" head** (Infinite-Realities) is a free head scan used in the three.js examples 🧠, believed to be CC BY 3.0. ↔️
+- **The "Lee Perry-Smith" head** (Infinite-Realities) is a free head scan used in the three.js examples, released under CC BY 3.0 (three.js licence file; original 2010 release also under a Creative Commons licence) [6][7]. ✅
 - **Digital Emily 2.0** (USC ICT's "Wikihuman" release): terms unclear. ↔️
 - **Smithsonian Open Access 3D** (CC0, 2020) includes the Lincoln life masks: real-scale faces cast from life. 🧠
 - **Sketchfab:** a Download button is not a commercial licence, so filter by licence. Its store moved into Epic's Fab, launched in October 2024. ↔️
@@ -117,7 +117,7 @@
 |---|---|---|---|---|
 | Z-Anatomy / BodyParts3D | free | yes with attribution, if BY-SA (BY-SA 4.0 → GPLv3 one-way compatible) | skull/muscle underlay, region labels (check NC-licensed components) [2] | ↔️ |
 | Smithsonian life masks | free, CC0 | yes | real-scale test surfaces | 🧠 |
-| Lee Perry-Smith head | free, CC BY? | probably, with attribution | regression test head | ↔️ |
+| Lee Perry-Smith head | free, CC BY 3.0 [6] | yes, with attribution | regression test head | ✅ |
 | 3D Scan Store, Triplegangers | paid per asset | no | plane/volume reference, wrap practice | 🧠 |
 | Texturing.XYZ | paid per pack | no | micro-detail after likeness | 🧠 |
 | Complete Anatomy, Visible Body | subscription | no (EULA) | layered study, attachments | 🧠 |
@@ -171,7 +171,7 @@
 - **Single-specimen atlases are weak priors.** Use an atlas skull for region masks, landmark definitions and initial placement, never as variance. If it enters the energy at all, use a similarity-aligned skull-to-template term with σ ≈ 4–6 mm, and let the soft-tissue-thickness tables carry depth. 🧠
 - **Scan heads as shape priors:** σ ≈ 3–5 mm per vertex after `umeyama` alignment (as for AI meshes in `community/reddit-face-from-photos.md`). Never treat them as landmark ground truth. 🧠
 - **Population bias.** BFM and FLAME skew European-descent, and FaceScape is mostly East Asian. Make the prior mean selectable. When ancestry lies outside the prior's population, widen σ by about 1.5×; that factor is a guess, so tune it on held-out views. ↔️
-- **Synthetic test harness.** Render CC0 or CC BY heads (Smithsonian masks, MPFB2 characters, Lee Perry-Smith once confirmed) in Blender through 3–8 cameras with known focal length (24–135 mm equivalent), distance (0.4–3 m) and yaw (±90°). Assert that the solver recovers the cameras. 🧠
+- **Synthetic test harness.** Render CC0 or CC BY heads (Smithsonian masks, MPFB2 characters, Lee Perry-Smith, CC BY 3.0 [6]) in Blender through 3–8 cameras with known focal length (24–135 mm equivalent), distance (0.4–3 m) and yaw (±90°). Assert that the solver recovers the cameras. 🧠
   - Suggested targets: focal error < 5 % and rotation error < 2° when the views span at least 60° of yaw.
   - Score the shape with the NoW protocol: rigid alignment on 7 points, then vertex-to-surface distance in mm.
 - **Offline by design.** Extensions must declare the `network` permission. Ship no scraping and no "new methods" feed; resource links belong in the docs. 🧠
@@ -201,6 +201,9 @@ Only the sources below were checked (2026-11-20). Repository names (`owner/repo`
 3. USC ICT Vision and Graphics Lab, ICT Face Model: https://vgl.ict.usc.edu/Data/ICTFaceModel
 4. CG Channel, "You can now sell MetaHumans or use them in Unity or Godot", 2025-06-04: https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/
 5. Creative Bloq, MetaHuman and Unreal Engine 5: https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters ; MetaHuman licence: https://www.metahuman.com/license
+6. three.js LeePerrySmith licence file (CC BY 3.0): https://neofixer.arizona.edu/css/CSSOrbit/asteroidJS/three/examples/models/gltf/LeePerrySmith/LeePerrySmith_License.txt
+7. CG Channel, Infinite Realities free head model, 2010-09-29: https://www.cgchannel.com/2010/09/infinite-realities-releases-free-photorealistic-head-model/
+8. harlanhong/awesome-talking-head-generation: https://github.com/harlanhong/awesome-talking-head-generation ; related active lists: https://github.com/CzJamesZhao/awesome-3dgs-avatar , https://github.com/yangzf-1023/awesome-gaussian-splatting/blob/main/topics/avatar-human.md
 
 **Further reading (by name, not yet linked)**
 - Blanz & Vetter, "A Morphable Model for the Synthesis of 3D Faces", SIGGRAPH 1999
@@ -228,3 +231,8 @@ Only the sources below were checked (2026-11-20). Repository names (`owner/repo`
 - Z-Anatomy CC BY-SA 4.0 Blender file: confirmed (📄); some bundled models are CC BY-NC(-SA) (added caveat). BodyParts3D licence: contested, CC BY-SA 2.1 Japan in older text versus CC BY 4.0 in a newer attribution file (↔️). The BY-SA to GPLv3 one-way compatibility was not checked (unconfirmed). https://github.com/Z-Anatomy/Models-of-human-anatomy ; https://raw.githubusercontent.com/ashemag/human-atlas/master/public/ATTRIBUTION.md
 - ICT-FaceKit MIT licence: unconfirmed (no licence text found; VGL says contact it for commercial use). Counts: 53 expression shapes confirmed; identity modes 100 in Light and 200+ in Full (corrected in verification). https://vgl.ict.usc.edu/Data/ICTFaceModel
 - MetaHuman use outside Unreal (June 2025, UE 5.6): confirmed by two sources (✅). Later Epic update (Oct 2026) on AI training under the UE EULA noted, wording not checked. https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/ ; https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters
+
+## Verification log, pass 2 (2026-11-20)
+
+- Lee Perry-Smith head scan CC BY 3.0: confirmed (✅). three.js licence file states CC BY 3.0 Unported (credits triplegangers.com; extra permissions via Infinite-Realities); CG Channel 2010 reports a Creative Commons release without naming a version. https://neofixer.arizona.edu/css/CSSOrbit/asteroidJS/three/examples/models/gltf/LeePerrySmith/LeePerrySmith_License.txt ; https://www.cgchannel.com/2010/09/infinite-realities-releases-free-photorealistic-head-model/
+- Awesome lists existence/maintenance: partly confirmed. harlanhong/awesome-talking-head-generation exists; MrNeRF/awesome-3D-gaussian-splatting and Kedreamix/Awesome-Talking-Head-Synthesis were not returned (unconfirmed, left 🧠). No repos literally named awesome-3DMM / awesome-gaussian-avatars found; comparable active lists exist (CzJamesZhao/awesome-3dgs-avatar; yangzf-1023/awesome-gaussian-splatting avatar-human topic, updated through mid-2026). https://github.com/harlanhong/awesome-talking-head-generation ; https://github.com/CzJamesZhao/awesome-3dgs-avatar ; https://github.com/yangzf-1023/awesome-gaussian-splatting/blob/main/topics/avatar-human.md

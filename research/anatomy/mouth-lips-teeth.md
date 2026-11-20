@@ -2,7 +2,7 @@
 
 > Mouth likeness must be fitted from neutral, lips-closed, bare-lip views, with smiles kept as separate shape keys [1]. Identity lives in mouth width (ch–ch), upper-lip height (sn–sto) and its skin/vermilion split, Cupid's-bow peak spacing (≈ philtrum width), the tubercle and lower-lip pillows, how far the corners wrap back, and profile projection, which the incisors and alveolus set as much as soft tissue does [14][15][16]. The lower vermilion is taller than the upper [5][6], but "1.6:1" is an aesthetic target drawn from young white women, not a population mean, and lips change with age and ancestry [2][8]. Classic canons fail for most people [3], and "mouth corners under the pupils" is untested; resting corners usually sit nearer the medial limbus. A fitting tool should encode all of this as weak, age- and population-conditioned priors and QA warnings over a latent dental arch.
 >
-> Evidence status: 3 ✅ / 29 📄 / 44 🧠 / 23 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 30 📄 / 44 🧠 / 23 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -163,7 +163,7 @@
 - **Correspondence by view.** The vermilion border and ch are fixed on the surface (barycentric). In profile and steep three-quarter views the detected outer lip line is an occluding contour, so it needs sliding silhouette correspondences. Switch per point with a normal·view test, or above about 35–45° yaw. 🧠
 - **Detectors.** Neither detector marks the columns, and both track colour edges, so lipstick and shading bias them. 🧠
   - iBUG-68: 48–59 outer (48/54 corners, 50/52 near the peaks, 51 dip, 57 lower midline), 60–67 inner.
-  - MediaPipe Face Mesh: 61/291 corners, 0/17 outer midline, 13/14 inner midline.
+  - MediaPipe Face Mesh: 61/291 corners [29] 📄; 0/17 outer midline and 13/14 inner midline unconfirmed 🧠.
 - **Neutral gate.** 🧠
   - Parted: inner gap / ch–ch > about 0.04.
   - Expression: ch height relative to sto more than about 2 mm off the cross-frame median, or teeth visible [1].
@@ -237,6 +237,7 @@
 [26] A 3D Anthropometric Analysis of the Orolabial Region in Chinese Young Adults — https://pmc.ncbi.nlm.nih.gov/articles/PMC4104960/ — paper — n.d.
 [27] Facial Anthropometric Norms of the Young Black South African Woman — https://pmc.ncbi.nlm.nih.gov/articles/PMC10146544/ — paper — n.d.
 [28] The Concept of Ideal Lips of Caucasian Female: An Anthropometric Analysis of the Lower Third of the Face — https://pubmed.ncbi.nlm.nih.gov/39198279/ — paper — 2024
+[29] tfjs-models face-landmarks-detection issue #8221 (MediaPipe lips contour includes 61 and 291 as corners) — https://github.com/tensorflow/tfjs/issues/8221 — source-code issue — n.d.
 
 **Further reading (by name, not yet linked)**
 
@@ -264,3 +265,8 @@
 - **ch–ch 50–58 M / 46–54 F; ch–ch/IPD 0.80–0.90; corners near medial limbus** — unconfirmed. No source in the results gave these values; a dental study's 1:1.35 ratio relates canine/intercommissural measures to IPD and does not test the corner position. Left 🧠 / ↔️.
 - **PMC7984336 (22–23 mm = sn–sto; philtrum 11–12 mm; vermilion 8.1→6.6 mm)** — unconfirmed for the numbers and the sn–sto label (full text not retrieved). Confirmed that the study is of Chinese women aged 20–60, that cutaneous upper lip lengthens with age and upper vermilion decreases (P < .001). Population labels updated. https://pmc.ncbi.nlm.nih.gov/articles/PMC7984336/
 - **Vig & Brundo resting display F ≈3–3.5, M ≈2 mm; 0.5–1 mm per decade** — corrected. Cited values are 3.40 mm (F) and 1.91 mm (M) [19]; display falls about 3.4 mm between 30 and 60, ≈1.1 mm per decade [24]. Secondhand citations of the 1978 paper, not the paper itself; lower-display rise unconfirmed. https://pmc.ncbi.nlm.nih.gov/articles/PMC7718042/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC8601479/
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Commissure (cheilion) depth about 10–20 mm behind the most anterior upper-lip point (prior 15 mm, σ 4)** — unconfirmed. Results only defined cheilion and labrale superius and reported smile displacement, not static depth. Left 🧠. https://pmc.ncbi.nlm.nih.gov/articles/PMC12304160/ , https://pubmed.ncbi.nlm.nih.gov/19097956/
+- **MediaPipe lip indices (61/291 corners, 0/17 outer midline, 13/14 inner midline); iBUG-68 48–59 / 60–67 / 48,54** — partly confirmed. 61 and 291 as the lip corners are supported by the tfjs issue [29]; 0/17 and 13/14 were not tied to a specific source, and iBUG-68 was not checked. Left 🧠 for those. https://github.com/tensorflow/tfjs/issues/8221

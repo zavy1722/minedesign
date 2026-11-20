@@ -363,8 +363,11 @@
      2,
      null,
      null,
-     "contested",
-     []
+     "verified",
+     [
+      54,
+      55
+     ]
     ]
    ],
    "population": "Adults; Hertel rows by ancestry",
@@ -515,21 +518,21 @@
      "upper_crease_height",
      "Western",
      "F",
-     8,
-     11,
-     9.0,
+     6.4,
+     7.6,
+     7.3,
      1.5,
-     "knowledge"
+     "contested"
     ],
     [
      "upper_crease_height",
      "Western",
      "M",
-     6,
-     8,
-     7.0,
+     6.4,
+     7.6,
+     6.9,
      1.2,
-     "knowledge"
+     "contested"
     ],
     [
      "upper_crease_height_when_present",
@@ -882,7 +885,7 @@
      1.5,
      1.5,
      "adults",
-     "contested"
+     "verified"
     ],
     [
      "fissure_len",
@@ -949,17 +952,17 @@
     ],
     [
      "crease_h",
-     9.0,
+     7.3,
      1.5,
      "Western women",
-     "knowledge"
+     "contested"
     ],
     [
      "crease_h",
-     7.0,
+     6.9,
      1.2,
      "Western men",
-     "knowledge"
+     "contested"
     ],
     [
      "brow_lower_edge_above_rim",

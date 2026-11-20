@@ -188,9 +188,11 @@
     ]
    ],
    "population": "pinhole model; nose-tip to ear-plane depth 0.10 m assumed (adult ~0.09-0.11 m)",
-   "source_urls": [],
-   "status": "knowledge",
-   "notes": "Consistent with instagram-social-sculptors table. Ward et al. 2018 reported ~30% nasal base widening at ~30 cm vs ~1.5 m (recalled; to verify)."
+   "source_urls": [
+    "https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery"
+   ],
+   "status": "partially_sourced",
+   "notes": "Consistent with instagram-social-sculptors table. Ward et al. 2018 (Rutgers release): selfie at ~12 in makes nasal base ~30% wider, tip ~7%, vs 5 ft; model-based, interpretation disputed in a published letter. Pinhole table itself is derived."
   },
   {
    "name": "phone_camera_equivalent_focal_lengths",

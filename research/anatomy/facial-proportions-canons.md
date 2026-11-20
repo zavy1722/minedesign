@@ -2,7 +2,7 @@
 
 > The neoclassical canons (equal thirds, "five eyes" across, intercanthal = eye = nose width, mouth = 1.5 × nose, ear = nose length) are Renaissance drawing conventions. Every population tested since Farkas's 1985 revision fails most of them most of the time, and even the best one, the orbital canon, holds in only about a third of people [1][4][5][6]. The golden ratio has no evidential support as a facial ideal, and Marquardt's phi mask fits one type of fashion model, not people [11][14][15]. Real faces scatter around population means by roughly 3–12% per measure, and likeness lives in those deviations, so a canon used as a target yields a generic, "beautified" stranger. Use proportions only as weak log-ratio priors for what photos cannot see, as QA flags in a metric, pose-normalised 3D frame, and as block-out scaffolding.
 >
-> Evidence status: 7 ✅ / 30 📄 / 46 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 7 ✅ / 31 📄 / 46 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -28,7 +28,7 @@ Legend: ✅ ≥2 independent input sources agree · 📄 one input source · �
 - **Why φ always seems to appear.** Twenty landmarks give 190 distances and about 18,000 distance ratios. If log-ratios spread over 1–4, about 4–6% land within ±3% of φ by chance: hundreds per face 🧠 (arithmetic).
 - **Face length ÷ width** (hairline–chin ÷ bizygomatic) averages about 1.3–1.4, not 1.62. A "golden" face would need to be about 15–20% narrower than average, although some other width (temporal, say) will hit 1.62, which is measurement shopping again 🧠.
 - Pallett, Link & Lee (2010) found the preferred eye–mouth distance ≈ 36% of face length and interpupillary distance ≈ 46% of face width: population averages, not φ [30] 📄 (46% width ratio in the abstract; the 36% length figure is stated in a secondary source, [31]; Caucasian female faces only).
-- A Malaysian study reportedly found only 17.1% of facial proportions near φ, with no link to ratings. It is probably [18], but the attribution is unconfirmed ↔️.
+- A Malaysian study (Alam et al. 2015, PLoS One; 286 Malaysian Chinese, Malay and Indian adults aged 18–25) found only 17.1% of facial proportions conformed to φ, with no association between φ conformity and self-rated facial appearance [18] 📄 (attribution confirmed in verification).
 
 **Averageness, beauty and identity**
 - **Averageness predicts attractiveness**, reportedly even with symmetry held constant [25][26]. One paper calls it necessary and sufficient [25], but Perrett, May & Yoshikawa (1994) found that exaggerating the shape of attractive composites beat the average ↔️.
@@ -149,7 +149,7 @@ Pitch matters as much as distance. In orthographic projection, 10° of pitch cha
 - **Orbital canon:** most validated [4][6] vs not validated [1] ↔️. **Eye line:** head centre vs lower lids [20]; adults sit at or just below the midpoint ↔️.
 - **Golden ratio:** rejected [11][14][15], defended as an affordance [17], persisting in the Ricketts–Marquardt tradition [12][13] ↔️.
 - **Myths:** a φ-shaped face, a universal phi mask, equal thirds, five eyes across the face, eyes exactly at half.
-- **Open:** Farkas 1985 per-canon percentages; the 17.1% attribution [18]; the 20-year caveat; whether 3D average faces preserve mean linear measures [24]; anthropometric vs cephalometric definitions of ideals [29]; multi-ethnic 3D ratio norms (3DFN is European-ancestry only).
+- **Open:** Farkas 1985 per-canon percentages; the 20-year caveat; whether 3D average faces preserve mean linear measures [24]; anthropometric vs cephalometric definitions of ideals [29]; multi-ethnic 3D ratio norms (3DFN is European-ancestry only).
 
 ## Sources
 
@@ -170,7 +170,7 @@ Pitch matters as much as distance. In orthographic projection, 10° of pitch cha
 [15] Proportions of the aesthetic African-Caribbean face — https://pmc.ncbi.nlm.nih.gov/articles/PMC6123330 — paper — 2018
 [16] Is There An Ideal Instagram Face for Caucasian Female Influencers? — https://pmc.ncbi.nlm.nih.gov/articles/PMC11546649 — paper — 2024
 [17] The golden ratio as an ecological affordance leading to aesthetic attractiveness — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9787369/ — paper — 2022
-[18] Multiracial Facial Golden Ratio and Evaluation of Facial Appearance — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4642949/ — paper — n.d.
+[18] Multiracial Facial Golden Ratio and Evaluation of Facial Appearance (Alam et al., PLoS One) — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4642949/ (also https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0142914) — paper — 2015
 [19] Ideal Facial Proportions in Generative Artificial Intelligence (Sridhar et al.) — https://journals.sagepub.com/doi/10.1089/fpsam.2025.0007 — paper — 2025
 [20] Proko, How to Draw the Head from Any Angle — https://www.proko.com/course-lesson/how-to-draw-the-head-from-any-angle — tutorial — n.d.
 [21] Proko, How to Draw the Head (front view) — https://www.proko.com/course-lesson/how-to-draw-the-head-front-view — tutorial — n.d.
@@ -211,3 +211,8 @@ Pitch matters as much as distance. In orthographic projection, 10° of pitch cha
 2. Adult eye line 0.48–0.53 of vertex–menton; "eyes at half the head" — unconfirmed for the numeric range. A secondary poster [32] says adult eyes sit about halfway (citing Farkas & Munro 1987), consistent with the rule but not a measured 0.48–0.53 range; stays 🧠 ↔️. https://www.ucl.ac.uk/medical-education/sites/medical-education/files/2012-Poster-ECVP-FacesAndTeaTowels_0.pdf
 3. Farkas et al. 1985 per-canon percentages — unconfirmed. Only a secondary summary (minor percentage of subjects meet the canons, already in [1]) was found; no percentages. https://head-face-med.biomedcentral.com/articles/10.1186/s13005-015-0064-y
 4. Pallett, Link & Lee 2010: ~46% interocular/face width matches average faces — confirmed 📄 [30]; the ~36% eye-mouth/face length figure is supported only by a secondary source [31]. https://experts.mcmaster.ca/scholarly-works/1732944 ; https://arxiv.org/pdf/2602.13368
+
+## Verification log, pass 2 (2026-11-20)
+
+1. Malaysian 17.1% golden-ratio finding comes from "Multiracial Facial Golden Ratio and Evaluation of Facial Appearance" (PMC4642949) — confirmed 📄 [18]. Alam et al. 2015, PLoS One, 286 Malaysian Chinese/Malay/Indian adults aged 18–25; 17.1% of proportions matched φ, no significant association with facial evaluation score. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4642949/ ; https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0142914
+2. Glabella ~10–15 mm above nasion and the resulting ~1:1.05 middle:lower ratio — unconfirmed. Search returned only landmark definitions and glabellar soft-tissue thickness (not a g–n length) and no ratio values; stays 🧠. https://pmc.ncbi.nlm.nih.gov/articles/PMC6714104 (candidate for a future check)

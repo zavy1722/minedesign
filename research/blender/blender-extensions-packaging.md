@@ -2,7 +2,7 @@
 
 > Since Blender 4.2 LTS, add-ons are distributed as **extensions**: a zip with a `blender_manifest.toml` (schema `1.0.0`) that declares the id, a semantic version, SPDX licences, the supported Blender range, platforms, bundled Python wheels and permissions. The zip is built, validated and installed with `blender --command extension …` 🧠. Face and camera tools in this library already ship as extensions: MPFB2, Face Shape Key Rig, CaptureForge, Simple Camera Match and perspective-match [1][5][7][8][9] ✅. Every one whose licence was captured is GPL [1][3][5][7] ✅. The photo→head add-on should be a GPL-3.0-or-later extension with **no compiled wheels in its core**: the NumPy engine uses Blender's bundled NumPy. Landmark detectors and model weights stay optional and separately licensed, are fetched only with the `network` permission and `bpy.app.online_access`, and are never bundled when they carry non-commercial terms [17][18][19]. The main defence against Python, NumPy and API drift between releases is headless CI (`blender -b --factory-startup --python-exit-code 1 -P …`) on 4.5 LTS, 5.2 LTS and the current feature release [12][14][15]. This topic's own web harvest was not available, so the manifest schema, platform rules and CLI flags below are expert knowledge awaiting verification. The cited URLs come from sibling harvests in this library.
 >
-> Evidence status: 5 ✅ / 33 📄 / 71 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 5 ✅ / 39 📄 / 67 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -54,15 +54,15 @@
 - **Process boundaries:** under the FSF FAQ's reading, separate programs that exchange files or pipes at arm's length are aggregation, not one combined work 🧠. The FaceFit prototype already runs its solver in an external MCP server [20] 📄.
 
 **Headless testing**
-- The canonical call is `blender -b --factory-startup --python-exit-code 1 -P tests/run.py -- <args>`. Arguments are processed in order, and anything after `--` is left for `sys.argv` 🧠.
-- **Without `--python-exit-code`, Blender exits 0 even when the script raised.** CI then shows false greens 🧠.
+- The canonical call is `blender -b --factory-startup --python-exit-code 1 -P tests/run.py -- <args>`. Arguments are processed in order, and anything after `--` is left for `sys.argv` 🧠. `--python-exit-code` sets the exit code (0–255) used when a script run from the command line raises, and 0 disables it [29] 📄.
+- **Without `--python-exit-code`, Blender exits 0 even when the script raised** (0 = disabled, the default). CI then shows false greens [29] 📄.
 - **Background mode has:**
   - no event loop, so `bpy.app.timers` and modal operators never run;
   - no window, area or region;
   - no viewport `gpu` drawing;
   - no `view3d`/sculpt-stroke operators, which fail their poll 🧠.
-- **CLI subcommands:** `blender --command extension validate | build | install-file -r user_default -e <zip> | server-generate --repo-dir <dir> [--html] | list` 🧠. `server-generate` writes the `index.json` for a self-hosted repository 🧠.
-- **Isolate CI** from the developer's own prefs with `BLENDER_USER_RESOURCES` (or `BLENDER_USER_CONFIG`/`_SCRIPTS`/`_EXTENSIONS`) pointed at a temporary directory 🧠.
+- **CLI subcommands:** `blender --command extension validate | build | install-file -r user_default -e <zip> | server-generate --repo-dir <dir> [--html] | list` 🧠; `install-file` takes `-r REPO` and `-e/--enable` to enable after install [30] 📄. `server-generate` writes the `index.json` for a self-hosted repository 🧠.
+- **Isolate CI** from the developer's own prefs with `BLENDER_USER_RESOURCES` (or `BLENDER_USER_CONFIG`/`_SCRIPTS`/`_EXTENSIONS`) pointed at a temporary directory [29] 📄 (`BLENDER_USER_RESOURCES` replaces the default directory of all user files; more specific `BLENDER_USER_*` variables override it).
 - **Outside Blender:** PyPI `bpy` wheels pin one CPython minor version, and `fake-bpy-module` provides stubs for linting and type-checking 🧠.
 - **The 5.0 `mathutils` change:** `np.asarray(Vector/Matrix)` now returns float32, non-contiguous views [10] 📄, so bit-exact golden files break across versions.
 
@@ -121,11 +121,11 @@
 |---|---|---|
 | `-b`, `--background` | no UI | 🧠 |
 | `--factory-startup` | ignore user prefs and startup.blend | 🧠 |
-| `--python-exit-code N` | exit N on an uncaught Python exception (0 = off, the default) | 🧠 |
+| `--python-exit-code N` | exit N on an uncaught Python exception (0 = off, the default) | 📄 [29] |
 | `-P file`, `--python-expr` | run a script or an expression | 🧠 |
 | `--offline-mode` / `--online-mode` | force `online_access` | 🧠 |
 | `-noaudio` | skip audio initialisation in containers | 🧠 |
-| `BLENDER_USER_RESOURCES` | relocate all user directories | 🧠 |
+| `BLENDER_USER_RESOURCES` | relocate all user directories | 📄 [29] |
 
 ## Applying this to photo→3D face sculpting in Blender
 
@@ -227,7 +227,7 @@
 - **Platform values:** whether `windows-arm64` is accepted and whether `linux-arm64` exists ↔️. Whether 5.0 dropped Intel Macs ↔️.
 - **Open questions:**
   1. Which NumPy does 5.1–5.3 bundle, and which Python do 5.2 and 5.3 bundle (5.1 bundles 3.13 [28])?
-  2. What upload size limit does extensions.blender.org set?
+  2. What upload size limit does extensions.blender.org set? (Unconfirmed: a site-tracker issue reports a 10 MB check raised to 200 MB, not official documentation [31].)
   3. Which non-GPL licences (MIT, BSD, GPL-2.0-or-later, multiple SPDX entries) does the platform accept for add-on code?
   4. May a listed extension download model weights under non-free terms at runtime, given user consent?
   5. What listing media are required (icon, featured image sizes)?
@@ -262,6 +262,9 @@
 [26] Terms of Service, Blender Extensions — https://extensions.blender.org/terms-of-service/ — official — 2026 (added in verification)
 [27] Python Wheels, Blender 5.2 LTS Manual — https://docs.blender.org/manual/en/latest/advanced/extensions/python_wheels.html — official-docs — 2026 (added in verification)
 [28] Blender 5.1: Python API — https://developer.blender.org/docs/release_notes/5.1/python_api/ — official-docs — 2026 (added in verification)
+[29] Command Line Arguments, Blender 5.3 Manual — https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html — official-docs — 2026 (added in verification pass 2)
+[30] Extensions Command Line Arguments, Blender 5.2 LTS Manual — https://docs.blender.org/manual/en/latest/advanced/command_line/extension_arguments.html — official-docs — 2026 (added in verification pass 2)
+[31] Support for uploading larger file sizes #130, extensions-website tracker — https://projects.blender.org/infrastructure/extensions-website/issues/130 — issue tracker — n.d. (added in verification pass 2)
 
 **Further reading (by name, not yet linked)**
 - Blender Extensions developer handbook: "Getting started", "Manifest", "Python Wheels", "Command-line arguments", "Creating an extensions repository"
@@ -281,3 +284,9 @@
 - **extensions.blender.org licensing and rules**: corrected. Add-ons must be GPL v3-or-later (themes GPL-compatible), non-code assets CC0, no remote code or externally downloaded components, no pre-compiled external packages; `bpy.app.online_access` check confirmed in the manual. Runtime `pip install` ban not explicitly found (unconfirmed). https://extensions.blender.org/terms-of-service/ ; https://docs.blender.org/manual/en/latest/advanced/extensions/getting_started.html
 - **Bundled Python**: Blender 5.1 bundles Python 3.13, confirmed. https://developer.blender.org/docs/release_notes/5.1/python_api/ . 4.1–4.5 = cp311 and 5.2/5.3 versions remain unconfirmed.
 - **Wheels**: corrected. Wheels extract into the extension's own site-packages, not a shared per-repository one; `--split-platforms` per-platform zips confirmed. Skipping of non-matching wheel tags: unconfirmed. https://docs.blender.org/manual/en/latest/advanced/extensions/python_wheels.html
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Headless CI flags** (`--python-exit-code` default 0 = disabled; `extension install-file -r REPO -e`; `BLENDER_USER_RESOURCES`): confirmed. https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html ; https://docs.blender.org/manual/en/latest/advanced/command_line/extension_arguments.html . Not explicitly seen in the results: `-b`, `--factory-startup`, `-P`, and how `BLENDER_USER_RESOURCES` interacts with `install-file` (left 🧠).
+- **extensions.blender.org upload size limit**: unconfirmed. Only a tracker issue reports a 10 MB check raised to 200 MB (not official, undated). https://projects.blender.org/infrastructure/extensions-website/issues/130
+- **Blender 5.0 dropping Intel macOS (macos-x64)**: unconfirmed; no usable evidence in the results. Left as is.

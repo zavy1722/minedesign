@@ -20,6 +20,21 @@
    "n": 4,
    "url": "https://arxiv.org/abs/2207.11243",
    "title": "Multiface: A Dataset for Neural Face Rendering"
+  },
+  {
+   "n": 5,
+   "url": "https://arxiv.org/abs/2003.13989",
+   "title": "FaceScape (Yang et al.)"
+  },
+  {
+   "n": 6,
+   "url": "https://service.tib.eu/ldmservice/dataset/bibtex/famos-dataset",
+   "title": "FaMoS dataset record (TIB)"
+  },
+  {
+   "n": 7,
+   "url": "https://kaldir.vc.cit.tum.de/nersemble_benchmark/",
+   "title": "NeRSemble 3D Head Avatar Benchmark"
   }
  ],
  "references_by_name": [

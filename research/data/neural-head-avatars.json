@@ -20,11 +20,11 @@
 {"name":"nersemble_capture_spec","units":"as stated per row",
  "columns":["property","value","units","status"],
  "rows":[
-  ["synchronised cameras",16,"count","knowledge"],
+  ["synchronised cameras",16,"count","confirmed"],
   ["image resolution","3208x2200 (~7.1)","px (MP)","knowledge"],
-  ["frame rate",73,"fps","knowledge"],
-  ["subjects",">220","count","knowledge"],
-  ["sequences",">4700","count","knowledge"],
+  ["frame rate",73,"fps","confirmed"],
+  ["subjects",">220","count","confirmed"],
+  ["sequences",">4700","count","confirmed"],
   ["GaussianAvatars training resolution","~802x550","px","knowledge"],
   ["coverage","front and sides; back of head weak","-","knowledge"],
   ["access","research-only agreement","-","contested"]

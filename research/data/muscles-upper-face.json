@@ -6,7 +6,7 @@
    "units": "mixed (mm, %, n)",
    "columns": ["quantity", "value", "unit", "population_or_sample", "source_ref"],
    "rows": [
-    ["depressor supercilii insertion above medial canthal tendon", "13-14", "mm", "cadavers, Cook et al. 2001; n not extracted", 25],
+    ["depressor supercilii insertion above medial canthal tendon", "13-14", "mm", "cadavers, Cook et al. 2001; 18 sides of 9 heads", 25],
     ["depressor supercilii heads", "2 in most specimens, 1 in a few", "count", "same", 25],
     ["corrugator origin bundles", "3-4", "count", "2003 anatomical study (search-snippet value)", 16],
     ["only lower forehead moves upward in frontalis contraction", 53, "%", "Asian cohort, 3D skin-displacement vectors", 5],
@@ -20,6 +20,7 @@
    "population": "Mixed cadaver and clinical cohorts; see per-row column",
    "source_urls": [
     "https://www.ophth.wisc.edu/blog/2001/11/01/depressor-supercilii-muscle-anatomy-histology-and-cosmetic-implications",
+    "https://journals.lww.com/op-rs/abstract/2001/11000/depressor_supercilii_muscle__anatomy,_histology,.4.aspx",
     "https://pubmed.ncbi.nlm.nih.gov/12975140/",
     "https://pmc.ncbi.nlm.nih.gov/articles/PMC10307676/",
     "https://pmc.ncbi.nlm.nih.gov/articles/PMC12715876/",
@@ -35,7 +36,7 @@
    "units": "mm unless stated",
    "columns": ["quantity", "low", "high", "typical", "notes", "status"],
    "rows": [
-    ["frontalis thickness", 1.0, 2.5, null, "ultrasound; identity of hypoechoic layer disputed (PMC11635371)", "contested"],
+    ["frontalis thickness", 1.0, 2.5, null, "ultrasound; identity of hypoechoic layer disputed (PMC11635371); a 2025 study reports ~0.25-0.35 mm (PubMed 41451119), so range widened in notes", "contested"],
     ["corrugator lateral reach from midline", 25, 45, 35, "approx. mid-pupillary line; insertion variants across references; Janis 2007 lateralmost insertion 43.3 mm from nasion [50]; Yang & Kim 2013 basal point 35.3 mm from midline [51]", "contested"],
     ["corrugator belly thickness", 1, 3, null, "thickest medially", "knowledge"],
     ["forehead horizontal line count", 2, 6, null, "count, not mm", "contested"],
@@ -101,7 +102,7 @@
     ["upper_lid_crease_height_east_asian", 4, 2.5, [0, 9], "plus Bernoulli no-crease switch", "contested"],
     ["upper_lid_crease_height_unknown", 6.5, 3, [0, 13], "", "contested"],
     ["brow_height_LR_difference", 0, 1.5, [-5, 5], "1-3 mm differences common; >=3 mm visible", "knowledge"],
-    ["depressor_supercilii_insertion_above_MCT", 13.5, 2, [9, 18], "from Cook 2001 value 13-14 mm", "sourced"],
+    ["depressor_supercilii_insertion_above_MCT", 13.5, 2, [9, 18], "from Cook 2001 value 13-14 mm; confirmed by 2 sources", "confirmed"],
     ["corrugator_lateral_end_from_midline", 35, 7, [20, 50], "", "contested"],
     ["frontalis_upper_mobility", 0.3, 0.25, [0, 1], "fraction of upper-forehead motion; skewed low per 53% lower-only finding", "knowledge"],
     ["AU_weight_neutral_frame", 0, 0.1, [0, 1], "L2 prior per AU in frames used for identity", "knowledge"],

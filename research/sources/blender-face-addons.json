@@ -140,6 +140,13 @@
       "url": "https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/",
       "kind": "official-blog",
       "year": "2020"
+    },
+    {
+      "n": 21,
+      "title": "FaceBuilder for Blender (KeenTools)",
+      "url": "https://keentools.io/products/facebuilder-for-blender",
+      "kind": "official product page",
+      "year": ""
     }
   ],
   "references_by_name": [

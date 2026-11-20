@@ -2,7 +2,7 @@
 
 > In photo→3D likeness work, a landmark detector supplies the correspondences behind camera solving, multi-view triangulation and the first template warp. It does not supply the likeness, because every learned detector pulls its output toward the mean face. MediaPipe Face Landmarker (478 points, 52 blendshape scores, a 4×4 transform; Apache-2.0; milliseconds on CPU) is the only widely used detector whose code and weights are both permissively licensed, so it is the default. The 68/98-point heatmap models (FAN, HRNet, SPIGA, STAR) are research-licensed cross-checks. Good detectors reach about 3–4.5 % inter-ocular NME on benchmark photos, roughly 3–4 mm per point at face scale; inner anchors do about twice as well, jaw contours do worse, and error climbs past about 45° yaw. The model of choice for a fitter is Wood et al. 2022: about 700 landmarks, each with a predicted σ and trained on synthetic data only, but its weights are, to my knowledge, unreleased.
 >
-> Evidence status: 2 ✅ / 2 📄 / 71 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 2 ✅ / 4 📄 / 69 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
 
 This topic had no harvest file and no earlier draft. Every item below is either expert knowledge or a design recommendation. Related sourced material is in `blender/blender-face-addons.md` (MediaPipe's 468/478 counts are cited there), `reconstruction/camera-pose-solving.md` and `blender/portrait-lighting-compare.md`.
 
@@ -34,11 +34,11 @@ This topic had no harvest file and no earlier draft. Every item below is either 
 - **Model.** CNN features feed cascaded graph-attention regressors, initialised from a 3D mean face posed by a predicted 6-DoF head pose, so it also returns head pose. About 4.06 % NME on WFLW and about 3.0 % on 300-W full, and strong on the pose subsets. Weights are published per dataset: WFLW-98, 300W-68, MERL-RAV with visibility, and COFW. Licence reportedly BSD-3. ↔️
 
 **Sapiens** (Khirodkar et al., Meta, ECCV 2024)
-- **Model.** ViTs of 0.3–2 B parameters, pretrained on about 300 M human images at 1024 px. The pose head outputs 308 keypoints, about 243 of them facial, *including ears*. Robust in profile. 🧠
+- **Model.** ViTs of 0.3–2 B parameters, pretrained on about 300 M human images at 1024 px. The pose head outputs 308 keypoints, about 243 of them facial, *including ears*. Robust in profile. The 308-keypoint set is confirmed [9]; the ~243 facial count is stated in the Sapiens2 paper [10]. Ears, 1024 px input and profile robustness were not checked. 📄
 - **Cost and licence.** Weights take about 1.2–8 GB in fp32, and CPU inference takes seconds to minutes. The custom licence is believed to be non-commercial. ↔️
 
 **Dense landmarks** (Wood et al., ECCV 2022, Microsoft)
-- **Method.** 703 landmarks over the whole head. Each predicts a 2D mean and an isotropic σ, trained with a Gaussian NLL loss on synthetic renders only (the "Fake It Till You Make It" pipeline). A 3DMM is then fitted by minimising Σ‖(π(x)−μ)/σ‖² plus priors, in real time, with NoW scores competitive for its year. 🧠
+- **Method.** 703 landmarks over the whole head. Each predicts a 2D mean and an isotropic σ, trained with a Gaussian NLL loss on synthetic renders only (the "Fake It Till You Make It" pipeline). A 3DMM is then fitted by minimising Σ‖(π(x)−μ)/σ‖² plus priors, in real time, with NoW scores competitive for its year. The 703 dense landmarks, the 3DMM fit and the synthetic-only training are confirmed [11][12]; the per-point isotropic σ with Gaussian NLL was not seen in the primary text (a later paper describes Gaussian uncertainty). 📄
 - **Availability.** Neither the model nor its weights is public, to my knowledge. FaceSynthetics (100 k images, 70 landmarks plus segmentation) is research-only. ↔️
 
 **Benchmarks and conventions**
@@ -202,6 +202,10 @@ This topic had no harvest file and no earlier draft. Every item below is either 
 6. https://arxiv.org/pdf/2508.14929 (Heatmap Regression without Soft-Argmax: HRNet 300-W full 3.32)
 7. https://arxiv.org/pdf/2210.07233 (SPIGA paper: 300-W 2.99; WFLW 4.06 not seen)
 8. https://sources.debian.org/src/dlib/20.0%2Bdfsg-2/python_examples/face_landmark_detection.py (dlib example: commercial-use warning); Debian copyright file lists CC0 for the .dat
+9. https://arxiv.org/pdf/2408.12569 (Sapiens paper: 308 keypoints; arXiv listing CC BY-NC-SA applies to the paper only)
+10. https://arxiv.org/html/2604.21681v1 (Sapiens2 paper: 308-keypoint skeleton, 243 face)
+11. https://arxiv.org/abs/2204.02776 (Wood et al. 2022: 703 dense landmarks, 3DMM fit)
+12. https://microsoft.github.io/DenseLandmarks/ (project page: synthetic training data)
 
 **Further reading (by name, not yet linked)**
 - Kartynnik et al. — Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs, CVPR Workshops 2019
@@ -230,3 +234,8 @@ This topic had no harvest file and no earlier draft. Every item below is either 
 - dlib 68-point model trained on 300-W, not for commercial use: confirmed (✅). Sources: https://github.com/davisking/dlib-models, https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/, https://sources.debian.org/src/dlib/20.0%2Bdfsg-2/python_examples/face_landmark_detection.py. Caveat: Debian lists the .dat as CC0, so legal status is still murky. The 5-point model claim was not checked.
 - MediaPipe z relative, scaled like x: confirmed (📄) https://developers.googleblog.com/en/mediapipe-3d-face-transform/. Canonical model in cm and the ~63 deg legacy vertical FOV: unconfirmed (the blog confirms an assumed virtual perspective camera, no value); transform-matrix badge stays ↔️.
 - WFLW/300-W NME: HRNetV2-W18 WFLW 4.60 confirmed (https://arxiv.org/pdf/2104.03100) and 300-W full 3.32 confirmed (https://arxiv.org/pdf/2508.14929), so the row is 📄. STAR 4.02 and ADNet 4.14 on WFLW confirmed (https://arxiv.org/pdf/2306.02763), consistent with the table's rounded values; their rows stay 🧠 because the 300-W values were not checked. SPIGA WFLW 4.06 unconfirmed (300-W 2.99 seen, https://arxiv.org/pdf/2210.07233). STAR 300-W full 2.87 and the "best 2023-25" range unconfirmed.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Sapiens 308 keypoints: confirmed (📄) https://arxiv.org/pdf/2408.12569. About 243 facial keypoints: stated in the Sapiens2 paper, https://arxiv.org/html/2604.21681v1 (assumed to share the Sapiens skeleton). Ears and 1024x768 input: unconfirmed. Custom non-commercial licence for the original Sapiens weights: unconfirmed, no licence text found (the paper's CC BY-NC-SA arXiv label covers the paper only); the Sapiens2 licence at https://github.com/facebookresearch/sapiens2/blob/main/LICENSE.md was not read in full. Licence badge stays ↔️.
+- Wood et al. 2022: 703 landmarks, 3DMM fit and synthetic training confirmed (📄) https://arxiv.org/abs/2204.02776, https://microsoft.github.io/DenseLandmarks/. Per-point isotropic sigma with Gaussian NLL: only indirect support (https://ar5iv.labs.arxiv.org/html/2308.15170 mentions Gaussian uncertainty), unconfirmed. Model and weights unreleased: unconfirmed; no official repository found, only a third-party note that the synthetic data is not public. Availability badge stays ↔️.

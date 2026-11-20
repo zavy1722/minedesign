@@ -31,24 +31,26 @@
         ],
         [
           "craniometrics_howells",
-          86,
-          89,
-          11,
-          14,
-          "Relethford 2002"
+          81,
+          81,
+          13,
+          13,
+          "Relethford 2002 (additional ~6% among local populations within region)"
         ],
         [
           "skin_reflectance",
-          10,
-          14,
-          86,
-          90,
-          "Relethford 2002"
+          9,
+          9,
+          88,
+          88,
+          "Relethford 2002 (additional ~3% among local populations within region)"
         ]
       ],
       "population": "global samples",
-      "source_urls": [],
-      "status": "knowledge",
+      "source_urls": [
+        "https://scilit.com/publications/a8deb39a7d347f771a8ffce1049a49db"
+      ],
+      "status": "partly verified (Relethford rows only; others recalled)",
       "notes": "Recalled values; single-trait apportionment can be far higher (see between_share_from_d)."
     },
     {
@@ -595,7 +597,9 @@
         ]
       ],
       "population": "3D face datasets",
-      "source_urls": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC6953995"],
+      "source_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6953995"
+      ],
       "status": "partially_verified",
       "notes": "Time-sensitive. LSFM size (9,663 identities from MeIn3D, ~9,700) confirmed in verification 2026-11-20 (Booth et al. 2018 IJCV); composition, other datasets and licences unverified."
     },

@@ -11,7 +11,7 @@ Evidence status: 9 ✅ / 22 📄 / 70 🧠 / 13 ↔️ — 🧠 items are queued
   - Only `DEF-` bones deform 🧠.
   - It expects the model facing −Y, with Z up and transforms applied 🧠.
   - Bones are placed by hand 🧠, so the landmarks our fitter produces can place them automatically.
-- **Auto-Rig Pro** (Artell, paid) has marker-based "Smart" body placement, a bone face rig (brows, lids, lips, jaw, teeth, tongue), its own binder with a voxelised mode for non-manifold or multi-part meshes, Remap retargeting, and Unity/Unreal FBX presets 🧠. It does not generate ARKit keys 🧠. Blender 5.x support is unverified ↔️.
+- **Auto-Rig Pro** (Artell, paid) has marker-based "Smart" body placement, a bone face rig (brows, lids, lips, jaw, teeth, tongue), its own binder with a voxelised mode for non-manifold or multi-part meshes, Remap retargeting, and Unity/Unreal FBX presets 🧠. It does not generate ARKit keys 🧠. Blender 5.x support is unverified ↔️ (undated vendor-listing review: guaranteed 2.93–4.5, some fixes for 5 [28]).
 - **Faceit** (paid) generates ARKit-style, Audio2Face, tongue and phoneme shape keys, and bakes modifier, pose and sculpt deformation into keys [1] 📄. It is listed for Blender 3.0–5.2 [1] 📄. Recalled workflow 🧠: landmark guide → Rigify-derived face rig → auto weights → poses → bake. It also imports Live Link Face CSV 🧠.
 - **Face Shape Key Rig** (free, GPL) drives *existing* keys from viewport sliders and 2D pads through bones and drivers. It supports iFacialMocap and audio lipsync [2][3] 📄, creates no shapes [2][1] 📄, and needs Blender 5.2+ [3] 📄.
 - **CaptureForge** (GPL-3.0) converts a posed face rig to the ARKit 52 and drives them from video or webcam without an iPhone [4] 📄.
@@ -250,6 +250,8 @@ Evidence status: 9 ✅ / 22 📄 / 70 🧠 / 13 ↔️ — 🧠 items are queued
 [25] Blender Manual: Rigify face rig types — https://docs.blender.org/manual/en/dev/addons/rigify/rig_types/face.html — official docs — (verification)
 [26] Blender Python API 4.4: ActionChannelbag — https://docs.blender.org/api/4.4/bpy.types.ActionChannelbag.html — official docs — (verification)
 [27] Associations between incisor and mandibular condylar movements during maximum mouth opening in humans — https://utsouthwestern.elsevierpure.com/en/publications/associations-between-incisor-and-mandibular-condylar-movements-du — paper abstract — (verification)
+[28] Auto-Rig Pro (Blender Market) — https://blendermarket.com/products/auto-rig-pro — commercial listing — (verification)
+[29] Apple ARKit: BlendShapeLocation.mouthClose — https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation/mouthclose — official docs — (verification)
 
 **Further reading (by name, not yet linked)**
 - Blender Manual: Rigify; the Data Transfer, Surface Deform and Corrective Smooth modifiers; the Follow Track constraint. Blender 4.4/5.0 Python API release notes
@@ -270,3 +272,8 @@ Evidence status: 9 ✅ / 22 📄 / 70 🧠 / 13 ↔️ — 🧠 items are queued
 - **Live Link Face 61 values, UDP port 11111, CSV** — unconfirmed. Head and eye yaw/pitch/roll columns appear in CSV tools (https://github.com/alexdjulin/LiveLinkFace-CSV-Retarget-For-Motionbuilder), but the 61 count could not be tied to a URL and port 11111 was not found anywhere. Left as 🧠.
 - **Slotted Actions / Action.fcurves removal** — unconfirmed. Channelbag API exists in 4.4 (https://docs.blender.org/api/4.4/bpy.types.ActionChannelbag.html); removal of `Action.fcurves` in 5.0 not found. Left as ↔️.
 - **Rigify modular skin face since 3.0, Upgrade Face Rig** — confirmed (2 sources, ✅). https://developer.blender.org/docs/release_notes/3.0/add_ons/ , https://docs.blender.org/manual/en/dev/addons/rigify/rig_types/face.html . Tongue rig and "ships with 4.2+/5.x" not seen.
+
+## Verification log, pass 2 (2026-11-20)
+
+- **ARKit left/right refer to the subject's side; mouthClose used together with jawOpen** — unconfirmed. Apple's pages for eyeBlinkLeft and mouthClose did not state the left/right convention, and the search summary gave Apple's mouthClose wording as "independent of jaw position", which does not settle whether it is meant as a relative shape [29]. Left as 🧠/↔️. https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation/mouthclose
+- **Faceit Blender 3.0–5.2; Face Shape Key Rig 5.2+; Auto-Rig Pro 5.x/5.3** — unconfirmed for Faceit and Face Shape Key Rig (not re-checked in this pass). Auto-Rig Pro: no Blender 5.3 statement found; a Blender Market review (undated) says compatibility is guaranteed 2.93–4.5 with some fixes for Blender 5 [28]. Left as ↔️. https://blendermarket.com/products/auto-rig-pro , https://superhivemarket.com/products/auto-rig-pro/versions

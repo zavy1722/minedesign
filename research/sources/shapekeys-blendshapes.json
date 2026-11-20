@@ -105,6 +105,20 @@
    "url": "https://docs.blender.org/manual/en/latest/advanced/scripting/security.html",
    "kind": "official-docs",
    "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Apple ARKit: ARFaceAnchor.BlendShapeLocation (markdown view; left/right relative to the face)",
+   "url": "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation.md",
+   "kind": "official-docs",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "Blender issue T69622 (glTF export with Apply Modifiers drops shape keys)",
+   "url": "https://developer.blender.org/T69622",
+   "kind": "bug-tracker",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

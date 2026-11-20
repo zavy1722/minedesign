@@ -2,7 +2,7 @@
 
 > A face pixel is albedo × shading (+ specular) times unknown exposure and white balance, bent by a tone curve; from one uncalibrated photo the split is ambiguous (albedo-vs-light scale, light colour vs skin hue, bas-relief shape-vs-light). Order-2 spherical harmonics (SH: 9 coefficients per channel, 27 in RGB) hold ≈99 % of Lambertian shading and are the standard lighting model in BFM/FLAME fitting, but encode no cast shadows, specular or light sharpness. "Albedo" models (BFM, FLAME's BFM-derived space, AlbedoMM, TRUST's BalancedAlb) differ in what they really contain, and priors learned from light-skinned data pull skin tone toward the training mean, which TRUST showed hurts darker skin most. The robust fix is capture-side: RAW + colour chart + cross-polarised or soft distant light, then divide the projected photo texture by the fitted mesh's rendered shading, with tone set by the chart, not a PCA prior. No harvest or earlier draft existed, so every item is expert knowledge pending verification.
 >
-> Evidence status: 0 ✅ / 2 📄 / 74 🧠 / 17 ↔️ — 2026-11-20 verification pass covered 4 claims; remaining 🧠 items still unverified.
+> Evidence status: 0 ✅ / 4 📄 / 73 🧠 / 15 ↔️ — 2026-11-20 verification passes 1 and 2 covered 6 claims; remaining 🧠 items still unverified.
 
 ## Key facts
 
@@ -17,7 +17,7 @@
 - Lambertian irradiance = environment ⊛ clamped cosine, with band factors Â₀ = π, Â₁ = 2π/3, Â₂ = π/4, Â₃ = 0, Â₄ = −π/24 (Ramamoorthi & Hanrahan 2001; Basri & Jacobs 2003). Bands 0–2 hold 99.2 % of kernel energy (Table B). 🧠
 - Average SH9 shading error for real environments is a few percent or less; worst-case per-pixel error under one point light is larger (quoted near 10 %; bounds differ by source). 🧠 ↔️
 - SH9 says almost nothing about light *sharpness*: that lives in cast shadows, penumbrae, speculars and catchlights (see `blender/portrait-lighting-compare.md`). 🧠
-- **Conventions are not portable:** basis sign/order, radiance vs pre-convolved irradiance coefficients, where π and Â_l are folded, and normal frame (camera/world/head, y-up/z-up, OpenCV/OpenGL) all vary. As I recall, Deep3DFaceRecon folds non-standard band factors (2π/√3, 2π/√8) and adds 0.8 to the DC term at initialisation; verify in code. 🧠 ↔️
+- **Conventions are not portable:** basis sign/order, radiance vs pre-convolved irradiance coefficients, where π and Â_l are folded, and normal frame (camera/world/head, y-up/z-up, OpenCV/OpenGL) all vary. Deep3DFaceRecon folds non-standard band factors (a = π, 2π/√3, 2π/√8) into its SH class and adds init_lit = [0.8, 0, …, 0] to the lighting coefficients, i.e. 0.8 on the DC term [4]. 📄
 - **Lighting frame in multi-view:** photographer circles a still subject under fixed lights → one lighting shared in the head frame; subject turns on a chair → lighting fixed in the camera/world frame, rotating relative to the head; separate sessions → per-view lighting. SH rotation is exact and cheap (band-wise; band 1 rotates as a vector). 🧠
 - **Extensions:** visibility-weighted SH via precomputed radiance transfer (Sloan, Kautz & Snyder 2002); ray-traced self-shadowing plus specular (NextFace, Dib et al. 2021); the Basel Illumination Prior, a Gaussian over SH coefficients learned from real face photos (Egger et al. 2018). 🧠
 
@@ -79,7 +79,7 @@ Irradiance from radiance coefficients (Ramamoorthi & Hanrahan 2001): E(n) = c₁
 | Neutral 8 / 6.5 / 5 | 200 / 160 / 122 | 0.58 / 0.35 / 0.195 | same | ↔️ |
 | Neutral 3.5 / Black 2 | 85 / 52 | 0.091 / 0.034 | same | ↔️ |
 | Light skin | 194, 150, 130 | 0.54, 0.31, 0.22 | 0.35 | ↔️ |
-| Dark skin | 115, 82, 68 | 0.17, 0.084, 0.058 | 0.10 | ↔️ |
+| Dark skin | 115, 82, 68 (= #735244, manufacturer value) [5] | 0.17, 0.084, 0.058 | 0.10 | 📄 |
 
 Real skin spans well beyond these patches: ≈0.55–0.65 linear red for very light skin, ≤0.05 linear blue for very dark skin (as in `blender/skin-shading.md`). ↔️
 
@@ -157,6 +157,8 @@ Real skin spans well beyond these patches: ≈0.55–0.65 linear red for very li
 1. Feng et al., TRUST, arXiv 2205.03962: https://arxiv.org/abs/2205.03962
 2. TRUST project page: https://trust.is.tue.mpg.de/
 3. FLAME model license: https://flame.is.tue.mpg.de/modellicense.html
+4. Deep3DFaceRecon_pytorch bfm.py (mirror of the repo file): https://huggingface.co/spaces/1dm/talker/blob/main/src/face3d/models/bfm.py
+5. ColorChecker, Wikipedia (dark skin #735244, manufacturer sRGB): https://en.wikipedia.org/wiki/ColorChecker
 
 **Further reading (by name, not yet linked)**
 - Ramamoorthi & Hanrahan, "An Efficient Representation for Irradiance Environment Maps", SIGGRAPH 2001; "A Signal-Processing Framework for Inverse Rendering", SIGGRAPH 2001
@@ -182,3 +184,8 @@ Real skin spans well beyond these patches: ≈0.55–0.65 linear red for very li
 - ITA formula and category cut-offs: unconfirmed (no source listed the thresholds; https://pubmed.ncbi.nlm.nih.gov/34796498/ only supports ITA not equalling Fitzpatrick); stays 🧠.
 - TRUST (FAIR benchmark with ITA scoring, scene-level light, light-skewed priors): confirmed 📄, https://arxiv.org/abs/2205.03962 and https://trust.is.tue.mpg.de/ (project page lists "BalanceAlb"; exact BalancedAlb naming not confirmed).
 - Licences: corrected. FLAME 2017/2019/2020/2023 are non-commercial; FLAME 2023 Open is CC-BY-4.0 and commercial-permitted, https://flame.is.tue.mpg.de/modellicense.html. BFM, FFHQ texture, AlbedoMM, BalancedAlb terms not verified.
+
+## Verification log, pass 2 (2026-11-20)
+
+- ColorChecker Classic sRGB values: partly confirmed. Dark skin 115,82,68 (#735244) confirmed 📄 [5]. Light skin 194,150,130, the neutral patch values and Neutral 5 ≈ 0.19 not found in results: unconfirmed, stay ↔️/🧠. BabelColor (https://babelcolor.com/colorchecker-2.htm) notes manufacturer and measured values differ, supporting the ↔️ on the rest.
+- Deep3DFaceRecon: SH band constants (π, 2π/√3, 2π/√8) and init_lit 0.8 on the DC term confirmed 📄 [4], https://huggingface.co/spaces/1dm/talker/blob/main/src/face3d/models/bfm.py. The 257-coefficient layout (80+64+80+3+27+3) not confirmed by results: stays 🧠.

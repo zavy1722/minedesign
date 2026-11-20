@@ -2,7 +2,7 @@
 
 > Likeness failures in portrait sculpture are few and predictable: eyes too big, too open or too far forward; a face too flat and a cranium too short; nose width and projection wrong; lips idealised; ears misplaced; the sitter's asymmetries erased. Many come from the reference rather than the hand: wrong camera distance, unsolved head pitch, mirrored or filtered photos, and projected textures that hide shape errors. The rest come from perception (schema-driven seeing, adaptation to one's own work, idealisation, the other-race effect) and from priors that pull every fit toward the average. Each studio check (flip, squint, thumbnail, silhouette, overlay, blink, grayscale, inversion) defeats one of these mechanisms and has an exact computational counterpart. With no harvest or earlier draft, everything here is expert knowledge or pinhole arithmetic.
 >
-> Evidence status: 0 ✅ / 1 📄 / 46 🧠 / 17 ↔️ — verified 2026-11-20 (4 claims checked: 1 confirmed, 1 contested, 2 unconfirmed); remaining 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 3 📄 / 44 🧠 / 17 ↔️ — verified 2026-11-20 (pass 1: 4 claims checked: 1 confirmed, 1 contested, 2 unconfirmed; pass 2: 2 claims checked: 1 corrected, 1 unconfirmed); remaining 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -75,11 +75,11 @@ So 3° of roll or 5° of yaw creates more apparent asymmetry than a normal face 
 
 | Trick | Reveals | Mechanism | Blender | Engine counterpart | Badge |
 |---|---|---|---|---|---|
-| Flip | tilts, lopsided features, asymmetry on the wrong side | resets adaptation | background image "Flip Horizontally"; flip a viewport render (head Scale X = −1 is valid only near frontal) | mirror-asymmetry map vs photo-derived asymmetry; mirrored-photo test | 🧠 |
+| Flip | tilts, lopsided features, asymmetry on the wrong side | resets adaptation | background image "Flip X" (named "Flip Horizontally" in 2.7x; corrected in verification) [5]; flip a viewport render (head Scale X = −1 is valid only near frontal) | mirror-asymmetry map vs photo-derived asymmetry; mirrored-photo test | 📄 |
 | Squint / blur | masses, values, proportions | removes detail | blurred photo and render, Gaussian σ ≈ 3–5% of face width (< 4–6 cycles per face) | coarse-to-fine fit; low-pass residuals | 🧠 |
 | Thumbnail | overall likeness | identity survives low resolution | side by side, face 48–64 px wide | configural Procrustes score | 🧠 |
 | Silhouette / profile | nose projection, brow, lips, chin, occiput, neck | lighting-independent | Workbench: Lighting Flat, Color Single black, white background, solved profile camera | `fit_silhouettes` chamfer in % IOD | 🧠 |
-| Overlay | feature position and size | direct comparison | camera background image, opacity 0.3–0.5, Depth Front | residual arrows; per-view RMS | 🧠 |
+| Overlay | feature position and size | direct comparison | camera background image, opacity 0.3–0.5, Depth Front [5] | residual arrows; per-view RMS | 📄 |
 | Difference / edges | small offsets | cancels shared content | compositor Difference; edge images | edge chamfer | 🧠 |
 | Blink | subtle size and position changes | motion detection (blink comparator) | toggle background image at 2–3 Hz via `bpy.app.timers` | photo/render GIF | 🧠 |
 | Grayscale | plane and value errors | hue masks form | desaturated photo copy; Solid mode; AgX "Greyscale" look if present | luminance-only comparison | 🧠 time-sensitive |
@@ -145,6 +145,7 @@ No harvested sources or earlier draft existed for this topic; the numbered sourc
 2. Rutgers news release on the selfie study — https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
 3. Adult eyelid measurements (MRD1 mean 3.5 mm, PFH mean 8.7 mm) — https://pmc.ncbi.nlm.nih.gov/articles/PMC10371930
 4. LEV102 blepharoptosis trial protocol (normal MRD1 4.0–4.5 mm, PFH 7–12 mm) — https://cdn.clinicaltrials.gov/large-docs/46/NCT05715346/Prot_000.pdf
+5. Blender 5.3 Manual, Cameras (background images: Opacity, Depth, Flip X/Flip Y) — https://docs.blender.org/manual/en/latest/render/cameras.html
 
 **Further reading (by name, not yet linked)**
 - Farkas, *Anthropometry of the Head and Face*, 1994
@@ -170,3 +171,9 @@ No harvested sources or earlier draft existed for this topic; the numbered sourc
 - **MRD1 4–5 mm, lid covers 1–2 mm iris, lower lid at limbus, PFH 8–11 mm, iris 11.7 ± 0.5:** contested for MRD1 and PFH. MRD1 3.5 mm mean (older adults) vs 4.0–4.5 mm; PFH mean 8.7 mm, range 7–12 mm. Other sub-claims unconfirmed. Sources: https://pmc.ncbi.nlm.nih.gov/articles/PMC10371930 ; https://cdn.clinicaltrials.gov/large-docs/46/NCT05715346/Prot_000.pdf
 - **Ward et al. 2018, nasal base about 30% wider at 12 in vs 5 ft:** confirmed (📄); the tip is about 7% wider, and the authors model rather than measure. Sources: https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 ; https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
 - **E-line −4/−2 mm, vermilion 6–9/8–12 mm, lip ratios:** unconfirmed. Summaries mention Ricketts' classic −4/−2 mm and population differences (a 2025 Angle Orthodontist article says the norms need updating), but not tied to specific URLs; no vermilion height or ratio data found.
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Canthal tilt +2° to +8°; al–al 31–40 mm (European) and often > 40 mm (African-descent); al–al/en–en 0.9–1.4:** unconfirmed (badges unchanged). The search returned no canthal-tilt norms and no numeric al–al comparison; only an African American female nose study giving an alar width to intercanthal ratio of 5:4 and a Chinese sample exceeding North American Caucasian norms. Leads: https://pubmed.ncbi.nlm.nih.gov/12560683/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC9029890
+- **Blender camera background images (Flip, Opacity, Depth Front):** corrected for the flip label. The current manual lists "Flip X" / "Flip Y" (older 2.79 used "Flip Horizontally"); Opacity and Depth (Back/Front) confirmed. Source: https://docs.blender.org/manual/en/latest/render/cameras.html
+- **Viewport default focal length 50 mm, AgX "Greyscale" look, compositor Difference blend:** unconfirmed (the search returned nothing on these); the Grayscale row stays 🧠 time-sensitive.

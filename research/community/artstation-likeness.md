@@ -2,13 +2,13 @@
 
 > Likeness breakdowns on ArtStation (project posts, "making of" articles, Learning courses, Marketplace tutorials, and the interviews that republish them) describe one process. Curate many photos from one age window, rank them by lens, distance and retouching, block primary forms at low resolution, compare through a matched camera per hero photo (or by eye), cycle every view until silhouette and features agree, then add asymmetry, eyes, identity marks, brows and hair, and judge under light matched to the photos. The most repeated lessons: likeness lives in head shape and primary forms, telephoto event photos beat selfies, retouched covers and film stills mislead in predictable ways, and brows and hair make a likeness "click". Reported timelines run from weeks to months part-time, with groom and texture taking as long as the sculpt. No harvest or earlier draft existed, so everything here is expert knowledge or pinhole arithmetic awaiting verification; platform facts are time-sensitive.
 >
-> Evidence status: 2 ✅ / 0 📄 / 57 🧠 / 26 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 2 ✅ / 1 📄 / 57 🧠 / 25 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **The platform and its genres** (time-sensitive; verify all of it)
 - ArtStation launched in 2014 (Ballistiq, Canada). Epic Games bought it in 2021; Learning courses then became free and Marketplace fees fell 🧠 ↔️
-- Epic's **Fab** (late 2024) merged its asset stores; what still sells on ArtStation Marketplace versus Fab needs checking before the add-on links to it ↔️
+- Epic's **Fab** (late 2024) merged its asset stores; launched October 2024 as the successor to the Unreal Engine Marketplace, Sketchfab, ArtStation Marketplace and Quixel, with a migration tool planned for ArtStation sellers; portfolios and Prints stay on ArtStation [8][9] 📄. What still sells on ArtStation Marketplace versus Fab in 2026 is unconfirmed and needs checking before the add-on links to it
 - **Genres:** project posts with breakdown images (clay, wireframe, side-by-side with the photo, turntable); "making of" articles; Learning courses; Marketplace video tutorials. Text-rich breakdowns mostly appear as interviews on 80 Level, 3dtotal, the Gnomon blog and ZBrushCentral 🧠
 - **The late-2022 anti-AI protest** led to "NoAI" tags and filters; the community stays hostile to AI-started work (`community/ai-assisted-sculpting.md`) ↔️
 - **Source quality:** self-reported, survivorship-biased, sometimes vendor-sponsored; judged by strangers who know the celebrity from the same press photos; side-by-sides show the best angle 🧠
@@ -175,7 +175,11 @@ Numbered sources below come from the 2026-11-20 verification pass; all other ite
 4. Rutgers news summary of Ward et al. 2018, JAMA Facial Plastic Surgery (nasal base ≈30% wider at 12 in than at 5 ft): https://www.rutgers.edu/index%2Ephp/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
 5. ScienceDaily, same study, 2018-03-01: https://www.sciencedaily.com/releases/2018/03/180301115349.htm
 6. Evan Agostini red carpet gallery (70-200 mm frames ≈90-200 mm): https://www.popphoto.com/Agostini
-7. Within Health, Face-Aware Liquify analysis of celebrity covers (non-academic, about 20 covers per celebrity): https://withinhealth.com/explore-articles/perfecting-perfection-uncovering-problematic-celebrity-photoshopping Cross-referenced library notes: `community/zbrush-to-blender-likeness.md`, `community/likeness-mistakes.md`, `community/reddit-face-from-photos.md`, `community/instagram-social-sculptors.md`, `community/ai-assisted-sculpting.md`, `blender/sculpting-likeness-workflow.md`, `blender/reference-camera-setup.md`, `blender/eyes-modeling-blender.md`.
+7. Within Health, Face-Aware Liquify analysis of celebrity covers (non-academic, about 20 covers per celebrity): https://withinhealth.com/explore-articles/perfecting-perfection-uncovering-problematic-celebrity-photoshopping
+8. Epic/Unreal Engine blog, Fab launch and ArtStation Marketplace migration plan: https://www.unrealengine.com/blog/fab-content-marketplace-launches-in-october-publishing-portal-opens-today
+9. CG Channel, Fab launch, 2024-10-22: https://www.cgchannel.com/2024/10/epic-games-launches-its-new-fab-marketplace-in-october-2024
+
+Cross-referenced library notes: `community/zbrush-to-blender-likeness.md`, `community/likeness-mistakes.md`, `community/reddit-face-from-photos.md`, `community/instagram-social-sculptors.md`, `community/ai-assisted-sculpting.md`, `blender/sculpting-likeness-workflow.md`, `blender/reference-camera-setup.md`, `blender/eyes-modeling-blender.md`.
 
 **Further reading (by name, not yet linked)**
 - ArtStation Learning; ArtStation Magazine / blog "making of" features; ArtStation Marketplace tutorials
@@ -197,3 +201,8 @@ Numbered sources below come from the 2026-11-20 verification pass; all other ite
 2. Selfie nose enlargement (Ward et al. 2018): confirmed (✅) via press and university summaries [4][5]: about 30% wider nasal base at 12 in versus 5 ft (nasal tip ≈7%). Original paper not opened; a 2018 letter (Cooper et al.) argues the effect depends on viewing habits. The σ multiplier 3 and the 26 mm / σ_log 0.1 prior are design choices, not sourced; left 🧠/↔️.
 3. Event/press photos at 3–10 m with 70–300 mm: unconfirmed. Only that 70-200 mm lenses are common on red carpets and sample frames span ≈90–200 mm [6]; no subject distances found. Left 🧠.
 4. Magazine/studio retouching with liquify: unconfirmed as a general prevalence claim. Only a small non-academic analysis [7] found Face-Aware Liquify in about half of sampled covers for two celebrities, mostly jaw and chin. Left ↔️ (2–3× σ is a design choice).
+
+## Verification log, pass 2 (2026-11-20)
+
+1. Epic bought ArtStation in 2021; Learning became free; Marketplace fees fell: unconfirmed (🧠 kept). Search returned no usable evidence on any of the three.
+2. Fab launched late 2024 merging Epic's asset stores: confirmed (📄), launched October 2024 as successor to UE Marketplace, Sketchfab, ArtStation Marketplace and Quixel [8][9]. What remains on ArtStation Marketplace in 2026: unconfirmed; sources date from 2024 and say only that it keeps operating while a migration tool moves sellers to Fab in 2025, with some product types unsupported.

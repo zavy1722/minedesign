@@ -1,7 +1,7 @@
 # Monocular depth and surface normals for faces
 
 > General-purpose monocular depth models (Depth Anything V2/3, Marigold) and normal estimators (DSINE, Marigold-Normals, Lotus, StableNormal) are trained and benchmarked on scenes. This library holds no face-region accuracy figure for any of them, nor for the human-specific Sapiens and DAViD. Single-image depth is ambiguous in relief scale (affine-invariant outputs, bas-relief ambiguity), so it must never set nose projection or head depth; those come from the landmark/3DMM camera fit. Predicted **normals** are the useful signal: they carry mid-frequency form (nasolabial folds, lid creases, lip and chin contours) that can be added to the fitted base as a clamped, landmark-anchored displacement solved in mesh space. Run predictors out of process and cache float outputs, because CPU/ONNX support and weight licences differ per model and several popular weights are non-commercial.
-Evidence status: 3 ✅ / 34 📄 / 47 🧠 / 3 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 3 ✅ / 39 📄 / 44 🧠 / 3 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -16,7 +16,7 @@ Evidence status: 3 ✅ / 34 📄 / 47 🧠 / 3 ↔️ — 🧠 items are queued 
 - DA3-metric is best on SUN-RGBD (AbsRel 0.105) and second on DIODE [19] 📄. DA3Metric-Large has ~350M parameters [21] 📄. A TensorRT ROS2 node exists, but no CPU/ONNX latency was found [22] 📄.
 
 **Diffusion depth/normals**
-- Marigold (Ke et al., CVPR 2024) repurposes Stable Diffusion as an **affine-invariant** depth estimator [6] 📄. It was fine-tuned from SD 2 on ~74K synthetic samples (Hypersim, Virtual KITTI), predicts depth rather than disparity, processes at ~768 px by default and ships in Hugging Face diffusers. Later checkpoints need 1–4 denoising steps 🧠.
+- Marigold (Ke et al., CVPR 2024) repurposes Stable Diffusion as an **affine-invariant** depth estimator [6] 📄. The v1-1 checkpoints are fine-tuned from Stable Diffusion 2 [27] 📄 and ship in Hugging Face diffusers; v1-1 and later need only 1–4 denoising steps [28] 📄. The ~74K synthetic samples (Hypersim, Virtual KITTI), depth-not-disparity output and ~768 px default were not confirmed 🧠.
 - The extended paper adds **Marigold-Normals**, trained with the same protocol [7] 📄. It also adds an albedo/shading decomposition, which helps separate makeup and pigment from shading 🧠.
 - Marigold V2 (arXiv 2609.08084) switches to a diffusion-transformer backbone (reportedly Qwen-Image-Edit) and claims state-of-the-art normals. Its repo trains normals with an angular loss [8][9] 📄 (authors' claim).
 - StableNormal targets the sample-to-sample variance of diffusion predictors [14] 📄. Lotus, a diffusion dense predictor, publishes a normal benchmark table [13] 📄 and runs in one step 🧠. GeoWizard predicts depth and normals jointly 🧠.
@@ -39,7 +39,7 @@ Evidence status: 3 ✅ / 34 📄 / 47 🧠 / 3 ↔️ — 🧠 items are queued 
   - depth/normal supervision from 600 RenderPeople scans [17] 📄;
   - relative to prior work, −22.4% RMSE on Hi4D and −53.5% angular error on THuman2 [17] 📄;
   - 0.3B–2B sizes at 1024×768 input; 28-class segmentation including hair, lips, teeth and eyeglasses; 308-keypoint pose, mostly on the face 🧠.
-- DAViD trains human depth, normal and segmentation models on synthetic data [18] 📄. Reportedly ~300K images, with compact models released as ONNX 🧠.
+- DAViD trains human depth, normal and segmentation models on synthetic data [18] 📄. Its SynthHuman training set holds 300K images (384×512), and depth, normal, foreground-mask and multi-task models are released as ONNX under the MIT licence [26] 📄 (the repo lists no tagged release; use main).
 - Face-normal papers:
   - cross-modal face normals (2020) [16] 📄;
   - exemplar-based refinement (2026) [15] 📄;
@@ -72,10 +72,10 @@ Evidence status: 3 ✅ / 34 📄 / 47 🧠 / 3 ↔️ — 🧠 items are queued 
 | DA V2 Small | 518 px | HF transformers; community ONNX | ~0.2–1 s | Apache-2.0 | 🧠 |
 | DA V2 Base/Large | 518 px | community ONNX | Large ~2–8 s | CC BY-NC 4.0 | 🧠 |
 | DA3 family | ~500 px | PyTorch; TensorRT [22] | Large: seconds | per model, unverified | 🧠 |
-| Marigold v1.x | ~768 px | diffusers | tens of s to minutes | code Apache-2.0; weights unverified | 🧠 |
+| Marigold v1.x | ~768 px | diffusers | tens of s to minutes | v1-1 weights CreativeML Open RAIL++-M [27] (v0-1 was Apache-2.0); code licence unverified | 📄 |
 | DSINE | any (needs K) | PyTorch | a few s | unverified | 🧠 |
 | Sapiens normal/depth | 1024×768 | TorchScript "lite" | 0.3B ~5–30 s; 2B minutes | custom Meta licence | 🧠 |
-| DAViD | — | ONNX (reported) | ≤ seconds | unverified | 🧠 |
+| DAViD | — | ONNX [26] | ≤ seconds (unmeasured) | MIT (models and runtime code) [26] | 📄 |
 | Depth Pro | ~1.5K px | PyTorch | many seconds | Apple custom | 🧠 |
 
 **Table 3: DA3 metric conversion [20]**
@@ -215,6 +215,9 @@ Ray obliquity is the normal-direction error introduced by integrating under an o
 [23] Metric and Relative Monocular Depth Estimation: An Overview. Fine-Tuning Depth Anything V2 — https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide — blog — 2025
 [24] inference4j/depth-anything-v2-small — https://huggingface.co/inference4j/depth-anything-v2-small — model card (third party) — n.d.
 [25] DepthAnything/Depth-Anything-V2 — https://github.com/DepthAnything/Depth-Anything-V2 — official code repo — n.d.
+[26] DAViD project page (Microsoft) — https://microsoft.github.io/DAViD — official project page — 2025
+[27] Marigold Normals v1-1 Model Card — https://huggingface.co/prs-eth/marigold-normals-v1-1 — model card — n.d.
+[28] Diffusers documentation: Marigold pipelines — https://huggingface.co/docs/diffusers/v0.33.0/api/pipelines/marigold — official docs — n.d.
 
 **Further reading (by name, not yet linked)**
 
@@ -260,3 +263,8 @@ Ray obliquity is the normal-direction error introduced by integrating under an o
 - DA V2 relative checkpoints output disparity (inverse depth), scale/shift fitted per image: confirmed, 📄, third-party sources only [23][24]. https://huggingface.co/blog/Isayoften/monocular-depth-estimation-guide , https://huggingface.co/inference4j/depth-anything-v2-small
 - DA V2 Small Apache-2.0, Base/Large/Giant CC BY-NC 4.0: confirmed, 📄 [25] (caveat: Giant listed "coming soon" in README). https://github.com/DepthAnything/Depth-Anything-V2
 - Sapiens sizes, 1024x768 input, TorchScript lite, custom Meta licence, 28-class segmentation: unconfirmed as a whole (🧠 kept). Partial evidence only: 1024x768 normal config and a 0.3B TorchScript checkpoint exist; the official README points to a LICENSE file while a third-party wrapper says CC BY-NC 4.0 (licence unresolved); sizes 0.6B/1B and the 28-class segmentation were not seen in results. https://github.com/facebookresearch/sapiens
+
+## Verification log, pass 2 (2026-11-20)
+
+- DAViD: ~300K synthetic images, compact human depth/normal/segmentation (foreground) models released as ONNX: confirmed, 📄 [26]. Additional finding: MIT licence for models and runtime code; the SynthHuman dataset is CDLA-2.0. https://microsoft.github.io/DAViD
+- Marigold v1.x SD2-based: confirmed, 📄 [27]. 1–4 denoising steps for v1-1 and later: confirmed, 📄 [28]. Weight licence: v1-1 normals is CreativeML Open RAIL++-M (v0-1 was Apache-2.0). The ~74K synthetic-sample count (Hypersim, Virtual KITTI), depth-not-disparity and ~768 px default: unconfirmed (🧠 kept). https://huggingface.co/prs-eth/marigold-normals-v1-1 , https://huggingface.co/docs/diffusers/v0.33.0/api/pipelines/marigold

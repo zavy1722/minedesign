@@ -3,7 +3,7 @@
   "sources": [
     {
       "n": 1,
-      "title": "Blender 5.0 — Blender",
+      "title": "Blender 5.0 \u2014 Blender",
       "url": "https://www.blender.org/releases/5-0/",
       "kind": "official-docs",
       "year": "2025"
@@ -38,28 +38,28 @@
     },
     {
       "n": 6,
-      "title": "5.2 LTS — Blender",
+      "title": "5.2 LTS \u2014 Blender",
       "url": "https://www.blender.org/download/releases/5-2/",
       "kind": "official-docs",
       "year": "2026"
     },
     {
       "n": 7,
-      "title": "Blender 5.2 LTS — Blender",
+      "title": "Blender 5.2 LTS \u2014 Blender",
       "url": "https://www.blender.org/releases/5-2/",
       "kind": "official-docs",
       "year": "2026"
     },
     {
       "n": 8,
-      "title": "Blender 5.2 LTS Release — Blender (press)",
+      "title": "Blender 5.2 LTS Release \u2014 Blender (press)",
       "url": "https://www.blender.org/press/blender-5-2-lts-release/",
       "kind": "official-docs",
       "year": "2026"
     },
     {
       "n": 9,
-      "title": "Projects to Look Forward to in 2026 — Blender",
+      "title": "Projects to Look Forward to in 2026 \u2014 Blender",
       "url": "https://www.blender.org/development/projects-to-look-forward-to-in-2026/",
       "kind": "official-docs",
       "year": "2026"
@@ -87,7 +87,7 @@
     },
     {
       "n": 13,
-      "title": "Release Notes — Blender (index)",
+      "title": "Release Notes \u2014 Blender (index)",
       "url": "https://www.blender.org/download/releases/",
       "kind": "official-docs",
       "year": "n.d."
@@ -159,6 +159,41 @@
       "n": 23,
       "title": "Blender 5.3",
       "url": "https://www.blender.org/releases/5-3/",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 24,
+      "title": "Blender 4.3: Sculpt, Paint, Texture",
+      "url": "https://developer.blender.org/docs/release_notes/4.3/sculpt/",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 25,
+      "title": "Brush Operators - Blender Python API",
+      "url": "https://docs.blender.org/api/current/bpy.ops.brush.html",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 26,
+      "title": "LTS \u2014 Blender",
+      "url": "https://www.blender.org/download/lts/",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 27,
+      "title": "Blender 4.5 LTS \u2014 Blender",
+      "url": "https://www.blender.org/download/lts/4-5/",
+      "kind": "official-docs",
+      "year": "2026"
+    },
+    {
+      "n": 28,
+      "title": "Blender 4.2 LTS \u2014 Blender",
+      "url": "https://www.blender.org/download/lts/4-2/",
       "kind": "official-docs",
       "year": "2026"
     }

@@ -15,6 +15,21 @@
       "n": 3,
       "title": "Blender Manual, Extension Licenses",
       "url": "https://docs.blender.org/manual/en/dev/extensions/licenses.html"
+    },
+    {
+      "n": 4,
+      "title": "InsightFace README (library MIT; pretrained models non-commercial research only)",
+      "url": "https://github.com/deepinsight/insightface/blob/master/python-package/README.md"
+    },
+    {
+      "n": 5,
+      "title": "InsightFace model zoo and licensing pages",
+      "url": "https://github.com/deepinsight/insightface/blob/master/python-package/docs/model_zoo.md ; https://www.insightface.ai/solutions/face-recognition-licensing"
+    },
+    {
+      "n": 6,
+      "title": "Meta for Developers, Update on Instagram Basic Display API (4 Sep 2024)",
+      "url": "https://developers.facebook.com/blog/post/2024/09/04/update-on-instagram-basic-display-api/"
     }
   ],
   "references_by_name": [

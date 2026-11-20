@@ -119,6 +119,20 @@
       "url": "https://flame.is.tue.mpg.de/",
       "kind": "official project page",
       "year": "n.d."
+    },
+    {
+      "n": 18,
+      "title": "metrical-tracker: Metrical Monocular Photometric Tracker [ECCV2022] (Zielon)",
+      "url": "https://github.com/Zielon/metrical-tracker",
+      "kind": "code repository",
+      "year": "2022"
+    },
+    {
+      "n": 19,
+      "title": "Prior-Guided Multi-View 3D Head Reconstruction",
+      "url": "https://arxiv.org/html/2107.04277",
+      "kind": "paper",
+      "year": "2021"
     }
   ],
   "references_by_name": [

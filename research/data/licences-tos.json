@@ -103,7 +103,7 @@
           "no",
           "no",
           false,
-          "knowledge"
+          "confirmed"
         ],
         [
           "3DDFA_V2",
@@ -396,7 +396,7 @@
           "2024-12-04",
           "date",
           "Graph API serves only business/creator own media",
-          "contested"
+          "confirmed"
         ]
       ],
       "population": "Selected statutes, contractual terms and regulator decisions",

@@ -2,7 +2,7 @@
 
 > Craniofacial landmarks come in two layers. Bony points (nasion, glabella, orbitale, porion, zygion, gonion, pogonion, menton) are never visible to a camera; skin points (n′, prn, sn, ls, sto, li, pg′, gn′, en, ex, ch, al, t, tr, v) are. Most definitions are extremal ("most anterior", "lowest", "most lateral"), so a point only exists once a head frame is fixed: the Frankfort horizontal through porion and orbitale on bone, approximated on the living by tragion and soft-tissue orbitale. Several names (gonion, gnathion, subnasale, labiale superius, stomion, soft-tissue nasion) have competing constructions, so a tool must store one explicit definition per landmark. Detector schemes (dlib 68, MediaPipe 478) are annotation conventions: eye and mouth corners, nose tip and subnasale approximate anatomical points, but jaw and brow points are spaced contour samples to fit as sliding curves, never as gonion or glabella.
 >
-> Evidence status: 36 ✅ / 27 📄 / 71 🧠 / 18 ↔️ — 🧠 items remain unconfirmed after the 2026-11-20 verification pass (1 of 4 queued claims confirmed).
+> Evidence status: 37 ✅ / 27 📄 / 71 🧠 / 18 ↔️ — 🧠 items remain unconfirmed after the 2026-11-20 verification passes (pass 2: dlib half of the licence claim confirmed ✅; MediaPipe Apache-2.0 half unconfirmed).
 
 ## Key facts
 
@@ -40,7 +40,7 @@ Legend: ✅ two or more independent input sources agree · 📄 one input source
 - Jaw points are evenly spaced along the contour; brow points sit on the arc centre, top or bottom depending on dataset [22] 📄. WFLW's 98 points convert to 68 by dropping alternate jaw points and extra lower-brow points [23] 📄. Sliding jawline points are not 3D-consistent, so a 2024 method dropped them from evaluation [32] 📄.
 - **MediaPipe 478** = 468 face-mesh vertices in stable order + 10 iris points at 468–477 [27][28] ✅. An MIT-licensed converter maps 478 → dlib 68 [29] 📄; its index table was not read. The mesh has no ears, scalp or neck, so t, po, tr and v have no vertex; its z is relative depth scaled like x, not metric (check [30][31]) 🧠.
 - No 2025 benchmark for 3D anthropometric face landmarks was found; Proto-Former (Oct 2025) is 2D [33] 📄 (time-sensitive).
-- **Licences (time-sensitive):** MediaPipe is Apache-2.0, while dlib's distributed 68-point model file is trained on 300-W images whose licence excludes commercial use, so an add-on should not bundle it 🧠.
+- **Licences (time-sensitive):** dlib's distributed 68-point model file is trained on 300-W images whose licence excludes commercial use (the dlib-models maintainer and dlib's own examples both say so), so an add-on should not bundle it [55][56] ✅. MediaPipe is Apache-2.0 🧠 (not confirmed in this pass).
 
 **Reliability**
 - In CBCT, gonion has the largest intra- and inter-observer distances; gonion, nasion, orbitale and ANS have the largest median distances [39][40] ✅. Gnathion, menton and pogonion ICCs are mostly ≥0.9; gonion's inter-observer vertical ICC is about 0.71–0.73 [40] 📄. Manual errors can exceed 2 mm at gonion and orbitale [38] 📄.
@@ -222,6 +222,8 @@ East Asian adults average a larger en–en and African-descent adults a much wid
 [41] VGCLUB/facefit-mpfb (FaceFit MPFB2 add-on prototype) — https://github.com/VGCLUB/facefit-mpfb — repo — unknown
 [42] H0wZy/captureforge (GPL-3.0 Blender face rig extension) — https://github.com/H0wZy/captureforge — repo — unknown
 [54] MediaPipe Iris: Real-time Iris Tracking & Depth Estimation (Google Research blog) — https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/ — official docs — 2020
+[55] davisking/dlib-models: trained model files for dlib example programs (licence note) — https://github.com/davisking/dlib-models — repo — unknown
+[56] dlib face_landmark_detection_ex.cpp (iBUG 300-W licence warning) — https://dlib.net/face_landmark_detection_ex.cpp.html — official docs — unknown
 
 Eleven further harvested sources not used for claims (including the earlier draft's [16]–[21]) are numbered [43]–[53] in `research/sources/craniometric-landmarks.json`.
 
@@ -245,3 +247,9 @@ Eleven further harvested sources not used for claims (including the earlier draf
 2. **Farkas young-adult North American White means (Table 2)** — unconfirmed (left 🧠). No table values retrieved; candidate full texts: https://pmc.ncbi.nlm.nih.gov/articles/PMC6571015 and https://pubmed.ncbi.nlm.nih.gov/26703056/ (already [17], [19]). Weinberg-type comparison confirms only that 3D norms differ considerably from Farkas.
 3. **MediaPipe index map (1, 2, 168, 33/133, 362/263, 61/291, 0/17, 13/14, 152, 234/454, 468/473) and z relative** — unconfirmed (left 🧠). Only the 468 + 10 iris layout was re-seen (Google docs), already ✅. No index table or z-scale statement retrieved.
 4. **Iris diameter 11.7 ± 0.5 mm as MediaPipe Iris assumption** — confirmed 📄 (one source): https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/ [54]. The blog also reports 4.3% mean relative depth error (SD 2.4%), consistent with the ~±4% prior; the ±4% figure as a scale prior remains an inference.
+
+## Verification log, pass 2 (2026-11-20)
+
+1 queued claim, 1 web search used.
+
+1. **dlib 68-point model licence excludes commercial use (300-W training data); MediaPipe is Apache-2.0** — dlib half confirmed ✅ (two sources: the dlib-models repo note and dlib's own example code warning, both saying the iBUG 300-W licence excludes commercial use and advising contact with Imperial College London): https://github.com/davisking/dlib-models [55], https://dlib.net/face_landmark_detection_ex.cpp.html [56]. MediaPipe Apache-2.0 half: no source in the results, left 🧠. No exception from iBUG/Imperial was found; only the dataset licence text would settle it.

@@ -2,7 +2,7 @@
 
 > People recognise identity holistically. The eye region carries the most weight, and the brows count at least as much as the eyes; hair and outline dominate for unfamiliar viewers, and shape and pigmentation contribute roughly equally. Identity is coded as a deviation from an internal average, so caricature helps recognition, while shrinking the deviation (statistical priors, symmetrising, smoothing) is the commonest reason an accurate-looking head reads as "a relative". Familiar viewers tolerate global scale and stretch but not errors in internal feature shapes and relations. Unfamiliar viewers, the artist included, are poor judges. So: prioritise lids, brows, lips and the sitter's most distinctive measurements, audit prior shrinkage, and have people who know the sitter judge multi-view renders with eyes, brows and hair in place. No harvest or draft existed, so all items are expert knowledge.
 
-Evidence status: 0 ✅ / 4 📄 / 61 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 0 ✅ / 5 📄 / 61 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -25,7 +25,7 @@ Evidence status: 0 ✅ / 4 📄 / 61 🧠 / 17 ↔️ — 🧠 items are queued 
 - **Upper face over lower** for identity; the mouth matters more for expression; ears little. 🧠
 
 **Shape, surface, image**
-- **Shape and pigmentation contribute comparably** (O'Toole, Vetter & Blanz 1999; Russell & Sinha 2007). ↔️ Clay loses brow density, lashes, lip-colour boundary and iris contrast. 🧠
+- **Shape and pigmentation contribute comparably** (O'Toole, Vetter & Blanz 1999; Russell & Sinha 2007): O'Toole et al. found both 3D shape and 2D reflectance contribute substantially to recognition; exact parity and Russell & Sinha not checked. 📄 [6] Clay loses brow density, lashes, lip-colour boundary and iris contrast. 🧠
 - **Lighting from below and contrast reversal** impair recognition (Johnston, Hill & Carman 1992). Any lighting change hurts unfamiliar matching. 🧠
 - **Camera distance** changes configuration enough to impair identity matching (Noyes & Jenkins 2017); see `blender/reference-camera-setup.md`. 🧠
 - **Viewpoint.** The three-quarter-view advantage is inconsistent (Liu & Chaudhuri 2002). ↔️ Unfamiliar recognition is view-dependent. 🧠
@@ -177,6 +177,7 @@ A frontal-only fit keeps roughly 20–40% of the sitter's projection deviation.
 3. Sadr, Jarudi & Sinha 2003, The role of eyebrows in face recognition: https://pubmed.ncbi.nlm.nih.gov/12729380/
 4. Benson & Perrett, perception and recognition of photographic quality facial caricatures: https://research-portal.st-andrews.ac.uk/en/publications/perception-and-recognition-of-photographic-quality-facial-caricat/
 5. Abudarham & Yovel 2016 (J Vision): https://pmc.ncbi.nlm.nih.gov/articles/PMC4720326
+6. O'Toole, Vetter & Blanz 1999, Vision Research 39:3145-3155: https://shapemodelling.cs.unibas.ch/gravis-literature/publications/VisRes99.pdf
 
 **Further reading (by name, not yet linked)**
 - Yin 1969, "Looking at upside-down faces"; Young, Hellawell & Hay 1987; Tanaka & Farah 1993, "Parts and wholes in face recognition"; Thompson 1980, "Margaret Thatcher: a new illusion"
@@ -201,3 +202,8 @@ A frontal-only fit keeps roughly 20–40% of the sitter's projection deviation.
 - Brows removal hurts more than eyes removal (Sadr 2003): confirmed (📄). https://pubmed.ncbi.nlm.nih.gov/12729380/
 - Abudarham & Yovel 2016 critical features: unconfirmed as a full list. Lip thickness and eyebrow thickness critical, mouth size not, per secondary snippets; eye shape, eye/hair colour, eye distance and face proportion not verified (eyebrow shape reported as non-critical). Left unchanged. https://pmc.ncbi.nlm.nih.gov/articles/PMC4720326 [5]
 - Best-likeness caricature +5 to +20%: contested (↔️). About +4.4% for photos (Benson & Perrett 1991), larger for line drawings, about +42% in later work, about −14% anti-caricature in other studies. https://research-portal.st-andrews.ac.uk/en/publications/perception-and-recognition-of-photographic-quality-facial-caricat/
+
+## Verification log, pass 2 (2026-11-20)
+
+- Shape and pigmentation contribute comparably (O'Toole, Vetter & Blanz 1999): confirmed (📄), with caveat. Both 3D shape and 2D reflectance contributed substantially; equal weighting and Russell & Sinha 2007 not verified. https://shapemodelling.cs.unibas.ch/gravis-literature/publications/VisRes99.pdf [6]
+- Familiar faces survive large uniform stretching (up to about 2x) but not one-half stretching (Hole et al. 2002; Sandford & Burton 2014): unconfirmed. Search returned nothing on Hole et al. Left unchanged (↔️ / 🧠 as before).

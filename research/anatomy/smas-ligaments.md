@@ -1,7 +1,7 @@
 # SMAS and facial retaining ligaments
 
 > Facial soft tissue is a five-layer laminate: skin, subcutaneous fat divided into compartments, the superficial musculoaponeurotic system (SMAS, continuous with platysma below and temporoparietal fascia above), a sub-SMAS plane of glide spaces, and deep fascia or periosteum. Retaining ligaments cross the laminate from bone or deep fascia to the dermis along the edges of the glide spaces, giving the face fixed lines (orbital rim, zygomatic body, anterior masseter border, anterior mandible) with mobile masses between them. Tear trough, lid–cheek junction, midcheek groove, jowl and prejowl sulcus appear where a tethered line meets a mass that bulges, sags or deflates. The nasolabial and marionette folds are partly muscle-insertion and fat-boundary folds, not pure ligament grooves. A fitter should therefore treat ligament lines as low-variance anchors and the spaces between them as high-variance regions that respond to gravity, expression and age.
-Evidence status: 5 ✅ / 15 📄 / 54 🧠 / 18 ↔️ — 🧠 items remain unverified; 4 queued claims were checked on 2026-11-20.
+Evidence status: 5 ✅ / 15 📄 / 54 🧠 / 18 ↔️ — 🧠 items remain unverified; 4 queued claims were checked on 2026-11-20; pass 2 checked 2 more, with no badge changes.
 
 ## Key facts
 
@@ -25,7 +25,7 @@ Evidence status: 5 ✅ / 15 📄 / 54 🧠 / 18 ↔️ — 🧠 items remain unv
 - The lid–cheek "Y" has three limbs: the tear trough (tear trough ligament), the palpebromalar groove (ORL), and the midcheek groove (the "Indian band"), which runs inferolaterally along the zygomaticocutaneous septum between medial and middle cheek fat 🧠 (Haddock 2009; Mendelson and Jacobson 2008).
 
 **Midface**
-- The zygomatic ligaments are strongest at the junction of the zygomatic body and arch, beside the origins of zygomaticus major and minor, with the zygomatic nerve branches just below. They pin the malar skin and form the lower edge of the malar mound 🧠. The main ligament is often quoted as ≈4.5 cm in front of the tragus ↔️ (unverified).
+- The zygomatic ligaments are strongest at the junction of the zygomatic body and arch, beside the origins of zygomaticus major and minor, with the zygomatic nerve branches just below. They pin the malar skin and form the lower edge of the malar mound 🧠. The main ligament is often quoted as ≈4.5 cm in front of the tragus ↔️ (unverified; a 2025-26 search found no tragus-referenced measurement, and a review says the patch's extent is not definitively described [29]).
 - The nasolabial fold (NLF) is a 3D curvature at the medial edge of the malar fat, made by the cutaneous insertions of the lip elevators and zygomaticus major [9] 📄. Which muscle dominates is disputed: levator labii and zygomaticus minor [10] vs zygomaticus major plus the elevators [9]. It is also distinct from nasolabial wrinkles [11] ↔️. It is a fat-boundary fold, not an osteocutaneous ligament line 🧠.
 - Superficial fat compartments (Rohrich and Pessa 2007): nasolabial; medial, middle and lateral-temporal cheek; three orbital; forehead; jowl. Deep: medial/lateral SOOF, deep medial cheek, buccal, ROOF. Septa between them show as lines when neighbouring volumes change unevenly 🧠.
 - Loss of the deep medial cheek fat removes support under both the tear trough and the NLF, deepening them without any ligament moving 🧠 (Rohrich, Pessa and Ristow 2008; Gierloff 2012).
@@ -106,7 +106,7 @@ Evidence status: 5 ✅ / 15 📄 / 54 🧠 / 18 ↔️ — 🧠 items remain unv
 - **Age as its own basis.** `laxity` ∈ [0, 1] gives d(x) = laxity·D·m(x)·ĝ(x), with ĝ inferomedial in the midface and inferior at the jowl and D ≈ 5 mm (uncalibrated). Add `deep_cheek_volume` (±3 mm along the normal) and `orbital_fat_prolapse`; with known age use laxity ~ N(f(age), 0.2). Jowls and troughs then cost no identity modes 🧠.
 - **Placement priors** (head frame mm, +x = subject's left, +y = up; all 🧠 with wide σ):
   - Tear trough: medial end 3–6 mm below endocanthion (σ 2); lateral end at pupil x, 14–18 mm below the pupil centre (σ 3).
-  - Lid–cheek junction: 10–13 mm below the lower-lid margin in young adults, increasing with age ↔️ (Lambros).
+  - Lid–cheek junction: 10–13 mm below the lower-lid margin in young adults, increasing with age ↔️ (Lambros; the direction is disputed [27][28], the 10–13 mm figure unconfirmed).
   - Mandibular ligament: arc fraction 0.25 ± 0.07 from menton to gonion, ≈10 mm above the border.
   - Masseteric line meets the jaw at arc fraction 0.6–0.75 (facial-artery notch).
   - NLF: from 2–5 mm lateral of the alar-facial groove to 8–15 mm lateral of cheilion.
@@ -156,6 +156,9 @@ This topic's own harvest and draft were absent. All URLs come from sibling harve
 [24] The Tear Trough Ligament: Anatomical Basis for the Tear Trough Deformity (Wong, Hsieh, Mendelson) — https://journals.lww.com/plasreconsurg/abstract/2012/06000/the_tear_trough_ligament__anatomical_basis_for_the.30.aspx — paper — 2012
 [25] Detailed anatomy of the retaining ligaments of the mandible for facial rejuvenation — https://pubmed.ncbi.nlm.nih.gov/27427339/ — paper — 2016
 [26] Anatomo-radiological study of the superficial musculo-aponeurotic system of the face — https://pubmed.ncbi.nlm.nih.gov/18333409/ — paper — 2008
+[27] Malar / Midface Descent (EyeWiki) — https://eyewiki.aao.org/Malar_/_Midface_Descent — medical reference — n.d.
+[28] Blending the Lower Lid Cheek Junction (Plastic Surgery Key) — https://plasticsurgerykey.com/blending-the-lower-lid-cheek-junction/ — book chapter — n.d.
+[29] Arch Plast Surg 2017;44(4):266-275 (McGregor's patch extent) — https://thieme-connect.de/products/ejournals/html/10.5999/aps.2017.44.4.266 — paper — 2017
 
 **Further reading (by name, not yet linked)**
 - Mitz V, Peyronie M, the SMAS in the parotid and cheek area, Plast Reconstr Surg, 1976.
@@ -189,3 +192,8 @@ This topic's own harvest and draft were absent. All URLs come from sibling harve
 - **Mandibular ligament (claim 2): contested, with values.** Osteocutaneous ligament 9.1 ± 3.1 mm above the inferior border, 51.1 ± 4.5 mm from the midline (10 fresh cadavers) vs Minelli 2022: true ligament only sub-platysmal, extent 63.1 / 59.3 mm from midline (men/women). Arc fraction 0.25 ± 0.07 unconfirmed. https://pubmed.ncbi.nlm.nih.gov/27427339/ ; https://pubmed.ncbi.nlm.nih.gov/36050569/
 - **SMAS thickness (claim 3): contested.** One cadaver CT/MRI study: 0.76 ± 0.43 mm (parotid), 1.69 ± 0.52 mm (cheek), 2.41 ± 0.05 mm (NLF), opposite to the "thickest over parotid" convention; overall 0.5–3 mm range is consistent. MRI after microfocused ultrasound gave ≈0.6–0.94 mm (weak, from search summary). Sigma values 1.0/3.5 mm remain heuristics. https://pubmed.ncbi.nlm.nih.gov/18333409/
 - **1174-adult CT layer study (claim 4): confirmed as existing; values not obtained.** Abstract confirms 18–90 years, 33 landmarks, skin/fat/muscle compartments (published 2026, for finite-element headforms); no numbers in search results, so the layer prior is unchanged. https://pubmed.ncbi.nlm.nih.gov/42385786/
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Zygomatic ligament ≈4.5 cm anterior to tragus: unconfirmed.** No tragus-referenced distance for McGregor's patch was found. Furnas 1989 describes the ligament qualitatively, and a 2017 review says the patch's extent is not definitively described. Nearby nerve-to-tragus distances (≈1.9–3.2 cm) are for the facial nerve, not the ligament. Stays 🧠/↔️. https://thieme-connect.de/products/ejournals/html/10.5999/aps.2017.44.4.266
+- **Lid–cheek junction 10–13 mm, lengthening with age: contested.** Sources disagree on direction: one says Lambros showed the junction deepens but does not descend appreciably; midface reviews describe descent or lid elongation. No mm norms were found, so the figure is unconfirmed. Badge stays ↔️. https://eyewiki.aao.org/Malar_/_Midface_Descent ; https://plasticsurgerykey.com/blending-the-lower-lid-cheek-junction/

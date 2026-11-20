@@ -63,6 +63,41 @@
    "url": "https://link.keentools.io/210-post",
    "kind": "vendor",
    "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "KeenTools 2022.1 (7 April 2022) release notes",
+   "url": "https://keentools.io/news/2022-1",
+   "kind": "vendor",
+   "year": "2022"
+  },
+  {
+   "n": 11,
+   "title": "KeenTools version 2.1.1 (1 Oct 2020) release notes",
+   "url": "https://keentools.io/news/211",
+   "kind": "vendor",
+   "year": "2020"
+  },
+  {
+   "n": 12,
+   "title": "KeenTools 2023.3.0 (21 November 2023) release notes",
+   "url": "https://keentools.io/news/2023-3",
+   "kind": "vendor",
+   "year": "2023"
+  },
+  {
+   "n": 13,
+   "title": "KeenTools 2024.2.0 (20 August 2024) release notes",
+   "url": "https://keentools.io/news/2024-2",
+   "kind": "vendor",
+   "year": "2024"
+  },
+  {
+   "n": 14,
+   "title": "KeenTools 2024.3.0 (20 November 2024) release notes",
+   "url": "https://keentools.io/news/2024-3",
+   "kind": "vendor",
+   "year": "2024"
   }
  ],
  "references_by_name": [

@@ -2,7 +2,7 @@
 
 > Checking a likeness render against a photo is three separate jobs. First rebuild the camera: focal length *with* sensor width, principal point and pose. Then approximate the light, direction before balance and low-frequency before sharp. Finally compare render and photo in a colour-managed, masked compositor graph. Blender's still-photo camera matchers are third-party vanishing-point or facade tools built for architecture, so portraits need a landmark-based perspective solve. Two independent tutorials rotate the environment until light direction matches and only then refine locally. Diffuse face shading pins down only about 9 spherical-harmonic lighting terms, so cast shadows, catchlights and highlights carry the rest. Blender blends in linear light and ignores alpha, so Difference maps must be masked, and geometric checks must gate photometric or identity scores.
 >
-> Evidence status: 1 ✅ / 21 📄 / 39 🧠 / 12 ↔️ — verification pass 2026-11-20 settled 4 queued claims (2 confirmed, 2 contested); remaining 🧠 items are still unverified.
+> Evidence status: 1 ✅ / 22 📄 / 38 🧠 / 12 ↔️ — verification passes 2026-11-20 settled 6 queued claims (3 confirmed or corrected, 2 contested, 1 left unconfirmed); remaining 🧠 items are still unverified.
 
 ## Key facts
 
@@ -10,7 +10,7 @@
 - Still-image camera matching for Blender uses third-party tools: fSpy (standalone; successor to the BLAM add-on), Simple Camera Match (extension) and Photo-Match Camera (paid archviz add-on). 80.lv covered one such app; only its title was seen [1][2][3][11] 📄. Blender's own solver (Movie Clip Editor) needs a tracked sequence with parallax and does not solve a single still 🧠.
 - fSpy derives FOV and orientation from vanishing points; with one vanishing point the focal length must be supplied or guessed [1] 📄. Simple Camera Match solves focal length, location and rotation from X/Y/Z lines drawn along orthogonal edges [2] 📄. Photo-Match Camera assumes an upright facade and a level camera, and estimates focal length from a known width and distance [3] 📄.
 - Solvers need sensor size as well as focal length [4] 📄. FOV depends only on focal/sensor-width, so a 35 mm-equivalent value typed into a non-36 mm sensor gives the wrong FOV 🧠.
-- Viewport lens ≈ 2× camera lens: a user reports it, and a maintainer disputed that it is a bug [4] ↔️. Likely both are right 🧠: as I recall Blender's source, the free perspective viewport applies a fixed zoom of 2 (`CAMERA_PARAM_ZOOM_INIT_PERSP`), so a 50 mm viewport ≈ 25 mm camera FOV. Never read lens values off the free viewport.
+- Viewport lens ≈ 2× camera lens: a user reports it, and a maintainer disputed that it is a bug [4] ↔️. Likely both are right 🧠: as I recall Blender's source, the free perspective viewport applies a fixed zoom of 2 (`CAMERA_PARAM_ZOOM_INIT_PERSP`), so a 50 mm viewport ≈ 25 mm camera FOV. Two Blender bug reports (T78320, T43039) also record the 2× ratio, with the workaround of doubling the viewport lens [22][23], but the constant itself was not seen in source 🧠. Never read lens values off the free viewport.
 
 **Lighting**
 - Direction first: rotate the HDRI or environment until light direction on the subject matches the reference [6][7] ✅. Neither source measures accuracy.
@@ -89,7 +89,7 @@ Measure stops as log2(lit/shadow), using linear luminance from cheek patches tha
 
 | Metric | Measures | Lighting-sensitive | Reference scale | Badge |
 |---|---|---|---|---|
-| Landmark NME (÷ outer inter-ocular distance, IOD) | 2D geometry | No | Detector noise ≈ 3–4 % IOD on 300-W-style sets; conventions vary | 🧠 |
+| Landmark NME (÷ outer inter-ocular distance, IOD) | 2D geometry | No | Best published detectors reach ≈ 2.9–3.3 % IOD NME on the 300-W full set (HRNet-W18 3.32, STAR 2.87); conventions vary [21] (corrected in verification) | 📄 |
 | Contour distance on unoccluded jaw/cheek | Outline | No | px; preferred over IoU, which large areas saturate | 🧠 |
 | Masked linear MAE per region | Shading + albedo | Yes | Only after geometry passes | 🧠 |
 | SSIM (Wang et al. 2004) | Local structure | Partly | 0–1; no universal threshold | 🧠 |
@@ -194,6 +194,10 @@ Measure stops as log2(lit/shadow), using linear luminance from cheek patches tha
 [19] Improve USD camera import/export and round-tripping (Blender PR 112905) — https://projects.blender.org/blender/blender/pulls/112905 — developer discussion — 2023
 [20] Fix #92287: focal length not correctly computed when tracking vertical videos (Blender PR 114253) — https://projects.blender.org/blender/blender/pulls/114253 — developer discussion — 2023
 
+[21] STAR Loss: Reducing Semantic Ambiguity in Facial Landmark Detection (CVPR 2023) — https://openaccess.thecvf.com/content/CVPR2023/papers/Zhou_STAR_Loss_Reducing_Semantic_Ambiguity_in_Facial_Landmark_Detection_CVPR_2023_paper.pdf — paper (comparison-table figures via search summary) — 2023
+[22] Blender bug report T78320 (viewport vs camera focal length) — https://developer.blender.org/T78320 — developer tracker — n.d.
+[23] Blender bug report T43039 (3D view focal length vs camera, closed Invalid) — https://developer.blender.org/T43039 — developer tracker — n.d.
+
 **Further reading (by name, not yet linked)**
 - Debevec & Malik, "Recovering High Dynamic Range Radiance Maps from Photographs", SIGGRAPH 1997; Debevec, "Rendering Synthetic Objects into Real Scenes", SIGGRAPH 1998
 - Ramamoorthi & Hanrahan, "An Efficient Representation for Irradiance Environment Maps", SIGGRAPH 2001; Basri & Jacobs, "Lambertian Reflectance and Linear Subspaces", IEEE TPAMI 2003
@@ -210,3 +214,8 @@ Measure stops as log2(lit/shadow), using linear luminance from cheek patches tha
 - Blender 5.0 compositing_node_group and Composite → Group Output — confirmed (📄). https://developer.blender.org/docs/release_notes/5.0/compositor/ ; https://developer.blender.org/docs/release_notes/5.0/python_api/. Split Viewer → Split rename in 4.x — unconfirmed (🧠).
 - Iris 11.7 ± 0.5 mm (MediaPipe Iris) — confirmed (📄). https://research.google/blog/mediapipe-iris-real-time-iris-tracking-depth-estimation/
 - Selfie effect ~30 % wider nasal base at 12 in vs 5 ft (Ward 2018) — contested (↔️): reference distance reported as 5 ft by some coverage and as infinity by others; full text not retrieved. https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 ; https://www.sciencedaily.com/releases/2018/03/180301115349.htm
+
+## Verification log, pass 2 (2026-11-20)
+
+- Free perspective viewport applies a fixed zoom of 2 (CAMERA_PARAM_ZOOM_INIT_PERSP), so viewport lens ≈ 2× camera lens — unconfirmed (🧠) for the constant. Two Blender tracker reports confirm the observed 2× ratio and the double-the-lens workaround, but the source constant was not found and the reports date from 2.73 and 2.90. https://developer.blender.org/T78320 ; https://developer.blender.org/T43039
+- 68-point detectors reach about 3–4 % NME on 300-W full — corrected: best reported values are about 2.9–3.3 % (HRNet-W18 3.32, DAG 3.04, STAR 2.87), inter-ocular normalised; normalisation varies by paper. The 1.5–3 % IOD sigma and 2–3 % gate remain engineering values. https://openaccess.thecvf.com/content/CVPR2023/papers/Zhou_STAR_Loss_Reducing_Semantic_Ambiguity_in_Facial_Landmark_Detection_CVPR_2023_paper.pdf

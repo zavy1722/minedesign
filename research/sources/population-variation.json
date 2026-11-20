@@ -6,6 +6,18 @@
       "title": "Booth et al., Large Scale 3D Morphable Models, IJCV 2018",
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6953995",
       "supports": "LSFM built from 9,663 MeIn3D identities; group-specific models built from age/gender/ethnicity labels"
+    },
+    {
+      "n": 2,
+      "title": "Relethford 2002, Apportionment of global human genetic diversity based on craniometrics and skin color, AJPA",
+      "url": "https://scilit.com/publications/a8deb39a7d347f771a8ffce1049a49db",
+      "supports": "Craniometrics 13% among regions/6%/81% within local; skin 88%/3%/9%"
+    },
+    {
+      "n": 3,
+      "title": "Feng et al. 2022, TRUST, ECCV",
+      "url": "https://arxiv.org/abs/2205.03962",
+      "supports": "Light-skin bias in albedo estimation; FAIR benchmark balanced by skin colour"
     }
   ],
   "references_by_name": [

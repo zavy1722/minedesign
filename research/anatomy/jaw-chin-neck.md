@@ -2,7 +2,7 @@
 
 > The lower-face and neck silhouette stacks four layers. Bone sets ramus height, gonial angle, bigonial width and the chin; the masseter sits on top; then fat and gland (jowl, submental, submandibular); then the neck frame of hyoid, larynx, sternocleidomastoid (SCM) and platysma. On average men have a larger, taller, squarer and more everted mandible, a wider chin and a visible laryngeal prominence, and women a smaller, more tapered jaw and a narrower, rounder chin, but every metric overlaps between the sexes. Chin projection, gonial angle and cervicomental angle are nearly invisible frontally and shift with head pitch, mouth opening, beard and lighting, so a fitter must read them from camera-solved profile and 3/4 views and model head–neck articulation explicitly. No harvest or draft existed for this topic, so all values are expert knowledge. Sibling notes (`skull-osteology`, `muscles-mastication-jaw`, `muscles-lower-face`, `craniometric-landmarks`) hold sourced versions of some overlapping values.
 
-Evidence status: 2 ✅ / 0 📄 / 49 🧠 / 22 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 2 ✅ / 1 📄 / 46 🧠 / 24 ↔️ — remaining 🧠 items are unverified expert knowledge.
 
 ## Key facts
 
@@ -36,11 +36,11 @@ Evidence status: 2 ✅ / 0 📄 / 49 🧠 / 22 ↔️ — 🧠 items are queued 
 **Neck frame**
 - **SCM.** The sternal head arises from the manubrium and the clavicular head from the medial clavicle. It inserts on the mastoid and the lateral superior nuchal line. It shows as an oblique band from behind the lobe to the sternoclavicular joint; the sternal tendons frame the jugular notch, and the lesser supraclavicular fossa lies between the heads. Turning the head makes the opposite SCM pop. 🧠
 - **Retromandibular hollow.** The SCM passes behind the angle. The hollow between the ramus, lobe and mastoid is filled by parotid and is a key 3/4 shading cue. 🧠
-- **Thyroid cartilage.** The laminae meet at about 90° in men and about 120° in women. The prominence (C4–C5) is therefore far more visible in men; lean women may show a little. It rises about 1.5–3 cm on swallowing. The notch lies about 1–2 cm below the hyoid. 🧠
+- **Thyroid cartilage.** The laminae meet at about 90° in men and about 120° in women in textbooks, but imaging studies measure narrower angles: men about 64–90°, women about 93–103° [11][12]. The prominence (C4–C5) is therefore far more visible in men; lean women may show a little. It rises about 1.5–3 cm on swallowing. The notch lies about 1–2 cm below the hyoid. ↔️ for the angles (the male < female direction holds); level, rise and notch position remain 🧠
 - **Neck form.** A cylinder tilted about 10–20° forward, with oblique ends. At the back it joins the occiput near ear-lobe or nose-base height and drops to C7, which sits higher than the jugular notch in front. At the front it joins the face at C. 🧠 (artist convention)
 - **Size.** Circumference is about 37–42 cm in men and 31–36 cm in women. In muscular men, frontal neck width approaches jaw-silhouette width. In most women the neck reads clearly narrower than the jaw. 🧠
 - **Platysma** runs from the chest fascia to the border, lower lip and modiolus. Its medial bands appear with age, and decussation types are contested (see muscles-lower-face). 🧠
-- **Jaw motion.** For the first 20–25 mm of incisal opening the jaw rotates about the condyles, then translates forward. Normal maximum opening is about 40–55 mm. Freeway space at rest is about 2–4 mm, so "teeth apart" lengthens the lower face. 🧠
+- **Jaw motion.** For the first 20–25 mm of incisal opening the jaw rotates about the condyles, then translates forward. Normal maximum opening is about 40–55 mm. Freeway space at rest is about 2–4 mm, so "teeth apart" lengthens the lower face. 📄 for rotation then translation, roughly 20–25 mm handover [8][9] (a 2024 motion study reports some translation throughout opening [10]); the 40–55 mm range and the freeway space remain 🧠
 
 ## Numbers & reference tables
 
@@ -83,7 +83,7 @@ Evidence status: 2 ✅ / 0 📄 / 49 🧠 / 22 ↔️ — 🧠 items are queued 
 | Lower-face–throat angle (Sn–Gn′ / Gn′–C) | 100 ± 7° | Legan–Burstone | 🧠 |
 | Sn–Gn′ : C–Gn′ | ≈ 1.2 : 1 | Legan–Burstone | 🧠 |
 | Hyoid / laryngeal prominence level | C3–C4 / C4–C5 | anatomy texts | 🧠 |
-| Thyroid lamina angle | M ≈ 90°, F ≈ 120° | anatomy texts | 🧠 |
+| Thyroid lamina angle | M ≈ 90°, F ≈ 120° in texts; measured M ≈ 64–90°, F ≈ 93–103° [11][12] | anatomy texts / imaging | ↔️ |
 | Laryngeal rise on swallowing | ≈ 1.5–3 cm | — | 🧠 |
 | Neck circumference | M ≈ 37–42, F ≈ 31–36 cm | Western adults | 🧠 |
 | Preplatysmal submental fat | ≈ 2–6 mm lean; > 10 mm at high BMI | uncertain | ↔️ |
@@ -196,6 +196,11 @@ Sources added in the 2026-11-20 verification (most other values remain unsourced
 5. Influence of age, sex and mandibular parameters on cortical bone width (panoramic). https://pmc.ncbi.nlm.nih.gov/articles/PMC11983699
 6. How does the mandible age? AI-assisted shape analysis in the White population. https://pmc.ncbi.nlm.nih.gov/articles/PMC12011572/
 7. Morphometric evaluation of mandibular condyle, coronoid process and gonial angle, CBCT. https://pmc.ncbi.nlm.nih.gov/articles/PMC12191486/
+8. Temporomandibular joint anatomy and function (NCBI Bookshelf; rotation accounts for the first ~25 mm of opening). https://www.ncbi.nlm.nih.gov/books/NBK271/
+9. TMJ movement assessment and treatment considerations (Physiopedia; rotation to ~20 mm, then translation). https://www.physio-pedia.com/TMJ_Movement_Assessment_and_Treatment_Considerations
+10. Pure rotation in the temporomandibular joint during jaw opening? A digital motion analysis (2024). https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11026373/
+11. Imaging cohort study of the thyroid cartilage interlaminar angle (M 63.5°, F 93.3°). https://pmc.ncbi.nlm.nih.gov/articles/10175495
+12. Laryngeal framework surgical anatomy: a radiological study (M 88.3°, F 103.0°). https://pubmed.ncbi.nlm.nih.gov/34175169/
 
 **Further reading (by name, not yet linked)**
 - Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994
@@ -223,3 +228,11 @@ Sources added in the 2026-11-20 verification (most other values remain unsourced
 - Legan & Burstone norms (12±4°, 100±7°, 1.2:1, 4±2 mm, 1:2): unconfirmed; the search did not return the values (only bibliographic details, https://pubmed.ncbi.nlm.nih.gov/6575614/ for part of the series).
 - Ramus height Co–Go: contested, means span M 53–77, F 49–70 mm by method [3][4][5][6]; dry-bone M 61.6 / F 57.2 fits the note range.
 - Bony bigonial width 90–105 / 84–97 mm: contested/unconfirmed; one 3D study gives M 84.6 / F 80.7 [6], panoramic widths are not comparable.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Condyle 10–15 mm anterior to tragus: unconfirmed; no source found.
+- Jaw rotates for the first 20–25 mm of opening, then translates: confirmed (📄), about 25 mm [8] and about 20 mm [9]; a 2024 study finds translation is present throughout [10]. https://www.ncbi.nlm.nih.gov/books/NBK271/ , https://www.physio-pedia.com/TMJ_Movement_Assessment_and_Treatment_Considerations , https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11026373/
+- Normal maximum opening 40–55 mm: unconfirmed; sources give only thresholds (under 35 mm abnormal, few exceed 60 mm).
+- Thyroid lamina angle 90° M / 120° F: contested (↔️). Textbooks give 90/120; imaging studies give narrower values, M about 64–90°, F about 93–103° [11][12]. https://pmc.ncbi.nlm.nih.gov/articles/10175495 , https://pubmed.ncbi.nlm.nih.gov/34175169/
+- Laryngeal prominence at C4–C5, 1–2 cm below hyoid, 1.5–3 cm swallow rise: unconfirmed (one source places the superior border at C4; no rise figure found).

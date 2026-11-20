@@ -20,8 +20,8 @@
         [
           "US-NY",
           40,
-          "Civil Rights Law §50-f, deaths from 2020 onward; registration",
-          "knowledge"
+          "Civil Rights Law §50-f, deaths from 2020 onward; registration; confirmed by https://www.fr.com/news-insights/articles/new-york-passes-post-mortem-right-of-publicity-law/",
+          "sourced"
         ],
         [
           "US-TN",
@@ -97,7 +97,9 @@
         ]
       ],
       "population": "statutory law; living-person rights are lifetime everywhere listed",
-      "source_urls": [],
+      "source_urls": [
+        "https://www.fr.com/news-insights/articles/new-york-passes-post-mortem-right-of-publicity-law/"
+      ],
       "status": "knowledge",
       "notes": "From expert knowledge, not checked against statute text in this library. Statutes are amended often; verify before encoding in jurisdiction rules. Not legal advice."
     },
@@ -178,14 +180,17 @@
           "knowledge"
         ],
         [
-          "India draft IT Rules SGI label",
+          "India SGI label (Oct 2025 draft; final Feb 2026 rules disputed)",
           10,
-          "% of display area / initial audio duration (Oct 2025 draft)",
+          "% of display area / initial audio duration (Oct 2025 draft); final IT Amendment Rules 2026 notified 10 Feb 2026, 10% disputed (Khaitan: qualitative; LawSikho: 10%)",
           "contested"
         ]
       ],
       "population": "statutory law",
-      "source_urls": [],
+      "source_urls": [
+        "https://khaitanco.com/sites/default/files/2026-02/ERGO%20-%20IT%20Rules%20Amendment%20-%2016%20February%202026.pdf",
+        "https://lawsikho.com/blog/?p=5812"
+      ],
       "status": "knowledge",
       "notes": "Expert knowledge as of mid-2026; verify. India figure is from a draft that may have changed when notified."
     },

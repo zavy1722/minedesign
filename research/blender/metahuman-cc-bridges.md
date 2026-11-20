@@ -1,7 +1,7 @@
 # Bridges to MetaHuman, Character Creator, Daz
 
 > MetaHuman, Character Creator (CC) and Daz Genesis are all fixed-template systems, so a Blender likeness can enter them through only two doors. One is a **vendor conform** that accepts any topology (Mesh to MetaHuman, the 5.6+ MetaHuman Creator "Conform", Reallusion Headshot mesh mode). The other is a **same-topology morph** that Blender has already wrapped onto the vendor's template, with identical vertex count and order (CC morph import, Daz Morph Loader Pro, MetaHuman template or DNA editing). The add-on should therefore export a topology-agnostic "bridge-ready neutral", plus optional per-template wraps computed locally against the user's own licensed template and never redistributed. Licences, not geometry, are the binding constraint: Epic widened MetaHuman use beyond Unreal with UE 5.6 (2025) [4][5][6], Reallusion and Daz forbid redistributing raw base meshes, and uploading a real face to a vendor cloud needs the subject's informed consent. This topic had no harvest and no earlier draft, so nearly everything here is expert knowledge awaiting verification; nothing after late 2025 is known to me.
-Evidence status: 2 ✅ / 9 📄 / 60 🧠 / 12 ↔️ (after 2026-11-20 verification) — 🧠 items are queued for web verification.
+Evidence status: 2 ✅ / 12 📄 / 59 🧠 / 10 ↔️ (after 2026-11-20 verification, pass 2) — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -9,7 +9,7 @@ Evidence status: 2 ✅ / 9 📄 / 60 🧠 / 12 ↔️ (after 2026-11-20 verifica
 - **Every target is a template plus morphs.** Identity is stored as vertex positions or morph deltas on one vendor topology, and the expression rig assumes that topology 🧠.
 - **"Same topology" means the same vertex count *and* order.** Index-matched importers (Daz Morph Loader Pro, CC morph/target import, DNA tools) do not fail loudly on a reordered mesh; they produce exploded faces 🧠.
 - **Blender operations that reorder or recount vertices:** Join, Separate, Sort Mesh Elements, Remesh/Dyntopo/QuadriFlow, Decimate, applying Mirror or Weld, Symmetrize with merge, and exporting with "Apply Modifiers" while a Multires viewport level is above 0 🧠.
-- **FBX and OBJ preserve the control-vertex list.** glTF splits vertices at UV seams and sharp normals, so it cannot carry index-matched round trips. On OBJ import, "split by object/group" breaks the mesh into pieces 🧠.
+- **FBX and OBJ preserve the control-vertex list** 🧠. **glTF splits vertices at UV seams and flat-shaded edges and triangulates** 📄 [14], so it cannot carry index-matched round trips. On OBJ import, "split by object/group" breaks the mesh into pieces 🧠.
 - **Units and axes** 🧠:
   - Blender: metres, Z-up, characters face −Y.
   - Unreal Engine: centimetres, Z-up, left-handed; skeletal meshes face +Y in mesh space.
@@ -62,14 +62,14 @@ Evidence status: 2 ✅ / 9 📄 / 60 🧠 / 12 ↔️ (after 2026-11-20 verifica
 - **Facial profiles** 🧠: CC4 has Standard and Extended. Extended adds many expression morphs plus ARKit-compatible naming (counts unverified).
 - **CC/iC Blender Tools** 🧠 (add-on plus a pipeline plug-in inside CC; open source, recalled as GPL-3, author "soupday"): imports CC FBX with skin, eye and hair shaders and wrinkle maps, converts to Rigify, round-trips mesh and morph edits back to CC, and in newer versions adds a live link.
 - **Same-topology return** 🧠: export from CC at SubD 0, edit in Blender keeping vertex order, and re-import as a morph (OBJ or GoZ).
-- **Licence** ↔️: the base mesh and morphs may not be redistributed as raw editable assets outside an end product. Engine-bound export of some content has needed an export licence or a higher edition.
+- **Licence** 📄 [11]: the unique topology and rigs of the CC Avatar from the Base Model are Reallusion's property, and models made from the Base Model may not be sold as content assets in third-party marketplaces; models may be distributed only embedded in games, apps, interactive projects or 3D prints. Export of store content needs an Export License. Scope of raw base-mesh redistribution is not spelled out in what was found; check Reallusion for a specific project.
 
 ### Daz
 - **Figures** 🧠: Daz Studio is free. Genesis 8/8.1 date from 2017/2020; Genesis 9 (2022) is a unified, sex-neutral topology with eyes, mouth, lashes and tear as separate figures (recalled). Base counts ≈16.5k vertices (G8) and ≈25k (G9), recalled; verify.
 - **Face Transfer** 🧠: free, single frontal photo to a face morph plus texture. It is recognisable but smooth and front-biased.
 - **Morph return** 🧠: export the base figure at base resolution (SubD off, no morphs dialled, zero pose). Wrap it in Blender, then import with Morph Loader Pro: vertex count, order and scale preset must match, and "Reverse deformations" handles posed sculpts. HD morphs need separate tooling, so put fine detail in normal maps.
 - **Blender bridges** 🧠: the official Daz to Blender Bridge (recalled as Apache-2.0) and the community Diffeomorphic DAZ Importer (Thomas Larsson, GPL), which reads `.duf` directly with morphs and drivers. Diffeomorphic support for Blender 5.x is unverified.
-- **Licence** ↔️: the Standard licence covers renders and 2D. Games and other interactive use need an Interactive Licence per product. Base figures may not be redistributed. Recent EULAs add AI/ML-use clauses.
+- **Licence** 📄 [12][13]: the Standard licence covers renders and 2D. Games and other applications need an Interactive License, which each product's creator chooses whether to offer. The EULA defines "AI" and restricts it; the exact clause wording was only seen quoted on a forum. Base-figure redistribution ban not directly seen.
 
 ### Blender-native and third-party
 - **Faceit** generates ARKit-style, Audio2Face, tongue and phoneme shape-key sets and bakes sculpt or pose deformation into keys [3] 📄. An MPFB2 or custom head with ARKit-named keys can be exported as FBX and driven in an engine by Live Link Face, with no vendor rig 🧠.
@@ -112,7 +112,7 @@ Evidence status: 2 ✅ / 9 📄 / 60 🧠 / 12 ↔️ (after 2026-11-20 verifica
 |---|---|---|---|---|---|
 | OBJ | kept if modifiers are off or Multires is at 0, and no split on import | no | none; bake them | Morph Loader, CC morph, M2MH input | 🧠 |
 | FBX | kept (control points) | yes | yes | CC, UE, Daz bridges, M2MH | 🧠 |
-| glTF | split at UV seams and sharp edges | yes, on split vertices | m, Y-up | viewing only | 🧠 |
+| glTF | split at UV seams and sharp edges [14] | yes, on split vertices | m, Y-up | viewing only | 📄 |
 | USD | points kept | supported; DCC coverage uneven | metersPerUnit, upAxis | emerging | ↔️ |
 | DNA | own layout per LOD | correctives | cm | MetaHuman DNA tools only | 🧠 |
 
@@ -211,6 +211,11 @@ Evidence status: 2 ✅ / 9 📄 / 60 🧠 / 12 ↔️ (after 2026-11-20 verifica
 [9] Epic, MetaHuman 5.8 release notes — https://dev.epicgames.com/documentation/metahuman/metahuman-5-8-release-notes-in-unreal-engine — official docs — 2026
 [10] Epic, MetaHuman 5.7 release notes — https://dev.epicgames.com/documentation/metahuman/metahuman-5-7-release-notes — official docs — 2025
 
+[11] Reallusion Software EULA — https://www.reallusion.com/Content/EULA/AP/EULA_AP.htm — official — 2026
+[12] Daz 3D End User License Agreement — https://www.daz3d.com/eula — official — n.d.
+[13] Daz 3D Interactive Licenses — https://www.daz3d.com/interactive-license-info — official — n.d.
+[14] Blender Manual, glTF 2.0 — https://docs.blender.org/manual/en/4.4/addons/import_export/scene_gltf2.html — official docs — n.d.
+
 **Further reading (by name, not yet linked)**
 - Epic Games, MetaHuman documentation (Mesh to MetaHuman, MetaHuman Identity, MetaHuman Creator in UE 5.6+) and the Unreal Engine EULA / MetaHuman licence FAQ
 - Epic Games, MetaHuman DNA Calibration library (GitHub, EpicGames organisation)
@@ -231,3 +236,8 @@ Evidence status: 2 ✅ / 9 📄 / 60 🧠 / 12 ↔️ (after 2026-11-20 verifica
 - **Creator 5.6+ conform / DNA / auto-rig / DCC export**: corrected. Conform from DNA and from a DCC template mesh (From Template) confirmed; DCC Export is a zip of head DNA, body DNA and textures, not FBX (FBX + DNA is the Expression Editor export). Joints-only vs joints-plus-blendshapes auto-rig: unconfirmed. Vertex-order preservation implied, not stated. Sources: https://dev.epicgames.com/documentation/metahuman/saving-and-exporting-data ; https://dev.epicgames.com/documentation/metahuman/metahuman-creator-from-custom-mesh-tool-in-unreal-engine
 - **Current UE/MetaHuman version after 5.7; Mesh to MetaHuman textures/likeness**: corrected/partly unconfirmed. MetaHuman 5.8 exists (last planned major UE5 release); Mesh to MetaHuman does full-body from any topology; no-baked-texture assembly. Source texture transfer by Mesh to MetaHuman and likeness retention: unconfirmed; release date of 5.8 not found. Sources: https://dev.epicgames.com/documentation/metahuman/metahuman-5-8-release-notes-in-unreal-engine ; https://dev.epicgames.com/documentation/metahuman/metahuman-5-7-release-notes
 - **Template vertex counts (MetaHuman LOD0 head ~24k, G9 ~25k, G8 ~16.5k, CC3+)**: unconfirmed. Only forum posts of ~34.6k total vertices per MetaHuman (ambiguous, not head-only); nothing found for Daz or CC. Left as recalled (🧠).
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Reallusion/Daz licence terms**: confirmed in part (📄). Reallusion EULA: topology/rigs from the Base Model are Reallusion property, no marketplace resale, embedding in games/apps allowed, Export License for store content. Daz: Interactive License needed for games/apps and offered per product; EULA defines and restricts AI (clause wording seen only via forum quote). Raw base-mesh redistribution bans not directly seen. Sources: https://www.reallusion.com/Content/EULA/AP/EULA_AP.htm ; https://www.daz3d.com/eula ; https://www.daz3d.com/interactive-license-info
+- **Blender glTF splits vertices; FBX/OBJ preserve order; Multires Apply Modifiers**: glTF splitting confirmed (also triangulation) (📄). FBX/OBJ order preservation and Multires claim: unconfirmed (search returned nothing). Source: https://docs.blender.org/manual/en/4.4/addons/import_export/scene_gltf2.html

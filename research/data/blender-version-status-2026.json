@@ -21,11 +21,12 @@
           "2024-07",
           "2026-07",
           "3.11",
-          "knowledge",
-          "expert knowledge; support end inferred from the two-year LTS rule; still targeted by MPFB2 2.0.18 and FaceFit",
+          "sourced",
+          "support end confirmed by blender.org LTS pages (4.2 end-of-life, Jul 2026); release month and Python are expert knowledge",
           [
             "https://extensions.blender.org/add-ons/mpfb/versions/",
-            "https://github.com/VGCLUB/facefit-mpfb"
+            "https://github.com/VGCLUB/facefit-mpfb",
+            "https://www.blender.org/download/lts/4-2/"
           ]
         ],
         [
@@ -35,9 +36,10 @@
           "2027-07",
           "3.11",
           "sourced",
-          "support_end sourced (snippet); release month and Python are expert knowledge",
+          "support_end confirmed on blender.org 4.5 LTS page (supported until July 2027); release month and Python are expert knowledge",
           [
-            "https://www.blender.org/download/releases/"
+            "https://www.blender.org/download/releases/",
+            "https://www.blender.org/download/lts/4-5/"
           ]
         ],
         [

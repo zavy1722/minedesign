@@ -112,6 +112,34 @@
    "url": "https://en.wikipedia.org/wiki/Pupillary_distance",
    "kind": "secondary",
    "year": "current"
+  },
+  {
+   "n": 17,
+   "title": "MakeHuman basemesh concepts",
+   "url": "https://static.makehumancommunity.org/about/concepts/basemesh.html",
+   "kind": "official docs",
+   "year": "current"
+  },
+  {
+   "n": 18,
+   "title": "MPFB: the basemesh and its helpers",
+   "url": "https://static.makehumancommunity.org/mpfb/docs/assets/basemesh_and_helpers.html",
+   "kind": "official docs",
+   "year": "current"
+  },
+  {
+   "n": 19,
+   "title": "Ward et al., Nasal Distortion in Short-Distance Photographs: The Selfie Effect",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805",
+   "kind": "paper",
+   "year": "2018"
+  },
+  {
+   "n": 20,
+   "title": "Rutgers news: selfies drive self image",
+   "url": "https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery",
+   "kind": "press release",
+   "year": "2018"
   }
  ],
  "references_by_name": [

@@ -2,13 +2,13 @@
 
 > Since Blender 4.0, skin is a Principled BSDF with Subsurface Weight 1, Base Color as the diffuse albedo, and a per-channel scattering Radius × Scale that is a real distance, so it only works on a head at metric scale [1]. Subsurface IOR, Subsurface Anisotropy (the manual quotes a measured skin value of 0.8) and Random Walk (Skin) are Cycles-only, and random walk scatters through the true mesh volume, so the fitted head must be watertight, non-overlapping and finely subdivided at render time [1][2][5]. Most fake-looking skin comes from four errors: scale (wax), uniform low roughness with glass IOR (plastic), lighting baked into photo albedo (painted), and over-scaled pore displacement (orange peel). The physical starting values come from expert knowledge and are queued for checking: Jensen et al. 2001 diffuse mean free paths of about 3.7–4.8 mm (red) to 0.7–1.1 mm (blue), skin IOR ≈ 1.4, regional roughness and micro-displacement amplitudes. EEVEE Next only approximates SSS, in screen space.
 >
-> Evidence status: 2 ✅ / 15 📄 / 42 🧠 / 19 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 2 ✅ / 18 📄 / 41 🧠 / 18 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Principled BSDF inputs (manual and developer notes)**
 - **Subsurface Radius** is the average distance light scatters below the surface, set per RGB channel so red can go deeper than blue [1] 📄. **Subsurface Scale** multiplies it; the UI slider runs 0–50 cm (taken from a snippet) [1] 📄. Radius × Scale is a world-space length, so a head in normalized units or with unapplied object scale gets the wrong translucency 🧠.
-- **Subsurface Anisotropy:** 0 means light scatters equally in all directions. The manual says skin has been measured at **0.8** [1] 📄. Tissue optics puts the anisotropy factor g of epidermis and dermis at about 0.8–0.95 in visible light (van Gemert 1989; Tuchin) 🧠.
+- **Subsurface Anisotropy:** 0 means light scatters equally in all directions. The manual says skin has been measured at **0.8** [1] 📄. Tissue optics puts the anisotropy factor g of epidermis and dermis at about 0.73 (380 nm) to 0.84 (780 nm) in visible light [14] 📄 (corrected in verification; previously 0.8–0.95).
 - **Subsurface IOR** is Cycles-only. It applies to rays entering the subsurface component and can differ from the main IOR; the manual suggests this to imitate skin layers [1] 📄.
 - **Main IOR:** most materials lie between 1.0 and 4.0, and the default of 1.5 is glass [1] 📄. Graphics convention for skin is ≈1.4 (F0 ≈ 0.028; d'Eon & Luebke) 🧠. Tissue data go up to about 1.55 for the stratum corneum ↔️.
 - **Thin-wall mode** turns off Radius, Scale and Method [1] 📄. The 5.2 release notes list Thin Wall as a new boolean Principled BSDF input, so it is a 5.2 feature [12]; it is in the current manual [1].
@@ -38,7 +38,7 @@
 
 **Physical skin and resources**
 - **Jensen et al. 2001** measured diffuse mean free paths (Table B). These became Blender Internal's old Skin1/Skin2 SSS presets. Only a handful of light-skinned subjects were measured 🧠.
-- **Specular:** skin reflects like an untinted dielectric (sebum over stratum corneum). Weyrich et al. 2006, on roughly 150 faces, found specular strength and roughness vary by region, with the oily T-zone sharper and stronger. Fits favour two lobes, one sharp and one broad 🧠.
+- **Specular:** skin reflects like an untinted dielectric (sebum over stratum corneum). Weyrich et al. 2006, on 149 faces [15] 📄 (sample size only), found specular strength and roughness vary by region, with the oily T-zone sharper and stronger. Fits favour two lobes, one sharp and one broad 🧠.
 - **Albedo:** high in red, a haemoglobin dip near 540–580 nm, and melanin suppressing short wavelengths (Anderson & Parrish 1981). Linear albedo runs from about 0.55–0.65 in red for very light skin down to ≤0.05 in blue for very dark skin ↔️.
 - **Microgeometry:**
   - Pores and furrows stretch along tension lines (Langer's lines), more with age (sizes in Table D) ↔️.
@@ -72,7 +72,7 @@
 | Diffuse mfp, skin1 (Jensen 2001) | 3.67 | 1.37 | 0.68 | mm | few subjects, light skin | 🧠 |
 | Diffuse mfp, skin2 (Jensen 2001) | 4.82 | 1.69 | 1.09 | mm | as above | 🧠 |
 | Ratio to red (skin1 / skin2) | 1 | 0.37 / 0.35 | 0.19 / 0.23 | — | derived | 🧠 |
-| Anisotropy g | 0.8–0.95 | | | — | tissue optics, visible light | ↔️ |
+| Anisotropy g | 0.73 (380 nm) – 0.84 (780 nm) | | | — | tissue optics, visible light [14] (corrected in verification) | 📄 |
 | IOR → F0 = ((n−1)/(n+1))² | n 1.35–1.55 → 0.022–0.047; n 1.4 → 0.028 | | | — | convention vs tissue data | ↔️ |
 
 **C. Starting values and priors, Cycles skin material (Blender ≥4.0, metre units)**
@@ -205,6 +205,8 @@
 [11] Principled BSDF — Blender 3.6 Manual — https://docs.blender.org/manual/en/3.6/render/shader_nodes/shader/principled.html — official-docs — 2023
 [12] Rendering - Blender 5.2 Release Notes — https://developer.blender.org/docs/release_notes/5.2/rendering/ — official-docs — 2026
 [13] EEVEE - Blender 4.2 LTS Release Notes — https://developer.blender.org/docs/release_notes/4.2/eevee/ — official-docs — 2024
+[14] Estimation of Spectral Biophysical Skin Properties from Captured RGB Albedo — https://arxiv.org/pdf/2201.10695 — paper — 2022
+[15] Analysis of Human Faces using a Measurement-Based Skin Reflectance Model (Weyrich et al.) — https://vcg.seas.harvard.edu/publications/20060730-analysis-of-human-faces-using-a-measurement-based-skin-reflectance-model — paper — 2006
 
 **Further reading (by name, not yet linked)**
 - Jensen, Marschner, Levoy & Hanrahan, "A Practical Model for Subsurface Light Transport", SIGGRAPH 2001
@@ -231,3 +233,8 @@
 - **Thin Wall version:** confirmed new in 5.2, https://developer.blender.org/docs/release_notes/5.2/rendering/ [12]. Note text updated.
 - **Skin IOR 1.4 / F0 0.028 vs ~1.55 stratum corneum:** unconfirmed as a specific source; searches gave soft tissue 1.38-1.41, stratum corneum about 1.467, dry about 1.55, but not tied to a single URL reliably. Left ↔️.
 - **EEVEE Next SSS:** partly confirmed (new SSS, Thickness output) at https://developer.blender.org/docs/release_notes/4.2/eevee/ [13]; screen space, shadow-map thickness, ignored inputs, vertex-only displacement and adaptive subdivision status unconfirmed. Left 🧠.
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Weyrich et al. 2006: about 150 faces, regional roughness m 0.25-0.45, T-zone more specular:** partly confirmed. The paper measured 149 subjects and reports Torrance-Sparrow and Blinn-Phong parameter statistics [15] (https://vcg.seas.harvard.edu/publications/20060730-analysis-of-human-faces-using-a-measurement-based-skin-reflectance-model). The search returned no per-region m values or T-zone statement, so those stay 🧠 (unconfirmed).
+- **Anisotropy g of epidermis/dermis 0.8-0.95 in visible light:** corrected. An arXiv paper gives g of epidermis and dermis rising from about 0.73 at 380 nm to about 0.84 at 780 nm, citing a 1989 skin-optics reference [14] (https://arxiv.org/pdf/2201.10695). So visible-range g is about 0.73-0.84; the manual's 0.8 sits inside this. One source only; the 0.95 upper bound is not supported.

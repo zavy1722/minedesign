@@ -45,7 +45,7 @@
 - **Faceit** (paid) generates ARKit-style, Audio2Face, tongue and phoneme keys and bakes modifier/pose/sculpt deformation into keys; listing states Blender 3.0–5.2 [8] 📄.
 - **Face Shape Key Rig** (free, GPL): viewport sliders and 2D pads, via bones and drivers, for *existing* keys; iFacialMocap and lipsync [9][10] 📄; requires 5.2+ [10] 📄.
 - **CaptureForge** (GPL-3.0) converts a posed face rig to ARKit 52 and drives it from video or webcam [11] 📄; **mediapipe-facecap-for-blender** pairs a MediaPipe transmitter with a Blender receiver [12] 📄.
-- FBX and Unity weights are 0–100; Unreal and glTF 0–1; glTF names targets in `mesh.extras.targetNames` 🧠. Do not trust exporters with `vertex_group` masks, non-Basis `relative_key`, drivers, or (FBX) keys under non-Armature modifiers: bake first ↔️.
+- FBX and Unity weights are 0–100; Unreal and glTF 0–1; glTF names targets in `mesh.extras.targetNames` 🧠. Do not trust exporters with `vertex_group` masks, non-Basis `relative_key`, drivers, or (FBX) keys under non-Armature modifiers: bake first ↔️ (glTF with Apply Modifiers dropping keys is reported in [17]; mask/relative_key/FBX parts unconfirmed).
 
 ## Numbers & reference tables
 
@@ -102,7 +102,7 @@ All rows 🧠.
 ## Applying this to photo→3D face sculpting in Blender
 
 1. **Freeze topology, key everything.** Basis = template mean; `ID_fit` = engine output (`from_mix=False`); `artist` = sculpt layer. Set `ID_fit.slider_max = 1.5`: 1.1–1.3 exaggerates deviation from the mean, aiding recognisability (caricature effect, Rhodes et al. 1987), valid only if Basis is a mean face 🧠.
-2. **Author expressions once, on the template**, with exact ARKit camelCase names (Faceit [8], CaptureForge [11], own sculpt, or deformation transfer from a licensed rig). Split L/R from a symmetric sculpt with masks summing to 1 across a 10–20 mm smoothstep midline band, so L + R reproduces it exactly. Characters face −Y, so subject's left = +X (Rigify `.L`) 🧠.
+2. **Author expressions once, on the template**, with exact ARKit camelCase names (Faceit [8], CaptureForge [11], own sculpt, or deformation transfer from a licensed rig). Split L/R from a symmetric sculpt with masks summing to 1 across a 10–20 mm smoothstep midline band, so L + R reproduces it exactly. Characters face −Y, so subject's left = +X (Rigify `.L`) 🧠 (ARKit half confirmed [16]; the +X mapping is derived).
 3. **Transfer deltas after the identity fit.** First pass: scale by s = IOD_subject/IOD_template and rotate into local frames; production: deformation transfer. Then re-fit lid closure and lip seal to the subject. Bake Basis_new = Basis + Δ_ID, each key = Basis_new + T(Δ_k), delete `ID_fit`. UI shortcut (naive copy): Edit Mode on Basis, select all, Blend from Shape `ID_fit` (add off), exit; verify on a copy 🧠.
 4. **Check every key at 1 on the clone** 🧠: lid gap 0–0.5 mm with no crossing; lips sealed at jawOpen+mouthClose; no teeth/eyeball penetration; L/R mirror RMS ≤ 0.5 mm on the template; spill (displacement energy outside the region mask) ≤ 1–2 %; magnitudes within Table 3.
 5. **Satellites:** teeth, tongue, lashes and caruncle get same-named keys driven by the face keys, or ride a jaw bone; hair follows via Deform Curves on Surface (`hair-blender.md`) 🧠.
@@ -133,7 +133,7 @@ All rows 🧠.
 - **Product vs min combination drivers** ↔️: product has a quadratic onset (0.25 at 0.5/0.5), min a linear one; match the sculpted half-way combination.
 - **Copy vs transfer vs personalise deltas** ↔️: copy is fast but wrong for large identity changes; transfer keeps semantics; example-based personalisation from the subject's photos is most faithful.
 - **Blendshapes vs bones for jaw and eyes** ↔️: ARKit is pure blendshape; production rigs add a jaw bone plus correctives.
-- **ARKit left/right** ↔️: Apple's face frame defines the face's own left, but community reports differ; wink-test every capture app.
+- **ARKit left/right** ↔️: Apple's docs define left/right relative to the face, so `eyeBlinkLeft` is the subject's own left [16], but community reports differ; wink-test every capture app.
 - **Is 52 enough?** For identity capture yes (expression only needs removing); for animation likeness it lacks AU11, 13, 21, 31, 38/39, cheek suck, independent lower-lid raise and neck 🧠.
 - **Open:** MediaPipe range compression and `_neutral` semantics; `lock_shape` version, any make-basis operator, `kb.points`, 5.x shape-key changes, exporter behaviour ↔️; Faceit's listed ceiling is 5.2 while 5.3 is current [8] 📄.
 
@@ -156,6 +156,8 @@ URLs [1]–[7] come from the facs-expressions harvest, [8]–[12] from the blend
 [13] Blender issue #44415 (shape keys vs Basis edits) — https://projects.blender.org/blender/blender/issues/44415 — bug tracker — n.d.
 [14] Blender Manual: Drivers Panel — https://docs.blender.org/manual/en/latest/animation/drivers/drivers_panel.html — official docs — n.d.
 [15] Blender Manual: Scripting & Security — https://docs.blender.org/manual/en/latest/advanced/scripting/security.html — official docs — n.d.
+[16] Apple ARKit: BlendShapeLocation (left/right relative to the face) — https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation.md — official docs — n.d.
+[17] Blender issue T69622 (glTF export with Apply Modifiers drops shape keys) — https://developer.blender.org/T69622 — bug tracker — n.d.
 
 **Further reading (by name, not yet linked)**
 - Lewis et al., "Practice and Theory of Blendshape Facial Models", Eurographics STAR 2014
@@ -175,3 +177,8 @@ URLs [1]–[7] come from the facs-expressions harvest, [8]–[12] from the blend
 - MediaPipe `_neutral` at index 0 + 51 alphabetical ARKit names: unconfirmed; docs confirm 52 scores and camelCase names like browDownLeft only. Stays 🧠. https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker
 - Basis edit propagation: edit-mode propagation to dependent keys confirmed (📄) by the Blender tracker [13]; the Python-write non-propagation half is only indirectly supported (reporter asks how to propagate from script), stays 🧠. https://projects.blender.org/blender/blender/issues/44415
 - Simple-expression drivers run without Python; others need Auto Run (off by default): confirmed 📄 [14][15]; min, max, abs, clamp in the supported list. https://docs.blender.org/manual/en/latest/animation/drivers/drivers_panel.html , https://docs.blender.org/manual/en/latest/advanced/scripting/security.html
+
+## Verification log, pass 2 (2026-11-20)
+
+- ARKit "Left" blendshapes = subject's own left (face-relative): confirmed for the Apple half (📄 [16]); the Blender +X mapping is derived and stays 🧠; the left/right disagreement stays ↔️ because community reports differ. https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation.md
+- Exporters ignore `vertex_group` mask / non-Basis `relative_key`; FBX drops keys under non-Armature modifiers: unconfirmed. Only partial evidence: glTF export with Apply Modifiers drops shape keys (T69622), and the glTF exporter skips muted keys and the basis key. Nothing found on vertex-group masks, relative_key chains or FBX. Stays ↔️/🧠. https://developer.blender.org/T69622

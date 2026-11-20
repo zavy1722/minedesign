@@ -19,7 +19,7 @@ Evidence status: 18 ✅ / 31 📄 / 33 🧠 / 20 ↔️ — 🧠 items are queue
 - **Sex.** Men are thicker both relaxed and contracted [2][18][48]. ✅ Korean young adults measured 9.8 ± 1.3 (F) and 11.3 ± 1.2 mm (M) relaxed, and 12.4 ± 1.4 and 14.7 ± 1.4 mm clenched, which is +27% and +30% (derived) [2][51]. ✅ The review's sex-specific ranges are consistent [1].
 - **Vertical facial pattern.** Relaxed thickness was 13.94 mm in hypodivergent faces, 12.53 mm in normodivergent and 11.13 mm in hyperdivergent [3]. 📄 The direction is confirmed elsewhere [4][5][8]. ✅
 - **Width, angle and occlusion.** Thickness correlates positively with bigonial and bizygomatic width and negatively with anterior face height and mandibular length (Raadsheer, cited secondhand) [8]. 📄 It correlates inversely with gonial angle and positively with ramus height [5]. 📄 It is greater in men and with normal occlusion [49]. 📄 All of this evidence is cross-sectional.
-- **Volume.** In the Bunkyo older-adult MRI cohort, volume was about 35 mL (M) and 25 mL (F) (summary). Whether that is per side is unclear. Low volume tracks sarcopenia and osteoporosis risk [24][25]. 📄 (both papers come from the same cohort)
+- **Volume.** In the Bunkyo older-adult MRI cohort, volume was 35.3 ± 7.8 mL (M) and 25.0 ± 5.1 mL (F), n = 1,484 [25][55]. Whether that is per side is unclear. Low volume tracks sarcopenia and osteoporosis risk [24][25]. 📄 (all from the same cohort)
 - **Age and growth.** Volume rises about 199% from age 0 to 17, with a left-side bias [26]. 📄 Thickness at 55+ is lower than at 18-35 [50]. 📄 Masticatory muscle declines with age [21][50]. ✅
 - **Adaptation to the skeleton.** After orthognathic correction, volume and cross-sectional area on the non-deviated side fell 13.5% and 16.4% [27]. Volume also changes after setback [28]. ✅ Masseter asymmetry therefore usually goes with skeletal asymmetry. 🧠 Strong masseters go with a laterally flared, everted angle and a roughened masseteric tuberosity. 🧠
 
@@ -27,7 +27,7 @@ Evidence status: 18 ✅ / 31 📄 / 33 🧠 / 20 ↔️ — 🧠 items are queue
 - **Bruxism.** Clenching is associated with masseter (and sometimes temporalis) enlargement and a "square" lower face [9][10][34][36]. ✅ Individual values overlap with controls, and in one sample there was no difference (12.91 against 13.07 mm, summary) [11]. ↔️
 - **A wide lower third is bone plus muscle.** It is attributed mainly to angle morphology plus masseter hypertrophy [6][34]. ✅ Hypertrophy can be one-sided. Parotid enlargement mimics it but does not harden on clenching. 🧠
 - **Toxin reduces bulk.** Thickness, volume and lower-face width all fall [6][13][14][15][16][39][47]. ✅ Reported effects are about −25% thickness [6] and −30% volume on CT [15]. 📄 A meta-analysis of 5 RCTs (536 participants) found short-term benefit with high heterogeneity [39]. An earlier review found no trials [40]. 📄
-- **Time course and bone.** The effect peaks at about 3 months [15][41]. ✅ Duration is reported as about 6 months [15] against 6-12 months [41]. ↔️ Bone effects are contested: see Table 4 [7][37][38]. ↔️
+- **Time course and bone.** The effect peaks at about 3 months [15][41]. ✅ Duration is reported as about 6 months [15] against 6-12 months [41]. ↔️ Bone effects are contested: see Table 4 [7][37][38][56]. ↔️
 - **Function and side effects.** Repeated doses reduce contraction and masticatory performance [6]. 📄 Side effects include fatigue and a limited or asymmetric smile [42]. 📄 There is no consensus dose, and the use is off-label [34][42]. ✅ Surgical debulking and angle reduction also exist [8][35]. ✅
 
 **Temporalis size**
@@ -70,7 +70,7 @@ Evidence status: 18 ✅ / 31 📄 / 33 🧠 / 20 ↔️ — 🧠 items are queue
 
 | Muscle, population | Value | Status |
 |---|---|---|
-| Masseter, Bunkyo older adults, MRI [24] | ≈ 35 mL (M), ≈ 25 mL (F); per side? | 📄 (summary) |
+| Masseter, Bunkyo older adults, MRI [25][55] | 35.3 ± 7.8 mL (M), 25.0 ± 5.1 mL (F); per side? | 📄 |
 | Masseter, children aged 0-17, CT [26] | about +199% across growth; left > right | 📄 |
 | Masseter, non-deviated side after orthognathic surgery [27] | volume −13.5%, cross-sectional area −16.4% | 📄 |
 | Temporalis, Taiwanese adults [21] | M peak 36.9 mL, −38%; F peak 27.9 mL, −60% | 📄 |
@@ -86,6 +86,7 @@ Evidence status: 18 ✅ / 31 📄 / 33 🧠 / 20 ↔️ — 🧠 items are queue
 | Duration, review [41] | — | lasts 6-12 mo | review | ↔️ |
 | Bone volume at the angle [37] | decreased | repeated doses | 20 (CBCT) | ↔️ |
 | Bigonial width, gonial angle, cortex [38] | no change vs placebo | 12 mo | 150 vs 37 (CT) | ↔️ |
+| Mandibular bone density [56] | no negative impact vs placebo (same 12-mo trial programme) | 12 mo | 123 (CT subpopulation) | ↔️ |
 | Bigonial width, skeletal angle [7] | no change | 6 mo | 10 | ↔️ |
 
 **Table 5. Anthropometric priors from expert knowledge (verify before shipping)**
@@ -209,6 +210,8 @@ Caliper gonion-to-gonion width (palpated bone, as in Farkas) is far smaller than
 52. A Morphometric Evaluation of the Mandibular Condyle, Coronoid Process, and Gonial Angle: Age and Gender Differences in CBCT Imaging — https://pmc.ncbi.nlm.nih.gov/articles/PMC12191486/ — paper — ~2025
 53. Forensic facial reconstruction: A computer tomography study of facial soft tissue thickness in Nigerian adult male multi-ethnic population — https://pmc.ncbi.nlm.nih.gov/articles/PMC12170741/ — paper — ~2025
 54. A preliminary study of facial soft tissue thickness for forensic facial reconstruction in a Nigerian adult female community — https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/ — paper — ~2025
+55. Masseter Muscle Volume and Its Association with Sarcopenia and Muscle Determinants with Insights from ACTN3 Polymorphism in Older Japanese Adults: the Bunkyo Health Study (medRxiv preprint of [25]) — https://www.medrxiv.org/content/10.1101/2024.04.17.24305946.full.pdf — preprint — 2024
+56. Longitudinal Computed Tomography Indicates No Negative Impact of OnabotulinumtoxinA on Mandibular Bone Density in a 12-Month, Double-Blind, Randomized, Repeat Treatment, Placebo-Controlled Study in Healthy Adults With Masseter Muscle Prominence — https://pubmed.ncbi.nlm.nih.gov/40843518 — RCT — ~2025
 
 **Further reading (by name, not yet linked)**
 - Farkas, *Anthropometry of the Head and Face*, 2nd ed., 1994
@@ -236,3 +239,10 @@ Caliper gonion-to-gonion width (palpated bone, as in Farkas) is far smaller than
 - **Soft-tissue depth at gonion 8-18 mm** — contested. Nigerian CT samples give 16.6 mm (M) and 15.2 mm (F); other conventions differ, and a global review says 2023 values rose about 2.5 mm over 2008. https://pmc.ncbi.nlm.nih.gov/articles/PMC12170741/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC13499785/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC10861615/
 - **Mid-ramus 14-26 mm and temple 9-18 mm** — unconfirmed (no adult value retrieved). Left 🧠.
 - **Taiwanese temporalis volumes (36.9 mL M at 20-29, 27.9 mL F at 30-39, −38% / −60%)** — confirmed by the PubMed record (320 adults, eight age groups; the abstract summary says the sexes converge after about 65). Whether volumes are per side is unconfirmed. Badge stays 📄 (one source). https://pubmed.ncbi.nlm.nih.gov/42373791/
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Bunkyo masseter volume (about 35 mL M, 25 mL F)** — confirmed, refined. The Bunkyo sarcopenia analysis (n = 1,484, 3D MRI) reports 35.3 ± 7.8 mL (M) and 25.0 ± 5.1 mL (F). The summary tied the figures to the sarcopenia paper and its preprint rather than the osteoporosis paper [24]; the search did not state whether volume is per side, so that stays open. Badge 📄. https://www.medrxiv.org/content/10.1101/2024.04.17.24305946.full.pdf , https://pubmed.ncbi.nlm.nih.gov/39405919/
+- **Botulinum toxin and bone** — contested, confirmed as such. The CBCT study [37] reports decreased bone volume at the angle after repeated injections, and the 12-month placebo-controlled CT study (150 vs 37) found no differences in bigonial width, cortical thickness, flare or gonial angle [38]; a companion CT analysis found no negative effect on bone density [56]. Badge ↔️. https://pmc.ncbi.nlm.nih.gov/articles/PMC5466904/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC13773675 , https://pubmed.ncbi.nlm.nih.gov/40843518
+- **Soft-tissue bulk −25-30% and recovery at about 6 vs 6-12 months** — unconfirmed in this pass (the search returned soft-tissue trials but no retrievable figures for these). Left as is.
+- **Badge count** — unchanged by this pass (18 ✅ / 31 📄 / 33 🧠 / 20 ↔️).

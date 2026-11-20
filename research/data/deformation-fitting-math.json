@@ -441,9 +441,11 @@
      0
     ]
    ],
-   "population": "recalled menpo3d non-rigid ICP defaults (not confirmed)",
-   "source_urls": [],
-   "status": "knowledge",
+   "population": "menpo3d non-rigid ICP defaults (nicp.py)",
+   "source_urls": [
+    "https://github.com/menpo/menpo3d/blob/master/menpo3d/correspond/nicp.py"
+   ],
+   "status": "partially verified (menpo3d defaults confirmed pass 2)",
    "notes": "Decreasing-stiffness principle is verified [Amberg 2007 + face-tracking papers]; these exact numbers are unverified."
   },
   {
@@ -480,8 +482,10 @@
     ]
    ],
    "population": "public 3D morphable face models",
-   "source_urls": [],
-   "status": "knowledge",
+   "source_urls": [
+    "https://arxiv.org/pdf/1905.06817"
+   ],
+   "status": "partially verified (FLAME 5023 vertices confirmed; component counts vary by release; ~3800 scans and BFM rows unconfirmed)",
    "notes": "From memory; verify before use. Licences not covered here (see multi-view-fitting and blender-face-addons notes)."
   }
  ]

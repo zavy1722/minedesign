@@ -1,7 +1,7 @@
 # Commercial photo-to-head tools
 
 > Every commercial "photo to head" product is a template fitter: it bends one fixed vendor topology inside a learned shape space until landmarks or user pins reproject onto the photos, then projects the photos as texture. Likeness is bounded by that shape space, the camera model and how many views constrain depth, and no vendor publishes millimetre error against ground-truth scans. In 2026 the field splits into a Blender-native pin fitter (KeenTools FaceBuilder), rig-ecosystem converters (Reallusion Headshot → Character Creator; Mesh to MetaHuman / MetaHuman Creator), a legacy statistical fitter (FaceGen), a scan-to-template wrapper (R3DS/Faceform Wrap), a downstream blendshape service (Polywink) and selfie-avatar SDKs (Avaturn, Avatar SDK) filling the space Ready Player Me reportedly left. They set the UX and output contracts to match (pins, per-photo cameras, camera groups, ARKit names, wrap-to-template) and expose the gap: an open, metric, auditable multi-view fit. With no harvest, everything is expert knowledge or contested recollection; prices, versions and licences are perishable.
-Evidence status: 4 ✅ / 2 📄 / 63 🧠 / 40 ↔️ — 🧠 items are queued for web verification; 4 claim groups checked 2026-11-20 (see log).
+Evidence status: 3 ✅ / 6 📄 / 59 🧠 / 36 ↔️ — 🧠 items are queued for web verification; 6 claim groups checked 2026-11-20 (see logs).
 
 ## Key facts
 
@@ -23,9 +23,9 @@ Evidence status: 4 ✅ / 2 📄 / 63 🧠 / 40 ↔️ — 🧠 items are queued 
 
 ### Reallusion Headshot (Character Creator)
 - **Headshot 1 (2020, CC3):** one frontal photo → CC head; Auto mode (full game head) or Pro mode (higher-resolution face texture) 🧠.
-- **Headshot 2 (2023, CC4)** adds Mesh mode: any-topology head, auto plus manual alignment points, refine brushes, texture bake; output is a rigged CC character with the CC facial profile (ARKit-compatible names in Extended) 🧠.
-- **CC5** reportedly shipped in 2025 with a denser head; Headshot's status there is unknown to me ↔️.
-- **Licence and price:** perpetual licences, each a few hundred US dollars, often bundled ↔️; raw base mesh and morphs not redistributable (`blender/metahuman-cc-bridges.md`) 🧠.
+- **Headshot 2 (2023, CC4)** adds Mesh mode, which converts imported 3D meshes of any topology into CC4 characters [10]; released June 2023 [10]; alignment points, refine brushes, texture bake, the CC facial profile with ARKit-compatible names, and local processing not confirmed 📄.
+- **CC5** shipped in August 2025 [11]; the denser head is not confirmed. Headshot 3 for CC5 launched in April 2026, with Headshot 1/2 owners offered an upgrade [12] 📄 (corrected in verification: Headshot does continue on CC5).
+- **Licence and price:** perpetual licences confirmed [11][12]; Headshot 2 was US$199 at launch [10], CC5 US$299 recommended price [11], Headshot 3 US$129–199 at launch [12] (single-source early-bird figures), often bundled 📄; raw base mesh and morphs not redistributable (`blender/metahuman-cc-bridges.md`) 🧠.
 - **Likeness:** photo mode is recognisable but depth-guessed; mesh mode is as good as its input and alignment points; base density limits lids and nostrils without SubD plus normal maps 🧠.
 
 ### MetaHuman (Epic Games)
@@ -44,7 +44,7 @@ Evidence status: 4 ✅ / 2 📄 / 63 🧠 / 40 ↔️ — 🧠 items are queued 
 
 ### R3DS Wrap (Faceform)
 - **Not photo-to-head:** it wraps a template onto a scan. Graph: point pairs → rigid alignment → Wrapping (control points, excluded polygons, coarse-to-fine smoothness) → optional texture-guided optical-flow wrapping → subdivide/project → texture and blendshape transfer; brush fixes, Python, batch 🧠.
-- **Family:** Wrap (year-versioned after Wrap 3), Wrap4D, ZWrap 🧠; reportedly rebranded Faceform, as `blender/import-export-scans.md` also flags ↔️. Subscription with an indie tier under a revenue cap; prices unverified ↔️.
+- **Family:** Wrap (year-versioned after Wrap 3), Wrap4D, ZWrap 🧠; reportedly rebranded Faceform, as `blender/import-export-scans.md` also flags ↔️. Sold as Faceform Wrap [13]; an Indie tier is limited to users under US$100,000/yr revenue, perpetual node-locked at US$570 [13]; subscriptions reportedly start at US$50/month or US$360/year (Wrap4D US$90/month) [14]; the rebrand itself is not documented in the sources found 📄.
 - **Role:** the de facto standard; its rigid + landmark + regularised NRICP pipeline is what the numpy wrap reproduces (`reconstruction/deformation-fitting-math.md`) 🧠.
 
 ### Polywink
@@ -64,7 +64,7 @@ Evidence status: 4 ✅ / 2 📄 / 63 🧠 / 40 ↔️ — 🧠 items are queued 
 |---|---|---|---|---|---|---|---|
 | FaceBuilder | photos | 1 / 5–9 incl. both profiles | pins + morphable head, per-view cameras | KeenTools head + projected texture | 51 ARKit-style | local | 🧠 |
 | Headshot photo mode | frontal photo | 1 / 1 | landmarks + learned depth | CC head + texture | CC profile | local | 🧠 |
-| Headshot 2 mesh mode | mesh | n/a | alignment points + conform | rigged CC character | CC profile | local | 🧠 |
+| Headshot 2 mesh mode | mesh | n/a | alignment points + conform | rigged CC character | CC profile | local | 📄 |
 | Mesh to MetaHuman | textured mesh | 1 frontal frame / + ¾ | 2D curve markers + identity solve | DNA rig | ≈250 controls | cloud autorig | ↔️ |
 | FaceGen PhotoFit | photos | 1 / 3 | manual points + 3DMM | FaceGen meshes | expression/phoneme morphs | local | 🧠 |
 | Daz Face Transfer | frontal photo | 1 / 1 | learned fit | Genesis morph + texture | Genesis | local | 🧠 |
@@ -153,6 +153,11 @@ Evidence status: 4 ✅ / 2 📄 / 63 🧠 / 40 ↔️ — 🧠 items are queued 
 7. https://techcrunch.com/2025/12/19/netflix-acquires-gaming-avatar-maker-ready-player-me/
 8. https://www.pocketgamer.biz/netflix-acquires-avatar-creation-platform-ready-player-me
 9. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9487071/
+10. https://www.cgchannel.com/2023/06/reallusion-ships-headshot-2-0
+11. https://www.cgchannel.com/2025/08/reallusion-releases-character-creator-5/
+12. https://digitalproduction.com/2026/04/28/reallusion-ships-headshot-3-for-cc5/
+13. https://www.cgchannel.com/2025/12/faceform-releases-wrap-2025-11-and-wrap4d-2025-11/
+14. https://digitalproduction.com/2025/10/03/wrap-2025-9-and-wrap4d-2025-9-faceform-updates/
 
 Related notes: `blender/metahuman-cc-bridges.md`, `blender/blender-face-addons.md`, `community/blenderartists-forum.md` (FaceBuilder release threads), `community/reddit-face-from-photos.md`, `reconstruction/photogrammetry-heads.md`, `reconstruction/single-image-regression.md`.
 
@@ -172,3 +177,13 @@ Related notes: `blender/metahuman-cc-bridges.md`, `blender/blender-face-addons.m
 - FaceBuilder price and licence: contested (US$179/yr to US$499/yr; prior note said 100-300). https://keentools.io/buy ; https://keentools.io/news/new-licensing ; https://www.cgchannel.com/2024/03/keentools-ships-facebuilder-2024-1-for-blender/ . GPL add-on with proprietary core, 51 ARKit blendshapes, Live Link CSV and Blender 5.x support: unconfirmed.
 - Ready Player Me / Netflix: acquisition confirmed (December 2025). https://techcrunch.com/2025/12/19/netflix-acquires-gaming-avatar-maker-ready-player-me/ ; https://www.pocketgamer.biz/netflix-acquires-avatar-creation-platform-ready-player-me . Closure on 31 Jan 2026: reported in search summary, not tied to a URL, unconfirmed.
 - No peer-reviewed benchmark: corrected. A clinical study tested Headshot v1.0 vs optical scans (RMSE 1.77 mm). https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9487071/ . None found for FaceBuilder, Mesh to MetaHuman or avatar SDKs.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Headshot 2 (2023) Mesh mode: confirmed (📄). https://www.cgchannel.com/2023/06/reallusion-ships-headshot-2-0 . Local processing and alignment-point/bake details: unconfirmed.
+- CC5 shipped 2025: confirmed (August 2025). https://www.cgchannel.com/2025/08/reallusion-releases-character-creator-5/ . "Denser head": unconfirmed. Headshot status under CC5: corrected, Headshot 3 for CC5 shipped April 2026. https://digitalproduction.com/2026/04/28/reallusion-ships-headshot-3-for-cc5/
+- Perpetual licences, few hundred USD: confirmed (Headshot 2 US$199, CC5 US$299, Headshot 3 US$129-199 early-bird). Same URLs as above.
+- Faceform rebrand: unconfirmed; sources use "Faceform" and "R3DS" for the same Wrap software without describing a change.
+- Indie tier with revenue cap: confirmed (under US$100k/yr; perpetual US$570). https://www.cgchannel.com/2025/12/faceform-releases-wrap-2025-11-and-wrap4d-2025-11/
+- Subscription tiers: confirmed in part (from US$50/month or US$360/year). https://digitalproduction.com/2025/10/03/wrap-2025-9-and-wrap4d-2025-9-faceform-updates/
+- Wrap pipeline sequence (point pairs, rigid, wrapping, optical flow, transfer): unconfirmed (no source found).

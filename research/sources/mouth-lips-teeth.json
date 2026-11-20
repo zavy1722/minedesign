@@ -196,6 +196,13 @@
    "url": "https://pubmed.ncbi.nlm.nih.gov/39198279/",
    "kind": "paper",
    "year": "2024"
+  },
+  {
+   "n": 29,
+   "title": "tfjs-models face-landmarks-detection: keypoint 291 missing in MEDIAPIPE_FACE_MESH_KEYPOINTS_BY_CONTOUR.lips (Issue #8221)",
+   "url": "https://github.com/tensorflow/tfjs/issues/8221",
+   "kind": "source-code-issue",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

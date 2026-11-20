@@ -2,7 +2,7 @@
 
 > Sculpt mode in 4.x–5.x is a mature toolset that keeps topology intact: per-vertex masks, per-face face sets, auto-masking, Expand, mesh/cloth/mask filters, gesture tools, transform tools and Multires. Three tools rebuild topology (Dyntopo, voxel remesh, QuadriFlow) and must stay off the delivery mesh. Two changes since 4.0 dominate: brushes became assets in 4.3 (the Essentials library, the asset shelf, `brush.asset_activate`), which broke older brush scripts, tutorials and keymaps; and a C++ rewrite of the sculpt internals across roughly 4.2–4.4 made dense meshes much faster. The current releases are 5.3 (10 Nov 2026) and 5.2 LTS [1][2][3], and only a few 5.x sculpt changes are sourced (see Release context), so anything else dated after 4.3 is low-confidence and every brush name, hotkey and operator signature must be probed at runtime.
 >
-> Evidence status: 1 ✅ / 9 📄 / 51 🧠 / 8 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 11 📄 / 49 🧠 / 7 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -49,7 +49,7 @@
 **Multires**
 - **Operators:** Subdivide (Catmull-Clark, Simple or Linear), Unsubdivide, Rebuild Subdivisions, Delete Higher/Lower, Apply Base and Reshape 🧠.
 - **Options:** Sculpt Base Mesh, Optimal Display, Quality (default 4), UV Smooth, Boundary Smooth, Use Creases and Use Custom Normals. The Displacement Eraser and Smear brushes work on its displacement 🧠.
-- **Limits:** Python cannot write displacement; shape keys do not carry Multires detail; editing base topology corrupts higher levels 🧠. **Reshape** copies coordinates from an object whose topology matches the current level, which makes it the scriptable write path 🧠 (moderate).
+- **Limits:** Python cannot write displacement; shape keys do not carry Multires detail; editing base topology corrupts higher levels 🧠. **Reshape** copies coordinates from an object whose topology matches the current level, which makes it the scriptable write path [14] 📄 (the manual and API confirm it copies vertex coordinates from another object with matching topology and indices; whether it acts only on the current level is unconfirmed).
 
 **Topology-rebuilding tools**
 - **Dyntopo:** detail modes Relative, Constant, Brush and Manual; Subdivide/Collapse refine; Detail Flood Fill; Symmetrize. It destroys vertex order, shape keys and clean UVs, and it cannot be combined with Multires 🧠.
@@ -57,7 +57,7 @@
 - **QuadriFlow:** gives quads, slowly 🧠.
 
 **Performance and other**
-- **Internals rewrite.** Around 4.2–4.4 the PBVH tree, brush loops and undo were rewritten in C++. Entering sculpt mode on dense meshes became several times faster, and memory use fell 🧠. The size of the speed-up is ↔️: reports range from about 2× to 10×, depending on the operation.
+- **Internals rewrite.** Around 4.2–4.4 the PBVH tree, brush loops and undo were rewritten in C++. Entering sculpt mode on dense meshes became several times faster, and memory use fell [12][15] 📄. Official figures for 4.3: entering sculpt mode about 5× faster (16M-face mesh, 11 s → 1.9 s), brush evaluation about 8× faster, memory about 30% lower (corrected in verification; the earlier 2–10× range is replaced by these figures).
 - **Node tools** (4.0) run Geometry Nodes groups as sculpt-mode operators; selection = unmasked area 🧠 (moderate).
 - **Shape keys:** strokes write into the active shape key 🧠.
 - **Painting:** colour attributes since 3.2; sculpt-mode texture painting had not shipped as of the author's knowledge 🧠.
@@ -190,6 +190,8 @@ Multires: faces = base × 4^L, edge = base edge ÷ 2^L.
 [11] Brush Operators — Blender Python API — https://docs.blender.org/api/current/bpy.ops.brush.html — official-docs — 2026
 [12] Blender 4.3: Sculpt, Paint, Texture — https://developer.blender.org/docs/release_notes/4.3/sculpt/ — official-docs — 2024
 [13] Blender 5.3: Sculpt, Paint, Texture — https://developer.blender.org/docs/release_notes/5.3/sculpt/ — official-docs — 2026
+[14] Multiresolution Modifier — Blender 5.3 Manual — https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html — official-docs — 2026
+[15] This Summer's Sculpt Mode Refactor — Blender Developers Blog — https://code.blender.org/2024/11/this-summers-sculpt-mode-refactor/ — official-docs — 2024
 
 [1] and [3]–[10] come from the blender-version-status-2026 harvest; this topic has no harvest, so no sculpt-feature fact is sourced.
 
@@ -207,3 +209,8 @@ Multires: faces = base × 4^L, edge = base edge ÷ 2^L.
 - `.sculpt_mask` / `.sculpt_face_set` names, `.hide_vert`/`.hide_poly`: unconfirmed (no release note names them; only the 5.4 sculpt notes mention the mesh `.sculpt_mask` value). Sources seen: https://developer.blender.org/docs/release_notes/5.4/sculpt/
 - 5.x sculpt changes: partly confirmed. 5.3 notes sourced (Multires texture display, paint auto-masking, per-brush unified paint settings; the "per mode" guess was corrected to per brush). Plane brush type: unconfirmed. Source: https://developer.blender.org/docs/release_notes/5.3/sculpt/
 - Voxel size default 0.1 and clip start 0.01 m: unconfirmed (manual Remesh page found but the search text did not state the default). Source seen: https://docs.blender.org/manual/en/latest/sculpt_paint/sculpting/tool_settings/remesh.html
+
+## Verification log, pass 2 (2026-11-20)
+
+- Multires Reshape copies vertex coordinates from another object with matching topology/indices: confirmed (📄); the "current level" part is unconfirmed. Sources: https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html
+- C++ refactor speed-ups: corrected. 4.3 notes: sculpt-mode entry about 5x faster (11 s to 1.9 s, 16M faces); blog: brush evaluation about 8x, memory about 30% lower. The 2-10x range is replaced by these figures. Sources: https://developer.blender.org/docs/release_notes/4.3/sculpt/ , https://code.blender.org/2024/11/this-summers-sculpt-mode-refactor/

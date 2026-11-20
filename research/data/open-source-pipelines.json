@@ -144,7 +144,7 @@
      "FLAME params per frame",
      "NVIDIA + Ubuntu",
      4,
-     "unverified",
+     "MIT",
      "FLAME (separate download)",
      "sourced"
     ],
@@ -170,7 +170,7 @@
      "FLAME params .npz; NeRF-style cameras",
      "CUDA (+nvdiffrast, knowledge)",
      "4-5",
-     "unverified",
+     "CC-BY-NC-SA-4.0",
      "FLAME",
      "sourced"
     ],
@@ -183,9 +183,9 @@
      "FLAME mesh + params",
      "large VRAM (>=16-24 GB?)",
      5,
-     "unverified",
+     "CC BY-NC 4.0",
      "FLAME",
-     "knowledge"
+     "sourced"
     ],
     [
      "video-head-tracker",

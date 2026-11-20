@@ -2,7 +2,7 @@
 
 > Polycount, the long-running game-art forum and wiki, comes at likeness from the realtime-character side. Critique arrives as paintovers and liquify-overs on a render placed beside a reference at a matched angle and lens, with "post wires" and "show the clay" as standing demands. The verdicts recur: the camera does not match the photo; the cranium and neck are undersized; the eyes are too big, too proud or thin-lidded; the lips do not wrap the teeth; the ears are misplaced; the face is too symmetric and too young; and likeness won in the sculpt is lost again in retopology, baking, shading or hair. Professional advice converges on coarse-to-fine gating, many long-lens references from one period, a scan or base-mesh start wrapped to the subject, and judging only through matched cameras under matched light. No harvest or earlier draft existed and no Polycount URL appears anywhere in the library, so everything below is expert knowledge or pinhole arithmetic; for the engine it becomes stage gates, one-sided hair and beard silhouette bounds, paintover ingestion, a critique lint and an export likeness check.
 >
-> Evidence status: 0 ✅ / 0 📄 / 60 🧠 / 25 ↔️ — verified 2026-11-20: Hertel, MRD1 and ear-tilt ranges found population-dependent (↔️); remaining 🧠 items unconfirmed.
+> Evidence status: 0 ✅ / 1 📄 / 60 🧠 / 24 ↔️ — verified 2026-11-20: Hertel, MRD1 and ear-tilt ranges found population-dependent (↔️); pass 2: MetaHuman LOD0 head vertex count confirmed 📄; remaining 🧠 items unconfirmed.
 
 ## Key facts
 
@@ -27,7 +27,7 @@
 **Professional workflow tips that recur**
 - **References:** 20–50+ photos from one period, sorted by angle on a reference board (PureRef is typical); prefer long-lens press and red-carpet images over close wide shots; film stills give angles but unknown lenses; keep neutral frames 🧠
 - **Caricature handles:** list the 3–5 features where the sitter departs most from average and protect them through every pass, the caricaturist's method (caricature research: Rhodes, Brennan & Carey 1987) 🧠
-- **Start point:** a scan-derived generic head or base mesh wrapped to the subject (R3DS Wrap, reportedly rebranded Faceform Wrap, in many pro pipelines) versus a sphere or DynaMesh blob for learning ↔️
+- **Start point:** a scan-derived generic head or base mesh wrapped to the subject (R3DS Wrap, now sold by Faceform as Wrap [7], in many pro pipelines) versus a sphere or DynaMesh blob for learning ↔️
 - **Low resolution first:** block masses at the lowest subdivision with a large Move brush; step up only when the lower level matches in every view 🧠
 - **Proxies early:** eyeball spheres before lids; a dental-arch proxy before lips 🧠
 - **Many cameras:** Maya image planes, ZBrush Spotlight and stored views; compare in each 🧠
@@ -77,7 +77,7 @@
 | PS3/360-era hero | ≈ 3k–8k | 1–2k maps | ↔️ |
 | PS4/XB1-era hero | ≈ 10k–30k | 2–4k plus detail normal | ↔️ |
 | Current-gen hero / cinematic | ≈ 30k–100k+ | 4k–8k or UDIMs plus tiling micro-normal | ↔️ |
-| MetaHuman LOD0 face | tens of thousands of vertices; exact count to verify | UDIM-style | ↔️ |
+| MetaHuman LOD0 face | ≈ 24,000 vertices for the head at LOD0 (Epic spec table, a guideline; vertices, not triangles) [6] (corrected in verification) | UDIM-style | 📄 |
 
 **Table D — Suggested retopology/bake likeness tolerances** (engineering suggestion, not a community standard)
 
@@ -143,6 +143,8 @@ No Polycount URL appears in the library. Verification sources (2026-11-20):
 3. AAO EyeWiki, Margin to Reflex Distance 1,2,3: https://eyewiki.aao.org/Margin_to_Reflex_Distance_1,2,3
 4. LEV102 Topical Gel in Acquired Blepharoptosis protocol (MRD1 normal 4.0–4.5 mm): https://cdn.clinicaltrials.gov/large-docs/46/NCT05715346/Prot_000.pdf
 5. Ear inclination in adult Rakhain males (Bangladesh): https://banglajol.info/index.php/JNINB/article/view/59937/41251
+6. Epic Games, Platform Support and LOD Specifications for MetaHumans (head LOD0 about 24,000 vertices): https://dev.epicgames.com/documentation/en-us/metahuman/platform-support-and-lod-specifications-for-metahumans
+7. CG Channel, Faceform releases Wrap 2025.11 and Wrap4D 2025.11: https://www.cgchannel.com/2025/12/faceform-releases-wrap-2025-11-and-wrap4d-2025-11/
  Cross-referenced library notes: `community/likeness-mistakes.md`, `community/zbrush-to-blender-likeness.md`, `community/blenderartists-forum.md`, `blender/sculpting-likeness-workflow.md`, `blender/reference-camera-setup.md`, `blender/eyes-modeling-blender.md`, `anatomy/facial-asymmetry.md`, `anatomy/ear.md`.
 
 **Further reading (by name, not yet linked)**
@@ -168,3 +170,10 @@ No Polycount URL appears in the library. Verification sources (2026-11-20):
 - Ear tilt 10–30°: contested, 15.6 ± 3.9° in one adult male cohort, >25° in some; tragion level with orbitale: unconfirmed. https://banglajol.info/index.php/JNINB/article/view/59937/41251
 - Neck circumference 36–42 cm men / 30–36 cm women: unconfirmed (ANSUR II report NATICK/TR-15/007 https://apps.dtic.mil/sti/pdfs/ADA611869.pdf holds the tables, not retrieved).
 - Cheilion 1.5–2 cm behind labrale superius: unconfirmed.
+
+## Verification log, pass 2 (2026-11-20)
+
+- MetaHuman LOD0 face "tens of thousands of vertices": corrected/confirmed to about 24,000 vertices for the head at LOD0 (Epic guideline; LOD1 12,000); no triangle count found. https://dev.epicgames.com/documentation/en-us/metahuman/platform-support-and-lod-specifications-for-metahumans
+- Current-gen hero heads about 30k-100k+ triangles at LOD0: unconfirmed (no source found).
+- R3DS Wrap now Faceform Wrap: confirmed (one source, 📄). https://www.cgchannel.com/2025/12/faceform-releases-wrap-2025-11-and-wrap4d-2025-11/
+- Polycount forum/wiki status in 2026 and wiki topology/edge-loop page names: unconfirmed (no Polycount results returned).

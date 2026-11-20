@@ -1,8 +1,8 @@
 # Multi-image and video 3DMM fitting
 
-> Multi-image or video fitting of a 3D morphable model (in practice FLAME) optimises **one shared identity vector β** against per-image camera, pose and expression. The losses are landmark reprojection and, optionally, a photometric render-and-compare term [1][2][4]. The open-source references are the Metrical Tracker (monocular, MICA identity prior), VHAP (photometric, with adaptive appearance priors) and flame-head-tracker (about 0.9–1.9 s/frame on an RTX 4090), and all three run offline [2][9]. 2026 multi-camera papers fit one FLAME parameter set to residuals from all views and report better robustness, but **no source here quantifies the gain over single-image fitting** [1][2]. From expert knowledge, the gain comes from side views turning depth (nose and chin projection, forehead slope) into image-plane measurements. It is capped by FLAME's capacity and by landmark-definition bias, and absolute scale stays unknown without a known baseline or an object of known size in shot.
+> Multi-image or video fitting of a 3D morphable model (in practice FLAME) optimises **one shared identity vector β** against per-image camera, pose and expression. The losses are landmark reprojection and, optionally, a photometric render-and-compare term [1][2][4]. The open-source references are the Metrical Tracker (monocular, MICA identity prior), VHAP (photometric, with adaptive appearance priors) and flame-head-tracker (about 0.9–1.9 s/frame on an RTX 4090), and all three run offline [2][9]. 2026 multi-camera papers fit one FLAME parameter set to residuals from all views and report better robustness, and the two 2026 papers give no numeric gain [1][2]; one earlier prior-guided multi-view head paper does quantify it (mean geometric error 3.869 mm with fewer images, falling to 2.598 and 2.301 mm as more images are used, against a 200-image Metashape reference), under a different setup from FLAME fitting [19] (corrected in verification). From expert knowledge, the gain comes from side views turning depth (nose and chin projection, forehead slope) into image-plane measurements. It is capped by FLAME's capacity and by landmark-definition bias, and absolute scale stays unknown without a known baseline or an object of known size in shot.
 >
-> Evidence status: 7 ✅ / 16 📄 / 43 🧠 / 3 ↔️ — 🧠 items are queued for web verification (4 claims checked 2026-11-20).
+> Evidence status: 7 ✅ / 18 📄 / 43 🧠 / 3 ↔️ — 🧠 items are queued for web verification (4 claims checked 2026-11-20; 2 more in pass 2).
 
 ## Key facts
 
@@ -10,7 +10,7 @@
 - **[1] uses keypoints from all 15 front-facing cameras of its rig.** It reports stronger geometric constraints and better robustness under hard poses and complex expressions, but gives no numeric gain [1]. 📄
 - **The Metrical Tracker is an offline, optimisation-based FLAME fitter built for monocular RGB.** [1] cites it as "ZBT22", and RealDenseFace calls it, and VHAP, offline pipelines [2]. ✅
 - **MICA is the shared identity prior.** [1] predicts identity shape with the MICA regressor, and flame-head-tracker credits MICA and DECA code [9]. ✅
-- **Where the tracker comes from.** The harvested snippet of *Towards Metrical Reconstruction of Human Faces* covers only MICA [3]. 📄 From knowledge, that ECCV 2022 work (Zielonka, Bolkart, Thies) also presents the tracker, released as a separate "metrical-tracker" repo. It combines MICA shape, MediaPipe dense and 68-point landmarks, and photometric spherical-harmonic (SH) lighting, and INSTA and later avatar papers reuse it. 🧠
+- **Where the tracker comes from.** The harvested snippet of *Towards Metrical Reconstruction of Human Faces* covers only MICA [3]. 📄 The tracker is released as a separate "metrical-tracker" repo by the paper's first author, described as a "Metrical Monocular Photometric Tracker [ECCV2022]" that needs MICA predictions to run [18]. 📄 From knowledge, it combines MICA shape, MediaPipe dense and 68-point landmarks, and photometric spherical-harmonic (SH) lighting, and INSTA and later avatar papers reuse it. 🧠
 - **Scale.** A single perspective image cannot fix the face's absolute size [3]. 📄 Uncalibrated multi-view, including structure-from-motion, also recovers shape only up to a similarity transform. Millimetres need a known baseline, a known object, or a metric prior (MICA-style, or the population mean in this engine's `Priors`). 🧠
 - **VHAP** aligns FLAME by photometric optimisation through differentiable mesh rasterisation. Its adaptive regional appearance priors let hair, ears, neck and shoulders align by appearance [4]. GAF (CVPR 2025) uses VHAP for FLAME tracking [7][8], and RealDenseFace describes it as FLAME plus appearance modelling [2]. ✅
 - **VHAP setup:** FLAME 2023 plus vertex masks (FLAME 2020 also supported). STAR landmarks are the default; face-alignment is faster but less accurate [4]. 📄
@@ -43,6 +43,7 @@
 | Multi-View Face and Gesture Animation with Dynamic Gaussians (2026) | 15 front-facing cameras | single FLAME fit; MICA identity | none (qualitative only) | 📄 [1] |
 | RealDenseFace multi-view extension (2026) | "all views" | single FLAME parameter set | none in snippet | 📄 [2] |
 | GaussianAvatars / NeRSemble tracking (VHAP) | 16 cameras | identity and per-frame expression/pose | not known to me | 🧠 |
+| Prior-Guided Multi-View 3D Head Reconstruction (2021) | 2 to more images (mean error 3.869, 2.598, 2.301 mm as images increase; 200-image Metashape reference) | multi-view head reconstruction, not FLAME | yes, as quoted | 📄 [19] |
 | MVF-Net (CVPR 2019) | 3 (front + two sides) | one 3DMM regressed from all views | reported, numbers not recalled | 🧠 |
 
 **Table 3 — Perspective magnification of nose tip vs ear plane** (derived: ratio = 1 + Δ/d with Δ ≈ 0.10 m nose-tip-to-tragus depth, plausible adult range 0.09–0.12 m; lens = 35 mm-equivalent focal that frames ~0.45 m on the long side)
@@ -121,13 +122,13 @@
 
 ## Disagreements, myths & open questions
 
-- **"More views always help."** Only views that add new directions help. Inconsistent expression, lighting or focal length between photos can worsen β. ↔️ [1] claims the benefit qualitatively, but the size of the gain is unquantified here.
+- **"More views always help."** Only views that add new directions help. Inconsistent expression, lighting or focal length between photos can worsen β. ↔️ [1] claims the benefit qualitatively; a quantified trend exists only in a different setup [19], and no FLAME-fitting benchmark gain is known.
 - **"Multi-view gives true size."** It does not without a known baseline, object or measurement (see Scale). 🧠
 - **Photometric vs landmark-plus-silhouette for identity.** Photometric terms improve alignment and expression [2][4] but are "sometimes sensitive" [4]. With uncontrolled lighting, hair or makeup, a geometric fit from well-spread views may give equal or better β. ↔️
 - **The FLAME fit is not the likeness.** Capacity limits ("limited degrees of freedom" [4]) mean ears, nose detail and asymmetry need offsets or sculpting.
 - **Licences.** FLAME 2023 Open is CC BY 4.0 [14], but the VHAP repo licence (a search summary reported CC-BY-NC-SA-4.0, not tied to a specific URL) and the Metrical Tracker repo licence are unconfirmed. ↔️
 - **Open questions.**
-  - Measured gain from 1 to N views in mm on a scan benchmark, landmark versus photometric.
+  - Measured gain from 1 to N views in mm for FLAME-style fitting on a scan benchmark, landmark versus photometric (only a non-FLAME trend is known [19]).
   - Whether VHAP officially supports calibrated multi-view input.
   - The resolution and iteration settings behind the speeds in [9].
 
@@ -150,6 +151,8 @@
 [15] Mean shape of the human limbus (tabulates Martin & Holden 1982: 11.64 ± 0.49 mm) — https://arxiv.org/pdf/1906.09149 — paper — 2019
 [16] White-to-white / HVID comparison across devices (PLOS ONE, Orbscan IIz 11.77 ± 0.40 mm) — https://doaj.org/article/0840ccb0d3d443789243e436aad55af0 — paper — 2021
 [17] FLAME official site — https://flame.is.tue.mpg.de/ — official project page — n.d.
+[18] metrical-tracker (Zielon) — https://github.com/Zielon/metrical-tracker — code repository — 2022
+[19] Prior-Guided Multi-View 3D Head Reconstruction — https://arxiv.org/html/2107.04277 — paper — 2021
 
 **Further reading (by name, not yet linked)**
 - Li, Bolkart, Black, Li, Romero, "Learning a model of facial shape and expression from 4D scans" (FLAME), SIGGRAPH Asia 2017
@@ -173,3 +176,8 @@
 - Adult horizontal visible iris diameter about 11.7 mm, SD about 0.4-0.5 mm: confirmed with refinement. Studies give means 11.64-11.81 mm and SD 0.24-0.49 mm; some biometers read 12.3-12.4 mm. The MediaPipe Iris 11.7 mm assumption was not verified. https://arxiv.org/pdf/1906.09149 ; https://doaj.org/article/0840ccb0d3d443789243e436aad55af0
 - FLAME 5,023 vertices, 300 shape, 100 expression components: confirmed. 9,976 triangles and metre units: unconfirmed (no result stated them). https://arxiv.org/pdf/2404.09819 ; https://arxiv.org/pdf/2608.09238 ; https://flame.is.tue.mpg.de/
 - VHAP is GaussianAvatars' tracker, supports 16-camera NeRSemble multi-view, repo licence: unconfirmed. A search summary said the repo is CC-BY-NC-SA-4.0 and derived from GaussianAvatars' multi-view head tracker, but this could not be tied to a specific result URL, so the note keeps it as unverified. Candidate pages: https://github.com/ShenhanQian/VHAP
+
+## Verification log, pass 2 (2026-11-20)
+
+- Metrical Tracker presented with MICA and released as a 'metrical-tracker' repo using MediaPipe dense + 68-point landmarks and an SH photometric term: partly confirmed. The repo exists (Zielon/metrical-tracker, "Metrical Monocular Photometric Tracker [ECCV2022]", needs MICA predictions, outputs FLAME mesh, textures, cameras). MediaPipe landmarks and SH lighting: unconfirmed, left 🧠. https://github.com/Zielon/metrical-tracker ; https://github.com/Zielon/MICA ; https://arxiv.org/pdf/2204.06607
+- "No source quantifies multi-view gain over single-image": corrected. Prior-Guided Multi-View 3D Head Reconstruction reports mean error 3.869 mm, 2.598 mm, 2.301 mm as input images increase (not FLAME fitting; no benchmark of FLAME fitting vs view count found). Other papers report mixed metrics and are not comparable. https://arxiv.org/html/2107.04277 ; https://arxiv.org/pdf/2003.08583 ; https://openaccess.thecvf.com/content/ICCV2021/papers/Li_Topologically_Consistent_Multi-View_Face_Inference_Using_Volumetric_Sampling_ICCV_2021_paper.pdf

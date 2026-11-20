@@ -189,6 +189,27 @@
    "url": "https://www.scribd.com/document/684241970/Flynn-1989",
    "kind": "secondary copy",
    "year": "1989"
+  },
+  {
+   "n": 28,
+   "title": "Geometry Proximity Node - Blender Manual",
+   "url": "https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/geometry/sample/geometry_proximity.html",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 29,
+   "title": "Store Named Attribute Node - Blender Manual",
+   "url": "https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/attribute/store_named_attribute.html",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 30,
+   "title": "Raycast Node - Blender Manual",
+   "url": "https://docs.blender.org/manual/en/3.1/modeling/geometry_nodes/geometry/raycast.html",
+   "kind": "official docs",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

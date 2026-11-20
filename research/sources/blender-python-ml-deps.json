@@ -203,6 +203,48 @@
       "url": "https://github.com/google-ai-edge/mediapipe/issues/6204",
       "kind": "tracker",
       "year": "2026"
+    },
+    {
+      "n": 30,
+      "title": "Command Line Arguments, Blender manual",
+      "url": "https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html",
+      "kind": "official docs",
+      "year": "2026"
+    },
+    {
+      "n": 31,
+      "title": "#76993 user site-packages path no longer in sys.path",
+      "url": "https://developer.blender.org/T76993",
+      "kind": "tracker",
+      "year": "2020"
+    },
+    {
+      "n": 32,
+      "title": "Blender 2.82 Python API release notes",
+      "url": "https://developer.blender.org/docs/release_notes/2.82/python_api/",
+      "kind": "official docs",
+      "year": "2020"
+    },
+    {
+      "n": 33,
+      "title": "#88930 --python-use-system-env not working anymore",
+      "url": "https://developer.blender.org/T88930",
+      "kind": "tracker",
+      "year": "2021"
+    },
+    {
+      "n": 34,
+      "title": "When will opencv-python support numpy 2.0? (#997)",
+      "url": "https://github.com/opencv/opencv-python/issues/997",
+      "kind": "tracker",
+      "year": "2024"
+    },
+    {
+      "n": 35,
+      "title": "opencv-python on PyPI",
+      "url": "https://pypi.org/project/opencv-python/",
+      "kind": "official listing",
+      "year": "2026"
     }
   ],
   "references_by_name": [

@@ -36,6 +36,12 @@
       "title": "Meshy pricing and credits docs",
       "url": "https://docs.meshy.ai/pricing",
       "accessed": "2026-11-20"
+    },
+    {
+      "id": 7,
+      "title": "Hunyuan3D-2.1 README (VRAM requirements)",
+      "url": "https://raw.githubusercontent.com/Tencent-Hunyuan/Hunyuan3D-2.1/main/README.md",
+      "accessed": "2026-11-20"
     }
   ],
   "references_by_name": [

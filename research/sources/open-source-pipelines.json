@@ -272,6 +272,30 @@
    "kind": "source code",
    "year": "n.d.",
    "via_harvest": "verification 2026-11-20"
+  },
+  {
+   "n": 35,
+   "title": "SimonGiebenhain/pixel3dmm README (CC BY-NC 4.0)",
+   "url": "https://github.com/SimonGiebenhain/pixel3dmm",
+   "kind": "repo",
+   "year": "2025",
+   "via_harvest": "verification pass 2 (2026-11-20)"
+  },
+  {
+   "n": 36,
+   "title": "PyTorch Forums: Is there a PyTorch build that supports RTX 5090 (sm_120)?",
+   "url": "https://discuss.pytorch.org/t/is-there-a-pytorch-build-that-supports-nvidia-rtx-5090-compute-capability-12-0-sm-120/223536",
+   "kind": "forum",
+   "year": "2025",
+   "via_harvest": "verification pass 2 (2026-11-20)"
+  },
+  {
+   "n": 37,
+   "title": "PyTorch Forums: Pytorch support for sm120 (p.4)",
+   "url": "https://discuss.pytorch.org/t/pytorch-support-for-sm120/216099?page=4",
+   "kind": "forum",
+   "year": "2025",
+   "via_harvest": "verification pass 2 (2026-11-20)"
   }
  ],
  "references_by_name": [

@@ -15,6 +15,16 @@
       "n": 3,
       "title": "Stephan & Henneberg 2003, Predicting mouth width from inter-canine width - a 75% rule",
       "url": "https://digital.library.adelaide.edu.au/dspace/handle/2440/5388"
+    },
+    {
+      "n": 4,
+      "title": "Lee, Wilkinson & Hwang 2012, accuracy assessment of forensic computerized facial reconstruction employing cone-beam CT",
+      "url": "https://ojp.gov/ncjrs/virtual-library/abstracts/accuracy-assessment-forensic-computerized-facial-reconstruction"
+    },
+    {
+      "n": 5,
+      "title": "Wilkinson, Rynn et al. 2006, blind accuracy assessment of computer-modeled forensic facial reconstruction",
+      "url": "https://researchonline.ljmu.ac.uk/id/eprint/5337/"
     }
   ],
   "notes": "No web harvest or earlier draft existed for this topic, so no URLs are cited. Linked sources on tissue depth, nose-aperture relations and Manchester-method accuracy are in research/sources/skull-osteology.json (its [1], [16], [17], [39], [42], [43], [46]-[48], [51]); corneal diameter as scale in research/sources/eyes-modeling-blender.json.",

@@ -321,20 +321,20 @@
     [
      "thyroid_lamina_angle_deg",
      "M",
-     85,
-     95,
+     64,
      90,
+     80,
      "anatomy texts",
-     ""
+     "contested: texts 90/120; imaging M 63.5-88, F 93-103 (PMC 10175495, pubmed 34175169)"
     ],
     [
      "thyroid_lamina_angle_deg",
      "F",
-     115,
-     125,
+     93,
      120,
+     105,
      "anatomy texts",
-     ""
+     "contested: texts 90/120; imaging M 63.5-88, F 93-103 (PMC 10175495, pubmed 34175169)"
     ],
     [
      "larynx_rise_on_swallow_mm",
@@ -393,7 +393,7 @@
    ],
    "population": "Adults; surgical/aesthetic norms and anatomy texts",
    "source_urls": [],
-   "status": "contested",
+   "status": "contested; thyroid lamina angle contested 2026-11-20",
    "notes": "Expert knowledge. CMA ideal vs measured values conflict and definitions differ. Vertebral levels: hyoid C3-C4, laryngeal prominence C4-C5, cricoid C6."
   },
   {

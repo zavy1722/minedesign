@@ -1,7 +1,7 @@
 # BlenderArtists forum knowledge on faces
 
 > BlenderArtists (BA) is where KeenTools announced each FaceBuilder for Blender release, from the 2.8 beta to 2021.1 "now with AI". It also hosts single-photo generator add-ons and a beginner question that keeps coming back: how do I model my own face from photos? The harvested threads say three things. Neural auto-pins are only a first draft. Focal length and sensor size are estimated for each photo. Expressive photos work, but neutral photos fit better. No thread gives an accuracy figure. The rest of this note sets out expert knowledge of how BA models and critiques faces, turned into numbers a solver can use.
-> Evidence status: 3 ✅ / 9 📄 / 44 🧠 / 9 ↔️ — 🧠 items remain unverified; 2026-11-20 verification pass corrected FLAME and KeenTools terms (see log).
+> Evidence status: 3 ✅ / 11 📄 / 44 🧠 / 9 ↔️ — 🧠 items remain unverified; 2026-11-20 pass 1 corrected FLAME and KeenTools terms; pass 2 confirmed Ward 2018 selfie figure and MakeHuman hm08 vertex counts (see logs).
 
 ## Key facts
 
@@ -41,7 +41,7 @@
 
 ## Numbers & reference tables
 
-**A. How much larger the nose-tip plane looks than the ear (tragion) plane.** Pinhole geometry gives 1 + d/Z, where Z is the distance from camera to nose tip and d is the depth from nose tip to tragion. The table uses d = 10 cm, with the bracketed range for d = 9–12 cm.
+**A. How much larger the nose-tip plane looks than the ear (tragion) plane.** Pinhole geometry gives 1 + d/Z, where Z is the distance from camera to nose tip and d is the depth from nose tip to tragion. The table uses d = 10 cm, with the bracketed range for d = 9–12 cm. Cross-check: Ward et al. 2018 report that at about 12 in (30 cm) the nasal base looks about 30% wider than at 5 ft, and the nasal tip about 7% [19][20] 📄 (a different quantity from the nose/ear ratio below, so the table stays derived).
 
 | Camera → nose tip (m) | Typical setup | Relative magnification | Badge |
 |---|---|---|---|
@@ -76,7 +76,7 @@
 | Model | Vertices | Parameters | Licence note | Badge |
 |---|---|---|---|---|
 | FLAME (2017/2020) | 5,023 (9,976 tris) | 300 shape, 100 expression; jaw, neck and eye joints | FLAME 2017/2019/2020 and the Blender add-on: non-commercial research, education or art only; the FLAME 2023 Open release is CC-BY-4.0 and allows commercial use, but the texture model is BY-NC-SA 4.0 [13][14] (corrected in verification) | 📄 licence / 🧠 counts |
-| MakeHuman hm08 (MPFB2) | ≈13,380 body (≈19,158 including helper geometry) | macro and micro targets | code is GPL-3+; whether the assets are CC0 or CC-BY is disputed (see `blender/blender-face-addons.md`) | 🧠 |
+| MakeHuman hm08 (MPFB2) | ≈13,380 body (≈19,158 including helper geometry; MakeHuman docs number body vertices 0–13379 and helpers up to 19157 [17][18]) | macro and micro targets | code is GPL-3+; whether the assets are CC0 or CC-BY is disputed (see `blender/blender-face-addons.md`) | 📄 vertex counts [17][18] / 🧠 rest |
 | Basel Face Model 2009 | 53,490 | 199 shape PCs | non-commercial, registration required | 🧠 |
 | ARKit blendshapes (Faceit target) | n/a | 52 | Apple spec | 🧠 |
 | MediaPipe Face Mesh | 468 (478 with refinement) | landmarks | Apache-2.0 | 🧠 |
@@ -205,6 +205,10 @@
 14. FLAME project page — https://flame.is.tue.mpg.de/ — official (MPI) — current
 15. 35 mm equivalent focal length (cites CIPA DCG-001, diagonal 43.27 mm) — https://en.wikipedia.org/wiki/35mm_equivalent — secondary — current
 16. Pupillary distance (cites Dodgson 2004) — https://en.wikipedia.org/wiki/Pupillary_distance — secondary — current
+17. MakeHuman basemesh concepts (body vertices 0–13379, helpers to 19157) — https://static.makehumancommunity.org/about/concepts/basemesh.html — official docs — current
+18. MPFB: the basemesh and its helpers (hm08 unchanged for a decade) — https://static.makehumancommunity.org/mpfb/docs/assets/basemesh_and_helpers.html — official docs — current
+19. Ward et al., Nasal Distortion in Short-Distance Photographs: The Selfie Effect, JAMA Facial Plast Surg 2018 — https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 — peer-reviewed paper (listed in results; figures read from the press summary in [20]) — 2018
+20. Rutgers news: selfies drive self image (30% wider nasal base at 12 in, tip 7%) — https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery — university press release — 2018
 
 **Further reading (by name, not yet linked)**
 - Farkas, *Anthropometry of the Head and Face* (2nd ed., 1994)
@@ -225,3 +229,9 @@
 - **EXIF FocalLengthIn35mmFilm on the diagonal** — confirmed only in part (one secondary source). CIPA DCG-001 defines the conversion by diagonal (43.27 mm); the DC-008 wording itself was not seen, and per-manufacturer practice is unconfirmed, so the Table C badge stays ↔️. https://en.wikipedia.org/wiki/35mm_equivalent
 - **KeenTools FaceBuilder terms** — corrected. Trial is 15 days per add-on, not 30; Blender 5.0 supported since KeenTools 2025.3; current price not found. https://keentools.io/products/facebuilder-for-blender , https://keentools.io/download-blender , https://keentools.io/news/2025-3
 - **Adult IPD (Dodgson 2004)** — contested. Mean about 63 mm (63.36 cited) is consistent; secondary sources give 50–75 mm, not 54–74 mm; the male–female 2–3 mm gap was not confirmed. The 63 ± 3.5 mm prior stays 🧠. https://en.wikipedia.org/wiki/Pupillary_distance
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Ward et al. 2018 selfie effect (about 30% nasal widening at about 30 cm)** — confirmed. At 12 in the nasal base appears about 30% wider (tip about 7%) versus 5 ft. The paper's numbers were read via the Rutgers summary, not the paper text. The pinhole figures in Table A (20% at 0.5 m, 10% at 1 m) are a derivation, not sourced, and stay 🧠; the 0.8 m guard threshold is a design choice. https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805 , https://www.rutgers.edu/news/selfies-drive-self-image-and-may-lead-many-seek-plastic-surgery
+- **MakeHuman hm08 vertex counts (13,380 body, 19,158 with helpers)** — confirmed (📄). Official docs number body vertices 0–13379 and helpers up to 19157. A Wikipedia figure of 15,128 was seen but its scope is unstated. https://static.makehumancommunity.org/about/concepts/basemesh.html , https://static.makehumancommunity.org/mpfb/docs/assets/basemesh_and_helpers.html
+- **FLAME 5,023 vertices / 9,976 triangles / 300 shape / 100 expression** — unconfirmed; the search did not cover it. Stays 🧠.

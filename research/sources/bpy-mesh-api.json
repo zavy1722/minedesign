@@ -15,6 +15,16 @@
       "n": 3,
       "title": "Speed up FBX export of vertex cos with numpy #104448",
       "url": "https://projects.blender.org/blender/blender-addons/pulls/104448"
+    },
+    {
+      "n": 4,
+      "title": "MeshPolygon (bpy_struct), Blender Python API (current): loop_total marked readonly",
+      "url": "https://docs.blender.org/api/current/bpy.types.MeshPolygon.html"
+    },
+    {
+      "n": 5,
+      "title": "Blender 5.0: Python API release notes (BGL removed; bpy.props no longer dict-accessible)",
+      "url": "https://developer.blender.org/docs/release_notes/5.0/python_api/"
     }
   ],
   "references_by_name": [

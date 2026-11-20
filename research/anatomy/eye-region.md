@@ -2,7 +2,7 @@
 
 > The eye region is a near-constant optical and bony frame dressed in highly variable soft tissue: a ~24 mm globe with a ~11.8 mm cornea, in an orbital aperture of roughly 40 × 35 mm, its corneal apex on average ~13–19 mm ahead of the lateral orbital rim depending on ancestry. Because adult globes and corneas vary little, the visible iris is the best metric ruler on the face, and "big", "small", "deep-set" or "prominent" eyes come from fissure height, lid position, crease and fold, epicanthus and protrusion, almost never from globe size. Every lid parameter (fissure length and height, canthal tilt, MRD1/MRD2, lid-peak position, crease height, fold overhang) shifts with gaze, expression, head pitch and population, so read it in a pose-solved head frame from a neutral, forward-gaze photo. A fitter should hold globe geometry on tight priors, place the globe with population-conditioned protrusion priors, and spend its freedom on lid contours, folds and brows. No eye-region harvest or earlier draft existed: sourced facts come from sibling-topic harvests in `research/_raw/harvests`, and most lid and orbit norms are expert knowledge awaiting verification.
 >
-> Evidence status: 18 ✅ / 33 📄 / 78 🧠 / 19 ↔️ — 🧠 items remain queued for web verification (Hertel, corneal diameter, canthal tilt checked 2026-11-20).
+> Evidence status: 20 ✅ / 33 📄 / 76 🧠 / 20 ↔️ — 🧠 items remain queued for web verification (Hertel, corneal diameter, canthal tilt, crease height, globe placement checked 2026-11-20).
 
 ## Key facts
 
@@ -16,7 +16,7 @@
 - The rim is frontal, zygomatic and maxillary bone; the infraorbital rim is maxilla medially, zygoma laterally [22][23] ✅. The infraorbital foramen sits ~6 mm (5–8.5) below the rim [23][24] ✅; the supraorbital notch ~2 cm from the midline [40][41] ✅.
 - Medial walls are near-parallel; lateral walls diverge at ~90° to each other, so the orbital axes point ~20–25° outward 🧠 (Whitnall). The aperture faces forward and outward: the lateral rim is the most recessed rim, the superior rim and brow the most projecting 🧠.
 - Hertel exophthalmometry (lateral rim → corneal apex) averages ~15–17 mm in white adults, more in Black adults (means ~17.5–18.5 mm), less in East Asians (~14.4 mm) (Table B) [42][43][44][45] ✅.
-- The globe sits slightly superolateral to the orbital centre ↔️ (Stephan & Davidson 2008). The forensic rule that a mid-supraorbital to mid-infraorbital tangent touches the cornea holds only to within a few mm, with the sign disputed ↔️.
+- The globe sits ~1–2 mm closer to the orbital roof and lateral wall than the orbital centre (Stephan & Davidson 2008, 4 cadavers, mean age 83; a 9-cadaver follow-up found only 2 of 13 near-central) [54][55] ✅. The forensic rule that a mid-supraorbital to mid-infraorbital tangent touches the cornea holds only to within a few mm, with the sign disputed ↔️.
 - "Negative vector" (cornea ahead of the infraorbital rim and cheek in profile) reads as prominent eyes with inferior scleral show and ages into a deep tear trough 🧠 (Jelks & Jelks).
 
 **Palpebral fissure and canthi**
@@ -30,7 +30,7 @@
 **Upper lid**
 - Levator palpebrae superioris arises from the lesser sphenoid wing above the optic canal and inserts into the anterior superior tarsus and lid skin [8][9][10] ✅ (CN III, superior division [9] 📄). Its skin insertions form the crease 🧠.
 - Orbicularis oculi: orbital part for forceful closure, palpebral part for reflex blinking [11][12] ✅. The palpebral part is preseptal, pretarsal and sometimes ciliary (Riolan) [11] 📄, running medial palpebral ligament → lateral raphe [11][13] ✅.
-- Crease height is sex- and population-dependent (Table C); in East Asian lids it is often low, tapers nasally into an epicanthal fold, or is absent ("single eyelid") 🧠 ↔️. The usual explanation is a lower septum–aponeurosis fusion that lets preaponeurotic fat descend, plus fewer skin insertions ↔️ (Jeong et al. 1999).
+- Crease height is sex- and population-dependent (Table C; Western measured means ~7 mm, lower than the earlier 8–11 mm F figure ↔️ [56]); in East Asian lids it is often low, tapers nasally into an epicanthal fold, or is absent ("single eyelid") 🧠 ↔️. The usual explanation is a lower septum–aponeurosis fusion that lets preaponeurotic fat descend, plus fewer skin insertions ↔️ (Jeong et al. 1999).
 - Crease ≠ fold: photos show the fold hanging over the crease. Tarsal platform show (TPS, margin→fold) and brow-fat span (BFS, fold→brow) describe the lid better than crease height; hooding drives TPS to zero, laterally first 🧠.
 - Superior sulcus depth reflects the central and medial preaponeurotic fat pads, the lacrimal gland laterally and ROOF under the brow; a deep sulcus means lean, older or enophthalmic 🧠.
 - The upper lid follows vertical gaze (lid–globe synergy), so a downward glance reads as hooding 🧠. Ptosis recruits frontalis and forehead lines [14] 📄, so a ptotic sitter may hold raised brows at "neutral" 🧠.
@@ -92,7 +92,7 @@
 | MRD1 / MRD2 | 4–5 / 5–5.5 mm | adults | 🧠 |
 | Canthal tilt | +2° to +8° (reference line varies) [50] | white adults | 📄 |
 | Canthal tilt | ~+6° to +12° (7.5 M / 10 F vs horizontal) [51] | East Asian samples | 📄 |
-| Upper crease height | 8–11 (F), 6–8 (M) mm | Western | 🧠 |
+| Upper crease height | 6.4–7.6 mm; means 7.3 F / 6.9 M (note's earlier 8–11 F, 6–8 M is higher) [56] | Western | ↔️ |
 | Upper crease height | absent, or 3–6 mm | East Asian | 🧠 ↔️ |
 | Tarsus height upper / lower | 8–12 / 3.5–5 mm; margin ~2 mm thick | adults | 🧠 |
 | Lid–cheek junction below margin | 10–12 (young) → ≥15–20 mm (old) | adults | 🧠 |
@@ -137,9 +137,9 @@
 ## Algorithmic implications
 
 - **Globe (fixed unless strong evidence):** `globe_r` N(12.0, 0.5) mm, `cornea_d` N(11.8, 0.6) [2][46][47], `cornea_R` N(7.8, 0.27) [4][5][6][7], `iris_depth` N(3.0, 0.3); shared L/R, asymmetry σ ≈ 0.2 mm 🧠.
-- **Globe position:** IPD N(63, 3.8) or sex-specific; `hertel_mm` by population: N(16, 2) white, N(18, 2) Black, N(14, 2) East Asian [42][43][44]; L–R difference σ 0.7 and vertical dystopia σ 1.0, flag either >2 mm; globe centre ~1–2 mm superolateral to the aperture centre (σ 1.5) on the bone layer ↔️ 🧠.
+- **Globe position:** IPD N(63, 3.8) or sex-specific; `hertel_mm` by population: N(16, 2) white, N(18, 2) Black, N(14, 2) East Asian [42][43][44]; L–R difference σ 0.7 and vertical dystopia σ 1.0, flag either >2 mm; globe centre ~1–2 mm superolateral to the aperture centre (σ 1.5) on the bone layer [54][55] ✅.
 - **Fissure and lids** as parametric margin curves on the globe+cornea offset surface: `fissure_len` N(30, 1.6), `fissure_h` N(9.5, 1.0), `tilt_deg` N(+5, 3) (East Asian N(+8, 3.5) ↔️), `MRD1` N(4.5, 0.8), `MRD2` N(5.25, 0.8), `upper_peak_dx` N(−1 nasal, 1), `lower_low_dx` N(+1 temporal, 1), `ex_depth_behind_en` N(10.5, 2.5) 🧠.
-- **Crease/fold:** mixture {absent, low 3–6 mm, standard} with population weights; `crease_h` N(9, 1.5) F / N(7, 1.2) M (Western); `fold_overhang` 0–4 mm, rising with age and laterally; `epicanthus` ∈ [0, 1] shifting visible en up to ~4 mm and hiding the caruncle 🧠.
+- **Crease/fold:** mixture {absent, low 3–6 mm, standard} with population weights; `crease_h` N(7.3, 1.5) F / N(6.9, 1.2) M (Western; corrected in verification [56] ↔️); `fold_overhang` 0–4 mm, rising with age and laterally; `epicanthus` ∈ [0, 1] shifting visible en up to ~4 mm and hiding the caruncle 🧠.
 - **Hard constraints:** no lid–globe penetration; margin thickness 1.5–2.5 mm; margins meet only at the canthi; ex ≥3 mm inside the bony lateral rim 🧠.
 - **Observations:** ex σ ≈ 0.7 mm; en σ ≈ 1.0 mm (2.5 with epicanthus or hidden caruncle); lid contours as point-to-curve residuals (σ ≈ 0.5 mm normal, free tangent); limbus edges σ ≈ 0.3 mm, horizontal extremes only; brow points σ 3–5 mm for bone, 1 mm for the hair curve 🧠. MediaPipe iris centres (468/473) drive gaze 🧠.
 - **Gates:** per-frame gaze from the iris ellipse with lid–gaze coupling (upper margin follows ~0.8–1.0 of corneal vertical displacement, lower ~0.3 in downgaze), or drop frames with |gaze pitch| > 10–15°. Drop lid residuals when eyeBlink/eyeSquint/eyeWide exceed ~0.2–0.3, lower-lid and tear-trough residuals when cheekSquint does 🧠.
@@ -153,7 +153,7 @@
 - **East Asian upper lid** ↔️: septal fusion vs missing skin insertions; single-lid and epicanthus prevalence vary widely 🧠.
 - **Intercanthal norms** ↔️ span 31–41 mm across samples [17][18][19]; a pooled review argues White-based standards must change [20] 📄.
 - **Canons:** "eyes at half head height" vs a textbook line through the lid bottoms [37] 📄; "five eyes across" [38] 📄, yet the orbital canon fit only 30.6% of African American women [35] 📄 and intercanthal width was below nose width in most of 1,050 Turkish adults [36] 📄.
-- **Globe placement** ↔️: centred vs superolateral; sign of the corneal-tangent rule.
+- **Globe placement**: superolateral is now sourced [54][55]; the sign of the corneal-tangent rule remains ↔️.
 - **Ptosis thresholds** ↔️: MRD1 ≤2 mm, <2.5 mm, or >1–2 mm side difference.
 - **Myths** 🧠: "big eyes = big eyeballs"; "eyes are full-size at birth" (the globe grows from ~16–17 to ~24 mm; only the cornea nears adult size by 2–3 y, `anatomy/child-growth.md`); "the crease is the fold"; "the tear trough is pigment".
 - **Open:** (Hertel norms now sourced, see Verification log) this library has no source yet for canthal depth, crease height by population, tarsal size, Hertel norms or lash geometry.
@@ -215,6 +215,9 @@ URLs come from sibling-topic harvests in `research/_raw/harvests` (eyes-modeling
 [51] Upper eyelid contour measurement in an Asian population using Bézier curve analysis (fissure obliquity 9.98 F / 7.52 M) — https://pmc.ncbi.nlm.nih.gov/articles/PMC12132956/ — paper — n.d.
 [52] A novel standardized distraction test to evaluate lower eyelid tension using 3D stereophotogrammetry (lateral canthus 2–4 mm above medial) — https://pmc.ncbi.nlm.nih.gov/articles/PMC8245927/ — paper — n.d.
 [53] Internal cantholysis for full thickness eyelid defects (lateral canthus ~2 mm above medial) — https://pmc.ncbi.nlm.nih.gov/articles/PMC3729649/ — paper — n.d.
+[54] The Placement of the Human Eyeball and Canthi in Craniofacial Identification (Stephan & Davidson, J Forensic Sci 2008) — https://www.pubmed.gov/18471206/ — paper — 2008
+[55] Further evidence on the anatomical placement of the human eyeball for facial approximation (Stephan, Huang, Davidson) — https://www.ojp.gov/ncjrs/virtual-library/abstracts/further-evidence-anatomical-placement-human-eyeball-facial — abstract — 2009
+[56] Upper eyelid crease height comparison table incl. Caucasian 6.9 M / 7.3 F (Cartwright et al.) — https://pmc.ncbi.nlm.nih.gov/articles/PMC5665901/table/Tab2 — paper table — n.d.
 
 **Further reading (by name, not yet linked)**
 - Farkas LG, *Anthropometry of the Head and Face*, 2nd ed., 1994.
@@ -238,3 +241,8 @@ URLs come from sibling-topic harvests in `research/_raw/harvests` (eyes-modeling
 - **ex 8–13 mm behind en; 12–17 mm behind corneal apex** — unconfirmed. Search returned no mm value (PMC6908328 aging-eyelid 3D paper may hold it but was not readable). Side finding: ex sits ~2–4 mm above en [52][53] (corrected from 1–3) https://pmc.ncbi.nlm.nih.gov/articles/PMC8245927/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC3729649/ .
 - **Corneal/iris diameter N(11.8, 0.6)** — confirmed for the mean: series give 11.65 ± 0.36, 11.65 ± 0.38, 11.79 ± 0.43, 11.84 ± 0.36 F / 12.12 ± 0.38 M [46][47][48][49] https://pmc.ncbi.nlm.nih.gov/articles/PMC4003087/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC10899605/ , https://pmc.ncbi.nlm.nih.gov/articles/PMC3428550 . Single-device SDs (0.36–0.43) are smaller than the pooled 0.79, so ±4–7% scale error is conservative. The MediaPipe 11.7 ± 0.5 assumption was not checked.
 - **Canthal tilt** — confirmed roughly, reference line dependent. Caucasian 6.5–8.5° (celebrity sample), 4.12° general [50] https://pmc.ncbi.nlm.nih.gov/articles/PMC10335162/ ; Asian fissure obliquity 9.98° F / 7.52° M vs horizontal [51] https://pmc.ncbi.nlm.nih.gov/articles/PMC12132956/ . No source used the intercanthal axis specifically.
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Upper crease height (Western 8-11 F / 6-8 M; East Asian absent or 3-6 mm); MRD1 4-5, MRD2 5-5.5** — Western crease: contested/corrected. A table citing Cartwright et al. gives Caucasian 6.9 mm M / 7.3 F (range 6.4-7.6) [56] https://pmc.ncbi.nlm.nih.gov/articles/PMC5665901/table/Tab2 . Search summary also reported Chinese 4.0-6.1 mm and Malay 6.1-8.3 mm in other studies, but I could not tie them to a specific URL, so the East Asian row stays 🧠 ↔️. MRD1/MRD2 values: unconfirmed (PMC10371930 likely holds MRD2 but values not shown).
+- **Globe ~1-2 mm superolateral; corneal-tangent rule** — superolateral position confirmed: eyeballs 1-2 mm closer to roof and lateral wall [54] https://www.pubmed.gov/18471206/ ; follow-up 13-cadaver study [55] https://www.ojp.gov/ncjrs/virtual-library/abstracts/further-evidence-anatomical-placement-human-eyeball-facial . Caveat: the original sample was 4 cadavers, mean age 83. Corneal-tangent rule: unconfirmed.

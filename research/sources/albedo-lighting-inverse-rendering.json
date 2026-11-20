@@ -15,6 +15,16 @@
       "n": 3,
       "title": "FLAME model license (non-commercial; FLAME 2023 Open under CC-BY-4.0)",
       "url": "https://flame.is.tue.mpg.de/modellicense.html"
+    },
+    {
+      "n": 4,
+      "title": "Deep3DFaceRecon_pytorch bfm.py (mirror)",
+      "url": "https://huggingface.co/spaces/1dm/talker/blob/main/src/face3d/models/bfm.py"
+    },
+    {
+      "n": 5,
+      "title": "ColorChecker (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/ColorChecker"
     }
   ],
   "references_by_name": [

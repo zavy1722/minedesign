@@ -10,6 +10,26 @@
    "n": 2,
    "title": "What does 2D geometric information really tell us about 3D face shape?",
    "url": "https://arxiv.org/pdf/1708.06703"
+  },
+  {
+   "n": 3,
+   "title": "Booth et al., LSFM (CVPR 2016)",
+   "url": "https://www.doc.ic.ac.uk/~aroussos/Booth_etal_3DMMlearntFrom10000Faces_CVPR16.pdf"
+  },
+  {
+   "n": 4,
+   "title": "FLAME paper",
+   "url": "https://download.is.tue.mpg.de/flame/flame_paper.pdf"
+  },
+  {
+   "n": 5,
+   "title": "REALY supplementary material",
+   "url": "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136680072-supp.pdf"
+  },
+  {
+   "n": 6,
+   "title": "FaceScape benchmark paper",
+   "url": "https://arxiv.org/pdf/2111.01082"
   }
  ],
  "references_by_name": [

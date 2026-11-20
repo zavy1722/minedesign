@@ -2,7 +2,7 @@
 
 > Human faces vary continuously, and mostly within populations. For genetic markers and for whole-skull shape, roughly 85–95% of variance lies among individuals of the same population and roughly 5–15% between continental regions 🧠. A few facial features break that pattern, with group means several within-group SDs apart: nose width, nasal-root height, midface projection ("facial flatness"), lip fullness and protrusion, the epicanthal fold and lid crease, and head shape 🧠. Most of these are depth and projection features, which a frontal photo constrains least. A photo→3D fit that leans on a 3D morphable model (3DMM) prior trained mostly on European-ancestry scans therefore pulls other faces toward European proportions 🧠. Ethnic templates are not the fix, because they replace the individual with a stereotype. The fix is to measure first, use balanced and widened priors, treat folds and creases as discrete states, take profile views, and audit errors per group 🧠.
 >
-> Evidence status: 0 ✅ / 1 📄 / 88 🧠 / 27 ↔️ — verified 2026-11-20 (1 of 4 queued claims partly confirmed; the rest remain 🧠).
+> Evidence status: 0 ✅ / 6 📄 / 80 🧠 / 27 ↔️ — verified 2026-11-20 (pass 1: 1 of 4 claims partly confirmed; pass 2: 2 of 2 claims checked, Relethford 2002 corrected and TRUST/FAIR confirmed; the rest remain 🧠).
 
 EUR, EAS and AFR-W label European-ancestry, East Asian, and West African or African-American samples. They name samples, not types.
 
@@ -12,7 +12,7 @@ EUR, EAS and AFR-W label European-ancestry, East Asian, and West African or Afri
 - **Genetic markers.**
   - Lewontin (1972): about 85% of variation lies within populations, about 8% among populations within a continental group, and about 6% among continental groups 🧠.
   - Rosenberg et al. (2002), 377 microsatellites: 93–95% within populations, 3–5% among major regions 🧠.
-- **Skulls.** About 11–14% of global craniometric variation lies among regions (Relethford 2002, on Howells' data). For skin colour the figure is about 88% 🧠. Most cranial shape fits neutral drift and isolation by distance, and diversity falls with distance from Africa (Manica et al. 2007) 🧠.
+- **Skulls.** About 13% of global craniometric variation lies among regions, 6% among local populations within regions and 81% within local populations (Relethford 2002, on Howells' data) [2] 📄 (corrected in verification). For skin colour about 88% lies among regions, 3% among local populations and 9% within them [2] 📄. Most cranial shape fits neutral drift and isolation by distance, and diversity falls with distance from Africa (Manica et al. 2007) 🧠.
 - **Different regions carry different signals.** The basicranium tracks population history, the face (especially the nose) tracks climate, and the mandible tracks diet (Harvati & Weaver 2006; von Cramon-Taubadel 2011) 🧠.
 - **Weak per-trait separation still adds up.** Correlated traits combine into accurate multivariate classification (Edwards 2003), so face recognisers and 3DMM latent spaces encode ancestry whether or not anyone asks them to 🧠.
 - **Variation is clinal**, and continental averages hide large spreads. Africa holds the most genetic and cranial diversity: East African faces and noses are narrower on average than West African ones (Hiernaux 1974). A single "African" template is therefore the least valid of all 🧠.
@@ -38,7 +38,7 @@ EUR, EAS and AFR-W label European-ancestry, East Asian, and West African or Afri
 **Bias in priors and tools**
 - **Training data.** The main 3DMMs (BFM, FLAME, LSFM, LYHM) were built largely from European-ancestry scans (Table 4). FaceScape (Chinese) is the main counterweight 🧠.
 - **Regression to the training mean.** With one frontal image and strong regularisation, a unimodal Gaussian prior returns the training mean wherever the photo is uninformative. The result is a narrower alar base, higher radix, more projected tip, thinner vermilion and longer head 🧠.
-- **Albedo.** Albedo models trained on light skin explain dark skin as shadow (Feng et al. 2022, TRUST and the FAIR benchmark) 🧠.
+- **Albedo.** Albedo models trained on light skin explain dark skin as shadow (Feng et al. 2022, TRUST and the FAIR benchmark, whose subjects are balanced by skin colour) [3] 📄.
 - **Recognition.** NIST IR 8280 found false-match rates 10–100× higher for some demographic groups in many algorithms 🧠.
 - **Landmarks** degrade at low-contrast alar creases and vermilion borders on dark skin in dim light, at folds over en, and on absent lid creases 🧠.
 - **Character-creator sliders.** MakeHuman/MPFB-style ancestry sliders bundle dozens of independent traits into one stereotype axis 🧠.
@@ -51,8 +51,8 @@ EUR, EAS and AFR-W label European-ancestry, East Asian, and West African or Afri
 |---|---|---|---|---|
 | Classical genetic markers | ~85% | ~6% (+~8% among populations within region) | Lewontin 1972 | 🧠 |
 | 377 microsatellites (HGDP) | 93–95% | 3–5% | Rosenberg 2002 | 🧠 |
-| Craniometrics | ~86–89% | ~11–14% | Relethford 2002 | 🧠 |
-| Skin reflectance | ~12% | ~88% | Relethford 2002 | 🧠 |
+| Craniometrics | ~81% (+~6% among local populations within region) | ~13% | Relethford 2002 [2] | 📄 (corrected in verification) |
+| Skin reflectance | ~9% (+~3% among local populations within region) | ~88% | Relethford 2002 [2] | 📄 |
 | One trait, two equal groups whose means are d within-SDs apart | 1 − share | share = d²/(d²+4): d = 1 → 20%, 2 → 50%, 3 → 69%, 4 → 80% | derived | 🧠 |
 
 **Table 2: Trait tendencies, adults** (sexes pooled unless stated). "Extreme d" is the separation of the most distant group means, in within-group SDs. Values are recalled ranges: use them for widening priors and for sanity gates, never as targets.
@@ -201,6 +201,9 @@ EUR, EAS and AFR-W label European-ancestry, East Asian, and West African or Afri
 
 1. Booth et al., "Large Scale 3D Morphable Models", IJCV 2018. https://pmc.ncbi.nlm.nih.gov/articles/PMC6953995
 
+2. Relethford 2002, "Apportionment of global human genetic diversity based on craniometrics and skin color", *AJPA* 118:393–398 (abstract). https://scilit.com/publications/a8deb39a7d347f771a8ffce1049a49db
+3. Feng et al. 2022, "Towards Racially Unbiased Skin Tone Estimation via Scene Disambiguation", ECCV. https://arxiv.org/abs/2205.03962
+
 Most other facts have no linked source yet. Sourced population values elsewhere in the library: `anatomy/anthropometric-norms.md` (Tables 2 and 5), `anatomy/forensic-reconstruction.md`, `anatomy/mouth-lips-teeth.md`, `anatomy/face-perception-likeness.md`.
 
 **Further reading (by name, not yet linked)**
@@ -248,3 +251,9 @@ Most other facts have no linked source yet. Sourced population values elsewhere 
 - **3DMM training populations**: partly confirmed. LSFM uses 9,663 MeIn3D identities, with demographic labels used for group-specific models [1]. "Large White majority", BFM 200, FLAME ~3,800 CAESAR, FaceScape ~900+ and licence terms were not found: unconfirmed. https://pmc.ncbi.nlm.nih.gov/articles/PMC6953995
 - **Lip/profile norms (E-line, nasolabial angle by group)**: unconfirmed. Results show only directional support (Korean and Japanese samples with more lip protrusion than European-American; no comparable numeric values for all three groups). https://media.dent.umich.edu/labs/mcnamara/files/Ethnic%20Differences%20in%20the%20Soft%20Tissue%20Profile%20of%20Korean%20and%20European-American%20Adults%20with%20Normal%20Occlusions%20and%20Well-Balanced%20Faces.pdf
 - **Lid crease absent 40–60% / crease 4–7 mm; epicanthal fold 40–90% vs <5%**: unconfirmed. Review snippets say ~50% of Asians lack a crease and fold incidence 40–90% in Asia vs 2–5% non-Asian, but they could not be tied to a specific reliable URL, and another source cites 17–18% single lids in Japanese women (contested). https://pmc.ncbi.nlm.nih.gov/articles/PMC4536062
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Relethford 2002 apportionment (craniometrics ~11-14% among regions, ~86-89% within; skin ~88%)**: corrected. Abstract-level results give craniometrics 13% among regions, 6% among local populations within regions, 81% within local populations; skin colour 88% / 3% / 9%. The 88% skin figure is confirmed; the old "86-89% within" for craniometrics became 81% within local populations (about 87% within regions). Text and Table 1 updated. https://scilit.com/publications/a8deb39a7d347f771a8ffce1049a49db
+- **Rosenberg 2002, 93-95% within populations (same claim)**: unconfirmed; no source in results. Stays unverified.
+- **Albedo/skin-tone bias, TRUST and FAIR benchmark (Feng et al., ECCV 2022)**: confirmed. The paper states that existing methods are biased toward light skin through biased priors and the light/albedo ambiguity; FAIR is a synthetic benchmark balanced by skin colour. https://arxiv.org/abs/2205.03962 (also https://github.com/HavenFeng/TRUST)

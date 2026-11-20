@@ -28,13 +28,13 @@
 ["Depth Anything V2 Large","~335M","518","community ONNX",2,8,"CC BY-NC 4.0"],
 ["Depth Anything V2 Giant","~1.3B","518","PyTorch",null,null,"CC BY-NC 4.0"],
 ["Depth Anything 3 family (S/B/L/G, Metric, Mono)","DA3Metric-Large ~350M","~500","PyTorch; community TensorRT",null,null,"per model, unverified"],
-["Marigold v1.x (SD2-based)","~0.87B U-Net","~768","diffusers",10,300,"code Apache-2.0; weights unverified"],
+["Marigold v1.x (SD2-based)","~0.87B U-Net","~768","diffusers",10,300,"v1-1 weights CreativeML Open RAIL++-M; code licence unverified"],
 ["DSINE","unknown","any (needs intrinsics)","PyTorch",1,10,"unverified"],
 ["Sapiens normal/depth 0.3B","0.3B","1024x768","TorchScript lite",5,30,"custom Meta licence, unverified"],
 ["Sapiens normal/depth 2B","2B","1024x768","TorchScript lite",60,null,"custom Meta licence, unverified"],
-["DAViD","compact","unknown","ONNX (reported)",null,null,"unverified"],
+["DAViD","compact","unknown","ONNX",null,null,"MIT (models and runtime code)"],
 ["Depth Pro","unknown","~1536","PyTorch",null,null,"Apple custom, unverified"]
-],"population":"Model families as distributed; CPU = typical desktop CPU, single image","source_urls":["https://github.com/ika-rwth-aachen/ros2-depth-anything-v3-trt","https://github.com/1038lab/ComfyUI-Depth-Anything-3"],"status":"knowledge","notes":"Expert knowledge, not checked against sources. CPU timings are rough order-of-magnitude estimates, not measurements. Verify every licence before bundling or recommending weights. Verified 2026-11-20 against the official Depth-Anything-V2 README: Small is Apache-2.0; Base/Large/Giant are CC-BY-NC-4.0. Sapiens licence not confirmed (official README points to a LICENSE file; a third-party wrapper says CC BY-NC 4.0). The source URLs support only the DA3 TensorRT path and the DA3Metric-Large size."},
+],"population":"Model families as distributed; CPU = typical desktop CPU, single image","source_urls":["https://github.com/ika-rwth-aachen/ros2-depth-anything-v3-trt","https://github.com/1038lab/ComfyUI-Depth-Anything-3","https://microsoft.github.io/DAViD","https://huggingface.co/prs-eth/marigold-normals-v1-1"],"status":"knowledge","notes":"Expert knowledge, not checked against sources. CPU timings are rough order-of-magnitude estimates, not measurements. Verify every licence before bundling or recommending weights. Verified 2026-11-20 against the official Depth-Anything-V2 README: Small is Apache-2.0; Base/Large/Giant are CC-BY-NC-4.0. Sapiens licence not confirmed (official README points to a LICENSE file; a third-party wrapper says CC BY-NC 4.0). The source URLs support only the DA3 TensorRT path and the DA3Metric-Large size. Verified pass 2 (2026-11-20): DAViD ONNX models and MIT licence (microsoft.github.io/DAViD); Marigold v1-1 normals weights are CreativeML Open RAIL++-M (HF model card; v0-1 was Apache-2.0). Remaining rows are still unverified."},
 {"name":"disparity_vs_depth_fit_error_and_ray_obliquity","units":"mm; degrees","columns":["camera_distance_mm","max_error_if_disparity_fitted_as_depth_mm","rms_error_mm","ray_obliquity_deg_at_70mm_offaxis"],"rows":[
 [300,4.9,2.1,13.1],
 [450,3.4,1.5,8.8],

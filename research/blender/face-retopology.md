@@ -2,7 +2,7 @@
 
 > Animation-ready face topology is a quad cage whose edge loops lie where skin folds and stretches. It has concentric rings around the eyes (orbicularis oculi) and mouth (orbicularis oris), a nasolabial loop that carries the smile fold, and rings at the ala and nostrils. Its poles (vertices with 3 or 5+ edges) sit in low-deformation zones. For a photo→3D likeness tool, design one template topology once and fit it to each subject by landmarks and feature curves. Never retopologise the likeness mesh: remeshing destroys correspondence, shape keys, UVs and Multires. Auto-remeshers (QuadriFlow, Instant Meshes, Quad Remesher) make clean sculpt proxies but not dependable facial edge flow. Rig-grade topology comes from wrapping a known template or from manual retopology. No harvest or earlier draft existed for this topic, so every item here is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 3 📄 / 73 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 5 📄 / 72 🧠 / 11 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -55,7 +55,7 @@
   - RF3 tools: Contours (neck, ear rim), PolyStrips (eye and mouth loops), PolyPen, Strokes, Patches, Loops, Tweak, Relax.
   - RF4 is a rewrite inside Blender's edit mode (4.0 released 20 Oct 2025). Its 5.x status: Superhive lists support for Blender 4.2–5.2 (v4.1.9, 25 Jun 2026, added 5.2) (corrected in verification). 📄 [1][3]
 - **Other add-ons:** PolyQuilt (free), Speedretopo (paid), Bsurfaces, F2. 🧠
-- **Wrapping beats retopology for heads.** Options are R3DS Wrap (now under the Faceform name, moderate confidence), Mesh to MetaHuman, CC Headshot, FaceBuilder, or the library's template plus NICP (`blender/import-export-scans.md`). 🧠
+- **Wrapping beats retopology for heads.** Options are R3DS Wrap (now sold under the Faceform name; "reference commercial tool" status unconfirmed) 📄 [7], Mesh to MetaHuman, CC Headshot, FaceBuilder, or the library's template plus NICP (`blender/import-export-scans.md`). 🧠
 
 ## Numbers & reference tables
 
@@ -79,7 +79,7 @@
 | ARKit face mesh | 1,220 | triangles | face | 🧠 |
 | FLAME | 5,023 | 9,976 triangles | head, neck, eyeballs | 🧠 |
 | MakeHuman hm08 (MPFB2) | ≈13.4k | quads | full body | 🧠 |
-| MetaHuman LOD0 head | ≈24k | mixed | head | ↔️ |
+| MetaHuman LOD0 head | ≈24k (Epic's LOD table lists 24,000 head vertices as a guideline) | mixed | head | 📄 [6] |
 | BFM 2009 | 53,490 | triangles | face | 🧠 |
 
 **Table 3 – Loop counts on a mid-density head (8k–15k quads)**
@@ -219,6 +219,8 @@
 3. CG Channel, Orange Turbine releases Retopoflow 4: https://www.cgchannel.com/2026/04/orange-turbine-releases-retopoflow-4-for-blender/
 4. Blender 5.2 LTS Manual, Snapping: https://docs.blender.org/manual/en/latest/editors/3dview/controls/snapping.html
 5. Exoside, Buy Quad Remesher: https://exoside.com/quadremesher/quadremesher-buy/
+6. Epic Games, Platform support and LOD specifications for MetaHumans: https://dev.epicgames.com/documentation/en-us/metahuman/platform-support-and-lod-specifications-for-metahumans
+7. CG Channel, Faceform releases Wrap 2025.11 and Wrap4D 2025.11: https://www.cgchannel.com/2025/12/faceform-releases-wrap-2025-11-and-wrap4d-2025-11/
 
 Library cross-references are given inline as file paths.
 
@@ -244,3 +246,10 @@ Library cross-references are given inline as file paths.
 - RetopoFlow GPL source, Superhive sale, Orange Turbine: confirmed [1][2][3]. RF4 5.x status: corrected, Superhive lists Blender 4.2-5.2 [1]. https://superhivemarket.com/products/retopoflow/versions
 - Quad Remesher: paid and Blender supported confirmed, prices added [5] https://exoside.com/quadremesher/quadremesher-buy/; vertex-colour density, material-group boundaries, bridge details: unconfirmed.
 - Snapping: Face Project, Face Nearest, Project Individual Elements confirmed [4] https://docs.blender.org/manual/en/latest/editors/3dview/controls/snapping.html; Backface Culling, Retopology overlay (3.6), QuadriFlow since 2.81, LoopTools extension since 4.2: unconfirmed.
+
+## Verification log, pass 2 (2026-11-20)
+
+- MetaHuman LOD0 head about 24k vertices: confirmed (one source), Epic's LOD table lists 24,000 head vertices as a guideline, not exact per character [6] https://dev.epicgames.com/documentation/en-us/metahuman/platform-support-and-lod-specifications-for-metahumans
+- Mobile/VR 1.5k-8k and PC/console LOD0 10k-50k triangle budgets: unconfirmed (no official triangle figure found; a forum anecdote reports about 60k tris for a character face mesh, not a spec). Stay contested.
+- ARKit face mesh 1,220 vertices: unconfirmed (search returned nothing).
+- R3DS Wrap sold under the Faceform name: confirmed (one source) [7] https://www.cgchannel.com/2025/12/faceform-releases-wrap-2025-11-and-wrap4d-2025-11/ ; latest version Wrap 2025.11. "Remains the reference commercial wrapping tool": unconfirmed (judgement).

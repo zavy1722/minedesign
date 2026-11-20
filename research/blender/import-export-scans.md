@@ -2,7 +2,7 @@
 
 > Face scans (structured light, stereophotogrammetry, phone LiDAR or photogrammetry) and 3DMM outputs (FLAME, BFM, MediaPipe, DECA/MICA-style regressors) reach Blender in formats that disagree on units, axes, colour encoding and whether vertex order survives. Most likeness failures at this stage are silent ones: a ×10 to ×1000 unit error, a wrong axis or a mirror image, or broken vertex correspondence. Treat every import as an unknown similarity transform plus a possible reflection. Infer the units from one face measurement and the orientation from landmarks, and record the transform in a sidecar file. Clean and decimate the scan into a fitting target. Bring the template onto it with a landmark-anchored, coarse-to-fine non-rigid fit (Wrap/NICP style) rather than plain Shrinkwrap, and never pass the template that carries the likeness through anything that rebuilds topology. Clinical 3D surface imaging agrees with direct measurement to within about 2 mm [9][10], so a correctly imported scan is valid ground truth.
 >
-> Evidence status: 6 ✅ / 19 📄 / 57 🧠 / 5 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 6 ✅ / 20 📄 / 57 🧠 / 4 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -47,7 +47,7 @@
 - **Laplacian Deform** (an anchor vertex group moved by hooks) and ARAP energies [2] keep detail while landmarks move 📄. TPS is a closed-form landmark warp; for noisy landmarks, regularise it with K + λI [3][4] ✅.
 - **Non-rigid ICP** lowers stiffness step by step, from global to local deformation. Black-box optimisers fail on incomplete surfaces [1] 📄. Automatic template registration on optical face scans placed 53.1 % of landmarks within 2 mm and 84.4 % within 4 mm [7] 📄.
 - **Multires → Reshape** copies positions from an object with the same topology into the current multires level. This puts scan detail onto a subdivided template without touching the base mesh 🧠.
-- The commercial benchmark is R3DS Wrap, reportedly rebranded Faceform ↔️. Its workflow is point-pair rigid alignment, then coarse-to-fine wrapping with control points, then texture and blendshape transfer 🧠.
+- The commercial benchmark is R3DS Wrap, rebranded Faceform (formerly R3DS Wrap) [32][33] 📄; licence and price changes unconfirmed. Its workflow is point-pair rigid alignment, then coarse-to-fine wrapping with control points, then texture and blendshape transfer 🧠.
 - The NoW benchmark aligns rigidly on 7 landmarks, then reports per-vertex scan-to-mesh error in mm [5][6] ✅. Reuse this protocol for internal validation.
 
 ## Numbers & reference tables
@@ -205,6 +205,8 @@ All URLs come from sibling harvests in `research/_raw/harvests/` (named in paren
 [29] glTF importer: add option to glue pieces of a mesh together — https://developer.blender.org/rBAc7eda7cb49f706040cb04048b24c6db57501889e — commit — 2020 (verification)
 [30] obj: vertex colors support in importer and exporter — https://developer.blender.org/rB1b4f35f6a58 — commit — 2022 (verification)
 [31] Basel Face Model 2019 Point Coordinates (Scalismo forum; user report, not official) — https://groups.google.com/g/scalismo-faces/c/FJym8ubvMBI — forum — n.d. (verification)
+[32] Faceform releases Wrap 2025.11 and Wrap4D 2025.11 — https://www.cgchannel.com/2025/12/faceform-releases-wrap-2025-11-and-wrap4d-2025-11/ — news — 2025 (verification)
+[33] Faceform (原為 R3DS Wrap) reseller listing — https://linksoft.com.tw/product/faceform — reseller — 2023 (verification)
 
 **Further reading (by name, not yet linked)**
 - Blender Manual: Import/Export (OBJ, PLY, STL, FBX, glTF 2.0, USD, Alembic); the Shrinkwrap, Surface Deform, Laplacian Deform, Data Transfer, Multires, Remesh and Decimate pages; Cycles baking
@@ -226,3 +228,8 @@ All URLs come from sibling harvests in `research/_raw/harvests/` (named in paren
 - Vertex order kept by OBJ/PLY, glTF seam splitting: partly confirmed. glTF seam/hard-edge vertex splitting and the Merge Vertices option are documented (https://docs.blender.org/manual/en/3.1/addons/import_export/scene_gltf2.html, https://developer.blender.org/rBAc7eda7cb49f706040cb04048b24c6db57501889e), badge 📄. OBJ/PLY order preservation and "Split by Object/Group" renumbering: unconfirmed, left 🧠.
 - BFM/MakeHuman/MediaPipe units: contested for BFM 2009 (.mat in µm, .h5 in mm per a user report at https://groups.google.com/g/scalismo-faces/c/FJym8ubvMBI; no official statement); BFM 2017/2019 mm per the same thread. MakeHuman (dm) and MediaPipe (cm) unconfirmed, left as is.
 - Legacy importers: confirmed that the Python OBJ and PLY add-ons were removed in 4.0 (https://wiki.blender.org/release_notes/4.0/python_api/). Corrected: the STL add-on was only marked legacy in 4.1 (https://developer.blender.org/docs/release_notes/4.1/pipeline_assets_io/). C++ OBJ importer in 3.3 confirmed (https://developer.blender.org/docs/release_notes/3.3/pipeline_assets_io/). PLY/STL importers in 3.6, COLLADA removed in 5.0: unconfirmed. OBJ vertex-colour/MRGB support: a commit (https://developer.blender.org/rB1b4f35f6a58) and search summary place it in 3.3, versus the note's 3.5+; unresolved, left 🧠.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Blender defaults (Merge by Distance 0.0001 m, voxel remesh 0.1 m, clip 0.01/1000 m, Surface Deform falloff 4, OBJ export 6 decimals): unconfirmed. Search returned only generic Merge by Distance manual pages (https://docs.blender.org/manual/en/latest/modeling/meshes/editing/mesh/cleanup.html) with no default values or exporter precision. Left 🧠.
+- R3DS Wrap rebranded as Faceform: confirmed (one weak source, badge 📄). A reseller page says Faceform Wrap was originally R3DS Wrap (https://linksoft.com.tw/product/faceform), and CG Channel covers current Faceform Wrap releases (https://www.cgchannel.com/2025/12/faceform-releases-wrap-2025-11-and-wrap4d-2025-11/). Licence/price changes: unconfirmed; only secondhand, inconsistent figures found.

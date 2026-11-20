@@ -97,7 +97,7 @@
         ["attractive African-Caribbean faces follow phi", "only one ratio resembled phi; no association with attractiveness", "rejected", "https://pmc.ncbi.nlm.nih.gov/articles/PMC6123330", "sourced"],
         ["face length/width = phi", "hairline-chin / bizygomatic ~1.3-1.4 in adults", "rejected", null, "knowledge"],
         ["phi as ecological affordance", "single 2022 theoretical/experimental paper", "open", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9787369/", "contested"],
-        ["17.1% of proportions near phi (Malaysian sample)", "figure seen in snippet; attribution to PMC4642949 unconfirmed", "unverified", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4642949/", "contested"]
+        ["17.1% of proportions near phi (Malaysian sample)", "Alam et al. 2015 PLoS One, n=286; attribution to PMC4642949 confirmed in verification", "sourced", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4642949/", "verified"]
       ],
       "population": "as per row",
       "source_urls": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC10792139/", "https://link.springer.com/doi/10.1007/s00266-007-9080-z", "https://pmc.ncbi.nlm.nih.gov/articles/PMC6123330", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9787369/", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4642949/"],

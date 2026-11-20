@@ -168,6 +168,27 @@
    "url": "https://arxiv.org/pdf/2104.03100",
    "kind": "paper",
    "year": "2021"
+  },
+  {
+   "n": 25,
+   "title": "OpenCV 4.13.0 calib3d reference (SOLVEPNP_DLS/UPNP flags)",
+   "url": "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html",
+   "kind": "official-docs",
+   "year": "2026"
+  },
+  {
+   "n": 26,
+   "title": "fSpy-Blender releases (v1.0.3 latest)",
+   "url": "https://github.com/stuffmatic/fSpy-Blender/releases",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 27,
+   "title": "fSpy-Blender README (GPL-3.0, Blender 2.80+)",
+   "url": "https://github.com/stuffmatic/fSpy-Blender",
+   "kind": "repo",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

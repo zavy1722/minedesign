@@ -1,38 +1,153 @@
 {
-  "topic": "ear",
-  "sources": [
-    {"n": 1, "title": "NCBI Bookshelf (StatPearls) chapter on external ear anatomy", "url": "https://www.ncbi.nlm.nih.gov/books/NBK470359/", "kind": "medical-reference", "year": "n.d."},
-    {"n": 2, "title": "StatPearls ear anatomy entry (same publisher as [1])", "url": "https://statpearls.com/sp/al/13/20828/", "kind": "medical-reference", "year": "n.d."},
-    {"n": 3, "title": "Anthropometric assessment of human auricle in North Indian population", "url": "https://pubmed.ncbi.nlm.nih.gov/36051810/", "kind": "paper", "year": "n.d."},
-    {"n": 4, "title": "Anthropometric assessment of human auricle in North Indian population (PMC copy of [3])", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9426708/", "kind": "paper", "year": "n.d."},
-    {"n": 5, "title": "Mixed adult sample ear measurements, n=200 (title not confirmed)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/", "kind": "paper", "year": "n.d."},
-    {"n": 6, "title": "Morphometry of the normal human ear: a cross-sectional study from adolescence to mid-adulthood", "url": "https://pubmed.ncbi.nlm.nih.gov/10731092/", "kind": "paper", "year": "n.d."},
-    {"n": 7, "title": "Defining the protruding ear", "url": "https://pubmed.ncbi.nlm.nih.gov/22067874/", "kind": "paper", "year": "2011"},
-    {"n": 8, "title": "NCBI Bookshelf auriculocephalic angle reference (figure mapping not confirmed)", "url": "https://www.ncbi.nlm.nih.gov/books/NBK538320/", "kind": "medical-reference", "year": "n.d."},
-    {"n": 9, "title": "Anthropometric Measurement of Human External Ear: Single-Center Experiment in a Pediatric Saudi Population", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12297175/", "kind": "paper", "year": "n.d."},
-    {"n": 10, "title": "Morphometric Parameters of the Ear and Their Sexual Dimorphism in the Eastern Province of Saudi Arabia", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10775136/", "kind": "paper", "year": "n.d."},
-    {"n": 11, "title": "Anthropometric growth study of the ear in a Chinese population", "url": "https://pubmed.ncbi.nlm.nih.gov/29169692/", "kind": "paper", "year": "n.d."},
-    {"n": 12, "title": "Stature and sex estimation: auricular morphometry and morphology (Central Indian sample)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13150244/", "kind": "paper", "year": "n.d."},
-    {"n": 13, "title": "Diagnostic Accuracy of Auricular Morphometry in Sex Estimation: Logistic Regression with ROC Validation", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13298092/", "kind": "paper", "year": "n.d."},
-    {"n": 14, "title": "Ear Recognition (Anagnostopoulos), Introduction to Biometrics", "url": "https://arxiv.org/pdf/2101.10540", "kind": "paper/book chapter", "year": "2021"},
-    {"n": 15, "title": "A comprehensive survey and deep learning-based approach for human recognition using ear biometric", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8061142/", "kind": "paper", "year": "n.d."},
-    {"n": 16, "title": "Sundanese auricle photogrammetry study (title not confirmed)", "url": "https://www.pubmed.gov/36217409/", "kind": "paper", "year": "n.d."},
-    {"n": 17, "title": "Nature Index topic page: anthropometric analysis of human auricles", "url": "https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles", "kind": "aggregator", "year": "n.d."},
-    {"n": 18, "title": "Heathcote, Why do old men have big ears? BMJ 1995;311:1668 (copy)", "url": "https://jhanley.biostat.mcgill.ca/bios601/Surveys/BigEars.pdf", "kind": "paper", "year": "1995"}
-  ],
-  "references_by_name": [
-    "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
-    "Farkas, Hreczko, Kolar & Munro, 'Vertical and horizontal proportions of the face in young adult North American Caucasians: revision of neoclassical canons', Plastic and Reconstructive Surgery, 1985",
-    "McDowell, 'Goals in otoplasty for protruding ears', Plastic and Reconstructive Surgery, 1968",
-    "Heathcote, 'Why do old men have big ears?', BMJ, 1995",
-    "Iannarelli, Ear Identification, 1989",
-    "Emersic, Struc & Peer, 'Ear recognition: More than a survey', Neurocomputing, 2017",
-    "Zhou & Zafeiriou, 'Deformable models of ears in-the-wild for alignment and recognition', IEEE FG, 2017",
-    "Dai, Pears & Smith, York Ear Model (3D morphable model of the ear), c. 2018",
-    "Ploumpis et al., 'Combining 3D Morphable Models: A Large Scale Face-and-Head Model', CVPR 2019",
-    "Adhikari et al., 'A genome-wide association study identifies multiple loci for variation in human ear morphology', Nature Communications, 2015",
-    "Shaffer et al., multiethnic GWAS of earlobe attachment, American Journal of Human Genetics, 2017",
-    "Brent; Nagata: microtia reconstruction literature (ear placement rules)",
-    "Standring (ed.), Gray's Anatomy (auricle chapter)"
-  ]
+ "topic": "ear",
+ "sources": [
+  {
+   "n": 1,
+   "title": "NCBI Bookshelf (StatPearls) chapter on external ear anatomy",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK470359/",
+   "kind": "medical-reference",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "StatPearls ear anatomy entry (same publisher as [1])",
+   "url": "https://statpearls.com/sp/al/13/20828/",
+   "kind": "medical-reference",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Anthropometric assessment of human auricle in North Indian population",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36051810/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "Anthropometric assessment of human auricle in North Indian population (PMC copy of [3])",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9426708/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "Mixed adult sample ear measurements, n=200 (title not confirmed)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7580430/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Morphometry of the normal human ear: a cross-sectional study from adolescence to mid-adulthood",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10731092/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Defining the protruding ear",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/22067874/",
+   "kind": "paper",
+   "year": "2011"
+  },
+  {
+   "n": 8,
+   "title": "NCBI Bookshelf auriculocephalic angle reference (figure mapping not confirmed)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK538320/",
+   "kind": "medical-reference",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "Anthropometric Measurement of Human External Ear: Single-Center Experiment in a Pediatric Saudi Population",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12297175/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "Morphometric Parameters of the Ear and Their Sexual Dimorphism in the Eastern Province of Saudi Arabia",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10775136/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "Anthropometric growth study of the ear in a Chinese population",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/29169692/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 12,
+   "title": "Stature and sex estimation: auricular morphometry and morphology (Central Indian sample)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13150244/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "Diagnostic Accuracy of Auricular Morphometry in Sex Estimation: Logistic Regression with ROC Validation",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13298092/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Ear Recognition (Anagnostopoulos), Introduction to Biometrics",
+   "url": "https://arxiv.org/pdf/2101.10540",
+   "kind": "paper/book chapter",
+   "year": "2021"
+  },
+  {
+   "n": 15,
+   "title": "A comprehensive survey and deep learning-based approach for human recognition using ear biometric",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8061142/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Sundanese auricle photogrammetry study (title not confirmed)",
+   "url": "https://www.pubmed.gov/36217409/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "Nature Index topic page: anthropometric analysis of human auricles",
+   "url": "https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles",
+   "kind": "aggregator",
+   "year": "n.d."
+  },
+  {
+   "n": 18,
+   "title": "Heathcote, Why do old men have big ears? BMJ 1995;311:1668 (copy)",
+   "url": "https://jhanley.biostat.mcgill.ca/bios601/Surveys/BigEars.pdf",
+   "kind": "paper",
+   "year": "1995"
+  },
+  {
+   "n": 19,
+   "title": "The York Ear Model (YEM) and the York 3D Ear Dataset",
+   "url": "https://www-users.york.ac.uk/~np7/research/YEM",
+   "kind": "dataset page",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Farkas, Anthropometry of the Head and Face, 2nd ed., 1994",
+  "Farkas, Hreczko, Kolar & Munro, 'Vertical and horizontal proportions of the face in young adult North American Caucasians: revision of neoclassical canons', Plastic and Reconstructive Surgery, 1985",
+  "McDowell, 'Goals in otoplasty for protruding ears', Plastic and Reconstructive Surgery, 1968",
+  "Heathcote, 'Why do old men have big ears?', BMJ, 1995",
+  "Iannarelli, Ear Identification, 1989",
+  "Emersic, Struc & Peer, 'Ear recognition: More than a survey', Neurocomputing, 2017",
+  "Zhou & Zafeiriou, 'Deformable models of ears in-the-wild for alignment and recognition', IEEE FG, 2017",
+  "Dai, Pears & Smith, York Ear Model (3D morphable model of the ear), c. 2018",
+  "Ploumpis et al., 'Combining 3D Morphable Models: A Large Scale Face-and-Head Model', CVPR 2019",
+  "Adhikari et al., 'A genome-wide association study identifies multiple loci for variation in human ear morphology', Nature Communications, 2015",
+  "Shaffer et al., multiethnic GWAS of earlobe attachment, American Journal of Human Genetics, 2017",
+  "Brent; Nagata: microtia reconstruction literature (ear placement rules)",
+  "Standring (ed.), Gray's Anatomy (auricle chapter)"
+ ]
 }

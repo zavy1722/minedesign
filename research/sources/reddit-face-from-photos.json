@@ -15,6 +15,26 @@
       "n": 3,
       "title": "Creative Bloq: MetaHuman just broke free from Unreal Engine 5",
       "url": "https://www.creativebloq.com/3d/metahuman-just-broke-free-from-unreal-engine-5-why-everyone-can-now-create-lifelike-characters"
+    },
+    {
+      "n": 4,
+      "title": "CG Channel: RealityScan 2.0 release",
+      "url": "https://www.cgchannel.com/2025/06/epic-games-releases-realityscan-2-0-and-realityscan-mobile-1-7/"
+    },
+    {
+      "n": 5,
+      "title": "Capturing Reality: pricing changes",
+      "url": "https://capturingreality.com/pricing-changes"
+    },
+    {
+      "n": 6,
+      "title": "Tencent Hunyuan3D-2 licence (Hugging Face)",
+      "url": "https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE"
+    },
+    {
+      "n": 7,
+      "title": "Tencent Hunyuan3D-2.1 licence (mirror)",
+      "url": "https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE"
     }
   ],
   "references_by_name": [

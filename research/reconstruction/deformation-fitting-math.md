@@ -2,7 +2,7 @@
 
 > Landmark-driven head fitting is a coarse-to-fine stack of least-squares problems. Similarity Procrustes (SVD) sets pose and scale, and a PCA prior is solved as Tikhonov least squares. A polyharmonic (thin-plate) RBF warp absorbs the residual landmark offsets. Surface-aware refinement follows: bilaplacian displacement, ARAP, or non-rigid ICP when a target surface exists. Cameras and landmarks are solved jointly by Levenberg–Marquardt on whitened residuals, with robust IRLS weights and priors added as residual rows. The traps are sign conventions (Procrustes reflections, and the 3D biharmonic kernel sign, a live bug in this repo's engine), conditioning, gauge freedom, and priors that pull the likeness toward the average face.
 >
-> Evidence status: 9 ✅ / 18 📄 / 29 🧠 / 4 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 9 ✅ / 19 📄 / 27 🧠 / 5 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -57,7 +57,7 @@
 | Biharmonic (displacement) | ∫(Δd)² | sparse SPD | smooth | on-surface refinement | 📄 [19] |
 | ARAP | Σ‖e′ − Rᵢe‖² | per-cell SVD + one prefactored solve | spikes [13] | keep feature shape | 📄 [9][13] |
 | NICP | affine per vertex + stiffness | sparse least squares per step | n/a | a target scan or photogrammetry mesh exists | ✅ [14][16][17] |
-| PCA/3DMM | ½‖β‖² + data | k×k (FLAME k ≤ 300) | global | plausible base; fills unseen areas | 🧠 |
+| PCA/3DMM | ½‖β‖² + data | k×k (FLAME k ≤ 300) | global | plausible base; fills unseen areas | ↔️ FLAME has 5,023 vertices [29]; component counts vary by release and paper (300 shape/100 expression, 150/65 in FLAME 2023, 100/50 in others) [29] |
 
 **Table 2: RBF kernels**
 
@@ -122,7 +122,7 @@ Beyond ~1.5 m, landmarks barely separate focal length from distance, so an EXIF 
 - **Missing test:** the existing test (`err_smooth > err_exact`) passes on the broken output. Add one checking that bending energy falls as λ rises.
 - **Keep r as the default kernel:** 150 mm out, the non-affine displacement was ~3 mm for r against ~15 mm for r³, and r³ kept diverging further out.
 
-**Suggested defaults** (all 🧠; d_ip = interpupillary distance in px)
+**Suggested defaults** (all 🧠 except the NICP row; d_ip = interpupillary distance in px)
 
 | Quantity | Default |
 |---|---|
@@ -135,7 +135,7 @@ Beyond ~1.5 m, landmarks barely separate focal length from distance, so an EXIF 
 | PCA | β ~ N(0, 1), λ = σₙ², clamp \|βₖ\| ≤ 3 as a safety only |
 | RBF smoothing | λᵢ = α·σᵢ², α from 10⁻³ to 10⁻¹ in normalised units; per-landmark (K ∓ αΣ)w + Pa = y |
 | Laplacian constraint weight | 10²–10⁴ after mass normalisation (engine 10³) |
-| NICP stiffness α / landmark β | 50 → 20 → 5 → 2 → 0.8 → 0.5 → 0.35 → 0.2 / 5 → 2 → 0.5 → 0 (recalled menpo3d defaults) |
+| NICP stiffness α / landmark β | 50 → 20 → 5 → 2 → 0.8 → 0.5 → 0.35 → 0.2 / 5 → 2 → 0.5 → 0 (menpo3d defaults: stiffness list confirmed in [28]; the landmark list is [5, 2, 0.5, 0, 0, 0, 0, 0], i.e. zero after the third step) 📄 [28] |
 | LM | τ = 10⁻³ (10⁻⁶ with a good start); ‖g‖∞ < 10⁻⁸; 50–100 iterations |
 | Central finite-difference step | ε^(1/3)·max(\|x\|, 1) ≈ 6·10⁻⁶ |
 | Fold threshold | det J_warp > 0.2 per vertex |
@@ -187,6 +187,8 @@ Beyond ~1.5 m, landmarks barely separate focal length from distance, so an EXIF 
 25. [25] Madsen, Nielsen & Tingleff, Methods for Non-Linear Least Squares Problems, 2nd ed. — https://www2.imm.dtu.dk/pubdb/pubs/3215-full.html — official docs — 2004
 26. [26] GSL multifit_nlinear nielsen.c (Nielsen damping update) — https://git.stg.centos.org/source-git/gsl/blob/2d5f50cfd2a1fdeaae06be7e1dbdbf009ee5897e/f/multifit_nlinear/nielsen.c — source code — n.d.
 27. [27] robustbase psi functions vignette (Huber k=1.345, Tukey k=4.685 for 95% efficiency) — https://mirror.linux.duke.edu/pub/cran/web/packages/robustbase/vignettes/psi_functions.pdf — docs — n.d.
+28. [28] menpo3d, menpo3d/correspond/nicp.py (default stiffness and landmark weights) — https://github.com/menpo/menpo3d/blob/master/menpo3d/correspond/nicp.py — source code — n.d.
+29. [29] Learning to Regress 3D Face Shape and Expression from an Image without 3D Supervision (RingNet; FLAME 5,023 vertices) — https://arxiv.org/pdf/1905.06817 — paper — 2019
 
 **Further reading (by name, not yet linked):** Umeyama, IEEE TPAMI 1991; Horn, JOSA A 1987 (quaternions); Gower 1975 (GPA); Dryden & Mardia, *Statistical Shape Analysis*; Duchon 1977; Wahba, *Spline Models for Observational Data*; Carr et al., SIGGRAPH 2001 (RBF surfaces); Sorkine et al., "Laplacian Surface Editing", 2004; Botsch et al., *Polygon Mesh Processing*; Sharp & Crane 2020 (nonmanifold Laplacian); Finnendahl, Schwartz & Alexa, "ARAP Revisited"; Blanz & Vetter 1999; Li et al. 2017 (FLAME); Zhu et al., CVPR 2015 (landmark marching); Madsen, Nielsen & Tingleff 2004; Triggs et al. 2000 (bundle adjustment); Huber, *Robust Statistics*; Barron, CVPR 2019; Yang et al. 2020 (GNC); de Goes & James 2017 (Kelvinlets).
 
@@ -196,3 +198,9 @@ Beyond ~1.5 m, landmarks barely separate focal length from distance, so an EXIF 
 - **Nielsen LM damping update, τ 1e-6 to 1e-3** — confirmed for the update rule (μ·max(1/3, 1−(2ρ−1)³), ν=2) via the booklet record and the GSL implementation; τ range unconfirmed. Badge 📄. https://www2.imm.dtu.dk/pubdb/pubs/3215-full.html ; https://git.stg.centos.org/source-git/gsl/blob/2d5f50cfd2a1fdeaae06be7e1dbdbf009ee5897e/f/multifit_nlinear/nielsen.c
 - **95% efficiency constants** — Huber 1.345 and Tukey 4.685 confirmed (📄); Cauchy 2.385 and σ = 1.4826·MAD unconfirmed (🧠). https://mirror.linux.duke.edu/pub/cran/web/packages/robustbase/vignettes/psi_functions.pdf
 - **Blender ships numpy but not SciPy (4.x/5.x)** — unconfirmed for current releases. Only 2019-era forum and tracker posts say SciPy is not bundled; no current official statement found. Kept 🧠. https://devtalk.blender.org/t/can-3rd-party-modules-ex-scipy-be-installed-when-an-add-on-is-installed/9709
+
+## Verification log, pass 2 (2026-11-20)
+
+- **menpo3d NICP default schedule** (stiffness 50, 20, 5, 2, 0.8, 0.5, 0.35, 0.2; landmarks 5, 2, 0.5, 0, 0, 0, 0, 0) — confirmed (📄). The search summary ties both default lists to menpo3d's nicp.py; the exact landmark-default branch condition was not visible in the snippet. https://github.com/menpo/menpo3d/blob/master/menpo3d/correspond/nicp.py
+- **FLAME: 5,023 vertices, 300 identity + 100 expression, about 3,800 scans** — 5,023 vertices confirmed (📄) across several papers; the 300/100 split is contested (↔️), since papers use 300/100, 150/65 (FLAME 2023) or 100/50; the "~3,800 scans" figure is unconfirmed (one result says FLAME was trained from over 33,000 scans; none mentions CAESAR), so it is not asserted in the note. 9,976 triangles not checked. https://arxiv.org/pdf/1905.06817
+- **BFM 2009: 53,490 vertices, 199 PCs, 200 subjects** — unconfirmed (no result addressed it). Not stated in the note.

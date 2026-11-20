@@ -2,7 +2,7 @@
 
 > By 2025–26, artists routinely start heads with image-to-3D generators (Hunyuan3D, TRELLIS, Rodin, Meshy, Tripo) or face fitters (KeenTools FaceBuilder, Reallusion Headshot, Mesh to MetaHuman). The verdict is consistent: a plausible bust in minutes, a likeness almost never. Generators carry identity mostly in the projected photo texture; in clay the head reads as "a relative", with invented profile depth, fused eyes and lips, helmet hair and triangle-soup topology that must be wrapped before sculpting. Face fitters keep clean topology but inherit a low-dimensional prior, so the likeness is still sculpted by eye against solved cameras. Rule: "AI for mass and speed, real photos for truth"; use AI output as a weak, region-weighted shape prior, never as landmark ground truth. No harvest or earlier draft existed, so all of this is author synthesis to verify; versions, licences and prices go stale within months.
 >
-> Evidence status: 0 ✅ / 6 📄 / 47 🧠 / 20 ↔️ — verified 2026-11-20; remaining 🧠 items are unverified.
+> Evidence status: 0 ✅ / 7 📄 / 46 🧠 / 20 ↔️ — verified 2026-11-20; remaining 🧠 items are unverified.
 
 ## Key facts
 
@@ -61,7 +61,7 @@
 | Stable Fast 3D | ≈6–7 GB | ≈1 s | 🧠 |
 | TRELLIS image-large | ≥16 GB | ≈10–60 s | 🧠 |
 | Hunyuan3D 2.0 | ≈6 GB shape; ≈16 GB with texture | ≈0.5–3 min | 🧠 |
-| Hunyuan3D 2.1 | ≈10 GB shape; ≈21 GB texture; ≈29 GB both | ≈1–5 min | 🧠 |
+| Hunyuan3D 2.1 | ≈10 GB shape; ≈21 GB texture; ≈29 GB both [7] | ≈1–5 min | 📄 |
 
 **Table 3 — Extraction grid versus likeness detail** (arithmetic: voxel = bounding-box extent ÷ grid resolution; features need about 2 voxels)
 
@@ -169,6 +169,7 @@ Numbered sources added in verification, 2026-11-20:
 4. microsoft/TRELLIS issue 298, nvdiffrast non-commercial licence: https://github.com/microsoft/TRELLIS/issues/298
 5. CG World Japan, TRELLIS.2 release report (secondary; 17 Dec): https://cgworld.jp/flashnews/01-202601-TRELLIS2.html
 6. Meshy docs, Pricing & Credits (free plan CC BY 4.0, paid private): https://docs.meshy.ai/pricing
+7. Tencent-Hunyuan/Hunyuan3D-2.1 README (VRAM: 10 GB shape, 21 GB texture, 29 GB both): https://raw.githubusercontent.com/Tencent-Hunyuan/Hunyuan3D-2.1/main/README.md
 
 Otherwise no harvested sources exist for this topic. Related notes: `community/reddit-face-from-photos.md`, `community/blenderartists-forum.md` (FaceBuilder release threads), `blender/blender-face-addons.md`, `reconstruction/single-image-regression.md`, `reconstruction/identity-embeddings.md`, `blender/reference-camera-setup.md`.
 
@@ -195,3 +196,8 @@ Otherwise no harvested sources exist for this topic. Related notes: `community/r
 - AI mesh accuracy 3-5 mm frontal / 6-10 mm lateral: unconfirmed. Search found no NoW-style mm benchmark for Hunyuan3D or TRELLIS (NoW suits parametric face models). The sigmas remain 🧠 heuristics.
 - TRELLIS MIT with NVIDIA non-commercial dependencies; TRELLIS.2 late-2025 release, MIT: confirmed (released 17 Dec 2025). https://huggingface.co/microsoft/TRELLIS.2-4B/blob/main/README.md ; https://github.com/microsoft/TRELLIS/issues/298 ; https://cgworld.jp/flashnews/01-202601-TRELLIS2.html
 - Meshy free tier CC BY 4.0, paid private: confirmed for Meshy ("public" not stated; CC BY 4.0 is the stated term). https://docs.meshy.ai/pricing . Tripo: unconfirmed.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Local VRAM needs: Hunyuan3D 2.1 (10 GB shape / 21 GB texture / 29 GB both): confirmed (official README; 📄). Hunyuan3D 2.0 (6/16 GB), TRELLIS (16 GB), TripoSR and SF3D (6 GB): unconfirmed, no usable evidence in results; remain 🧠. One third-party guide gave lower (3/6 GB) and another higher (16-24 GB) figures; both disregarded as non-official. https://raw.githubusercontent.com/Tencent-Hunyuan/Hunyuan3D-2.1/main/README.md
+- DINOv2 conditioning at about 518 px (face 37 px / 242 px): unconfirmed. Only third-party Hugging Face Space copies of TRELLIS code showed a 518 default; no official source or Hunyuan3D evidence. Pixel figures are arithmetic from the assumption; remain 🧠.

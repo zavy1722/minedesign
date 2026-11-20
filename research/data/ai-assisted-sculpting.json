@@ -161,7 +161,7 @@
       "population": "single 518-1024 px input image; A100-class or 24 GB consumer GPU",
       "source_urls": [],
       "status": "knowledge",
-      "notes": "Recalled from vendor READMEs; Hunyuan3D 2.1 texture stage alone about 21 GB. Times vary widely with GPU, steps and texture resolution. Verify before using as installer checks."
+      "notes": "Recalled from vendor READMEs; Hunyuan3D 2.1 VRAM (10 GB shape, 21 GB texture, 29 GB both) confirmed against the official README (2026-11-20); other rows unverified. Times vary widely with GPU, steps and texture resolution. Verify before using as installer checks."
     },
     {
       "name": "extraction_grid_vs_voxel_size",

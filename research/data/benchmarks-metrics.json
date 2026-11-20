@@ -47,8 +47,8 @@
     [
      "Stirling/ESRC FG2018 challenge",
      2018,
-     "Di3D stereophotogrammetry scans",
-     130,
+     "3dMDface structured-light scans",
+     135,
      2000,
      "high- and low-quality in-the-wild images",
      "7 landmarks + ICP",
@@ -98,9 +98,9 @@
     ]
    ],
    "population": "benchmark subjects as listed; counts are approximate recollections",
-   "source_urls": [],
-   "status": "contested",
-   "notes": "Counts for NoW and FaceScape recalled with moderate confidence; Stirling and REALY image counts uncertain. null = not known."
+   "source_urls": ["https://arxiv.org/pdf/1803.05536.pdf", "https://arxiv.org/pdf/2003.13989.pdf"],
+   "status": "partly verified (pass 2: Stirling corrected to 135 subjects/3dMDface; FaceScape size confirmed)",
+   "notes": "Counts for NoW recalled with moderate confidence; REALY image counts uncertain. null = not known."
   },
   {
    "name": "now_reference_errors",

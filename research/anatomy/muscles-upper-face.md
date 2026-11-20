@@ -1,7 +1,7 @@
 # Muscles of the upper face
 
 > Frontalis, anchored to the galea with no bony attachment, is the only brow elevator; corrugator, depressor supercilii, procerus and orbital orbicularis oculi all lower the brow, and levator palpebrae superioris (with Müller's muscle) opens the lid against palpebral orbicularis. For likeness their balance sets resting brow and lid position, their fibre directions predict every dynamic line, and their activity (compensatory brow raising, squint, gaze-dependent lid height) is the main contaminant of a "neutral" photo. Attachments are stable except in details that are still disputed. Measured muscle dimensions are scarce, so most numeric priors here are expert knowledge.
-Evidence status: 13 ✅ / 26 📄 / 56 🧠 / 25 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 16 ✅ / 23 📄 / 56 🧠 / 25 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -25,7 +25,7 @@ Evidence status: 13 ✅ / 26 📄 / 56 🧠 / 25 ↔️ — 🧠 items are queue
   - It pulls the medial brow and glabella down and makes horizontal lines across the nasal root, which become permanent with repetition [20][21] ✅.
   - FACS names it depressor glabellae and codes it under AU4; root lines also appear in AU9 🧠.
 - **Depressor supercilii.** Runs from the medial orbital rim (frontal process of the maxilla) to the skin of the medial brow [24][26][27] ✅.
-  - It inserts ≈ 13–14 mm above the medial canthal tendon and usually has two heads; its nerve is the temporal branch [25] 📄.
+  - It inserts ≈ 13–14 mm above the medial canthal tendon and usually has two heads; its nerve is the temporal branch [25][52] ✅ (Cook 2001: 18 sides of 9 heads; angular vessels pass between the two heads).
   - It lowers the brow head and adds oblique lines 🧠.
   - Whether it is a separate muscle, part of orbicularis or corrugator's oblique head is disputed [25] ↔️.
 - **Glabellar complex.** It comprises procerus, corrugator, depressor supercilii, and fibres of orbicularis and frontalis [20] 📄.
@@ -56,8 +56,8 @@ Evidence status: 13 ✅ / 26 📄 / 56 🧠 / 25 ↔️ — 🧠 items are queue
 
 | Quantity | Value | Population / sample | Source | Status |
 |---|---|---|---|---|
-| Depressor supercilii insertion above medial canthal tendon | ≈ 13–14 mm | cadavers (Cook 2001; n not extracted) | [25] | 📄 |
-| Depressor supercilii heads | 2 in most, 1 in a few | same | [25] | 📄 |
+| Depressor supercilii insertion above medial canthal tendon | ≈ 13–14 mm | cadavers (Cook 2001; 18 sides, 9 heads) | [25][52] | ✅ |
+| Depressor supercilii heads | 2 in most, 1 in a few | same | [25][52] | ✅ |
 | Corrugator origin bundles | 3–4 thin panels | 2003 anatomical study (snippet) | [16] | 📄 |
 | Only lower forehead moves in frontalis contraction | 53 % | Asian cohort, 3D vector analysis | [5] | 📄 ↔️ |
 | Frown vector mainly on brow ("lateral pattern") | 89.66 % | 2025 3D study; n ≈ 29 inferred | [19] | 📄 |
@@ -70,7 +70,7 @@ Evidence status: 13 ✅ / 26 📄 / 56 🧠 / 25 ↔️ — 🧠 items are queue
 
 | Quantity | Typical | Notes | Status |
 |---|---|---|---|
-| Frontalis thickness | ≈ 1–2.5 mm | ultrasound; layer identity disputed [46] | ↔️ |
+| Frontalis thickness | ≈ 1–2.5 mm | ultrasound; layer identity disputed [46]; one 2025 study of 238 volunteers reports frontalis ≈ 0.25–0.35 mm [53] (range 0.25–2.5 mm; not read in full) | ↔️ |
 | Corrugator lateral reach from midline | ≈ 25–45 mm (≈ mid-pupil) | insertion variants [9][11][12]; Janis 2007 lateralmost insertion ≈ 43.3 mm from nasion, 7.6 mm medial to lateral orbital rim [50]; Yang & Kim 2013 basal point ≈ 35.3 mm from midline [51] | ↔️ |
 | Corrugator belly thickness | ≈ 1–3 mm, thickest medially | | 🧠 |
 | Forehead lines | 2–6 lines, 6–15 mm apart | as `skin-wrinkles-microdetail.md` | ↔️ |
@@ -145,7 +145,7 @@ Mappings agree with `anatomy/facs-expressions.md`.
   - keep margins on a sphere of globe radius + 0.5–1 mm;
   - couple upper-lid elevation to eye pitch at close to 1:1 in angle over moderate gaze;
   - add a hinge penalty on sclera above the iris unless ≥ 2 views show it.
-- **Priors** (Gaussian, mm, adults; widen σ when sex or ancestry is unknown) 🧠: MRD1 4.5 ± 1; MRD2 5 ± 1; crease 8 ± 2 (European women), 7 ± 2 (men), 4 ± 2.5 (East Asian, plus a Bernoulli "no crease" term), 6.5 ± 3 if unknown ↔️; L–R brow difference 0 ± 1.5; depressor supercilii insertion 13.5 ± 2 [25]; corrugator lateral end 35 ± 7 from midline ↔️; neutral-frame AU weights σ 0.1; clamps: brow raise ≤ 15, frown brow-head travel ≤ 8.
+- **Priors** (Gaussian, mm, adults; widen σ when sex or ancestry is unknown) 🧠: MRD1 4.5 ± 1; MRD2 5 ± 1; crease 8 ± 2 (European women), 7 ± 2 (men), 4 ± 2.5 (East Asian, plus a Bernoulli "no crease" term), 6.5 ± 3 if unknown ↔️; L–R brow difference 0 ± 1.5; depressor supercilii insertion 13.5 ± 2 [25][52]; corrugator lateral end 35 ± 7 from midline ↔️; neutral-frame AU weights σ 0.1; clamps: brow raise ≤ 15, frown brow-head travel ≤ 8.
 - **Neutral gate.** Score each frame on forehead and glabellar line energy, brow height against the subject's multi-frame median, lower-lid lift and aperture. Drop brow and forehead residuals when brow height is more than 2.5 mm above the median, or brow blendshapes exceed 0.2–0.3 🧠.
 - **Warp stiffness** (relative, heuristic) 🧠: lid margins 3.0, upper tarsus 2.0, medial canthus 2.5, lateral canthus 1.5, brow 0.7, forehead 0.5 (sliding), glabella 0.4 with a crease allowance.
 - **Wrinkles.** Store a per-vertex orientation field (forehead horizontal, glabella vertical, radix horizontal, crow's feet radial about exocanthion). Generate AU-driven normal maps perpendicular to it, and keep static and dynamic lines as separate parameters 🧠.
@@ -221,6 +221,8 @@ Mappings agree with `anatomy/facs-expressions.md`.
 [49] MediaPipe face mesh landmark indices cheat sheet (HackerNoon) — https://hackernoon.com/mediapipe-face-mesh-landmark-indices-cheat-sheet — developer guide — n.d.
 [50] Anatomy of the Corrugator Supercilii Muscle: Part I. Corrugator Topography (Janis et al., 2007; record) — https://bvbvf1.bib-bvb.de/vufind/PrimoRecord/cdi_proquest_miscellaneous_68538918 — paper — 2007
 [51] Corrugator supercilii cadaver study (Yang & Kim 2013) — https://link.springer.com/article/10.1007/s00276-013-1174-5 — paper — 2013
+[52] Depressor Supercilii Muscle: Anatomy, Histology, and Cosmetic Implications (Cook et al., Ophthal Plast Reconstr Surg abstract) — https://journals.lww.com/op-rs/abstract/2001/11000/depressor_supercilii_muscle__anatomy,_histology,.4.aspx — paper — 2001
+[53] An Analysis of the Factors Influencing Forehead Soft-Tissue Thickness: An Ultrasound Study — https://pubmed.ncbi.nlm.nih.gov/41451119/ — paper — 2025
 
 **Further reading (by name, not yet linked)**
 - Standring S (ed.), *Gray's Anatomy: The Anatomical Basis of Clinical Practice*, recent editions.
@@ -245,3 +247,8 @@ Mappings agree with `anatomy/facs-expressions.md`.
 - **Max brow raise 5–15 mm / AU4 travel 2–6 mm** — unconfirmed. No source gave frontalis excursion in mm (Guihard et al. PMC8890869 full text is the lead; not read). Stays 🧠. https://pmc.ncbi.nlm.nih.gov/articles/PMC8890869
 - **MediaPipe indices** — lid points 159/145 and 386/374 confirmed as eye-contour points (📄); brow, canthi and iris indices not confirmed by a citable source. https://huggingface.co/spaces/Akjava/mediapipe-face-skin-transform/blob/refs%2Fpr%2F1/mp_constants.py ; https://hackernoon.com/mediapipe-face-mesh-landmark-indices-cheat-sheet
 - **Corrugator lateral reach 25–45 mm** — contested. Janis 2007: lateralmost insertion ≈ 43.3 mm from nasion; Yang & Kim 2013: basal point ≈ 35.3 mm from midline; mid-pupillary claim not confirmed. https://bvbvf1.bib-bvb.de/vufind/PrimoRecord/cdi_proquest_miscellaneous_68538918 ; https://link.springer.com/article/10.1007/s00276-013-1174-5
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Frontalis thickness 1-2.5 mm; layer identity disputed** — contested (stays ↔️). Layer dispute (thick hypoechoic layer = muscle or fat) confirmed by the forehead ultrasound review [46] (PMC11635371). A 2025 ultrasound study of 238 volunteers reports much thinner frontalis (≈ 0.25 mm women, 0.35 mm men; value taken from search summary, full text not read), so the range is widened to ≈ 0.25–2.5 mm. https://pubmed.ncbi.nlm.nih.gov/41451119/ ; https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11635371/
+- **Depressor supercilii insertion 13-14 mm above medial canthal tendon, two heads in most (Cook 2001)** — confirmed, now two sources (✅). Abstract: origin ≈ 1 cm above the medial canthal tendon on the frontal process of the maxilla, two heads in most specimens, dermal insertion ≈ 13-14 mm above the tendon; 8 sides of 4 fresh and 10 sides of 5 preserved heads. Prior 13.5 ± 2 retained. https://journals.lww.com/op-rs/abstract/2001/11000/depressor_supercilii_muscle__anatomy,_histology,.4.aspx

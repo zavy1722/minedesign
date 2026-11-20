@@ -2,7 +2,7 @@
 
 > Hair hides the cranium and moves between shots, yet the hairline, parting, brows and lashes carry much of recognition. Since 3.3 Blender's tool is the *Curves* object: strands rooted on a surface mesh through its UV map and combed in Curves Sculpt mode. Since 3.5 they are shaped by bundled geometry-nodes hair assets and shaded with the Principled Hair BSDF (Chiang model, plus Huang from 4.0). For a photo→head tool the robust split is to fit skin and skull *under* the hair from priors, take only the envelope, hairline, parting, whorl and flow from the photos, and grow guides procedurally for the artist to comb; strand-accurate capture from photos is still research code, mostly under non-commercial licences. No harvest or earlier draft existed for this topic, so everything is expert knowledge awaiting verification. Version-specific API names were written against 3.3–4.x and are the riskiest items for 5.2 LTS and 5.3.
 >
-> Evidence status: 0 ✅ / 3 📄 / 91 🧠 / 30 ↔️ — 🧠 items remain unverified.
+> Evidence status: 0 ✅ / 7 📄 / 89 🧠 / 28 ↔️ — 🧠 items remain unverified.
 
 ## Key facts
 
@@ -12,7 +12,7 @@
 - **Deformation.** *Deform Curves on Surface* (in the modifier Add ▸ Curve ▸ Empty Hair creates) carries roots through shape keys and armatures. It needs the surface's **Add Rest Position** (`Object.add_rest_position_attribute`). Remeshing or re-UVing breaks attachment; re-snap with `curves.snap_curves_to_surface` (Nearest / Deform) 📄 [1]. `curves.surface_set` binds and parents. 🧠
 - **Curves Sculpt brushes:** Selection Paint, Add, Delete, Density, Comb, Snake Hook, Grow/Shrink, Pinch, Puff, Smooth and Slide. Add interpolates length, shape and point count from neighbours, and X-symmetry exists. Brushes edit the *original* curves (the guides); children appear only in the evaluated result. 🧠
 - **Edit mode** began as selection only and gained transform, duplicate, extrude, subdivide and draw tools across 4.x. The per-version list is unverified. 🧠
-- **Legacy particle hair** survived through 4.x. `curves.convert_from_particle_system` / `convert_to_particle_system` convert either way. Its 5.x status is unverified. 🧠 ↔️
+- **Legacy particle hair** survived through 4.x. `curves.convert_from_particle_system` / `convert_to_particle_system` convert either way. Particle hair still exists in the 5.2 LTS manual, but Particle Edit Mode for hair is deprecated in favour of Empty Hair plus Sculpt Mode. 📄 [10] (corrected in verification)
 - **Python.** 4.x has `Curves.add_curves(sizes)` 📄 [2], `remove_curves`, `resize_curves`, `set_types` and bulk attribute access; the exact versions are unverified. In 3.x the dependable route is a polyline mesh → *Mesh to Curve* nodes → convert. Probe with `hasattr`. 🧠
 
 **Geometry-nodes hair assets (Essentials library, 3.5+)**
@@ -22,7 +22,7 @@
   - Guides: Create Guide Index Map.
   - Utility: Attach to Surface, Redistribute Points, Restore Segment Length, Set Hair Curve Profile, Braid, Blend, Curve Info/Root/Segment.
 
-  Add ▸ Curve ▸ Fur and Quick Fur build stacks from them. 🧠 (names version-sensitive)
+  Add ▸ Curve ▸ Fur and Quick Fur build stacks from them. 📄 [8][9] (Blend, Displace, Frizz, Noise, Roll, Rotate, Shrinkwrap, Smooth, Straighten, Trim, Braid, Clump, Create Guide Index Map and Curl are listed in the 5.2 LTS manual; Interpolate by mesh islands is described in [11]; "Restore Segment Length" and "Set Hair Curve Profile" were not found in the searched pages, so those two names stay unverified; some bundled groups failed to import their utility groups in 5.0)
 - **Canonical stack:**
   1. combed guides;
   2. Interpolate, with *Part by Mesh Islands* so children never cross a parting;
@@ -220,7 +220,7 @@
   Never remesh a hair-bearing surface. 🧠
 - **Sidecar JSON:** hairline, parting, whorls, envelope class, melanin/redness, grey fraction, curl parameters, counts and seeds. 🧠
 - **Compatibility.** Probe `Curves.add_curves`, the asset names and the Huang inputs at runtime; fall back to mesh → Mesh to Curve. 🧠
-- **ML strand reconstruction stays an optional plug-in.** It runs out of process and imports polylines, because the models' licences are mostly non-commercial. 🧠 ↔️
+- **ML strand reconstruction stays an optional plug-in.** It runs out of process and imports polylines, because the models' licences are mostly non-commercial. CelebAMask-HQ itself is licensed for non-commercial research only, including derived data, so parsers trained on it may inherit that limit 📄 [12]; MediaPipe hair-segmenter and strand-code licences remain unverified. 🧠 ↔️
 
 ## Disagreements, myths & open questions
 
@@ -229,7 +229,7 @@
 - **Ideal brow peak.** The Westmore canon puts it at the lateral limbus; later studies put it more laterally. Neither is a likeness constraint: measure it. ↔️
 - **Melanin presets don't transfer.** Blender's 0–1 slider maps nonlinearly to concentration, so values are renderer-specific. ↔️
 - **Myth: "more strands = realism."** Clumping, length variation and hairline irregularity matter more. 🧠
-- **Myth: "particle hair is gone."** It remained through 4.x; 5.x is unverified. ↔️
+- **Myth: "particle hair is gone."** It remains in the 5.2 LTS manual, though hair particle edit is deprecated. 📄 [10] (corrected in verification)
 - **Open questions:**
   1. 5.x changes to the Curves API, edit-mode tools and asset names.
   2. Huang model support in EEVEE.
@@ -246,6 +246,11 @@
 5. Hair density in different ethnicities (PMC6219221) https://pmc.ncbi.nlm.nih.gov/articles/PMC6219221/ ; Nigerian trichoscopy https://pubmed.ncbi.nlm.nih.gov/40231658/
 6. Eyebrow restoration in deep facial burn. https://pmc.ncbi.nlm.nih.gov/articles/PMC10567046/
 7. Determinative factors in surgical planning of eyebrow surgery. https://pmc.ncbi.nlm.nih.gov/articles/PMC5533483/
+8. Hair Deformation Nodes, Blender 5.2 LTS Manual. https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/hair/deformation/index.html
+9. Hair Guides Nodes, Blender 5.2 LTS Manual. https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/hair/guides/index.html
+10. Particle Edit Mode, Blender 5.2 LTS Manual. https://docs.blender.org/manual/en/latest/physics/particles/mode.html
+11. Procedural Hair Nodes, Blender Studio. https://studio.blender.org/blog/procedural-hair-nodes/
+12. CelebAMask-HQ, CUHK MMLab. https://mmlab.ie.cuhk.edu.hk/projects/CelebA/CelebAMask_HQ.html
 
 **Further reading (by name, not yet linked)**
 - Blender Manual: Curves, Curves Sculpt, Hair node-group assets, Principled Hair BSDF, Hair Info; release notes 3.3, 3.5, 4.0
@@ -275,3 +280,8 @@
 - Principled Hair BSDF: Melanin/Redness definition confirmed; Aspect Ratio recommended values differ slightly from the note (Asian 0.8-1, Caucasian 0.65-0.9), marked contested; Huang in 4.0, Cycles-only, and the default values unconfirmed. https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/hair_principled.html
 - Scalp density/diameter/total count: contested (190 vs 227 /cm2; Nigerian median 330, range 113-660); total count and diameters unconfirmed. https://pmc.ncbi.nlm.nih.gov/articles/PMC6219221/ ; https://pubmed.ncbi.nlm.nih.gov/40231658/
 - Brows: peak between lateral limbus and canthus supported in women (58%); density contested (134 +/- 38 terminal/cm2 in one control group); hair count and 5-10 mm female peak height unconfirmed. https://pmc.ncbi.nlm.nih.gov/articles/PMC5533483/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC10567046/
+
+## Verification log, pass 2 (2026-11-20)
+
+- Essentials hair node-group names and particle hair in 5.x: confirmed in part (📄). Clump, Curl, Create Guide Index Map, Shrinkwrap and other deformation nodes are listed in the 5.2 LTS manual; Interpolate by mesh islands is described in the Blender Studio post. "Restore Segment Length" and "Set Hair Curve Profile" not found (unconfirmed); 3.5 introduction date not confirmed. Particle hair remains in the 5.2 manual but Particle Edit Mode for hair is deprecated (corrected). A 5.0 bug (#150786) shows bundled hair groups missing utility groups. https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/hair/deformation/index.html ; https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/hair/guides/index.html ; https://docs.blender.org/manual/en/latest/physics/particles/mode.html ; https://studio.blender.org/blog/procedural-hair-nodes/ ; https://projects.blender.org/blender/blender/issues/150786
+- Licences of hair segmentation / strand reconstruction stack: CelebAMask-HQ non-commercial research only, including derived data (confirmed). MediaPipe hair segmenter Apache-2.0 and Neural Haircut / HairStep / MonoHair / Gaussian Haircut / Perm / DiffLocks licences: unconfirmed (no evidence returned). https://mmlab.ie.cuhk.edu.hk/projects/CelebA/CelebAMask_HQ.html

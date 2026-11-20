@@ -14,7 +14,7 @@ Evidence status: 12 ✅ / 50 📄 / 39 🧠 / 25 ↔️ — 🧠 items are queue
 
 **Depressor anguli oris (DAO)**
 - Triangular: base on the oblique line and mental tubercle, apex at the modiolus [6][35][39] ✅. The base spans roughly canine to first molar 🧠.
-- Cadaveric insertion ≈ 10 mm lateral and 10 mm caudal to the oral commissure [35] 📄; width 14 ± 3 mm [11] 📄.
+- Cadaveric insertion ≈ 10 mm lateral and 10 mm caudal to the oral commissure [35] 📄; width 14 ± 3 mm [11][65] 📄.
 - Overlies the lateral DLI; lower fibres continue into platysma, and a variable transversus menti slip may join both DAOs under the chin 🧠. Extra attachments (skin, OO, risorius, levator anguli oris [6] vs continuity with platysma and cervical fascia [20]) ↔️, probably complementary.
 - Main depressor of the commissure [14] 📄 (AU15 🧠). One paper calls DAO uniquely human [19] ↔️; chimpanzee dissections may describe a DAO-like muscle 🧠 (uncertain).
 
@@ -54,8 +54,8 @@ Evidence status: 12 ✅ / 50 📄 / 39 🧠 / 25 ↔️ — 🧠 items are queue
 
 | Quantity | Value | Population / sample | Source | Status |
 |---|---|---|---|---|
-| DLI width | 20 ± 4 mm | cadavers; n, site not extracted | [11][32] | 📄 |
-| DAO width | 14 ± 3 mm | same | [11][32] | 📄 |
+| DLI width | 20 ± 4 mm | cadavers; n, site not extracted | [11][32][65] | 📄 |
+| DAO width | 14 ± 3 mm | same | [11][32][65] | 📄 |
 | DAO insertion vs commissure | ≈ 10 mm lateral, 10 mm caudal | cadavers | [35] | 📄 |
 | Mentalis skin→muscle depth, 5 mm lateral of chin point | 6.7 ± 1.4 mm | cadaver + ultrasound | [40] | 📄 |
 | Mentalis thickness, same site | 4.0 ± 1.4 mm | same | [40] | 📄 |
@@ -166,7 +166,7 @@ Evidence status: 12 ✅ / 50 📄 / 39 🧠 / 25 ↔️ — 🧠 items are queue
 [8] Radiopaedia: Mentalis muscle — https://radiopaedia.org/articles/mentalis-muscle — medical reference — n.d.
 [9] Marionette fold treatment by depressor anguli oris section: technical note — https://pubmed.ncbi.nlm.nih.gov/23107845 — paper — n.d.
 [10] Development and Validation of a Photonumeric Scale to Assess Marionette Lines — https://pmc.ncbi.nlm.nih.gov/articles/PMC10833177/ — paper — n.d.
-[11] Anatomical Features in Lower-Lip Depressor Muscles (J Craniofac Surg) — https://journals.lww.com/10.1097/SCS.0000000000007622 — paper — n.d. (year unconfirmed)
+[11] Anatomical Features in Lower-Lip Depressor Muscles (J Craniofac Surg) — https://journals.lww.com/10.1097/SCS.0000000000007622 — paper — 2021 (per abstract record [65])
 [12] Muscles of the Lower Lip: Functional Anatomy, Innervation Patterns, and Nerve Injury Prevention (Plast Reconstr Surg) — https://journals.lww.com/plasreconsurg/abstract/9900/muscles_of_the_lower_lip__functional_anatomy,.3044.aspx — paper — 2026 (ahead of print, per harvest)
 [13] Lower lip displacement during voluntary activation of individual labial muscles in man — https://www.sciencedirect.com/science/article/abs/pii/0003996978902157 — paper — 1978
 [14] Intramuscular Electrical Stimulation of Facial Muscles in Humans and Chimpanzees: Duchenne Revisited and Extended — https://pmc.ncbi.nlm.nih.gov/articles/PMC2826128/ — paper — n.d.
@@ -220,6 +220,7 @@ Evidence status: 12 ✅ / 50 📄 / 39 🧠 / 25 ↔️ — 🧠 items are queue
 [62] Three-Dimensional Evaluation of the Depressor Anguli Oris and Depressor Labii Inferioris for Botulinum Toxin Injections (surfaced, not read) — https://pubmed.ncbi.nlm.nih.gov/32232427/ — paper — 2020
 [63] The Deep Fascia of the Head and Neck Revisited: Relationship with the Facial Nerve (surfaced, not read) — https://pmc.ncbi.nlm.nih.gov/articles/PMC11104498/ — paper — 2024
 [64] Mentolabial angle and aesthetics: a quantitative investigation of idealized and normative values — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5292106/ — paper — n.d.
+[65] Anatomical Features in Lower-Lip Depressor Muscles for... (J Craniofac Surg 2021;32(6), abstract record of the same paper as [11]/[32]) — https://journals.lww.com/jcraniofacialsurgery/abstract/2021/09000/anatomical_features_in_lower_lip_depressor_muscles.67.aspx — paper — 2021
 
 **Further reading (by name, not yet linked)**
 - Standring S (ed.), *Gray's Anatomy: The Anatomical Basis of Clinical Practice*, recent editions (modiolus, pars marginalis/peripheralis, platysma parts).
@@ -246,3 +247,9 @@ Evidence status: 12 ✅ / 50 📄 / 39 🧠 / 25 ↔️ — 🧠 items are queue
 - DAO insertion ≈ 10 mm lateral, 10 mm caudal: re-seen, still single source, stays 📄: https://pubmed.ncbi.nlm.nih.gov/33565832/. Modiolus centre 10–15 mm lateral, ±5 mm vertical: unconfirmed; an unattributed snippet gave 11.0 ± 2.6 lateral and 8.9 ± 2.8 inferior to cheilion (no URL tied, not used). Left ↔️/🧠.
 - Mentolabial angle ~110–135°, centre 120–130°, more acute in men: contested. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5292106/ gives an acceptable range of 107–140°; a Malaysian sample (not tied to a URL) found ~130° with no sex difference, against the "more acute in men" wording. Left ↔️. Lower lip to E-line −2 ± 2 mm and ethnic differences: unconfirmed, left ↔️.
 - Searches used: 4. Net badge counts unchanged.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Mentalis depth 6.7 ± 1.4 / thickness 4.0 ± 1.4 / bone gap 1.1 ± 1.0 mm at 5 mm lateral of chin point [40]: unconfirmed. Search confirmed the study design (44 cadaver hemifaces, 66 ultrasound hemifaces; measured 5 mm lateral to the chin point) at https://pmc.ncbi.nlm.nih.gov/articles/PMC7911364/, but the per-point means were not retrievable. A search summary attributed 6.7 ± 1.4 and 4.0 ± 1.4 to the intraoral-technique paper https://pmc.ncbi.nlm.nih.gov/articles/PMC13104702/ ([44]), probably quoting [40], so not independent. Left 📄. Note: a citing paper suggests a ~9 mm injection depth; an Italian consensus ([39]) gives 4.7-5.8 mm medially and 8.0-8.8 mm laterally, so depth varies by site.
+- DLI 20 ± 4 mm and DAO 14 ± 3 mm widths [11]: confirmed as stated in the abstract (same paper as [11]/[32], so one source, stays 📄): https://journals.lww.com/jcraniofacialsurgery/abstract/2021/09000/anatomical_features_in_lower_lip_depressor_muscles.67.aspx . Year is 2021. Sample size and site still not seen. Extra: lateral borders 32 ± 4 mm (DLI) and 54 ± 4 mm (DAO) from the midline. Related, different study: DAO width 14.5 ± 2.5 mm dissection vs 16.2 ± 2.9 mm ultrasound, https://pubmed.ncbi.nlm.nih.gov/38029476/ (summary only).
+- Searches used: 2. Net badge counts unchanged.

@@ -91,6 +91,20 @@
    "url": "https://developer.blender.org/docs/release_notes/4.2/eevee/",
    "kind": "official-docs",
    "year": "2024"
+  },
+  {
+   "n": 14,
+   "title": "Estimation of Spectral Biophysical Skin Properties from Captured RGB Albedo",
+   "url": "https://arxiv.org/pdf/2201.10695",
+   "kind": "paper",
+   "year": "2022"
+  },
+  {
+   "n": 15,
+   "title": "Analysis of Human Faces using a Measurement-Based Skin Reflectance Model (Weyrich et al., project page)",
+   "url": "https://vcg.seas.harvard.edu/publications/20060730-analysis-of-human-faces-using-a-measurement-based-skin-reflectance-model",
+   "kind": "paper",
+   "year": "2006"
   }
  ],
  "references_by_name": [

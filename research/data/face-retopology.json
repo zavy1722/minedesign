@@ -124,8 +124,8 @@
      24000,
      null,
      "mixed",
-     "head (approx., recalled)",
-     "contested"
+     "head (Epic LOD table guideline)",
+     "confirmed"
     ],
     [
      "BFM 2009",
@@ -139,7 +139,7 @@
    "population": "template meshes",
    "source_urls": [],
    "status": "knowledge",
-   "notes": "Recalled counts, consistent with other notes in this library; MetaHuman count unverified."
+   "notes": "Recalled counts, consistent with other notes in this library; MetaHuman 24,000 head vertices confirmed by Epic LOD spec (guideline); other rows unverified."
   },
   {
    "name": "loop_counts_by_region",

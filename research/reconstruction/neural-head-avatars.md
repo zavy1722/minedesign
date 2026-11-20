@@ -2,7 +2,7 @@
 
 > Neural head avatars (NeRF, point and Gaussian-splat families) are optimised to *re-render* a person under new expressions and views, not to recover a sculptable surface. Their output is a radiance field or 10⁴–10⁵ semi-transparent primitives, almost always driven by a tracked FLAME mesh. For a Blender likeness workflow they are worth three things: the refined FLAME fit and cameras; a camera-registered renderer that produces neutral reference views from any virtual camera; and a mid-frequency point and depth signal usable as a robust, confidence-weighted data term. GaussianAvatars (multi-view, mesh-bound) is the best template for engine design. Only the surfel (2DGS/SurFhead) and SDF (IMavatar, MonoNPHM) branches produce geometry close to sculpt quality. No harvest or earlier draft existed for this topic, so every claim is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 2 📄 / 56 🧠 / 14 ↔️ — verified 2026-11-20 against the FLAME site and the GaussianAvatars/VHAP repos; remaining 🧠 items are still unverified.
+> Evidence status: 0 ✅ / 4 📄 / 54 🧠 / 14 ↔️ — verified 2026-11-20 (passes 1 and 2) against the FLAME site, the GaussianAvatars/VHAP repos, the NeRSemble paper and the SurFhead paper; remaining 🧠 items are still unverified.
 
 ## Key facts
 
@@ -40,17 +40,17 @@
   - GAF (CVPR 2025) takes monocular video plus multi-view diffusion.
 
   All of them **hallucinate** unseen regions plausibly rather than measuring them. 🧠
-- **Geometry-oriented successors.** SurFhead (ICLR 2025) binds 2D Gaussian surfels to the mesh with Jacobian-based affine blending, which gives far better depth and normals. MeGA-style hybrids model the skin as a mesh with a neural texture and the hair as Gaussians. 🧠 (venues to verify)
+- **Geometry-oriented successors.** SurFhead (ICLR 2025; "Affine Rig Blending for Geometrically Accurate 2D Gaussian Surfel Head Avatars") builds on 2D Gaussian surfels, which have well-defined depth and normals, and uses Jacobian Blend Skinning of affine transforms; its authors claim state-of-the-art geometry [6][7]. The claim that it is the best sculpt-usable route is my judgement and no independent benchmark was found. MeGA-style hybrids model the skin as a mesh with a neural texture and the hair as Gaussians (unverified). 📄
 - **"Best method" claims for 2025–2026 are time-sensitive.** Current trends are diffusion priors, surfels, relightability and feed-forward models. ↔️
 
 **Inputs**
 - **NeRSemble capture:**
-  - 16 synchronised cameras, about 7.1 MP (3208×2200) at 73 fps;
-  - more than 220 subjects and more than 4,700 sequences, under a research-only agreement;
-  - mostly frontal and side coverage, so the back of the head is weak;
-  - GaussianAvatars trains on frames downsampled to about 802×550.
+  - 16 synchronised cameras, about 7.1 MP at 73 fps [5] (the NeRSemble method itself uses 12 of the 16 views as input [5]; the exact 3208×2200 pixel size is unconfirmed);
+  - more than 220 subjects and more than 4,700 sequences [5]; the research-only agreement is unconfirmed;
+  - mostly frontal and side coverage, so the back of the head is weak (unverified);
+  - GaussianAvatars trains on frames downsampled to about 802×550 (unverified).
 
-  🧠
+  📄
 - **Monocular methods** need 1–3 min of video, a tracked FLAME, matting masks and often face-parsing masks. Quality at large yaw depends on the yaw the video actually covered. 🧠
 - **The tracker is the bottleneck.** Every method assumes accurate per-frame FLAME and cameras. Tracking error becomes blur, doubled features, or Gaussians compensating off the surface. 🧠
 
@@ -222,6 +222,9 @@ No harvest file or earlier draft existed for this topic; sources below were adde
 2. GaussianAvatars repository: https://github.com/ShenhanQian/GaussianAvatars
 3. VHAP repository: https://github.com/ShenhanQian/VHAP
 4. Qian et al., GaussianAvatars (arXiv 2312.02069): https://arxiv.org/html/2312.02069
+ 5. Kirschstein et al., NeRSemble (arXiv 2305.03027): https://arxiv.org/abs/2305.03027
+ 6. Lee et al., SurFhead (arXiv 2410.11682): https://arxiv.org/html/2410.11682v2
+ 7. SurFhead, ICLR 2025 poster page: https://iclr.cc/virtual/2025/poster/31173
  Sourced VHAP and GAF facts are in `reconstruction/multi-view-fitting.md`.
 
 **Further reading (by name, not yet linked)**
@@ -243,3 +246,8 @@ No harvest file or earlier draft existed for this topic; sources below were adde
 - **3DGS PLY layout (62 properties, logit/log encodings, quaternion order, 0.28209479 constant)** — unconfirmed. Search found only forks confirming the f_dc/f_rest/opacity/scale/rot naming and the f_rest count of 3(deg+1)²−3 = 45 (https://github.com/autonomousvision/mip-splatting/blob/main/scene/gaussian_model.py); the upstream file and activations were not seen.
 - **Code licences** — partly confirmed. GaussianAvatars and VHAP are CC-BY-NC-SA-4.0: https://github.com/ShenhanQian/GaussianAvatars, https://github.com/ShenhanQian/VHAP. Inria 3DGS, gsplat and instant-ngp licences remain unconfirmed.
 - **GaussianAvatars binding and regularisers** — unconfirmed overall. The paper confirms triangle-local binding with the triangle centroid as origin and ε_position = 1 (https://arxiv.org/html/2312.02069); the exact k formula, ε_s ≈ 0.6 and λ values were not visible in the snippets.
+
+## Verification log, pass 2 (2026-11-20)
+
+- **NeRSemble capture spec** — partly confirmed. 16 cameras, 7.1 MP, 73 fps, >220 heads and >4,700 sequences are stated in the paper; the method uses 12 views as input (one source said 222 subjects in the introduction). The 3208×2200 size, 802×550 GaussianAvatars resolution and research-only access were not seen. https://arxiv.org/abs/2305.03027
+- **SurFhead** — partly confirmed. ICLR 2025, 2D Gaussian surfels, affine transforms with Jacobian Blend Skinning, authors claim SOTA geometry; "binds to mesh" is implied by the rig setting. "Best sculpt-usable geometry route" is unconfirmed (no independent benchmark). https://arxiv.org/html/2410.11682v2, https://iclr.cc/virtual/2025/poster/31173

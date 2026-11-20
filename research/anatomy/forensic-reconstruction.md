@@ -2,7 +2,7 @@
 
 > Forensic facial reconstruction (Stephan prefers "approximation") builds a face on a skull from three ingredients: soft-tissue depth tables at bony landmarks, a build-up of the masticatory and facial muscles, and feature rules that place the eyes, nose, mouth and ears relative to bone. The classic schools are Russian anatomical (Gerasimov), American tissue-depth (Krogman; Gatliff & Snow) and the Manchester combination method (Neave, Wilkinson). Blind tests against CT of living people put good reconstructions at a few millimetres of mean surface error, with the largest errors where likeness lives: nose tip, lips, eyelids and ears. For photo-to-3D work the transfer runs backwards: photos give the skin, so forensic rules become weak priors for hidden parts (eyeballs, teeth, skull, ear canal) and for depths no view constrains, never overrides of photo evidence. No harvest or draft existed for this topic; sourced tissue depths live in `anatomy/skull-osteology.md`.
 >
-> Evidence status: 0 ✅ / 5 📄 / 54 🧠 / 26 ↔️ — verified 2026-11-20 against abstracts only; remaining 🧠 items still queued.
+> Evidence status: 0 ✅ / 7 📄 / 53 🧠 / 25 ↔️ — verified 2026-11-20 (passes 1–2) against abstracts only; remaining 🧠 items still queued.
 
 ## Key facts
 
@@ -41,7 +41,7 @@
 
 **Validated accuracy**
 - Stephan & Henneberg (2001): of 16 approximations from dry skulls, one was recognized above chance 🧠.
-- Blind tests against CT of living subjects (Wilkinson et al. 2006; Lee, Wilkinson & Hwang 2012; Short et al. 2014): roughly half to two-thirds of the surface within ±2–2.5 mm. Smallest errors on forehead, dorsum and chin; largest at nose tip, lips, eyelids, ears and lateral cheeks ↔️.
+- Blind tests against CT of living subjects (Wilkinson et al. 2006; Lee, Wilkinson & Hwang 2012; Short et al. 2014): Lee, Wilkinson & Hwang 2012 (cone-beam CT, three reconstructions) found 54 %, 65 % and 77 % of the surface within 2.5 mm [4]; Wilkinson et al. 2006 found the majority of the surface under 2.5 mm, with ears and nose tip the main error areas [5] (corrected in verification: threshold is 2.5 mm, range 54–77 %; Short 2014 and the ±2 mm figure not found) 📄. Smallest errors on forehead, dorsum and chin; largest at nose tip, lips, eyelids, ears and lateral cheeks ↔️.
 - Automated CT-template methods report mean surface errors of roughly 2–4 mm ↔️. Surface error is not likeness: recognition hinges on a few mm at eyes, nose and mouth 🧠. Casework "identification-aid" rates (~50–70 % quoted) are uncontrolled ↔️.
 
 ## Numbers & reference tables
@@ -81,7 +81,7 @@
 | Study / method | Metric | Reported | Status |
 |---|---|---|---|
 | Stephan & Henneberg 2001 | face-pool recognition | 1 of 16 above chance | 🧠 |
-| Manchester digital vs CT (2006–2014) | surface within ±2–2.5 mm | ~50–70 % | ↔️ |
+| Manchester digital vs CT (2006–2014) | surface within 2.5 mm | 54–77 % (Lee 2012) [4][5] (corrected in verification) | 📄 |
 | CT-template / statistical | mean surface error | ~2–4 mm | ↔️ |
 | Casework identification aid | % of cases | ~50–70 % (uncontrolled) | ↔️ |
 
@@ -138,6 +138,9 @@ Numbered sources (added in verification, 2026-11-20; abstracts only, full texts 
 2. Stephan & Davidson 2008, eyeball and canthi placement (J Forensic Sci 53:612–619) — https://www.pubmed.gov/18471206/ ; https://ojp.gov/ncjrs/virtual-library/abstracts/placement-human-eyeball-and-canthi-craniofacial-identification ; Guyomarc'h 2012 CT follow-up via NCJRS abstract https://www.ncjrs.gov/App/Publications/abstract.aspx?ID=248542
 3. Stephan & Henneberg 2003, 75 % rule (J Forensic Sci 48:725–727) — https://digital.library.adelaide.edu.au/dspace/handle/2440/5388 ; https://www.ojp.gov/ncjrs/virtual-library/abstracts/predicting-mouth-width-inter-canine-width-75-percent-rule
 
+4. Lee WJ, Wilkinson CM & Hwang HS 2012, accuracy assessment of forensic computerized facial reconstruction employing cone-beam CT — https://ojp.gov/ncjrs/virtual-library/abstracts/accuracy-assessment-forensic-computerized-facial-reconstruction
+5. Wilkinson C, Rynn C et al. 2006, blind accuracy assessment of computer-modeled forensic facial reconstruction using CT data from live subjects — https://researchonline.ljmu.ac.uk/id/eprint/5337/ ; https://link.springer.com/article/10.1007%2Fs12024-006-0007-9
+
 Otherwise no URLs are cited. Linked material on tissue depth, aperture–nose relations and Manchester accuracy: `anatomy/skull-osteology.md` (its [1], [16], [17], [39], [42], [43], [46]–[48], [51]); corneal scale: `blender/eyes-modeling-blender.md`; ear canons: `anatomy/ear.md`; mouth norms: `anatomy/mouth-lips-teeth.md`.
 
 **Further reading (by name, not yet linked)**
@@ -167,3 +170,8 @@ Otherwise no URLs are cited. Linked material on tissue depth, aperture–nose re
 - Claim 2, 75 % rule: CONFIRMED (existence and ratio; ICW definition unconfirmed) — https://digital.library.adelaide.edu.au/dspace/handle/2440/5388
 - Claim 3, canthi and globe offset: globe 1–2 mm toward roof and lateral wall CONFIRMED (Stephan & Davidson 2008; CT support by Guyomarc'h 2012) — https://www.pubmed.gov/18471206/ . Canthi distances (4–6 mm, 3–5 mm, 10 mm): UNCONFIRMED, left 🧠.
 - Claim 4, alar width = aperture + 10 / +12–16 mm, ratio 1.4–1.7: UNCONFIRMED (Hoffman 1991 addition formula exists but its constant was not shown) — https://www.ojp.gov/ncjrs/virtual-library/abstracts/relationship-between-piriform-aperture-and-interalar-nasal-widths
+
+## Verification log, pass 2 (2026-11-20)
+
+- Claim 1, Manchester blind-test accuracy (50–70 % within ±2–2.5 mm; CT-template 2–4 mm): CORRECTED for the Manchester part. Lee et al. 2012: 54/65/77 % within 2.5 mm — https://ojp.gov/ncjrs/virtual-library/abstracts/accuracy-assessment-forensic-computerized-facial-reconstruction ; Wilkinson et al. 2006: majority under 2.5 mm — https://researchonline.ljmu.ac.uk/id/eprint/5337/ . Short 2014 and any ±2 mm figure not found; CT-template 2–4 mm UNCONFIRMED (left ↔️).
+- Claim 2, OrtogOnBlender / Moraes Blender method (status, licence, version): UNCONFIRMED. Search found only a Blender tracker note that OrtogOnBlender is not maintained by the Blender project (https://developer.blender.org/T61207) and a pointer to https://github.com/cogitas3d/OrtogOnBlender/issues; no licence or version evidence. Left ↔️/unverified.

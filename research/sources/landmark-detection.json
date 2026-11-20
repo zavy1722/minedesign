@@ -32,6 +32,22 @@
   {
    "n": 8,
    "url": "https://sources.debian.org/src/dlib/20.0%2Bdfsg-2/python_examples/face_landmark_detection.py"
+  },
+  {
+   "n": 9,
+   "url": "https://arxiv.org/pdf/2408.12569"
+  },
+  {
+   "n": 10,
+   "url": "https://arxiv.org/html/2604.21681v1"
+  },
+  {
+   "n": 11,
+   "url": "https://arxiv.org/abs/2204.02776"
+  },
+  {
+   "n": 12,
+   "url": "https://microsoft.github.io/DenseLandmarks/"
   }
  ],
  "references_by_name": [

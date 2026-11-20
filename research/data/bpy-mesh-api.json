@@ -315,7 +315,7 @@
           "3.6 or 4.0",
           "MeshPolygon.loop_total read-only",
           "bpy.types.MeshPolygon.bl_rna.properties['loop_total'].is_readonly",
-          "knowledge"
+          "partially verified: read-only in current API docs [4]; version of change unverified"
         ],
         [
           "4.0",
@@ -369,13 +369,13 @@
           "5.0",
           "bgl removed",
           "gpu module",
-          "knowledge"
+          "verified [5]"
         ],
         [
           "5.0",
           "bpy.props values not readable as id['x']",
           "attribute access",
-          "knowledge (moderate)"
+          "verified [5]"
         ]
       ],
       "population": "Blender Python API 3.2-5.0",

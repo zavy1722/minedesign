@@ -77,6 +77,20 @@
       "url": "https://openaccess.thecvf.com/content/CVPR2023/papers/An_PanoHead_Geometry-Aware_3D_Full-Head_Synthesis_in_360deg_CVPR_2023_paper.pdf",
       "kind": "paper",
       "year": "2023"
+    },
+    {
+      "n": 12,
+      "title": "InsightFace python-package README (pretrained models non-commercial research only)",
+      "url": "https://github.com/deepinsight/insightface/blob/master/python-package/README.md",
+      "kind": "repo",
+      "year": "2024"
+    },
+    {
+      "n": 13,
+      "title": "Hunyuan3D-2.1 API_TESTING_SUMMARY.md (octree_resolution default 256, range 64-512)",
+      "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1/blob/main/API_TESTING_SUMMARY.md",
+      "kind": "repo",
+      "year": "2025"
     }
   ],
   "references_by_name": [

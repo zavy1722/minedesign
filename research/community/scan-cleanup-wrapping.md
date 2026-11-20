@@ -36,7 +36,7 @@
   - **Surface Deform** does not fit; it passes on a target's *later* deformation. Bind it once shapes match, to drive a dense mesh from a fitted cage or move shape keys across topologies.
   - **Data Transfer** moves UVs, colour attributes, vertex groups and normals between non-matching meshes, not shape keys.
   - **Geometry Nodes**: Sample Nearest Surface or Raycast, Blur Attribute (3.5+), iterated in a Repeat Zone (4.0+), gives a smoothness-regularised wrap with no landmark term.
-- **Mesh to MetaHuman** solves an Identity from marker curves, conforms MetaHuman topology and runs a cloud autorig. Community reports agree it drifts at the nasal tip, vermilion and lid aperture (`blender/metahuman-cc-bridges.md`) ↔️. A single-image Blender add-on, MetahumanModeler, also outputs MetaHuman topology, with no accuracy data [13] 📄.
+- **Mesh to MetaHuman** solves an Identity from marker curves, conforms MetaHuman topology and runs a cloud autorig. Community reports agree it drifts at the nasal tip, vermilion and lid aperture (`blender/metahuman-cc-bridges.md`) ↔️. Epic's docs confirm that from 5.6 the web-Creator route is replaced by Conform from Template (strict MetaHuman template topology required), that Mesh to MetaHuman results "won't always match every fine detail of the volume", and that large holes destabilise the fit [19][20]; the specific drift regions and texture-transfer limits are not in Epic's docs. A single-image Blender add-on, MetahumanModeler, also outputs MetaHuman topology, with no accuracy data [13] 📄.
 - **Measured accuracy:**
   - Automatic non-rigid template registration: 53.1 % of landmarks within 2 mm and 84.4 % within 4 mm; best in the midface, worst in the upper face [7] 📄.
   - Stereophotogrammetry vs calipers: about 0.2 mm mean difference, mostly within 2 mm [8][9] ✅.
@@ -201,6 +201,8 @@ No harvest existed for this topic. Every URL is borrowed from a sibling harvest 
 [16] Faceform / ZWrap for ZBrush (Pixologic) — https://pixologic.com/zbrushlive-test/faceform/ — vendor page — n.d. (verification)
 [17] Multiresolution Modifier, Blender 5.3 Manual — https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html — official docs — 2026 (verification)
 [18] Shrinkwrap Modifier, Blender 5.3 Manual — https://docs.blender.org/manual/en/latest/modeling/modifiers/deform/shrinkwrap.html — official docs — 2026 (verification)
+[19] From Template Mesh, MetaHuman documentation (Epic) — https://dev.epicgames.com/documentation/en-us/metahuman/from-template-mesh — official docs — 2026 (verification pass 2)
+[20] Mesh to MetaHuman, MetaHuman documentation (Epic) — https://dev.epicgames.com/documentation/metahuman/mesh-to-metahuman?lang=en-US — official docs — 2026 (verification pass 2)
 
 **Further reading (by name, not yet linked)**
 - Faceform (R3DS) Wrap and ZWrap documentation (RigidAlignment, Wrapping, OpticalFlowWrapping, TransferTexture, BlendShapes)
@@ -222,3 +224,8 @@ No harvest existed for this topic. Every URL is borrowed from a sibling harvest 
 - **Wrap node set and Wrapping node annealing of smoothness / control-point weight** — unconfirmed. No Faceform documentation appeared in the results; stays 🧠.
 - **Blender 5.x Multires Reshape and Bake from Multires** — confirmed in the 5.3 manual. Source: https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html
 - **Shrinkwrap Limit only in Project mode; Target Normal Project has no Limit** — unconfirmed. The 5.3 manual and API describe a Limit (project_limit) for Project mode, but nothing states that other modes lack it; the Target Normal Project description was not found in the current manual. Stays 🧠. Source: https://docs.blender.org/manual/en/latest/modeling/modifiers/deform/shrinkwrap.html
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Mesh to MetaHuman conforms MetaHuman topology; drifts at nasal tip, vermilion, lid aperture; texture transfer limited; template conform from 5.6** — contested/partly confirmed. Epic docs confirm Conform from Template exists from 5.6 (strict template topology), that fine volume detail is not always matched, and that large holes destabilise the fit. The specific drift regions and texture-transfer limits were not found in official docs; the fact stays ↔️ (community reports). Sources: https://dev.epicgames.com/documentation/en-us/metahuman/from-template-mesh ; https://dev.epicgames.com/documentation/metahuman/mesh-to-metahuman?lang=en-US
+- **Wrap acceptance thresholds (median < 0.3 mm, RMS < 0.5 mm, p95 < 1.5 mm)** — unconfirmed. Search returned no per-scan residual statistics for template-to-scan non-rigid ICP (candidates not read: Laplacian ICP, arXiv 2302.02194); stays 🧠 design thresholds.

@@ -2,7 +2,7 @@
 
 > Facial fat is not one continuous blanket: septa and retaining ligaments divide it into superficial compartments above the SMAS and deep compartments beneath the mimetic muscles, the model Rohrich and Pessa's 2007 cadaver dye study made standard. Compartment borders show as soft shading transitions in a young face and as grooves in an older one (tear trough, lid–cheek junction, midcheek groove, nasolabial fold, prejowl sulcus), because neighbouring compartments gain, lose and slide independently. With age the deep midface, periorbital and temporal fat deflates while the lower superficial compartments hold their volume or descend, and body-weight change acts mostly on superficial and lower-face fat. A photo→3D fitter should therefore model the soft tissue as region-wise thickness fields with soft borders, crease seams and ligament anchors, driven by latent adiposity, age and expression factors. No harvest or earlier draft existed for this topic, so everything below is expert knowledge awaiting verification.
 
-Evidence status: 0 ✅ / 4 📄 / 63 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 0 ✅ / 5 📄 / 62 🧠 / 12 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -38,7 +38,7 @@ Evidence status: 0 ✅ / 4 📄 / 63 🧠 / 12 ↔️ — 🧠 items are queued 
 
 **Deep compartments**
 - **ROOF** (retro-orbicularis oculi fat) lies under the orbital orbicularis beneath the lateral brow. It gives sub-brow fullness, and when it deflates or descends the lateral lid hoods 🧠.
-- **SOOF** (suborbicularis oculi fat) lies under the orbicularis, below the ORL, on the zygoma. Rohrich et al. 2009 describe a medial part (medial limbus to lateral canthus) and a lateral part (lateral canthus to the temporal fat). It supports the lid–cheek junction 🧠. Whether ROOF and SOOF form one continuous layer is debated ↔️.
+- **SOOF** (suborbicularis oculi fat) lies under the orbicularis, below the ORL, on the zygoma. Rohrich et al. 2009 describe a medial part (medial limbus to lateral canthus) and a lateral part (lateral canthus to the temporal fat). It supports the lid–cheek junction. The two-part SOOF description 📄 [3]; the lid–cheek support role 🧠. Whether ROOF and SOOF form one continuous layer is debated ↔️.
 - **Deep medial cheek fat (DMCF)** lies on the maxilla beside the pyriform aperture, deep to the nasolabial and medial-cheek compartments (Rohrich, Pessa & Ristow 2008). It provides anterior cheek projection. Losing it produces the tear trough and V-deformity, a flat ogee and a deeper upper fold 🧠. DMCF may have medial and lateral parts, and a separate deep lateral cheek compartment may exist; both are disputed ↔️.
 - **Buccal fat pad (Bichat)** lies between buccinator and masseter. It has a body and buccal, pterygoid, pterygopalatine and temporal extensions (Stuzin 1990; Zhang 2002, three lobes). The buccal extension decides round cheek versus submalar hollow. It is proportionally largest in infants (the "sucking pad") 🧠.
 - **Temple** fat sits in three layers 🧠:
@@ -185,6 +185,7 @@ Individual error is large: measure the person. Full depth tables: skull-osteolog
 
 1. Rohrich & Pessa 2007, PubMed: https://pubmed.ncbi.nlm.nih.gov/17519724/
 2. Gierloff et al. 2012, PubMed: https://pubmed.ncbi.nlm.nih.gov/21915077/
+3. Rohrich et al. 2009, The anatomy of suborbicularis fat, PubMed: https://pubmed.ncbi.nlm.nih.gov/19730316/
 
 **Further reading (by name, not yet linked; PRS = Plast Reconstr Surg)**
 - Rohrich & Pessa 2007, The fat compartments of the face (PRS); 2008, The retaining system of the face (PRS)
@@ -212,3 +213,9 @@ Individual error is large: measure the person. Full depth tables: skull-osteolog
 - Skin-to-bone depth ranges (suborbital, inferior malar, arch, lateral orbit, buccal, mid-masseter): unconfirmed; search found the Stephan & Simpson T-Table literature but no landmark values. https://link.springer.com/article/10.1007/s00414-023-03087-x (not read for values)
 - Gierloff 2012 aging pattern: confirmed (inferior migration of midfacial compartments; deep medial cheek fat volume loss). Badge on that line stays ↔️ because the relative contribution of mechanisms is contested. https://pubmed.ncbi.nlm.nih.gov/21915077/
 - Buccal fat pad 8-12 mL per side: unconfirmed. A cadaver study (mean 10.2 mL male, 8.9 mL female, range 7.2-11.2) appeared in results but could not be tied to Stuzin/Zhang or a specific URL; the body-weight relationship was not settled. https://pubmed.ncbi.nlm.nih.gov/12045584/ (Zhang 2002 abstract, no mL figure)
+
+## Verification log, pass 2 (2026-11-20)
+
+- SOOF medial (medial limbus to lateral canthus) and lateral (lateral canthus to temporal fat pad) parts: confirmed by the Rohrich et al. 2009 abstract (eight hemifacial cadaver dissections with dye injection). Badge 📄 [3]. https://pubmed.ncbi.nlm.nih.gov/19730316/
+- Deep medial cheek fat on the maxilla beside the pyriform aperture, deep to nasolabial and medial-cheek fat: unconfirmed. The 2009 abstract says only that deep cheek fat abuts medial SOOF; a later review (https://pubmed.ncbi.nlm.nih.gov/30809580/) places the deep pyriform/Ristow space near the pyriform aperture but does not state the DMCF claim as written. Stays 🧠.
+- GLP-1 "Ozempic face" deflating temple, cheek and periorbital fat, evidence mainly case reports and reviews: unconfirmed. Results showed only reviews (https://pubmed.ncbi.nlm.nih.gov/41842736/, https://www.mdpi.com/2079-9284/12/5/221/pdf) describing facial volume depletion after rapid weight loss and calling for more study; no primary imaging study could be tied to a URL. Badge stays ↔️.

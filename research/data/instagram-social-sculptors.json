@@ -104,8 +104,8 @@
      15,
      17,
      12,
-     20,
-     "eye depth placement; varies by ancestry"
+     25,
+     "eye depth placement; varies by ancestry (Hertel means ~15.0-16.7 mm white/Hispanic/Chinese, ~17.5-18.5 mm Black adults; upper limits ~19-25 mm)"
     ],
     [
      "palpebral fissure width",
@@ -142,9 +142,11 @@
    ],
    "population": "adults, mixed populations, approximate",
    "source_urls": [
-    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8284630"
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8284630",
+    "https://pubmed.ncbi.nlm.nih.gov/6486215/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4336939/"
    ],
-   "status": "contested (iris row); knowledge (others)",
+   "status": "contested",
    "notes": "Expert-knowledge ranges, not yet checked against sources in this library; Hertel row is contested across populations. Prefer population-specific values from the anatomy notes. Verification 2026-11-20: iris diameter contested (device-dependent means 11.6-12.4 mm, SD ~0.4-0.5; https://pmc.ncbi.nlm.nih.gov/articles/PMC8284630); IPD mean ~63 mm only via secondary source, SD/range unconfirmed."
   },
   {

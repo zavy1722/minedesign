@@ -2,13 +2,13 @@
 
 > On the Blender side, a photo→head pipeline should be a thin bridge over the pure-NumPy engine that does not depend on context. Bulk geometry moves through `foreach_get`/`foreach_set` with contiguous NumPy buffers of exactly the right type (float32 coordinates, int32 indices). Fits are written as shape keys on a template whose topology never changes, region masks are vertex groups, and every photo gets its own camera and background image. Use `bpy.ops` only where no data-API equivalent exists, and always call it through `context.temp_override`. bpy is not thread-safe, so solve on copied arrays in a worker thread or subprocess and apply the results from a main-thread timer or modal operator. Blender 4.1–4.5 bundle Python 3.11, while 5.1 bundles Python 3.13 [2] (other 5.x versions and the NumPy version are unconfirmed: Python 3.11 or 3.13, NumPy 1.26 or 2.x). This topic had no harvest and no earlier draft, so everything here is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 2 📄 / 86 🧠 / 5 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 4 📄 / 86 🧠 / 5 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Bulk mesh I/O**
 - `foreach_get`/`foreach_set(attr, buf)` on a `bpy_prop_collection` copies a whole attribute inside C. If the buffer is a contiguous NumPy array whose dtype matches the RNA type (float32 `co`, int32 indices, bool flags), it takes the buffer path at close to memcpy speed. Any other dtype (float64, int64) or a strided view **silently** falls back to per-item conversion, which is about 5–20× slower 🧠. The buffer length must be exactly len × components, or the call raises 🧠.
-- **Fast creation:** call `vertices.add(V)`, `loops.add(L)` and `polygons.add(F)`. Then `foreach_set` `"co"`, `polygons` `"loop_start"`, and `loops` `"vertex_index"` (or `polygons.foreach_set("vertices", corner_verts)`). Finish with `me.update(calc_edges=True)` 🧠. `MeshPolygon.loop_total` is now derived from the offsets and is read-only, so never write it. Whether that started in 3.6 or 4.0 is unverified 🧠.
+- **Fast creation:** call `vertices.add(V)`, `loops.add(L)` and `polygons.add(F)`. Then `foreach_set` `"co"`, `polygons` `"loop_start"`, and `loops` `"vertex_index"` (or `polygons.foreach_set("vertices", corner_verts)`). Finish with `me.update(calc_edges=True)` 🧠. `MeshPolygon.loop_total` is now derived from the offsets and is read-only, so never write it 📄 [4]. Whether that started in 3.6 or 4.0 is unverified 🧠.
 - `Mesh.from_pydata()` is itself built on `foreach_set`, but it flattens Python sequences through tuples first. It is fine up to about 10⁵ elements and about 3–10× slower than pre-typed NumPy 🧠. Since 4.1 its `shade_flat=True` default leaves a head faceted, so call `me.shade_smooth()` afterwards 🧠. `me.validate(verbose=True)` repairs hand-built topology. `me.clear_geometry()` empties a mesh in place and keeps its materials and users 🧠.
 - `me.vertices` holds **undeformed** data. To read the result after shape keys and modifiers, use `obj.evaluated_get(depsgraph)` and then either `to_mesh()` followed by `to_mesh_clear()`, or `bpy.data.meshes.new_from_object(obj_eval, preserve_all_data_layers=True, depsgraph=dg)`. The latter is the data-API way to "apply" a modifier stack 🧠.
 - **Edit mode owns the geometry.** While an object is in edit mode, `me.vertices` is stale, and writes made in object mode are overwritten when edit mode exits. In edit mode, use `bmesh.from_edit_mesh` with `update_edit_mesh`, or call `obj.update_from_editmode()` before reading 🧠.
@@ -51,7 +51,7 @@
   - 4.1: Auto Smooth removed, replaced by `corner_normals` and `set_sharp_from_angle`.
   - 4.2: extensions arrived (`blender_manifest.toml`, wheels; never bundle numpy).
   - 4.3: brush assets.
-  - 5.0: `np.asarray(Vector/Matrix)` returns a float32, non-contiguous view (sourced in the sibling note); `bgl` removed; `bpy.props` values no longer readable through `id["x"]` (moderate confidence).
+  - 5.0: `np.asarray(Vector/Matrix)` returns a float32, non-contiguous view (sourced in the sibling note); `bgl` removed 📄 [5]; `bpy.props` values no longer readable through `id["x"]` (dict-style access no longer reaches them) 📄 [5].
 - Blender is also published on PyPI as the `bpy` module, pinned to one CPython minor version (cp311 for 4.x), which makes headless CI of the bridge possible. Whether 5.x wheels exist is time-sensitive 🧠.
 
 ## Numbers & reference tables
@@ -172,6 +172,8 @@ Verified sources (2026-11-20):
 1. Blender issue T98890, editing the Basis shape key from a script does not update mesh vertices; edit-mode round trip re-syncs them: https://developer.blender.org/T98890
 2. Blender 5.1 Python API release notes (Python upgraded to 3.13): https://developer.blender.org/docs/release_notes/5.1/python_api/
 3. Blender FBX export patch using a buffer that matches the C type of `co` in foreach_get/set (supporting context only, no badge change): https://projects.blender.org/blender/blender-addons/pulls/104448
+4. Blender Python API reference, MeshPolygon (loop_total marked readonly): https://docs.blender.org/api/current/bpy.types.MeshPolygon.html
+5. Blender 5.0 Python API release notes (BGL removed; bpy.props no longer dict-accessible): https://developer.blender.org/docs/release_notes/5.0/python_api/
 
 No other URL sources; remaining facts are unsourced. Related library notes: `blender/blender-version-status-2026.md` (it sources the 5.0 mathutils change and lists release dates and probes) and `blender/reference-camera-setup.md` (camera intrinsics and overlays).
 
@@ -192,3 +194,10 @@ No other URL sources; remaining facts are unsourced. Related library notes: `ble
 | Bundled Python 3.11 in 4.1–4.5; 5.0 ~3.11; 5.1–5.3 3.11 or 3.13; NumPy unknown in 5.x | corrected for 5.1: Python 3.13. 5.0, 5.2, 5.3 and NumPy versions unconfirmed | https://developer.blender.org/docs/release_notes/5.1/python_api/ |
 | foreach_get/set fast path only for matching dtype and contiguous; silent 5–20× slow fallback otherwise | unconfirmed (a patch supports that matching the C type avoids per-element casting, but no source for silent fallback or the 5–20× figure; Blender tests show some mismatched int/float dtypes raise TypeError) | https://projects.blender.org/blender/blender-addons/pulls/104448 |
 | With shape keys, writes to me.vertices co revert from Basis on next edit-mode entry; write the Basis key | confirmed (one source) | https://developer.blender.org/T98890 |
+
+## Verification log, pass 2 (2026-11-20)
+
+| Claim | Outcome | Source |
+|---|---|---|
+| `MeshPolygon.loop_total` is read-only; fast creation sets `loop_start` plus corner vertex indices, then `me.update(calc_edges=True)` | partly confirmed: read-only in the current API reference (2.80 and 3.1 pages do not mark it readonly); the version of the change (3.6 vs 4.0) and the creation recipe stay unconfirmed | https://docs.blender.org/api/current/bpy.types.MeshPolygon.html |
+| 5.0: `bgl` removed; `bpy.props` values no longer readable via `id['x']`; `np.asarray(Vector)` float32 non-contiguous view | `bgl` removal and `bpy.props` change confirmed; the mathutils/NumPy view claim unconfirmed (not in search results; sibling note sources it) | https://developer.blender.org/docs/release_notes/5.0/python_api/ |

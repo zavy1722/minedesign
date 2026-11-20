@@ -2,7 +2,7 @@
 
 > Facial soft-tissue thickness (FSTT) is the skin-to-bone distance at craniometric landmarks; in photo-based work it runs backwards, from the photographed skin to the hidden bone. Adult means rise from ~3 mm at rhinion and ~5–6.5 mm at glabella and nasion, through ~10–13 mm at the lips and chin, to ~15–21 mm over the buccal and masseter region, with SDs of ~1 mm at thin midline sites and 3–5 mm laterally. BMI is the strongest covariate; sex effects depend on the site; age and ancestry effects are small and contested; and the method (cadaver needle, ultrasound, CT, CBCT, MRI; supine or upright) moves values as much as demographics do. Use the tables as wide log-normal priors for hidden bone and as a plausibility check, never as a source of likeness or of nose, lip or ear shape.
 >
-> Evidence status: 4 ✅ / 25 📄 / 52 🧠 / 20 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 4 ✅ / 26 📄 / 51 🧠 / 20 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -117,7 +117,7 @@ The sourced point values (Iranian, Nigerian, skin-layer, TEM, ICC, voxel) are in
 4. **Place bony empties from skin landmarks.** Offset each skin landmark inward along the local bone normal by the Table 1 mean: g −5.5, n −6, rhi −3, pg −11, gn −8 mm. Midline offsets hold to about ±1–2 mm, cheek and jaw offsets only to ±4–6 mm 🧠.
 5. **Warp a skull template** (a CC0 or self-made skull, in mm) to those empties with Lattice or Mesh Deform. Use it to place the brow-ridge break, the zygomatic arch line, the mandibular border and the jaw angle.
 6. **Peg check.** This is the American method: cylinders on the skull at each landmark, along the bone normal, with length equal to the depth. Tips should touch the sculpt at thin sites. A tip poking through means the skin is too thin or the skull too big; a gap at g, n or rhi means the skull is too small or misplaced 🧠.
-7. **Thickness map.** In Geometry Nodes on the skin, take Object Info (skull) → Geometry Proximity, or Raycast along the inverted normal. Store the distance with Store Named Attribute `fstt_mm` and show it through a Color Ramp with stops at 3, 6, 10, 15 and 20 mm. Node names change between releases, so verify them 🧠.
+7. **Thickness map.** In Geometry Nodes on the skin, take Object Info (skull) → Geometry Proximity, or Raycast along the inverted normal. Store the distance with Store Named Attribute `fstt_mm` and show it through a Color Ramp with stops at 3, 6, 10, 15 and 20 mm. Geometry Proximity, Raycast and Store Named Attribute exist and behave as described [28][29][30] 📄; Object Info and Color Ramp use is 🧠. Node names change between releases, so verify them.
 8. **Quick envelope.** On a skull duplicate, paint a vertex group with weight = t / t_max and add Solidify (thickness t_max, offset +1, that group). The result is an "average skin" shell to read against the sculpt 🧠.
 9. **Photos from different weights.** Sculpt one neutral BMI and add a "weight" shape key along normals, scaled regionally: large at cheek, jowl and submental areas, near zero on the nasal dorsum and forehead.
 10. **What goes wrong:** one uniform depth everywhere; Rhine cadaver numbers on a living upright subject; supine CT values for jowls; skin-normal measurement on curved bone; bone inferred from the cheek outline; nose, lips or ears taken from depth tables [26]; false trust in ancestry tables; ignored dentures or lost molars, which collapse perioral and buccal depth; a uniform BMI "inflate".
@@ -182,6 +182,9 @@ The sourced point values (Iranian, Nigerian, skin-layer, TEM, ICC, voxel) are in
 [25] CBCT review on facial soft-tissue measurement (voxel size, contrast) — https://pmc.ncbi.nlm.nih.gov/articles/PMC6631689/ — review — n.d.
 [26] Computerized facial approximation based on FSTT and geometric morphometrics — https://pmc.ncbi.nlm.nih.gov/articles/PMC10557396/ — paper — 2023 (unconfirmed)
 [27] Flynn 1989 cephalometric soft-tissue norms, Black vs White American adults (secondary Scribd copy) — https://www.scribd.com/document/684241970/Flynn-1989 — secondary copy — 1989
+[28] Geometry Proximity Node, Blender Manual — https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/geometry/sample/geometry_proximity.html — official docs — n.d.
+[29] Store Named Attribute Node, Blender Manual — https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/attribute/store_named_attribute.html — official docs — n.d.
+[30] Raycast Node, Blender Manual (3.1) — https://docs.blender.org/manual/en/3.1/modeling/geometry_nodes/geometry/raycast.html — official docs — n.d.
 
 **Further reading (by name, not yet linked)**
 - Stephan CN & Simpson EK, "Facial soft tissue depths in craniofacial identification (part I: adults; part II: sub-adults)", *J Forensic Sci*, 2008.
@@ -207,3 +210,10 @@ Four searches were run. No badge changed, so the evidence-status line stands. No
 2. **Rhine & Moore 1984 values (Table 2).** Outcome: unconfirmed. No result reproduced the table. Keep the ±0.5 mm caveat.
 3. **De Greef 2006 and BMI slopes.** Outcome: unconfirmed for the BMI slopes and for the ~52 landmarks. Secondary snippets agree on 967 adults and A-mode ultrasound but could not be tied to a verifiable primary URL. The slopes are not verified.
 4. **Sex-difference pattern.** Outcome: unconfirmed. The results leaned toward men thicker at most sites; none gave per-landmark data showing women thicker at malar, infraorbital or gonion. Candidate full texts to check later: https://pmc.ncbi.nlm.nih.gov/articles/PMC9914978 , https://pmc.ncbi.nlm.nih.gov/articles/PMC3762959
+
+## Verification log, pass 2 (2026-11-20)
+
+Two searches were run. Badges: 1 🧠 → 📄 (Blender step 7); evidence-status line updated to 4 ✅ / 26 📄 / 51 🧠 / 20 ↔️. Sources [28]–[30] added; no data JSON value changed.
+
+1. **Supine-to-upright change (<1 mm midline, ~1–3 mm lateral/lower face; Munn & Stephan 2018) and the 0.05–0.10 sigma inflation.** Outcome: unconfirmed. Results confirmed only the citation (Forensic Sci Int 289:40, 2018), not the values. A related 3D-scan study (Bulut et al. 2017, 44 living people) found 82.4–86.7% of facial surface within ±2 mm between supine and upright, with largest deviation at buccal, masseteric and nasolabial landmarks, which is directionally consistent but not a confirmation. Sources seen: https://researchonline.ljmu.ac.uk/id/eprint/7165/ , https://lirias.kuleuven.be/bitstream/123456789/642575/4/FSI-S-19-01142_submitted.pdf
+2. **Blender Geometry Nodes workflow.** Outcome: partly confirmed (📄). Official manual confirms Geometry Proximity (distance to nearest target geometry), Raycast (hit position, normal, distance) and Store Named Attribute (stores a field under a name). Not confirmed: Object Info, Color Ramp, and the Solidify vertex-group thickness factor (step 8 stays 🧠). Sources: https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/geometry/sample/geometry_proximity.html , https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/attribute/store_named_attribute.html , https://docs.blender.org/manual/en/3.1/modeling/geometry_nodes/geometry/raycast.html

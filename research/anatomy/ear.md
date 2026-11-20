@@ -2,7 +2,7 @@
 
 > The auricle is one plate of elastic cartilage (helix, Y-shaped antihelix with two crura, tragus, antitragus, concha) under thin, tightly bound skin, plus a cartilage-free lobule. Its relief is crisp and individual enough to serve as a biometric, so a generic template ear visibly weakens likeness. Harvested adult means put length at about 57–63 mm and width at about 29–33 mm (width ≈ 0.47–0.54 × length), males longer, and length keeps creeping up through adult life. The ear hangs from the skull at the ear canal, so its height is best anchored to the Frankfort horizontal (tragion ≈ orbitale level) rather than to the "brow to nose base" canon, which is only approximate; its long axis leans back roughly 10–30°, and protrusion norms disagree. In photo fitting, perspective, head pitch, the ear's outward flare and hair occlusion cause larger errors than anatomical variation does.
 >
-> Evidence status: 3 ✅ / 26 📄 / 51 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 3 ✅ / 27 📄 / 50 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -140,7 +140,7 @@ Pitch: ear-vs-brow height shifts by about 100 mm × sin(pitch), ~9 mm at 5° and
 - **Occlusion and robustness.** Gate ear landmarks with a hair/accessory segmentation mask and use a robust loss (Huber or Cauchy); allow a small per-photo elastic nuisance deformation because glasses and hats bend the ear [14].
 - **Rigidity.** Auricular muscles are vestigial, so ears are effectively rigid relative to the cranium across expressions; visible tragion and helix points are good extra head-pose anchors in multi-expression sets 🧠.
 - **Landmarks.** Farkas set: superaurale, subaurale, preaurale, postaurale, otobasion superius and inferius, tragion; plus intertragal notch and lobule low point; optionally a dense 55-point in-the-wild ear contour scheme 🧠. Store each measurement with its definition [16][17].
-- **Template and shape code.** Generic head models (e.g. FLAME) carry coarse ears and most monocular face regressors mask ears out 🧠. Fit the ear as a separate part with its own PCA or morphable model (York Ear Model; ear part of the Universal Head Model), blended at the root ring, after checking licences 🧠.
+- **Template and shape code.** Generic head models (e.g. FLAME) carry coarse ears and most monocular face regressors mask ears out 🧠. Fit the ear as a separate part with its own PCA or morphable model (York Ear Model [19] 📄: free for research and education only, non-commercial licence, access by signed user agreement, so it cannot go into a commercial pipeline; ear part of the Universal Head Model 🧠), blended at the root ring, after checking licences.
 - **Identity metric.** Face-recognition embeddings are trained mostly on frontal crops and largely ignore ears 🧠, so add an explicit ear-contour term (Chamfer distance in ear-normal and profile views); ear + face beat either alone in [15].
 - **Provenance.** Normalise to mm on ingest; keep `source_url`, `n`, `status` and `definition` on every prior row (`research/data/ear.json`).
 
@@ -176,6 +176,7 @@ Pitch: ear-vs-brow height shifts by about 100 mm × sin(pitch), ~9 mm at 5° and
 [16] Sundanese auricle photogrammetry study (title not confirmed) — https://www.pubmed.gov/36217409/ — paper — n.d.
 [17] Nature Index topic page: anthropometric analysis of human auricles — https://www.nature.com/nature-index/topics/l4/anthropometric-analysis-of-human-auricles — aggregator — n.d.
 [18] Heathcote, "Why do old men have big ears?", BMJ 1995;311:1668 (copy) — https://jhanley.biostat.mcgill.ca/bios601/Surveys/BigEars.pdf — paper — 1995
+[19] The York Ear Model (YEM) and the York 3D Ear Dataset (user agreement: non-commercial research and education) — https://www-users.york.ac.uk/~np7/research/YEM — dataset page — n.d.
 
 **Further reading (by name, not yet linked)**
 - Farkas, *Anthropometry of the Head and Face*, 2nd ed., 1994 (ear landmarks and norms).
@@ -200,3 +201,10 @@ Pitch: ear-vs-brow height shifts by about 100 mm × sin(pitch), ~9 mm at 5° and
 2. Tragion at orbitale level; ear top at brow; bottom at subnasale to ~10 mm below; ear 5-12 mm longer than nose (nasoaural canon fails). Outcome: unconfirmed. Only the canon definition (n-sn = sa-sba) and general failure of canons in other populations were found (https://www.thieme-connect.com/products/ejournals/html/10.1055/s-0042-1759496); no Farkas Caucasian values.
 3. Heathcote, BMJ 1995: ears lengthen ~0.2 mm/yr. Outcome: confirmed (corrected precision to 0.22 mm/yr; cross-sectional, 206 patients aged 30-93 per secondary report). One source (single-source badge); the sex-difference reports conflict between secondary accounts. Source: https://jhanley.biostat.mcgill.ca/bios601/Surveys/BigEars.pdf
 4. McDowell goals (helix-mastoid 10-12/16-18/20-22 mm; 3 mm symmetry; auriculocephalic 20-30 vs <25; conchoscaphal ~90). Outcome: unconfirmed for attribution to McDowell: the mm values appear in PMC reviews (candidates PMC3312149, PMC5550315, PMC3199845) but the summary did not tie them to one URL; original 1968 abstract (https://pubmed.ncbi.nlm.nih.gov/5639206/) has no text. Angle norms vary by source (20-30, <25, 25-35 reported); conchoscaphal given as ~90 and as "<90". Existing badges left unchanged.
+
+## Verification log, pass 2 (2026-11-20)
+
+2 searches used; results are search summaries tied to the URLs listed.
+
+1. Ear models and landmark data exist (York Ear Model, Universal Head Model ear part, 55-point ear landmarks); licences. Outcome: partly confirmed. York Ear Model and its 500-scan 3D ear dataset exist (Dai, Pears, Smith, FG 2018) and are free for non-commercial research and education only, via a signed user agreement (badge 📄, [19]). Universal Head Model ear part and the 55-point scheme were not surfaced: unconfirmed (stay 🧠). Source: https://www-users.york.ac.uk/~np7/research/YEM ; agreement https://www-users.york.ac.uk/~np7/research/YEM/YEMagreement.pdf
+2. Priors N(61, 4.5) length, W/L N(0.50, 0.05), male offset about +2 mm, Farkas-type norms. Outcome: unconfirmed. No Farkas adult ear table surfaced. Landmark definitions (superaurale-subaurale length, preaurale-postaurale width) match the note (https://pmc.ncbi.nlm.nih.gov/articles/PMC9547621/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC9426708/). A Thai adult study says men's ears are larger (https://pubmed.ncbi.nlm.nih.gov/34955402); other summaries suggested male-female length gaps up to about 5 mm, but those numbers could not be tied to a URL, so the +2 mm offset stays 🧠/provisional. Priors unchanged.

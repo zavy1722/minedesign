@@ -287,6 +287,20 @@
    "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
    "kind": "official docs",
    "year": "n.d."
+  },
+  {
+   "n": 42,
+   "title": "Bone-Anchored CT Angiography Framework for In Vivo Assessment of Zygomaticus Major Morphology",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13604665",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 43,
+   "title": "Diagnosis of Zygomaticus Muscle Paralysis Using Needle Electromyography With Ultrasonography",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3713303/",
+   "kind": "case report",
+   "year": "n.d."
   }
  ],
  "references_by_name": [

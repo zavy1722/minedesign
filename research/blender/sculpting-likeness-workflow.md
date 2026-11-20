@@ -2,7 +2,7 @@
 
 > Likeness sculpting goes coarse to fine: masses and silhouette, primary proportions and planes, secondary features and soft tissue, then tertiary skin detail. Most of the likeness is settled in the first two stages, each worked at the lowest resolution that can express it. Voxel remesh and Dyntopo give free topology for blockout; Multires gives fixed topology that keeps UVs and the landmark↔vertex map, so it is the home for a photo-fitted template. Symmetry stays on until primary proportions agree in every matched camera, then is broken on purpose, and likeness is judged only through perspective cameras solved from the photos (blink, flip, thumbnail, held-out photo), never in ortho front/side views. No harvest or draft existed for this topic, so all claims are expert knowledge awaiting verification; related notes: `blender/reference-camera-setup.md`, `blender/blender-version-status-2026.md`, `anatomy/facial-asymmetry.md`, `blender/eyes-modeling-blender.md`.
 >
-> Evidence status: 0 ✅ / 1 📄 / 77 🧠 / 15 ↔️ — 🧠 items are queued for web verification. Verification pass 2026-11-20: 1 claim part-confirmed (Reshape), 3 claims partly supported or unconfirmed (see log).
+> Evidence status: 0 ✅ / 3 📄 / 77 🧠 / 16 ↔️ — 🧠 items are queued for web verification. Verification pass 2026-11-20 (pass 2 added voxel remesh and caricature confirmations): 1 claim part-confirmed (Reshape), 3 claims partly supported or unconfirmed (see log).
 
 ## Key facts
 
@@ -13,7 +13,7 @@
 - **Since 4.3, brushes are assets** (Essentials library); several were renamed or split into variants, and scripts assigning `tool_settings.sculpt.brush` break 🧠 (time-sensitive; see the version note).
 
 **Resolution strategies**
-- **Voxel remesh** (OpenVDB; `Ctrl+R` remesh, `R` sets size) gives an even quad-dominant surface and fuses intersecting pieces. It discards UVs, shape keys, multires and vertex groups (mask, face sets, colour survive only with their Preserve options), and each pass smooths away forms narrower than ~2 voxels 🧠.
+- **Voxel remesh** (OpenVDB; `Ctrl+R` remesh, `R` sets size) gives an even quad-dominant surface and fuses intersecting pieces. It discards UVs, shape keys, multires and vertex groups (mask, face sets, colour survive only with their Preserve options), and each pass smooths away forms narrower than ~2 voxels. Manual [5] confirms: the Remesh panel's Paint Mask, Face Sets and Color Attributes options reproject those onto the new mesh, all other mesh data layers are lost, shape keys are ignored and Multires is unsupported; `R` sets voxel size 📄 [5]. The face-count figures are the note's own arithmetic (Table 2).
 - **Dyntopo** (`Ctrl+D`) refines/collapses triangles locally (Relative px, Constant scene units, Brush % of radius, Manual). Good for pulling out ears, nostrils and additive forms; it triangulates, destroys UVs and custom data, cannot coexist with Multires, slows on dense meshes, and its future in Blender is debated ↔️.
 - **Multires**: fixed quad base, Catmull–Clark levels (×4 faces each). Detail is displacement relative to the subdivided base, so moving base vertices (same topology) carries sculpted detail along; tools include *Sculpt Base Mesh*, *Unsubdivide*, *Rebuild Subdivisions*, *Apply Base*, *Reshape* (copies vertex coordinates from another selected mesh with matching topology and vertex indices; Python operator `bpy.ops.object.multires_reshape`) 📄 [1]. It cannot change topology, does not combine with shape keys, and its displacement cannot be written directly from Python 🧠.
 - **Shape keys are Blender's nearest thing to sculpt layers**: without Multires/Dyntopo, Sculpt Mode edits the active key, dialled 0–1. Native ZBrush-style layers did not exist as of the author's knowledge ↔️ (verify for 5.x).
@@ -44,7 +44,7 @@
 - Loop: compare through every camera → take the **largest** error → fix it at the **lowest** Multires level that can express it → re-check all cameras. Early detailing locks proportion errors in 🧠.
 - **Fresh-eye checks:** horizontal flip, thumbnail size, blink, greyscale, a break, and a viewer who knows the person 🧠.
 - **Use photos from one age period** and hold one out. Photos of one person vary a lot (Jenkins et al. 2011), so matching one flattering photo overfits ↔️.
-- **Smoothing drifts the face toward the average.** Mild caricature sometimes raises rated likeness (Rhodes, Brennan & Carey 1987; Benson & Perrett 1991); the effect size for 3D sculpts is unsettled ↔️.
+- **Smoothing drifts the face toward the average.** Mild caricature sometimes raises rated likeness (Rhodes, Brennan & Carey 1987; Benson & Perrett 1991) 📄 [6][7]; the best-likeness level is small for photographic faces (Benson & Perrett: about 4.4% on average) and larger for line drawings (about 16%, Rhodes et al.), and the effect size for 3D sculpts is unsettled ↔️ 0–~16%.
 
 ## Numbers & reference tables
 
@@ -157,6 +157,9 @@ Only the items cited below have been verified; every other item is 🧠 or ↔�
 2. Blender 4.3: Sculpt, Paint, Texture (brush assets, `bpy.ops.brush.asset_activate`, Essentials library): https://developer.blender.org/docs/release_notes/4.3/sculpt/
 3. Blender 5.2 LTS Manual, Dyntopo: https://docs.blender.org/manual/en/dev/sculpt_paint/sculpting/tool_settings/dyntopo.html
 4. Blender 2.91 Manual, Sculpt Symmetry (mirror across local axes): https://docs.blender.org/manual/en/2.91/sculpt_paint/sculpting/tool_settings/symmetry.html
+5. Blender 5.2 LTS Manual, Remesh (voxel remesh, preserve/reproject options): https://docs.blender.org/manual/en/latest/sculpt_paint/sculpting/tool_settings/remesh.html
+6. Benson & Perrett, perception and recognition of photographic quality facial caricatures (St Andrews research portal): https://research-portal.st-andrews.ac.uk/en/publications/perception-and-recognition-of-photographic-quality-facial-caricat/
+7. Rhodes, Brennan & Carey 1987, Identification and ratings of caricatures: https://researchconnect.stonybrook.edu/en/publications/identification-and-ratings-of-caricatures-implications-for-mental/
 
 **Further reading (by name, not yet linked)**
 - Blender Manual, *Sculpt Mode* chapter (Multiresolution, Dynamic Topology, Voxel Remesh, Brushes, Symmetry)
@@ -183,3 +186,8 @@ Only the items cited below have been verified; every other item is 🧠 or ↔�
 - **4.3 brush assets / `asset_activate` / `sculpt_brush_type` / renamed brushes / radius unit in 5.x** — partly confirmed. [2] confirms brush assets, the Essentials library and `bpy.ops.brush.asset_activate` replacing `paint.brush_set`. `sculpt_brush_type`, specific renames and 5.x radius-unit settability not found; items stay 🧠. https://developer.blender.org/docs/release_notes/4.3/sculpt/
 - **5.2 LTS / 5.3: no sculpt layers, Dyntopo present, plane brushes unified?** — Dyntopo still present in 5.2 LTS manual [3] (supports that clause only). Sculpt layers, 5.3 status and plane-brush unification unconfirmed; the 5.2 sculpt release notes (https://developer.blender.org/docs/release_notes/5.2/sculpt/) list no sculpt layers but absence is not proof. Left 🧠/↔️.
 - **Symmetry in local axes; `Mesh.use_mirror_x` since ~2.91; sculpting active shape key** — local-axes mirroring confirmed by the 2.91 manual [4]. Per-mesh storage / `use_mirror_x` and shape-key sculpting not confirmed; left 🧠.
+
+## Verification log, pass 2 (2026-11-20)
+
+- **Mild caricature improves rated likeness; slider 0-20%, default 0** — confirmed (direction) 📄, with refinement: best-likeness exaggeration is small for photographs (about 4.4% average, Benson & Perrett) and about 16% for line drawings (Rhodes et al.); 0-20% slider range is plausible and stays ↔️. https://research-portal.st-andrews.ac.uk/en/publications/perception-and-recognition-of-photographic-quality-facial-caricat/ ; https://researchconnect.stonybrook.edu/en/publications/identification-and-ratings-of-caricatures-implications-for-mental/
+- **Voxel remesh loses data layers; mask/face sets/colour survive via options; Ctrl+R / R** — confirmed 📄. Manual: data layers lost, shape keys ignored, Multires unsupported, Paint Mask/Face Sets/Color Attributes reprojected. Face-count formula is the note's own arithmetic. https://docs.blender.org/manual/en/latest/sculpt_paint/sculpting/tool_settings/remesh.html

@@ -52,7 +52,7 @@
 - **Divide only part of the AO** (AO^γ, γ ≈ 0.3–0.6): skin's subsurface scattering and interreflection fill creases, so full division over-brightens nasolabial folds and orbits ↔️
 - **The high-pass "de-light" is a myth:** it also removes real low-frequency albedo (cheek flush, under-eye pigment, beard shadow) 🧠
 - **Double diffusion:** photo albedo already contains subsurface blur, so Random Walk SSS on top reads slightly soft or waxy. A mild unsharp mask (radius ≈ 0.5–1 mm) is a common, contested fix ↔️
-- **Tools** (time-sensitive): Agisoft's free Texture De-Lighter; Unity's De-Lighting tool (2017, likely unmaintained) ↔️
+- **Tools** (time-sensitive): Agisoft's free stand-alone Texture De-Lighter (free and stand-alone confirmed [4]; it needs rough brush strokes marking lit and shadowed areas and is tuned for 8-bit JPEG-compressed textures [4]); Unity's De-Lighting tool (2017, likely unmaintained; unverified) ↔️
 
 ## Numbers & reference tables
 
@@ -167,6 +167,8 @@ Proposed module `face3d/texture/`, numpy-only, built on `Mesh` (`uvs`, `face_uvs
 2. Tencent Hunyuan 3D 2.1 Community License (Territory excludes EU, UK, South Korea): https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE ; 2.0 text: https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE
 3. Ramamoorthi & Hanrahan, SIGGRAPH 2001 (9 SH coefficients, ~1% average error): https://graphics.stanford.edu/papers/envmap/ , https://history.siggraph.org/?p=116946
 
+4. Agisoft Metashape installer page (Texture De-Lighter listed as a free download) and Agisoft forum announcement: https://www.agisoft.com/downloads/installer/ , https://www.agisoft.com/forum/index.php?topic=11086.0
+
 No other sources linked. Related notes: `blender/skin-shading.md`, `reconstruction/photogrammetry-heads.md`, `blender/reference-camera-setup.md`, `community/ai-assisted-sculpting.md`, `reconstruction/single-image-regression.md`, `blender/import-export-scans.md`.
 
 **Further reading (by name, not yet linked)**
@@ -202,3 +204,8 @@ No other sources linked. Related notes: `blender/skin-shading.md`, `reconstructi
 - **Blender bake margin (16 px default; Adjacent Faces and Extend types)**: confirmed 📄 [1]. UV Project camera aspect and Image > Apply Camera Image: unconfirmed. https://docs.blender.org/api/current/bpy.types.BakeSettings.html
 - **Hunyuan licence excludes EU, UK, South Korea**: confirmed [2] (the bullet stays ↔️ because the surrounding claims are contested). Which model is state of the art in late 2026: unconfirmed. https://gitserver.onethingai.com/ai-models/Hunyuan3D-2.1/raw/branch/main/LICENSE
 - **Ramamoorthi & Hanrahan 2001: 9 SH coefficients suffice**: confirmed 📄 [3], about 1% average error (abstract excerpt). https://graphics.stanford.edu/papers/envmap/
+
+## Verification log, pass 2 (2026-11-20)
+
+- **3x3 matrix on 24-patch chart gives mean dE2000 about 1.5-3**: unconfirmed. Search found Imatest's method documentation (default metric is mean squared dE2000; input must be linearised) but no stated typical value; Kasson's blog figures were not visible. Badge left at ↔️. https://www.imatest.com/docs/colormatrix/
+- **Agisoft Texture De-Lighter is a free stand-alone tool**: confirmed 📄 [4] (free, stand-alone, brush-stroke input, 8-bit JPEG-optimised). **Unity De-Lighting tool likely unmaintained**: unconfirmed. Bullet stays ↔️ because of the Unity half. https://www.agisoft.com/downloads/installer/

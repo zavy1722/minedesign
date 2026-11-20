@@ -70,6 +70,34 @@
       "url": "https://dev.epicgames.com/documentation/metahuman/metahuman-5-7-release-notes",
       "kind": "official docs",
       "year": "2025"
+    },
+    {
+      "n": 11,
+      "title": "Reallusion Software EULA",
+      "url": "https://www.reallusion.com/Content/EULA/AP/EULA_AP.htm",
+      "kind": "official",
+      "year": "2026"
+    },
+    {
+      "n": 12,
+      "title": "Daz 3D End User License Agreement",
+      "url": "https://www.daz3d.com/eula",
+      "kind": "official",
+      "year": "n.d."
+    },
+    {
+      "n": 13,
+      "title": "Daz 3D Interactive Licenses",
+      "url": "https://www.daz3d.com/interactive-license-info",
+      "kind": "official",
+      "year": "n.d."
+    },
+    {
+      "n": 14,
+      "title": "Blender Manual: glTF 2.0 import/export",
+      "url": "https://docs.blender.org/manual/en/4.4/addons/import_export/scene_gltf2.html",
+      "kind": "official docs",
+      "year": "n.d."
     }
   ],
   "notes": "No harvest or earlier draft existed for this topic; the three URLs are reused from sibling harvests in this library (blenderartists-forum, facs-expressions, blender-face-addons).",

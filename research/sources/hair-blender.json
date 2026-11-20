@@ -35,6 +35,31 @@
    "id": 7,
    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5533483/",
    "verified": "2026-11-20"
+  },
+  {
+   "id": 8,
+   "url": "https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/hair/deformation/index.html",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 9,
+   "url": "https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/hair/guides/index.html",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 10,
+   "url": "https://docs.blender.org/manual/en/latest/physics/particles/mode.html",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 11,
+   "url": "https://studio.blender.org/blog/procedural-hair-nodes/",
+   "verified": "2026-11-20"
+  },
+  {
+   "id": 12,
+   "url": "https://mmlab.ie.cuhk.edu.hk/projects/CelebA/CelebAMask_HQ.html",
+   "verified": "2026-11-20"
   }
  ],
  "references_by_name": [
