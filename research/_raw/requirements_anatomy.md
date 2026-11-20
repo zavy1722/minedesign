@@ -65,7 +65,7 @@ Log-normal μ values are medians. Use Student-t (ν ≈ 4) or Huber on identity 
 | Bony go–go | M 97, F 90 | 6 / 5 | mm | 🧠 ↔️ | JAW, MMJ |
 | Ramus Co–Go | M 60, F 54 | 5 / 4 | mm | 🧠 ↔️ | JAW |
 | Masseter relaxed, per side | F 10, M 12, unknown 11 | 1.8 / 2.0 / 2.3 | mm | ✅ anchors (9.8 / 11.3), 🧠 widening | MMJ |
-| Masseter clench gain κ | 0.28 | 0.05 | ratio | 📄 derived | MMJ |
+| Masseter clench gain κ | 0.28 | 0.05 | ratio | 🧠 derived from ✅ data | MMJ |
 | Cervicomental angle, canonical pose | 118 | 12 | ° | 🧠 ↔️ | JAW |
 | n–sn / sn–prn | M 54.5, F 50.5 / M 20, F 18.5 | 3.3, 3.1 / 2.0 | mm | 🧠 | NOSE |
 | al–al | M 34.9, F 31.4 (unknown population 36 / 33, σ 4) | 2.1 / 2.0 | mm | 🧠 | NOSE |
