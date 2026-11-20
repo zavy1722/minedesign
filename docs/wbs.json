@@ -1,0 +1,803 @@
+{
+ "file": "/home/user/minedesign/docs/DESIGN.md",
+ "summary": "I wrote the final design to /home/user/minedesign/docs/DESIGN.md (about 7,800 words; not committed). It follows the judges: robustness's plan is the base, accuracy's solver maths and artist's product layer are grafted on, and each judge-identified fatal flaw has a decision that fixes it.\n\nMain decisions:\n- **One solver.** The existing bundle.py is extended rather than adding a second solver. A pluggable shape model and extra-term plugins cover the surface stage.\n- **Cameras.** Inverse-depth parameters with rho itself bounded to 0.25\u201310 m, converted back to the existing Camera at the boundary.\n- **Scale.** An explicit log-scale with N(0, 0.045\u00b2) as the only population size source. Caliper or card overrides; iris only at \u2265 20 px with a sharp limbus and no glasses.\n- **Default prior.** The 44-landmark, 18-factor covariance, solved by Woodbury. It defaults to unknown-population widening, a sex mixture, an extra 6 mm face-depth factor and widened tragion variance, and never takes an ancestry input.\n- **Noise.** Landmark sigma is stored in mm by landmark kind and converted per view. Definition bias is a shared per-landmark offset that sets a floor on reported uncertainty, so it no longer shrinks with more views.\n- **Robustness and honesty.** A Huber, then Tukey, then 3.035\u03c3 rejection schedule. Mirror flips are only ever suggested, never applied silently. Evidence-gated symmetry, a four-state claims ledger computed at prior weight 1, and accuracy tiers computed from the evidence.\n- **Pixels and jobs.** Pixels reach the engine as arrays decoded by bpy, the helper or the stdlib PNG reader. Jobs launch through `sys.executable -I launcher.py job_dir`, because `-m` fails under `-I`.\n\nNumbers I checked during the review:\n- **Old shrinkage gate:** it fires on 85% of faces drawn from the prior itself. The replacement, based on the predictive distribution, fires at 0.8% and catches 93% of 10\u00d7 over-shrinkage.\n- **Constants:** 1.386 (median of chi-square, 2 dof) and 3.035\u03c3 (1% false alarms in 2D).\n- **Scale and lens:** iris alone gives about 5.1% scale error, about 3.4% when fused with the population prior. The stereographic and rectilinear magnification figures match the judges'.\n- **Accessibility:** the Okabe\u2013Ito overlay colours fall to \u0394E 16\u201317 under simulated colour-blind vision. CI therefore asserts \u0394E \u2265 15, and shape coding carries the rest.\n- **Template and surface:** the procedural cube-sphere head has an exact mirror map. Fitting the Multires cage through limit stencils removes a 0.38 mm shrink, leaving 0.0002 mm. Sub-vertex silhouette points sit within 0.039 mm of the true rim, against 5.8 mm for vertex-level points.\n\nThe work is split into 24 work packages in 9 waves plus one offline package. WP-01 commits a baseline scorecard of today's engine before WP-06 and WP-07 make the cheap camera fixes and the five known-defect fixes. Packages 01\u201323 are implementable and testable here; Blender code is checked with AST rules and a bpy stub. WP-24 needs Blender, MediaPipe, annotators and consenting sitters, so it is marked not implementable here.\n\nDeferred: the live drag solver, cranium vault, hinged ears, expression basis, FLAME 2023 Open and hm08 adapters, dense NCC and shading detail, and phone video. Never built: symmetrising, anonymising, 1:N matching, URL importers and telemetry.",
+ "workPackages": [
+  {
+   "id": "WP-01",
+   "title": "M1 landmark test bed, gauge-projected coverage and committed baseline scorecard",
+   "milestone": "M1",
+   "files": [
+    "face3d/eval/__init__.py",
+    "face3d/eval/align.py",
+    "face3d/eval/coverage.py",
+    "face3d/testbed/__init__.py",
+    "face3d/testbed/subjects.py",
+    "face3d/testbed/rigs.py",
+    "face3d/testbed/detector_sim.py",
+    "face3d/testbed/scenarios.py",
+    "face3d/testbed/scorecard.py",
+    "tests/golden/baseline_scorecard_v0.json",
+    "tests/test_testbed_landmarks.py"
+   ],
+   "dependsOn": [],
+   "spec": "PURPOSE. Measure before building (DESIGN D-30, section 7). Provide landmark-level scenario generation, gauge-projected metrics and a committed baseline scorecard of the CURRENT engine (git 41179a3: face3d.solve.reconstruct_landmarks with legacy Priors). Do NOT modify any existing face3d module. numpy + stdlib only under face3d/.\n\nPACKAGE INIT. Create face3d/eval/__init__.py with exactly one line: \"\"\"face3d.eval: evaluation metrics (exports added by WP-23).\"\"\" and face3d/testbed/__init__.py with exactly: \"\"\"face3d.testbed: synthetic scenarios and scorecards (exports added by WP-23).\"\"\" (WP-02 may create the identical eval file; contents must be byte-identical).\n\neval/align.py:\n- similarity_tangent_basis(X (N,3), rigid_only=False) -> G (3N,7 or 6). Row 3i+a is point i axis a. Columns: 3 translations; 3 rotations (column for axis e_k = flatten(e_k x (X_i - Xbar))); scale (flatten(X_i - Xbar)). \n- gauge_projector(X, rigid_only=False) -> P = I - G (G^T G)^-1 G^T (symmetric idempotent).\n- align(est, ref, mode in {'rigid','similarity','now7'}, idx=None, weights=None) -> (s, R, t, aligned_est) using face3d.geometry.procrustes.umeyama. 'now7' = rigid (with_scale=False) on 7 landmarks (ex_L, en_L, en_R, ex_R, prn, ch_L, ch_R); for legacy synthetic names use exocanthion_L, endocanthion_L, endocanthion_R, exocanthion_R, pronasale, cheilion_L, cheilion_R (rec EV-1 NoW protocol). Name lookup via a names list argument.\n\neval/coverage.py:\n- nees(err (N,3), cov (3N,3N) or sigma (N,3), X_ref (N,3), project=True) -> (nees_per_dof, dof). If sigma given, cov = diag(sigma^2). With project: e_p = P e, C_p = P C P, NEES = e_p^T pinv(C_p, rcond=1e-10) e_p, dof = rank (3N-7 normally). Rows with NaN in err or X_ref are dropped consistently from e, C and X_ref before projection.\n- axis_coverage(err, cov|sigma, X_ref, ks=(1,2), project=True) -> {k: fraction of |e_p_j|/sqrt(C_p_jj) < k} over coordinates with C_p_jj > 1e-12.\n- scale_z(zeta_est, zeta_true, sigma) -> float.\n\ntestbed/subjects.py (landmark level; MUST NOT import face3d.model.*):\n- legacy_subject(rng) -> (names, X_true, meta): face3d.synthetic.synthetic_landmarks() template + random_subject(template, names, rng, identity_sd=4.0, asym_sd=1.0, scale_sd=0.045). meta = {'generator':'legacy_random', 'log_scale_true': log(s) from umeyama(template, X_true) size ratio, 'inverse_crime': False, 'template': template}.\n- smooth_field_subject(rng, names=None, template=None, amp_mm=4.0, asym_mm=0.8, n_bumps=12, width_mm=(25,60), log_scale_sd=0.045): independent generator on the legacy template: X = e^zeta * (T + sum_k a_k exp(-|T-c_k|^2/(2w_k^2)) * u_k), with random centres c_k near the face, random unit directions u_k, amplitudes N(0, amp); symmetrise using synthetic.mirror_pairs / midline_indices exactly as random_subject does, then add asymmetric noise N(0, asym_mm); zeta ~ N(0, log_scale_sd^2). meta as above with 'generator':'smooth_field'.\n\ntestbed/rigs.py:\n- @dataclass Rig: name, cameras: list[Camera], f_prior_px: list[float|None], f_prior_log_sigma: list[float], focal_group: list[str|None], is_front_camera: list[bool], view_yaw_deg: list[float].\n- Protocols (all use face3d.synthetic.orbit_camera with a target argument, default (0,0,60) for legacy-frame subjects; image size 3000x4000 portrait unless stated): studio_ring(rng, n_views=7): yaws evenly spaced in [-90,90], pitch U(-8,8), f35 85, distance U(1500,3000) mm, EXIF prior = true f * exp(N(0,0.01)), sigma 0.04, own focal group 'studio'. rear_phone(rng, n_views=5): yaws {-60,-30,0,30,60} (first n), f35 U(24,28) shared, distance U(600,1500), group 'phone', EXIF sigma 0.04. selfie(rng, n_views=3): f35 U(22,30), distance U(250,450), yaws U(-30,30), is_front_camera True, group 'front'. camera_roll(rng, n_views=5): f35 per view from {24,26,50,77}, distance U(500,3000), yaw U(-45,45), half the views with f_prior None (sigma 0.6), groups per f35.\n- Guarantee: every view has >= 6 visible landmarks for the detector visibility proxy; if not, resample that view (deterministic, bounded attempts).\n\ntestbed/detector_sim.py:\n- KIND_SIGMA_MM = {sharp_junction:(1.25,1.25), extremal:(2.0,3.0), curve:(1.5,7.5), contour:(2.5,10.0), brow:(4.0,8.0), iris:(0.6,0.6), generic:(2.0,2.0)} (normal,tangent mm; DESIGN 4.4). KIND_SIGMA_DEF_MM = {sharp_junction:0.5, extremal:1.5, curve:1.0, contour:2.0, brow:2.0, iris:0.0, generic:1.5}.\n- LEGACY_KIND = dict for synthetic names: endocanthion, exocanthion, cheilion, subnasale, stomion, alare -> sharp_junction; pronasale, pogonion, menton, glabella, zygion, gonion, vertex_front, forehead_side, tragion -> extremal; labrale_superius, labrale_inferius, nasion -> curve; pupil -> iris; brow_inner, brow_outer -> brow (strip _L/_R suffix before lookup).\n- simulate(X_true, kinds, rig, rng, outlier_frac=0.05, definition_bias=True, noise_scale=1.0, head_centre=(0,0,0)) -> Observation{uv: list[(N,2)] NaN hidden, sigma_px_true: list[(N,2)], outlier_mask: list[(N,)], bias_3d (N,3), tangent_dirs (N,2)}. Shared definition bias b_i ~ N(0, sigma_def(kind_i)^2 I3), drawn ONCE per subject and used in every view. Per view: uv = cam.project(X_true + b) + noise; noise anisotropic with sigma_n, sigma_t times px_per_mm = f/z_i (z_i = camera depth of the point), tangent direction a fixed random unit 2D vector per landmark per subject; outliers with probability outlier_frac: add a displacement of magnitude U(5,20)*sigma_px in a random direction; visibility: hide if cos(angle between (X_i - head_centre) and (C - X_i)) < -0.1 (same proxy as tests/test_bundle_mesh._scene) or outside the image.\n\ntestbed/scenarios.py:\n- @dataclass Scenario: name, subject_fn, rig_fn, detector_kwargs (dict), n_seeds.\n- default_engine(obs, rig, names, template) -> result: legacy PhotoLandmarks(uv, W, H, f_prior_px, f_prior_log_sigma, focal_group, sigma_px=None) and Priors(mean=template, sigma=8.0, pairs=mirror_pairs(names), sigma_sym=2.0, midline=midline_indices(names), sigma_mid=1.5); reconstruct_landmarks(photos, priors). Views with < 6 visible are dropped.\n- run_scenario(scn, seeds, engine_fn=default_engine) -> list[dict], one per seed: config_rms_mm (procrustes_rmse), now7_rms_mm, nees_per_dof and coverage_1s, coverage_2s (gauge-projected, using result.cov if present else result.point_sigma_mm diagonal), focal_rel_err (median over views), distance_rel_err (camera centre to head origin), log_scale_err (umeyama size ratio of estimate vs truth minus truth's), rmse_px (median), runtime_s, failed (bool; catch RuntimeError/ValueError/LinAlgError and record failed=True with NaN metrics).\n- SCENARIOS: studio_ring_legacy, rear_phone_legacy, selfie_legacy, camera_roll_legacy (legacy_subject), rear_phone_smooth (smooth_field_subject), rear_phone_nobias (definition_bias False), rear_phone_outliers (outlier_frac 0.10).\n\ntestbed/scorecard.py:\n- build_scorecard(scenarios, n_seeds, engine_fn, engine_label) -> dict {meta:{engine_label, git_rev (subprocess 'git rev-parse HEAD' best effort else 'unknown'), numpy_version, seeds (range(1000,1000+n))}, scenarios:{name:{metric:{median, mad, n_ok}}, per_seed_first3:{name:[metrics dicts for seeds 1000..1002]}}}.\n- compare(baseline, new, rel_tol=0.02, mad_k=3.0, higher_is_worse=('config_rms_mm','now7_rms_mm','focal_rel_err','distance_rel_err','rmse_px')) -> list[str] of regressed 'scenario:metric'.\n- main(argv) CLI: python -m face3d.testbed.scorecard --seeds 30 --out PATH [--fast] [--scenarios a,b]. Fast mode = 5 seeds, 3 scenarios.\n- BASELINE: run with 30 seeds against the unchanged engine and commit tests/golden/baseline_scorecard_v0.json with engine_label 'legacy-41179a3'. Deterministic (fixed seeds, sorted keys, floats rounded to 9 significant digits).\n\nEDGE CASES. PnP failure -> failed=True. NaN-safe aggregation (nanmedian). Never raise from run_scenario. Total fast-mode runtime <= 60 s.",
+   "acceptanceTests": [
+    "test_gauge_projector_removes_similarity: for random X (N=20), ||P (G theta)|| < 1e-9 ||G theta|| for random theta; P symmetric and idempotent (1e-12)",
+    "test_nees_is_one_for_calibrated_gaussian: e ~ N(0,C) with random SPD C (3N=60); mean projected NEES/dof over 2000 draws in [0.95,1.05]",
+    "test_axis_coverage_calibrated: 1-sigma coverage 0.683 +/- 0.02 for Gaussian draws",
+    "test_detector_sim_bias_shared_across_views: bias_3d identical across views of a subject; empirical SD of bias over 200 subjects within 10% of KIND_SIGMA_DEF_MM per kind",
+    "test_subjects_independent_of_prior: AST of face3d/testbed/subjects.py imports nothing from face3d.model; meta['inverse_crime'] is False",
+    "test_rigs_have_enough_visible_landmarks: all protocols, 20 seeds, every view >= 6 visible",
+    "test_run_scenario_legacy_engine_fast: rear_phone_legacy 3 seeds, all metrics finite, config_rms_mm < 5",
+    "test_baseline_scorecard_committed: tests/golden/baseline_scorecard_v0.json exists, engine_label startswith 'legacy', contains all SCENARIOS with n_ok >= 28 of 30; if face3d.solve.bundle has no ENGINE_VERSION attribute (legacy engine) then recomputing per_seed_first3 for rear_phone_legacy reproduces stored metrics to rtol 1e-5, else this sub-check is skipped",
+    "test_compare_flags_regression: synthetic scorecards with a 5% worse median config_rms_mm are reported by compare()"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-02",
+   "title": "Surface metrics (exact point-to-triangle) and numpy z-buffer rasteriser",
+   "milestone": "M1",
+   "files": [
+    "face3d/mesh/distance.py",
+    "face3d/mesh/raster.py",
+    "face3d/eval/metrics.py",
+    "tests/test_distance_raster.py"
+   ],
+   "dependsOn": [],
+   "spec": "numpy-only. If face3d/eval/__init__.py is absent, create it with exactly: \"\"\"face3d.eval: evaluation metrics (exports added by WP-23).\"\"\" (byte-identical to WP-01's). Do not edit face3d/mesh/__init__.py (WP-23 adds exports); tests import module paths.\n\nmesh/distance.py:\n- closest_point_on_triangle(P (M,3), A, B, C (M,3)) -> (Q (M,3), d2 (M,), bary (M,3)): vectorised Ericson 'Real-Time Collision Detection' 5.1.5 region classification (vertex/edge/face regions). Degenerate triangles (area < 1e-14 relative) handled as the closest of their three segments; never NaN.\n- class TriangleGrid(V, tris, cell=None): uniform grid broad phase, default cell = 2x mean edge length; each triangle inserted into all cells overlapped by its AABB (vectorised). query(P) -> (dist, Q, tri_id, bary): per point, search rings of cells outward; stop when the lower bound of the next ring (ring_index*cell - offset within cell) exceeds the current best distance. Exact result.\n- point_to_mesh(P, V, tris, signed=False, grid=None) -> (dist, Q, tri_id, bary). signed=True: sign of (P-Q).n_pseudo with angle-weighted pseudonormals (Baerentzen & Aanaes 2005): face normal if closest point is interior, edge pseudonormal (sum of the two adjacent unit face normals) on an edge, angle-weighted vertex normal at a vertex; boundary edges use the single face normal. Assumes outward (counter-clockwise from outside) orientation; document it.\n- brute_force_point_to_mesh(P, V, tris) reference (loops over all triangles vectorised per point chunk).\n- mesh_orientation_volume(V, tris) -> signed volume (positive = outward).\n\nmesh/raster.py (pixel-centre convention: pixel (i,j) centre at (i+0.5, j+0.5), consistent with geometry/camera.py):\n- @dataclass RasterResult: depth (H,W) float64 (inf background, camera z), tri_id (H,W) int64 (-1), bary (H,W,3), mask (H,W) bool.\n- rasterize(V (n,3) world mm, tris (F,3), cam: Camera, width=None, height=None, cull_backfaces=False, near=1.0) -> RasterResult. Project with cam.to_camera then pinhole (ignore cam.k). Skip triangles with any vertex z <= near. For each triangle, evaluate edge functions on the pixel-centre grid of its clipped bbox (vectorised), inclusive test with eps 1e-9, perspective-correct barycentrics (interpolate 1/z), depth test (strictly smaller wins; ties -> lower tri id). Python loop over triangles; batch tiny triangles. Must render 20k triangles at 512x512 in < 10 s.\n- render_normals(res, V, tris) -> (H,W,3) interpolated unit vertex normals (world).\n- render_lambert(res, V, tris, cam, albedo=None (n,3) or (3,), light_dir_world=(0.3,-0.5,-0.8), ambient=0.25) -> (H,W,3) float32 in [0,1], background 0.\n- boundary_pixels(mask) -> (K,2) pixel centres of mask pixels with a 4-neighbour outside the mask.\n\neval/metrics.py:\n- surface_error(est_V, est_tris, ref_V, ref_tris, direction='ref_to_est'|'est_to_ref'|'symmetric', sample='vertices'|'area', n_samples=20000, rng=None, regions=None (dict name -> vertex ids on the sampled mesh), signed=False) -> dict {median, mean, rms, p90, p95, f_at:{0.5,1.0,2.0} fraction <= t, signed_bias, per_region:{name:{rms, median, bias, n}}}. Default 'ref_to_est' = NoW scan-to-surface direction. Area sampling: triangles chosen proportional to area, uniform barycentric via sqrt trick, rng seeded.\n- chamfer(A_V, A_tris, B_V, B_tris, n_samples) -> mean of the two one-way mean distances (formula documented in docstring).\n- likeness_weighted_error(per_region_rms: dict, weights=None) -> sum w_r RMS_r / sum w_r over present regions; default weights {eyes:1.0, brows:0.9, lips:0.8, nose:0.7, nose_projection:0.7, jaw:0.5, chin:0.5, cheeks:0.4, forehead:0.3, ears:0.15, scalp:0.1, neck:0.05} (DESIGN 4.14; perceptual weights are a provisional default).",
+   "acceptanceTests": [
+    "test_point_triangle_matches_brute_force: 2000 random points vs a deformed uv_sphere: |d - d_bf| < 1e-9 and closest points equal within 1e-9; grid query equals brute force",
+    "test_degenerate_triangles_handled: zero-area and collinear triangles give finite distances equal to segment distances",
+    "test_signed_distance_sign_on_sphere: on a mesh with positive mesh_orientation_volume, interior points negative and exterior positive; orientation flipped mesh gives opposite signs",
+    "test_raster_silhouette_matches_silhouette_vertices: convex uv_sphere and perspective camera: every face3d.fit.silhouette.silhouette_vertices projection lies within 1.5 px of a boundary_pixels point",
+    "test_raster_depth_exact_on_plane: fronto-parallel quad at known depth: depth exact to 1e-9 on covered pixels; barycentrics sum to 1",
+    "test_raster_occlusion: of two overlapping triangles the nearer one wins every overlapped pixel",
+    "test_surface_error_known_offset: identical meshes give 0; spheres r=80 vs r=81 give median 1.0 +/- 0.02 and signed bias of correct sign per direction",
+    "test_raster_speed: 20k triangles at 512x512 in < 10 s; grid query of 10k points vs 20k triangles in < 5 s"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-03",
+   "title": "Landmark registry, scheme files and the metric 18-factor landmark prior (FactorPrior, Woodbury)",
+   "milestone": "M1",
+   "files": [
+    "tools/build_prior_tables.py",
+    "face3d/data/landmark_prior_v1.json",
+    "face3d/model/__init__.py",
+    "face3d/model/registry.py",
+    "face3d/model/landmark_prior.py",
+    "face3d/schemes/anatomical44.json",
+    "face3d/schemes/legacy_synthetic.json",
+    "tests/test_registry_prior.py"
+   ],
+   "dependsOn": [],
+   "spec": "Implements DESIGN D-04 and section 4.6 (FactorPrior part), 3.2 (scheme, packaged prior). face3d/model/__init__.py contains exactly: \"\"\"face3d.model: landmark registry, priors and templates (exports added by WP-23).\"\"\"\n\n(1) tools/build_prior_tables.py (stdlib+numpy, never imported by face3d): read research/data/metric-3d-landmark-reference.json. Ids in the order of table mean_landmarks_male_european_young_adult (14 midline v,tr,g,n,prn,sn,ls,sto,li,sl,pg,gn,me,op then t,or,p,en,ex,ps,pi,al,ac,ch,zy,go,sa,sba,eu each _L,_R = 44). Means per sex (M from ..._male_..., F from ..._female_...). Factor names and sigmas from factor_sigmas_male/female (18). Loadings: port the factors(X) function from research/_raw/scripts/build_lm.py VERBATIM (rules for size, lower_face_height, face_depth, mandible_projection, face_width, nose_projection, nose_width, interorbital, lips, mouth_width, cephalic_index, brow_projection, upper_face_height, ear_length, ear_protrusion, soft_tissue, eye_opening, vault_height) and evaluate it on each sex's mean; L_sex[:,k] = sigma_k * loading_k flattened row 3i+axis. Residual covariance: port residual_cov() verbatim using residual_sd totals and the asym table (asym = min(ASYM, total); for L/R pairs off-diagonal block diag((total^2 - asym^2) * [-1,1,1])). Write face3d/data/landmark_prior_v1.json: {format:'face3d.landmark_prior', version:1, licence:'CC0-1.0', status:'expert prior (knowledge); not published coordinates', badge:'\ud83e\udde0', source:{path, sha256}, frame:'FH; origin mid-tragion; +x subject left, +y up, +z forward; mm', ids, names, sexes:{M:{mean (44x3), factor_sigma (18), loadings (132x18 with sigma NOT applied)}, F:{...}}, factor_names, residual_cov (132x132 for reproducibility) and residual_total (44x3), residual_asym (44x3), defaults:{kappa_unknown:1.5, kappa_matched:1.0, kappa_wide:{value:2.5, coords:[['al','x'],['ac','x'],['en','x']]}, extra_depth:{sigma_mm:6.0, exclude:['t','sa','sba','eu','op','v']}, tragion_floor_mm:[1.0,1.5,2.0], rigid_invariance:{translation_mm:100.0, rotation_rad:0.5}, scale_sigma_log:0.045}}. Deterministic JSON (sort_keys, floats rounded to 6 decimals). The JSON contains no ancestry-conditioned table (do not copy ancestry_mean_shifts_vs_european).\n\n(2) face3d/model/registry.py:\n- @dataclass(frozen=True) Landmark: id, name, base, side ('L','R','mid'), mirror_id, kind, region, expr_class, jaw_weight, sigma_n_mm, sigma_t_mm, sigma_def_mm, sym_sigma_mm (tuple3|None), midline_sigma_mm (float|None), is_anchor (bool).\n- ANATOMICAL: dict id -> Landmark for the 44 ids. Kinds: sharp_junction {en,ex,ch,sn,sto,ac}; extremal {prn,pg,me,gn,g,zy,go,v,op,eu,t,sa,sba,al,or}; curve {ls,li,ps,pi,n,sl}; iris {p}; hair {tr}. Kind sigma (normal/tangent mm) and sigma_def: sharp_junction 1.25/1.25/0.5; extremal 2.0/3.0/1.5 (or: sigma_def 2.0); curve 1.5/7.5/1.0; iris 0.6/0.6/0.0; hair 4.0/8.0/3.0. Regions: eyes {en,ex,ps,pi,p}; nose {n,prn,sn,al,ac}; lips {ls,sto,li,ch}; chin {pg,gn,me,sl}; jaw {go}; cheeks {zy,or}; forehead {g,tr}; ears {t,sa,sba}; cranium {v,op,eu}. expr_class: rigid {n,g,en,ex,t,or,zy,eu,op,v,tr,p,sa,sba}; semi_mobile {prn,al,ac,sn,ps,pi,go}; mobile {ls,sto,li,ch,sl}; jaw {pg,gn,me}. jaw_weight: me,gn,pg,sl,li,go 1.0; sto 0.5; ch 0.4; else 0. Symmetry sigma per axis (x,y,z) for bilateral bases: en,ex,ps,pi,p 0.85; al,ac,or,zy 1.25; ch 1.75; go 2.75; t,sa,sba,eu 3.5 (all three axes equal; anat R4.2 provisional). Midline x sigma: n,g 0.9; prn,sn 1.75; pg,me,gn 2.5; others 2.0. Anchors: en,ex,p,n,prn,sn,ch,ls,li,sto.\n- class Scheme: loaded from face3d/schemes/<id>.json {format:'face3d.scheme', version:1, scheme, n, points:[{index,name,anatomical_id|null,kind,side,verified,badge}], polylines:{}, mirror_pairs:[[a,b],...], lr_groups:[{indices:[...], rule:'geometric'}], z_policy}. Methods: mirror_permutation() -> int array pi (pairs swapped, others fixed) with validation pi[pi]==identity and midline/mid-side points fixed (raise ValueError otherwise); anatomical_index() -> {anatomical_id: index}; kinds() -> list[str]; names().\n- load_scheme(name, path=None) reading package data at Path(__file__).parents[1]/'schemes'.\n- resolve_lr(groups_uv: dict[str,(n,2)], *, camera=None, eye_centres_world: dict{'L':(3,),'R':(3,)}|None=None, image_mirrored=False, face_midline_u=None) -> (assignment {group:'L'|'R'}, ambiguous: bool): with camera+eye centres: assign each group to the nearer projected eye centre (centroid distance), ambiguous if both groups pick the same eye or the distance ratio < 1.5; without camera: subject-left group has larger mean u relative to face_midline_u in non-mirrored images (swap when image_mirrored); ambiguous if |du| < 2 px.\n- schemes/anatomical44.json: 44 ids, verified true, mirror pairs for all bilateral ids. schemes/legacy_synthetic.json: names in the order produced by face3d.synthetic.synthetic_landmarks(); anatomical_id map: pronasale prn, subnasale sn, labrale_superius ls, stomion sto, labrale_inferius li, pogonion pg, menton me, glabella g, nasion n, endocanthion en, exocanthion ex, pupil p, alare al, cheilion ch, zygion zy, gonion go, tragion t (with _L/_R); vertex_front, brow_inner_*, brow_outer_*, forehead_side_* -> null with kinds extremal/brow/brow/extremal. Note in the JSON: legacy data are not in the FH prior frame.\n\n(3) face3d/model/landmark_prior.py:\n- Protocol LandmarkPrior: ids (list[str]); mean() -> (n,3); cov() -> (3n,3n); solve(r (3n,)) -> cov^-1 r; whiten_matrix() -> W (3n,3n) with W^T W = cov^-1 (W = inverse of lower Cholesky factor); whiten(r) = W r; neg_log_density(X) = 0.5 r^T cov^-1 r with r = vec(X - mean); subset(ids) -> LandmarkPrior (marginal: rows of L and the R sub-block); meta dict (keys: 'rigid_invariant': bool, 'source', 'badge').\n- class FactorPrior(mean (n,3), L (3n,K), R (3n,3n) SPD, ids, meta): cov = L L^T + R; solve via Woodbury using Cholesky of R: S^-1 r = R^-1 r - R^-1 L (I + L^T R^-1 L)^-1 L^T R^-1 r; whiten_matrix via dense Cholesky of cov (cached). chord_sd(a, b) -> sqrt(g^T cov g) with g the gradient of ||X_a - X_b|| at the mean. rigid_gauge_rows(anchor_ids) -> (6, 3n) rows (3 translations: mean over anchors of the coordinate; 3 rotations: sum over anchors of (e_k x (mu_i - mu_bar)) . dX_i scaled by 1/RMS radius), each row normalised to unit norm.\n- FactorPrior.from_package(sex='unspecified'|'male'|'female', population='unknown'|'matched', include_size=False, extra_depth_sigma_mm=6.0, rigid_invariance=True, tragion_floor=True, ids=None, path=None): L_sex = loadings * factor_sigma; drop the 'size' column unless include_size; sex 'unspecified' -> mean = (mu_M + mu_F)/2, L = [L_M/sqrt2, L_F/sqrt2, vec(mu_M - mu_F)/2] (moment-matched balanced mixture, anat R5.5); R from residual_cov, plus tragion floor added to the diagonal of t_L and t_R coordinates (squares of 1.0,1.5,2.0); kappa: population 'unknown' -> K = diag 1.5 with 2.5 on x of al_L, al_R, ac_L, ac_R, en_L, en_R; 'matched' -> 1.0; apply L <- K L, R <- K R K; then append the extra depth column (sigma 6 mm, loading dz = 1 for every id whose base is not in exclude) and, if rigid_invariance, 6 rigid columns G diag(100,100,100, 0.5 r_rms,0.5 r_rms,0.5 r_rms) where G is the unit rigid tangent basis at the mean (rotation columns divided by r_rms so they are unit-scale); meta['rigid_invariant']=True. No ancestry/race parameter exists (deliberate; anat R7.4). ids -> subset.\n- class DiagonalPrior(mean, sigma (n,3), ids) implementing the protocol (used as the legacy adapter by WP-07).\n- class CompositePrior(parts: list[LandmarkPrior with global index arrays], n_total): stacks whitened residuals into one vector; whiten_matrix block-structured in the global order; supports priors spanning joint index sets (needed by WP-08 ConditionalTemplatePrior which provides residual(X_all) and jacobian(X_all) instead of mean/cov): define in the protocol an optional generalised interface residual(X_all (N,3)) -> (m,) and jacobian(X_all) -> (m, 3N), with FactorPrior/DiagonalPrior implementing them via W (X - mean) on their index subset.\nNumerics: check R SPD (Cholesky) else raise ValueError naming the offending ids.",
+   "acceptanceTests": [
+    "test_build_tool_reproduces_packaged_json: running tools/build_prior_tables.py into tmp_path yields bytes identical to face3d/data/landmark_prior_v1.json (skip if research JSON absent)",
+    "test_male_loadings_match_research_table: recomputed male loadings equal factor_loadings rows of the research JSON within 0.006",
+    "test_chord_sds_match_model_column: FactorPrior(sex='male', population='matched', include_size=True, extra_depth_sigma_mm=0, rigid_invariance=False, tragion_floor=False).chord_sd for every row of model_vs_norm_chords equals model_sd_M within 0.06 mm; same for female with model_sd_F",
+    "test_woodbury_equals_dense: solve(r) vs np.linalg.solve(cov, r) relative error < 1e-9; W^T W equals cov^-1 within 1e-8 relative",
+    "test_default_prior_spd_mixture_kappa_depth: default from_package() is SPD; mean equals average of sexes; prn z variance exceeds the variant without extra depth by >= 36 mm^2; en_L x variance ratio (unknown vs matched, both without depth/rigid columns) equals 2.5^2 within 1%",
+    "test_rigid_invariance: neg_log_density changes < 1e-2 for a 10 mm translation plus 2 degree rotation of the mean, but increases > 10 for a 10 mm change of prn z alone",
+    "test_no_ancestry_parameter: no parameter named ancestry/race/ethnicity in FactorPrior.from_package signature and no ancestry key in the packaged JSON",
+    "test_registry_and_scheme_mirror_involution: anatomical44 and legacy_synthetic permutations are involutions, midline fixed; legacy aliases map as specified",
+    "test_resolve_lr: projected eye clusters assigned correctly; mirrored image swaps; near-equal distances -> ambiguous True",
+    "test_subset_marginal_and_composite: subset(ids).cov() equals the cov sub-block; CompositePrior whitened residual norm equals the sum of parts"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-04",
+   "title": "Core infrastructure: schema, badged defaults, consent and licence policy, stage cache, audit log",
+   "milestone": "M1",
+   "files": [
+    "face3d/core/__init__.py",
+    "face3d/core/schema.py",
+    "face3d/core/config.py",
+    "face3d/core/defaults.toml",
+    "face3d/core/policy.py",
+    "face3d/core/cache.py",
+    "face3d/core/audit.py",
+    "tests/test_core.py"
+   ],
+   "dependsOn": [],
+   "spec": "Implements DESIGN 2.1 invariants 3-5, 3.3, section 5 H8, ethics digest sections 2-4 (eth A2, A3, A7, F1-F20). Stdlib + numpy only. core/__init__.py: \"\"\"face3d.core: formats, defaults, policy (exports added by WP-23).\"\"\"\n\nschema.py: class FormatError(ValueError). dump_json(obj, path) writes {format, version, ...} with sort_keys, indent 1, allow_nan False (NaN -> null via encoder); load_json(path, expect_format=None, max_version=None) validates format/version and raises FormatError otherwise. canonical_json(obj) -> bytes (sort_keys, separators (',',':'), numpy arrays converted to nested lists, floats via repr) for hashing. sha256_bytes, sha256_file (streamed). save_arrays(path_npz, **arrays) -> {name:{file, sha256, shape, dtype}}; load_arrays(path_npz, manifest=None) verifies sha256 when manifest given.\n\nconfig.py: @dataclass(frozen=True) Default(value, badge, source, unit='', bounds=None) with badge in {'\u2705','\ud83d\udcc4','\ud83e\udde0','\u2194\ufe0f','\ud83c\udd95','\ud83d\udd22'} (validated). register_defaults(namespace: str, mapping: dict[str, Default]) -> Namespace (attribute and item access to Default; idempotent if identical; conflicting re-registration raises ValueError). get(full_name) -> Default; load_overrides(path_toml) via tomllib -> dict; resolve(overrides: dict|None) -> dict full_name -> value applying overrides, validating bounds (ValueError naming the key); unverified_count(resolved=None) -> number of active defaults with badge in {'\ud83e\udde0','\u2194\ufe0f','\ud83c\udd95'}; snapshot() -> sorted JSON-serialisable dict (for config hashing). defaults.toml: commented template documenting [namespace] 'key' = value override format, no active values.\n\npolicy.py: class Scope(enum.IntFlag) CAPTURE, RECONSTRUCT, STORE_RAW, TEXTURE, RENDER_PRIVATE, PUBLISH_NONCOMMERCIAL, COMMERCIAL, PRINT_3D, RIG_ANIMATE, CLOUD_PROCESSING, IDENTITY_CHECK, AI_TRAINING. @dataclass ConsentRecord(consent_id, subject_pseudonym, signer_role in {'self','subject','guardian','estate'}, consent_text_version, method, signed_at (ISO str), expires_at (ISO str|None), jurisdiction_tags (list), photo_sha256 (list), retention_days (int), revocation_contact, scopes (Scope), attested_age (int|None)=None, deceased (bool)=False) with to_json/from_json. class DataClass(enum.Enum) PERSONAL_IMAGE, BIOMETRIC_GEOMETRY, BIOMETRIC_TEMPLATE, LIKENESS_ASSET, AGGREGATE_PRIOR. @dataclass LicenceTag(spdx, commercial_ok: bool|None, redistributable: bool|None, attribution='', share_alike=False, use_restrictions=(), territory_excluded=(), source='', version='', sha256=''). taint(components: list[LicenceTag]) -> bool = AND of commercial_ok with None counted False. POLICY constants: min_self_consent_age 18, cache_ttl_days 0, max_faces_auto_fitted_per_photo 1, persist_embeddings False, network_enabled False, unknown_commercial_ok False. @dataclass GateResult(allowed, missing: list[str], reasons: list[str]). check(operation, record: ConsentRecord|None, *, photos_sha256=(), rights_basis=(), now: datetime, result_commercial_ok=None, network_enabled=False, online_access=False) for operations: 'reconstruct' (RECONSTRUCT; record present, unexpired (F3), every photo sha in record (F2)), 'identity_keys' (RECONSTRUCT), 'expression_keys' (RIG_ANIMATE, F4), 'texture' (TEXTURE and all rights_basis != 'unknown', F7), 'store_raw' (STORE_RAW and rights != unknown), 'identity_check' (IDENTITY_CHECK), 'network' (CLOUD_PROCESSING and network_enabled and online_access), 'publish' (PUBLISH_NONCOMMERCIAL or COMMERCIAL), 'commercial_export' (COMMERCIAL and result_commercial_ok is True, F8), 'print' (PRINT_3D), 'training' (AI_TRAINING). Minor rule F5: attested_age < 18 and signer_role != 'guardian' -> block all. Deceased F6: commercial operations require signer_role 'estate'. Missing scopes are named in GateResult.missing. network_guard(): context manager monkeypatching socket.socket.connect and socket.create_connection to raise PermissionError (eth A7; used by tests).\n\ncache.py: StageCache(root: Path|None=None, ttl_days: dict[DataClass,int]|None=None (default BIOMETRIC_GEOMETRY 0, PERSONAL_IMAGE 0, LIKENESS_ASSET 30, AGGREGATE_PRIOR 365), max_items=64). key(stage, inputs_hashes: dict, config_snapshot: dict, seed: int, engine_version: str) -> sha256 hex of canonical_json. get(key) / put(key, value: dict, data_class): in-memory LRU always; written to disk (root/<key>.npz + .json) only if root set and ttl_days[data_class] > 0. purge(data_class=None) -> list of purged key hashes (receipt; no content). close() purges TTL-0 disk entries and clears memory.\n\naudit.py: AuditLog(path).write(event: str, data_class: DataClass, sha256: str, scope: str='', detail_code: str='') appends one JSON line {event,time,data_class,sha256,scope,detail_code}; rejects any other key; rejects values that are numpy arrays, lists of numbers, or strings that look like file paths (contain '/' or '\\\\' beyond a short code) (eth 2.6, F19).",
+   "acceptanceTests": [
+    "test_json_format_version_roundtrip_and_refusals: wrong format or newer version raises FormatError; NaN serialised as null",
+    "test_canonical_json_stable: dict key order and numpy array vs list do not change the hash",
+    "test_defaults_registry_badges_overrides_bounds: invalid badge rejected; TOML override applied; out-of-bounds override raises naming the key; unverified_count counts \ud83e\udde0/\u2194\ufe0f/\ud83c\udd95 only; conflicting re-registration raises",
+    "test_consent_gates_table: each listed operation allowed with its scope and denied without, naming the missing scope; expired record denied; photo sha not in record denied; minor without guardian blocked; deceased commercial needs estate; texture with unknown rights blocked",
+    "test_taint_null_fails_closed",
+    "test_stage_cache_keys_and_ttl: key changes with config snapshot and seed; BIOMETRIC_GEOMETRY entries never written to disk (tmp dir empty); purge returns only hashes",
+    "test_audit_log_rejects_coordinates_and_paths",
+    "test_network_guard_blocks_socket"
+   ],
+   "tier": "sonnet",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-05",
+   "title": "Image, EXIF/HEIF and landmark I/O (no pixel codecs beyond stdlib PNG)",
+   "milestone": "M1",
+   "files": [
+    "face3d/io/exif.py",
+    "face3d/io/heif.py",
+    "face3d/io/png.py",
+    "face3d/io/image_ops.py",
+    "face3d/io/landmarks.py",
+    "tests/test_io_images.py",
+    "tests/test_io_landmarks.py"
+   ],
+   "dependsOn": [],
+   "spec": "Implements DESIGN 2.5, 3.1 (image conventions), 3.2 (LandmarkSet), D-23. Stdlib + numpy only (Pillow only in tests). Do not edit face3d/io/__init__.py (WP-23).\n\nexif.py (extend; keep read_exif/ExifInfo API and existing tests green): add tags 0x9003 DateTimeOriginal (str), 0x0131 Software, 0xA404 DigitalZoomRatio (rational), 0xA433 LensMake, 0xA432 LensSpecification (4 rationals), 0x9206 SubjectDistance (rational), 0xA401 CustomRendered (short), 0x013B Artist, 0x8298 Copyright, 0x8825 GPS IFD pointer (record has_gps True, do not parse GPS), 0x927C MakerNote presence (has_makernote). New ExifInfo fields default None/False: datetime_original, software, digital_zoom_ratio, lens_make, lens_specification, subject_distance_m, custom_rendered, artist, copyright, has_gps, has_makernote, has_xmp. Iterate ALL APP1 segments: use the first with 'Exif\\0\\0'; set has_xmp when an APP1 starts with b'http://ns.adobe.com/xap/1.0/'. Property is_front_camera: 'front' in lens_model (case-insensitive). Method focal_group_key(width, height, still=True) -> 'Make|Model|LensModel|f35|W|H|still|video'. Function read_exif_bytes(data: bytes) parsing a TIFF payload that may be preceded by a 4-byte big-endian offset (HEIF Exif item) or 'Exif\\0\\0'.\n\nheif.py: parse_heif(path_or_bytes) -> HeifInfo{brand, primary_item_id, width, height (ispe of primary), irot (0/90/180/270, counter-clockwise), imir_axis (None|0|1), clap (dict|None: width_n/d, height_n/d, horiz_off_n/d, vert_off_n/d), exif_bytes (bytes|None)}. ISOBMFF boxes: size/type with 64-bit largesize; ftyp; meta (FullBox) containing hdlr, pitm (v0 16-bit, v1 32-bit), iinf (entry count 16/32-bit by version) with infe v2/v3 (item_ID, item_type 4cc), iloc (versions 0,1,2; offset_size, length_size, base_offset_size, index_size nibbles; construction_method 0 only, else skip), iprp/ipco (ispe, irot (1 byte, angle = 90*(b & 3)), imir (axis = b & 1), clap) and ipma (versions/flags: 7- or 15-bit property indices, essential bit). Exif item located through iloc extents in the file. orientation_ops(info) -> ordered list of ('crop',...),('rotate_ccw',deg),('mirror',axis) per HEIF semantics (clap, then irot, then imir). Documented rule: when HEIF transforms are present, EXIF Orientation is ignored. No pixel decoding.\n\npng.py: read_png(path_or_bytes) -> ndarray (H,W) or (H,W,C) uint8/uint16; colour types 0 (grey), 2 (RGB), 3 (palette, 8-bit; with tRNS -> RGBA), 4 (grey+alpha), 6 (RGBA); bit depth 8 and 16; CRC verified; zlib decompress of concatenated IDAT; filters 0-4 (Paeth) with row loop and numpy within rows; interlaced -> NotImplementedError('Adam7 interlaced PNG not supported; re-save non-interlaced'); other bit depths -> NotImplementedError. write_png(path, arr) for uint8/uint16 grey/RGB/RGBA, filter 0, zlib level 6.\n\nimage_ops.py (corner-origin continuous coordinates): apply_orientation(img, o in 1..8) using np.rot90/np.flip exactly per EXIF semantics (o=6 displays rotated 90 degrees clockwise); orientation_point_map(o, W, H) -> callable uv -> uv' mapping stored-frame coordinates to displayed-frame coordinates (e.g. o=6: (u,v) -> (H - v, u); o=3: (W - u, H - v); o=2: (W - u, v)) and its inverse; apply_heif_ops(img, ops) and heif_point_map(ops, W, H); flip_horizontal(img); flip_uv(uv (N,2), W, perm) -> out with out[perm[i]] = (W - u_i, v_i) (labels swapped by the scheme permutation); resize_uv(uv, W, H, W2, H2) -> (u W2/W, v H2/H); srgb_to_linear / linear_to_srgb (IEC 61966-2-1); to_gray(img float in [0,1]) using Rec.709 weights on sRGB-encoded values (documented).\n\nlandmarks.py: @dataclass Face(score: float, uv (N,2) float64 with NaN for missing, visible (N,) bool, cov (N,2,2)|None, tta_spread_px (N,)|None, blendshapes dict|None). @dataclass LandmarkSet(scheme: str, detector: dict{backend, version, model_sha256, licence, commercial_ok, is_ml}, image: dict{sha256, wh, orientation_applied, input_flipped, coords}, faces: list[Face]). load_landmarks(path): JSON {format:'face3d.landmarks', version:1, ...}; arrays either inline lists or {file, sha256} references to .npy relative to the JSON (sha verified); scheme missing -> FormatError (never infer scheme from N); coords must be 'px_corner'. save_landmarks(ls, path, inline_threshold=1000). from_mediapipe_normalized(points (N,2|3), W, H) -> uv (u = x W, v = y H; z dropped). select_face(ls, index) (eth F1: the caller picks; never auto-fit a second face).",
+   "acceptanceTests": [
+    "existing tests/test_exif.py pass unchanged",
+    "test_exif_new_tags: Pillow JPEG with DateTimeOriginal, Software, DigitalZoomRatio, LensModel 'iPhone 15 front camera', CustomRendered 1, GPS IFD -> fields parsed, is_front_camera True, has_gps True",
+    "test_exif_multiple_app1_segments: an XMP APP1 inserted before the Exif APP1 still parses Exif and sets has_xmp",
+    "test_heif_box_parser_on_synthetic_bytes: hand-built HEIF bytes (ftyp heic; meta with hdlr, pitm, iinf+infe hvc1 item 1 and Exif item 2, iloc v1, iprp/ipco [ispe 4032x3024, irot 1, imir axis 1], ipma) -> width/height/irot 90/imir 1/exif bytes; read_exif_bytes(exif) returns the embedded Orientation",
+    "test_png_roundtrip_and_pillow_parity: 8-bit RGB/RGBA/grey, 16-bit grey, palette images written by Pillow decode identically to Pillow; write_png/read_png roundtrip; interlaced raises NotImplementedError",
+    "test_orientation_maps_consistent: for o in 1..8 a marked pixel centre (i+0.5,j+0.5) maps through orientation_point_map onto the marked pixel of apply_orientation output exactly; inverse maps back",
+    "test_flip_uv_involution_with_permutation and test_resize_uv_corner_convention",
+    "test_landmarkset_roundtrip_scheme_required_and_npy_refs; from_mediapipe_normalized u = x*W exactly"
+   ],
+   "tier": "sonnet",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-06",
+   "title": "M1 cheap fixes: silhouette normal-only correction, multi-start PnP with twin flag, focal/distance ladders, inverse-depth and virtual-camera helpers",
+   "milestone": "M1",
+   "files": [
+    "face3d/fit/silhouette.py",
+    "face3d/solve/pnp.py",
+    "face3d/solve/focal.py",
+    "face3d/geometry/camera.py",
+    "tests/test_m1_fixes.py"
+   ],
+   "dependsOn": [
+    "WP-01",
+    "WP-04",
+    "WP-05"
+   ],
+   "spec": "Must not start editing engine files until WP-01's baseline scorecard is committed. All 42 legacy tests must keep passing.\n\n(a) Silhouette tangential drift (DESIGN D-13, defect 1). In fit_silhouettes add parameter normal_only: bool = True. After matching each outline sample O_k to its nearest projected silhouette vertex (projection P), compute the vertex's outward image normal n2: with n3 = Mesh(V, faces).vertex_normals()[vi], n2 = normalise(cam.project(V[vi] + 1.0*n3) - cam.project(V[vi])); skip if |.| < 1e-9. Replace the sample by its normal component: O'_k = P + n2 (n2 . (O_k - P)), then back-project at the vertex depth exactly as now. normal_only=False reproduces legacy behaviour exactly (keep for the documenting test). The existing test_profile_contour_recovers_nose_bump must pass with the default.\n\n(b) PnP (solve/pnp.py; D-11, rec CAM-3). DEFAULT_F35_HYPOTHESES = (13.0, 24.0, 26.0, 35.0, 50.0, 77.0, 85.0, 120.0, 135.0, 200.0). For each focal hypothesis (or the known/prior focal) run three starts: affine (existing affine_pose_init); pitch-flipped (decompose R0 with rotations.euler_xyz_deg -> (pitch,yaw,roll), rebuild with (-pitch, yaw, roll) via rotation_from_euler_deg); yaw-mirrored ((pitch, -yaw, roll)). For the flipped starts recompute t so that the model centroid keeps the affine start's camera-frame position. Run the existing LM/IRLS per start; keep converged cheiral solutions (all camera z > 0). New keyword-only args: sigma_px: float|ndarray|None = None, huber_sigmas: float|None = 2.0. If sigma_px is given, residuals are whitened by sigma_px and Huber is applied at huber_sigmas (sigma units); otherwise the legacy huber_px path is unchanged. Twin detection: among converged cheiral candidates, if one whose rotation differs from the best by > 10 degrees has robust score <= 1.2 x best score, set PnPResult.twin to that Camera and add 'C-TWIN' to PnPResult.flags. PnPResult gains twin: Camera|None = None, flags: list[str] (default_factory list), candidates_tried: int = 0. Positional API unchanged.\n\n(c) solve/focal.py (DESIGN 4.2, rec CAM-5/6, com R2.2). Register defaults via face3d.core.config.register_defaults('focal', ...) with badges. @dataclass FocalPrior(f_px, log_sigma, source_code). focal_prior_from_evidence(exif: ExifInfo|None, width, height, *, sfm_f_px=None, calibrated_f_px=None, is_phone=None, native_aspects=((4,3),(3,4),(3,2),(2,3),(16,9),(9,16)), group_crop_ratio_mode=None) -> FocalPrior, first matching rule: SfM/calibration (sigma 0.01); EXIF f35 with DigitalZoomRatio > 1 or (f35/FocalLength) > 1.02 x group_crop_ratio_mode -> 0.06 ('zoom'); EXIF f35 with non-native aspect (none of native_aspects within 1%) -> 0.09 ('aspect'); EXIF f35 otherwise -> 0.04; FocalLength plus focal-plane resolution (ExifInfo.focal_px) -> 0.10; phone (is_phone True or Make in a small phone-maker list: Apple, Samsung, Google, Xiaomi, OnePlus, Huawei, OPPO, vivo, Sony mobile) without focal data -> 26 mm-eq, 0.25; nothing -> 50 mm-eq, 0.6. f_px = f35 * hypot(W,H)/43.2666. distance_prior(exif, *, is_front_camera=None, taped_mm=None) -> (median_mm_to_face, sigma_log): taped -> (taped, 50/taped); front camera -> (350, 0.3); f35 >= 70 (tele) -> (2000, 0.4); rear phone/known camera -> (800, 0.4); unknown -> (1000, 0.7). HEAD_ORIGIN_OFFSET_MM = 100.0 (face to mid-tragion, metric prior); distance_prior_head_origin(...) adds it before the log. focal_group_key(exif, W, H, still=True) delegates to ExifInfo.focal_group_key; video always its own group.\n\n(d) geometry/camera.py additions (keep all existing functions bit-identical): camera_to_invdepth(cam) -> {'R', 'tau' (2,), 's', 'rho'} with rho = 1/t_z (require t_z > 0 else ValueError), s = f*rho, tau = t[:2]; invdepth_to_camera(R, tau, s, rho, like: Camera) -> Camera (f = s/rho, t = (tau_x, tau_y, 1/rho), same cx, cy, W, H, k); project_invdepth(X, R, tau, s, rho, cx, cy) -> uv = c + s((RX)_xy + tau)/(1 + rho (RX)_z). face_ray_angle(cam, X_centre) -> theta (rad) between optical axis and ray to X_centre. virtual_rotation(cam, X_centre) -> R_virt (minimal rotation taking the ray direction in camera frame onto +z). rectilinear_virtual_homography(cam, R_virt) -> H = K R_virt K^-1; apply_homography(H, uv). stereographic_project(Xc, f, cx, cy) with r = 2 f tan(phi/2) about the principal point; stereographic_unproject(uv, f, cx, cy) -> unit rays; stereographic_virtual_camera(cam, X_centre) -> (Camera_virtual with f' = f sec^2(theta/2) and R' = R_virt R, mapping function uv_stereo -> uv_virtual (unproject, rotate by R_virt, pinhole project with f')).",
+   "acceptanceTests": [
+    "all 42 legacy tests pass",
+    "test_no_tangential_drift: uv_sphere(80, 40, 80), profile camera; outline = projected silhouette of the same mesh using only the upper-half samples (clustered); fit_silhouettes(normal_only=True, iterations=8) moves no vertex more than 0.05 mm; with normal_only=False some vertex moves > 0.5 mm",
+    "test_pnp_ten_hypotheses: DEFAULT_F35_HYPOTHESES equals (13,24,26,35,50,77,85,120,135,200)",
+    "test_pnp_recovers_77mm_unknown_focal: noiseless 77 mm-eq at 1.0 m, yaw 20 -> focal within 1%",
+    "test_pnp_twin_flag: near-weak-perspective frontal scene (200 mm-eq at 3 m, pitch 10 deg, 2 px noise) flags 'C-TWIN' with a twin camera; strong-perspective scene (26 mm-eq at 0.4 m) has no twin",
+    "test_pnp_huber_in_sigma_units: the existing outlier scene solved with sigma_px=0.5, huber_sigmas=2 -> rotation error < 1 degree",
+    "test_focal_ladder_precedence: each rule wins in the specified order with the specified sigma",
+    "test_invdepth_roundtrip_exact: random cameras: invdepth_to_camera(camera_to_invdepth(c)) equals c (R, t, f) to 1e-12 relative; project_invdepth equals Camera.project to 5e-9 px",
+    "test_stereographic_local_magnification: at theta=35 deg numerically differentiated stereographic radial and tangential magnification both equal f*sec^2(theta/2) (1.0994 f) within 1e-4; rectilinear radial sec^2(theta) (1.4903) and tangential sec(theta) (1.2208)",
+    "test_virtual_rectilinear_homography_exact: H-mapped real-camera projections equal the rotated virtual camera's projections (f'=f) within 1e-9 px"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-07",
+   "title": "Bundle defect fixes: mm noise model (sigma_px default), explicit log-scale, LandmarkPrior protocol, full covariance via Schur, definition-bias floor",
+   "milestone": "M1",
+   "files": [
+    "face3d/solve/noise.py",
+    "face3d/solve/bundle.py",
+    "face3d/solve/lm.py",
+    "face3d/solve/reconstruct.py",
+    "tests/test_bundle_fixes.py"
+   ],
+   "dependsOn": [
+    "WP-01",
+    "WP-03",
+    "WP-04"
+   ],
+   "spec": "Fix defects 2-5 (DESIGN D-03, D-05, D-06, 4.4, 4.6 gauge, 4.8 covariance). Set module constant ENGINE_VERSION = 'v2-fixes' in bundle.py. All legacy tests must pass; bundle.py must keep calling levenberg_marquardt through its module-level name (tests monkeypatch face3d.solve.bundle.levenberg_marquardt) with residual/jacobian/retract closures consistent with each other.\n\nnoise.py: register_defaults('noise', ...) with badges: KIND_SIGMA_MM (normal,tangent): sharp_junction (1.25,1.25), extremal (2.0,3.0), curve (1.5,7.5), contour (2.5, 1000 = normal-only), brow (4.0, 40), iris (0.6,0.6), hair (4.0,8.0), generic (2.0,2.0); KIND_SIGMA_DEF_MM: sharp_junction 0.5, extremal 1.5, curve 1.0, contour 2.0, brow 2.0, iris 0.0, hair 3.0, generic 1.5; PIN_CLASS_SIGMA_MM: crisp_expert 0.8, crisp_novice 1.2, contour 1.0, alar_base 1.8, nose_tip 2.0, ears 2.5, palpation 4.5, hair_defined 5.0; FLOOR_K: inner 0.6, iris 0.4, brow 1.0, contour 1.5 (sigma_floor = max(0.5 px, k*face_px/256)); N_EFF 80. class NoiseModel(kinds: list[str], dense_mask (N,) bool | None, n_total: int|None): view_cov(px_per_mm (N,), face_px: float, tangents (N,2)|None, multipliers (N,)|None, tta_px (N,)|None) -> (N,2,2) = p^2 m^2 eta R(t) diag(sn^2, st^2) R(t)^T + (tta^2 + floor^2) I2 with eta = n_total/N_EFF for dense_mask points else 1; unknown tangent -> isotropic sigma_iso^2 = (sn^2 + st^2)/2 except sharp/extremal/iris use sn. sigma_def_mm() -> (N,). pin_sigma_px(cls, px_per_mm, zoom) = sqrt((px_per_mm*sigma_class)^2 + (1/zoom)^2). whitening(cov (N,2,2)) -> (N,2,2) inverse lower Cholesky factors.\n\nbundle.py changes (backward compatible):\n- ViewObs: sigma_px default None (was 1.0). New optional fields: kinds (list[str]|None), cov_px ((N,2,2)|None), multipliers, tangents, tta_px, face_px (float|None). Per-view noise resolution order: cov_px -> sigma_px float (legacy isotropic) -> NoiseModel(kinds or ['generic']*N) with px_per_mm_i = f/z_i from the CURRENT estimate. Noise is FROZEN within each LM run (computed before each IRLS round, never inside residuals), so Jacobians stay exact.\n- New bundle_adjust keyword args: prior: LandmarkPrior|None (WP-03 protocol, including the generalised residual/jacobian interface for joint-index priors); scale: ScaleConfig|None|'auto' (default 'auto': enabled with sigma_log 0.045 when prior is given; disabled when only legacy Priors are used, preserving legacy numerics); gauge_anchor_idx (indices for the 6 rigid gauge residuals, used only when prior.meta['rigid_invariant']); sigma_def_mm ((N,)|None; default from kinds via noise table, else zeros). @dataclass ScaleConfig(enabled=True, sigma_log=0.045, init=0.0).\n- Parameter vector: [6 pose per view | log-focal per group | zeta (if enabled) | 3N points]. Shape term with a LandmarkPrior: residual W (e^-zeta X - mu) (or the prior's generalised residual on e^-zeta X), Jacobians d/dX = e^-zeta W, d/dzeta = -e^-zeta W X. Scale prior residual zeta/sigma_log. Gauge residuals (rows from prior.rigid_gauge_rows on anchors applied to e^-zeta X - mu, sigma 0.01 mm). Legacy Priors.mean/sigma path unchanged when prior is None (internally a DiagonalPrior adapter is acceptable only if numerics are identical). Priors.sigma_sym and sigma_mid may now be arrays ((P,3) and (M,)); floats keep legacy behaviour.\n- lm.py: add keyword-only step_solver: Callable[[H, lam_diag, g], dx]|None (default dense np.linalg.solve, unchanged behaviour) and project: Callable[[x], x]|None applied after retract; LMResult gains jtj: ndarray|None = JtJ at the returned x when the last Jacobian evaluation was at that x (else None).\n- Covariance after the final solve: J at the solution (weights frozen), H = J^T J split into H_data (reprojection rows and future data terms) and H_prior (shape prior, symmetry, midline, gauge, scale, focal priors); Sigma = inverse of H (Cholesky with ridge 1e-12*mean(diag); fall back to pinv and add flag 'COV-SINGULAR'). BundleResult new optional fields: cov (3N,3N, unconditional, template gauge), cov_shape = inverse of H with the zeta row/column removed, restricted to points (conditional on zeta); point_sigma_mm = sqrt(diag(cov_shape)) reshaped (N,3) (legacy meaning); zeta, zeta_sigma; chi2_red = sum of squared data residuals / (m_data - p_eff), p_eff = trace(H_data Sigma); sigma_def_mm (N,); sigma_rep_mm (N,3) = sqrt(diag(cov_shape) * max(1, chi2_red) + sigma_def^2) (gamma is added later by WP-16); camera_cov (list of per-view blocks); H_data, H_prior (full matrices) and param_index (dict name -> slice). Cameras are eliminated by Schur: cov_shape equals (H_XX - H_Xc H_cc^-1 H_cX)^-1 and the implementation must agree with the direct inverse to 1e-8 relative.\n- reconstruct.py: PhotoLandmarks gains kinds: list[str]|None = None and focal_prior (duck-typed object with f_px and log_sigma; overrides f_prior_px/f_prior_log_sigma). reconstruct_landmarks gains prior=None, scale='auto', gauge_anchor_idx=None, sigma_def_mm=None and passes them through. When PhotoLandmarks.sigma_px is None, the new default is the NoiseModel (kinds or generic) instead of 0.006*diag; resolved_sigma_px() stays (legacy method, used by a test and for PnP initial sigma).",
+   "acceptanceTests": [
+    "all legacy tests pass (tests/test_bundle_mesh.py, test_solvers.py, test_fit.py, test_geometry.py, test_exif.py)",
+    "test_jacobian_with_zeta_factor_prior_and_gauge: analytic vs central-difference Jacobian through the captured closures (as in the legacy shim test), rtol 1e-4, for a 3-view scene with a random FactorPrior (random L, SPD R) and gauge rows",
+    "test_default_sigma_from_noise_model: a view at ~500 mm with f=3000 px and generic kind gives per-landmark sigma within 10% of (f/z)*2.0 px",
+    "test_reduced_chi2_near_one_with_correct_noise: WP-01 detector_sim (definition_bias False, legacy kinds), rear_phone rig, 10 seeds: median chi2_red in [0.7, 1.4]; the same data with legacy sigma_px=1.0 gives chi2_red > 10",
+    "test_zeta_prior_limited_without_metric_information: prior path, no metric terms: zeta_sigma within 10% of 0.045",
+    "test_cov_schur_equals_direct_inverse: relative difference < 1e-8; cov symmetric positive semi-definite",
+    "test_point_sigma_legacy_semantics: point_sigma_mm == sqrt(diag(cov_shape))",
+    "test_definition_bias_floor_does_not_shrink: sharp-junction sigma_rep >= 0.5 mm; for well-observed points sigma_rep(9 views)/sigma_rep(3 views) > 0.8 while the posterior-only ratio < 0.7",
+    "test_nees_with_sigma_def_calibrated: 30 seeds with 1 mm shared definition bias (landmarks seen in >= 3 views only): gauge-projected NEES/dof using cov_shape + sigma_def^2 I in [0.6, 1.6]; posterior-only NEES/dof > 2",
+    "test_not_worse_than_baseline: WP-01 fast scorecard config_rms_mm median <= 1.1 x baseline on legacy scenarios"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-08",
+   "title": "Procedural CC0 template head (cube-sphere), template kit format and tool, conditional template prior",
+   "milestone": "M2",
+   "files": [
+    "face3d/model/procedural_head.py",
+    "face3d/model/template_kit.py",
+    "face3d/model/conditional_prior.py",
+    "tools/build_template_kit.py",
+    "tests/test_template_kit.py"
+   ],
+   "dependsOn": [
+    "WP-03",
+    "WP-04"
+   ],
+   "spec": "The sandbox default template is a procedurally generated CC0 head built by our own code (DESIGN 0, 3.2 template kit, 4.6 conditional prior). It is labelled generated=True and is not anatomical.\n\nprocedural_head.py: build_procedural_head(n=24, sex='unspecified', path_prior=None) -> TemplateKit. Deterministic (no randomness).\n1. Topology: cube-sphere, all quads. For each of the 6 cube faces (axis a, sign s) generate an (n+1)^2 grid on [-1,1]^2; dedupe shared vertices by integer key round(p*n); faces oriented outward (CCW seen from outside; flip a quad if (b-a)x(c-a) . a < 0). n must be even (exact midline x=0 vertices exist). Project to the unit sphere (p/|p|).\n2. Ellipsoid: scale by radii (76,112,102) mm and translate by (0,18,2) (FH frame, origin mid-tragion).\n3. Feature bumps (mirror-symmetric, along vertex normals, anisotropic Gaussians): nose centre (0,-15,105) sigma (7,14,9) amp +18; brow ridges (+/-25,30,95) sigma 14 amp +4; eye sockets (+/-32,14,85) sigma 12 amp -7; lips (0,-50,100) sigma (16,7,8) amp +4; chin (0,-88,92) sigma 12 amp +5; cheekbones (+/-60,-5,40) sigma 18 amp +3; ears (+/-76,5,-5) sigma 10 amp +8.\n4. Landmark warp: targets = 44 anatomical prior means for `sex` from face3d/data/landmark_prior_v1.json ('unspecified' = average of sexes). Assign each midline id the midline vertex (|x|<1e-9) with the smallest angle to the target direction from the ellipsoid centre; each _L id the nearest vertex with x>0 to the target; _R = its mirror; resolve collisions by next-nearest. Warp all vertices with face3d.geometry.rbf.RBFWarp(src=assigned positions, dst=targets, smoothing=0). Symmetrise V <- (V + mirror(V)*(-1,1,1))/2 and set midline x=0 exactly.\n5. Fold check: every face normal keeps positive dot with the undeformed sphere normal and signed volume > 0; if violated, scale all bump amplitudes by 0.8 and retry (max 5 times), else raise.\n6. Regions (disjoint, priority order eyes, nose, lips, chin, ears, jaw, cheeks, forehead, scalp, neck, other): eyes within 18 mm of p_L/p_R; nose within 20 mm of prn or (|x|<20 and y between sn.y and n.y and z>70); lips within 14 mm of sto and |x|<30; chin within 20 mm of pg; ears within 22 mm of t_L/t_R; jaw within 25 mm of go_L/go_R or (y<-60 and |x|>25); cheeks |x|>30, -40<y<20, z>20; forehead y>25 and z>40; scalp y>60 or z<-20; neck y<-95.\n7. Jaw weights w = clip((y_sto - y)/20 + 0.5, 0, 1) for z > -10, times a lateral falloff clip((60-|x|)/20,0,1) for |x|>40; 0 elsewhere. Stiffness: 1.0 base; eye-region boundary vertices 3.0; lips 0.3; forehead 0.5. Normals: area-weighted vertex normals. UV: per-vertex spherical coordinates of the undeformed sphere (u = 0.5 + atan2(x,z)/(2 pi), v = 0.5 + asin(y)/pi).\n8. Landmark embeddings: scheme 'anatomical44' -> each id its assigned vertex as (tri, bary one-hot) where tri is a triangle (from quad fan split) containing that vertex; scheme 'legacy_synthetic' -> anatomical aliases use the anatomical vertex; non-anatomical legacy names: similarity-align (umeyama) the legacy synthetic anatomical subset to the template anatomical positions, transform the legacy points, take the nearest template vertex (mirror-consistent for _L/_R).\n\ntemplate_kit.py: @dataclass TemplateKit(id, licence, generated: bool, source_sha256, units='mm', vertices (V,3) float64, faces (F,4) int64 (quads) or list, landmarks {scheme:{name:{'tri':int,'bary':(3,),'sigma_annot_mm':float,'provenance':str}}}, mirror_map (V,), midline (k,), regions {name: int array}, region_weights {name: float}, contour_rings {name: int array}, jaw_weights (V,), stiffness (V,), normals (V,3), uv (V,2)). Properties: topology_sha256 = sha256 of (n_verts as int64 bytes + faces as int32 bytes); bundle_ok = licence == 'CC0-1.0'; triangles() (fan split, consistent with embeddings); mesh() -> face3d.mesh.Mesh. Methods: landmark_positions(scheme, V=None) via barycentric evaluation; to_template(scheme) -> face3d.fit.template.Template (vertex with max bary); save(path_json) (JSON + sibling .npz via core.schema.save_arrays; format 'face3d.template_kit' v1); load(path_json, expect_topology_sha256=None) raising TopologyMismatch(ValueError) on mismatch. Validation: mirror_map involution and exact reflection (tolerance 1e-6 mm), midline fixed.\n\nconditional_prior.py: ConditionalTemplatePrior(kit, scheme: str, other_names: list[str], anatomical_ids: list[str], kappa=1.5, region_sigma_mm=None) implementing WP-03's generalised prior interface (residual(X_all), jacobian(X_all) over a global index set given at construction: index arrays for A and C). B (n_C x n_A) is the exact linear transfer of the biharmonic RBF warp from template anatomical positions T_A to template points T_C: d_C = B d_A, B = [Phi(T_C,T_A) | P_C] A_sys^-1[:, :n_A] using the same kernel/sign conventions as face3d.geometry.rbf (A_sys the (n_A+4) square system with smoothing 0). Residual r_C = X_C - T_C - B (X_A - T_A) applied per coordinate, divided by kappa*sigma_region(point) (region of the embedding's vertex; default table eyes 1.25, lips 2.0, nose 2.5, forehead 2.5, cheeks 3.0, jaw 3.0, chin 3.0, ears 4.0, scalp 4.5, neck 6.0, other 3.0 mm). B reproduces affine maps exactly (rows of B applied to an affine field give that field).\n\ntools/build_template_kit.py: CLI --obj PATH --annotations JSON --licence SPDX --source-sha256 HEX --out KIT.json [--regions JSON] [--mirror-tol 1e-4] [--allow-noncc0]. Reads OBJ with face3d.mesh.read_obj (quads required in this version), computes mirror map by reflecting x and nearest-vertex matching within tol*bbox diagonal (refuse if not a bijection/involution), refuses licence != CC0-1.0 unless --allow-noncc0 (then bundle_ok False), annotation JSON {scheme:{name:{vertex|tri+bary, sigma_annot_mm, annotator_spread_mm}}} with two-annotator acceptance (spread <= 1.0 mm for sharp_junction/curve kinds, <= 2.5 mm otherwise; reject with a report), regions from JSON or the geometric rules above, writes the kit.",
+   "acceptanceTests": [
+    "test_procedural_head_deterministic_quads_closed: two builds have identical topology_sha256 and vertex bytes; all faces quads; no boundary edges; Euler characteristic 2; positive signed volume",
+    "test_mirror_map_exact: involution; |V[m]*(-1,1,1) - V| max < 1e-9; midline x == 0",
+    "test_landmarks_hit_prior_mean: anatomical44 landmark_positions equal the pooled prior mean within 1e-6 mm",
+    "test_no_folded_faces: all face normals have positive dot with the undeformed sphere normals",
+    "test_regions_cover_disjoint_nonempty: every vertex in exactly one region; eyes, nose, lips, chin, ears non-empty",
+    "test_kit_save_load_topology_refusal: roundtrip equal; wrong expected topology raises TopologyMismatch; a non-CC0 kit has bundle_ok False",
+    "test_conditional_prior_affine_invariant_and_jacobian: zero residual when X_A and X_C are the same affine map of T_A and T_C; analytic Jacobian matches numeric (rtol 1e-6)",
+    "test_build_template_kit_from_obj: procedural head exported to OBJ and rebuilt with its own annotations gives the same topology hash and embeddings; an OBJ with one asymmetric vertex is refused"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-09",
+   "title": "Photo QA findings, image statistics, bpy-free overlay geometry and accessible palette",
+   "milestone": "M2",
+   "files": [
+    "face3d/qa/__init__.py",
+    "face3d/qa/checks.py",
+    "face3d/qa/image_stats.py",
+    "face3d/qa/overlay_geom.py",
+    "face3d/qa/palette.py",
+    "tests/test_qa.py"
+   ],
+   "dependsOn": [
+    "WP-04",
+    "WP-05"
+   ],
+   "spec": "Implements DESIGN 4.1 table (all codes except the post-BA residual part of Q-RETOUCH, done by WP-15) and 6.5 overlay/palette maths. numpy + stdlib. qa/__init__.py: \"\"\"face3d.qa: photo checks and overlay geometry (exports added by WP-23).\"\"\"\n\nchecks.py: @dataclass Finding(code, severity in {'info','warn','block'}, value, threshold, action in {'down_weight','drop_class','exclude_geometry','exclude_texture','ask','none'}, msg_key, fix_key, source, badge, photo_id=None). @dataclass PhotoContext(photo_id, exif: ExifInfo|None, heif: HeifInfo|None, width, height, orientation_applied: bool, landmarks_uv (N,2)|None, scheme: str|None, face_px: float|None, face_centre_px (2,)|None, iris_px: float|None, image_gray (H,W) float|None, skin_mask (H,W) bool|None, image_rgb (H,W,3)|None, solved_distance_mm: float|None, f_px: float|None, n_faces: int=1, face_scores: list[float]=(), consent_ok: bool=True, view_rms_sigma: float|None=None, roll_deg: float|None=None, eye_pts6: dict{'L':(6,2),'R':(6,2)}|None=None). Thresholds registered via core.config.register_defaults('qa', ...) with badges/sources from DESIGN 4.1. run_photo_checks(ctx) -> list[Finding]: Q-ORIENT (orientation_applied False, or view_rms_sigma > 3 with |roll| within 15 deg of 90/270 -> ask); Q-EXIF-NONE (no make, model and f35 -> info, action none); Q-CROP (digital_zoom_ratio > 1 -> warn sigma_logf 0.06; non-native aspect -> 0.09); Q-FRONTCAM (exif.is_front_camera -> info); Q-NEAR (solved_distance_mm < 1000 warn, < 800 warn strong, < 600 exclude_geometry); Q-WIDE (f35 <= 16 or face centre beyond 60% of half-diagonal or off-axis angle atan(r/f) > 25 deg -> ask/model selection); Q-PROCESS (custom_rendered not in (None,0), Software containing any of Photoshop, Lightroom, Snapseed, Facetune, Meitu, FaceApp, GIMP, Picsart, VSCO, Instagram case-insensitively -> warn down_weight + exclude_texture); Q-SMALL (face_px < 250 warn, < 120 block exclude_geometry; iris_px < 20 -> info 'no iris scale'); Q-BLINK (EAR < 0.2 from eye_pts6 -> drop_class lids); Q-CLIP (> 2% of skin pixels with any channel >= 0.98 -> exclude photometry/texture); Q-FACES (n_faces > 1 with a second score >= 0.6 -> ask, eth F1); Q-CONSENT (consent_ok False -> block). run_set_checks(contexts) -> list[Finding]: Q-BLUR (laplacian variance < 0.6 x set median -> down_weight), Q-DATES (DateTimeOriginal clusters split where gaps > 548 days; > 1 cluster -> warn with cluster ids), Q-GROUP-SPREAD (same focal group with f35 spread > 5% -> warn). occluder_actions(tags: set[str]) -> dict with sigma multipliers and dropped classes: glasses {eye kinds x2, no_iris_scale, drop lid points under frame}; beard {drop pg, gn, me, jaw contour; contour kind outer_bound; jaw status prior-driven}; hair {drop ears and temple points; no silhouette above trichion}; makeup {lip and brow borders x2}.\n\nimage_stats.py: laplacian_variance(gray, mask=None) (4-neighbour Laplacian, valid region); clipped_fraction(img, mask, thresh=0.98); eye_aspect_ratio(p (6,2)) = (|p2-p6|+|p3-p5|)/(2|p1-p4|) (Soukupova order p1..p6); gaussian_blur(gray, sigma) separable, reflect padding, radius ceil(3 sigma); box_blur(gray, r); skin_smoothness_index(gray, cheek_mask, ref_mask) = band energy (gaussian_blur 1 px minus gaussian_blur 3 px, squared mean) in cheeks divided by that in the reference mask.\n\noverlay_geom.py (no bpy; returns polylines in image-pixel coordinates): sigma_ellipse(center, cov2, k=1.0, n=32) closed (n,2); residual_arrow(p_obs, p_model, scale=5.0, head_px=6.0) -> list of polylines; glyph(kind in {'circle','square','cross','ring','line','hatch'}, center, size_px=9.0, ui_scale=1.0) -> list of polylines; styled(polylines, role) -> list of (polyline, width_px, colour_hex) ordered light halo (width+4), dark outline (width+2), colour (width); hatch_polygon(poly, spacing_px=6, angle_deg=45) -> list of segments clipped to the polygon (even-odd); blur_sigma_px(face_width_px) = 0.03*face_width_px; thumbnail_shape(h, w, target=64); constants HIT_RADIUS_PX 12, MIN_TARGET_PX 24.\n\npalette.py: ROLES = {auto_pin:('#56B4E9','circle'), user_pin:('#E69F00','square'), conflict:('#D55E00','cross'), selected:('#F0E442','ring'), model_contour:('#009E73','line'), guessed:('#CC79A7','hatch')}, OUTLINE '#000000', HALO '#FFFFFF', RESIDUAL_BINS 4 cividis-like colours for <1, 1-2, 2-3, >3 sigma. simulate_cvd(rgb_srgb (\u2026,3), kind in {'protan','deutan','tritan'}) using Machado et al. 2009 severity 1.0 matrices applied in LINEAR RGB then clipped [0,1] and re-encoded: protan [[0.152286,1.052583,-0.204868],[0.114503,0.786281,0.099216],[-0.003882,-0.048116,1.051998]]; deutan [[0.367322,0.860646,-0.227968],[0.280085,0.672501,0.047413],[-0.011820,0.042940,0.968881]]; tritan [[1.255528,-0.076749,-0.178779],[-0.078411,0.930809,0.147602],[0.004733,0.691367,0.303900]]. delta_e76(a, b) via sRGB -> linear -> XYZ (D65) -> CIELAB. contrast_ratio(c1, c2) WCAG relative luminance. Expected (verified during design): min pairwise Delta-E76 over the six roles is about 33 normal, 20.7 protan, 17.0 deutan, 16.1 tritan.",
+   "acceptanceTests": [
+    "test_each_gate_fires_on_fixture_and_silent_on_clean: one minimal PhotoContext per code triggers exactly that code; a clean context yields no warn/block",
+    "test_alarm_budget_clean_set: 20 clean varied contexts produce <= 2 warn/block findings in total",
+    "test_set_checks_blur_dates_group_spread",
+    "test_findings_complete_and_registered: every Finding has all fields; every threshold used is registered in core.config with a badge and source",
+    "test_image_stats_known_values: exact EAR for a constructed eye polygon; checkerboard Laplacian variance > its blurred version",
+    "test_sigma_ellipse_axes: cov diag(4,1), k=1 gives x extent +/-2 and y extent +/-1 within 1e-9",
+    "test_palette_cvd_separation: for normal/protan/deutan/tritan, every role pair has Delta-E76 >= 15 and pairs sharing a glyph shape have >= 20; for every role either OUTLINE or HALO has contrast ratio >= 3",
+    "test_overlay_geom_no_bpy_import (AST)"
+   ],
+   "tier": "sonnet",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-10",
+   "title": "Bundle v2: inverse-depth cameras, robust schedule, soft focal tie, distance/pose priors, visibility, view weights, jaw hinge, Term and ShapeModel protocols, Schur step",
+   "milestone": "M3",
+   "files": [
+    "face3d/solve/bundle.py",
+    "face3d/solve/robust.py",
+    "face3d/solve/terms.py",
+    "face3d/solve/reconstruct.py",
+    "tests/test_bundle_v2.py"
+   ],
+   "dependsOn": [
+    "WP-03",
+    "WP-04",
+    "WP-06",
+    "WP-07"
+   ],
+   "spec": "Extend the WP-07 solver (DESIGN D-01, D-02, D-07, D-08, 4.3, 4.5, 4.8, 4.9 jaw). ENGINE_VERSION = 'v2'. Legacy tests and WP-07 tests must pass; keep calling levenberg_marquardt via the module-level name with consistent closures.\n\n1. Inverse-depth camera blocks. Per view: FREE block (omega 3 multiplicative, tau 2 mm, a = log s 1, rho 1 mm^-1) or FIXED_F block (omega, tau, rho) when ViewObs.estimate_focal is False (s = f*rho). Focal groups: parameter phi_G = log f_G; tie residual (a_v - log rho_v - phi_G)/focal_tie_sigma for FREE views in a group. New ViewObs field focal_tie_sigma: float|None = None; None means HARD sharing (s_v = exp(phi_G)*rho_v, no a_v parameter) so the legacy test asserting one shared focal (ptp < 1e-9) still holds; the pipeline passes 0.02 (rec CAM-5). Focal prior on phi_G (tightest prior in the group, as now) or, for ungrouped FREE views, directly on (a_v - log rho_v). rho box [1e-4, 4e-3] mm^-1 enforced by lm project(). Convert with geometry.camera.camera_to_invdepth / invdepth_to_camera (WP-06) at entry and exit; outputs remain Camera objects.\n2. Distance prior: ViewObs.distance_prior = (median_mm_to_head_origin, sigma_log) | None -> residual (-log rho - log median)/sigma_log.\n3. Pose tag prior: ViewObs.pose_tag = (yaw_deg, pitch_deg, sigma_yaw, sigma_pitch) | None, with yaw = atan2(C_x, C_z), pitch = asin(C_y/|C|) of the camera centre C in the head frame; residuals on these angles.\n4. Visibility: bundle arg landmark_normals (N,3)|None (template normals, head frame). w_vis = clip((cos th - cos 80)/(cos 60 - cos 80), 0, 1), cos th = n_i . (C_v - X_i)/|C_v - X_i|, recomputed before each IRLS round; information multiplied by w_vis (excluded if 0). Contour-kind points on the far side (sign of x opposite to the view's yaw) dropped when |yaw| > 25 degrees.\n5. robust.py: @dataclass RobustSchedule(huber_delta=2.0, huber_rounds=2, tukey_c=4.685, tukey_rounds=1, reject_k=3.035, view_chi2_q=0.99, view_reject_frac_flag=0.15, nu_clip=(1.0, 9.0), nu_flag=2.0); huber_weights(e, delta); tukey_weights(e, c); nu2_view(e2) = clip(median(e2)/1.386, 1, 9) (1.386 = 2 ln 2, median of chi-square 2 dof); norm_ppf(p) (Acklam rational approximation plus one Halley refinement, |err| < 1e-9); chi2_quantile_wh(dof, q) Wilson-Hilferty; view_chi2_test(e2_inliers, dof, q) -> (chi2, threshold, reject). Schedule in bundle_adjust when robust=RobustSchedule() is passed: before each round recompute frozen noise and nu_v (whitened radial residuals e_i over the detector part); Huber rounds, then Tukey round, then reject e > 3.035 and run a final plain least-squares solve on inliers; view test: dof_v = 2 n_v - 7; reject a failing view (flag 'F-VIEW-REJECT', its observations excluded from the final solve); flags 'F-VIEW-NOISY' if nu_v > 2 and 'F-VIEW-OUTLIERS' if > 15% rejected. If robust is None and huber_px is given, the legacy Huber-only IRLS is used unchanged.\n6. View weights (view_weighting=True): w_v = 1/n_bin with bins of 15 degrees yaw x pitch bands (< -15, -15..15, > 15 degrees); then cap each view's share of the shape-block information trace at 0.40 (two passes, rescaling over-cap views).\n7. Jaw hinge: ViewObs.jaw = JawConfig(enabled=False, prior_mean_deg=1.5, prior_sigma_deg=1.0, bounds_deg=(0.0, 30.0)); bundle args jaw_weights (N,) and jaw_center_mm (default (0.0, -5.0, 11.5)), axis +x. X_iv = X_i + w_i (R(theta_v e_x)(X_i - c) - (X_i - c)); theta per view bounded via project(); prior residual (theta - mean)/sigma; analytic Jacobians wrt X_i and theta.\n8. terms.py: SolverState (read-only view: X (N,3), zeta, cameras (list[Camera]), invdepth params, param_index); Term protocol: name; n_params(); init_params(state) -> (k,); residuals(state, p) -> (m,); jacobian(state, p) -> dict block_name -> (m, size) with block names 'X' (m,3N), 'zeta', 'cam:<v>' (in the view's block parameterisation), 'self'. bundle_adjust(..., terms=[...]) allocates each term's parameters after the points and includes its rows in H_data (data terms) or H_prior (term.is_prior attribute). ShapeModel protocol: n_params; init(X0) -> q; points(q) -> (N,3); jacobian(q) -> (3N, n_params) dense; FreePoints(N) default (identity; uses the existing fast per-point Jacobian path). Priors act on X through the chain rule when a non-trivial ShapeModel is used.\n9. Linear step: step_solver uses dense Cholesky when the parameter count <= 2500; otherwise eliminates points flagged in schur_point_idx (bool (N,), points whose Hessian blocks are 3x3 block-diagonal: no factor-prior coupling) by Schur complement, solves the reduced system densely, back-substitutes; must equal the dense step to 1e-8 relative when both are applicable.\n10. Outputs: BundleResult.view_stats list of dicts {nu, rejected_frac, chi2, dof, flags, weight_share, sigma_logf (delta method on a - log rho including group parameter covariance), sigma_logz (sigma_rho/rho), jaw_deg, jaw_sigma_deg}.\n11. reconstruct.py: keep the legacy signature working; new keyword args prior, scale, robust=None, view_weighting=False, distance_priors=None, jaw=None, terms=None, landmark_normals=None, focal_tie_sigma=None; PnP init uses WP-06 multi-start with sigma_px from the noise model at the prior-mean depth; views whose initial robust RMS > 3 sigma are re-initialised by PnP against the consensus after a first bundle pass.",
+   "acceptanceTests": [
+    "all legacy and WP-07 tests pass",
+    "test_invdepth_bundle_jacobian_numeric: FREE and FIXED_F blocks, rho, phi, a, theta_jaw and zeta: analytic vs numeric rtol 1e-4",
+    "test_invdepth_results_match_pinhole: noiseless 5-view scene converges; returned Cameras reproject with RMS < 1e-6 px",
+    "test_rho_bounds_weak_perspective: 200 mm-eq views at 8 m converge without NaN, rho inside bounds, sigma_logf close to its prior sigma (within 20%)",
+    "test_soft_focal_tie: same group with tie 0.02: |f1/f2 - 1| < 0.05; a 10%-off EXIF prior with sigma 0.6 still lets views spanning >= 60 deg yaw at 0.5 m recover focal within 3%",
+    "test_robust_rejection_rates: rear_phone scenario, 5% outliers at 5-20 sigma, 20 seeds: >= 95% of outliers rejected, <= 2% of inliers rejected, median config RMS <= 1.1x the outlier-free run",
+    "test_noisy_view_flagged: one view with 3x noise has nu^2 > 4 and 'F-VIEW-NOISY'; other views nu^2 <= 2",
+    "test_jaw_hinge_recovers_opening: truth with an 8 degree hinge in one view: theta within 1.5 deg; rigid-class landmarks move < 0.3 mm vs the no-opening solve; disabling the hinge yields larger error",
+    "test_view_weight_cap: 6 near-identical frontal views plus one profile: no view share > 0.40",
+    "test_term_protocol_toy_chord: a chord Term (L, sigma 0.5 mm) integrates with correct Jacobian and drives zeta_sigma below 0.01",
+    "test_schur_step_equals_dense",
+    "test_runtime_budget: 100 points x 7 views full robust schedule < 10 s"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-11",
+   "title": "Surface test bed: out-of-prior procedural subjects, expression fields, numpy renders and fault generators",
+   "milestone": "M2",
+   "files": [
+    "face3d/testbed/surface_subjects.py",
+    "face3d/testbed/render.py",
+    "face3d/testbed/faults.py",
+    "tests/test_testbed_surface.py"
+   ],
+   "dependsOn": [
+    "WP-01",
+    "WP-02",
+    "WP-08"
+   ],
+   "spec": "Implements DESIGN 7.2 and the generators for the 7.4 fault matrix. Subjects MUST be generated independently of the fitted prior (no import of face3d.model.landmark_prior in surface_subjects.py; the inverse crime is forbidden for acceptance).\n\nsurface_subjects.py: @dataclass SurfaceSubject(kit: TemplateKit, V_true (V,3), log_scale_true: float, asym_rms_mm: float, meta: dict{'generator','inverse_crime':False}) with method landmarks(scheme) -> (N,3) via kit embeddings evaluated on V_true. out_of_prior_subject(kit, rng, *, amp_mm=3.0, asym_mm=0.8, log_scale_sd=0.045, features=True, n_bumps=15): symmetric smooth field = sum of n_bumps Gaussian bumps along vertex normals (centres sampled on the face hemisphere, mirrored, widths U(20,60) mm, amplitudes N(0,amp)); feature variations outside the 18-factor model: dorsal hump (bump centred between n and prn, amp U(-1.5,2.5) mm, sigma 6 mm), chin cleft (narrow groove -U(0,1.2) mm, sigma 3 mm, midline), lip curvature (vertical displacement of lips region = c * x^3/30^3 * U(-1,1) mm), cheek fullness (+/-2 mm on cheeks region); asymmetric part: smooth field d with RMS asym_mm made antisymmetric (d - mirror(d))/2 scaled; global anisotropic scale diag(1+N(0,0.02)) then e^zeta with zeta ~ N(0, log_scale_sd^2). Reject and resample if any face's determinant-proxy (signed area ratio in the tangent plane) < 0.2. expression_field(kit, V, kind in {'smile','jaw_open','brow_raise','blink'}, amount) -> displaced V: smile = mouth corners (ch_L/ch_R vertices) moved up 0.6*amount and outward 0.4*amount mm with Gaussian falloff sigma 15 mm plus cheeks up 0.25*amount; jaw_open = rotate jaw-weighted vertices about the axis through (0,-5,11.5) along +x by amount degrees (meta 'model_matched': True); brow_raise = forehead/brow vertices up amount mm with falloff; blink = upper-lid vertices (eyes region, above p) down amount mm.\n\nrender.py: @dataclass RenderedView(image (H,W,3) float32 sRGB in [0,1], depth, mask, tri_id, bary, camera). render_view(V, kit, camera, *, albedo='procedural', light_dir=(0.3,-0.5,-0.8), ambient=0.25, blur_px=0.0, noise_sd=0.0, rng=None, scale_resolution=1.0) using face3d.mesh.raster (WP-02): procedural albedo = base skin (0.78,0.60,0.52) with lips (0.65,0.35,0.35) and brow band (0.35,0.25,0.2) by region/embedding proximity, slight low-frequency variation; scale_resolution < 1 renders at reduced size with intrinsics scaled by the corner convention (u' = u*W'/W). project_landmarks(kit, V, scheme, camera) -> uv. render_masks(...) -> skin and background masks.\n\nfaults.py (deterministic given rng; each returns modified data plus ground-truth labels): mirror_view(uv, W, perm) (labels swapped, truth 'mirrored'); unbaked_orientation(uv, W, H, o=6) (applies the inverse orientation map from face3d.io.image_ops, returns swapped W/H); exif_crop(f_prior_px, factor) (+/-30%) and exif_missing(); selfie_rig(rng) (front camera 0.35 m); expression_fault(subject, view_index, kind, amount); beauty_warp(uv, scheme_index_map, eye_scale=1.06, jaw_scale=0.96) (scale eye-corner/lid points about each eye centre by 1.06; jaw/contour points toward the face centre by 4%); off_axis_wide(camera, X_centre, theta_deg=35, model in {'stereographic','rectilinear'}) (rotate the camera so the face sits theta off-axis; for 'stereographic' project with geometry.camera.stereographic_project); occluder_fault(tags) (beard: drop chin/jaw observations and emit an outer_bound contour flag; glasses: eye noise x2, no iris); small_face(rig_view, face_px=150) (move camera back); gross_outliers(uv, frac, rng, sigma_px); FAULT_MATRIX: list of dicts {name, generator, must_raise (code), metric, threshold, degradation_bound} covering every row of DESIGN 7.4 (mirror, orientation, exif crop/missing, selfie, jaw/smile, beauty warp, off-axis wide stereographic and rectilinear, beard/glasses/hair tags, small face, gross outliers, definition bias 1 mm).",
+   "acceptanceTests": [
+    "test_surface_generator_independent_of_prior: AST shows no import of face3d.model.landmark_prior in surface_subjects.py; meta inverse_crime False",
+    "test_out_of_prior_not_in_factor_span (diagnostic, test may import the prior): least-squares projection of 20 subjects' anatomical landmarks onto span(factor columns + similarity) leaves residual RMS > 0.5 mm on average",
+    "test_subjects_no_folds_and_landmarks_follow_vertices exactly",
+    "test_render_landmarks_consistent: visible projected landmarks lie inside the mask; raster depth at the landmark pixel equals the landmark camera depth within 0.5 mm",
+    "test_mirror_fault_involution and test_unbaked_orientation_roundtrip",
+    "test_beauty_warp_magnitudes: image eye width +6% and jaw width -4% within 0.5%",
+    "test_off_axis_stereographic_uses_model: faulted uv equal stereographic_project output to 1e-9",
+    "test_fault_matrix_rows_complete: FAULT_MATRIX covers every DESIGN 7.4 row with a must_raise code or metric",
+    "test_render_speed: a 600x800 render of the n=24 head < 3 s"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-12",
+   "title": "Symmetry: reflection Procrustes, symmetry-plane fit, evidence-gated per-pair sigma, S/Asym split and symmetry checks",
+   "milestone": "M2",
+   "files": [
+    "face3d/geometry/procrustes.py",
+    "face3d/fit/symmetry.py",
+    "tests/test_symmetry.py"
+   ],
+   "dependsOn": [
+    "WP-03",
+    "WP-04",
+    "WP-08"
+   ],
+   "spec": "Implements DESIGN D-15, 4.11, 4.15 stage A detection. Existing umeyama behaviour must be unchanged by default.\n\nprocrustes.py: umeyama(src, dst, with_scale=True, weights=None, allow_reflection=False): when allow_reflection is True skip the det correction (D = I), so R may have det -1. umeyama_proper_and_reflected(src, dst, weights=None, with_scale=True) -> {'proper':(s,R,t,rmse), 'reflected':(s,R,t,rmse)} where 'reflected' is the best improper transform (force det -1 via D[-1,-1] = -det sign trick). fit_symmetry_plane(X (N,3), pairs (P,2), midline (M,), weights (N,)|None=None) -> (n unit (3,), d, rmse): build X_pi (swap pair rows; midline fixed), weighted rigid improper alignment of X_pi onto X (allow_reflection, with_scale False, force det -1); n = eigenvector of R with eigenvalue -1 (from (I - R)/2), sign chosen so n_x > 0; d = (n . t)/2 (reflection x' = (I - 2 n n^T) x + 2 d n); fallback to n=(1,0,0), d=0 when fewer than 3 pairs. reflect(X, n, d).\n\nfit/symmetry.py: pair_sigmas(ids_pairs, registry=ANATOMICAL) -> (P,3) from Landmark.sym_sigma_mm (brows if present: (1.5, 2.0, 1.5)); midline_sigmas(ids) -> (M,). gate_symmetry_sigmas(pair_sigma (P,3), pair_status: list[str], assist_factor=0.25) -> (P,3): status in {'measured','constrained'} -> sigma / sqrt(assist_factor) (= 2 sigma); {'prior-driven','unobserved'} -> sigma (anat R4.2 assist mode). plane_weights(ids) by region: upper face (eyes, forehead, n, g) 1.0; midface (nose, cheeks, prn, sn, al, ac, or, zy) 0.5; lower (lips, chin, jaw) 0.25; ears 0.1 (anat R3.3). class SymmetryTerm (duck-typed to the DESIGN 4.8 Term protocol: name, n_params() = 0, is_prior = True, residuals(state, p), jacobian(state, p) -> {'X': (m, 3N)}): residuals (X_l - reflect(X_r; n, d))/sigma_pair per axis and midline (n . X_m - d)/sigma_mid; the plane (n, d) is held fixed within a solve and refitted between outer iterations via update_plane(X). Do not import face3d.solve.terms (WP-10 runs in parallel).\nsplit_symmetric(V (n,3), mirror_map (n,), n_plane=(1,0,0), d=0.0) -> (S, Asym): S = (V + reflect(V[mirror_map]))/2, Asym = V - S (S symmetric exactly; S + Asym == V).\nmirror_rmsd(V, mirror_map, vertex_mask) = sqrt(mean |V_i - reflect(V[mirror_map[i]])|^2) over masked vertices (face regions: eyes, nose, lips, cheeks, chin, forehead).\nsymmetry_checks(V, mirror_map, regions, photos_show_asymmetry: bool, n_view_pairs_30deg: int) -> list of finding dicts {code, value, threshold, msg_key}: 'S-TOO-SYMMETRIC' if rmsd < 0.3 mm and photos_show_asymmetry; 'S-TOO-ASYMMETRIC' if rmsd > 1.5 mm; returns also asym_sigma_multiplier = 4.0 when n_view_pairs_30deg < 2 else 1.0 (anat section 6).",
+   "acceptanceTests": [
+    "existing umeyama tests pass; allow_reflection=True recovers an exact reflected similarity",
+    "test_proper_vs_reflected_detects_mirrored_source: an x-mirrored landmark set (labels unchanged) has reflected rmse < 0.5 x proper rmse",
+    "test_symmetry_plane_recovers_tilted_plane: symmetric configuration reflected about a plane tilted 3 deg and offset 4 mm plus 0.1 mm noise: normal angle error < 0.3 deg, offset error < 0.2 mm",
+    "test_gate_symmetry_sigmas: measured -> 2x sigma; prior-driven -> 1x",
+    "test_split_symmetric_exact on the procedural head with a random asymmetric field: S symmetric to 1e-9, S + Asym == V",
+    "test_symmetry_checks_thresholds: exactly symmetric head flags too-symmetric when photos_show_asymmetry; a 2 mm antisymmetric field flags too-asymmetric; multiplier 4 with < 2 view pairs",
+    "test_symmetry_term_jacobian_numeric"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-13",
+   "title": "Hand-off maths: shape-key stack with exact rebase, Basis propagation, protect mask; Catmull-Clark limit stencils and cage fit",
+   "milestone": "M2",
+   "files": [
+    "face3d/handoff/__init__.py",
+    "face3d/handoff/keys.py",
+    "face3d/mesh/subdiv.py",
+    "tests/test_handoff.py"
+   ],
+   "dependsOn": [
+    "WP-08"
+   ],
+   "spec": "Implements DESIGN D-21, D-22, 4.17 (bl K2, K3, W4, W5). numpy only. handoff/__init__.py: \"\"\"face3d.handoff: shape-key and Multires hand-off maths (exports added by WP-23).\"\"\"\n\nkeys.py: constants BASIS='Basis', ID='ID_fit', ASYM='Asym', ARTIST='artist', STAGE_PREFIX='stage_'. @dataclass Key(data (n,3) float64 absolute positions, relative_to: str, value: float = 0.0, slider_max: float = 1.0, mute: bool = False). @dataclass KeyStack(basis (n,3), keys: dict[str, Key] (ordered)). Methods: evaluate() = basis + sum over non-muted keys of value * (key.data - data_of(key.relative_to)) where data_of('Basis') = basis and otherwise the referenced key's DATA (Blender semantics: relative to the key's stored positions, not its evaluated mix); KeyStack.from_fit(basis, id_fit, asym_delta=None, stages: dict[str,(n,3)]|None=None) -> ID_fit (relative Basis, value 1, slider_max 1.5), Asym (relative ID_fit, data = id_fit + asym_delta (zeros if None), value 1), artist (relative ID_fit, data = id_fit copy, value 1), stage_* (relative Basis, value 0, mute True); rebase(new_id_fit, new_asym_delta=None): delta = new_id - old_id; artist.data += delta; Asym.data = new_id + new_asym_delta if given else Asym.data + delta; ID.data = new_id (exact float64); write_basis(new_basis): delta = new_basis - basis; add delta to every key's data (all keys ultimately relative to Basis), then basis = new_basis; artist_delta() = artist.data - ID.data; protect_mask(support (n,)) = 1 - clip(support, 0, 1); mask_to_data_weights(m) -> (1 - m) and pin sigma 0.2 mm array for m > 0.5 (W5); topology_guard(expected_sha, actual_sha) raises TopologyMismatch(ValueError).\n\nsubdiv.py (quad meshes; faces (F,4) int): quad_one_rings(n_verts, faces) -> per vertex (edge_neighbours list, diagonal_neighbours list); is_closed(faces); catmull_clark(V, faces) -> (V1, faces1): face points = average of face vertices; edge points = (v0 + v1 + fp0 + fp1)/4 for interior edges, midpoint for boundary edges; vertex points = (F + 2R + (n-3)P)/n interior (F mean of adjacent face points, R mean of incident edge midpoints), boundary vertices use the cubic B-spline rule (1/8, 6/8, 1/8 of boundary neighbours); new quads (v, e_next, f, e_prev) oriented consistently. limit_stencil_matrix(n_verts, faces) -> face3d.mesh.sparse.Sparse S with rows v_inf = (n^2 v + 4 sum e_j + sum f_j)/(n (n+5)) for interior vertices of valence n (e_j edge neighbours, f_j face-diagonal neighbours); boundary vertices: limit (1/6, 4/6, 1/6) of boundary neighbours. limit_positions(V, faces) = S V. fit_cage_to_limit(targets (n,3), faces, mu=1e-5, x0=None, tol=1e-10) -> C minimising ||S C - T||^2 + mu ||L (C - T)||^2 with L the unit-weight graph Laplacian (degree minus adjacency), solved per coordinate with face3d.mesh.sparse.cg on the normal equations (S^T S + mu L^T L). subdivide_levels(C, faces, levels). Expected (verified during design): on the 1,538-vertex cube-sphere head cond(S) ~ 9, naive shrink RMS ~0.38 mm, fitted RMS ~2e-4 mm.",
+   "acceptanceTests": [
+    "test_rebase_exact: random basis/ID/artist with a sculpt delta; after rebase artist.data - new_ID equals old artist delta within 1e-9",
+    "test_basis_write_propagates: evaluate() shifts by delta for value-1 keys; artist_delta unchanged",
+    "test_evaluate_blender_relative_semantics on a hand-computed 3-vertex example with chained relative keys",
+    "test_protect_mask_and_weights",
+    "test_cc_cube_topology_and_convergence: subdividing a cube gives 26 vertices and 24 quads; limit_positions of original vertices match positions after 6 subdivision levels within 1e-3 relative",
+    "test_limit_stencil_regular_weights: valence-4 interior vertex weights 16/36 centre, 4/36 edge, 1/36 diagonal",
+    "test_cage_fit_removes_shrink: procedural head n=16 as target: naive cage limit RMS error >= 0.1 mm; fitted cage RMS < 0.01 mm and max < 0.02 mm",
+    "test_topology_guard_raises"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-14",
+   "title": "Maintainer tools: MediaPipe scheme file, user's-Python detector helper, render-and-detect scheme calibration, prior recalibration (ANSUR II CSV / landmark samples)",
+   "milestone": "M2",
+   "files": [
+    "tools/build_scheme_mediapipe.py",
+    "face3d/schemes/mediapipe_478.json",
+    "tools/detect_mediapipe.py",
+    "tools/calibrate_scheme.py",
+    "tools/recalibrate_prior.py",
+    "docs/maintainer-tools.md",
+    "tests/test_tools.py"
+   ],
+   "dependsOn": [
+    "WP-03",
+    "WP-05",
+    "WP-08"
+   ],
+   "spec": "Known fact: MediaPipe indices (even iris L/R) are NOT verified; schemes are data files with geometric L/R resolution and render-and-detect calibration on the maintainer's/user's machine. No MediaPipe, Blender or network here: everything is tested on synthetic inputs and fake modules. Tools are never imported by face3d.\n\n1. tools/build_scheme_mediapipe.py: read research/data/landmark-index-correspondence.json (tables mediapipe_semantic_points, mediapipe_region_polylines, mediapipe_mirror_pairs, default_sigma_by_kind, detector_vs_definition_offsets); write face3d/schemes/mediapipe_478.json (WP-03 scheme format): 478 points; semantic points get anatomical_id from the farkas_abbr column when it maps to one of the 44 ids (prn, sn, ls, li, ch, en, ex, ps, pi, n, g, pg, me, sl, al; iris centre -> 'p' only through lr_groups), kind from the type column (extremal, curve, sharp_junction (fixed), contour (oval), brow); points in region polylines get kind curve/contour/brow by polyline; all other points kind 'generic'; verified false for every point (badges from the table status); mirror_pairs from mediapipe_mirror_pairs (70 pairs) with 'mirror_complete': false; lr_groups [{indices: 468..472, rule:'geometric'}, {indices: 473..477, rule:'geometric'}] (side 'geometric', never hard-coded); z_policy 'ignore'; detector {code_licence:'Apache-2.0', weights_licence:'verify per release (contested)', commercial_ok: null}; licence of the JSON file 'CC0-1.0' with a note that store acceptance of derived index tables is contested (ethics C7).\n2. tools/detect_mediapipe.py (runs in the user's own Python with user-installed mediapipe and Pillow; import mediapipe/Pillow only inside main()): CLI --model PATH.task --model-sha256 HEX --images ... --out DIR [--tta 8] [--num-faces 2] [--png-out]. Refuse on sha256 mismatch. FaceLandmarker (Tasks API) in IMAGE mode with output_face_blendshapes=True, output_facial_transformation_matrixes=True, num_faces. Load with Pillow + ImageOps.exif_transpose (HEIC through pillow-heif if installed, else report 'convert to PNG'); orientation_applied True. Detect at long side <= 2048; map back with u*W/W' (corner convention). TTA: passes with random scale +/-2% and shift +/-1% plus one horizontal-flip pass using the scheme mirror permutation (points without a known mirror excluded from the flip pass); per-point median uv and tta_spread_px = 1.4826 * MAD of radial deviations. Write LandmarkSet JSON via face3d.io.landmarks with detector {backend:'mediapipe-tasks', version, model_sha256, licence, commercial_ok: null, is_ml: true}, blendshapes, all faces with scores (the engine/user picks the subject; eth F1). --png-out writes oriented PNG working copies via face3d.io.png.\n3. tools/calibrate_scheme.py (render-and-detect; run offline with Blender renders): inputs: template kit, render records [{K, R, t, W, H, detections: LandmarkSet path}], scheme name. For each index: initial surface point = current kit embedding (or, if absent, the template surface point hit by the back-projected ray of the first detection via face3d.mesh.raster tri_id lookup); refine by Gauss-Newton over (tri, bary) minimising sum over renders of ||pi_r(p) - u_r||^2 with a triangle walk to the neighbour across the edge when a barycentric goes negative; shrink toward the prior embedding with w = n/(n+2) (n = renders where detected); sigma_cal = RMS reprojection converted to mm at each render's depth, added in quadrature to the point's sigma_def; verified = n >= 20 and sigma_cal <= 1.0 mm (sharp/curve) or <= 2.5 mm (others). Checks: listed mirror pairs must map to mirrored surface points within 2 mm else flag 'pair_mismatch'; geometric lr_groups resolved by comparing each group's 3D position with the template eye centres, recorded as lr_resolved {group: 'L'|'R'} plus a flag if a group sits nearer the opposite eye than expected from the provisional table. Output: updated kit embeddings for the scheme and a report JSON (per index n, sigma_cal, verified, flags). Never writes detections of real people; documented.\n4. tools/recalibrate_prior.py: (a) --ansur CSV (user-supplied ANSUR II public file; never bundled): columns per the research ansur2_head_columns table; unit plausibility check (e.g. headlength in 150..250 mm, else try /10 and refuse if still implausible); statistics by Gender only; pooled across DODRace groups with EQUAL weight per group (balanced pooling, anat R5.5) and never output race-conditioned priors; compute means, SDs and correlations; map to chord targets (g-op, eu_L-eu_R, zy_L-zy_R, n-me (sellion approx n), p_L-p_R, sa_L-sba_L, v.y) and re-run the factor-sigma calibration (port build_lm.calibrate: NNLS with ridge to the prior guesses, floor 0.5x) keeping the means; propose scale_sigma_log from the mean log-SD of head length, breadth and face height; write landmark_prior_v2.json with provenance {source, sha256, n per sex, date, badge '\ud83d\udcc4'}. (b) --landmark-samples NPZ (array (S,44,3) in the FH frame, e.g. computed by the user from FLAME 2023 Open with attribution): empirical mean and covariance, low-rank + diagonal factor model with K=18 by iterated principal factors (PCA, residual diagonal floored at 0.3 mm), write the prior JSON with attribution text.\n5. docs/maintainer-tools.md: how and where to run each tool, licence rules (CC0-only bundling, user-supplied SHA-pinned models), what must never be committed (real-person detections or geometry; only synthetic, CC0 or consented aggregates), expected outputs.",
+   "acceptanceTests": [
+    "test_mediapipe_scheme_built_from_research: 478 points, all verified False, listed pairs form an involution, iris lr_groups geometric, anatomical ids present for prn, sn, en, ex, ch; rebuilding is byte-identical",
+    "test_detect_helper_with_fake_mediapipe: a fake mediapipe package injected into sys.modules returns known normalized landmarks; output uv == x*W within 1e-9 without TTA; TTA spread computed; sha mismatch refused; importing tools/detect_mediapipe.py without mediapipe succeeds",
+    "test_calibrate_scheme_recovers_offsets: synthetic truth = prior embedding with 2 mm offsets on 30 indices, detections = projections + 0.5 px noise over 30 renders: recovered positions within 0.3 mm of truth*w-shrunk expectation, verified True; a deliberately swapped iris group is flagged",
+    "test_recalibrate_ansur_synthetic: synthetic CSV (2000 rows per sex, 3 groups) recovers SDs within 5% and correlations within 0.05; no race-conditioned output; implausible units refused",
+    "test_recalibrate_from_landmark_samples: samples from a known factor model give implied chord SDs within 5%"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-15",
+   "title": "Nuisances: scale fusion and limbus fit, mirror test, expression tags and inflation, per-view camera-model selection, retouch residual test",
+   "milestone": "M3",
+   "files": [
+    "face3d/solve/scale.py",
+    "face3d/solve/mirror.py",
+    "face3d/solve/expression.py",
+    "face3d/solve/camera_model.py",
+    "tests/test_nuisances.py"
+   ],
+   "dependsOn": [
+    "WP-03",
+    "WP-06",
+    "WP-10",
+    "WP-11"
+   ],
+   "spec": "Implements DESIGN D-03, D-10, D-12, D-14, 4.3 (model selection), 4.7, 4.9, 4.10, 4.1 Q-RETOUCH (residual part). Thresholds registered via core.config with badges. Uses solve.terms (WP-10).\n\nscale.py: ChordTerm(a_idx, b_idx, length_mm, sigma_mm=0.5, offset_mm=0.0): residual (||X_a - X_b|| - L - o)/sigma. CardTerm(view, corner_uv (2,2), touch_idx, length_mm=85.60, sigma_mm=0.5, depth_sigma_mm=10.0, sigma_px=1.0): own 6 params (two 3D corners), residuals = corner reprojection, chord, (mean corner depth - depth of landmark touch_idx in that camera)/depth_sigma. IrisTerm(obs: list of (view, eye 'L'|'R', d_px, sigma_px), eye_idx {'L': idx, 'R': idx}, prior_mm=(11.8, 0.6)): shared D parameter with prior residual (D - 11.8)/0.6 and data residual (f_v D / z_eye,v - d_px)/sigma_px, z from the pupil landmark depth in camera v. iris_usable(d_px, sharp: bool, glasses: bool) -> d_px >= 20 and sharp and not glasses. fit_limbus(gray (H,W) float, centre_guess (2,), r_guess, n_rays=64, search=(0.6,1.5), exclude_deg=40) -> (centre, radius, sigma_r, sharpness): radial profiles (bilinear) on rays excluding the upper and lower sectors of +/-exclude_deg about vertical (lids); per ray the strongest positive derivative (dark iris to bright sclera) with sub-pixel parabolic peak; Kasa algebraic circle fit then 3 IRLS Huber(1.345) rounds on geometric residuals; sigma_r = max(0.5, 1.4826 MAD(resid)/sqrt(n_used)); sharpness = median peak derivative / (1.4826 MAD of profile second differences). Population source: population_scale_source in {'global_size','ipd'} exactly one (ValueError if both requested); IpdTerm(p_L_idx, p_R_idx, mean_mm=63.0, sd_mm=3.8) with vergence correction dIPD = min(2.5, 2.0*350/z_mm) mm subtracted from the far-gaze mean when the view is near. scale_report(zeta, zeta_sigma, sources) -> {mode: 'measured'|'iris'|'prior', label (e.g. 'iris+population'), sigma_pct = 100*zeta_sigma, conflict: bool} where conflict = two metric sources' implied zeta differ by > 1% and > 2 combined sigma ('S-CONFLICT').\n\nmirror.py: @dataclass MirrorDecision(delta, g, gap, margin, decision in {'keep','suggest_flip','undetermined','unverifiable'}, preselect_flip: bool). mirror_test(uv (N,2), W, perm, consensus_X (N,3), noise_cov (N,2,2), camera_init: Camera, *, is_front_camera: bool, all_views_front: bool, other_views_agree: bool, plane=(np.array([1,0,0]), 0.0), g_min=4.0, rel_front=0.10, rel_other=0.20): C0 and C1 = robust PnP costs (sum of squared whitened residuals after a WP-06 PnP with sigma_px) as given and after face3d.io.image_ops.flip_uv; delta = (C0 - C1)/C0; A = (X - reflect(X_pi))/2 using the plane; J_i = du/dX_i at the solved pose; g = sum ||Sigma_i^-1/2 J_i A_i||^2; decision: 'unverifiable' if all_views_front; 'undetermined' if g < g_min; 'suggest_flip' if delta > (rel_front if is_front_camera else rel_other) and (C0 - C1) > 2 sqrt(2 n_v); else 'keep'; preselect_flip = decision == 'suggest_flip' and delta > 0.2 and (is_front_camera or other_views_agree). Never mutates inputs; applying a flip is a project decision (WP-20).\n\nexpression.py: tag_from_blendshapes(scores: list[dict]|list[None], neutral_ref: int|None=None) -> list[str] in {'neutral','mild','expressive'} using Delta-b relative to the per-key subject minimum (or the reference view): neutral if jawOpen < 0.08, mouthSmile(L/R max) < 0.15, eyeBlink < 0.35, browInnerUp < 0.2; expressive if smile > 0.25, any of cheekSquint/eyeWide/browOuterUp/browInnerUp > 0.3, blink > 0.4; mild otherwise. tag_fallback(uv, scheme_index, set_mouth_width_median) -> (tag, drop_ids): inner-lip gap / ch-ch > 0.04 drops sto and li; mouth width > 1.08 x set median -> 'mild'. retag_from_residuals(mobile_chi2_red) -> > 4 at least mild, > 9 expressive (max 3 rounds by the caller). CLASS_MULT = {rigid:(1,1,1.25), semi_mobile:(1,1.75,2.5), mobile:(1,3,inf), jaw:(1,1,1)}. expression_sigma_mm(expr_classes, kinds_sigma_n_mm, tag) -> (sigma_expr (N,), drop (N,) bool) with sigma_expr = sqrt(mu^2 - 1) * sigma_kind and drop where mu is inf; inflate_view_cov(cov (N,2,2), P (N,2,3), sigma_expr) adds P (sigma_expr^2 I3) P^T. lid_drop(ear, gaze_pitch_deg) -> ear < 0.2 or |pitch| > 12. no_neutral_view(tags) -> finding 'E-NO-NEUTRAL' (suppress sub-mm lip and lid reports).\n\ncamera_model.py: select_camera_model(uv, X_consensus, cam: Camera, noise_cov, face_centre_X) -> {model: 'pinhole'|'virtual_rectilinear'|'virtual_stereo'|'k1', costs: dict, ambiguous: bool, sigma_mult: 1.0|3.0}: hypotheses fitted on the view alone against the consensus: pinhole (PnP); virtual_rectilinear (map uv with rectilinear_virtual_homography, PnP with f' = f, map back) which is equivalent to pinhole for exact data; virtual_stereo (uv -> stereographic_unproject -> rotate by R_virt -> pinhole with f' = f sec^2(theta/2)); k1 (LM with k1 prior N(0, 0.02^2)). Penalised cost = robust cost + 0.5 * extra_params * ln(2 n); ambiguous when the best two are within 2.0 -> sigma_mult 3.0. k1_flag(k1, sigma) -> |k1/sigma| > 3. radial_slope_flag(per_point_residual_radial, rho_delta) -> implied magnification error > 5%. retouch_residual_test(view_uv, projected_consensus_uv, ids, noise_cov) -> (z_scores dict {eye_width_ratio, bigonial_ratio}, t_eye, flagged): eye width / outer-IOD and bigonial / outer-IOD of the view vs the projected consensus, z-scored with propagated noise; eye pattern t = regression of eye-corner residuals on outward eye directions; flagged if any |z| > 3 or t > 3.",
+   "acceptanceTests": [
+    "test_caliper_scale_tight: caliper chord (0.5 mm) gives zeta_sigma <= 0.006 and |zeta - zeta_true| < 2 sigma in >= 95% of 40 landmark-testbed trials",
+    "test_iris_fusion_numbers: iris-only (population prior disabled) zeta_sigma ~= 0.051 (+/-10%); fused with 0.045 ~= 0.034 (+/-10%); label 'iris+population'",
+    "test_iris_gating_and_one_population_source: d_px 15 or glasses excluded; requesting global_size and ipd together raises",
+    "test_limbus_fit_synthetic: dark disc radius 12-30 px, blur 0.5-1.5 px, noise: radius error < 0.3 px; blur 3 px drops sharpness below the usable threshold",
+    "test_scale_conflict_flag",
+    "test_mirror_tpr_fpr: 40 seeds, 4-view rear_phone surface subjects with asymmetry >= 0.8 mm RMS and one mirrored view: among cases with g >= 4, suggest_flip TPR >= 0.95; over all clean views FPR <= 0.02",
+    "test_mirror_undetermined_and_unverifiable: exactly symmetric subjects -> undetermined >= 0.9; all-front-camera set -> unverifiable; inputs unchanged",
+    "test_expression_tags_relative_and_fallbacks",
+    "test_smile_hard_gate: 5-view surface scenario with a 3 mm smile in one view, bundle with expression inflation: rigid-class landmarks differ from the no-smile solve by < 0.3 mm (max over rigid landmarks, median over 10 seeds)",
+    "test_camera_model_selection: stereographic off-axis fault picks virtual_stereo in >= 0.8 of 20 seeds; centred clean views pick pinhole",
+    "test_retouch_residual_flags_beauty_warp: beauty warp in 1 of 4 views flagged >= 0.8; clean views <= 0.05"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-16",
+   "title": "Observability, evidence at prior weight 1, claims ledger, tiers, LOVO gamma, sigma_rep, fixed shrinkage gate, Schur-marginalised next-best photo",
+   "milestone": "M3",
+   "files": [
+    "face3d/solve/observability.py",
+    "face3d/solve/nbv.py",
+    "face3d/fit/ledger.py",
+    "tests/test_observability.py"
+   ],
+   "dependsOn": [
+    "WP-01",
+    "WP-03",
+    "WP-08",
+    "WP-10"
+   ],
+   "spec": "Implements DESIGN D-16, D-17, D-18, D-19, 4.12-4.14, section 5 (H1-H9). Uses BundleResult fields from WP-07/WP-10 (cov, cov_shape, H_data, H_prior, param_index, view_stats, sigma_def_mm, chi2_red).\n\nobservability.py:\n- camera_status(view_stats, prior_log_sigma) -> per view {sigma_logf, sigma_logz, P = 100 mm / z, focal_status}: 'measured' if sigma_logf < 0.10; 'prior_used' if sigma_logf > 0.8 * prior_log_sigma; else 'partial'.\n- posterior_at_prior_weight_one(result, standard_prior_info: ndarray|None) -> Sigma1 over points: Sigma1 = inv(H_data + H_prior_standard) marginalised over cameras/globals by Schur; if the solve used a widened (likeness-mode) prior, the caller passes the standard prior Hessian. Gauge-project with eval.align.gauge_projector at the estimate.\n- region_evidence(Sigma_post, Sigma_prior, region_index: dict[str, coord index arrays]) -> {region: k = 1 - tr(Sigma_post_rr)/tr(Sigma_prior_rr)} (both gauge-projected).\n- coverage_rules(view_yaw_deg, view_pitch_deg, visibility (V,N) bool, region_points) -> {region: {'depth': bool, 'projection': bool, 'jaw_underside': bool, 'ears': bool, 'observed': bool}}: depth = two views >= 30 deg apart both seeing the region; projection (nose_projection and chin_projection regions) = a view with |yaw| < 15 plus one with |yaw| >= 60; jaw underside = a view with pitch <= -15; ears = a view with |yaw| >= 30 and >= 2 views with distinct pitch.\n- REGION_TARGET_MM = {eyes:1.0, lips:1.0, brows:1.2, nose:1.2, nose_projection:1.5, forehead:1.5, cheeks:1.5, chin:1.5, chin_projection:1.5, jaw:2.0, ears:3.0, cranium:3.0}. region_status(k, coverage_ok, sigma_rep_mm, target, observed) -> 'measured' (k >= 0.8 and coverage and sigma_rep <= target) | 'constrained' (0.5 <= k) | 'prior-driven' | 'unobserved' (not observed).\n- lovo_gamma(solve_without: Callable[[int], BundleResult], result, views, noise_covs) -> (gamma, per_view_ratio, flags): for >= 3 views, for each v re-solve without v (warm start, <= 10 iterations), re-pose v by PnP against the reduced consensus (X fixed), predictive covariance per point = noise + P Sigma_X(-v) P^T, gamma^2 = mean over held-out points of e^T Sigma_pred^-1 e / 2; flag 'L-HELDOUT' when held-out RMS > 2 x in-sample.\n- sigma_rep(result, gamma) -> (N,3) = sqrt(diag(cov_shape) * max(1, gamma^2, chi2_red) + sigma_def^2).\n- shrinkage_gate(x_hat (3n,), S_rr (3n,3n), Sigma_rr (3n,3n), alpha_lo=0.01, alpha_hi=0.001) -> {T, k_eff, q_lo, q_hi, finding}: T = x^T S^-1 x; lambda = eig(I - S^-1/2 Sigma S^-1/2) clipped to [0,1]; m = sum lambda (= k_eff); v = 2 sum lambda^2; g = v/(2m); h = 2 m^2/v; q(z) = g h (1 - 2/(9h) + z sqrt(2/(9h)))^3 with z = norm_ppf (robust.py); finding 'P-PULLED-TO-AVERAGE' if T < q(norm_ppf(alpha_lo)), 'P-IMPLAUSIBLE' if T > q(norm_ppf(1 - alpha_hi)). Also legacy_shrinkage_gate(c_hat, K) = ||c||^2 < K - 2 sqrt(2K) for the documenting test only.\n- likeness_mode_prior(prior, result, seen_counts (N,), max_share=0.2, factor=1.5, max_iter=5, resolve: Callable) -> widened prior (multiply kappa for landmarks seen in >= 2 views until prior share p_i = sigma_post^2/sigma_prior^2 <= 0.2); labels are still computed with posterior_at_prior_weight_one (H2).\n- tier(scale_mode, region_statuses, n_views, yaws, focal_statuses, all_selfie) -> ('S','metric') | ('A','iris-scaled') | ('B','proportions only') | ('C','blockout') per DESIGN 4.12: S = scale measured and nose_projection and chin_projection measured and n_views >= 5 and focal measured (or EXIF prior sigma <= 0.04); A = scale in {measured, iris} and n_views >= 3 and max |yaw| >= 45; C = n_views == 1 or all |yaw| < 20 or all_selfie; B otherwise.\n\nnbv.py: next_best_view(cov_shape, result, X, focal_px, distance_mm, image_wh, noise_model, region_index, weights=REGION_WEIGHTS, subset=None, yaws=range(-90,91,15), pitches=(-20,0,20), pose_prior=(0.5 rad, 100 mm, 0.5 log)) -> (ranked list of (yaw, pitch, score), sentence). For each candidate: camera = face3d.synthetic.orbit_camera-style orbit about the head origin at distance_mm with focal_px; visible subset by normals (visibility ramp); J_c (2n x 3N, whitened by the noise model at that distance) and J_p (2n x 6: omega, tau, rho with focal known); W~ = I - J_p (J_p^T J_p + Lambda_p)^-1 J_p^T (whitened units); H = pinv of the gauge-projected cov_shape (information); Sigma' = Sigma - Sigma U^T (I + U Sigma U^T)^-1 U Sigma with U = W~^1/2 J_c (Woodbury, rank <= 2n); score = sum_r w_r (tr_r Sigma - tr_r Sigma'). REGION_WEIGHTS = {eyes:1.0, brows:0.9, lips:0.8, nose:0.7, nose_projection:0.7, jaw:0.5, chin:0.5, chin_projection:0.5, cheeks:0.4, forehead:0.3, ears:0.15, cranium:0.1}. Sentence: 'Next: {left|right} {profile|three-quarter|front}, {eye height|from below|from above}, {a-b} m' (subject's left = positive yaw, matching orbit_camera); also return known-pose score for the test.\n\nledger.py: @dataclass RegionClaim(name, status, k, sigma_rep_mm, coverage: dict, why_key, next_photo: str|None). build_ledger(result, prior, registry, observability outputs) -> ClaimsLedger{regions: list[RegionClaim], tier, scale_report, focal statuses, banner ('not validated against a scan'), unverified_defaults = core.config.unverified_count()}; vertex_support(kit, ledger) -> (V,) k per vertex by region; report_lines(ledger) -> plain-language strings, e.g. 'Nose projection: guessed from average proportions (prior-driven) - take a left or right profile' and 'Eyes: likely within +/-0.9 mm (measured)'.",
+   "acceptanceTests": [
+    "test_focal_status: frontal-only views at 2 m without EXIF -> 'prior_used'; yaw span >= 60 deg at 0.5 m -> 'measured' with focal error < 5% and rotation error < 2 deg (median, 10 seeds)",
+    "test_frontal_only_projection_not_measured: nose/chin projection regions are not 'measured' for frontal-only sets; studio ring with a caliper chord gives 'measured' nose projection",
+    "test_labels_invariant_to_prior_weight: likeness-mode widened prior vs standard gives identical region statuses",
+    "test_lovo_gamma: declared sigma half the true noise -> gamma in [1.6, 2.4]; correct sigma -> [0.8, 1.25]",
+    "test_sigma_rep_formula",
+    "test_shrinkage_gate_calibration: linear-Gaussian simulation, K=50, k_eff ~ 24: low false-alarm <= 2%, high <= 0.5%; 10x prior weight detected >= 90%; legacy gate fires >= 50% on prior-drawn faces",
+    "test_tiers_from_evidence: fixtures yield S, A, B and C as specified",
+    "test_nbv_frontal_only_picks_profile: 30 seeds with yaw within +/-15: top candidate |yaw| >= 60 in >= 90%; marginalised score <= known-pose score for every candidate; 39 candidates < 2 s",
+    "test_ledger_plain_language_and_banner"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-17",
+   "title": "Contours v2: ContourObs, sub-vertex rim, exact distance transform, Viterbi edge snap, LinearBasis shape model with similarity projector, focal/distance diagnosis",
+   "milestone": "M4",
+   "files": [
+    "face3d/fit/contour.py",
+    "face3d/fit/edge_snap.py",
+    "face3d/fit/distance_transform.py",
+    "face3d/solve/shape_models.py",
+    "face3d/mesh/reduced.py",
+    "face3d/fit/silhouette.py",
+    "tests/test_contours.py"
+   ],
+   "dependsOn": [
+    "WP-02",
+    "WP-06",
+    "WP-08",
+    "WP-10"
+   ],
+   "spec": "Implements DESIGN D-13, 4.16 (including Pi and extremal soft-argmax) and SIL-3. Uses solve.terms protocols (WP-10) and mesh.raster (WP-02).\n\ndistance_transform.py: edt_squared(mask (H,W) bool) -> exact squared Euclidean distance (in pixels) to the nearest True pixel via Felzenszwalb-Huttenlocher 1D lower-envelope passes (columns then rows); edt_with_nearest(mask) -> (d2, nearest (H,W,2)); sample_bilinear(img, uv) with pixel-centre convention (value of pixel (i,j) at (i+0.5, j+0.5)); gradient helper.\n\ncontour.py: @dataclass ContourObs(view, xy (M,2), normal_out (M,2) unit, sigma_n_px (M,), kind in {'hard','outer_bound','inner_bound'}, source, commercial_ok: bool|None, margin_px: float = 0.0). from_polyline(points, closed, outward_ref_point, sigma_n_px, kind, view) (normals by central differences, oriented away from outward_ref_point); from_mask(mask, view, kind) (boundary pixels ordered by contour following, normals from the EDT gradient of the complement). rim_points(V, tris, vertex_normals, cam, raster=None) -> RimPoints{p (K,3), edge (K,2), t (K,), normal2d (K,2), visible (K,)}: for edges where q = n . (x - C) changes sign between endpoints and at least one adjacent triangle is front-facing: t = q_a/(q_a - q_b), p = x_a + t (x_b - x_a); visible when raster depth at the projected point >= camera depth - 1 mm (if raster given). match(obs, rim_uv, rim_normal2d, gate_px, max_normal_deg=40) -> index pairs using a uniform grid with cell = gate_px (no M x P matrix). forward_residuals(obs, pairs, rim_uv): r = n_obs . (rim_uv - x)/sigma_n with hard -> r (Huber applied by the solver schedule), outer_bound -> max(0, r - margin/sigma), inner_bound -> max(0, -r - margin/sigma). backward_residuals(edt_obs_view, rim_uv, sigma_px, trunc=3.0, weight=0.5) using the observed contour's precomputed EDT (sqrt) with truncation. sigma_n_model(sigma_edge_px, model_edge_len_px, blur_px, iod_px) = max(sqrt(sigma_edge^2 + (0.5 s)^2 + blur^2), 0.005 iod_px). effective_sample_weights(M, cap=40) = min(1, cap/M). class ContourTerm (Term protocol): holds ContourObs per view, a LinearBasis shape model reference and per-view EDTs; per outer iteration (re)computes rims, matches (gate starts at 0.15 IOD_px and shrinks geometrically to 5 sigma_n over the outer iterations) and freezes correspondences and t; residuals forward + backward; Jacobian via dp/dV (frozen t) x dV/dc (basis rows) x projection derivatives incl. camera blocks in inverse-depth form. diagnose_focal_distance(landmark_rms_pct_iod, contour_resid_median_sigma per view, ears_fail=False) -> finding 'C-FOCAL-DIST' when landmark RMS < 3% IOD and the contour residual median > 3 sigma_n on >= 2 views (or ears_fail).\nLegacy integration (silhouette.py): fit_silhouettes gains use_subvertex: bool = False; when True, targets come from rim_points matched to outline samples (normal-only, as WP-06). Defaults unchanged so the nose-bump test and WP-06's no-drift test keep passing; add use_subvertex=True coverage in the new tests.\n\nedge_snap.py: edge_snap(gray (H,W) float, polyline (K,2), iod_px, closed=False, L=None, lam_factor=0.2, smooth_sigma=1.0, spacing_px=2.0) -> SnapResult{points (M,2), normals (M,2), sigma_n_px (M,), offsets (M,), cost}: resample the polyline at spacing_px; normals by central differences; L = ceil(0.03 iod_px) unless given; unary g_j(k) = gradient magnitude (Sobel of the Gaussian-blurred image) sampled bilinearly at station + k normal, k in [-L, L]; pairwise lam |k_j - k_{j-1}| with lam = lam_factor * median(g); Viterbi (vectorised (2L+1)^2 per station, O(M L^2)); for closed curves break at the station with the highest max g and run the open chain; sigma_snap from the unary curvature at the optimum: sigma_g = 1.4826 MAD(g in band), sigma_n = max(1, sqrt(sigma_g^2 / max(-g''(k*), 1e-6))). Deterministic.\n\nshape_models.py: class LinearBasis (ShapeModel protocol): LinearBasis(kit, deformer: ReducedDeformer, scheme, anchor_ids=('en_L','en_R','ex_L','ex_R','p_L','p_R','n','prn','sn','ch_L','ch_R','ls','li','sto'), projector=True). Parameters c~ (3K) with c = Pi c~ (Pi from mesh/reduced.similarity_projector over anchor vertex rows) so coefficients cannot express a similarity at the anchors; vertices(c, rows=None) = V_bar + Phi_rows C; points(q) evaluates scheme landmarks by (tri, bary) on the needed rows; jacobian(q) dense (3N x 3K) times Pi; extremal_landmark(V_rows, direction d (3,), T=1.5) -> soft-argmax point sum softmax(<V_j,d>/T) V_j and its Jacobian weights.\nmesh/reduced.py additions (existing behaviour unchanged): ReducedDeformer.basis_rows(rows) -> Phi (r,K); similarity_projector(anchor_rows) -> Pi (3K,3K): with Phi_a = basis_rows(anchor_rows), displacement at anchors d_a = (I3 kron Phi_a) c, G = similarity tangent basis at the anchor rest positions (7 columns), C = G^T (I3 kron Phi_a) (7 x 3K), Pi = I - C^T (C C^T)^-1 C.",
+   "acceptanceTests": [
+    "existing test_profile_contour_recovers_nose_bump and WP-06 test_no_tangential_drift pass (also with use_subvertex=True)",
+    "test_edt_matches_brute_force: random 64x80 masks give exactly equal squared distances",
+    "test_subvertex_rim_on_sphere: uv_sphere(80, 24, 48), camera at (700,100,50): sub-vertex rim points lie within 0.05 mm (geodesic r*|angle - rim angle|) of the true rim while vertex-level silhouette_vertices deviate by >= 1 mm",
+    "test_outer_bound_one_sided: model inside the bound gives zero residual, outside positive; never pulls inward",
+    "test_normal_gate_rejects_mismatch: pairs with 60 deg normal difference rejected",
+    "test_edge_snap_recovers_edge: blurred step edge along a sine curve, coarse polyline offset up to 2.5% IOD: snapped points within 1 px RMS of the true edge; deterministic; sigma_n >= 1 px",
+    "test_projector_removes_similarity: ||G^T d_a|| < 1e-9 ||d_a|| for random c after projection",
+    "test_contour_stage_recovers_profile: out-of-prior procedural subject (WP-11), front + left profile + three-quarter views; landmark bundle then contour stage with free cameras (LinearBasis K ~ 150): nose tip and chin profile error <= 1.5 mm (median of 5 seeds); landmarks move <= 0.5 mm",
+    "test_focal_distance_diagnosis: a +25% mis-set focal frozen during a contour-only fit triggers 'C-FOCAL-DIST'; correct focal does not",
+    "test_extremal_softmax_jacobian_numeric",
+    "test_contour_stage_runtime: 5 outer iterations on the 3.5k-vertex head < 30 s"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-18",
+   "title": "Texture projection: UV G-buffer, visibility-weighted sampling, log-domain gains, two-band blend, gated, no mirroring by default",
+   "milestone": "M4",
+   "files": [
+    "face3d/texture/__init__.py",
+    "face3d/texture/project.py",
+    "face3d/texture/blend.py",
+    "tests/test_texture.py"
+   ],
+   "dependsOn": [
+    "WP-02",
+    "WP-04",
+    "WP-05",
+    "WP-08",
+    "WP-11"
+   ],
+   "spec": "Implements DESIGN D-27 and 4.18 (rec TEX-1..8, bl T2/T3, eth texture gates). texture/__init__.py: \"\"\"face3d.texture: texture projection (exports added by WP-23).\"\"\"\n\nproject.py: uv_gbuffer(kit, size) -> (pos (S,S,3), normal (S,S,3), mask (S,S), face_id (S,S)): rasterise triangles in UV space (texel centre ((i+0.5)/S, (j+0.5)/S); a 2D barycentric fill helper; UV seams allowed); view_weights(gbuffer, V, tris, cam, image_shape, sigma_geom_mm=1.0, fade=(60,75), edge_erode_px=5, edge_ramp_px=10, frame_margin=0.02) -> (w (S,S), uv_img (S,S,2)): visibility by comparing each texel's camera depth with face3d.mesh.raster depth at its projection (tolerance eps = max(1 mm, 2 sigma_geom)); cos_theta = n . (C - p)/|C - p|; w = vis * cos^2 * fade (1 up to 60 deg, linear to 0 at 75) * edge ramp (distance to the face mask boundary in the image after erosion) * frame margin; sample_image(img_srgb, uv) bilinear then srgb_to_linear; solve_gains(samples: list[(S,S,3)], weights) -> g (n_views,3): least squares in log space over texels seen by >= 2 views (weighted), constraint sum log g = 0 per channel; texture_gates(consent_record, rights_basis per view, reproj_median_px, reproj_max_px, view_flags) -> list of finding dicts: TEXTURE scope missing or rights_basis 'unknown' -> block (via core.policy.check('texture')); median > 1.5 px or max > 3 px -> block; views flagged filtered/retouched/warped/clipped or from another date cluster excluded (not blocking).\n\nblend.py: two_band_blend(colours (n,S,S,3) linear, weights (n,S,S), texel_mm, split_sigma_mm=3.0) -> (albedo, confidence, best_view): low band = normalised-convolution Gaussian blur (sigma = split/texel_mm texels) of sum w c / sum w; high band = (c_best - blur(c_best)) from the max-weight view per texel; confidence = sum w / max; fill_holes(albedo, valid_mask, iterations=500) harmonic Jacobi (4-neighbour) into invalid texels; mirror_fill_low_band(albedo, valid_mask, mirror_uv_map, allow_mirror=False) does nothing unless allow_mirror is True, then fills only the low band from mirrored texels with source confidence >= 0.3 w_max and marks them; @dataclass TextureResult(albedo_linear (S,S,3) float32, confidence, view_index, filled_mask, mirrored_mask, provenance dict {views, gains, allow_mirror, filled_fraction, 'absolute colour unknown without a chart'}).",
+   "acceptanceTests": [
+    "test_gains_recovered: WP-11 renders with per-view gains 0.7-1.3 and +/-1 mm shape noise: recovered relative gains within 2%",
+    "test_no_leakage_onto_occluded_texels: in a three-quarter view, cheek texels occluded by the nose get zero weight from that view; blended cheek colour differs from ground truth by < 0.05 where another view sees it",
+    "test_texture_gates: unknown rights or missing TEXTURE scope blocked; reprojection median 2 px blocked",
+    "test_mirror_fill_off_by_default_and_marked_when_on",
+    "test_two_band_preserves_low_frequency: constant albedo with gains removed stays constant within 1%"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-19",
+   "title": "Template warp v2 (stages A-D with gates) and per-vertex uncertainty propagation",
+   "milestone": "M4",
+   "files": [
+    "face3d/fit/template.py",
+    "face3d/geometry/rbf.py",
+    "face3d/mesh/laplacian.py",
+    "face3d/fit/uncertainty.py",
+    "tests/test_warp_uncertainty.py"
+   ],
+   "dependsOn": [
+    "WP-08",
+    "WP-12",
+    "WP-16",
+    "WP-17"
+   ],
+   "spec": "Implements DESIGN 4.15 and H1/H3 at vertex level. Keep fit_template_to_landmarks, RBFWarp and laplacian_deform backward compatible (all legacy tests pass).\n\nrbf.py: RBFWarp smoothing may be a scalar or a per-landmark array (Lambda = diag(lambda_i)) using the existing CPD sign rule (sign -1 for biharmonic/multiquadric). New normalise: bool = False; when True, coordinates are divided by R_bar (RMS distance of src from its centroid) before solving and the displacement is rescaled, so smoothing values are dimensionless. per_landmark_lambda(sigma_mm (N,), R_bar, alpha) = alpha * (sigma_mm / R_bar)^2 with alpha a registered default ('warp' namespace, \ud83c\udd95) calibrated in this WP: choose alpha from {0.1, 0.3, 1, 3, 10, 30, 100} on the test bed so that for noisy targets (BA posteriors from 7 views) the warped landmark residual RMS / sigma lies in [0.5, 1.0]; record the chosen value and the evidence in the Default source string. RBFWarp.linear_map(X_eval) -> A (n_eval, N) with displacement(X_eval) = A @ (dst - src) exactly (A = [Phi(X_eval, src), P_eval] @ inv(A_sys)[:, :N], affine part included).\nlaplacian.py: laplacian_deform(..., stiffness: ndarray|None = None) multiplying the bilaplacian energy per vertex: matvec d -> scale * L^T (w_s * Minv * (L d)) + w_c d; preconditioner updated accordingly; None = legacy.\n\ntemplate.py (staged pipeline; fit_template_to_landmarks unchanged): @dataclass StagedWarpConfig(alpha (from defaults), offset_cap_mm=4.0, agree_views=2, fold_det_min=0.2, landmark_freeze_mm=0.5, advance_rms_mm=2.2, min_gain=0.01, max_c_iters=5). stage_a(kit, X_targets, ids) -> (V_A, (s,R,t), flags) via umeyama_proper_and_reflected (WP-12): flag 'W-MIRRORED-SOURCE' if reflected rmse < 0.5 x proper (never flip); 'W-WRONG-AXES' if the 7-landmark (now7 set) rigid RMS > 10 mm. stage_b(V_A, kit, X, sigma_X_mm (N,), ids) -> (V_B, A_rows (V,N)) RBF with normalise=True and per-landmark lambda, returning the explicit linear map rows for uncertainty. stage_c(V_B, kit, X, views_agree (N,) int) -> V_C: laplacian_deform with kit.stiffness; offset cap: vertices whose nearest landmark has views_agree < agree_views keep |V_C - V_B| <= offset_cap_mm (scale the excess and re-solve once with soft targets at the capped positions); iterate while the landmark RMS gain >= min_gain (max max_c_iters). stage_d(...) delegates to the WP-17 contour stage when ContourObs exist; the landmark freeze is enforced by rejecting a stage-D result that moves any landmark > 0.5 mm, then retrying once with half the contour weight. fold_gate(V_before, V_after, tris) -> (ok, min_det): per-triangle deformation-gradient determinant in the triangle plane (signed area ratio) > fold_det_min and no normal flips; on failure roll back the stage and add 'W-FOLD'. Targets are never symmetrised.\n\nuncertainty.py: vertex_cov_stage_b(A_rows (V,N), cov_X (3N,3N), chunk=2000) -> (V,3,3): with L_X = chol(cov_X + 1e-12 I), C_j = (A_j kron I3) L_X, cov_j = C_j C_j^T (no unit solves). SIGMA_RES_MM by region: eyes 1.25, nose 2.5, lips 2.0, cheeks 3.25, forehead 2.5, chin 3.0, jaw 3.0, ears 4.0, scalp 4.5, neck 7.5, other 3.0 (open-template-head-kit, provisional). vertex_sigma_n(cov (V,3,3), normals, regions, inflation (scalar max(1,gamma^2,chi2_red)), sigma_def_region, cov_override (V,3,3)|None, override_mask (V,)|None) -> sigma_n (V,) = sqrt(n^T cov n * inflation + sigma_res^2 + sigma_def^2), where sigma_res is dropped for vertices covered by a stage-D joint posterior (override). finite_difference_check(warp_fn, X, A_rows, eps=1e-3) -> max relative error.",
+   "acceptanceTests": [
+    "legacy test_template_fit_hits_landmarks and RBF smoothing tests pass",
+    "test_per_landmark_smoothing_monotone: increasing alpha lowers bending energy and raises the residual with per-landmark arrays",
+    "test_rbf_linear_map_exact: warp(X + delta) - warp(X) == A delta within 1e-9",
+    "test_stage_a_flags_mirrored_and_wrong_axes",
+    "test_stiffness_reduces_motion: a stiffness-3.0 region moves less than a 0.3 region under equal pull",
+    "test_offset_cap_unless_views_agree",
+    "test_fold_gate_rolls_back on an extreme target with 'W-FOLD'",
+    "test_in_space_accuracy: template warped by a smooth field, noise-free landmark targets: stage C face RMS <= 0.5 mm; with BA targets from 7 noisy views <= 1.5 mm (median 5 seeds)",
+    "test_out_of_space_stage_c_improves: out-of-prior subject: stage C face RMS >= 30% lower than stage A",
+    "test_uncertainty_fd_check: relative error < 1e-6 for the stage-B linear map; every vertex sigma_n >= its sigma_res floor",
+    "test_coverage_measured_regions_small: 10 seeds, out-of-prior subjects, 7-view studio ring: fraction of measured-region vertices with |normal error| <= 1.96 sigma_n in [0.85, 1.0]"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-20",
+   "title": "Pipeline: project file, cached pure stages, CLI, job-folder protocol and isolated launcher contract",
+   "milestone": "M5",
+   "files": [
+    "face3d/pipeline/__init__.py",
+    "face3d/pipeline/project.py",
+    "face3d/pipeline/stages.py",
+    "face3d/pipeline/jobs.py",
+    "face3d/pipeline/cli.py",
+    "face3d/__main__.py",
+    "tests/golden/pipeline_small/project.json",
+    "tests/golden/pipeline_small/expected_result.json",
+    "tests/test_pipeline.py"
+   ],
+   "dependsOn": [
+    "WP-04",
+    "WP-05",
+    "WP-09",
+    "WP-10",
+    "WP-11",
+    "WP-12",
+    "WP-13",
+    "WP-15",
+    "WP-16",
+    "WP-17",
+    "WP-18",
+    "WP-19"
+   ],
+   "spec": "Implements DESIGN 2.4 data flow, 3.2 project/result/job formats, D-10 (never silent flips), D-24 (launcher contract), D-25 (cache TTL), invariants 3-4. pipeline/__init__.py: \"\"\"face3d.pipeline: project, stages, jobs and CLI (exports added by WP-23).\"\"\"\n\nproject.py: @dataclass Project mirroring the DESIGN 3.2 JSON (format 'face3d.project' v1): seed, consent_id, template {id, topology_sha256}, settings {sex_prior: 'unspecified'|'male'|'female' (optional consented input; never inferred), population: 'unknown'|'matched' (never stored as ancestry), scale_population_source}, photos (id, path, sha256, rights_basis, working_copy, exif summary, tags, include, focal_group), pins, scale_refs, decisions, active_solve, landmark_cache {keep: false}. load/save with validation; add_photo(path, rights_basis) (sha256, EXIF via io.exif or HEIF via io.heif, focal group key; no pixel decoding beyond PNG/.npy working copies supplied by callers); record_decision(kind, photo, by) (also writes an AuditLog entry).\n\nstages.py: each stage a pure function (inputs: dict, config: dict, seed: int) -> dict, registered in STAGES with declared inputs/outputs and data_class: ingest; triage (qa.checks photo and set checks, occluder actions, focal ladder via solve.focal); landmarks (LandmarkSets and pins to per-view observations; scheme permutation; geometric L/R via model.registry.resolve_lr; expression tags); solve (multi-start PnP, bundle v2 with CompositePrior(FactorPrior default sex/population from settings, ConditionalTemplatePrior for non-anatomical scheme points), zeta, scale terms from scale_refs and iris, RobustSchedule, view weighting, soft focal tie 0.02, distance priors, jaw; then nuisances: mirror_test per view (decision cards only), expression inflation, camera-model selection; re-solve; symmetry term with evidence gating after a first pass); observe (observability, LOVO gamma, sigma_rep, ledger, tier, next-best view); fit (warp stages A-D, contours when ContourObs exist); uncertainty (per-vertex sigma_n); handoff (KeyStack arrays, optional limit-fitted cage); texture (gated; only when requested); report (result.json + arrays.npz per DESIGN 3.2 plus a plain-text report with the 'not validated against a scan' banner, tier, scale mode and +/-%, focal statuses, region claims worst-first, flags, count of active unverified defaults). run_pipeline(project, until='report', cache: StageCache, apply_mirror: set[str] = ()) runs in order, keys each stage by core.cache.StageCache.key (input hashes, config snapshot, seed, engine version), enforces core.policy.check('reconstruct') before landmarks/solve and check('texture') before texture, and applies a mirror flip only for photos with a recorded user decision or listed in apply_mirror (which records a decision with by='cli' and an audit entry). Landmark caches are BIOMETRIC_GEOMETRY with TTL 0 unless project.landmark_cache.keep.\n\njobs.py: write_job(job_dir, stage, inputs, config, seed); run_job(job_dir) -> exit code: reads job.json, runs the requested stages, checks the 'cancel' sentinel between stages and via a callback between LM outer iterations, appends progress.jsonl lines {t, stage, frac, msg_key}, writes result.json + arrays.npz atomically (tmp then os.replace), on exception writes error.json {code, msg_key, stage} only (no paths, arrays or coordinates; eth A7/F19) and returns non-zero; read_progress(job_dir, offset) -> (lines, new_offset).\n\ncli.py + face3d/__main__.py: python -m face3d {triage,solve,fit,report,testbed,job} with --project PATH, --seed, --until, --apply-mirror ID (repeatable), 'job run JOB_DIR', 'testbed scorecard ...' (delegates to face3d.testbed.scorecard.main). main(argv) returns an exit code.\n\nGolden: tests/golden/pipeline_small/ holds a synthetic 5-view rear-phone project (synthetic subject from WP-11, LandmarkSets as JSON, .npy working copies generated at test time from seeds rather than committed) with provenance 'synthetic' and the expected result summary (tier, scale mode, region statuses, key numbers at rtol 1e-5).",
+   "acceptanceTests": [
+    "test_cli_end_to_end_synthetic_project: produces result.json with tier, scale report, region claims, flags and the banner",
+    "test_stage_cache_hits_and_downstream_invalidation: a rerun executes no stage; changing one pin re-runs only landmarks and downstream stages",
+    "test_consent_gates: solve refused without RECONSTRUCT or with a photo missing from the record",
+    "test_mirror_never_applied_without_decision: a suggested flip remains a card; --apply-mirror records a decision and an audit entry",
+    "test_job_protocol_with_isolated_launcher: tmp layout tmp/engine/face3d (copied package) plus a minimal tmp/launcher.py inserting tmp/engine into sys.path; subprocess [sys.executable, '-I', launcher, job_dir] completes; progress lines parse; a cancel file stops a long job within 2 s; error.json contains no path separators or numeric arrays",
+    "test_network_guard_full_pipeline: the run completes under core.policy.network_guard()",
+    "test_golden_pipeline_small: summary matches expected_result.json at rtol 1e-5; identical reruns are bit-identical except timestamps",
+    "test_landmark_cache_ttl_zero: no LandmarkSet or landmark cache persisted under the project unless landmark_cache.keep is true"
+   ],
+   "tier": "sonnet",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-21",
+   "title": "Blender extension core: manifest, compat probe, PropertyGroups, bridge (only bpy<->numpy module), job runner, launcher, build tool and bpy stub harness",
+   "milestone": "M5",
+   "files": [
+    "blender_ext/face3d_likeness/blender_manifest.toml",
+    "blender_ext/face3d_likeness/__init__.py",
+    "blender_ext/face3d_likeness/compat.py",
+    "blender_ext/face3d_likeness/props.py",
+    "blender_ext/face3d_likeness/bridge.py",
+    "blender_ext/face3d_likeness/jobs.py",
+    "blender_ext/face3d_likeness/launcher.py",
+    "blender_ext/face3d_likeness/NOTICE",
+    "tools/build_extension.py",
+    "tests/blender_stub/bpy/__init__.py",
+    "tests/blender_stub/bpy/types.py",
+    "tests/blender_stub/bpy/props.py",
+    "tests/blender_stub/bpy/utils.py",
+    "tests/blender_stub/bpy/app.py",
+    "tests/blender_stub/mathutils.py",
+    "tests/blender_stub/gpu/__init__.py",
+    "tests/blender_stub/gpu_extras/__init__.py",
+    "tests/blender_stub/blf.py",
+    "tests/test_blender_core.py"
+   ],
+   "dependsOn": [
+    "WP-13",
+    "WP-20"
+   ],
+   "spec": "Implements DESIGN 6.1-6.3, 6.6, 6.8, D-24, D-28, D-29; known facts 1 (camera shift: keep to_blender_camera unchanged) and 3 (store rules). No Blender here: verify with the bpy stub, AST and tomllib. Every .py under blender_ext gets the header '# SPDX-License-Identifier: GPL-3.0-or-later'.\n\nblender_manifest.toml exactly as DESIGN 6.1 (schema_version 1.0.0, id face3d_likeness, version 0.1.0, name 'Face3D Likeness', tagline 'Fit a sculpt-ready head to consented photos', maintainer placeholder, type add-on, blender_version_min 4.5.0, license ['SPDX:GPL-3.0-or-later'], copyright, tags, [permissions] files only (no network), [build] paths_exclude_pattern). NOTICE lists the vendored engine (MIT SPDX headers added at build), CC0 assets (none yet; the procedural head is generated at first run) and states no wheels or ML weights are bundled.\n\n__init__.py: register(): run compat.probe() (store globally), register props, then for each name in _MODULES = ('ops_project','ops_photos','ops_landmarks','ops_solve','ops_apply','ops_handoff','ui_panels','overlays','keymap') import it if importlib.util.find_spec(__name__ + '.' + name) is not None and call its register(); unregister() in reverse order; both idempotent. engine_root() -> the vendored 'engine' directory next to this file if present, else the repository root (dev layout: parents of blender_ext); ensure_engine_on_path() inserts it into sys.path once (used only for in-process background mode).\ncompat.py: probe() -> {blender (bpy.app.version), python_tag, numpy (version), online_access (getattr(bpy.app,'online_access',False)), platform, background} in < 100 ms; never imports optional ML packages.\nprops.py: PropertyGroups F3DPin (photo_id, landmark, x, y, cls, expertise, zoom, blind), F3DPhoto (id, path, sha256, include enum auto/include/exclude, mirror_decision enum none/keep/flip, status), F3DCard (code, severity, msg_key, photo_id, decided), F3DJob (job_dir, stage, status enum idle/running/ready/failed/cancelled, progress, msg_key), F3DSettings (project_path, pins, photos, cards (CollectionProperty), job (PointerProperty), rail_stage enum) attached as bpy.types.Scene.face3d; register/unregister.\nbridge.py (the ONLY module calling foreach_get/foreach_set or touching image pixels): ENGINE_TO_BLENDER (4x4) = scale 0.001 times R_x(+90 deg); engine_mm_to_blender_m(V) = 0.001*(x, -z, y) and the inverse; mesh_vertices_to_array(me) (foreach_get 'co' into contiguous float32, return float64 (n,3)); write_vertices(me, V) (assert contiguous float32 after astype, foreach_set, me.update()); write_shape_key(obj, name, V, relative_to='Basis', slider_max=1.0, value=0.0, mute=False) using shape_key_add(name=..., from_mix=False); read_shape_keys(obj) -> {name: (data, relative_to, value, slider_max, mute)}; image_to_array(img) -> (H,W,4) float32 top-down (pixels.foreach_get then flip rows); save_working_copy(arr, path) via numpy.save; apply_camera(cam_obj, cam_dict) setting lens, sensor_width, sensor_fit 'HORIZONTAL', shift_x, shift_y and matrix_world from face3d.geometry.camera.to_blender_camera output composed with ENGINE_TO_BLENDER, storing resolution as custom properties (resolution is per scene, bl C5); set_attribute(me, name, values, domain='POINT', type='FLOAT'); topology_sha(me) (same definition as TemplateKit.topology_sha256); mode_guard(obj) context manager that raises BridgeRefusal in EDIT or SCULPT mode and otherwise switches to OBJECT mode and restores it.\njobs.py: class JobRunner(project_dir): start(stage, inputs, config, seed) -> job_dir (face3d.pipeline.jobs.write_job) and launch subprocess.Popen([sys.executable, '-I', launcher_path(), job_dir]); when bpy.app.background is True run face3d.pipeline.jobs.run_job synchronously in-process; poll() registered via bpy.app.timers.register(first_interval=0.1) reads new progress lines with a 20 ms budget (time.perf_counter) and updates the F3DJob props, returning 0.1 while running and None when finished; cancel() writes the cancel sentinel and kills the process after 1 s if still alive. Results are applied by a separate operator (WP-22).\nlauncher.py (stand-alone, works under -I): here = dirname(abspath(__file__)); root = join(here, 'engine') if it exists else the repository root (dirname(dirname(here))); sys.path.insert(0, root); from face3d.pipeline.jobs import run_job; sys.exit(run_job(sys.argv[1])).\ntools/build_extension.py: build(out_zip, engine_src='face3d', ext_src='blender_ext/face3d_likeness', gpl_text=None, store=True, add_spdx=True) -> report: copy the extension, vendor the engine into engine/face3d (excluding __pycache__ and tests), add '# SPDX-License-Identifier: MIT' to vendored engine files lacking a header, require a GPL-3.0 full-text file for store builds (path argument; refuse otherwise), validate the manifest (tomllib: required keys, id, licence GPL-3.0-or-later, tagline <= 64 characters, no network permission in store builds), assets: every file under assets/ listed in assets.toml with licence CC0-1.0 else refuse; refuse any .whl and any file > 25 MB; write the zip honouring paths_exclude_pattern.\nbpy stub (tests/blender_stub): minimal API used by the add-on: bpy.types (Operator with report/poll_message_set classmethod recording, Panel, PropertyGroup, WorkSpaceTool, Menu, AddonPreferences, Scene, Object, Mesh, Image, SpaceView3D.draw_handler_add/remove), bpy.props (*Property callables returning descriptor records), bpy.utils (register_class/unregister_class/register_tool/unregister_tool recording), bpy.app (version (4,5,0), background, online_access False, timers.register/unregister/is_registered, handlers lists, translations), bpy.data (objects, meshes, images, cameras collections with new()), bpy.context (scene with a face3d attribute container), bpy.ops namespace no-ops; Mesh stub with vertices supporting foreach_get/foreach_set('co', flat buffer), update(), shape_key_add(name, from_mix) creating key blocks (name, data foreach_get/set, relative_key, slider_max, value, mute); Image stub (size, channels 4, pixels foreach_get/foreach_set); mathutils (Matrix, Vector minimal), gpu/gpu_extras/blf no-ops. A pytest fixture (in tests/test_blender_core.py or a conftest-free helper) inserts tests/blender_stub at the front of sys.path for these tests only.",
+   "acceptanceTests": [
+    "test_manifest_lint: tomllib parse; id face3d_likeness; tagline <= 64 chars; license GPL-3.0-or-later; no network permission; blender_version_min present",
+    "test_register_unregister_with_stub: registers props and any present modules; unregister reverses; idempotent",
+    "test_bridge_dtype_and_frame: vertex write/read roundtrip asserts float32 contiguity; (x,y,z) mm -> 0.001*(x,-z,y) m and back exact; image rows flipped",
+    "test_shape_key_write_semantics: from_mix False, relative key set, slider_max respected",
+    "test_mode_guard_refuses_edit_and_sculpt",
+    "test_apply_camera_uses_to_blender_camera: shift_x/shift_y equal to_blender_camera values for a 3000x4000 portrait (width units, HORIZONTAL fit)",
+    "test_launcher_isolated_mode: tmp layout launcher.py + engine/face3d and a tiny job: [sys.executable, '-I', launcher, job_dir] exits 0 and writes result.json",
+    "test_jobs_timer_budget: poll() on a large progress file takes <= 25 ms per call, returns 0.1 while running and None when done; background mode runs synchronously",
+    "test_build_extension_zip: zip contains manifest, vendored engine with SPDX headers, no tests/__pycache__/.whl; refuses a non-CC0 asset, a network permission and a missing GPL text for store builds",
+    "test_only_bridge_touches_mesh_data (AST over blender_ext) and test_engine_has_no_bpy_import (AST over face3d)"
+   ],
+   "tier": "sonnet",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-22",
+   "title": "Blender extension UI: operators, guided rail with poll reasons, pin tool, decision cards, overlays (hold-to-flip), remappable keymap",
+   "milestone": "M5",
+   "files": [
+    "blender_ext/face3d_likeness/ops_project.py",
+    "blender_ext/face3d_likeness/ops_photos.py",
+    "blender_ext/face3d_likeness/ops_landmarks.py",
+    "blender_ext/face3d_likeness/ops_solve.py",
+    "blender_ext/face3d_likeness/ops_apply.py",
+    "blender_ext/face3d_likeness/ops_handoff.py",
+    "blender_ext/face3d_likeness/ui_panels.py",
+    "blender_ext/face3d_likeness/overlays.py",
+    "blender_ext/face3d_likeness/keymap.py",
+    "blender_ext/face3d_likeness/messages.py",
+    "tests/test_blender_ui.py"
+   ],
+   "dependsOn": [
+    "WP-09",
+    "WP-13",
+    "WP-16",
+    "WP-20",
+    "WP-21"
+   ],
+   "spec": "Implements DESIGN 6.4-6.7, H1-H9 in the UI, D-10 (cards, never auto-flip), D-22 key stack. All files carry the GPL SPDX header; only bridge.py (WP-21) touches mesh/image data. Each module exposes register()/unregister() as expected by WP-21's __init__.\n\nmessages.py: MESSAGES dict msg_key -> English string (translation-ready; every self.report and poll message goes through it); keys include consent_missing, photo_not_consented, no_photos, job_running, no_result, wrong_mode, topology_mismatch, convert_to_png, mirror_suggest, mirror_undetermined, mirror_unverifiable, deferred_feature, and every qa Finding msg_key/fix_key used by WP-09.\nOperators (bl_idname 'face3d.<name>'; bl_options {'REGISTER','UNDO'} for main-thread mutating operators, not for job launchers; poll() calls cls.poll_message_set(MESSAGES[key]) when returning False; execute() wraps work in try/except and reports ERROR with a msg_key, never a traceback):\n- ops_project: project_new (folder + project.json via face3d.pipeline.project), consent_edit (writes a ConsentRecord; default deny).\n- ops_photos: photos_add (file list; per file sha256, EXIF/HEIF read, bridge.image_to_array -> .npy working copy (if Blender cannot load the file, report convert_to_png), QA findings stored as F3DCard items, consent coverage check (block if not in the record), one locked camera per photo with a background image alpha 0.4 and a timeline marker).\n- ops_landmarks: landmarks_import (LandmarkSet JSON; scheme required; multiple faces -> a card asking the user to pick the subject); pin tool (WorkSpaceTool 'face3d.pin_tool' bound to P) with modal operator face3d.pin_place: click places a pin at image coordinates via view_to_image_px(region_xy, frame_corners_region (4,2), image_wh) (pure function, tested); drag moves; arrow keys nudge 1 image px (Shift 0.25); X deletes; pin class and expertise from props, zoom recorded; option 'blind first pins' hides auto landmarks; trace_contour: >= 5 clicks then an edge-snap job.\n- ops_solve: solve, fit, job_cancel (JobRunner), card_accept / card_dismiss (e.g. mirror flip): accepting records project.decisions + audit; the engine never flips on its own.\n- ops_apply: apply_result: read result.json/arrays.npz; refuse in EDIT/SCULPT (bridge.mode_guard) or on topology mismatch; apply cameras (bridge.apply_camera); keys via face3d.handoff.keys.KeyStack.from_fit then bridge.write_shape_key for ID_fit (slider_max 1.5), Asym and artist (relative to ID_fit), muted stage_* keys; on refit use KeyStack.rebase so the artist delta is preserved exactly; attributes f3d_sigma_mm, f3d_support, f3d_status; one undo step.\n- ops_handoff: handoff_sculpt (duplicate, bake the key mix, clear keys, set the cage from face3d.mesh.subdiv.fit_cage_to_limit, add a Multires modifier and subdivide 2-3 levels through guarded bpy.ops calls), rebase_sculpt, protect_measured (writes 1 - support into the '.sculpt_mask' attribute), prepare_for_sharing (lists packed images, camera background images, orphan data, file previews, .blend1 backups; purges on confirmation), purge (by data class).\nui_panels.py: sidebar category 'Face3D'; rail_state(project_dict, result_dict, job_state) -> list of (stage, status in {'done','attention','not_started'}, done_when_key, primary_op, disabled_reason_key) for Consent, Photos, Check, Landmarks, Cameras, Shape, Confidence, Sculpt, Texture, Share (pure; importable without bpy); one panel per stage drawing an icon AND a word, the done-when line and one primary button; expert sub-panels with bl_options {'DEFAULT_CLOSED'} showing defaults with badges (read-only), symmetry mode, expression mode, focal mode and 'Revert to solve #n'; the Confidence panel shows the ledger lines (plain language, ranges, the 'not validated against a scan' banner).\noverlays.py: POST_PIXEL draw handlers drawing face3d.qa.overlay_geom polylines with gpu POLYLINE shaders (widths scaled by ui_scale): pins by role glyph and colour, sigma ellipses, residual arrows x5, model contour vs traced outline, hatching for prior-driven regions; compare_flip modal operator (hold F: show the flipped thumbnail while held, restore on release); blur (3% face width) and 64 px thumbnail modes; no timer-driven blinking.\nkeymap.py: addon keymap items (P pin tool, Tab/Shift-Tab review next/prev, PageDown/PageUp view next/prev, Ctrl-R solve, Esc cancel, Ctrl-Enter/Ctrl-Backspace card accept/dismiss, F hold-flip, B blur, G grey, E edges, W wobble -> reports deferred_feature); unregister removes them.",
+   "acceptanceTests": [
+    "test_all_operators_registered_with_prefix_and_flags (bpy stub)",
+    "test_poll_messages_explain_disabled: solve without consent -> consent_missing; apply while a job runs -> job_running",
+    "test_rail_state_pure: fixtures give the expected statuses and disabled reasons",
+    "test_apply_result_writes_key_stack_on_stub_mesh: ID_fit/Asym/artist with relative_to semantics; a refit preserves the artist delta exactly; refusal in SCULPT mode and on topology mismatch",
+    "test_card_accept_records_decision_never_auto: a mirror suggestion changes nothing until card_accept; the decision is written to the project and the audit log",
+    "test_keymap_entries_registered_and_removed",
+    "test_view_to_image_px_mapping (pure)",
+    "test_no_blink: overlays.py registers no timer with interval < 1.0 s (AST)",
+    "test_ui_strings_use_message_keys: every report/poll message key exists in MESSAGES"
+   ],
+   "tier": "sonnet",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-23",
+   "title": "Release gates: fault-injection matrix, honesty gates, scorecard v1 vs baseline, CI policy checks, package exports",
+   "milestone": "M6",
+   "files": [
+    "face3d/__init__.py",
+    "face3d/geometry/__init__.py",
+    "face3d/solve/__init__.py",
+    "face3d/fit/__init__.py",
+    "face3d/mesh/__init__.py",
+    "face3d/io/__init__.py",
+    "face3d/eval/__init__.py",
+    "face3d/model/__init__.py",
+    "face3d/testbed/__init__.py",
+    "face3d/qa/__init__.py",
+    "face3d/core/__init__.py",
+    "face3d/handoff/__init__.py",
+    "face3d/texture/__init__.py",
+    "face3d/pipeline/__init__.py",
+    "pyproject.toml",
+    "tools/ci_checks.py",
+    "tests/test_fault_matrix.py",
+    "tests/test_honesty_gates.py",
+    "tests/test_policy_ci.py",
+    "tests/golden/scorecard_v1.json",
+    "docs/RESULTS.md"
+   ],
+   "dependsOn": [
+    "WP-01",
+    "WP-02",
+    "WP-03",
+    "WP-04",
+    "WP-05",
+    "WP-06",
+    "WP-07",
+    "WP-08",
+    "WP-09",
+    "WP-10",
+    "WP-11",
+    "WP-12",
+    "WP-13",
+    "WP-14",
+    "WP-15",
+    "WP-16",
+    "WP-17",
+    "WP-18",
+    "WP-19",
+    "WP-20",
+    "WP-21",
+    "WP-22"
+   ],
+   "spec": "Integration and release gates (DESIGN 7.3-7.5, H12, section 8 conventions).\n1. Exports: update every subpackage __init__.py to re-export the public APIs listed in DESIGN 2.3 (keep all existing exports working); face3d.__version__ = '0.2.0'. pyproject.toml: package data (face3d/data/*.json, face3d/schemes/*.json, face3d/core/defaults.toml), optional dependency group test = ['pytest>=7'], console script face3d = 'face3d.pipeline.cli:main', pytest marker 'slow', testpaths tests.\n2. tools/ci_checks.py (callable as main() and from tests): (a) AST: no import of bpy, scipy, cv2, torch, mediapipe or PIL anywhere under face3d/; (b) NumPy 1/2 neutrality: forbid np.float_, np.in1d, np.product, np.alltrue, np.sometrue, np.Inf, np.NaN under face3d/; (c) import every face3d module, then every core.config Default has a valid badge and a non-empty source; (d) blender_ext: only bridge.py calls foreach_get/foreach_set/pixels; manifest lint; GPL SPDX header in every .py; (e) fixtures/golden files under tests/ that contain landmark or mesh data carry provenance in {synthetic, cc0, consented} (no real-person detections, eth A8); (f) a full synthetic pipeline run under core.policy.network_guard().\n3. tests/test_fault_matrix.py: run every face3d.testbed.faults.FAULT_MATRIX row (DESIGN 7.4) through face3d.pipeline (solve and observe stages; surface rows also fit) with >= 30 seeds (marked slow); a 5-seed fast subset runs per push with thresholds relaxed by at most the binomial 95% interval (documented in the test). Compute TPR/FPR/degradation per row against the clean run with the same seeds. Alarm budget: 20 clean photo sets give <= 1 spurious warn/block finding per 10 clean photos.\n4. tests/test_honesty_gates.py (>= 30 seeds, slow; fast subset per push): vertex coverage in measured regions 0.90-0.99 at 1.96 sigma_rep on out-of-prior surface subjects; aligned landmark 1-sigma coverage 0.60-0.76 and gauge-projected NEES/dof 0.8-1.25 with 1 mm definition bias; false confidence <= 5% of measured regions over 2x their target; labels invariant to likeness mode; scale z RMS 0.8-1.25.\n5. Scorecard v1: run face3d.testbed.scorecard with the v2 engine (same scenarios and seeds as the baseline), commit tests/golden/scorecard_v1.json; assert no legacy-scenario regression beyond 2% (config RMS and likeness-weighted error) versus tests/golden/baseline_scorecard_v0.json; docs/RESULTS.md tabulates baseline vs v1 per scenario and per gate, honestly listing unmet targets with badges.\n6. If a gate fails: diagnose, recalibrate only registered defaults within their bounds (core.config), and record the evidence in RESULTS.md; thresholds may change only by editing the DESIGN 7.4/7.5 tables with a justification line. Never weaken a gate silently.",
+   "acceptanceTests": [
+    "test_policy_ci: all tools/ci_checks.py checks pass",
+    "test_fault_matrix (fast subset per push; full 30-seed slow run passes or each failing row is listed in RESULTS.md as calibration-pending with an issue note and a DESIGN 7.4 change)",
+    "test_honesty_gates (fast subset and slow run)",
+    "test_scorecard_v1_not_worse_than_baseline: committed scorecard_v1.json shows no legacy-scenario regression > 2%",
+    "full pytest suite: default (non-slow) run < 3 min; slow run < 10 min"
+   ],
+   "tier": "opus",
+   "implementableHere": true
+  },
+  {
+   "id": "WP-24",
+   "title": "Offline calibration programme: real CC0 template kit, two-annotator landmarks, MediaPipe render-and-detect index map (M3b) and tiers 2-4 calibration (M7)",
+   "milestone": "M3b/M7",
+   "files": [
+    "docs/calibration/M3b-template-and-index-map.md",
+    "docs/calibration/M7-tiers-2-4.md",
+    "assets/template/realhead-v1.kit.json",
+    "assets/template/realhead-v1.npz",
+    "assets/assets.toml",
+    "face3d/schemes/mediapipe_478.json",
+    "face3d/data/landmark_prior_v2.json",
+    "face3d/core/defaults.toml"
+   ],
+   "dependsOn": [
+    "WP-14",
+    "WP-23"
+   ],
+   "spec": "Requires Blender, MediaPipe with a SHA-pinned .task model, two human annotators, a 3D printer, phones and consenting sitters, plus user-supplied ANSUR II CSV and FLAME 2023 Open files. None of these exist in the sandbox, so this package is executed offline by maintainers using the tools from WP-08/WP-14 and the pipeline from WP-20.\nM3b (real template and index map): (1) choose the CC0 base: Blender Studio Human Base Meshes head (CC0, verified) preferred; MPFB2 hm08 only if maintainers verify its CC0 status (single-sourced, disputed); record the upstream sha256. (2) Topology QA per open-template-head-kit: quads in deforming zones, poles >= 2 rings from lid/lip/alar loops, exact x=0 midline, 8-12k skin vertices, closed scalp, eye and mouth bags. (3) Two annotators place the 44 anatomical landmarks independently from the craniometric definitions; accept agreement <= 1.0 mm (sharp/curve) or <= 2.5 mm (extremal); sigma_annot = spread. (4) Build the kit with tools/build_template_kit.py (CC0 only, bundle_ok true) and add it to assets.toml. (5) Render 20-50 calibrated views of the template in Blender, run tools/detect_mediapipe.py on the maintainer machine, run tools/calibrate_scheme.py; commit the updated scheme semantics (verified flags, geometric iris L/R record) and an aggregate report only. If the store rejects derived index tables (ethics C7, contested), ship the calibration tool and build the map locally on first run instead.\nM7 (calibration tiers): tier 2 renders of CC0 heads through a simulated phone pipeline plus MediaPipe; tier 3 a 3D-printed CC0 head photographed with >= 3 phones; tier 4 consenting sitters (1-3 growing to ~10) with a reference scan, a repeat scan as the noise floor, protocol ring, rear-phone, selfie and dated camera-roll sets, retention per ethics section 4, aggregate results only. Calibrate: noise sigma by kind and per-index detector bias (sigma_def), robust and view thresholds, mirror/expression/retouch thresholds, alarm rates, region targets; recompute scale_sigma_log and refit the factor prior from ANSUR II (balanced pooling, never ancestry-conditioned) and FLAME 2023 Open samples (with attribution) via tools/recalibrate_prior.py -> landmark_prior_v2.json; replace provisional badges by measured ones in core/defaults.toml; remove the 'not validated against a scan' banner only for configurations that passed tiers 3-4; run the six-face lineup test (target >= 80%).",
+   "acceptanceTests": [
+    "offline: annotator agreement report within thresholds; kit passes build_template_kit checks with a pinned topology hash and CC0 licence",
+    "offline: MediaPipe map involution over all mirrored points, median render-detect residual <= 1 px, geometric iris L/R recorded",
+    "offline: tier 3/4 coverage in measured regions 0.90-0.99 and landmark NEES/dof 0.8-1.25; lineup result recorded; RESULTS updated",
+    "offline: no real-person geometry or detections committed (ci_checks provenance rule passes)"
+   ],
+   "tier": "opus",
+   "implementableHere": false
+  }
+ ]
+}
