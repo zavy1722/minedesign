@@ -15,6 +15,21 @@
    "n": 3,
    "title": "Quantitative Analysis of the Human Face Skin Thickness, HFUS study (2025)",
    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12693017/"
+  },
+  {
+   "n": 4,
+   "title": "Blender 5.0 Release Notes, Cycles (adaptive subdivision no longer experimental)",
+   "url": "https://developer.blender.org/docs/release_notes/5.0/cycles/"
+  },
+  {
+   "n": 5,
+   "title": "Blender 5.3 Manual, Multiresolution Modifier (Bake from Multires)",
+   "url": "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/multiresolution.html"
+  },
+  {
+   "n": 6,
+   "title": "Cerda & Mahadevan, Geometry and physics of wrinkling, PRL 90, 074302 (2003) (publication page)",
+   "url": "https://softmath.seas.harvard.edu/publication/geometry-and-physics-of-wrinkling/"
   }
  ],
  "references_by_name": [

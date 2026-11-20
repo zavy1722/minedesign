@@ -2,7 +2,7 @@
 
 > Texturing a likeness head is two jobs: a UV layout fixed once on the template topology (the face as one upright, centred island; seams hidden at the back midline, behind the ears, inside mouth, lids and nostrils, and around the neck), and projecting the solved photos through their cameras into that layout. Blender projects natively in three ways: **Apply Camera Image** (`paint.project_image`, which projects from the active scene camera using Texture Paint's occlusion, backface and normal settings), **UV Project modifier or Project From View UVs plus an Emit bake**, and a **per-pixel camera-projection shader** built from the camera's Object texture coordinates. None of them blends several photos with visibility-aware weights and gain matching, so the numpy engine (`reconstruction/texture-extraction.md`) should make the albedo, while Blender, Substance or ArmorPaint handle preview, seam cleanup and detail. Per-vertex projections interpolate affinely with error ≈ L·Δz/(4z), negligible with edges ≤10 mm at 0.5 m. No harvest or earlier draft existed, so every item is expert knowledge; UI locations, defaults, licences and prices are time-sensitive and must be checked against Blender 5.2 LTS and 5.3.
 >
-> Evidence status: 0 ✅ / 3 📄 / 70 🧠 / 18 ↔️ — 🧠 items remain unverified (2026-11-20 pass: Texture Paint option names exist per the 2.82 manual, but project_image behaviour, the 80° Normal default [3.2 API says 80, 2.58 API said 0], Screen Grab Size, Unwrap margin and Smart UV angle stayed unconfirmed; bake margin type default conflicts between API pages).
+> Evidence status: 0 ✅ / 6 📄 / 68 🧠 / 17 ↔️ (pass 2 added 3 📄) — 🧠 items remain unverified (2026-11-20 pass: Texture Paint option names exist per the 2.82 manual, but project_image behaviour, the 80° Normal default [3.2 API says 80, 2.58 API said 0], Screen Grab Size, Unwrap margin and Smart UV angle stayed unconfirmed; bake margin type default conflicts between API pages).
 
 ## Key facts
 
@@ -10,7 +10,7 @@
 - **Unwrap once, on the template.** UVs ride along when the template is warped to each subject, so every subject shares one texture space for masks, mirror maps and statistics. Re-unwrapping or remeshing a fitted head destroys that (`blender/face-retopology.md`) 🧠
 - **Seams that hide:** back midline crown→nape; behind each ear in the auriculocephalic sulcus, plus a short cut on the back of the helix; inner lip (wet–dry line) for the mouth bag; lid margins; inside each nostril; neck base. Never cut forehead, cheeks, nose dorsum or vermilion 🧠
 - **Face island:** upright, with the midline loop straightened to u = 0.5 and the halves symmetric. A front photo then roughly overlays the UV (easy 2D edits in Krita), and the layout doubles as a mirror map 🧠
-- **Unwrap (U) methods:** *Angle Based* (ABF++, default), *Conformal* (LSCM) and *Minimum Stretch* (SLIM, added in about 4.3). Use ABF or Minimum Stretch for the face, and pins plus LSCM or Minimum Stretch for ears. Options: *Fill Holes* (default on; stops eye and mouth openings overlapping), *Correct Aspect*, *Use Subdivision Surface*, *Margin* (default 0.001) 🧠
+- **Unwrap (U) methods:** *Angle Based* (ABF++, default), *Conformal* (LSCM) and *Minimum Stretch* (SLIM, added in about 4.3). Use ABF or Minimum Stretch for the face, and pins plus LSCM or Minimum Stretch for ears. Options: *Fill Holes* (default on; stops eye and mouth openings overlapping), *Correct Aspect*, *Use Subdivision Surface*, *Margin* (default 0.001) 📄 [4] (Minimum Stretch/SLIM added in 4.3 confirmed; option defaults not confirmed)
 - **Smart UV Project** (angle limit 66° by default) shatters a face; keep it for teeth, eyeballs and props 🧠
 - **Pack Islands** (Ctrl+P, rewritten in 3.6) offers exact-shape packing, lock-pinned and margin methods. Turn rotation off for the face 🧠
 - **Check loop:** Live Unwrap with pins, Average Islands Scale, Overlay ▸ Display Stretch (Area or Angle), and a generated *Color Grid* image 🧠
@@ -25,7 +25,7 @@
 - **Occlusion only knows the painted object.** Eyeballs, teeth, hair cards and glasses do not block projection, so use face-selection masking or a stencil mask 🧠
 - **Brush texture in *Stencil* mapping** overlays a photo in screen space: RMB moves, Shift+RMB scales, Ctrl+RMB rotates, and Alt adds a mask stencil. Align it in camera view 🧠
 - **The Clone brush** takes a source image and a source UV map, so it copies texture between UV layouts. That is the manual "re-projection" method 🧠
-- **Brushes became assets in 4.3**, so scripts activate brush assets instead of assigning brushes 🧠
+- **Brushes became assets in 4.3**, so scripts activate brush assets instead of assigning brushes 📄 [5] (all brushes became assets in 4.3; the scripting consequence is inferred)
 - **No native paint layers.** Ucupaint (a free add-on) builds layer stacks from nodes; otherwise use one image per layer and Mix nodes ↔️
 - **Sculpt-mode colour painting** (3.2+) is per vertex: 2–6 M vertices is roughly a 2K map. Bake it to an image afterwards 🧠
 - **Painted images are not saved with the .blend** unless packed or saved (Image ▸ Save All). This is the classic lost-work disaster 🧠
@@ -133,7 +133,7 @@ Add a low view (20–30° below) for the chin, columella and nostrils, which sit
 |---|---|---|---|---|
 | Blender | GPL | yes (three routes) | all; weak layers | 🧠 |
 | Substance 3D Painter | Adobe subscription; a perpetual Steam edition existed | by eye (stencil/Projection); camera import unclear | layered cleanup, masks | ↔️ |
-| ArmorPaint | zlib source (ArmorTools); paid binaries | unclear | free layered painting | ↔️ |
+| ArmorPaint | zlib source (ArmorTools); paid binaries | unclear | free layered painting | 📄 [6][7] (zlib source, paid binaries confirmed; projection support unconfirmed) |
 | Foundry Mari | commercial | yes (projectors from imported cameras) | VFX photo projection | ↔️ |
 | ZBrush (Maxon) | subscription | Spotlight by eye; polypaint per vertex | sculpt + paint | 🧠 |
 | Krita / GIMP | GPL | no (2D) | UV-space edits | 🧠 |
@@ -210,6 +210,10 @@ Add a low view (20–30° below) for the chin, columella and nostrils, which sit
 1. Blender Python API, BakeSettings: https://docs.blender.org/api/current/bpy.types.BakeSettings.html (bake margin default 16 px; see also https://docs.blender.org/manual/en/3.6/render/cycles/baking.html)
 2. Blender issue #92977, Exif metadata rotation in jpg is ignored in image texture: https://projects.blender.org/blender/blender-manual/issues/92977
 3. UV Project Modifier, Blender 5.3 Manual: https://docs.blender.org/manual/en/latest/modeling/modifiers/modify/uv_project.html
+4. Blender 4.3 Modeling & UV release notes (Minimum Stretch / SLIM): https://developer.blender.org/docs/release_notes/4.3/modeling/
+5. BlenderNation, Blender 4.3 Released (brushes became assets): https://www.blendernation.com/2024/11/19/blender-4-3-released-check-out-these-standout-features/
+6. ArmorPaint on itch.io (paid binaries): https://armory.itch.io/armorpaint
+7. CG Channel, ArmorPaint 1.0 is out (2026-09-04): https://www.cgchannel.com/2026/09/armorpaint-1-0-is-out-after-eight-years-in-early-access/
 
 All other items are expert knowledge or arithmetic awaiting verification.
 
@@ -232,3 +236,11 @@ All other items are expert knowledge or arithmetic awaiting verification.
 - EXIF orientation ignored: confirmed (one source, a bug report; current status unknown) - https://projects.blender.org/blender/blender-manual/issues/92977
 - UV Project modifier: partly confirmed (10 projectors, closest aligned projector per face, camera-only Aspect/Scale); lens shift/sensor fit unconfirmed - https://docs.blender.org/manual/en/latest/modeling/modifiers/modify/uv_project.html
 - Defaults bundle: bake margin 16 px confirmed (https://docs.blender.org/api/current/bpy.types.BakeSettings.html); bake margin type default contested (Adjacent Faces on render settings page vs EXTEND on bake operator page, https://docs.blender.org/api/current/bpy_types_enum_items/bake_margin_type_items.html); Normal angle default 80 appears in the 3.2 API (https://docs.blender.org/api/3.2/bpy.types.ImagePaint.html) but was 0 in 2.58, not settled; Bleed 2 px, Screen Grab 512, Unwrap margin 0.001, Smart UV 66 deg: unconfirmed.
+
+## Verification log, pass 2 (2026-11-20)
+
+- Blender 4.3 added Minimum Stretch (SLIM) unwrap: confirmed - https://developer.blender.org/docs/release_notes/4.3/modeling/
+- Blender 4.3 turned brushes into assets: confirmed (scripting consequence inferred) - https://www.blendernation.com/2024/11/19/blender-4-3-released-check-out-these-standout-features/
+- ArmorPaint zlib source with paid binaries: confirmed (itch.io, $19+) - https://armory.itch.io/armorpaint ; ArmorPaint 1.0 shipped 2026-09-04, licence/price after 1.0 not re-checked - https://www.cgchannel.com/2026/09/armorpaint-1-0-is-out-after-eight-years-in-early-access/ ; the "ArmorTools repo" naming unconfirmed.
+- Substance 3D Painter (subscription, Steam perpetual edition, camera import): unconfirmed (no results).
+- Foundry Mari projects from imported cameras, commercial: unconfirmed (only a per-seat licence mention, no usable URL).

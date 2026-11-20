@@ -2,7 +2,7 @@
 
 > YouTube teaches five routes from photos to a real person's head in Blender: a KeenTools FaceBuilder pin fit, modelling over front and side image planes, sculpting by eye from a sphere or base mesh, photogrammetry (Meshroom, RealityCapture/RealityScan, phone apps) followed by cleanup or wrapping, and, since about 2024, AI image-to-3D or vendor bridges (MetaHuman, Character Creator Headshot). The best videos treat any automatic result as a base that still needs a camera-matched sculpting pass. Most popular tutorials skip the step that decides likeness: rebuilding the camera behind each photo (distance, focal length, principal point). Sculpting against orthographic planes or a 50 mm viewport bakes selfie perspective, mirroring and head tilt into the mesh. No harvest or draft existed, so channels are named from expert knowledge only and no video titles are asserted.
 >
-> Evidence status: 1 ✅ / 2 📄 / 61 🧠 / 19 ↔️ — verified 2026-11-20 (see Verification log); remaining 🧠 items are queued for web verification.
+> Evidence status: 1 ✅ / 3 📄 / 61 🧠 / 18 ↔️ — verified 2026-11-20 (see Verification logs, pass 1 and pass 2); remaining 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -44,7 +44,7 @@
 - Voxel sizes demonstrated on Blender's 2 m default sphere are about 10× too coarse for a real-scale head 🧠.
 - FaceBuilder follow-alongs over-pin. Pins pulling against each other create lumps, and jawline pins in the front view slide along the silhouette 🧠.
 - Speed-sculpt timelapses compress tens of hours into minutes and hide the correction loop; "likeness" side-by-sides are often matched to one flattering photo 🧠.
-- Version drift breaks follow-alongs on 5.x: the ≤2.79 UI, pre-2.81 workflows without voxel remesh, pre-4.3 brush panels (brushes are assets since 4.3) and pre-4.2 add-on installs (extensions and core "Images as Planes" arrived in 4.2) 🧠. 5.3 is current and 5.2 is LTS (`blender/blender-version-status-2026.md`) 🧠.
+- Version drift breaks follow-alongs on 5.x: the ≤2.79 UI, pre-2.81 workflows without voxel remesh, pre-4.3 brush panels (brushes are assets since 4.3 [8]) and pre-4.2 add-on installs (extensions and core "Images as Planes" arrived in 4.2) 🧠. 5.3 is current and 5.2 is LTS (`blender/blender-version-status-2026.md`) 🧠.
 
 ## Numbers & reference tables
 
@@ -145,7 +145,7 @@
 - **"Push it a little" (caricature).** Some likeness teachers exaggerate distinctive traits slightly. The recognition advantage is robust in 2D and unproven for realistic 3D ↔️.
 - **Pricing and terms.**
   - FaceBuilder: paid subscription (the Core library needs it; the add-on is free) with a 15-day free trial per add-on, not 30 days [1]; 2024 Freelancer price was 18 USD/month or 179 USD/year, floating Studio 499 USD/year [2] (corrected in verification) 📄. Current prices and Blender 5.x support not confirmed (the FAQ says only Blender 2.80+).
-  - RealityCapture: free for small studios since 2024 and since renamed RealityScan, per moderate-confidence recollection ↔️.
+  - RealityCapture: now RealityScan (renamed at version 2.0, June 2025 [6][7]); free for individuals and companies under 1M USD annual gross revenue, 1250 USD per seat per year above that [6]; the 2024 start date was not confirmed 📄. Needs a CUDA-capable NVIDIA GPU [6].
   - Meshroom: free (MPL-2.0); historically needs an NVIDIA CUDA GPU for depth maps ↔️.
 - **Open questions:**
   - No transcript-level evidence has been gathered.
@@ -162,6 +162,9 @@ Numbered sources (added in verification, 2026-11-20):
 3. CG Channel, Download Blender Studio's free Human Base Meshes (CC0) — https://www.cgchannel.com/2023/06/download-blender-studios-free-human-base-meshes
 4. Blender, Asset Bundles (Human Base Meshes, CC0) — https://www.blender.org/download/demo
 5. Ward et al., Nasal Distortion in Short-Distance Photographs: The Selfie Effect, JAMA Facial Plast Surg 2018 — https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805
+6. RealityScan, Download (free tier under 1M USD revenue; CUDA requirement) — https://www.realityscan.com/download
+7. CG Channel, Epic Games releases RealityScan 2.0 (rebrand of RealityCapture) — https://www.cgchannel.com/2025/06/epic-games-releases-realityscan-2-0-and-realityscan-mobile-1-7/
+8. CG Channel, 5 key features in Blender 4.3 (brush workflow) — https://www.cgchannel.com/2024/11/5-key-features-in-blender-4-3/
 
 Related notes: `blender/reference-camera-setup.md`, `blender/sculpting-likeness-workflow.md`, `blender/blender-face-addons.md`, `reconstruction/commercial-head-tools.md`, `reconstruction/photogrammetry-heads.md`, `community/blenderartists-forum.md`, `community/reddit-face-from-photos.md`, `community/likeness-mistakes.md`.
 
@@ -186,3 +189,11 @@ Related notes: `blender/reference-camera-setup.md`, `blender/sculpting-likeness-
 - Human Base Meshes licence: confirmed CC0 (two sources). https://www.cgchannel.com/2023/06/download-blender-studios-free-human-base-meshes ; https://www.blender.org/download/demo
 - Ward et al. 2018 selfie effect: confirmed (about 30% wider nasal base at ~30 cm; reference distance varies by report, 1.5 m or infinity; a published letter disputes that it is physical distortion). https://pmc.ncbi.nlm.nih.gov/articles/PMC5876805
 - FaceBuilder EULA on exported heads: unconfirmed. The vendor FAQ says users own what they create and may sell models made with FaceBuilder, but the EULA text was not read; the GPL front end and closed core library split was not checked. https://keentools.io/products/facebuilder-for-blender
+
+## Verification log, pass 2 (2026-11-20)
+
+- RealityCapture free under 1M USD revenue and renamed RealityScan: confirmed (rename at 2.0, free tier threshold and CUDA GPU requirement; the 2024 start date not confirmed). https://www.realityscan.com/download ; https://www.cgchannel.com/2025/06/epic-games-releases-realityscan-2-0-and-realityscan-mobile-1-7/
+- Meshroom MPL-2.0 and CUDA need for depth maps: unconfirmed (only a secondary comparison blog, https://www.skyebrowse.com/news/posts/free-photogrammetry-software, not treated as reliable; AliceVision repo not reached). Badge left unchanged.
+- Blender 4.3 brushes became assets: confirmed with a moderate source (CG Channel 4.3 features article; official release notes not seen). https://www.cgchannel.com/2024/11/5-key-features-in-blender-4-3/
+- "Images as Planes" core in 4.2: unconfirmed (no result). Default voxel remesh size about 0.1 m: unconfirmed (no result). Both left 🧠/↔️.
+- No value in research/data/youtube-likeness-blender.json matched these claims; not changed.
