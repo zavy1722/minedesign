@@ -14,7 +14,7 @@
 - **ICT-FaceKit:** I recall an MIT LICENSE in the GitHub repo, but the USC VGL page says to contact it for commercial use ↔️ (lib, `community/awesome-lists-resources.md`). The consent scope of the scan subjects is unknown. 🧠
 
 **What each candidate actually is**
-- **Blender Studio head:** sculpt-grade all-quad topology made for Multires, at real scale on Blender axes. It has no shape space, no landmark map and no 3DMM correspondence. Its vertex counts, and whether the heads carry eyeballs, teeth or a mouth bag, are not recalled: inspect them. 🧠 ↔️
+- **Blender Studio head:** sculpt-grade all-quad topology made for Multires, at real scale on Blender axes. It has no shape space, no landmark map and no 3DMM correspondence. Counts and sub-meshes (eyes, teeth, mouth bag) are not recalled: inspect them. 🧠 ↔️
 - **hm08** is a whole-body quad mesh: ≈13.4k body vertices, ≈19.2k with the helper geometry (tights, skirt, hair, joint cubes) that MPFB hides with a Mask modifier. Its native frame is Y-up, facing +Z, in decimetres. 🧠 (lib count unconfirmed)
   - Eyes, teeth, tongue, brows and lashes are separate CC0 proxies. Each proxy vertex is bound to three base vertices with weights plus a scaled offset, so MakeHuman already uses the barycentric-sidecar mechanism proposed here. 🧠
   - Face targets are sparse offsets named `region-feature-decr|incr`. A modifier value v ∈ [−1, 1] applies `decr` with weight −v or `incr` with weight v, which is **piecewise linear, not linear**. Macros (gender, age, muscle, weight, proportions, ancestry blends) are multilinear interpolations between corner targets. 🧠
@@ -117,7 +117,7 @@ Unit check for any import: adult en–en spans ≈31–41 mm (lib ✅ `blender/i
 4. **Place anthropometric points.** Fixed vertices: n, se, prn, sn, ls, sto, li, sl, pg, gn, me, en, ex, ps, pi, al, sbal, ch, cph, t, sa, sba, obs, obi. Extremal points (eu, zy, go, v, op, tr) are defined as a candidate set plus a rule (for example "max |x| in the Frankfort-horizontal frame"), not as one vertex. 🧠
 5. **Register each detector convention.** Non-rigid-ICP the MediaPipe canonical mesh onto `minehead`, seeding with about 20 hand-placed pairs. Store (tri, bary) for each index; MediaPipe indices 468–477 bind to the eyeball limbus model. 🧠
 6. **Define contour rings.** Store 5–9 parallel candidate rings from the ear lobe to the chin, the profile midline, forehead and scalp rings, the helix rim and two neck rings. At fit time the silhouette point is chosen *on these rings*, not on fixed vertices. 🧠
-7. **Bind sub-meshes like MakeHuman proxies.** Eyeball centre = Σ wₖvₖ + d over orbital-rim vertices. Upper teeth follow a maxilla patch; lower teeth follow the jaw. Identity changes then carry them along and do not intersect. 🧠
+7. **Bind sub-meshes like MakeHuman proxies.** Eyeball centre = Σ wₖvₖ + d over orbital-rim vertices. Upper teeth follow a maxilla patch; lower teeth follow the jaw. Identity changes then carry them without intersection. 🧠
 8. **Check each import** (FLAME, ICT, MediaPipe): vertex count, topology hash, breadth ≈0.14–0.16 m after scaling, nose pointing −Y, and outward-facing normals. 🧠
 9. **What goes wrong:**
    - CC-BY MakeHuman packs or ICT data slipping into the listed zip;
@@ -134,7 +134,7 @@ Unit check for any import: adult en–en spans ≈31–41 mm (lib ✅ `blender/i
   `{version, topology_sha256, units:"m", axes:{up:"+Z", face:"-Y", left:"+X"}, licence:"CC0-1.0", derived_from:[…], submeshes:{name:[start,end)}, mirror, midline, landmarks:{conv:{tri, bary, weight, kind}}, anthro:{code: vid | {candidates, rule}}, contours:{name:[rings]}, regions:{name: soft mask 0–1, 5–10 mm falloff}, sigma_region_mm, bases:{name:{U, sigma, licence, commercial_ok, bundle_ok, source_sha256}}}`.
   The loader refuses a hash mismatch.
 - **Transfer algorithm** 🧠:
-  1. Landmark-seeded non-rigid ICP of `minehead` onto the source mean (stiffness schedule, as in `blender/import-export-scans.md`).
+  1. Landmark-seeded non-rigid ICP of `minehead` onto the source mean (lib: `blender/import-export-scans.md`).
   2. Closest-point projection gives (tri, bary).
   3. Accept a projection only if its distance is under 2–3 mm and the normals agree (cos > 0.5).
   4. Rejected vertices (mouth bag, deep nostril, lid tuck) get each basis column by harmonic or biharmonic interpolation from accepted neighbours.
@@ -163,18 +163,17 @@ Unit check for any import: adult en–en spans ≈31–41 mm (lib ✅ `blender/i
 
 ## Disagreements, myths & open questions
 
-- **Does the CC0 rule cover data-only meshes and index tables?** ↔️ A MediaPipe or FLAME *index map* holds no geometry and is arguably facts. Ask a platform reviewer before relying on that (`ethics/README.md` C7).
+- **Does the CC0 rule cover data-only meshes and index tables?** ↔️ A MediaPipe or FLAME *index map* holds no geometry and is arguably facts. Ask a platform reviewer (`ethics/README.md` C7).
 - **ICT-FaceKit licence:** MIT file versus "contact for commercial use". Treat it as not commercially clean until it is resolved. ↔️
-- **FLAME 2023 Open** contents, auxiliary-file licences, and whether the click-through adds terms beyond CC BY. ↔️
-- **Blender Studio versus hm08 as the source:** the Studio head is better topology; hm08 brings CC0 targets and proxies. Transferring hm08 targets onto a Studio-derived template gets both. 🧠
+- **FLAME 2023 Open:** contents, auxiliary-file licences, and whether the click-through adds terms beyond CC BY. ↔️
+- **Source choice:** the Studio head has better topology, hm08 brings CC0 targets and proxies; transferring hm08 targets onto a Studio-derived template gets both. 🧠
 - **Myth: "CC0 targets make a statistical prior."** They are artist-made, correlated and unvalidated. Calibrated σ matches only marginal measurements. 🧠
 - **Myth: "the MediaPipe canonical mesh is a base head."** It is a 468-point face cage with no ears, scalp, neck or loops. 🧠
-- **Myth: "a denser template gives more likeness."** Likeness lives at levels 0–2. Density beyond about 12k vertices slows fitting and weakens the priors. 🧠
 - **Population bias:** CAESAR (FLAME), Light Stage subjects (ICT), MakeHuman's artist-made ancestry sliders and Farkas's mostly North American norms. None is representative. ↔️
 
 ## Sources
 
-No web harvest or earlier draft existed for this topic, so no URLs are cited here. The licence facts marked lib✓ carry their URLs in the sibling notes listed below.
+No harvest or draft existed, so no URLs are cited; lib✓ facts carry their URLs in the sibling notes below.
 
 **Library cross-references (internal):** `reconstruction/flame-model.md`, `reconstruction/3dmm-overview.md`, `blender/blender-extensions-packaging.md`, `blender/blender-face-addons.md`, `blender/face-retopology.md`, `blender/import-export-scans.md`, `community/youtube-likeness-blender.md`, `community/awesome-lists-resources.md`, `ethics/README.md`, `anatomy/facial-asymmetry.md`, `anatomy/anthropometric-norms.md`.
 

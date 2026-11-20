@@ -86,11 +86,10 @@ Define IOD once (the notes mix pupil and outer-canthal IOD) and convert every % 
 
 - **T1** One camera convention for solver, shader and UV Project, with shader UV u = 0.5 + k·x/(−z) + shift_x, v = 0.5 + k·(W/H)·y/(−z) + shift_y·(W/H), k = lens/sensor_width. All backends must agree within ≤ 0.5 px on a synthetic checker. [TEX]
 - **T2** Project only when landmark reprojection has median ≤ 1.5 px and max ≤ 3 px. [TEX]
-- **T3** **Weights:** w = visibility·cos^p θ, faded from 60° to 75°; raycast visibility includes hair, glasses and eyeballs; keep a per-texel view index, gain compensation and specular rejection. [TEX, FB]
-- **T4** **Outputs:** `albedo.exr` (half-float, linear) and `confidence.png` (Non-Color) at 4096 px (2048 for phones, 8192 for ≥ 24 MP), from 5–7 views ≤ 45° apart plus a low view. [TEX]
-- **T5** **UV gates:** |log area ratio| ≤ 0.25 and conformal ratio ≤ 1.3 on the face (≤ 2 on ears); on failure, relax interior UVs with pinned boundaries. Per-vertex backends need edges ≤ √(4ez), e = 0.05 mm. [TEX]
-- **T6** **Photometry:** treat skin shading as low-pass (low frequencies or G/B channels, specular masked); SH9 lighting (27 coefficients), Huber δ 0.05, excluding the top 2–5 % of pixels and n·v < 0.3; weak prior on light elevation N(30°, 25°) and azimuth N(0°, 60°). [SKIN, LIT]
-- **T7** **Headless bakes:** `bake(type='EMIT', margin=N//256)`, extrusion ≈ 2 mm, max ray ≈ 8 mm, 1 sample. [TEX]
+- **T3** **Weights and outputs:** w = visibility·cos^p θ, faded 60° → 75°, raycasting hair, glasses and eyeballs as occluders; per-texel view index, gain compensation, specular rejection. Write `albedo.exr` (half-float, linear) and `confidence.png` (Non-Color) at 4096 px (2048 phone, 8192 for ≥ 24 MP) from 5–7 views ≤ 45° apart plus a low view. [TEX, FB]
+- **T4** **UV gates:** |log area ratio| ≤ 0.25 and conformal ratio ≤ 1.3 on the face (≤ 2 on ears); on failure, relax interior UVs with pinned boundaries. Per-vertex backends need edges ≤ √(4ez), e = 0.05 mm. [TEX]
+- **T5** **Photometry:** treat skin shading as low-pass (low frequencies or G/B channels, specular masked); SH9 lighting (27 coefficients), Huber δ 0.05, excluding the top 2–5 % of pixels and n·v < 0.3; weak prior on light elevation N(30°, 25°) and azimuth N(0°, 60°). [SKIN, LIT]
+- **T6** **Headless bakes:** `bake(type='EMIT', margin=N//256)`, extrusion ≈ 2 mm, max ray ≈ 8 mm, 1 sample. [TEX]
 
 ## 9. Licence constraints
 
