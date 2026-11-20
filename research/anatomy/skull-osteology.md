@@ -2,12 +2,12 @@
 
 > The face is the skull plus a soft-tissue cover whose thickness varies about tenfold, from ≈3 mm on the bony nasal dorsum to 15–25 mm over cheek and masseter. Bone therefore shows through skin only in predictable zones: forehead and brow ridge, orbital rims, nasal bones, zygomatic body and arch, and the chin and jaw border. At thin midline points (glabella ≈5–5.5 mm, nasion ≈6–7 mm, rhinion ≈3 mm, pogonion ≈11–12 mm) a photo-derived surface must follow bone closely [1][7][31]. Thick zones follow fat, muscle, age and BMI [2][4]. Bone also sets the sculptor's plane breaks (temporal line, lateral orbital rim, malar body, arch, mandibular border). Lateral points (zygion, gonion) are poorly observable from skin [11], and depth tables are population priors with large individual error [45][47][48].
 >
-> Evidence status: 18 ✅ / 44 📄 / 52 🧠 / 16 ↔️ (recounted after 2026-11-20 verification) — 🧠 items are queued for web verification.
+> Evidence status: 16 ✅ / 44 📄 / 52 🧠 / 20 ↔️ (recounted after 2026-11-20 verification, pass 2) — 🧠 items are queued for web verification.
 
 ## Key facts
 
 **Frontal bone and brow**
-- Palpable frontal landmarks: supraorbital margins, frontal eminences, superciliary arches [26] 📄. The supraorbital notch/foramen lies in the medial third of the upper rim, ≈2 cm from the midline, and carries the supraorbital nerve and vessels [23][24][25] ✅.
+- Palpable frontal landmarks: supraorbital margins, frontal eminences, superciliary arches [26] 📄. The supraorbital notch/foramen lies in the medial third of the upper rim and carries the supraorbital nerve and vessels [23][24][25]; its distance from the midline is ≈2 cm in textbooks but 25.3 mm in a 134-specimen cadaveric study [54] ↔️ (≈20–25 mm).
 - The temporal lines start at the zygomatic process of the frontal bone. The inferior line bounds the temporal fossa [33] 📄, and the lines form the forehead "corner" where the front plane turns into the side plane 🧠.
 - Sex tendencies 🧠: males have a larger glabella and superciliary arches (partly frontal sinus), blunt supraorbital margins and a sloping forehead. Females have a vertical forehead with frontal eminences, sharp thin margins and a small glabella. Visual cranial sexing is only ~80–90 % accurate, so these are tendencies.
 - Forehead cover is thicker in males (MRI, all ages) [32], including supraglabella and nasion [2] ✅.
@@ -42,7 +42,7 @@
 - High-angle (posteriorly rotated) jaws come with a receding chin, a shallow mental sulcus and narrow, long symphyses. Low-angle jaws have a prominent, bulbous symphysis [18][20][21][38] ✅.
 - At the chin, soft tissue follows bone at ≈0.75–0.92 (genioplasty) [18] 📄. Jaw asymmetry is skeletal [19] 📄.
 - Gonion is poorly observable [11] 📄 and its cover is thicker in women [2] 📄. The masseter dominates the lateral jaw silhouette 🧠.
-- The mental tubercles set chin width and squareness. The mental foramen (below the premolars) lies roughly on a vertical line with the supraorbital notch and infraorbital foramen, ~2–3 cm from the midline 🧠.
+- The mental tubercles set chin width and squareness. The mental foramen (below the premolars) lies at ≈25.6 mm from the midline, close to the supraorbital notch (25.3 mm), but the infraorbital foramen is ≈29.6 mm out, about 4 mm more lateral, so the three do not share one sagittal line [54] ↔️ (corrected in verification).
 
 **Soft-tissue cover**
 - Thin-point depths agree across sources: pooled glabella 5.5 / nasion 6.0 / rhinion 3.0 mm [1]; CBCT 5.11 / 6.78 / pogonion 11.71 / gnathion 8.46 mm [31]; Azerbaijani pogonion ≈12.3 mm (M) / 11.0 mm (F) [7] ✅.
@@ -80,14 +80,14 @@
 | Quantity | Value | Population / n | Src | Status |
 |---|---|---|---|---|
 | Orbital aperture h × w | ≈35 × 40 mm | not stated | [23] | 📄 |
-| Supraorbital notch from midline | ≈20 mm (medial third of rim) | not stated | [23][24][25] | ✅ |
+| Supraorbital notch from midline | ≈20–25 mm (medial third of rim; 25.3 mm in cadavers, n = 134) | not stated; cadaveric 2021 | [23][24][25][54] | ↔️ |
 | Infraorbital foramen below rim | 5.8 R / 6.2 L; 8.5 M / 7.8 F; ~6 (5–8.5); ~10 | N. Indian skulls; cadavers | [28][29] | ↔️ |
 | Cornea apex ahead of lateral orbital rim | ~12–20 mm; means 15.4–18.5, upper limits 20.1–24.7 (white < Black) | Hertel norms, ancestry-dependent, n = 681 | [52] | ↔️ |
 | Nasal bone length | ≈21 mm (type A commonest; no D/E types) | Korean 3D-CT, n = 75 | [15] | 📄 |
 | Piriform aperture width × height | ~22–26 × 30–35 mm | expert range | — | 🧠 |
 | Piriform index | 0.79 (mostly platyrrhine) | N. Indian skulls, n = 40 | [13] | 📄 |
 | Piriform aperture area | 12.6 cm² F / 16.0 cm² M; "pear" type 42.86 % | crania, n = 70 | [14] | ↔️ suspect |
-| Soft alar width minus aperture width | ~8–16 mm (rules disagree) | forensic rules of thumb | — | ↔️ 🧠 |
+| Soft alar width minus aperture width | ~8–16 mm (rules disagree; additive and multiplicative formulas, ancestry-dependent, Korean MNW/MAW ratio 1.65) | forensic rules of thumb; Hoffman 1991 | [55][17] | ↔️ (range itself 🧠) |
 | Gonial angle, adult | ≈120°; 120.17° | StatPearls; young adult male dry bone | [35][36] | ✅ |
 | Gonial angle, typical adult spread | ~110–135°; CBCT means 125–129° (F > M), cephalometric 121–126° | CBCT n = 141; lateral ceph | [53] | ↔️ |
 | Gonial angle, birth | ≈160° | — | [35] | 📄 |
@@ -114,7 +114,7 @@
 
 1. **Work in millimetres.** Scene ▸ Units: Metric, Unit Scale 0.001, Length Millimeters. After scaling, sanity-check orbit width (~40 mm), nasal bones (~20–25 mm) and bizygomatic breadth (~125–145 mm) 🧠.
 2. **Orient to Frankfort.** In the profile photo, level the line from tragion to the lower-lid/cheek junction (a soft proxy for porion–orbitale). The zygomatic arch should then run near-horizontal 🧠.
-3. **Place bone empties first** at glabella, nasion, rhinion, supraorbital notch, frontozygomatic suture, malar point, zygion, orbitale, ANS, pogonion, menton and gonion. Check the vertical notch → infraorbital → mental foramen line, and that the lateral orbital rim sits 12–20 mm behind the corneal apex 🧠.
+3. **Place bone empties first** at glabella, nasion, rhinion, supraorbital notch, frontozygomatic suture, malar point, zygion, orbitale, ANS, pogonion, menton and gonion. Check the supraorbital notch and mental foramen (both ≈25 mm from the midline; the infraorbital foramen sits ≈4 mm more lateral [54]), and that the lateral orbital rim sits 12–20 mm behind the corneal apex 🧠.
 4. **Sculpt in order of bone confidence.** (a) Forehead → glabella → nasion → rhinion silhouette, matched to the profile within ~1 mm, because the cover is only 3–7 mm [1][31]. (b) Orbital rims and eyeball placement, with the lateral rim receding [23]. (c) Malar body high point, just below the lateral orbit and not on the arch [12]. (d) Mandibular border, angle and chin box (mental tubercles). (e) Thick zones last (buccal, temple, philtrum, jowl), driven by photo shading, not bone.
 5. **Measure depth.** With a skull mesh, use Geometry Nodes on the skin: *Geometry Proximity* (target = skull) → distance → *Store Named Attribute* → colour ramp, or *Raycast* along the inverted normal. Flag areas outside Table 1 ranges (check node names in the current Blender release) 🧠.
 6. **Light-check bone cues.** Under the photo's key light, compare the malar highlight, the shadow under the arch, the temple hollow, the brow shadow on the upper lid and the jawline shadow 🧠.
@@ -140,7 +140,7 @@
 - **Depth tables** ↔️: means differ by population and modality [1][5]–[10], no landmark set is standard [47], cadaver and posture distort values [44], and individual error is unavoidable [45][48]. Pooled "T-table" advocates say ancestry splits add little; others build population tables 🧠.
 - **Approximation accuracy** ↔️: the Manchester method (Neave, 1977; ~16 depth markers plus muscle build-up [47]) does best when a portrait or soft tissue survives [46][47][51]. Critics say muscle size cannot be read from bone and tests are scarce [48], and accuracy assessment is not standardised [43].
 - **Piriform area** ↔️: 12.6–16.0 cm² [14] is 2–3× an expert estimate of ~4–7 cm² for a ~24 × 32 mm pear-shaped opening 🧠. Do not use it until the full text is checked.
-- **Nose from aperture** ↔️: "add ~10 mm" and ratio rules disagree, and evidence shows only partial prediction [16][17][39][42].
+- **Nose from aperture** ↔️: "add ~10 mm" and ratio rules disagree (additive vs multiplicative formulas; correlation differs by ancestry [55]), and evidence shows only partial prediction [16][17][39][42].
 - **Myths:** "men are thicker everywhere" (false laterally [2][5]); "cheekbone = arch" (it is mostly the body plus fat 🧠); "faces are symmetric, so symmetrise" (jaw asymmetry is skeletal [19]); "the eyebrow sits on the brow ridge" (the male brow sits on the rim, the female brow usually above it — an aesthetic convention ↔️). Climate explanations for nose form are hypotheses [13].
 - **Open:** SDs for lateral landmarks; temporal depth in mm; dense thickness maps (Skull-to-Face is limited by small paired datasets [50]); supine-to-upright correction; photo-based observability errors [11]; size of age remodelling.
 
@@ -198,6 +198,8 @@
 [50] Skull-to-Face: Anatomy-Guided 3D Facial Reconstruction and Editing — https://arxiv.org/pdf/2403.16207 — preprint — 2024
 [52] Determination of the Normal Range of Exophthalmometric Values for Black and White Adults (Migliori & Gladstone) — https://www.bohrium.com/paper-details/determination-of-the-normal-range-of-exophthalmometric-values-for-black-and-white-adults/812031073310474241-5193 — paper — 1984
 [53] A Morphometric Evaluation of the Mandibular Condyle, Coronoid Process, and Gonial Angle: Age and Gender Differences in CBCT Imaging — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12191486/ — paper — 2025
+[54] The relative locations of the supraorbital, infraorbital, and mental foramina: A cadaveric study — https://scholars.uthscsa.edu/en/publications/the-relative-locations-of-the-supraorbital-infraorbital-and-menta/ — paper — 2021
+[55] Relationship between piriform aperture and interalar nasal widths (Hoffman et al., abstract) — https://www.ojp.gov/ncjrs/virtual-library/abstracts/relationship-between-piriform-aperture-and-interalar-nasal-widths — abstract — 1991
 [51] FutureLearn: Forensic facial reconstruction (Manchester method step) — https://futurelearn.com/info/courses/forensic-facial-reconstruction/0/steps/31185 — course — year unconfirmed
 
 **Further reading (by name, not yet linked)**
@@ -221,3 +223,9 @@
 - Corneal apex 12–20 mm ahead of lateral rim, higher in African ancestry: contested. Higher in Black adults confirmed; Migliori & Gladstone 1984 (n = 681) give means 15.4–18.5 mm and upper limits 20.1–24.7 mm. https://www.bohrium.com/paper-details/determination-of-the-normal-range-of-exophthalmometric-values-for-black-and-white-adults/812031073310474241-5193
 - Gonial angle ~120° adult, spread 110–135°, males more acute: contested. CBCT (n = 141) means 125.3–128.8° (females higher); cephalometric 121–126°. Males more acute is supported; the 120° mean sits at the low end. 90°/110° pair stays implausible. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12191486/
 - Pooled glabella 5.5 / nasion 6.0 / rhinion 3.0 mm: unconfirmed (review found, values not visible in results). https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10861615/
+
+## Verification log, pass 2 (2026-11-20)
+
+- Alar width exceeds piriform aperture width by ~8–16 mm; rules disagree: partly confirmed. Disagreement between additive and multiplicative formulas and ancestry dependence is supported (Hoffman 1991; Korean CT MNW/MAW ratio 1.65, R = 0.35); the 8–16 mm range itself is unconfirmed and stays 🧠. https://www.ojp.gov/ncjrs/virtual-library/abstracts/relationship-between-piriform-aperture-and-interalar-nasal-widths ; https://link.springer.com/10.1038/s41598-020-73127-8
+- Supraorbital notch, infraorbital foramen and mental foramen on one vertical line, 2–3 cm from midline: corrected. Cadaveric n = 134: supraorbital 25.3 mm, mental 25.6 mm, infraorbital 29.6 mm from midline; infraorbital significantly more lateral (p < 0.0001), so no shared sagittal line. https://scholars.uthscsa.edu/en/publications/the-relative-locations-of-the-supraorbital-infraorbital-and-menta/
+- Infraorbital foramen 6–8.5 mm below rim: contested. Search summaries gave ≈5.6 mm (CBCT), 6.5–7.3 mm and 13.4 mm in other studies, without a URL tied to each figure, so the range stays ↔️ as already marked. https://pmc.ncbi.nlm.nih.gov/articles/PMC8450472
