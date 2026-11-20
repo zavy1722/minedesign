@@ -1,0 +1,37 @@
+{
+ "id": "smartphone-camera-pipeline",
+ "area": "reconstruction",
+ "title": "Smartphone camera processing, metadata and lens calibration for face capture",
+ "queue": [
+  {
+   "claim": "FocalLengthIn35mmFilm on iPhone, Pixel and Samsung includes digital zoom and lens crops (2x reports ~48 mm). Whether it is updated for 16:9 and 1:1 crops of the 4:3 sensor is untested. A static tag on a 16:9 crop makes the diagonal formula underestimate f_px by 8.2%, and on a 1:1 crop by 15%.",
+   "query": "iPhone 16:9 photo EXIF FocalLengthIn35mmFilm value compared with 4:3 same lens",
+   "domains": "exiftool.org,discussions.apple.com"
+  },
+  {
+   "claim": "Main and telephoto JPEG/HEIC output on Apple, Google and Samsung phones is already distortion-corrected, with residual |k1| \u2272 0.01\u20130.02 (focal-normalised), so k can be fixed at 0 for centred faces.",
+   "query": "smartphone main camera JPEG residual radial distortion after in-camera correction calibration k1 measurement",
+   "domains": ""
+  },
+  {
+   "claim": "Android CameraCharacteristics.LENS_DISTORTION (API 28) uses Brown-Conrady [k1,k2,k3,k4,k5]. Its documented coordinates are centred on the optical centre and normalised so the farthest edge is 1 (|r| \u2264 \u221a2), unlike OpenCV's focal-normalised coordinates.",
+   "query": "LENS_DISTORTION \"normalized to be 1 at the edge further from the optical center\"",
+   "domains": "developer.android.com,source.android.com"
+  },
+  {
+   "claim": "pillow-heif is BSD-3-Clause, but its wheels bundle libheif and libde265 (LGPL-3.0) and x265 (GPL-2.0+). rawpy is MIT over LibRaw (LGPL-2.1 or CDDL-1.0). Pillow is MIT-CMU.",
+   "query": "pillow-heif license x265 GPL libheif LGPL bundled wheels",
+   "domains": "github.com,pypi.org"
+  },
+  {
+   "claim": "AVCameraCalibrationData lensDistortionLookupTable holds relative radial magnification at n linearly spaced radii up to the farthest corner from lensDistortionCenter (p' = c + (p\u2212c)(1+m)). The forward table maps rectified to distorted and the inverse maps distorted to rectified. Calibration comes with AVDepthData, and may or may not survive in Camera-app HEIC files.",
+   "query": "AVCameraCalibrationData lensDistortionLookupTable inverseLensDistortionLookupTable relative radial magnification",
+   "domains": "developer.apple.com"
+  },
+  {
+   "claim": "Apple exposes face-aware (content-aware) wide-angle correction via AVCapturePhotoSettings.isAutoContentAwareDistortionCorrectionEnabled (iOS 14+). Google shipped the Shih, Lai & Liang 2019 stereographic face warp on Pixel wide and selfie captures.",
+   "query": "isAutoContentAwareDistortionCorrectionEnabled AVCapturePhotoSettings",
+   "domains": "developer.apple.com"
+  }
+ ]
+}

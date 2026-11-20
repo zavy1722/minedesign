@@ -1,0 +1,865 @@
+{
+ "topic": "smartphone-camera-pipeline",
+ "tables": [
+  {
+   "name": "off_axis_rectilinear_stretch",
+   "units": "angle deg; ratios dimensionless",
+   "columns": [
+    "field_angle_deg",
+    "radial_over_tangential_1_over_cos",
+    "area_vs_centre_1_over_cos3",
+    "stereographic_local_scale_vs_centre_sec2_half"
+   ],
+   "rows": [
+    [
+     0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    [
+     5,
+     1.0038,
+     1.0115,
+     1.0019
+    ],
+    [
+     10,
+     1.0154,
+     1.047,
+     1.0077
+    ],
+    [
+     15,
+     1.0353,
+     1.1096,
+     1.0173
+    ],
+    [
+     20,
+     1.0642,
+     1.2052,
+     1.0311
+    ],
+    [
+     25,
+     1.1034,
+     1.3433,
+     1.0491
+    ],
+    [
+     30,
+     1.1547,
+     1.5396,
+     1.0718
+    ],
+    [
+     35,
+     1.2208,
+     1.8193,
+     1.0994
+    ],
+    [
+     40,
+     1.3054,
+     2.2245,
+     1.1325
+    ],
+    [
+     45,
+     1.4142,
+     2.8284,
+     1.1716
+    ],
+    [
+     50,
+     1.5557,
+     3.7653,
+     1.2174
+    ],
+    [
+     55,
+     1.7434,
+     5.2994,
+     1.271
+    ],
+    [
+     60,
+     2.0,
+     8.0,
+     1.3333
+    ]
+   ],
+   "population": "any ideal pinhole (rectilinear) camera; stereographic column = local isotropic scale of a stereographic mapping, the target of face-aware warps (Shih et al. 2019)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Pure geometry. Radial stretch of a small face at field angle theta in a rectilinear image; vendors' face-aware warps remove this anisotropy, which a pinhole solver cannot model."
+  },
+  {
+   "name": "field_angles_by_f35_4x3",
+   "units": "f35 mm; angles deg",
+   "columns": [
+    "typical_module",
+    "f35_mm",
+    "hfov_long_side_deg",
+    "long_edge_half_angle_deg",
+    "short_edge_half_angle_deg",
+    "corner_angle_deg"
+   ],
+   "rows": [
+    [
+     "ultra-wide",
+     13,
+     106.2,
+     53.1,
+     45.0,
+     59.0
+    ],
+    [
+     "ultra-wide",
+     16,
+     94.5,
+     47.3,
+     39.1,
+     53.5
+    ],
+    [
+     "front wide",
+     20,
+     81.8,
+     40.9,
+     33.0,
+     47.2
+    ],
+    [
+     "front",
+     23,
+     73.9,
+     37.0,
+     29.4,
+     43.2
+    ],
+    [
+     "main",
+     24,
+     71.6,
+     35.8,
+     28.4,
+     42.0
+    ],
+    [
+     "main",
+     26,
+     67.3,
+     33.7,
+     26.5,
+     39.8
+    ],
+    [
+     "front cropped",
+     30,
+     60.0,
+     30.0,
+     23.4,
+     35.8
+    ],
+    [
+     "2x crop",
+     48,
+     39.7,
+     19.8,
+     15.1,
+     24.3
+    ],
+    [
+     "3x tele",
+     77,
+     25.3,
+     12.7,
+     9.6,
+     15.7
+    ],
+    [
+     "4x tele",
+     100,
+     19.6,
+     9.8,
+     7.4,
+     12.2
+    ],
+    [
+     "5x tele",
+     120,
+     16.4,
+     8.2,
+     6.2,
+     10.2
+    ]
+   ],
+   "population": "4:3 frame, diagonal 35 mm-equivalent convention (43.27 mm)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Arithmetic. Module-to-f35 assignments are typical 2023-2026 phones and time-sensitive; width-based f35 convention would shift angles ~4%."
+  },
+  {
+   "name": "residual_radial_distortion_effect",
+   "units": "px; percent",
+   "columns": [
+    "radius_px",
+    "r_focal_normalised",
+    "k1_focal_normalised",
+    "landmark_displacement_px",
+    "local_anisotropy_pct"
+   ],
+   "rows": [
+    [
+     500,
+     0.165,
+     0.005,
+     0.07,
+     0.027
+    ],
+    [
+     500,
+     0.165,
+     0.01,
+     0.14,
+     0.055
+    ],
+    [
+     500,
+     0.165,
+     0.02,
+     0.27,
+     0.109
+    ],
+    [
+     500,
+     0.165,
+     0.05,
+     0.68,
+     0.273
+    ],
+    [
+     500,
+     0.165,
+     -0.1,
+     1.36,
+     0.545
+    ],
+    [
+     1000,
+     0.33,
+     0.005,
+     0.55,
+     0.109
+    ],
+    [
+     1000,
+     0.33,
+     0.01,
+     1.09,
+     0.218
+    ],
+    [
+     1000,
+     0.33,
+     0.02,
+     2.18,
+     0.436
+    ],
+    [
+     1000,
+     0.33,
+     0.05,
+     5.45,
+     1.09
+    ],
+    [
+     1000,
+     0.33,
+     -0.1,
+     10.9,
+     2.181
+    ],
+    [
+     1500,
+     0.495,
+     0.005,
+     1.84,
+     0.245
+    ],
+    [
+     1500,
+     0.495,
+     0.01,
+     3.68,
+     0.491
+    ],
+    [
+     1500,
+     0.495,
+     0.02,
+     7.36,
+     0.981
+    ],
+    [
+     1500,
+     0.495,
+     0.05,
+     18.4,
+     2.453
+    ],
+    [
+     1500,
+     0.495,
+     -0.1,
+     36.8,
+     4.907
+    ],
+    [
+     2016,
+     0.666,
+     0.005,
+     4.47,
+     0.443
+    ],
+    [
+     2016,
+     0.666,
+     0.01,
+     8.93,
+     0.886
+    ],
+    [
+     2016,
+     0.666,
+     0.02,
+     17.87,
+     1.773
+    ],
+    [
+     2016,
+     0.666,
+     0.05,
+     44.67,
+     4.431
+    ],
+    [
+     2016,
+     0.666,
+     -0.1,
+     89.34,
+     8.863
+    ],
+    [
+     2520,
+     0.832,
+     0.005,
+     8.72,
+     0.692
+    ],
+    [
+     2520,
+     0.832,
+     0.01,
+     17.45,
+     1.385
+    ],
+    [
+     2520,
+     0.832,
+     0.02,
+     34.9,
+     2.77
+    ],
+    [
+     2520,
+     0.832,
+     0.05,
+     87.24,
+     6.924
+    ],
+    [
+     2520,
+     0.832,
+     -0.1,
+     174.49,
+     13.848
+    ]
+   ],
+   "population": "4032x3024 image, f35 26 mm (f_px 3028.4), OpenCV-style k1 (x_d = x(1+k1 r^2))",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Arithmetic. Displacement = |k1| r^3 f; anisotropy (radial vs tangential local scale) = 2|k1| r^2. Residual |k1| after phone GDC assumed 0.01-0.02 (contested, unmeasured); k1 = -0.10 illustrates an uncorrected ultra-wide-like lens."
+  },
+  {
+   "name": "aspect_crop_focal_error",
+   "units": "px; ratio; percent",
+   "columns": [
+    "delivered_aspect",
+    "width_px",
+    "height_px",
+    "delivered_diagonal_px",
+    "native_over_delivered_diagonal",
+    "f_px_error_pct_if_static_tag_and_delivered_diagonal_used"
+   ],
+   "rows": [
+    [
+     "4:3",
+     4032,
+     3024,
+     5040.0,
+     1.0,
+     0.0
+    ],
+    [
+     "3:2",
+     4032,
+     2688,
+     4845.9,
+     1.0401,
+     -3.9
+    ],
+    [
+     "16:9",
+     4032,
+     2268,
+     4626.1,
+     1.0895,
+     -8.2
+    ],
+    [
+     "1:1",
+     3024,
+     3024,
+     4276.6,
+     1.1785,
+     -15.1
+    ]
+   ],
+   "population": "phone sensor native 4:3 with 4032 px long side; crops keep the long side (1:1 keeps the short side)",
+   "source_urls": [],
+   "status": "contested",
+   "notes": "Arithmetic is exact; whether vendors keep FocalLengthIn35mmFilm static for aspect crops or recompute it is untested (contested). Separately, a width-based f35 convention vs the diagonal formula gives +4.0% (36/34.62)."
+  },
+  {
+   "name": "engine_priors_phone_metadata",
+   "units": "sigma in natural-log units unless stated",
+   "columns": [
+    "parameter",
+    "condition",
+    "prior_or_rule",
+    "sigma",
+    "notes"
+   ],
+   "rows": [
+    [
+     "log f",
+     "EXIF f35, uncropped native 4:3 original",
+     "f_px = f35 * diag_px / 43.27",
+     0.04,
+     "matches reconstruction/camera-perspective-distortion.md"
+    ],
+    [
+     "log f",
+     "non-4:3 aspect",
+     "two hypotheses: static tag (native diagonal) vs updated tag (delivered diagonal)",
+     0.04,
+     "pick by intrinsics-group consistency; if undecided use single prior sigma 0.09"
+    ],
+    [
+     "log f",
+     "digital zoom detected (f35/FocalLength > 1.02 x module baseline)",
+     "centred crop; principal point unchanged",
+     0.06,
+     "UI zoom ratios are rounded"
+    ],
+    [
+     "log f",
+     "edited/non-native size or EXIF stripped",
+     "focal hypotheses as in camera-pose-solving",
+     0.35,
+     "treat EXIF as unreliable"
+    ],
+    [
+     "principal point",
+     "phone JPEG/HEIC",
+     "delivered image centre",
+     "1% of width (px)",
+     "OIS and assembly; fixed unless >=5 views in group"
+    ],
+    [
+     "skew, aspect",
+     "all",
+     "skew 0, fx = fy",
+     0,
+     "fixed"
+    ],
+    [
+     "k1 (focal-normalised)",
+     "corrected main/tele, face within 25 deg of axis",
+     "0 fixed",
+     0,
+     ""
+    ],
+    [
+     "k1 (focal-normalised)",
+     "main/tele face beyond 25 deg, or front camera",
+     "N(0, sigma^2)",
+     0.02,
+     ""
+    ],
+    [
+     "camera model",
+     "ultra-wide or front with face beyond 25 deg, or content-aware warp likely",
+     "local virtual camera: rotate face-centre ray to axis, f' = f sec^2(theta/2), principal point at face centre",
+     "or inflate sigma_px x3",
+     "approximates stereographic face warp"
+    ],
+    [
+     "log z",
+     "EXIF SubjectDistance present",
+     "log of value",
+     0.5,
+     "coarse AF-derived"
+    ],
+    [
+     "log z",
+     "Apple FocusDistanceRange",
+     "log-uniform over range widened x1.5",
+     null,
+     ""
+    ],
+    [
+     "log z",
+     "Android LENS_FOCUS_DISTANCE CALIBRATED / APPROXIMATE / UNCALIBRATED",
+     "1/dioptres",
+     "0.2 / 0.4 / ignore",
+     ""
+    ],
+    [
+     "log z",
+     "TrueDepth depth map, median over face",
+     "metric",
+     "0.05-0.1",
+     ""
+    ],
+    [
+     "log z",
+     "rear dual-camera disparity, median over face",
+     "approximate",
+     "0.2-0.3",
+     ""
+    ],
+    [
+     "camera pitch",
+     "Apple AccelerationVector present",
+     "pitch/roll from gravity",
+     "5 deg",
+     "head tilt unknown"
+    ],
+    [
+     "mirror",
+     "front camera",
+     "fit both mirror hypotheses; accept lower cost if margin > 10%",
+     null,
+     "else ask user"
+    ]
+   ],
+   "population": "phone photos (Apple, Google, Samsung and other Android), 2019-2026",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Suggested defaults from expert knowledge; not validated on real phone data."
+  },
+  {
+   "name": "exif_and_metadata_tags",
+   "units": "n/a",
+   "columns": [
+    "tag",
+    "id_hex",
+    "use",
+    "phone_behaviour",
+    "status"
+   ],
+   "rows": [
+    [
+     "FocalLength",
+     "0x920A",
+     "identify physical module",
+     "physical focal of module; unchanged by digital zoom",
+     "knowledge"
+    ],
+    [
+     "FocalLengthIn35mmFilm",
+     "0xA405",
+     "f_px",
+     "usually includes digital zoom; aspect-crop behaviour vendor-dependent; diagonal vs width convention",
+     "contested"
+    ],
+    [
+     "DigitalZoomRatio",
+     "0xA404",
+     "crop factor",
+     "iPhone writes when zoomed; Android inconsistent",
+     "contested"
+    ],
+    [
+     "SubjectDistance",
+     "0x9206",
+     "distance prior",
+     "rare, coarse",
+     "knowledge"
+    ],
+    [
+     "SubjectArea",
+     "0x9214",
+     "focus/face rectangle",
+     "iPhone writes",
+     "knowledge"
+    ],
+    [
+     "CustomRendered",
+     "0xA401",
+     "Portrait/HDR flag",
+     "Apple non-standard: 2/3 HDR, 6 panorama, 7 Portrait HDR, 8 Portrait",
+     "knowledge"
+    ],
+    [
+     "LensSpecification / LensMake / LensModel",
+     "0xA432 / 0xA433 / 0xA434",
+     "intrinsics group, front-camera key",
+     "iPhone LensModel names module; often absent on Android",
+     "knowledge"
+    ],
+    [
+     "Software",
+     "0x0131",
+     "detect editors",
+     "OS version for camera originals; editor names on edited exports",
+     "knowledge"
+    ],
+    [
+     "ExposureTime",
+     "0x829A",
+     "night-mode flag",
+     "> 1/15 s suggests long multi-frame exposure",
+     "knowledge"
+    ],
+    [
+     "Orientation",
+     "0x0112",
+     "rotation",
+     "HEIF irot/imir take precedence; avoid double rotation",
+     "knowledge"
+    ],
+    [
+     "OpcodeList1/2/3 (DNG)",
+     "0xC740 / 0xC741 / 0xC74E",
+     "lens shading, WarpRectilinear",
+     "Android DngCreator writes WarpRectilinear from LENS_DISTORTION",
+     "knowledge"
+    ],
+    [
+     "Apple MakerNote AccelerationVector",
+     "MakerNote",
+     "camera pitch/roll",
+     "gravity in g",
+     "knowledge"
+    ],
+    [
+     "Apple MakerNote FocusDistanceRange",
+     "MakerNote",
+     "distance prior",
+     "range in m",
+     "knowledge"
+    ]
+   ],
+   "population": "Exif 2.3x / DNG / Apple MakerNote as written by phones",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Tag IDs from expert knowledge; vendor behaviour needs a test-shot matrix."
+  },
+  {
+   "name": "decoders_licences",
+   "units": "n/a",
+   "columns": [
+    "package",
+    "licence",
+    "bundled_native_libs",
+    "reads",
+    "status"
+   ],
+   "rows": [
+    [
+     "pillow-heif",
+     "BSD-3-Clause (binding)",
+     "libheif LGPL-3.0, libde265 LGPL-3.0, x265 GPL-2.0+",
+     "HEIC/HEIF, EXIF/XMP, depth images (version-dependent)",
+     "contested"
+    ],
+    [
+     "Pillow",
+     "MIT-CMU (HPND)",
+     "libjpeg, zlib etc.",
+     "JPEG/PNG/TIFF, EXIF",
+     "knowledge"
+    ],
+    [
+     "rawpy",
+     "MIT (binding)",
+     "LibRaw LGPL-2.1 or CDDL-1.0",
+     "Bayer and linear DNG, vendor raw; opcode warps mostly not applied",
+     "contested"
+    ],
+    [
+     "tifffile",
+     "BSD-3-Clause",
+     "none (imagecodecs optional)",
+     "DNG/TIFF tags and OpcodeList bytes",
+     "knowledge"
+    ],
+    [
+     "ExifTool",
+     "GPL or Artistic (Perl)",
+     "n/a (external process)",
+     "all tags, MakerNotes, aux images",
+     "knowledge"
+    ],
+    [
+     "exifread",
+     "BSD-3-Clause",
+     "none",
+     "EXIF from JPEG/TIFF/HEIC",
+     "knowledge"
+    ],
+    [
+     "lensfunpy",
+     "MIT (binding)",
+     "Lensfun LGPL-3; database CC BY-SA 3.0",
+     "lens profiles (interchangeable lenses; no useful phone coverage)",
+     "knowledge"
+    ]
+   ],
+   "population": "Python packages usable from Blender's bundled CPython via extension wheels",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Licences and versions are time-sensitive; HEVC patent licensing is a separate question from copyright licence."
+  },
+  {
+   "name": "phone_settings_checklist",
+   "units": "n/a",
+   "columns": [
+    "vendor",
+    "setting",
+    "recommended",
+    "reason",
+    "status"
+   ],
+   "rows": [
+    [
+     "Apple iPhone",
+     "Mirror Front Camera",
+     "off",
+     "mirrored selfies swap L/R",
+     "contested"
+    ],
+    [
+     "Apple iPhone",
+     "Preserve Settings (mode, creative controls, macro)",
+     "on",
+     "stop silent mode/lens changes",
+     "knowledge"
+    ],
+    [
+     "Apple iPhone",
+     "Macro Control",
+     "on, then macro off in viewfinder",
+     "Auto Macro switches to the ultra-wide",
+     "knowledge"
+    ],
+    [
+     "Apple iPhone",
+     "Lens Correction (front and ultra-wide)",
+     "leave on",
+     "rectilinear output matches pinhole solver",
+     "contested"
+    ],
+    [
+     "Apple iPhone",
+     "Formats",
+     "Most Compatible (JPEG) unless HEIC decoder available",
+     "avoid HEIC decoding",
+     "knowledge"
+    ],
+    [
+     "Apple iPhone",
+     "Night mode, Portrait, Photographic Styles",
+     "off / off / Standard",
+     "fusion, blur, tone",
+     "knowledge"
+    ],
+    [
+     "Google Pixel",
+     "Face retouching",
+     "off",
+     "skin smoothing",
+     "contested"
+    ],
+    [
+     "Google Pixel",
+     "Save selfies as previewed",
+     "off",
+     "mirroring",
+     "contested"
+    ],
+    [
+     "Google Pixel",
+     "Night Sight; lens choice in Pro controls; RAW+JPEG",
+     "off; explicit lens; on",
+     "fusion; lens swaps; DNG",
+     "contested"
+    ],
+    [
+     "Samsung Galaxy",
+     "Face effects / beauty",
+     "0 / off",
+     "smoothing, reshaping",
+     "contested"
+    ],
+    [
+     "Samsung Galaxy",
+     "Save selfies as previewed; Scene optimizer",
+     "off; off",
+     "mirroring; AI processing",
+     "contested"
+    ],
+    [
+     "Samsung Galaxy",
+     "Zoom",
+     "optical stops only",
+     "AI-enhanced high zoom",
+     "knowledge"
+    ],
+    [
+     "Xiaomi/Oppo/Vivo/Honor/Huawei",
+     "Beautify incl. slimming, eye, nose, chin sliders; AI camera",
+     "0; off",
+     "geometric beauty often default-on",
+     "knowledge"
+    ],
+    [
+     "Any",
+     "Manual camera app to lock one physical lens; video stabilisation",
+     "lock lens; off",
+     "lens substitution; per-frame warps",
+     "knowledge"
+    ]
+   ],
+   "population": "iOS 17-26, Pixel Camera, One UI 6-8 and other Android skins (menu names vary)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Time-sensitive; verify menu names per OS version."
+  }
+ ]
+}

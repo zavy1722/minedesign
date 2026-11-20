@@ -1,0 +1,37 @@
+{
+ "id": "ear-reconstruction-sculpting",
+ "area": "reconstruction",
+ "title": "Reconstructing and sculpting the ear from photos",
+ "queue": [
+  {
+   "claim": "No ear-specific 3D morphable model is permissively licensed: the York Ear Model (Dai, Pears & Smith, FG 2018; recalled \u2248500 training ears, seeded from SYMARE) and the UHM ear (Ploumpis et al., TPAMI 2021) are research-only, released on request.",
+   "query": "York Ear Model 3D morphable model ear download licence Dai Pears Smith",
+   "domains": ""
+  },
+  {
+   "claim": "CIPIC HRTF database pinna anthropometry, recalled means from 45 subjects: pinna height \u224864 mm, width \u224829 mm, cavum concha height \u224819, width \u224816, depth \u224810 mm, cymba \u22487, fossa \u224815, intertragal incisure \u22485 mm, pinna rotation \u224824\u00b0, flare \u224828\u00b0.",
+   "query": "CIPIC HRTF database anthropometric parameters pinna flare angle rotation angle cavum concha depth mean values",
+   "domains": ""
+  },
+  {
+   "claim": "The ear plane usually lies within about \u00b120\u00b0 of the midsagittal plane and faces forward when the ear protrudes, so the ear-normal camera is at or slightly in front of true profile. The library's anatomy/ear.md says 20\u201335\u00b0 behind profile, with a 20\u201335\u00b0 flare from sagittal.",
+   "query": "3D stereophotogrammetry auricle orientation angle to midsagittal plane ear flare measurement",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "The iBUG in-the-wild ear database (Zhou & Zafeiriou, IEEE FG 2017) uses a 55-point ear landmark scheme. Recalled as about 600 landmarked images plus about 2,000 identity images, research use only.",
+   "query": "Zhou Zafeiriou deformable models of ears in-the-wild 55 landmarks database licence",
+   "domains": ""
+  },
+  {
+   "claim": "The HUTUBS HRTF database (Brinkmann et al., 2019) includes 3D head-and-ear meshes of about 96 subjects under CC BY 4.0.",
+   "query": "HUTUBS HRTF database 3D head meshes licence CC BY 4.0 subjects ear",
+   "domains": ""
+  },
+  {
+   "claim": "MPFB2/MakeHuman ships CC0 ear morph targets covering ear size, position, rotation, protrusion ('wing'), lobe and shape. Blender Studio's Human Base Meshes (CC0) include sculpt-ready heads with ears.",
+   "query": "MakeHuman ear modifiers targets list r-ear wing lobe shape pointed MPFB2",
+   "domains": ""
+  }
+ ]
+}

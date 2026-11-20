@@ -1,0 +1,21 @@
+{
+ "topic": "smartphone-camera-pipeline",
+ "sources": [],
+ "references_by_name": [
+  "Shih, Lai & Liang, \"Distortion-free wide-angle portraits on camera phones\", ACM TOG (SIGGRAPH), 2019",
+  "Hasinoff et al., \"Burst photography for high dynamic range and low-light imaging on mobile cameras\", ACM TOG (SIGGRAPH Asia), 2016",
+  "Wronski et al., \"Handheld multi-frame super-resolution\", ACM TOG (SIGGRAPH), 2019",
+  "Apple Developer Documentation: AVCameraCalibrationData, AVDepthData, AVCapturePhotoSettings, AVCaptureDevice (geometric distortion correction)",
+  "Apple WWDC 2017, \"Capturing Depth in iPhone Photography\"",
+  "Android Developers: CameraCharacteristics (LENS_INTRINSIC_CALIBRATION, LENS_DISTORTION, LENS_POSE_*, DISTORTION_CORRECTION_MODE), DngCreator",
+  "Android Dynamic Depth 1.0 specification, 2019",
+  "Adobe, Digital Negative (DNG) Specification 1.4-1.7",
+  "CIPA DC-008, Exif standard",
+  "ISO/IEC 23008-12, HEIF",
+  "ExifTool tag documentation (Apple MakerNotes, CustomRendered)",
+  "Lensfun project documentation",
+  "pillow-heif, rawpy and LibRaw documentation (licence sections)",
+  "Brown, \"Decentering distortion of lenses\", Photogrammetric Engineering, 1966",
+  "Zhang, \"A flexible new technique for camera calibration\", IEEE TPAMI, 2000"
+ ]
+}

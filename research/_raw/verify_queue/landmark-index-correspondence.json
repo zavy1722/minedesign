@@ -1,0 +1,37 @@
+{
+ "id": "landmark-index-correspondence",
+ "area": "reconstruction",
+ "title": "Verified landmark index tables and cross-convention correspondences",
+ "queue": [
+  {
+   "claim": "MediaPipe face_mesh_connections index sets and side naming: FACEMESH_LEFT_EYE ring = 263/466/388/387/386/385/384/398/362 + 249/390/373/374/380/381/382 (subject's left); RIGHT_IRIS = 469-472 with centre 468, LEFT_IRIS = 474-477 with centre 473; FACE_OVAL is the 36-point ring starting 10, 338, 297 ...",
+   "query": "face_mesh_connections.py FACEMESH_LEFT_EYE FACEMESH_RIGHT_IRIS 469 470 471 472 FACEMESH_FACE_OVAL",
+   "domains": "github.com"
+  },
+  {
+   "claim": "MediaPipe canonical_face_model.obj: 468 vertices with one UV per vertex, about 898 triangles, units centimetres, right-handed y-up with the face toward +z and the virtual camera at the origin looking down -z; subject's left at +x",
+   "query": "mediapipe canonical face model centimeter metric 3D space virtual perspective camera negative Z axis canonical_face_model.obj",
+   "domains": "github.com,ai.google.dev,developers.google.com"
+  },
+  {
+   "claim": "FLAME landmark embedding: static set of 51 barycentric points = iBUG 68 indices 17-67; dynamic 17-point jaw contour tabulated over 79 yaw bins clamped to +/-39 deg (DECA indexing: yaw>=0 -> round(yaw), yaw<0 -> 39 - round(yaw))",
+   "query": "landmark_embedding.npy dynamic_lmk_faces_idx static_lmk_faces_idx 79 FLAME DECA _find_dynamic_lmk_idx_and_bcoords",
+   "domains": "github.com"
+  },
+  {
+   "claim": "PeizhiYan/Mediapipe_2_Dlib_Landmarks is MIT-licensed and its 478->68 table agrees with the note's candidate map (e.g. jaw 127,234,93,132,58,172,136,149,152...; eyes 33,160,158,133,153,144)",
+   "query": "Mediapipe_2_Dlib_Landmarks mediapipe 478 to dlib 68 landmark index mapping",
+   "domains": "github.com"
+  },
+  {
+   "claim": "MICA / metrical-tracker ship a MediaPipe->FLAME embedding of about 105 points (mediapipe_landmark_embedding.npz with MediaPipe ids, FLAME triangle ids, barycentrics) under MPI non-commercial terms",
+   "query": "mediapipe_landmark_embedding.npz FLAME 105 landmarks metrical-tracker MICA lmk_face_idx lmk_b_coords",
+   "domains": "github.com"
+  },
+  {
+   "claim": "ARKit ARFaceGeometry has 1,220 vertices and 2,304 triangles in fixed topology; the face-anchor frame is metres with +x = the face's own left (viewer's right), +y up, +z out of the face",
+   "query": "ARFaceGeometry 1220 vertices 2304 triangles ARFaceAnchor coordinate system positive x face's own left",
+   "domains": ""
+  }
+ ]
+}
