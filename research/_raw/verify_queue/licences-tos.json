@@ -1,0 +1,27 @@
+{
+ "id": "licences-tos",
+ "area": "ethics",
+ "title": "Licences and platform terms",
+ "queue": [
+  {
+   "claim": "MediaPipe Face Landmarker weights (face_landmarker.task / Face Mesh V2) are released under Apache-2.0 per the official model card, making it a commercially safe default detector",
+   "query": "MediaPipe Face Landmarker model card license Apache 2.0 face mesh v2",
+   "domains": "ai.google.dev,developers.google.com,github.com,storage.googleapis.com"
+  },
+  {
+   "claim": "MPFB2/MakeHuman base mesh and targets are CC0 (some asset packs CC-BY), so meshes fitted on the template carry no licence obligations",
+   "query": "MakeHuman MPFB2 assets license CC0 base mesh targets",
+   "domains": "github.com,static.makehumancommunity.org,makehumancommunity.org,extensions.blender.org"
+  },
+  {
+   "claim": "FLAME 2020/2023 is non-commercial research only (registration, no redistribution, commercial via Meshcapade), and a 'FLAME 2023 Open' variant exists under CC BY 4.0",
+   "query": "FLAME 2023 Open CC-BY-4.0 license flame.is.tue.mpg.de",
+   "domains": "flame.is.tue.mpg.de,meshcapade.com,github.com"
+  },
+  {
+   "claim": "Blender Extensions platform requires GPL-compatible SPDX licences, free licences for bundled assets, bundled wheels (no runtime pip install); its policy on downloading model weights at runtime is unclear",
+   "query": "Blender extensions platform policies license requirements download at runtime",
+   "domains": "extensions.blender.org,docs.blender.org,developer.blender.org"
+  }
+ ]
+}

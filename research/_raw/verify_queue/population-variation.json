@@ -1,0 +1,27 @@
+{
+ "id": "population-variation",
+ "area": "anatomy",
+ "title": "Craniofacial variation across human populations",
+ "queue": [
+  {
+   "claim": "Population ranges for alar width / nasal index used as prior widening and sanity gates: European-ancestry male al\u2013al 33\u201336 mm, East Asian 37\u201341 mm, West African/African-American 40\u201346 mm; nasal index ~60\u201370 vs 72\u201385 vs 85\u2013105; within-group SD ~2\u20132.5 mm",
+   "query": "Farkas 2005 international anthropometric study facial morphology ethnic groups nose width al-al mean values",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Training populations of common 3DMMs: BFM 200 mostly European subjects; FLAME identity from ~3,800 CAESAR scans; LSFM ~9,700 subjects with a large White majority; FaceScape ~900+ Chinese subjects; plus current FLAME/BFM licence terms",
+   "query": "Large scale 3D morphable models MeIn3D ethnicity composition White Asian Black percentage FLAME CAESAR training subjects licence",
+   "domains": ""
+  },
+  {
+   "claim": "Lip/profile norms by population: lower lip to E-line \u22122\u00b12 mm (European), 0 to +2 (East Asian), +2 to +6 (African-American); nasolabial angle 95\u2013115\u00b0 vs 85\u2013105\u00b0 vs 75\u201395\u00b0",
+   "query": "nasolabial angle E-line lip protrusion norms African American East Asian White adults comparison",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Upper-lid crease absent in ~40\u201360% of East Asian adults and 4\u20137 mm above lashes when present (vs 8\u201311 mm in European adults); adult epicanthal fold prevalence ~40\u201390% East Asian vs <5% European",
+   "query": "prevalence single eyelid absent upper eyelid crease East Asian adults crease height epicanthal fold prevalence",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

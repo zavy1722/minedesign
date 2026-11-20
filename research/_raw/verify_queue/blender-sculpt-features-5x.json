@@ -1,0 +1,27 @@
+{
+ "id": "blender-sculpt-features-5x",
+ "area": "blender",
+ "title": "Blender sculpt mode feature set (4.x-5.x)",
+ "queue": [
+  {
+   "claim": "In Blender 4.3+ sculpt brushes are assets activated via bpy.ops.brush.asset_activate(asset_library_type, asset_library_identifier, relative_asset_identifier like 'brushes/essentials_brushes-mesh_sculpt.blend/Brush/Draw'), and Brush.sculpt_tool was renamed Brush.sculpt_brush_type; assigning tool_settings.sculpt.brush / paint.brush_select no longer works",
+   "query": "Blender 4.3 Python API brush asset_activate sculpt_brush_type sculpt_tool renamed",
+   "domains": "developer.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Sculpt mask is stored as hidden generic point attribute '.sculpt_mask' (FLOAT, since ~4.1) and face sets as '.sculpt_face_set' (FACE, INT); hidden state in .hide_vert/.hide_poly",
+   "query": "Blender \".sculpt_mask\" \".sculpt_face_set\" attribute python release notes",
+   "domains": "developer.blender.org,docs.blender.org"
+  },
+  {
+   "claim": "Which sculpt-mode features and API changes landed in Blender 5.0, 5.1, 5.2 LTS and 5.3 (e.g. a 'Plane' brush type unifying Flatten/Fill/Scrape in 4.5 or 5.0; unified paint settings moved per mode)",
+   "query": "Blender 5.3 release notes sculpt paint texture",
+   "domains": "developer.blender.org"
+  },
+  {
+   "claim": "Mesh remesh voxel size defaults to 0.1 (object units), and the 3D viewport clip start defaults to 0.01 m, so real-scale heads need about 0.001-0.002 m voxels and a 1 mm clip start",
+   "query": "Blender voxel remesh voxel size default 0.1 sculpt mode manual",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

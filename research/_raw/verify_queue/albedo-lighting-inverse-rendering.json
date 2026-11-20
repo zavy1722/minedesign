@@ -1,0 +1,27 @@
+{
+ "id": "albedo-lighting-inverse-rendering",
+ "area": "reconstruction",
+ "title": "Albedo, lighting and inverse rendering for faces",
+ "queue": [
+  {
+   "claim": "SH irradiance maths used directly by the engine: Lambertian band factors \u00c20=\u03c0, \u00c21=2\u03c0/3, \u00c22=\u03c0/4, and the Ramamoorthi constants c1=0.429043, c2=0.511664, c3=0.743125, c4=0.886227, c5=0.247708 applied to radiance coefficients, giving outgoing radiance albedo\u00b7E/\u03c0",
+   "query": "Ramamoorthi Hanrahan irradiance environment maps c1 0.429043 c2 0.511664 c3 0.743125 c4 0.886227 c5 0.247708",
+   "domains": ""
+  },
+  {
+   "claim": "ITA\u00b0 = atan2(L*\u221250, b*)\u00b7180/\u03c0 with categories very light >55, light 41\u201355, intermediate 28\u201341, tan 10\u201328, brown \u221230 to 10, dark <\u221230 (Chardon 1991; Del Bino 2006)",
+   "query": "Individual Typology Angle ITA categories very light 55 light 41 intermediate 28 tan 10 brown -30 dark Del Bino",
+   "domains": ""
+  },
+  {
+   "claim": "TRUST (Feng, Bolkart, Tesch, Black, Abrevaya, ECCV 2022) shows prior regressors' albedo tracks the training mean, and introduces the FAIR synthetic benchmark scored by ITA error, the BalancedAlb tone-balanced albedo space, and scene-level light estimation",
+   "query": "TRUST Towards Racially Unbiased Skin Tone Estimation via Scene Disambiguation FAIR benchmark BalancedAlb",
+   "domains": "arxiv.org,trust.is.tue.mpg.de,github.com"
+  },
+  {
+   "claim": "Licences: BFM 2009/2017 free for non-commercial use with registration; FLAME, its FFHQ texture space and TRUST/BalancedAlb under MPI non-commercial terms; AlbedoMM academic-only. An open-source add-on cannot ship these assets.",
+   "query": "FLAME 2023 head model license terms commercial use flame.is.tue.mpg.de",
+   "domains": "flame.is.tue.mpg.de,faces.dmi.unibas.ch,github.com"
+  }
+ ]
+}

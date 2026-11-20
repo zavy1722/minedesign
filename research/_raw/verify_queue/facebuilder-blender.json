@@ -1,0 +1,27 @@
+{
+ "id": "facebuilder-blender",
+ "area": "blender",
+ "title": "KeenTools FaceBuilder for Blender in practice",
+ "queue": [
+  {
+   "claim": "FaceBuilder's current version state in late 2026: latest release number, support for Blender 5.2 LTS / 5.3, and whether it ships as a Blender 4.2+ extension",
+   "query": "KeenTools FaceBuilder for Blender 2026 release notes Blender 5 support",
+   "domains": "keentools.io"
+  },
+  {
+   "claim": "FaceBuilder pricing is a subscription of roughly 100\u2013300 USD per seat-year with a 30-day trial; licence is a GPL Python front end plus a proprietary core, and users own the outputs under the EULA",
+   "query": "KeenTools FaceBuilder for Blender pricing trial license EULA",
+   "domains": "keentools.io"
+  },
+  {
+   "claim": "FaceBuilder uses a pinhole camera with the principal point at the image centre and no radial lens-distortion model; focal can be taken from EXIF, set manually or estimated per view or shared",
+   "query": "KeenTools FaceBuilder Blender focal length estimation lens distortion camera settings documentation",
+   "domains": "keentools.io"
+  },
+  {
+   "claim": "FaceBuilder generates 51 ARKit-compatible blendshapes (no tongueOut) and imports Live Link Face CSV animation",
+   "query": "KeenTools FaceBuilder Blender ARKit blendshapes 51 tongueOut Live Link Face CSV",
+   "domains": "keentools.io"
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "forehead-brow-temple-hairline",
+ "area": "anatomy",
+ "title": "Forehead, brow ridge, temple and hairline",
+ "queue": [
+  {
+   "claim": "Soft-tissue forehead inclination (upper-forehead tangent or tr\u2013g\u2032 line vs FH-perpendicular) is about 5\u201320\u00b0 backward in adults, women more vertical; suggested prior \u03bc \u224812\u00b0 men / \u22488\u00b0 women, \u03c3 5\u00b0.",
+   "query": "soft tissue forehead inclination angle norms adult male female degrees profile anthropometry",
+   "domains": "ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Forehead height tr\u2013n\u2032 is about 60\u201370 mm in men and 55\u201365 mm in women (SD \u22486\u20138 mm, North American White-type norms); tr\u2013g\u2032 is about 10\u201315 mm less.",
+   "query": "Farkas forehead height trichion nasion trichion glabella adult norms mm male female",
+   "domains": "ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Bone-to-skin depth is about 4\u20136 mm at supraglabella/mid-forehead and frontal eminence, about 6\u20139 mm at mid-brow (supraorbital) and about 10\u201325 mm at mid-temple. These feed log-normal priors (glabella \u03bc 5.3 mm, \u03c3_log 0.15; mid-temple \u03bc 15 mm, \u03c3_log 0.35).",
+   "query": "facial soft tissue thickness supraglabella frontal eminence supraorbital mid-temporal pooled T-table mm",
+   "domains": "ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov,link.springer.com"
+  },
+  {
+   "claim": "MediaPipe Face Landmarker midline forehead indices run 10 \u2192 151 \u2192 9 \u2192 8 \u2192 168 (10 = top of the mesh, not trichion), and its blendshapes include browInnerUp, browOuterUpLeft/Right and browDownLeft/Right.",
+   "query": "MediaPipe face mesh canonical landmark index 10 151 9 8 168 forehead midline browInnerUp blendshape",
+   "domains": "github.com,developers.google.com,ai.google.dev"
+  }
+ ]
+}

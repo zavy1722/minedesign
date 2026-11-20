@@ -1,0 +1,174 @@
+{
+ "topic": "face-rigging",
+ "sources": [
+  {
+   "n": 1,
+   "title": "Faceit: Facial Expressions and Performance Capture (Superhive)",
+   "url": "https://superhivemarket.com/products/faceit",
+   "kind": "commercial listing",
+   "year": "n.d."
+  },
+  {
+   "n": 2,
+   "title": "Face Shape Key Rig (Blender Extensions)",
+   "url": "https://extensions.blender.org/add-ons/face-shapekey-rig/",
+   "kind": "official listing",
+   "year": "n.d."
+  },
+  {
+   "n": 3,
+   "title": "Fragid/face-shapekey-rig (GitHub)",
+   "url": "https://github.com/Fragid/face-shapekey-rig",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 4,
+   "title": "H0wZy/captureforge (GitHub)",
+   "url": "https://github.com/H0wZy/captureforge",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 5,
+   "title": "mozi1924/mediapipe-facecap-for-blender (GitHub)",
+   "url": "https://github.com/mozi1924/mediapipe-facecap-for-blender",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 6,
+   "title": "Apple ARKit: ARFaceAnchor.blendShapes",
+   "url": "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 7,
+   "title": "Apple ARKit: ARFaceAnchor.BlendShapeLocation",
+   "url": "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 8,
+   "title": "Apple Tech Talks 601: Face Tracking with ARKit",
+   "url": "https://developer.apple.com/videos/play/tech-talks/601/",
+   "kind": "official video",
+   "year": "n.d."
+  },
+  {
+   "n": 9,
+   "title": "MediaPipe Face Landmarker (Google AI Edge)",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 10,
+   "title": "MediaPipe Face landmark detection guide for Python",
+   "url": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker/python",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 11,
+   "title": "MediaPipe mp.tasks.vision.FaceLandmarkerResult API",
+   "url": "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 12,
+   "title": "MediaPipe Face Mesh: All 478 Landmark Points (DEV Community)",
+   "url": "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8",
+   "kind": "blog",
+   "year": "n.d."
+  },
+  {
+   "n": 13,
+   "title": "MediaPipe Face Mesh (legacy docs mirror)",
+   "url": "https://mediapipe.readthedocs.io/en/latest/solutions/face_mesh.html",
+   "kind": "official docs",
+   "year": "n.d."
+  },
+  {
+   "n": 14,
+   "title": "Facial Action Coding System (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Facial_Action_Coding_System",
+   "kind": "encyclopedia",
+   "year": "n.d."
+  },
+  {
+   "n": 15,
+   "title": "IEEE Technav: Action units",
+   "url": "https://technav.ieee.org/topic/action-units/",
+   "kind": "reference",
+   "year": "n.d."
+  },
+  {
+   "n": 16,
+   "title": "Lancaster University psychology glossary: action unit",
+   "url": "https://www.lancaster.ac.uk/fas/psych/glossary/action_unit/",
+   "kind": "glossary",
+   "year": "n.d."
+  },
+  {
+   "n": 17,
+   "title": "The Role of Facial Action Units in Investigating Facial Movements During Speech (PMC)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13229553/",
+   "kind": "paper",
+   "year": "n.d."
+  },
+  {
+   "n": 18,
+   "title": "Scoring Upper Face Action Units (FACS manual excerpt, SlideShare copy)",
+   "url": "https://pt.slideshare.net/wooo17/manual-1st",
+   "kind": "manual excerpt",
+   "year": "n.d."
+  },
+  {
+   "n": 19,
+   "title": "MPFB, Blender Extensions listing",
+   "url": "https://extensions.blender.org/add-ons/mpfb/",
+   "kind": "official listing",
+   "year": "n.d."
+  },
+  {
+   "n": 20,
+   "title": "mpfb2 LICENSE.CODE.md (GitHub)",
+   "url": "https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.CODE.md",
+   "kind": "repo",
+   "year": "n.d."
+  },
+  {
+   "n": 21,
+   "title": "TalkingHead blender/Faceit/FACEIT.md (GitHub; lead, unread)",
+   "url": "https://github.com/met4citizen/TalkingHead/blob/main/blender/Faceit/FACEIT.md",
+   "kind": "repo doc",
+   "year": "n.d."
+  },
+  {
+   "n": 22,
+   "title": "wk FaceRig (Superhive; lead, unread)",
+   "url": "https://superhivemarket.com/products/wk-facerig",
+   "kind": "commercial listing",
+   "year": "n.d."
+  }
+ ],
+ "references_by_name": [
+  "Blender Manual: Rigify (meta-rigs, face skin rig types, Upgrade Face Rig); Data Transfer, Surface Deform, Corrective Smooth modifiers; Follow Track constraint",
+  "Blender developer docs: 4.4 slotted Actions and 5.0 Python API release notes",
+  "Auto-Rig Pro documentation (Artell)",
+  "Epic Games, Live Link Face app documentation",
+  "Ekman, Friesen & Hager, Facial Action Coding System, 2002",
+  "Baran & Popovic, Automatic Rigging and Animation of 3D Characters, SIGGRAPH 2007",
+  "Sumner & Popovic, Deformation Transfer for Triangle Meshes, SIGGRAPH 2004",
+  "Li, Weise & Pauly, Example-Based Facial Rigging, SIGGRAPH 2010",
+  "Lewis et al., Practice and Theory of Blendshape Facial Models, Eurographics STAR 2014",
+  "Orvalho et al., Transferring the Rig and Animations from a Character to Different Face Models, Computer Graphics Forum 2008",
+  "Casiez, Roussel & Vogel, 1 Euro Filter, CHI 2012",
+  "Becker & Fuchs, Lid-eye coordination during vertical gaze changes in man and monkey, J Neurophysiol 1988",
+  "Osipa, Stop Staring: Facial Modeling and Animation Done Right, 3rd ed., 2010"
+ ]
+}

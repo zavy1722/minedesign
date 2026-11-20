@@ -1,0 +1,27 @@
+{
+ "id": "blenderartists-forum",
+ "area": "community",
+ "title": "BlenderArtists forum knowledge on faces",
+ "queue": [
+  {
+   "claim": "The FLAME head model (5,023 vertices) is released only under a non-commercial research licence, with commercial use licensed through Meshcapade. A more permissive 'FLAME 2023 Open' release may exist, but this is unconfirmed.",
+   "query": "FLAME 2023 Open license commercial use CC-BY flame model MPI",
+   "domains": "flame.is.tue.mpg.de"
+  },
+  {
+   "claim": "The EXIF FocalLengthIn35mmFilm value is defined on the image diagonal (43.27 mm full-frame diagonal), so a width-based conversion gets the focal length about 4% wrong for 4:3 phone photos. Manufacturers may not follow this consistently.",
+   "query": "EXIF FocalLengthIn35mmFilm definition diagonal or width CIPA DC-008 35mm equivalent calculation",
+   "domains": ""
+  },
+  {
+   "claim": "KeenTools FaceBuilder for Blender is a paid add-on with a 30-day trial (forum user reports). Its current price, licence, and support for Blender 5.x are unknown.",
+   "query": "KeenTools FaceBuilder for Blender pricing license trial 2026 Blender 5 support",
+   "domains": "keentools.io"
+  },
+  {
+   "claim": "Adult interpupillary distance has a mean of about 63 mm, most adults fall between roughly 54 and 74 mm, and men average about 2-3 mm wider than women (Dodgson 2004). The note suggests an absolute-scale prior of 63 \u00b1 3.5 mm (1\u03c3).",
+   "query": "Dodgson 2004 variation and extrema of human interpupillary distance mean 63 mm range",
+   "domains": ""
+  }
+ ]
+}

@@ -2,7 +2,7 @@
 
 > Facial perspective is set by camera distance, not the lens: a feature Δ mm behind the nose tip images (1 + Δ/z)× smaller, and a longer lens only lets you stand farther back at the same framing. At selfie distance (0.25–0.4 m) pinhole geometry inflates nose width against the cheek outline by 12–19% and images the ears 20–29% smaller relative to the nose tip; the one clinical model study reports ~30%, and at 1.5–3 m the effect falls to 2–7%. Beyond ~1 m a face's own perspective no longer reveals focal length, and between-person variation in nose-to-face ratio is as large as the whole distance effect, so focal length must come from EXIF, calibration or a prior. The engine should fit each photo with a full-perspective camera parameterised by scale and inverse distance and report how observable distance was; the sculptor should judge likeness only through that matched camera, never a wide viewport or ortho tracings of near photos.
 >
-> Evidence status: 1 ✅ / 15 📄 / 71 🧠 / 13 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 2 ✅ / 15 📄 / 81 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
 
 No topic harvest existed; cited URLs come from sibling harvests. Companions: `reconstruction/camera-pose-solving.md`, `blender/reference-camera-setup.md`, `community/reference-photography-protocol.md`.
 
@@ -11,7 +11,7 @@ No topic harvest existed; cited URLs come from sibling harvests. Companions: `re
 **Geometry**
 - Perspective depends only on the centre of projection: from one spot a longer lens is a crop of a shorter one, and at equal framing a longer lens means standing farther back, which is what flattens the face [1][2]. Face-specific work models and corrects portrait distortion as a function of camera distance [3][4] ✅
 - Pinhole law: image scale ∝ f/z, so points Δ apart in depth image at a scale ratio of 1 + Δ/z (z to the nearer point) 🧠. Approximate adult depths behind pronasale: alar base ~20 mm, eye corners 35–45, cheek contour 60–80, tragion 90–120 (Farkas-type norms) 🧠
-- **Close camera:** nose (tip and nostrils most) and central face enlarged against the outline; the face reads narrower; ears smaller, set back, partly tucked behind the cheeks; held high, a bigger forehead and eyes and a smaller chin and jaw. **Far camera:** broader face, flatter features, prominent ears 🧠. Drawing canons shift too: thirds and halves compress with viewing angle [18] 📄
+- **Close camera:** nose and central face enlarged against the outline, face narrower, ears smaller and tucked behind the cheeks; held high, also bigger forehead and eyes, smaller chin and jaw. **Far:** broader, flatter face, prominent ears 🧠. Drawing canons shift too: thirds and halves compress with viewing angle [18] 📄
 - Three things get called "distortion": (1) distance perspective; (2) rectilinear off-axis stretch, ≈1/cos θ radially for a face θ off-axis (15% at 30°); (3) lens distortion (Brown–Conrady). A matched pinhole with the true principal point reproduces (1) and (2) 🧠; (3) must be removed first, since PnP assumes undistorted coordinates [9] 📄
 - Phones correct main-camera lens distortion in-pipeline; some also warp faces near wide-frame edges (Shih, Lai & Liang 2019), which is not pinhole 🧠
 
@@ -30,7 +30,7 @@ No topic harvest existed; cited URLs come from sibling harvests. Companions: `re
 - "1/x-inch" sensor names are legacy tube sizes; the real diagonal is about two-thirds of the figure (a "1-inch" sensor is ~16 mm) 🧠
 - EXIF focal length is the nominal infinity-focus value: unit focusing raises the effective pinhole focal length by (1 + m) (Table 3), internal focusing may lower it (breathing), and markings carry a tolerance I recall as ±5% (ISO 517) 🧠
 - Blender's `lens` only means something with sensor width and fit [11] 📄; typing f35 into it is exact only for 3:2 images on a 36 mm horizontal sensor (4:3 needs ×1.040) 🧠
-- The **viewport** focal length is not a camera: a community thread reports needing ~2× the camera focal length to match, which a maintainer disputed as a bug [12] 📄. I recall a fixed 2× viewport zoom, making a 50 mm viewport ≈ a 25 mm camera on a 36 mm sensor 🧠
+- The **viewport** focal length is not a camera: a community thread reports needing ~2× the camera value to match, which a maintainer disputed as a bug [12] 📄. I recall a fixed 2× viewport zoom (50 mm viewport ≈ 25 mm camera, 36 mm sensor) 🧠
 - FaceBuilder sets focal length and sensor per photo automatically [15] 📄. fSpy solves focal length from vanishing lines [13]; with one vanishing point you must supply it [14] 📄. Faces have no straight edges, so vanishing points must come from the background 🧠
 
 **Estimating focal length and distance from a face**

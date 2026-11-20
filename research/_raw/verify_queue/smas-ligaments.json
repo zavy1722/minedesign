@@ -1,0 +1,27 @@
+{
+ "id": "smas-ligaments",
+ "area": "anatomy",
+ "title": "SMAS and facial retaining ligaments",
+ "queue": [
+  {
+   "claim": "Tear trough ligament runs from about the medial canthus to the mid-pupillary line on the medial infraorbital rim and continues laterally as the orbicularis retaining ligament, which is tight medially and lax laterally. The note uses this for the tear trough and lid-cheek placement priors (medial end 3-6 mm below endocanthion; lateral end 14-18 mm below pupil centre).",
+   "query": "tear trough ligament Wong Hsieh Mendelson 2012 origin medial canthus midpupillary line orbicularis retaining ligament",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov,journals.lww.com"
+  },
+  {
+   "claim": "The mandibular ligament is either a true osteocutaneous ligament on the anterior third of the mandible about 1 cm above the lower border (Furnas), or it exists only in the sub-platysmal plane (Minelli 2022). The engine places it at jaw arc fraction 0.25 +/- 0.07 from menton.",
+   "query": "mandibular ligament location distance from mandibular border cadaver osteocutaneous Minelli 2022 jowl",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov,link.springer.com"
+  },
+  {
+   "claim": "SMAS thickness is roughly 0.5-3 mm, thickest over the parotid and thin or fragmented over the anterior cheek. The engine uses ligament vs space thickness sigmas of 1.0 vs 3.5 mm.",
+   "query": "SMAS thickness ultrasound MRI parotid cheek millimeters regional measurement",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Layer-specific facial soft-tissue thickness from the CT study of 1174 Chinese adults (skin, fat and muscle at 33 landmarks), so real per-layer values can replace the knowledge-based layer-stack prior.",
+   "query": "Layer-specific facial soft-tissue thickness in 1174 Chinese adults skin fat muscle landmarks",
+   "domains": "pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

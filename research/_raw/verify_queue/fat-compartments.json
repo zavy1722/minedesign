@@ -1,0 +1,27 @@
+{
+ "id": "fat-compartments",
+ "area": "anatomy",
+ "title": "Facial fat compartments",
+ "queue": [
+  {
+   "claim": "Superficial compartments in Rohrich & Pessa 2007 are nasolabial, medial, middle and lateral temporal-cheek, central and middle forehead, superior/inferior/lateral orbital, plus jowl (Reece 2008). This list defines the engine's region atlas.",
+   "query": "Rohrich Pessa 2007 fat compartments of the face nasolabial medial middle lateral temporal-cheek forehead orbital compartments",
+   "domains": "pubmed.ncbi.nlm.nih.gov,journals.lww.com"
+  },
+  {
+   "claim": "Adult skin-to-bone depth ranges: suborbital 5-11 mm, inferior malar 10-17 mm, zygomatic arch 4-9 mm, lateral orbit 7-12 mm, buccal (supra/infra M2) 18-30 mm, mid-masseter 14-22 mm.",
+   "query": "facial soft tissue depth T-table supra-M2 infra-M2 mid-masseter suborbital inferior malar adult means Stephan Simpson",
+   "domains": ""
+  },
+  {
+   "claim": "Aging pattern: deep midface compartments (deep medial cheek fat, SOOF) lose volume while superficial compartments shift inferiorly (Gierloff 2012 CT study).",
+   "query": "Gierloff 2012 aging changes of the midfacial fat compartments computed tomographic study deep medial cheek fat inferior migration",
+   "domains": "pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Buccal fat pad volume is about 8-12 mL per side (about 10 mL often quoted; Stuzin 1990, Zhang 2002), and its relation to body weight is contested.",
+   "query": "buccal fat pad volume mL cadaver Zhang 2002 anatomical structure Stuzin 1990 body weight",
+   "domains": "pubmed.ncbi.nlm.nih.gov,journals.lww.com"
+  }
+ ]
+}

@@ -2,7 +2,7 @@
 
 > Public 3D face data comes in four families: static identity scans (Headspace, FRGC, Bosphorus, FaceBase, NoW), static expression sets (FaceScape, FaceWarehouse, BU-3DFE), 4D sequences (BU-4DFE, BP4D, D3DFACS, CoMA, VOCASET, FaMoS, 4DFAB) and calibrated multi-view video (Multiface, NeRSemble, RenderMe-360, Ava-256). Nearly all are non-commercial and research-only, released after an application that usually needs an institutional signatory, and the scans behind the big morphable models (CAESAR for FLAME, MeIn3D for LSFM) are not freely available. Populations are narrow: FaceScape is mostly Chinese, Headspace mostly white British, the MPI and TUM sets mostly young Europeans, and only Headspace shows the cranium, because subjects wore tight caps. In this project, datasets serve local validation and, where the licence allows, prior estimation; they are never shipped, and the add-on reads them through user-supplied adapters that declare units, axes, landmark convention and licence. No harvest or earlier draft existed for this topic, so every item is expert knowledge awaiting verification.
 >
-> Evidence status: 0 ✅ / 0 📄 / 37 🧠 / 28 ↔️ — 🧠 items are queued for web verification.
+> Evidence status: 0 ✅ / 0 📄 / 41 🧠 / 42 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -81,8 +81,8 @@ Counts, capture and licence per dataset are in Table 1; these bullets cover what
 
 ## Applying this to photo→3D face sculpting in Blender
 
-- **What datasets are for here.** Use them to test the solver and to calibrate expectations, not as sculpting assets. An artist working on one consenting person needs only that person's photos plus a permissively licensed template. 🧠
-- **Access reality.** Unaffiliated artists usually cannot sign FaceScape, Headspace or Binghamton agreements. They can download Multiface (CC BY-NC) and register for the MPI sets. Whether a personal art project counts as "non-commercial research" is unclear, so treat it as not allowed until the licence says otherwise. ↔️
+- **What datasets are for here.** Testing the solver and calibrating expectations, not sculpting assets: a likeness of one consenting person needs only their photos and a permissively licensed template. 🧠
+- **Access reality.** Unaffiliated artists usually cannot sign FaceScape, Headspace or Binghamton agreements, but can download Multiface and register for the MPI sets. Whether a personal art project counts as "non-commercial research" is unclear; assume not until the licence says so. ↔️
 - **Validation recipe.** Take a subject with calibrated views and a mesh (FaceScape multi-view, FaMoS or Multiface). Feed the engine 3, 5 and 9 views. Align the result with 7 landmarks plus similarity (NoW style), then ICP. Report scan-to-mesh error per region: nose, mouth, eyes, forehead, cheeks, jaw. 🧠
   - Rough targets: 3DMM fit from ≥5 calibrated views ≈1–1.5 mm mean; photogrammetry ≈0.3–0.7 mm; any number below ≈1.5× the scan σ in Table 2 is noise. ↔️
 - **Importing scans.**
@@ -96,7 +96,7 @@ Counts, capture and licence per dataset are in Table 1; these bullets cover what
   - Neutral is not neutral: lips parted, brows raised. FaceScape's and FaceWarehouse's "neutral" are reference poses, not relaxed faces (lib: `expression-neutralization.md`). ↔️
   - Baked lighting and specular in dataset textures; never use them as albedo. 🧠
   - FaceWarehouse geometry is too smooth for detail work; use FaceScape displacement maps only to judge how deep pores and wrinkles run (sub-millimetre), not to transfer detail. 🧠
-- **Population.** Children appear only in Headspace, FaceWarehouse (7+), FaceBase (3+) and the LSFM model. Darker skin is sparse everywhere, and stereo matching on low-contrast or very specular skin is noisier. For under-represented subjects, rely on more views rather than a stronger prior. ↔️
+- **Population.** Children appear only in Headspace, FaceWarehouse (7+), FaceBase (3+) and the LSFM model; darker skin is sparse everywhere. For under-represented subjects, rely on more views, not a stronger prior. ↔️
 
 ## Algorithmic implications
 
@@ -115,7 +115,7 @@ Counts, capture and licence per dataset are in Table 1; these bullets cover what
 - **Population mismatch.** Use a mixture prior with components per training population, chosen by fit likelihood rather than user-declared ethnicity, with a manual override. Widen σ by 1.3–1.5× when no component fits (a guess, consistent with `awesome-lists-resources.md`). ↔️
 - **Leakage guard.** Tag every subject ID used in any prior. The evaluator refuses to report on overlapping subjects, for example REALY (Headspace) against a HIFI3D++- or LYHM-based prior. 🧠
 - **Expression checks.** Train small detectors for lip seal, brow raise and smile on the shape deltas of FaceScape or FaceWarehouse expressions where licensed, or on FLAME expression directions. Flag non-neutral input photos before fitting identity. 🧠
-- **Time.** Store each loader's licence text hash and download date. Datasets get withdrawn or relicensed. 🧠
+- **Time.** Store each loader's licence-text hash and download date; datasets get withdrawn or relicensed. 🧠
 
 ## Disagreements, myths & open questions
 
@@ -125,14 +125,14 @@ Counts, capture and licence per dataset are in Table 1; these bullets cover what
 - **Contested: whether derived models escape the licence.** Most agreements say no; lawyers differ on whether PCA statistics are copyrightable (lib: `ethics/licences-tos.md`). ↔️
 - **Contested: whether multi-view video sets replace scans** (NeRSemble, RenderMe-360, Ava-256). Their geometry is reconstructed, so millimetre claims on them are method-dependent. ↔️
 - **Open:**
-  - which datasets are still distributed in late 2026: D3DFACS hosting, Binghamton fees, FaceScape server, Headspace terms;
+  - what is still distributed in late 2026 (D3DFACS hosting, Binghamton fees, FaceScape server, Headspace terms);
   - whether a permissive (CC BY) metric head-scan set now exists;
-  - whether synthetic data (FaceSynthetics-style renders, generative heads) can stand in for scans in priors;
-  - exact counts for FaMoS, Multiface, NeRSemble and RenderMe-360.
+  - whether synthetic heads can replace scans in priors;
+  - exact FaMoS, Multiface, NeRSemble and RenderMe-360 counts.
 
 ## Sources
 
-No harvest or earlier draft was available for this topic, so no URLs are cited. All items are 🧠 or ↔️ and are queued for verification.
+No harvest or earlier draft was available for this topic, so no URLs are cited; every item is queued for verification.
 
 **Further reading (by name, not yet linked)**
 - Yang et al., FaceScape, CVPR 2020; Zhu et al., FaceScape benchmark, IEEE TPAMI

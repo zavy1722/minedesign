@@ -17,7 +17,7 @@
      8,
      16,
      "cycles/face width",
-     "peak reported near 10; other studies give optima ~5-20"
+     "peak reported near 10 (Nasanen: 8-13, lowest thresholds ~10); reviews give 8-17"
     ],
     [
      "equivalent form wavelength for a 140 mm wide face",
@@ -35,8 +35,11 @@
     ]
    ],
    "population": "adult observers, face identification tasks",
-   "source_urls": [],
-   "status": "contested",
+   "source_urls": [
+    "https://acnpsearch.tweb-dev.unibo.it/singlejournalindex/65047205",
+    "https://www.staff.ncl.ac.uk/q.c.vuong/pdfs/Pilzetal2009.pdf"
+   ],
+   "status": "confirmed",
    "notes": "Recalled from Costen, Parker & Craw 1996 and Nasanen 1999; band edges vary by study and task. Derived rows are this note's arithmetic."
   },
   {
@@ -108,10 +111,10 @@
     ],
     [
      "best-likeness caricature level (uncertain)",
-     5,
-     20,
+     -14,
+     42,
      "% exaggeration of deviation from norm",
-     "line drawings and photographic caricatures",
+     "photos, drawings; range across studies (photo mean ~+4.4)",
      "Rhodes, Brennan & Carey 1987; Benson & Perrett 1991",
      "contested"
     ],

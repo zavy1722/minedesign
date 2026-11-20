@@ -1,0 +1,27 @@
+{
+ "id": "muscles-mastication-jaw",
+ "area": "anatomy",
+ "title": "Masseter, temporalis and the jaw line",
+ "queue": [
+  {
+   "claim": "Relaxed masseter thickness per side is 9.8 \u00b1 1.3 mm in women and 11.3 \u00b1 1.2 mm in men (12.4 and 14.7 clenched; Korean young adults). A systematic review gives 10-15 mm relaxed and 14-19 mm contracted for men. These values set the default masseter prior (F N(10,1.8\u00b2), M N(12,2\u00b2)) and the clench gain \u03ba\u22480.28.",
+   "query": "masseter muscle thickness ultrasonography facial profile young Korean adults relaxed clenched mm",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Skeletal priors from expert knowledge: gonial angle \u2248 N(122\u00b0, 7\u00b0), normal 110-135\u00b0; bony bigonial width M \u2248 90-105 mm (N(97,6\u00b2)) and F \u2248 84-97 mm (N(90,5\u00b2)); go-go/zy-zy ratio \u2248 0.70-0.80.",
+   "query": "bigonial width gonial angle adult male female norms CBCT mm mean standard deviation",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Facial soft-tissue depth, skin to bone, is \u2248 8-18 mm at gonion and \u2248 14-26 mm at mid-ramus over the masseter; the temple is \u2248 9-18 mm.",
+   "query": "facial soft tissue thickness gonion mid-ramus temporal adult mean mm forensic facial approximation tables",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "In the Taiwanese automated-segmentation study, temporalis volume peaks at 36.9 mL (men, age 20-29) and 27.9 mL (women, age 30-39), then declines 38% and 60%. Whether these volumes are per side is unconfirmed. The age slope of the temple prior (\u22480.6%/yr in men, 1%/yr in women) is derived from them.",
+   "query": "automated segmentation sex-divergent age-related decline temporalis muscle volume Asian adults",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

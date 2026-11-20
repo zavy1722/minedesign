@@ -1,0 +1,27 @@
+{
+ "id": "texture-projection-painting",
+ "area": "blender",
+ "title": "Projection painting and texturing heads in Blender",
+ "queue": [
+  {
+   "claim": "bpy.ops.paint.project_image ('Apply Camera Image') projects an image from the active scene camera when the image has no stored view_data, uses render resolution and pixel aspect for framing (so it honours lens shift and sensor fit), and applies Texture Paint's Occlude, Backface Culling and Normal settings; it still exists in Blender 5.2 LTS and 5.3.",
+   "query": "Blender paint.project_image \"Apply Camera Image\" active camera texture paint",
+   "domains": "docs.blender.org,projects.blender.org"
+  },
+  {
+   "claim": "Blender ignores JPEG EXIF orientation when loading images, so portrait phone photos load rotated.",
+   "query": "Blender image EXIF orientation ignored JPEG rotated",
+   "domains": "projects.blender.org,devtalk.blender.org"
+  },
+  {
+   "claim": "The UV Project modifier with a camera projector uses the camera's lens, sensor fit and lens shift (plus the user's Aspect X/Y); with several projectors, each face takes the projector it faces most directly; the limit is 10 projectors.",
+   "query": "Blender UV Project modifier camera projector aspect lens shift sensor fit",
+   "domains": "docs.blender.org"
+  },
+  {
+   "claim": "Blender defaults: Texture Paint seam Bleed 2 px, Normal fade angle about 80 degrees, Screen Grab Size 512; Cycles bake margin 16 px with margin type Adjacent Faces/Extend (about 3.1+); Unwrap margin 0.001; Smart UV Project angle limit 66 degrees.",
+   "query": "Blender manual texture paint options bleed normal angle occlude backface",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

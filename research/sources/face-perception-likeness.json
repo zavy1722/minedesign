@@ -1,6 +1,32 @@
 {
  "topic": "face-perception-likeness",
- "sources": [],
+ "sources": [
+  {
+   "url": "https://acnpsearch.tweb-dev.unibo.it/singlejournalindex/65047205",
+   "title": "Nasanen 1999",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://www.staff.ncl.ac.uk/q.c.vuong/pdfs/Pilzetal2009.pdf",
+   "title": "Pilz et al 2009",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12729380/",
+   "title": "Sadr, Jarudi & Sinha 2003",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://research-portal.st-andrews.ac.uk/en/publications/perception-and-recognition-of-photographic-quality-facial-caricat/",
+   "title": "Benson & Perrett photographic caricatures",
+   "accessed": "2026-11-20"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4720326",
+   "title": "Abudarham & Yovel 2016",
+   "accessed": "2026-11-20"
+  }
+ ],
  "references_by_name": [
   "Yin 1969, Looking at upside-down faces, Journal of Experimental Psychology",
   "Young, Hellawell & Hay 1987, Configurational information in face perception, Perception",

@@ -1,0 +1,27 @@
+{
+ "id": "hair-blender",
+ "area": "blender",
+ "title": "Hair in Blender for head reconstructions",
+ "queue": [
+  {
+   "claim": "Curves hair Python/attachment API: Curves.add_curves/remove_curves/resize_curves exist in 4.x+, roots attach via surface_uv_coordinate + non-overlapping surface UV map, Deform Curves on Surface needs Object.add_rest_position_attribute, curves.snap_curves_to_surface (NEAREST/DEFORM) and curves.surface_set operators \u2014 and whether any of this changed in 5.0\u20135.3",
+   "query": "Blender Python API Curves add_curves surface_uv_coordinate snap_curves_to_surface rest position",
+   "domains": "docs.blender.org,developer.blender.org"
+  },
+  {
+   "claim": "Principled Hair BSDF: Huang model added in 4.0 and Cycles-only; defaults IOR 1.55, Offset 2\u00b0, Roughness 0.3, Radial Roughness 0.3, Coat 0, Aspect Ratio 0.85; Melanin/Melanin Redness parametrization",
+   "query": "Blender manual Principled Hair BSDF Huang model aspect ratio defaults melanin redness",
+   "domains": "docs.blender.org"
+  },
+  {
+   "claim": "Scalp hair density 120\u2013300 hairs/cm\u00b2 (~200 typical), total 80k\u2013150k, shaft diameter 50\u2013120 \u00b5m and cross-section ellipticity East Asian 0.8\u20130.9 / European 0.65\u20130.8 / African 0.5\u20130.65",
+   "query": "scalp hair density per cm2 and hair shaft diameter ellipticity by ethnicity Asian Caucasian African study",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Eyebrow hair count ~250\u2013350 per brow (200\u2013600 reported), brow density 40\u2013120 hairs/cm\u00b2, brow peak between the lateral limbus (Westmore) and the lateral canthus, female peak 5\u201310 mm above the supraorbital rim",
+   "query": "eyebrow hair count density per cm2 study eyebrow peak position lateral limbus aesthetic analysis",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}

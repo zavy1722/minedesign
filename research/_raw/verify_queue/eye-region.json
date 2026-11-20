@@ -1,0 +1,27 @@
+{
+ "id": "eye-region",
+ "area": "anatomy",
+ "title": "Eye, eyelids and orbit",
+ "queue": [
+  {
+   "claim": "Hertel exophthalmometry norms by ancestry: white adults mean ~15-17 mm (upper normal 20-21), Black adults ~17-19 (22-24), East Asian ~13-15 (18-19); left-right difference >2 mm abnormal. Used as the globe-protrusion prior hertel_mm N(16|18|14, 2).",
+   "query": "normal Hertel exophthalmometry values Black white Asian adults mean upper limit",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Lateral canthus (ex) lies ~8-13 mm posterior to the medial canthus (en) and ~12-17 mm behind the corneal apex. This is derived from Farkas chord geometry and used as prior ex_depth_behind_en N(10.5, 2.5).",
+   "query": "lateral canthus posterior to medial canthus depth mm 3D stereophotogrammetry",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Visible iris / corneal diameter prior N(11.8, 0.6) mm (pooled 11.84 SD 0.79; MediaPipe Iris assumes 11.7 \u00b1 0.5), giving \u00b14-7% metric scale from one photo.",
+   "query": "horizontal visible iris diameter white-to-white mean SD adults population study",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Canthal tilt (intercanthal axis) is about +2\u00b0 to +8\u00b0 in white adults and about +6\u00b0 to +12\u00b0 in East Asian samples, with ex ~1-3 mm above en. Used as prior tilt_deg N(+5, 3) or N(+8, 3.5).",
+   "query": "canthal tilt angle normative values degrees Caucasian Asian adults intercanthal axis",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

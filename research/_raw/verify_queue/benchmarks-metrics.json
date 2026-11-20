@@ -1,0 +1,27 @@
+{
+ "id": "benchmarks-metrics",
+ "area": "reconstruction",
+ "title": "Benchmarks and metrics for face reconstruction accuracy",
+ "queue": [
+  {
+   "claim": "NoW non-metrical reference numbers: scaled average FLAME \u22481.53 mm mean, MICA \u22480.90/1.11 mm median/mean, best 2023\u201325 entries \u22480.75\u20130.8/\u22480.95 mm; the late-2026 leader is unknown",
+   "query": "NoW challenge leaderboard non-metrical median mean error mm MICA",
+   "domains": "now.is.tue.mpg.de"
+  },
+  {
+   "claim": "NoW protocol: the submitter supplies 7 landmarks (4 eye corners, a nose point, 2 mouth corners); a similarity fit seeds a rigid refinement on scan-to-mesh distance; error runs from each scan vertex to the predicted surface; scale is solved except in MICA's metrical track; derived from Feng et al. FG 2018",
+   "query": "now_evaluation 7 landmarks rigid alignment scan-to-mesh distance scale NoW benchmark",
+   "domains": "github.com"
+  },
+  {
+   "claim": "Stereophotogrammetry scanners are accurate to about 0.1\u20130.5 mm on rigid targets, and repeat captures of a live face differ by about 0.3\u20131 mm RMS, so ground truth is uncertain by about 0.3\u20130.5 mm",
+   "query": "3dMD stereophotogrammetry reproducibility repeated facial captures mm RMS live subjects",
+   "domains": ""
+  },
+  {
+   "claim": "REALY protocol (keypoint global alignment, then per-region ICP over nose, mouth, forehead and cheek; per-region mean nearest-point error) and frontal-track region errors of about 1.5\u20132.2 mm on average, with the mouth showing the largest spread",
+   "query": "REALY benchmark region-aware ICP nose mouth forehead cheek error mm HRN Deep3D DECA",
+   "domains": "arxiv.org,github.com"
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 # Bridges to MetaHuman, Character Creator, Daz
 
-> MetaHuman, Character Creator (CC) and Daz Genesis are all fixed-template systems, so a Blender likeness can enter them through only two doors. One is a **vendor conform** that accepts any topology (Mesh to MetaHuman, the 5.6+ MetaHuman Creator "Conform", Reallusion Headshot mesh mode). The other is a **same-topology morph** that Blender has already wrapped onto the vendor's template, with identical vertex count and order (CC morph import, Daz Morph Loader Pro, MetaHuman template or DNA editing). The add-on should therefore export a topology-agnostic "bridge-ready neutral", plus optional per-template wraps computed locally against the user's own licensed template and never redistributed. Licences, not geometry, are the binding constraint: Epic reportedly widened MetaHuman use beyond Unreal with UE 5.6 (2025), Reallusion and Daz forbid redistributing raw base meshes, and uploading a real face to a vendor cloud needs the subject's informed consent. This topic had no harvest and no earlier draft, so nearly everything here is expert knowledge awaiting verification; nothing after late 2025 is known to me.
-Evidence status: 0 ✅ / 3 📄 / 59 🧠 / 16 ↔️ — 🧠 items are queued for web verification.
+> MetaHuman, Character Creator (CC) and Daz Genesis are all fixed-template systems, so a Blender likeness can enter them through only two doors. One is a **vendor conform** that accepts any topology (Mesh to MetaHuman, the 5.6+ MetaHuman Creator "Conform", Reallusion Headshot mesh mode). The other is a **same-topology morph** that Blender has already wrapped onto the vendor's template, with identical vertex count and order (CC morph import, Daz Morph Loader Pro, MetaHuman template or DNA editing). The add-on should therefore export a topology-agnostic "bridge-ready neutral", plus optional per-template wraps computed locally against the user's own licensed template and never redistributed. Licences, not geometry, are the binding constraint: Epic widened MetaHuman use beyond Unreal with UE 5.6 (2025) [4][5][6], Reallusion and Daz forbid redistributing raw base meshes, and uploading a real face to a vendor cloud needs the subject's informed consent. This topic had no harvest and no earlier draft, so nearly everything here is expert knowledge awaiting verification; nothing after late 2025 is known to me.
+Evidence status: 2 ✅ / 9 📄 / 60 🧠 / 12 ↔️ (after 2026-11-20 verification) — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -23,7 +23,8 @@ Evidence status: 0 ✅ / 3 📄 / 59 🧠 / 16 ↔️ — 🧠 items are queued 
   - UE 5.0 (2022): Mesh to MetaHuman arrived in the MetaHuman plugin.
   - 5.2 (2023): MetaHuman Animator, using iPhone depth or stereo head-mounted cameras.
   - 5.6 (mid-2025): Creator moved inside the engine, with parametric face and body models; the web Creator / Quixel Bridge path was retired.
-  - Nothing after UE 5.7 (Nov 2025) is known to me.
+  - UE 5.7 (Nov 2025) added Linux/macOS plugin support and more texture-resolution options in Creator [10] 📄.
+  - MetaHuman 5.8 exists (UE 5.8 is described as the last planned major UE5 release): Mesh to MetaHuman gains full-body creation from any topology, and characters can be assembled without baked textures/materials [9] 📄 (corrected in verification: the note previously knew nothing after 5.7; the 5.8 release date was not found).
 - **Mesh to MetaHuman flow** 🧠:
   1. Import a static mesh.
   2. Create a MetaHuman Identity and run "Components from Mesh".
@@ -38,11 +39,11 @@ Evidence status: 0 ✅ / 3 📄 / 59 🧠 / 16 ↔️ — 🧠 items are queued 
   - Before 5.6, autorigged heads regressed toward Epic's scan database. The nose, lip shape and eyelid aperture drifted.
   - Before 5.6, source textures were not carried over; skin came from presets.
   - 5.6 claims a wider parametric range and texture synthesis. How much likeness survives is unmeasured in this library.
-- **5.6 Creator** 🧠 (moderate confidence):
-  - Conform from an Identity/mesh, a DNA file, or a template mesh already in MetaHuman topology (↔️ recalled).
+- **5.6+ Creator** 📄 [7][8] (corrected in verification):
+  - Conform from a custom mesh/Identity, from a DNA file (Import > From DNA, with Import Whole Rig), or from a template mesh exported from your DCC as FBX (Import > From Template, back to the MetaHuman A pose). Preserved vertex order is implied, not stated, in the docs.
   - Blend, Sculpt and Move face tools.
-  - Cloud Auto-Rig with a joints-only or a joints-plus-blendshapes rig.
-  - "Assemble" pipelines, including a DCC export (FBX + DNA + textures).
+  - Cloud Auto-Rig with a joints-only or a joints-plus-blendshapes rig 🧠 (not confirmed by the sources found).
+  - "Assemble" pipelines, including a DCC Export that is a zip of head DNA, body DNA and textures (.dna, .png, .json), not FBX [7] 📄. A separate Expression Editor export writes an FBX + DNA pair (Y-up or Z-up); that DNA cannot be re-imported into Creator [7] 📄.
 - **DNA** 🧠: a binary format (from 3Lateral) holding four layers:
   - descriptor;
   - definition: joints, blendshape names, controls;
@@ -50,7 +51,7 @@ Evidence status: 0 ✅ / 3 📄 / 59 🧠 / 16 ↔️ — 🧠 items are queued 
   - geometry: 8 head LODs (LOD0–7). The head-side meshes are `head`, `teeth`, `saliva`, `eyeLeft`, `eyeRight`, `eyeshell`, `eyelashes`, `eyeEdge` and `cartilage` (`*_lod0_mesh`). LOD0 head ≈24k vertices (recalled; verify).
 - **Editing a DNA's neutral mesh without moving its joints breaks deformation** 🧠. Epic's MetaHuman DNA Calibration library (Python/C++) exposes the edit commands. A community Blender DNA tool (Poly Hammer) imports and exports DNA with RigLogic evaluation ↔️ (status and licence unverified).
 - **ARKit drive:** Live Link Face's ARKit mode drives MetaHumans through a mapping pose asset (`mh_arkit_mapping_pose`) 🧠. ARKit blendshapes are named coefficients from 0 to 1 [2] 📄.
-- **Licence** ↔️: before June 2025, MetaHumans had to be rendered in Unreal. UE 5.6 reportedly placed them under the UE EULA, allowing use in other engines and DCCs (Blender, Maya, Unity, Godot) and sale on Fab. Royalty and seat obligations outside UE are unverified. The uploader must hold the rights to the scan and likeness 🧠.
+- **Licence** ✅ [4][5][6]: before June 2025, MetaHumans had to be rendered in Unreal. From UE 5.6 they fall under the UE EULA, allowing use in other engines and DCCs (Blender, Maya, Houdini, Unity, Godot) and sale on Fab. Treated as non-engine products, so no 5% engine royalty outside UE; studios above US$1M revenue need seats (reported US$1,850/yr) (corrected in verification: royalty/seat terms now known, per press coverage; read the EULA for edge cases). The uploader must hold the rights to the scan and likeness 🧠.
 - **MetahumanModeler** builds a MetaHuman-topology mesh from one image in Blender. Its author says it was built from their understanding of FaceBuilder; no accuracy evidence was found [1] 📄.
 
 ### Character Creator (Reallusion)
@@ -149,7 +150,7 @@ Evidence status: 0 ✅ / 3 📄 / 59 🧠 / 16 ↔️ — 🧠 items are queued 
    - Inspect the eyelid and lip-line curves before solving. They are the usual failure, and a misplaced lid curve distorts every expression.
    - Solve, add the teeth pose if teeth are visible, pick the body, autorig.
 4. **Audit the likeness.** Bring the head back with the 5.6+ DCC export, align it rigidly to your fit and colour-map the signed distance. Expect drift at the nasal tip and alae, the vermilion shape, the lid aperture and the jaw angle ↔️. Correct it in Creator or through step 5, never by editing the DNA mesh alone.
-5. **Template-conform route** (5.6+, ↔️): wrap your fit onto the exported MetaHuman LOD0 head, keeping vertex order. Re-import it and conform in Creator so the autorig rebuilds the joints and correctives.
+5. **Template-conform route** (5.6+, 📄 [8]): wrap your fit onto the exported MetaHuman LOD0 head, keeping vertex order. Re-import it and conform in Creator so the autorig rebuilds the joints and correctives.
 6. **CC route** 🧠: run Headshot mesh mode on the same neutral, with alignment points on the canthi and mouth corners. Alternatively, export the CC base at SubD 0 through CC Blender Tools, wrap, and re-import as a morph.
 7. **Daz route** 🧠: export the G9 base OBJ at base resolution with the Blender preset. Wrap in Blender, export the OBJ with Up Y and Forward −Z, then load it with Morph Loader Pro using the same preset.
 8. **What goes wrong** 🧠:
@@ -184,14 +185,12 @@ Evidence status: 0 ✅ / 3 📄 / 59 🧠 / 16 ↔️ — 🧠 items are queued 
 ## Disagreements, myths & open questions
 
 - **"Mesh to MetaHuman preserves the scan."** It conforms a template and then autorigs from a database. Community drift reports are consistent; 5.6's gains are unmeasured ↔️.
-- **"MetaHumans cannot leave Unreal."** That was true before 2025. 5.6 reportedly allows other engines and DCCs, but the obligations need verification ↔️.
+- **"MetaHumans cannot leave Unreal."** That was true before 2025. 5.6 allows other engines and DCCs under the UE EULA ✅ [4][5][6].
 - **"Same vertex count is enough."** The order must match too 🧠.
 - **"Headshot from one photo is a likeness."** Depth and profile are inferred; mesh mode fed by a multi-view fit is stronger 🧠.
 - **"Free software means free base meshes."** Daz Studio is free, but Genesis redistribution is not; the same holds for CC ↔️.
 - **Open questions:**
-  - the current UE/MetaHuman version after 5.7;
-  - exact 5.6+ licence terms outside UE;
-  - whether template-mesh conform exists as recalled;
+  - the 5.8 release date and whether Mesh to MetaHuman transfers source textures (unconfirmed);
   - the LOD0 head, CC3+ and G9 vertex counts;
   - the CC5 and Headshot versions;
   - Face Transfer status on G9;
@@ -204,6 +203,13 @@ Evidence status: 0 ✅ / 3 📄 / 59 🧠 / 16 ↔️ — 🧠 items are queued 
 [1] Generating metahuman based on a single image blender ue5 tutorial (Blender Artists) — https://blenderartists.org/t/generating-metahuman-based-on-a-single-image-blender-ue5-tutorial/1531052 — forum — n.d. (from the blenderartists-forum harvest)
 [2] Apple ARKit: ARFaceAnchor.blendShapes — https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes — official docs — n.d. (from the facs-expressions harvest)
 [3] Faceit: Facial Expressions and Performance Capture (Superhive) — https://superhivemarket.com/products/faceit — commercial listing — n.d. (from the blender-face-addons harvest)
+[4] CG Channel, "You can now sell MetaHumans or use them in Unity or Godot" — https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/ — trade press — 2025-06-04
+[5] Digital Production, "MetaHumans Graduate: Ready for Unity, Godot, and the Fab Cash Register" — https://digitalproduction.com/2025/06/05/metahumans-graduate-ready-for-unity-godot-and-the-fab-cash-register/ — trade press — 2025-06-05
+[6] MetaHuman licence page — https://www.metahuman.com/license — official — n.d.
+[7] Epic, MetaHuman Creator Export Tool / Saving and Exporting Data — https://dev.epicgames.com/documentation/metahuman/saving-and-exporting-data — official docs — n.d.
+[8] Epic, MetaHuman Creator From Custom Mesh Tool — https://dev.epicgames.com/documentation/metahuman/metahuman-creator-from-custom-mesh-tool-in-unreal-engine — official docs — n.d.
+[9] Epic, MetaHuman 5.8 release notes — https://dev.epicgames.com/documentation/metahuman/metahuman-5-8-release-notes-in-unreal-engine — official docs — 2026
+[10] Epic, MetaHuman 5.7 release notes — https://dev.epicgames.com/documentation/metahuman/metahuman-5-7-release-notes — official docs — 2025
 
 **Further reading (by name, not yet linked)**
 - Epic Games, MetaHuman documentation (Mesh to MetaHuman, MetaHuman Identity, MetaHuman Creator in UE 5.6+) and the Unreal Engine EULA / MetaHuman licence FAQ
@@ -218,3 +224,10 @@ Evidence status: 0 ✅ / 3 📄 / 59 🧠 / 16 ↔️ — 🧠 items are queued 
 - Sumner & Popović, "Deformation Transfer for Triangle Meshes", SIGGRAPH 2004
 - Bookstein, "Principal Warps: Thin-Plate Splines and the Decomposition of Deformations", IEEE TPAMI 1989
 - Farkas, *Anthropometry of the Head and Face*, 2nd ed., 1994
+
+## Verification log (2026-11-20)
+
+- **MetaHuman licence from UE 5.6 (UE EULA, other engines/DCCs, Fab sales)**: confirmed (✅, two press sources plus Epic licence page). Added: no engine royalty as non-engine products; seats for studios over US$1M revenue (reported US$1,850/yr). Sources: https://www.cgchannel.com/2025/06/you-can-now-sell-metahumans-or-use-them-in-unity-or-godot/ ; https://digitalproduction.com/2025/06/05/metahumans-graduate-ready-for-unity-godot-and-the-fab-cash-register/ ; https://www.metahuman.com/license
+- **Creator 5.6+ conform / DNA / auto-rig / DCC export**: corrected. Conform from DNA and from a DCC template mesh (From Template) confirmed; DCC Export is a zip of head DNA, body DNA and textures, not FBX (FBX + DNA is the Expression Editor export). Joints-only vs joints-plus-blendshapes auto-rig: unconfirmed. Vertex-order preservation implied, not stated. Sources: https://dev.epicgames.com/documentation/metahuman/saving-and-exporting-data ; https://dev.epicgames.com/documentation/metahuman/metahuman-creator-from-custom-mesh-tool-in-unreal-engine
+- **Current UE/MetaHuman version after 5.7; Mesh to MetaHuman textures/likeness**: corrected/partly unconfirmed. MetaHuman 5.8 exists (last planned major UE5 release); Mesh to MetaHuman does full-body from any topology; no-baked-texture assembly. Source texture transfer by Mesh to MetaHuman and likeness retention: unconfirmed; release date of 5.8 not found. Sources: https://dev.epicgames.com/documentation/metahuman/metahuman-5-8-release-notes-in-unreal-engine ; https://dev.epicgames.com/documentation/metahuman/metahuman-5-7-release-notes
+- **Template vertex counts (MetaHuman LOD0 head ~24k, G9 ~25k, G8 ~16.5k, CC3+)**: unconfirmed. Only forum posts of ~34.6k total vertices per MetaHuman (ambiguous, not head-only); nothing found for Daz or CC. Left as recalled (🧠).

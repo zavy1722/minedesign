@@ -1,0 +1,27 @@
+{
+ "id": "child-growth",
+ "area": "anatomy",
+ "title": "Craniofacial growth: child and adolescent faces",
+ "queue": [
+  {
+   "claim": "The cornea (visible iris diameter) reaches adult size (~11.5\u201312 mm) by about age 2\u20133 and is ~9.5\u201310.5 mm at birth, so it can be the metric scale anchor for children aged 3 and over (prior N(11.8, 0.5\u20130.8) mm).",
+   "query": "corneal diameter growth infancy childhood age reaches adult size horizontal visible iris diameter",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Percent-of-adult-size by age (e.g. face height n\u2013gn ~76\u201381 % and face width zy\u2013zy ~82\u201386 % at 6 y), with maturation around 13\u201315 y in females and 15\u201318+ y in males (Farkas growth series).",
+   "query": "Farkas Posnick Hreczko 1992 growth patterns of the face morphometric study age of maturation facial height width percentage adult",
+   "domains": ""
+  },
+  {
+   "claim": "Eyeball axial length is ~16.5\u201317.5 mm at birth, ~20\u201321 mm at 1 y, ~22.3\u201323 mm at 6 y and near the adult ~23.5\u201324 mm by 10\u201313 y. IPD runs ~37\u201342 mm at birth to ~49\u201353 mm at 6 y.",
+   "query": "axial length of the eye from birth to adulthood growth curve Gordon Donzis 1985 interpupillary distance children MacLachlan Howland 2002",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "FaceBase 3D Facial Norms provides sex-specific 3D growth curves (ages 3\u201340). Summary landmark data are openly downloadable, and individual data need a Data Access Request.",
+   "query": "FaceBase 3D Facial Norms growth curves download summary data licence access",
+   "domains": "facebase.org"
+  }
+ ]
+}

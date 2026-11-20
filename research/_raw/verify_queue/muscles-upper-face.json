@@ -1,0 +1,27 @@
+{
+ "id": "muscles-upper-face",
+ "area": "anatomy",
+ "title": "Muscles of the upper face",
+ "queue": [
+  {
+   "claim": "Upper-lid crease height is about 8-11 mm in European-ancestry women and about 6-9 mm in men; in East Asian lids it is about 2-6 mm or absent. This sets the fitting prior (8\u00b12 / 7\u00b12 / 4\u00b12.5, or 6.5\u00b13 when ancestry is unknown).",
+   "query": "upper eyelid crease height normal values mm men women Caucasian East Asian",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Maximal brow raise (AU1+2) at mid-brow is about 5-15 mm, and brow-head travel in a frown (AU4) is about 2-6 mm. These are used as expression clamps (15 mm and 8 mm).",
+   "query": "maximal eyebrow elevation excursion mm frontalis healthy adults 3D stereophotogrammetry",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "MediaPipe 478 indices: brows 70/63/105/66/107 (subject right) and 300/293/334/296/336 (left); upper/lower lid apex 159/145 and 386/374; canthi 33/133 and 263/362; iris centres 468/473.",
+   "query": "mediapipe face mesh FACEMESH_LEFT_EYEBROW FACEMESH_RIGHT_EYE indices 159 145 386 374",
+   "domains": "github.com,developers.google.com"
+  },
+  {
+   "claim": "Corrugator supercilii reaches laterally to about the mid-pupillary line, roughly 25-45 mm from the midline (prior 35\u00b17 mm). Janis et al. 2007 (corrugator topography) is the expected primary source.",
+   "query": "Janis 2007 corrugator supercilii topography lateral extent mm from midline nasion",
+   "domains": "pubmed.ncbi.nlm.nih.gov,journals.lww.com"
+  }
+ ]
+}

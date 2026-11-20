@@ -1,0 +1,27 @@
+{
+ "id": "youtube-likeness-blender",
+ "area": "community",
+ "title": "YouTube: face from photos / likeness in Blender",
+ "queue": [
+  {
+   "claim": "FaceBuilder for Blender is a paid subscription with a trial (forum mentions 30 days), recalled at roughly 100-300 USD per seat-year; Blender 5.x support is unconfirmed.",
+   "query": "KeenTools FaceBuilder for Blender price subscription trial Blender 5.2 5.3 support 2026",
+   "domains": "keentools.io"
+  },
+  {
+   "claim": "Blender Studio's free Human Base Meshes asset bundle (2023) is believed to be CC0.",
+   "query": "Blender Studio Human Base Meshes bundle licence CC0",
+   "domains": "studio.blender.org,blender.org"
+  },
+  {
+   "claim": "At selfie distance (~30 cm) the nasal base looks about 30% wider than at ~1.5 m (Ward et al. 2018), consistent with pinhole magnification (d+0.10)/d. This underpins the engine's thresholds: warn below 1.0 m, refuse as a shape cue below 0.6 m.",
+   "query": "Ward 2018 nasal distortion short-distance photographs selfie effect 30 percent JAMA Facial Plastic Surgery",
+   "domains": ""
+  },
+  {
+   "claim": "FaceBuilder's EULA lets users reuse an exported head as a base for distributed or commercial work (unverified). The add-on is a GPL front end that downloads a closed core library.",
+   "query": "KeenTools FaceBuilder EULA exported mesh commercial use license terms",
+   "domains": "keentools.io"
+  }
+ ]
+}

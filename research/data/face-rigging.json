@@ -1,0 +1,716 @@
+{
+ "topic": "face-rigging",
+ "tables": [
+  {
+   "name": "tool_matrix",
+   "units": "categorical; Blender versions as major.minor",
+   "columns": [
+    "tool",
+    "makes",
+    "drives_or_consumes",
+    "licence_price",
+    "blender_min",
+    "blender_max",
+    "status"
+   ],
+   "rows": [
+    [
+     "Rigify",
+     "bone body + modular face rig",
+     "-",
+     "GPL, bundled with Blender",
+     null,
+     null,
+     "knowledge"
+    ],
+    [
+     "Auto-Rig Pro",
+     "bone face rig, Smart placement, Remap, game FBX presets",
+     "-",
+     "paid (price unverified)",
+     null,
+     null,
+     "contested"
+    ],
+    [
+     "Faceit",
+     "ARKit/Audio2Face/tongue/phoneme shape keys; bake pose/sculpt to keys",
+     "Live Link Face CSV (recalled)",
+     "paid",
+     "3.0",
+     "5.2",
+     "sourced"
+    ],
+    [
+     "Face Shape Key Rig",
+     "sliders/2D pads controlling existing keys (no generation)",
+     "iFacialMocap, audio lipsync",
+     "free, GPL",
+     "5.2",
+     null,
+     "sourced"
+    ],
+    [
+     "CaptureForge",
+     "posed rig -> ARKit 52 blendshapes; quality inspector; auto face rig",
+     "video, webcam",
+     "GPL-3.0",
+     null,
+     null,
+     "sourced"
+    ],
+    [
+     "mediapipe-facecap-for-blender",
+     "Blender receiver add-on + external transmitter",
+     "MediaPipe",
+     "unverified",
+     null,
+     null,
+     "sourced"
+    ],
+    [
+     "Live Link Face (iOS)",
+     "-",
+     "ARKit 52 + 9 head/eye rotations via UDP or CSV",
+     "free app",
+     null,
+     null,
+     "knowledge"
+    ],
+    [
+     "Face Cap / iFacialMocap / Rokoko (iOS)",
+     "-",
+     "ARKit weights via FBX/OSC/UDP/plugin",
+     "freemium or paid",
+     null,
+     null,
+     "contested"
+    ]
+   ],
+   "population": "Blender face-rig and capture tools as known in late 2026",
+   "source_urls": [
+    "https://superhivemarket.com/products/faceit",
+    "https://extensions.blender.org/add-ons/face-shapekey-rig/",
+    "https://github.com/Fragid/face-shapekey-rig",
+    "https://github.com/H0wZy/captureforge",
+    "https://github.com/mozi1924/mediapipe-facecap-for-blender"
+   ],
+   "status": "contested",
+   "notes": "Time-sensitive; versions/prices must be re-checked. Faceit range from its listing; FSKR floor from its GitHub page."
+  },
+  {
+   "name": "capture_signal_specs",
+   "units": "channel counts; coefficient range; Hz",
+   "columns": [
+    "source",
+    "channels",
+    "coefficient_min",
+    "coefficient_max",
+    "rate_hz_typical",
+    "status"
+   ],
+   "rows": [
+    [
+     "ARKit face tracking (TrueDepth)",
+     "52 blendshapes + head/eye transforms",
+     0.0,
+     1.0,
+     60,
+     "sourced (range); knowledge (rate)"
+    ],
+    [
+     "Live Link Face stream/CSV",
+     "61 = 52 blendshapes + head yaw/pitch/roll + L/R eye yaw/pitch/roll",
+     0.0,
+     1.0,
+     60,
+     "knowledge"
+    ],
+    [
+     "MediaPipe Face Landmarker",
+     "478 landmarks + 52 blendshape scores (incl. _neutral, no tongueOut)",
+     0.0,
+     1.0,
+     30,
+     "sourced (counts, range); knowledge (rate, _neutral)"
+    ],
+    [
+     "MediaPipe Face Mesh legacy",
+     "468 landmarks",
+     null,
+     null,
+     30,
+     "sourced"
+    ],
+    [
+     "ARKit face mesh",
+     "1220 vertices",
+     null,
+     null,
+     60,
+     "knowledge"
+    ]
+   ],
+   "population": "capture SDK outputs",
+   "source_urls": [
+    "https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapes",
+    "https://developer.apple.com/videos/play/tech-talks/601/",
+    "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker",
+    "https://ai.google.dev/edge/api/mediapipe/python/mp/tasks/vision/FaceLandmarkerResult",
+    "https://dev.to/metsander/mediapipe-face-mesh-all-478-landmark-points-5ec8",
+    "https://mediapipe.readthedocs.io/en/latest/solutions/face_mesh.html"
+   ],
+   "status": "sourced",
+   "notes": "Rotation units in Live Link Face data unverified; webcam rate depends on camera and CPU."
+  },
+  {
+   "name": "adult_motion_ranges_for_rig_limits",
+   "units": "mm, degrees, ms as stated",
+   "columns": [
+    "motion",
+    "low",
+    "high",
+    "units",
+    "status",
+    "notes"
+   ],
+   "rows": [
+    [
+     "max_interincisal_opening",
+     40,
+     60,
+     "mm",
+     "knowledge",
+     ""
+    ],
+    [
+     "mostly_rotation_phase_of_opening",
+     20,
+     25,
+     "mm interincisal",
+     "contested",
+     ""
+    ],
+    [
+     "jaw_rotation_at_max_opening",
+     20,
+     30,
+     "deg",
+     "contested",
+     "derived from 90-110 mm incisor-condyle radius plus translation"
+    ],
+    [
+     "condylar_translation_at_max_opening",
+     10,
+     20,
+     "mm",
+     "contested",
+     ""
+    ],
+    [
+     "speech_opening",
+     5,
+     20,
+     "mm interincisal",
+     "knowledge",
+     ""
+    ],
+    [
+     "lateral_excursion",
+     8,
+     12,
+     "mm",
+     "knowledge",
+     ""
+    ],
+    [
+     "protrusion",
+     6,
+     10,
+     "mm",
+     "knowledge",
+     ""
+    ],
+    [
+     "freeway_space_at_rest",
+     2,
+     4,
+     "mm",
+     "knowledge",
+     ""
+    ],
+    [
+     "palpebral_fissure_height",
+     8,
+     12,
+     "mm",
+     "knowledge",
+     ""
+    ],
+    [
+     "palpebral_fissure_width",
+     27,
+     32,
+     "mm",
+     "knowledge",
+     ""
+    ],
+    [
+     "upper_lid_cover_of_iris_at_rest",
+     1,
+     2,
+     "mm",
+     "knowledge",
+     ""
+    ],
+    [
+     "blink_full_cycle",
+     100,
+     400,
+     "ms",
+     "knowledge",
+     "closing phase faster than opening"
+    ],
+    [
+     "eye_rotation_rig_limit_horizontal",
+     30,
+     35,
+     "deg (each side)",
+     "knowledge",
+     "artistic limit, not anatomical maximum"
+    ],
+    [
+     "eye_rotation_rig_limit_up",
+     25,
+     30,
+     "deg",
+     "knowledge",
+     ""
+    ],
+    [
+     "eye_rotation_rig_limit_down",
+     35,
+     45,
+     "deg",
+     "knowledge",
+     ""
+    ],
+    [
+     "eye_rotation_centre_behind_corneal_apex",
+     13,
+     14,
+     "mm",
+     "knowledge",
+     ""
+    ],
+    [
+     "upper_incisor_display_at_rest",
+     1,
+     4,
+     "mm",
+     "knowledge",
+     "more in younger and female subjects"
+    ]
+   ],
+   "population": "healthy adults; approximate ranges from expert knowledge",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Use as soft rig limits and priors; verify jaw values before using as engine defaults."
+  },
+  {
+   "name": "rig_pivot_priors",
+   "units": "mm",
+   "columns": [
+    "pivot",
+    "reference",
+    "anterior_mm_low",
+    "anterior_mm_high",
+    "inferior_mm_low",
+    "inferior_mm_high",
+    "depth_mm_low",
+    "depth_mm_high",
+    "sigma_mm",
+    "notes"
+   ],
+   "rows": [
+    [
+     "eye_centre",
+     "fitted globe centre",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     0.5,
+     "globe radius prior 12.0 +/- 0.5 mm (library convention)"
+    ],
+    [
+     "mandibular_condyle_jaw_pivot",
+     "tragion",
+     10,
+     15,
+     0,
+     10,
+     15,
+     20,
+     3.5,
+     "depth measured medially from the skin surface"
+    ],
+    [
+     "head_pivot_atlanto_occipital",
+     "midpoint of mastoid tips",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     6.0,
+     ""
+    ]
+   ],
+   "population": "adult heads; design priors",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Interior pivots are first mapped by a thin-plate spline from >=30 surface correspondences, then pulled toward these priors."
+  },
+  {
+   "name": "arkit_au_muscle_map",
+   "units": "categorical",
+   "columns": [
+    "arkit_key",
+    "approx_au",
+    "prime_mover",
+    "main_displacement",
+    "status"
+   ],
+   "rows": [
+    [
+     "browInnerUp",
+     "1",
+     "frontalis (medial)",
+     "inner brow up",
+     "verified"
+    ],
+    [
+     "browOuterUp",
+     "2",
+     "frontalis (lateral)",
+     "outer brow up",
+     "knowledge"
+    ],
+    [
+     "browDown",
+     "4",
+     "corrugator (+ procerus, depressor supercilii)",
+     "brow down and medial",
+     "verified"
+    ],
+    [
+     "cheekSquint",
+     "6",
+     "orbicularis oculi, pars orbitalis",
+     "cheek up, lower lid bunched",
+     "sourced"
+    ],
+    [
+     "eyeBlink",
+     "45",
+     "orbicularis oculi, pars palpebralis",
+     "lids close",
+     "knowledge"
+    ],
+    [
+     "eyeSquint",
+     "7",
+     "orbicularis oculi, pars palpebralis",
+     "lower lid up",
+     "knowledge"
+    ],
+    [
+     "eyeWide",
+     "5",
+     "levator palpebrae superioris",
+     "upper lid up",
+     "knowledge"
+    ],
+    [
+     "noseSneer",
+     "9",
+     "levator labii superioris alaeque nasi",
+     "ala and upper lip up",
+     "knowledge"
+    ],
+    [
+     "mouthUpperUp",
+     "10",
+     "levator labii superioris",
+     "upper lip up",
+     "knowledge"
+    ],
+    [
+     "mouthSmile",
+     "12",
+     "zygomaticus major",
+     "commissure up and back",
+     "sourced"
+    ],
+    [
+     "mouthDimple",
+     "14",
+     "buccinator",
+     "commissure back",
+     "knowledge"
+    ],
+    [
+     "mouthFrown",
+     "15",
+     "depressor anguli oris",
+     "commissure down",
+     "knowledge"
+    ],
+    [
+     "mouthLowerDown",
+     "16",
+     "depressor labii inferioris",
+     "lower lip down",
+     "knowledge"
+    ],
+    [
+     "mouthShrugLower",
+     "17",
+     "mentalis",
+     "chin boss and lower lip up",
+     "knowledge"
+    ],
+    [
+     "mouthPucker",
+     "18",
+     "orbicularis oris",
+     "lips forward, narrowed",
+     "knowledge"
+    ],
+    [
+     "mouthStretch",
+     "20",
+     "risorius, platysma",
+     "commissure lateral",
+     "knowledge"
+    ],
+    [
+     "mouthFunnel",
+     "22",
+     "orbicularis oris",
+     "lips flared forward",
+     "knowledge"
+    ],
+    [
+     "mouthPress",
+     "24",
+     "orbicularis oris",
+     "lips pressed",
+     "knowledge"
+    ],
+    [
+     "mouthRollUpper/Lower",
+     "28",
+     "orbicularis oris",
+     "lips rolled in",
+     "knowledge"
+    ],
+    [
+     "jawOpen",
+     "26/27",
+     "lateral pterygoid, digastric",
+     "mandible rotates then translates",
+     "knowledge"
+    ]
+   ],
+   "population": "ARKit/MediaPipe blendshape names vs FACS",
+   "source_urls": [
+    "https://en.wikipedia.org/wiki/Facial_Action_Coding_System",
+    "https://technav.ieee.org/topic/action-units/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13229553/"
+   ],
+   "status": "knowledge",
+   "notes": "ARKit shapes are FACS-inspired; mapping is approximate and many-to-many. Use as direction priors (reject transferred deltas >30 deg off)."
+  },
+  {
+   "name": "rig_qa_thresholds",
+   "units": "as stated",
+   "columns": [
+    "check",
+    "threshold",
+    "units",
+    "status"
+   ],
+   "rows": [
+    [
+     "per_vertex_weight_sum_tolerance",
+     0.0001,
+     "absolute deviation from 1",
+     "knowledge"
+    ],
+    [
+     "max_influences_engine_export",
+     4,
+     "bones per vertex",
+     "knowledge"
+    ],
+    [
+     "cross_lip_or_cross_lid_weight_bleed_max",
+     0.02,
+     "weight",
+     "knowledge"
+    ],
+    [
+     "rest_pose_vs_neutral_max_deviation",
+     1e-05,
+     "fraction of head size",
+     "knowledge"
+    ],
+    [
+     "lid_to_globe_gap_max",
+     0.5,
+     "mm",
+     "knowledge"
+    ],
+    [
+     "transferred_delta_direction_tolerance",
+     30,
+     "deg",
+     "knowledge"
+    ],
+    [
+     "test_jaw_opening",
+     30,
+     "mm interincisal",
+     "knowledge"
+    ],
+    [
+     "expression_landmark_rms_anchor_target",
+     1.5,
+     "% inter-ocular distance",
+     "knowledge"
+    ],
+    [
+     "expression_landmark_rms_contour_target",
+     2.5,
+     "% inter-ocular distance",
+     "knowledge"
+    ]
+   ],
+   "population": "engine defaults (proposed)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Design heuristics; tune on data."
+  },
+  {
+   "name": "mocap_calibration_and_filter_defaults",
+   "units": "as stated",
+   "columns": [
+    "parameter",
+    "channels",
+    "low",
+    "high",
+    "units",
+    "notes"
+   ],
+   "rows": [
+    [
+     "neutral_capture_duration",
+     "all",
+     5,
+     10,
+     "s",
+     "median gives neutral offset n"
+    ],
+    [
+     "rom_percentile_for_max",
+     "all",
+     98,
+     98,
+     "percentile",
+     "gives m in w'=clip((w-n)/(m-n),0,1)*g"
+    ],
+    [
+     "deadzone",
+     "all",
+     0.02,
+     0.05,
+     "coefficient",
+     ""
+    ],
+    [
+     "one_euro_min_cutoff",
+     "brows, mouth, cheeks",
+     1.0,
+     1.5,
+     "Hz",
+     ""
+    ],
+    [
+     "one_euro_beta",
+     "brows, mouth, cheeks",
+     0.01,
+     0.5,
+     "unitless (unit-dependent)",
+     "tune upward from 0"
+    ],
+    [
+     "one_euro_min_cutoff",
+     "eyeBlink, eyeLook",
+     3.0,
+     5.0,
+     "Hz",
+     "a blink lasts about 3-12 frames at 30 fps"
+    ],
+    [
+     "one_euro_min_cutoff",
+     "head rotation",
+     0.5,
+     1.0,
+     "Hz",
+     "filter in quaternion domain"
+    ],
+    [
+     "jaw_theta_max",
+     "jawOpen",
+     25,
+     25,
+     "deg",
+     "rotation = theta_max * w"
+    ],
+    [
+     "jaw_translation_onset_w0",
+     "jawOpen",
+     0.4,
+     0.5,
+     "coefficient",
+     "translation starts after w0"
+    ],
+    [
+     "jaw_translation_d_max",
+     "jawOpen",
+     10,
+     15,
+     "mm",
+     ""
+    ],
+    [
+     "personalisation_min_weight",
+     "per key",
+     0.3,
+     0.3,
+     "coefficient",
+     "only keys active above this in some example are corrected"
+    ]
+   ],
+   "population": "engine defaults (proposed)",
+   "source_urls": [],
+   "status": "knowledge",
+   "notes": "Starting points for live capture into Blender; calibrate per performer."
+  }
+ ]
+}

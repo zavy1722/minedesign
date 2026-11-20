@@ -1,0 +1,27 @@
+{
+ "id": "artstation-likeness",
+ "area": "community",
+ "title": "ArtStation: likeness breakdowns and tutorials",
+ "queue": [
+  {
+   "claim": "Smartphone photos (ultra-wide 'face distortion correction', front-camera beauty modes, lens correction) warp faces away from a pinhole projection, so the engine must down-weight or exclude faces near the frame edge in wide shots (f35 \u2264 16 mm, or beyond ~60% of the half-diagonal).",
+   "query": "smartphone ultra-wide face distortion correction warps faces near edge lens correction Pixel Samsung iPhone",
+   "domains": ""
+  },
+  {
+   "claim": "Selfie perspective at about 0.3 m enlarges the nose markedly versus about 1.5 m (Ward et al. 2018 reported roughly 30% nasal-base widening). The engine uses this to set selfie \u03c3 multiplier 3 / exclude and a focal prior of 26 mm with \u03c3_log 0.1.",
+   "query": "Ward 2018 JAMA Facial Plastic Surgery selfies nasal dimensions distance 12 inches 5 feet",
+   "domains": "jamanetwork.com,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Event and press photos of public figures are typically shot at 3\u201310 m with 70\u2013300 mm full-frame-equivalent lenses (near-orthographic). This gives the focal prior median 135 mm, \u03c3_log 0.5.",
+   "query": "red carpet press photographer typical lens 70-200mm shooting distance",
+   "domains": ""
+  },
+  {
+   "claim": "Magazine covers and studio portraits are commonly retouched with liquify (jaw slimmed, eyes enlarged, neck lengthened), justifying a 2\u20133\u00d7 \u03c3 multiplier or exclusion from proportion terms.",
+   "query": "magazine photo retouching liquify face shape jaw eyes prevalence study",
+   "domains": ""
+  }
+ ]
+}

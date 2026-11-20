@@ -1,6 +1,6 @@
 # Muscles of the mid face
 
-> The mid-face elevators fan out from bone to the upper lip and mouth corner. From medial to lateral they are levator labii superioris alaeque nasi (LLSAN), levator labii superioris (LLS), zygomaticus minor (ZMn) and zygomaticus major (ZMj), with levator anguli oris (LAO) and buccinator deep and risorius variable. Their dermal insertions along the medial edge of the cheek fat make the nasolabial fold (NLF), a fixed hinge line present at every age that smiling deepens but does not create. ZMj is the principal smile muscle (AU12). The other elevators set how much lip, tooth and gum show (AU9/10/11/13), buccinator and risorius pull the corner back or sideways (AU14/20), and nasalis moves only the nostril. Attachments vary widely between people (bifid ZMj, missing ZMn or risorius) and imaging cannot resolve these thin sheets in vivo, so a fitter should encode them as lines of action and expression priors, never as identity geometry; most numbers below are expert knowledge awaiting verification.
+> The mid-face elevators fan out from bone to the upper lip and mouth corner. From medial to lateral they are levator labii superioris alaeque nasi (LLSAN), levator labii superioris (LLS), zygomaticus minor (ZMn) and zygomaticus major (ZMj), with levator anguli oris (LAO) and buccinator deep and risorius variable. Their dermal insertions along the cheek fat's medial edge make the nasolabial fold (NLF), a fixed hinge line present at every age that smiling deepens but does not create. ZMj drives the smile (AU12). The other elevators set lip, tooth and gum show, buccinator and risorius pull the corner back or sideways, and nasalis moves only the nostril. Attachments vary between people and imaging cannot resolve them in vivo, so a fitter should encode them as lines of action and expression priors, not identity geometry; most numbers here await verification.
 Evidence status: 10 ✅ / 30 📄 / 45 🧠 / 21 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
@@ -93,7 +93,7 @@ Evidence status: 10 ✅ / 30 📄 / 45 🧠 / 21 ↔️ — 🧠 items are queue
 | Smile line (Tjan 1984) | low ≈ 20 %, average ≈ 69 %, high ≈ 11 % | dental patients | 🧠 |
 | "Gummy smile" threshold | gingival display > 2–4 mm | thresholds vary | ↔️ |
 
-**Table 4. Muscle dimensions (weak priors, adults)** 🧠
+**Table 4. Muscle dimensions, adults (weak priors for écorché or simulation only; low confidence)** 🧠
 
 | Muscle | Length mm | Width mm | Thickness mm |
 |---|---|---|---|
@@ -101,26 +101,26 @@ Evidence status: 10 ✅ / 30 📄 / 45 🧠 / 21 ↔️ — 🧠 items are queue
 | ZMn, LLSAN | 25–45 | 5–15 | 1–2 |
 | LLS | 25–40 | 15–25 at origin | 1.5–3 |
 | LAO | 25–35 | 8–12 | 2–3 |
-| Buccinator | 40–60 (raphe → modiolus) | 25–35 | 2–4 |
+| Buccinator | 40–60 | 25–35 | 2–4 |
 
 ## Applying this to photo→3D face sculpting in Blender
 
-1. **Capture an expression set.** Use the same cameras and light as the identity set (≥ 1.5 m, ≈ 85 mm equivalent): neutral with lips relaxed, closed soft smile (AU12), full smile with teeth (AU6+12+25), lip raise (AU10), sneer (AU9) and lip stretch (AU20). Expression frames show the fixed lines (NLF, dimples) but never drive neutral volume 🧠.
-2. **Gate the neutral.** Signs of a smile: corners above the stomion line, a wider mouth, a deeper and more curved NLF, a raised and fuller "apple", shortened upper-lip skin, narrowed eyes [23][25]. One frame showing any of these cannot set cheek fullness 🧠.
-3. **Trace the NLF as a polyline per view.** Mark the upper end near the alar crease, the mid-point and the lower end beside the commissure. A real fold stays put across views and deepens in the smile, while a shadow edge moves with the light 🧠. Annotate the camera-matched images (Grease Pencil or annotations) and project onto the mesh.
-4. **Sculpt it as an overhang, not a groove.** Build a convex cheek mass over a flat lip plane, with the crease at the bottom of the overhang [17] 🧠. Rest depth follows age (see `anatomy/fat-compartments.md`). Keep the upper-lip skin tight to the teeth.
-5. **Muscles as guides, not form.** In neutral the elevators are invisible under fat. Add skull-parented empties at the ZMj origin, canine fossa and infraorbital margin and a modiolus empty vertex-parented to lip vertices. Join each pair with a hooked curve. Check that each expression key moves its point along that line 🧠.
-6. **Topology.** Concentric oral loops end in a pole at each modiolus. Run 2–3 parallel loops along the NLF so the crease sharpens in shape keys, plus a loop around the ala and a flow from modiolus to zygoma along ZMj 🧠.
-7. **Shape keys.** Sculpt AU6, 9, 10, 11, 12, 13, 14 and 20 per side on the base mesh, splitting L/R with a vertex group that blends over 10–15 mm at the philtrum. A smile key must move the corner around the dental arch (backward, not just up). It also lifts and thins the upper lip, pushes the cheek mass up against the fold, swings the fold's lower end outward and widens the ala slightly 🧠. Multires detail does not follow shape keys (version-sensitive; see `anatomy/muscles-lower-face.md`) 🧠.
-8. **Measure.** Commissure excursion and angle per side against Table 3, upper-lip shortening, incisor and gum display, alar width at rest and in smile. Also record the dimple site; the surgical convention puts it where the vertical from the lateral canthus crosses the commissure horizontal 🧠 ↔️.
-9. **Common failures:** cheeks taken from a smiling photo; a V-carved NLF; a "Joker" smile that moves only the corners; corners floating off the teeth; mirrored smiles, when LAO weakness is real [38]; dynamic dimples baked into neutral; buccal hollows deepened by lighting; undisclosed NLF filler or gummy-smile toxin [28], so ask the subject.
+1. **Capture an expression set** with the identity cameras and light (≥ 1.5 m, ≈ 85 mm equivalent): relaxed neutral, closed smile (AU12), full smile (AU6+12+25), lip raise (AU10), sneer (AU9), lip stretch (AU20). Expression frames locate the fixed lines (NLF, dimples) but never set neutral volume 🧠.
+2. **Gate the neutral.** A smile shows as corners above the stomion line, a wider mouth, a deeper and more curved NLF, a fuller "apple", a shorter upper lip and narrowed eyes [23][25]. Such a frame cannot set cheek fullness 🧠.
+3. **Trace the NLF** per view as a polyline (alar-crease end, middle, commissure end) on the camera-matched images, then project it to the mesh. A real fold stays put across views and deepens in the smile; a shadow edge moves with the light 🧠.
+4. **Sculpt an overhang, not a groove:** a convex cheek mass over a flat lip plane, with the crease at the bottom of the overhang [17] 🧠. Take rest depth from age (`anatomy/fat-compartments.md`) and keep the upper-lip skin tight to the teeth.
+5. **Use muscles as guides, not form.** Place skull-parented empties at the ZMj origin, canine fossa and infraorbital margin and a modiolus empty vertex-parented to the lip, then join each pair with a hooked curve. Each expression key should move its point along that line 🧠.
+6. **Topology:** concentric oral loops ending in a pole at each modiolus, 2–3 parallel loops along the NLF so the crease sharpens in shape keys, a loop around the ala, and a flow from modiolus to zygoma along ZMj 🧠.
+7. **Shape keys.** Sculpt AU6/9/10/11/12/13/14/20 per side on the base mesh, splitting L/R with a vertex group that blends over 10–15 mm at the philtrum. The smile key moves the corner around the dental arch (backward, not just up). It also lifts and thins the upper lip, pushes cheek mass against the fold, swings the fold's lower end outward and widens the ala slightly. Multires detail does not follow shape keys (version-sensitive) 🧠.
+8. **Measure** commissure excursion and angle per side (Table 3), upper-lip shortening, incisor and gum display, alar width at rest and in smile, and the dimple site. The surgical dimple convention, where the lateral-canthus vertical meets the commissure horizontal, is not anatomy 🧠 ↔️.
+9. **Failures:** cheeks from a smiling photo; a V-carved NLF; a "Joker" smile that moves only the corners; corners floating off the teeth; smiles mirrored although one-sided weakness is real [38]; dynamic dimples in neutral; lighting-deepened buccal hollows; undisclosed filler or gummy-smile toxin [28], so ask.
 
 ## Algorithmic implications
 
-- **Landmarks.** Reuse `alare`, `cheilion`, `zygion` and `pupil` (`face3d/synthetic.py`). Add the skull-anchored `zmj_origin_L/R` (≈ 5–20 mm anterior and 0–10 mm inferior to zygion on bone, σ ≈ 6 mm), `lao_origin_L/R` (canine fossa) and `infraorbital_foramen_L/R`. Add the derived `modiolus_L/R` (12 ± 4 mm lateral and −3 ± 5 mm vertical from cheilion, matching the lower-face note) and the curve `nlf_L/R` 🧠.
-- **NLF as a curve.** Fit the traced 2D polylines to a mesh edge-loop curve by image-space chamfer distance, not by point correspondence. Weight by contrast and light angle, and drop views where the fold is hidden by flat light 🧠.
-- **NLF priors (mm, adults; widen if ancestry is unknown)** 🧠: upper end 2–6 lateral and 0–5 above the alar crease point; lower end lateral 11 ± 4 and vertical 0 ± 6 from cheilion (often ending above the commissure in youth, merging toward the marionette line with age). Length 30–50; rest crease depth half-normal, scale 0.5–1 below 30 years and 2–4 above 55.
-- **Expression basis.** Use per-muscle linear actuators (Waters 1987 type): skull origin o, insertion i, angular zone Ω, and radial falloff starting at 0.5–0.7 of |o−i|. Defaults: ZMj Ω ≈ 35°, peak commissure displacement 10–15 mm at full activation. Direction priors in the head frame (+x subject-left lateral, +y up, +z forward), angular σ ≈ 15–25° 🧠:
+- **Landmarks.** Reuse `alare`, `cheilion`, `zygion`, `pupil` (`face3d/synthetic.py`). Add skull-anchored `zmj_origin_L/R` (≈ 5–20 mm anterior, 0–10 mm inferior to zygion, σ ≈ 6 mm), `lao_origin_L/R` and `infraorbital_foramen_L/R`. Add derived `modiolus_L/R` (12 ± 4 mm lateral, −3 ± 5 mm vertical from cheilion, as in the lower-face note) and the curve `nlf_L/R` 🧠.
+- **NLF as a curve.** Fit the traced polylines to a mesh edge loop by image-space chamfer distance, not point correspondence; weight by contrast and light angle 🧠.
+- **NLF priors (mm, adults; widen if ancestry unknown)** 🧠: upper end 2–6 lateral and 0–5 above the alar crease point. Lower end 11 ± 4 lateral and 0 ± 6 vertical from cheilion; it often ends higher in youth and runs toward the marionette line with age. Length 30–50; rest depth half-normal, scale 0.5–1 under 30 and 2–4 over 55.
+- **Expression basis.** Per-muscle linear actuators (Waters 1987 type): skull origin o, insertion i, angular zone Ω, radial falloff starting at 0.5–0.7 of |o−i|. ZMj defaults: Ω ≈ 35°, peak commissure displacement 10–15 mm. Direction priors (head frame: +x subject-left, +y up, +z forward; angular σ 15–25°) 🧠:
 
 | AU | Moved point | Unit direction (left side) |
 |---|---|---|
@@ -132,22 +132,19 @@ Evidence status: 10 ✅ / 30 📄 / 45 🧠 / 21 ↔️ — 🧠 items are queue
 | 14 | commissure | (0.40, 0.10, −0.90) |
 | 20 | commissure | (0.90, −0.20, −0.35) |
 
-- **Neutral gate.** Score each frame on commissure angle to the stomion line, mouth width against its minimum over frames, upper-lip height, NLF contrast and cheek height. Use MediaPipe-style blendshape scores (mouthSmile, cheekSquint, noseSneer, mouthUpperUp, mouthDimple, mouthStretch) if available (version-sensitive). Fit identity to a robust multi-frame median and down-weight frames > 2σ from it 🧠.
-- **Identity vs expression.** Put a half-normal prior (σ ≈ 0.05) on AU weights in neutral frames. Orthogonalize the midface identity basis against the AU9–14 displacement subspace so identity cannot absorb a slight smile 🧠.
-- **Variation switches.** `zmj_bifid` (prior p ≈ 0.3 ↔️ [10][12]) turns on only if smile frames show a dynamic dimple. `zmn_present` (p uncertain, 0.5–0.9 ↔️ [29]) scales the AU11 basis. `risorius_present` affects only AU20. None of these alters neutral geometry.
-- **Warp stiffness (relative, to tune)** 🧠: upper lip 0.3 (consistent with the lower-face note), cheek fat 0.5, zygomatic body over bone 1.5–2.0. Along the NLF loop, keep a positional anchor at the traced curve but reduce bending weight to 0.2–0.3 so a crease can form.
-- **Asymmetry.** Fit sides independently with a soft symmetry prior on neutral NLF endpoints (σ ≈ 1.5 mm). Never symmetrize smile vectors; unilateral weakness is real [38].
+- **Neutral gate.** Score frames on commissure angle to the stomion line, mouth width against its multi-frame minimum, upper-lip height, NLF contrast and cheek height, plus MediaPipe-style blendshape scores (mouthSmile, cheekSquint, noseSneer, mouthUpperUp, mouthDimple, mouthStretch; version-sensitive). Fit identity to a robust multi-frame median and down-weight frames > 2σ off 🧠.
+- **Identity vs expression.** Half-normal prior (σ ≈ 0.05) on AU weights in neutral frames; orthogonalize the midface identity basis against the AU9–14 subspace so identity cannot absorb a slight smile 🧠.
+- **Variation switches** that never alter neutral geometry: `zmj_bifid` (p ≈ 0.3 ↔️ [10][12]), on only if smile frames show a dynamic dimple; `zmn_present` (p 0.5–0.9 ↔️ [29]) scales AU11; `risorius_present` affects AU20 only.
+- **Warp stiffness (relative, to tune)** 🧠: upper lip 0.3 (as in the lower-face note), cheek fat 0.5, zygomatic body 1.5–2.0. On the NLF loop, anchor position to the traced curve but cut bending weight to 0.2–0.3 so a crease forms.
+- **Asymmetry.** Fit sides independently with a soft symmetry prior on neutral NLF endpoints (σ ≈ 1.5 mm); never symmetrize smile vectors [38].
 
 ## Disagreements, myths & open questions
 
-- **Contested anatomy:** LLSAN origin [6][9]; ZMn insertion [3][5] and presence [29]; which muscle forms the NLF [17][18]; modiolus as a structure or a cluster [13][14][15]; buccinator insertion [20][34]; the Duchenne marker [25][35]; whether ageing muscles lengthen and lose tone or shorten and stiffen [27] 🧠 ↔️.
-- **Cheek dimples:** a bifid ZMj [12] is the usual explanation; buccinator or other dermal slips are alternatives 🧠 ↔️.
-- **Myth: risorius is the smile muscle.** Despite the Latin name it makes a stretched, fearful lateral pull (AU20); the smile is ZMj [23][36] 🧠.
-- **Myth: the NLF is an ageing wrinkle.** It is a fat-boundary fold present from infancy [17][19] 🧠.
-- **Myth: the Duchenne cheek lift is ZMj.** It is mostly AU6, though a strong AU12 alone also raises the cheek 🧠.
-- **Myth: "frowning takes 43 muscles, smiling 17."** No anatomical basis 🧠.
-- **Harvest notes:** the year of [17] is unconfirmed; [13] has no year; [37][38] are StatPearls like [9][21][36], so they are not independent; [5] keeps its ":443" URL as found; titles of [34][35] were not captured; [27] is the same title as PubMed 41413726 in the lower-face note. Refuted so far: none.
-- **Open:** ZMn and risorius absence rates by ancestry; bifid ZMj primary sample size; in-vivo ultrasound thickness norms; quantitative NLF geometry by age, sex and ancestry (none sourced); the meaning of "contraction %" in [24]; full texts of [10][17][24] unopened; code and licences for [31][32].
+- **Contested anatomy:** LLSAN origin [6][9]; ZMn insertion [3][5] and presence [29]; NLF muscles [17][18]; modiolus structure or cluster [13][14][15]; buccinator insertion [20][34]; the Duchenne marker [25][35]; ageing muscles lengthening and slackening or shortening and stiffening (Le Louarn) [27] ↔️.
+- **Cheek dimples:** bifid ZMj [12] is the usual explanation, buccinator or other dermal slips the alternatives 🧠 ↔️.
+- **Myths** 🧠: "risorius is the smile muscle" (it gives a fearful lateral stretch, AU20; the smile is ZMj [23][36]); "the NLF is an ageing wrinkle" (a fat-boundary fold present from infancy [17][19]); "the Duchenne cheek lift is ZMj" (mostly AU6, though strong AU12 also raises the cheek); "frowning takes 43 muscles, smiling 17" (no basis).
+- **Harvest notes:** the year of [17] is unconfirmed and [13] has none; [37][38] are StatPearls like [9][21][36]; [5] keeps its ":443" URL; titles of [34][35] were not captured; [27] matches PubMed 41413726 in the lower-face note. Refuted so far: none.
+- **Open:** ZMn and risorius absence by ancestry; the bifid-ZMj primary sample; in-vivo thickness norms; quantitative NLF geometry by age, sex and ancestry (none sourced); what "contraction %" means in [24]; full texts of [10][17][24]; code and licences for [31][32].
 
 ## Sources
 

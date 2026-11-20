@@ -1,0 +1,27 @@
+{
+ "id": "ai-assisted-sculpting",
+ "area": "community",
+ "title": "AI-assisted head creation: practitioner reviews",
+ "queue": [
+  {
+   "claim": "Hunyuan3D (2.x) is released under the Tencent Hunyuan Community License, whose territory excludes the EU, UK and South Korea and which needs a separate licence above a monthly-active-user cap; the note recommends it as the best open generator.",
+   "query": "Tencent Hunyuan3D community license territory European Union United Kingdom South Korea monthly active users",
+   "domains": "github.com,huggingface.co"
+  },
+  {
+   "claim": "An AI image-to-3D head mesh, after similarity alignment, is accurate to about 3-5 mm on frontal skin and 6-10 mm on the lateral face (sigmas used for the AI-mesh prior term).",
+   "query": "Hunyuan3D TRELLIS image-to-3D face reconstruction accuracy NoW benchmark mm error comparison",
+   "domains": "arxiv.org"
+  },
+  {
+   "claim": "TRELLIS code and weights are MIT, but some CUDA rasteriser dependencies (e.g. nvdiffrast/diff-gaussian-rasterization) carry NVIDIA non-commercial terms; TRELLIS.2 was released in late 2025, reportedly also MIT.",
+   "query": "TRELLIS.2 Microsoft release license MIT nvdiffrast non-commercial dependency",
+   "domains": "github.com,huggingface.co"
+  },
+  {
+   "claim": "Meshy and Tripo free-tier generations are public or licensed CC BY 4.0, while paid tiers are private/owned.",
+   "query": "Meshy free plan generated assets CC BY 4.0 license private paid plan",
+   "domains": "meshy.ai,tripo3d.ai"
+  }
+ ]
+}

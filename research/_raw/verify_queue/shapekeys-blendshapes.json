@@ -1,0 +1,27 @@
+{
+ "id": "shapekeys-blendshapes",
+ "area": "blender",
+ "title": "Shape keys and blendshape standards",
+ "queue": [
+  {
+   "claim": "ARKit 52 names and Apple raw string values: the Swift case eyeBlinkLeft has rawValue 'eyeBlink_L' (all Left/Right names use _L/_R raw strings), and the full list is 14 eye, 5 brow, 3 cheek, 2 nose, 4 jaw, 23 mouth and 1 tongue.",
+   "query": "ARFaceAnchor.BlendShapeLocation eyeBlinkLeft rawValue \"eyeBlink_L\" list",
+   "domains": "developer.apple.com"
+  },
+  {
+   "claim": "MediaPipe Face Landmarker's 52 blendshape categories are '_neutral' at index 0, followed by the 51 ARKit names without tongueOut in alphabetical order, with identical camelCase names.",
+   "query": "MediaPipe face landmarker blendshapes categories list _neutral browDownLeft index 0 52",
+   "domains": "developers.google.com,ai.google.dev,github.com"
+  },
+  {
+   "claim": "In Blender, interactive Edit or Sculpt edits to the reference (Basis) key propagate the same offset to dependent relative keys, but writing Basis coordinates through Python (kb.data.foreach_set) does not, so dependent deltas change by minus that offset.",
+   "query": "Blender editing Basis shape key changes other shape keys offset edit mode python foreach_set relative keys",
+   "domains": "docs.blender.org,projects.blender.org,blender.stackexchange.com"
+  },
+  {
+   "claim": "Blender drivers that use only 'simple expressions' (arithmetic plus a whitelist such as min, max, abs, clamp) run without Python and work when Auto Run Python Scripts is disabled, which is the default. Other expressions fail.",
+   "query": "Blender drivers simple expressions evaluated without Python auto run disabled supported functions min max clamp",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

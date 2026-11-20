@@ -1,0 +1,27 @@
+{
+ "id": "neural-head-avatars",
+ "area": "reconstruction",
+ "title": "NeRF and Gaussian-splatting head avatars",
+ "queue": [
+  {
+   "claim": "FLAME licensing: FLAME 2020 is non-commercial research-only, while a 'FLAME 2023 Open' release is reportedly CC-BY-4.0; GaussianAvatars/VHAP and most avatar pipelines depend on FLAME, so outputs inherit its terms.",
+   "query": "FLAME 2023 Open license CC BY 4.0 head model download",
+   "domains": "flame.is.tue.mpg.de"
+  },
+  {
+   "claim": "3DGS PLY layout at SH degree 3: 62 float32 properties (x,y,z, unused nx,ny,nz, f_dc_0..2, f_rest_0..44, opacity as logit, scale_0..2 as log, rot_0..3 quaternion w-first unnormalised); rgb = 0.5 + 0.28209479*f_dc.",
+   "query": "gaussian-splatting save_ply f_dc f_rest opacity scale rot attributes sigmoid exp quaternion order",
+   "domains": "github.com"
+  },
+  {
+   "claim": "Code licences: Inria 3DGS rasteriser is non-commercial, nerfstudio gsplat is Apache-2.0, instant-ngp is NVIDIA non-commercial; GaussianAvatars and VHAP repo licences unverified (possibly CC BY-NC-SA).",
+   "query": "GaussianAvatars ShenhanQian github LICENSE",
+   "domains": "github.com"
+  },
+  {
+   "claim": "GaussianAvatars binds Gaussians to FLAME triangles via mu' = k*R*mu + T, r' = R*r, s' = k*s (k = mean of an edge length and its perpendicular), with position/scale regularisers epsilon_pos ~1, epsilon_s ~0.6, lambda_pos ~0.01, lambda_s ~1 in triangle-local units.",
+   "query": "GaussianAvatars rigged 3D Gaussians binding triangle local frame position loss scaling loss epsilon",
+   "domains": "arxiv.org"
+  }
+ ]
+}

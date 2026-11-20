@@ -1,0 +1,27 @@
+{
+ "id": "eyes-modeling-blender",
+ "area": "blender",
+ "title": "Modeling and shading realistic eyes in Blender",
+ "queue": [
+  {
+   "claim": "Visible iris / corneal diameter (HVID, white-to-white) is ~11.7-11.8 mm with SD ~0.5-0.8 mm across adults; used as the metric scale prior (mu 11.8, sigma 0.6) and for depth Z = f_px * 11.8 / HVID_px.",
+   "query": "horizontal visible iris diameter white-to-white mean standard deviation adults population study",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Anterior chamber depth (epithelium to lens) is about 2.8-3.6 mm (mean about 3.1 mm). The iris is near-planar or slightly convex forward, not concave. The entrance pupil is about 13% larger and about 0.5 mm anterior to the real pupil.",
+   "query": "anterior chamber depth normal adults mean mm iris configuration convex anterior segment OCT entrance pupil magnification",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "The centre of eye rotation is about 13-14 mm behind the corneal apex (default 13.3 mm), and angle kappa/alpha is about +3 to +6 degrees (the optical axis sits temporal to the visual axis).",
+   "query": "centre of rotation of the eye distance behind cornea mm angle kappa normal values degrees",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Hertel exophthalmometry normal values: the corneal apex sits about 12-20 mm (typically 15-17 mm) anterior to the lateral orbital rim, with left-right difference of 2 mm or less and variation by ethnicity.",
+   "query": "Hertel exophthalmometry normal values adults by ethnicity mean mm",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "hair-eyes-teeth-recon",
+ "area": "reconstruction",
+ "title": "Reconstructing hair, eyes and teeth from images",
+ "queue": [
+  {
+   "claim": "Code and pretrained priors for the main strand methods (Neural Haircut, GaussianHaircut, MonoHair, DiffLocks, Perm, HAAR) are mostly licensed for research or non-commercial use only, so they must stay an optional plug-in that runs in a separate process and is never bundled.",
+   "query": "GaussianHaircut Neural Haircut DiffLocks MonoHair github license non-commercial",
+   "domains": "github.com"
+  },
+  {
+   "claim": "Average crown sizes (Wheeler-type textbook values), length \u00d7 mesiodistal width: upper central incisor 10.5 \u00d7 8.5 mm, upper lateral 9.0 \u00d7 6.5, upper canine 10.0 \u00d7 7.5, lower central 9.0 \u00d7 5.0, lower lateral 9.5 \u00d7 5.5, lower canine 11.0 \u00d7 7.0 mm. Upper intercanine width 33\u201337 mm, lower 25\u201328 mm.",
+   "query": "Wheeler dental anatomy table crown length mesiodistal diameter maxillary central incisor 10.5 8.5",
+   "domains": ""
+  },
+  {
+   "claim": "The upper eyelid margin follows vertical gaze with an angular gain of roughly 0.6\u20131.0. The fitting prior is g ~ N(0.8, 0.2\u00b2).",
+   "query": "upper eyelid position vertical gaze relationship linear gain degrees eyelid excursion",
+   "domains": "ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "DiffLocks (CVPR 2025) reconstructs strands, including curly and coily hair, from a single image. It was trained on about 40k synthetic hairstyles generated in Blender and is the strongest single-image strand prior I recall. Low-confidence recall of 2025\u201326 successors: Im2Haircut, TANGLED, StrandHead, SimAvatar.",
+   "query": "DiffLocks single image 3D hair strands diffusion 40K hairstyles Im2Haircut 2025",
+   "domains": "arxiv.org"
+  }
+ ]
+}

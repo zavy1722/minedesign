@@ -1,0 +1,27 @@
+{
+ "id": "scan-cleanup-wrapping",
+ "area": "community",
+ "title": "Cleaning scans and wrapping base topology",
+ "queue": [
+  {
+   "claim": "R3DS Wrap/ZWrap is now sold under the Faceform name as a commercial product with a trial; current licence model, price and ZWrap support for current ZBrush versions",
+   "query": "Faceform Wrap ZWrap license price ZBrush compatibility",
+   "domains": "faceform.com,r3ds.com"
+  },
+  {
+   "claim": "The Wrap node set (RigidAlignment, SelectPolygons, Wrapping, Subdivide, TransferTexture, BlendShapes, OpticalFlowWrapping), and that the Wrapping node relaxes smoothness and control-point weight from initial to final values, coarse to fine",
+   "query": "Faceform Wrap Wrapping node smoothness control points weight initial final",
+   "domains": "faceform.com,r3ds.com"
+  },
+  {
+   "claim": "In Blender 5.x, Multires Reshape still copies positions from a same-topology object at the current level, and Bake from Multires (Normals/Displacement) still exists",
+   "query": "Blender 5.0 manual multiresolution modifier reshape bake from multires",
+   "domains": "docs.blender.org"
+  },
+  {
+   "claim": "In Shrinkwrap, Limit is available only in Project mode (projecting along normals when no axis is set); Target Normal Project has no Limit",
+   "query": "Blender manual shrinkwrap modifier project limit target normal project options",
+   "domains": "docs.blender.org"
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "zbrush-to-blender-likeness",
+ "area": "community",
+ "title": "ZBrush likeness methods translated to Blender",
+ "queue": [
+  {
+   "claim": "Blender's 3D viewport Focal Length (default 50 mm) uses a doubled effective sensor (perspective zoom factor 2, about 72 mm), so viewport 50 mm is about 25 mm full-frame and about 71\u00b0 horizontal field of view; the note advises setting 150\u2013200 mm for a telephoto-like sculpting view.",
+   "query": "Blender viewport focal length 50mm not same as camera 50mm sensor 72mm CAMERA_PARAM_ZOOM_INIT_PERSP",
+   "domains": "blender.stackexchange.com,projects.blender.org,docs.blender.org,devtalk.blender.org"
+  },
+  {
+   "claim": "Blender camera export conventions: lens = f_px * 36 / W with Sensor Fit Horizontal; shift_x = (W/2 - cx)/max(W,H); shift_y = (cy - H/2)/max(W,H) for pixel y pointing down; OpenCV-to-Blender camera conversion flips the y and z axes.",
+   "query": "Blender camera shift_x shift_y principal point cx cy OpenCV intrinsics conversion max(width height) sensor fit",
+   "domains": "blender.stackexchange.com,docs.blender.org"
+  },
+  {
+   "claim": "Adult interpupillary distance has a mean of about 63 mm with SD of about 3.5\u20134 mm (Dodgson 2004); prescription 'near PD' is about 3 mm less than distance PD.",
+   "query": "Dodgson 2004 variation and extrema of human interpupillary distance mean standard deviation adults",
+   "domains": ""
+  },
+  {
+   "claim": "ZBrush 4R8 (2017) introduced a Universal Camera with a real focal length in mm and storable or exportable cameras; ZBrush opens with perspective off; Spotlight is toggled with Shift+Z and its dial with Z.",
+   "query": "ZBrush Universal Camera focal length 4R8 Draw palette angle of view Spotlight Shift+Z",
+   "domains": "help.maxon.net,docs.pixologic.com,zbrushcentral.com"
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "aging-face",
+ "area": "anatomy",
+ "title": "Facial aging mechanics",
+ "queue": [
+  {
+   "claim": "Skeletal ageing sizes used as priors: the maxillary, glabellar and pyriform angles fall by single-digit degrees between young and old cohorts, and the orbital aperture grows in area and width, with the most recession superomedially and inferolaterally (Shaw and Kahn 2007; Kahn and Shaw 2008). These set maxilla_retrusion 0\u201310 deg (sigma 3) and orbit_rim_recession 0\u20133 mm.",
+   "query": "Shaw Kahn aging midface bony elements CT maxillary angle glabellar angle pyriform angle degrees young old",
+   "domains": "pubmed.ncbi.nlm.nih.gov,journals.lww.com,academic.oup.com"
+  },
+  {
+   "claim": "The mandible ages by losing ramus height, body height and body length while the gonial angle opens a few degrees (Shaw et al. 2010). Most of the change follows tooth loss, and after extraction the mandibular ridge loses height several times faster than the maxillary ridge (Tallgren 1972).",
+   "query": "Shaw 2010 aging of the mandible aesthetic implications gonial angle ramus height dentate edentulous",
+   "domains": "pubmed.ncbi.nlm.nih.gov,journals.lww.com"
+  },
+  {
+   "claim": "Resting upper-incisor display falls from about 3 mm in the 20s to about 0\u20131 mm by the 60s, roughly 0.5\u20131 mm per decade (Vig and Brundo 1978). This gives the prior mu = max(0, 3 - 0.07*(age-25)) mm.",
+   "query": "Vig Brundo kinetics of anterior tooth display maxillary incisor exposure at rest by age",
+   "domains": ""
+  },
+  {
+   "claim": "Ears lengthen about 0.2 mm a year in adults (Heathcote, BMJ 1995). A library source instead says ear size and shape hold steady until about age 70.",
+   "query": "Heathcote 1995 BMJ why do old men have big ears ear length increase per year",
+   "domains": ""
+  }
+ ]
+}

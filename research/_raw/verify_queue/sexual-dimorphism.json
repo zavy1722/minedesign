@@ -1,0 +1,27 @@
+{
+ "id": "sexual-dimorphism",
+ "area": "anatomy",
+ "title": "Sexual dimorphism of the face and skull",
+ "queue": [
+  {
+   "claim": "Default sex-specific young-adult norms used as fitting priors: n\u2013gn 121.3 \u00b1 6.8 (M) / 111.8 \u00b1 5.2 (F) mm; al\u2013al 34.9 \u00b1 2.1 / 31.4 \u00b1 2.0 mm; zy\u2013zy \u2248135\u2013140 / 127\u2013132 mm (Farkas, North American White, direct anthropometry). Only the n\u2013gn and ex\u2013ex SDs are sourced.",
+   "query": "Farkas anthropometry head face North American White young adult male female n-gn al-al zy-zy mean SD table",
+   "domains": "pmc.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Whole-face 3D shape classifies sex at about 90\u201396% (Mahalanobis D \u2248 3\u20133.5), and human raters reach about 95% on hair-concealed photos (Bruce et al. 1993). This sets the sex-axis prior sigma at 2/D \u2248 0.65.",
+   "query": "sex classification accuracy 3D facial surface geometric morphometrics male female percent correct",
+   "domains": ""
+  },
+  {
+   "claim": "The soft-tissue depth difference between the sexes depends on region. Men are about 12\u201318% thicker at the philtrum, lips and chin (\u03b3 = ln(M/F) \u2248 +0.10 to +0.18); women are thicker at the lateral orbit, inferior malar area and gonion (\u03b3 \u2248 \u22120.05 to \u22120.10).",
+   "query": "facial soft tissue thickness sex differences women thicker malar gonion men thicker philtrum CT ultrasound",
+   "domains": "pmc.ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "The Basel Face Model 2009 shipped linear attribute directions including gender, and FLAME releases have included male, female and generic variants. Licence and access terms are research or non-commercial.",
+   "query": "Basel Face Model 2009 attributes gender age weight height download license",
+   "domains": ""
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "flame-model",
+ "area": "reconstruction",
+ "title": "FLAME head model in depth",
+ "queue": [
+  {
+   "claim": "FLAME 2023 Open is released under CC BY 4.0. Its contents are unknown: whether it has the full 300/100 bases, what training data it uses, and whether it includes masks and UVs. FLAME 2017, 2020 and 2023 are non-commercial research only, with commercial licences through MPI or Meshcapade.",
+   "query": "FLAME 2023 Open CC-BY-4.0 license download",
+   "domains": "flame.is.tue.mpg.de,github.com"
+  },
+  {
+   "claim": "The FLAME pkl layout is v_template 5023x3, f 9976x3, shapedirs 5023x3x400 (300 shape + 100 expression), posedirs 5023x3x36, J_regressor 5x5023, weights 5023x5 and parents [-1,0,1,1,1], with joint order root, neck, jaw, left eye, right eye. The full pose is 15 axis-angle values.",
+   "query": "FLAME_PyTorch lbs shapedirs posedirs 36 neck_pose eye_pose full_pose order",
+   "domains": "github.com"
+  },
+  {
+   "claim": "FLAME topology and vertex order are identical across 2017, 2020 and 2023, but coefficients are not portable. FLAME 2023 revises the eyelid region and comes in 'with jaw rotation' and 'no jaw' variants, and VHAP and GaussianAvatars require the 'with jaw' file.",
+   "query": "FLAME 2023 versions w/ jaw rotation flame2023.pkl VHAP GaussianAvatars",
+   "domains": "github.com,flame.is.tue.mpg.de"
+  },
+  {
+   "claim": "The MPI FLAME Blender add-on is downloaded from the FLAME website after registration and bundles model data. It provides shape and expression shape keys, a neck, jaw and eye armature, pose-corrective keys and OBJ export. Its supported Blender versions are unknown as of late 2026.",
+   "query": "FLAME Blender add-on download supported Blender version shape keys pose correctives",
+   "domains": "flame.is.tue.mpg.de,github.com"
+  }
+ ]
+}

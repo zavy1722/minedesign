@@ -1,0 +1,27 @@
+{
+ "id": "polycount-likeness",
+ "area": "community",
+ "title": "Polycount: likeness sculpting knowledge",
+ "queue": [
+  {
+   "claim": "Eye-seating priors used for 'eyes popping'/'staring' lint and engine eye priors: cornea apex 12\u201320 mm anterior to lateral orbital rim (Hertel), L\u2013R \u2264 2 mm; MRD1 4\u20135 mm; upper lid covers 1\u20132 mm of iris; upper-lid margin thickness \u2248 1.5\u20132.5 mm",
+   "query": "normal Hertel exophthalmometry values adults range MRD1 normal upper eyelid iris coverage mm",
+   "domains": ""
+  },
+  {
+   "claim": "Hair/beard silhouettes as outer bounds with a cranial prior: head length g\u2013op 175\u2013205 mm with \u03c3 \u2248 7 mm within a sex-specific population, scalp soft tissue \u2248 4\u20138 mm over bone",
+   "query": "scalp soft tissue thickness vertex opisthocranion mm adults head length glabella-opisthocranion mean SD",
+   "domains": ""
+  },
+  {
+   "claim": "Ear placement priors used after pitch is solved: tragion approximately level with orbitale (Frankfort plane), ear long axis tilted 10\u201330\u00b0 (\u224820\u00b0) from vertical",
+   "query": "ear inclination angle degrees from vertical adults anthropometry otobasion superius tragion Frankfort horizontal position",
+   "domains": ""
+  },
+  {
+   "claim": "Neck circumference adult ranges \u2248 36\u201342 cm men and 30\u201336 cm women (used for 'neck too thin' lint), and the cheilion lying roughly 1.5\u20132 cm behind labrale superius in profile (uncertain)",
+   "query": "ANSUR II neck circumference mean SD male female; cheilion to labrale superius sagittal depth mm 3D facial anthropometry",
+   "domains": ""
+  }
+ ]
+}

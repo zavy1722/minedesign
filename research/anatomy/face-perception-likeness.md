@@ -2,7 +2,7 @@
 
 > People recognise identity holistically. The eye region carries the most weight, and the brows count at least as much as the eyes; hair and outline dominate for unfamiliar viewers, and shape and pigmentation contribute roughly equally. Identity is coded as a deviation from an internal average, so caricature helps recognition, while shrinking the deviation (statistical priors, symmetrising, smoothing) is the commonest reason an accurate-looking head reads as "a relative". Familiar viewers tolerate global scale and stretch but not errors in internal feature shapes and relations. Unfamiliar viewers, the artist included, are poor judges. So: prioritise lids, brows, lips and the sitter's most distinctive measurements, audit prior shrinkage, and have people who know the sitter judge multi-view renders with eyes, brows and hair in place. No harvest or draft existed, so all items are expert knowledge.
 
-Evidence status: 0 ✅ / 0 📄 / 63 🧠 / 19 ↔️ — 🧠 items are queued for web verification.
+Evidence status: 0 ✅ / 4 📄 / 61 🧠 / 17 ↔️ — 🧠 items are queued for web verification.
 
 ## Key facts
 
@@ -15,11 +15,11 @@ Evidence status: 0 ✅ / 0 📄 / 63 🧠 / 19 ↔️ — 🧠 items are queued 
 - **"Configural" means three things:** first-order layout, holistic binding, and second-order metric spacing (Maurer, Le Grand & Mondloch 2002). 🧠
 - **Spacing versus feature shape is contested.** ↔️ McKone & Yovel (2009) found feature shape is also processed holistically. 2D inter-feature distances vary little between people and a lot across photos of one person, so they do not identify faces alone (Taschereau-Dumouchel et al. 2010; Burton et al. 2016). 🧠 Likeness means correct feature shapes in correct *3D* relations, not ratio-matching on one photo.
 - **Familiar recognition survives large uniform stretches**, but not stretching of one half (Hole et al. 2002; Sandford & Burton 2014). 🧠 Recognisable is not the same as a good likeness.
-- **Spatial band.** Identification relies most on about 8–16 cycles per face width (Costen, Parker & Craw 1996; Näsänen 1999). ↔️ Familiar faces survive very coarse images (Harmon 1973; Sinha et al. 2006). 🧠 On a 140 mm face that band is 9–18 mm form: orbit depth, lid and brow masses, nose and lip volumes, cheek planes. Pores do not fall in it. 🧠
+- **Spatial band.** Identification relies most on about 8–16 cycles per face width (Costen, Parker & Craw 1996; Näsänen 1999): Näsänen found peak sensitivity at 8–13 cycles per face width and lowest thresholds near 10; reviews summarise the band as about 8–17 📄 [1][2]. Familiar faces survive very coarse images (Harmon 1973; Sinha et al. 2006). 🧠 On a 140 mm face that band is 9–18 mm form: orbit depth, lid and brow masses, nose and lip volumes, cheek planes. Pores do not fall in it. 🧠
 
 **Regions**
 - **Eyes.** Bubbles maps for identity centre on the eyes (Gosselin & Schyns 2001; Schyns, Bonnar & Gosselin 2002). The optimal first fixation is just below the eyes (Peterson & Eckstein 2012), and East Asian viewers fixate more centrally (Blais et al. 2008). 🧠
-- **Brows ≥ eyes.** Removing the brows from celebrity photos hurt recognition more than removing the eyes (Sadr, Jarudi & Sinha 2003). 🧠 A few mm of brow height or tilt shifts perceived mood and sex. 🧠
+- **Brows ≥ eyes.** Removing the brows from celebrity photos hurt recognition more than removing the eyes (Sadr, Jarudi & Sinha 2003). 📄 [3] A few mm of brow height or tilt shifts perceived mood and sex. 🧠
 - **Internal and external features.** Familiar faces are recognised mainly from internal features; unfamiliar faces as much from hair and outline (Ellis, Shepherd & Davies 1979). Hair can override the internal features (Sinha & Poggio 1996). 🧠
 - **"Critical features."** ↔️ Abudarham & Yovel (2016) reported high sensitivity to lip thickness, eye shape, eyebrow thickness, eye colour and hair colour, and low sensitivity to eye distance, mouth size and face proportion. 🧠 The list is recalled, from rated 2D features, and conflicts with spacing studies.
 - **Upper face over lower** for identity; the mouth matters more for expression; ears little. 🧠
@@ -33,7 +33,7 @@ Evidence status: 0 ✅ / 0 📄 / 63 🧠 / 19 ↔️ — 🧠 items are queued 
 
 **Face space and caricature**
 - **Norm-based coding.** Faces are coded relative to an average (Valentine 1991), and distinctive faces are recognised better. Adapting to an anti-face shifts perception along the line through the mean (Leopold et al. 2001). 🧠
-- **Caricature effect.** Caricatures are identified as well or better and faster; anti-caricatures worse (Brennan 1985; Rhodes, Brennan & Carey 1987; Benson & Perrett 1991; Lee, Byatt & Rhodes 2000; in 3D, O'Toole et al. 1997). 🧠 Best-likeness ratings peak at slight positive exaggeration. ↔️
+- **Caricature effect.** Caricatures are identified as well or better and faster; anti-caricatures worse (Brennan 1985; Rhodes, Brennan & Carey 1987; Benson & Perrett 1991; Lee, Byatt & Rhodes 2000; in 3D, O'Toole et al. 1997). 🧠 Best-likeness ratings peak at slight positive exaggeration for photographs (about +4.4% on average, Benson & Perrett 1991), more for line drawings, while later work reports about +42% or even an anti-caricature of about −14% for highly familiar faces: range roughly −14% to +42%. ↔️ [4]
 - **Averaging flatters and erases.** Average faces are attractive (Langlois & Roggman 1990) and less identifiable. A regularised fit can look better and less like the person. 🧠
 - **Adaptation.** Viewing distorted faces shifts the perceived norm (Webster & MacLin 1999); the artist adapts to the sculpt's errors. 🧠
 
@@ -51,14 +51,14 @@ Evidence status: 0 ✅ / 0 📄 / 63 🧠 / 19 ↔️ — 🧠 items are queued 
 
 | Effect | Value | Units | Population | Reference | Status |
 |---|---|---|---|---|---|
-| Identity spatial-frequency band | ≈8–16 (peak ≈10) | cycles / face width | adults | Costen 1996; Näsänen 1999 | ↔️ |
+| Identity spatial-frequency band | ≈8–16 (peak ≈10) | cycles / face width | adults | Costen 1996; Näsänen 1999 | 📄 [1][2] |
 | Same band as form wavelength, 140 mm face | ≈9–18 | mm | derived | this note | 🧠 |
 | Coarsest image still recognised (familiar faces) | ≈15–20 | px or blocks across face | famous faces | Harmon 1973; Sinha 2006 | ↔️ |
-| Brows removed vs eyes removed | brows-removed worse | relative accuracy | celebrities | Sadr 2003 | 🧠 |
+| Brows removed vs eyes removed | brows-removed worse | relative accuracy | celebrities | Sadr 2003 | 📄 [3] |
 | Own-race bias | ≈1.4× hit odds; ≈1.5× false-alarm odds (other-race) | odds ratio | meta-analysis | Meissner & Brigham 2001 | 🧠 |
 | Unfamiliar matching error | ≈10–30 | % | good images | Bruce 1999; Burton 2010 | ↔️ |
 | Identities made sorting 40 photos of 2 people | ≈7–8 vs ≈2 | count | unfamiliar vs familiar | Jenkins 2011 | 🧠 |
-| Best-likeness caricature | ≈+5 to +20 (uncertain) | % of deviation | drawings and photos | Rhodes 1987; Benson & Perrett 1991 | ↔️ |
+| Best-likeness caricature | ≈+4 (photos, Benson & Perrett 1991) to ≈+42 (later work); anti-caricature ≈−14 also reported | % of deviation | drawings and photos | Rhodes 1987; Benson & Perrett 1991 | ↔️ [4] |
 | Stretch tolerated by familiar recognition | up to ≈2× on one axis (reported) | scale | famous faces | Hole 2002 | ↔️ |
 | Morph accepted as self | ≈20 | % toward attractive | own face | Epley & Whitchurch 2008 | 🧠 |
 | Developmental prosopagnosia | ≈2–2.5 | % | population | Kennerknecht 2006 | ↔️ |
@@ -172,7 +172,11 @@ A frontal-only fit keeps roughly 20–40% of the sitter's projection deviation.
 
 ## Sources
 
-No harvest or draft existed for this topic, so no URLs are cited.
+1. Näsänen 1999, Spatial frequency bandwidth used in the recognition of facial images (record): https://acnpsearch.tweb-dev.unibo.it/singlejournalindex/65047205
+2. Pilz, Bülthoff & Vuong 2009 (review citing Costen et al. 1996 and Näsänen 1999): https://www.staff.ncl.ac.uk/q.c.vuong/pdfs/Pilzetal2009.pdf
+3. Sadr, Jarudi & Sinha 2003, The role of eyebrows in face recognition: https://pubmed.ncbi.nlm.nih.gov/12729380/
+4. Benson & Perrett, perception and recognition of photographic quality facial caricatures: https://research-portal.st-andrews.ac.uk/en/publications/perception-and-recognition-of-photographic-quality-facial-caricat/
+5. Abudarham & Yovel 2016 (J Vision): https://pmc.ncbi.nlm.nih.gov/articles/PMC4720326
 
 **Further reading (by name, not yet linked)**
 - Yin 1969, "Looking at upside-down faces"; Young, Hellawell & Hay 1987; Tanaka & Farah 1993, "Parts and wholes in face recognition"; Thompson 1980, "Margaret Thatcher: a new illusion"
@@ -190,3 +194,10 @@ No harvest or draft existed for this topic, so no URLs are cited.
 - Malpass & Kravitz 1969; Meissner & Brigham 2001; Grother, Ngan & Hanaoka 2019, NIST IR 8280
 - Russell, Duchaine & Nakayama 2009, "Super-recognizers"; Duchaine & Nakayama 2006, "The Cambridge Face Memory Test"; Kennerknecht et al. 2006
 - Mita, Dermer & Knight 1977; Epley & Whitchurch 2008; Said, Sebe & Todorov 2009; O'Toole, Roark & Abdi 2002, "Recognizing moving faces"
+
+## Verification log (2026-11-20)
+
+- Spatial-frequency band 8–16 cycles/face, peak about 10: confirmed (📄). Näsänen: peak 8–13, thresholds lowest near 10; review: 8–17. https://acnpsearch.tweb-dev.unibo.it/singlejournalindex/65047205 ; https://www.staff.ncl.ac.uk/q.c.vuong/pdfs/Pilzetal2009.pdf
+- Brows removal hurts more than eyes removal (Sadr 2003): confirmed (📄). https://pubmed.ncbi.nlm.nih.gov/12729380/
+- Abudarham & Yovel 2016 critical features: unconfirmed as a full list. Lip thickness and eyebrow thickness critical, mouth size not, per secondary snippets; eye shape, eye/hair colour, eye distance and face proportion not verified (eyebrow shape reported as non-critical). Left unchanged. https://pmc.ncbi.nlm.nih.gov/articles/PMC4720326 [5]
+- Best-likeness caricature +5 to +20%: contested (↔️). About +4.4% for photos (Benson & Perrett 1991), larger for line drawings, about +42% in later work, about −14% anti-caricature in other studies. https://research-portal.st-andrews.ac.uk/en/publications/perception-and-recognition-of-photographic-quality-facial-caricat/

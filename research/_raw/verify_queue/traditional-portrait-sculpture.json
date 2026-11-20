@@ -1,0 +1,27 @@
+{
+ "id": "traditional-portrait-sculpture",
+ "area": "community",
+ "title": "Traditional portrait sculpture methods",
+ "queue": [
+  {
+   "claim": "Tragion-based face depths for young adults: t\u2013n about 115\u2013125 mm (M) / 108\u2013117 mm (F), t\u2013sn about 120\u2013130 / 112\u2013121, t\u2013gn about 135\u2013150 / 125\u2013138. These were reconstructed from head geometry, not read from Farkas.",
+   "query": "Farkas upper face depth tragion nasion middle face depth tragion subnasale lower face depth tragion gnathion mean young adults mm",
+   "domains": "ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "A careful live caliper reading repeats to about 1\u20132 mm for bony landmarks (n, t, ex, prn, gn) and 2\u20134 mm for soft or pressed ones (zy, go, ch, through hair).",
+   "query": "technical error of measurement direct facial anthropometry calipers intra-observer inter-observer reliability mm",
+   "domains": "ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Pressed caliper readings for zy\u2013zy, go\u2013go and eu\u2013eu need about +2 to +5 mm (both sides combined) to match the uncompressed 3D skin surface.",
+   "query": "direct anthropometry versus 3D stereophotogrammetry bizygomatic bigonial width difference soft tissue compression calipers",
+   "domains": "ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Bitragion breadth (t\u2013t) for adults is about 140\u2013150 mm in men and about 132\u2013142 mm in women.",
+   "query": "ANSUR II bitragion breadth mean male female mm",
+   "domains": ""
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "muscles-lower-face",
+ "area": "anatomy",
+ "title": "Muscles of the lower face, lips and chin",
+ "queue": [
+  {
+   "claim": "Legan & Burstone (1980) soft-tissue norms used as fitting priors: mentolabial sulcus depth 4 \u00b1 2 mm (B' to Li\u2013Pog'), lower-lip protrusion 2 \u00b1 1 mm and upper-lip protrusion 3 \u00b1 1 mm (to Sn\u2013Pog'), interlabial gap 2 \u00b1 2 mm, vertical lip\u2013chin ratio 1:2",
+   "query": "Legan Burstone 1980 soft tissue cephalometric analysis orthognathic surgery norms mentolabial sulcus lower lip protrusion interlabial gap",
+   "domains": ""
+  },
+  {
+   "claim": "Adult soft-tissue depth over bone (ranges of published means): labrale inferius 11\u201316 mm, supramentale 9\u201313 mm, pogonion 9\u201313 mm, gnathion 7\u201310 mm, menton 5\u20139 mm; Holdaway soft-tissue chin thickness 10\u201312 mm",
+   "query": "facial soft tissue depth adults pooled means labrale inferius mentolabial sulcus pogonion menton Stephan Simpson 2008",
+   "domains": ""
+  },
+  {
+   "claim": "The modiolus centre sits about 10\u201315 mm lateral to the mouth corner (cheilion), within about \u00b15 mm vertically; the cadaver DAO insertion is about 10 mm lateral and 10 mm caudal to the commissure (PubMed 33565832)",
+   "query": "modiolus location distance lateral to oral commissure mm cadaver ultrasound depressor anguli oris insertion",
+   "domains": "pubmed.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Mentolabial angle norm is about 110\u2013135\u00b0 (centre about 120\u2013130\u00b0, more acute in men), and the lower lip sits 2 \u00b1 2 mm behind Ricketts' E-line in white adults, with more protrusive lips in African and East Asian samples",
+   "query": "mentolabial angle normative values degrees adults sex ethnicity E-line lower lip Ricketts",
+   "domains": ""
+  }
+ ]
+}

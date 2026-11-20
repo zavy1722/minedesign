@@ -1,0 +1,27 @@
+{
+ "id": "awesome-lists-resources",
+ "area": "community",
+ "title": "Curated resource lists and communities",
+ "queue": [
+  {
+   "claim": "FLAME is licensed for non-commercial research only, and a 'FLAME 2023 Open' release may be CC BY 4.0 (does it include the expression basis?)",
+   "query": "FLAME 2023 Open head model license CC BY 4.0",
+   "domains": "flame.is.tue.mpg.de,github.com"
+  },
+  {
+   "claim": "Z-Anatomy is distributed as a Blender file under CC BY-SA 4.0 and derived from BodyParts3D (CC BY-SA 2.1 Japan); CC BY-SA 4.0 content is one-way compatible with GPLv3",
+   "query": "Z-Anatomy Blender open source atlas license BodyParts3D CC BY-SA",
+   "domains": ""
+  },
+  {
+   "claim": "ICT-FaceKit (USC ICT) is MIT-licensed, with about 100 identity components and about 53 ARKit-like expression shapes",
+   "query": "ICT-FaceKit license MIT identity expression blendshapes count",
+   "domains": "github.com"
+  },
+  {
+   "claim": "A 2025 MetaHuman licence update (Unreal Engine 5.6 era) allows MetaHumans to be used outside Unreal Engine",
+   "query": "MetaHuman license update 2025 use outside Unreal Engine other engines",
+   "domains": "unrealengine.com,epicgames.com"
+  }
+ ]
+}

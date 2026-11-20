@@ -1,0 +1,27 @@
+{
+ "id": "skin-wrinkles-microdetail",
+ "area": "anatomy",
+ "title": "Skin thickness, wrinkles, pores and microdetail",
+ "queue": [
+  {
+   "claim": "Regional facial skin thickness (epidermis+dermis): eyelids ~0.4-0.9 mm, forehead/cheek ~1.3-2.2 mm, nasal tip/upper lip/chin up to ~2.5-3 mm; males ~10-25% thicker dermis. These are the engine's prior means (Table A).",
+   "query": "facial skin thickness by region high-frequency ultrasound eyelid forehead cheek nasal tip upper lip chin mm",
+   "domains": "ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Visible facial pore diameter ~0.05-0.4 mm (largest on nose and medial cheek), mean spacing ~0.4-1.5 mm by region; sebaceous gland density on the face ~400-900/cm2.",
+   "query": "facial pore size density by region nose cheek forehead image analysis study diameter mm",
+   "domains": "ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Static wrinkle depths: fine lines ~0.05-0.3 mm, crow's feet 0.1-0.5 mm, forehead 0.1-0.8 mm, glabellar 0.2-1.0 mm, rarely >1.5 mm; microrelief primary furrows 0.02-0.1 mm deep.",
+   "query": "wrinkle depth profilometry crow's feet forehead glabellar micrometers 3D fringe projection measurement",
+   "domains": ""
+  },
+  {
+   "claim": "On the face, relaxed skin tension lines (Borges 1984) largely coincide with wrinkle lines, while Langer's lines deviate in several facial regions. The RSTL orientation priors in Table F follow this.",
+   "query": "relaxed skin tension lines face Borges versus Langer lines differences facial regions",
+   "domains": "ncbi.nlm.nih.gov,pubmed.ncbi.nlm.nih.gov"
+  }
+ ]
+}

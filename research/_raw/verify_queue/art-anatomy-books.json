@@ -1,0 +1,27 @@
+{
+ "id": "art-anatomy-books",
+ "area": "community",
+ "title": "Classic art-anatomy references for heads",
+ "queue": [
+  {
+   "claim": "In measured adults, the eye line sits at about 0.48\u20130.53 of vertex\u2013menton height (brow 0.42\u20130.46, subnasale 0.69\u20130.73, stomion 0.78\u20130.82). These are the default block-in and canon values in Table 2 / loomis_vertical_canon_normalized.",
+   "query": "Farkas total head height v-gn mean adult male female mm nasion vertex anthropometry",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "In Loomis's ideal adult head the height is 3.5 units: crown to hairline 1/2 unit, then three equal units (hairline to brow, brow to nose base, nose base to chin). This puts the eye line exactly at half height.",
+   "query": "Loomis Drawing the Head and Hands head three and one half units hairline brow nose chin proportions",
+   "domains": ""
+  },
+  {
+   "claim": "Mouth width (ch\u2013ch) is narrower than the interpupillary distance in adults, at about 0.78\u20130.88 of it. Nose width over intercanthal width (al\u2013al/en\u2013en) is about 1.0\u20131.12 in Europeans and higher in African and East Asian samples. Suggested sigmas are 0.07\u20130.12.",
+   "query": "mouth width interpupillary distance ratio adults anthropometry cheilion alar width intercanthal ratio",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  },
+  {
+   "claim": "Ear length (sa\u2013sba) is usually longer than nasal height (n\u2013sn), at about 1.10\u20131.25\u00d7, so the canon that the ear spans brow to nose base rarely holds. The profile is roughly square, at about 0.9\u20131.0.",
+   "query": "naso-aural proportion canon ear length nose height neoclassical canon validity percentage subjects",
+   "domains": "ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov"
+  }
+ ]
+}
