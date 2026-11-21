@@ -42,16 +42,23 @@ Procedure (*landmark-index-correspondence* "Calibrate detector semantics" and
    * marks it ``verified`` when ``n >= 20`` and ``sigma_cal <= 1.0 mm``
      (sharp_junction / curve) or ``<= 2.5 mm`` (other kinds) (WP-14 / WP-24
      acceptance limits, 🧠).
-3. Checks: every listed mirror pair must map to mirrored surface points
-   (``|M p_a - p_b| <= 2 mm`` with ``M = diag(-1, 1, 1)``) else both points get
+3. Checks, judged from the detections' unshrunk optimum ``p_hat`` of every
+   calibrated point (the shrink would pull a point seen in few renders back
+   toward its prior embedding, e.g. a re-run's iris group toward its old side):
+   every listed mirror pair must map to mirrored surface points
+   (``|M p_a - p_b| <= 2 mm`` with ``M = diag(-1, 1, 1)``; an uncalibrated
+   member enters with its prior embedding) else both points get
    ``pair_mismatch``; every geometric ``lr_group`` is resolved by comparing the
-   group's 3D centroid with the template eye centres (anatomical44 ``p_L`` /
-   ``p_R`` of the kit, else the en/ex midpoints) and recorded as
-   ``lr_resolved {group: 'L' | 'R'}``; a group nearer the eye opposite to its
-   ``provisional_side`` gets ``lr_unexpected``, a distance ratio below 1.5
-   (:data:`face3d.model.registry.LR_RATIO_MIN`) ``lr_ambiguous``, two groups on
-   one side ``lr_conflict``.  Sides are never written into the scheme as data
-   (they stay ``geometric``); the record is the calibration result.
+   centroid of its calibrated members with the template eye centres
+   (anatomical44 ``p_L`` / ``p_R`` of the kit, else the en/ex midpoints) and
+   recorded as ``lr_resolved {group: 'L' | 'R'}``; a group nearer the eye
+   opposite to its ``provisional_side`` gets ``lr_unexpected``, a distance ratio
+   below 1.5 (:data:`face3d.model.registry.LR_RATIO_MIN`) ``lr_ambiguous``, a
+   member seen in fewer than 20 renders ``lr_low_n``, a member whose
+   ``sigma_cal`` exceeds its verification limit ``lr_poor_fit``, two groups on one side
+   ``lr_conflict``, and a group without any calibrated member ``unresolved``
+   (not recorded).  Sides are never written into the scheme as data (they stay
+   ``geometric``); the record is the calibration result.
 
 Inputs::
 
@@ -468,15 +475,21 @@ def calibrate(kit: TemplateKit, renders: Sequence[Render], scheme: Scheme) -> tu
         e.setdefault("verified", False)
         results.append(e)
 
+    # The checks judge what the detections say: calibrated points enter with their unshrunk optimum
+    # p_hat (the shrink toward the prior embedding would pull a few-render point back to its prior
+    # side); uncalibrated points enter the pair check with their prior embedding, the L/R check not at all.
+    hat = {e["index"]: e["p_hat"] for e in results if e.get("calibrated")}
+    pos = {**{e["index"]: e["position"] for e in results if "position" in e}, **hat}
+
     # mirror pairs
-    pos = {e["index"]: e["position"] for e in results if "position" in e}
     M = np.array([-1.0, 1.0, 1.0])
     pairs = []
     for a, b in scheme.mirror_pairs:
         if a in pos and b in pos:
             d = float(np.linalg.norm(pos[a] * M - pos[b]))
             ok = d <= PAIR_TOL_MM
-            pairs.append({"pair": [int(a), int(b)], "mirror_distance_mm": d, "ok": ok})
+            pairs.append({"pair": [int(a), int(b)], "mirror_distance_mm": d, "ok": ok,
+                          "from": ["p_hat" if i in hat else "prior_embedding" for i in (a, b)]})
             if not ok:
                 for i in (a, b):
                     if "pair_mismatch" not in results[i]["flags"]:
@@ -489,20 +502,26 @@ def calibrate(kit: TemplateKit, renders: Sequence[Render], scheme: Scheme) -> tu
         eyes = eye_centres(kit)
         for k, g in enumerate(scheme.lr_groups):
             gname = str(g.get("name", f"group{k}"))
-            P = [pos[i] for i in g["indices"] if i in pos]
+            members = [i for i in g["indices"] if i in hat]
             rec: dict[str, Any] = {"name": gname, "indices": list(g["indices"]),
                                    "provisional_side": g.get("provisional_side"), "flags": []}
-            if not P:
+            if not members:
                 rec["flags"].append("unresolved")
                 groups.append(rec)
                 continue
-            c = np.mean(P, axis=0)
+            c = np.mean([hat[i] for i in members], axis=0)
             dL, dR = float(np.linalg.norm(c - eyes["L"])), float(np.linalg.norm(c - eyes["R"]))
             side = "L" if dL <= dR else "R"
             ratio = max(dL, dR) / max(min(dL, dR), 1e-12)
-            rec.update({"resolved": side, "d_L_mm": dL, "d_R_mm": dR, "distance_ratio": ratio})
+            n_min = min(int(results[i]["n"]) for i in members)
+            rec.update({"resolved": side, "d_L_mm": dL, "d_R_mm": dR, "distance_ratio": ratio,
+                        "n_min": n_min, "from": "p_hat"})
             if ratio < LR_RATIO_MIN:
                 rec["flags"].append("lr_ambiguous")
+            if n_min < VERIFY_MIN_RENDERS:
+                rec["flags"].append("lr_low_n")
+            if any(results[i]["sigma_cal_mm"] > verify_limit(results[i]["kind"]) for i in members):
+                rec["flags"].append("lr_poor_fit")
             if g.get("provisional_side") in ("L", "R") and side != g["provisional_side"]:
                 rec["flags"].append("lr_unexpected")
             lr_resolved[gname] = side
@@ -549,7 +568,8 @@ def calibrate(kit: TemplateKit, renders: Sequence[Render], scheme: Scheme) -> tu
                      "shrink": f"w = n / (n + {SHRINK_PSEUDO_COUNT:g})", "pair_tol_mm": PAIR_TOL_MM,
                      "sigma_def_mm_by_kind": dict(SIGMA_DEF_MM), "outlier": f"max({OUTLIER_MIN_PX} px, "
                                                                             f"{OUTLIER_SIGMA} sigma)",
-                     "facing_min_cos": FACING_MIN_COS, "occlusion_tol_mm": OCCLUSION_TOL_MM},
+                     "facing_min_cos": FACING_MIN_COS, "occlusion_tol_mm": OCCLUSION_TOL_MM,
+                     "checks_from": "p_hat (unshrunk detection optimum) of calibrated points"},
         "points": points,
         "pairs": pairs,
         "lr_groups": groups,

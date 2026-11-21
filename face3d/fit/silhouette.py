@@ -9,9 +9,31 @@ in the photos (manually, or from a segmentation mask), using an ICP-style loop:
     1. find silhouette vertices of the current mesh in each view
        (vertices on edges shared by a front-facing and a back-facing triangle)
     2. match every outline sample to the nearest projected silhouette vertex
-    3. turn each 2D correction into a 3D target at the vertex's current depth
-    4. solve a bilaplacian-smooth deformation honouring these targets plus any
+    3. keep only the component of each 2D correction along the vertex's outward
+       image normal (``normal_only=True``, the default; see below)
+    4. turn each 2D correction into a 3D target at the vertex's current depth
+    5. solve a bilaplacian-smooth deformation honouring these targets plus any
        fixed constraints (e.g. reconstructed landmarks), take a damped step.
+
+Normal-only correction (DESIGN D-13 "normal-only residuals", defect 1 "tangential
+silhouette drift"; WP-06 (a)). An outline sample only says where the occluding
+contour is *across* the curve; its position *along* the curve is arbitrary
+(sampling density, clustering, partial outlines). The legacy correction moved the
+matched vertex all the way to the sample, so unevenly spaced or one-sided samples
+dragged rim vertices tangentially along the contour (vertex contours carry
+half-edge bias). With ``normal_only=True`` the sample O_k matched to vertex v
+(projection P) is replaced by
+
+    O'_k = P + n2 (n2 . (O_k - P)),
+    n2   = normalise(project(V_v + 1.0 mm * n3_v) - project(V_v)),
+
+where n3_v is the area-weighted vertex normal (``Mesh.vertex_normals``), so only
+the across-contour component survives; samples whose normal projects to
+|.| < 1e-9 px (normal along the viewing ray) are skipped. The full sub-vertex rim
+and ContourObs residuals of DESIGN 4.16 replace this in WP-17.
+``normal_only=False`` reproduces the legacy behaviour exactly.
+
+Units: vertices and depths in mm (model units), outlines and errors in pixels.
 """
 from __future__ import annotations
 
@@ -73,13 +95,23 @@ def fit_silhouettes(mesh: Mesh, views: list[ContourView], *, fixed_idx: np.ndarr
                     fixed_pos: np.ndarray | None = None, iterations: int = 10, max_dist_px: float = 60.0,
                     step: float = 0.7, weight: float = 200.0, fixed_weight: float = 1e3,
                     vertex_mask: np.ndarray | None = None, method: str = "reduced",
-                    n_centers: int = 600, smoothness: float = 1e-2) -> tuple[np.ndarray, list[float]]:
+                    n_centers: int = 600, smoothness: float = 1e-2,
+                    normal_only: bool = True) -> tuple[np.ndarray, list[float]]:
     """Deform `mesh` so its silhouettes match the outlines. Returns (vertices, mean px error per iteration).
 
     vertex_mask: optional bool (V,) restricting which vertices may be matched
     (e.g. exclude hair/ears/neck regions that the outline does not describe).
     method: "reduced" (Gaussian-RBF subspace, fast on large meshes) or
     "laplacian" (full bilaplacian solve, exact but slow beyond a few thousand vertices).
+    normal_only: keep only the across-contour (outward image normal) component of
+    each outline correction (DESIGN D-13, WP-06 (a); see the module docstring).
+    False reproduces the legacy full-correction behaviour exactly.
+
+    The returned history is the mean error in pixels per iteration over the
+    samples within ``max_dist_px`` of their nearest projected silhouette vertex:
+    the across-contour distance |n2 . (O_k - P)| when ``normal_only`` (the
+    residual this mode minimises; the along-contour offset is not an error), else
+    the legacy Euclidean sample-to-vertex distance.
     """
     V = mesh.vertices.copy()
     tris = mesh.triangles()
@@ -92,6 +124,7 @@ def fit_silhouettes(mesh: Mesh, views: list[ContourView], *, fixed_idx: np.ndarr
         tgt_sum = np.zeros_like(V)
         tgt_w = np.zeros(len(V))
         errs = []
+        normals = None  # vertex normals of the current V, computed lazily (normal_only)
         for view in views:
             cam = view.camera
             sil = silhouette_vertices(V, tris, cam, topo)
@@ -105,10 +138,26 @@ def fit_silhouettes(mesh: Mesh, views: list[ContourView], *, fixed_idx: np.ndarr
             nn = np.argmin(d2, axis=1)
             dist = np.sqrt(d2[np.arange(len(O)), nn])
             keep = dist < max_dist_px
-            errs.append(float(dist[keep].mean()) if keep.any() else max_dist_px)
             vi = sil[nn[keep]]
+            Ok = O[keep]
+            if not normal_only:
+                errs.append(float(dist[keep].mean()) if keep.any() else max_dist_px)
+            else:
+                d_n = np.zeros(0)
+                if len(vi):
+                    if normals is None:
+                        normals = Mesh(V, mesh.faces).vertex_normals()
+                    Pk = P[nn[keep]]
+                    q = cam.project(V[vi] + 1.0 * normals[vi]) - Pk  # image of a 1 mm step along n3
+                    qn = np.linalg.norm(q, axis=1)
+                    ok = qn >= 1e-9  # skip normals seen end-on
+                    n2 = q[ok] / qn[ok, None]
+                    vi, Pk, Ok = vi[ok], Pk[ok], Ok[ok]
+                    d_n = np.sum(n2 * (Ok - Pk), axis=1)  # signed across-contour offset (px)
+                    Ok = Pk + n2 * d_n[:, None]
+                errs.append(float(np.abs(d_n).mean()) if len(d_n) else max_dist_px)
             depth = cam.depth(V[vi])
-            target = _backproject_at_depth(cam, O[keep], depth)
+            target = _backproject_at_depth(cam, Ok, depth)
             np.add.at(tgt_sum, vi, view.weight * target)
             np.add.at(tgt_w, vi, view.weight)
         history.append(float(np.mean(errs)) if errs else float("nan"))

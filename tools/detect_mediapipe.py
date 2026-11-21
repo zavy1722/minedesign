@@ -22,7 +22,9 @@ Steps per image (conventions of DESIGN 3.1 / 3.2):
    is the file used.
 2. **Load** with Pillow and ``ImageOps.exif_transpose`` (EXIF orientation baked,
    ``image.orientation_applied = True``); HEIC/HEIF through ``pillow-heif`` when
-   installed, else the image is refused with "convert to PNG".  ``image.sha256``
+   installed (its decoder applies ``irot`` / ``imir`` / ``clap`` and EXIF
+   Orientation is then ignored, DESIGN 3.1), else the image is refused with
+   "convert to PNG".  ``image.sha256``
    is the SHA-256 of the original file bytes, ``image.wh`` the oriented size.
 3. **Detect** with the Tasks API ``FaceLandmarker`` in IMAGE mode with
    ``output_face_blendshapes=True``, ``output_facial_transformation_matrixes=True``
@@ -103,14 +105,6 @@ class Refused(RuntimeError):
 
 
 # ----------------------------------------------------------------- model and image
-def sha256_file(path: str | Path) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
 def read_verified_model(path: str | Path, expected_sha256: str) -> bytes:
     """Read the ``.task`` file and refuse unless its SHA-256 equals ``expected_sha256`` (eth F15)."""
     exp = str(expected_sha256).strip().lower()
@@ -133,7 +127,8 @@ def detection_size(W: int, H: int, long_side: int = DETECT_LONG_SIDE_PX) -> tupl
 
 def load_oriented_rgb(path: Path, Image: Any, ImageOps: Any) -> tuple[np.ndarray, dict[str, Any]]:
     """Open with Pillow, bake the EXIF orientation, return (uint8 RGB (H, W, 3), info)."""
-    if path.suffix.lower() in HEIF_SUFFIXES:
+    heif = path.suffix.lower() in HEIF_SUFFIXES
+    if heif:
         try:
             import pillow_heif  # type: ignore[import-not-found]
         except ImportError:
@@ -145,9 +140,11 @@ def load_oriented_rgb(path: Path, Image: Any, ImageOps: Any) -> tuple[np.ndarray
             exif_orientation = int(im.getexif().get(0x0112, 1))
         except Exception:  # pragma: no cover - exotic files
             exif_orientation = None
-        im2 = ImageOps.exif_transpose(im)
+        # HEIF: the decoder applies irot/imir/clap and EXIF Orientation is ignored (DESIGN 3.1)
+        im2 = im if heif else ImageOps.exif_transpose(im)
         rgb = np.asarray(im2.convert("RGB"), dtype=np.uint8).copy()
-    return rgb, {"exif_orientation": exif_orientation}
+    return rgb, {"exif_orientation": exif_orientation,
+                 "orientation_source": "heif_transforms" if heif else "exif_orientation"}
 
 
 def resize_rgb(rgb: np.ndarray, W2: int, H2: int, Image: Any) -> np.ndarray:
@@ -361,7 +358,7 @@ def detect_image(path: Path, *, mp: Any, landmarker: Any, Image: Any, ImageOps: 
         matrices.append(meta["matrix"])
     image = {"sha256": hashlib.sha256(raw).hexdigest(), "wh": [int(W), int(H)], "orientation_applied": True,
              "input_flipped": False, "coords": "px_corner", "detect_wh": [int(Wd), int(Hd)],
-             "exif_orientation": info["exif_orientation"]}
+             "exif_orientation": info["exif_orientation"], "orientation_source": info["orientation_source"]}
     ls = LandmarkSet(scheme=scheme.scheme, detector=dict(detector), image=image, faces=out_faces)
     return ls, rgb, matrices
 

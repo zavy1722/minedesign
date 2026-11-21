@@ -828,7 +828,9 @@ def test_scorecard_cli_and_determinism(tmp_path):
     vals = [d["config_rms_mm"] for d in sc["per_seed_first3"]["rear_phone_legacy"]]
     assert agg["n_ok"] == 2 and np.isclose(agg["median"], np.median(vals))
     assert out.read_text() == scorecard.dumps(sc)                          # canonical, sorted
-    again = scorecard.build_scorecard([SCENARIOS["rear_phone_legacy"]], 2, git_rev="test-rev")
+    # The CLI labels the card with bundle.ENGINE_VERSION once it exists (WP-07); use the same label.
+    again = scorecard.build_scorecard([SCENARIOS["rear_phone_legacy"]], 2, git_rev="test-rev",
+                                      engine_label=scorecard._default_label())
     assert scorecard.dumps(again) == out.read_text()                      # deterministic
     assert scorecard.dumps({"x": 1.234567890123}) == '{\n "x": 1.23456789\n}\n'
     assert json.loads(scorecard.dumps({"x": float("nan")})) == {"x": None}

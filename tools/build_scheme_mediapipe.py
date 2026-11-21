@@ -51,7 +51,12 @@ Rules (WP-14 spec):
   (verified ✅, sourced 📄, knowledge 🧠, contested ↔️); generic points 🆕.
 * ``mirror_pairs`` = the 70 research pairs as ``[right, left]`` with
   ``mirror_complete: false`` (points without a listed partner are not
-  mirrored: the flip pass of the detector helper excludes them).
+  mirrored: the flip pass of the detector helper excludes them).  The
+  iris-centre pair ``[468, 473]`` has no side meaning (NOTES says so).
+* ``polylines`` = the research region polylines; the two iris polylines are
+  renamed ``iris_a_centre_then_ring`` / ``iris_b_centre_then_ring`` (letters,
+  not sides) with ``side: 'geometric'`` and the research side kept only as
+  ``provisional_side`` (same note as ``lr_groups``).
 * ``lr_groups``: ``[{indices: 468..472, rule: 'geometric'}, {indices: 473..477,
   rule: 'geometric'}]`` plus a ``provisional_side`` copied from the contested
   research column (R for 468, L for 473).  It is never used to assign a side;
@@ -131,7 +136,15 @@ NOTES = ("MediaPipe Face Landmarker 478-point scheme (468 mesh + 10 iris), 0-bas
          "Iris groups are resolved geometrically (lr_groups rule 'geometric'); 'provisional_side' is the "
          "contested research column and is never used to assign a side. Points with side 'geometric' "
          "outside lr_groups have no known side (resolve from the template embedding). mirror_pairs are "
-         "[right_index, left_index] and incomplete (mirror_complete=false). MediaPipe z is ignored.")
+         "[right_index, left_index] and incomplete (mirror_complete=false), except the iris-centre pair "
+         "[468, 473], whose order carries no side meaning (it only says the two iris centres mirror each "
+         "other). The iris polylines are named iris_a_* / iris_b_* (letters, not sides) with side "
+         "'geometric'; their 'provisional_side' is never used to assign a side. MediaPipe z is ignored.")
+
+
+#: Note stored with every provisional iris side (lr_groups and the iris polylines).
+IRIS_PROVISIONAL_NOTE = ("contested research column (mp_right_or_mid / mp_left of iris_centre); "
+                         "never used to assign a side; calibration flags a group nearer the other eye")
 
 
 class BuildError(ValueError):
@@ -300,8 +313,7 @@ def build(research_path: Path = DEFAULT_RESEARCH, source_rel: str = RESEARCH_REL
         lr_groups.append({
             "name": gname, "indices": list(idx), "rule": "geometric", "centre_index": idx[0],
             "anatomical_id": "p", "provisional_side": prov,
-            "provisional_note": ("contested research column (mp_right_or_mid / mp_left of iris_centre); "
-                                 "never used to assign a side; calibration flags a group nearer the other eye"),
+            "provisional_note": IRIS_PROVISIONAL_NOTE,
             "badge": _badge(status),
         })
 
@@ -355,9 +367,23 @@ def build(research_path: Path = DEFAULT_RESEARCH, source_rel: str = RESEARCH_REL
             "badge": badge.get(i, poly_badge.get(i, GENERIC_BADGE)),
         })
 
-    polylines = {p["polyline"]: {"indices": [int(i) for i in p["indices"]], "closed": bool(p["closed"]),
-                                 "side": p["side"], "kind": polyline_kind(p["polyline"]),
-                                 "status": p["status"], "badge": _badge(p["status"])} for p in polys}
+    polylines = {}
+    iris_name = {tuple(idx): gname for gname, idx in IRIS_GROUPS}
+    for p in polys:
+        idx = [int(i) for i in p["indices"]]
+        rec = {"indices": idx, "closed": bool(p["closed"]), "side": p["side"], "kind": polyline_kind(p["polyline"]),
+               "status": p["status"], "badge": _badge(p["status"])}
+        pname = p["polyline"]
+        if any(i in iris_idx for i in idx):
+            # iris polylines: letters, not sides; the research side is kept only as provisional_side
+            gname = iris_name.get(tuple(idx))
+            if gname is None:
+                raise BuildError(f"polyline {pname!r} mixes iris indices with others or is not an iris group")
+            pname = f"{gname}_centre_then_ring"
+            rec.update({"side": "geometric", "provisional_side": p["side"], "provisional_note": IRIS_PROVISIONAL_NOTE})
+        if pname in polylines:
+            raise BuildError(f"polyline name {pname!r} repeats")
+        polylines[pname] = rec
 
     offsets = []
     for r in offset_rows:
