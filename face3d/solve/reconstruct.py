@@ -9,9 +9,33 @@ WP-07 changes (DESIGN 4.4, D-03, D-05, D-06):
 * When ``PhotoLandmarks.sigma_px`` is None the bundle uses the noise model of the
   photo's ``kinds`` (or 'generic') in mm at each landmark's depth, instead of the
   legacy 0.006 x diagonal heuristic.  :meth:`PhotoLandmarks.resolved_sigma_px` is kept
-  (legacy; it still sets the PnP initialisation's Huber threshold).
+  (legacy).
 * ``reconstruct_landmarks`` passes ``prior``, ``scale``, ``gauge_anchor_idx`` and
   ``sigma_def_mm`` through to :func:`face3d.solve.bundle.bundle_adjust`.
+
+WP-10 changes (DESIGN 4.2, 4.3, 4.5, 4.8, 4.9):
+
+* New keyword arguments passed to the bundle: ``robust``, ``view_weighting``,
+  ``distance_priors`` (one ``(median_mm, sigma_log)`` or None per photo, e.g.
+  :func:`face3d.solve.focal.distance_prior_head_origin`), ``jaw`` (a
+  :class:`~face3d.solve.bundle.JawConfig` for every photo, or one per photo) with
+  ``jaw_weights`` / ``jaw_center_mm``, ``terms``, ``landmark_normals`` and
+  ``focal_tie_sigma`` (None: views of a focal group share one focal exactly, the legacy
+  behaviour; the pipeline passes 0.02, rec CAM-5).
+* PnP initialisation uses WP-06's multi-start :func:`~face3d.solve.pnp.solve_pnp` with
+  per-landmark sigma_px from the noise model (``sigma_px`` when given, else the
+  photo's ``kinds``) evaluated at one common depth: px_per_mm = f_prior / median
+  distance when the photo has both a focal and a distance prior, else the ratio of the
+  visible landmarks' image spread to the prior-mean shape's spread (an initialisation
+  only, DESIGN 4.2: "IOD-based distance is used only to initialise"), and Huber delta = 2
+  in sigma units (DESIGN 4.3).
+* Views whose initial robust RMS (sqrt(median e^2 / 1.386) of the PnP fit, sigma units)
+  exceeds 3 are re-initialised by PnP against the consensus after a first bundle pass
+  over the other views (DESIGN 4.3 "later views are initialised against the BA consensus").
+* Defaults stay legacy-compatible (exact focal sharing in a group, Huber IRLS, no
+  distance priors).  On the WP-01 test bed (30 seeds) the soft tie can only lose: the
+  simulator gives every view of a group the same focal, so exact sharing is the true model
+  there; the tie is for real groups (crops, stabilisation; DESIGN 4.2).
 
 Known limitation (follow-up, not WP-07 scope): ``PhotoLandmarks`` carries no image
 tangents and nothing here derives t-hat from neighbouring curve points (DESIGN 4.4), so
@@ -23,20 +47,32 @@ will let them enter with their normal-only sigma.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any, Sequence
 
 import numpy as np
 
-from .bundle import BundleResult, Priors, ScaleConfig, ViewObs, bundle_adjust
-from .pnp import solve_pnp
+from ..core.config import Default, register_defaults
+from .bundle import BundleResult, JawConfig, Priors, ScaleConfig, ViewObs, bundle_adjust
+from .noise import NoiseModel
+from .pnp import PNP_DEFAULTS, solve_pnp
+from .robust import CHI2_2_MEDIAN, RobustSchedule
 
 # Landmark noise as a fraction of the visible-landmark bounding-box diagonal. Modern
 # 68-point detectors reach ~3 % inter-ocular NME on 300-W (research/reconstruction/
 # camera-pose-solving.md); inter-ocular distance is ~0.2 of the face-box diagonal,
-# so 2.5 % IOD ~= 0.006 x diagonal.  Legacy: since WP-07 it only sets the PnP
-# initialisation's robust threshold; the bundle uses the mm noise model (DESIGN 4.4).
+# so 2.5 % IOD ~= 0.006 x diagonal.  Legacy: kept for resolved_sigma_px(); since WP-10
+# neither the PnP initialisation nor the bundle uses it (DESIGN 4.4).
 AUTO_SIGMA_FRACTION_OF_DIAG = 0.006
+
+RECONSTRUCT = register_defaults("reconstruct", {
+    "reinit_rms_sigmas": Default(3.0, "\U0001F195", "WBS WP-10: re-initialise a view by PnP against the "
+                                 "consensus when its initial robust RMS exceeds 3 sigma (DESIGN 4.3)", "sigma",
+                                 (0.0, None)),
+})
+#: Re-initialise a view by PnP against the consensus when its initial robust RMS exceeds
+#: this many sigma (WBS WP-10, 🆕 provisional; registered default ``reconstruct.reinit_rms_sigmas``).
+REINIT_RMS_SIGMAS = float(RECONSTRUCT["reinit_rms_sigmas"].value)
 
 
 @dataclass
@@ -70,19 +106,74 @@ class PhotoLandmarks:
         return self.f_prior_px, self.f_prior_log_sigma
 
 
+def _per_photo(value: Any, n: int, name: str, kind: type | tuple = ()) -> list:
+    """Broadcast a per-photo option: None -> [None]*n, a single instance -> [value]*n, a list -> checked."""
+    if value is None:
+        return [None] * n
+    if kind and isinstance(value, kind):
+        return [value] * n
+    vals = list(value)
+    if len(vals) != n:
+        raise ValueError(f"{name} must have one entry per photo ({n}), got {len(vals)}")
+    return vals
+
+
+def pnp_sigma_px(ph: PhotoLandmarks, X_ref: np.ndarray, vis: np.ndarray, f_px: float | None,
+                 distance_prior: tuple[float, float] | None) -> np.ndarray | float:
+    """Per-landmark PnP sigma (px) of the visible landmarks of ``ph`` (WBS WP-10).
+
+    ``ph.sigma_px`` when given (legacy float); otherwise the noise model of ``ph.kinds``
+    (DESIGN 4.4) at one common px_per_mm: f_px / median distance with a focal and a
+    distance prior, else rms-spread(image) / (sqrt(2/3) rms-spread(X_ref)) of the visible
+    landmarks (an orthographic size ratio; initialisation only).  Returns the isotropic
+    equivalent sqrt(trace(Sigma) / 2) per visible landmark.
+    """
+    if ph.sigma_px is not None:
+        return float(ph.sigma_px)
+    uv = np.asarray(ph.uv, float)[vis]
+    Xv = np.asarray(X_ref, float)[vis]
+    if f_px is not None and distance_prior is not None:
+        ppm = float(f_px) / float(distance_prior[0])
+    else:
+        s_img = float(np.sqrt(np.mean(np.sum((uv - uv.mean(0)) ** 2, axis=1))))
+        s_mm = float(np.sqrt(np.mean(np.sum((Xv - Xv.mean(0)) ** 2, axis=1)))) * np.sqrt(2.0 / 3.0)
+        ppm = s_img / max(s_mm, 1e-9)
+    N = len(ph.uv)
+    kinds = ph.kinds if ph.kinds is not None else ["generic"] * N
+    face = float(np.ptp(uv[:, 0])) if len(uv) >= 2 else None
+    C = NoiseModel(kinds).view_cov(np.full(N, ppm), face)[vis]
+    return np.sqrt(0.5 * (C[:, 0, 0] + C[:, 1, 1]))
+
+
+def _robust_rms_sigmas(res_px: np.ndarray, sigma: np.ndarray | float) -> float:
+    """sqrt(median(e^2) / 1.386) of the PnP residuals in sigma units (1 for a correct noise model)."""
+    e = np.asarray(res_px, float) / np.asarray(sigma, float)
+    return float(np.sqrt(np.median(e * e) / CHI2_2_MEDIAN)) if e.size else float("nan")
+
+
 def reconstruct_landmarks(photos: list[PhotoLandmarks], priors: Priors | None, *,
                           huber_sigmas: float | None = 3.0, max_iter: int = 100,
                           prior: Any = None, scale: ScaleConfig | str | None = "auto",
                           gauge_anchor_idx: Sequence[int] | None = None,
-                          sigma_def_mm: np.ndarray | None = None) -> BundleResult:
+                          sigma_def_mm: np.ndarray | None = None,
+                          robust: RobustSchedule | None = None, view_weighting: bool = False,
+                          distance_priors: Sequence[tuple[float, float] | None] | None = None,
+                          jaw: JawConfig | Sequence[JawConfig | None] | None = None,
+                          jaw_weights: np.ndarray | None = None, jaw_center_mm: Sequence[float] | None = None,
+                          terms: Sequence[Any] | None = None, landmark_normals: np.ndarray | None = None,
+                          focal_tie_sigma: float | None = None,
+                          reinit_rms_sigmas: float | None = REINIT_RMS_SIGMAS) -> BundleResult:
     """Initialise each camera by PnP against the prior mean shape, then bundle-adjust
     all cameras, focal lengths, (optionally) the log-scale and 3D landmarks jointly.
 
-    huber_sigmas: robust threshold in units of each observation's sigma, so it
-    scales with how large the face is in the image.  ``prior``, ``scale``,
-    ``gauge_anchor_idx`` and ``sigma_def_mm`` are passed to :func:`bundle_adjust`.
-    The initial shape is ``priors.mean``, or ``prior.mean()`` when that covers all
-    landmarks and ``priors`` has no mean.
+    huber_sigmas: robust threshold of the legacy bundle IRLS in units of each
+    observation's sigma (``None``: plain least squares, also in PnP).  ``prior``,
+    ``scale``, ``gauge_anchor_idx``, ``sigma_def_mm``, ``robust``, ``view_weighting``,
+    ``landmark_normals``, ``jaw_weights``, ``jaw_center_mm`` and ``terms`` are passed to
+    :func:`bundle_adjust`; ``distance_priors``, ``jaw`` and ``focal_tie_sigma`` fill the
+    per-photo :class:`ViewObs` fields.  ``reinit_rms_sigmas=None`` disables the PnP
+    re-initialisation against the consensus.  The initial shape is ``priors.mean``, or
+    ``prior.mean()`` when that covers all landmarks and ``priors`` has no mean.
     """
     N = len(photos[0].uv) if photos else 0
     if priors is not None and priors.mean is not None:
@@ -91,21 +182,47 @@ def reconstruct_landmarks(photos: list[PhotoLandmarks], priors: Priors | None, *
         X_init = np.asarray(prior.mean(), float)
     else:
         raise ValueError("priors.mean (template landmark positions) is required for initialisation")
-    views = []
-    for ph in photos:
+    n = len(photos)
+    dps = _per_photo(distance_priors, n, "distance_priors")
+    jaws = _per_photo(jaw, n, "jaw", JawConfig)
+    pnp_huber = None if huber_sigmas is None else float(PNP_DEFAULTS.huber_sigmas.value)
+
+    def pnp(ph: PhotoLandmarks, X_ref: np.ndarray, dp):
+        vis = ~np.isnan(ph.uv[:, 0])
+        f_px, f_ls = ph.resolved_focal_prior()
+        sig = pnp_sigma_px(ph, X_ref, vis, f_px, dp)
+        r = solve_pnp(X_ref[vis], ph.uv[vis], ph.width, ph.height, f_prior_px=f_px, f_prior_log_sigma=f_ls,
+                      estimate_focal=True, weights=None if ph.weights is None else ph.weights[vis],
+                      sigma_px=sig, huber_sigmas=pnp_huber)
+        return r, _robust_rms_sigmas(r.residuals_px, sig)
+
+    views, bad = [], []
+    for k, ph in enumerate(photos):
         vis = ~np.isnan(ph.uv[:, 0])
         if vis.sum() < 6:
             raise ValueError("each photo needs at least 6 visible landmarks")
-        s_px = ph.resolved_sigma_px()
         f_px, f_ls = ph.resolved_focal_prior()
-        pnp = solve_pnp(X_init[vis], ph.uv[vis], ph.width, ph.height,
-                        f_prior_px=f_px, f_prior_log_sigma=f_ls,
-                        estimate_focal=True,
-                        weights=None if ph.weights is None else ph.weights[vis],
-                        huber_px=None if huber_sigmas is None else huber_sigmas * s_px)
-        views.append(ViewObs(uv=ph.uv, camera=pnp.camera, estimate_focal=True, f_prior=f_px,
+        r, rms = pnp(ph, X_init, dps[k])
+        if reinit_rms_sigmas is not None and np.isfinite(rms) and rms > reinit_rms_sigmas:
+            bad.append(k)
+        views.append(ViewObs(uv=ph.uv, camera=r.camera, estimate_focal=True, f_prior=f_px,
                              f_prior_log_sigma=f_ls, weights=ph.weights,
-                             sigma_px=ph.sigma_px, focal_group=ph.focal_group, kinds=ph.kinds))
-    return bundle_adjust(views, X_init.copy(), priors, huber_px=huber_sigmas, max_iter=max_iter,
-                         prior=prior, scale=scale, gauge_anchor_idx=gauge_anchor_idx,
-                         sigma_def_mm=sigma_def_mm)
+                             sigma_px=ph.sigma_px, focal_group=ph.focal_group, kinds=ph.kinds,
+                             focal_tie_sigma=focal_tie_sigma, distance_prior=dps[k],
+                             jaw=jaws[k] if jaws[k] is not None else JawConfig()))
+    kw = dict(huber_px=huber_sigmas, max_iter=max_iter, prior=prior, scale=scale,
+              gauge_anchor_idx=gauge_anchor_idx, sigma_def_mm=sigma_def_mm, robust=robust,
+              view_weighting=view_weighting, landmark_normals=landmark_normals, jaw_weights=jaw_weights,
+              jaw_center_mm=jaw_center_mm, terms=terms)
+    good = [k for k in range(n) if k not in bad]
+    if bad and good:
+        # consensus from the well-initialised views (terms may index views: left out here)
+        first = bundle_adjust([views[k] for k in good], X_init.copy(), priors, **{**kw, "terms": None})
+        for k in bad:
+            r, _ = pnp(photos[k], first.X, dps[k])
+            views[k] = replace(views[k], camera=r.camera)
+    return bundle_adjust(views, X_init.copy(), priors, **kw)
+
+
+__all__ = ["PhotoLandmarks", "reconstruct_landmarks", "pnp_sigma_px", "AUTO_SIGMA_FRACTION_OF_DIAG",
+           "REINIT_RMS_SIGMAS", "RECONSTRUCT"]

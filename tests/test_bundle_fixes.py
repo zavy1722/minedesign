@@ -24,6 +24,7 @@ from face3d.solve.bundle import ENGINE_VERSION, Priors, ScaleConfig, ViewObs, bu
 from face3d.solve.lm import levenberg_marquardt
 from face3d.solve.noise import NoiseModel, pin_sigma_px, whitening
 from face3d.solve.reconstruct import PhotoLandmarks, reconstruct_landmarks
+from face3d.solve.robust import RobustSchedule
 from face3d.synthetic import midline_indices, mirror_pairs, orbit_camera, random_subject, synthetic_landmarks
 from face3d.testbed import detector_sim, rigs, scorecard, subjects
 from face3d.testbed.scenarios import FAST_SCENARIOS, LEGACY_PRIOR, SCENARIOS, _seed_streams
@@ -366,7 +367,7 @@ def test_default_sigma_from_noise_model():
     assert np.all(np.abs(s2 / (cam.f / z2[m] * 2.0) - 1.0) < 0.10)
 
 
-def _chi2_seed(seed, sigma_px=None, outlier_frac=0.0):
+def _chi2_seed(seed, sigma_px=None, outlier_frac=0.0, robust=None):
     """WP-01 detector_sim on the rear_phone rig (legacy kinds, no definition bias) -> (result, obs).
 
     The bundle starts from the rig's poses with the EXIF focal; its chi2 at convergence
@@ -385,7 +386,7 @@ def _chi2_seed(seed, sigma_px=None, outlier_frac=0.0):
         v.camera.f = f                                  # start from the EXIF focal, not the truth
     pri = _legacy_priors(names, meta["template"], LEGACY_PRIOR["sigma"], LEGACY_PRIOR["sigma_sym"],
                          LEGACY_PRIOR["sigma_mid"])
-    return bundle_adjust(views, meta["template"].copy(), pri), obs
+    return bundle_adjust(views, meta["template"].copy(), pri, robust=robust), obs
 
 
 def _inlier_chi2_red(res, obs):
@@ -402,21 +403,20 @@ def _inlier_chi2_red(res, obs):
 
 
 def test_reduced_chi2_near_one_with_correct_noise():
-    # SPEC DEVIATION (WP-07 acceptance test, pending sign-off by the spec owner; tracked
-    # for WP-10): the criterion "median chi2_red in [0.7, 1.4]" is asserted on
-    # outlier-free data.  With the simulator's default 5 % outliers at 5-20 sigma
-    # (DESIGN 7.2) a Huber-weighted chi2_red is ~2 by construction (median 2.03 on these
-    # seeds) whatever the noise model; rejecting outliers is the robust schedule's job
-    # (WP-10), not the noise model's.  The spec's data (outliers on) is checked below
-    # with the chi2 over the simulator's inliers, the quantity WP-10's robust chi2 targets.
+    # Outlier-free data: the legacy Huber IRLS chi2_red is near one with the noise model.
     seeds = range(1000, 1010)
     chi = [_chi2_seed(s)[0].chi2_red for s in seeds]
     assert 0.7 <= np.median(chi) <= 1.4, chi
     legacy = [_chi2_seed(s, sigma_px=1.0)[0].chi2_red for s in seeds]
     assert np.median(legacy) > 10.0, legacy
-    # The spec's data: detector_sim defaults (5 % outliers), definition bias off.
-    spec = [_inlier_chi2_red(*_chi2_seed(s, outlier_frac=0.05)) for s in seeds]
-    assert 0.7 <= np.median(spec) <= 1.4, spec
+    # The spec's data: detector_sim defaults (5 % outliers at 5-20 sigma), definition bias
+    # off.  Updated by WP-10 (integration addendum 2): the robust schedule (DESIGN 4.5)
+    # reports chi2_red over the inliers of its final least-squares solve, so it is near one
+    # with outliers too.  The test-side inlier chi2 of WP-07 is kept as a cross-check.
+    spec = [_chi2_seed(s, outlier_frac=0.05, robust=RobustSchedule()) for s in seeds]
+    assert 0.7 <= np.median([r.chi2_red for r, _ in spec]) <= 1.4, [r.chi2_red for r, _ in spec]
+    side = [_inlier_chi2_red(*_chi2_seed(s, outlier_frac=0.05)) for s in seeds]
+    assert 0.7 <= np.median(side) <= 1.4, side
 
 
 # ------------------------------------------------------------------ scale and covariance
@@ -658,7 +658,7 @@ def test_reconstruct_passes_kinds_focal_prior_and_sigma_def(monkeypatch):
     assert np.all(res.sigma_def_mm == 0.7) and res.zeta is None
     assert seen["kw"]["scale"] == "auto" and seen["kw"]["prior"] is None
     assert photos[0].resolved_sigma_px() > 0.5                       # legacy method kept
-    assert res.engine_version == ENGINE_VERSION == "v2-fixes"
+    assert res.engine_version == ENGINE_VERSION == "v2"          # WP-10 (spec: ENGINE_VERSION = 'v2')
 
 
 def test_not_worse_than_baseline():
