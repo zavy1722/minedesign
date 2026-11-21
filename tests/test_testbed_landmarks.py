@@ -4,6 +4,7 @@ import json
 import math
 import time
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -307,9 +308,13 @@ def test_run_scenario_legacy_engine_fast(rear_phone_first3):
         for k in METRIC_KEYS:
             assert np.isfinite(r[k]), (k, r[k])
         assert 0.0 <= r["coverage_1s"] <= r["coverage_2s"] <= 1.0
-        assert r["config_rms_mm"] < 8.0           # no catastrophic solve on these seeds
-    # Legacy engine under the DESIGN 4.4 mm noise model: ~4 mm configuration RMS.
-    assert np.median([r["config_rms_mm"] for r in recs]) < 5.0
+        # Spec bound is config_rms_mm < 5 per seed; seed 1002 gives 5.67 mm under the
+        # DESIGN 4.4 noise model (definition bias + 5 % outliers), so the per-seed bound is
+        # the observed worst case plus a margin and the spec's 5 mm applies to the median
+        # (and to 2 of the 3 seeds). Stored values: 3.88, 3.51, 5.67 mm.
+        assert r["config_rms_mm"] < 6.5
+    cfg = [r["config_rms_mm"] for r in recs]
+    assert np.median(cfg) < 5.0 and sum(c < 5.0 for c in cfg) >= 2
 
 
 def test_run_scenario_never_raises():
@@ -329,6 +334,81 @@ def test_run_scenario_never_raises():
         raise ValueError("bad subject")
     recs = run_scenario(Scenario("x", bad_subject, rigs.rear_phone), [1, 2])
     assert all(r["failed"] for r in recs)
+
+
+def _block_diag(blocks):
+    n = len(blocks)
+    C = np.zeros((3 * n, 3 * n))
+    for i, b in enumerate(blocks):
+        C[3 * i:3 * i + 3, 3 * i:3 * i + 3] = b
+    return C
+
+
+def _calibrated_fake_runs(full_cov: bool, n_seeds: int = 150):
+    """run_scenario with a fake engine whose errors follow its reported covariance exactly,
+    expressed in a randomly re-gauged frame (large rotation, scale e^0.4..e^0.8, shift).
+
+    full_cov: truth-frame errors e ~ N(0, C) with strongly anisotropic, randomly oriented
+    3x3 blocks plus a correlated low-rank part; X = s R (X_true + e) + t and the engine
+    reports cov = s^2 B C B^T with B = kron(I_N, R) (point-major).
+    diagonal: independent engine-frame errors per axis, reported as point_sigma_mm.
+    """
+    holder = {}
+    eng_rng = np.random.default_rng(31 if full_cov else 32)
+
+    def subject(rng):
+        out = subjects.legacy_subject(rng)
+        holder["X"] = out[1]
+        return out
+
+    def rig1(rng, X=None):
+        return rigs.rear_phone(rng, n_views=1, X=X)
+
+    def engine(obs, rig, names, template):
+        X_true = holder["X"]
+        n = len(X_true)
+        R = rodrigues(eng_rng.normal(size=3) * 1.5)
+        s = float(np.exp(eng_rng.uniform(0.4, 0.8)))
+        t = eng_rng.normal(scale=100.0, size=3)
+        out = SimpleNamespace(cameras=list(rig.cameras), rmse_px=[1.0])
+        if full_cov:
+            blocks = []
+            for _ in range(n):
+                Q = rodrigues(eng_rng.normal(size=3))
+                blocks.append(Q @ np.diag(eng_rng.uniform(0.3, 3.0, size=3) ** 2) @ Q.T)
+            L = eng_rng.normal(scale=0.7, size=(3 * n, 4))
+            C = _block_diag(blocks) + L @ L.T
+            e = (np.linalg.cholesky(C) @ eng_rng.normal(size=3 * n)).reshape(n, 3)
+            B = np.kron(np.eye(n), R)
+            out.X = s * (X_true + e) @ R.T + t
+            out.cov = (s * s) * (B @ C @ B.T)
+        else:
+            sig = s * eng_rng.uniform(0.3, 3.0, size=(n, 3))
+            out.X = s * X_true @ R.T + t + sig * eng_rng.normal(size=(n, 3))
+            out.point_sigma_mm = sig
+        return out
+
+    return run_scenario(Scenario("fake_calibrated", subject, rig1), range(n_seeds), engine_fn=engine)
+
+
+@pytest.mark.parametrize("full_cov", [True, False], ids=["full_cov", "point_sigma"])
+def test_metrics_nees_coverage_pipeline_calibrated(full_cov):
+    """_metrics' similarity alignment, s^2 B C B^T covariance transform and gauge projection
+    at the truth give NEES/dof ~ 1 and Gaussian coverage for an exactly calibrated engine.
+    Guards the covariance layout independently of the golden legacy values (whose check
+    is skipped once the engine changes): with B = kron(R, I_N) instead of kron(I_N, R),
+    or s instead of s^2, these bounds fail by a wide margin."""
+    recs = _calibrated_fake_runs(full_cov)
+    assert not any(r["failed"] for r in recs), [r["error"] for r in recs if r["failed"]][:3]
+    nees_v = np.array([r["nees_per_dof"] for r in recs])
+    c1 = np.array([r["coverage_1s"] for r in recs])
+    c2 = np.array([r["coverage_2s"] for r in recs])
+    assert np.isfinite(nees_v).all()
+    assert 0.94 <= nees_v.mean() <= 1.06, nees_v.mean()
+    assert abs(c1.mean() - 0.683) < 0.025, c1.mean()
+    assert abs(c2.mean() - 0.954) < 0.015, c2.mean()
+    # The fake engine returns the true cameras, so the camera metrics vanish.
+    assert all(r["focal_rel_err"] == 0.0 and r["distance_rel_err"] < 1e-12 for r in recs)
 
 
 def test_scenarios_defined():
@@ -351,6 +431,16 @@ def test_baseline_scorecard_committed(rear_phone_first3):
         assert name in sc["scenarios"], name
         for metric, agg in sc["scenarios"][name].items():
             assert agg["n_ok"] >= 28, (name, metric, agg)
+        cols = sc["per_seed"][name]
+        assert cols["seed"] == sc["meta"]["seeds"]
+        for d in sc["per_seed_first3"][name]:
+            i = cols["seed"].index(d["seed"])
+            assert all(cols[k][i] == d[k] for k in sc["meta"]["metric_keys"])
+    # Generated with single-threaded BLAS: camera_roll_legacy seed 1017 fails with
+    # multi-threaded BLAS in the legacy lm.py (OverflowError) and succeeds single-threaded,
+    # so that scenario's aggregates depend on the thread count until WP-07 (the other six
+    # agree to ~1e-7). The per-seed reproduction below uses rear_phone_legacy, which does not.
+    assert set(sc["meta"]["blas_threads"].values()) == {"1"}
     # File is in canonical form (sorted keys, 9 significant digits).
     assert scorecard.dumps(sc) == BASELINE.read_text()
     if not hasattr(bundle_mod, "ENGINE_VERSION"):
@@ -391,18 +481,95 @@ def test_compare_flags_regression():
     gone = json.loads(json.dumps(base))
     gone["scenarios"]["b"]["config_rms_mm"].update(median=None, n_ok=0)
     assert set(scorecard.compare(base, gone)) == {"b:config_rms_mm", "b:n_ok"}
-    # A subset run (fast mode) only compares shared scenarios. +2.5 % is inside the seed-noise
-    # tolerance 3 * MAD / sqrt(30) = 2.7 % here; mad_k=0 gives the strict 2 % rule.
+    # A subset run only compares shared scenarios. Without per-seed values and with a
+    # different seed list the comparison is unpaired: +2.5 % is inside the seed-noise
+    # tolerance 3 * MAD * sqrt(1/30 + 1/5) = 7.2 % here; mad_k=0 gives the strict 2 % rule.
     sub = _synthetic_card({"b": {"config_rms_mm": 3.0 * 1.025, "focal_rel_err": 0.02}}, n=5)
+    assert not scorecard.is_paired(base, sub)
     assert scorecard.compare(base, sub) == []
     assert scorecard.compare(base, sub, mad_k=0.0) == ["b:config_rms_mm"]
-    # Against the committed baseline: identical -> nothing; 5 % worse on the low-spread
-    # studio ring is flagged with the default tolerance.
+    # Same seeds (common random numbers) -> paired -> the DESIGN 7.5 2 % rule even with a
+    # large seed spread (mad_frac 0.5 would allow 27 % under the unpaired rule).
+    wide = _synthetic_card(base_m, mad_frac=0.5)
+    wide3 = json.loads(json.dumps(wide))
+    wide3["scenarios"]["a"]["config_rms_mm"]["median"] *= 1.03
+    assert scorecard.is_paired(wide, wide3)
+    assert scorecard.compare(wide, wide3) == ["a:config_rms_mm"]
+    assert scorecard.compare(wide, wide3, paired=False) == []
+
+
+def test_compare_paired_two_percent_rule_on_committed_baseline():
+    """Review finding: with the default arguments a 5 % worse median must be flagged in
+    every committed scenario (a 30-seed run uses the baseline's seeds: paired, 2 % rule)."""
     real = json.loads(BASELINE.read_text())
     assert scorecard.compare(real, real) == []
-    r5 = json.loads(BASELINE.read_text())
-    r5["scenarios"]["studio_ring_legacy"]["config_rms_mm"]["median"] *= 1.05
-    assert "studio_ring_legacy:config_rms_mm" in scorecard.compare(real, r5)
+    for metric in scorecard.HIGHER_IS_WORSE:
+        for factor, flagged in ((1.05, True), (1.03, True), (1.019, False)):
+            worse = json.loads(BASELINE.read_text())
+            for name in worse["scenarios"]:
+                worse["scenarios"][name][metric]["median"] *= factor
+            got = scorecard.compare(real, worse)
+            want = sorted("%s:%s" % (n, metric) for n in real["scenarios"]) if flagged else []
+            assert sorted(got) == want, (metric, factor, got)
+
+
+def _card_from_per_seed(sc, seeds=None, scenarios=None, scale=None):
+    """A scorecard rebuilt from ``sc['per_seed']`` (optionally a seed / scenario subset and
+    per-metric multiplicative changes); per_seed is kept so pairing on shared seeds works."""
+    seeds = list(sc["meta"]["seeds"]) if seeds is None else list(seeds)
+    keys = sc["meta"]["metric_keys"]
+    out = {"meta": dict(sc["meta"], seeds=seeds), "scenarios": {}, "per_seed": {}}
+    for name in (scenarios or sc["scenarios"]):
+        cols = sc["per_seed"][name]
+        pos = [cols["seed"].index(s) for s in seeds]
+        recs = []
+        for p in pos:
+            r = {"seed": cols["seed"][p], "failed": cols["failed"][p]}
+            for k in keys:
+                v = cols[k][p]
+                v = float("nan") if v is None else v
+                r[k] = v * (scale or {}).get(k, 1.0)
+            recs.append(r)
+        out["scenarios"][name] = scorecard.aggregate(recs, keys)
+        out["per_seed"][name] = scorecard.per_seed_columns(recs, keys)
+    return json.loads(scorecard.dumps(out))
+
+
+def test_compare_pairs_on_shared_seeds_and_tolerates_one_dropped_seed():
+    real = json.loads(BASELINE.read_text())
+    # The committed per-seed values reproduce the committed aggregates.
+    rebuilt = _card_from_per_seed(real)
+    for name, metrics in real["scenarios"].items():
+        for k, agg in metrics.items():
+            assert rebuilt["scenarios"][name][k]["n_ok"] == agg["n_ok"]
+            assert rebuilt["scenarios"][name][k]["median"] == pytest.approx(agg["median"], rel=1e-8)
+    # A --fast-style subset (5 seeds, 3 scenarios) of the same engine: paired on the shared
+    # seeds -> clean, although its 5-seed medians differ a lot from the 30-seed ones
+    # (selfie_legacy config_rms_mm ~2x); without pairing that would be a false alarm.
+    fast = _card_from_per_seed(real, seeds=range(1000, 1005), scenarios=FAST_SCENARIOS)
+    assert not scorecard.is_paired(real, fast)
+    assert scorecard.compare(real, fast) == []
+    unpaired = {k: v for k, v in fast.items() if k != "per_seed"}
+    assert "selfie_legacy:config_rms_mm" in scorecard.compare(real, unpaired)
+    fast5 = _card_from_per_seed(real, seeds=range(1000, 1005), scenarios=FAST_SCENARIOS,
+                                scale={"config_rms_mm": 1.05})
+    assert sorted(scorecard.compare(real, fast5)) == sorted("%s:config_rms_mm" % n for n in FAST_SCENARIOS)
+    # One seed usable in one run only (e.g. camera_roll_legacy seed 1017, which depends on
+    # the BLAS thread count with the legacy lm.py): its rank shift is tolerated ...
+    drop = json.loads(BASELINE.read_text())
+    cols = drop["per_seed"]["camera_roll_legacy"]
+    i = cols["seed"].index(1017)
+    for k in drop["meta"]["metric_keys"]:
+        cols[k][i] = None
+    cols["failed"][i] = True
+    drop = _card_from_per_seed(drop)
+    assert drop["scenarios"]["camera_roll_legacy"]["config_rms_mm"]["n_ok"] == 29
+    assert scorecard.compare(real, drop) == [] and scorecard.compare(drop, real) == []
+    # ... but not a genuine 5 % regression on top of it.
+    drop5 = json.loads(json.dumps(drop))
+    drop5["scenarios"]["camera_roll_legacy"]["config_rms_mm"]["median"] *= 1.05
+    drop5.pop("per_seed")
+    assert scorecard.compare(real, drop5) == ["camera_roll_legacy:config_rms_mm"]
 
 
 def test_scorecard_cli_and_determinism(tmp_path):
@@ -431,3 +598,7 @@ def test_fast_mode_runtime():
                                    git_rev="test")
     assert time.perf_counter() - t0 <= 60.0
     assert set(sc["scenarios"]) == set(FAST_SCENARIOS)
+    if not hasattr(bundle_mod, "ENGINE_VERSION"):
+        # The unchanged legacy engine shows no regression against its own baseline in
+        # fast mode (paired on seeds 1000-1004 via per_seed).
+        assert scorecard.compare(json.loads(BASELINE.read_text()), sc) == []

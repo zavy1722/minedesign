@@ -18,7 +18,10 @@ otherwise, badge 🆕 = introduced by this design for a generated asset):
    de-duplicated by the integer key ``round(p * n)``; quads are oriented outward
    (a quad is flipped when ``(b - a) x (c - a) . a < 0``).  ``n`` must be even so
    that exact midline (x = 0) vertices exist.  Points are projected to the unit
-   sphere ``p / |p|``.  ``V = 6 n^2 + 2``, ``F = 6 n^2``.
+   sphere ``p / |p|``.  ``V = 6 n^2 + 2``, ``F = 6 n^2``.  Quads on the x < 0 side
+   start at the mirror of their partner's first vertex, so the fan split is
+   mirror-symmetric (:func:`cube_sphere`; implementation choice, the spec leaves
+   the starting vertex open).
 2. **Ellipsoid**: radii ``HEAD_RADII_MM = (76, 112, 102)`` mm, centre
    ``HEAD_CENTRE_MM = (0, 18, 2)`` mm.
 3. **Feature bumps** (:data:`BUMPS`), mirror-symmetric anisotropic Gaussians
@@ -37,15 +40,23 @@ otherwise, badge 🆕 = introduced by this design for a generated asset):
 5. **Fold check**: every fan triangle's normal must keep a positive dot product
    with the undeformed sphere normal, and the signed volume must be positive;
    otherwise all bump amplitudes are scaled by 0.8 and the build retried (at
-   most 5 times), else :class:`ProceduralHeadError` is raised.
+   most 5 times).  The default build (n = 24, any sex) passes at full amplitude.
+   **Coarse-mesh fallback** (WP-08 deviation, documented): at resolutions where
+   landmarks lie closer together than the vertex spacing (n <= 16; p, ps and pi
+   are 5 mm apart) no amplitude avoids folds with one-vertex landmarks, so before
+   raising :class:`ProceduralHeadError` the builder retries the same ladder in
+   ``'surface'`` mode (:func:`_surface_mode`: ray-projection warp, barycentric
+   embeddings; exact when that stays unfolded, otherwise approximate with each
+   landmark's residual recorded as its ``sigma_annot_mm``).  ``meta`` records
+   ``landmark_mode``, ``landmarks_exact`` and ``landmark_max_error_mm``.
 6. **Regions** (:func:`geometric_regions`; disjoint, first rule wins in the
    order eyes, nose, lips, chin, ears, jaw, cheeks, forehead, scalp, neck,
-   other).
+   other), evaluated at the embedded anatomical landmark positions.
 7. **Jaw weights** (:func:`jaw_weights_rule`), **stiffness**
    (:func:`stiffness_rule`; DESIGN 4.15 stage C values), area-weighted
    **normals**, **UV** = spherical coordinates of the undeformed sphere.
-8. **Landmark embeddings**: ``'anatomical44'`` (one-hot on the assigned vertex)
-   and ``'legacy_synthetic'`` (anatomical aliases on the anatomical vertex; the
+8. **Landmark embeddings**: ``'anatomical44'`` (one-hot on the assigned vertex;
+   keyed by anatomical id) and ``'legacy_synthetic'`` (anatomical aliases on the anatomical vertex; the
    other legacy names by a similarity transfer of the legacy fixture, see
    :func:`legacy_synthetic_embeddings`).
 """
@@ -174,6 +185,14 @@ def cube_sphere(n: int) -> dict[str, np.ndarray]:
     outward-oriented quads, 'mirror_map' (V,) the x -> -x vertex map, 'midline' (k,)
     vertices with x = 0}``.  Vertex order is the first appearance in the loop over
     axis a = 0, 1, 2, sign +1, -1, grid i, j (deterministic).
+
+    Mirror-symmetric fan split: with ``n`` even no quad is its own mirror image
+    (every quad lies on the x > 0 or the x < 0 side).  A quad on the x < 0 side is
+    written ``[m(a), m(d), m(c), m(b)]`` where ``[a, b, c, d]`` is its x > 0 partner,
+    so it stays outward-oriented and its fan diagonal ``m(a)-m(c)`` mirrors the
+    partner's ``a-c``.  The triangulated surface (:func:`fan_triangles`) is then
+    exactly mirror-symmetric whenever the vertices are, and a barycentric embedding
+    mirrors to a barycentric embedding.
     """
     n = int(n)
     if n < 2 or n % 2:
@@ -209,7 +228,17 @@ def cube_sphere(n: int) -> dict[str, np.ndarray]:
     mirror = np.asarray([index[(-k[0], k[1], k[2])] for k in keys], dtype=np.int64)
     midline = np.flatnonzero(K[:, 0] == 0).astype(np.int64)
     sphere[midline, 0] = 0.0
-    return {"keys": K, "cube": cube, "sphere": sphere, "faces": np.asarray(faces, dtype=np.int64),
+    F = np.asarray(faces, dtype=np.int64)
+    # Mirror-symmetric fan split (see docstring).
+    side = K[F, 0].sum(axis=1)
+    if np.any(side == 0):  # pragma: no cover - impossible for even n
+        raise AssertionError("cube-sphere quad straddles the midline")
+    by_set = {tuple(sorted(f)): q for q, f in enumerate(F.tolist())}
+    for q in np.flatnonzero(side < 0):
+        p = by_set[tuple(sorted(mirror[F[q]].tolist()))]
+        a, b, c, d = mirror[F[p]]
+        F[q] = (a, d, c, b)
+    return {"keys": K, "cube": cube, "sphere": sphere, "faces": F,
             "mirror_map": mirror, "midline": midline}
 
 
@@ -407,22 +436,97 @@ def _one_hot(first_tri: np.ndarray, corner: np.ndarray, v: int, sigma: float, pr
     return {"tri": int(first_tri[v]), "bary": b, "sigma_annot_mm": float(sigma), "provenance": provenance}
 
 
-def legacy_synthetic_embeddings(V: np.ndarray, anat_vertex: Mapping[str, int], midline: np.ndarray,
-                                mirror: np.ndarray, first_tri: np.ndarray, corner: np.ndarray
-                                ) -> dict[str, dict[str, Any]]:
+def _embedded(V: np.ndarray, tris: np.ndarray, tri: np.ndarray, bary: np.ndarray) -> np.ndarray:
+    return np.einsum("nk,nkd->nd", bary, np.asarray(V, float)[tris[tri]])
+
+
+def _mirror_embedding(tri: int, bary: np.ndarray, tris: np.ndarray, mirror: np.ndarray,
+                      tri_of_set: Mapping[tuple[int, ...], int]) -> tuple[int, np.ndarray]:
+    """Embedding of the mirror image of a point (needs the mirror-symmetric fan split)."""
+    mv = mirror[tris[tri]]
+    t2 = tri_of_set[tuple(sorted(mv.tolist()))]
+    b2 = np.zeros(3)
+    for k in range(3):
+        b2[int(np.flatnonzero(tris[t2] == mv[k])[0])] = bary[k]
+    return t2, b2
+
+
+def _ray_hit(V: np.ndarray, tris: np.ndarray, cand: np.ndarray, origin: np.ndarray,
+             target: np.ndarray) -> tuple[int, np.ndarray]:
+    """Outermost intersection of the ray origin -> target with triangles ``cand``
+    (Moller-Trumbore); returns ``(triangle, bary)``."""
+    d = target - origin
+    d = d / np.linalg.norm(d)
+    T3 = tris[cand]
+    A, B, C = V[T3[:, 0]], V[T3[:, 1]], V[T3[:, 2]]
+    e1, e2 = B - A, C - A
+    p = np.cross(d, e2)
+    det = np.einsum("ij,ij->i", e1, p)
+    good = np.abs(det) > 1e-12
+    inv = np.where(good, 1.0 / np.where(good, det, 1.0), 0.0)
+    s = origin - A
+    u = np.einsum("ij,ij->i", s, p) * inv
+    q = np.cross(s, e1)
+    v = (q @ d) * inv
+    t = np.einsum("ij,ij->i", e2, q) * inv
+    eps = 1e-12
+    hit = np.flatnonzero(good & (u >= -eps) & (v >= -eps) & (u + v <= 1.0 + eps) & (t > 0.0))
+    if hit.size == 0:
+        raise ProceduralHeadError("landmark ray misses the template surface")
+    k = hit[np.argmax(t[hit])]
+    b = np.clip(np.array([1.0 - u[k] - v[k], u[k], v[k]]), 0.0, None)
+    return int(cand[k]), b / b.sum()
+
+
+def _midline_hit(V: np.ndarray, ring: np.ndarray, tris: np.ndarray, first_edge_tri: Mapping[tuple[int, int], int],
+                 origin: np.ndarray, target: np.ndarray) -> tuple[int, np.ndarray]:
+    """Intersection of the sagittal ray origin -> target with the midline polyline,
+    embedded on the midline edge (weights on its two vertices; x = 0 exactly)."""
+    P = np.asarray(V, float)[ring][:, 1:]
+    Q = np.roll(P, -1, axis=0)
+    o = origin[1:]
+    d = target[1:] - o
+    d = d / np.linalg.norm(d)
+    e = Q - P
+    den = d[0] * e[:, 1] - d[1] * e[:, 0]
+    ok = np.abs(den) > 1e-12
+    w = P - o
+    t = np.where(ok, (w[:, 0] * e[:, 1] - w[:, 1] * e[:, 0]) / np.where(ok, den, 1.0), -1.0)
+    s = np.where(ok, (w[:, 0] * d[1] - w[:, 1] * d[0]) / np.where(ok, den, 1.0), -1.0)
+    hit = np.flatnonzero(ok & (t > 0.0) & (s >= -1e-12) & (s <= 1.0 + 1e-12))
+    if hit.size == 0:
+        raise ProceduralHeadError("midline landmark ray misses the midline profile")
+    k = int(hit[np.argmax(t[hit])])
+    a, b = int(ring[k]), int(ring[(k + 1) % len(ring)])
+    sk = float(np.clip(s[k], 0.0, 1.0))
+    tri = first_edge_tri.get((min(a, b), max(a, b)))
+    if tri is None:
+        raise ProceduralHeadError(f"midline vertices {a} and {b} are not joined by an edge")
+    bary = np.zeros(3)
+    bary[int(np.flatnonzero(tris[tri] == a)[0])] += 1.0 - sk
+    bary[int(np.flatnonzero(tris[tri] == b)[0])] += sk
+    return tri, bary
+
+
+def legacy_synthetic_embeddings(V: np.ndarray, tris: np.ndarray, anatomical: Mapping[str, Mapping[str, Any]],
+                                midline: np.ndarray, mirror: np.ndarray, first_tri: np.ndarray,
+                                corner: np.ndarray) -> dict[str, dict[str, Any]]:
     """Embeddings of the ``legacy_synthetic`` scheme on a template (step 8).
 
-    Anatomical aliases (scheme ``anatomical_id``) reuse the anatomical vertex
-    (``sigma_annot_mm`` 0, provenance ``'anatomical_alias'``).  The other legacy
-    names (vertex_front, brow_*, forehead_side_*) have no anatomical definition:
-    the legacy fixture (:func:`face3d.synthetic.synthetic_landmarks`, illustrative
-    only, not in the FH frame) is similarity-aligned (Umeyama) from its anatomical
-    subset onto the template's anatomical positions, the legacy points are
-    transformed and snapped to the nearest template vertex -- among midline
-    vertices for a midline name, among ``x > 0`` vertices for ``_L`` names, with
-    ``_R`` the mirror of ``_L`` (mirror-consistent).  Their ``sigma_annot_mm`` is
-    the snap distance (mm) and provenance ``'legacy_similarity_transfer'``: a
-    transfer of illustrative points, not an anatomical annotation.
+    ``tris`` is the fan split, ``(first_tri, corner)`` from
+    :func:`face3d.model.template_kit.vertex_embeddings`, and ``anatomical`` the
+    template's ``'anatomical44'`` embedding dict.  Anatomical
+    aliases (scheme ``anatomical_id``) reuse that embedding (``sigma_annot_mm`` 0,
+    provenance ``'anatomical_alias'``).  The other legacy names (vertex_front,
+    brow_*, forehead_side_*) have no anatomical definition: the legacy fixture
+    (:func:`face3d.synthetic.synthetic_landmarks`; illustrative only, not in the FH
+    frame) is similarity-aligned (Umeyama) from its anatomical subset onto the
+    template's anatomical positions, the legacy points are transformed and snapped
+    to the nearest template vertex -- among midline vertices for a midline name,
+    among ``x > 0`` vertices for ``_L`` names, with ``_R`` the mirror of ``_L``
+    (mirror-consistent).  Their ``sigma_annot_mm`` is the snap distance (mm) and
+    their provenance ``'legacy_similarity_transfer'``: a transfer of illustrative
+    points, not an anatomical annotation.
     """
     from ..synthetic import synthetic_landmarks
 
@@ -430,16 +534,20 @@ def legacy_synthetic_embeddings(V: np.ndarray, anat_vertex: Mapping[str, int], m
     names, X = synthetic_landmarks()
     pos = {nm: X[i] for i, nm in enumerate(names)}
     V = np.asarray(V, float)
+    anat_pos = {aid: _embedded(V, tris, np.array([e["tri"]]), np.asarray(e["bary"], float)[None])[0]
+                for aid, e in anatomical.items()}
     alias = [(p.name, p.anatomical_id) for p in sch.points if p.anatomical_id is not None]
     src = np.asarray([pos[nm] for nm, _ in alias])
-    dst = np.asarray([V[anat_vertex[aid]] for _, aid in alias])
+    dst = np.asarray([anat_pos[aid] for _, aid in alias])
     s, R, t = umeyama(src, dst)
     out: dict[str, dict[str, Any]] = {}
     left = np.flatnonzero(V[:, 0] > 1e-9)
     chosen: dict[str, int] = {}
     for p in sch.points:
         if p.anatomical_id is not None:
-            out[p.name] = _one_hot(first_tri, corner, anat_vertex[p.anatomical_id], 0.0, "anatomical_alias")
+            e = anatomical[p.anatomical_id]
+            out[p.name] = {"tri": int(e["tri"]), "bary": np.asarray(e["bary"], float).copy(),
+                           "sigma_annot_mm": 0.0, "provenance": "anatomical_alias"}
             continue
         if p.side == "R":
             continue
@@ -452,15 +560,178 @@ def legacy_synthetic_embeddings(V: np.ndarray, anat_vertex: Mapping[str, int], m
     for p in sch.points:
         if p.anatomical_id is None and p.side == "R":
             partner = p.name[:-2] + "_L"
-            v = int(mirror[chosen[partner]])
-            e = out[partner]
-            out[p.name] = _one_hot(first_tri, corner, v, e["sigma_annot_mm"], "legacy_similarity_transfer")
+            out[p.name] = _one_hot(first_tri, corner, int(mirror[chosen[partner]]),
+                                   out[partner]["sigma_annot_mm"], "legacy_similarity_transfer")
     return {p.name: out[p.name] for p in sch.points}
 
 
 # =========================================================================== builder
+#: Surface-mode exactness tolerance (mm): the exact barycentric correction is kept only
+#: when it brings every landmark this close to its target (WP-08 implementation 🆕).
+SURFACE_EXACT_TOL_MM = 1e-9
+
+
 def _kit_id(n: int, sex: str) -> str:
     return "procedural-head-v1" if (n, sex) == (24, "unspecified") else f"procedural-head-v1-n{n}-{sex}"
+
+
+def _symmetrise(V: np.ndarray, mirror: np.ndarray, midline: np.ndarray) -> np.ndarray:
+    V = 0.5 * (V + V[mirror] * np.array([-1.0, 1.0, 1.0]))
+    V[midline, 0] = 0.0
+    return V
+
+
+def _vertex_mode(V0: np.ndarray, ids: list[str], T: np.ndarray, midline: np.ndarray, mirror: np.ndarray,
+                 first_tri: np.ndarray, corner: np.ndarray) -> tuple[np.ndarray, dict[str, dict[str, Any]]]:
+    """Step 4 as specified: one vertex per landmark, one RBF warp, symmetrise, snap."""
+    assigned = _assign(V0, ids, T, midline, mirror)
+    V = RBFWarp(V0[assigned], T, smoothing=0.0)(V0)
+    V = _symmetrise(V, mirror, midline)
+    V[assigned] = T
+    emb = {lid: _one_hot(first_tri, corner, int(assigned[k]), 0.0, "procedural_vertex_assignment")
+           for k, lid in enumerate(ids)}
+    return V, emb
+
+
+def _closest_on_side(V: np.ndarray, tris: np.ndarray, cand: np.ndarray, target: np.ndarray
+                     ) -> tuple[int, np.ndarray, float]:
+    """Closest point of the triangles ``cand`` to ``target``: (triangle, bary, distance mm)."""
+    from ..mesh.distance import closest_point_on_triangle
+
+    T3 = tris[cand]
+    _, d2, b = closest_point_on_triangle(target[None, :], V[T3[:, 0]], V[T3[:, 1]], V[T3[:, 2]])
+    k = int(np.argmin(d2))
+    bb = np.clip(b[k], 0.0, None)
+    return int(cand[k]), bb / bb.sum(), float(math.sqrt(d2[k]))
+
+
+def _closest_on_midline(V: np.ndarray, ring: np.ndarray, tris: np.ndarray,
+                        first_edge_tri: Mapping[tuple[int, int], int], target: np.ndarray
+                        ) -> tuple[int, np.ndarray, float]:
+    """Closest point of the midline profile polyline to ``target`` (x = 0), as an edge embedding."""
+    P = np.asarray(V, float)[ring]
+    Q = np.roll(P, -1, axis=0)
+    e = Q - P
+    s = np.clip(np.einsum("ij,ij->i", target - P, e) / np.maximum(np.einsum("ij,ij->i", e, e), 1e-300), 0.0, 1.0)
+    d = np.linalg.norm(P + s[:, None] * e - target, axis=1)
+    k = int(np.argmin(d))
+    a, b = int(ring[k]), int(ring[(k + 1) % len(ring)])
+    tri = first_edge_tri.get((min(a, b), max(a, b)))
+    if tri is None:
+        raise ProceduralHeadError(f"midline vertices {a} and {b} are not joined by an edge")
+    bary = np.zeros(3)
+    bary[int(np.flatnonzero(tris[tri] == a)[0])] += 1.0 - s[k]
+    bary[int(np.flatnonzero(tris[tri] == b)[0])] += s[k]
+    return tri, bary, float(d[k])
+
+
+def _pairwise(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    d2 = np.sum(a * a, 1)[:, None] + np.sum(b * b, 1)[None, :] - 2.0 * a @ b.T
+    return np.sqrt(np.maximum(d2, 0.0))
+
+
+def _barycentric_rbf_correction(V: np.ndarray, tris: np.ndarray, tri: np.ndarray, bary: np.ndarray,
+                                T: np.ndarray) -> np.ndarray:
+    """Biharmonic displacement field (phi(r) = r, as in face3d.geometry.rbf) fitted so the
+    *embedded* points ``sum_k bary_k V[tris[tri, k]]`` land exactly on ``T``.
+
+    The constraints are linear in the vertex positions, so one solve is exact: with
+    centres P (current embedded points), ``sum_k b_jk delta(V_jk) = T_j - P_j`` gives
+    ``[Phi_b, [1 P]; [1 P]^T, 0] [w; a] = [T - P; 0]`` with
+    ``Phi_b[j, i] = sum_k b_jk |V_jk - P_i|``.  Raises LinAlgError when singular.
+    """
+    P = _embedded(V, tris, tri, bary)
+    n = len(P)
+    Phi = np.zeros((n, n))
+    for k in range(3):
+        Phi += bary[:, k][:, None] * _pairwise(V[tris[tri, k]], P)
+    Pc = np.hstack([np.ones((n, 1)), P])
+    A = np.zeros((n + 4, n + 4))
+    A[:n, :n] = Phi
+    A[:n, n:] = Pc
+    A[n:, :n] = Pc.T
+    rhs = np.zeros((n + 4, 3))
+    rhs[:n] = T - P
+    sol = np.linalg.solve(A, rhs)
+    return V + _pairwise(V, P) @ sol[:n] + np.hstack([np.ones((len(V), 1)), V]) @ sol[n:]
+
+
+def _surface_mode(V0: np.ndarray, ids: list[str], T: np.ndarray, midline: np.ndarray, mirror: np.ndarray,
+                  tris: np.ndarray, S: np.ndarray, faces: np.ndarray
+                  ) -> tuple[np.ndarray, dict[str, dict[str, Any]], bool]:
+    """Fallback for resolutions where vertex snapping folds (see build_procedural_head).
+
+    1. Each landmark is located where the ray from the ellipsoid centre towards its
+       target meets the bumped surface (midline ids on the midline profile, ``_L``
+       ids on x > 0 triangles, ``_R`` the mirror); these continuous points are
+       RBF-warped (biharmonic, smoothing 0) onto the targets.
+    2. Each target is re-embedded at its closest point on the warped mesh (midline
+       ids on the midline profile; ``_R`` = mirror embedding of ``_L``).
+    3. :func:`_barycentric_rbf_correction` then makes the embedded points exact.  If
+       that is singular, folds the mesh or is not exact, the step-2 mesh is kept and
+       each landmark's ``sigma_annot_mm`` is its residual distance to the prior mean
+       (provenance ``'procedural_surface_projection_approx'``).
+
+    Returns ``(V, embeddings, exact)``.
+    """
+    C = np.asarray(HEAD_CENTRE_MM, float)
+    tri_of_set = {tuple(sorted(t)): k for k, t in enumerate(tris.tolist())}
+    first_edge_tri: dict[tuple[int, int], int] = {}
+    for k, t in enumerate(tris.tolist()):
+        for i in range(3):
+            a, b = t[i], t[(i + 1) % 3]
+            first_edge_tri.setdefault((min(a, b), max(a, b)), k)
+    left_tris = np.flatnonzero(S[tris].sum(axis=1)[:, 0] > 0.0)
+    pos = {lid: k for k, lid in enumerate(ids)}
+
+    def embed(Vx: np.ndarray, finder) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        tri = np.zeros(len(ids), np.int64)
+        bary = np.zeros((len(ids), 3))
+        dist = np.zeros(len(ids))
+        ring = midline_ring(Vx, midline)
+        for k, lid in enumerate(ids):
+            side = _side(lid)
+            if side != "R":
+                tri[k], bary[k], dist[k] = finder(Vx, ring, side, T[k])
+        for k, lid in enumerate(ids):
+            if _side(lid) == "R":
+                lk = pos[lid[:-2] + "_L"]
+                tri[k], bary[k] = _mirror_embedding(int(tri[lk]), bary[lk], tris, mirror, tri_of_set)
+                dist[k] = dist[lk]
+        return tri, bary, dist
+
+    def ray(Vx, ring, side, t):
+        if side == "mid":
+            tr, b = _midline_hit(Vx, ring, tris, first_edge_tri, C, t)
+        else:
+            tr, b = _ray_hit(Vx, tris, left_tris, C, t)
+        return tr, b, 0.0
+
+    def closest(Vx, ring, side, t):
+        if side == "mid":
+            return _closest_on_midline(Vx, ring, tris, first_edge_tri, t)
+        return _closest_on_side(Vx, tris, left_tris, t)
+
+    tri, bary, _ = embed(V0, ray)
+    V1 = _symmetrise(RBFWarp(_embedded(V0, tris, tri, bary), T, smoothing=0.0)(V0), mirror, midline)
+    tri, bary, dist = embed(V1, closest)
+    exact = False
+    try:
+        V2 = _symmetrise(_barycentric_rbf_correction(V1, tris, tri, bary, T), mirror, midline)
+        err = float(np.abs(_embedded(V2, tris, tri, bary) - T).max())
+        exact = err <= SURFACE_EXACT_TOL_MM and fold_check(V2, S, faces)[0]
+    except np.linalg.LinAlgError:
+        exact = False
+    if exact:
+        V = V2
+        emb = {lid: {"tri": int(tri[k]), "bary": bary[k].copy(), "sigma_annot_mm": 0.0,
+                     "provenance": "procedural_surface_projection"} for k, lid in enumerate(ids)}
+    else:
+        V = V1
+        res = np.linalg.norm(_embedded(V1, tris, tri, bary) - T, axis=1)
+        emb = {lid: {"tri": int(tri[k]), "bary": bary[k].copy(), "sigma_annot_mm": float(res[k]),
+                     "provenance": "procedural_surface_projection_approx"} for k, lid in enumerate(ids)}
+    return V, emb, exact
 
 
 def build_procedural_head(n: int = 24, sex: str = "unspecified", path_prior: Any = None) -> TemplateKit:
@@ -472,10 +743,22 @@ def build_procedural_head(n: int = 24, sex: str = "unspecified", path_prior: Any
     path_prior : landmark prior JSON (default: the packaged
         ``face3d/data/landmark_prior_v1.json``).
 
+    Landmark modes.  The specified construction (``meta['landmark_mode'] ==
+    'vertex'``: one vertex per landmark, step 4) is tried first with the fold
+    check's amplitude back-off (scales ``0.8^0 .. 0.8^5``).  The default build
+    (n = 24, every sex) succeeds this way at full amplitude and its anatomical44
+    landmark positions equal the prior means (to round-off).  At coarse
+    resolutions (e.g. n = 16, used by WP-13) landmarks closer than the vertex
+    spacing (p / ps / pi are 5 mm apart) cannot sit on distinct vertices without
+    folding, so before raising the builder falls back to ``'surface'`` mode (see
+    :func:`_surface_mode`; barycentric embeddings, same back-off ladder), which is
+    fold-free but may only approximate the prior means (``meta['landmarks_exact']``,
+    ``meta['landmark_max_error_mm']``; each landmark's residual is its
+    ``sigma_annot_mm``).
+
     Returns a validated :class:`TemplateKit` with ``generated=True`` and licence
     ``CC0-1.0``.  Deterministic: two calls give bit-identical kits.
-    Raises :class:`ProceduralHeadError` if no amplitude scale in
-    ``0.8^0 .. 0.8^5`` gives an unfolded mesh.
+    Raises :class:`ProceduralHeadError` if neither mode gives an unfolded mesh.
     """
     if sex not in ("unspecified", "male", "female"):
         raise ValueError(f"sex must be 'unspecified', 'male' or 'female', not {sex!r}")
@@ -485,40 +768,39 @@ def build_procedural_head(n: int = 24, sex: str = "unspecified", path_prior: Any
     ids, T = prior_mean(sex, path_prior)
     ids = list(ids)
     E, N = _ellipsoid(S)
-    flip = np.array([-1.0, 1.0, 1.0])
-
-    amp_scale, attempt, last = 1.0, 0, None
-    while True:
-        V0 = E + _bump_height(E, amp_scale)[:, None] * N
-        V0 = 0.5 * (V0 + V0[mirror] * flip)
-        V0[midline, 0] = 0.0
-        assigned = _assign(V0, ids, T, midline, mirror)
-        warp = RBFWarp(V0[assigned], T, smoothing=0.0)
-        V = warp(V0)
-        V = 0.5 * (V + V[mirror] * flip)
-        V[midline, 0] = 0.0
-        V[assigned] = T
-        ok, min_dot, vol = fold_check(V, S, faces)
-        last = (min_dot, vol)
-        if ok:
-            break
-        if attempt >= MAX_RETRIES:
-            raise ProceduralHeadError(
-                f"procedural head (n={n}, sex={sex}) folds after {MAX_RETRIES} amplitude back-offs "
-                f"(min normal cosine {last[0]:.3g}, volume {last[1]:.4g} mm^3)")
-        attempt += 1
-        amp_scale *= AMPLITUDE_BACKOFF
-
     tris = fan_triangles(faces)
-    first_tri, corner = vertex_embeddings(tris, len(V))
-    lm_pos = {lid: T[k] for k, lid in enumerate(ids)}
+    first_tri, corner = vertex_embeddings(tris, len(S))
+
+    result = None
+    fails: list[str] = []
+    for mode in ("vertex", "surface"):
+        amp_scale = 1.0
+        for attempt in range(MAX_RETRIES + 1):
+            V0 = _symmetrise(E + _bump_height(E, amp_scale)[:, None] * N, mirror, midline)
+            if mode == "vertex":
+                V, anatomical = _vertex_mode(V0, ids, T, midline, mirror, first_tri, corner)
+                exact = True
+            else:
+                V, anatomical, exact = _surface_mode(V0, ids, T, midline, mirror, tris, S, faces)
+            ok, min_dot, vol = fold_check(V, S, faces)
+            if ok:
+                result = (mode, amp_scale, attempt, V, anatomical, min_dot, vol, exact)
+                break
+            fails.append(f"{mode}@{amp_scale:.4g}: min cos {min_dot:.3g}, volume {vol:.4g} mm^3")
+            amp_scale *= AMPLITUDE_BACKOFF
+        if result is not None:
+            break
+    if result is None:
+        raise ProceduralHeadError(f"procedural head (n={n}, sex={sex}) folds in every attempt: " + "; ".join(fails))
+    mode, amp_scale, attempt, V, anatomical, min_dot, vol, exact = result
+
+    P_emb = _embedded(V, tris, np.array([anatomical[i]["tri"] for i in ids]),
+                      np.array([anatomical[i]["bary"] for i in ids]))
+    lm_pos = {lid: P_emb[k] for k, lid in enumerate(ids)}
     regions = geometric_regions(V, lm_pos)
     edges = np.unique(np.sort(np.concatenate([np.stack([faces[:, i], faces[:, (i + 1) % 4]], 1)
                                               for i in range(4)]), axis=1), axis=0)
-    anat_vertex = {lid: int(assigned[k]) for k, lid in enumerate(ids)}
-    anatomical = {lid: _one_hot(first_tri, corner, anat_vertex[lid], 0.0, "procedural_assignment")
-                  for lid in ids}
-    legacy = legacy_synthetic_embeddings(V, anat_vertex, midline, mirror, first_tri, corner)
+    legacy = legacy_synthetic_embeddings(V, tris, anatomical, midline, mirror, first_tri, corner)
 
     params = {
         "generator": "face3d.model.procedural_head", "generator_version": GENERATOR_VERSION,
@@ -528,17 +810,19 @@ def build_procedural_head(n: int = 24, sex: str = "unspecified", path_prior: Any
         "region_rules_mm": dict(REGION_RULES_MM), "jaw_rule_mm": dict(JAW_RULE_MM),
         "prior_sha256": pkg["sha256"],
     }
-    source_sha = sha256_bytes(canonical_json(params))
     meta = {
-        "generator": params, "amplitude_scale": amp_scale, "amplitude_retries": attempt,
-        "fold_min_cos": last[0], "volume_mm3": last[1], "anatomical": False,
+        "generator": params, "landmark_mode": mode, "landmarks_exact": bool(exact),
+        "landmark_max_error_mm": float(np.abs(P_emb - T).max()),
+        "amplitude_scale": amp_scale, "amplitude_retries": attempt,
+        "failed_attempts": fails, "fold_min_cos": min_dot, "volume_mm3": vol, "anatomical": False,
         "prior_status": pkg["status"], "prior_frame": pkg["frame"],
-        "note": ("Procedurally generated CC0 head (cube-sphere + smooth bumps warped onto the 44 "
-                 "landmark prior means). Not anatomical between landmarks; anatomical44 sigma_annot_mm = 0 "
-                 "because the landmark vertex is the prior mean by construction."),
+        "note": ("Procedurally generated CC0 head (cube-sphere + smooth bumps warped onto the 44 landmark "
+                 "prior means). Not anatomical between landmarks. anatomical44 sigma_annot_mm is 0 where the "
+                 "embedded landmark is the prior mean by construction, else its residual distance (mm)."),
     }
     return TemplateKit(
-        id=_kit_id(int(n), sex), licence="CC0-1.0", generated=True, source_sha256=source_sha,
+        id=_kit_id(int(n), sex), licence="CC0-1.0", generated=True,
+        source_sha256=sha256_bytes(canonical_json(params)),
         vertices=V, faces=faces,
         landmarks={"anatomical44": anatomical, "legacy_synthetic": legacy},
         mirror_map=mirror, midline=midline, regions=regions, region_weights=region_weights_default(),

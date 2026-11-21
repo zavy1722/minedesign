@@ -557,7 +557,8 @@ class TemplateKit:
                 return False
             for k, e in pts.items():
                 f = op[k]
-                if (e["tri"], e["sigma_annot_mm"], e["provenance"]) != (f["tri"], f["sigma_annot_mm"], f["provenance"]) \
+                key = ("tri", "sigma_annot_mm", "provenance")
+                if tuple(e[x] for x in key) != tuple(f[x] for x in key) \
                         or not np.array_equal(e["bary"], f["bary"]):
                     return False
         return True
