@@ -49,7 +49,7 @@ In Blender: **Edit → Preferences → Get Extensions → Install from Disk**, c
 
 | Path | What it is |
 |---|---|
-| `research/` | Research library: anatomy (29 notes), reconstruction (29), blender (22), community (15), ethics (4), each with an area README. Also `data/` (machine-readable tables), `sources/` (bibliographies) and `_raw/` (harvests, verification queues, engine requirement digests) |
+| `research/` | Research library: anatomy (28 notes), reconstruction (28), blender (21), community (14), ethics (3), each with an area README; start at [`research/README.md`](research/README.md). Also `data/` (machine-readable tables), `sources/` (bibliographies) and `_raw/` (harvests, verification queues, engine requirement digests) |
 | `docs/DESIGN.md` | The final design, synthesised from three competing proposals in `docs/design/` and a judge panel |
 | `docs/wbs.json` | Work breakdown: specs, files, dependencies and acceptance tests, with integration notes added between packages |
 | `docs/maintainer-tools.md` | How to build the MediaPipe scheme, calibrate it by render-and-detect, and refit the prior |
