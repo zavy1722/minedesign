@@ -1,0 +1,171 @@
+{
+ "active_solve": null,
+ "consent_id": "c-synth-golden",
+ "decisions": [],
+ "format": "face3d.project",
+ "landmark_cache": {
+  "keep": false
+ },
+ "licence": "user-data (private; not for redistribution)",
+ "photos": [
+  {
+   "exif": {
+    "digital_zoom": 1.0,
+    "f35": 27.2,
+    "lens_model": "back camera",
+    "make": "Apple",
+    "model": "iPhone (synthetic)",
+    "orientation": 1,
+    "software": null,
+    "wh": [
+     600,
+     800
+    ]
+   },
+   "focal_group": "Apple|iPhone (synthetic)|back camera|27.2|600|800|still",
+   "id": "p01",
+   "include": true,
+   "path": "photos/p01.npy",
+   "rights_basis": "self_shot",
+   "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+   "tags": {
+    "expression": "auto",
+    "mirrored": "auto",
+    "neutral_reference": false,
+    "occluders": [],
+    "view": "auto"
+   },
+   "working_copy": "photos/p01.npy"
+  },
+  {
+   "exif": {
+    "digital_zoom": 1.0,
+    "f35": 27.2,
+    "lens_model": "back camera",
+    "make": "Apple",
+    "model": "iPhone (synthetic)",
+    "orientation": 1,
+    "software": null,
+    "wh": [
+     600,
+     800
+    ]
+   },
+   "focal_group": "Apple|iPhone (synthetic)|back camera|27.2|600|800|still",
+   "id": "p02",
+   "include": true,
+   "path": "photos/p02.npy",
+   "rights_basis": "self_shot",
+   "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+   "tags": {
+    "expression": "auto",
+    "mirrored": "auto",
+    "neutral_reference": false,
+    "occluders": [],
+    "view": "auto"
+   },
+   "working_copy": "photos/p02.npy"
+  },
+  {
+   "exif": {
+    "digital_zoom": 1.0,
+    "f35": 27.2,
+    "lens_model": "back camera",
+    "make": "Apple",
+    "model": "iPhone (synthetic)",
+    "orientation": 1,
+    "software": null,
+    "wh": [
+     600,
+     800
+    ]
+   },
+   "focal_group": "Apple|iPhone (synthetic)|back camera|27.2|600|800|still",
+   "id": "p03",
+   "include": true,
+   "path": "photos/p03.npy",
+   "rights_basis": "self_shot",
+   "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+   "tags": {
+    "expression": "auto",
+    "mirrored": "auto",
+    "neutral_reference": false,
+    "occluders": [],
+    "view": "auto"
+   },
+   "working_copy": "photos/p03.npy"
+  },
+  {
+   "exif": {
+    "digital_zoom": 1.0,
+    "f35": 27.2,
+    "lens_model": "back camera",
+    "make": "Apple",
+    "model": "iPhone (synthetic)",
+    "orientation": 1,
+    "software": null,
+    "wh": [
+     600,
+     800
+    ]
+   },
+   "focal_group": "Apple|iPhone (synthetic)|back camera|27.2|600|800|still",
+   "id": "p04",
+   "include": true,
+   "path": "photos/p04.npy",
+   "rights_basis": "self_shot",
+   "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+   "tags": {
+    "expression": "auto",
+    "mirrored": "auto",
+    "neutral_reference": false,
+    "occluders": [],
+    "view": "auto"
+   },
+   "working_copy": "photos/p04.npy"
+  },
+  {
+   "exif": {
+    "digital_zoom": 1.0,
+    "f35": 27.2,
+    "lens_model": "back camera",
+    "make": "Apple",
+    "model": "iPhone (synthetic)",
+    "orientation": 1,
+    "software": null,
+    "wh": [
+     600,
+     800
+    ]
+   },
+   "focal_group": "Apple|iPhone (synthetic)|back camera|27.2|600|800|still",
+   "id": "p05",
+   "include": true,
+   "path": "photos/p05.npy",
+   "rights_basis": "self_shot",
+   "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+   "tags": {
+    "expression": "auto",
+    "mirrored": "auto",
+    "neutral_reference": false,
+    "occluders": [],
+    "view": "auto"
+   },
+   "working_copy": "photos/p05.npy"
+  }
+ ],
+ "pins": [],
+ "provenance": "synthetic",
+ "scale_refs": [],
+ "seed": 11,
+ "settings": {
+  "population": "unknown",
+  "scale_population_source": "global_size",
+  "sex_prior": "unspecified"
+ },
+ "template": {
+  "id": "procedural-head-v1",
+  "topology_sha256": ""
+ },
+ "version": 1
+}
