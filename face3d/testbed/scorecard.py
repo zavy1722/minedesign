@@ -19,8 +19,8 @@ Scorecard layout (JSON-serialisable, deterministic)::
   Missing values (no finite seed) are stored as JSON ``null``.
 * Seeds are ``range(1000, 1000 + n_seeds)`` (WBS WP-01).
 * ``per_seed`` (an addition to the WBS layout) keeps every seed's metrics column-wise
-  so that :func:`compare` can pair any two scorecards on their shared seeds (e.g. a
-  ``--fast`` 5-seed run against the 30-seed baseline).
+  so that :func:`compare` can pair any two scorecards seed by seed (e.g. a 30-seed run,
+  or a ``--fast`` 5-seed run, against the 30-seed baseline).
 * ``runtime_s`` is wall-clock and machine dependent, so it is left out of the stored
   scorecard unless ``include_runtime=True`` (keeps the committed file reproducible).
 * Floats are rounded to 9 significant digits and keys sorted when written
@@ -36,11 +36,22 @@ Scorecard layout (JSON-serialisable, deterministic)::
   MKL_NUM_THREADS=1`` (the other six scenarios agree across thread counts to ~1e-7
   relative). This caveat stands until WP-07 hardens ``lm.py``.
 
-Comparison (:func:`compare`) is **paired** when both scorecards list the same seeds
-(or either does not record them), or both store ``per_seed`` values for some shared
-seeds (the medians are then taken over the shared seeds): every scenario sees the same
-subjects, rigs and detections in both runs (common random numbers), so seed-sampling
-noise cancels and the DESIGN 7.5 2 % rule applies as is.
+Comparison (:func:`compare`) is **seed-matched** whenever both scorecards store
+``per_seed`` values for shared seeds (always true for :func:`build_scorecard` output):
+for each metric the medians of both cards are taken over the seeds whose value is
+finite in *both* cards (:func:`paired_medians`), and the DESIGN 7.5 2 % rule applies
+as is. Every scenario sees the same subjects, rigs and detections for a seed in both
+runs (common random numbers), so seed-sampling noise cancels, and a seed failed by one
+engine cannot move either median. Failures are judged separately: a metric (and
+``'scenario:n_ok'`` for ``config_rms_mm``) regresses when its fraction of usable seeds
+drops by :data:`N_OK_FRACTION_DROP` or more.
+
+**Fast mode.** The 5-seed ``--fast`` medians are not representative of the 30-seed
+baseline medians (selfie_legacy has a heavy outlier-driven tail: its config_rms_mm
+median on seeds 1000-1004 is ~2x the 30-seed median). Compare fast-mode results only
+with :func:`compare` (or :func:`paired_medians`), which pairs them with the baseline's
+values for the same seeds; never compare raw fast-mode medians against the baseline's
+30-seed medians.
 
 CLI::
 
@@ -65,7 +76,8 @@ import numpy as np
 from .scenarios import FAST_SCENARIOS, METRIC_KEYS, SCENARIOS, Scenario, default_engine, run_scenario
 
 __all__ = ["SEED0", "FAST_SEEDS", "SCORECARD_FORMAT", "HIGHER_IS_WORSE", "BASELINE_LABEL",
-           "BLAS_THREAD_VARS", "seeds_for", "aggregate", "build_scorecard", "compare",
+           "BLAS_THREAD_VARS", "N_OK_FRACTION_DROP", "PAIRED_MAX_SEED_SHIFT", "seeds_for",
+           "aggregate", "build_scorecard", "per_seed_columns", "paired_medians", "compare",
            "is_paired", "blas_thread_env", "blas_single_threaded", "dumps", "write_scorecard",
            "load_scorecard", "main"]
 
@@ -76,10 +88,18 @@ SIG_DIGITS = 9                   # stored precision (WBS WP-01)
 BASELINE_LABEL = "legacy-41179a3"
 HIGHER_IS_WORSE: tuple[str, ...] = ("config_rms_mm", "now7_rms_mm", "focal_rel_err",
                                     "distance_rel_err", "rmse_px")
-# A scenario also regresses when its fraction of usable seeds (finite config_rms_mm)
-# drops by more than this, so failures cannot hide behind better medians. Test-bed
-# policy choice (PROVISIONAL; 0.10 is 3 of 30 seeds, cf. the n_ok >= 28/30 baseline check).
+# A metric also regresses when its fraction of usable (finite) seeds drops by this much
+# or more, and 'scenario:n_ok' is reported when config_rms_mm's does (seed failures), so
+# failures cannot hide behind better medians. Test-bed policy choice (PROVISIONAL): 0.10
+# is 3 of 30 seeds; losing 1-2 of 30 is tolerated (cf. the n_ok >= 28/30 baseline check
+# and the BLAS-dependent camera_roll_legacy seed in the module docstring).
 N_OK_FRACTION_DROP = 0.10
+# Aggregate-only comparison of cards run on the same seeds but without per-seed values:
+# the rank-shift allowance covers at most this many seeds usable in one run only (the
+# BLAS-dependent seed). More lost seeds never loosen the median gate further; they are
+# caught by the N_OK_FRACTION_DROP rule instead.
+PAIRED_MAX_SEED_SHIFT = 1
+_FRACTION_EPS = 1e-9             # 1 - 27/30 = 0.0999...: compare fractions with slack
 
 
 def seeds_for(n_seeds: int) -> list[int]:
@@ -235,13 +255,60 @@ def _shared_seeds(baseline: dict, new: dict, name: str) -> list[int]:
     return sorted(sb & sn)
 
 
-def _subset_aggregate(sc: dict, name: str, seeds: Sequence[int], metric_keys: Iterable[str]) -> dict:
-    """:func:`aggregate` of scenario ``name`` restricted to ``seeds`` (from ``per_seed``)."""
-    cols = sc["per_seed"][name]
-    pos = {int(s): i for i, s in enumerate(cols["seed"])}
-    keys = [k for k in metric_keys if k in cols]
-    recs = [{k: cols[k][pos[s]] for k in keys} for s in seeds]
-    return aggregate(recs, keys)
+def _per_seed_values(sc: dict, name: str, metric: str, seeds: Sequence[int]) -> np.ndarray | None:
+    """``per_seed`` values of ``metric`` for ``seeds`` (NaN where missing), or None when
+    the card stores no (well-formed) per-seed column for it."""
+    cols = (sc.get("per_seed") or {}).get(name) or {}
+    seed_col, vals = cols.get("seed"), cols.get(metric)
+    if seed_col is None or vals is None or len(seed_col) != len(vals):
+        return None
+    try:
+        pos = {int(s): i for i, s in enumerate(seed_col)}
+    except (TypeError, ValueError):
+        return None
+    return np.array([_as_float(vals[pos[s]]) if s in pos else float("nan") for s in seeds], float)
+
+
+def paired_medians(baseline: dict, new: dict, name: str, metric: str,
+                   seeds: Sequence[int] | None = None) -> dict | None:
+    """Seed-matched medians of ``metric`` in scenario ``name`` from both cards' ``per_seed``.
+
+    The comparison runs over the seeds stored in both cards (restricted to ``seeds`` if
+    given). The two medians are taken over the seeds whose value is finite in **both**
+    cards, so a seed that one engine fails (or that lost this metric) cannot move either
+    median; such losses are counted separately in ``n_ok_*``.
+
+    Returns None when either card has no per-seed values of ``metric`` for ``name`` or
+    the cards share no seeds; else a dict with
+
+    * ``baseline``, ``new``: the seed-matched medians (NaN when no seed is finite in both);
+    * ``n_shared``: number of shared seeds compared; ``n_both``: finite in both;
+    * ``n_ok_baseline``, ``n_ok_new``: finite in each card on the shared seeds.
+
+    Use this (or :func:`compare`) for ``--fast`` runs: their raw 5-seed medians are not
+    comparable with the baseline's 30-seed medians (module docstring, "Fast mode").
+    """
+    shared = _shared_seeds(baseline, new, name)
+    if seeds is not None:
+        want = {int(s) for s in seeds}
+        shared = [s for s in shared if s in want]
+    if not shared:
+        return None
+    vb = _per_seed_values(baseline, name, metric, shared)
+    vn = _per_seed_values(new, name, metric, shared)
+    if vb is None or vn is None:
+        return None
+    fb, fn = np.isfinite(vb), np.isfinite(vn)
+    both = fb & fn
+    nan = float("nan")
+    return {
+        "baseline": float(np.median(vb[both])) if both.any() else nan,
+        "new": float(np.median(vn[both])) if both.any() else nan,
+        "n_shared": len(shared),
+        "n_both": int(both.sum()),
+        "n_ok_baseline": int(fb.sum()),
+        "n_ok_new": int(fn.sum()),
+    }
 
 
 def dumps(scorecard: dict) -> str:
@@ -291,7 +358,8 @@ def _seeds_known_to_differ(baseline: dict, new: dict) -> bool:
 
 def _metric_tolerance(b: float, mad_b: float, n_b: int, n_new: int, paired: bool,
                       rel_tol: float, mad_k: float) -> float:
-    """Allowed worsening of a median (see :func:`compare`)."""
+    """Allowed worsening of an *aggregate* median (cards without per-seed values; see
+    :func:`compare`). Seed-matched comparisons use ``rel_tol * |b|`` only."""
     tol = rel_tol * abs(b)
     if not (math.isfinite(mad_b) and mad_k > 0.0):
         return tol
@@ -299,7 +367,9 @@ def _metric_tolerance(b: float, mad_b: float, n_b: int, n_new: int, paired: bool
     if paired:
         # Same seeds: only seeds usable in one run but not the other move the median,
         # each by at most ~half an order-statistic gap (~1.86 MAD / n under normality).
-        d = abs(n_b - n_new)
+        # Capped at PAIRED_MAX_SEED_SHIFT seeds so that failing more seeds never makes
+        # the gate more lenient (those are caught by the N_OK_FRACTION_DROP rule).
+        d = min(abs(n_b - n_new), PAIRED_MAX_SEED_SHIFT)
         noise = mad_k * d * mad_b / min(n_b, n_new)
     else:
         # Different seed sets: both medians carry seed-sampling noise (~1.86 MAD / sqrt(n)).
@@ -307,84 +377,103 @@ def _metric_tolerance(b: float, mad_b: float, n_b: int, n_new: int, paired: bool
     return max(tol, noise)
 
 
+def _fraction_dropped(drop: float) -> bool:
+    """True when a usable-seed fraction drop reaches :data:`N_OK_FRACTION_DROP`."""
+    return drop >= N_OK_FRACTION_DROP - _FRACTION_EPS
+
+
 def compare(baseline: dict, new: dict, rel_tol: float = 0.02, mad_k: float = 3.0,
             higher_is_worse: Sequence[str] = HIGHER_IS_WORSE, paired: bool | None = None
             ) -> list[str]:
     """Return the ``'scenario:metric'`` entries of ``new`` that regressed against ``baseline``.
 
-    Only scenarios present in both are compared (a fast run checks a subset). For each
-    metric in ``higher_is_worse`` with finite medians b (baseline) and m (new), the entry
-    regresses when ``m - b > max(rel_tol * |b|, noise)``.
+    Only scenarios present in both are compared (a fast run checks a subset). Each metric
+    in ``higher_is_worse`` (plus ``config_rms_mm`` for the seed-failure check) is judged
+    in one of three modes, chosen per scenario and metric:
 
-    * **Paired** comparison (the default whenever possible). With ``paired=None`` a
-      scenario is compared paired when both cards ran the same seeds (:func:`is_paired`,
-      e.g. a 30-seed run against the 30-seed baseline) or when either card does not
-      record its seeds (no evidence of different seed sets, so the strict rule applies),
-      or else when both store ``per_seed`` values for some shared seeds; the medians are
-      then recomputed over the shared seeds only (e.g. a ``--fast`` run on seeds
-      1000-1004 against the baseline's seeds 1000-1004). Common random numbers remove
-      seed-sampling noise, and a
-      deterministic engine reproduces the medians exactly, so the gate is the DESIGN 7.5
-      promotion rule: no worsening beyond ``rel_tol`` = 2 %. The only noise term left
-      covers seeds usable in one run but not the other (e.g. the BLAS-thread-dependent
-      failure in the module docstring): ``noise = mad_k * d * MAD_b / n`` with
-      d = |n_ok_b - n_ok_new| (dropping d of n seeds shifts a median by about d/2
-      order-statistic gaps, ~1.86 d MAD / n under normality). With equal n_ok the gate
-      is exactly 2 %.
-    * **Unpaired** (both cards list their seeds, the lists differ and no per-seed values
-      are shared; or ``paired=False``): both medians also carry
+    * **Seed-matched** (whenever both cards store ``per_seed`` values of the metric for
+      shared seeds and ``paired`` is not False; always the case for two
+      :func:`build_scorecard` outputs, including a ``--fast`` run against the 30-seed
+      baseline). With b and m the medians over the seeds finite in *both* cards
+      (:func:`paired_medians`), the entry regresses when ``m - b > rel_tol * |b|``: the
+      DESIGN 7.5 promotion rule, no worsening beyond 2 %, with no noise allowance (common
+      random numbers remove seed-sampling noise; a seed failed in one run is excluded
+      from both medians instead of shifting one of them). It also regresses when the
+      baseline has finite values but no seed is finite in both.
+    * **Paired aggregates** (no per-seed values in one card; both ran the same seeds, or
+      either does not record its seeds, or ``paired=True``): the stored medians are
+      compared with ``m - b > max(rel_tol * |b|, noise)``, ``noise = mad_k * d * MAD_b / n``
+      and d = min(|n_ok_b - n_ok_new|, :data:`PAIRED_MAX_SEED_SHIFT`) (dropping d of n
+      seeds shifts a median by about d/2 order-statistic gaps, ~1.86 d MAD / n under
+      normality). The allowance absorbs one seed usable in one run only (e.g. the
+      BLAS-thread-dependent failure in the module docstring) and is capped there, so
+      failing more seeds never loosens the gate. With equal n_ok the gate is exactly 2 %.
+    * **Unpaired aggregates** (both cards list their seeds, the lists differ and no
+      per-seed values are shared; or ``paired=False``): both medians also carry
       seed-sampling noise, so ``noise = mad_k * MAD_b * sqrt(1/n_ok_b + 1/n_ok_new)``
       (MAD / sqrt(n) is the noise scale of a median up to the factor
       1.4826 * 1.2533 ~= 1.86 under normality; validation-test-bed.md "medians vs stored
       baselines +/- 3 MAD over 30 seeds").
 
-    ``paired=True`` treats the stored aggregates as paired even when the seed lists
-    differ. ``mad_k=0`` gives the strict ``rel_tol`` rule in every mode. A metric that
-    has a finite baseline median but none in ``new`` also regresses.
+    ``mad_k=0`` gives the strict ``rel_tol`` rule in every mode. In the aggregate modes a
+    metric with a finite baseline median but none in ``new`` also regresses.
 
-    Additionally ``'scenario:n_ok'`` is reported when the fraction of seeds with a finite
-    ``config_rms_mm`` drops by more than :data:`N_OK_FRACTION_DROP`.
+    **Usable seeds.** Independently of the medians, ``'scenario:metric'`` is reported
+    when the fraction of seeds with a finite value of that metric drops by
+    :data:`N_OK_FRACTION_DROP` or more (3 of 30 seeds; over the shared seeds when
+    seed-matched, else n_ok over each card's seed count), and ``'scenario:n_ok'`` when
+    that happens to ``config_rms_mm`` (seeds that failed outright). Each entry is listed
+    once.
     """
     out: list[str] = []
+
+    def flag(entry: str) -> None:
+        if entry not in out:
+            out.append(entry)
+
     bs = baseline.get("scenarios", {})
     ns = new.get("scenarios", {})
     differ = _seeds_known_to_differ(baseline, new)
-    n_seeds_b0 = len(_seed_list(baseline)) or None
-    n_seeds_n0 = len(_seed_list(new)) or None
+    n_seeds_b = len(_seed_list(baseline)) or None
+    n_seeds_n = len(_seed_list(new)) or None
     ref = "config_rms_mm"
+    hiw = list(higher_is_worse)
+    keys = list(dict.fromkeys(hiw + [ref]))
+    rel_tol, mad_k = float(rel_tol), float(mad_k)
     for name in sorted(set(bs) & set(ns)):
         bm, nm = bs[name], ns[name]
-        n_seeds_b, n_seeds_n = n_seeds_b0, n_seeds_n0
         pair = bool(paired) if paired is not None else not differ
-        if paired is not False and differ:
-            shared = _shared_seeds(baseline, new, name)
-            if shared:
-                keys = list(dict.fromkeys(list(higher_is_worse) + [ref]))
-                bm = _subset_aggregate(baseline, name, shared, keys)
-                nm = _subset_aggregate(new, name, shared, keys)
-                n_seeds_b = n_seeds_n = len(shared)
-                pair = True
-        for metric in higher_is_worse:
-            if metric not in bm or metric not in nm:
-                continue
-            b = _as_float(bm[metric].get("median"))
-            m = _as_float(nm[metric].get("median"))
-            if not math.isfinite(b):
-                continue
-            if not math.isfinite(m):
-                out.append("%s:%s" % (name, metric))
-                continue
-            tol = _metric_tolerance(b, _as_float(bm[metric].get("mad")),
-                                    int(bm[metric].get("n_ok") or 0),
-                                    int(nm[metric].get("n_ok") or 0), pair,
-                                    float(rel_tol), float(mad_k))
-            if m - b > tol:
-                out.append("%s:%s" % (name, metric))
-        if ref in bm and ref in nm and n_seeds_b and n_seeds_n:
-            fb = int(bm[ref].get("n_ok") or 0) / n_seeds_b
-            fn = int(nm[ref].get("n_ok") or 0) / n_seeds_n
-            if fb - fn > N_OK_FRACTION_DROP:
-                out.append("%s:n_ok" % name)
+        for metric in keys:
+            pm = paired_medians(baseline, new, name, metric) if paired is not False else None
+            if pm is not None:
+                # Seed-matched: medians over the seeds finite in both cards, strict rel_tol.
+                b, m = pm["baseline"], pm["new"]
+                if pm["n_both"] == 0:
+                    worse = pm["n_ok_baseline"] > 0
+                else:
+                    worse = m - b > rel_tol * abs(b)
+                drop = (pm["n_ok_baseline"] - pm["n_ok_new"]) / pm["n_shared"]
+            else:
+                if metric not in bm or metric not in nm:
+                    continue
+                b = _as_float(bm[metric].get("median"))
+                m = _as_float(nm[metric].get("median"))
+                nb_ok = int(bm[metric].get("n_ok") or 0)
+                nn_ok = int(nm[metric].get("n_ok") or 0)
+                if not math.isfinite(b):
+                    worse = False
+                elif not math.isfinite(m):
+                    worse = True
+                else:
+                    tol = _metric_tolerance(b, _as_float(bm[metric].get("mad")), nb_ok, nn_ok,
+                                            pair, rel_tol, mad_k)
+                    worse = m - b > tol
+                drop = (nb_ok / n_seeds_b - nn_ok / n_seeds_n) if (n_seeds_b and n_seeds_n) else None
+            lost = drop is not None and _fraction_dropped(drop)
+            if metric in hiw and (worse or lost):
+                flag("%s:%s" % (name, metric))
+            if metric == ref and lost:
+                flag("%s:n_ok" % name)
     return out
 
 
@@ -459,10 +548,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.compare:
         base = load_scorecard(args.compare)
         reg = compare(base, sc)
-        if not _seeds_known_to_differ(base, sc):
-            mode = "paired (same or unrecorded seeds): 2 % rule"
-        elif any(_shared_seeds(base, sc, n) for n in sc["scenarios"]):
-            mode = "paired on the shared seeds (per_seed): 2 % rule"
+        if any(_shared_seeds(base, sc, n) for n in sc["scenarios"]):
+            mode = "seed-matched on the shared seeds (per_seed): 2 % rule"
+        elif not _seeds_known_to_differ(base, sc):
+            mode = "paired aggregates (same or unrecorded seeds): 2 % rule"
         else:
             mode = "unpaired (no shared seeds): 2 % or seed-noise rule"
         print("comparison: " + mode)

@@ -421,7 +421,7 @@ Gates at every stage: det J_warp > 0.2 and no flipped triangles (MM-11), else ro
 
 ### 4.17 Hand-off maths
 
-**Keys.** Basis = template; `ID_fit` (slider max 1.5; above 1 is a caricature preview); `Asym` and `artist` relative to `ID_fit`; muted `stage_*` diagnostics. Keys store absolute positions, so a refit rebases exactly: artist′ = artist + (ID′ − ID). A Basis write adds Δ to every dependent key (bl K3). "Protect measured regions" writes 1 − support into `.sculpt_mask`. A painted mask m becomes data weight 1 − m plus a pin at σ 0.2 mm (bl W5).
+**Keys.** Basis = template; `ID_fit` (slider max 1.5; above 1 is a caricature preview); `Asym` and `artist` relative to `ID_fit`; muted `stage_*` diagnostics. Keys store absolute positions, so a refit rebases exactly: artist′ = artist + (ID′ − ID). A Basis write adds Δ to every dependent key (bl K3). "Protect measured regions" writes support (clipped to [0, 1]) into `.sculpt_mask`, where 1 = fully masked: measured vertices are locked and guessed ones stay sculptable (corrected after the WP-13 review; the original "1 − support" protected the guessed regions instead). A painted mask m becomes data weight 1 − m plus a pin at σ 0.2 mm (bl W5).
 
 **Limit stencils.** On an all-quad cage, the Catmull–Clark limit position of a vertex of valence n is v∞ = (n²v + 4Σe_j + Σf_j)/(n(n + 5)), with e_j its edge neighbours and f_j its face-diagonal neighbours. Fit C to minimise ‖S_lim C − T‖² + μ‖L(C − T)‖², with L the unit-weight graph Laplacian and μ = 10⁻⁵, so Multires L2/L3 interpolate the fitted surface without the ≈e²/(6R) shrink (bl W4). 🔢 On a 1,538-vertex cube-sphere head (mean edge 8.7 mm): cond(S_lim) ≈ 9; the naive cage shrinks by RMS 0.38 mm (max 0.93); the fitted cage leaves RMS 0.0002 mm (max 0.0012).
 

@@ -81,6 +81,37 @@ def test_point_triangle_matches_brute_force():
         assert np.abs(dg[60:] - d_bf[:200]).max() < 1e-9
 
 
+def test_grid_far_field_exact_and_nonfinite():
+    """Points deep behind an open face-like cap and far away take the block screen; still exact."""
+    rng = np.random.default_rng(8)
+    m = uv_sphere(90.0, 60, 60, radii=(75.0, 110.0, 95.0))
+    V, T = m.vertices, m.triangles()
+    T = T[V[T].mean(axis=1)[:, 2] > 20.0]                      # open front cap
+    P = np.vstack([rng.uniform(-90, 90, (300, 3)) * [1, 1, 0.5],  # behind and inside the cap
+                   rng.uniform(-800, 800, (150, 3)),             # far field
+                   V[rng.integers(0, len(V), 150)] + rng.normal(scale=2.0, size=(150, 3))])
+    d_bf, Q_bf, t_bf, b_bf = brute_force_point_to_mesh(P, V, T)
+    for cell in (None, 3.0, 25.0):
+        d, Q, t, b = TriangleGrid(V, T, cell=cell).query(P)
+        assert np.array_equal(d, d_bf) and np.array_equal(Q, Q_bf)
+        assert np.array_equal(t, t_bf) and np.array_equal(b, b_bf)
+    # non-finite query rows: no closest point, no warning, others unaffected
+    Pn = np.vstack([P[:5], [[np.nan, 0.0, 0.0], [0.0, np.inf, 0.0]]])
+    with np.errstate(invalid="raise", divide="raise", over="raise"):
+        d, Q, t, b = point_to_mesh(Pn, V, T, signed=True)
+    assert np.all(np.isinf(d[5:])) and np.all(t[5:] == -1)
+    assert np.array_equal(np.abs(d[:5]), d_bf[:5])
+    d_bfn, _, t_bfn, _ = brute_force_point_to_mesh(Pn, V, T)
+    assert np.all(np.isinf(d_bfn[5:])) and np.all(t_bfn[5:] == -1)
+    # far-field speed: 5000 points in a box 7x the mesh size vs 20k triangles
+    ms = uv_sphere(80.0, 100, 101)
+    Pw = rng.uniform(-300, 300, (5000, 3))
+    t0 = time.perf_counter()
+    dw, _, _, _ = point_to_mesh(Pw, ms.vertices, ms.triangles())
+    assert time.perf_counter() - t0 < 5.0
+    assert np.all(np.isfinite(dw))
+
+
 def test_degenerate_triangles_handled():
     rng = np.random.default_rng(2)
     P = rng.normal(scale=5.0, size=(500, 3))
@@ -291,9 +322,9 @@ def test_surface_error_known_offset():
             assert abs(r2["median"] - 1.0) < 0.02 and r2["signed_bias"] > 0.95
     # unsigned call reports NaN bias; regions on the sampled (reference) mesh
     upper = np.flatnonzero(Vb[:, 1] > 0)
-    r = surface_error(Va, T, Vb, T, regions={"upper": upper, "empty": []})
+    r = surface_error(Va, T, Vb, T, regions={"upper": upper, "empty": [], "mask": Vb[:, 1] > 0})
     assert np.isnan(r["signed_bias"])
-    assert r["per_region"]["upper"]["n"] == len(upper)
+    assert r["per_region"]["upper"]["n"] == len(upper) == r["per_region"]["mask"]["n"]
     assert abs(r["per_region"]["upper"]["median"] - 1.0) < 0.02
     assert r["per_region"]["empty"]["n"] == 0 and np.isnan(r["per_region"]["empty"]["rms"])
     # area sampling is deterministic for a given seed

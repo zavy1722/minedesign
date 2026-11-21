@@ -124,20 +124,37 @@ def nees(err: np.ndarray, cov: np.ndarray | None = None, X_ref: np.ndarray | Non
     ``cov`` is the (3N, 3N) covariance or an (N, 3) per-axis sigma (also accepted as
     the keyword ``sigma``). With ``project`` (default) the error and covariance are
     projected off the 7-DoF similarity tangent at ``X_ref`` (DESIGN 7.3). The
-    pseudo-inverse keeps eigenvalues above ``rcond`` x the largest one; ``dof`` is the
-    number kept (3N - 7 for a full-rank covariance after projection).
+    pseudo-inverse keeps eigenvalues above both ``rcond`` x the largest one and the
+    absolute floor :data:`COV_DIAG_MIN` mm^2 (the cut-off :func:`axis_coverage` uses),
+    and at most rank(P) of them (P the gauge projector at the kept points, rank
+    3M - rank(G)); ``dof`` is the number kept (3N - 7 for a full-rank covariance after
+    projection).
 
-    Returns ``(nees_per_dof, dof)``; ``(nan, 0)`` when nothing is left.
+    Returns ``(nees_per_dof, dof)``; ``(nan, 0)`` when nothing is left, e.g. when at most
+    two usable points remain (after NaN rows are dropped) and the projector vanishes.
     """
-    e, C, _ = projected_error_and_cov(err, cov, X_ref, project, sigma=sigma)
+    e, C, keep = projected_error_and_cov(err, cov, X_ref, project, sigma=sigma)
     if len(e) == 0:
         return float("nan"), 0
+    max_dof = len(e)
+    if project:
+        # P = I - U U^T with U orthonormal, so trace(P) = rank(P) up to rounding. Without
+        # this cap a vanishing P (<= 2 points) leaves C_p = rounding noise, which the
+        # relative cut-off alone would keep.
+        max_dof = int(round(float(np.trace(gauge_projector(np.asarray(X_ref, float)[keep])))))
+        if max_dof <= 0:
+            return float("nan"), 0
     w, V = np.linalg.eigh(C)
     wmax = float(w.max()) if len(w) else 0.0
     if not wmax > 0.0:
         return float("nan"), 0
-    pos = w > rcond * wmax
+    pos = (w > rcond * wmax) & (w > COV_DIAG_MIN)
+    if int(pos.sum()) > max_dof:
+        # eigh sorts ascending: keep the max_dof largest eigenvalues.
+        pos[:len(w) - max_dof] = False
     dof = int(pos.sum())
+    if dof == 0:
+        return float("nan"), 0
     q = V[:, pos].T @ e
     val = float(np.sum(q * q / w[pos]))
     return val / dof, dof

@@ -210,5 +210,12 @@ SCENARIOS: dict[str, Scenario] = {s.name: s for s in [
     Scenario("rear_phone_outliers", legacy_subject, rear_phone, {"outlier_frac": 0.10}),
 ]}
 
-# Fast mode (scorecard --fast): three legacy-subject scenarios spanning the rig range.
+# Fast mode (scorecard --fast): three legacy-subject scenarios spanning the rig range,
+# run on seeds 1000-1004. Their 5-seed medians are NOT representative of the 30-seed
+# baseline medians: selfie_legacy has a heavy outlier-driven tail (9 of 30 baseline seeds
+# above 10 mm config RMS), and its config_rms_mm median on seeds 1000-1004 is ~2.07x the
+# 30-seed median (rear_phone_legacy ~1.02x, studio_ring_legacy ~1.00x). Compare fast-mode
+# results with face3d.testbed.scorecard.compare / paired_medians, which pair them with
+# the baseline's per-seed values for the same seeds; never compare raw fast-mode medians
+# with the baseline's 30-seed medians (e.g. WP-07's "fast median <= 1.1 x baseline").
 FAST_SCENARIOS: tuple[str, ...] = ("rear_phone_legacy", "studio_ring_legacy", "selfie_legacy")

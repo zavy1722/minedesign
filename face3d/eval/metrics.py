@@ -154,8 +154,9 @@ def surface_error(est_V: np.ndarray, est_tris: np.ndarray, ref_V: np.ndarray, re
         uniform points per sampled mesh, see :func:`sample_surface`).
     n_samples : points per sampled mesh for ``sample='area'``.
     rng : Generator or seed for area sampling (default seed 0: deterministic).
-    regions : optional ``{name: vertex ids}`` on the *sampled* mesh. Area samples
-        take the label of the triangle vertex with the largest barycentric. With
+    regions : optional ``{name: vertex ids}`` (or a boolean per-vertex mask) on
+        the *sampled* mesh. Area samples take the label of the triangle vertex
+        with the largest barycentric. With
         ``'symmetric'`` the ids are applied to both meshes, which must then share
         vertex indexing (e.g. both are fits of one template).
     signed : compute signed distances (convention in the module docstring) for
@@ -197,7 +198,10 @@ def surface_error(est_V: np.ndarray, est_tris: np.ndarray, ref_V: np.ndarray, re
     if regions:
         vid_all = np.concatenate(vids)
         for name, ids in regions.items():
-            sel = np.isin(vid_all, np.asarray(ids, np.int64).ravel())
+            ids = np.asarray(ids).ravel()
+            if ids.dtype == np.bool_:          # a per-vertex mask is accepted too
+                ids = np.flatnonzero(ids)
+            sel = np.isin(vid_all, ids.astype(np.int64))
             n = int(sel.sum())
             dr = dabs_all[sel]
             per_region[name] = {

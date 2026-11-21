@@ -78,11 +78,14 @@ DEGENERATE_REL = 1e-14
 _PAIR_BATCH = 1 << 18          # point-triangle pairs evaluated per numpy batch
 _CELL_BATCH = 1 << 20          # (point, ring cell) or (point, block) candidates per batch
 _MAX_CELLS = 1 << 21           # grid cells; the cell size grows to respect it
-_DT_MAX_ITERS = 64             # chessboard distance transform iterations (a lower bound beyond)
 # Far-field switch (speed only; both paths are exact): a point whose ring search
 # would go beyond Chebyshev ring _RING_MAX (ring r holds 24r²+2 cells) is finished
-# by the block screen instead. Tuned on 20k–100k-triangle heads and spheres.
+# by the block screen instead. Tuned (flat optimum 2–4) on closed spheres and an
+# open ellipsoidal face-like cap with 13k–100k triangles.
 _RING_MAX = 3
+# Chessboard distance-transform iterations; larger empty-ring counts only need
+# to be known as "> _RING_MAX" (a lower bound), which sends the point to blocks.
+_DT_MAX_ITERS = _RING_MAX + 1
 _BLOCK = 32                    # triangles per block of the block screen (Morton order)
 _MORTON_BITS = 10              # centroid quantisation per axis for the Morton order
 
@@ -325,9 +328,12 @@ def _pseudonormal_at(tris: np.ndarray, tri_id: np.ndarray, bary: np.ndarray,
 
 
 def _sign_distances(P, Q, tris, tri_id, bary, dist, pn):
-    n = _pseudonormal_at(tris, tri_id, bary, pn)
-    s = np.einsum("ij,ij->i", P - Q, n)
-    return np.where(s < 0, -dist, dist)
+    ok = tri_id >= 0                      # rows without a closest point keep +inf
+    out = dist.copy()
+    n = _pseudonormal_at(tris, tri_id[ok], bary[ok], pn)
+    s = np.einsum("ij,ij->i", P[ok] - Q[ok], n)
+    out[ok] = np.where(s < 0, -dist[ok], dist[ok])
+    return out
 
 
 # --------------------------------------------------------------------------- grid
@@ -665,6 +671,9 @@ class TriangleGrid:
         Q : (M,3) closest points.
         tri_id : (M,) int64 index of the triangle containing Q (lowest id on ties).
         bary : (M,3) barycentrics of Q in that triangle.
+
+        Rows of ``P`` with a non-finite coordinate get dist = inf, tri_id = −1
+        and zero Q / bary.
         """
         P = _as_points(P)
         M = len(P)
@@ -672,7 +681,9 @@ class TriangleGrid:
         if M == 0:
             return np.zeros(0), best[2], best[1], best[3]
         cell, dims = self.cell, self.dims
-        Pc = np.clip(P, self.origin, self.box_hi)
+        fin = np.all(np.isfinite(P), axis=1)       # non-finite points stay (inf, -1)
+        Pf = np.where(fin[:, None], P, self.origin)
+        Pc = np.clip(Pf, self.origin, self.box_hi)
         q = np.clip(np.floor((Pc - self.origin) / cell).astype(np.int64), 0, dims - 1)
         max_ring = np.maximum(q, dims - 1 - q).max(axis=1)
         keys = q[:, 0] + dims[0] * (q[:, 1] + dims[1] * q[:, 2])
@@ -680,10 +691,10 @@ class TriangleGrid:
         # Far field (speed only): points more than _RING_MAX cells outside the
         # grid, or whose first occupied ring lies beyond _RING_MAX, go straight
         # to the block screen; so do points still searching past that ring.
-        gap = P - Pc
+        gap = Pf - Pc
         far = (np.einsum("ij,ij->i", gap, gap) > (_RING_MAX * cell) ** 2) | (ring > _RING_MAX)
-        to_blocks = [np.flatnonzero(far)]
-        active = np.flatnonzero(~far)
+        to_blocks = [np.flatnonzero(far & fin)]
+        active = np.flatnonzero(~far & fin)
         while active.size:
             ra = ring[active]
             for r in np.unique(ra):
@@ -708,8 +719,9 @@ def brute_force_point_to_mesh(P: np.ndarray, V: np.ndarray,
                               tris: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Reference closest points: every point against every triangle.
 
-    Vectorised over (point chunk × all triangles); O(M·F). Same return values and
-    tie rule (lowest triangle id) as :meth:`TriangleGrid.query`.
+    Vectorised over (point chunk × all triangles); O(M·F). Same return values,
+    tie rule (lowest triangle id) and non-finite handling as
+    :meth:`TriangleGrid.query`.
     """
     V, tris = _check_mesh(V, tris)
     P = _as_points(P)
@@ -721,10 +733,11 @@ def brute_force_point_to_mesh(P: np.ndarray, V: np.ndarray,
     bary = np.zeros((M, 3))
     tb = min(F, _PAIR_BATCH)                 # triangle block
     m = max(1, _PAIR_BATCH // tb)            # point chunk
-    for c0 in range(0, M, m):
-        Pc = P[c0:c0 + m]
+    ok = np.flatnonzero(np.all(np.isfinite(P), axis=1))
+    for c0 in range(0, len(ok), m):
+        rows = ok[c0:c0 + m]
+        Pc = P[rows]
         k = len(Pc)
-        rows = np.arange(c0, c0 + k)
         for t0 in range(0, F, tb):
             nt = min(tb, F - t0)
             pt = np.repeat(np.arange(k), nt)

@@ -12,7 +12,7 @@ import pytest
 import face3d.solve.bundle as bundle_mod
 from face3d.eval.align import (NOW7_LEGACY_NAMES, align, gauge_projector, now7_indices,
                                similarity_tangent_basis)
-from face3d.eval.coverage import axis_coverage, nees, scale_z
+from face3d.eval.coverage import COV_DIAG_MIN, axis_coverage, nees, projected_z, scale_z
 from face3d.geometry.procrustes import procrustes_rmse
 from face3d.geometry.rotations import rodrigues
 from face3d.synthetic import midline_indices, mirror_pairs, synthetic_landmarks
@@ -153,6 +153,64 @@ def test_sigma_form_and_nan_rows():
     assert scale_z(0.05, 0.02, 0.03) == pytest.approx(1.0)
 
 
+def test_nees_degenerate_inputs_return_nan():
+    """Review finding: with <= 2 usable points the gauge projector vanishes, so NEES must
+    be (nan, 0), not a finite value computed from rounding noise (axis_coverage agrees)."""
+    rng = np.random.default_rng(40)
+    X2 = rng.normal(scale=50.0, size=(2, 3))
+    e2 = rng.normal(size=(2, 3))
+    v, dof = nees(e2, np.eye(6), X2)
+    assert math.isnan(v) and dof == 0
+    assert all(math.isnan(c) for c in axis_coverage(e2, np.eye(6), X2).values())
+    # 18 of 20 rows NaN -> 2 usable points -> nothing left after projection.
+    X = rng.normal(scale=50.0, size=(20, 3))
+    e = rng.normal(size=(20, 3))
+    e[2:] = np.nan
+    v, dof = nees(e, np.eye(60), X)
+    assert math.isnan(v) and dof == 0
+    v, dof = nees(rng.normal(size=(1, 3)), np.eye(3), X[:1])
+    assert math.isnan(v) and dof == 0
+    # dof is capped at rank(P): 3 generic points 9 - 7 = 2; 4 collinear points 12 - 6 = 6
+    # (the rotation about the line is not a motion of them).
+    assert nees(rng.normal(size=(3, 3)), np.eye(9), X[:3])[1] == 2
+    line = np.linspace(-1.0, 1.0, 4)[:, None] * np.array([[30.0, 10.0, 5.0]])
+    v, dof = nees(rng.normal(size=(4, 3)), np.eye(12), line)
+    assert dof == 6 and np.isfinite(v)
+    # Unprojected, two points keep their full rank.
+    assert nees(e2, np.eye(6), project=False)[1] == 6
+    # A covariance living entirely in the gauge directions projects to rounding noise:
+    # no degrees of freedom are left (absolute floor COV_DIAG_MIN on the eigenvalues).
+    G = similarity_tangent_basis(X)
+    Cg = G @ np.diag([4.0, 4.0, 4.0, 1e-3, 1e-3, 1e-3, 1e-2]) @ G.T
+    v, dof = nees(rng.normal(size=(20, 3)), Cg, X)
+    assert math.isnan(v) and dof == 0
+
+
+def test_coverage_excludes_zero_variance_coordinates():
+    """Review finding: coordinates whose (projected) variance is <= COV_DIAG_MIN mm^2 are
+    excluded from coverage instead of counting as huge-z misses."""
+    rng = np.random.default_rng(41)
+    n = 12
+    X_ref = rng.normal(scale=40.0, size=(n, 3))
+    sig = rng.uniform(0.5, 2.0, size=(n, 3))
+    e = rng.normal(size=(n, 3)) * sig
+    sig0 = sig.copy()
+    sig0[3] = 1e-8                                   # variance 1e-16 mm^2, error ~1 mm
+    assert sig0[3, 0] ** 2 < COV_DIAG_MIN
+    z = projected_z(e, sig0, project=False)
+    assert np.isnan(z[9:12]).all() and np.isfinite(np.delete(z, np.s_[9:12])).all()
+    keep = np.arange(n) != 3
+    assert (axis_coverage(e, sig0, X_ref, project=False)
+            == axis_coverage(e[keep], sig[keep], X_ref[keep], project=False))
+    # After projection: a covariance in the gauge directions only leaves (numerically)
+    # zero variance on every coordinate, so no coordinate qualifies.
+    G = similarity_tangent_basis(X_ref)
+    Cg = G @ np.diag([4.0, 4.0, 4.0, 1e-3, 1e-3, 1e-3, 1e-2]) @ G.T
+    zg = projected_z(e, Cg, X_ref)
+    assert np.isnan(zg).all()
+    assert all(math.isnan(c) for c in axis_coverage(e, Cg, X_ref).values())
+
+
 # ------------------------------------------------------------------ subjects
 def test_subjects_independent_of_prior():
     path = ROOT / "face3d" / "testbed" / "subjects.py"
@@ -276,6 +334,64 @@ def test_rigs_have_enough_visible_landmarks():
                 for cam in rig.cameras:
                     assert rigs.visible_mask(cam, P).sum() >= 6, (name, seed)
                     assert (cam.width, cam.height) == (3000, 4000)
+
+
+def _side_patch():
+    """9 points on the subject's left side (x = 80 mm, outward normal +x from the head
+    centre): hidden from cameras on the subject's right, so a sizeable fraction of
+    random-yaw views (~60 % of selfie first draws) fails the >= 6 visible check."""
+    g = np.array([[a, b] for a in (-10.0, 0.0, 10.0) for b in (-10.0, 0.0, 10.0)])
+    return np.column_stack([np.full(len(g), 80.0), g[:, 0], g[:, 1]])
+
+
+def test_rig_views_are_resampled_until_enough_visible():
+    """Review finding: the visibility guarantee must come from resampling, not from lucky
+    first draws (the template is visible from every protocol's first draw)."""
+    X = _side_patch()
+    n_views = 0
+    for proto in (rigs.selfie, rigs.camera_roll):
+        for seed in range(10):
+            rig = proto(np.random.default_rng(seed), X=X)
+            again = proto(np.random.default_rng(seed), X=X)
+            assert [c.center.tolist() for c in rig.cameras] == [c.center.tolist() for c in again.cameras]
+            for cam in rig.cameras:
+                assert rigs.visible_mask(cam, X).sum() >= rigs.MIN_VISIBLE, (proto.__name__, seed)
+                n_views += 1
+    # Without resampling the same draws would leave views blind: the first draw of a
+    # view is rejected often enough that this cannot pass by luck.
+    rng = np.random.default_rng(0)
+    first = [rigs.visible_mask(rigs.orbit_camera(rng.uniform(250, 450), rng.uniform(-30, 30),
+                                                 rng.uniform(-8, 8), 26.0), X).sum() >= 6
+             for _ in range(200)]
+    assert 0.2 < np.mean(first) < 0.8
+    assert n_views == 10 * 3 + 10 * 5
+
+
+def test_rig_gives_up_after_max_view_attempts(monkeypatch):
+    """A view that can never see >= 6 points raises RuntimeError after exactly
+    MAX_VIEW_ATTEMPTS draws; run_scenario records that seed as failed."""
+    X = _side_patch()
+    calls = []
+    real_orbit = rigs.orbit_camera
+
+    def counting_orbit(*args, **kwargs):
+        calls.append(args)
+        return real_orbit(*args, **kwargs)
+
+    monkeypatch.setattr(rigs, "orbit_camera", counting_orbit)
+    with pytest.raises(RuntimeError, match="visible"):
+        rigs.rear_phone(np.random.default_rng(0), X=X)      # first view at yaw -60: blind
+    assert len(calls) == rigs.MAX_VIEW_ATTEMPTS
+    monkeypatch.setattr(rigs, "MAX_VIEW_ATTEMPTS", 7)
+    calls.clear()
+    with pytest.raises(RuntimeError):
+        rigs.rear_phone(np.random.default_rng(0), X=X)
+    assert len(calls) == 7
+    names = ["p%d" % i for i in range(len(X))]
+    scn = Scenario("blind", lambda rng: (names, X, {"template": X, "log_scale_true": 0.0}),
+                   rigs.rear_phone)
+    rec = run_scenario(scn, [1000])[0]
+    assert rec["failed"] and rec["error"].startswith("RuntimeError")
 
 
 def test_rig_protocol_parameters():
@@ -507,17 +623,25 @@ def test_compare_flags_regression():
 
 def test_compare_paired_two_percent_rule_on_committed_baseline():
     """Review finding: with the default arguments a 5 % worse median must be flagged in
-    every committed scenario (a 30-seed run uses the baseline's seeds: paired, 2 % rule)."""
+    every committed scenario (a 30-seed run uses the baseline's seeds: paired, 2 % rule),
+    both seed-matched (per_seed present, as build_scorecard writes) and from the stored
+    aggregates alone (a card without per_seed values)."""
     real = json.loads(BASELINE.read_text())
     assert scorecard.compare(real, real) == []
     for metric in scorecard.HIGHER_IS_WORSE:
         for factor, flagged in ((1.05, True), (1.03, True), (1.019, False)):
-            worse = json.loads(BASELINE.read_text())
-            for name in worse["scenarios"]:
-                worse["scenarios"][name][metric]["median"] *= factor
-            got = scorecard.compare(real, worse)
             want = sorted("%s:%s" % (n, metric) for n in real["scenarios"]) if flagged else []
-            assert sorted(got) == want, (metric, factor, got)
+            # Seed-matched: every seed's value worsens by `factor`.
+            worse = _card_from_per_seed(real, scale={metric: factor})
+            got = scorecard.compare(real, worse)
+            assert sorted(got) == want, ("per_seed", metric, factor, got)
+            # Aggregates only (per_seed dropped): same seeds -> paired aggregates.
+            agg = json.loads(BASELINE.read_text())
+            agg.pop("per_seed")
+            for name in agg["scenarios"]:
+                agg["scenarios"][name][metric]["median"] *= factor
+            got = scorecard.compare(real, agg)
+            assert sorted(got) == want, ("aggregate", metric, factor, got)
 
 
 def _card_from_per_seed(sc, seeds=None, scenarios=None, scale=None):
@@ -577,6 +701,117 @@ def test_compare_pairs_on_shared_seeds_and_tolerates_one_dropped_seed():
     drop5["scenarios"]["camera_roll_legacy"]["config_rms_mm"]["median"] *= 1.05
     drop5.pop("per_seed")
     assert scorecard.compare(real, drop5) == ["camera_roll_legacy:config_rms_mm"]
+
+
+def _mutated_card(base, name, lost=(), lost_metrics=None, scale=None):
+    """Copy of ``base`` where, in scenario ``name``, the seeds at positions ``lost`` lose
+    their values (every metric, i.e. failed seeds, or only ``lost_metrics``) and every
+    other value is multiplied by ``scale[metric]``; aggregates are recomputed."""
+    new = json.loads(json.dumps(base))
+    keys = new["meta"]["metric_keys"]
+    cols = new["per_seed"][name]
+    lost = {int(i) for i in lost}
+    for i in range(len(cols["seed"])):
+        hit = i in lost
+        for k in keys:
+            v = cols[k][i]
+            if hit and (lost_metrics is None or k in lost_metrics):
+                cols[k][i] = None
+            elif v is not None:
+                cols[k][i] = v * (scale or {}).get(k, 1.0)
+        cols["failed"][i] = hit and lost_metrics is None
+    recs = [{k: (float("nan") if cols[k][i] is None else cols[k][i]) for k in keys}
+            for i in range(len(cols["seed"]))]
+    new["scenarios"][name] = scorecard.aggregate(recs, keys)
+    return new
+
+
+def test_compare_extra_failed_seeds_do_not_hide_a_regression():
+    """Review finding: compare() used to widen its tolerance by d * MAD / n for d extra
+    failed seeds, so a new engine failing 3 more seeds with every other seed 5 % worse
+    went unflagged (selfie_legacy in 200 of 200 random draws). Medians are now
+    seed-matched (seeds finite in both cards) under the strict 2 % rule, and losing
+    >= 10 % of the seeds (3 of 30) is a regression of its own."""
+    real = json.loads(BASELINE.read_text())
+    rng = np.random.default_rng(51)
+    for name in ("selfie_legacy", "camera_roll_legacy", "rear_phone_outliers"):
+        for _ in range(20):
+            # 3 extra failed seeds + 5 % worse elsewhere: both rules fire.
+            lost3 = rng.choice(30, 3, replace=False)
+            got = scorecard.compare(real, _mutated_card(real, name, lost3, scale={"config_rms_mm": 1.05}))
+            assert {"%s:config_rms_mm" % name, "%s:n_ok" % name} <= set(got), (name, lost3, got)
+            # 2 extra failed seeds (below the n_ok rule) + 5 % / 3 % worse: the median
+            # rule alone must catch it (the old d = 2 allowance was 5.8 % for selfie).
+            lost2 = rng.choice(30, 2, replace=False)
+            for fac in (1.05, 1.03):
+                got = scorecard.compare(real, _mutated_card(real, name, lost2, scale={"config_rms_mm": fac}))
+                assert got == ["%s:config_rms_mm" % name], (name, lost2, fac, got)
+            # The same 2 failures without any worsening: no false alarm.
+            assert scorecard.compare(real, _mutated_card(real, name, lost2)) == []
+            # 3 failures without worsening: reported as lost seeds (1 - 27/30 < 0.1 in
+            # floating point, so the >= comparison needs its slack).
+            got = scorecard.compare(real, _mutated_card(real, name, lost3))
+            assert "%s:n_ok" % name in got, (name, got)
+
+
+def test_compare_checks_usable_seeds_per_metric():
+    """Review finding: a metric other than config_rms_mm had no usable-seed check, so a
+    metric lost on 5 seeds and 30 % worse elsewhere went unflagged."""
+    real = json.loads(BASELINE.read_text())
+    lost5 = range(5)
+    for name, metric in (("camera_roll_legacy", "focal_rel_err"),
+                         ("rear_phone_legacy", "distance_rel_err"),
+                         ("rear_phone_outliers", "rmse_px")):
+        new = _mutated_card(real, name, lost5, lost_metrics={metric}, scale={metric: 1.3})
+        assert scorecard.compare(real, new) == ["%s:%s" % (name, metric)]
+        # Lost on 5 seeds but otherwise unchanged: still a regression (usable seeds).
+        new = _mutated_card(real, name, lost5, lost_metrics={metric})
+        assert scorecard.compare(real, new) == ["%s:%s" % (name, metric)]
+        # Lost on 2 seeds, 3 % worse elsewhere: caught by the seed-matched median.
+        new = _mutated_card(real, name, range(2), lost_metrics={metric}, scale={metric: 1.03})
+        assert scorecard.compare(real, new) == ["%s:%s" % (name, metric)]
+        # The same metric only lost on 2 seeds: tolerated.
+        new = _mutated_card(real, name, range(2), lost_metrics={metric})
+        assert scorecard.compare(real, new) == []
+        # Aggregate-only card (no per_seed): n_ok fraction rule per metric too.
+        agg = _mutated_card(real, name, range(3), lost_metrics={metric})
+        agg.pop("per_seed")
+        assert scorecard.compare(real, agg) == ["%s:%s" % (name, metric)]
+
+
+def test_compare_aggregate_allowance_is_capped():
+    """Cards without per-seed values: the paired rank-shift allowance covers at most
+    PAIRED_MAX_SEED_SHIFT seed, so failing more seeds never loosens the median gate."""
+    assert scorecard.PAIRED_MAX_SEED_SHIFT == 1
+    base = _synthetic_card({"a": {"config_rms_mm": 2.0}}, mad_frac=0.2)
+    new = json.loads(json.dumps(base))
+    agg = new["scenarios"]["a"]["config_rms_mm"]
+    agg.update(median=2.0 * 1.03, n_ok=28)
+    # Allowance with d capped at 1: 3 * 0.4 / 28 = 2.1 % < 3 % -> flagged (the uncapped
+    # d = 2 allowance, 4.3 %, missed it).
+    assert scorecard.compare(base, new) == ["a:config_rms_mm"]
+    agg.update(median=2.0 * 1.02)
+    assert scorecard.compare(base, new) == []                     # within the 1-seed allowance
+    agg.update(median=2.0, n_ok=27)
+    assert set(scorecard.compare(base, new)) == {"a:config_rms_mm", "a:n_ok"}   # 3 of 30 lost
+
+
+def test_paired_medians_for_fast_runs():
+    """Fast-mode (5-seed) medians must be compared seed-matched: selfie_legacy's raw
+    5-seed config_rms_mm median is ~2x its 30-seed median for the same engine."""
+    real = json.loads(BASELINE.read_text())
+    fast = _card_from_per_seed(real, seeds=range(1000, 1005), scenarios=FAST_SCENARIOS)
+    raw = (fast["scenarios"]["selfie_legacy"]["config_rms_mm"]["median"]
+           / real["scenarios"]["selfie_legacy"]["config_rms_mm"]["median"])
+    assert raw > 1.5
+    for name in FAST_SCENARIOS:
+        pm = scorecard.paired_medians(real, fast, name, "config_rms_mm")
+        assert pm["n_shared"] == pm["n_both"] == pm["n_ok_baseline"] == pm["n_ok_new"] == 5
+        assert pm["new"] == pm["baseline"]
+    assert scorecard.paired_medians(real, fast, "camera_roll_legacy", "config_rms_mm") is None
+    assert scorecard.paired_medians(real, real, "selfie_legacy", "config_rms_mm", seeds=[1000, 1001, 5])["n_shared"] == 2
+    bare = {k: v for k, v in fast.items() if k != "per_seed"}
+    assert scorecard.paired_medians(real, bare, "selfie_legacy", "config_rms_mm") is None
 
 
 def test_scorecard_cli_and_determinism(tmp_path):
