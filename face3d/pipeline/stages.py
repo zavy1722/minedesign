@@ -942,7 +942,7 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
 
     sym = _sym.SymmetryTerm.from_ids(ids, region_status=A1["region_status"])
     try:
-        sym.update_plane(res1.X)
+        sym.update_plane(res1)                   # exp(-zeta) frame (FU-02)
     except (ValueError, np.linalg.LinAlgError):
         pass
     terms2 = list(scale_terms) + [sym]

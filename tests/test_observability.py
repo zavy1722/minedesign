@@ -364,7 +364,20 @@ def test_sigma_rep_formula():
         ob.sigma_rep(res, 1.0, bias="nope")
 
 
-def _honesty_seed(scn, seed, draw_floor=True, pnp_start=False):
+# DESIGN 4.4 detector floor, sigma_floor = max(0.5 px, k face_px / 256) with k = 0.6 inner, 0.4 iris,
+# 1.0 brows, 1.5 contour.  Written out here, NOT read from face3d.solve.noise: the honesty test draws
+# the floor from these numbers, so a change to the engine's floor constants moves the measured NEES.
+_DESIGN_FLOOR_MIN_PX, _DESIGN_FLOOR_CROP_PX = 0.5, 256.0
+_DESIGN_FLOOR_K = {"iris": 0.4, "brow": 1.0, "contour": 1.5}       # every other test-bed kind: inner
+_DESIGN_FLOOR_K_INNER = 0.6
+
+
+def _design_floor_px(kinds, face_px):
+    k = np.array([_DESIGN_FLOOR_K.get(kind, _DESIGN_FLOOR_K_INNER) for kind in kinds])
+    return np.maximum(_DESIGN_FLOOR_MIN_PX, k * float(face_px) / _DESIGN_FLOOR_CROP_PX)
+
+
+def _honesty_seed(scn, seed, draw_floor=True, pnp_start=False, lovo=True):
     """One WP-01 legacy-scenario seed solved with the CORRECT noise model (WBS FU-02).
 
     * The views carry the detector simulator's own image tangents (``obs.tangent_dirs``), as
@@ -372,18 +385,28 @@ def _honesty_seed(scn, seed, draw_floor=True, pnp_start=False):
       them the point kinds fall back to the conservative isotropic max(sigma_n, sigma_t).
     * ``draw_floor``: the engine's noise model declares a detector floor
       sigma_floor = max(0.5 px, k face_px / 256) (DESIGN 4.4) that the simulator does not
-      draw; it is drawn here, isotropic, on a stream of its own (``default_rng([seed, 77])``,
-      one (N, 2) normal block per used view, so the scenario's streams stay as they are).
+      draw; it is drawn here from the DESIGN numbers fixed above (:func:`_design_floor_px`,
+      independent of the engine's constants), isotropic, on a stream of its own
+      (``default_rng([seed, 77])``, one (N, 2) normal block per used view, so the scenario's
+      streams stay as they are).
     * Start: the rig's poses with the EXIF focal (as ``_chi2_seed``; default), or with
       ``pnp_start`` the engine's own PnP start (the cameras of ``reconstruct_landmarks``,
       which has no tangent input), then the bundle with the tangents; legacy prior, robust
-      schedule, the scenario's outliers and definition bias.  The two starts agree to 0.005
-      (rear_phone_legacy gain form 0.830 / 0.715 against 0.833 / 0.712 from PnP); the PnP
-      start costs 2.5x the time and is what the table in
-      ``observability.reported_covariance`` uses.
+      schedule, the scenario's outliers and definition bias.  A view without EXIF
+      (``camera_roll_legacy``) has no focal to start from: it starts at the rig's focal (the
+      truth, an oracle START only: its ``f_prior`` stays None with the DESIGN 4.2 'Nothing'
+      log-sigma 0.6, so the estimate is the solve's own).  The two starts agree to 0.005
+      (rear_phone_legacy DESIGN-factor gain form 0.830 / 0.715 against 0.833 / 0.712 from
+      PnP; camera_roll_legacy 0.818 / 0.728 against 0.818 / 0.727).
+    * ``lovo``: the leave-one-view-out gamma of the solve (``ob.lovo_gamma`` against
+      ``res.obs_cov_px``, as the pipeline's observe stage does); without it gamma is 1.
 
     Returns ``{form: (NEES/dof, 1-sigma coverage)}`` for the gauge-projected, similarity-
-    aligned error (DESIGN 7.3, 7.5) with form in 'post' (cov_shape alone), 'floor', 'gain'.
+    aligned error (DESIGN 7.3, 7.5), form in: 'post' (cov_shape alone), 'floor' (literal
+    DESIGN 4.13), 'gain_design' (the default: gain bias term with the DESIGN factor
+    max(1, gamma^2, chi2_red)), 'gain' (gain bias term with the FU-02 factor, ``deflate=True``),
+    'post_defl' (cov_shape x the FU-02 factor, no bias term); plus 'stats' =
+    (chi2_red, gamma).
     """
     from face3d.solve.reconstruct import PhotoLandmarks, reconstruct_landmarks
     from face3d.solve.robust import RobustSchedule
@@ -396,7 +419,6 @@ def _honesty_seed(scn, seed, draw_floor=True, pnp_start=False):
     rig = scn.rig_fn(r_rig, X=Xt)
     kinds = legacy_kinds(names)
     obs = simulate(Xt, kinds, rig, r_det, **scn.detector_kwargs)
-    nm = NoiseModel(kinds)
     r_floor = np.random.default_rng([seed, 77])
     photos, used = [], []
     for k, (uv, c) in enumerate(zip(obs.uv, rig.cameras)):
@@ -404,7 +426,7 @@ def _honesty_seed(scn, seed, draw_floor=True, pnp_start=False):
             continue
         g = r_floor.normal(size=uv.shape)
         if draw_floor:
-            uv = uv + g * nm.floor_px(float(np.ptp(uv[obs.visible[k], 0])))[:, None]
+            uv = uv + g * _design_floor_px(kinds, np.ptp(uv[obs.visible[k], 0]))[:, None]
         photos.append(PhotoLandmarks(uv, c.width, c.height, f_prior_px=rig.f_prior_px[k],
                                      f_prior_log_sigma=rig.f_prior_log_sigma[k], focal_group=rig.focal_group[k],
                                      kinds=kinds))
@@ -423,61 +445,152 @@ def _honesty_seed(scn, seed, draw_floor=True, pnp_start=False):
                      focal_group=ph.focal_group, kinds=kinds, tangents=obs.tangent_dirs)
              for ph, cam in zip(photos, cams0)]
     res = bundle_adjust(views, np.asarray(meta["template"], float).copy(), pri, robust=RobustSchedule())
+    gamma = 1.0
+    if lovo:
+        wo = ob.make_solve_without(views, res, bundle_kwargs={"priors": pri, "robust": RobustSchedule()})
+        gamma = ob.lovo_gamma(wo, res, views, res.obs_cov_px)[0]
     s, R, t = umeyama(res.X, Xt, with_scale=True)
     err = s * res.X @ R.T + t - Xt
     Bk = np.kron(np.eye(len(Xt)), R)
     out = {}
-    for key, C in (("post", res.cov_shape), ("floor", ob.reported_covariance(res, bias="floor")),
-                   ("gain", ob.reported_covariance(res, bias="gain"))):
+    for key, C in (("post", res.cov_shape), ("floor", ob.reported_covariance(res, gamma, bias="floor")),
+                   ("gain", ob.reported_covariance(res, gamma, bias="gain", deflate=True)),
+                   ("gain_design", ob.reported_covariance(res, gamma, bias="gain")),
+                   ("post_defl", res.cov_shape * ob.inflation(res, gamma, deflate=True))):
         Ca = s * s * Bk @ C @ Bk.T
         out[key] = (nees(err, Ca, Xt)[0], axis_coverage(err, Ca, Xt, ks=(1,))[1])
+    out["stats"] = (float(res.chi2_red), float(gamma))
     return out
+
+
+def test_inflation_factor_rules():
+    """FU-02 factor: the DESIGN 4.13 rule wherever it inflates; below 1 only when chi2_red AND a measured
+    LOVO gamma^2 are both below 1, then the larger of gamma^2 and chi2_red / kappa, bounded below."""
+    class R:
+        chi2_red = 0.8
+    kappa = ob.trim_consistency()
+    assert kappa == pytest.approx(1.0 - (3.035 ** 2 / 2) * 0.01 / 0.99, abs=2e-4)   # reject_k: 1 % false alarm
+    assert ob.trim_consistency(50.0) == pytest.approx(1.0) and 0.0 < ob.trim_consistency(1.0) < kappa
+    # Monte Carlo: E[e^2 | e < k] / 2 for 2-dof whitened residuals
+    e2 = np.sum(np.random.default_rng(3).normal(size=(400000, 2)) ** 2, axis=1)
+    assert np.mean(e2[e2 < 3.035 ** 2]) / 2 == pytest.approx(kappa, abs=3e-3)
+    r = R()
+    assert ob.inflation(r, 1.0) == 1.0 and ob.inflation(r, 0.5) == 1.0 and ob.inflation(r, 1.5) == 2.25
+    assert ob.inflation(r, 1.0, deflate=True) == 1.0              # gamma 1 (not measured): no deflation
+    assert ob.inflation(r, 1.5, deflate=True) == 2.25
+    assert ob.inflation(r, 0.95, deflate=True) == pytest.approx(0.9025)          # gamma^2 the larger
+    assert ob.inflation(r, 0.5, deflate=True) == pytest.approx(0.8 / kappa)      # chi2 / kappa the larger
+    r.chi2_red = 0.97                                             # chi2 / kappa > 1: capped at 1, not inflated
+    assert ob.inflation(r, 0.5, deflate=True) == 1.0
+    r.chi2_red = 0.1                                              # lower bound
+    assert ob.inflation(r, 0.1, deflate=True) == ob.OBS["deflation_min"].value == 0.5
+    for chi in (1.0, 1.3, 4.0, float("nan"), None):               # chi2 >= 1 or unknown: the DESIGN rule
+        r.chi2_red = chi
+        for g in (0.3, 1.0, 1.7):
+            assert ob.inflation(r, g, deflate=True) == ob.inflation(r, g)
+    # reported_covariance / sigma_rep / assess: the DESIGN factor by default, the FU-02 factor on request
+    _, views, _ = _scene(7, (-45.0, 0.0, 45.0), 700.0)
+    res = _solve(views)
+    res.chi2_red = 0.7
+    K = ob.bias_gain(res)
+    Bm = (K * np.repeat(res.sigma_def_mm ** 2, 3)) @ K.T
+    assert np.allclose(ob.reported_covariance(res, 0.9, deflate=True), res.cov_shape * 0.81 + Bm)
+    assert np.allclose(ob.reported_covariance(res, 0.9), res.cov_shape + Bm)
+    assert np.allclose(ob.reported_covariance(res, 1.0, deflate=True), res.cov_shape + Bm)
+    d = np.diag(res.cov_shape).reshape(N, 3)
+    assert np.allclose(ob.sigma_rep(res, 0.9), np.sqrt(d + res.sigma_def_mm[:, None] ** 2))
+    assert np.allclose(ob.sigma_rep(res, 0.9, deflate=True), np.sqrt(d * 0.81 + res.sigma_def_mm[:, None] ** 2))
+    assert np.allclose(ob.sigma_rep(res, 0.9, bias="gain", deflate=True),
+                       np.sqrt(np.diag(res.cov_shape * 0.81 + Bm)).reshape(N, 3))
+    kw = dict(ids=IDS, visibility=np.ones((3, N), bool), view_yaw_deg=(-45.0, 0.0, 45.0), gamma=0.9)
+    a0, a1 = ob.assess(res, **kw), ob.assess(res, deflate=True, **kw)
+    assert np.all(a1["sigma_rep_mm"] < a0["sigma_rep_mm"]) and a0["region_k"] == a1["region_k"]
+    assert np.allclose(ob.assess(res, **{**kw, "gamma": 1.0}, deflate=True)["sigma_rep_mm"], a0["sigma_rep_mm"])
+
+
+def test_honesty_seed_without_exif():
+    """Regression (FU-02 review): the default start of _honesty_seed crashed on views without EXIF
+    (camera_roll_legacy: float(None) for the start focal)."""
+    from face3d.testbed.scenarios import SCENARIOS
+    out = _honesty_seed(SCENARIOS["camera_roll_legacy"], 1000, lovo=False)
+    assert all(np.all(np.isfinite(v)) for v in out.values())
+    assert 0.3 < out["gain"][0] < 3.0
 
 
 def test_sigma_rep_honesty_on_testbed():
     """DESIGN 7.5 honesty gates (NEES/dof 0.8-1.25, aligned 1-sigma coverage 0.60-0.76, 30
-    seeds) on the gain-form sigma_rep with the correct noise model (WBS FU-02; updated from
-    the WP-16 test, which ran without tangents and asserted 'posterior-only NEES > 1.25').
+    seeds) on the reported (gain-form) sigma_rep with the correct noise model (WBS FU-02; updated
+    from the WP-16 test, which ran without tangents and asserted 'posterior-only NEES > 1.25').
 
     Measured, seeds 1000-1029, NEES/dof / coverage (see :func:`_honesty_seed`; the table of
     every scenario and noise variant is in observability.reported_covariance):
 
-    ===================  ==============  ==============  ==============
-    scenario             posterior only  floor form      gain form
-    ===================  ==============  ==============  ==============
-    rear_phone_legacy    1.265 / 0.628   0.711 / 0.753   0.830 / 0.715
-    rear_phone_nobias    0.837 / 0.729   0.497 / 0.841   0.589 / 0.814
-    ===================  ==============  ==============  ==============
+    ===================  =============  =============  =============  =============  =============  =====  =====
+    scenario             posterior      floor form     gain, DESIGN   gain (FU-02)   post x FU-02   chi2   gamma
+    ===================  =============  =============  =============  =============  =============  =====  =====
+    rear_phone_legacy    1.265 / 0.628  0.710 / 0.753  0.829 / 0.715  0.907 / 0.694  1.441 / 0.596  0.837  0.929
+    selfie_legacy        1.070 / 0.715  0.683 / 0.785  0.792 / 0.758  0.912 / 0.723  1.280 / 0.671  0.799  0.887
+    rear_phone_nobias    0.837 / 0.729  0.497 / 0.841  0.589 / 0.814  0.659 / 0.788  0.975 / 0.699  0.818  0.917
+    ===================  =============  =============  =============  =============  =============  =====  =====
 
-    * Definition bias drawn (D-06): the gain form is inside both gates; the posterior alone
-      is over-confident (NEES 1.27 just past the 1.25 gate, coverage 0.63 below the Gaussian
-      0.683: it knows nothing of the shared bias), the literal floor form under-confident.
+    * Definition bias drawn (D-06).  The gain form with the DESIGN factor
+      max(1, gamma^2, chi2_red), the default, is inside both gates on rear_phone_legacy and
+      misses the NEES gate on selfie_legacy (0.792) and rear_phone_smooth (0.792): chi2_red
+      and gamma^2 are both about 0.8-0.85, the engine's noise model is wider than the test
+      bed's draws, and the DESIGN factor cannot use that.  With the FU-02 factor
+      (``deflate=True``) it is inside both gates on every scenario that draws a bias.  The
+      FU-02 factor is an opt-in, and the unmet gate with the default is an OPEN release
+      blocker (WP-23): see observability.reported_covariance for why it is not the default.
+    * The posterior alone is over-confident with the bias (it knows nothing of it), the
+      literal floor form under-confident.
     * No definition bias, same random numbers otherwise: the posterior alone is inside both
-      gates, so the noise model is honest and the over-confidence above is the bias (x1.51
-      in NEES).  The gain form is then under-confident by construction: the engine declares
-      a sigma_def the scenario did not draw, and cannot know that.
+      gates, and so is the posterior times the FU-02 factor (0.975 / 0.699): the deflation
+      removes over-stated noise, it does not hide anything.  The gain form is then
+      under-confident by construction: the engine declares a sigma_def the scenario did not
+      draw, and cannot know that.
     """
+    from face3d.testbed.detector_sim import legacy_kinds
     from face3d.testbed.scenarios import SCENARIOS
+    # the engine's floor is the DESIGN 4.4 floor the test bed draws (a changed engine constant fails here
+    # and, because the draw is independent of it, moves chi2_red and the DESIGN-factor NEES below)
+    kinds = legacy_kinds(list(SCENARIOS["rear_phone_legacy"].subject_fn(np.random.default_rng(0))[0]))
+    for face_px in (100.0, 400.0, 1500.0):
+        assert np.allclose(NoiseModel(kinds).floor_px(face_px), _design_floor_px(kinds, face_px))
     seeds = range(1000, 1030)
     m = {}
-    for name in ("rear_phone_legacy", "rear_phone_nobias"):
+    for name in ("rear_phone_legacy", "selfie_legacy", "rear_phone_nobias"):
         rows = [_honesty_seed(SCENARIOS[name], seed) for seed in seeds]
         m[name] = {k: np.mean(np.array([r[k] for r in rows]), axis=0) for k in rows[0]}
-    bias, nobias = m["rear_phone_legacy"], m["rear_phone_nobias"]
-    # DESIGN 7.5 gates on the gain form (measured 0.830 / 0.715)
-    assert 0.8 <= bias["gain"][0] <= 1.25, m
-    assert 0.60 <= bias["gain"][1] <= 0.76, m
+    bias, selfie, nobias = m["rear_phone_legacy"], m["selfie_legacy"], m["rear_phone_nobias"]
+    # DESIGN 7.5 gates on the gain form with the FU-02 factor (measured 0.907 / 0.694 and 0.912 / 0.723)
+    for mm in (bias, selfie):
+        assert 0.8 <= mm["gain"][0] <= 1.25, m
+        assert 0.60 <= mm["gain"][1] <= 0.76, m
+    # ... and with the default DESIGN factor on rear_phone_legacy (0.829 / 0.715); the engine's noise model
+    # against independent draws reads chi2_red 0.837 (a wider engine floor lowers both: x2 gives chi2_red
+    # 0.77 and NEES 0.77).  selfie_legacy reads 0.792 / 0.758 with the DESIGN factor: NEES gate not met,
+    # open for WP-23 (not asserted either way, so that a narrower noise model can close it).
+    assert 0.80 <= bias["gain_design"][0] <= 0.87, m
+    assert 0.60 <= bias["gain_design"][1] <= 0.76, m
+    assert 0.78 <= bias["stats"][0] <= 0.92, m
+    # the FU-02 factor only ever removes declared noise, and less than chi2_red alone would
+    for mm in (bias, selfie, nobias):
+        assert mm["gain_design"][0] < mm["gain"][0] < mm["post_defl"][0]
+        assert mm["stats"][0] < 1.0 and mm["stats"][1] < 1.0
     # B is positive semi-definite and K D K^T <= D on the measured directions
     for mm in (bias, nobias):
-        assert mm["floor"][0] < mm["gain"][0] < mm["post"][0]
-        assert mm["floor"][1] > mm["gain"][1] > mm["post"][1]
+        assert mm["floor"][0] < mm["gain_design"][0] < mm["post"][0]
+        assert mm["floor"][1] > mm["gain_design"][1] > mm["post"][1]
     # posterior-only: over-confident when the definition bias is drawn (1.265 / 0.628) ...
     assert bias["post"][0] > 1.1 and bias["post"][1] < 0.66, m
     assert bias["post"][0] > 1.25 * nobias["post"][0], m          # measured ratio 1.51
-    # ... and honest when it is not (0.837 / 0.729): the noise model itself passes the gates
-    assert 0.8 <= nobias["post"][0] <= 1.25, m
-    assert 0.60 <= nobias["post"][1] <= 0.76, m
-    # the floor form fails the NEES gate in both (0.711, 0.497): the gain form is the reported one
+    assert bias["post"][0] > bias["gain"][0] and selfie["post"][0] > selfie["gain"][0], m
+    # ... and honest when it is not (0.837 / 0.729): the noise model itself passes the gates,
+    # with the FU-02 factor too (0.975 / 0.699), so the deflation is not over-confident
+    for key in ("post", "post_defl"):
+        assert 0.8 <= nobias[key][0] <= 1.25, m
+        assert 0.60 <= nobias[key][1] <= 0.76, m
+    # the floor form fails the NEES gate in both (0.710, 0.497): the gain form is the reported one
     assert bias["floor"][0] < 0.8 and nobias["floor"][0] < 0.8, m
 
 

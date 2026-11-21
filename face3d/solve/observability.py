@@ -74,7 +74,7 @@ import numpy as np
 
 from ..core.config import Default, register_defaults
 from ..eval.align import gauge_projector
-from .robust import norm_ppf
+from .robust import ROBUST, norm_ppf
 
 __all__ = [
     "OBS", "REGION_TARGET_MM", "REGION_ORDER", "REGION_COVERAGE_RULES", "STATUSES", "TIER_NAMES",
@@ -82,7 +82,7 @@ __all__ = [
     "default_region_index", "region_points", "camera_status", "focal_prior_log_sigmas", "frozen_parameters",
     "posterior_at_prior_weight_one", "prior_covariance", "shape_prior_info", "standard_prior_info",
     "region_evidence", "coverage_rules", "coverage_ok", "region_sigma_rep", "region_status",
-    "lovo_gamma", "make_solve_without", "bias_gain", "reported_covariance", "sigma_rep", "shrinkage_gate",
+    "lovo_gamma", "make_solve_without", "trim_consistency", "inflation", "bias_gain", "reported_covariance", "sigma_rep", "shrinkage_gate",
     "legacy_shrinkage_gate",
     "shape_prior_cov", "prior_shares", "widen_prior", "likeness_mode_prior", "tier", "assess",
 ]
@@ -136,6 +136,9 @@ OBS = register_defaults("observability", {
                              (1, None)),
     "lovo_heldout_ratio_flag": Default(2.0, _NEW, "DESIGN 4.13: flag LOVO error > 2 x in-sample (L-HELDOUT)", "",
                                        (1.0, None)),
+    "deflation_min": Default(0.5, _NEW, "WBS FU-02: lower bound of the sigma_rep covariance factor when chi2_red and "
+                             "the LOVO gamma^2 are both below 1 (guard, uncalibrated; the test-bed seeds reach 0.55)",
+                             "", (0.0, 1.0)),
     "shrink_alpha_lo": Default(0.01, _NUM, "DESIGN D-18 / 4.13: pulled toward average if T < q(z = -2.326)", "",
                                (1e-12, 0.5)),
     "shrink_alpha_hi": Default(0.001, _NUM, "DESIGN D-18 / 4.13: implausible if T > q(z = 3.090)", "",
@@ -799,10 +802,47 @@ def make_solve_without(views: Sequence[Any], result: Any, X0: np.ndarray | None 
     return solve
 
 
-def _inflation(result: Any, gamma: float) -> float:
+def trim_consistency(reject_k: float | None = None) -> float:
+    """E[e^2 | e < k] / 2 of a whitened 2-D radial residual e (e^2 ~ chi^2 with 2 dof).
+
+    The robust schedule rejects e > ``reject_k`` (default: the registered DESIGN 4.5 value
+    3.035, a 1 % false alarm) and chi2_red is computed over the remaining inliers, so for a
+    correct noise model it reads kappa = 1 - (k^2 / 2) q / (1 - q), q = exp(-k^2 / 2), not
+    1: 0.9535 at the default.
+    """
+    k = float(ROBUST["reject_k"].value) if reject_k is None else float(reject_k)
+    if not k > 0:
+        raise ValueError("reject_k must be > 0")
+    h = 0.5 * k * k
+    q = math.exp(-h)
+    return 1.0 - h * q / (1.0 - q)
+
+
+def inflation(result: Any, gamma: float = 1.0, deflate: bool = False) -> float:
+    """Scalar factor on the posterior covariance in sigma_rep (DESIGN 4.13; WBS FU-02).
+
+    ``deflate=False``: max(1, gamma^2, chi2_red), the DESIGN D-16 / 4.13 rule (a
+    non-finite chi2_red counts as 1).
+
+    ``deflate=True`` (the FU-02 recalibration; opt-in, see :func:`reported_covariance`):
+
+        max(gamma^2, min(1, chi2_red / kappa), chi2_red, deflation_min),
+
+    kappa = :func:`trim_consistency`.  This equals the DESIGN rule whenever gamma >= 1 or
+    chi2_red >= 1, so inflation is untouched; it falls below 1 only when the in-sample
+    chi2_red (corrected for the robust trimming) AND the held-out LOVO gamma^2 both say
+    that the declared noise is over-stated, and then takes the larger (more cautious) of
+    the two, never below ``deflation_min`` (0.5).  ``gamma`` 1, the value of
+    :func:`lovo_gamma` with fewer than 3 views and the default, therefore means 'no
+    deflation': an in-sample chi^2 alone never shrinks a reported sigma.  kappa is applied
+    whether or not the solve trimmed (without trimming it only makes the factor 5 % larger).
+    """
     chi = getattr(result, "chi2_red", None)
     chi = float(chi) if chi is not None and np.isfinite(chi) else 1.0
-    return max(1.0, float(gamma) ** 2, chi)
+    g2 = float(gamma) ** 2
+    if not deflate:
+        return max(1.0, g2, chi)
+    return max(g2, min(1.0, chi / trim_consistency()), chi, float(_d("deflation_min")))
 
 
 def _sigma_def(result: Any, N: int) -> np.ndarray:
@@ -835,11 +875,13 @@ def bias_gain(result: Any, prior_info: np.ndarray | None = None) -> np.ndarray:
 
 
 def reported_covariance(result: Any, gamma: float = 1.0, cov: np.ndarray | None = None, bias: str = "gain",
-                        prior_info: np.ndarray | None = None) -> np.ndarray:
+                        prior_info: np.ndarray | None = None, deflate: bool = False) -> np.ndarray:
     """Full reported covariance (3N, 3N) mm^2 behind sigma_rep (DESIGN D-06, D-16, 4.13).
 
-    C_rep = C * max(1, gamma^2, chi2_red) + B, with C = ``cov`` or ``result.cov_shape`` and
-    the definition-bias term B (D = diag(sigma_def^2) per coordinate):
+    C_rep = C * phi + B, with C = ``cov`` or ``result.cov_shape``, the factor phi =
+    :func:`inflation` (default the DESIGN factor max(1, gamma^2, chi2_red); ``deflate=True``
+    the FU-02 factor, which can fall below 1) and the
+    definition-bias term B (D = diag(sigma_def^2) per coordinate):
 
     * ``bias='floor'``: B = D, the literal DESIGN D-16 / 4.13 formula (an isotropic floor
       added in full to every landmark);
@@ -854,8 +896,9 @@ def reported_covariance(result: Any, gamma: float = 1.0, cov: np.ndarray | None 
     kinds without an image tangent isotropic at max(sigma_n, sigma_t)).  All numbers:
     gauge-projected NEES/dof / 1-sigma coverage of the similarity-aligned error, means over
     seeds 1000-1029 of the WP-01 legacy scenarios, legacy prior, robust schedule (DESIGN
-    4.5), the scenario's 5 % outliers (10 % in ``rear_phone_outliers``), gamma 1, PnP start
-    (``reconstruct_landmarks``) followed by the bundle with the stated noise.
+    4.5), the scenario's 5 % outliers (10 % in ``rear_phone_outliers``).  Tables (a)-(d):
+    gamma 1 (so the DESIGN factor max(1, chi2_red)), PnP start (``reconstruct_landmarks``)
+    followed by the bundle with the stated noise.  Table (e): the gain form with a measured gamma.
 
     (a) No tangents (the WP-16 set-up; every point kind at its conservative fallback).
     Under-confident everywhere, as FU-01 reported; this is not the correct noise model:
@@ -920,32 +963,94 @@ def reported_covariance(result: Any, gamma: float = 1.0, cov: np.ndarray | None 
     rear_phone_nobias     0.869 / 0.707  0.509 / 0.832  0.600 / 0.800  0.92
     ====================  =============  =============  =============  ========
 
+    (e) The gain form with a measured gamma: set-up (c) (tangents, floor drawn from the DESIGN 4.4 numbers) and
+    the same without the floor, start at the rig poses with the EXIF focal (agrees with the
+    PnP start to 0.005), gamma from :func:`lovo_gamma` against ``result.obs_cov_px`` as the
+    pipeline's observe stage computes it.  'gain, DESIGN' = max(1, gamma^2, chi2_red), 'gain,
+    FU-02' = :func:`inflation` with ``deflate=True``; chi2_red and gamma are seed means:
+
+    ====================  =============  =============  =============  ========  =====
+    floor drawn           posterior      gain, DESIGN   gain, FU-02    chi2_red  gamma
+    ====================  =============  =============  =============  ========  =====
+    studio_ring_legacy    1.408 / 0.617  0.838 / 0.720  0.906 / 0.702  0.845     0.934
+    rear_phone_legacy     1.265 / 0.628  0.829 / 0.715  0.907 / 0.694  0.837     0.929
+    selfie_legacy         1.070 / 0.715  0.792 / 0.758  0.912 / 0.723  0.799     0.887
+    camera_roll_legacy    1.284 / 0.653  0.818 / 0.728  0.899 / 0.704  0.836     0.917
+    rear_phone_smooth     1.236 / 0.636  0.792 / 0.722  0.881 / 0.703  0.823     0.920
+    rear_phone_outliers   1.238 / 0.643  0.829 / 0.721  0.928 / 0.696  0.808     0.917
+    rear_phone_nobias     0.837 / 0.729  0.589 / 0.814  0.659 / 0.788  0.818     0.917
+    ====================  =============  =============  =============  ========  =====
+
+    ====================  =============  =============  =============  ========  =====
+    no floor drawn        posterior      gain, DESIGN   gain, FU-02    chi2_red  gamma
+    ====================  =============  =============  =============  ========  =====
+    studio_ring_legacy    1.374 / 0.621  0.816 / 0.725  0.896 / 0.701  0.822     0.921
+    rear_phone_legacy     1.228 / 0.637  0.800 / 0.731  0.900 / 0.704  0.809     0.912
+    selfie_legacy         1.048 / 0.724  0.776 / 0.764  0.916 / 0.724  0.771     0.874
+    camera_roll_legacy    1.249 / 0.651  0.795 / 0.728  0.898 / 0.701  0.799     0.899
+    rear_phone_smooth     1.206 / 0.644  0.770 / 0.738  0.869 / 0.712  0.810     0.910
+    rear_phone_outliers   1.209 / 0.650  0.808 / 0.737  0.922 / 0.702  0.789     0.906
+    rear_phone_nobias     0.804 / 0.733  0.566 / 0.821  0.648 / 0.792  0.794     0.901
+    ====================  =============  =============  =============  ========  =====
+
     Reading (FU-02):
 
-    * With the noise the simulator really draws (d), the gain form is inside both gates on
-      all six scenarios that draw a definition bias.  With the engine's own model and
-      tangents (c) it is inside on four; ``selfie_legacy`` and ``rear_phone_smooth`` read
-      NEES 0.796 / 0.797 against the 0.8 gate (coverage inside): NOT met there, by 0.004,
-      and the difference to (d) is the engine's deliberately wide 'free' brow tangent.
-      Tangents alone (b): inside on studio_ring, rear_phone, camera_roll (at the gate) and
-      outliers; selfie 0.777 / 0.764 and smooth 0.777 fail.
-    * In (b)-(d) the posterior alone is over-confident whenever a definition bias is drawn
-      (NEES 1.05-1.45) and inside the gates when none is (``rear_phone_nobias`` 0.81-0.87): the
-      noise model is honest, the excess is the shared bias (D-06).  The WP-16 statement
-      'posterior-only NEES > 1.25' is not a property of the model (1.24 in (b)).
+    * With the DESIGN factor the gain form misses the 0.8 NEES gate under the engine's own
+      noise model: ``selfie_legacy`` 0.792 and ``rear_phone_smooth`` 0.792 with the floor
+      drawn; without it three of six fail and ``rear_phone_legacy`` sits on the gate.  In every row chi2_red is 0.77-0.85 and
+      gamma^2 0.77-0.87: the engine declares more noise than the test bed draws (the 'free'
+      brow tangent, 40 mm against 8 mm drawn, and, when not drawn, the floor), and
+      max(1, ...) can only inflate.
+    * **Recalibration implemented as an opt-in (``deflate=True``; a deviation from the
+      DESIGN D-16 / 4.13 formula, so NOT the default):** the factor of :func:`inflation`,
+      max(gamma^2, min(1, chi2_red / kappa), chi2_red, 0.5).  It is the DESIGN factor
+      whenever gamma >= 1 or chi2_red >= 1.  It goes below 1 only when the in-sample
+      chi2_red and the held-out gamma^2 agree that the noise is over-stated, takes the
+      larger of the two, corrects chi2_red for the robust trimming (kappa 0.9535: a correct
+      model reads chi2_red 0.95 after the 1 % rejection, table (d) 0.90-0.95), and never
+      deflates without a measured gamma (fewer than 3 views: gamma 1).  With it the gain
+      form is inside both gates on all six scenarios that draw a definition bias, with and
+      without the floor (NEES 0.87-0.93, coverage 0.69-0.72).
+    * Evidence that the deflation is honest rather than a tuned fit.  (i) Without a
+      definition bias (``rear_phone_nobias``) the posterior alone times the factor reads
+      0.975 / 0.699 (floor) and 0.969 / 0.691 (no floor), inside both gates, against 0.837
+      and 0.804 undeflated: the factor removes over-stated noise and nothing else.  (ii)
+      Factor prior D-04, 44 landmarks, noise drawn exactly as declared, no bias, 30 seeds
+      (the ``_scene`` set-up of tests/test_observability.py): posterior x factor 0.753 /
+      0.781 with 5 views and 0.721 / 0.769 with 3 (undeflated 0.732, 0.679; mean factor
+      0.975, 0.949): not over-confident.  (iii) Noise under-declared by 2 in the same
+      set-up: chi2_red 3.2, gamma 1.8, factor identical to DESIGN (0.840 / 0.786).  (iv)
+      The less cautious variants also pass (chi2_red alone: 0.90-0.97 / 0.69-0.72; gamma^2
+      alone: 0.88-0.96); the adopted one is the most conservative of those measured.
+    * The posterior alone is over-confident whenever a definition bias is drawn (NEES
+      1.05-1.45) and inside the gates when none is: the excess is the shared bias (D-06).
+      The WP-16 statement 'posterior-only NEES > 1.25' is not a property of the model.
     * ``rear_phone_nobias`` with the gain or floor form is under-confident by construction:
       the engine declares a sigma_def the scenario does not draw.
-    * The literal floor form fails the NEES gate in every row.
-    * **No recalibration of the formula was made**, and none is warranted: the gain form is
-      the exact linear-Gaussian propagation, and the remaining distance from 1 is the test
-      bed's legacy symmetry prior, which is wider than its subjects (sigma_sym 2.0 mm for a
-      pair difference of SD 1.41 mm, sigma_mid 1.5 mm for 1.0 mm).  Evidence
-      (``rear_phone``, exact covariance, no outliers, plain least squares, 30 seeds): with
-      the legacy prior the posterior reads 0.837 / 0.712 without bias and the gain form
-      0.826 / 0.710 with it; with sigma_sym 1.41 and sigma_mid 1.0 they read 0.963 / 0.700
-      and 0.918 / 0.705.  The shape sigma (8 mm against the subjects' 4 mm) changes
-      nothing (0.835, 0.831).  What FU-02 changed is the test bed's side of the comparison:
-      tangents passed, and the declared floor drawn.
+    * The literal floor form (``BundleResult.sigma_rep_mm``) fails the NEES gate in every row.
+    * The remaining distance from 1 is the test bed's legacy symmetry prior, wider than its
+      subjects (sigma_sym 2.0 mm for a pair difference of SD 1.41 mm, sigma_mid 1.5 mm for
+      1.0 mm).  Evidence (``rear_phone``, exact covariance, no outliers, plain least
+      squares, 30 seeds): with the legacy prior the posterior reads 0.837 / 0.712 without
+      bias and the gain form 0.826 / 0.710 with it; with sigma_sym 1.41 and sigma_mid 1.0
+      they read 0.963 / 0.700 and 0.918 / 0.705.
+    * **Why it is not the default, and what stays open (release blocker for WP-23, DESIGN
+      7.5 / H12).**  In the pipeline a low chi2_red is not always over-stated noise: views
+      with a QA finding (Q-SMALL, Q-NEAR, Q-BLUR) are deliberately declared at twice their
+      sigma (pipeline ``downweight_sigma_mult``), and the golden scene
+      tests/golden/pipeline_small (flags Q-NEAR, Q-SMALL) reads chi2_red 0.33 and gamma
+      0.57; the share of the multiplier in that was not separated here.  With the FU-02 factor on in :func:`assess` its region sigma_rep drops
+      to the 0.5 bound (cheeks 2.34 -> 1.75 mm): the deflation would cancel exactly the
+      caution the down-weighting adds, and nothing measured here says those views are that
+      good.  So with the default (DESIGN) factor the NEES gate is NOT met on
+      ``selfie_legacy`` and ``rear_phone_smooth`` (0.792, table (e)), and it is met on all
+      six with ``deflate=True``.  To close it the release needs one of: ``assess(...,
+      deflate=True)`` in the observe stage with chi2_red and gamma taken against the noise
+      before the QA multipliers (then the golden result changes), or a narrower engine
+      noise model (the 'free' brow tangent).  Callers that form max(1, gamma^2, chi2_red)
+      themselves (face3d/fit/uncertainty.py, pipeline/stages.py per-vertex inflation,
+      solve/scale.py) use the DESIGN factor.  ``deflation_min`` 0.5 is an uncalibrated
+      guard (test-bed seed minima: chi2_red 0.53, gamma^2 0.51).
     * Not re-measured by FU-02: the D-04 factor prior and the WP-11 out-of-prior subjects.
       WP-16 measured them before FU-01 without tangents (factor prior, gain form: rear_phone
       0.83 / 0.75, studio_ring 0.88 / 0.71, selfie 0.68 / 0.81 FAIL, camera_roll 0.83 /
@@ -965,12 +1070,12 @@ def reported_covariance(result: Any, gamma: float = 1.0, cov: np.ndarray | None 
         B = (K * D[None, :]) @ K.T
     else:
         raise ValueError(f"bias must be 'floor' or 'gain', not {bias!r}")
-    out = C * _inflation(result, gamma) + B
+    out = C * inflation(result, gamma, bool(deflate)) + B
     return 0.5 * (out + out.T)
 
 
 def sigma_rep(result: Any, gamma: float = 1.0, cov: np.ndarray | None = None, bias: str = "floor",
-              prior_info: np.ndarray | None = None) -> np.ndarray:
+              prior_info: np.ndarray | None = None, deflate: bool = False) -> np.ndarray:
     """Reported sigma per landmark and axis, (N, 3) mm (DESIGN D-16, 4.13).
 
     sigma_rep^2 = diag(cov_shape) * max(1, gamma^2, chi2_red) + sigma_def^2 (default
@@ -979,8 +1084,11 @@ def sigma_rep(result: Any, gamma: float = 1.0, cov: np.ndarray | None = None, bi
     optionally replaces ``cov_shape`` (e.g. the gauge-projected posterior at prior weight 1
     of :func:`posterior_at_prior_weight_one`, which the ledger reports, H2).
     ``bias='gain'`` propagates the definition bias through the data gain instead
-    (:func:`reported_covariance`; the calibrated form the ledger uses).  The
-    definition-bias floor never shrinks with more views (D-06).
+    (:func:`reported_covariance`; the calibrated form the ledger uses).  ``deflate=True``
+    replaces the factor by the FU-02 one of :func:`inflation`, which can fall below 1 when
+    chi2_red and a measured LOVO gamma^2 both do (opt-in; see :func:`reported_covariance`
+    for the evidence and the caveat).  The definition-bias floor never shrinks with more
+    views (D-06).
     """
     N = len(np.asarray(result.X))
     if bias == "floor":
@@ -988,8 +1096,8 @@ def sigma_rep(result: Any, gamma: float = 1.0, cov: np.ndarray | None = None, bi
         if C is None:
             raise ValueError("result has no cov_shape")
         d = np.maximum(np.diag(np.asarray(C, float)), 0.0).reshape(N, 3)
-        return np.sqrt(d * _inflation(result, gamma) + _sigma_def(result, N)[:, None] ** 2)
-    Cr = reported_covariance(result, gamma, cov, bias, prior_info)
+        return np.sqrt(d * inflation(result, gamma, bool(deflate)) + _sigma_def(result, N)[:, None] ** 2)
+    Cr = reported_covariance(result, gamma, cov, bias, prior_info, deflate)
     return np.sqrt(np.maximum(np.diag(Cr), 0.0)).reshape(N, 3)
 
 
@@ -1263,7 +1371,7 @@ def assess(result: Any, *, region_index: Mapping[str, Any] | None = None, ids: S
            prior_log_sigma: Any = None, views: Sequence[Any] | None = None,
            exif_log_sigma: Any = None, scale_mode: str = "prior", all_selfie: bool = False,
            status_caps: Mapping[str, str] | None = None, targets: Mapping[str, float] | None = None,
-           bias: str = "gain") -> dict:
+           bias: str = "gain", deflate: bool = False) -> dict:
     """Every observability output of one solve, at prior weight 1 (DESIGN 4.12, 4.13, H1-H9).
 
     ``region_index`` (or ``ids`` for :func:`default_region_index`); ``visibility`` (V, N)
@@ -1304,12 +1412,14 @@ def assess(result: Any, *, region_index: Mapping[str, Any] | None = None, ids: S
     ``chi2_red``, ``n_views`` (views with evidence), ``n_views_total``, ``views_used``
     (V,) bool, ``yaws``, ``pitches`` (every view), ``status_caps``, ``cap_reasons``
     ({region: 'tag' | 'design_d31'}), ``bias`` and ``label_source`` ('result',
-    'standard_result' or 'standard_prior_info').
+    'standard_result' or 'standard_prior_info').  ``deflate=True`` reports sigma_rep with
+    the FU-02 factor of :func:`inflation` (default: the DESIGN factor; see
+    :func:`reported_covariance`).
     """
     kw = dict(region_index=region_index, ids=ids, visibility=visibility, view_yaw_deg=view_yaw_deg,
               view_pitch_deg=view_pitch_deg, gamma=gamma, prior_log_sigma=prior_log_sigma, views=views,
               exif_log_sigma=exif_log_sigma, scale_mode=scale_mode, all_selfie=all_selfie,
-              status_caps=status_caps, targets=targets, bias=bias)
+              status_caps=status_caps, targets=targets, bias=bias, deflate=deflate)
     if standard_result is not None:
         if standard_prior_info is not None:
             raise ValueError("pass standard_result or standard_prior_info, not both")
@@ -1334,7 +1444,7 @@ def assess(result: Any, *, region_index: Mapping[str, Any] | None = None, ids: S
 
 def _assess(result: Any, standard_prior_info: np.ndarray | None, *, region_index, ids, visibility, view_yaw_deg,
             view_pitch_deg, gamma, prior_log_sigma, views, exif_log_sigma, scale_mode, all_selfie, status_caps,
-            targets, bias) -> dict:
+            targets, bias, deflate=False) -> dict:
     X = np.asarray(result.X, float)
     N = len(X)
     if region_index is None:
@@ -1360,7 +1470,7 @@ def _assess(result: Any, standard_prior_info: np.ndarray | None, *, region_index
     Sq = prior_covariance(result, standard_prior_info)
     k = region_evidence(S1, Sq, region_index)
     cov = coverage_rules(yaws, pitches, vis_used, region_points(region_index))
-    srep = sigma_rep(result, gamma, cov=S1, bias=bias, prior_info=standard_prior_info)
+    srep = sigma_rep(result, gamma, cov=S1, bias=bias, prior_info=standard_prior_info, deflate=deflate)
     rs = region_sigma_rep(srep, region_index)
     tg = dict(REGION_TARGET_MM)
     if targets:
