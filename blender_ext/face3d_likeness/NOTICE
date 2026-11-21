@@ -1,0 +1,18 @@
+Face3D Likeness (Blender extension), GPL-3.0-or-later.
+
+Vendored engine
+  The extension vendors the `face3d` engine (numpy + Python standard library
+  only) under `engine/face3d/`. Engine source files carry
+  `SPDX-License-Identifier: MIT` headers, added at build time where missing;
+  MIT is compatible with distribution inside this GPL-3.0-or-later package.
+
+Assets
+  CC0-1.0 assets bundled: none yet. The procedural template head is generated
+  at first run by the extension's own code, so no mesh asset is shipped. Any
+  future asset must be listed in assets.toml with licence CC0-1.0 or the build
+  is refused.
+
+Not bundled
+  No Python wheels and no machine-learning model weights are bundled. Landmark
+  detection uses a user-supplied, SHA-256-pinned model file and the user's own
+  Python environment (DESIGN 6.7, D-28).

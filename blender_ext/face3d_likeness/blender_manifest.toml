@@ -1,0 +1,17 @@
+schema_version = "1.0.0"
+id = "face3d_likeness"
+version = "0.1.0"
+name = "Face3D Likeness"
+tagline = "Fit a sculpt-ready head to consented photos"
+maintainer = "Face3D contributors <maintainers@example.invalid>"
+type = "add-on"
+blender_version_min = "4.5.0"
+license = ["SPDX:GPL-3.0-or-later"]
+copyright = ["2026 Face3D contributors"]
+tags = ["Sculpt", "Modeling", "Camera"]
+
+[permissions]
+files = "Read reference photos and write project files"
+
+[build]
+paths_exclude_pattern = ["__pycache__/", "*.pyc", "/tests/", "*.blend1"]

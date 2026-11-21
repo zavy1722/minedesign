@@ -343,8 +343,11 @@ def test_caliper_scale_tight():
     assert 0.8 < float(np.sqrt(np.mean(zs ** 2))) < 1.25, float(np.sqrt(np.mean(zs ** 2)))
     # the caliper still pins the scale: the reference share 0.5 / L <= 0.6 % (DESIGN 4.7 '< 1 %')
     assert max(cal_ref) <= 0.006, cal_ref
-    # ... and the size a user sees improves several-fold over the population prior alone
-    assert np.sqrt(np.mean(np.square(err_with))) < 0.5 * np.sqrt(np.mean(np.square(err_without)))
+    # ... and the size a user sees improves over the population prior alone.  Updated by WBS
+    # FU-01: the population-only solves no longer carry the mm-space symmetry rows' pull toward
+    # small heads (mean error -5.8 % -> -2.5 % on trials 0-9, RMS 0.064 -> 0.038), so the ratio
+    # is 0.63 instead of 0.36; 'several-fold' (< 0.5) was measured against that biased baseline.
+    assert np.sqrt(np.mean(np.square(err_with))) < 0.75 * np.sqrt(np.mean(np.square(err_without)))
     # regression (review WP-15): the scale mode's SD next to the printed log-size would cover
     # well under half of the trials; the reported SD is several times larger
     assert np.mean(np.abs(errs) < 2.0 * max(cal_ref)) < 0.5
