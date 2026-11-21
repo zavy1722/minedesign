@@ -175,9 +175,10 @@ def test_noise_model_view_cov_structure():
     f2 = 0.25                                               # floor_min_px^2 (face_px unknown)
     # known tangent along +x: x variance = sigma_t^2, y = sigma_n^2
     assert np.allclose(C[0], np.diag([7.5 ** 2 * 16 + f2, 1.5 ** 2 * 16 + f2]))
-    # unknown tangent: curve averages, extremal uses sigma_n
+    # unknown tangent: curve averages, extremal uses max(sigma_n, sigma_t) = 3.0 mm
+    # (WBS FU-01; WP-07 used sigma_n = 2.0 mm, which understated the tangent noise)
     assert np.allclose(C[1], np.eye(2) * ((1.5 ** 2 + 7.5 ** 2) / 2 * 16 + f2))
-    assert np.allclose(C[2], np.eye(2) * (2.0 ** 2 * 16 + f2))
+    assert np.allclose(C[2], np.eye(2) * (3.0 ** 2 * 16 + f2))
     # contour tangent along +y: normal (x) sigma 2.5 mm
     assert np.isclose(C[3, 0, 0], 2.5 ** 2 * 16 + f2) and C[3, 1, 1] > 1e6
     # brow with a NaN tangent component is unknown -> isotropic average
@@ -186,7 +187,7 @@ def test_noise_model_view_cov_structure():
     assert np.isclose(C[6, 0, 0], 2.0 ** 2 * 16 * 6.0 + f2)
     # floor = max(0.5, k * face_px / 256); multipliers and TTA spread
     C2 = m.view_cov(p, 1024.0, tangents=t, multipliers=np.full(7, 2.0), tta_px=np.full(7, 3.0))
-    assert np.isclose(C2[2, 0, 0], 2.0 ** 2 * 16 * 4 + 9.0 + (0.6 * 4) ** 2)
+    assert np.isclose(C2[2, 0, 0], 3.0 ** 2 * 16 * 4 + 9.0 + (0.6 * 4) ** 2)   # FU-01: max(sn, st)
     assert np.isclose(C2[5, 0, 0], 0.6 ** 2 * 16 * 4 + 9.0 + (0.4 * 4) ** 2)
     assert np.isclose(C2[3, 0, 0], 2.5 ** 2 * 16 * 4 + 9.0 + (1.5 * 4) ** 2)
     assert np.all(np.isnan(m.view_cov(np.array([np.nan] + [4.0] * 6), 500.0)[0]))
@@ -373,6 +374,12 @@ def _chi2_seed(seed, sigma_px=None, outlier_frac=0.0, robust=None):
     The bundle starts from the rig's poses with the EXIF focal; its chi2 at convergence
     does not depend on that start (the reconstruct_landmarks PnP start gives the same
     median chi2_red to 3 digits on these seeds).
+
+    Updated by WBS FU-01: the views carry the simulator's own image tangents
+    (``obs.tangent_dirs``), i.e. the correct noise model.  Since FU-01 the unknown-tangent
+    fallback of point kinds is the conservative max(sigma_n, sigma_t) (extremal 3.0 mm instead
+    of 2.0 mm), so without tangents this chi2 is deliberately below one (median 0.64 on these
+    seeds; tests/test_followups.py covers that path).
     """
     r_subj, r_rig, r_det = _seed_streams(seed)
     names, X, meta = subjects.legacy_subject(r_subj)
@@ -380,7 +387,7 @@ def _chi2_seed(seed, sigma_px=None, outlier_frac=0.0, robust=None):
     kinds = detector_sim.legacy_kinds(names)
     obs = detector_sim.simulate(X, kinds, rig, r_det, outlier_frac=outlier_frac, definition_bias=False)
     views = [ViewObs(uv, cam.copy(), f_prior=rig.f_prior_px[k], f_prior_log_sigma=rig.f_prior_log_sigma[k],
-                     focal_group=rig.focal_group[k], kinds=kinds, sigma_px=sigma_px)
+                     focal_group=rig.focal_group[k], kinds=kinds, sigma_px=sigma_px, tangents=obs.tangent_dirs)
              for k, (uv, cam) in enumerate(zip(obs.uv, rig.cameras))]
     for v, f in zip(views, rig.f_prior_px):
         v.camera.f = f                                  # start from the EXIF focal, not the truth

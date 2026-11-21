@@ -13,11 +13,23 @@ Conventions and units
   depth, which removes the 63-vs-88 mm IOD ambiguity of percentage-of-IOD rules).
 * Image tangents ``t_i`` are 2D image-space vectors (any length; normalised here).
   The covariance axes are the unit normal n = (-t_y, t_x) with sigma_n and the unit
-  tangent t with sigma_t.  A tangent that is ``None``, non-finite or of zero length is
-  *unknown*: the covariance is isotropic with sigma_iso^2 = (sigma_n^2 + sigma_t^2)/2,
-  except for the point-like kinds sharp_junction, extremal and iris, which use sigma_n
-  (WBS WP-07).  For kinds whose tangent is "free" in DESIGN 4.4 (contour, brow) the
-  tangent sigma is a large finite number (normal-only in practice).
+  tangent t with sigma_t.  For kinds whose tangent is "free" in DESIGN 4.4 (contour, brow)
+  the tangent sigma is a large finite number (normal-only in practice).
+* A tangent that is ``None``, non-finite or of zero length is *unknown*, and the covariance
+  is isotropic, sigma_iso^2 I_2 (before the p^2 m^2 eta factor), by kind
+  (:data:`FREE_TANGENT_KINDS`):
+
+  - curve-sample kinds whose tangent SD is 'free' (contour, brow: DESIGN 4.4 'free'; curve:
+    *landmark-index-correspondence* '5 or free'), :data:`FREE_TANGENT_KINDS`: the orientation
+    average sigma_iso^2 = (sigma_n^2 + sigma_t^2) / 2 (WBS WP-07, unchanged);
+  - every other kind (sharp_junction, extremal, iris, hair, generic: a finite tangent SD
+    that belongs to the point itself): sigma_iso^2 = max(sigma_n^2, sigma_t^2) (WBS FU-01).
+    The error ellipse diag(sigma_n^2, sigma_t^2) has an unknown orientation, and the
+    smallest isotropic covariance that dominates it in every orientation is max(.) I_2; the
+    WP-07 rule sigma_n^2 understated the noise along the unknown tangent (extremal: 2.0 mm
+    instead of DESIGN 4.4's 3.0 mm tangent SD).  Where sigma_n = sigma_t (sharp_junction,
+    iris, generic) nothing changes; extremal goes from 2.0 to 3.0 mm and hair (trichion,
+    4.0 / 8.0) from the average 6.3 to 8.0 mm.
 * ``m_iv`` are occluder / makeup multipliers (DESIGN 4.1, 1 by default); ``eta_i`` is
   the dense-point inflation N/N_eff for points flagged in ``dense_mask`` (DESIGN 4.4,
   rec BA-2: correlated dense MediaPipe points), else 1.  N is ``n_total`` (default:
@@ -52,6 +64,7 @@ from ..core.config import Default, register_defaults
 
 __all__ = [
     "NOISE", "KINDS", "PIN_CLASSES", "FLOOR_CLASSES", "FLOOR_CLASS_OF_KIND", "POINT_LIKE_KINDS",
+    "FREE_TANGENT_KINDS", "unknown_tangent_var_mm2",
     "KIND_SIGMA_MM", "KIND_SIGMA_DEF_MM", "PIN_CLASS_SIGMA_MM", "FLOOR_K", "N_EFF",
     "FLOOR_MIN_PX", "FLOOR_CROP_PX", "NoiseModel", "pin_sigma_px", "whitening", "kind_tables",
 ]
@@ -62,8 +75,15 @@ _NEW = "\U0001F195"     # introduced by this design / WP spec, uncalibrated
 
 #: Landmark kinds (DESIGN 3.2 scheme ``kind``; same set as model.registry.SCHEME_KINDS).
 KINDS: tuple[str, ...] = ("sharp_junction", "extremal", "curve", "contour", "brow", "iris", "hair", "generic")
-#: Kinds that use sigma_n (not the normal/tangent average) when the tangent is unknown (WBS WP-07).
+#: Point landmarks named by WBS WP-07 (sharp_junction, extremal, iris).  Kept for
+#: compatibility; since WBS FU-01 the unknown-tangent rule is keyed on
+#: :data:`FREE_TANGENT_KINDS` (these kinds use max(sigma_n^2, sigma_t^2), not sigma_n^2).
 POINT_LIKE_KINDS: frozenset[str] = frozenset({"sharp_junction", "extremal", "iris"})
+#: Curve-sample kinds whose tangent SD is 'free' (DESIGN 4.4: contour, brow; curve:
+#: landmark-index-correspondence '5 or free'): with an unknown image tangent they keep the
+#: WP-07 orientation average (sigma_n^2 + sigma_t^2) / 2.  Every other kind has a finite
+#: tangent SD and uses max(sigma_n^2, sigma_t^2) (WBS FU-01; see the module docstring).
+FREE_TANGENT_KINDS: frozenset[str] = frozenset({"curve", "contour", "brow"})
 #: Detector-floor classes (bl ML; research/blender/README.md "Detector noise floor").
 FLOOR_CLASSES: tuple[str, ...] = ("inner", "iris", "brow", "contour")
 #: Floor class of each kind.  bl ML names inner points, iris, brows and contour; the
@@ -186,6 +206,23 @@ FLOOR_CROP_PX: float = _T["floor_crop_px"]
 del _T
 
 
+def unknown_tangent_var_mm2(kinds: Sequence[str], sigma_nt_mm: Any) -> np.ndarray:
+    """(N,) isotropic variance in mm^2 for landmarks whose image tangent is unknown.
+
+    ``kinds`` (N,) valid kind names; ``sigma_nt_mm`` (N, 2) (sigma_n, sigma_t) in mm.  Kinds in
+    :data:`FREE_TANGENT_KINDS` (curve, contour, brow; tangent SD 'free') get the orientation
+    average (sigma_n^2 + sigma_t^2) / 2 (WBS WP-07); every other kind gets
+    max(sigma_n^2, sigma_t^2), the smallest isotropic variance that dominates the error ellipse
+    in every orientation (WBS FU-01; DESIGN 4.4 sigma_t, e.g. 3.0 mm for extremal).
+    """
+    s = np.asarray(sigma_nt_mm, dtype=float).reshape(-1, 2)
+    if len(kinds) != len(s):
+        raise ValueError(f"{len(kinds)} kinds for {len(s)} sigma rows")
+    free = np.array([k in FREE_TANGENT_KINDS for k in kinds], bool)
+    sn2, st2 = s[:, 0] ** 2, s[:, 1] ** 2
+    return np.where(free, 0.5 * (sn2 + st2), np.maximum(sn2, st2))
+
+
 def _check_kinds(kinds: Sequence[Any]) -> list[str]:
     out = []
     for i, k in enumerate(kinds):
@@ -231,9 +268,8 @@ class NoiseModel:
         self._tab = tab
         s = np.array([tab["sigma_mm"][k] for k in self.kinds], float).reshape(n, 2)
         self.sigma_nt_mm = s                                                   # (N, 2)
-        point_like = np.array([k in POINT_LIKE_KINDS for k in self.kinds], bool)
-        iso2 = np.where(point_like, s[:, 0] ** 2, 0.5 * (s[:, 0] ** 2 + s[:, 1] ** 2))
-        self.sigma_iso_mm = np.sqrt(iso2)                                      # (N,)
+        # isotropic SD used when the image tangent is unknown (WBS WP-07 / FU-01)
+        self.sigma_iso_mm = np.sqrt(unknown_tangent_var_mm2(self.kinds, s))   # (N,)
         self.floor_k = np.array([tab["floor_k"][FLOOR_CLASS_OF_KIND[k]] for k in self.kinds], float)
         self.n_total = int(n if n_total is None else n_total)
         if self.n_total <= 0:
@@ -264,8 +300,10 @@ class NoiseModel:
 
         ``px_per_mm`` (N,) = f / z_i at each landmark's depth; ``face_px`` face width in px
         (None: floor_min_px only); ``tangents`` (N, 2) image tangents or None (unknown rows:
-        NaN / zero); ``multipliers`` (N,) m_iv (default 1); ``tta_px`` (N,) test-time
-        augmentation spread in px (default 0).  Rows with non-finite ``px_per_mm`` are NaN.
+        NaN / zero; their covariance is isotropic with ``sigma_iso_mm``, see
+        :func:`unknown_tangent_var_mm2`); ``multipliers`` (N,) m_iv (default 1); ``tta_px`` (N,)
+        test-time augmentation spread in px (default 0).  Rows with non-finite ``px_per_mm``
+        are NaN.
         """
         n = self.n
         p = _vec(px_per_mm, n, "px_per_mm", np.nan)

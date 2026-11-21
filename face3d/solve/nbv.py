@@ -41,13 +41,13 @@ else at the kit vertices nearest to X after a similarity ICP of X onto the templ
 surface (:func:`template_normals`), rotated into the frame of X.  ``normals='radial'``
 selects the radial direction from ``head_centre`` (the test-bed proxy of
 :mod:`face3d.testbed.rigs`) explicitly; it is never a silent fallback (it under-weights
-profiles: WP-16 review, 23/30 frontal-only sets pick |yaw| >= 60 deg with it).
+profiles: WP-16 review, 23/30 frontal-only sets picked |yaw| >= 60 deg with it).
 
 Measured acceptance (DESIGN 4.14 'frontal-only sets pick |yaw| >= 60 deg in >= 90 % of
 seeds'; three views with |yaw| < 15 deg, template normals, tests/test_observability.py):
 the rate depends on the subject distance because at close range the far side of the face
 turns away from a 60 deg camera (perspective), so a 45 deg view sees more landmarks and
-the two tie within ~1 %.  See :data:`ACCEPTANCE_RATES`.
+the two can tie within ~1-2 %.  See :data:`ACCEPTANCE_RATES`.
 
 Numeric defaults (namespace ``nbv``): region weights lids/eyes 1.0, brows 0.9, lips 0.8,
 nose 0.7, nose projection 0.7, jaw 0.5, cheeks 0.4, forehead 0.3, ears 0.15 (DESIGN 4.14,
@@ -122,15 +122,17 @@ _COS0 = math.cos(math.radians(80.0))   # DESIGN 4.8 / rec BA-3 visibility ramp (
 _COS1 = math.cos(math.radians(60.0))
 
 #: Measured rate of |yaw| >= 60 deg picks for frontal-only sets (3 views, |yaw| < 15 deg,
-#: 30 seeds, DESIGN 4.4 noise, factor prior; default template normals, no ids) by subject
-#: distance in mm (camera to face centre; 'band' = U(600, 1500) mm per seed, the rear-phone
-#: rig range).  DESIGN 4.14 asks >= 0.9: it holds over the band and from 0.7 m.  At 0.6 m
-#: and closer, perspective turns the far side of the face away from a 60 deg camera and
-#: the 45 deg three-quarter view ties with the profile (median score margin 0.7 %, at
-#: worst -2.4 %).  With ``normals='radial'`` the rates are 0.07 / 0.2 / 0.3 / 0.63 / 0.8.
-#: Measured by WP-16 (scratch runs of tests/test_observability.py scenes); the
-#: close-range rate is a tracking item for the M7 calibration (WP-23).
-ACCEPTANCE_RATES: dict[Any, float] = {600.0: 0.87, 700.0: 0.93, 800.0: 1.0, 1000.0: 1.0, 1500.0: 0.97,
+#: 30 seeds, factor prior; default template normals, no ids) by subject distance in mm
+#: (camera to face centre; 'band' = U(600, 1500) mm per seed, the rear-phone rig range),
+#: with the DESIGN 4.4 noise model as of the FU-01 change (point kinds without a tangent
+#: isotropic at max(sigma_n, sigma_t)).  DESIGN 4.14 asks >= 0.9.  Before FU-01 the rates
+#: were 0.87 / 0.93 / 1.0 / 1.0 / 0.97 (band 1.0): at 0.6 m and closer, perspective turns
+#: the far side of the face away from a 60 deg camera and the 45 deg view ties with the
+#: profile (score margins within ~1-2 %), so close-range sets are the first to drop below
+#: 0.9 when the noise model moves.  ``normals='radial'`` gives 0.83-0.87 now and gave
+#: 0.07 / 0.2 / 0.3 / 0.63 / 0.8 before FU-01.  Measured by WP-16 (scratch runs of the
+#: tests/test_observability.py scenes); a tracking item for the M7 calibration (WP-23).
+ACCEPTANCE_RATES: dict[Any, float] = {600.0: 0.97, 700.0: 1.0, 800.0: 1.0, 1000.0: 1.0, 1500.0: 1.0,
                                       "band": 1.0}
 
 _ICP_ITERS = 8

@@ -332,6 +332,8 @@ class ContourObs:
             raise ValueError("mask must be 2D")
         if not m.any():
             raise ValueError("mask is empty")
+        if image_border == "drop" and m.all():
+            raise ValueError("the mask has no boundary inside the image (it fills the frame)")
         H, W = m.shape
         rows, cols = np.nonzero(m)
         r0, r1 = max(int(rows.min()) - 3, 0), min(int(rows.max()) + 4, H)
@@ -1012,6 +1014,7 @@ class _Block:
     sig: np.ndarray | None = None  # (m,) sigma_n px (forward) / scalar sigma (backward)
     margin: np.ndarray | None = None  # (m,) margin / sigma (forward bound kinds)
     obs_idx: np.ndarray | None = None  # (m,) observed sample index into the view's merged arrays
+    phipi: np.ndarray | None = None    # (3, m, 3K) phi @ Pi[d K:(d + 1) K] per coordinate d (frozen)
 
 
 class ContourTerm:
@@ -1053,7 +1056,9 @@ class ContourTerm:
     to vertices that the outlines describe; ``phi_keys`` {view: 'phi_<j>'} for views in a
     HARD focal group (the focal parameter is shared, its Jacobian block is named by the
     group); ``max_rows_per_view`` caps the rows per view and direction (evenly subsampled,
-    the per-row weight keeps min(M, cap) effective samples).
+    the per-row weight keeps the effective samples of the candidates it stands for);
+    ``backward_end_px`` (1 px) the tangential excess beyond which a rim sample is past the
+    observed contour's span and carries no backward row.
     """
 
     is_prior = False
@@ -1207,6 +1212,10 @@ class ContourTerm:
                                      np.full(len(sub), math.sqrt(w_s * self.bweight)),
                                      x=dist.xy[js], n=dist.normals[js], sig=np.full(len(sub), ob["sig_b"]),
                                      obs_idx=js))
+        Pi = self.basis.Pi
+        K = self.basis.K
+        for blk in blocks:
+            blk.phipi = np.stack([blk.phi @ Pi[d * K:(d + 1) * K] for d in range(3)])
         self._blocks = blocks
 
     def _support(self, smp: RimSamples, idx: np.ndarray, Vbar: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
@@ -1276,14 +1285,15 @@ class ContourTerm:
             return r, None
         m = len(r)
         K = b.K
-        dc = np.zeros((m, 3 * K))
+        dq = np.zeros((m, 3 * K))                          # dr / dc~ = sum_d dr/dP_d phi Pi_d
         row = 0
-        for gP, phi in jac_X:
+        for (gP, phi), blk in zip(jac_X, self._blocks):
             n = len(gP)
-            for dd_ in range(3):
-                dc[row:row + n, dd_ * K:(dd_ + 1) * K] = gP[:, dd_:dd_ + 1] * phi
+            pp = blk.phipi
+            if pp is None:
+                pp = np.stack([phi @ b.Pi[d * K:(d + 1) * K] for d in range(3)])
+            dq[row:row + n] = gP[:, 0:1] * pp[0] + gP[:, 1:2] * pp[1] + gP[:, 2:3] * pp[2]
             row += n
-        dq = dc @ b.Pi
         n_pts = len(X)
         JX = np.zeros((m, 3 * n_pts))
         jdx = np.arange(K)
@@ -1699,7 +1709,8 @@ def contour_stage(basis: Any, views: Sequence[Any], obs: Sequence[ContourObs], i
     witness_views : views kept out of the fit (neither their landmarks nor their contours
         enter it) and checked afterwards by SIL-3 against the fitted shape
         (:func:`focal_distance_check`: cameras from their interior landmarks with the shape
-        held, contours as witnesses, the camera uncertainty in sigma).  Their cameras must
+        held, contours as witnesses, the camera uncertainty in sigma, the rim restricted to
+        the term's ``vertex_mask``).  Their cameras must
         be usable starting points (e.g. a PnP of their landmarks on the landmark stage).
     interior : the SIL-3 interior landmarks (indices or (N,) bool); default
         :func:`interior_landmark_mask` of ``basis.names``.
@@ -1795,7 +1806,7 @@ def contour_stage(basis: Any, views: Sequence[Any], obs: Sequence[ContourObs], i
         wobs = [o for o in obs if o.view in wit]
         if wobs:
             f_w, witness = focal_distance_check(V, b.tris, X, views, wobs, iod_px, interior=imask,
-                                                raster_scale=rs, views_subset=wit)
+                                                raster_scale=rs, views_subset=wit, vertex_mask=term.vertex_mask)
             if f_w is not None:
                 findings.append(f_w)
             for k in wit:
@@ -1816,7 +1827,8 @@ def focal_distance_check(V: np.ndarray, tris: np.ndarray, X: np.ndarray, views: 
                          hold_sigma_mm: float = 0.01, raster_scale: float | None = None,
                          ears_fail: bool = False, interior: Any = None,
                          landmark_names: Sequence[str] | None = None, pose_inflation: bool = True,
-                         views_subset: Sequence[int] | None = None) -> tuple[Any, dict]:
+                         views_subset: Sequence[int] | None = None,
+                         vertex_mask: np.ndarray | None = None) -> tuple[Any, dict]:
     """SIL-3 witness check with the shape held (DESIGN 4.16 "Diagnosis"): is the focal or distance wrong?
 
     V (V, 3) / tris: a surface **not fitted to these contours** (e.g. the contour stage's
@@ -1834,7 +1846,9 @@ def focal_distance_check(V: np.ndarray, tris: np.ndarray, X: np.ndarray, views: 
     (``BundleResult.camera_cov``) projected on the observed normal
     (:func:`pose_uv_jacobian`), so a view whose interior landmarks barely fix its pose
     (a profile) is not flagged for that.  The per-view wide-gate median |r| / sigma and the
-    interior landmark RMS (% IOD) go to :func:`diagnose_focal_distance`.
+    interior landmark RMS (% IOD) go to :func:`diagnose_focal_distance`.  ``vertex_mask``
+    restricts the witnessed rim to the vertices V is trusted on (e.g. the contour stage's
+    ``vertex_mask``: the region its basis and contours covered).
 
     The check is only as good as V along the witnessed outlines: on the WP-17 review sweep
     the landmark-stage surface (template warped to the landmarks) is 2-7 sigma_n off the
@@ -1878,7 +1892,7 @@ def focal_distance_check(V: np.ndarray, tris: np.ndarray, X: np.ndarray, views: 
     V = np.asarray(V, float)
     rasters = {v: rasterize(V, tris, scale_camera(cams[v], rs), cull_backfaces=True) for v in vids}
     iod = {k: float(iod_px[k]) for k in range(len(views))}
-    st = contour_view_stats(V, tris, obs_c, cams, iod, rasters, pose_cov=pose) if vids else {}
+    st = contour_view_stats(V, tris, obs_c, cams, iod, rasters, pose_cov=pose, vertex_mask=vertex_mask) if vids else {}
     lm = landmark_rms_pct_iod(X, [cams[k] for k in vids], [np.asarray(views[k].uv, float) for k in vids],
                               [iod[k] for k in vids], imask)
     med = {v: st[v]["wide_median_abs_sigma"] for v in vids}

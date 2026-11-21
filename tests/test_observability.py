@@ -8,6 +8,7 @@ D-30), observed through the DESIGN 4.4 noise model of each landmark's kind.
 """
 import math
 import time
+from dataclasses import replace
 
 import numpy as np
 import pytest
@@ -183,12 +184,46 @@ def test_focal_status():
         rerr.append(np.median([_rot_err_deg(c.R @ R.T, ct.R) for c, ct in zip(res.cameras, cams)]))
     assert np.median(ferr) < 0.05, ferr
     assert np.median(rerr) < 2.0, rerr
-    # rule order (DESIGN 4.12 / H5): CAM-7 first, then the 0.10 threshold
+    # The same rig at the NOMINAL DESIGN 4.4 sigma: recorded expected values (tracking item for
+    # WP-23 / com R8.4; the < 5 % focal target is not met here): sigma_logf ~0.10 (0.088-0.113),
+    # statuses 'partial' or 'measured' (never 'prior_used'), median focal error ~9 %, rotation ~1.1 deg.
+    sig_n, ferr_n, rerr_n = [], [], []
+    for seed in range(10):
+        X, views, cams = _scene(100 + seed, (-60.0, -30.0, 0.0, 30.0, 60.0), 500.0, exif=False)
+        res = _solve(views)
+        cs = ob.camera_status(res.view_stats, 0.6, res.cameras)
+        assert all(c["focal_status"] in ("measured", "partial") for c in cs)
+        sig_n.append(cs[0]["sigma_logf"])
+        ferr_n.append(abs(res.cameras[0].f / cams[0].f - 1.0))
+        s, R, t = umeyama(res.X, X, with_scale=True)
+        rerr_n.append(np.median([_rot_err_deg(c.R @ R.T, ct.R) for c, ct in zip(res.cameras, cams)]))
+    assert 0.08 <= np.median(sig_n) <= 0.13, sig_n
+    assert np.median(ferr_n) < 0.12, ferr_n
+    assert np.median(rerr_n) < 2.0, rerr_n
+    # rule order of WBS WP-16 / DESIGN 4.12: 'measured' (sigma < 0.10) first, then CAM-7
+    # (sigma > 0.8 sigma_prior -> 'prior_used'), else 'partial'; prior_dominated keeps CAM-7 alone
     st = [{"sigma_logf": 0.035, "sigma_logz": 0.1}, {"sigma_logf": 0.02, "sigma_logz": 0.1},
           {"sigma_logf": 0.2, "sigma_logz": 0.1}, {"sigma_logf": None, "sigma_logz": None},
-          {"sigma_logf": 0.0, "sigma_logz": 0.01}]
-    out = [c["focal_status"] for c in ob.camera_status(st, [0.04, 0.04, 0.6, 0.6, 0.6])]
-    assert out == ["prior_used", "measured", "partial", "prior_used", "measured"]
+          {"sigma_logf": 0.0, "sigma_logz": 0.01}, {"sigma_logf": 0.55, "sigma_logz": 0.1}]
+    cs = ob.camera_status(st, [0.04, 0.04, 0.6, 0.6, 0.6, 0.6])
+    assert [c["focal_status"] for c in cs] == ["measured", "measured", "partial", "prior_used", "measured",
+                                               "prior_used"]
+    assert [c["prior_dominated"] for c in cs] == [True, False, False, None, False, True]
+    # an unknown prior never reads 'partly measured' (H5 'otherwise from prior'); no prior at
+    # all (inf) leaves a data-determined focal 'partial'
+    assert [c["focal_status"] for c in ob.camera_status(st[:3], None)] == ["measured", "measured", "prior_used"]
+    assert ob.camera_status(st[2:3], float("inf"))[0]["focal_status"] == "partial"
+    # assess reads the focal priors from the views when prior_log_sigma is not given
+    _, views, _ = _scene(1, (-3.0, 0.0, 3.0), 2000.0, exif=False)
+    res = _solve(views)
+    assert ob.focal_prior_log_sigmas(views) == [0.6, 0.6, 0.6]
+    assert ob.focal_prior_log_sigmas([views[0], replace(views[1], f_prior=None, focal_group=None)]) == [0.6, math.inf]
+    assert ob.focal_prior_log_sigmas([replace(views[0], f_prior_log_sigma=0.3), views[1]]) == [0.3, 0.3]  # group
+    A_v = ob.assess(res, region_index=RI, views=views)
+    A_n = ob.assess(res, region_index=RI)
+    assert A_v["focal_statuses"] == A_n["focal_statuses"] == ["prior_used"] * 3, A_v["camera_status"]
+    led = lg.build_ledger(res, PRIOR, ANATOMICAL, A_n)
+    assert "Focal length: from prior in 3 of 3 photos" in lg.report_lines(led)
 
 
 # ------------------------------------------------------------------ evidence and coverage
@@ -226,28 +261,49 @@ def test_frontal_only_projection_not_measured():
 
 
 def test_labels_invariant_to_prior_weight():
-    # Likeness mode (DESIGN 4.6) widens kappa where >= 2 views see a point; labels and sigma
-    # stay at prior weight 1 (H2) through standard_prior_info.  The 1.2 m frontal set is where
-    # the widened prior moves the estimate most and where naive labels (read off the widened
-    # solve) change, so it shows the guard has teeth.
-    for seed, yaws, dist in ((2, (-60.0, -30.0, 0.0, 30.0, 60.0), 900.0), (5, (-12.0, 0.0, 12.0), 1200.0)):
-        _, views, _ = _scene(seed, yaws, dist)
-        res = _solve(views)
-        A = ob.assess(res, region_index=RI, prior_log_sigma=0.04)
-        seen = np.array(res.inlier_mask).sum(axis=0)
-        wide, res_w = ob.likeness_mode_prior(PRIOR, res, seen, resolve=lambda p: _solve(views, prior=p),
-                                             return_result=True)
-        assert wide.meta["likeness"]["rounds"] >= 1
-        mult = np.asarray(wide.meta["likeness_multiplier"])
-        assert mult.max() > 1.0 and mult.min() == 1.0
-        H_std = ob.standard_prior_info(res_w, wide, PRIOR)
-        Aw = ob.assess(res_w, region_index=RI, prior_log_sigma=0.04, standard_prior_info=H_std)
-        assert Aw["region_status"] == A["region_status"]
-        assert max(abs(Aw["region_k"][r] - A["region_k"][r]) for r in RI) < 0.06
-        if dist > 1000.0:
-            naive = ob.assess(res_w, region_index=RI, prior_log_sigma=0.04)
-            assert naive["region_status"] != A["region_status"]
-            assert naive["region_k"]["nose_projection"] > A["region_k"]["nose_projection"] + 0.2
+    # Likeness mode (DESIGN 4.6) widens kappa where >= 2 views see a point and re-solves.  Labels,
+    # k, sigma_rep, coverage, focal statuses and the tier stay those of the standard solve (H2):
+    # assess computes them from it (standard_result), so the invariance is exact by construction,
+    # not a re-linearisation at the widened estimate.  10 seeds per configuration: frontal sets at
+    # 0.6 and 0.8 m (labels near the k = 0.5 / 0.8 thresholds, where the linearised route flipped
+    # 2/10 and 4/10 sets in the WP-16 review) and a 5-view set at 0.9 m.
+    naive_moved, lin_dk = 0, 0.0
+    for yaws, dist in (((-12.0, 0.0, 12.0), 600.0), ((-12.0, 0.0, 12.0), 800.0),
+                       ((-60.0, -30.0, 0.0, 30.0, 60.0), 900.0)):
+        for seed in range(10):
+            _, views, _ = _scene(seed, yaws, dist)
+            res = _solve(views)
+            A = ob.assess(res, region_index=RI, prior_log_sigma=0.04)
+            seen = np.array(res.inlier_mask).sum(axis=0)
+            wide, res_w = ob.likeness_mode_prior(PRIOR, res, seen, resolve=lambda p: _solve(views, prior=p),
+                                                 max_iter=2, return_result=True)      # 2 rounds keep it fast
+            assert wide.meta["likeness"]["rounds"] >= 1 and ob.FLAG_LIKENESS in res_w.flags
+            assert ob.FLAG_LIKENESS not in res.flags
+            mult = np.asarray(wide.meta["likeness_multiplier"])
+            assert mult.max() > 1.0
+            assert np.abs(res_w.X - res.X).max() > 0.5                  # the widened prior moved the estimate
+            Aw = ob.assess(res_w, region_index=RI, prior_log_sigma=0.04, standard_result=res)
+            assert Aw["label_source"] == "standard_result" and A["label_source"] == "result"
+            for key in ("region_status", "region_k", "region_sigma_rep_mm", "coverage", "tier", "focal_statuses"):
+                assert Aw[key] == A[key], (yaws, dist, seed, key)
+            assert np.array_equal(Aw["sigma_rep_mm"], A["sigma_rep_mm"])
+            # a flagged widened solve cannot be labelled on its own, nor through the linearised route
+            H_std = ob.standard_prior_info(res_w, wide, PRIOR)
+            with pytest.raises(ValueError):
+                ob.assess(res_w, region_index=RI, prior_log_sigma=0.04)
+            with pytest.raises(ValueError):
+                ob.assess(res_w, region_index=RI, prior_log_sigma=0.04, standard_prior_info=H_std)
+            with pytest.raises(ValueError):
+                ob.assess(res, region_index=RI, standard_result=res_w)
+            # the WBS linearised route (standard information at the widened estimate) is close, not exact
+            k_lin = ob.region_evidence(ob.posterior_at_prior_weight_one(res_w, H_std),
+                                       ob.prior_covariance(res_w, H_std), RI)
+            lin_dk = max(lin_dk, max(abs(k_lin[r] - A["region_k"][r]) for r in RI))
+            # evidence read naively off the widened solve is inflated (the guard has teeth)
+            k_naive = ob.region_evidence(ob.posterior_at_prior_weight_one(res_w), ob.prior_covariance(res_w), RI)
+            naive_moved += k_naive["nose_projection"] > A["region_k"]["nose_projection"] + 0.1
+    assert lin_dk < 0.1, lin_dk
+    assert naive_moved >= 20, naive_moved
     _, views, _ = _scene(3, (-30.0, 0.0, 30.0), 700.0)
     res = _solve(views)
     # without a substitute prior, Sigma1 is the bundle's own posterior (Schur over cameras and
@@ -313,7 +369,10 @@ def test_sigma_rep_honesty_on_testbed():
     on the WP-01 rear_phone_legacy scenario (legacy prior, robust schedule, the detector's
     shared definition bias): the posterior alone is over-confident, the literal floor form
     under-confident, the gain form inside the gates.  The 30 scorecard seeds of this scenario;
-    the WP-16 report gives the numbers for every legacy scenario."""
+    the WP-16 report gives the numbers for every legacy scenario.  This holds for the noise
+    model before FU-01; with FU-01's isotropic max(sigma_n, sigma_t) for tangent-less point
+    kinds the posterior reads 0.94 and the gain form 0.71 / 0.79 (under-confident), see
+    observability.reported_covariance: the noise-floor calibration is WP-23's."""
     from face3d.solve.reconstruct import PhotoLandmarks, reconstruct_landmarks
     from face3d.solve.robust import RobustSchedule
     from face3d.synthetic import midline_indices, mirror_pairs
@@ -419,6 +478,35 @@ def test_tiers_from_evidence():
     assert A3p["tier"] == ("B", "proportions only")
 
 
+def test_tier_ignores_frozen_views():
+    # DESIGN D-17: tiers come from evidence.  A view that contributed nothing (empty, or rejected
+    # by the robust view test: view_stats 'frozen') must not lift the tier or the coverage.
+    for seed in (10, 11, 12):
+        _, views, _ = _scene(seed, (-12.0, 0.0, 12.0), 600.0)
+        A0 = ob.assess(_solve(views), region_index=RI, prior_log_sigma=0.04, scale_mode="iris")
+        assert A0["tier"] == ("C", "blockout") and A0["n_views"] == 3
+        cam = orbit_camera(600.0, 55.0 + 2.0 * (seed - 10), 0.0, 26.0, target=(0.0, 0.0, 60.0))
+        empty = ViewObs(np.full((N, 2), np.nan), cam, f_prior=cam.f, f_prior_log_sigma=0.04, focal_group="g",
+                        kinds=KINDS)
+        res = _solve(views + [empty])
+        assert res.view_stats[-1]["frozen"] and abs(res.view_stats[-1]["yaw_deg"]) >= 45.0
+        A = ob.assess(res, region_index=RI, prior_log_sigma=0.04, scale_mode="iris")
+        assert A["tier"] == ("C", "blockout"), A["tier"]
+        assert A["n_views"] == 3 and A["n_views_total"] == 4 and A["views_used"] == [True] * 3 + [False]
+        assert len(A["focal_statuses"]) == 4 and len(A["camera_status"]) == 4      # reported for every photo
+        # a frozen (rejected) view keeps no coverage even if its detections are passed as visibility
+        vis = np.array(res.inlier_mask)
+        vis[-1] = np.isfinite(views[0].uv[:, 0])
+        Av = ob.assess(res, region_index=RI, prior_log_sigma=0.04, scale_mode="iris", visibility=vis,
+                       exif_log_sigma=[0.04, 0.04, 0.04, 0.04])
+        assert Av["tier"][0] == "C" and Av["coverage"] == A["coverage"]
+        assert not Av["coverage"]["nose_projection"]["projection"]
+    # the same set with the fourth view live really is tier A (the rule is not simply ignoring yaws)
+    _, views, _ = _scene(10, (-12.0, 0.0, 12.0, 55.0), 600.0)
+    A4 = ob.assess(_solve(views), region_index=RI, prior_log_sigma=0.04, scale_mode="iris")
+    assert A4["tier"] == ("A", "iris-scaled") and A4["n_views"] == 4
+
+
 # ------------------------------------------------------------------ next-best photo
 def _kit_normals():
     from face3d.model.procedural_head import build_procedural_head
@@ -426,28 +514,90 @@ def _kit_normals():
     return kit, kit.normals[kit.landmark_vertices("anatomical44", IDS)]
 
 
+def _fd_pose_jacobians(cam, X, idx, w, sigma_px, eps=1e-6):
+    """Central finite differences of the whitened projection w.r.t. (omega, tau_x, tau_y, ln rho)
+    (left rotation increment, t_z = e^-ln rho) and the points, for the visible ``idx``."""
+    from face3d.geometry.rotations import rodrigues
+
+    def proj(R, t, P):
+        Y = P @ R.T + t
+        return cam.f * Y[:, :2] / Y[:, 2:3] + np.array([cam.cx, cam.cy])
+
+    sw = (np.sqrt(w) / sigma_px)[:, None, None]
+    Jp = np.zeros((len(idx), 2, 6))
+    for k in range(6):
+        d = np.zeros(6)
+        d[k] = eps
+        out = []
+        for sgn in (1.0, -1.0):
+            R = rodrigues(sgn * d[:3]) @ cam.R
+            t = cam.t + sgn * np.array([d[3], d[4], 0.0])
+            t[2] = math.exp(-(math.log(1.0 / cam.t[2]) + sgn * d[5]))
+            out.append(proj(R, t, X[idx]))
+        Jp[:, :, k] = (out[0] - out[1]) / (2 * eps)
+    Jc = np.zeros((2 * len(idx), 3 * len(X)))
+    for j, i in enumerate(idx):
+        for a in range(3):
+            dX = np.zeros(3)
+            dX[a] = eps
+            du = (proj(cam.R, cam.t, X[i:i + 1] + dX) - proj(cam.R, cam.t, X[i:i + 1] - dX))[0] / (2 * eps)
+            Jc[2 * j:2 * j + 2, 3 * i + a] = du * sw[j, 0, 0]
+    return Jc, (Jp * sw).reshape(-1, 6)
+
+
+def test_nbv_pose_jacobians_finite_differences():
+    # D-19 hinges on J_p: check the whitened J_p (omega, tau, ln rho) and J_c against central
+    # differences (a zeroed or sign-flipped block would leave the marginalised score unchanged
+    # or wrong without any other test noticing).
+    X = MU.copy()
+    nrm = nbv.template_normals(X, IDS)
+    for yaw, pitch, dist in ((40.0, 10.0, 700.0), (-75.0, -20.0, 1200.0), (0.0, 20.0, 450.0)):
+        cam = nbv.candidate_camera(yaw, pitch, dist, 3000.0, (3000, 4000))
+        for sigma_px in (1.0, 2.5):
+            Jc, Jp, idx, w = nbv.pose_jacobians(cam, X, nrm, sigma_px)
+            assert len(idx) >= 10 and Jp.shape == (2 * len(idx), 6) and np.all((w > 0) & (w <= 1))
+            Jc_fd, Jp_fd = _fd_pose_jacobians(cam, X, idx, w, sigma_px)
+            assert np.abs(Jp - Jp_fd).max() < 1e-5 * np.abs(Jp_fd).max(), (yaw, np.abs(Jp - Jp_fd).max())
+            assert np.abs(Jc - Jc_fd).max() < 1e-5 * np.abs(Jc_fd).max()
+    # template normals: exact kit landmark normals with ids, nearest-vertex ICP without
+    kit, normals = _kit_normals()
+    assert np.allclose(nbv.template_normals(MU, IDS), normals / np.linalg.norm(normals, axis=1, keepdims=True))
+    assert np.einsum("ij,ij->i", nbv.template_normals(MU), nbv.template_normals(MU, IDS)).min() > 0.999
+
+
 def test_nbv_frontal_only_picks_profile():
-    kit, normals = _kit_normals()                                # template normals (DESIGN 4.8)
-    picks, slow = [], 0.0
+    # DESIGN 4.14 acceptance through the WBS interface: no normals and no ids, so the default
+    # template normals (DESIGN 4.8) are used; subject distance U(0.6, 1.5) m per seed (the
+    # rear-phone rig range).  nbv.ACCEPTANCE_RATES records the rate per fixed distance (lowest at
+    # 0.6 m, where the 45 deg view can tie with the profile).
+    picks, slow, strict = [], 0.0, 0
     for seed in range(30):
         rng = np.random.default_rng(5000 + seed)
         yaws = tuple(rng.uniform(-15.0, 15.0, size=3))
-        dist = float(rng.uniform(800.0, 1500.0))
+        dist = float(rng.uniform(600.0, 1500.0))
         _, views, _ = _scene(200 + seed, yaws, dist)
         res = _solve(views)
         t0 = time.perf_counter()
         ranked, sentence, known = nbv.next_best_view(res.cov_shape, res, res.X, noise_model=NM,
-                                                     region_index=RI, normals=normals, return_known=True)
+                                                     region_index=RI, return_known=True)
         slow = max(slow, time.perf_counter() - t0)
         assert len(ranked) == 39
         assert all(s <= known[(y, p)] * (1 + 1e-9) + 1e-9 for y, p, s in ranked)
+        # marginalising the unknown pose costs information for some candidates (D-19)
+        strict += sum(s < 0.98 * known[(y, p)] for y, p, s in ranked) >= 5
         assert all(s >= -1e-9 for _, _, s in ranked)
         assert [s for _, _, s in ranked] == sorted((s for _, _, s in ranked), reverse=True)
         picks.append(ranked[0])
         assert sentence.startswith("Next: ") and sentence.endswith(" m")
     frac = np.mean([abs(y) >= 60.0 for y, _, _ in picks])
     assert frac >= 0.9, picks
+    assert strict == 30, strict
     assert slow < 2.0, slow
+    # the radial proxy is explicit only; anything else is refused
+    r_rad, _ = nbv.next_best_view(res.cov_shape, res, res.X, noise_model=NM, region_index=RI, normals="radial")
+    assert len(r_rad) == 39
+    with pytest.raises(ValueError):
+        nbv.next_best_view(res.cov_shape, res, res.X, noise_model=NM, region_index=RI, normals="sphere")
     # the sentence: subject's left = positive yaw
     assert nbv.describe_view(60.0, 0.0, 1750.0) == "Next: left profile, eye height, 1.5-2 m"
     assert nbv.describe_view(-45.0, -20.0, 1200.0) == "Next: right three-quarter, from below, 1-1.4 m"

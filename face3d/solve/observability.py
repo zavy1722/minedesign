@@ -27,6 +27,11 @@ Conventions
 * Status vocabulary (DESIGN D-16, shared with :mod:`face3d.fit.symmetry`):
   ``'measured'``, ``'constrained'``, ``'prior-driven'``, ``'unobserved'``.
   Focal status: ``'measured'``, ``'partial'``, ``'prior_used'``.
+* Prior weight 1 (H2): labels of a likeness-mode (widened-prior) solve are those of the
+  standard solve of the same photos (``assess(widened, standard_result=standard)``), so
+  they are identical by construction; widened results carry :data:`FLAG_LIKENESS` and
+  are refused without it.  Tiers and coverage count only views with evidence (frozen
+  views are left out, D-17).
 
 Numeric defaults
 ----------------
@@ -842,14 +847,37 @@ def reported_covariance(result: Any, gamma: float = 1.0, cov: np.ndarray | None 
       linearised propagation of a bias shared across views.  It tends to D where the
       photos determine a point (so the floor still never shrinks with more views, D-06 /
       H3) and to 0 where the prior does (a bias the solve did not follow cannot be in the
-      error).  Measured on the WP-01 legacy scenarios (30 seeds, robust schedule, the
-      detector's shared definition bias; gamma 1), gauge-projected NEES/dof and 1-sigma
-      coverage against the DESIGN 7.5 gates 0.8-1.25 / 0.60-0.76 are: posterior alone
-      1.18-1.53 / 0.68-0.72 (over-confident), floor form 0.70-0.74 / 0.78-0.79
-      (under-confident), gain form 0.82-0.86 / 0.752-0.764 (inside except the selfie
-      coverage 0.764; at the conservative edge because the engine's noise model carries a
-      detector floor the simulator does not draw, so the bias-free posterior already reads
-      0.94); see tests/test_observability.py.
+      error).
+
+    **Honesty gates are NOT met everywhere** (DESIGN 7.5: NEES/dof 0.8-1.25, aligned 1-sigma
+    coverage 0.60-0.76).  Gauge-projected NEES/dof / coverage, 30 seeds (1000-1029), robust
+    schedule, the detector simulator's shared definition bias, gamma 1, measured by WP-16:
+
+    ===================================  ============  ===========  ===========
+    test bed (noise model before FU-01)  posterior     floor form   gain form
+    ===================================  ============  ===========  ===========
+    WP-01 legacy scenarios, legacy prior 1.18-1.53 /   0.70-0.74 /  0.82-0.86 /
+                                         0.68-0.72     0.78-0.79    0.752-0.764
+    WP-01 rear_phone, factor prior       1.30 / 0.68   0.62 / 0.81  0.83 / 0.75
+    WP-01 studio_ring, factor prior      1.54 / 0.62   0.67 / 0.78  0.88 / 0.71
+    WP-01 selfie, factor prior           0.94 / 0.79   0.50 / 0.85  0.68 / 0.81 FAIL
+    WP-01 camera_roll, factor prior      1.35 / 0.68   0.65 / 0.80  0.83 / 0.74
+    ===================================  ============  ===========  ===========
+
+    With the default D-04 factor prior the selfie rig fails BOTH gates (under-confident; the
+    posterior alone is already at the coverage gate, so the cause is upstream: the engine's
+    noise model carries a detector floor the simulator does not draw, not the gain form).
+    After the FU-01 noise change (point kinds without an image tangent isotropic at
+    max(sigma_n, sigma_t), in progress during this WP) every bed reads under-confident with the
+    gain form: legacy scenarios 0.67-0.72 / 0.79-0.83 (posterior alone 0.82-1.04 /
+    0.74-0.79); factor prior rear_phone 0.67 / 0.79, studio_ring 0.71 / 0.76, selfie 0.58 /
+    0.85, camera_roll 0.68 / 0.80; WP-11 out-of-prior subjects
+    (anatomical44 landmarks of ``out_of_prior_subject``) rear_phone 0.62 / 0.82,
+    studio_ring 0.65 / 0.79, selfie 0.52 / 0.86, camera_roll 0.60 / 0.82 (gain form; S1
+    with the prior-weight-1 posterior within 0.01).  Calibrating the noise floor against
+    the simulator (and with it these gates) is handed to WP-23 (DESIGN 7.5, H12);
+    tests/test_observability.py::test_sigma_rep_honesty_on_testbed holds the legacy
+    rear-phone gate.
     """
     X = np.asarray(result.X, float)
     N = len(X)
@@ -1102,6 +1130,10 @@ def tier(scale_mode: str, region_statuses: Mapping[str, str], n_views: int, yaws
       prior with sigma <= 0.04 (``exif_log_sigma``, per view or scalar);
     * A: scale in {'measured', 'iris'}, >= 3 views and max |yaw| >= 45 deg;
     * B: everything else (H4: without a metric source the tier never exceeds B).
+
+    ``n_views``, ``yaws``, ``focal_statuses`` and a per-view ``exif_log_sigma`` describe the
+    views that contributed evidence (D-17): :func:`assess` leaves frozen (rejected or
+    empty) views out.
     """
     y = np.abs(np.asarray(list(yaws), float))
     n_views = int(n_views)

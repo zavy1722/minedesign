@@ -55,7 +55,14 @@ Residual rows (all whitened), in this order::
   A frozen view keeps no row coupling its block to shared parameters (its focal tie is
   dropped), so it cannot bias phi_G; the covariance is conditional on the frozen parameters
   (their rows and columns of Sigma are zero) and their stiff rows do not enter the ridge.
-* zeta, shape, symmetry, midline, gauge: unchanged from WP-07 (D-03, 4.6, 4.11).
+* zeta, shape, gauge: unchanged from WP-07 (D-03, 4.6).
+* symmetry, midline (legacy ``Priors.pairs`` / ``Priors.midline``, DESIGN 4.11): with zeta
+  disabled, (X_l - M X_r) / sigma_sym and X_mid,x / sigma_mid on X in mm (legacy, bit-identical
+  to WP-07).  With zeta enabled they act on the scale-free X~ = e^-zeta X like the shape prior
+  (WBS FU-01; DESIGN D-03 "zeta carries size"): (X~_l - M X~_r) / sigma_sym and
+  X~_mid,x / sigma_mid, with d/dX = e^-zeta (legacy rows) and d/dzeta = -(the residual).  On X
+  in mm these rows shrink with the head (their energy scales as e^2zeta at fixed X~), which
+  pulled a weakly measured scale toward small heads (~8 % in the WP-15 iris-only scene).
 
 Jaw hinge (DESIGN 4.9): X_iv = X_i + w_i (R_x(theta_v)(X_i - c) - (X_i - c)), axis +x through
 ``jaw_center_mm`` (default (0, -5, 11.5) mm: mid-tragion + (0, -5, +11.5) mm, the head-frame
@@ -193,6 +200,11 @@ RHO_MM_PER_PARAM = 1e-3
 
 @dataclass
 class Priors:
+    """Legacy priors.  ``mean`` / ``sigma``: iid shape prior; ``pairs`` / ``sigma_sym`` and
+    ``midline`` / ``sigma_mid``: symmetry and midline rows (DESIGN 4.11).  With the explicit
+    log-scale zeta enabled all of them act on the scale-free X~ = e^-zeta X (WBS FU-01 for
+    the symmetry and midline rows); with zeta disabled, on X in mm (legacy numerics)."""
+
     mean: np.ndarray | None = None          # (N,3) prior mean landmark positions (head frame)
     sigma: np.ndarray | float = 8.0         # (N,), (N,3) or scalar, mm
     pairs: list[tuple[int, int]] = field(default_factory=list)  # (left, right) index pairs
@@ -1431,22 +1443,41 @@ class _Problem:
                 if zi >= 0:
                     J[:, zi] = -(Js @ Xt.ravel())               # d X~ / d zeta = -X~
                 jacs.append(J)
+        # Symmetry and midline rows (DESIGN 4.11).  zeta disabled: on X in mm, the legacy
+        # WP-07 expressions verbatim (bit-identical).  zeta enabled (WBS FU-01, DESIGN D-03):
+        # on X~ = e^-zeta X, so they constrain shape, not size; d r / d X = e^-zeta x (the
+        # legacy row), d r / d zeta = -r (d X~ / d zeta = -X~).
         pairs = self.pairs
         if len(pairs):
-            res.append(((X[pairs[:, 0]] - X[pairs[:, 1]] * MIRROR) / self.S_sym).ravel())
+            if zi >= 0:
+                r_sym = ((Xt[pairs[:, 0]] - Xt[pairs[:, 1]] * MIRROR) / self.S_sym).ravel()
+            else:
+                r_sym = ((X[pairs[:, 0]] - X[pairs[:, 1]] * MIRROR) / self.S_sym).ravel()
+            res.append(r_sym)
             if jac:
                 J = np.zeros((3 * len(pairs), self.n_ext))
                 a = np.arange(len(pairs))
                 for c in range(3):
-                    J[3 * a + c, po + 3 * pairs[:, 0] + c] += 1.0 / self.S_sym[:, c]
-                    J[3 * a + c, po + 3 * pairs[:, 1] + c] -= MIRROR[c] / self.S_sym[:, c]
+                    if zi >= 0:
+                        J[3 * a + c, po + 3 * pairs[:, 0] + c] += s / self.S_sym[:, c]
+                        J[3 * a + c, po + 3 * pairs[:, 1] + c] -= (MIRROR[c] * s) / self.S_sym[:, c]
+                    else:
+                        J[3 * a + c, po + 3 * pairs[:, 0] + c] += 1.0 / self.S_sym[:, c]
+                        J[3 * a + c, po + 3 * pairs[:, 1] + c] -= MIRROR[c] / self.S_sym[:, c]
+                if zi >= 0:
+                    J[:, zi] = -r_sym
                 jacs.append(J)
         mid = self.mid
         if len(mid):
-            res.append(X[mid, 0] / self.S_mid)
+            r_mid = Xt[mid, 0] / self.S_mid if zi >= 0 else X[mid, 0] / self.S_mid
+            res.append(r_mid)
             if jac:
                 J = np.zeros((len(mid), self.n_ext))
-                J[np.arange(len(mid)), po + 3 * mid] = 1.0 / self.S_mid
+                if zi >= 0:
+                    J[np.arange(len(mid)), po + 3 * mid] = s / self.S_mid
+                    J[:, zi] = -r_mid
+                else:
+                    J[np.arange(len(mid)), po + 3 * mid] = 1.0 / self.S_mid
                 jacs.append(J)
         if self.gauge is not None:
             G, mu = self.gauge

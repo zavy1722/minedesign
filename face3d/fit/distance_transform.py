@@ -13,7 +13,9 @@ Computing 8 (2012): the squared Euclidean transform of a sampled function f is s
 D(p) = min_q (|p - q|^2 + f(q)), and each 1D pass is the lower envelope of the parabolas
 (x - q)^2 + f(q), built left to right and read off in a second sweep (O(n) per line).
 :func:`edt_squared` runs the 1D pass down the **columns** (f = 0 on True pixels, +inf
-elsewhere) and then along the **rows** of the result.  The 1D pass is vectorised across
+elsewhere; for this binary f the envelope is the squared distance to the nearest True
+pixel of the column, computed directly from running max / min indices) and then the
+general pass along the **rows** of the result.  The 1D pass is vectorised across
 all lines of a pass: every line advances in lock-step over q, and the "pop parabolas
 while the new intersection lies left of the stored boundary" loop runs on the subset
 of lines that still need popping.  The result is **exact**: the squared distances are
@@ -111,6 +113,29 @@ def fh_lower_envelope(f: np.ndarray, return_arg: bool = False):
     return (D, arg) if return_arg else D
 
 
+def _binary_first_pass(m: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """First (along the last axis) pass for a binary f (0 on True, inf elsewhere), all lines at once.
+
+    The lower envelope of zero-height parabolas is the squared distance to the nearest True
+    entry of the line, so the pass reduces to the previous / next True index (running
+    max / min of the True positions), O(n) per line without the general envelope loop.
+    Ties go to the lower index, as in :func:`fh_lower_envelope`.  Returns (D, arg) like it.
+    """
+    L, n = m.shape
+    idx = np.arange(n, dtype=np.int64)
+    prev = np.maximum.accumulate(np.where(m, idx, -1), axis=1)
+    nxt = np.minimum.accumulate(np.where(m, idx, n)[:, ::-1], axis=1)[:, ::-1]
+    dp = np.where(prev >= 0, idx - prev, np.iinfo(np.int64).max)
+    dn = np.where(nxt < n, nxt - idx, np.iinfo(np.int64).max)
+    use_prev = dp <= dn
+    arg = np.where(use_prev, prev, nxt)
+    d = np.where(use_prev, dp, dn)
+    none = (prev < 0) & (nxt >= n)
+    arg = np.where(none, -1, arg)
+    D = np.where(none, np.inf, d.astype(np.float64) ** 2)
+    return D, arg
+
+
 def edt_with_nearest(mask: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Exact squared distance (px^2) to the nearest True pixel and that pixel's (row, col).
 
@@ -122,9 +147,8 @@ def edt_with_nearest(mask: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     if m.ndim != 2:
         raise ValueError("mask must be 2D (H, W)")
     H, W = m.shape
-    f = np.where(m, 0.0, np.inf)
-    # columns: lines are the W columns, each of length H
-    d_col, a_col = fh_lower_envelope(f.T, return_arg=True)          # (W, H)
+    # columns: lines are the W columns, each of length H (binary f: nearest True in the column)
+    d_col, a_col = _binary_first_pass(np.ascontiguousarray(m.T))     # (W, H)
     # rows: lines are the H rows of the column result, each of length W
     d2, a_row = fh_lower_envelope(np.ascontiguousarray(d_col.T), return_arg=True)   # (H, W)
     nearest = np.full((H, W, 2), -1, dtype=np.int64)
@@ -142,8 +166,7 @@ def edt_squared(mask: np.ndarray) -> np.ndarray:
     m = np.asarray(mask, dtype=bool)
     if m.ndim != 2:
         raise ValueError("mask must be 2D (H, W)")
-    f = np.where(m, 0.0, np.inf)
-    d_col = fh_lower_envelope(f.T)
+    d_col = _binary_first_pass(np.ascontiguousarray(m.T))[0]
     return fh_lower_envelope(np.ascontiguousarray(d_col.T))
 
 
