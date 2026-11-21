@@ -315,6 +315,12 @@ def _pseudonormal_at(tris: np.ndarray, tri_id: np.ndarray, bary: np.ndarray,
     if np.any(vtx):
         k = np.argmax(nzero[vtx], axis=1)          # the single non-zero coordinate
         out[vtx] = vert_n[tris[tri_id[vtx], k]]
+    # A vanishing pseudonormal (a vertex or edge used only by degenerate faces,
+    # or a fin whose two faces cancel) falls back to the face normal; a
+    # degenerate face's zero normal then leaves the distance positive.
+    bad = np.einsum("ij,ij->i", out, out) <= 0.0
+    if np.any(bad):
+        out[bad] = face_n[tri_id[bad]]
     return out
 
 
