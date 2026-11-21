@@ -815,6 +815,24 @@
    "tier": "opus",
    "implementableHere": true,
    "spec": "Two defects found by the WP-15 implementer (see its report) in files owned by WP-07/WP-10:\n1. face3d/solve/bundle.py: the legacy Priors.pairs / Priors.midline symmetry and midline residual rows act on X in physical mm, while the shape prior acts on X~ = exp(-zeta) X when the explicit log-scale zeta is enabled (WP-07/DESIGN D-03). With a weak scale (iris only, free zeta) these rows therefore pull the global scale toward smaller heads (measured: head size ~8% low in WP-15's iris-only scene). Fix: when zeta is enabled, evaluate the symmetry and midline rows on X~ (residual (X~_l - M X~_r)/sigma_sym and X~_mid,x/sigma_mid) with the correct analytic Jacobian (d/dX = e^-zeta * (...), d/dzeta = -(...)), unchanged behaviour when zeta is disabled (legacy path must stay bit-identical; existing tests must pass). Add a regression test: iris-only (or no metric cue) scene with symmetry rows on, head-size bias within the no-symmetry-rows bias +- 1%; strict per-block analytic-vs-numeric Jacobian check of the new rows.\n2. face3d/solve/noise.py: point-like landmark kinds (e.g. 'extremal') whose image tangent is unknown use sigma_n only, underestimating noise along the unknown tangent (DESIGN 4.4 gives sigma_t, e.g. 3 mm for extremal). Fix: when no tangent direction is available, use an isotropic covariance with variance max(sigma_n^2, sigma_t^2) for kinds whose sigma_t is finite (curve/contour kinds whose sigma_t is 'free' keep their existing handling); document it. Add a test that the per-observation covariance for an extremal point without tangent has both eigenvalues >= sigma_t(px)^2, and that the WP-07 chi2/NEES tests still pass.\nDo not change other behaviour. Run the 30-seed scorecard fast mode and report any change vs the current state."
+  },
+  {
+   "id": "FU-02",
+   "title": "Reconcile the sigma_rep honesty gates with the FU-01 noise model",
+   "milestone": "M3",
+   "files": [
+    "face3d/solve/observability.py",
+    "tests/test_observability.py",
+    "face3d/fit/symmetry.py",
+    "tests/test_symmetry.py"
+   ],
+   "dependsOn": [
+    "WP-16",
+    "FU-01"
+   ],
+   "tier": "opus",
+   "implementableHere": true,
+   "spec": "After FU-01 (extremal points without an image tangent now use isotropic max(sigma_n, sigma_t) = 3 mm), tests/test_observability.py::test_sigma_rep_honesty_on_testbed fails: on rear_phone_legacy the posterior-only NEES/dof is 0.94 (the test asserts > 1.25 to show posterior-only is over-confident) and the gain-form sigma_rep reads NEES 0.71 / 1-sigma coverage 0.79 (under-confident; gates are NEES/dof 0.8-1.25, coverage 0.60-0.76, DESIGN 7.5).\nTasks:\n1. Re-measure the honesty of posterior-only and gain-form sigma_rep on the WP-01 test bed with the CORRECT noise model: pass the detector simulator's own tangents to the views (FU-01 did this for the WP-07 chi2 test; see tests/test_bundle_fixes.py::_chi2_seed and tests/test_followups.py). Report the table for all 5 definition-bias scenarios + nobias.\n2. If the gain form is still outside the gates, recalibrate it honestly (e.g. the detector floor sigma_floor that the simulator does not draw, or the nu/chi2 deflation rule) \u2014 never by weakening the DESIGN 7.5 gates. Document the change with its evidence.\n3. Update test_sigma_rep_honesty_on_testbed to assert the DESIGN 7.5 gates on the gain form with tangents passed, and replace the hard-coded 'posterior-only NEES > 1.25' with a property that holds under the correct model (e.g. posterior-only is over-confident when definition bias is drawn: NEES_post > NEES_gain), with measured numbers in comments.\n4. Also fix the WP-12 SymmetryTerm defect reported by FU-01: in face3d/fit/symmetry.py SymmetryTerm rows and plane offset act on state.X in mm; when the bundle's zeta is enabled they must act on exp(-zeta) X and return a 'zeta' Jacobian block (exact analytic, per-block strict FD check in tests/test_symmetry.py). Legacy behaviour (no zeta) unchanged."
   }
  ]
 }
