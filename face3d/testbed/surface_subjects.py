@@ -54,6 +54,7 @@ __all__ = [
     "SurfaceSubject", "out_of_prior_subject", "expression_field", "expression_meta",
     "EXPRESSION_KINDS", "area_ratios", "face_hemisphere", "symmetric_part", "antisymmetric_part",
     "asymmetry_rms", "region_weight", "SURFACE_DEFAULTS", "FACE_MIN_Z_MM", "SubjectGenerationError",
+    "feature_displacements", "jaw_open_weights", "HINGE_LANDMARK_WEIGHTS", "HINGE_SCHEME", "RIGID_BASES",
 ]
 
 _NEW = "\U0001F195"     # introduced by this design, uncalibrated
@@ -106,15 +107,26 @@ SURFACE_DEFAULTS = register_defaults("testbed.surface", {
     "smile_cheek_up": Default(0.25, _NEW, _WP + ": smile cheeks up 0.25*amount", "", (0.0, 10.0)),
     "smile_cheek_falloff_mm": Default(15.0, _NEW, _THIS + ": cheek-region falloff for the smile", "mm",
                                       (0.1, 200.0)),
+    "smile_guard_mm": Default(8.0, _NEW, _THIS + ": the smile field is multiplied by "
+                              "prod_j(1 - exp(-d_j^2 / 2r^2)) over the rigid-class landmarks (r = 8 mm) so they "
+                              "stay fixed (review of WP-11: DESIGN 4.9 hard gate)", "mm", (0.1, 100.0)),
     # DESIGN 4.9: hinge c = mid-tragion + (0, -5, +11.5) mm (bl K8, contested range 10-13 mm anterior).
     "jaw_hinge_y_mm": Default(-5.0, "↔️", "DESIGN 4.9 jaw hinge (bl K8)", "mm", (-50.0, 50.0)),
     "jaw_hinge_z_mm": Default(11.5, "↔️", "DESIGN 4.9 jaw hinge 10-13 mm anterior (bl K8)", "mm", (-50.0, 50.0)),
+    "jaw_smooth_sigma_mm": Default(20.0, _NEW, _THIS + ": area-weighted Gaussian smoothing (rest shape) of the "
+                                   "kit jaw weights used by jaw_open; removes the kit's z = -10 mm step so the "
+                                   "hinge field stays fold-free (det > 0.2) to 15 deg on the procedural kit",
+                                   "mm", (0.0, 200.0)),
+    "jaw_pin_rho_mm": Default(15.0, _NEW, _THIS + ": Gaussian RBF width of the smooth correction that pins every "
+                              "anatomical landmark's embedding vertices to its DESIGN 4.9 hinge weight", "mm",
+                              (0.5, 200.0)),
     "brow_falloff_mm": Default(10.0, _NEW, _THIS + ": brow-raise falloff around the forehead region", "mm",
                                (0.1, 200.0)),
-    "blink_ramp_min_mm": Default(2.0, _NEW, _THIS + ": blink vertical ramp above the pupil (min)", "mm",
-                                 (0.1, 50.0)),
-    "blink_ramp_per_mm": Default(1.5, _NEW, _THIS + ": blink ramp = max(min, 1.5*amount) keeps the field "
-                                 "fold-free (gradient < 1)", "", (1.0, 10.0)),
+    "brow_ramp_min_mm": Default(3.0, _NEW, _THIS + ": brow-raise vertical ramp from the nasion height to the "
+                                "lowest forehead vertex, at least this tall (keeps n fixed)", "mm", (0.1, 50.0)),
+    "blink_ramp_min_mm": Default(2.0, _NEW, _THIS + ": blink vertical ramp above the pupil reaches full "
+                                 "amplitude at ps; this is its minimum height (and the fallback without ps)",
+                                 "mm", (0.1, 50.0)),
     "blink_falloff_mm": Default(4.0, _NEW, _THIS + ": blink falloff outside the eyes region", "mm",
                                 (0.1, 50.0)),
 })
@@ -126,6 +138,19 @@ _FLIP = np.array([-1.0, 1.0, 1.0])
 
 #: Supported expression kinds (WP-11 spec).
 EXPRESSION_KINDS: tuple[str, ...] = ("smile", "jaw_open", "brow_raise", "blink")
+
+#: Scheme whose landmarks carry the DESIGN 4.9 hinge weights and expression classes.
+HINGE_SCHEME: str = "anatomical44"
+
+#: DESIGN 4.9 jaw-hinge weights omega_i by anatomical base id ("me, gn, pg, sl, li 1.0; sto 0.5;
+#: ch 0.4; go 1.0; others 0"; bl K8 ↔️).  Copied from the DESIGN text, not imported, so this module
+#: stays independent of face3d.model; tests check it equals face3d.model.registry.
+HINGE_LANDMARK_WEIGHTS: dict[str, float] = {"me": 1.0, "gn": 1.0, "pg": 1.0, "sl": 1.0, "li": 1.0,
+                                            "sto": 0.5, "ch": 0.4, "go": 1.0}
+
+#: Rigid expression class of DESIGN 4.9 by anatomical base id ([Rob 3.6] 🧠; the same table as
+#: face3d.model.registry, checked by a test).  The smile field holds these landmarks fixed.
+RIGID_BASES: tuple[str, ...] = ("n", "g", "en", "ex", "t", "or", "zy", "eu", "op", "v", "tr", "p", "sa", "sba")
 
 
 class SubjectGenerationError(RuntimeError):
