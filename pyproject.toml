@@ -1,6 +1,10 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "face3d"
-version = "0.1.0"
+version = "0.2.0"
 description = "Photo-to-3D face fitting engine and Blender add-on, grounded in facial anatomy research"
 requires-python = ">=3.11"
 dependencies = ["numpy>=1.24"]
@@ -8,5 +12,19 @@ dependencies = ["numpy>=1.24"]
 [project.optional-dependencies]
 test = ["pytest>=7"]
 
+[project.scripts]
+face3d = "face3d.pipeline.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["face3d", "face3d.*"]
+
+[tool.setuptools.package-data]
+face3d = ["data/*.json", "schemes/*.json", "core/defaults.toml"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# default (per-push) run skips the >= 30-seed release gates; run them with: python -m pytest -m slow
+addopts = ["-m", "not slow"]
+markers = [
+    "slow: release-gate runs with >= 30 seeds (DESIGN 7.4/7.5); deselect with -m 'not slow'",
+]

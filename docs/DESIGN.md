@@ -36,7 +36,7 @@ The engine stays numpy-only and bpy-free. The Blender extension stores no wheels
 | D-13 | Contours: `ContourObs` kinds {hard, outer_bound, inner_bound}, normal-only residuals, sub-vertex zero crossing, truncated backward term, distance transform, gates at 0.15·IOD_px and 40° normal mismatch, Viterbi edge snap as the zero-download contour source. | Fixes tangential drift; vertex contours carry half-edge bias. | [Acc 3.8]; [Rob 3.8]; [Art 3.5] |
 | D-14 | Expression handled as **covariance inflation** PΣ_exprPᵀ sized by robustness's class multipliers; tags are relative to the subject's own minimum, with no-score fallbacks; jaw hinge 10–13 mm anterior to tragion, N(1.5°, 1°²) on neutral views, σ 3° expressive, bounded [0°, 30°]. A smile moving neutral identity ≥ 0.3 mm fails CI. | First-order marginalisation only down-weights; the 0.3 mm gate stays hard. | [Acc 3.6]; [Rob 3.6]; J1 |
 | D-15 | Symmetry is **evidence-gated**: full per-pair σ only where the region is prior-driven or unobserved, weight ×0.25 elsewhere; plane re-fitted by reflection Procrustes; output never symmetrised; `Asym` exported as its own key. | anat R4.2 assist mode; R3.3. | [Art 3.7]; J1/J2 |
-| D-16 | **Claims ledger** with four states (measured / constrained / prior-driven / unobserved), computed at prior weight 1 with hard coverage rules and an absolute σ ≤ region-target condition. σ_rep² = σ_post²·max(1, γ², χ²_red) + σ_def². | The rigidity slider and likeness mode must not change labels. | [Rob 3.10]; [Acc 3.11]; J1/J2 |
+| D-16 | **Claims ledger** with four states (measured / constrained / prior-driven / unobserved), computed at prior weight 1 with hard coverage rules and an absolute σ ≤ region-target condition. σ_rep² = σ_post²·max(1, γ², χ²_red) + σ_def². *Deviation recorded at M6 (WP-23, FU-02 option (i)): the pipeline ships the factor max(γ², min(1, χ²_red/κ), χ²_red, 0.5) instead; see §4.13.* | The rigidity slider and likeness mode must not change labels. | [Rob 3.10]; [Acc 3.11]; J1/J2 |
 | D-17 | Tiers S/A/B/C (*metric / iris-scaled / proportions only / blockout*) are computed from evidence; T0–T3 are capture coaching only. Every report says "not validated against a scan" until M7 runs. | [Rob 1]; [Art 5.2] | J1/J2 |
 | D-18 | **Shrinkage gate fixed**: test T = x̂ᵀS⁻¹x̂ against its *predictive* distribution (mean k_eff = Σλ_i, λ_i = eig(I − S^-½Σ_postS^-½)), not χ²_K. | The old gate fired on 85 % of faces drawn from the prior itself 🔢; the new gate fires at 0.8 % and detects 10× over-shrinkage 93 % 🔢. | J1 fatal flaw [all] |
 | D-19 | Next-best photo: candidate pose Schur-marginalised, H′ = H + J_cᵀWJ_c − J_cᵀWJ_p(J_pᵀWJ_p + Λ_p)⁻¹J_pᵀWJ_c, perceptual region weights, user's own lens and distance. | Accuracy's gain treats the new pose as known. | [Art 3.10]; J1/J2 |
@@ -387,6 +387,8 @@ Output split: S = ½(V + mirror(V)), Asym = V − S. Checks: mirror RMSD < 0.3 m
 
 Flags: LOVO error > 2× in-sample; focal versus EXIF > 15 %; group spread > 5 %.
 
+**Deviation recorded at M6 (WP-23; WBS FU-02 option (i); 🆕 test-bed calibrated, provisional).** The pipeline's observe stage reports σ_rep with the factor f = max(γ², min(1, χ²_red/κ), χ²_red, 0.5) in place of max(1, γ², χ²_red) (`pipeline.sigma_rep_deflate`, default on; `solve.observability.inflation(deflate=True)`; κ = 0.9535 corrects χ²_red for the robust trimming; floor `observability.deflation_min`). f equals the rule above whenever γ ≥ 1 or χ²_red ≥ 1, so inflation is untouched; it falls below 1 only when the in-sample χ²_red *and* the held-out γ² both say the declared noise is over-stated, and then takes the larger of the two. With fewer than 3 views γ = 1 and nothing is deflated. Both χ²_red and γ are evaluated against the noise **before** the QA σ multipliers (Q-SMALL, Q-BLUR, Q-NEAR × `pipeline.downweight_sigma_mult`), so the caution a down-weighted view adds is never deflated away; the result reports these calibration values (`chi2_red`, `gamma`), the solve's own χ²_red (`chi2_red_solve`) and f (`inflation`). Justification: with the rule above the gain-form σ_rep is over-conservative on the test bed (1σ coverage 0.771 against the §7.5 band 0.60–0.76 on the definition-bias row; NEES/dof 0.79 on two scorecard scenarios, FU-02); with f, 30 seeds give NEES/dof 1.04 and coverage 0.719 on that row, and no gated set is over-confident (`docs/RESULTS.md` §4.1). Evidence is tier 1 (synthetic) only; the rule reverts to the one above by setting the default to false.
+
 **Shrinkage and plausibility** (D-18), per region r with x̂_r = X̃_r − μ_r: T_r = x̂_rᵀS_rr⁻¹x̂_r and λ = eig(I − S_rr^-½Σ_rrS_rr^-½). Then m = Σλ (= k_eff,r), v = 2Σλ², g = v/2m, h = 2m²/v. The finding is `pulled toward average` if T_r < g·q_h(−2.326) and `implausible` if T_r > g·q_h(3.090), with q_h the Wilson–Hilferty quantile. k_eff,r is reported.
 
 ### 4.14 Next-best photo
@@ -404,7 +406,7 @@ Candidates: yaw −90…90° in 15° steps × pitch {−20°, 0°, +20°}, using
 
 Gates at every stage: det J_warp > 0.2 and no flipped triangles (MM-11), else roll back the stage and flag. Targets are never symmetrised.
 
-**Uncertainty.** Stage B is linear in the targets, V_B = V_A + A(X − X_A), with A = Φ_eval[K − Λ, P; Pᵀ, 0]⁻¹ restricted to the target columns. The explicit map is verified by finite differences. Cov(V_j) = A_jΣ_XA_jᵀ + σ²_res,r(j)·I₃, computed as ‖A_jL_X‖² with Σ_X = L_XL_Xᵀ, in chunks; no unit solves (J1/J2 flaw). σ_res by region (lids 1–1.5, nose 2–3, cheeks 2.5–4, ears 3–5, scalp 3–6, neck 5–10 mm; 🧠) applies until stage D's joint Laplace posterior covers the vertex (k > 0.5). Reported per vertex: σ_n = √(n_jᵀCov(V_j)n_j) and the σ_rep inflation of §4.13.
+**Uncertainty.** Stage B is linear in the targets, V_B = V_A + A(X − X_A), with A = Φ_eval[K − Λ, P; Pᵀ, 0]⁻¹ restricted to the target columns. The explicit map is verified by finite differences. Cov(V_j) = A_jΣ_XA_jᵀ + σ²_res,r(j)·I₃, computed as ‖A_jL_X‖² with Σ_X = L_XL_Xᵀ, in chunks; no unit solves (J1/J2 flaw). σ_res by region (lids 1–1.5, nose 2–3, cheeks 2.5–4, ears 3–5, scalp 3–6, neck 5–10 mm; 🧠) applies until stage D's joint Laplace posterior covers the vertex (k > 0.5). Reported per vertex: σ_n = √(n_jᵀCov(V_j)n_j) and the σ_rep inflation of §4.13. *Recalibration recorded at M6 (WP-23; 🆕 test-bed calibrated, provisional):* Σ_X is the shape covariance `cov_shape` (conditional on scale) times the §4.13 factor f, and σ_res enters as `pipeline.sigma_res_scale` (0.25) × the regional values above. The regional values themselves (🧠, warp residuals against real faces) are unchanged; the multiplier is calibrated on the synthetic test bed only, where the warp reproduces the procedural subjects far better than the literature residuals, and must be re-derived (most likely raised towards 1) when scans are available (H8). Evidence: `docs/RESULTS.md` §4.2.
 
 ### 4.16 Contours, profiles and edge snap
 
@@ -590,34 +592,17 @@ Every build supports: (1) manual pins and imported `LandmarkSet` JSON (zero-down
 
 Alarm budget: ≤ 1 spurious warn/block finding per 10 clean photos.
 
+**Status at M6 (WP-23; targets unchanged).** The release run (`tests/test_fault_matrix.py`, 30 seeds through the pipeline, every rate on its point estimate) meets the rows for orientation, selfies, beard and glasses tags, rectilinear off-axis, gross outliers, definition bias and the alarm budget. These targets are *calibration-pending*: mirror TPR; focal < 5 % with a cropped or missing EXIF and C-FOCAL-PRIOR; expressive-tag TPR and the 0.3 mm identity bound; Q-RETOUCH TPR; stereographic model selection (0.63, inside the binomial bound, below the target as a point estimate); hair tag point drops and scalp-inside-hull (not evaluated); Q-SMALL on every 150 px face (149/150: the stage measures max(width, height) of the landmark box, not the face width) and coverage on 150 px faces (0.885, conservative). None is relaxed: each is listed with its measured value, cause and proposed fix in `docs/RESULTS.md` §3.1.
+
+**Open release blocker (honesty, H5 / H12): `exif_crop.focal_label`.** With an EXIF focal that is wrong by ±30 % every view (150/150) is labelled focal "measured" while the solved focal is 28 % off: σ_post(ln f) < 0.10, the H5 rule as written, is inherited from the trusted wrong prior (σ_log 0.04) and not earned from the photos. This is a failing *honesty* gate, not a calibration item; it is not accepted as pending by this note. It stays listed as a release blocker in `docs/RESULTS.md` §3.1 until the label is derived from the data information alone (σ_post at a flat focal prior, or the CAM-7 prior-dominated test) and the focal-vs-EXIF > 15 % flag of §4.13 is raised, or until the owners of H5 record an explicit waiver here. All other honesty conditions (no false flip, no false "keep", never over-confident, no "measured" focal on an unobservable or EXIF-less set) are asserted separately and hold.
+
 ### 7.5 Honesty metrics and promotion
 
 - **Coverage.** In *measured* regions, 0.90–0.99 of vertices have |error| ≤ 1.96σ_rep. Landmarks: aligned 1σ coverage 0.60–0.76 and NEES/dof 0.8–1.25 over ≥ 30 seeds (*validation-test-bed*).
 - **False confidence.** ≤ 5 % of *measured* regions exceed 2× their target.
 - **Promotion rule.** A default or model changes only if held-out error drops and coverage holds, and E_like does not worsen by more than 2 % against the committed scorecard.
 
-### 7.6 Tiers 2–4 (offline, M7)
-
-- **Tier 2**: renders of CC0 heads through a simulated phone pipeline and the user's MediaPipe; only CC0 or synthetic detections are committed (D-26).
-- **Tier 3**: a 3D-printed CC0 head shot on real phones.
-- **Tier 4**: 1–3, growing to ~10, consenting sitters with reference scans and a repeat scan as the noise floor; aggregate results only; retention per eth §4.
-
-These tiers calibrate every 🧠/🆕 default, the per-index detector bias maps and σ_def, and recalibrate the prior from user-supplied ANSUR II CSV (13 head columns, sex-stratified, balanced pooling across groups, never ancestry-conditioned by default) and FLAME 2023 Open landmark samples (attribution recorded).
-
----
-
-## 8. Milestones
-
-| M | Scope | WPs | Acceptance |
-|---|---|---|---|
-| **M1** Measure first + defect fixes | Landmark test bed and baseline; surface metrics and rasteriser; registry and factor prior; core policy; image and landmark I/O; silhouette drift fix, PnP multi-start and focal ladder; σ_px, ζ, σ_def floor, full covariance | 01–07 | Baseline scorecard committed before any engine change; 42 legacy tests pass; each defect has a regression test |
-| **M2** Template, QA, test bed surface | Procedural CC0 head and kit; QA findings and overlay geometry; surface test bed and faults; symmetry; hand-off maths; maintainer tools | 08, 09, 11, 12, 13, 14 | Kit hash refusal; gates fire on fixtures and stay silent on clean ones; rebase 1e-9; limit fit < 0.02 mm |
-| **M3** Robust solve and honesty | Bundle v2; nuisances (scale, mirror, expression, camera models); observability, ledger, tiers, gates, next-best photo | 10, 15, 16 | Fault rows for cameras, mirror, expression; NEES/coverage; next-best photo ≥ 90 % profile |
-| **M3b** (offline) | Real CC0 template, two-annotator landmarks, MediaPipe render-and-detect map | 24 | Annotators agree ≤ 1 mm (≤ 2.5 mm extremal); index map L/R involution; render-detect residual ≤ 1 px |
-| **M4** Surface fit and texture | Contours, edge snap, LinearBasis/Π, SIL-3; warp v2 and per-vertex σ; texture projection | 17, 18, 19 | Nose and chin profile ≤ 1.5 mm; no tangential drift; coverage in measured regions; TEX-8 |
-| **M5** Pipeline + Blender MVP | Project, stages, CLI, jobs; extension core and UI | 20, 21, 22 | CLI runs a synthetic project via `-I` launcher; stub tests; manifest lint; zip has no wheels or non-CC0 assets |
-| **M6** Release gates | Fault matrix, honesty gates, scorecard v1, CI policy checks, package exports | 23 | All §7.4/§7.5 rows; E_like ≤ baseline |
-| **M7** (offline) | Calibration tiers 2–4; prior recalibration | 24 | 🧠/🆕 values replaced by measured ones, with badges updated |
+**Status at M6 (WP-23; bands unchanged).** All bands are met on 30 seeds through the pipeline as shipped (FU-02 factor of §4.13, per-vertex recalibration of §4.15): vertex coverage 0.986 (z RMS 0.61: still conservative, at the upper edge of the band), landmark 1σ coverage 0.719 and NEES/dof 1.04 with a 1 mm definition bias, false confidence 0/107, likeness-mode invariance 30/30, scale z RMS 1.07. With the §4.13 rule as originally written the same run gives landmark coverage 0.771 (outside the band) and vertex coverage 1.000. Evidence, the calibration curves and the remaining conservative cases (sets with QA down-weights) are in `docs/RESULTS.md` §4.
 
 Waves (dependency-ordered, for parallel execution): 1 = {01, 02, 03, 04, 05}; 2 = {06, 07, 08, 09}; 3 = {10, 11, 12, 13, 14}; 4 = {15, 16, 17, 18}; 5 = {19}; 6 = {20}; 7 = {21}; 8 = {22}; 9 = {23}; offline = {24}. WP-01 must merge before WP-06 and WP-07 touch the engine, so the baseline scorecard records today's behaviour.
 

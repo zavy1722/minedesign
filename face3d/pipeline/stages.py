@@ -117,6 +117,15 @@ PIPELINE = register_defaults("pipeline", {
     "downweight_sigma_mult": Default(2.0, _NEW, "WP-20 implementation choice: observation sigma multiplier of a "
                                      "view carrying a 'down_weight' QA finding (Q-SMALL warn, Q-BLUR, Q-NEAR "
                                      "strong/warn; DESIGN 4.1 gives no factor)", "", (1.0, 20.0)),
+    "sigma_rep_deflate": Default(True, _NEW, "WBS FU-02 option (i) / WP-23 (docs/RESULTS.md 4.1): the observe stage "
+                                 "reports sigma_rep with the chi2/gamma deflation factor of "
+                                 "solve.observability.inflation (a recorded deviation from the DESIGN D-16 / "
+                                 "4.13 factor max(1, gamma^2, chi2_red)); chi2_red and gamma are taken against "
+                                 "the noise before the QA sigma multipliers. Test-bed calibrated, provisional", ""),
+    "sigma_res_scale": Default(0.25, _NEW, "WP-23 recalibration (WP-19 integration note; docs/RESULTS.md 4.2): "
+                               "multiplier on the regional warp residual sigma (fit.uncertainty.SIGMA_RES_MM) in "
+                               "the per-vertex sigma_n, calibrated on the synthetic test bed only (tier 1; "
+                               "provisional until scan validation, H8)", "", (0.0, 1.0)),
     "texture_sigma_geom_mm": Default(1.0, _NEW, "texture view_weights geometry sigma (DESIGN 4.18)",
                                      "mm", (0.0, 50.0)),
 })
@@ -485,6 +494,7 @@ def stage_landmarks(inputs: dict, config: dict, seed: int) -> dict:
     set_find = list(inputs["triage"].get("set_findings", []))
     excl: set = set()
     wide_lm = [False] * P
+    qa_mult = [1.0] * P
     pin_rows = [p for p in inputs.get("pins", [])]
     for v, r in enumerate(rows):
         pid = r["id"]
@@ -625,6 +635,7 @@ def stage_landmarks(inputs: dict, config: dict, seed: int) -> dict:
             if f["action"] == "exclude_geometry" and r.get("include") is not True:
                 excl.add(v)
         mult[~pinm[v]] *= vm
+        qa_mult[v] = vm
         if any(f["code"] == "Q-WIDE" for f in lf):
             wide_lm[v] = True
         wgt[v] = 1.0 / mult ** 2
@@ -637,6 +648,7 @@ def stage_landmarks(inputs: dict, config: dict, seed: int) -> dict:
                     for v in sorted(excl)]
         rows = [rows[v] for v in keep]
         uv, wgt, pinm, iris_px = uv[keep], wgt[keep], pinm[keep], iris_px[keep]
+        qa_mult = [qa_mult[v] for v in keep]
         blend = [blend[v] for v in keep]
         wide_lm = [wide_lm[v] for v in keep]
         flips_applied = [x for x in flips_applied if x in {r["id"] for r in rows}]
@@ -677,6 +689,7 @@ def stage_landmarks(inputs: dict, config: dict, seed: int) -> dict:
         "sigma_def_mult": np.where((n_unv > 0) & (n_ver == 0), float(_P["unverified_sigma_mult"]), 1.0),
         "detectors": [sets[r["id"]].get("detector", {}) for r in rows],
         "image_wh": [list(r["wh"]) for r in rows],
+        "qa_sigma_mult": [float(x) for x in qa_mult],
     }
 
 
@@ -807,7 +820,7 @@ def _slice_landmarks(lm: dict, keep: Sequence[int]) -> dict:
     out = dict(lm)
     for k in ("uv", "weights", "pin_mask", "iris_px"):
         out[k] = np.asarray(lm[k])[list(keep)]
-    for k in ("expression_tags", "detectors", "image_wh", "wide_lm"):
+    for k in ("expression_tags", "detectors", "image_wh", "wide_lm", "qa_sigma_mult"):
         if k in lm:
             out[k] = [lm[k][i] for i in keep]
     out["photo_ids"] = [lm["photo_ids"][i] for i in keep]
@@ -1022,6 +1035,9 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
         "reproj_median_px": float(np.median(rv)) if rv.size else None,
         "reproj_max_px": float(np.max(rv)) if rv.size else None,
         "post_findings": post_find, "near_excluded": post_excl,
+        # QA sigma multiplier per view (Q-SMALL / Q-BLUR from the landmarks stage x Q-NEAR): the observe
+        # stage calibrates chi2_red and gamma against the noise without it (WBS FU-02)
+        "qa_sigma_mult": [float(a) * float(b) for a, b in zip(lm.get("qa_sigma_mult") or [1.0] * P, near_mult)],
         "_result": res, "_views": views, "_prior": prior, "_bkw": bkw, "_terms": terms2,
         "_kit": kit, "_jaw_w": jaw_w,
     }
@@ -1089,12 +1105,45 @@ def _lovo_solver(views: Sequence[ViewObs], res: Any, bkw: Mapping[str, Any], ter
 
 
 # ============================================================================ stage: observe
+def _calibration_noise(res: Any, qa_mult: Sequence[float]) -> tuple[float, list]:
+    """chi2_red and the per-view noise covariances against the noise *before* the QA sigma multipliers.
+
+    A view carrying a 'down_weight' finding was solved with its sigma multiplied by ``qa_mult[v]``; its
+    whitened residuals are therefore smaller by that factor than against the declared detector noise, which
+    would read as 'noise over-stated' in chi2_red and gamma.  Returns ``(chi2_red_base, base_cov)``:
+    ``base_cov[v] = res.obs_cov_px[v] / qa_mult[v]^2`` and ``chi2_red_base = chi2_red * sum_v m_v^2 s_v``,
+    s_v the share of view v in the inlier chi^2 (:func:`_whitened_e2`; same degrees of freedom).  With all
+    multipliers 1 both are the solve's own values, unchanged."""
+    m = np.asarray(qa_mult, float)
+    chi = res.chi2_red
+    if np.allclose(m, 1.0):
+        return chi, list(res.obs_cov_px)
+    q = np.zeros(len(m))
+    for v in range(len(m)):
+        e2 = _whitened_e2(res, v)
+        ok = np.isfinite(e2) & np.asarray(res.inlier_mask[v], bool)
+        q[v] = float(e2[ok].sum())
+    base_cov = [np.asarray(c, float) / mv ** 2 for c, mv in zip(res.obs_cov_px, m)]
+    if chi is None or not np.isfinite(chi) or not q.sum() > 0:
+        return chi, base_cov
+    return float(chi) * float((m ** 2 * q).sum() / q.sum()), base_cov
+
+
 def stage_observe(inputs: dict, config: dict, seed: int) -> dict:
     """Observability, LOVO gamma, sigma_rep, ledger, tier and next-best view (DESIGN 4.12-4.14, D-16..D-19).
 
     Everything is computed at prior weight 1 by :func:`face3d.solve.observability.assess`.  Occluder
     flags cap region statuses (beard: jaw 'prior-driven'; D-31 caps the ears).  LOVO gamma needs
     ``>= pipeline.lovo_min_views`` views (else gamma = 1 with flag ``L-NO-LOVO``).
+
+    **sigma_rep factor (WBS FU-02 option (i); deviation from DESIGN D-16 / 4.13, recorded there).**  With
+    ``pipeline.sigma_rep_deflate`` (default on; ``config['deflate']`` overrides) the posterior covariance is
+    scaled by max(gamma^2, min(1, chi2_red / kappa), chi2_red, deflation_min) instead of
+    max(1, gamma^2, chi2_red) (:func:`face3d.solve.observability.inflation`).  Both chi2_red and gamma are
+    taken against the noise *before* the QA sigma multipliers (Q-SMALL / Q-BLUR / Q-NEAR x
+    ``downweight_sigma_mult``, :func:`_calibration_noise`): the caution a down-weighted view adds is never
+    deflated away.  Outputs ``chi2_red`` and ``gamma`` are those calibration values (equal to the solve's
+    when no view is down-weighted); ``chi2_red_solve`` is the solve's own, ``inflation`` the factor used.
     """
     s = inputs["solve"]
     res, views, prior, bkw = s["_result"], s["_views"], s["_prior"], s["_bkw"]
@@ -1104,10 +1153,14 @@ def stage_observe(inputs: dict, config: dict, seed: int) -> dict:
     RI = _ob.default_region_index(ids)
     flags = list(s["flags"])
     P = len(tri)
+    deflate = bool(config.get("deflate", _P["sigma_rep_deflate"]))
+    qa_mult = [float(x) for x in (s.get("qa_sigma_mult") or [1.0] * P)]
+    chi_base, base_cov = _calibration_noise(res, qa_mult)
+    res_cal = res if chi_base == res.chi2_red else dataclasses.replace(res, chi2_red=chi_base)
     gamma, ratio = 1.0, np.full(P, np.nan)
     if P >= int(_P["lovo_min_views"]):
         wo = _lovo_solver(views, res, bkw, s["_terms"], s["_jaw_w"])
-        gamma, ratio, gflags = _ob.lovo_gamma(wo, res, views, res.obs_cov_px)
+        gamma, ratio, gflags = _ob.lovo_gamma(wo, res, views, base_cov)
         flags += list(gflags)
     else:
         flags.append("L-NO-LOVO")
@@ -1117,10 +1170,10 @@ def stage_observe(inputs: dict, config: dict, seed: int) -> dict:
             caps["jaw"] = r["occluder"]["flags"]["jaw_status"]
     exif_sig = [r["f_log_sigma"] if r["f_source"] in ("exif_f35", "zoom", "aspect", "calibrated", "sfm",
                                                        "focal_plane") else None for r in tri]
-    A = _ob.assess(res, region_index=RI, ids=None, gamma=gamma, views=views,
+    A = _ob.assess(res_cal, region_index=RI, ids=None, gamma=gamma, views=views,
                    prior_log_sigma=[r["f_log_sigma"] for r in tri], exif_log_sigma=exif_sig,
                    scale_mode=s["scale_mode"], all_selfie=all(r["front_camera"] for r in tri),
-                   status_caps=caps or None)
+                   status_caps=caps or None, deflate=deflate)
     poll_cancel()
     nm = _noise.NoiseModel(list(inputs["landmarks"]["kinds"]))
     ranked, sentence = _nbv.next_best_view(res.cov_shape, res, res.X, noise_model=nm, region_index=RI,
@@ -1147,6 +1200,8 @@ def stage_observe(inputs: dict, config: dict, seed: int) -> dict:
         "banner": led.banner, "unverified_defaults": engine_unverified_count(),
         "report_lines": _ledger.report_lines(led), "chi2_red": float(A["chi2_red"]),
         "region_k": _plain(A["region_k"]), "status_caps": _plain(A.get("status_caps", {})),
+        "chi2_red_solve": float(res.chi2_red), "inflation": float(_ob.inflation(res_cal, gamma, deflate)),
+        "deflate": deflate, "qa_sigma_mult": qa_mult,
         "_ledger": led, "_assess": A, "_ranked": ranked,
     }
 
@@ -1230,12 +1285,19 @@ def _stage_d(s: dict, kit: TemplateKit, V_C: np.ndarray, obs: list):
 # ============================================================================ stage: uncertainty
 def stage_uncertainty(inputs: dict, config: dict, seed: int) -> dict:
     """Per-vertex normal sigma sigma_n (DESIGN 4.15 'Uncertainty'): ``Cov(V_j) = A_j Sigma_X A_j^T``
-    (stage-B explicit map) plus the region residual sigma, inflated by max(1, gamma^2, chi2_red)
-    (4.13); and the measurement support k per vertex (claims ledger) used by the protect mask."""
+    (stage-B explicit map) plus the region residual sigma; and the measurement support k per vertex
+    (claims ledger) used by the protect mask.
+
+    WP-23 recalibration (WBS WP-19 integration note; docs/RESULTS.md 4.2): Sigma_X is the shape
+    covariance ``cov_shape`` (conditional on scale: sigma_n is a shape statement, the scale has its own
+    sigma), scaled by the observe stage's sigma_rep factor (``observe['inflation']``: DESIGN 4.15 'the
+    sigma_rep inflation of 4.13', i.e. the same FU-02 factor the landmarks get), and the region residual
+    sigma is ``pipeline.sigma_res_scale`` x ``fit.uncertainty.SIGMA_RES_MM`` (``config['sigma_res_scale']``
+    overrides)."""
     s, o, f = inputs["solve"], inputs["observe"], inputs["fit"]
     kit = s["_kit"]
     n_A = s["n_A"]
-    cov = s["cov"][:3 * n_A, :3 * n_A]
+    cov = np.asarray(s["cov_shape"], float)[:3 * n_A, :3 * n_A]
     A = f["A_rows"]
     V = f["vertices"]
     normals = area_weighted_normals(V, kit.faces)
@@ -1244,13 +1306,16 @@ def stage_uncertainty(inputs: dict, config: dict, seed: int) -> dict:
     covV = _unc.vertex_cov_stage_b(A, cov) if A.size else np.zeros((len(V), 3, 3))
     lm_regions = [str(kit.vertex_regions()[v]) for v in kit.landmark_vertices("anatomical44", s["ids"][:n_A])]
     sdr = _unc.landmark_region_sigma_def(lm_regions, s["sigma_def_mm"][:n_A])
-    infl = max(1.0, float(o["gamma"]) ** 2, float(o["chi2_red"]))
-    sig = _unc.vertex_sigma_n(covV, normals, list(regions), inflation=infl, sigma_def_region=sdr)
+    infl = float(o["inflation"]) if "inflation" in o else max(1.0, float(o["gamma"]) ** 2, float(o["chi2_red"]))
+    c_res = float(config.get("sigma_res_scale", _P["sigma_res_scale"]))
+    # the factor is applied to the covariance here (vertex_sigma_n clamps its own ``inflation`` at 1)
+    sig = _unc.vertex_sigma_n(covV * infl, normals, list(regions), inflation=1.0, sigma_def_region=sdr,
+                              sigma_res={r: c_res * v for r, v in _unc.SIGMA_RES_MM.items()})
     support = _ledger.vertex_support(kit, o["_ledger"])
     names = sorted(set(str(r) for r in regions))
     rid = np.array([names.index(str(r)) for r in regions], dtype=np.int32)
     return {"sigma_n": np.asarray(sig, float), "support": np.asarray(support, float), "region_ids": rid,
-            "region_names": names, "inflation": float(infl)}
+            "region_names": names, "inflation": float(infl), "sigma_res_scale": c_res}
 
 
 # ============================================================================ stage: handoff

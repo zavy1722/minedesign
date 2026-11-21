@@ -1047,8 +1047,11 @@ def reported_covariance(result: Any, gamma: float = 1.0, cov: np.ndarray | None 
       six with ``deflate=True``.  To close it the release needs one of: ``assess(...,
       deflate=True)`` in the observe stage with chi2_red and gamma taken against the noise
       before the QA multipliers (then the golden result changes), or a narrower engine
-      noise model (the 'free' brow tangent).  Callers that form max(1, gamma^2, chi2_red)
-      themselves (face3d/fit/uncertainty.py, pipeline/stages.py per-vertex inflation,
+      noise model (the 'free' brow tangent).  WP-23 took the first route: the pipeline
+      observe stage calls ``assess(..., deflate=True)`` (``pipeline.sigma_rep_deflate``)
+      with chi2_red and gamma against the noise before the QA multipliers, and its
+      per-vertex sigma_n uses the same factor (docs/RESULTS.md 4.1, 4.2).  Callers that
+      form max(1, gamma^2, chi2_red) themselves (face3d/fit/uncertainty.py,
       solve/scale.py) use the DESIGN factor.  ``deflation_min`` 0.5 is an uncalibrated
       guard (test-bed seed minima: chi2_red 0.53, gamma^2 0.51).
     * Not re-measured by FU-02: the D-04 factor prior and the WP-11 out-of-prior subjects.

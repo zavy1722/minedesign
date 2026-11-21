@@ -833,6 +833,56 @@
    "tier": "opus",
    "implementableHere": true,
    "spec": "After FU-01 (extremal points without an image tangent now use isotropic max(sigma_n, sigma_t) = 3 mm), tests/test_observability.py::test_sigma_rep_honesty_on_testbed fails: on rear_phone_legacy the posterior-only NEES/dof is 0.94 (the test asserts > 1.25 to show posterior-only is over-confident) and the gain-form sigma_rep reads NEES 0.71 / 1-sigma coverage 0.79 (under-confident; gates are NEES/dof 0.8-1.25, coverage 0.60-0.76, DESIGN 7.5).\nTasks:\n1. Re-measure the honesty of posterior-only and gain-form sigma_rep on the WP-01 test bed with the CORRECT noise model: pass the detector simulator's own tangents to the views (FU-01 did this for the WP-07 chi2 test; see tests/test_bundle_fixes.py::_chi2_seed and tests/test_followups.py). Report the table for all 5 definition-bias scenarios + nobias.\n2. If the gain form is still outside the gates, recalibrate it honestly (e.g. the detector floor sigma_floor that the simulator does not draw, or the nu/chi2 deflation rule) \u2014 never by weakening the DESIGN 7.5 gates. Document the change with its evidence.\n3. Update test_sigma_rep_honesty_on_testbed to assert the DESIGN 7.5 gates on the gain form with tangents passed, and replace the hard-coded 'posterior-only NEES > 1.25' with a property that holds under the correct model (e.g. posterior-only is over-confident when definition bias is drawn: NEES_post > NEES_gain), with measured numbers in comments.\n4. Also fix the WP-12 SymmetryTerm defect reported by FU-01: in face3d/fit/symmetry.py SymmetryTerm rows and plane offset act on state.X in mm; when the bundle's zeta is enabled they must act on exp(-zeta) X and return a 'zeta' Jacobian block (exact analytic, per-block strict FD check in tests/test_symmetry.py). Legacy behaviour (no zeta) unchanged."
+  },
+  {
+   "id": "FU-03",
+   "title": "Close the H5 focal-label release blocker and the missing pipeline wiring found by the WP-23 fault matrix",
+   "milestone": "M6",
+   "files": [
+    "face3d/solve/observability.py",
+    "face3d/solve/focal.py",
+    "face3d/pipeline/stages.py",
+    "tests/test_observability.py",
+    "tests/test_pipeline.py",
+    "tests/test_fault_matrix.py",
+    "tests/golden/pipeline_small/expected_result.json",
+    "docs/RESULTS.md",
+    "docs/DESIGN.md"
+   ],
+   "dependsOn": [
+    "WP-20",
+    "WP-23",
+    "FU-02"
+   ],
+   "tier": "opus",
+   "implementableHere": true,
+   "spec": "The WP-23 release run (docs/RESULTS.md sections 3 and 3.1; tests/test_fault_matrix.py CALIBRATION_PENDING / OPEN_HONESTY_VIOLATIONS) blocks the release on one failing honesty gate and lists pipeline wiring that the engine already supports but the pipeline never calls. Fix them, re-run the 30-seed release matrix (python3 -m pytest -q -m slow) and update RESULTS.md and the gate lists honestly (move a gate out of CALIBRATION_PENDING / OPEN_HONESTY_VIOLATIONS only when it passes on the 30-seed point estimate).\nTasks:\n1. RELEASE BLOCKER exif_crop.focal_label (H5/H12): with a +/-30 % wrong (cropped) EXIF focal, all 150 views are labelled focal 'measured' while 28 % off, because sigma_post(ln f) < 0.10 is inherited from the EXIF prior (sigma_log 0.04). In solve/observability.camera_status label 'measured' only from the information the photos carry: e.g. the posterior sigma of ln f computed with the focal prior removed (flat prior: drop the prior's information from the Schur-complemented focal block) or demote when the CAM-7 prior_dominated test is true. Then emit the DESIGN 4.13 focal-vs-EXIF disagreement finding (solved focal differs from EXIF by > 15 % with data information to say so) and the C-FOCAL-PRIOR finding (exif_unobservable.c_focal_prior: raise it in the observe stage when the focal label is not 'measured'). Keep exif_missing.focal_label and exif_unobservable.never_measured passing.\n2. exif_crop.focal accuracy (calibration-pending, median focal error 0.279 although views span 120 deg): make the EXIF focal prior robust so the photos can overrule a wrong EXIF when they carry the information: e.g. a two-hypothesis check (solve with the EXIF prior and with a weak prior; adopt the weak-prior solution when its cost improvement is significant at a stated false-alarm rate and the focal is data-observable), or a heavy-tailed prior in log f. Measure on the exif_crop, exif_missing, exif_unobservable and clean rows; must not raise false alarms on clean sets (alarm budget) and must not make the unobservable row worse. If the target (< 5 % when views span >= 60 deg) is still unmet, record the measured level honestly.\n3. hair.points_dropped: the 'hair' occluder tag sets the no-silhouette flag but its drop classes ('ear', 'temple') are not resolved to landmarks; map the classes to landmark ids in the landmarks stage exactly as the 'beard' tag does (tr, t_L, t_R, sa_L, sa_R, sba_L, sba_R per the gate), using the scheme's region metadata, not a hard-coded list where the scheme provides one.\n4. small_face.q_small: Q-SMALL misses seed 2313 view 3 because face size is max(bbox width, bbox height) of the visible landmarks; DESIGN / com R1.4 say 'face < 250 px wide'. Measure a pose-independent face width (e.g. the inter-landmark scale of a rigid landmark subset compared with the prior's metric size, or the bizygomatic/biocular distance corrected by the view's yaw from the solve) so profile views do not false-alarm; remove the strict xfail when it passes.\n5. beauty_warp.tpr: wire the engine's retouch_residual_test into the pipeline after the bundle solve, against the leave-one-view-out consensus (the LOVO solves already exist in observe), emitting Q-RETOUCH with its DESIGN action (exclude from texture; down-weight). Report the measured TPR honestly; the detection power may stay low until FU-04 narrows the noise model, but the wiring and the no-false-alarm honesty gate must hold.\n6. off_axis_stereographic.model (optional if time allows): the chosen camera model is recorded and flagged C-MODEL-NOT-APPLIED but not applied; if the solve supports per-view models (solve/camera_model.py), apply the selection for Q-WIDE views and measure the shape cost; otherwise leave the flag and document.\nRules: never weaken a gate or threshold; any new default goes through core.config register_defaults with a source string and badge; regenerate tests/golden/pipeline_small/expected_result.json only if the golden scene's outputs change and say which numbers changed and why; keep the default (non-slow) suite time from growing."
+  },
+  {
+   "id": "FU-04",
+   "title": "Narrow the engine noise model with image tangents and recalibrate the single-view detectors (mirror, expression, retouch)",
+   "milestone": "M6",
+   "files": [
+    "face3d/solve/noise.py",
+    "face3d/solve/reconstruct.py",
+    "face3d/solve/mirror.py",
+    "face3d/solve/expression.py",
+    "face3d/pipeline/stages.py",
+    "face3d/schemes/anatomical44.json",
+    "tests/test_followups.py",
+    "tests/test_nuisances.py",
+    "tests/test_fault_matrix.py",
+    "tests/test_honesty_gates.py",
+    "tests/golden/pipeline_small/expected_result.json",
+    "docs/RESULTS.md",
+    "docs/DESIGN.md"
+   ],
+   "dependsOn": [
+    "FU-03"
+   ],
+   "tier": "opus",
+   "implementableHere": true,
+   "spec": "WP-23 (docs/RESULTS.md 3.1 item 6) traced most calibration-pending gates to one cause: the pipeline gives the bundle no image tangents, so every landmark's declared noise is isotropic at max(sigma_n, sigma_t) (FU-01), e.g. the 'free' brow tangent declares 40 mm where the simulator draws 8 mm. Clean-set chi2_red is 0.72 and LOVO gamma 0.86; the single-view detectors never fire through the pipeline (mirror flip 0/30, jaw/smile expressive 0/30, Q-RETOUCH 0/30) and an untagged jaw opening moves the neutral identity 1.06 mm RMS (hard bound 0.3 mm).\nTasks:\n1. Image tangents from the detections, never from simulator ground truth: for each view derive the unit image tangent of every curve/contour/extremal landmark from the detected points themselves (chord between the scheme-defined neighbours on the same anatomical curve; extremal points use the local outline direction from their outline neighbours). Add the neighbour/curve metadata to the scheme file if it is missing (anatomical44.json; keep the format backwards compatible; mediapipe_478 only if the same metadata exists). Pass the tangents through reconstruct_landmarks / the pipeline solve (ViewObs(tangents=...)) so the noise is anisotropic (sigma_n along the normal, sigma_t along the tangent). Points without a usable tangent keep the FU-01 isotropic max rule.\n2. Re-measure on the WP-01 test bed and the WP-23 fault matrix: clean-set chi2_red and gamma, the honesty bands (DESIGN 7.5: landmark NEES/dof 0.8-1.25 and coverage 0.60-0.76 on the definition-bias row, vertex coverage 0.90-0.99, scale z RMS) and the FU-02 deflation factor; keep every honesty gate passing. Do NOT shrink declared sigmas to match the simulator: the values in DESIGN 4.4 are research priors for real detectors; only the anisotropy (and evidence-backed corrections recorded with a source) may change.\n3. Single-view detectors: re-measure mirror (solve/mirror.py), expression re-tag (solve/expression.py + the pipeline re-tag loop) and retouch (wired by FU-03) TPR/FPR with the narrowed model. Then recalibrate their decision thresholds against the engine's own null distribution (pool mirror evidence across views; derive g_min from the decision thresholds, WP-15 note g ~12 for 95 % detection; expression threshold from the chi2 null of the mobile class) at a stated false-alarm rate, keeping the honesty gates (no false flip, no false 'keep' above 0.30, no neutral view tagged expressive, alarm budget) intact. Where a DESIGN 7.4 target is still unreachable at nominal noise, record the measured detection rate and the conditions under which the target holds (WP-15 note), never weaken the gate silently.\n4. jaw_open.identity: with better expression detection the untagged jaw should be tagged and its mobile class dropped; if the identity shift still exceeds 0.3 mm, add the robust down-weighting of the mobile class for views whose mobile chi2 is elevated but below the tag threshold, and measure.\n5. Run the slow release matrix (python3 -m pytest -q -m slow), update CALIBRATION_PENDING (only remove gates that pass on 30-seed point estimates), regenerate the pipeline golden if its outputs change, and update RESULTS.md (before/after table) and the DESIGN 7.4 status notes.\nRules: new defaults via register_defaults with source and badge; no gate weakened; keep the default suite time from growing."
   }
  ]
 }
