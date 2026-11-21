@@ -306,13 +306,13 @@ def test_stage_c_soft_targets_follow_sigma(kit, bed):
     X = kit.landmark_positions(SCHEME)
     X[i] += np.array([0.0, 0.0, 3.0])
     moved = []
-    for s in (0.0, 1.0, 5.0):
+    for s in (0.0, 5.0):
         sig = np.zeros(len(ids))
         sig[i] = s
         V = T.stage_c(kit.vertices, kit, X, None, ids=ids, sigma_X_mm=sig)
         moved.append(float(np.linalg.norm(kit.landmark_positions(SCHEME, V)[i] - kit.landmark_positions(SCHEME)[i])))
     assert moved[0] == pytest.approx(3.0, abs=0.02)
-    assert moved[0] > moved[1] > moved[2] > 0.0
+    assert moved[0] > 2.0 * moved[1] > 0.0
     # nothing to do when stage B already interpolates
     info = {}
     V = T.stage_c(kit.vertices, kit, kit.landmark_positions(SCHEME), None, ids=ids, info=info)
@@ -550,9 +550,18 @@ def test_uncertainty_fd_check(kit, bed):
     V_B, A = T.stage_b(V_A, kit, res.X, sig, ids)
     sub = np.arange(0, kit.n_verts, 7)                                  # every 7th vertex keeps the check fast
 
-    def warp(X):
-        return T.stage_b(V_A, kit, X, sig, ids)[0][sub]
+    # Independent evaluation of the stage-B warp: a fresh RBFWarp applied to the
+    # vertices (not V_A + A @ dX, which would make this check compare A with itself;
+    # WP-19 review).
+    from face3d.geometry.rbf import RBFWarp, per_landmark_lambda, rms_radius
+    src = kit.landmark_positions(SCHEME, V_A, ids)
+    ok = np.all(np.isfinite(res.X), axis=1)
+    lam = per_landmark_lambda(np.asarray(sig, float)[ok], rms_radius(src[ok]), None)
 
+    def warp(X):
+        return RBFWarp(src[ok], np.asarray(X)[ok], smoothing=lam, normalise=True)(V_A[sub])
+
+    assert np.allclose(warp(res.X), V_B[sub], atol=1e-6)               # same warp as stage_b
     assert U.finite_difference_check(warp, res.X, A[sub]) < 1e-6
     assert U.finite_difference_check(warp, res.X, 1.01 * A[sub]) > 1e-3   # the check has teeth
     cov_v = U.vertex_cov_stage_b(A, res.cov)

@@ -364,47 +364,110 @@ def test_sigma_rep_formula():
         ob.sigma_rep(res, 1.0, bias="nope")
 
 
-def test_sigma_rep_honesty_on_testbed():
-    """Gauge-projected NEES/dof and 1-sigma coverage of the reported covariance (DESIGN 7.5)
-    on the WP-01 rear_phone_legacy scenario (legacy prior, robust schedule, the detector's
-    shared definition bias): the posterior alone is over-confident, the literal floor form
-    under-confident, the gain form inside the gates.  The 30 scorecard seeds of this scenario;
-    the WP-16 report gives the numbers for every legacy scenario.  This holds for the noise
-    model before FU-01; with FU-01's isotropic max(sigma_n, sigma_t) for tangent-less point
-    kinds the posterior reads 0.94 and the gain form 0.71 / 0.79 (under-confident), see
-    observability.reported_covariance: the noise-floor calibration is WP-23's."""
+def _honesty_seed(scn, seed, draw_floor=True):
+    """One WP-01 legacy-scenario seed solved with the CORRECT noise model (WBS FU-02).
+
+    * The views carry the detector simulator's own image tangents (``obs.tangent_dirs``), as
+      FU-01 did for the WP-07 chi2 test (tests/test_bundle_fixes.py::_chi2_seed); without
+      them the point kinds fall back to the conservative isotropic max(sigma_n, sigma_t).
+    * ``draw_floor``: the engine's noise model declares a detector floor
+      sigma_floor = max(0.5 px, k face_px / 256) (DESIGN 4.4) that the simulator does not
+      draw; it is drawn here, isotropic, on a stream of its own (``default_rng([seed, 77])``,
+      one (N, 2) normal block per used view, so the scenario's streams stay as they are).
+    * Start: the engine's own PnP start (``reconstruct_landmarks``, which has no tangent
+      input), then the bundle from those cameras with the tangents; legacy prior, robust
+      schedule, the scenario's outliers and definition bias.
+
+    Returns ``{form: (NEES/dof, 1-sigma coverage)}`` for the gauge-projected, similarity-
+    aligned error (DESIGN 7.3, 7.5) with form in 'post' (cov_shape alone), 'floor', 'gain'.
+    """
     from face3d.solve.reconstruct import PhotoLandmarks, reconstruct_landmarks
     from face3d.solve.robust import RobustSchedule
     from face3d.synthetic import midline_indices, mirror_pairs
     from face3d.testbed.detector_sim import legacy_kinds, simulate
-    from face3d.testbed.scenarios import LEGACY_PRIOR, SCENARIOS, _seed_streams
-    scn = SCENARIOS["rear_phone_legacy"]
-    stats = {"post": [], "floor": [], "gain": []}
-    for seed in range(1000, 1030):
-        r_subj, r_rig, r_det = _seed_streams(seed)
-        names, Xt, meta = scn.subject_fn(r_subj)
-        rig = scn.rig_fn(r_rig, X=Xt)
-        kinds = legacy_kinds(names)
-        obs = simulate(Xt, kinds, rig, r_det, **scn.detector_kwargs)
-        photos = [PhotoLandmarks(uv, c.width, c.height, f_prior_px=rig.f_prior_px[k],
-                                 f_prior_log_sigma=rig.f_prior_log_sigma[k], focal_group=rig.focal_group[k],
-                                 kinds=kinds) for k, (uv, c) in enumerate(zip(obs.uv, rig.cameras))]
-        pri = Priors(mean=meta["template"], sigma=LEGACY_PRIOR["sigma"], pairs=mirror_pairs(names),
-                     sigma_sym=LEGACY_PRIOR["sigma_sym"], midline=midline_indices(names),
-                     sigma_mid=LEGACY_PRIOR["sigma_mid"])
-        res = reconstruct_landmarks(photos, pri, robust=RobustSchedule())
-        s, R, t = umeyama(res.X, Xt, with_scale=True)
-        err = s * res.X @ R.T + t - Xt
-        Bk = np.kron(np.eye(len(Xt)), R)
-        for key, C in (("post", res.cov_shape), ("floor", ob.reported_covariance(res, bias="floor")),
-                       ("gain", ob.reported_covariance(res, bias="gain"))):
-            Ca = s * s * Bk @ C @ Bk.T
-            stats[key].append((nees(err, Ca, Xt)[0], axis_coverage(err, Ca, Xt, ks=(1,))[1]))
-    m = {k: np.mean(np.array(v), axis=0) for k, v in stats.items()}
-    assert m["post"][0] > 1.25                                   # over-confident without sigma_def
-    assert m["floor"][0] < m["gain"][0] < m["post"][0]
-    assert 0.8 <= m["gain"][0] <= 1.25, m
-    assert 0.60 <= m["gain"][1] <= 0.76, m
+    from face3d.testbed.scenarios import LEGACY_PRIOR, _seed_streams
+    r_subj, r_rig, r_det = _seed_streams(seed)
+    names, Xt, meta = scn.subject_fn(r_subj)
+    names = list(names)
+    rig = scn.rig_fn(r_rig, X=Xt)
+    kinds = legacy_kinds(names)
+    obs = simulate(Xt, kinds, rig, r_det, **scn.detector_kwargs)
+    nm = NoiseModel(kinds)
+    r_floor = np.random.default_rng([seed, 77])
+    photos = []
+    for k, (uv, c) in enumerate(zip(obs.uv, rig.cameras)):
+        if int(np.sum(~np.isnan(uv[:, 0]))) < 6:                 # scenarios.MIN_VISIBLE
+            continue
+        g = r_floor.normal(size=uv.shape)
+        if draw_floor:
+            uv = uv + g * nm.floor_px(float(np.ptp(uv[obs.visible[k], 0])))[:, None]
+        photos.append(PhotoLandmarks(uv, c.width, c.height, f_prior_px=rig.f_prior_px[k],
+                                     f_prior_log_sigma=rig.f_prior_log_sigma[k], focal_group=rig.focal_group[k],
+                                     kinds=kinds))
+    pri = Priors(mean=meta["template"], sigma=LEGACY_PRIOR["sigma"], pairs=mirror_pairs(names),
+                 sigma_sym=LEGACY_PRIOR["sigma_sym"], midline=midline_indices(names),
+                 sigma_mid=LEGACY_PRIOR["sigma_mid"])
+    start = reconstruct_landmarks(photos, pri, robust=RobustSchedule())
+    views = [ViewObs(ph.uv, cam.copy(), f_prior=ph.f_prior_px, f_prior_log_sigma=ph.f_prior_log_sigma,
+                     focal_group=ph.focal_group, kinds=kinds, tangents=obs.tangent_dirs)
+             for ph, cam in zip(photos, start.cameras)]
+    res = bundle_adjust(views, np.asarray(meta["template"], float).copy(), pri, robust=RobustSchedule())
+    s, R, t = umeyama(res.X, Xt, with_scale=True)
+    err = s * res.X @ R.T + t - Xt
+    Bk = np.kron(np.eye(len(Xt)), R)
+    out = {}
+    for key, C in (("post", res.cov_shape), ("floor", ob.reported_covariance(res, bias="floor")),
+                   ("gain", ob.reported_covariance(res, bias="gain"))):
+        Ca = s * s * Bk @ C @ Bk.T
+        out[key] = (nees(err, Ca, Xt)[0], axis_coverage(err, Ca, Xt, ks=(1,))[1])
+    return out
+
+
+def test_sigma_rep_honesty_on_testbed():
+    """DESIGN 7.5 honesty gates (NEES/dof 0.8-1.25, aligned 1-sigma coverage 0.60-0.76, 30
+    seeds) on the gain-form sigma_rep with the correct noise model (WBS FU-02; updated from
+    the WP-16 test, which ran without tangents and asserted 'posterior-only NEES > 1.25').
+
+    Measured, seeds 1000-1029, NEES/dof / coverage (see :func:`_honesty_seed`; the table of
+    every scenario and noise variant is in observability.reported_covariance):
+
+    ===================  ==============  ==============  ==============
+    scenario             posterior only  floor form      gain form
+    ===================  ==============  ==============  ==============
+    rear_phone_legacy    1.269 / 0.626   0.714 / 0.755   0.833 / 0.712
+    rear_phone_nobias    0.841 / 0.729   0.500 / 0.840   0.592 / 0.812
+    ===================  ==============  ==============  ==============
+
+    * Definition bias drawn (D-06): the gain form is inside both gates; the posterior alone
+      is over-confident (NEES 1.27 just past the 1.25 gate, coverage 0.63 below the Gaussian
+      0.683: it knows nothing of the shared bias), the literal floor form under-confident.
+    * No definition bias, same random numbers otherwise: the posterior alone is inside both
+      gates, so the noise model is honest and the over-confidence above is the bias (x1.51
+      in NEES).  The gain form is then under-confident by construction: the engine declares
+      a sigma_def the scenario did not draw, and cannot know that.
+    """
+    from face3d.testbed.scenarios import SCENARIOS
+    seeds = range(1000, 1030)
+    m = {}
+    for name in ("rear_phone_legacy", "rear_phone_nobias"):
+        rows = [_honesty_seed(SCENARIOS[name], seed) for seed in seeds]
+        m[name] = {k: np.mean(np.array([r[k] for r in rows]), axis=0) for k in rows[0]}
+    bias, nobias = m["rear_phone_legacy"], m["rear_phone_nobias"]
+    # DESIGN 7.5 gates on the gain form (measured 0.833 / 0.712)
+    assert 0.8 <= bias["gain"][0] <= 1.25, m
+    assert 0.60 <= bias["gain"][1] <= 0.76, m
+    # B is positive semi-definite and K D K^T <= D on the measured directions
+    for mm in (bias, nobias):
+        assert mm["floor"][0] < mm["gain"][0] < mm["post"][0]
+        assert mm["floor"][1] > mm["gain"][1] > mm["post"][1]
+    # posterior-only: over-confident when the definition bias is drawn (1.269 / 0.626) ...
+    assert bias["post"][0] > 1.1 and bias["post"][1] < 0.66, m
+    assert bias["post"][0] > 1.25 * nobias["post"][0], m          # measured ratio 1.51
+    # ... and honest when it is not (0.841 / 0.729): the noise model itself passes the gates
+    assert 0.8 <= nobias["post"][0] <= 1.25, m
+    assert 0.60 <= nobias["post"][1] <= 0.76, m
+    # the floor form fails the NEES gate in both (0.714, 0.500): the gain form is the reported one
+    assert bias["floor"][0] < 0.8 and nobias["floor"][0] < 0.8, m
 
 
 # ------------------------------------------------------------------ shrinkage gate
