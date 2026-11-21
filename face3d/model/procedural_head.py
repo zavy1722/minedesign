@@ -812,7 +812,7 @@ def build_procedural_head(n: int = 24, sex: str = "unspecified", path_prior: Any
     }
     meta = {
         "generator": params, "landmark_mode": mode, "landmarks_exact": bool(exact),
-        "landmark_max_error_mm": float(np.abs(P_emb - T).max()),
+        "landmark_max_error_mm": float(np.linalg.norm(P_emb - T, axis=1).max()),
         "amplitude_scale": amp_scale, "amplitude_retries": attempt,
         "failed_attempts": fails, "fold_min_cos": min_dot, "volume_mm3": vol, "anatomical": False,
         "prior_status": pkg["status"], "prior_frame": pkg["frame"],

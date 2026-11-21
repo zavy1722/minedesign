@@ -496,6 +496,13 @@ def test_compare_flags_regression():
     assert scorecard.is_paired(wide, wide3)
     assert scorecard.compare(wide, wide3) == ["a:config_rms_mm"]
     assert scorecard.compare(wide, wide3, paired=False) == []
+    # Hand-built cards that do not record their seeds give no evidence of different seed
+    # sets, so the strict 2 % rule applies: 5 % worse is flagged despite a wide MAD.
+    bare = {"scenarios": {"a": {"config_rms_mm": {"median": 2.0, "mad": 1.0, "n_ok": 30}}}}
+    bare5 = json.loads(json.dumps(bare))
+    bare5["scenarios"]["a"]["config_rms_mm"]["median"] = 2.1
+    assert scorecard.compare(bare, bare5) == ["a:config_rms_mm"]
+    assert scorecard.compare(bare, bare) == []
 
 
 def test_compare_paired_two_percent_rule_on_committed_baseline():

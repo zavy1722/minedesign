@@ -36,11 +36,11 @@ Scorecard layout (JSON-serialisable, deterministic)::
   MKL_NUM_THREADS=1`` (the other six scenarios agree across thread counts to ~1e-7
   relative). This caveat stands until WP-07 hardens ``lm.py``.
 
-Comparison (:func:`compare`) is **paired** when both scorecards list the same seeds,
-or both store ``per_seed`` values for some shared seeds (the medians are then taken
-over the shared seeds): every scenario sees the same subjects, rigs and detections in
-both runs (common random numbers), so seed-sampling noise cancels and the DESIGN 7.5
-2 % rule applies as is.
+Comparison (:func:`compare`) is **paired** when both scorecards list the same seeds
+(or either does not record them), or both store ``per_seed`` values for some shared
+seeds (the medians are then taken over the shared seeds): every scenario sees the same
+subjects, rigs and detections in both runs (common random numbers), so seed-sampling
+noise cancels and the DESIGN 7.5 2 % rule applies as is.
 
 CLI::
 
@@ -279,6 +279,16 @@ def is_paired(baseline: dict, new: dict) -> bool:
     return bool(sb) and sb == _seed_list(new)
 
 
+def _seeds_known_to_differ(baseline: dict, new: dict) -> bool:
+    """True only when both scorecards list their seeds and the lists differ.
+
+    A card without a seed list (e.g. a hand-built summary) gives no evidence of
+    different seed sets, so :func:`compare` then keeps the paired (strict 2 %) rule.
+    """
+    sb, sn = _seed_list(baseline), _seed_list(new)
+    return bool(sb) and bool(sn) and sb != sn
+
+
 def _metric_tolerance(b: float, mad_b: float, n_b: int, n_new: int, paired: bool,
                       rel_tol: float, mad_k: float) -> float:
     """Allowed worsening of a median (see :func:`compare`)."""
@@ -308,10 +318,12 @@ def compare(baseline: dict, new: dict, rel_tol: float = 0.02, mad_k: float = 3.0
 
     * **Paired** comparison (the default whenever possible). With ``paired=None`` a
       scenario is compared paired when both cards ran the same seeds (:func:`is_paired`,
-      e.g. a 30-seed run against the 30-seed baseline), or else when both store
-      ``per_seed`` values for some shared seeds; the medians are then recomputed over the
-      shared seeds only (e.g. a ``--fast`` run on seeds 1000-1004 against the baseline's
-      seeds 1000-1004). Common random numbers remove seed-sampling noise, and a
+      e.g. a 30-seed run against the 30-seed baseline) or when either card does not
+      record its seeds (no evidence of different seed sets, so the strict rule applies),
+      or else when both store ``per_seed`` values for some shared seeds; the medians are
+      then recomputed over the shared seeds only (e.g. a ``--fast`` run on seeds
+      1000-1004 against the baseline's seeds 1000-1004). Common random numbers remove
+      seed-sampling noise, and a
       deterministic engine reproduces the medians exactly, so the gate is the DESIGN 7.5
       promotion rule: no worsening beyond ``rel_tol`` = 2 %. The only noise term left
       covers seeds usable in one run but not the other (e.g. the BLAS-thread-dependent
@@ -319,7 +331,8 @@ def compare(baseline: dict, new: dict, rel_tol: float = 0.02, mad_k: float = 3.0
       d = |n_ok_b - n_ok_new| (dropping d of n seeds shifts a median by about d/2
       order-statistic gaps, ~1.86 d MAD / n under normality). With equal n_ok the gate
       is exactly 2 %.
-    * **Unpaired** (no shared seeds, or ``paired=False``): both medians also carry
+    * **Unpaired** (both cards list their seeds, the lists differ and no per-seed values
+      are shared; or ``paired=False``): both medians also carry
       seed-sampling noise, so ``noise = mad_k * MAD_b * sqrt(1/n_ok_b + 1/n_ok_new)``
       (MAD / sqrt(n) is the noise scale of a median up to the factor
       1.4826 * 1.2533 ~= 1.86 under normality; validation-test-bed.md "medians vs stored
@@ -335,15 +348,15 @@ def compare(baseline: dict, new: dict, rel_tol: float = 0.02, mad_k: float = 3.0
     out: list[str] = []
     bs = baseline.get("scenarios", {})
     ns = new.get("scenarios", {})
-    same_seeds = is_paired(baseline, new)
+    differ = _seeds_known_to_differ(baseline, new)
     n_seeds_b0 = len(_seed_list(baseline)) or None
     n_seeds_n0 = len(_seed_list(new)) or None
     ref = "config_rms_mm"
     for name in sorted(set(bs) & set(ns)):
         bm, nm = bs[name], ns[name]
         n_seeds_b, n_seeds_n = n_seeds_b0, n_seeds_n0
-        pair = bool(paired) if paired is not None else same_seeds
-        if paired is not False and not same_seeds:
+        pair = bool(paired) if paired is not None else not differ
+        if paired is not False and differ:
             shared = _shared_seeds(baseline, new, name)
             if shared:
                 keys = list(dict.fromkeys(list(higher_is_worse) + [ref]))
@@ -446,8 +459,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.compare:
         base = load_scorecard(args.compare)
         reg = compare(base, sc)
-        if is_paired(base, sc):
-            mode = "paired (same seeds): 2 % rule"
+        if not _seeds_known_to_differ(base, sc):
+            mode = "paired (same or unrecorded seeds): 2 % rule"
         elif any(_shared_seeds(base, sc, n) for n in sc["scenarios"]):
             mode = "paired on the shared seeds (per_seed): 2 % rule"
         else:

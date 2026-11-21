@@ -42,9 +42,15 @@ Algorithms
   triangle whose axis-aligned bounding box overlaps the cell. Queries search
   Chebyshev rings of cells outward and stop once a lower bound on the distance
   to anything in the unvisited rings exceeds the best distance found, so the
-  result is exact (identical to the brute-force reference). Points farther
-  outside the mesh bounding box than half its diagonal skip the rings and are
-  screened against all triangles (same kernel, same result, less work).
+  result is exact (identical to the brute-force reference). Points far from
+  every triangle (more than ``_RING_MAX`` = 3 cells outside the grid, or
+  needing rings beyond the third) are finished by a block screen instead:
+  triangles in Morton order, blocks of 32 with bounding boxes, every block
+  whose box is within the best distance evaluated (same kernel, same result,
+  far less work than sweeping large empty rings). The worst case remains
+  O(F) per point when much of the surface is (nearly) equidistant, e.g. the
+  centre of a sphere; near-surface queries, the metric use case, visit a few
+  cells.
 * Sign: Bærentzen & Aanæs (2005), "Signed distance computation using the angle
   weighted pseudonormal", IEEE TVCG 11(3): sign of (P − Q)·n where n is the face
   normal for an interior closest point, the sum of the two adjacent unit face
@@ -70,9 +76,15 @@ __all__ = [
 DEGENERATE_REL = 1e-14
 # Working-set bounds for vectorised evaluation (memory only; results unaffected).
 _PAIR_BATCH = 1 << 18          # point-triangle pairs evaluated per numpy batch
-_CELL_BATCH = 1 << 20          # (point, ring cell) candidates per batch
+_CELL_BATCH = 1 << 20          # (point, ring cell) or (point, block) candidates per batch
 _MAX_CELLS = 1 << 21           # grid cells; the cell size grows to respect it
 _DT_MAX_ITERS = 64             # chessboard distance transform iterations (a lower bound beyond)
+# Far-field switch (speed only; both paths are exact): a point whose ring search
+# would go beyond Chebyshev ring _RING_MAX (ring r holds 24r²+2 cells) is finished
+# by the block screen instead. Tuned on 20k–100k-triangle heads and spheres.
+_RING_MAX = 3
+_BLOCK = 32                    # triangles per block of the block screen (Morton order)
+_MORTON_BITS = 10              # centroid quantisation per axis for the Morton order
 
 
 # --------------------------------------------------------------------------- kernel
@@ -354,7 +366,11 @@ class TriangleGrid:
     are centred on the cell of P clamped into the grid. Rings that cannot
     contain a triangle are skipped with a chessboard distance transform of cell
     occupancy, and candidate pairs are screened with triangle bounding boxes
-    before the exact test (both are pure accelerations).
+    before the exact test (both are pure accelerations). Points that would need
+    rings beyond the third, or lie more than three cells outside the grid, are
+    finished by the exact block screen described in the module docstring.
+
+    The grid stores copies of the vertex data: rebuild it after moving vertices.
     """
 
     def __init__(self, V: np.ndarray, tris: np.ndarray, cell: float | None = None):
@@ -406,9 +422,30 @@ class TriangleGrid:
         self.cell_tris = tri_rep[order]
         self.cell_start = np.searchsorted(key[order], np.arange(n_cells + 1, dtype=np.int64))
         self._empty_rings = self._chessboard_dt(np.diff(self.cell_start) > 0)
+        self._build_blocks()
         self._pn = None
 
     # .................................................................. internals
+    def _build_blocks(self) -> None:
+        """Far-field structure: triangles in Morton order of their centroids, cut
+        into blocks of ``_BLOCK`` consecutive triangles, each with the union of
+        its triangles' AABBs and one on-surface representative point (the
+        centroid of its middle triangle)."""
+        F = len(self.tris)
+        ext = self.mesh_hi - self.mesh_lo
+        scale = np.where(ext > 0, ((1 << _MORTON_BITS) - 1) / np.where(ext > 0, ext, 1.0), 0.0)
+        qc = np.clip(((self.centroid - self.mesh_lo) * scale).astype(np.int64), 0, (1 << _MORTON_BITS) - 1)
+        code = np.zeros(F, np.int64)
+        for b in range(_MORTON_BITS):
+            for a in range(3):
+                code |= ((qc[:, a] >> b) & 1) << (3 * b + a)
+        order = np.argsort(code, kind="stable")
+        starts = np.arange(0, F, _BLOCK, dtype=np.int64)
+        self._blk_tris = order
+        self._blk_start = np.r_[starts, F].astype(np.int64)
+        self._blk_lo = np.minimum.reduceat(self.tmin[order], starts, axis=0)
+        self._blk_hi = np.maximum.reduceat(self.tmax[order], starts, axis=0)
+        self._blk_rep = self.centroid[order[np.minimum(starts + _BLOCK // 2, F - 1)]]
     def _chessboard_dt(self, occupied_flat: np.ndarray) -> np.ndarray:
         """Per cell, a lower bound on the Chebyshev distance (in cells) to an occupied cell."""
         nx, ny, nz = (int(d) for d in self.dims)
@@ -553,16 +590,60 @@ class TriangleGrid:
                     self._evaluate(P, pt, tri, best)
                 b0 = b1
 
-    def _query_all(self, P, idx, best):
-        """Screened evaluation of points `idx` against every triangle (far points)."""
-        F = len(self.tris)
-        tb = min(F, _PAIR_BATCH)
-        m = max(1, _PAIR_BATCH // F)
+    def _eval_blocks(self, P, pts, blks, best):
+        """Evaluate every triangle of block ``blks[k]`` against point ``pts[k]``."""
+        if pts.size == 0:
+            return
+        s = self._blk_start[blks]
+        cnt = self._blk_start[blks + 1] - s
+        cum = np.cumsum(cnt)
+        b0 = 0
+        while b0 < len(pts):
+            base = cum[b0 - 1] if b0 > 0 else 0
+            b1 = max(b0 + 1, int(np.searchsorted(cum, base + _PAIR_BATCH, side="right")))
+            ss, sc = s[b0:b1], cnt[b0:b1]
+            tot = int(sc.sum())
+            rep = np.repeat(np.arange(len(sc)), sc)
+            pos = np.repeat(ss, sc) + np.arange(tot) - np.repeat(np.cumsum(sc) - sc, sc)
+            self._evaluate(P, pts[b0:b1][rep], self._blk_tris[pos], best)
+            b0 = b1
+
+    def _query_blocks(self, P, idx, best):
+        """Exact closest points for the points ``idx`` by block screening.
+
+        Used for points far from every triangle, where ring search would sweep
+        many empty or uninformative cells. Pass 1 evaluates, per point, the block
+        of the nearest representative (a surface point, so the best distance
+        becomes finite and ≤ that representative's distance); pass 2 evaluates
+        every other block whose box lies within the best distance (1e-9
+        relative slack, so exact ties survive). Triangles in the remaining
+        blocks are farther than the best by their boxes, hence the result is
+        exact and identical to brute force, including the lowest-id tie rule.
+        Any finite best already in ``best`` (from a partial ring search) only
+        tightens the screen.
+        """
+        if idx.size == 0:
+            return
+        bd2 = best[0]
+        lo, hi, rep = self._blk_lo, self._blk_hi, self._blk_rep
+        nb = len(lo)
+        m = max(1, _CELL_BATCH // nb)
         for c0 in range(0, len(idx), m):
             pidx = idx[c0:c0 + m]
-            for t0 in range(0, F, tb):      # triangle blocks; later blocks prune against the running best
-                tr = np.arange(t0, min(F, t0 + tb), dtype=np.int64)
-                self._evaluate(P, np.repeat(pidx, len(tr)), np.tile(tr, len(pidx)), best)
+            Pp = P[pidx]
+            dr = np.zeros((len(pidx), nb))
+            for a in range(3):
+                dr += (Pp[:, a:a + 1] - rep[None, :, a]) ** 2
+            first = np.argmin(dr, axis=1)
+            self._eval_blocks(P, pidx, first, best)
+            lb = np.zeros((len(pidx), nb))
+            for a in range(3):
+                g = np.maximum(lo[None, :, a] - Pp[:, a:a + 1], 0.0) + np.maximum(Pp[:, a:a + 1] - hi[None, :, a], 0.0)
+                lb += g * g
+            cand = lb <= bd2[pidx][:, None] * (1.0 + 1e-9)
+            cand[np.arange(len(pidx)), first] = False
+            pi, bi = np.nonzero(cand)
+            self._eval_blocks(P, pidx[pi], bi, best)
 
     # .................................................................. public
     def query(self, P: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
@@ -585,18 +666,17 @@ class TriangleGrid:
         if M == 0:
             return np.zeros(0), best[2], best[1], best[3]
         cell, dims = self.cell, self.dims
-        # Points far outside the mesh box (more than half its diagonal) would
-        # sweep most of the grid ring by ring; they are cheaper to screen against
-        # all triangles directly (same exact kernel and tie rule).
-        gap = P - np.clip(P, self.mesh_lo, self.mesh_hi)
-        far = np.einsum("ij,ij->i", gap, gap) > 0.25 * float(np.sum((self.mesh_hi - self.mesh_lo) ** 2))
-        if np.any(far):
-            self._query_all(P, np.flatnonzero(far), best)
         Pc = np.clip(P, self.origin, self.box_hi)
         q = np.clip(np.floor((Pc - self.origin) / cell).astype(np.int64), 0, dims - 1)
         max_ring = np.maximum(q, dims - 1 - q).max(axis=1)
         keys = q[:, 0] + dims[0] * (q[:, 1] + dims[1] * q[:, 2])
         ring = np.minimum(self._empty_rings[keys], max_ring)
+        # Far field (speed only): points more than _RING_MAX cells outside the
+        # grid, or whose first occupied ring lies beyond _RING_MAX, go straight
+        # to the block screen; so do points still searching past that ring.
+        gap = P - Pc
+        far = (np.einsum("ij,ij->i", gap, gap) > (_RING_MAX * cell) ** 2) | (ring > _RING_MAX)
+        to_blocks = [np.flatnonzero(far)]
         active = np.flatnonzero(~far)
         while active.size:
             ra = ring[active]
@@ -609,6 +689,11 @@ class TriangleGrid:
             keep = (lb2 <= best[0][active] * (1.0 + 1e-9)) & (ra < max_ring[active])
             ring[active] += 1
             active = active[keep]
+            beyond = ring[active] > _RING_MAX
+            if np.any(beyond):
+                to_blocks.append(active[beyond])
+                active = active[~beyond]
+        self._query_blocks(P, np.sort(np.concatenate(to_blocks)), best)
         return np.sqrt(best[0]), best[2], best[1], best[3]
 
 
