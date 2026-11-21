@@ -39,6 +39,7 @@ Conventions
 from __future__ import annotations
 
 import hashlib
+import math
 import os
 import time
 from collections import Counter, OrderedDict
@@ -93,7 +94,7 @@ from face3d.solve import noise as _noise
 from face3d.solve import observability as _ob
 from face3d.solve import scale as _scale
 from face3d.solve.bundle import JawConfig, ViewObs, bundle_adjust, view_noise_cov
-from face3d.solve.reconstruct import PhotoLandmarks, reconstruct_landmarks
+from face3d.solve.reconstruct import PhotoLandmarks, photo_tangents, reconstruct_landmarks
 from face3d.solve.robust import RobustSchedule
 from face3d.texture import blend as _blend
 from face3d.texture import project as _tp
@@ -139,6 +140,22 @@ PIPELINE = register_defaults("pipeline", {
                                     "camera once without the landmarks whose residual exceeds k x the median "
                                     "residual (k = 3: about 4.4 robust sigma for Rayleigh residuals)", "",
                                     (1.0, 100.0)),
+    "soft_mobile_downweight": Default(False, _NEW, "WBS FU-04 task 4: when True, views whose capped mobile-class "
+                                      "chi^2 is elevated (above its expression.soft_mobile_alpha null quantile) but "
+                                      "below the re-tag thresholds get the mobile class down-weighted by "
+                                      "solve.expression.soft_mobile_multiplier. Off: measured on the 30-seed fault "
+                                      "matrix it changes neither identity gate (jaw 0.55 / smile 0.15 mm median "
+                                      "with and without) and moves clean sets by up to 0.26 mm (docs/RESULTS.md "
+                                      "3.1)", ""),
+    "image_tangents": Default(False, _NEW, "WBS FU-04 task 1 (DESIGN 4.4 't-hat from neighbouring curve points'): when "
+                              "True the landmarks stage derives the image tangent of the curve / extremal "
+                              "landmarks from the detected neighbours the scheme names (scheme key 'tangents') "
+                              "and the solve declares sigma_n across / sigma_t along it; False: every tangent "
+                              "unknown (the isotropic FU-01 noise). Off by default since the FU-04 review: the "
+                              "scheme metadata is an unmeasured expert reading, and when a detector's "
+                              "anisotropy does not follow it the tangent-derived noise rejects 4 % of good "
+                              "observations on the WP-01 simulator (DESIGN 7.4 bound 2 %; docs/RESULTS.md 3.1). "
+                              "To be switched on by the M7 per-index calibration; owner sign-off pending", ""),
     "face_width_min_points": Default(6, _NEW, "WBS FU-03 task 4: fewest observed anatomical landmarks for the "
                                      "pose-independent face width of Q-SMALL (scaled-orthographic fit of the prior "
                                      "mean: 8 unknowns need >= 4 points; 6 leaves redundancy); below it the stage "
@@ -548,6 +565,14 @@ def stage_landmarks(inputs: dict, config: dict, seed: int) -> dict:
     fallback) and user pins (sigma by pin class, D-09).  Per-landmark information weights are
     ``1 / multiplier^2`` (``ViewObs.weights``).  Unverified scheme points are inflated by
     ``pipeline.unverified_sigma_mult`` (provisional).
+
+    Image tangents (DESIGN 4.4; WBS FU-04): output ``tangents`` (P, N, 3) holds, for every landmark whose
+    scheme names two neighbours on its anatomical curve (scheme key ``tangents``), the unit direction of the
+    chord between the *detected* neighbours of the same view and its direction confidence rho
+    (:func:`face3d.solve.reconstruct.photo_tangents`); NaN where the scheme defines none, a point is
+    hidden, dropped or pinned, or the chord is too short for its noise.  ``pipeline.image_tangents``
+    (``config['image_tangents']``) is False by default (FU-04 review; all-NaN tangents: the isotropic FU-01
+    noise) and switches the derivation on when True.
     """
     root = Path(inputs["_ctx"]["root"])
     kit = load_kit(inputs["template"], root)
@@ -766,9 +791,23 @@ def stage_landmarks(inputs: dict, config: dict, seed: int) -> dict:
         for k in drop_ids:
             uv[v, k] = np.nan
             drops.append([rows[v]["id"], ids[k]])
+    # ---- image tangents from the detections (DESIGN 4.4; WBS FU-04 task 1): the chord between the
+    # scheme-defined neighbours of each curve / extremal landmark in this view's own detections (after
+    # flips, drops and pins), never from anything but ``uv``.  A pinned point is isotropic (D-09).
+    tang = np.full((P, N, 3), np.nan)
+    if bool(config.get("image_tangents", _P["image_tangents"])):
+        pair_cache: dict = {}
+        for v, r in enumerate(rows):
+            sname = sets[r["id"]]["scheme"]
+            if sname not in pair_cache:
+                pair_cache[sname] = _noise.scheme_tangent_pairs(load_scheme(sname), ids)
+            if (pair_cache[sname] >= 0).any():
+                tang[v] = photo_tangents(uv[v], kinds, pair_cache[sname], px_per_mm=_approx_ppm(uv[v], X_ref),
+                                         weights=wgt[v])
+                tang[v][pinm[v]] = np.nan
     return {
         "ids": ids, "kinds": kinds, "n_A": n_A, "c_scheme": pts["c_scheme"], "c_names": pts["c_names"],
-        "photo_ids": [r["id"] for r in rows], "uv": uv, "weights": wgt, "pin_mask": pinm,
+        "photo_ids": [r["id"] for r in rows], "uv": uv, "weights": wgt, "pin_mask": pinm, "tangents": tang,
         "perm": perm_eng, "expression_tags": etags, "iris_px": iris_px,
         "flips_applied": flips_applied, "findings": findings, "expression_drops": drops,
         "photo_findings": {pid: [dict(f) for f in fl] + [{"code": f["code"], "severity": "warn",
@@ -865,16 +904,51 @@ def _make_views(res, lm: dict, tri: list, cov_px: list | None, uv_override: list
             uv=u, camera=res.cameras[v].copy(), estimate_focal=True, f_prior=row["f_px"],
             f_prior_log_sigma=row["f_log_sigma"], weights=None if cov_px is not None else lm["weights"][v],
             focal_group=row["focal_group"], kinds=lm["kinds"], cov_px=None if cov_px is None else cov_px[v],
+            tangents=_view_tangents(lm, v),
             focal_tie_sigma=float(view_cfg["focal_tie_sigma"]),
             distance_prior=(row["distance_mm"], row["distance_sigma_log"]),
             jaw=jaws[v] if jaws is not None else JawConfig()))
     return views
 
 
+def _view_tangents(lm: Mapping[str, Any], v: int):
+    """Image tangents (N, 3) (t_x, t_y, rho) of view ``v`` from the landmarks stage (None when the stage
+    gave none)."""
+    t = lm.get("tangents")
+    return None if t is None else np.asarray(t, float)[v]
+
+
+def _expression_evidence(res, lm: Mapping[str, Any], v: int, neutral_cov: np.ndarray, mobile: Sequence[int],
+                         jaw_w: np.ndarray, jaw_prior_sigma_deg: float | None = None) -> tuple[float, int, float]:
+    """(T, dof, jaw_z) of view ``v`` for the expression re-tag (WBS FU-04 task 3; ``solve.expression``
+    'Re-tag statistics').
+
+    The residual vectors are the view's detections (``landmarks.uv``: also the mobile points an
+    'expressive' tag dropped from the solve, and those the robust schedule rejected) minus the consensus
+    projected by the view's solved camera with its fitted jaw hinge; they are whitened by ``neutral_cov``
+    (N, 2, 2), the noise the view is declared with *before* any expression inflation, times the view's
+    robust scale nu^2.  T / dof: :func:`face3d.solve.expression.mobile_chi2_capped` over the ``mobile``
+    landmark indices; jaw_z: :func:`face3d.solve.expression.jaw_angle_z` of the fitted hinge angle, given
+    the jaw prior SD the view was solved with (``jaw_prior_sigma_deg``)."""
+    st = res.view_stats[v] if res.view_stats else {}
+    th = st.get("jaw_deg")
+    X = np.asarray(res.X, float)
+    Xv = _bundle.jaw_hinge(X, jaw_w, math.radians(float(th))) if th is not None else X
+    r = np.asarray(lm["uv"][v], float) - res.cameras[v].project(Xv)
+    nu = st.get("nu")
+    nu2 = float(nu) ** 2 if nu is not None and np.isfinite(nu) and nu > 0 else 1.0
+    e2 = _expr.mahalanobis_e2(r, np.asarray(neutral_cov, float) * nu2)
+    T, dof = _expr.mobile_chi2_capped(e2[list(mobile)])
+    jz = float("nan") if st.get("frozen") else _expr.jaw_angle_z(th, st.get("jaw_sigma_deg"), jaw_prior_sigma_deg)
+    return T, dof, jz
+
+
 def _whitened_e2(res, v: int) -> np.ndarray:
     """Squared whitened radial residuals (N,) of view ``v``: ``r^2 / sigma_iso^2`` with r the radial
     pixel residual (``per_view_residuals``) and ``sigma_iso^2 = trace(Sigma) / 2`` of the declared noise
-    (chi^2 with 2 dof under the model; NaN where hidden)."""
+    (NaN where hidden).  An isotropic summary: exact chi^2 (2 dof) for isotropic covariances only.  It is
+    used for the *share* of each view in the inlier chi^2 (:func:`_calibration_noise`); the expression
+    re-tag uses the full 2 x 2 Mahalanobis form (:func:`_expression_evidence`, WBS FU-04)."""
     r = np.asarray(res.per_view_residuals[v], float)
     cov = np.asarray(res.obs_cov_px[v], float)
     var = 0.5 * (cov[:, 0, 0] + cov[:, 1, 1])
@@ -884,6 +958,9 @@ def _whitened_e2(res, v: int) -> np.ndarray:
 
 def stage_solve(inputs: dict, config: dict, seed: int) -> dict:
     """Multi-start PnP, bundle v2 with the nuisance passes and the symmetry term (DESIGN 4.3-4.11).
+
+    Observation noise: DESIGN 4.4 by landmark kind, anisotropic along the image tangents the landmarks
+    stage derived from the detections (``landmarks.tangents``; WBS FU-04), isotropic where there is none.
 
     Pass 1 (:func:`reconstruct_landmarks`): ``CompositePrior(FactorPrior(sex, population),
     ConditionalTemplatePrior)`` (FactorPrior alone for the 44 anatomical points), the log-scale
@@ -897,8 +974,12 @@ def stage_solve(inputs: dict, config: dict, seed: int) -> dict:
     consensus (``retouch``; a flagged view gets ``pipeline.retouch_sigma_mult`` in pass 2 and is excluded
     from texture);
     the mirror test per view against the leave-one-view-out consensus (decision *cards* only,
-    D-10); expression inflation per view tag with up to ``pipeline.max_retag_rounds`` re-tag
-    rounds and the jaw hinge; the camera-model selection of Q-WIDE views (recorded; a non-pinhole
+    D-10; WBS FU-04: with the noise the view is declared with plus the projected consensus covariance, and
+    thresholds derived from the test's null, ``solve.mirror``); expression inflation per view tag with up
+    to ``pipeline.max_retag_rounds`` re-tag rounds and the jaw hinge (WBS FU-04: the re-tag compares the
+    capped chi^2 of the mobile and jaw-dependent landmarks and the fitted jaw angle with quantiles of
+    their null distributions, ``solve.expression`` 'Re-tag statistics'; output ``retag`` holds the
+    evidence per view and round); the camera-model selection of Q-WIDE views (recorded; a non-pinhole
     selection is flagged ``C-MODEL-NOT-APPLIED`` and only inflates sigma x3 when ambiguous);
     the evidence-gated symmetry term (plane refitted on the pass-1 points).  Pass 2 re-solves.
     """
@@ -919,8 +1000,9 @@ def stage_solve(inputs: dict, config: dict, seed: int) -> dict:
 def _slice_landmarks(lm: dict, keep: Sequence[int]) -> dict:
     """The landmarks-stage output restricted to the views ``keep`` (per-view arrays and lists)."""
     out = dict(lm)
-    for k in ("uv", "weights", "pin_mask", "iris_px"):
-        out[k] = np.asarray(lm[k])[list(keep)]
+    for k in ("uv", "weights", "pin_mask", "iris_px", "tangents"):
+        if k in lm:
+            out[k] = np.asarray(lm[k])[list(keep)]
     for k in ("expression_tags", "detectors", "image_wh", "wide_lm", "qa_sigma_mult"):
         if k in lm:
             out[k] = [lm[k][i] for i in keep]
@@ -977,7 +1059,8 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
         for v, r in enumerate(rows):
             photos.append(PhotoLandmarks(lm["uv"][v], int(r["wh"][0]), int(r["wh"][1]),
                                          focal_prior=_focal_obj(r["f_px"], r["f_log_sigma"]),
-                                         focal_group=r["focal_group"], weights=lm["weights"][v], kinds=kinds))
+                                         focal_group=r["focal_group"], weights=lm["weights"][v], kinds=kinds,
+                                         tangents=_view_tangents(lm, v)))
         return reconstruct_landmarks(photos, None, max_iter=int(cfg["max_iter"]), distance_priors=dps,
                                      terms=scale_terms or None, focal_tie_sigma=float(cfg["focal_tie_sigma"]),
                                      **bkw)
@@ -1034,24 +1117,34 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
     for v, r in enumerate(tri):
         cam = res1.cameras[v]
         C = view_noise_cov(views1[v], res1.X, cam.R, cam.t, cam.f)
-        red = None
+        # the declared noise of this view, as pass 2 solves with it: base / weights (occluder
+        # multipliers such as glasses 'eye sigma x2', Q-SMALL / Q-BLUR down-weights, pin sigmas)
+        # times the Q-NEAR multiplier; the base noise alone would inflate the z-scores of
+        # exactly the views already declared noisier (FU-03 review; FU-04: the mirror test too)
+        C_dec = _declared_cov(C, lm["weights"][v], near_mult[v])
+        red, hp = None, None
         try:
             red = solve_wo(v) if solve_wo is not None else None
+        except (ValueError, np.linalg.LinAlgError):
+            red = None
+        if red is not None:
+            try:
+                hp = _ob.heldout_prediction(res1, red, v, lm["uv"][v], C_dec)
+            except (ValueError, np.linalg.LinAlgError):
+                hp = None
+        try:
             cons = red.X if red is not None else res1.X
-            d = _mirror.mirror_test(lm["uv"][v], float(r["wh"][0]), lm["perm"], cons, C, cam,
+            # predictive noise of the held-out view: declared noise + the consensus covariance pooled
+            # over the other views (WBS FU-04 task 3; solve.mirror 'Null distribution')
+            C_m = C_dec if hp is None else np.where(np.isfinite(hp["cov"]), C_dec + hp["cov"], C_dec)
+            d = _mirror.mirror_test(lm["uv"][v], float(r["wh"][0]), lm["perm"], cons, C_m, cam,
                                     is_front_camera=r["front_camera"], all_views_front=all_front,
                                     other_views_agree=False)
-        except ValueError:
+        except (ValueError, np.linalg.LinAlgError):
             d = None
-        if red is not None and rt_ids is not None:
+        if hp is not None and rt_ids is not None:
             try:
-                # the declared noise of this view, as pass 2 solves with it: base / weights (occluder
-                # multipliers such as glasses 'eye sigma x2', Q-SMALL / Q-BLUR down-weights, pin sigmas)
-                # times the Q-NEAR multiplier; the base noise alone would inflate the eye / jaw z-scores of
-                # exactly the views already declared noisier (FU-03 review)
-                C_rt = _declared_cov(C, lm["weights"][v], near_mult[v])
-                hp = _ob.heldout_prediction(res1, red, v, lm["uv"][v], C_rt)
-                zs, t_eye, fl = _cm.retouch_residual_test(lm["uv"][v], hp["uv"], rt_ids, C_rt, consensus_cov=hp["cov"],
+                zs, t_eye, fl = _cm.retouch_residual_test(lm["uv"][v], hp["uv"], rt_ids, C_dec, consensus_cov=hp["cov"],
                                                           inliers=np.asarray(res1.inlier_mask[v], bool))
                 retouch[v] = {"z": {k: _num(x) for k, x in zs.items()}, "t_eye": _num(t_eye), "flagged": bool(fl)}
                 f = _cm.retouch_finding(zs, t_eye, fl, photo_id=r["id"])
@@ -1061,8 +1154,11 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
             except (ValueError, KeyError, np.linalg.LinAlgError):
                 pass
         mirror_dec.append(d)
-        m = {"decision": "undetermined", "delta": None, "g": None, "margin": None} if d is None else \
-            {"decision": d.decision, "delta": float(d.delta), "g": float(d.g), "margin": float(d.margin)}
+        m = {"decision": "undetermined", "delta": None, "g": None, "margin": None, "gap": None, "g_min": None,
+             "power": None} if d is None else \
+            {"decision": d.decision, "delta": float(d.delta), "g": float(d.g), "margin": float(d.margin),
+             "gap": float(d.gap), "g_min": float(d.g_min) if np.isfinite(d.g_min) else None,
+             "power": float(d.power) if np.isfinite(d.power) else None}
         m["applied"] = lm["photo_ids"][v] in lm["flips_applied"]
         cards.append({"kind": "mirror_flip", "photo": lm["photo_ids"][v], **m,
                       "preselect": bool(d.preselect_flip) if d is not None else False})
@@ -1101,15 +1197,26 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
         pass
     terms2 = list(scale_terms) + [sym]
 
-    def pass2(tag_list):
+    # expression-affected landmarks of the re-tag statistic: the mobile class and the jaw-dependent class
+    affected = [k for k in range(N) if classes[k] in ("mobile", "jaw")]
+    mobile = [k for k in range(N) if classes[k] == "mobile"]
+    soft_on = bool(config.get("soft_mobile_downweight", _P["soft_mobile_downweight"]))
+    neutral_cov: list = [None] * P
+
+    def pass2(tag_list, soft):
         covs, uvs, jaws = [], [], []
         for v in range(P):
             cam = res1.cameras[v]
             base = view_noise_cov(views1[v], res1.X, cam.R, cam.t, cam.f)
             base = base / lm["weights"][v][:, None, None] * ms[v] ** 2
+            neutral_cov[v] = base
             s_expr, drop = _expr.expression_sigma_mm(classes, sig_n, tag_list[v])
             Pj = _expr.projection_jacobians(cam, res1.X)
             c2 = _expr.inflate_view_cov(base, Pj, s_expr)
+            if soft[v] > 1.0:
+                # robust down-weighting of the mobile class of a view whose mobile chi^2 is elevated
+                # but below the tag thresholds (WBS FU-04 task 4)
+                c2[mobile] = c2[mobile] * soft[v] ** 2
             u = lm["uv"][v].copy()
             u[np.asarray(drop, bool)] = np.nan
             c2[~np.isfinite(u[:, 0])] = np.nan
@@ -1123,23 +1230,28 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
         return vws, bundle_adjust(vws, res1.X.copy(), None, max_iter=int(cfg["max_iter"]), terms=terms2,
                                   jaw_weights=jaw_w, **kw)
 
-    views, res = pass2(tags)
+    # ---- expression re-tag (DESIGN 4.9 'at most 3 rounds'; WBS FU-04 task 3): thresholds are quantiles
+    # of the null of the capped mobile-class chi^2 and of the fitted jaw angle (solve.expression)
+    soft = [1.0] * P
+    views, res = pass2(tags, soft)
+    retag_log: list = [[] for _ in range(P)]
     for _ in range(int(_P["max_retag_rounds"])):
         changed = False
         for v in range(P):
-            e2 = _whitened_e2(res, v)
-            # inliers only: an observation the robust schedule rejected must not re-tag the view
-            inl = np.asarray(res.inlier_mask[v], bool)
-            mob = [k for k in range(N) if classes[k] == "mobile" and np.isfinite(e2[k]) and inl[k]]
-            if not mob:
-                continue
-            new = _expr.retag_from_residuals(_expr.mobile_chi2_red(e2[mob]), tags[v])
-            if new != tags[v]:
+            T, dof, jz = _expression_evidence(res, lm, v, neutral_cov[v], affected, jaw_w,
+                                              float(views[v].jaw.prior_sigma_deg))
+            new, det = _expr.retag_from_evidence(T, dof, jz, tags[v])
+            sm = _expr.soft_mobile_multiplier(T, dof) if (soft_on and new == "neutral") else 1.0
+            sm = max(sm, soft[v]) if new == "neutral" else 1.0
+            retag_log[v].append({"mobile_chi2": _num(T), "mobile_dof": int(dof), "jaw_z": _num(jz),
+                                 "tag": new, "by": list(det["by"]), "soft_mobile_mult": float(sm)})
+            if new != tags[v] or sm != soft[v]:
                 tags[v] = new
+                soft[v] = sm
                 changed = True
         if not changed:
             break
-        views, res = pass2(tags)
+        views, res = pass2(tags, soft)
     nn = _expr.no_neutral_view(tags)
     if nn is not None:
         flags.append("E-NO-NEUTRAL")
@@ -1166,7 +1278,7 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
         "cam_z": np.array([float(c.depth(np.zeros((1, 3)))[0]) for c in cams]),
         "rmse_px": np.asarray(res.rmse_px, float), "view_stats": _plain(res.view_stats),
         "tags": tags, "camera_models": cam_models, "mirror_cards": cards, "mirror_status": _plain(mirror_status),
-        "mirror": [{k: v for k, v in c.items() if k in ("decision", "delta", "g", "margin")}
+        "mirror": [{k: v for k, v in c.items() if k in ("decision", "delta", "g", "margin", "gap")}
                    for c in sorted(cards, key=lambda c: lm["photo_ids"].index(c["photo"]))],
         "scale_mode": scale_mode, "scale_kinds": scale_kinds + ([str(src)] if src else []),
         "flags": flags, "iterations": int(res.iterations),
@@ -1184,6 +1296,9 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
         "focal_priors": [{"photo": r["id"], "f_px": float(r["f_px"]), "f_log_sigma": float(r["f_log_sigma"]),
                           "f_source": str(r["f_source"]), "test": _plain(r.get("f_test"))} for r in tri],
         "retouch": retouch,
+        # expression re-tag evidence per view and round (WBS FU-04): capped mobile-class chi^2, its dof,
+        # the jaw-angle z, the tag it implied, and the soft mobile-class multiplier of untagged views
+        "retag": retag_log, "soft_mobile_mult": [float(x) for x in soft],
         "_result": res, "_views": views, "_prior": prior, "_bkw": bkw, "_terms": terms2,
         "_kit": kit, "_jaw_w": jaw_w,
     }

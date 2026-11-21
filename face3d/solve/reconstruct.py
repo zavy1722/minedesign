@@ -37,13 +37,20 @@ WP-10 changes (DESIGN 4.2, 4.3, 4.5, 4.8, 4.9):
   simulator gives every view of a group the same focal, so exact sharing is the true model
   there; the tie is for real groups (crops, stabilisation; DESIGN 4.2).
 
-Known limitation (follow-up, not WP-07 scope): ``PhotoLandmarks`` carries no image
-tangents and nothing here derives t-hat from neighbouring curve points (DESIGN 4.4), so
-every contour / brow / curve landmark enters with the unknown-tangent isotropic sigma
-sqrt((sigma_n^2 + sigma_t^2) / 2): about 707 mm for contour and 28 mm for brow (in
-effect discarded) and 5.4 mm instead of 1.5 mm normal precision for curve points.  A
-``tangents`` field or scheme-curve-neighbour tangents (WP-11 contours / scheme work)
-will let them enter with their normal-only sigma.
+FU-04 changes (DESIGN 4.4 "t-hat the image tangent from neighbouring curve points"):
+
+* ``PhotoLandmarks.tangents`` ((N, 2) exact image tangents of any length, or (N, 3)
+  (t_x, t_y, rho) with the direction confidence of a detection-derived tangent,
+  :mod:`face3d.solve.noise`; NaN / zero rows unknown) is passed
+  to ``ViewObs.tangents``, so that curve / contour / extremal landmarks enter with sigma_n across
+  and sigma_t along their curve instead of the unknown-tangent isotropic sigma (curve points:
+  1.5 mm normal precision instead of 5.4 mm isotropic; extremal: 2.0 / 3.0 instead of 3.0).
+* :func:`photo_tangents` derives them from the photo's *own detections* and a scheme's
+  neighbour metadata (:func:`face3d.solve.noise.scheme_tangent_pairs` /
+  :func:`~face3d.solve.noise.image_tangents`); nothing here ever reads a simulator's ground
+  truth.  ``tangents=None`` (the default) keeps the pre-FU-04 behaviour exactly.
+* Points without a usable tangent keep the FU-01 rule (isotropic at max(sigma_n, sigma_t), or
+  the orientation average for the free-tangent kinds).
 """
 from __future__ import annotations
 
@@ -87,6 +94,9 @@ class PhotoLandmarks:
     sigma_px: float | None = None     # None -> noise model of `kinds` in mm at depth (DESIGN 4.4)
     kinds: list[str] | None = None    # (N,) landmark kinds; None -> 'generic'
     focal_prior: Any = None           # object with f_px, log_sigma; overrides f_prior_px / f_prior_log_sigma
+    # (N,3) image tangents (t_x, t_y, rho) from the photo's own detections, or (N,2) exact directions (photo_tangents / noise.image_tangents);
+    # None -> every tangent unknown (isotropic fallback, WBS FU-01).  Ignored with an explicit sigma_px.
+    tangents: np.ndarray | None = None
 
     def resolved_sigma_px(self) -> float:
         """Legacy isotropic sigma (px): ``sigma_px`` or 0.006 x the visible-landmark bbox diagonal (>= 0.5)."""
@@ -141,8 +151,44 @@ def pnp_sigma_px(ph: PhotoLandmarks, X_ref: np.ndarray, vis: np.ndarray, f_px: f
     N = len(ph.uv)
     kinds = ph.kinds if ph.kinds is not None else ["generic"] * N
     face = float(np.ptp(uv[:, 0])) if len(uv) >= 2 else None
-    C = NoiseModel(kinds).view_cov(np.full(N, ppm), face)[vis]
+    C = NoiseModel(kinds).view_cov(np.full(N, ppm), face, tangents=ph.tangents)[vis]
     return np.sqrt(0.5 * (C[:, 0, 0] + C[:, 1, 1]))
+
+
+def photo_tangents(uv: Any, kinds: Sequence[str | None] | None, pairs: Any, X_ref: np.ndarray | None = None,
+                   px_per_mm: float | None = None, weights: Any = None) -> np.ndarray:
+    """(N, 3) image tangents (t_x, t_y, rho) of one photo from its own detections (WBS FU-04 task 1).
+
+    ``uv`` (N, 2) px (NaN rows hidden); ``kinds`` (N,) landmark kinds (None: 'generic');
+    ``pairs`` (N, 2) neighbour indices from the scheme (:func:`face3d.solve.noise.scheme_tangent_pairs`).
+    The direction confidence of each chord uses the neighbours' declared isotropic-equivalent
+    noise in px at ``px_per_mm`` (px per mm; None: the orthographic size ratio of the visible
+    landmarks to ``X_ref`` (N, 3) mm, as in :func:`pnp_sigma_px`; with neither, the directions
+    are taken as exact), divided by sqrt(``weights``) where information weights are given (a
+    down-weighted neighbour gives a less certain direction).  Returns
+    :func:`face3d.solve.noise.image_tangents`: NaN rows where no usable tangent exists.
+    """
+    from .noise import image_tangents
+    U = np.asarray(uv, float)
+    N = len(U)
+    vis = np.isfinite(U).all(axis=1)
+    ppm = px_per_mm
+    if ppm is None and X_ref is not None and vis.sum() >= 2:
+        Xv = np.asarray(X_ref, float)[vis]
+        s_img = float(np.sqrt(np.mean(np.sum((U[vis] - U[vis].mean(0)) ** 2, axis=1))))
+        s_mm = float(np.sqrt(np.mean(np.sum((Xv - Xv.mean(0)) ** 2, axis=1)))) * np.sqrt(2.0 / 3.0)
+        ppm = s_img / max(s_mm, 1e-9)
+    sig = None
+    if ppm is not None and np.isfinite(ppm) and ppm > 0:
+        kk = list(kinds) if kinds is not None else ["generic"] * N
+        face = float(np.ptp(U[vis, 0])) if vis.sum() >= 2 else None
+        C = NoiseModel(kk).view_cov(np.full(N, float(ppm)), face)
+        sig = np.sqrt(0.5 * (C[:, 0, 0] + C[:, 1, 1]))
+        if weights is not None:
+            w = np.asarray(weights, float).reshape(-1)
+            ok = np.isfinite(w) & (w > 0)
+            sig = np.where(ok, sig / np.sqrt(np.where(ok, w, 1.0)), np.inf)
+    return image_tangents(U, pairs, sig)
 
 
 def _robust_rms_sigmas(res_px: np.ndarray, sigma: np.ndarray | float) -> float:
@@ -208,6 +254,7 @@ def reconstruct_landmarks(photos: list[PhotoLandmarks], priors: Priors | None, *
         views.append(ViewObs(uv=ph.uv, camera=r.camera, estimate_focal=True, f_prior=f_px,
                              f_prior_log_sigma=f_ls, weights=ph.weights,
                              sigma_px=ph.sigma_px, focal_group=ph.focal_group, kinds=ph.kinds,
+                             tangents=ph.tangents,
                              focal_tie_sigma=focal_tie_sigma, distance_prior=dps[k],
                              jaw=jaws[k] if jaws[k] is not None else JawConfig()))
     kw = dict(huber_px=huber_sigmas, max_iter=max_iter, prior=prior, scale=scale,
@@ -224,5 +271,6 @@ def reconstruct_landmarks(photos: list[PhotoLandmarks], priors: Priors | None, *
     return bundle_adjust(views, X_init.copy(), priors, **kw)
 
 
+# photo_tangents (WBS FU-04) is public but not in __all__: the face3d.solve export list is owned by WP-23.
 __all__ = ["PhotoLandmarks", "reconstruct_landmarks", "pnp_sigma_px", "AUTO_SIGMA_FRACTION_OF_DIAG",
            "REINIT_RMS_SIGMAS", "RECONSTRUCT"]

@@ -12,11 +12,13 @@ Test-bed conventions used here
   model.
 * The mirror TPR and retouch TPR acceptance rows are run with the detector simulator at 0.2 x
   the DESIGN 4.4 nominal noise (``LOW_NOISE``).  At nominal noise a single view cannot resolve
-  ~1 mm of facial asymmetry or a 6 % / 4 % beauty warp (40 seeds: mirror TPR among g >= 4 0.44,
-  9 of 40 views, most mirrored views correctly 'undetermined'; retouch TPR 0.25): the rows'
-  g_min = 4 / warp size are inconsistent with their decision thresholds at nominal noise, which
-  is escalated for a spec decision.  At nominal noise the FPR halves of both rows are asserted
-  and the TPR halves are kept as strict xfail tests on the spec rows themselves.
+  ~1 mm of facial asymmetry or a 6 % / 4 % beauty warp (40 seeds: median mirror detectability
+  g ~2; retouch TPR 0.25).  WBS FU-04 recalibrated the mirror test against its own null: the
+  gap threshold tau = 13.83 bounds the false-flip rate by 1e-4 and g_min (per view, complete rule; >= 8.16) is the
+  detectability with 95 % power (``solve.mirror`` 'Null distribution'), so the mirror row is
+  tested on the views with g >= g_min (at 0.2 x and at 0.5 x noise; no view reaches g_min at
+  nominal noise, where the honesty halves are asserted: no false flip, no false 'keep').  The
+  retouch TPR half at nominal noise stays a strict xfail on the spec row.
 * Scale is tested on the pair the report prints (``reported_scale``: Umeyama log-size and an SD
   that covers its error) against the test bed's ``log_scale_true``; the scale mode's SD is only
   the metric references' share of it.
@@ -649,18 +651,26 @@ def _mirror_trials(kit, anat, seeds, noise_scale, asym, bias=False):
 
 def test_mirror_tpr_fpr(kit, anat):
     """40 seeds of 4-view rear-phone surface subjects (asymmetry >= 0.8 mm RMS) with one mirrored
-    view: among cases with g >= 4 suggest_flip TPR >= 0.95; over all clean views FPR <= 0.02."""
+    view: among cases with g >= g_min suggest_flip TPR >= 0.95; over all clean views FPR <= 0.02.
+    FU-04: g_min (per view, from the complete decision rule; >= 8.16) and the gap threshold tau (13.83) are derived from ``mirror.flip_alpha`` /
+    ``mirror.keep_power`` (the DESIGN values g_min = 4 and 2 sqrt(2 n_v) before)."""
     rows = _mirror_trials(kit, anat, range(40), LOW_NOISE, (0.85, 1.5))
     assert min(r["asym"] for r in rows) >= 0.8
     mir = [r["d"] for r in rows if r["mirrored"]]
     clean = [r["d"] for r in rows if not r["mirrored"]]
-    det = [d for d in mir if d.g >= 4.0]
+    det = [d for d in mir if d.g >= d.g_min]
     assert len(det) >= 30
     assert np.mean([d.decision == "suggest_flip" for d in det]) >= 0.95
     assert np.mean([d.decision == "suggest_flip" for d in clean]) <= 0.02
     for d in mir + clean:
         assert d.decision in M.DECISIONS and d.g <= d.g_raw + 1e-9
-        assert d.margin == pytest.approx(d.gap - 2.0 * math.sqrt(2.0 * d.n_v))
+        assert d.margin == pytest.approx(d.gap - M.GAP_THRESHOLD)
+        # g_min is per view (complete rule on the view's asymmetry pattern), never below the gap-only bound
+        assert d.g_min >= M.G_MIN - 1e-9 and d.gap_threshold == pytest.approx(M.GAP_THRESHOLD)
+        assert (d.power >= 0.95 - 1e-6) == (d.g >= d.g_min) or abs(d.g / d.g_min - 1.0) < 1e-3
+        # a 'keep' is only given where the complete rule had 95 % power and the gap is not significant
+        assert d.decision != "keep" or (d.g >= d.g_min and d.gap <= M.GAP_THRESHOLD)
+        assert d.decision != "suggest_flip" or d.gap > M.GAP_THRESHOLD
         assert not d.preselect_flip or d.decision == "suggest_flip"
     # the flip hypothesis wins on mirrored views, loses on clean ones
     assert np.mean([d.delta > 0 for d in mir]) >= 0.95 and np.mean([d.delta < 0 for d in clean]) >= 0.95
@@ -688,14 +698,37 @@ def test_mirror_nominal_noise_is_honest(mirror_nominal):
     assert np.mean([d.g_raw >= 4.0 and d.decision != "suggest_flip" for d in mir]) >= 0.5
 
 
-@pytest.mark.xfail(strict=True, reason="WBS WP-15 mirror row at nominal noise: g_min = 4 is inconsistent with the "
-                   "decision thresholds (rel 0.20 and gap > 2 sqrt(2 n_v) need g ~ 4x larger); measured TPR among "
-                   "g >= 4 is 0.44 (9 of 40 views). Escalated for a spec decision (recalibrate g_min / g, or amend "
-                   "the row to the reduced-noise condition); strict, so a recalibration that fixes it is noticed.")
-def test_mirror_tpr_spec_row_nominal_noise(mirror_nominal):
-    """The WBS row itself at nominal noise: among mirrored views with g >= 4, TPR >= 0.95."""
-    det = [r["d"] for r in mirror_nominal if r["mirrored"] and r["d"].g >= 4.0]
-    assert det and np.mean([d.decision == "suggest_flip" for d in det]) >= 0.95
+def _binom_lo(n: int, p: float) -> int:
+    """Smallest k with P(Binomial(n, p) <= k) > 0.025 (exact)."""
+    from math import comb
+    cdf = 0.0
+    for k in range(n + 1):
+        cdf += comb(n, k) * p ** k * (1.0 - p) ** (n - k)
+        if cdf > 0.025:
+            return k
+    return n
+
+
+def test_mirror_tpr_spec_row_nominal_noise(mirror_nominal, kit, anat):
+    """The WBS row after the FU-04 recalibration.  (WP-15 kept this as a strict xfail: with g_min = 4 and
+    the absolute threshold 2 sqrt(2 n_v), the TPR among g >= 4 at nominal noise was 0.44.)  g_min is now
+    the detectability at which the complete rule (gap > tau and delta > rel, capped costs) suggests the flip
+    with probability 0.95, for the view's own asymmetry pattern:
+
+    * at nominal noise no mirrored view of these 40 seeds reaches it (g median ~2), so none is answered
+      'keep', the flips that are suggested all have a significant gap, and the target of the row is
+      *unreachable* at this noise (recorded in docs/RESULTS.md; not asserted as met);
+    * at half the nominal noise 12 of the 30 mirrored views reach their g_min, and among those the flip is
+      found at the rate g_min promises (binomial 95 % bound of 'TPR >= 0.95')."""
+    mir = [r["d"] for r in mirror_nominal if r["mirrored"]]
+    assert not any(d.decision == "keep" for d in mir if d.g < d.g_min or d.gap > M.GAP_THRESHOLD)
+    assert all(d.gap > M.GAP_THRESHOLD for d in mir if d.decision == "suggest_flip")
+    assert sum(d.g >= d.g_min for d in mir) <= 4 and np.median([d.g for d in mir]) < M.G_MIN
+    half = _mirror_trials(kit, anat, range(30), 0.5, (0.85, 1.5))
+    det = [r["d"] for r in half if r["mirrored"] and r["d"].g >= r["d"].g_min]
+    assert len(det) >= 10
+    assert sum(d.decision == "suggest_flip" for d in det) >= _binom_lo(len(det), 0.95)
+    assert not any(r["d"].decision == "suggest_flip" for r in half if not r["mirrored"])
 
 
 def test_mirror_undetermined_and_unverifiable(kit, anat):

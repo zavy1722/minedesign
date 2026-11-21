@@ -25,6 +25,11 @@ Gates (DESIGN 7.5; WBS WP-23 item 4)
   numbers (so the check is not vacuous).
 * ``scale.z_rms``: RMS of z = (zeta_hat - zeta) / sigma_zeta in [0.8, 1.25].
 
+FU-04 (after its review): the runs are those of the fault matrix, i.e. the pipeline as shipped
+(``pipeline.image_tangents`` False) on the WP-01 detector simulator as is; re-measured, every band holds
+(docs/RESULTS.md 4) and :func:`test_fu04_bands_hold_with_and_without_tangents` checks on the per-push seeds
+that the landmark honesty side also holds with the opt-in tangents, and that their orientation is right.
+
 Each band has an *honesty* side (the report must never be over-confident: coverage not below the band,
 NEES not above it), asserted as separate 'honesty' gates.  A gate that is not met may only be listed in
 :data:`HONESTY_PENDING` with the measured value and a docs/RESULTS.md entry (empty today); the release run
@@ -282,6 +287,63 @@ def test_honesty_gates_fast_subset():
     results = (REPO / "docs" / "RESULTS.md").read_text()
     for name in HONESTY_PENDING:
         assert f"`{name}`" in results, f"{name} is pending but not listed in docs/RESULTS.md"
+
+
+def test_fu04_bands_hold_with_and_without_tangents():
+    """WBS FU-04 task 2 on three per-push seeds: the definition-bias row (the DESIGN 7.5 landmark gate) is
+    never over-confident as shipped (``pipeline.image_tangents`` False, WP-01 simulator) nor with the opt-in
+    detection-derived tangents on detections whose noise follows the scheme's chords.
+
+    Review finding (minor): 'chi2_red is not lower with tangents' also passed with the tangents rotated by
+    90 degrees.  The orientation is now asserted directly (the stage's tangent of a lip / lid / profile
+    point is parallel to the chord of its *detected* neighbours, and the declared covariance is narrow
+    across that chord), and through its consequence: on aligned detections the tangents must not reject
+    noticeably more good observations than the isotropic model (a rotated tangent rejects ~4 %)."""
+    from face3d.solve import noise as _noise
+    seeds = FAST_SEEDS[:3]            # the shipped runs are memoised by the gate test; 6 extra runs here
+    al = {"noise_axes": "anatomical"}
+    shipped = collect([("bias", s, {}) for s in seeds])
+    off = collect([("bias", s, al) for s in seeds])
+    on = collect([("bias", s, dict(al, tangents=True)) for s in seeds])
+    hi_n = NEES_BAND[1] * chi2_band(sum(r["honesty"]["dof"] for r in on))[1]     # per-push sampling slack
+    for recs in (shipped, off, on):
+        h = FM._pooled_honesty(recs)
+        assert h["nees_per_dof"] <= hi_n and h["coverage_1s"] >= LM_COVERAGE_1S[0], h
+        assert all(r["deflate"] and 0.5 <= r["inflation"] <= 1.0 + 1e-9 for r in recs)
+    assert np.median([r["chi2_red"] for r in on]) >= np.median([r["chi2_red"] for r in off]) - 1e-9
+    # the two runs really differ in the declared noise, and only there: same detections, same views
+    assert all(a["views"] == b["views"] and a["uv_used"] == b["uv_used"] for a, b in zip(on, off))
+    assert any(abs(a["chi2_red"] - b["chi2_red"]) > 1e-6 for a, b in zip(on, off))
+
+    def lost(recs):
+        return sum(int((np.asarray(r["uv_used"], bool) & ~np.asarray(r["inlier"], bool)).sum()) for r in recs)
+    n_obs = sum(int(np.asarray(r["uv_used"], bool).sum()) for r in on)
+    # 30 seeds: 0.4 % with tangents against 0.7 % without; a 90-degree rotation gives ~4 % (random-axes row)
+    assert lost(on) <= lost(off) + 0.01 * n_obs, (lost(on), lost(off), n_obs)
+    # orientation, directly on the landmarks stage of one run (tangents on)
+    sc = FM.make_scene(seeds[0], detector=dict(FM.BASE_DETECTOR, noise_axes="anatomical"))
+    lm = FM.run_scene(sc, "landmarks", config={"landmarks": {"image_tangents": True}}).outputs["landmarks"]
+    ids, T, uv = list(lm["ids"]), np.asarray(lm["tangents"], float), np.asarray(lm["uv"], float)
+    assert T.shape == uv.shape[:2] + (3,)
+    model = _noise.NoiseModel(lm["kinds"])
+    n_checked = 0
+    for point, (a, b) in {"ls": ("ch_R", "ch_L"), "li": ("ch_R", "ch_L"), "ps_L": ("en_L", "ex_L"),
+                          "pi_R": ("en_R", "ex_R"), "n": ("g", "prn"), "sl": ("li", "pg")}.items():
+        i, ia, ib = ids.index(point), ids.index(a), ids.index(b)
+        for v in range(len(T)):
+            if not np.isfinite(T[v, i]).all():
+                continue
+            chord = uv[v, ib] - uv[v, ia]
+            chord /= np.linalg.norm(chord)
+            assert abs(T[v, i, :2] @ chord) > 1.0 - 1e-9 and 0.5 <= T[v, i, 2] <= 1.0, (point, v)
+            C = model.view_cov(np.full(len(ids), 2.0), None, tangents=T[v])[i]
+            w, E = np.linalg.eigh(C)
+            assert w[0] < 0.6 * w[1] and abs(E[:, 0] @ chord) < 0.2, (point, v)     # narrow across the chord
+            n_checked += 1
+    assert n_checked >= 12
+    # and the shipped default gives no tangent at all
+    lm0 = FM.run_scene(sc, "landmarks").outputs["landmarks"]
+    assert np.isnan(np.asarray(lm0["tangents"], float)).all()
 
 
 @pytest.mark.slow

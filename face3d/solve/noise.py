@@ -11,11 +11,37 @@ Conventions and units
 * ``px_per_mm`` p_iv = f_v / z_iv: pixels per millimetre at the landmark's camera
   depth z_iv (D-05: sigma is stored in mm and converted per view at each point's
   depth, which removes the 63-vs-88 mm IOD ambiguity of percentage-of-IOD rules).
-* Image tangents ``t_i`` are 2D image-space vectors (any length; normalised here).
-  The covariance axes are the unit normal n = (-t_y, t_x) with sigma_n and the unit
-  tangent t with sigma_t.  For kinds whose tangent is "free" in DESIGN 4.4 (contour, brow)
-  the tangent sigma is a large finite number (normal-only in practice).
-* A tangent that is ``None``, non-finite or of zero length is *unknown*, and the covariance
+* Image tangents ``t_i`` are 2D image-space vectors.  The covariance axes are the unit
+  normal n = (-t_y, t_x) with sigma_n and the unit tangent t with sigma_t.  For kinds whose
+  tangent is "free" in DESIGN 4.4 (contour, brow) the tangent sigma is a large finite number
+  (normal-only in practice).
+* **Direction confidence is a separate column (WBS FU-04; review fix).**  A tangent array of
+  shape (N, 2) holds directions that are known exactly, whatever their length (a unit vector,
+  an unnormalised chord in px, any non-zero vector): the pre-FU-04 meaning, unchanged.  A
+  tangent *estimated from detections* (:func:`image_tangents`) is an (N, 3) array
+  (t_x, t_y, rho): rho in (0, 1] is the mean resultant length E[cos 2 delta] of the (axial)
+  direction error delta.  The covariance is then the exact second moment of the error ellipse
+  under that direction error, E[R(delta) diag(sigma_n^2, sigma_t^2) R(delta)^T] =
+  diag(sigma_n^2 + s D, sigma_t^2 - s D) in the (n, t) frame with D = sigma_t^2 - sigma_n^2 and
+  s = E[sin^2 delta] = (1 - rho) / 2.  It tends to the orientation average
+  (sigma_n^2 + sigma_t^2) / 2 I_2 as rho -> 0 and never declares the normal direction
+  tighter than the direction is known.  (The first FU-04 version encoded rho in the vector
+  length, which silently changed the meaning of non-normalised (N, 2) tangents.)
+* **'Free' tangent kinds under an uncertain direction (review fix).**  For contour and brow
+  the tangent SD (1000 / 40 mm) is an *encoding* of 'no constraint along the curve', not an
+  error spread, so it must not leak into the normal direction through the term s D: at
+  rho = 0.95 a contour point would be declared 158 mm across its curve.  For
+  :data:`FREE_ENCODED_KINDS` the leakage uses the finite slide of a curve sample,
+  ``noise.free_tangent_leak_mm`` (7.5 mm, the DESIGN 4.4 curve tangent SD):
+  sigma_n^2 + s max(leak^2 - sigma_n^2, 0) across, the 'free' sigma_t^2 along (unchanged).
+* **Tangents come from the detections, never from ground truth (WBS FU-04).**
+  :func:`image_tangents` derives the tangent of a landmark from the chord between its two
+  scheme-defined neighbours on the same anatomical curve (scheme file key ``tangents``,
+  :func:`scheme_tangent_pairs`), with rho (third column) from the neighbours' own declared noise; a chord
+  that is hidden, shorter than its noise (rho < ``noise.tangent_min_rho``) or not defined by
+  the scheme gives an *unknown* tangent.
+* A tangent that is ``None``, non-finite or of zero length (or whose rho is non-finite or
+  <= 0) is *unknown*, and the covariance
   is isotropic, sigma_iso^2 I_2 (before the p^2 m^2 eta factor), by kind
   (:data:`FREE_TANGENT_KINDS`):
 
@@ -48,7 +74,7 @@ Numeric defaults
 Every number is registered with :mod:`face3d.core.config` under the namespace
 ``noise`` (keys ``<kind>_sigma_n_mm``, ``<kind>_sigma_t_mm``, ``<kind>_sigma_def_mm``,
 ``pin_<class>_mm``, ``floor_k_<class>``, ``floor_min_px``, ``floor_crop_px``,
-``n_eff``), each with its badge and source.  Almost all are 🧠 / ↔️ / 🆕, i.e.
+``n_eff``, ``tangent_min_rho``, ``free_tangent_leak_mm``), each with its badge and source.  Almost all are 🧠 / ↔️ / 🆕, i.e.
 PROVISIONAL until the M7 calibration (DESIGN 8).  The module constants
 :data:`KIND_SIGMA_MM`, :data:`KIND_SIGMA_DEF_MM`, :data:`PIN_CLASS_SIGMA_MM`,
 :data:`FLOOR_K` and :data:`N_EFF` are the registered default values; pass a resolved
@@ -68,6 +94,9 @@ __all__ = [
     "KIND_SIGMA_MM", "KIND_SIGMA_DEF_MM", "PIN_CLASS_SIGMA_MM", "FLOOR_K", "N_EFF",
     "FLOOR_MIN_PX", "FLOOR_CROP_PX", "NoiseModel", "pin_sigma_px", "whitening", "kind_tables",
 ]
+# WBS FU-04 additions (public, import from this module: TANGENT_MIN_RHO, FREE_ENCODED_KINDS, tangent_rho,
+# scheme_tangent_pairs, image_tangents).  They are not in __all__ because the package export list of face3d.solve is owned by
+# WP-23 (tests/test_policy_ci.py requires every __all__ name to be re-exported there).
 
 _BRAIN = "\U0001F9E0"   # expert knowledge, provisional
 _ARROWS = "↔️"          # contested
@@ -84,6 +113,10 @@ POINT_LIKE_KINDS: frozenset[str] = frozenset({"sharp_junction", "extremal", "iri
 #: WP-07 orientation average (sigma_n^2 + sigma_t^2) / 2.  Every other kind has a finite
 #: tangent SD and uses max(sigma_n^2, sigma_t^2) (WBS FU-01; see the module docstring).
 FREE_TANGENT_KINDS: frozenset[str] = frozenset({"curve", "contour", "brow"})
+#: Kinds whose tangent SD is an encoding of 'free' (DESIGN 4.4: contour 1000 mm, brow 40 mm; WBS WP-07),
+#: not a slide spread: under an uncertain tangent direction their leakage into the normal uses
+#: ``noise.free_tangent_leak_mm`` (module docstring; WBS FU-04 review).
+FREE_ENCODED_KINDS: frozenset[str] = frozenset({"contour", "brow"})
 #: Detector-floor classes (bl ML; research/blender/README.md "Detector noise floor").
 FLOOR_CLASSES: tuple[str, ...] = ("inner", "iris", "brow", "contour")
 #: Floor class of each kind.  bl ML names inner points, iris, brows and contour; the
@@ -155,6 +188,16 @@ def _build_defaults() -> dict[str, Default]:
     d["floor_crop_px"] = Default(256.0, _BRAIN, f"{_ML}: detector input crop 256 px", "px", (1.0, None))
     d["n_eff"] = Default(80.0, _BRAIN, "DESIGN 4.4 eta = N/N_eff, N_eff 80 (range 60-100; rec BA-2; "
                                        "landmark-detection 'Correlated dense outputs')", "points", (1.0, None))
+    d["tangent_min_rho"] = Default(0.5, _NEW, "WBS FU-04 task 1: a detection-derived image tangent is used only "
+                                   "when the mean resultant length rho = exp(-2 sigma_delta^2) of its direction "
+                                   "is >= 0.5 (direction SD <= 34 deg); below that the point keeps the "
+                                   "unknown-tangent rule (FU-01). Provisional, uncalibrated", "", (0.0, 1.0))
+    d["free_tangent_leak_mm"] = Default(7.5, _NEW, "WBS FU-04 review: slide spread used for the leakage of an "
+                                        "uncertain tangent direction into the normal variance of the 'free' "
+                                        "tangent kinds (contour, brow), whose tangent SD (1000 / 40 mm) only "
+                                        "encodes 'unconstrained'. Value = DESIGN 4.4 curve tangent SD 7.5 mm "
+                                        "(landmark-index-correspondence '5 or free'). Provisional, uncalibrated",
+                                        "mm", (1e-6, None))
     return d
 
 
@@ -204,6 +247,134 @@ N_EFF: float = _T["n_eff"]
 FLOOR_MIN_PX: float = _T["floor_min_px"]
 FLOOR_CROP_PX: float = _T["floor_crop_px"]
 del _T
+#: Smallest direction confidence rho of a usable detection-derived tangent (WBS FU-04; registered default).
+TANGENT_MIN_RHO: float = float(NOISE["tangent_min_rho"].value)
+
+
+def _split_tangents(tangents: Any, n: int | None = None) -> tuple[np.ndarray, np.ndarray]:
+    """(unit directions (N, 2) with NaN rows where unknown, rho (N,) with NaN where unknown) of a
+    tangent array (N, 2) (exact directions of any length: rho = 1) or (N, 3) (t_x, t_y, rho)."""
+    T = np.asarray(tangents, dtype=float)
+    if T.ndim != 2 or T.shape[1] not in (2, 3) or (n is not None and len(T) != n):
+        want = "(N" if n is None else f"({n}"
+        raise ValueError(f"tangents must have shape {want}, 2) or {want}, 3), got {T.shape}")
+    norm = np.linalg.norm(T[:, :2], axis=1)
+    known = np.isfinite(norm) & (norm > 1e-12)
+    rho = np.ones(len(T))
+    if T.shape[1] == 3:
+        r = T[:, 2]
+        known &= np.isfinite(r) & (r > 0.0)
+        rho = np.minimum(np.where(known, r, 1.0), 1.0)
+    t = np.full((len(T), 2), np.nan)
+    t[known] = T[known, :2] / norm[known, None]
+    return t, np.where(known, rho, np.nan)
+
+
+def tangent_rho(tangents: Any) -> np.ndarray:
+    """(N,) direction confidence rho of image tangents: 1 for an (N, 2) row of any non-zero length
+    (exact direction), the third column (clipped to 1) for (N, 3) rows; NaN for an unknown tangent
+    (non-finite or zero direction, non-finite or non-positive rho).  See the module docstring."""
+    return _split_tangents(tangents)[1]
+
+
+def scheme_tangent_pairs(scheme: Any, ids: Sequence[str | None] | None = None) -> np.ndarray:
+    """(N, 2) int neighbour indices (a, b) per landmark from a scheme's ``tangents`` metadata; -1 = none.
+
+    ``scheme``: a :class:`face3d.model.registry.Scheme` (its ``raw`` document is read) or the
+    scheme document itself.  The optional top-level key ``tangents`` holds
+    ``{"neighbours": {point: [a, b], ...}}`` where ``point``, ``a`` and ``b`` are anatomical ids
+    (or point names) of the scheme: the image tangent of ``point`` is the direction of the chord
+    from ``a`` to ``b``, its two neighbours on the same anatomical curve / outline (``b`` may be
+    the point itself for a one-sided chord).  A scheme without the key gives all -1 (every
+    tangent unknown: the pre-FU-04 behaviour).
+
+    ``ids`` None: rows follow the scheme's own point order.  Otherwise ``ids`` are the caller's
+    landmark ids (anatomical ids or scheme point names; e.g. the pipeline's engine point list)
+    and rows / indices refer to positions in ``ids``; an entry whose point or neighbours are not
+    in ``ids`` is -1.  Raises ValueError for a malformed entry or an unknown point of the scheme.
+    """
+    doc = getattr(scheme, "raw", scheme)
+    meta = (doc or {}).get("tangents") or {}
+    nb = meta.get("neighbours") or {}
+    pts = (doc or {}).get("points") or []
+    known = set()
+    order = []
+    for p in pts:
+        key = p.get("anatomical_id") or p.get("name")
+        order.append(key)
+        known.add(p.get("name"))
+        if p.get("anatomical_id") is not None:
+            known.add(p["anatomical_id"])
+    names = list(order if ids is None else ids)
+    pos = {k: i for i, k in enumerate(names) if k is not None}
+    out = np.full((len(names), 2), -1, dtype=np.int64)
+    for point, pair in nb.items():
+        if not isinstance(pair, (list, tuple)) or len(pair) != 2:
+            raise ValueError(f"scheme tangents: neighbours of {point!r} must be a pair, got {pair!r}")
+        a, b = str(pair[0]), str(pair[1])
+        for k in (point, a, b):
+            if k not in known:
+                raise ValueError(f"scheme tangents: {k!r} is not a point of the scheme")
+        if a == b:
+            raise ValueError(f"scheme tangents: neighbours of {point!r} are the same point")
+        if point in pos and a in pos and b in pos:
+            out[pos[point]] = (pos[a], pos[b])
+    return out
+
+
+def image_tangents(uv: Any, pairs: Any, sigma_px: Any = None, min_rho: float | None = None) -> np.ndarray:
+    """(N, 3) image tangents (t_x, t_y, rho) of one view from its own detections (DESIGN 4.4 't-hat from neighbouring
+    curve points'; WBS FU-04 task 1).  Never uses anything but ``uv``.
+
+    ``uv`` (N, 2) px detections (NaN rows hidden); ``pairs`` (N, 2) int neighbour indices
+    (:func:`scheme_tangent_pairs`; a negative entry: no tangent defined); ``sigma_px`` (N,) or
+    scalar isotropic-equivalent detection SD of every landmark in px (the declared noise of the
+    neighbours; None: the direction is taken as exact).
+
+    Row i is the unit chord direction (uv[b] - uv[a]) / |uv[b] - uv[a]| followed by its direction
+    confidence rho_i = exp(-2 sigma_delta^2), with sigma_delta^2 = (sigma_a^2 + sigma_b^2) / |chord|^2 the
+    first-order variance of the chord direction (radians^2) under the neighbours' noise: rho is
+    the mean resultant length of the axial direction, which :meth:`NoiseModel.view_cov` turns
+    into the exact covariance under that direction error (module docstring).  Rows are NaN
+    (unknown tangent: the point keeps the FU-01 isotropic rule) when no pair is defined, the
+    point or a neighbour is hidden, the chord has zero length, or rho < ``min_rho`` (default
+    ``noise.tangent_min_rho``, 0.5: a foreshortened chord, e.g. the lip line in a profile view).
+    """
+    U = np.asarray(uv, dtype=float)
+    if U.ndim != 2 or U.shape[1] != 2:
+        raise ValueError(f"uv must have shape (N, 2), got {U.shape}")
+    N = len(U)
+    P = np.asarray(pairs, dtype=np.int64)
+    if P.shape != (N, 2):
+        raise ValueError(f"pairs must have shape ({N}, 2), got {P.shape}")
+    if np.any(P >= N):
+        raise ValueError("pairs index out of range")
+    rmin = TANGENT_MIN_RHO if min_rho is None else float(min_rho)
+    out = np.full((N, 3), np.nan)
+    has = (P >= 0).all(axis=1)
+    if not has.any():
+        return out
+    idx = np.flatnonzero(has)
+    a, b = P[idx, 0], P[idx, 1]
+    d = U[b] - U[a]
+    L = np.linalg.norm(d, axis=1)
+    ok = np.isfinite(L) & (L > 1e-9) & np.isfinite(U[idx]).all(axis=1)
+    if sigma_px is None:
+        var = np.zeros(len(idx))
+    else:
+        sg = np.broadcast_to(np.asarray(sigma_px, dtype=float), (N,)) if np.ndim(sigma_px) == 0 \
+            else np.asarray(sigma_px, dtype=float).reshape(-1)
+        if sg.shape != (N,):
+            raise ValueError(f"sigma_px must be a scalar or ({N},), got {np.shape(sigma_px)}")
+        var = sg[a] ** 2 + sg[b] ** 2
+        ok &= np.isfinite(var)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        rho = np.exp(-2.0 * var / L ** 2)
+    ok &= np.isfinite(rho) & (rho >= rmin) & (rho > 0)
+    sel = idx[ok]
+    out[sel, :2] = d[ok] / L[ok][:, None]
+    out[sel, 2] = rho[ok]
+    return out
 
 
 def unknown_tangent_var_mm2(kinds: Sequence[str], sigma_nt_mm: Any) -> np.ndarray:
@@ -271,6 +442,10 @@ class NoiseModel:
         # isotropic SD used when the image tangent is unknown (WBS WP-07 / FU-01)
         self.sigma_iso_mm = np.sqrt(unknown_tangent_var_mm2(self.kinds, s))   # (N,)
         self.floor_k = np.array([tab["floor_k"][FLOOR_CLASS_OF_KIND[k]] for k in self.kinds], float)
+        # tangent variance that leaks into the normal under an uncertain direction (FREE_ENCODED_KINDS:
+        # the finite slide spread, not the 'free' encoding; WBS FU-04 review)
+        leak = float(_cfg_value("free_tangent_leak_mm", cfg))
+        self._leak_t2 = np.where([k in FREE_ENCODED_KINDS for k in self.kinds], leak ** 2, s[:, 1] ** 2)
         self.n_total = int(n if n_total is None else n_total)
         if self.n_total <= 0:
             raise ValueError("n_total must be positive")
@@ -299,9 +474,11 @@ class NoiseModel:
         """(N, 2, 2) image covariance in px^2 for one view (DESIGN 4.4, without nu_v and expression).
 
         ``px_per_mm`` (N,) = f / z_i at each landmark's depth; ``face_px`` face width in px
-        (None: floor_min_px only); ``tangents`` (N, 2) image tangents or None (unknown rows:
-        NaN / zero; their covariance is isotropic with ``sigma_iso_mm``, see
-        :func:`unknown_tangent_var_mm2`); ``multipliers`` (N,) m_iv (default 1); ``tta_px`` (N,)
+        (None: floor_min_px only); ``tangents`` (N, 2) exact image tangents of any length, or (N, 3)
+        (t_x, t_y, rho) with the direction confidence rho of a detection-derived tangent
+        (module docstring, :func:`image_tangents`), or None (unknown rows: NaN / zero; their
+        covariance is isotropic with ``sigma_iso_mm``, see :func:`unknown_tangent_var_mm2`);
+        ``multipliers`` (N,) m_iv (default 1); ``tta_px`` (N,)
         test-time augmentation spread in px (default 0).  Rows with non-finite ``px_per_mm``
         are NaN.
         """
@@ -318,16 +495,19 @@ class NoiseModel:
         S[:, 0, 0] = iso2
         S[:, 1, 1] = iso2
         if tangents is not None:
-            T = np.asarray(tangents, dtype=float)
-            if T.shape != (n, 2):
-                raise ValueError(f"tangents must have shape ({n}, 2), got {T.shape}")
-            norm = np.linalg.norm(T, axis=1)
-            known = np.isfinite(norm) & (norm > 1e-12)
+            tu, rho = _split_tangents(tangents, n)
+            known = np.isfinite(rho)
             if known.any():
-                t = T[known] / norm[known, None]
+                t = tu[known]
                 nv = np.column_stack([-t[:, 1], t[:, 0]])
-                S[known] = (sn2[known, None, None] * np.einsum("ni,nj->nij", nv, nv)
-                            + st2[known, None, None] * np.einsum("ni,nj->nij", t, t))
+                # direction confidence rho: E[sin^2 delta] = (1 - rho) / 2 (WBS FU-04)
+                s_dir = 0.5 * (1.0 - rho[known])
+                free = np.array([k in FREE_ENCODED_KINDS for k in self.kinds], bool)[known]
+                leak = np.maximum(self._leak_t2[known] - sn2[known], 0.0) * s_dir
+                # 'free' kinds: the tangent stays free; other kinds: exact second moment (trace kept)
+                var_t = np.where(free, st2[known], st2[known] - leak)
+                S[known] = ((sn2[known] + leak)[:, None, None] * np.einsum("ni,nj->nij", nv, nv)
+                            + var_t[:, None, None] * np.einsum("ni,nj->nij", t, t))
         S *= (p ** 2 * m ** 2 * self.eta)[:, None, None]
         add = tta ** 2 + self.floor_px(face_px) ** 2
         S[:, 0, 0] += add

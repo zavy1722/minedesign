@@ -1663,7 +1663,7 @@ def _pad_view(v: Any, n_extra: int) -> Any:
 
     kw = dict(uv=pad(np.asarray(v.uv, float), np.nan, (2,)), weights=pad(v.weights, 1.0),
               cov_px=pad(v.cov_px, 0.0, (2, 2)), multipliers=pad(v.multipliers, 1.0),
-              tangents=pad(v.tangents, np.nan, (2,)), tta_px=pad(v.tta_px, 0.0),
+              tangents=pad(v.tangents, np.nan, np.shape(v.tangents)[1:]), tta_px=pad(v.tta_px, 0.0),
               dense_mask=pad(v.dense_mask, False))
     if kw["cov_px"] is not None:
         kw["cov_px"][N:] = np.eye(2)

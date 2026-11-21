@@ -22,8 +22,47 @@ Tags (DESIGN 4.9, thresholds 🧠 from anat section 6):
   expressive test is applied first);
 * without scores (:func:`tag_fallback`, 🆕): an inner-lip gap / ch-ch > 0.04 drops sto and li;
   a mouth width (ch-ch over the rigid ex-ex width) above 1.08 x the set median marks mild;
-* re-tag after a solve (:func:`retag_from_residuals`, 🆕): mobile-class reduced chi^2 > 4 ->
-  at least mild, > 9 -> expressive, at most 3 rounds (the caller's loop).
+* re-tag after a solve, at most 3 rounds (the caller's loop).  :func:`retag_from_residuals`
+  keeps the DESIGN 4.9 rule (mobile-class reduced chi^2 > 4 -> at least mild, > 9 ->
+  expressive, 🆕).  Since WBS FU-04 the pipeline uses :func:`retag_from_evidence`, whose
+  thresholds are quantiles of the engine's own null distributions at stated false-alarm rates
+  (see 'Re-tag statistics' below).
+
+Re-tag statistics (WBS FU-04 task 3)
+------------------------------------
+Measured on the WP-23 fault matrix (30 seeds, docs/RESULTS.md 3.1): the DESIGN thresholds 4
+and 9 on a 12-dof reduced chi^2 are the 3e-6 and 1e-17 quantiles of its null, and a jaw
+opening never reaches the mobile class at all, because the per-view jaw hinge absorbs it (a
+5-15 deg opening is fitted as 3-6 deg against the neutral prior N(1.5 deg, 1 deg^2), the rest
+goes into the view's pose and the consensus).  Two statistics, both against the *neutral*
+declared noise of the view (never the already inflated one, or a 'mild' view could not
+escalate):
+
+* **mobile-class chi^2** (:func:`mobile_chi2_capped`): T = sum_i min(e_i^2, c^2) over the
+  view's visible expression-affected landmarks (the pipeline passes the mobile class and the
+  jaw-dependent class: the chin points the robust schedule rejects when it does not follow the
+  jaw), e_i^2 = r_i^T Sigma_i^-1 r_i the squared Mahalanobis
+  residual (full 2x2 covariance: anisotropic since FU-04) and c = 3.035 sigma, the DESIGN D-08
+  rejection threshold: a landmark the robust schedule rejected still counts, but no more than
+  a rejected one, so a single gross detector outlier cannot tag a view.  Null: T <= chi^2 with
+  2 n dof (the cap and the fit only lower it).  Tag 'mild' at T > chi2_(2n)(1 - alpha_mild),
+  'expressive' at T > chi2_(2n)(1 - alpha_expressive) (Wilson-Hilferty quantiles,
+  :func:`face3d.solve.robust.chi2_quantile_wh`).
+* **jaw angle** (:func:`jaw_angle_z`): z = (theta_v - mu) / SD_0, with theta_v the view's
+  fitted hinge angle, N(mu, sigma_neutral^2) = N(1.5 deg, 1 deg^2) the DESIGN 4.9 neutral jaw
+  population and SD_0 the standard deviation the fitted angle has under 'this view is neutral'
+  given the jaw prior it was solved with and its posterior SD (a posterior mean is shrunk:
+  SD_0^2 = sigma_neutral^2 - sigma_post^2 on a neutral-tagged view).  One-sided: 'mild' at
+  z > z_(1 - alpha_mild_jaw), 'expressive' at z > z_(1 - alpha_expressive_jaw).  A 'mild' tag
+  widens the view's jaw prior to 3 deg (:func:`jaw_config_for_tag`), so the next round fits
+  the opening itself and the second threshold decides.
+
+Stated false-alarm rates per neutral view (registered defaults, 🆕 provisional):
+``retag_mild_alpha`` 0.01 and ``retag_expressive_alpha`` 0.001 for the mobile chi^2,
+``retag_mild_jaw_alpha`` 0.05 and ``retag_expressive_jaw_alpha`` 0.005 for the jaw angle (a
+5 deg opening is 3.5 sigma of the neutral population, so the DESIGN 7.4 row 'jaw 5-15 deg ->
+expressive' cannot be met at a smaller rate).  A false 'mild' costs a x3 mobile-class sigma
+on that view; a false 'expressive' drops its mobile points.
 
 Lids are dropped on a blink (EAR < 0.2) or gaze pitch beyond 12 deg (:func:`lid_drop`);
 with no neutral view, lip and lid measurements finer than 1 mm are suppressed
@@ -44,6 +83,7 @@ from ..core.config import Default, register_defaults
 from ..geometry.camera import Camera
 from .bundle import BUNDLE, JawConfig
 from .camera_model import projection_jacobians as _projection_jacobians
+from .robust import chi2_quantile_wh, norm_ppf
 
 __all__ = [
     "EXPRESSION", "TAGS", "CLASS_MULT", "EXPR_CLASSES", "tag_from_blendshapes", "mouth_width", "tag_fallback",
@@ -51,6 +91,9 @@ __all__ = [
     "apply_expression", "projection_jacobians", "lid_drop", "no_neutral_view", "jaw_config_for_tag",
     "FLAG_NO_NEUTRAL", "expression_classes",
 ]
+# WBS FU-04 additions (public, import from this module: mahalanobis_e2, mobile_chi2_capped, jaw_angle_z,
+# retag_thresholds, retag_from_evidence, soft_mobile_multiplier) are not in __all__: the face3d.solve
+# export list is owned by WP-23.
 
 _BRAIN = "\U0001F9E0"
 _NEW = "\U0001F195"
@@ -73,6 +116,29 @@ EXPRESSION = register_defaults("expression", {
     "retag_expressive_chi2": Default(9.0, _NEW, "DESIGN 4.9 re-tag: mobile-class reduced chi^2 > 9 -> expressive",
                                      "", (0.0, None)),
     "max_retag_rounds": Default(3, _NEW, "DESIGN 4.9 re-tag at most 3 rounds", "", (0, 100)),
+    "retag_mild_alpha": Default(0.01, _NEW, "WBS FU-04 task 3: false-alarm rate per neutral view of the 'mild' "
+                                "re-tag from the capped mobile-class chi^2 (null chi^2 with 2 n dof; replaces "
+                                "the fixed reduced chi^2 > 4 in the pipeline). Provisional", "", (1e-9, 0.5)),
+    "retag_expressive_alpha": Default(0.001, _NEW, "WBS FU-04 task 3: false-alarm rate per neutral view of the "
+                                      "'expressive' re-tag from the capped mobile-class chi^2 (replaces the fixed "
+                                      "reduced chi^2 > 9 in the pipeline). Provisional", "", (1e-9, 0.5)),
+    "retag_mild_jaw_alpha": Default(0.05, _NEW, "WBS FU-04 task 3: false-alarm rate per neutral view of the 'mild' "
+                                    "re-tag from the fitted jaw angle against the DESIGN 4.9 neutral population "
+                                    "N(1.5 deg, 1 deg^2) (one-sided z > 1.645). Provisional", "", (1e-9, 0.5)),
+    "retag_expressive_jaw_alpha": Default(0.005, _NEW, "WBS FU-04 task 3: false-alarm rate per neutral view of the "
+                                          "'expressive' re-tag from the fitted jaw angle (one-sided z > 2.576; a "
+                                          "5 deg opening, the lower end of the DESIGN 7.4 row, is 3.5 sigma of the "
+                                          "neutral population). Provisional", "", (1e-9, 0.5)),
+    "retag_cap_sigmas": Default(3.035, "\U0001F522", "DESIGN D-08 / 4.5 rejection threshold (1 % false alarm in 2D): "
+                                "cap of one landmark's whitened residual in the mobile-class chi^2 "
+                                "(WBS FU-04: a rejected landmark counts, but only as a rejected one)", "sigma",
+                                (1e-6, None)),
+    "retag_jaw_min_sd_deg": Default(0.5, _NEW, "WBS FU-04 task 3: floor of the null SD of the fitted jaw angle in "
+                                    "jaw_angle_z (half the neutral population SD; guards a nearly uninformative "
+                                    "view). Provisional", "deg", (1e-6, None)),
+    "soft_mobile_alpha": Default(0.20, _NEW, "WBS FU-04 task 4: a view whose capped mobile-class chi^2 exceeds its "
+                                 "1 - alpha null quantile without reaching a tag threshold gets its mobile class "
+                                 "down-weighted (soft_mobile_multiplier). Provisional", "", (1e-9, 0.9)),
     "lid_ear_min": Default(0.2, _BRAIN, "DESIGN 4.9 / 4.1 Q-BLINK: lids dropped on EAR < 0.2 (bl section 10)",
                            "", (0.0, 1.0)),
     "lid_pitch_max_deg": Default(12.0, _BRAIN, "DESIGN 4.9: lids dropped at gaze pitch > 12 deg", "deg",
@@ -239,6 +305,137 @@ def retag_from_residuals(mobile_chi2_red: float, current: str | None = None) -> 
         elif x > _E["retag_mild_chi2"]:
             implied = "mild"
     return _max_tag(current, implied) or implied
+
+
+# =========================================================================== re-tag statistics (WBS FU-04)
+def mahalanobis_e2(residual_px: Any, cov_px: Any) -> np.ndarray:
+    """(N,) squared Mahalanobis residuals r_i^T Sigma_i^-1 r_i (chi^2 with 2 dof under the declared
+    noise).  ``residual_px`` (N, 2) px, ``cov_px`` (N, 2, 2) px^2; NaN where either is not finite or
+    the covariance is not positive definite."""
+    r = np.asarray(residual_px, float)
+    C = np.asarray(cov_px, float)
+    if r.ndim != 2 or r.shape[1] != 2 or C.shape != (len(r), 2, 2):
+        raise ValueError("residual_px must be (N, 2) and cov_px (N, 2, 2)")
+    out = np.full(len(r), np.nan)
+    a, b, d = C[:, 0, 0], 0.5 * (C[:, 0, 1] + C[:, 1, 0]), C[:, 1, 1]
+    det = a * d - b * b
+    with np.errstate(invalid="ignore"):
+        ok = np.isfinite(r).all(axis=1) & np.isfinite(det) & (det > 0) & (a > 0)
+    x, y = r[ok, 0], r[ok, 1]
+    out[ok] = (d[ok] * x * x - 2.0 * b[ok] * x * y + a[ok] * y * y) / det[ok]
+    return out
+
+
+def mobile_chi2_capped(e2: Any, cap_sigmas: float | None = None) -> tuple[float, int]:
+    """(T, dof) of a view's mobile-class landmarks: T = sum_i min(e_i^2, c^2) over the finite
+    entries of ``e2`` (squared Mahalanobis residuals, :func:`mahalanobis_e2`), dof = 2 n.
+
+    ``cap_sigmas`` c (default ``expression.retag_cap_sigmas`` = 3.035, DESIGN D-08): a landmark
+    beyond the robust rejection threshold counts as a rejected one and no more, so one gross
+    outlier cannot tag a view (with n = 1 the cap is below every threshold).  Under the declared
+    noise T is stochastically below chi^2 with ``dof`` degrees of freedom.  (0.0, 0) without points."""
+    e = np.asarray(e2, float).reshape(-1)
+    e = e[np.isfinite(e)]
+    c = float(_E["retag_cap_sigmas"]) if cap_sigmas is None else float(cap_sigmas)
+    return float(np.sum(np.minimum(e, c * c))), int(2 * len(e))
+
+
+def jaw_angle_z(theta_deg: float | None, sigma_post_deg: float | None,
+                prior_sigma_deg: float | None = None) -> float:
+    """z of a view's fitted jaw angle under 'this view is neutral' (WBS FU-04 task 3).
+
+    The DESIGN 4.9 neutral population is theta ~ N(mu, sigma_n^2) (``bundle.jaw_prior_mean_deg``
+    1.5, ``bundle.jaw_prior_sigma_deg`` 1).  The view was solved with the jaw prior
+    N(mu, s_p^2) (``prior_sigma_deg``; default sigma_n, the neutral tag's prior; 3 deg on a
+    'mild' / 'expressive' view) and its fitted angle has the posterior SD s_post
+    (``sigma_post_deg``).  In the linear-Gaussian model the fitted angle is
+    theta_hat = mu + w (theta_data - mu) with w = 1 - r, r = s_post^2 / s_p^2, and the data-only
+    estimate has variance s_d^2 = s_post^2 / (1 - r), so for a neutral view
+
+        Var(theta_hat - mu) = w^2 (sigma_n^2 + s_d^2) = (1 - r)^2 sigma_n^2 + (1 - r) s_post^2
+
+    (= sigma_n^2 - s_post^2 when s_p = sigma_n: a posterior mean is shrunk).  z = (theta_hat - mu)
+    over the square root of that variance, with the SD floored at ``expression.retag_jaw_min_sd_deg``
+    (0.5 deg: the bundle's s_post is a linearised value and the hinge is bounded and robustly
+    weighted, so a nearly uninformative view must not produce a large z from a tiny variance).
+    NaN when an input is missing (jaw not fitted, frozen view) or the data carry no information
+    on the angle (s_post >= s_p)."""
+    if theta_deg is None or sigma_post_deg is None:
+        return float("nan")
+    th, sp = float(theta_deg), float(sigma_post_deg)
+    if not (math.isfinite(th) and math.isfinite(sp)) or sp < 0:
+        return float("nan")
+    mu, sn = float(BUNDLE["jaw_prior_mean_deg"].value), float(BUNDLE["jaw_prior_sigma_deg"].value)
+    s_p = sn if prior_sigma_deg is None else float(prior_sigma_deg)
+    if not s_p > 0:
+        return float("nan")
+    r = (sp / s_p) ** 2
+    if r >= 0.98:
+        return float("nan")
+    var = (1.0 - r) ** 2 * sn * sn + (1.0 - r) * sp * sp
+    sd = max(math.sqrt(var), float(_E["retag_jaw_min_sd_deg"]))
+    return (th - mu) / sd
+
+
+def retag_thresholds(dof: int) -> dict:
+    """The re-tag thresholds at the registered false-alarm rates (module docstring):
+    ``{'chi2_mild', 'chi2_expressive'}`` for a mobile-class chi^2 with ``dof`` degrees of freedom
+    (inf when dof <= 0) and ``{'jaw_z_mild', 'jaw_z_expressive'}``."""
+    out = {"jaw_z_mild": float(norm_ppf(1.0 - float(_E["retag_mild_jaw_alpha"]))),
+           "jaw_z_expressive": float(norm_ppf(1.0 - float(_E["retag_expressive_jaw_alpha"])))}
+    if dof > 0:
+        out["chi2_mild"] = float(chi2_quantile_wh(float(dof), 1.0 - float(_E["retag_mild_alpha"])))
+        out["chi2_expressive"] = float(chi2_quantile_wh(float(dof), 1.0 - float(_E["retag_expressive_alpha"])))
+    else:
+        out["chi2_mild"] = out["chi2_expressive"] = math.inf
+    return out
+
+
+def retag_from_evidence(mobile_T: float, mobile_dof: int, jaw_z: float = float("nan"),
+                        current: str | None = None) -> tuple[str, dict]:
+    """Re-tag a view after a solve from its two statistics (WBS FU-04 task 3; module docstring).
+
+    ``mobile_T``, ``mobile_dof`` from :func:`mobile_chi2_capped` on residuals whitened by the
+    view's *neutral* declared noise; ``jaw_z`` from :func:`jaw_angle_z` (NaN: not available).
+    Returns ``(tag, detail)``: the tag is never below ``current`` (tags only escalate; the caller
+    re-solves and repeats at most :data:`MAX_RETAG_ROUNDS` rounds) and ``detail`` holds the
+    statistics, the thresholds (:func:`retag_thresholds`) and ``'by'``, the statistics that
+    crossed a threshold ('mobile_chi2', 'jaw_angle')."""
+    thr = retag_thresholds(int(mobile_dof))
+    T, z = float(mobile_T), float(jaw_z)
+    implied, by = "neutral", []
+    if math.isfinite(T) and mobile_dof > 0:
+        if T > thr["chi2_expressive"]:
+            implied, by = "expressive", ["mobile_chi2"]
+        elif T > thr["chi2_mild"]:
+            implied, by = "mild", ["mobile_chi2"]
+    if math.isfinite(z):
+        if z > thr["jaw_z_expressive"]:
+            by = (by if implied == "expressive" else []) + ["jaw_angle"]
+            implied = "expressive"
+        elif z > thr["jaw_z_mild"]:
+            if implied == "neutral":
+                implied, by = "mild", ["jaw_angle"]
+            elif implied == "mild":
+                by = by + ["jaw_angle"]
+    tag = _max_tag(current, implied) or implied
+    return tag, {"mobile_chi2": T, "mobile_dof": int(mobile_dof), "jaw_z": z, "implied": implied, "by": by, **thr}
+
+
+def soft_mobile_multiplier(mobile_T: float, mobile_dof: int) -> float:
+    """Sigma multiplier (>= 1) of the mobile class of a view whose mobile chi^2 is elevated but
+    below the tag thresholds (WBS FU-04 task 4, robust down-weighting).
+
+    1 while T <= q = chi2_dof(1 - ``expression.soft_mobile_alpha``); above it sqrt(T / dof),
+    the factor that brings the class's reduced chi^2 back to 1 (never below 1, never above the
+    'mild' class multiplier 3, which a tagged view gets anyway)."""
+    T = float(mobile_T)
+    if not math.isfinite(T) or mobile_dof <= 0:
+        return 1.0
+    q = float(chi2_quantile_wh(float(mobile_dof), 1.0 - float(_E["soft_mobile_alpha"])))
+    if T <= q:
+        return 1.0
+    return float(min(max(math.sqrt(T / float(mobile_dof)), 1.0), CLASS_MULT["mobile"][1]))
 
 
 # =========================================================================== covariance inflation

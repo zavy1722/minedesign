@@ -50,6 +50,20 @@ post-BA Q-RETOUCH step are wired and gated for false alarms (``exif_crop.no_fals
 Q-SMALL on the pose-independent face width meet their targets.  :func:`task_exif_near` is a diagnostic
 (not a DESIGN 7.4 row) at a range where the photos alone constrain the focal.
 
+FU-04 (image tangents implemented as an opt-in; single-view detectors recalibrated).  The engine can
+derive the image tangent of the curve / extremal landmarks from the detected neighbours the scheme names
+and declare sigma_n across / sigma_t along it (``pipeline.image_tangents``).  After the FU-04 review the
+switch is off by default and **every gate is measured on the WP-01 detector simulator as is** (one random
+noise direction per landmark, unrelated to the scheme metadata): scenes whose noise axes were rebuilt from
+the scheme's own neighbour pairs (:func:`anatomical_noise_axes`) agree with the engine's assumption by
+construction and cannot detect a wrong neighbour choice, so they are diagnostics only
+(:data:`FU04_VARIANTS`, with the cost of the opt-in on the gate scenes).  The mirror test uses the declared
+predictive noise, a gap threshold from its null (``mirror.flip_alpha``) and a per-view g_min from the power
+of its complete decision rule (``mirror.keep_power``); the expression re-tag uses the capped mobile-class
+chi^2 and the fitted jaw angle at stated false-alarm rates.  :func:`_fu04_summary` (diagnostics run)
+reports the conditions under which the unreachable single-view targets hold, the floor of the identity
+gates under a perfect tagger, and the noise-model variants.
+
 Per-push cost: about 105 pipeline runs (21 per seed) plus 15 clean solves for the alarm budget, in a
 process pool; :func:`matrix_tasks` with ``fast=True`` leaves out the stages no gate reads (the fit of the
 expression rows, the observe stage of the clean rear-phone twin), and the glasses / hair rows stop after
@@ -82,6 +96,7 @@ from face3d.model.procedural_head import build_procedural_head
 from face3d.model.registry import ANATOMICAL, load_scheme
 from face3d.pipeline import stages as S
 from face3d.pipeline.project import Project
+from face3d.solve import noise as _noise
 from face3d.solve import observability as _ob
 from face3d.testbed import detector_sim, faults, rigs
 from face3d.testbed.render import face_centre
@@ -183,9 +198,79 @@ def default_tags() -> dict:
     return {"expression": "auto", "mirrored": "auto", "neutral_reference": False, "occluders": [], "view": "auto"}
 
 
-def detect(X, kinds, rig, seed: int, **detector):
-    """Detections with the seed's detector stream (identical normal draws for a clean / faulted pair)."""
-    return detector_sim.simulate(X, kinds, rig, streams(seed)[2], **detector)
+_PAIRS = []
+
+
+def tangent_pairs() -> np.ndarray:
+    """(44, 2) neighbour indices of the anatomical44 scheme's ``tangents`` metadata (-1: none)."""
+    if not _PAIRS:
+        _PAIRS.append(_noise.scheme_tangent_pairs(load_scheme("anatomical44")))
+    return _PAIRS[0]
+
+
+def anatomical_noise_axes(obs, X, rig) -> list:
+    """DIAGNOSTIC scenes: the simulator's anisotropic noise re-expressed along the scheme's own neighbour
+    chords in each view (FU-04).  Not used by any gate (FU-04 review): the 'true' axes are built from
+    exactly the neighbour pairs the engine uses (:func:`tangent_pairs`, the provisional scheme metadata),
+    so these scenes are the best case for ``pipeline.image_tangents`` by construction and say nothing
+    about whether the metadata is right.  The procedural head has no lid, lip or outline curves from which
+    an independent direction could be taken.
+
+    ``detector_sim.simulate`` draws the (tangent, normal) noise components of a landmark along a *random*
+    image direction that is the same in every view (WP-01).  For every landmark with scheme neighbours the
+    same two noise components (common random numbers: the draws are not changed) are re-applied along /
+    across the chord between the true projections of its neighbours in that view (with the shared
+    definition bias).  The engine only ever sees ``uv`` and derives its tangents from the detected
+    neighbours.
+    Landmarks without scheme neighbours, and views in which a neighbour's projection coincides, keep the
+    random direction.  Gross-outlier displacements (isotropic in direction) are rotated with the noise.
+    Returns the per-view true unit tangents ((N, 2), NaN where the random direction was kept) and edits
+    ``obs.uv`` / ``obs.visible`` in place (a point moved outside the frame becomes hidden)."""
+    pairs = tangent_pairs()
+    has = (pairs >= 0).all(axis=1)
+    Xo = np.asarray(X, float) + np.asarray(obs.bias_3d, float)
+    t0 = np.asarray(obs.tangent_dirs, float)
+    n0 = np.column_stack([-t0[:, 1], t0[:, 0]])
+    out = []
+    for v, cam in enumerate(rig.cameras):
+        clean = cam.project(Xo)
+        d = clean[pairs[:, 1]] - clean[pairs[:, 0]]
+        L = np.linalg.norm(d, axis=1)
+        ok = has & np.isfinite(L) & (L > 1e-6)
+        t1 = np.full((len(Xo), 2), np.nan)
+        t1[ok] = d[ok] / L[ok][:, None]
+        uv = np.asarray(obs.uv[v], float)
+        m = ok & np.isfinite(uv).all(axis=1)
+        e = uv[m] - clean[m]
+        a, b = np.sum(e * t0[m], axis=1), np.sum(e * n0[m], axis=1)
+        n1 = np.column_stack([-t1[m, 1], t1[m, 0]])
+        uv[m] = clean[m] + t1[m] * a[:, None] + n1 * b[:, None]
+        gone = np.isfinite(uv[:, 0]) & ~rigs.in_image_mask(cam, uv)
+        uv[gone] = np.nan
+        obs.uv[v] = uv
+        if obs.visible:
+            obs.visible[v] = np.isfinite(uv[:, 0])
+        obs.sigma_px_true[v][gone] = np.nan
+        obs.outlier_mask[v] = obs.outlier_mask[v] & ~gone
+        out.append(t1)
+    return out
+
+
+def detect(X, kinds, rig, seed: int, noise_axes: str = "random", **detector):
+    """Detections with the seed's detector stream (identical normal draws for a clean / faulted pair).
+
+    ``noise_axes``: 'random' (default; every gate: the WP-01 simulator as is, one random direction per
+    landmark, unrelated to the anatomy and to the scheme's tangent metadata) or 'anatomical' (diagnostic
+    only: the anisotropic noise of a landmark with scheme neighbours lies along / across the chord of the
+    true projections of *the very neighbours the engine uses*, :func:`anatomical_noise_axes`; the best
+    case for ``pipeline.image_tangents`` by construction, so nothing is gated on it except 'the opt-in
+    is not over-confident')."""
+    obs = detector_sim.simulate(X, kinds, rig, streams(seed)[2], **detector)
+    if noise_axes == "anatomical":
+        anatomical_noise_axes(obs, X, rig)
+    elif noise_axes != "random":
+        raise ValueError(f"unknown noise_axes {noise_axes!r}")
+    return obs
 
 
 def make_scene(seed: int, *, rig: str = "studio_ring", n_views: int = N_VIEWS, asym_mm: float | None = None,
@@ -356,7 +441,15 @@ def record(run, scene: Scene) -> dict:
     rec.update(
         views=views, X=X.tolist(), config_rms_mm=float(procrustes_rmse(X, scene.X, with_scale=True)),
         tags=list(s["tags"]), mirror=[m["decision"] for m in s["mirror"]],
-        mirror_g=[m["g"] for m in s["mirror"]], models=[m["model"] for m in s["camera_models"]],
+        mirror_g=[m["g"] for m in s["mirror"]], mirror_gap=[m.get("gap") for m in s["mirror"]],
+        # per-view g_min of the complete rule (None: not reachable / no test): g >= g_min <=> 'detectable'
+        mirror_det=[m.get("g") is not None and m.get("g_min") is not None and m["g"] >= m["g_min"]
+                    for m in s["mirror"]],
+        # FU-04: the re-tag evidence of the last round per view (statistics that crossed a threshold)
+        retag_by=[(r[-1]["by"] if r else []) for r in s.get("retag", [])],
+        retag_first=[([r[0]["mobile_chi2"], r[0]["mobile_dof"], r[0]["jaw_z"]] if r else None)
+                     for r in s.get("retag", [])],
+        models=[m["model"] for m in s["camera_models"]],
         model_ambiguous=[bool(m["ambiguous"]) for m in s["camera_models"]], solve_flags=list(s["flags"]),
         focal_rel_err=[abs(float(f) / c.f - 1.0) for f, c in zip(s["cam_f"], cams)],
         z_rel_err=[abs(float(z) / float(c.depth(np.zeros((1, 3)))[0]) - 1.0) for z, c in zip(s["cam_z"], cams)],
@@ -488,13 +581,23 @@ def surface_honesty(run, scene: Scene, seed: int) -> dict:
     return out
 
 
+def _tangent_cfg(tangents: bool | None):
+    """Pipeline config of the FU-04 diagnostics: ``tangents`` None is the pipeline as shipped
+    (``pipeline.image_tangents`` False since the FU-04 review: isotropic FU-01 noise); True / False set the
+    detection-derived image tangents explicitly."""
+    return None if tangents is None else {"landmarks": {"image_tangents": bool(tangents)}}
+
+
 def task_clean(seed: int, until: str = "observe", rig: str = "studio_ring", surface: bool = False,
-               noise_scale: float = 1.0, likeness: bool = False, **kw) -> dict:
+               noise_scale: float = 1.0, likeness: bool = False, noise_axes: str = "random",
+               tangents: bool | None = None, **kw) -> dict:
     """The clean scene (no fault; nominal detector noise and definition bias, no gross outliers).
     ``surface``: also fit + uncertainty and the honesty counts of :func:`surface_honesty`; ``likeness``:
-    also the likeness-mode check of :func:`likeness_of` on the same run."""
-    sc = make_scene(seed, rig=rig, detector=dict(BASE_DETECTOR, noise_scale=noise_scale), **kw)
-    run = run_scene(sc, until)
+    also the likeness-mode check of :func:`likeness_of` on the same run.  FU-04 diagnostics:
+    ``noise_axes`` (:func:`detect`) and ``tangents`` (:func:`_tangent_cfg`)."""
+    sc = make_scene(seed, rig=rig, detector=dict(BASE_DETECTOR, noise_scale=noise_scale, noise_axes=noise_axes),
+                    **kw)
+    run = run_scene(sc, until, config=_tangent_cfg(tangents))
     rec = record(run, sc)
     if surface:
         rec.update(surface_honesty(run, sc, seed))
@@ -675,9 +778,14 @@ def task_selfie(seed: int) -> dict:
     return record(run_scene(sc, "observe"), sc)
 
 
-def task_expression(seed: int, kind: str = "jaw_open", noise_scale: float = 1.0, fit: bool = True) -> dict:
+def task_expression(seed: int, kind: str = "jaw_open", noise_scale: float = 1.0, fit: bool = True,
+                    oracle: bool = False, neutral_twin: bool = False) -> dict:
     """One expressive view among 5 (jaw 5-15 deg or a 2-4 mm smile); surface row: also the fit stage
-    (``fit``; the per-push subset gates the landmark identity shift only and skips it)."""
+    (``fit``; the per-push subset gates the landmark identity shift only and skips it).
+
+    FU-04 diagnostics (never gated): ``oracle``: the expressive view carries the user tag 'expressive'
+    (a perfect tagger); ``neutral_twin``: the *clean* scene with the same view tagged 'expressive' (what
+    the tag's own down-weighting moves when nothing moved in the face)."""
     det = dict(BASE_DETECTOR, noise_scale=noise_scale)
     row = ROWS[kind]
     rng = _fault_rng(seed)
@@ -687,7 +795,9 @@ def task_expression(seed: int, kind: str = "jaw_open", noise_scale: float = 1.0,
     base = make_scene(seed, detector=det)
     Vs, truth = faults.expression_fault(base.sub, v, kind, amount, n_views=row["kwargs"]["n_views"])
     Xv = [base.kit.landmark_positions("anatomical44", V) for V in Vs]
-    sc = make_scene(seed, detector=det, X_views=Xv)
+    sc = base if neutral_twin else make_scene(seed, detector=det, X_views=Xv)
+    if oracle or neutral_twin:
+        sc.tags[v]["expression"] = "expressive"
     sc.truth = {"view": v, "amount": amount, "kind": kind}
     run = run_scene(sc, "solve")
     rec = record(run, sc)
@@ -698,7 +808,7 @@ def task_expression(seed: int, kind: str = "jaw_open", noise_scale: float = 1.0,
     return rec
 
 
-def task_beauty(seed: int, noise_scale: float = 1.0) -> dict:
+def task_beauty(seed: int, noise_scale: float = 1.0, strength: float = 1.0) -> dict:
     """Beauty warp (eyes +6 %, jaw -4 %) of one view with 4 clean views.  The pipeline's post-BA Q-RETOUCH
     step (FU-03: the engine's residual test against the leave-one-view-out consensus of pass 1) is read
     from the findings and from ``retouch_pipeline``; the record also carries the same engine test evaluated
@@ -707,12 +817,15 @@ def task_beauty(seed: int, noise_scale: float = 1.0) -> dict:
     from face3d.solve.bundle import view_noise_cov
     sc = make_scene(seed, detector=dict(BASE_DETECTOR, noise_scale=noise_scale))
     v = int(_fault_rng(seed).integers(0, sc.rig.n_views))
-    sc.uv[v], truth = faults.beauty_warp(sc.uv[v], faults.beauty_index_map(sc.ids, sc.kinds),
-                                         **ROWS["beauty_warp"]["kwargs"])
-    sc.truth = {"view": v}
+    kw = dict(ROWS["beauty_warp"]["kwargs"])
+    if strength != 1.0:      # FU-04 diagnostic: the same warp ``strength`` times as strong (never gated)
+        kw = {"eye_scale": 1.0 + strength * (kw["eye_scale"] - 1.0), "jaw_scale": 1.0 + strength * (kw["jaw_scale"] - 1.0)}
+    sc.uv[v], truth = faults.beauty_warp(sc.uv[v], faults.beauty_index_map(sc.ids, sc.kinds), **kw)
+    sc.truth = {"view": v, "strength": float(strength)}
     run = run_scene(sc, "solve")
     rec = record(run, sc)
     s = run.outputs["solve"]
+    rec["retouch_z"] = [(r["z"] | {"t_eye": r["t_eye"]}) if r else None for r in s["retouch"]]
     res, views, lm = s["_result"], s["_views"], run.outputs["landmarks"]
     idx = {k: sc.ids.index(k) for k in ("en_L", "ex_L", "en_R", "ex_R", "go_L", "go_R", "p_L", "p_R")}
     flagged = []
@@ -820,14 +933,15 @@ def task_outliers(seed: int) -> dict:
     return record(run_scene(sc, "solve"), sc)
 
 
-def task_bias(seed: int, until: str = "observe") -> dict:
-    """A 1 mm isotropic definition bias shared by all views (replaces the simulator's per-kind bias)."""
+def task_bias(seed: int, until: str = "observe", noise_axes: str = "random", tangents: bool | None = None) -> dict:
+    """A 1 mm isotropic definition bias shared by all views (replaces the simulator's per-kind bias).
+    FU-04 diagnostics: ``noise_axes`` (:func:`detect`) and ``tangents`` (:func:`_tangent_cfg`)."""
     k = kit()
-    base = make_scene(seed, detector=dict(BASE_DETECTOR))
+    base = make_scene(seed, detector=dict(BASE_DETECTOR, noise_axes=noise_axes))
     Xb, truth = faults.definition_bias(base.X, _fault_rng(seed), **ROWS["definition_bias"]["kwargs"])
-    obs = detect(Xb, base.kinds, base.rig, seed, outlier_frac=0.0, definition_bias=False)
+    obs = detect(Xb, base.kinds, base.rig, seed, outlier_frac=0.0, definition_bias=False, noise_axes=noise_axes)
     base.uv = [u.copy() for u in obs.uv]
-    return record(run_scene(base, until), base)
+    return record(run_scene(base, until, config=_tangent_cfg(tangents)), base)
 
 
 TASKS = {"clean": task_clean, "mirror": task_mirror, "orientation": task_orientation, "exif": task_exif,
@@ -882,6 +996,15 @@ def collect(tasks) -> list:
 
 
 # ============================================================================ the matrix
+STRONG_ASYM_MM = 2.5     # FU-04 diagnostic: antisymmetric RMS of the 'strongly asymmetric' mirror subjects
+STRONG_WARP = 3.0        # FU-04 diagnostic: beauty warp 3 x the DESIGN 7.4 row (eyes +18 %, jaw -12 %)
+#: FU-04 diagnostics: the opt-in noise model with detection-derived tangents (``pipeline.image_tangents``
+#: True) on the gate scenes ('random' axes, the WP-01 simulator: the tangents are misaligned) and on
+#: detections whose anisotropic noise follows the scheme's own neighbour chords ('anatomical': aligned by
+#: construction, the best case).  The shipped pipeline (tangents off, random axes) is the gated matrix.
+FU04_VARIANTS = {"tangents_on": {"tangents": True},
+                 "anatomical_axes": {"noise_axes": "anatomical"},
+                 "anatomical_axes_tangents_on": {"noise_axes": "anatomical", "tangents": True}}
 NEAR_FACTORS = (1.0, 1.3, 0.7)   # EXIF focal factors of the near-range diagnostic (1.0 = correct EXIF)
 CONFIRM_SEEDS = 5      # 'after the user confirms' re-runs the flipped photo: exact, so 5 seeds suffice
 CLEAN = {"surface": True, "likeness": True}
@@ -934,6 +1057,14 @@ def matrix_tasks(seeds, diagnostics: bool = False, frontal: bool = True, fast: b
                   ("expression", s, {"kind": "jaw_open", "noise_scale": LOW_NOISE}),
                   ("expression", s, {"kind": "smile", "noise_scale": LOW_NOISE}),
                   ("beauty", s, {"noise_scale": LOW_NOISE}), ("mirror", s, {"rig": "rear_phone"})]
+            # FU-04: the conditions under which the single-view targets hold, the floor of the identity
+            # gates, and the noise model before / after (and with noise axes unrelated to the anatomy)
+            T += [("mirror", s, {"asym_mm": STRONG_ASYM_MM}), ("beauty", s, {"strength": STRONG_WARP})]
+            for kind in ("jaw_open", "smile"):
+                T += [("expression", s, {"kind": kind, "fit": False, "oracle": True}),
+                      ("expression", s, {"kind": kind, "fit": False, "neutral_twin": True})]
+            for kw in FU04_VARIANTS.values():
+                T += [("clean", s, kw), ("bias", s, kw)]
     return T
 
 
@@ -1016,6 +1147,13 @@ def _evaluate(seeds, full: bool, frontal: bool, fast: bool = False) -> dict:
         "n": n, "tp": dec.count("suggest_flip"), "keep_on_mirrored": dec.count("keep"),
         "undetermined_on_mirrored": dec.count("undetermined"),
         "g_median": _median([_at_view(r, r["mirror_g"], r["truth"]["view"]) for r in mir]),
+        "gap_median": _median([_at_view(r, r["mirror_gap"], r["truth"]["view"]) for r in mir]),
+        # reference g_min of the complete rule (44 evenly loaded landmarks, rear camera); per view: mirror_det
+        "g_min": float(S._mirror.derived_g_min(n_v=44)), "gap_threshold": float(S._mirror.GAP_THRESHOLD),
+        "n_detectable": sum(bool(_at_view(r, r["mirror_det"], r["truth"]["view"])) for r in mir),
+        "gap_max_unmirrored": float(max([g for r in list(mir) + list(sym) for v, g in zip(r["views"], r["mirror_gap"])
+                                         if v != r["truth"]["view"] and g is not None]
+                                        + [g for r in clean for g in r["mirror_gap"] if g is not None])),
         "n_unmirrored_views": len(others), "false_flips": others.count("suggest_flip"),
         "n_symmetric": n, "undetermined_when_symmetric": [
             _at_view(r, r["mirror"], r["truth"]["view"]) for r in sym].count("undetermined"),
@@ -1052,6 +1190,7 @@ def _evaluate(seeds, full: bool, frontal: bool, fast: bool = False) -> dict:
                               "engine_test_fp": int(sum(eo)), "identity_bias_rms_mm_median": _median(
                                   [shape_shift(a["X"], b["X"])["rms"] for a, b in zip(be, clean_low)])}
         out["low_noise"] = low
+        out["fu04"] = _fu04_summary(seeds, clean)
         for key, kw in (("exif_near", {}), ("exif_near_off_prior", {"f35": NEAR_OFF_PRIOR_F35})):
             out[key] = {"%g" % fac: _near_summary(_get(seeds, "exif_near", factor=fac, **kw)) for fac in NEAR_FACTORS}
 
@@ -1128,6 +1267,10 @@ def _evaluate(seeds, full: bool, frontal: bool, fast: bool = False) -> dict:
                      "identity_shift_rms_mm_median": _median([s["rms"] for s in sh]),
                      "identity_shift_rms_mm_max": float(max(s["rms"] for s in sh)),
                      "identity_shift_max_mm_median": _median([s["max"] for s in sh]),
+                     # DESIGN 4.9 words the hard gate on the neutral region: the rigid-class landmarks
+                     "rigid_shift_rms_mm_median": _median([shift_rigid(a["X"], b["X"]) for a, b in zip(ex, clean)]),
+                     "rigid_shift_rms_mm_max": float(max(shift_rigid(a["X"], b["X"]) for a, b in zip(ex, clean))),
+                     "tagged_by": _count([x for r in ex for x in (_at_view(r, r["retag_by"], r["truth"]["view"]) or [])]),
                      "surface_shift_rms_mm_median": _median(vs),
                      "surface_shift_rms_mm_max": float(max(vs)) if vs else float("nan"),
                      "fit_stage": _count([r["fit_stage"] for r in ex if "fit_stage" in r])}
@@ -1248,6 +1391,73 @@ def _evaluate(seeds, full: bool, frontal: bool, fast: bool = False) -> dict:
     return out
 
 
+def rigid_mask() -> np.ndarray:
+    """(44,) bool: rigid expression class (the 'neutral region' of the DESIGN 4.9 hard gate)."""
+    return np.array([ANATOMICAL[i].expr_class == "rigid" for i in kit().landmark_names("anatomical44")])
+
+
+def shift_rigid(Xa, Xb) -> float:
+    """RMS displacement (mm) of the rigid-class landmarks between two solutions after the similarity
+    alignment of all 44 (the 'neutral-region identity' of DESIGN 4.9; reported next to the 44-landmark gate)."""
+    err, _, _ = aligned_error(np.asarray(Xa, float), np.asarray(Xb, float))
+    d = np.linalg.norm(err, axis=1)[rigid_mask()]
+    return float(np.sqrt(np.mean(d ** 2)))
+
+
+def _fu04_summary(seeds, clean) -> dict:
+    """FU-04 diagnostics of docs/RESULTS.md 3.2 (never gated): conditions under which the single-view
+    targets hold, the floor of the identity gates and the noise-model variants."""
+    n = len(seeds)
+    out: dict = {}
+    st = _get(seeds, "mirror", asym_mm=STRONG_ASYM_MM)
+    dec = [_at_view(r, r["mirror"], r["truth"]["view"]) for r in st]
+    gs = [_at_view(r, r["mirror_g"], r["truth"]["view"]) or 0.0 for r in st]
+    det = [d for d, r in zip(dec, st) if _at_view(r, r["mirror_det"], r["truth"]["view"])]
+    oth = [d for r in st for v, d in zip(r["views"], r["mirror"]) if v != r["truth"]["view"]]
+    out["mirror_strong"] = {"asym_rms_mm": _median([r["truth"]["asym_rms_mm"] for r in st]), "n": n,
+                            "tp": dec.count("suggest_flip"), "keep": dec.count("keep"), "g_median": _median(gs),
+                            "n_detectable": len(det), "tp_detectable": det.count("suggest_flip"),
+                            "false_flips": oth.count("suggest_flip"), "keep_unmirrored": oth.count("keep"),
+                            "n_unmirrored_views": len(oth)}
+    be = _get(seeds, "beauty", strength=STRONG_WARP)
+    out["beauty_strong"] = {"strength": STRONG_WARP, "n": n,
+                            "pipeline_tp": sum(bool(_at_view(r, r["retouch_pipeline"], r["truth"]["view"])) for r in be),
+                            "pipeline_fp": sum(f for r in be for v, f in zip(r["views"], r["retouch_pipeline"])
+                                               if v != r["truth"]["view"])}
+    be1 = _get(seeds, "beauty")
+    for key, recs in (("beauty_z", be1), ("beauty_strong_z", be)):
+        zs = [_at_view(r, r["retouch_z"], r["truth"]["view"]) for r in recs]
+        out[key] = {k: _median([z[k] for z in zs if z and z.get(k) is not None])
+                    for k in ("eye_width_ratio", "bigonial_ratio", "t_eye")}
+    for kind in ("jaw_open", "smile"):
+        auto = _get(seeds, "expression", kind=kind)
+        orc = _get(seeds, "expression", kind=kind, fit=False, oracle=True)
+        twin = _get(seeds, "expression", kind=kind, fit=False, neutral_twin=True)
+        pairs = {"auto_vs_clean": (auto, clean), "oracle_vs_clean": (orc, clean),
+                 "oracle_vs_same_tag_clean": (orc, twin), "same_tag_clean_vs_clean": (twin, clean)}
+        out[kind + "_identity"] = {
+            name: {"rms44_median": _median([shape_shift(a["X"], b["X"])["rms"] for a, b in zip(A, B)]),
+                   "rms44_max": float(max(shape_shift(a["X"], b["X"])["rms"] for a, b in zip(A, B))),
+                   "rigid_median": _median([shift_rigid(a["X"], b["X"]) for a, b in zip(A, B)]),
+                   "rigid_max": float(max(shift_rigid(a["X"], b["X"]) for a, b in zip(A, B)))}
+            for name, (A, B) in pairs.items()}
+    var: dict = {}
+    for name, kw in dict(FU04_VARIANTS, shipped={}).items():
+        cl = _get(seeds, "clean", **(kw or CLEAN))
+        bi = _get(seeds, "bias", **kw)
+        var[name] = {"chi2_red_median": _median([r["chi2_red"] for r in cl]),
+                     "gamma_median": _median([r["gamma"] for r in cl]),
+                     "inflation_median": _median([r["inflation"] for r in cl]),
+                     "config_rms_mm_median": _median([r["config_rms_mm"] for r in cl]),
+                     "inliers_lost": sum(int((np.asarray(r["uv_used"], bool) & ~np.asarray(r["inlier"], bool)).sum())
+                                         for r in cl),
+                     "n_obs": sum(int(np.asarray(r["uv_used"], bool).sum()) for r in cl),
+                     "clean": _pooled_honesty(cl), "definition_bias": _pooled_honesty(bi),
+                     "scale_z_rms": float(np.sqrt(np.mean([r["scale_z"] ** 2 for r in cl])))}
+    out["noise_model"] = var
+    return out
+
+
 def _count(items) -> dict:
     out: dict = {}
     for i in items:
@@ -1284,23 +1494,31 @@ class Gate:
 #: listed in docs/RESULTS.md and under the DESIGN 7.4 table, and the release run fails when one of them
 #: starts to pass (so this list cannot go stale).  The matching 'honesty' and 'floor' gates always apply.
 CALIBRATION_PENDING: dict = {
-    "mirror.tpr": "the mirror test never reaches g >= g_min = 4 through the pipeline (median g ~1-2): no "
-                  "suggest_flip at all; needs pooled evidence / a recalibrated g_min (WP-15 note)",
+    "mirror.tpr": "FU-04: 1 of 30 mirrored views is flagged (0 before). The test is now calibrated (gap threshold "
+                  "tau = 13.83 for a false-flip rate <= 1e-4, per-view g_min >= 11.6 for 95 % power of the "
+                  "complete rule, declared predictive noise), but the detectability of the consensus asymmetry "
+                  "through the pipeline is g ~1.4 "
+                  "(median): no view reaches g_min at nominal noise, nor at 2.5 mm asymmetry (g ~1.7: the "
+                  "4-view consensus carries a shrunk asymmetry). Unreachable at nominal noise; never a false "
+                  "flip or a false 'keep'",
     "exif_crop.focal": "an EXIF focal that is wrong by +/-30 % is kept (median focal error 0.28): the robust EXIF "
-                       "prior of FU-03 is wired but never fires on this row, because the photos alone do not "
-                       "constrain the focal at 0.6-1.5 m under the engine's declared noise (photos-only sigma of "
-                       "ln f median 0.29 against the 0.25 the test requires; largest |t| 2.07 against 2.58)",
-    "exif_missing.focal": "without EXIF the focal error is 0.11 (median) on a 120 deg rear-phone set: above the "
-                          "5 % target (com R8.4)",
-    "jaw_open.tpr": "no view is tagged: the mobile-class reduced chi2 stays < 4 because the declared lip / chin "
-                    "noise is isotropic at the tangential sigma (FU-01) and the robust schedule absorbs the rest",
-    "jaw_open.identity": "untagged jaw opening moves the neutral identity by ~1 mm RMS (hard bound 0.3 mm)",
-    "smile.tpr": "as jaw_open.tpr (2-4 mm mouth-corner motion is inside the declared noise)",
-    "smile.identity": "median 0.17 mm but single seeds reach 0.5 mm (hard bound 0.3 mm on every seed)",
-    "beauty_warp.tpr": "FU-03 wired the post-BA Q-RETOUCH step (engine residual test against the leave-one-view-out "
-                       "consensus; down-weight and no texture when flagged), but it flags 0 of 30 warped views: the "
-                       "eye / jaw ratio z-scores stay below 3 under the engine's declared noise (needs the narrower "
-                       "noise model of FU-04)",
+                       "prior of FU-03 fires on 0 of 30 sets, because the photos alone do not constrain the focal "
+                       "at 0.6-1.5 m under the engine's declared noise (photos-only sigma of ln f median 0.29 "
+                       "against the 0.25 the test requires)",
+    "exif_missing.focal": "without EXIF the focal error is 0.11 (median) on a 120 deg rear-phone "
+                          "set: above the 5 % target (com R8.4)",
+    "jaw_open.identity": "FU-04: the jaw view is now tagged 'expressive' on 28 of 30 sets and the result equals a "
+                         "perfect tagger's, but the identity still moves 0.55 mm RMS (1.03 before; hard bound "
+                         "0.3 mm): 0.35 mm is what the tag's own down-weighting moves on a neutral face at "
+                         "nominal noise, the rest is the jaw hinge under its 3 deg prior",
+    "smile.tpr": "a 2-4 mm mouth-corner motion stays inside the null of the mobile-class chi2 at nominal noise "
+                 "(0 of 30 tagged 'expressive' at a 1e-3 false-alarm rate; 2 'mild')",
+    "smile.identity": "median 0.16 mm but single seeds reach 0.5 mm (hard bound 0.3 mm on every seed); tagging "
+                      "would not help: a perfect tagger moves it 0.36 mm (the tag's own down-weighting)",
+    "beauty_warp.tpr": "the post-BA Q-RETOUCH test flags 0 of 30 warped views: the warp moves the eye-width ratio "
+                       "by 0.7 and the bigonial ratio by 2.2 declared sigmas (medians) against the threshold 3; "
+                       "the eye corners are sharp junctions (isotropic 1.25 mm), which image tangents would not "
+                       "narrow. A 3 x stronger warp is flagged on 6 of 30",
     "off_axis_stereographic.model": "virtual_stereo is selected for 22 of 30 views (0.73; pinhole 7, k1 1): below "
                                     "the 0.8 target as a point estimate, although not rejected at the binomial "
                                     "95 % bound; the selected model is recorded but not applied "
@@ -1357,7 +1575,9 @@ def gates(m: dict, relax_continuous: bool = False) -> list:
 
     x, t = m["mirror"], thr["mirror"]
     add("mirror.tpr", "design", f"suggest flip TPR >= {t['tpr_min']} at >= {t['asym_rms_mm_min']} mm asymmetry",
-        _rate(x["tp"], x["n"]) + f" at {x['asym_rms_mm']:.2f} mm", _ge(x["tp"], x["n"], t["tpr_min"]))
+        _rate(x["tp"], x["n"]) + f" at {x['asym_rms_mm']:.2f} mm (detectability g median {x['g_median']:.1f}, "
+        f"{x['n_detectable']}/{x['n']} views at g >= their g_min (>= {x['g_min']:.2f}); gap median {x['gap_median']:.1f} "
+        f"against tau = {x['gap_threshold']:.2f})", _ge(x["tp"], x["n"], t["tpr_min"]))
     add("mirror.fpr", "design", f"false flips <= {t['fpr_max']}", _rate(x["false_flips"], x["n_unmirrored_views"]),
         _le(x["false_flips"], x["n_unmirrored_views"], t["fpr_max"]))
     add("mirror.undetermined_when_symmetric", "design", f">= {t['undetermined_when_symmetric_min']}",
@@ -1369,7 +1589,8 @@ def gates(m: dict, relax_continuous: bool = False) -> list:
     add("mirror.no_false_keep", "honesty", "'keep' on a mirrored view <= 0.30 (WP-15; else 'undetermined')",
         _rate(x["keep_on_mirrored"], x["n"]), _le(x["keep_on_mirrored"], x["n"], 0.30))
     add("mirror.no_false_flip", "honesty", "no flip suggested on an unmirrored view",
-        _rate(x["false_flips"], x["n_unmirrored_views"]), x["false_flips"] == 0)
+        _rate(x["false_flips"], x["n_unmirrored_views"]) + f" (largest gap {x['gap_max_unmirrored']:.1f} against "
+        f"tau = {x['gap_threshold']:.2f})", x["false_flips"] == 0)
 
     x, t = m["orientation_unbaked"], thr["orientation_unbaked"]
     add("orientation_unbaked.tpr", "design", f"Q-ORIENT TPR >= {t['tpr_min']}", _rate(x["tp"], x["n"]),
@@ -1423,17 +1644,19 @@ def gates(m: dict, relax_continuous: bool = False) -> list:
         f"median {x['z_rel_err_median']:.3f}; {x['n_z_within_15pct']}/{x['n']} sets within",
         x["z_rel_err_median"] < t["distance_rel_err_max"] and x["n_z_within_15pct"] == x["n"])
 
-    for kind, floor in (("jaw_open", 2.0), ("smile", 0.5)):
+    for kind, floor in (("jaw_open", 1.0), ("smile", 0.5)):     # jaw floor 2.0 before FU-04 (measured 1.03 then)
         x, t, d = m[kind], thr[kind], deg[kind]
         add(f"{kind}.tpr", "design", f"expressive tag TPR >= {t['tpr_min']}",
-            f"expressive {_rate(x['expressive'], x['n'])}; non-neutral {x['non_neutral']}/{x['n']}",
+            f"expressive {_rate(x['expressive'], x['n'])}; non-neutral {x['non_neutral']}/{x['n']}; tagged by "
+            f"{x['tagged_by']}",
             _ge(x["expressive"], x["n"], t["tpr_min"]))
         add(f"{kind}.identity", "design", f"neutral identity moved < {d['neutral_identity_shift_mm_max']} mm (hard: "
             "every seed)", f"landmark RMS median {x['identity_shift_rms_mm_median']:.2f}, max "
             f"{x['identity_shift_rms_mm_max']:.2f} mm; surface RMS median {x['surface_shift_rms_mm_median']:.2f}, "
-            f"max {x['surface_shift_rms_mm_max']:.2f} mm" if x["fit_stage"] else
+            f"max {x['surface_shift_rms_mm_max']:.2f} mm; rigid-class landmarks median "
+            f"{x['rigid_shift_rms_mm_median']:.2f}, max {x['rigid_shift_rms_mm_max']:.2f} mm" if x["fit_stage"] else
             f"landmark RMS median {x['identity_shift_rms_mm_median']:.2f}, max {x['identity_shift_rms_mm_max']:.2f} mm "
-            "(surface fit: release run only)",
+            f"(rigid-class landmarks median {x['rigid_shift_rms_mm_median']:.2f}; surface fit: release run only)",
             x["identity_shift_rms_mm_max"] < d["neutral_identity_shift_mm_max"])
         add(f"{kind}.identity_floor", "floor", f"median identity shift <= {floor} mm (recorded level, not a target)",
             f"{x['identity_shift_rms_mm_median']:.2f} mm", x["identity_shift_rms_mm_median"] <= floor)

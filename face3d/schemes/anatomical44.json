@@ -69,6 +69,30 @@
  ],
  "polylines": {},
  "scheme": "anatomical44",
+ "tangents": {
+  "badge": "🆕",
+  "neighbours": {
+   "g": ["tr", "n"],
+   "gn": ["pg", "me"],
+   "go_L": ["me", "go_L"],
+   "go_R": ["me", "go_R"],
+   "li": ["ch_R", "ch_L"],
+   "ls": ["ch_R", "ch_L"],
+   "me": ["pg", "me"],
+   "n": ["g", "prn"],
+   "pg": ["sl", "me"],
+   "pi_L": ["en_L", "ex_L"],
+   "pi_R": ["en_R", "ex_R"],
+   "ps_L": ["en_L", "ex_L"],
+   "ps_R": ["en_R", "ex_R"],
+   "sl": ["li", "pg"],
+   "zy_L": ["or_L", "t_L"],
+   "zy_R": ["or_R", "t_R"]
+  },
+  "rule": "Image tangent of a point = direction of the chord between its two neighbours [a, b] on the same anatomical curve or outline, taken from the DETECTED points of the same view (face3d.solve.noise.image_tangents; DESIGN 4.4 't-hat from neighbouring curve points'). The landmark noise is sigma_t along this direction and sigma_n across it. b may be the point itself (one-sided chord). Points not listed have no tangent and keep the isotropic unknown-tangent rule (WBS FU-01).",
+  "source": "WBS FU-04 task 1. Curve points: lid and lip curves between their corners, nasion on the dorsum profile (research/reconstruction/landmark-index-correspondence.md, Table 2 'curve = slides along a polyline' and 'Default sigma' row 'Lid / lip / dorsum curve'; n_soft 'vertical along dorsum'). Extremal points only where that note states the slide direction: me' / gn along the chin curve, zy' along the cheek (chord orbitale-tragion, the Frankfort direction), go' along the mandibular border ('error runs along go-me'). Added by the FU-04 review: the three points that Table 2 types 'extremal (profile)' (g', sl, pg': extrema of the midline profile curve, so the localisation error runs along the profile between the neighbouring midline points; sl is the deepest point between li and pg, as n is between g and prn). prn ('extremal'), al ('extremal (frontal)'), v, op, eu, t, sa, sba, or: the note documents no slide direction and no outline neighbours, none given (the WBS item 'every extremal landmark' is narrowed to the documented ones; open owner decision, docs/DESIGN.md 7.4).",
+  "status": "provisional: neighbour choice is expert reading of the research note, not measured; to be checked by the M7 scheme calibration (per-index offset in the local tangent frame)"
+ },
  "version": 1,
  "z_policy": "ignore"
 }
