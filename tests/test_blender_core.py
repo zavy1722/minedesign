@@ -78,6 +78,7 @@ def test_manifest_lint():
 # ------------------------------------------------------------------ register
 def test_register_unregister_with_stub(bx, monkeypatch):
     bpy, pkg = bx.bpy, bx.pkg
+    monkeypatch.setattr(pkg, "_MODULES", ("ops_project",))   # WP-22 modules now exist: test only the fake one
     calls = []
     name = pkg.__name__ + ".ops_project"
     fake = types.ModuleType(name)
