@@ -84,8 +84,9 @@ def _last_msg(op):
 
 def _new_project(ui, scopes=("allow_reconstruct", "allow_texture")):
     folder = ui.tmp / "proj.face3d"
-    o = _op(ui, ui.ops_project.FACE3D_OT_project_new, directory=str(folder))
-    assert o.execute(ui.ctx) == {"FINISHED"}
+    if not (folder / "project.json").exists():          # project_new refuses an existing project (never overwrites)
+        o = _op(ui, ui.ops_project.FACE3D_OT_project_new, directory=str(folder))
+        assert o.execute(ui.ctx) == {"FINISHED"}
     if scopes is not None:
         c = _op(ui, ui.ops_project.FACE3D_OT_consent_edit, **{s: True for s in scopes})
         assert c.execute(ui.ctx) == {"FINISHED"}
@@ -230,7 +231,10 @@ def test_rail_state_pure(ui):
     proj["photos"][1]["include"] = False                  # excluded photos do not count
     r = {x[0]: x for x in rs(proj, None, None)}
     assert r["photos"][1] == "done" and r["cameras"][4] == "no_landmarks" and r["landmarks"][1] == "not_started"
-    proj["pins"] = [{"photo": "p01"}]
+    proj["pins"] = [{"photo": "p01"}]                      # pins alone do not start a solve: the engine needs a landmark set
+    r = {x[0]: x for x in rs(proj, None, None)}
+    assert r["landmarks"][1] == "not_started" and r["cameras"][4] == "no_landmarks"
+    proj["landmark_photos"] = ["p01"]
     proj["cards"] = [{"severity": "warn", "decided": False}, {"severity": "info", "decided": False}]
     r = {x[0]: x for x in rs(proj, None, None)}
     assert r["landmarks"][1] == "done" and r["cameras"][4] is None and r["check"][1] == "attention"
@@ -1065,7 +1069,7 @@ def test_message_catalogue_covers_engine_keys(ui):
     # every message formatter placeholder is a known name
     for k, v in M.items():
         for ph in re.findall(r"\{(\w+)", v):
-            assert ph in {"n", "card", "stage", "pct", "code", "name", "label", "sigma", "summary"}, (k, ph)
+            assert ph in {"n", "card", "stage", "pct", "code", "name", "label", "sigma", "summary", "score"}, (k, ph)
 
 
 def test_files_carry_spdx_header_and_py311_syntax():
@@ -1075,3 +1079,485 @@ def test_files_carry_spdx_header_and_py311_syntax():
         ast.parse(src, feature_version=(3, 11))
         for n in ast.walk(ast.parse(src)):
             assert not isinstance(n, getattr(ast, "TypeAlias", ())), name         # PEP 695 is 3.12+
+
+
+# ====================================================================== review-fix regressions (WP-22)
+def _add_photo(ui, name="m.png", seed=5):
+    o = _op(ui, ui.ops_photos.FACE3D_OT_photos_add, filepath=_png(ui.tmp / name, seed), consent_covers=True)
+    assert o.execute(ui.ctx) == {"FINISHED"}, o.reports
+
+
+def _import_lm(ui, pid="p01", faces=1, name="lm.json"):
+    o = _op(ui, ui.ops_landmarks.FACE3D_OT_landmarks_import, filepath=_landmark_file(ui.tmp / name, faces=faces),
+            photo_id=pid)
+    assert o.execute(ui.ctx) == {"FINISHED"}, o.reports
+    return o
+
+
+def test_rail_offers_apply_for_a_finished_job_through_collect_rail_inputs(ui):
+    """Finding: the rail never offered apply_result after a solve (collect read only active_solve)."""
+    _new_project(ui)
+    ob = _cube_object(ui)
+    _add_photo(ui)
+    _import_lm(ui)
+    s = ui.ctx.scene.face3d
+    basis = np.asarray(CUBE_V, float) * 100.0
+    d, _ = _fake_result(ui, ob, ui.tmp, "jobA", basis, basis.copy(), np.zeros((8, 3)))
+    s.job.status, s.job.job_dir = "ready", str(d)
+    rows = ui.ui_panels.rail_rows(ui.ctx)
+    assert rows["cameras"][1] == "attention" and rows["cameras"][3] == "face3d.apply_result" and rows["cameras"][4] is None
+    assert rows["shape"][3] == "face3d.apply_result"
+    assert _op(ui, ui.ops_apply.FACE3D_OT_apply_result).poll(ui.ctx) is True
+    assert _op(ui, ui.ops_apply.FACE3D_OT_apply_result).execute(ui.ctx) == {"FINISHED"}
+    rows = ui.ui_panels.rail_rows(ui.ctx)                           # applied: done, solve/fit buttons again
+    assert rows["cameras"][1] == "done" and rows["cameras"][3] == "face3d.solve"
+    # a refit finishes: the new result is pending again, with an Apply button although an earlier one was applied
+    d2, _ = _fake_result(ui, ob, ui.tmp, "jobB", basis, basis + 1.0, np.zeros((8, 3)))
+    s.job.status, s.job.job_dir = "ready", str(d2)
+    rows = ui.ui_panels.rail_rows(ui.ctx)
+    assert rows["cameras"][1] == "attention" and rows["shape"][3] == "face3d.apply_result"
+
+
+def test_check_row_agrees_with_review_next_and_checks_project_first(ui):
+    rs = ui.ui_panels.rail_state
+    assert {r[0]: r for r in rs(None, None, None)}["check"][4] == "no_project"
+    proj = {"photos": [{"id": "p01", "sha256": "a" * 64, "include": "auto"}], "consent": _consent(),
+            "cards": [{"severity": "info", "decided": False}]}
+    row = {r[0]: r for r in rs(proj, None, None)}["check"]
+    assert row[1] == "done" and row[4] is None                    # info-only: nothing urgent, but review_next works
+    proj["cards"][0]["decided"] = True
+    assert {r[0]: r for r in rs(proj, None, None)}["check"][4] == "review_empty"
+
+
+def test_pin_tool_press_that_starts_the_session_places_a_pin(ui, monkeypatch):
+    _new_project(ui)
+    _add_photo(ui)
+    cam = ui.ops_photos.camera_for_photo("p01")
+    cam["f3d_res_x"], cam["f3d_res_y"] = 2000, 1000
+    ui.ctx.scene.camera = cam
+    pin = _op(ui, ui.ops_landmarks.FACE3D_OT_pin_place)
+    monkeypatch.setattr(type(pin), "_frame", lambda self, ctx: CORNERS.copy())
+    assert pin.invoke(ui.ctx, _ev("LEFTMOUSE", "PRESS", (200, 450))) == {"RUNNING_MODAL"}
+    pin.modal(ui.ctx, _ev("LEFTMOUSE", "RELEASE", (200, 450)))
+    s = ui.ctx.scene.face3d
+    assert len(s.pins) == 1 and (s.pins[0].x, s.pins[0].y) == pytest.approx((1000.0, 500.0))
+    # a press on an existing pin starts a drag on the very first click
+    pin2 = _op(ui, ui.ops_landmarks.FACE3D_OT_pin_place)
+    assert pin2.invoke(ui.ctx, _ev("LEFTMOUSE", "PRESS", (200, 450))) == {"RUNNING_MODAL"}
+    assert pin2._editor.dragging and pin2._editor.selected == 0
+
+
+def test_pin_tool_settings_choose_landmark_and_options(ui, monkeypatch):
+    L = ui.ops_landmarks
+    items = L.landmark_items()
+    assert items[0][0] == L.NEXT_LANDMARK and [i[0] for i in items[1:]] == L.scheme_names()
+    props = types.SimpleNamespace(landmark=L.NEXT_LANDMARK, pin_class="crisp", expertise="novice", blind=False)
+    drawn, labels = [], []
+    layout = types.SimpleNamespace(prop=lambda p, name, **k: drawn.append(name), label=lambda **k: labels.append(k["text"]))
+    tool = types.SimpleNamespace(operator_properties=lambda idname: props)
+    _new_project(ui)
+    _add_photo(ui)
+    ui.ctx.scene.camera = ui.ops_photos.camera_for_photo("p01")
+    tool_cls = ui.bpy.utils.registered_tools[0]
+    tool_cls.draw_settings(ui.ctx, layout, tool)
+    assert drawn == ["landmark", "pin_class", "expertise", "blind"]
+    assert any(ui.messages.text("pin_next", name="vertex") == t for t in labels)         # the next click's landmark
+    # a chosen landmark places that one (skipping the unseen ones) and then falls back to scheme order
+    cam = ui.ops_photos.camera_for_photo("p01")
+    cam["f3d_res_x"], cam["f3d_res_y"] = 2000, 1000
+    pin = _op(ui, L.FACE3D_OT_pin_place, landmark="nasion")
+    monkeypatch.setattr(type(pin), "_frame", lambda self, ctx: CORNERS.copy())
+    pin.invoke(ui.ctx, None)
+    pin.modal(ui.ctx, _ev("LEFTMOUSE", "PRESS", (150, 450)))
+    pin.modal(ui.ctx, _ev("LEFTMOUSE", "RELEASE", (150, 450)))
+    pin.modal(ui.ctx, _ev("LEFTMOUSE", "PRESS", (250, 450)))
+    pin.modal(ui.ctx, _ev("LEFTMOUSE", "RELEASE", (250, 450)))
+    assert [p.landmark for p in ui.ctx.scene.face3d.pins] == ["nasion", "vertex"]
+    assert any("Next click places" in m for _k, m in pin.reports)
+
+
+def test_import_with_one_strong_face_keeps_only_that_face(ui):
+    """Finding: a weak background face listed first was fitted because the engine uses faces[0]."""
+    from face3d.io.landmarks import Face, LandmarkSet, save_landmarks
+    _new_project(ui)
+    _add_photo(ui)
+    faces = [Face(score=0.3, uv=np.full((44, 2), 5.0), visible=np.ones(44, bool)),
+             Face(score=0.95, uv=np.full((44, 2), 20.0), visible=np.ones(44, bool))]
+    f = ui.tmp / "weak_first.json"
+    save_landmarks(LandmarkSet("anatomical44", {"backend": "t"}, {"wh": [48, 40]}, faces), f)
+    o = _op(ui, ui.ops_landmarks.FACE3D_OT_landmarks_import, filepath=str(f), photo_id="p01")
+    assert o.execute(ui.ctx) == {"FINISHED"}
+    ls = ui.ops_landmarks.session_sets(ui.ctx)["p01"]
+    assert len(ls.faces) == 1 and np.allclose(ls.faces[0].uv, 20.0)
+    assert ui.overlays.STATE["auto_landmarks"]["p01"].shape == (44, 2)          # imported landmarks are displayed
+    # several faces and none strong: a pick-subject card, nothing stored
+    ui.ops_landmarks.SESSION.clear()
+    weak = [Face(score=0.2, uv=np.full((44, 2), 1.0), visible=np.ones(44, bool)),
+            Face(score=0.4, uv=np.full((44, 2), 2.0), visible=np.ones(44, bool))]
+    g = ui.tmp / "none_strong.json"
+    save_landmarks(LandmarkSet("anatomical44", {"backend": "t"}, {"wh": [48, 40]}, weak), g)
+    o = _op(ui, ui.ops_landmarks.FACE3D_OT_landmarks_import, filepath=str(g), photo_id="p01")
+    assert o.execute(ui.ctx) == {"FINISHED"} and ui.ops_landmarks.session_sets(ui.ctx) == {}
+    assert ui.ctx.scene.face3d.cards[len(ui.ctx.scene.face3d.cards) - 1].code == "Q-FACES"
+
+
+def test_choose_face_is_non_destructive_and_cards_are_drawn(ui):
+    _new_project(ui)
+    _add_photo(ui)
+    _import_lm(ui, faces=2)                                          # two strong faces -> Q-FACES card
+    s = ui.ctx.scene.face3d
+    i = len(s.cards) - 1
+    bad = _op(ui, ui.ops_solve.FACE3D_OT_card_accept, index=i, face_index=7)
+    assert bad.execute(ui.ctx) == {"CANCELLED"}
+    assert "p01" in ui.ops_landmarks.pending_sets(ui.ctx) and s.cards[i].decided is False   # nothing was lost
+    # the cards panel lists question, fix text, a button per face and Dismiss
+    drawn = []
+
+    class _Op:
+        pass
+
+    class Lay:
+        def box(self):
+            return self
+
+        def label(self, **k):
+            drawn.append(("label", k["text"]))
+
+        def operator(self, idname, **k):
+            o = _Op()
+            drawn.append((idname, k.get("text"), o))
+            return o
+    ui.ui_panels.draw_cards(Lay(), ui.ctx)
+    texts = [d[1] for d in drawn]
+    assert ui.messages.text("pick_subject") in texts and ui.messages.text("qa.Q-FACES.fix") in texts
+    face_buttons = [d for d in drawn if d[0] == "face3d.card_accept" and d[2].index == i]
+    assert len(face_buttons) == 2 and [d[2].face_index for d in face_buttons] == [0, 1]
+    assert any(d[0] == "face3d.card_dismiss" and d[2].index == i for d in drawn)
+    ok = _op(ui, ui.ops_solve.FACE3D_OT_card_accept, index=i, face_index=1)
+    assert ok.execute(ui.ctx) == {"FINISHED"} and "p01" not in ui.ops_landmarks.pending_sets(ui.ctx)
+    drawn.clear()
+    s.cards.clear()
+    ui.ui_panels.draw_cards(Lay(), ui.ctx)
+    assert drawn == [("label", ui.messages.text("panel.cards_none"))]
+    assert any(getattr(p, "bl_idname", "") == "FACE3D_PT_cards" for p in ui.bpy.utils.registered_classes)
+
+
+def test_keyed_card_keys_decide_only_the_card_under_review(ui):
+    _new_project(ui)
+    _add_photo(ui, "a.png", 1)
+    _add_photo(ui, "b.png", 2)
+    s = ui.ctx.scene.face3d
+    s.cards.clear()
+    for pid in ("p01", "p02"):
+        c = s.cards.add()
+        c.code, c.severity, c.msg_key, c.photo_id, c.decided = "Q-BLUR", "warn", "qa.Q-BLUR", pid, False
+    ui.ctx.scene.camera = ui.ops_photos.camera_for_photo("p01")
+    ui.ctx.scene["f3d_review_idx"] = 1                               # reviewing p02's card, but p01's camera is active
+    acc = _op(ui, ui.ops_solve.FACE3D_OT_card_accept, keyed=True)
+    assert acc.invoke(ui.ctx, None) == {"CANCELLED"} and not s.cards[0].decided and not s.cards[1].decided
+    ui.ctx.scene["f3d_review_idx"] = 0                               # the card under review belongs to the active photo
+    assert _op(ui, ui.ops_solve.FACE3D_OT_card_accept, keyed=True).invoke(ui.ctx, None) == {"FINISHED"}
+    assert s.cards[0].decided and not s.cards[1].decided
+    ui.ctx.scene["f3d_review_idx"] = 0                               # decided and stale: no fallback to the worst card
+    assert _op(ui, ui.ops_solve.FACE3D_OT_card_dismiss, keyed=True).invoke(ui.ctx, None) == {"CANCELLED"}
+    assert not s.cards[1].decided
+
+
+def test_keyed_items_need_the_viewport_to_look_through_the_camera(ui):
+    _new_project(ui)
+    _add_photo(ui)
+    ui.ctx.scene.camera = ui.ops_photos.camera_for_photo("p01")
+    ui.ctx.region_data = types.SimpleNamespace(view_perspective="PERSP")
+    v = _op(ui, ui.ops_photos.FACE3D_OT_view_next, keyed=True)
+    assert v.invoke(ui.ctx, None) == {"PASS_THROUGH"}
+    assert _op(ui, ui.overlays.FACE3D_OT_compare_mode, mode="blur", keyed=True).invoke(ui.ctx, None) == {"PASS_THROUGH"}
+    assert _op(ui, ui.overlays.FACE3D_OT_compare_flip, keyed=True).invoke(ui.ctx, None) == {"PASS_THROUGH"}
+    assert _op(ui, ui.ops_solve.FACE3D_OT_solve, keyed=True).invoke(ui.ctx, None) == {"PASS_THROUGH"}
+    ui.ctx.region_data = types.SimpleNamespace(view_perspective="CAMERA")
+    assert _op(ui, ui.ops_photos.FACE3D_OT_view_next, keyed=True).invoke(ui.ctx, None) == {"FINISHED"}
+    ui.ctx.region_data = None
+
+
+def test_stale_running_status_is_reset_by_cancel_and_by_load_post(ui):
+    """Finding: 'running' saved in the .blend with no live runner locked every operator for good."""
+    _new_project(ui)
+    _add_photo(ui)
+    _import_lm(ui)
+    s = ui.ctx.scene.face3d
+    ui.ops_solve.RUNNERS.clear()
+    job_dir = ui.tmp / "stale_job"
+    job_dir.mkdir()
+    s.job.status, s.job.job_dir = "running", str(job_dir)
+    assert ui.ops_solve.FACE3D_OT_solve.poll(ui.ctx) is False and ui.ops_photos.FACE3D_OT_photos_add.poll(ui.ctx) is False
+    c = _op(ui, ui.ops_solve.FACE3D_OT_job_cancel)
+    assert c.poll(ui.ctx) is True and c.execute(ui.ctx) == {"FINISHED"}
+    assert _last_msg(c) == ui.messages.MESSAGES["job_reset"] and s.job.status == "idle"
+    assert ui.ops_solve.FACE3D_OT_solve.poll(ui.ctx) is True and ui.ops_photos.FACE3D_OT_photos_add.poll(ui.ctx) is True
+    # the job folder decides: a result means ready, a cancel file means cancelled
+    (job_dir / "result.json").write_text("{}")
+    s.job.status = "running"
+    ui.bpy.data.scenes.append(ui.ctx.scene)
+    ui.ops_solve._load_post()
+    assert s.job.status == "ready"
+    (job_dir / "result.json").unlink()
+    (job_dir / "cancel").write_text("1")
+    s.job.status = "running"
+    ui.ops_solve.reconcile_job(ui.ctx.scene)
+    assert s.job.status == "cancelled"
+    # a live runner is left alone
+    ui.ops_solve.RUNNERS[str(s.project_path)] = types.SimpleNamespace(status="running")
+    s.job.status = "running"
+    assert ui.ops_solve.reconcile_job(ui.ctx.scene) is False and s.job.status == "running"
+    assert ui.ops_solve._load_post in ui.bpy.app.handlers.load_post
+    ui.ops_solve.RUNNERS.clear()
+
+
+def test_compare_image_is_cached_and_made_at_display_resolution(ui, monkeypatch):
+    ov = ui.overlays
+    ov.reset_state()
+    rng = np.random.default_rng(0)
+    big = rng.random((1500, 2000, 3)).astype(np.float32)
+    out = ov.compare_image(big, "blur", 700.0)
+    assert max(out.shape[:2]) <= ov.COMPARE_MAX_SIDE and out.dtype == np.float32      # not full resolution
+    assert ov.compare_image(big, "grey").shape[:2] == out.shape[:2]
+    small = rng.random((60, 80, 3)).astype(np.float32)
+    assert ov.compare_image(small, "grey").shape[:2] == (60, 80)                       # small images unchanged
+    path = ui.tmp / "wc.npy"
+    np.save(path, small)
+    calls = []
+    real = ov.compare_image
+    monkeypatch.setattr(ov, "compare_image", lambda *a, **k: calls.append(a[1]) or real(*a, **k))
+    a1 = ov.compare_for_photo(str(path), "blur", 40.0)
+    a2 = ov.compare_for_photo(str(path), "blur", 40.0)                                 # a redraw: no recomputation
+    assert a1 is a2 and calls == ["blur"]
+    ov.compare_for_photo(str(path), "grey", 40.0)                                      # mode change invalidates
+    ov.compare_for_photo(str(path), "blur", 40.0)
+    assert calls == ["blur", "grey", "blur"]
+    ov.compare_for_photo(str(path), "blur", 55.0)                                      # so does the face width
+    assert calls[-1] == "blur" and len(calls) == 4
+    # the draw handler builds the GPU texture once per cache entry
+    built = []
+    monkeypatch.setattr(ov, "_compare_texture", lambda img: built.append(1) or object())
+    assert ov._COMPARE["key"] is not None
+    ov.reset_state()
+    assert ov._COMPARE["key"] is None
+
+
+def test_ledger_shows_scale_and_focal_and_never_a_floor_for_unknown_sigma(ui):
+    L = ui.ui_panels.ledger_lines
+    ob = _cube_object(ui)
+    d, _ = _fake_result(ui, ob, ui.tmp, "rL", np.zeros((8, 3)), np.zeros((8, 3)), np.zeros((8, 3)))
+    doc = json.loads((d / "result.json").read_text())
+    doc["scale"] = {"mode": "iris", "sigma_pct": 4.0, "text": "Scale: from the iris, +/-4 %"}
+    doc["regions"][0]["sigma_rep_mm"] = None                      # constrained/measured with an unknown sigma
+    lines = L(doc)
+    assert "Scale: from the iris, +/-4 %" in lines                # H4
+    assert any(x.startswith("Focal length: measured in 1 of 2") for x in lines)    # H5
+    assert lines.index("Scale: from the iris, +/-4 %") < next(i for i, x in enumerate(lines) if x.startswith("Eyes"))
+    eyes = [x for x in lines if x.startswith("Eyes")][0]
+    assert "range unknown" in eyes and "0.2" not in eyes
+
+
+def test_solve_needs_an_imported_landmark_set_per_included_photo(ui):
+    """Finding: the pins-only path passed the UI gate but the engine always failed it."""
+    _new_project(ui)
+    _add_photo(ui, "a.png", 1)
+    _add_photo(ui, "b.png", 2)
+    S = ui.ops_solve.FACE3D_OT_solve
+    M = ui.messages.MESSAGES
+    # pins alone are not enough
+    ui.ctx.scene.face3d.pins.add().photo_id = "p01"
+    assert S.poll(ui.ctx) is False and S._poll_messages[-1] == M["no_landmarks"]
+    assert ui.ops_solve.FACE3D_OT_fit.poll(ui.ctx) is False
+    _import_lm(ui, "p01")
+    assert S.poll(ui.ctx) is False and S._poll_messages[-1] == M["landmarks_incomplete"]   # p02 has none
+    ui.ctx.scene.face3d.photos[1].include = "exclude"                                      # excluded photos need none
+    assert S.poll(ui.ctx) is True
+    ui.ctx.scene.face3d.photos[1].include = "auto"
+    # the rail applies the same rule (no pin-only 'done' and no enabled button)
+    rows = ui.ui_panels.rail_rows(ui.ctx)
+    assert rows["cameras"][4] == "landmarks_incomplete" and rows["landmarks"][1] == "attention"
+    _import_lm(ui, "p02", name="lm2.json")
+    assert S.poll(ui.ctx) is True and ui.ui_panels.rail_rows(ui.ctx)["cameras"][4] is None
+
+
+def _result_with_cameras(ui, ob, tmp, name):
+    """A result like the engine's, with a camera for p01, per-vertex 'vertices' and region ids."""
+    from face3d.core.schema import dump_json, save_arrays
+    basis = np.asarray(CUBE_V, float) * 100.0
+    n = len(basis)
+    ax, ay = 0.3, 0.4
+    Rx = np.array([[1, 0, 0], [0, np.cos(ax), -np.sin(ax)], [0, np.sin(ax), np.cos(ax)]])
+    Ry = np.array([[np.cos(ay), 0, np.sin(ay)], [0, 1, 0], [-np.sin(ay), 0, np.cos(ay)]])
+    R = Rx @ Ry
+    arrays = {"handoff_key_basis": basis, "handoff_key_ID_fit": basis.copy(), "handoff_key_Asym": basis.copy(),
+              "vertices": basis, "region_ids": np.arange(n) % 2, "sigma_n": np.ones(n), "support": np.ones(n)}
+    d = tmp / name
+    d.mkdir(parents=True)
+    man = save_arrays(d / "arrays.npz", **arrays)
+    doc = {"format": "face3d.result", "version": 1, "arrays": man,
+           "run": {"input_hashes": {"template_topology_sha256": ui.bridge.topology_sha(ob.data)}},
+           "cameras": [{"photo": "p01", "K": [[800, 0, 32], [0, 800, 32], [0, 0, 1]], "R": R.tolist(),
+                        "t": [0, 0, 600]}],
+           "cards": [], "regions": [{"name": "eyes", "status": "measured", "sigma_rep_mm": 0.9, "next_photo": None},
+                                    {"name": "nose", "status": "prior-driven", "sigma_rep_mm": 2.0, "next_photo": None},
+                                    {"name": "nose_projection", "status": "unobserved", "sigma_rep_mm": 3.0,
+                                     "next_photo": None}],
+           "per_vertex": {"region_names": ["eyes", "nose"], "inflation": 1.0}}
+    dump_json(doc, d / "result.json")
+    return d
+
+
+def test_apply_sets_resolution_flip_overlays_and_refuses_moved_head(ui):
+    _new_project(ui)
+    ob = _cube_object(ui)
+    _add_photo(ui)
+    cam = ui.ops_photos.camera_for_photo("p01")
+    cam["f3d_res_x"], cam["f3d_res_y"] = 1200, 800
+    ui.ctx.scene.face3d.job.status = "ready"
+    d = _result_with_cameras(ui, ob, ui.tmp, "jobC")
+    # stepping to the photo sets the scene render resolution and pixel aspect (per scene in Blender)
+    assert _op(ui, ui.ops_photos.FACE3D_OT_view_next).execute(ui.ctx) == {"FINISHED"}
+    r = ui.ctx.scene.render
+    assert (r.resolution_x, r.resolution_y, r.pixel_aspect_x, r.pixel_aspect_y) == (1200, 800, 1.0, 1.0)
+    # a moved head would misalign the world-space cameras: refused, nothing written
+    ob.matrix_world = np.diag([1.0, 1.0, 1.0, 1.0])
+    ob.matrix_world[0][3] = 0.5 if isinstance(ob.matrix_world, list) else 0
+    ob.matrix_world = [[1, 0, 0, 0.5], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+    op = _op(ui, ui.ops_apply.FACE3D_OT_apply_result, solve_dir=str(d))
+    assert op.execute(ui.ctx) == {"CANCELLED"} and _last_msg(op) == ui.messages.MESSAGES["head_transform"]
+    assert ob.data.shape_keys is None
+    ob.matrix_world = None
+    # a recorded flip is honoured: the solved image is the flipped one
+    prj = ui.ops_project.load_project(ui.ctx)
+    prj.record_decision("mirror_flip", "p01", "user")
+    prj.save()
+    op = _op(ui, ui.ops_apply.FACE3D_OT_apply_result, solve_dir=str(d))
+    assert op.execute(ui.ctx) == {"FINISHED"}, op.reports
+    assert cam.data.background_images[0].use_flip_x is True
+    assert (r.resolution_x, r.resolution_y) == (1200, 800)
+    # overlays are fed: hatching of prior-driven / unobserved regions and the model outline
+    st = ui.overlays.STATE
+    assert len(st["hatch"]["p01"]) == 1 and st["hatch"]["p01"][0].shape[1] == 2 and len(st["hatch"]["p01"][0]) >= 3
+    assert len(st["model_contour"]["p01"]) >= 4
+    items = ui.overlays.build_draw_list("p01", CORNERS, (64, 64), 1.0, [])
+    assert items                                                  # H9 hatching reaches the draw list
+    # deciding 'keep' on a mirror card shows the photo unflipped again
+    ui.ops_solve._set_photo_mirror(ui.ctx.scene.face3d, "p01", "keep")
+    assert cam.data.background_images[0].use_flip_x is False
+    hull = ui.overlays.convex_hull(np.array([[0, 0], [2, 0], [2, 2], [0, 2], [1, 1], [1, 0.5]], float))
+    assert len(hull) == 4
+
+
+def test_prepare_for_sharing_confirm_purges_only_what_it_listed(ui):
+    bpy = ui.bpy
+    folder = _new_project(ui)
+    _add_photo(ui)
+    img = bpy.data.images.new("packed", 4, 4)
+    img.packed_file = object()
+    orphan = bpy.data.meshes.new("orphan_mesh")
+    orphan.users = 0
+    items = ui.ops_handoff.scan_shareables(ui.ctx)
+    assert {"packed_image", "background_image", "orphan"} <= {i["kind"] for i in items}
+    op = _op(ui, ui.ops_handoff.FACE3D_OT_prepare_for_sharing, confirm=True)
+    assert op.execute(ui.ctx) == {"FINISHED"}
+    # what the scan listed is gone ...
+    assert bpy.data.images.get("packed") is None and bpy.data.meshes.get("orphan_mesh") is None
+    assert ui.ops_photos.camera_for_photo("p01").data.background_images[0].image is None
+    # ... but the project's working copy survives: the project can still be solved, the photo is still known
+    assert (folder / "photos" / "p01.npy").is_file()
+    assert [p.id for p in ui.ops_project.load_project(ui.ctx).photos] == ["p01"]
+    assert ui.ops_handoff.SCAN == [] or all(i["kind"] != "packed_image" for i in ui.ops_handoff.SCAN)
+    assert "share_cleanup" in (folder / "audit.jsonl").read_text()
+    assert "working copies" in ui.messages.MESSAGES["purge_confirm"]
+
+
+def test_project_new_never_overwrites_an_existing_project(ui):
+    folder = _new_project(ui)
+    _add_photo(ui)
+    before = (folder / "project.json").read_text()
+    o = _op(ui, ui.ops_project.FACE3D_OT_project_new, directory=str(folder))
+    assert o.execute(ui.ctx) == {"CANCELLED"} and _last_msg(o) == ui.messages.MESSAGES["project_exists"]
+    assert (folder / "project.json").read_text() == before
+    assert len(ui.ops_project.load_project(ui.ctx).photos) == 1 and (folder / "photos" / "p01.npy").is_file()
+
+
+def test_photos_add_extends_consent_only_after_the_checks_and_checks_the_whole_set(ui, monkeypatch):
+    bpy = ui.bpy
+    folder = _new_project(ui)
+    a = _png(ui.tmp / "a.png", 1)
+    before = ui.ops_project.load_consent(folder).photo_sha256
+    # a photo refused for orientation must leave the consent record unchanged and not leak its image
+    from face3d.pipeline import project as proj_mod
+    real = proj_mod.Project.add_photo
+
+    def rotated(self, path, rights, **kw):
+        rec = real(self, path, rights, **kw)
+        rec.exif["orientation"] = 6
+        return rec
+    monkeypatch.setattr(proj_mod.Project, "add_photo", rotated)
+    n_img = len(bpy.data.images)
+    o = _op(ui, ui.ops_photos.FACE3D_OT_photos_add, filepath=a, consent_covers=True)
+    assert o.execute(ui.ctx) == {"CANCELLED"} and _last_msg(o) == ui.messages.MESSAGES["convert_to_png"]
+    assert ui.ops_project.load_consent(folder).photo_sha256 == before
+    assert "consent_photo_added" not in (folder / "audit.jsonl").read_text()
+    assert len(bpy.data.images) == n_img
+    monkeypatch.setattr(proj_mod.Project, "add_photo", real)
+    # set-level QA sees every project photo, not only the current batch
+    seen = []
+    real_set = ui.ops_photos.qa.run_set_checks
+    monkeypatch.setattr(ui.ops_photos.qa, "run_set_checks", lambda ctxs, *a_, **k: seen.append(len(list(ctxs))) or real_set(ctxs))
+    _add_photo(ui, "a.png", 1)
+    _add_photo(ui, "b.png", 2)
+    assert seen[-1] == 2
+
+
+def test_refit_keeps_user_key_state_and_nudges_in_all_directions(ui):
+    br = ui.bridge
+    ob = _scene_for_apply(ui)
+    rng = np.random.default_rng(4)
+    basis = np.asarray(CUBE_V, float) * 100.0
+    idf = basis + rng.normal(0, 2.0, basis.shape)
+    d, _ = _fake_result(ui, ob, ui.tmp, "k1", basis, idf, rng.normal(0, 0.5, basis.shape))
+    assert _op(ui, ui.ops_apply.FACE3D_OT_apply_result, solve_dir=str(d)).execute(ui.ctx) == {"FINISHED"}
+    blocks = ob.data.shape_keys.key_blocks
+    blocks.get("ID_fit").value = 1.3                               # the user's own state
+    blocks.get("Asym").mute = True
+    blocks.get("artist").slider_max = 2.0
+    d2, _ = _fake_result(ui, ob, ui.tmp, "k2", basis, idf + 1.0, rng.normal(0, 0.5, basis.shape))
+    ui.ctx.scene.face3d.job.status = "ready"
+    assert _op(ui, ui.ops_apply.FACE3D_OT_apply_result, solve_dir=str(d2)).execute(ui.ctx) == {"FINISHED"}
+    k = _blender_keys(ui, ob)
+    assert k["ID_fit"][2] == pytest.approx(1.3) and k["Asym"][4] is True and k["artist"][3] == pytest.approx(2.0)
+    # all four arrow directions nudge by the right sign (x right+, y down+ in image px), fine with Shift
+    ed = ui.ops_landmarks.PinEditor([{"landmark": "a", "x": 10.0, "y": 10.0}], (100, 100))
+    ed.selected = 0
+    for dx, dy, want in ((1, 0, (11, 10)), (-1, 0, (10, 10)), (0, 1, (10, 11)), (0, -1, (10, 10))):
+        ed.nudge(dx, dy)
+        assert (ed.pins[0]["x"], ed.pins[0]["y"]) == pytest.approx(want)
+
+
+def test_modules_do_not_touch_mesh_or_image_data_directly(ui):
+    """Only bridge.py loads images, copies meshes or clears keys (DESIGN 6.2)."""
+    banned = {"load", "copy", "shape_key_clear", "foreach_get", "foreach_set", "pixels"}
+    for name in ("ops_handoff", "ops_photos", "ops_apply", "ops_landmarks", "ops_solve", "ops_project", "overlays"):
+        for n in ast.walk(_py(name)):
+            if isinstance(n, ast.Attribute) and n.attr in banned:
+                owner = ast.unparse(n.value)
+                assert not (n.attr in ("load",) and owner.endswith("images")), (name, n.lineno)
+                assert n.attr not in ("shape_key_clear", "foreach_get", "foreach_set", "pixels"), (name, n.lineno)
+                assert not (n.attr == "copy" and owner.endswith(".data")), (name, n.lineno)
+
+
+def test_catalogue_covers_every_pipeline_error_and_qa_msg_key(ui):
+    M = ui.messages.MESSAGES
+    codes = set()
+    for f in (ROOT / "face3d").rglob("*.py"):
+        codes |= set(re.findall(r'PipelineError\(\s*"(\w+)"', f.read_text()))
+    assert "missing_landmarks" in codes and "texture_blocked" in codes
+    for c in sorted(codes):
+        assert "job.error." + c in M, c
+    for f in (ROOT / "face3d" / "qa").glob("*.py"):
+        for key in re.findall(r'msg_key *= *"([\w.\-]+)"', f.read_text()):
+            assert key in M, key
+    assert "qa.Q-SMALL.no_iris_scale" in M

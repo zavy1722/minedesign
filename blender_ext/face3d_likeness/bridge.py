@@ -198,7 +198,39 @@ def mode_guard(obj):
             bpy.ops.object.mode_set(mode=mode)
 
 
+def duplicate_mesh_object(scene, src, name):
+    """Copy ``src``'s mesh data into a new key-free object ``name`` linked into ``scene`` (hand-off copies)."""
+    me = src.data.copy()
+    me.name = name
+    obj = bpy.data.objects.new(name, me)
+    coll = getattr(scene, "collection", None)
+    if coll is not None:
+        coll.objects.link(obj)
+    obj.shape_key_clear()
+    return obj
+
+
+def remove_datablock(kind, item):
+    """Remove ``item`` from ``bpy.data.<kind>`` ('images', 'meshes', 'cameras'); False when unsupported."""
+    coll = getattr(bpy.data, kind, None)
+    if coll is None or not hasattr(coll, "remove"):
+        return False
+    coll.remove(item)
+    return True
+
+
 # ------------------------------------------------------------------ images
+def load_image(path):
+    """Load an image file as a datablock; returns (image, width, height). Raises RuntimeError/OSError."""
+    img = bpy.data.images.load(str(path), check_existing=False)
+    return img, int(img.size[0]), int(img.size[1])
+
+
+def remove_image(img):
+    """Remove an image datablock (a refused photo must not leak its image)."""
+    return remove_datablock("images", img)
+
+
 def image_to_array(img):
     """Blender image -> (H, W, 4) float32, top-down rows (Blender stores bottom-up)."""
     w, h = img.size

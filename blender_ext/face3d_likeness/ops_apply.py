@@ -30,7 +30,7 @@ import numpy as np
 from bpy.props import IntProperty, StringProperty
 
 from . import bridge, ensure_engine_on_path
-from . import ops_photos, ops_solve
+from . import ops_photos, ops_solve, overlays
 from . import ops_project as P
 
 ensure_engine_on_path()
@@ -144,8 +144,24 @@ def object_uuid(project, obj):
     return hashlib.sha256((str(project.root) + "|" + obj.name).encode()).hexdigest()[:16]
 
 
-def apply_cameras(result):
-    """Apply result cameras to the photo camera objects; returns the number applied."""
+def is_identity_transform(obj, tol=1e-6):
+    """True when ``obj.matrix_world`` is the identity (or unset): keys are in object space, cameras in world."""
+    m = getattr(obj, "matrix_world", None)
+    if m is None:
+        return True
+    try:
+        return bool(np.allclose(np.asarray(m, dtype=np.float64).reshape(4, 4), np.eye(4), atol=tol))
+    except (TypeError, ValueError):
+        return True
+
+
+def apply_cameras(result, scene=None, flipped=()):
+    """Apply result cameras to the photo camera objects; returns the number applied.
+
+    With ``scene`` the render resolution follows the active photo camera (it is per scene in Blender), and
+    the background image of every photo in ``flipped`` (a recorded mirror decision) is shown flipped, because
+    the engine solved the flipped image.
+    """
     n = 0
     for c in result.get("cameras", []):
         obj = ops_photos.camera_for_photo(c["photo"])
@@ -157,6 +173,10 @@ def apply_cameras(result):
         cam = Camera(f=float(K3[0, 0]), cx=float(K3[0, 2]), cy=float(K3[1, 2]), width=w, height=h,
                      R=np.asarray(c["R"], dtype=np.float64), t=np.asarray(c["t"], dtype=np.float64))
         bridge.apply_camera(obj, to_blender_camera(cam))
+        for bg in obj.data.background_images:
+            bg.use_flip_x = c["photo"] in flipped
+        if scene is not None and getattr(scene, "camera", None) is obj:
+            ops_photos.sync_render_resolution(scene, obj)
         n += 1
     return n
 
@@ -169,6 +189,8 @@ def apply_solve(op, context, solve_dir):
     obj = context.active_object if getattr(context, "active_object", None) is not None else context.object
     if obj is None or getattr(obj, "type", "") != "MESH":
         return P.fail(op, "no_mesh_object")
+    if not is_identity_transform(obj):
+        return P.fail(op, "head_transform")
     try:
         res, arrays = load_result(solve_dir)
     except (FormatError, OSError, ValueError, KeyError):
@@ -202,9 +224,10 @@ def apply_solve(op, context, solve_dir):
                     if k.startswith("handoff_key_stage_"):
                         old.keys[k[len("handoff_key_"):]] = K.Key(arrays[k], K.BASIS, 0.0, 1.0, True)
                 ks = old
-            apply_cameras(res)
+            apply_cameras(res, context.scene, set(prj.flipped_photos()))
             write_stack(obj, ks, state)
             _write_attributes(obj, res, arrays)
+            fill_overlays(res, arrays)
         obj["f3d_applied_solve"] = adopt_solve(prj, solve_dir)
         obj["face3d_uuid"] = object_uuid(prj, obj)
         P.settings(context).job.status = "idle"
@@ -216,6 +239,45 @@ def apply_solve(op, context, solve_dir):
         return P.fail(op, "topology_mismatch")
     except (OSError, ValueError, KeyError, TypeError):
         return P.fail(op, "result_unreadable")
+
+
+def fill_overlays(res, arrays):
+    """Feed the camera-view overlays from a result: hatching of prior-driven/unobserved regions (H9) and the
+    model outline, projected through each result camera (image px).
+
+    Hatch = the convex hull of each template region's projected vertices whose status is unobserved or
+    prior-driven. The model contour is the convex hull of ALL projected vertices: PROVISIONAL, an outer
+    approximation of the silhouette (the engine exports no silhouette polyline). Sigma ellipses and residual
+    arrows stay unfilled: result.json carries no per-photo landmark residuals.
+    """
+    V, ids = arrays.get("vertices"), arrays.get("region_ids")
+    names = (res.get("per_vertex") or {}).get("region_names")
+    if V is None or ids is None or names is None:
+        return 0
+    V = np.asarray(V, dtype=np.float64)
+    ids = np.asarray(ids, dtype=np.int64)
+    status = vertex_status(names, ids, res.get("regions", []))
+    n = 0
+    for c in res.get("cameras", []):
+        K3 = np.asarray(c["K"], dtype=np.float64)
+        cam = Camera(f=float(K3[0, 0]), cx=float(K3[0, 2]), cy=float(K3[1, 2]), width=int(round(2 * K3[0, 2])),
+                     height=int(round(2 * K3[1, 2])), R=np.asarray(c["R"], dtype=np.float64),
+                     t=np.asarray(c["t"], dtype=np.float64))
+        front = cam.depth(V) > 1e-6
+        uv = np.full((len(V), 2), np.nan)
+        uv[front] = cam.project(V[front])
+        hulls = []
+        for rid in np.unique(ids[status <= 1]):
+            pts = uv[(ids == rid) & (status <= 1) & front]
+            hull = overlays.convex_hull(pts)
+            if len(hull) >= 3:
+                hulls.append(hull)
+        overlays.set_data("hatch", c["photo"], hulls)
+        outline = overlays.convex_hull(uv[front])
+        if len(outline) >= 3:
+            overlays.set_data("model_contour", c["photo"], np.vstack([outline, outline[:1]]))
+        n += 1
+    return n
 
 
 def _write_attributes(obj, res, arrays):

@@ -20,7 +20,9 @@ W                     face3d.compare_mode wobble          reports 'not available
 
 Several of these keys have Blender defaults (Tab = edit mode, G = grab, E = extrude, B = box select ...).
 Every operator therefore passes the key through (``PASS_THROUGH``) unless the scene camera is a Face3D photo
-camera (``keyed`` property set here), and Esc/Ctrl-R only act through the operators' own polls.
+camera AND the viewport looks through it (``keyed`` property set here; `ops_project.keyed_active`), and
+Esc/Ctrl-R only act through the operators' own polls. Ctrl-Enter / Ctrl-Backspace decide only the card under
+review, and only if it belongs to the active photo.
 `unregister` removes exactly the items and keymaps this module created.
 """
 import bpy

@@ -14,6 +14,9 @@ Conventions
 * Nothing blinks and nothing is timer-driven (WCAG 2.3.1, DESIGN 6.5): comparison is **hold F to flip**
   (the flipped 64 px thumbnail is shown while the key is held, restored on release), plus a blur at
   3 % of the face width and a 64 px thumbnail mode. This module registers no timers.
+* Comparison images are computed ONCE per (photo, mode, face width) and cached with their GPU texture
+  (`compare_for_photo`); the draw handler never recomputes them on a redraw. They are made at display
+  resolution (`COMPARE_MAX_SIDE` px on the long side), so a 12 MP photo blurs as fast as a 1 MP one.
 * `compare_image` is pure numpy; the GPU texture upload in `_draw_compare` is best effort and silent
   when the GPU API is unavailable (stub, background mode).
 * Residual arrows are magnified x5 (DESIGN 6.5). The face width used for the blur defaults to
@@ -25,6 +28,7 @@ import bpy
 import numpy as np
 
 from . import ensure_engine_on_path
+from . import ops_project as P
 from .messages import MESSAGES
 
 ensure_engine_on_path()
@@ -38,6 +42,7 @@ RESIDUAL_SCALE = 5.0                 # DESIGN 6.5 "residual arrows x5"
 DEFAULT_FACE_WIDTH_FRAC = 0.5        # PROVISIONAL: face width as a fraction of the shorter image side
 DASH_ON_PX, DASH_OFF_PX = 8.0, 5.0   # traced-outline dash pattern (shape cue distinct from the model line)
 MODES = ("flip", "blur", "thumb", "grey", "edges")
+COMPARE_MAX_SIDE = 1024              # comparison images are made at most this many px on the long side
 
 STATE = {
     "hide_auto": False,          # 'blind first pins': hide auto landmarks while the first pins are placed
@@ -58,6 +63,7 @@ def reset_state():
     """Clear all overlay data and modes (new project, tests)."""
     for k, v in list(STATE.items()):
         STATE[k] = {} if isinstance(v, dict) else (False if k == "hide_auto" else None)
+    clear_compare_cache()
 
 
 def set_data(kind, photo_id, value):
@@ -255,7 +261,22 @@ def face_width_or_default(img_shape, face_width_px=None):
     return DEFAULT_FACE_WIDTH_FRAC * float(min(img_shape[0], img_shape[1]))
 
 
-def compare_image(rgb, mode, face_width_px=None):
+def _block_downsample(a, max_side=COMPARE_MAX_SIDE):
+    """Box-average ``a`` (H, W, C) by the smallest integer factor that brings the long side to ``max_side``.
+
+    Returns (array, factor). Vectorised (no per-pixel Python); float32 in, float32 out, so a 12 MP photo is
+    never copied to float64 at full size.
+    """
+    h, w = a.shape[:2]
+    k = int(np.ceil(max(h, w) / float(max_side)))
+    if k <= 1:
+        return a, 1
+    h2, w2 = h // k, w // k
+    b = a[:h2 * k, :w2 * k].reshape(h2, k, w2, k, a.shape[2]).mean(axis=(1, 3), dtype=np.float32)
+    return b, k
+
+
+def compare_image(rgb, mode, face_width_px=None, max_side=COMPARE_MAX_SIDE):
     """Display array (h, w, 3) float32 in [0, 1] for a comparison ``mode`` of a photo (H, W, 3 or 4).
 
     flip: the 64 px thumbnail mirrored left-right (DESIGN 6.5: shown only while F is held);
@@ -265,7 +286,10 @@ def compare_image(rgb, mode, face_width_px=None):
     """
     if mode not in MODES:
         raise ValueError("unknown comparison mode %r" % (mode,))
-    a = np.asarray(rgb, dtype=np.float64)[..., :3]
+    a, k = _block_downsample(np.asarray(rgb)[..., :3], max_side)
+    a = np.asarray(a, dtype=np.float64)
+    if face_width_px:
+        face_width_px = float(face_width_px) / k          # the width is in full-resolution pixels
     if mode in ("flip", "thumb"):
         h2, w2 = og.thumbnail_shape(a.shape[0], a.shape[1])
         th = _area_resize(a, h2, w2)
@@ -281,6 +305,26 @@ def compare_image(rgb, mode, face_width_px=None):
     m = float(e.max())
     e = e / m if m > 0 else e
     return np.ascontiguousarray(np.repeat(e[..., None], 3, axis=-1).astype(np.float32))
+
+
+def convex_hull(points):
+    """Convex hull (k, 2) of 2-D points (Andrew's monotone chain), counter-clockwise, no repeated end point."""
+    pts = sorted({(float(x), float(y)) for x, y in np.asarray(points, dtype=np.float64).reshape(-1, 2)
+                  if np.isfinite(x) and np.isfinite(y)})
+    if len(pts) < 3:
+        return np.asarray(pts, dtype=np.float64).reshape(-1, 2)
+
+    def half(seq):
+        out = []
+        for p in seq:
+            while len(out) >= 2 and (out[-1][0] - out[-2][0]) * (p[1] - out[-2][1]) \
+                    - (out[-1][1] - out[-2][1]) * (p[0] - out[-2][0]) <= 0:
+                out.pop()
+            out.append(p)
+        return out
+
+    lo, up = half(pts), half(reversed(pts))
+    return np.asarray(lo[:-1] + up[:-1], dtype=np.float64)
 
 
 # ------------------------------------------------------------------ GPU drawing
@@ -312,8 +356,43 @@ def _draw_polylines(context, items):
     gpu.state.blend_set("NONE")
 
 
+_COMPARE = {"key": None, "img": None, "tex": None}
+
+
+def clear_compare_cache():
+    _COMPARE.update(key=None, img=None, tex=None)
+
+
+def compare_for_photo(path, mode, face_width_px=None):
+    """Cached comparison image of the working copy at ``path``: computed once per (file, mode, face width).
+
+    The cache holds one entry (the photo and mode on screen); a different photo, mode, face width or a
+    rewritten file invalidates it. Returns the display array (see `compare_image`).
+    """
+    try:
+        stamp = os.stat(path).st_mtime_ns
+    except OSError:
+        stamp = None
+    key = (str(path), stamp, mode, None if face_width_px is None else round(float(face_width_px), 1))
+    if _COMPARE["key"] != key:
+        arr = np.load(path, allow_pickle=False)
+        _COMPARE.update(key=key, img=compare_image(arr, mode, face_width_px), tex=None)
+    return _COMPARE["img"]
+
+
+def _compare_texture(img):
+    """GPU texture of the cached comparison image (built once per cache entry)."""
+    if _COMPARE["tex"] is None:
+        import gpu
+        h, w = img.shape[:2]
+        flat = np.concatenate([img, np.ones((h, w, 1), np.float32)], axis=-1)[::-1].reshape(-1)
+        buf = gpu.types.Buffer("FLOAT", flat.size, flat)
+        _COMPARE["tex"] = gpu.types.GPUTexture((w, h), format="RGBA16F", data=buf)
+    return _COMPARE["tex"]
+
+
 def _draw_compare(context, photo_id, corners, wh):
-    """Upload the comparison array as a texture over the camera frame (best effort)."""
+    """Draw the cached comparison texture over the camera frame (best effort; never recomputes per redraw)."""
     if not STATE["mode"]:
         return
     try:
@@ -322,12 +401,9 @@ def _draw_compare(context, photo_id, corners, wh):
         if not hasattr(gpu, "types"):
             return
         root = context.scene.face3d.project_path
-        arr = np.load(os.path.join(root, "photos", photo_id + ".npy"), allow_pickle=False)
-        img = compare_image(arr, STATE["mode"], STATE["face_width_px"])
-        h, w = img.shape[:2]
-        flat = np.concatenate([img, np.ones((h, w, 1), np.float32)], axis=-1)[::-1].reshape(-1)
-        buf = gpu.types.Buffer("FLOAT", flat.size, flat)
-        tex = gpu.types.GPUTexture((w, h), format="RGBA16F", data=buf)
+        img = compare_for_photo(os.path.join(root, "photos", photo_id + ".npy"), STATE["mode"],
+                                STATE["face_width_px"])
+        tex = _compare_texture(img)
         shader = gpu.shader.from_builtin("IMAGE")
         quad = [tuple(c) for c in corners[[3, 2, 0, 1]]]            # BL, BR, TL, TR
         batch = batch_for_shader(shader, "TRI_STRIP", {"pos": quad, "texCoord": ((0, 0), (1, 0), (0, 1), (1, 1))})
@@ -382,6 +458,8 @@ class FACE3D_OT_compare_flip(bpy.types.Operator):
         return True
 
     def invoke(self, context, event):
+        if self.keyed and not P.keyed_active(context):
+            return {"PASS_THROUGH"}
         STATE["mode"] = "flip"
         _redraw(context)
         context.window_manager.modal_handler_add(self)
@@ -427,7 +505,7 @@ class FACE3D_OT_compare_mode(bpy.types.Operator):
         return True
 
     def invoke(self, context, event):
-        if self.keyed and not self.poll(context):
+        if self.keyed and not (self.poll(context) and P.keyed_active(context)):
             return {"PASS_THROUGH"}
         return self.execute(context)
 

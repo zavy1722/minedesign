@@ -16,6 +16,9 @@ Conventions
   ``mirror_keep``) in ``project.decisions`` and the audit log (hash + code only, eth F19). The engine
   never flips on its own.
 """
+import json
+import os
+
 import bpy
 from bpy.props import BoolProperty, IntProperty
 
@@ -23,7 +26,7 @@ from . import ensure_engine_on_path
 from . import ops_landmarks
 from . import ops_photos
 from . import ops_project as P
-from .jobs import JobRunner
+from .jobs import CANCEL_SENTINEL, JobRunner
 
 ensure_engine_on_path()
 
@@ -43,6 +46,18 @@ def runner(context):
     return r
 
 
+def missing_landmark_photos(context):
+    """(included photo ids without an imported landmark set, number of included photos).
+
+    The engine fits ONLY from imported landmark sets (stage_landmarks raises ``missing_landmarks`` for every
+    usable photo without one); pins refine a set, they never replace it. The rail applies the same rule.
+    """
+    s = P.settings(context)
+    sets = ops_landmarks.session_sets(context)
+    inc = [p.id for p in s.photos if p.include != "exclude"]
+    return [pid for pid in inc if pid not in sets], len(inc)
+
+
 def _launch_gate(cls, context, operation="reconstruct"):
     """Shared poll: returns True or denies with the reason (project, consent, photos, landmarks, job)."""
     root = P.project_root(context)
@@ -60,9 +75,9 @@ def _launch_gate(cls, context, operation="reconstruct"):
     ok, key = P.consent_state(root, "reconstruct", shas)
     if not ok:
         return P.deny(cls, key)
-    sets = ops_landmarks.session_sets(context)
-    if not len(s.pins) and not sets:
-        return P.deny(cls, "no_landmarks")
+    missing, n_inc = missing_landmark_photos(context)
+    if missing:
+        return P.deny(cls, "no_landmarks" if len(missing) == n_inc else "landmarks_incomplete")
     return True
 
 
@@ -106,7 +121,7 @@ class FACE3D_OT_solve(bpy.types.Operator):
         return _launch_gate(cls, context)
 
     def invoke(self, context, event):
-        if self.keyed and P.active_photo_id(context) is None:
+        if self.keyed and not P.keyed_active(context):
             return {"PASS_THROUGH"}
         return self.execute(context)
 
@@ -170,11 +185,66 @@ class FACE3D_OT_job_cancel(bpy.types.Operator):
 
     def execute(self, context):
         try:
+            if reconcile_job(context.scene):                   # 'running' in the file, but nothing is running
+                P.info(self, "job_reset")
+                return {"FINISHED"}
             runner(context).cancel()
             P.info(self, "job_cancelling")
             return {"FINISHED"}
         except OSError:
             return P.fail(self, "job_failed")
+
+
+def resolved_job_status(job_dir):
+    """Status a job folder implies once nothing runs it any more: ready / cancelled / failed / idle."""
+    if not job_dir:
+        return "idle"
+    if os.path.exists(os.path.join(job_dir, "result.json")):
+        return "ready"
+    if os.path.exists(os.path.join(job_dir, CANCEL_SENTINEL)):
+        return "cancelled"
+    if os.path.exists(os.path.join(job_dir, "error.json")):
+        return "failed"
+    return "idle"
+
+
+def reconcile_job(scene):
+    """Reset a stale 'running' status (F3DJob.status is saved in the .blend; RUNNERS and the poll timer are not).
+
+    A file saved during a solve, a crash, or loading another file leaves 'running' behind with no JobRunner
+    to finish it, which would deny every operator for good. When no live runner exists for the project the
+    status is resolved from the job folder (result.json -> ready, cancel file -> cancelled, error.json ->
+    failed, else idle). Returns True when the status was changed. Never called from poll().
+    """
+    st = scene.face3d
+    job = st.job
+    if job.status != "running":
+        return False
+    r = RUNNERS.get(str(st.project_path))
+    if r is not None and r.status == "running":
+        return False
+    job.status = resolved_job_status(job.job_dir)
+    if job.status == "failed":
+        try:
+            with open(os.path.join(job.job_dir, "error.json"), encoding="utf-8") as fh:
+                job.msg_key = str(json.load(fh).get("msg_key") or "job_failed")
+        except (OSError, ValueError, AttributeError):
+            job.msg_key = "job_failed"
+    elif job.status == "cancelled":
+        job.msg_key = "job.error.cancelled"
+    return True
+
+
+def _load_post(*_args):
+    try:
+        for sc in bpy.data.scenes:
+            reconcile_job(sc)
+    except Exception:  # noqa: BLE001 - a load handler must never raise
+        pass
+
+
+_persistent = getattr(bpy.app.handlers, "persistent", lambda f: f)
+_load_post = _persistent(_load_post)
 
 
 # ------------------------------------------------------------------ cards
@@ -217,6 +287,19 @@ def _target_index(context, index):
     return order[0] if order else -1
 
 
+def _keyed_target(context):
+    """Card a key press may decide: only the card under review, and only if it belongs to the active photo.
+
+    A key press (Ctrl-Enter / Ctrl-Backspace) must never decide a card the user is not looking at (D-10):
+    no fallback to the worst open card, and a stale or foreign review index fails with card_none.
+    """
+    s = P.settings(context)
+    cur = int(context.scene.get("f3d_review_idx", -1))
+    if 0 <= cur < len(s.cards) and not s.cards[cur].decided and s.cards[cur].photo_id == P.active_photo_id(context):
+        return cur
+    return -1
+
+
 class _CardOp:
     index: IntProperty(name="Card", default=-1, description="-1 = the card under review")
 
@@ -229,9 +312,12 @@ class _CardOp:
         return True
 
     def invoke(self, context, event):
-        if getattr(self, "keyed", False) and P.active_photo_id(context) is None:
+        if getattr(self, "keyed", False) and not P.keyed_active(context):
             return {"PASS_THROUGH"}
         return self.execute(context)
+
+    def _index(self, context):
+        return _keyed_target(context) if getattr(self, "keyed", False) else _target_index(context, self.index)
 
 
 class FACE3D_OT_card_accept(_CardOp, bpy.types.Operator):
@@ -246,7 +332,7 @@ class FACE3D_OT_card_accept(_CardOp, bpy.types.Operator):
     def execute(self, context):
         try:
             s = P.settings(context)
-            i = _target_index(context, self.index)
+            i = self._index(context)
             if i < 0:
                 return P.fail(self, "card_none")
             card = s.cards[i]
@@ -281,7 +367,7 @@ class FACE3D_OT_card_dismiss(_CardOp, bpy.types.Operator):
     def execute(self, context):
         try:
             s = P.settings(context)
-            i = _target_index(context, self.index)
+            i = self._index(context)
             if i < 0:
                 return P.fail(self, "card_none")
             card = s.cards[i]
@@ -305,6 +391,10 @@ def _set_photo_mirror(s, photo_id, value):
     for ph in s.photos:
         if ph.id == photo_id:
             ph.mirror_decision = value
+    cam = ops_photos.camera_for_photo(photo_id)
+    if cam is not None:                                   # the engine solves the flipped image: show it flipped
+        for bg in cam.data.background_images:
+            bg.use_flip_x = value == "flip"
 
 
 CLASSES = (FACE3D_OT_solve, FACE3D_OT_fit, FACE3D_OT_texture_project, FACE3D_OT_job_cancel,
@@ -314,8 +404,12 @@ CLASSES = (FACE3D_OT_solve, FACE3D_OT_fit, FACE3D_OT_texture_project, FACE3D_OT_
 def register():
     for c in CLASSES:
         bpy.utils.register_class(c)
+    if _load_post not in bpy.app.handlers.load_post:
+        bpy.app.handlers.load_post.append(_load_post)
 
 
 def unregister():
+    if _load_post in bpy.app.handlers.load_post:
+        bpy.app.handlers.load_post.remove(_load_post)
     for c in reversed(CLASSES):
         bpy.utils.unregister_class(c)

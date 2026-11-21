@@ -78,14 +78,39 @@ def make_photo_camera(scene, photo_id, index, image, f35, wh):
     obj.lock_rotation = (True, True, True)
     obj.lock_scale = (True, True, True)
     _link(scene, obj)
-    scene.timeline_markers.new("F3D_" + photo_id, frame=int(index) + 1)
+    marker = scene.timeline_markers.new("F3D_" + photo_id, frame=int(index) + 1)
+    try:
+        marker.camera = obj                     # stepping the timeline switches the scene camera
+    except (AttributeError, TypeError):
+        pass
     return obj
 
 
-def cards_from_findings(s, findings):
-    """Append one F3DCard per QA Finding (code, severity, msg_key, photo_id); returns the cards."""
+def sync_render_resolution(scene, cam_obj):
+    """Set the scene render resolution to the photo's (stored per camera as f3d_res_x/y), pixel aspect 1.
+
+    Blender keeps resolution per scene, not per camera; without this the camera frame takes the scene's
+    aspect and the background photo no longer lines up with the solved camera (DESIGN 6.4, bl C5).
+    """
+    w, h = int(cam_obj.get("f3d_res_x", 0)), int(cam_obj.get("f3d_res_y", 0))
+    if w <= 0 or h <= 0:
+        return False
+    r = scene.render
+    r.resolution_x, r.resolution_y = w, h
+    r.pixel_aspect_x = r.pixel_aspect_y = 1.0
+    return True
+
+
+def cards_from_findings(s, findings, dedupe=False):
+    """Append one F3DCard per QA Finding (code, severity, msg_key, photo_id); returns the cards.
+
+    ``dedupe`` skips a finding whose (code, photo) already has a card, decided or not (set-level checks are
+    re-run over all photos on every add and must not ask the same question twice).
+    """
     out = []
     for f in findings:
+        if dedupe and any(c.code == f.code and c.photo_id == (f.photo_id or "") for c in s.cards):
+            continue
         c = s.cards.add()
         c.code, c.severity, c.msg_key = f.code, f.severity, f.msg_key
         c.photo_id = f.photo_id or ""
@@ -163,9 +188,25 @@ class FACE3D_OT_photos_add(bpy.types.Operator):
                 ctxs.append(res)
                 added += 1
         if ctxs:
-            cards_from_findings(s, qa.run_set_checks([c for c in ctxs if c.image_gray is not None]))
+            cards_from_findings(s, qa.run_set_checks(self._all_contexts(prj, root)), dedupe=True)
             prj.save()
         return {"FINISHED"} if added else {"CANCELLED"}
+
+    @staticmethod
+    def _all_contexts(prj, root):
+        """PhotoContexts of EVERY project photo (set-level QA must see the whole set, not one add batch)."""
+        out = []
+        for rec in prj.photos:
+            if not rec.working_copy:
+                continue
+            try:
+                arr = np.load(str(root / rec.working_copy), allow_pickle=False)
+            except (OSError, ValueError):
+                continue
+            out.append(qa.PhotoContext(photo_id=rec.id, exif=exif_from_summary(rec.exif),
+                                       width=int(arr.shape[1]), height=int(arr.shape[0]),
+                                       image_gray=image_ops.to_gray(arr)))
+        return out
 
     def _add_one(self, context, prj, root, consent, src, s):
         """Add one file; returns its PhotoContext, or None when it was skipped (a message was reported)."""
@@ -176,35 +217,36 @@ class FACE3D_OT_photos_add(bpy.types.Operator):
         if any(p.sha256 == sha for p in prj.photos):
             P.warn(self, "photo_exists")
             return None
-        if sha not in consent.photo_sha256:
-            if not self.consent_covers:
-                P.warn(self, "photo_not_consented")
-                return None
-            consent.photo_sha256 = sorted(set(consent.photo_sha256) | {sha})
-            P.save_consent(root, consent)
-            P.audit(prj, "consent_photo_added", DataClass.PERSONAL_IMAGE, sha, "RECONSTRUCT", "user_granted")
-            P.info(self, "consent_photo_added")
+        needs_consent = sha not in consent.photo_sha256
+        if needs_consent and not self.consent_covers:
+            P.warn(self, "photo_not_consented")
+            return None
         try:
-            img = bpy.data.images.load(str(src), check_existing=False)
+            img, w, h = bridge.load_image(src)
         except (RuntimeError, OSError):
             P.warn(self, "convert_to_png")
             return None
-        w, h = int(img.size[0]), int(img.size[1])
         if w <= 0 or h <= 0:
-            if hasattr(bpy.data.images, "remove"):
-                bpy.data.images.remove(img)
+            bridge.remove_image(img)
             P.warn(self, "convert_to_png")
             return None
         try:
             rec = prj.add_photo(src, self.rights_basis)
         except Exception:  # noqa: BLE001 - unreadable EXIF/HEIF container, duplicate, bad basis: skip the file
+            bridge.remove_image(img)
             P.warn(self, "photo_failed")
             return None
         orientation = int(rec.exif.get("orientation") or 1)
         if orientation != 1:
             prj.photos.remove(rec)
+            bridge.remove_image(img)
             P.warn(self, "convert_to_png")
             return None
+        if needs_consent:       # the record is extended only now: every check above has passed
+            consent.photo_sha256 = sorted(set(consent.photo_sha256) | {sha})
+            P.save_consent(root, consent)
+            P.audit(prj, "consent_photo_added", DataClass.PERSONAL_IMAGE, sha, "RECONSTRUCT", "user_granted")
+            P.info(self, "consent_photo_added")
         arr = bridge.image_to_array(img)[..., :3]
         photos_dir = root / "photos"
         photos_dir.mkdir(parents=True, exist_ok=True)
@@ -231,6 +273,7 @@ def _goto_photo(context, photo_id):
     if cam is None:
         return False
     context.scene.camera = cam
+    sync_render_resolution(context.scene, cam)
     context.scene["f3d_active_photo"] = photo_id
     context.scene.frame_current = int(cam.get("f3d_index", 0)) + 1
     return True
@@ -242,7 +285,7 @@ class _StepBase:
     keyed: BoolProperty(default=False, options={"HIDDEN"})
 
     def invoke(self, context, event):
-        if self.keyed and P.active_photo_id(context) is None:
+        if self.keyed and not P.keyed_active(context):
             return {"PASS_THROUGH"}
         return self.execute(context)
 

@@ -43,6 +43,7 @@ FACE_SCORE_MIN = 0.6              # Q-FACES threshold (qa.faces_score, eth F1)
 #: Inter-ocular distance used for the edge-snap band when no eye pins exist: PROVISIONAL, 0.2 of the image
 #: width (typical head-and-shoulders framing); the band is only a search width (DESIGN 4.16).
 DEFAULT_IOD_FRAC = 0.2
+NEXT_LANDMARK = "NEXT"            # enum value of the landmark property: "the next unplaced landmark"
 PIN_CLASS_ITEMS = [("crisp", "Crisp point", ""), ("contour", "Contour", ""), ("alar_base", "Alar base", ""),
                    ("nose_tip", "Nose tip", ""), ("ears", "Ear", ""), ("palpation", "Palpated", ""),
                    ("hair_defined", "Hair-defined", "")]
@@ -70,6 +71,20 @@ def next_landmark(placed, names):
         if n not in done:
             return n
     return None
+
+
+def landmark_items(scheme=DEFAULT_SCHEME):
+    """Enum items of the landmark choice: the automatic 'next unplaced' entry, then every scheme landmark."""
+    return [(NEXT_LANDMARK, "Next unplaced", "Place the first landmark of the scheme that has no pin yet")] + \
+        [(n, n.replace("_", " ").capitalize(), "") for n in scheme_names(scheme)]
+
+
+def next_pin_name(context, landmark=NEXT_LANDMARK):
+    """Name the next click will place on the active photo (None when every landmark has a pin)."""
+    if landmark and landmark != NEXT_LANDMARK:
+        return landmark
+    pid = P.active_photo_id(context)
+    return next_landmark([p["landmark"] for p in pins_of(context, pid)] if pid else [], scheme_names())
 
 
 def session_sets(context):
@@ -232,26 +247,51 @@ class FACE3D_OT_landmarks_import(bpy.types.Operator):
             if ls.scheme not in known_schemes():
                 return P.fail(self, "landmarks_scheme_unknown")
             strong = [i for i, f in enumerate(ls.faces) if f.score >= FACE_SCORE_MIN]
-            if len(strong) > 1:
+            if len(ls.faces) > 1 and len(strong) == 1:
+                # exactly one confident face: keep only it, because the engine always fits faces[0]
+                # (a weak background face listed first would otherwise be fitted, with no card)
+                ls = _lm.LandmarkSet(ls.scheme, ls.detector, ls.image, [_lm.select_face(ls, strong[0])])
+            elif len(ls.faces) > 1:                   # several strong faces, or none: the user picks (D-10)
                 pending_sets(context)[pid] = ls
+                overlays.set_data("auto_landmarks", pid, np.vstack([np.asarray(f.uv, float) for f in ls.faces]))
                 c = s.cards.add()
                 c.code, c.severity, c.msg_key, c.photo_id, c.decided = "Q-FACES", "warn", "pick_subject", pid, False
                 P.warn(self, "pick_subject")
                 return {"FINISHED"}
             session_sets(context)[pid] = ls
+            _show_auto_landmarks(pid, ls.faces[0] if ls.faces else None)
             P.info(self, "landmarks_imported")
             return {"FINISHED"}
         except Exception:  # noqa: BLE001
             return P.fail(self, "internal_error")
 
 
+def _show_auto_landmarks(photo_id, face):
+    """Feed the overlay with the imported landmarks of ``face`` (image px) and the face width they span."""
+    if face is None:
+        return
+    uv = np.asarray(face.uv, dtype=np.float64)
+    if uv.ndim != 2 or not len(uv):
+        return
+    overlays.set_data("auto_landmarks", photo_id, uv)
+    width = float(np.ptp(uv[:, 0]))
+    if width > 0:                       # PROVISIONAL face width for the blur: x-extent of the landmarks
+        overlays.STATE["face_width_px"] = width
+
+
 def choose_face(context, photo_id, face_index):
-    """Resolve a parked multi-face set: keep only the chosen face (user decision, never automatic)."""
-    ls = pending_sets(context).pop(photo_id, None)
-    if ls is None:
+    """Resolve a parked multi-face set: keep only the chosen face (user decision, never automatic).
+
+    Non-destructive until it succeeds: a bad ``face_index`` leaves the parked set in place, so the redo panel
+    or the next click can still choose. Returns False when there is no parked set or the index is not a face.
+    """
+    ls = pending_sets(context).get(photo_id)
+    if ls is None or not 0 <= int(face_index) < len(ls.faces):
         return False
-    face = _lm.select_face(ls, face_index)
+    face = _lm.select_face(ls, int(face_index))
     session_sets(context)[photo_id] = _lm.LandmarkSet(ls.scheme, ls.detector, ls.image, [face])
+    pending_sets(context).pop(photo_id, None)
+    _show_auto_landmarks(photo_id, face)
     return True
 
 
@@ -265,7 +305,9 @@ class FACE3D_OT_pin_place(bpy.types.Operator):
     bl_description = "Click to place a landmark pin, drag to move, arrows nudge, X deletes"
     bl_options = {"REGISTER", "UNDO"}
 
-    landmark: StringProperty(name="Landmark", description="Empty = the next unplaced landmark")
+    landmark: EnumProperty(name="Landmark", description="The landmark the next click places (Next unplaced = "
+                           "scheme order; pick another to skip one the photo does not show)",
+                           items=landmark_items(), default=NEXT_LANDMARK)
     pin_class: EnumProperty(name="Pin class", items=PIN_CLASS_ITEMS, default="crisp")
     expertise: EnumProperty(name="Expertise", items=[("novice", "Novice", ""), ("expert", "Expert", "")],
                             default="novice")
@@ -303,8 +345,17 @@ class FACE3D_OT_pin_place(bpy.types.Operator):
         if self.blind and not self._editor.pins:
             overlays.STATE["hide_auto"] = True
         P.info(self, "pin_help")
+        self._announce_next()
         context.window_manager.modal_handler_add(self)
+        if event is not None and getattr(event, "type", None) == "LEFTMOUSE" and getattr(event, "value", None) == "PRESS":
+            # the tool keymap invokes us ON the press that starts the session: it must place or grab a pin too
+            r = self.modal(context, event)
+            return {"RUNNING_MODAL"} if "PASS_THROUGH" in r else r
         return {"RUNNING_MODAL"}
+
+    def _announce_next(self):
+        name = self._next_name()
+        P.info(self, "pin_next" if name else "pin_next_none", name=name or "")
 
     def _finish(self, context, result):
         overlays.STATE["hide_auto"] = False
@@ -314,7 +365,7 @@ class FACE3D_OT_pin_place(bpy.types.Operator):
         return result
 
     def _next_name(self):
-        if self.landmark:
+        if self.landmark and self.landmark != NEXT_LANDMARK:
             return self.landmark
         return next_landmark([p["landmark"] for p in self._editor.pins], scheme_names())
 
@@ -331,6 +382,9 @@ class FACE3D_OT_pin_place(bpy.types.Operator):
             if event.value == "PRESS":
                 act = ed.press(xy, zoom, self._next_name(), self.pin_class, self.expertise,
                                overlays.STATE["hide_auto"])
+                if act == "placed":
+                    self.landmark = NEXT_LANDMARK        # a chosen landmark applies to one click only
+                    self._announce_next()
                 self._select(ed)
                 return {"RUNNING_MODAL"} if act else {"PASS_THROUGH"}
             if event.value == "RELEASE":
@@ -467,6 +521,11 @@ def _tool_cls():
         bl_keymap = (("face3d.pin_place", {"type": "LEFTMOUSE", "value": "PRESS"}, None),)
 
         def draw_settings(context, layout, tool):
+            props = tool.operator_properties("face3d.pin_place")
+            name = next_pin_name(context, getattr(props, "landmark", NEXT_LANDMARK))
+            layout.label(text=P.text("pin_next" if name else "pin_next_none", name=name or ""))
+            for prop in ("landmark", "pin_class", "expertise", "blind"):
+                layout.prop(props, prop)
             layout.label(text=P.text("pin_help"))
     return FACE3D_TOOL_pin
 

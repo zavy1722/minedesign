@@ -52,12 +52,6 @@ SCAN = []
 
 
 # ------------------------------------------------------------------ sculpt copy
-def _link(scene, obj):
-    coll = getattr(scene, "collection", None)
-    if coll is not None:
-        coll.objects.link(obj)
-
-
 def _activate(context, obj):
     vl = getattr(context, "view_layer", None)
     if vl is not None:
@@ -85,12 +79,8 @@ def make_cage(context, V_mix_mm):
 
 def new_sculpt_copy(context, src, cage_mm, prj, name):
     """Duplicate ``src`` into a key-free object whose base mesh is ``cage_mm`` (engine mm); returns it."""
-    me = src.data.copy()
-    me.name = name
-    obj = bpy.data.objects.new(name, me)
-    _link(context.scene, obj)
-    obj.shape_key_clear()
-    bridge.write_vertices(me, bridge.engine_mm_to_blender_m(cage_mm))
+    obj = bridge.duplicate_mesh_object(context.scene, src, name)
+    bridge.write_vertices(obj.data, bridge.engine_mm_to_blender_m(cage_mm))
     sdir = prj.root / "sculpt"
     sdir.mkdir(parents=True, exist_ok=True)
     uid = ops_apply.object_uuid(prj, obj)
@@ -270,6 +260,47 @@ def scan_shareables(context):
     return items
 
 
+def purge_scanned(context, items):
+    """Remove ONLY what a sharing scan listed (``items`` of `scan_shareables`); returns the count.
+
+    packed images are removed, camera background images cleared, orphan datablocks removed, file previews
+    turned off, ``.blend1`` backups deleted. The project's photo working copies (``photos/*.npy``) are NOT
+    touched: solving needs them, and deleting them is the explicit `purge` operator's job.
+    """
+    n = 0
+    for it in items:
+        kind, name = it["kind"], it["name"]
+        if kind == "packed_image":
+            img = bpy.data.images.get(name)
+            if img is not None and bridge.remove_image(img):
+                n += 1
+        elif kind == "background_image":
+            cam = bpy.data.cameras.get(name)
+            for bg in list(cam.background_images) if cam is not None else []:
+                if getattr(bg, "image", None) is not None:
+                    bg.image = None
+                    n += 1
+        elif kind == "orphan":
+            coll = {"BIOMETRIC_GEOMETRY": "meshes"}.get(it["data_class"])
+            for kname in ((coll,) if coll else ("images", "cameras")):
+                block = getattr(bpy.data, kname).get(name)
+                if block is not None and getattr(block, "users", 1) == 0 and bridge.remove_datablock(kname, block):
+                    n += 1
+                    break
+        elif kind == "file_preview":
+            prefs = getattr(bpy.context, "preferences", None)
+            if prefs is not None:
+                prefs.filepaths.file_preview_type = "NONE"
+                n += 1
+        elif kind == "backup":
+            path = getattr(bpy.data, "filepath", "")
+            for b in glob.glob(path + "1") if path else []:
+                if os.path.basename(b) == name:
+                    os.remove(b)
+                    n += 1
+    return n
+
+
 def purge_class(context, data_class):
     """Delete the project's data of ``data_class`` (PERSONAL_IMAGE or BIOMETRIC_GEOMETRY); returns the count."""
     if data_class not in PURGE_CLASSES:
@@ -333,7 +364,8 @@ class FACE3D_OT_prepare_for_sharing(bpy.types.Operator):
             else:
                 P.info(self, "share_listed", n=len(SCAN))
             if self.confirm and SCAN:
-                n = purge_class(context, "PERSONAL_IMAGE")
+                n = purge_scanned(context, list(SCAN))
+                P.audit(P.load_project(context), "purge", DataClass.PERSONAL_IMAGE, "", "", "share_cleanup")
                 P.info(self, "purge_done", n=n)
                 SCAN[:] = scan_shareables(context)
             context.scene["f3d_share_reviewed"] = True

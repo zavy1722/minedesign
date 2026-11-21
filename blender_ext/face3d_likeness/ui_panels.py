@@ -11,9 +11,10 @@ Conventions
   photos, landmarks), so the rail text and the greyed-out tooltip agree.
 * Input dicts. ``project_dict``: ``project.json`` content (face3d.project) plus optional keys supplied by
   `collect_rail_inputs`: ``consent`` (ConsentRecord as a dict or None), ``cards`` ([{severity, decided}]),
-  ``landmark_photos`` (photo ids with an imported landmark set this session), ``cameras_applied``,
-  ``keys_applied``, ``sculpt``, ``share_reviewed``. ``result_dict``: ``result.json`` of the active solve (or
-  None). ``job_state``: ``{'status': idle|running|ready|failed|cancelled, ...}`` (props.F3DJob).
+  ``landmark_photos`` (photo ids with an imported landmark set this session; pins refine a set but never
+  replace it, so only these count), ``cameras_applied``,
+  ``keys_applied``, ``sculpt``, ``share_reviewed``. ``result_dict``: ``result.json`` of the finished job still waiting to be applied (job status ``ready``), else
+  of the active solve (or None); a ``ready`` job always offers ``face3d.apply_result``, also after an earlier apply. ``job_state``: ``{'status': idle|running|ready|failed|cancelled, ...}`` (props.F3DJob).
 * Every stage shows an icon AND a word (Done / Needs attention / Not started), its done-when line and ONE
   primary button; expert options sit in sub-panels with ``bl_options = {'DEFAULT_CLOSED'}`` that show the
   engine defaults WITH their badges, read-only (H2: they never change labels).
@@ -86,9 +87,11 @@ def rail_state(project_dict, result_dict, job_state):
     known = set((p.get("consent") or {}).get("photo_sha256", []))
     uncovered = [ph for ph in photos if ph.get("sha256") not in known]
     cards = p.get("cards", [])
-    open_cards = [c for c in cards if not c.get("decided") and c.get("severity") in ("warn", "block")]
-    lm_ids = set(p.get("landmark_photos", [])) | {pin.get("photo") for pin in p.get("pins", [])}
+    undecided = [c for c in cards if not c.get("decided")]       # what review_next steps through
+    open_cards = [c for c in undecided if c.get("severity") in ("warn", "block")]
+    lm_ids = set(p.get("landmark_photos", []))
     lm_have = [ph for ph in photos if ph.get("id") in lm_ids]
+    pending = js.get("status") == "ready" and bool(result_dict)
     has_result = bool(result_dict)
     unseen = [r for r in (result_dict or {}).get("regions", []) if r.get("status") in _UNSEEN]
 
@@ -109,6 +112,8 @@ def rail_state(project_dict, result_dict, job_state):
             return "photo_not_consented"
         if not lm_have:
             return "no_landmarks"
+        if len(lm_have) < len(photos):
+            return "landmarks_incomplete"
         return None
 
     def apply_reason(need_keys=False):
@@ -140,8 +145,8 @@ def rail_state(project_dict, result_dict, job_state):
     rows.append(("photos", st, "rail.photos.done_when", "face3d.photos_add", why))
     # Check
     st = "not_started" if not photos else ("attention" if open_cards else "done")
-    rows.append(("check", st, "rail.check.done_when", "face3d.review_next",
-                 "no_photos" if not photos else (None if open_cards else "review_empty")))
+    why_c = "no_project" if not has_project else ("no_photos" if not photos else (None if undecided else "review_empty"))
+    rows.append(("check", st, "rail.check.done_when", "face3d.review_next", why_c))
     # Landmarks
     st = "not_started" if not lm_have else ("done" if len(lm_have) == len(photos) else "attention")
     why = why if why else ("no_photos" if not photos else None)
@@ -149,7 +154,7 @@ def rail_state(project_dict, result_dict, job_state):
     # Cameras and Shape (one solve produces both; applying puts them in the scene)
     applied_c, applied_k = bool(p.get("cameras_applied")), bool(p.get("keys_applied"))
     for stage, op_run, applied in (("cameras", "face3d.solve", applied_c), ("shape", "face3d.fit", applied_k)):
-        if has_result and applied:
+        if has_result and applied and not pending:
             rows.append((stage, "done", "rail.%s.done_when" % stage, op_run, launch_reason()))
         elif has_result:
             rows.append((stage, "attention", "rail.%s.done_when" % stage, "face3d.apply_result", apply_reason()))
@@ -186,7 +191,7 @@ def rail_state(project_dict, result_dict, job_state):
 def ledger_lines(result):
     """Plain-language ledger lines of a result.json dict (H1, H4, H5, H8, H9); pure.
 
-    First line is the banner; then the tier, one line per region (sigma shown at 1 sigma and never below
+    First line is the banner; then the tier, the scale (H4) and focal (H5) lines, one line per region (sigma shown at 1 sigma and never below
     the report floor), the count of uncalibrated defaults and the next-photo advice.
     """
     if not result:
@@ -196,9 +201,20 @@ def ledger_lines(result):
     tier = result.get("tier") or {}
     if tier:
         lines.append(text("ledger.tier", code=tier.get("code", "?"), name=tier.get("name", "")))
+    scale = result.get("scale") or {}
+    if scale:                                                  # H4: the scale, always with its mode and +/- %
+        lines.append(scale.get("text") or "Scale: %s" % scale.get("mode", "prior"))
+    if result.get("focal_statuses"):                           # H5: how each focal length was obtained
+        lines.append(text("mode.focal", summary=focal_summary(result)))
     for r in result.get("regions", []):
         label = _ledger.REGION_LABELS.get(r["name"], r["name"].replace("_", " ").capitalize())
         sig = r.get("sigma_rep_mm")
+        if sig is None and r["status"] in ("measured", "constrained"):
+            line = text("ledger.sigma_unknown", label=label)    # never the floor: that is the tightest claim
+            if r.get("next_photo"):
+                line += " - " + r["next_photo"]
+            lines.append(line)
+            continue
         sig = max(float(sig), floor) if sig is not None else floor
         line = text("ledger.region." + r["status"], label=label, sigma=sig)
         if r.get("next_photo") and r["status"] != "measured":
@@ -267,9 +283,55 @@ def collect_rail_inputs(context):
     prj["sculpt"] = any("f3d_sculpt_of" in o for o in objs)
     prj["share_reviewed"] = bool(context.scene.get("f3d_share_reviewed", False))
     result = None
-    if prj.get("active_solve"):
+    if s.job.status == "ready" and s.job.job_dir:             # a finished job waiting for apply_result
+        result = _cached_json(os.path.join(s.job.job_dir, "result.json"))
+    if result is None and prj.get("active_solve"):
         result = _cached_json(str(root / prj["active_solve"] / "result.json"))
     return prj, result, job
+
+
+def card_texts(code, msg_key):
+    """(question, fix text or None) of a decision card: the finding's message and its ``.fix`` text (H6)."""
+    fix = None
+    for key in (msg_key + ".fix", "qa.%s.fix" % code):
+        if key in MESSAGES:
+            fix = text(key)
+            break
+    return text(msg_key), fix
+
+
+def open_card_rows(context):
+    """[(index, card)] of the undecided cards, worst first (the order review_next steps through)."""
+    from . import ops_photos
+    cards = context.scene.face3d.cards
+    return [(i, cards[i]) for i in ops_photos.card_order(cards)]
+
+
+def draw_cards(layout, context):
+    """The open decision cards: question, fix text, Accept / Dismiss, and one button per face for Q-FACES."""
+    from . import ops_landmarks
+    rows = open_card_rows(context)
+    if not rows:
+        layout.label(text=text("panel.cards_none"))
+        return
+    for i, card in rows:
+        box = layout.box()
+        question, fix = card_texts(card.code, card.msg_key)
+        box.label(text=question, icon=STATUS_ICON["attention"] if card.severity != "info" else "INFO")
+        if fix:
+            box.label(text=fix)
+        if card.photo_id:
+            box.label(text=text("card.photo", name=card.photo_id))
+        faces = ops_landmarks.pending_sets(context).get(card.photo_id) if card.code == "Q-FACES" else None
+        if faces is not None:
+            for k, f in enumerate(faces.faces):
+                op = box.operator("face3d.card_accept", text=text("card.face", n=k + 1, score=float(f.score)))
+                op.index, op.face_index = i, k
+        else:
+            op = box.operator("face3d.card_accept", text=text("btn.card_accept"))
+            op.index = i
+        op = box.operator("face3d.card_dismiss", text=text("btn.card_dismiss"))
+        op.index = i
 
 
 def rail_rows(context):
@@ -340,6 +402,13 @@ def _make_panels():
         attrs = dict(base, bl_idname="FACE3D_PT_" + ident, bl_label=text(label_key), bl_parent_id="FACE3D_PT_shape",
                      bl_options={"DEFAULT_CLOSED"}, draw=fn)
         classes.append(type("FACE3D_PT_" + ident, (bpy.types.Panel,), attrs))
+
+    def cards_draw(self, context):
+        draw_cards(self.layout, context)
+
+    classes.append(type("FACE3D_PT_cards", (bpy.types.Panel,), dict(
+        base, bl_idname="FACE3D_PT_cards", bl_label=text("panel.cards"), bl_parent_id="FACE3D_PT_check",
+        draw=cards_draw)))
 
     def job_draw(self, context):
         s = context.scene.face3d

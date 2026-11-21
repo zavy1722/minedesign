@@ -143,6 +143,21 @@ def active_photo_id(context):
     return None
 
 
+def keyed_active(context):
+    """Guard of the keymap items: a photo camera is the scene camera AND the viewport looks through it.
+
+    Without the second test the add-on's Tab/B/G/E/W would capture normal perspective work on the head mesh
+    as soon as a photo camera is the scene camera. Outside a 3D view region (no region data) only the
+    camera test applies.
+    """
+    if active_photo_id(context) is None:
+        return False
+    rv3d = getattr(context, "region_data", None)
+    if rv3d is not None and getattr(rv3d, "view_perspective", "CAMERA") != "CAMERA":
+        return False
+    return True
+
+
 def audit(project, event, data_class, sha256="", scope="RECONSTRUCT", detail=""):
     """Append one audit line (codes and hashes only, eth F19)."""
     project.audit_log().write(event, data_class, sha256, scope=scope, detail_code=detail)
@@ -178,6 +193,8 @@ class FACE3D_OT_project_new(bpy.types.Operator):
             if not self.directory:
                 return fail(self, "project_dir_missing")
             folder = Path(bpy.path.abspath(self.directory)) if hasattr(bpy, "path") else Path(self.directory)
+            if (folder / "project.json").exists():
+                return fail(self, "project_exists")         # never overwrite an existing project silently
             folder.mkdir(parents=True, exist_ok=True)
             prj = Project()
             prj.save(folder)
