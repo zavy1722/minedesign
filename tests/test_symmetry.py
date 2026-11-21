@@ -406,7 +406,7 @@ def test_symmetry_checks_thresholds(head):
     # Exactly symmetric head: flagged too symmetric only when the photos show asymmetry.
     f, mult = symmetry_checks(V0, m, regions, True, 2)
     assert [x["code"] for x in f] == ["S-TOO-SYMMETRIC"] and mult == 1.0
-    assert f[0]["value"] == 0.0 and f[0]["threshold"] == 0.3 and f[0]["msg_key"] == "symmetry.S-TOO-SYMMETRIC"
+    assert abs(f[0]["value"]) < 1e-9 and f[0]["threshold"] == 0.3  # plane now registered: rounding-level RMSD and f[0]["msg_key"] == "symmetry.S-TOO-SYMMETRIC"
     assert f[0]["action"] == "ask"
     f, _ = symmetry_checks(V0, m, regions, False, 2)
     assert f == []
@@ -415,7 +415,8 @@ def test_symmetry_checks_thresholds(head):
     A2 = _antisymmetric_field(head, rng, 2.0)
     f, _ = symmetry_checks(V0 + A2, m, regions, True, 3)
     assert [x["code"] for x in f] == ["S-TOO-ASYMMETRIC"]
-    assert np.isclose(f[0]["value"], 2.0) and f[0]["threshold"] == 1.5
+    # Registration removes the part of the random field that is a rigid tilt, so <= 2.0.
+    assert 1.5 < f[0]["value"] <= 2.0 + 1e-9 and f[0]["threshold"] == 1.5
     # A typical adult value (~0.8 mm, facial-asymmetry) raises nothing.
     A08 = _antisymmetric_field(head, rng, 0.8)
     assert symmetry_checks(V0 + A08, m, regions, True, 2)[0] == []
@@ -430,3 +431,17 @@ def test_symmetry_checks_thresholds(head):
     assert symmetry_checks(V0, m, None, True, 2)[0][0]["code"] == "S-TOO-SYMMETRIC"
     with pytest.raises(ValueError):
         symmetry_checks(V0, m, {"scalp": head.regions["scalp"]}, True, 2)
+
+
+def test_symmetry_checks_register_plane_so_pose_offset_is_not_asymmetry(head):
+    """A perfectly symmetric head 1 deg off the head frame must not be flagged (WP-12 review)."""
+    from face3d.geometry.rotations import rotation_from_euler_deg
+    V0, mirror = head.vertices, head.mirror_map
+    for R in (rotation_from_euler_deg(0, 1, 0), rotation_from_euler_deg(0, 0, 1)):
+        V = V0 @ R.T + np.array([0.8, 0.0, 0.0])
+        findings, _ = symmetry_checks(V, mirror, None, photos_show_asymmetry=False, n_view_pairs_30deg=2)
+        assert not any(f["code"] == "S-TOO-ASYMMETRIC" for f in findings)
+        # The fixed head-frame plane would have flagged it.
+        f_fixed, _ = symmetry_checks(V, mirror, None, photos_show_asymmetry=False, n_view_pairs_30deg=2,
+                                     n_plane=(1.0, 0.0, 0.0), d=0.0)
+        assert any(f["code"] == "S-TOO-ASYMMETRIC" for f in f_fixed)

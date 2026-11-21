@@ -544,9 +544,30 @@ def mirror_rmsd(V: np.ndarray, mirror_map: np.ndarray, vertex_mask: Any = None,
     return float(np.sqrt(np.mean(np.sum(diff * diff, axis=1))))
 
 
+def registered_plane(V: np.ndarray, mirror_map: np.ndarray, vertex_mask: Any = None) -> tuple[np.ndarray, float]:
+    """Best symmetry plane ``(n, d)`` of ``V`` from its own vertex mirror map.
+
+    Pairs are ``(i, m[i])`` with ``m[i] > i`` and midline vertices are ``m[i] == i``,
+    both restricted to ``vertex_mask`` (None = all); unweighted reflection Procrustes
+    (:func:`face3d.geometry.procrustes.fit_symmetry_plane`).  Falls back to the
+    head-frame plane when there are too few pairs.
+    """
+    V = np.asarray(V, dtype=float)
+    m = check_mirror_map(mirror_map, len(V))
+    if vertex_mask is None:
+        sel = np.arange(len(V))
+    else:
+        vm = np.asarray(vertex_mask)
+        sel = np.flatnonzero(vm) if vm.dtype == bool else vm.astype(np.int64).reshape(-1)
+    pairs = np.array([(i, int(m[i])) for i in sel if m[i] > i], dtype=np.int64).reshape(-1, 2)
+    midline = np.array([i for i in sel if m[i] == i], dtype=np.int64)
+    n, d, _ = fit_symmetry_plane(V, pairs, midline)
+    return np.asarray(n, float), float(d)
+
+
 def symmetry_checks(V: np.ndarray, mirror_map: np.ndarray, regions: Mapping[str, Any] | None,
                     photos_show_asymmetry: bool, n_view_pairs_30deg: int, *,
-                    n_plane: Sequence[float] = (1.0, 0.0, 0.0), d: float = 0.0,
+                    n_plane: Sequence[float] | None = None, d: float = 0.0,
                     cfg: Mapping[str, Any] | None = None) -> tuple[list[dict[str, Any]], float]:
     """Output symmetry checks (DESIGN 4.11; anat section 6; *facial-asymmetry* 'Report').
 
@@ -567,6 +588,13 @@ def symmetry_checks(V: np.ndarray, mirror_map: np.ndarray, regions: Mapping[str,
       than 2 views >= 30 deg apart ... multiplied by 4"; anat section 6).
       ``n_view_pairs_30deg`` is read as the number of views that have a partner
       view at least 30 deg away in yaw (0 when no such pair exists, otherwise >= 2).
+
+    Plane: the RMSD must be measured about the head's own symmetry plane, not the
+    template's head frame -- a perfectly symmetric head 1 deg off the frame reads as
+    ~2.7 mm "asymmetry" (WP-12 review; anat R3.3 "a 2 deg frame error reads as ~3 mm").
+    With ``n_plane=None`` (default) the plane is therefore fitted to ``V`` from the
+    vertex mirror map over the evaluated vertices (:func:`registered_plane`); pass an
+    explicit ``n_plane, d`` (e.g. the current plane P of the solve) to override.
     """
     V = np.asarray(V, dtype=float)
     if regions is None:
@@ -575,6 +603,8 @@ def symmetry_checks(V: np.ndarray, mirror_map: np.ndarray, regions: Mapping[str,
         mask = face_vertex_mask(regions, len(V))
         if not mask.any():
             raise ValueError(f"no vertices in the face regions {FACE_REGIONS}")
+    if n_plane is None:
+        n_plane, d = registered_plane(V, mirror_map, mask)
     rmsd = mirror_rmsd(V, mirror_map, mask, n_plane, d)
     lo = float(_cfg_value("too_symmetric_rmsd_mm", cfg))
     hi = float(_cfg_value("too_asymmetric_rmsd_mm", cfg))
