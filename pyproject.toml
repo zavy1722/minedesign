@@ -7,6 +7,7 @@ name = "face3d"
 version = "0.2.0"
 description = "Photo-to-3D face fitting engine and Blender add-on, grounded in facial anatomy research"
 requires-python = ">=3.11"
+license = {text = "MIT"}                # engine (face3d/); the Blender extension is GPL-3.0-or-later (DESIGN 6.1)
 dependencies = ["numpy>=1.24"]
 
 [project.optional-dependencies]

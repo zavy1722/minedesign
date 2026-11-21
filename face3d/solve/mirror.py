@@ -20,7 +20,12 @@ asymmetry:
 * g = || (I - P) w ||^2 with w the stacked Sigma_i^-1/2 J_i A_i (J_i = d u / d X_i at the
   as-given solved pose) and P the projector onto the whitened pose Jacobian (rotation and
   translation): the whitened image size of the asymmetry that a pose refit cannot absorb, i.e.
-  the predicted detectability of a flip.  ``g_raw`` = ||w||^2 is the WBS formula without the
+  the predicted detectability of a flip.  P carries the Huber weights the robust fit gives the
+  shifted landmarks (:func:`_robust_perp`, final FU-04 review): for an asymmetry spread evenly
+  at the scales near g_min it is the least-squares projector, and an asymmetry carried by one or
+  two landmarks stays on them instead of being spread over the rest (where the least-squares
+  projection made it uncapped and promised a power near 1 that the capped rule did not have:
+  'keep' on ~30 % of mirrored views).  ``g_raw`` = ||w||^2 is the WBS formula without the
   projection; it over-predicts the observed gap by up to ~25x when the asymmetry is largely a
   rigid motion (a mid-sagittal plane slightly off the reference plane), on the WP-11 surface
   subjects its correlation with the gap is ~0.3-0.5 against ~0.8-0.9 after projection, so a
@@ -85,9 +90,11 @@ C1 - C0 = ||eps + 2 w_perp||^2 - ||eps||^2, i.e. to first order
   a set none of whose views could be tested is 'undetermined' as a whole.
 
 Explicit ``g_min`` / ``gap_threshold`` arguments override the derived values (an explicit
-``g_min`` replaces the per-view value of the complete rule) (the DESIGN
-defaults ``mirror.g_min`` 4 and ``mirror.gap_k`` 2 stay registered for that use and for the
-record; the derived values are what :func:`mirror_test` uses by default).
+``g_min`` replaces the per-view value of the complete rule); the derived values are what
+:func:`mirror_test` uses by default.  The DESIGN defaults ``mirror.g_min`` (4) and
+``mirror.gap_k`` (2) stay registered for the record only: no code reads them since FU-04 (the
+gap threshold is tau from ``mirror.flip_alpha`` or the explicit ``gap_threshold`` argument, and
+g_min is derived per view unless a caller passes its own value).
 
 The engine never flips anything: it never mutates its inputs and applying a flip is a
 recorded user (or explicit CLI flag) decision in the project (DESIGN D-10; WP-20).
@@ -122,8 +129,9 @@ _NEW = "\U0001F195"
 
 MIRROR = register_defaults("mirror", {
     "g_min": Default(4.0, _NEW, "DESIGN D-10 / 4.10: 'undetermined' when the predicted gap g < 4 (the DESIGN "
-                     "value; since WBS FU-04 mirror_test derives g_min from flip_alpha and keep_power unless "
-                     "g_min is passed explicitly)", "", (0.0, None)),
+                     "value; since WBS FU-04 mirror_test derives g_min per view from flip_alpha and keep_power "
+                     "unless a caller passes its own g_min; not read by any code, kept for the record)", "",
+                     (0.0, None)),
     "flip_alpha": Default(1e-4, _NEW, "WBS FU-04 task 3: stated false-flip rate per view of the mirror test. "
                           "Null gap ~ N(-4 g, 16 g); sup over g of P(gap > tau) = Phi(-sqrt(tau)), so "
                           "tau = z_(1-alpha)^2 = 13.83 (DESIGN 7.4 asks FPR <= 0.02; the honesty gate 'no flip "
@@ -140,8 +148,9 @@ MIRROR = register_defaults("mirror", {
                          "([Art 3.6])", "", (0.0, 1.0)),
     "rel_other": Default(0.20, _BRAIN, "DESIGN D-10 / 4.10: suggest a flip at delta > 20 % on other cameras "
                          "([Art 3.6])", "", (0.0, 1.0)),
-    "gap_k": Default(2.0, _BRAIN, "DESIGN D-10 / 4.10: absolute gap C0 - C1 > 2 sqrt(2 n_v) ([Art 3.6], derived)",
-                     "", (0.0, None)),
+    "gap_k": Default(2.0, _BRAIN, "DESIGN D-10 / 4.10: absolute gap C0 - C1 > 2 sqrt(2 n_v) ([Art 3.6], derived). "
+                     "Superseded since WBS FU-04 by flip_alpha / the gap_threshold argument (tau = 13.83); not "
+                     "read by mirror_test, kept for the record", "", (0.0, None)),
     "preselect_delta": Default(0.20, _NEW, "DESIGN 4.10: UI pre-selects [Flip] only when delta > 0.2 and front "
                                "camera or other views agree", "", (0.0, 1.0)),
     "huber_delta": Default(2.0, _BRAIN, "DESIGN D-08: Huber delta 2 sigma in the robust pose refinement of "
@@ -292,7 +301,8 @@ class MirrorDecision:
 
     delta : (C0 - C1) / C0, relative cost reduction of the flipped hypothesis.
     g : predicted detectability ||(I - P) Sigma^-1/2 J A||^2 of the consensus asymmetry
-        (pose-absorbable part removed; ``g_raw`` without the projection).
+        (pose-absorbable part removed, P weighted like the robust fit: :func:`_robust_perp`;
+        ``g_raw`` without the projection).
     gap : C0 - C1 (cost units, ~chi^2).
     margin : gap - ``gap_threshold`` (> 0: the absolute gap is significant).
     g_min, gap_threshold : the thresholds this decision used (derived from ``mirror.flip_alpha``
@@ -345,6 +355,34 @@ def _fit(X: np.ndarray, uv: np.ndarray, cov: np.ndarray, like: Camera, cx: float
     cam.R, cam.t = R, t
     c = float(_M["reject_k"])
     return float(np.sum(np.minimum(e * e, c * c))), cam, e
+
+
+def _robust_perp(w: np.ndarray, Jp: np.ndarray, delta: float, rounds: int = 10) -> np.ndarray:
+    """(I - P_h) w: the whitened asymmetry ``w`` (2n,) minus the part the *robust* pose fit absorbs
+    (final FU-04 review).  P_h projects onto the whitened pose Jacobian ``Jp`` (2n, 6) weighted
+    with the Huber IRLS weights :func:`refine_pose` gives the as-given residuals of a mirrored
+    view: h_i = min(1, delta / e_i), e_i = sqrt(d_i^2 + 2) the expected radial residual
+    (d_i = 2 |w_perp,i| the shift, E |eps_i|^2 = 2 the noise), iterated to a fixed point from the
+    least-squares projection.  An asymmetry carried by one or two landmarks is treated as outliers
+    by the robust fit, which does not move the pose: the shift stays on those landmarks, where the
+    cost cap bounds the gap.  The least-squares projection spread it over the other landmarks,
+    where it is not capped and grows with scale, and predicted a power near 1 for a rule that
+    found 69 % of the flips on a front camera (10 % on a rear one) and answered 'keep' on about
+    30 % of the mirrored views.  When every e_i <= delta (an
+    evenly spread asymmetry at the scales near g_min) all weights are 1 and this is the
+    least-squares projection."""
+    h = np.ones(len(w) // 2)
+    wp = w
+    for _ in range(int(rounds)):
+        sh = np.repeat(np.sqrt(h), 2)
+        wp = w - Jp @ np.linalg.lstsq(Jp * sh[:, None], w * sh, rcond=None)[0]
+        d = 2.0 * np.linalg.norm(wp.reshape(-1, 2), axis=1)
+        e = np.sqrt(d * d + 2.0)
+        h_new = np.where(e <= delta, 1.0, delta / e)
+        if np.allclose(h_new, h, rtol=1e-6, atol=1e-9):
+            break
+        h = h_new
+    return wp
 
 
 def _pose_jacobian(cam: Camera, X: np.ndarray) -> np.ndarray:
@@ -412,7 +450,7 @@ def mirror_test(uv: Any, W: float, perm: Sequence[int], consensus_X: Any, noise_
     w = np.einsum("nij,njk,nk->ni", Wh, projection_jacobians(cam0, X[vis0]), A[vis0]).reshape(-1)
     g_raw = float(w @ w)
     Jp = np.einsum("nij,njk->nik", Wh, _pose_jacobian(cam0, X[vis0])).reshape(-1, 6)
-    w_perp = w - Jp @ np.linalg.lstsq(Jp, w, rcond=None)[0]
+    w_perp = _robust_perp(w, Jp, delta_h)
     g = float(w_perp @ w_perp)
     thr_gap = GAP_THRESHOLD if gap_threshold is None else float(gap_threshold)
     # per-landmark whitened shift of the flipped prediction, d_i = 2 |w_perp,i| (sum d_i^2 = 4 g)

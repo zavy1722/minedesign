@@ -252,8 +252,10 @@ def cards_from_result(context, result):
     """Add mirror cards of a result (``result['cards']``); returns the new cards.
 
     Only suggestions that still need a user decision become cards: ``suggest_flip`` (not yet applied),
-    ``undetermined`` and ``unverifiable``. A photo that already has a recorded mirror decision, or an open
-    card, gets none. Creating a card changes nothing; the engine never flips by itself (D-10).
+    ``undetermined`` and ``unverifiable``. An ``undetermined`` answer with a significant gap (``margin`` > 0:
+    the engine's flag M-GAP-SIGNIFICANT, evidence leaning towards a flip that the relative rule does not
+    confirm) gets its own text. A photo that already has a recorded mirror decision, or an open card, gets
+    none. Creating a card changes nothing; the engine never flips by itself (D-10).
     """
     s = P.settings(context)
     try:
@@ -265,6 +267,8 @@ def cards_from_result(context, result):
         pid, dec = c.get("photo"), c.get("decision")
         key = {"suggest_flip": "mirror_suggest", "undetermined": "mirror_undetermined",
                "unverifiable": "mirror_unverifiable"}.get(dec)
+        if dec == "undetermined" and isinstance(c.get("margin"), (int, float)) and c["margin"] > 0:
+            key = "mirror_gap_significant"
         if key is None or c.get("applied") or prj.mirror_state(pid) is not None:
             continue
         if any(x.code == MIRROR_CODE and x.photo_id == pid and not x.decided for x in s.cards):

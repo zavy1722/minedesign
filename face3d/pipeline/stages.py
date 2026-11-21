@@ -144,16 +144,16 @@ PIPELINE = register_defaults("pipeline", {
                                       "chi^2 is elevated (above its expression.soft_mobile_alpha null quantile) but "
                                       "below the re-tag thresholds get the mobile class down-weighted by "
                                       "solve.expression.soft_mobile_multiplier. Off: measured on the 30-seed fault "
-                                      "matrix it changes neither identity gate (jaw 0.55 / smile 0.15 mm median "
-                                      "with and without) and moves clean sets by up to 0.26 mm (docs/RESULTS.md "
-                                      "3.1)", ""),
+                                      "matrix in the first FU-04 run (not re-measured after the review) it changed "
+                                      "neither identity gate (medians equal to three decimals with and without) "
+                                      "and moved clean sets by up to 0.26 mm (docs/RESULTS.md 3.1)", ""),
     "image_tangents": Default(False, _NEW, "WBS FU-04 task 1 (DESIGN 4.4 't-hat from neighbouring curve points'): when "
                               "True the landmarks stage derives the image tangent of the curve / extremal "
                               "landmarks from the detected neighbours the scheme names (scheme key 'tangents') "
                               "and the solve declares sigma_n across / sigma_t along it; False: every tangent "
                               "unknown (the isotropic FU-01 noise). Off by default since the FU-04 review: the "
                               "scheme metadata is an unmeasured expert reading, and when a detector's "
-                              "anisotropy does not follow it the tangent-derived noise rejects 4 % of good "
+                              "anisotropy does not follow it the tangent-derived noise rejects 4.5 % of good "
                               "observations on the WP-01 simulator (DESIGN 7.4 bound 2 %; docs/RESULTS.md 3.1). "
                               "To be switched on by the M7 per-index calibration; owner sign-off pending", ""),
     "face_width_min_points": Default(6, _NEW, "WBS FU-03 task 4: fewest observed anatomical landmarks for the "

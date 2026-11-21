@@ -136,6 +136,10 @@ EXPRESSION = register_defaults("expression", {
     "retag_jaw_min_sd_deg": Default(0.5, _NEW, "WBS FU-04 task 3: floor of the null SD of the fitted jaw angle in "
                                     "jaw_angle_z (half the neutral population SD; guards a nearly uninformative "
                                     "view). Provisional", "deg", (1e-6, None)),
+    "retag_jaw_max_var_ratio": Default(0.98, _NEW, "WBS FU-04 task 3 (registered at the final review): jaw_angle_z "
+                                       "is NaN, the fitted jaw angle uninformative, when r = s_post^2 / s_p^2 >= "
+                                       "0.98 (s_post >= 0.99 s_p: the data add at most about 2 % to the "
+                                       "prior's precision on the angle). Provisional", "", (0.0, 1.0)),
     "soft_mobile_alpha": Default(0.20, _NEW, "WBS FU-04 task 4: a view whose capped mobile-class chi^2 exceeds its "
                                  "1 - alpha null quantile without reaching a tag threshold gets its mobile class "
                                  "down-weighted (soft_mobile_multiplier). Provisional", "", (1e-9, 0.9)),
@@ -358,8 +362,9 @@ def jaw_angle_z(theta_deg: float | None, sigma_post_deg: float | None,
     over the square root of that variance, with the SD floored at ``expression.retag_jaw_min_sd_deg``
     (0.5 deg: the bundle's s_post is a linearised value and the hinge is bounded and robustly
     weighted, so a nearly uninformative view must not produce a large z from a tiny variance).
-    NaN when an input is missing (jaw not fitted, frozen view) or the data carry no information
-    on the angle (s_post >= s_p)."""
+    NaN when an input is missing (jaw not fitted, frozen view) or the data carry almost no
+    information on the angle: r >= ``expression.retag_jaw_max_var_ratio`` (0.98, i.e.
+    s_post >= 0.99 s_p)."""
     if theta_deg is None or sigma_post_deg is None:
         return float("nan")
     th, sp = float(theta_deg), float(sigma_post_deg)
@@ -370,7 +375,7 @@ def jaw_angle_z(theta_deg: float | None, sigma_post_deg: float | None,
     if not s_p > 0:
         return float("nan")
     r = (sp / s_p) ** 2
-    if r >= 0.98:
+    if r >= float(_E["retag_jaw_max_var_ratio"]):
         return float("nan")
     var = (1.0 - r) ** 2 * sn * sn + (1.0 - r) * sp * sp
     sd = max(math.sqrt(var), float(_E["retag_jaw_min_sd_deg"]))

@@ -490,6 +490,14 @@ def test_card_accept_records_decision_never_auto(ui):
     prj.record_decision("mirror_keep", "p01", "user")                          # (a revert is a recorded keep)
     prj.save()
     assert ui.ops_solve.cards_from_result(ui.ctx, res2) == []
+    # 'undetermined' with a significant gap (M-GAP-SIGNIFICANT, margin > 0) has its own text (final review)
+    s.cards.clear()
+    res3 = {"cards": [{"photo": "p02", "decision": "undetermined", "applied": False, "margin": 2.5}]}
+    assert [c.msg_key for c in ui.ops_solve.cards_from_result(ui.ctx, res3)] == ["mirror_gap_significant"]
+    s.cards.clear()
+    res3["cards"][0]["margin"] = -4.0
+    assert [c.msg_key for c in ui.ops_solve.cards_from_result(ui.ctx, res3)] == ["mirror_undetermined"]
+    s.cards.clear()
     # a QA card dismissal changes nothing in the project
     c = s.cards.add()
     c.code, c.severity, c.msg_key, c.photo_id, c.decided = "Q-BLUR", "warn", "qa.Q-BLUR", "p01", False
@@ -1061,7 +1069,7 @@ def test_message_catalogue_covers_engine_keys(ui):
         assert key in M, key
     for key in ("consent_missing", "photo_not_consented", "no_photos", "job_running", "no_result", "wrong_mode",
                 "topology_mismatch", "convert_to_png", "mirror_suggest", "mirror_undetermined",
-                "mirror_unverifiable", "deferred_feature"):
+                "mirror_gap_significant", "mirror_unverifiable", "deferred_feature"):
         assert key in M
     assert ui.messages.text("nonexistent_key") == "nonexistent_key"
     assert ui.messages.text("ledger.region.measured", label="Eyes", sigma=0.9).startswith("Eyes: likely within")

@@ -259,7 +259,9 @@ class ViewObs:
     kinds: list[str] | None = None            # (N,) landmark kinds (noise.KINDS); None -> 'generic'
     cov_px: np.ndarray | None = None          # (N,2,2) explicit image covariance, px^2 (highest priority)
     multipliers: np.ndarray | None = None     # (N,) occluder / makeup sigma multipliers m_iv (DESIGN 4.1)
-    tangents: np.ndarray | None = None        # (N,2) image tangents (NaN / zero rows = unknown)
+    # (N,2) exact image directions of any length, or (N,3) (t_x, t_y, rho) detection-derived with
+    # direction confidence rho (noise module docstring); NaN / zero rows or rho <= 0 = unknown
+    tangents: np.ndarray | None = None
     tta_px: np.ndarray | None = None          # (N,) test-time-augmentation spread, px
     face_px: float | None = None              # face width in px (detector floor); None -> landmark bbox width
     dense_mask: np.ndarray | None = None      # (N,) bool dense detector points (eta = N / N_eff inflation)

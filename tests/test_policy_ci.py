@@ -159,6 +159,7 @@ def test_version_and_packaging_metadata():
     meta = tomllib.loads((REPO / "pyproject.toml").read_text())
     proj = meta["project"]
     assert proj["version"] == face3d.__version__ and proj["requires-python"] == ">=3.11"
+    assert proj["license"] == {"text": "MIT"}                         # engine MIT (DESIGN 6.1, extension NOTICE)
     assert proj["dependencies"] == ["numpy>=1.24"]                      # engine: numpy + stdlib only
     assert proj["optional-dependencies"]["test"] == ["pytest>=7"]
     assert proj["scripts"]["face3d"] == "face3d.pipeline.cli:main"

@@ -154,7 +154,9 @@ MESSAGES = {
     "revert_unknown": "That solve does not exist.",
     # ---- cards and decisions (D-10: never automatic)
     "mirror_suggest": "This photo may be mirrored (flipped left-right). Flip it only if you know it is.",
-    "mirror_undetermined": "Cannot tell whether this photo is mirrored; the face is too symmetric to say.",
+    "mirror_undetermined": "Cannot tell whether this photo is mirrored: the photos do not carry enough left-right "
+                           "evidence to decide.",
+    "mirror_gap_significant": "This photo may be mirrored, but the evidence is not conclusive. Check it if you can.",
     "mirror_unverifiable": "All photos are selfies, so a mirror flip cannot be checked.",
     "mirror_keep": "Nothing suggests this photo is mirrored.",
     "card_none": "There is no open finding to decide.",

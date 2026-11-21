@@ -695,6 +695,61 @@ def test_fu04_review_mirror_keep_needs_power_of_the_complete_rule():
     assert not any(d.decision == "keep" and d.gap > d.gap_threshold for d in dec)
 
 
+def test_fu04_final_review_mirror_power_follows_the_robust_fit():
+    """Final review finding (major): the power model removed the pose by a least-squares projection, which
+    spreads an asymmetry carried by one L/R pair over all the other landmarks, where it is not capped and
+    grows with scale; the robust fit (Huber IRLS, costs capped at 3.035 sigma) treats the pair as outliers
+    and does not move the pose, so the observed gap stops near 15 while the predicted power went to 1.
+    Result: 'keep' on ~30 % of mirrored views at g >= g_min.  Now the projection carries the Huber weights
+    of the robust fit (``_robust_perp``).  Asymmetry on go_L / go_R only (5.4 mm), front camera, yaw 0,
+    true noise; Monte Carlo through ``mirror_test``."""
+    from face3d.geometry.procrustes import reflect
+    from face3d.io.image_ops import flip_uv
+    from face3d.model.landmark_prior import FactorPrior
+    from face3d.model.registry import load_scheme
+    from face3d.solve import mirror as M
+    from face3d.synthetic import orbit_camera
+    sch = load_scheme("anatomical44")
+    perm = sch.mirror_permutation()
+    names = [p.get("anatomical_id") or p.get("name") for p in sch.raw["points"]]
+    X0 = FactorPrior.from_package().mean()
+    nx = np.array([1.0, 0.0, 0.0])
+    Xs = 0.5 * (X0 + reflect(X0[perm], nx, 0.0))
+    D = np.zeros_like(Xs)
+    D[names.index("go_L")] = [3.0, 4.0, 2.0]
+    A = 0.5 * (D - reflect(D[perm], nx, 0.0))
+    X = Xs + 2.0 * A
+    assert np.linalg.norm(2.0 * A[names.index("go_L")]) == pytest.approx(5.4, abs=0.1)
+    cam = orbit_camera(1500.0, 0.0, 5.0, 85.0, target=(0.0, -20.0, 60.0))
+    sig = 2.0
+    cov = np.tile(np.eye(2) * sig ** 2, (44, 1, 1))
+    kw = dict(is_front_camera=True, all_views_front=False, other_views_agree=False)
+    d0 = M.mirror_test(cam.project(X), cam.width, perm, X, cov, cam, **kw)
+    assert d0.decision == "undetermined" and d0.g < d0.g_min and d0.power < 0.95
+    # the least-squares projection (before the fix) promised a flip with power ~1 on the same view
+    from face3d.solve.camera_model import projection_jacobians
+    Wh = M.whitening(cov)
+    w = np.einsum("nij,njk,nk->ni", Wh, projection_jacobians(d0.camera, X), A).reshape(-1)
+    Jp = np.einsum("nij,njk->nik", Wh, M._pose_jacobian(d0.camera, X)).reshape(-1, 6)
+    w_ls = w - Jp @ np.linalg.lstsq(Jp, w, rcond=None)[0]
+    assert M.rule_power(2.0 * np.linalg.norm(w_ls.reshape(-1, 2), axis=1), d0.rel_threshold, d0.gap_threshold,
+                        44) > 0.95
+    # mirrored views: never 'keep'; the predicted power does not over-promise
+    rng = np.random.default_rng(5)
+    n = 100
+    uv_m = flip_uv(cam.project(X), float(cam.width), perm)
+    cov_m = M.flip_cov(cov, perm)
+    dec = [M.mirror_test(uv_m + rng.normal(0, sig, uv_m.shape), cam.width, perm, X, cov_m, cam, **kw) for _ in range(n)]
+    assert sum(d.decision == "keep" for d in dec) <= 0.05 * n          # was ~0.31 n
+    p_mc = np.mean([d.decision == "suggest_flip" for d in dec])       # ~0.71
+    assert np.mean([d.power for d in dec]) <= p_mc + 0.05 and abs(np.mean([d.power for d in dec]) - p_mc) < 0.15
+    # an evenly spread small asymmetry (every expected residual within the Huber delta): weights 1, the
+    # least-squares projection unchanged
+    w_s = 0.15 * rng.normal(size=88)
+    Jr = rng.normal(size=(88, 6))
+    assert np.allclose(M._robust_perp(w_s, Jr, 2.0), w_s - Jr @ np.linalg.lstsq(Jr, w_s, rcond=None)[0])
+
+
 def test_fu04_expression_retag_statistics():
     """The re-tag statistics and their null thresholds: Mahalanobis residuals with a full covariance, the
     capped mobile chi^2 (one gross outlier cannot tag a view), the jaw-angle z under 'this view is
@@ -740,11 +795,15 @@ def test_fu04_expression_retag_statistics():
         assert np.mean((hat - 1.5) / sd0 > thr["jaw_z_expressive"]) == pytest.approx(0.005, abs=0.0015)
     assert np.isnan(E.jaw_angle_z(None, 0.5)) and np.isnan(E.jaw_angle_z(4.0, 1.0, 1.0))   # no information
     assert E.jaw_angle_z(4.0, 0.99, 1.0 / 0.99) > 0 and E.jaw_angle_z(6.5, 0.6, 3.0) > thr["jaw_z_expressive"]
+    # the 'uninformative' cut is the registered ratio (final review: it was a bare 0.98 in the code)
+    rmax = cfg.get("expression.retag_jaw_max_var_ratio").value
+    assert rmax == 0.98 and np.isnan(E.jaw_angle_z(4.0, np.sqrt(rmax) * 1.0001, 1.0))
+    assert np.isfinite(E.jaw_angle_z(4.0, np.sqrt(rmax) * 0.9999, 1.0))
     # soft down-weighting (off by default in the pipeline): 1 below the soft quantile, sqrt(T / dof) above
     assert E.soft_mobile_multiplier(10.0, 12) == 1.0 and E.soft_mobile_multiplier(24.0, 12) == pytest.approx(2 ** 0.5)
     assert E.soft_mobile_multiplier(500.0, 12) == 3.0
     for key in ("retag_mild_alpha", "retag_expressive_alpha", "retag_mild_jaw_alpha", "retag_expressive_jaw_alpha",
-                "retag_jaw_min_sd_deg", "soft_mobile_alpha"):
+                "retag_jaw_min_sd_deg", "retag_jaw_max_var_ratio", "soft_mobile_alpha"):
         d = cfg.get("expression." + key)
         assert d.badge and "FU-04" in d.source, key
     import face3d.pipeline.stages  # noqa: F401  (registers the ``pipeline`` defaults)

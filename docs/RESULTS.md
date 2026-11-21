@@ -36,7 +36,8 @@ chi2_red 0.72, gamma 0.85. What FU-04 does ship is the recalibration of the sing
 pending gate closed (`jaw_open.tpr`, 0/30 -> 28/30); the mirror, smile and retouch targets are
 **unreachable at nominal detector noise** and stay pending with the measured rates and the reasons; every
 honesty gate passes. The mirror test's "keep" now requires the power of its complete decision rule
-(review finding; section 3.1). **Open owner decisions:** the tangent default (DESIGN 4.4), the narrowed
+(review finding; section 3.1), predicted the way the robust fit absorbs the pose (final review: an
+asymmetry carried by one or two landmarks no longer earns a "keep"). **Open owner decisions:** the tangent default (DESIGN 4.4), the narrowed
 "every extremal landmark" item, and no set-level pooling of mirror evidence (DESIGN 4.10).
 
 ## 1. How to reproduce
@@ -169,9 +170,11 @@ they cannot go stale.
    reaches its g_min. Raising the subject's asymmetry does not help: at 2.5 mm RMS (diagnostic, section
    3.2) g is 1.7 and 4/30 are flagged, because g is computed from the asymmetric part of the *4-view
    consensus*, which the symmetric shape prior shrinks. The condition under which the target holds is
-   known from the engine test called with the true consensus (`tests/test_nuisances.py`): at half the
-   nominal noise 15 of 40 mirrored views reach their g_min and 14 of them are flagged (27 of the 40 are
-   flagged in all); at 0.2 x noise 40 reach it and 39 are flagged. Honest today: no flip on 390
+   known from the engine test called with the true consensus (`tests/test_nuisances.py` scenario, 40 seeds
+   as in `test_mirror_tpr_fpr`; the per-push test `test_mirror_tpr_spec_row_nominal_noise` asserts 30 seeds
+   at half noise, where 12 reach g_min and 11 are flagged): at half the nominal noise 15 of 40 mirrored
+   views reach their g_min and 14 of them are flagged (27 of the 40 are flagged in all); at 0.2 x noise
+   40 reach it and 39 are flagged. Honest today: no flip on 390
    unmirrored views (largest gap 8.8 against 13.83), no "keep" on a mirrored view, and an unconfirmed
    mirrored view does not damage the shape (ratio to clean 0.99: the robust schedule down-weights it).
    Proposed: decide whether the row keeps "0.8 mm at nominal noise" (then it needs a detector with about
@@ -282,7 +285,33 @@ by the FU-04 review):
   | 14.2 (above g_min) | 0.970 | 389 = 0.973 | 10 / 0 | 1 |
   | 16.0 | 0.984 | 396 = 0.990 | 4 / 0 | 0 |
 
-  No flip on 4 x 400 unmirrored views. The project status reports the summed detectability; there is
+  No flip on 4 x 400 unmirrored views. (Measured with the least-squares pose projection; with the final
+  review's weights, next paragraph, g on this spread pattern moves by < 0.3 %, the predicted power by
+  <= 0.002 and its g_min from 12.8 to 12.9.)
+
+  **Final review fix: the power model follows the robust fit.** g, the per-landmark shifts d_i and hence
+  the predicted power and g_min came from a *least-squares* removal of the pose, which spreads an
+  asymmetry carried by one or two landmarks over all the others, where it is not capped and grows with
+  scale; the real fit (Huber IRLS, costs capped at 3.035 sigma) treats those landmarks as outliers and
+  does not move the pose, so the observed gap stops near 15 (tau 13.83) while the predicted power went
+  to 1. Measured (asymmetry on go_L / go_R or en_L / en_R only, isotropic 2 px, `mirror_test` called
+  directly, 600 mirrored views per row): predicted power 0.96-1.00 at g >= g_min, found: "keep" on
+  0.29-0.31 of the mirrored views, flip 0.69-0.71 (front camera) and 0.09-0.11 (rear). Two moved pairs
+  at g = g_min: "keep" 0.065-0.074. Pipeline views were not exposed at nominal noise (g about 1.4, far
+  below g_min). Fix (`mirror._robust_perp`): the pose projection carries the Huber weights the robust fit
+  gives the shifted landmarks, min(1, 2 / sqrt(d_i^2 + 2)), iterated to a fixed point; for an evenly
+  spread asymmetry near g_min every weight is 1. After it, same scenes, 300 mirrored views per row: "keep"
+  0 on every single-pair row (predicted power 0.61-0.63 against 0.71 found on a front camera, 0.10-0.11
+  against 0.07-0.09 on a rear one; g < g_min, "undetermined"); two moved pairs at g = g_min, 400 views:
+  "keep" 0.020 / 0.040 (0.030 / 0.063 before, same seeds); random patterns unchanged within the noise
+  ("keep" 0.033 / 0.033 against 0.033 / 0.030). The 30- and 40-seed mirror counts of section 3.1 item 1 and of
+  `tests/test_nuisances.py` are unchanged (12/11/22, 15/14/27, 40/39/39; 0 of 40 at nominal noise).
+  Regression test: `tests/test_followups.py::test_fu04_final_review_mirror_power_follows_the_robust_fit`.
+  The predicted power is now conservative for a concentrated asymmetry on a front camera (0.62 against
+  0.71); a parametric bootstrap through the fit would be exact but costs about 200 fits per view (not
+  done).
+
+  The project status reports the summed detectability; there is
   no set-level decision (a flip is a property of one photo; deviation from the WBS wording "pool mirror
   evidence across views", owner decision open).
 - **Expression re-tag** (`solve/expression.py`, solve stage). The DESIGN thresholds (reduced chi2 > 4 / > 9
@@ -415,8 +444,8 @@ The simulated noise scale does not change the engine's declared noise, so a quie
 does not raise the detectability the pipeline computes (mirror, smile and retouch at 0.2 x noise are as at
 nominal noise); the jaw is found at both. The WP-15 unit tests detect a mirrored view at reduced noise
 because they call the engine tests with a covariance that matches the simulated noise and with the true
-consensus: at 0.5 x noise 14 of the 15 mirrored views (of 40) that reach their g_min are flagged (27 of
-the 40 in all), at 0.2 x noise 39 of 40. The DESIGN 7.4 mirror, smile and retouch targets therefore hold under no condition reachable
+consensus: at 0.5 x noise (40 seeds) 14 of the 15 mirrored views (of 40) that reach their g_min are
+flagged (27 of the 40 in all), at 0.2 x noise (40 seeds) 39 of 40. The DESIGN 7.4 mirror, smile and retouch targets therefore hold under no condition reachable
 through the pipeline at the DESIGN 4.4 noise.
 
 **Identity under a perfect tagger (FU-04).** RMS shift in mm between two solves of the same seed, after
@@ -676,7 +705,10 @@ medians (`scorecard.paired_medians`, 30 of 30 seeds usable in both cards):
   the pipeline could switch on without engine work in `solve/bundle.py`); likeness mode not exposed;
   Q-SMALL measured in the working frame; a geometric Q-ORIENT check (view RMS and roll) is not wired, so
   an unbaked orientation is caught only from the LandmarkSet metadata (`orientation_applied: false`;
-  30/30).
+  30/30); pipeline-stage findings (C-FOCAL-EXIF, C-FOCAL-PRIOR, the post-BA Q-RETOUCH, C-MODEL-NOT-APPLIED,
+  expression re-tags) are not shown as cards in the Blender extension, and its `messages.py` has no text
+  for them: they reach result.json and the CLI report only (DESIGN 4.13, H6; the extension turns only the
+  photo-level QA findings and the mirror results into cards).
 - **Found by FU-03, not fixed here (engine files outside the package):** (i) the photos-only focal
   estimate is biased low on the matrix rigs (median -12 % on the rear-phone sets with the distance prior
   left in, about +/-20 % scatter without it), which is why a missing EXIF costs 11 % of focal; (ii) at
@@ -715,6 +747,16 @@ medians (`scorecard.paired_medians`, 30 of 30 seeds usable in both cards):
   view whose tag the recalibrated re-tag changes (about 4 % of the neutral views, every jaw view). The rule
   "keep the default suite time from growing" is again recorded as **not met** (+25 s to +37 s against the
   two FU-03 figures on this shared machine, where two runs of the same tree differ by about 8 s), not waived.
+
+- **Final review before the release report** (code verifier and docs audit): (i) the mirror power model
+  now follows the robust fit (section 3.1, "Changed by FU-04", mirror test); (ii) the jaw-angle cut of
+  the expression re-tag (`r >= 0.98`, a bare literal) is registered as
+  `expression.retag_jaw_max_var_ratio`, value unchanged; (iii) the Blender extension's "undetermined"
+  mirror text no longer says the face is too symmetric (at nominal noise the usual cause is detector
+  noise), and an "undetermined" answer with a significant gap (`M-GAP-SIGNIFICANT`, margin > 0) gets its
+  own card text (`mirror_gap_significant`); (iv) `mirror.gap_k` and `mirror.g_min` are marked as kept for
+  the record (no code reads them since FU-04). One test added to the default run (about 2 s); the suite
+  was not re-timed for this section.
 
 ## 7. Policy checks
 
