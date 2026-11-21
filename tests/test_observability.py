@@ -364,7 +364,7 @@ def test_sigma_rep_formula():
         ob.sigma_rep(res, 1.0, bias="nope")
 
 
-def _honesty_seed(scn, seed, draw_floor=True):
+def _honesty_seed(scn, seed, draw_floor=True, pnp_start=False):
     """One WP-01 legacy-scenario seed solved with the CORRECT noise model (WBS FU-02).
 
     * The views carry the detector simulator's own image tangents (``obs.tangent_dirs``), as
@@ -374,9 +374,13 @@ def _honesty_seed(scn, seed, draw_floor=True):
       sigma_floor = max(0.5 px, k face_px / 256) (DESIGN 4.4) that the simulator does not
       draw; it is drawn here, isotropic, on a stream of its own (``default_rng([seed, 77])``,
       one (N, 2) normal block per used view, so the scenario's streams stay as they are).
-    * Start: the engine's own PnP start (``reconstruct_landmarks``, which has no tangent
-      input), then the bundle from those cameras with the tangents; legacy prior, robust
-      schedule, the scenario's outliers and definition bias.
+    * Start: the rig's poses with the EXIF focal (as ``_chi2_seed``; default), or with
+      ``pnp_start`` the engine's own PnP start (the cameras of ``reconstruct_landmarks``,
+      which has no tangent input), then the bundle with the tangents; legacy prior, robust
+      schedule, the scenario's outliers and definition bias.  The two starts agree to 0.005
+      (rear_phone_legacy gain form 0.830 / 0.715 against 0.833 / 0.712 from PnP); the PnP
+      start costs 2.5x the time and is what the table in
+      ``observability.reported_covariance`` uses.
 
     Returns ``{form: (NEES/dof, 1-sigma coverage)}`` for the gauge-projected, similarity-
     aligned error (DESIGN 7.3, 7.5) with form in 'post' (cov_shape alone), 'floor', 'gain'.
@@ -394,7 +398,7 @@ def _honesty_seed(scn, seed, draw_floor=True):
     obs = simulate(Xt, kinds, rig, r_det, **scn.detector_kwargs)
     nm = NoiseModel(kinds)
     r_floor = np.random.default_rng([seed, 77])
-    photos = []
+    photos, used = [], []
     for k, (uv, c) in enumerate(zip(obs.uv, rig.cameras)):
         if int(np.sum(~np.isnan(uv[:, 0]))) < 6:                 # scenarios.MIN_VISIBLE
             continue
@@ -404,13 +408,20 @@ def _honesty_seed(scn, seed, draw_floor=True):
         photos.append(PhotoLandmarks(uv, c.width, c.height, f_prior_px=rig.f_prior_px[k],
                                      f_prior_log_sigma=rig.f_prior_log_sigma[k], focal_group=rig.focal_group[k],
                                      kinds=kinds))
+        used.append(k)
     pri = Priors(mean=meta["template"], sigma=LEGACY_PRIOR["sigma"], pairs=mirror_pairs(names),
                  sigma_sym=LEGACY_PRIOR["sigma_sym"], midline=midline_indices(names),
                  sigma_mid=LEGACY_PRIOR["sigma_mid"])
-    start = reconstruct_landmarks(photos, pri, robust=RobustSchedule())
-    views = [ViewObs(ph.uv, cam.copy(), f_prior=ph.f_prior_px, f_prior_log_sigma=ph.f_prior_log_sigma,
+    if pnp_start:
+        cams0 = [c.copy() for c in reconstruct_landmarks(photos, pri, robust=RobustSchedule()).cameras]
+    else:
+        cams0 = [rig.cameras[k].copy() for k in used]
+        for c, k in zip(cams0, used):
+            if rig.f_prior_px[k] is not None:                    # no EXIF: the rig focal stays (see above)
+                c.f = rig.f_prior_px[k]                          # the EXIF focal, not the truth
+    views = [ViewObs(ph.uv, cam, f_prior=ph.f_prior_px, f_prior_log_sigma=ph.f_prior_log_sigma,
                      focal_group=ph.focal_group, kinds=kinds, tangents=obs.tangent_dirs)
-             for ph, cam in zip(photos, start.cameras)]
+             for ph, cam in zip(photos, cams0)]
     res = bundle_adjust(views, np.asarray(meta["template"], float).copy(), pri, robust=RobustSchedule())
     s, R, t = umeyama(res.X, Xt, with_scale=True)
     err = s * res.X @ R.T + t - Xt
@@ -434,8 +445,8 @@ def test_sigma_rep_honesty_on_testbed():
     ===================  ==============  ==============  ==============
     scenario             posterior only  floor form      gain form
     ===================  ==============  ==============  ==============
-    rear_phone_legacy    1.269 / 0.626   0.714 / 0.755   0.833 / 0.712
-    rear_phone_nobias    0.841 / 0.729   0.500 / 0.840   0.592 / 0.812
+    rear_phone_legacy    1.265 / 0.628   0.711 / 0.753   0.830 / 0.715
+    rear_phone_nobias    0.837 / 0.729   0.497 / 0.841   0.589 / 0.814
     ===================  ==============  ==============  ==============
 
     * Definition bias drawn (D-06): the gain form is inside both gates; the posterior alone
@@ -453,20 +464,20 @@ def test_sigma_rep_honesty_on_testbed():
         rows = [_honesty_seed(SCENARIOS[name], seed) for seed in seeds]
         m[name] = {k: np.mean(np.array([r[k] for r in rows]), axis=0) for k in rows[0]}
     bias, nobias = m["rear_phone_legacy"], m["rear_phone_nobias"]
-    # DESIGN 7.5 gates on the gain form (measured 0.833 / 0.712)
+    # DESIGN 7.5 gates on the gain form (measured 0.830 / 0.715)
     assert 0.8 <= bias["gain"][0] <= 1.25, m
     assert 0.60 <= bias["gain"][1] <= 0.76, m
     # B is positive semi-definite and K D K^T <= D on the measured directions
     for mm in (bias, nobias):
         assert mm["floor"][0] < mm["gain"][0] < mm["post"][0]
         assert mm["floor"][1] > mm["gain"][1] > mm["post"][1]
-    # posterior-only: over-confident when the definition bias is drawn (1.269 / 0.626) ...
+    # posterior-only: over-confident when the definition bias is drawn (1.265 / 0.628) ...
     assert bias["post"][0] > 1.1 and bias["post"][1] < 0.66, m
     assert bias["post"][0] > 1.25 * nobias["post"][0], m          # measured ratio 1.51
-    # ... and honest when it is not (0.841 / 0.729): the noise model itself passes the gates
+    # ... and honest when it is not (0.837 / 0.729): the noise model itself passes the gates
     assert 0.8 <= nobias["post"][0] <= 1.25, m
     assert 0.60 <= nobias["post"][1] <= 0.76, m
-    # the floor form fails the NEES gate in both (0.714, 0.500): the gain form is the reported one
+    # the floor form fails the NEES gate in both (0.711, 0.497): the gain form is the reported one
     assert bias["floor"][0] < 0.8 and nobias["floor"][0] < 0.8, m
 
 

@@ -17,6 +17,12 @@ Conventions
   head-frame sagittal plane ``n = (1, 0, 0)``, ``d = 0``.
 * The pair difference ``d_k = X_l - reflect(X_r)`` equals ``2 A`` for the
   asymmetric part ``A``; sigmas are per axis (x, y, z) on ``d_k`` (anat R4.2).
+* Global log-scale (DESIGN D-03, 4.7; WBS FU-02): when the solver state carries
+  ``zeta`` (not None), :class:`SymmetryTerm` acts on the scale-free points
+  ``exp(-zeta) X`` and its plane offset ``d`` lives in that frame; without zeta,
+  on ``X`` in mm (the legacy WP-12 behaviour).  The mesh functions below
+  (:func:`split_symmetric`, :func:`mirror_rmsd`, :func:`symmetry_checks`) always
+  work in mm.
 * Evidence states are those of the claims ledger (DESIGN D-16, 4.12):
   ``'measured'``, ``'constrained'``, ``'prior-driven'``, ``'unobserved'``
   (``'prior_driven'`` is accepted as a spelling of ``'prior-driven'``).
@@ -451,6 +457,11 @@ class SymmetryTerm:
         with zeta enabled on it the plane is fitted to ``exp(-zeta) X``, the points the
         residuals act on (class docstring), so ``d`` and the rmse are in that scale-free
         frame.  ``huber_mm`` is applied in the same frame.
+
+        Pitfall: a bare array carries no zeta and is taken as it is.  Between the passes of
+        a bundle with zeta enabled pass the result (``sym.update_plane(res1)``), not
+        ``res1.X``: fitted to ``res1.X`` the offset ``d`` is in mm while the rows of the next
+        pass act on ``exp(-zeta) X``, an error of ``d (1 - exp(-zeta))``.
         """
         X, _, _ = _scale_free(X)
         n, d, rmse = fit_symmetry_plane(X, self.pairs, self.midline, self._weights(len(X)), huber_mm=huber_mm)

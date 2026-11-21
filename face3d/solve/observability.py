@@ -849,35 +849,107 @@ def reported_covariance(result: Any, gamma: float = 1.0, cov: np.ndarray | None 
       H3) and to 0 where the prior does (a bias the solve did not follow cannot be in the
       error).
 
-    **Honesty gates are NOT met everywhere** (DESIGN 7.5: NEES/dof 0.8-1.25, aligned 1-sigma
-    coverage 0.60-0.76).  Gauge-projected NEES/dof / coverage, 30 seeds (1000-1029), robust
-    schedule, the detector simulator's shared definition bias, gamma 1, measured by WP-16:
+    **Honesty** (DESIGN 7.5 gates: NEES/dof 0.8-1.25, aligned 1-sigma coverage 0.60-0.76
+    over >= 30 seeds; H12).  Re-measured by WBS FU-02 after the FU-01 noise change (point
+    kinds without an image tangent isotropic at max(sigma_n, sigma_t)).  All numbers:
+    gauge-projected NEES/dof / 1-sigma coverage of the similarity-aligned error, means over
+    seeds 1000-1029 of the WP-01 legacy scenarios, legacy prior, robust schedule (DESIGN
+    4.5), the scenario's 5 % outliers (10 % in ``rear_phone_outliers``), gamma 1, PnP start
+    (``reconstruct_landmarks``) followed by the bundle with the stated noise.
 
-    ===================================  ============  ===========  ===========
-    test bed (noise model before FU-01)  posterior     floor form   gain form
-    ===================================  ============  ===========  ===========
-    WP-01 legacy scenarios, legacy prior 1.18-1.53 /   0.70-0.74 /  0.82-0.86 /
-                                         0.68-0.72     0.78-0.79    0.752-0.764
-    WP-01 rear_phone, factor prior       1.30 / 0.68   0.62 / 0.81  0.83 / 0.75
-    WP-01 studio_ring, factor prior      1.54 / 0.62   0.67 / 0.78  0.88 / 0.71
-    WP-01 selfie, factor prior           0.94 / 0.79   0.50 / 0.85  0.68 / 0.81 FAIL
-    WP-01 camera_roll, factor prior      1.35 / 0.68   0.65 / 0.80  0.83 / 0.74
-    ===================================  ============  ===========  ===========
+    (a) No tangents (the WP-16 set-up; every point kind at its conservative fallback).
+    Under-confident everywhere, as FU-01 reported; this is not the correct noise model:
 
-    With the default D-04 factor prior the selfie rig fails BOTH gates (under-confident; the
-    posterior alone is already at the coverage gate, so the cause is upstream: the engine's
-    noise model carries a detector floor the simulator does not draw, not the gain form).
-    After the FU-01 noise change (point kinds without an image tangent isotropic at
-    max(sigma_n, sigma_t), in progress during this WP) every bed reads under-confident with the
-    gain form: legacy scenarios 0.67-0.72 / 0.79-0.83 (posterior alone 0.82-1.04 /
-    0.74-0.79); factor prior rear_phone 0.67 / 0.79, studio_ring 0.71 / 0.76, selfie 0.58 /
-    0.85, camera_roll 0.68 / 0.80; WP-11 out-of-prior subjects
-    (anatomical44 landmarks of ``out_of_prior_subject``) rear_phone 0.62 / 0.82,
-    studio_ring 0.65 / 0.79, selfie 0.52 / 0.86, camera_roll 0.60 / 0.82 (gain form; S1
-    with the prior-weight-1 posterior within 0.01).  Calibrating the noise floor against
-    the simulator (and with it these gates) is handed to WP-23 (DESIGN 7.5, H12);
-    tests/test_observability.py::test_sigma_rep_honesty_on_testbed holds the legacy
-    rear-phone gate.
+    ====================  =============  =============  =============  ========
+    scenario              posterior      floor form     gain form      chi2_red
+    ====================  =============  =============  =============  ========
+    studio_ring_legacy    1.04 / 0.737   0.61 / 0.819   0.72 / 0.792   0.68
+    rear_phone_legacy     0.94 / 0.739   0.60 / 0.824   0.71 / 0.794   0.66
+    selfie_legacy         0.82 / 0.793   0.57 / 0.844   0.67 / 0.826   0.62
+    camera_roll_legacy    0.96 / 0.745   0.60 / 0.826   0.70 / 0.794   0.65
+    rear_phone_smooth     0.90 / 0.746   0.57 / 0.832   0.67 / 0.799   0.64
+    rear_phone_outliers   0.94 / 0.745   0.60 / 0.827   0.71 / 0.794   0.66
+    rear_phone_nobias     0.69 / 0.813   0.44 / 0.879   0.53 / 0.856   0.64
+    ====================  =============  =============  =============  ========
+
+    (b) The detector simulator's own image tangents passed to the views
+    (``ViewObs.tangents = obs.tangent_dirs``):
+
+    ====================  =============  =============  =============  ========
+    scenario              posterior      floor form     gain form      chi2_red
+    ====================  =============  =============  =============  ========
+    studio_ring_legacy    1.367 / 0.621  0.695 / 0.761  0.812 / 0.726  0.84
+    rear_phone_legacy     1.238 / 0.635  0.694 / 0.758  0.811 / 0.727  0.81
+    selfie_legacy         1.047 / 0.725  0.668 / 0.790  0.777 / 0.764  0.78
+    camera_roll_legacy    1.25 / 0.650   0.68 / 0.764   0.80 / 0.727   0.80
+    rear_phone_smooth     1.208 / 0.643  0.669 / 0.771  0.777 / 0.735  0.77
+    rear_phone_outliers   1.214 / 0.648  0.695 / 0.764  0.813 / 0.732  0.82
+    rear_phone_nobias     0.812 / 0.731  0.482 / 0.846  0.573 / 0.819  0.78
+    ====================  =============  =============  =============  ========
+
+    (c) Tangents, and the detector floor the engine's noise model declares
+    (sigma_floor = max(0.5 px, k face_px / 256), DESIGN 4.4) but the simulator does not
+    draw, drawn by the test bed (isotropic, a stream of its own).  This is the set-up of
+    tests/test_observability.py::test_sigma_rep_honesty_on_testbed:
+
+    ====================  =============  =============  =============  ========
+    scenario              posterior      floor form     gain form      chi2_red
+    ====================  =============  =============  =============  ========
+    studio_ring_legacy    1.407 / 0.618  0.719 / 0.759  0.838 / 0.719  0.86
+    rear_phone_legacy     1.269 / 0.626  0.714 / 0.755  0.833 / 0.712  0.86
+    selfie_legacy         1.073 / 0.714  0.686 / 0.784  0.796 / 0.757  0.80
+    camera_roll_legacy    1.282 / 0.654  0.704 / 0.761  0.818 / 0.727  0.84
+    rear_phone_smooth     1.237 / 0.634  0.687 / 0.759  0.797 / 0.721  0.80
+    rear_phone_outliers   1.256 / 0.640  0.724 / 0.758  0.843 / 0.716  0.83
+    rear_phone_nobias     0.841 / 0.729  0.500 / 0.840  0.592 / 0.812  0.81
+    ====================  =============  =============  =============  ========
+
+    (d) The simulator's exact covariance as ``ViewObs.cov_px`` (its tangents and its
+    (sigma_n, sigma_t) table, no floor; differs from (c) by the brow tangent, which DESIGN
+    4.4 leaves 'free' (engine 40 mm) and the simulator draws at 8 mm):
+
+    ====================  =============  =============  =============  ========
+    scenario              posterior      floor form     gain form      chi2_red
+    ====================  =============  =============  =============  ========
+    studio_ring_legacy    1.453 / 0.603  0.721 / 0.756  0.842 / 0.717  0.94
+    rear_phone_legacy     1.314 / 0.613  0.722 / 0.747  0.841 / 0.708  0.95
+    selfie_legacy         1.122 / 0.692  0.704 / 0.776  0.815 / 0.745  0.90
+    camera_roll_legacy    1.347 / 0.627  0.723 / 0.753  0.839 / 0.711  0.93
+    rear_phone_smooth     1.286 / 0.619  0.700 / 0.759  0.812 / 0.718  0.94
+    rear_phone_outliers   1.286 / 0.630  0.726 / 0.752  0.847 / 0.718  0.91
+    rear_phone_nobias     0.869 / 0.707  0.509 / 0.832  0.600 / 0.800  0.92
+    ====================  =============  =============  =============  ========
+
+    Reading (FU-02):
+
+    * With the noise the simulator really draws (d), the gain form is inside both gates on
+      all six scenarios that draw a definition bias.  With the engine's own model and
+      tangents (c) it is inside on four; ``selfie_legacy`` and ``rear_phone_smooth`` read
+      NEES 0.796 / 0.797 against the 0.8 gate (coverage inside): NOT met there, by 0.004,
+      and the difference to (d) is the engine's deliberately wide 'free' brow tangent.
+      Tangents alone (b): inside on studio_ring, rear_phone, camera_roll (at the gate) and
+      outliers; selfie 0.777 / 0.764 and smooth 0.777 fail.
+    * In (b)-(d) the posterior alone is over-confident whenever a definition bias is drawn
+      (NEES 1.05-1.45) and inside the gates when none is (``rear_phone_nobias`` 0.81-0.87): the
+      noise model is honest, the excess is the shared bias (D-06).  The WP-16 statement
+      'posterior-only NEES > 1.25' is not a property of the model (1.24 in (b)).
+    * ``rear_phone_nobias`` with the gain or floor form is under-confident by construction:
+      the engine declares a sigma_def the scenario does not draw.
+    * The literal floor form fails the NEES gate in every row.
+    * **No recalibration of the formula was made**, and none is warranted: the gain form is
+      the exact linear-Gaussian propagation, and the remaining distance from 1 is the test
+      bed's legacy symmetry prior, which is wider than its subjects (sigma_sym 2.0 mm for a
+      pair difference of SD 1.41 mm, sigma_mid 1.5 mm for 1.0 mm).  Evidence
+      (``rear_phone``, exact covariance, no outliers, plain least squares, 30 seeds): with
+      the legacy prior the posterior reads 0.837 / 0.712 without bias and the gain form
+      0.826 / 0.710 with it; with sigma_sym 1.41 and sigma_mid 1.0 they read 0.963 / 0.700
+      and 0.918 / 0.705.  The shape sigma (8 mm against the subjects' 4 mm) changes
+      nothing (0.835, 0.831).  What FU-02 changed is the test bed's side of the comparison:
+      tangents passed, and the declared floor drawn.
+    * Not re-measured by FU-02: the D-04 factor prior and the WP-11 out-of-prior subjects.
+      WP-16 measured them before FU-01 without tangents (factor prior, gain form: rear_phone
+      0.83 / 0.75, studio_ring 0.88 / 0.71, selfie 0.68 / 0.81 FAIL, camera_roll 0.83 /
+      0.74); those numbers are stale and belong to the release gates (WP-23; DESIGN 7.5).
     """
     X = np.asarray(result.X, float)
     N = len(X)
