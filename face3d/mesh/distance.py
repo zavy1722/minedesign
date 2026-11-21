@@ -42,7 +42,9 @@ Algorithms
   triangle whose axis-aligned bounding box overlaps the cell. Queries search
   Chebyshev rings of cells outward and stop once a lower bound on the distance
   to anything in the unvisited rings exceeds the best distance found, so the
-  result is exact (identical to the brute-force reference).
+  result is exact (identical to the brute-force reference). Points farther
+  outside the mesh bounding box than half its diagonal skip the rings and are
+  screened against all triangles (same kernel, same result, less work).
 * Sign: Bærentzen & Aanæs (2005), "Signed distance computation using the angle
   weighted pseudonormal", IEEE TVCG 11(3): sign of (P − Q)·n where n is the face
   normal for an interior closest point, the sum of the two adjacent unit face
@@ -481,6 +483,8 @@ class TriangleGrid:
         starts = np.flatnonzero(np.r_[True, pt[1:] != pt[:-1]])
         ubmin = np.minimum(np.minimum.reduceat(ub, starts), bd2[pt[starts]])
         ubp = np.repeat(ubmin, np.diff(np.r_[starts, len(pt)]))
+        # 1e-9 relative slack absorbs rounding in lb/ub (both exact to ~1e-15);
+        # it can only keep extra pairs, never drop the winner.
         keep = lb <= ubp * (1.0 + 1e-9)
         pt, tri, Pp = pt[keep], tri[keep], Pp[keep]
         if pt.size == 0:
@@ -549,6 +553,17 @@ class TriangleGrid:
                     self._evaluate(P, pt, tri, best)
                 b0 = b1
 
+    def _query_all(self, P, idx, best):
+        """Screened evaluation of points `idx` against every triangle (far points)."""
+        F = len(self.tris)
+        tb = min(F, _PAIR_BATCH)
+        m = max(1, _PAIR_BATCH // F)
+        for c0 in range(0, len(idx), m):
+            pidx = idx[c0:c0 + m]
+            for t0 in range(0, F, tb):      # triangle blocks; later blocks prune against the running best
+                tr = np.arange(t0, min(F, t0 + tb), dtype=np.int64)
+                self._evaluate(P, np.repeat(pidx, len(tr)), np.tile(tr, len(pidx)), best)
+
     # .................................................................. public
     def query(self, P: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """Exact closest points on the mesh.
@@ -570,17 +585,26 @@ class TriangleGrid:
         if M == 0:
             return np.zeros(0), best[2], best[1], best[3]
         cell, dims = self.cell, self.dims
+        # Points far outside the mesh box (more than half its diagonal) would
+        # sweep most of the grid ring by ring; they are cheaper to screen against
+        # all triangles directly (same exact kernel and tie rule).
+        gap = P - np.clip(P, self.mesh_lo, self.mesh_hi)
+        far = np.einsum("ij,ij->i", gap, gap) > 0.25 * float(np.sum((self.mesh_hi - self.mesh_lo) ** 2))
+        if np.any(far):
+            self._query_all(P, np.flatnonzero(far), best)
         Pc = np.clip(P, self.origin, self.box_hi)
         q = np.clip(np.floor((Pc - self.origin) / cell).astype(np.int64), 0, dims - 1)
         max_ring = np.maximum(q, dims - 1 - q).max(axis=1)
         keys = q[:, 0] + dims[0] * (q[:, 1] + dims[1] * q[:, 2])
         ring = np.minimum(self._empty_rings[keys], max_ring)
-        active = np.arange(M)
+        active = np.flatnonzero(~far)
         while active.size:
             ra = ring[active]
             for r in np.unique(ra):
                 self._process_ring(P, q, active[ra == r], int(r), best)
-            # Lower bound on the distance to anything in rings >= r+1.
+            # Lower bound on the distance to anything in rings >= r+1; continue
+            # while it does not exceed the best (1e-9 relative rounding slack:
+            # costs at most one extra ring, never exactness).
             lb2 = self._unvisited_lb2(P[active], q[active], ra)
             keep = (lb2 <= best[0][active] * (1.0 + 1e-9)) & (ra < max_ring[active])
             ring[active] += 1
@@ -600,26 +624,32 @@ def brute_force_point_to_mesh(P: np.ndarray, V: np.ndarray,
     P = _as_points(P)
     M, F = len(P), len(tris)
     A, B, C = V[tris[:, 0]], V[tris[:, 1]], V[tris[:, 2]]
-    dist = np.zeros(M)
+    d2best = np.full(M, np.inf)
     Q = np.zeros((M, 3))
     tri_id = np.full(M, -1, np.int64)
     bary = np.zeros((M, 3))
-    m = max(1, _PAIR_BATCH // F)
+    tb = min(F, _PAIR_BATCH)                 # triangle block
+    m = max(1, _PAIR_BATCH // tb)            # point chunk
     for c0 in range(0, M, m):
         Pc = P[c0:c0 + m]
         k = len(Pc)
-        pt = np.repeat(np.arange(k), F)
-        tr = np.tile(np.arange(F), k)
-        Pp, Ap, Bp, Cp = Pc[pt], A[tr], B[tr], C[tr]
-        qx, qy, qz, d2, u, v, w = _cpt_kernel(Pp[:, 0], Pp[:, 1], Pp[:, 2], Ap[:, 0], Ap[:, 1], Ap[:, 2],
-                                              Bp[:, 0], Bp[:, 1], Bp[:, 2], Cp[:, 0], Cp[:, 1], Cp[:, 2])
-        j = np.argmin(d2.reshape(k, F), axis=1)       # first minimum = lowest triangle id
-        flat = np.arange(k) * F + j
-        dist[c0:c0 + k] = np.sqrt(d2[flat])
-        Q[c0:c0 + k] = np.column_stack([qx[flat], qy[flat], qz[flat]])
-        tri_id[c0:c0 + k] = j
-        bary[c0:c0 + k] = np.column_stack([u[flat], v[flat], w[flat]])
-    return dist, Q, tri_id, bary
+        rows = np.arange(c0, c0 + k)
+        for t0 in range(0, F, tb):
+            nt = min(tb, F - t0)
+            pt = np.repeat(np.arange(k), nt)
+            tr = np.tile(np.arange(t0, t0 + nt), k)
+            Pp, Ap, Bp, Cp = Pc[pt], A[tr], B[tr], C[tr]
+            qx, qy, qz, d2, u, v, w = _cpt_kernel(Pp[:, 0], Pp[:, 1], Pp[:, 2], Ap[:, 0], Ap[:, 1], Ap[:, 2],
+                                                  Bp[:, 0], Bp[:, 1], Bp[:, 2], Cp[:, 0], Cp[:, 1], Cp[:, 2])
+            j = np.argmin(d2.reshape(k, nt), axis=1)       # first minimum = lowest triangle id
+            flat = np.arange(k) * nt + j
+            better = d2[flat] < d2best[rows]                # strict: earlier blocks hold lower ids
+            r, f = rows[better], flat[better]
+            d2best[r] = d2[f]
+            Q[r] = np.column_stack([qx[f], qy[f], qz[f]])
+            tri_id[r] = t0 + j[better]
+            bary[r] = np.column_stack([u[f], v[f], w[f]])
+    return np.sqrt(d2best), Q, tri_id, bary
 
 
 def point_to_mesh(P: np.ndarray, V: np.ndarray, tris: np.ndarray, signed: bool = False,

@@ -748,7 +748,7 @@ class CompositePrior:
             if not (hasattr(p, "residual") and hasattr(p, "jacobian")):
                 raise TypeError(f"{type(p).__name__} lacks the generalised residual/jacobian interface")
             idx = getattr(p, "index", None)
-            if idx is not None and np.any(np.asarray(idx) >= self.n_total):
+            if isinstance(idx, np.ndarray) and idx.dtype.kind in "iu" and np.any(idx >= self.n_total):
                 raise ValueError(f"a part's global index exceeds n_total={self.n_total}")
             self.parts.append(p)
         if not self.parts:

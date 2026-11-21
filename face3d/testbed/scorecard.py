@@ -56,7 +56,8 @@ BASELINE_LABEL = "legacy-41179a3"
 HIGHER_IS_WORSE: tuple[str, ...] = ("config_rms_mm", "now7_rms_mm", "focal_rel_err",
                                     "distance_rel_err", "rmse_px")
 # A scenario also regresses when its fraction of usable seeds (finite config_rms_mm)
-# drops by more than this (failures must not hide behind better medians).
+# drops by more than this, so failures cannot hide behind better medians. Test-bed
+# policy choice (PROVISIONAL; 0.10 is 3 of 30 seeds, cf. the n_ok >= 28/30 baseline check).
 N_OK_FRACTION_DROP = 0.10
 
 

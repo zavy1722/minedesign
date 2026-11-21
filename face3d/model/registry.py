@@ -237,7 +237,7 @@ class Scheme:
         self.n: int = int(doc["n"])
         self.licence: str | None = doc.get("licence")
         self.notes: str | None = doc.get("notes")
-        self.polylines: dict[str, list[int]] = {k: [int(i) for i in v] for k, v in dict(doc.get("polylines", {})).items()}
+        self.polylines: dict[str, Any] = dict(doc.get("polylines", {}))
         self.z_policy: str = str(doc.get("z_policy", "ignore"))
         self.raw: dict[str, Any] = dict(doc)
         pts = []
