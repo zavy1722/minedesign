@@ -313,12 +313,29 @@ def _resolve_view_noise(v: ViewObs, X: np.ndarray, R: np.ndarray, t: np.ndarray,
     kinds = v.kinds if v.kinds is not None else ["generic"] * N
     if len(kinds) != N:
         raise ValueError(f"ViewObs.kinds has {len(kinds)} entries for {N} landmarks")
+    # Non-finite multipliers / TTA spreads on visible landmarks would turn every
+    # residual into NaN and LM would silently return the initial estimate: reject
+    # them here, as the cov_px branch does (hidden rows may hold anything).
+    for name, a in (("multipliers", v.multipliers), ("tta_px", v.tta_px)):
+        if a is None:
+            continue
+        arr = np.asarray(a, float)
+        if arr.ndim:
+            arr = arr.reshape(-1)
+            if arr.shape != (N,):
+                raise ValueError(f"ViewObs.{name} must be a float or ({N},), got {np.shape(a)}")
+            arr = arr[m]
+        if not np.all(np.isfinite(arr)):
+            raise ValueError(f"ViewObs.{name} has non-finite entries for visible landmarks")
     model = NoiseModel(kinds, dense_mask=v.dense_mask)
     z = (X[m] @ R.T + t)[:, 2]
     ppm = np.full(N, np.nan)
     ppm[m] = f / np.maximum(np.abs(z), 1e-6)
     face = v.face_px if v.face_px is not None else _face_width_px(np.asarray(v.uv, float)[m])
     C = model.view_cov(ppm, face, tangents=v.tangents, multipliers=v.multipliers, tta_px=v.tta_px)[m]
+    if not np.isfinite(C).all():
+        raise ValueError("noise-model covariance is non-finite for visible landmarks "
+                         "(non-finite camera, focal or landmark estimate?)")
     return _ViewNoise(False, W=whitening(C), C=C)
 
 
@@ -540,8 +557,27 @@ def _resolve_scale(scale: Any, prior: Any) -> ScaleConfig:
 def _default_sigma_def(views: list[ViewObs], N: int) -> np.ndarray:
     for v in views:
         if v.kinds is not None:
+            if len(v.kinds) != N:
+                raise ValueError(f"ViewObs.kinds has {len(v.kinds)} entries for {N} landmarks")
             return NoiseModel(v.kinds).sigma_def_mm()
     return np.zeros(N)
+
+
+def _resolve_sigma_def(sigma_def_mm: Any, views: list[ViewObs], N: int) -> np.ndarray:
+    """(N,) definition-bias floor in mm: validated ``sigma_def_mm`` (scalar or (N,), finite,
+    >= 0) or the default from the views' ``kinds`` (zeros without kinds)."""
+    if sigma_def_mm is None:
+        return _default_sigma_def(views, N)
+    a = np.asarray(sigma_def_mm, float)
+    if a.ndim == 0:
+        a = np.full(N, float(a))
+    elif a.shape != (N,):
+        raise ValueError(f"sigma_def_mm must be a float or ({N},), got {a.shape}")
+    else:
+        a = a.copy()
+    if not np.all(np.isfinite(a)) or np.any(a < 0):
+        raise ValueError("sigma_def_mm must be finite and >= 0")
+    return a
 
 
 # =========================================================================== solver
@@ -566,8 +602,12 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
       :class:`ScaleConfig`.
     * ``gauge_anchor_idx``: global point indices of the six rigid gauge residuals,
       used only when ``prior.meta['rigid_invariant']`` (DESIGN 4.6).
-    * ``sigma_def_mm``: (N,) definition-bias floor in mm (D-06); default from the
-      views' ``kinds`` via the noise table, else zeros.
+    * ``sigma_def_mm``: (N,) or scalar definition-bias floor in mm (D-06; finite,
+      >= 0); default from the views' ``kinds`` via the noise table, else zeros.
+
+    Invalid input (``sigma_def_mm``, ``ViewObs.weights``, non-finite ``multipliers`` /
+    ``tta_px`` / ``cov_px`` on visible landmarks, ...) raises ``ValueError``; the flag
+    ``COV-SINGULAR`` is reserved for numerical failure of the covariance.
     """
     X0 = np.asarray(X0, float)
     N = len(X0)
@@ -576,7 +616,16 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
     lay = _Layout(views, N, zeta=sc.enabled)
     zi = lay.zeta_idx
     vis = [~np.isnan(np.asarray(v.uv, float)[:, 0]) for v in views]
-    base_w = [np.ones(N) if v.weights is None else np.asarray(v.weights, float) for v in views]
+    base_w = [np.ones(N) if v.weights is None else np.asarray(v.weights, float).reshape(-1) for v in views]
+    for k, w in enumerate(base_w):
+        if w.shape != (N,):
+            raise ValueError(f"ViewObs.weights of view {k} must have shape ({N},), got {w.shape}")
+        wv = w[vis[k]]
+        if not (np.all(np.isfinite(wv)) and np.all(wv >= 0)):
+            raise ValueError(f"ViewObs.weights of view {k} must be finite and >= 0 for visible landmarks")
+    # Input checks before the solve, so invalid input raises instead of being reported
+    # as a numerical COV-SINGULAR flag after it.
+    sdef = _resolve_sigma_def(sigma_def_mm, views, N)
     irls = [np.ones(N) for _ in views]
     noise: list[_ViewNoise | None] = [None] * len(views)
     gauge_sigma = float(BUNDLE["gauge_sigma_mm"].value)
@@ -783,10 +832,6 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
         p_eff = float(np.sum(H_data * Sig))
         dof = m_data - p_eff
         chi2_red = float(rd @ rd) / dof if dof > 0 else float("nan")
-        if sigma_def_mm is None:
-            sdef = _default_sigma_def(views, N)
-        else:
-            sdef = np.broadcast_to(np.asarray(sigma_def_mm, float), (N,)).copy()
         dvar = np.maximum(np.diag(cov_shape), 0.0).reshape(N, 3)
         infl = max(1.0, chi2_red) if np.isfinite(chi2_red) else 1.0
         cam_cov = []
@@ -805,7 +850,9 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
             obs_cov_px=[noise[k].cov_full(vis[k]) for k in range(len(views))],
             m_data=m_data, p_eff=p_eff, cov_ridge=post["ridge"], flags=list(post["flags"]),
         )
-    except (np.linalg.LinAlgError, ValueError):
+    except np.linalg.LinAlgError:
+        # Numerical failure only (e.g. pinv's SVD not converging on a non-finite H);
+        # input errors are validated before the solve and raise.
         out = dict(flags=[FLAG_COV_SINGULAR], param_index=lay.param_index())
 
     cams, rmses, per_view = [], [], []

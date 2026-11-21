@@ -12,6 +12,14 @@ WP-07 changes (DESIGN 4.4, D-03, D-05, D-06):
   (legacy; it still sets the PnP initialisation's Huber threshold).
 * ``reconstruct_landmarks`` passes ``prior``, ``scale``, ``gauge_anchor_idx`` and
   ``sigma_def_mm`` through to :func:`face3d.solve.bundle.bundle_adjust`.
+
+Known limitation (follow-up, not WP-07 scope): ``PhotoLandmarks`` carries no image
+tangents and nothing here derives t-hat from neighbouring curve points (DESIGN 4.4), so
+every contour / brow / curve landmark enters with the unknown-tangent isotropic sigma
+sqrt((sigma_n^2 + sigma_t^2) / 2): about 707 mm for contour and 28 mm for brow (in
+effect discarded) and 5.4 mm instead of 1.5 mm normal precision for curve points.  A
+``tangents`` field or scheme-curve-neighbour tangents (WP-11 contours / scheme work)
+will let them enter with their normal-only sigma.
 """
 from __future__ import annotations
 
