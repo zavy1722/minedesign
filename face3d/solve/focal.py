@@ -31,17 +31,33 @@ the head origin (mid-tragion), HEAD_ORIGIN_OFFSET_MM = 100 mm behind the face.
 The distance prior is never derived from IOD pixels (that would double-count the
 scale prior; DESIGN 4.2).
 
+Robust EXIF focal prior (WBS FU-03, task 2; DESIGN 4.13 'focal versus EXIF > 15 %';
+docs/RESULTS.md 3.1 item 2): a two-hypothesis check lets the photos overrule a wrong EXIF
+focal when they carry the information.  H0 'the EXIF focal is right' (the ladder prior, rules
+2-5) against H1 'it is not' (the ladder *without* the EXIF focal, rules 6-7,
+:func:`focal_prior_without_exif_focal`).  The test statistic is the distance t, in standard
+deviations, between the EXIF focal and the focal the photos give on their own at the H0
+solve (``solve.observability.focal_prior_evidence``: focal *and* distance priors removed,
+so a population distance guess can never overrule an EXIF value; N(0, 1) under H0)
+(:func:`exif_focal_contradicted`; false-alarm rate ``focal.exif_reject_alpha``, and only
+when the focal is data-observable, ``focal.exif_reject_max_data_sigma``).  The pipeline
+then re-solves under H1 and adopts that solve only if its focal differs from the EXIF value
+by more than ``focal.exif_disagree_rel`` (:func:`focal_exif_disagreement`), which is also
+when the DESIGN 4.13 finding ``C-FOCAL-EXIF`` is raised.
+
 Units: f in pixels, f35 in 35 mm-equivalent mm, distances in mm, sigmas on the
 natural log.
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Any, Mapping, NamedTuple
 
 from ..core.config import Default, register_defaults
 from ..geometry.camera import focal_px_from_35mm
 from ..io.exif import ExifInfo
+from .robust import norm_ppf
 
 _BRAIN = "\U0001F9E0"   # expert knowledge, provisional
 _NEW = "\U0001F195"     # introduced by this design, uncalibrated
@@ -72,6 +88,21 @@ FOCAL_DEFAULTS = register_defaults("focal", {
                                  "f35/FocalLength > 1.02 x group mode", "", (1.0, 10.0)),
     "aspect_rel_tol": Default(0.01, _NEW, "WP-06 (c): an aspect within 1 % of a native one counts as native",
                               "", (0.0, 0.5)),
+    # --- robust EXIF focal prior (WBS FU-03; DESIGN 4.13 'focal versus EXIF > 15 %') ---
+    "exif_reject_alpha": Default(0.01, _NEW, "WBS FU-03 task 2: nominal two-sided false-alarm rate, per focal group, "
+                                 "of the test 'the photos contradict the EXIF focal' (|t| > z(1 - alpha/2) = 2.576, t "
+                                 "= EXIF focal against the photos-only focal); test-bed evidence docs/RESULTS.md 3.2: "
+                                 "largest |t| on 60 clean sets 1.47, on 30 clean near-range sets 1.68; uncalibrated on "
+                                 "real photos", "", (1e-9, 0.5)),
+    "exif_reject_max_data_sigma": Default(0.25, _NEW, "WBS FU-03 task 2: the photos may overrule an EXIF focal only "
+                                          "when their own sigma of ln f (flat focal prior) is at most the sigma of "
+                                          "the ladder rule they fall back to (DESIGN 4.2 'phone, no focal data' "
+                                          "0.25); above it the focal is not data-observable", "ln f", (0.0, 5.0)),
+    "exif_disagree_rel": Default(0.15, _BRAIN, "DESIGN 4.13 flags: focal versus EXIF > 15 %", "", (0.0, 5.0)),
+    "exif_reject_min_views": Default(3, _NEW, "WBS FU-03 task 2: fewest views of a focal group for the photos to "
+                                     "overrule its EXIF focal (a single photo's perspective cue is confounded with "
+                                     "the subject's own depth relief: tests/test_observability.py sees |t| > 3 on "
+                                     "single correct views; 3 = the LOVO minimum of DESIGN 4.13)", "", (1, 1000)),
     # --- distance ladder (median camera-to-face distance, sigma on ln z) ---
     "distance_front_mm": Default(350.0, _BRAIN, _D42 + "front camera 0.35 m (rec CAM-6 selfie)", "mm",
                                  (50.0, 100000.0)),
@@ -202,6 +233,76 @@ def focal_prior_from_evidence(exif: ExifInfo | None, width: int, height: int, *,
                           float(_cfg_value("sigma_log_phone", cfg)), "phone")
     return FocalPrior(focal_px_from_35mm(float(_cfg_value("nothing_f35_mm", cfg)), width, height),
                       float(_cfg_value("sigma_log_nothing", cfg)), "nothing")
+
+
+#: Ladder rules whose focal value comes from the photo's EXIF (rules 2-5): the sources the
+#: robust-prior test of WBS FU-03 may overrule.  'sfm' / 'calibrated' are measurements
+#: supplied by the user and are never overruled.
+EXIF_FOCAL_SOURCES = ("zoom", "aspect", "exif_f35", "focal_plane")
+
+
+def focal_prior_without_exif_focal(exif: ExifInfo | None, width: int, height: int, *,
+                                   is_phone: bool | None = None,
+                                   cfg: Mapping[str, Any] | None = None) -> FocalPrior:
+    """The ladder prior with the EXIF focal data ignored (rules 6-7 only; DESIGN 4.2): 'phone'
+    (26 mm-eq, sigma 0.25) for a phone Make, else 'nothing' (50 mm-eq, sigma 0.6).
+
+    This is hypothesis H1 of the robust EXIF prior (WBS FU-03): what the engine would assume
+    had the photo carried no focal data.  ``is_phone`` overrides the Make-based test."""
+    phone = is_phone if is_phone is not None else (exif is not None and is_phone_make(exif.make))
+    if phone:
+        return FocalPrior(focal_px_from_35mm(float(_cfg_value("phone_f35_mm", cfg)), width, height),
+                          float(_cfg_value("sigma_log_phone", cfg)), "phone")
+    return FocalPrior(focal_px_from_35mm(float(_cfg_value("nothing_f35_mm", cfg)), width, height),
+                      float(_cfg_value("sigma_log_nothing", cfg)), "nothing")
+
+
+def _z_two_sided(alpha: float) -> float:
+    return float(norm_ppf(1.0 - 0.5 * float(alpha)))
+
+
+def exif_focal_contradicted(prior_t: float | None, sigma_logf_data: float | None, n_views: int | None = None, *,
+                            cfg: Mapping[str, Any] | None = None) -> bool:
+    """Score test of H0 'the EXIF focal is right' (WBS FU-03 task 2).
+
+    ``prior_t``: the distance, in standard deviations, between the EXIF focal and the focal
+    the photos give on their own (``solve.observability.focal_prior_evidence``: focal and
+    distance priors removed; N(0, 1) under H0).  ``sigma_logf_data``: the sigma of ln f of
+    that photos-only estimate.
+
+    True when |t| > z(1 - alpha / 2) with alpha = ``focal.exif_reject_alpha`` (nominal
+    two-sided false-alarm rate per focal group, 0.01 -> 2.576) **and** the focal is
+    data-observable, sigma_logf_data <= ``focal.exif_reject_max_data_sigma`` (0.25), by
+    enough photos: ``n_views`` (the views sharing the prior, when given) >=
+    ``focal.exif_reject_min_views`` (3).  Missing or non-finite inputs give False (the EXIF
+    prior is kept)."""
+    if prior_t is None or sigma_logf_data is None:
+        return False
+    if n_views is not None and int(n_views) < int(_cfg_value("exif_reject_min_views", cfg)):
+        return False
+    t, sd = float(prior_t), float(sigma_logf_data)
+    if not (math.isfinite(t) and math.isfinite(sd)):
+        return False
+    if sd > float(_cfg_value("exif_reject_max_data_sigma", cfg)):
+        return False
+    return abs(t) > _z_two_sided(float(_cfg_value("exif_reject_alpha", cfg)))
+
+
+def focal_exif_disagreement(f_solved_px: float, f_exif_px: float, contradicted: bool, *,
+                            cfg: Mapping[str, Any] | None = None) -> dict:
+    """Solved focal against the EXIF focal (DESIGN 4.13 flag 'focal versus EXIF > 15 %').
+
+    ``f_solved_px``: the focal of a solve that does **not** use the EXIF value as its prior
+    (hypothesis H1, :func:`focal_prior_without_exif_focal`); ``f_exif_px`` the EXIF ladder
+    value; ``contradicted``: the outcome of :func:`exif_focal_contradicted` on the H0 solve
+    (the photos carry the information to say so).
+
+    Returns ``{'rel', 'flagged'}``: rel = f_solved / f_exif - 1 and flagged = contradicted
+    and |rel| > ``focal.exif_disagree_rel`` (0.15).  The pipeline adopts the H1 solve, and
+    raises ``C-FOCAL-EXIF``, exactly when ``flagged``; otherwise the EXIF prior stands."""
+    rel = float(f_solved_px) / float(f_exif_px) - 1.0
+    flagged = bool(contradicted) and math.isfinite(rel) and abs(rel) > float(_cfg_value("exif_disagree_rel", cfg))
+    return {"rel": rel, "flagged": bool(flagged)}
 
 
 def _known_camera(exif: ExifInfo | None) -> bool:

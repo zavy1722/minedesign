@@ -26,7 +26,7 @@ Conventions
   (``asin(C_y / |C|)``).
 * Status vocabulary (DESIGN D-16, shared with :mod:`face3d.fit.symmetry`):
   ``'measured'``, ``'constrained'``, ``'prior-driven'``, ``'unobserved'``.
-  Focal status: ``'measured'``, ``'partial'``, ``'prior_used'``.
+  Focal status: ``'measured'`` (earned from the photos, H5), ``'partial'``, ``'prior_used'``.
 * Prior weight 1 (H2): labels of a likeness-mode (widened-prior) solve are those of the
   standard solve of the same photos (``assess(widened, standard_result=standard)``), so
   they are identical by construction; widened results carry :data:`FLAG_LIKENESS` and
@@ -39,7 +39,10 @@ Every threshold is a registered default (namespace ``observability``,
 :mod:`face3d.core.config`) with its badge and source; almost all are 🧠/🆕 and
 PROVISIONAL until the M7 calibration (DESIGN 8, risk 1).  Sources:
 
-* focal 'measured' if sigma_post(ln f) < 0.10: DESIGN 4.12 / H5 (bl C2) 🧠;
+* focal 'measured' if sigma_post(ln f) < 0.10: DESIGN 4.12 / H5 (bl C2) 🧠, and, since
+  WBS FU-03 (the M6 release blocker, docs/RESULTS.md 3.1), only when the photos alone reach
+  that sigma (focal and distance priors removed: :func:`focal_prior_evidence`; the same
+  0.10, no new number);
   'prior used' if sigma_post > 0.8 sigma_prior: DESIGN 4.12 (rec CAM-7) 🧠;
   P = 100 mm / z: rec CAM-7 🧠.
 * evidence k >= 0.8 measured, >= 0.5 constrained: DESIGN 4.12 ([Rob 3.10]) 🆕.
@@ -86,6 +89,11 @@ __all__ = [
     "legacy_shrinkage_gate",
     "shape_prior_cov", "prior_shares", "widen_prior", "likeness_mode_prior", "tier", "assess",
 ]
+
+# WBS FU-03 added the public functions ``focal_prior_evidence`` and ``heldout_prediction``.  They are
+# imported from this module (``face3d.solve.observability``) and are deliberately not in ``__all__``:
+# the package export lists of ``face3d/solve/__init__.py`` are owned by WP-23 (tests/test_policy_ci.py
+# requires every ``__all__`` name to be re-exported there); add both at the next export pass.
 
 _BRAIN = "\U0001F9E0"   # expert knowledge, provisional
 _NEW = "\U0001F195"     # introduced by this design / WP, uncalibrated
@@ -272,29 +280,49 @@ def region_points(region_index: Mapping[str, Any]) -> dict[str, np.ndarray]:
 
 # =========================================================================== cameras
 def camera_status(view_stats: Sequence[Mapping[str, Any]], prior_log_sigma: Any,
-                  cameras: Sequence[Any] | None = None) -> list[dict]:
-    """Per-view focal and distance observability (DESIGN 4.12, H5; rec CAM-7).
+                  cameras: Sequence[Any] | None = None, data_sigma_logf: Any = None,
+                  conflict: Sequence[bool] | None = None) -> list[dict]:
+    """Per-view focal and distance observability (DESIGN 4.12, H5; rec CAM-7; WBS FU-03).
 
     ``view_stats``: ``BundleResult.view_stats`` (``sigma_logf``, ``sigma_logz``).
     ``prior_log_sigma``: the focal prior's sigma in ln f, scalar or one per view (None =
     unknown; ``inf`` = no focal prior; see :func:`focal_prior_log_sigmas`).  ``cameras``:
     optional solved cameras, for P = 100 mm / z with z the distance from the camera centre
-    to the head-frame origin (mm).
+    to the head-frame origin (mm).  ``data_sigma_logf``: per view (or scalar) the posterior
+    sigma of ln f **from the photos alone** (focal and distance priors removed,
+    :func:`focal_prior_evidence`; ``inf`` = not observable; None = not computed).
+
+    ``conflict``: per view True when the solve replaced a focal prior the photos contradicted
+    (the robust EXIF prior, ``pipeline.stages``): two sources disagreed about this focal.
 
     Returns per view ``{'sigma_logf', 'sigma_logz', 'P', 'focal_status',
-    'prior_dominated'}`` with focal_status, in the order of WBS WP-16 / DESIGN 4.12:
+    'prior_dominated', 'sigma_logf_data'}``.
 
-    * ``'measured'`` if sigma_logf < 0.10 (bl C2, H5; a known focal, sigma_logf 0, too),
+    **'measured' is earned from the photos (H5 / H12; WBS FU-03, docs/RESULTS.md 3.1 item
+    2).**  The H5 threshold sigma(ln f) < 0.10 (bl C2) is applied to the information the
+    photos carry, never to a sigma inherited from the prior: a wrong EXIF focal trusted at
+    sigma 0.04 gives sigma_post < 0.10 whatever the photos say.  Rules, in order:
+
+    * frozen view (sigma_logf None: held, not estimated) -> ``'prior_used'``;
+    * ``'measured'`` needs all of: sigma_logf < 0.10; the value is the photos', not the
+      prior's (CAM-7: ``prior_dominated`` False, i.e. a known prior that the data shrank by
+      more than 20 %; no prior at all, ``inf``, counts as shrunk); the photos alone reach
+      the threshold, ``data_sigma_logf`` < 0.10, when that sigma is given (a known focal,
+      both 0, too); and no ``conflict``.  The two tests are not redundant: with an EXIF
+      prior of 0.04 and photos of 0.09 the photos could measure the focal, but 5/6 of the
+      solved value is the EXIF's, so a moderately wrong EXIF would be labelled 'measured'
+      (seen on the near-range diagnostic of docs/RESULTS.md 3.2); and a prior of 0.12 with
+      photos of 0.15 passes CAM-7 at a posterior of 0.094 without the photos reaching 0.10.
+      :func:`assess` computes ``data_sigma_logf`` whenever it is given the views;
     * else ``'prior_used'`` if sigma_logf > 0.8 sigma_prior (CAM-7: the data did not shrink
-      the prior by 20 %),
-    * else ``'partial'``.
+      the prior by 20 %) or the prior is unknown (H5 'otherwise from prior': conservative);
+    * else ``'partial'`` (this includes a ``conflict`` view that would otherwise read
+      'measured': a focal with contradicting evidence is not claimed as measured).
 
-    Conservative cases (H5 'otherwise from prior'): a frozen view (sigma_logf None) and an
-    unknown prior (``prior_log_sigma`` None) with sigma_logf >= 0.10 read ``'prior_used'``,
-    never 'partial'.  ``prior_dominated`` records the CAM-7 test on its own (True when
-    sigma_logf > 0.8 sigma_prior, e.g. a 'measured' focal that merely echoes a tight EXIF
-    prior; None when the prior or the posterior is unknown), for reports that want to say
-    so; tier S accepts EXIF sigma <= 0.04 separately (:func:`tier`).
+    ``prior_dominated`` records the CAM-7 test on its own (True when sigma_logf > 0.8
+    sigma_prior; None when the prior or the posterior is unknown).  Tier S accepts an EXIF
+    prior with sigma <= 0.04 separately (:func:`tier`), so a set whose focal is the EXIF's
+    reads 'prior_used' here and can still be 'EXIF-confirmed' there.
     """
     V = len(view_stats)
     if prior_log_sigma is None or np.ndim(prior_log_sigma) == 0:
@@ -303,8 +331,17 @@ def camera_status(view_stats: Sequence[Mapping[str, Any]], prior_log_sigma: Any,
         ps = list(prior_log_sigma)
         if len(ps) != V:
             raise ValueError(f"prior_log_sigma has {len(ps)} entries for {V} views")
+    if data_sigma_logf is None or np.ndim(data_sigma_logf) == 0:
+        ds = [data_sigma_logf] * V
+    else:
+        ds = list(data_sigma_logf)
+        if len(ds) != V:
+            raise ValueError(f"data_sigma_logf has {len(ds)} entries for {V} views")
     if cameras is not None and len(cameras) != V:
         raise ValueError(f"cameras has {len(cameras)} entries for {V} views")
+    cf = [False] * V if conflict is None else [bool(x) for x in conflict]
+    if len(cf) != V:
+        raise ValueError(f"conflict has {len(cf)} entries for {V} views")
     thr = float(_d("focal_measured_sigma_log"))
     ratio = float(_d("focal_prior_used_ratio"))
     ref = float(_d("perspective_ref_mm"))
@@ -313,12 +350,14 @@ def camera_status(view_stats: Sequence[Mapping[str, Any]], prior_log_sigma: Any,
         sf = st.get("sigma_logf")
         sz = st.get("sigma_logz")
         p = ps[k]
+        d = ds[k]
+        d = None if d is None else (float("inf") if not np.isfinite(d) else float(d))
         known = sf is not None and bool(np.isfinite(sf))
         dominated = None if (not known or p is None) else bool(float(sf) > ratio * float(p))
         if not known:
             status = "prior_used"                      # frozen view: held, not estimated
-        elif float(sf) < thr:
-            status = "measured"
+        elif float(sf) < thr and dominated is False and (d is None or d < thr) and not cf[k]:
+            status = "measured"                        # the photos say so, and the value is theirs (H5)
         elif p is None or dominated:
             status = "prior_used"                      # unknown prior: conservative (H5)
         else:
@@ -328,7 +367,185 @@ def camera_status(view_stats: Sequence[Mapping[str, Any]], prior_log_sigma: Any,
             z = float(np.linalg.norm(np.asarray(cameras[k].center, float)))
             P = ref / z if z > 0 else None
         out.append({"sigma_logf": None if sf is None else float(sf), "sigma_logz": None if sz is None else float(sz),
-                    "P": P, "focal_status": status, "prior_dominated": dominated})
+                    "P": P, "focal_status": status, "prior_dominated": dominated,
+                    "sigma_logf_data": None if (d is None or not known) else d})
+    return out
+
+
+def focal_prior_evidence(result: Any, views: Sequence[Any]) -> list[dict]:
+    """What the photos alone say about each view's focal length (WBS FU-03; DESIGN 4.12 / H5,
+    4.13 'focal versus EXIF').
+
+    ``result``: the ``BundleResult`` of ``views`` (the ``ViewObs`` list of that solve, or
+    views with the same ``estimate_focal`` / ``focal_group`` / ``focal_tie_sigma`` /
+    ``f_prior`` / ``f_prior_log_sigma`` / ``distance_prior``: only the camera-prior layout
+    is read).  Everything is linear algebra on the stored Gauss-Newton information
+    H = H_data + H_prior at the solution; nothing is re-solved.
+
+    **Photos only.**  The focal length and the camera distance trade off along the
+    image-scale valley (f / z is what a photo fixes; only perspective separates them), so a
+    distance prior is a focal prior in disguise: a population distance guess (DESIGN 4.2:
+    0.35 / 0.8 / 2 m) that disagrees with a tele shot from 6 m would otherwise 'contradict'
+    a correct EXIF focal.  The flat-prior quantities below therefore remove **both** the
+    focal prior rows and the distance prior rows of every view from H (focal ties, pose
+    tags, shape, scale and symmetry priors stay: they are the model the photos are read
+    with), and eliminate all other parameters by Schur complement as the bundle does
+    (:func:`~face3d.solve.bundle._posterior_fixed`, frozen views conditioned on).
+
+    Returns one dict per view:
+
+    * ``sigma_logf_data``: posterior sigma of ln f without the focal and distance priors.
+      0.0 for a view with a fixed, known focal; ``inf`` when that information is singular
+      (the photos do not determine the focal at all); None for a frozen view.
+    * ``ln_f_data``: the matching estimate of ln f, one Gauss-Newton step from the solution:
+      delta = H_flat^-1 sum_i g_i r_i over the removed rows (g_i their Jacobians, r_i their
+      residuals at the solution; the full gradient vanishes there).  A linearisation: good
+      for a test statistic, not a replacement for a re-solve.
+    * ``sigma_logf``: the posterior sigma with all priors (equals ``view_stats[v]['sigma_logf']``).
+    * ``f_prior_px``, ``prior_log_sigma``: the focal prior of the view's carrier (its
+      focal group's tightest prior, or its own), None without one.
+    * ``prior_residual``: r = (ln f_carrier - ln f_prior) / sigma_prior at the solution
+      (f_carrier = e^phi of the group, reconstructed from the tie stationarity, or the
+      view's own focal); ``prior_leverage``: h = g^T Sigma g of that prior row with the
+      full posterior, in [0, 1): the share of the prior in its own fit.
+    * ``prior_t``: t = (ln f_data - ln f_prior) / sqrt(sigma_logf_data^2 + sigma_prior^2):
+      the distance, in standard deviations, between the prior focal and the focal the photos
+      give on their own (t ~ N(0, 1) when the prior is right and the noise model holds; with
+      a declared noise wider than the real one it is conservative).  It is the score form
+      of the two-hypothesis test 'prior kept' against 'prior dropped'.  None without a
+      prior or when ``sigma_logf_data`` is not finite.
+    * ``carrier``: index of the carrier among the focal-prior carriers (views of one focal
+      group share it), None for a fixed focal or a view without a focal prior.
+
+    Units: sigmas and residuals on the natural log of the focal length in px.
+    """
+    from .bundle import BUNDLE, FLAG_COV_SINGULAR, FREE, HARD, RHO_MM_PER_PARAM, _Layout, _posterior_fixed, _SubLayout
+    pi = _param_index(result)
+    Hd, Hp = getattr(result, "H_data", None), getattr(result, "H_prior", None)
+    if Hd is None or Hp is None:
+        raise ValueError("result has no H_data / H_prior (covariance failed or a legacy result)")
+    views = list(views)
+    stats = list(getattr(result, "view_stats", None) or [])
+    cams = list(result.cameras)
+    V = len(views)
+    if len(cams) != V or len(stats) != V:
+        raise ValueError(f"views has {V} entries for {len(cams)} cameras / {len(stats)} view_stats")
+    lay = _Layout(views, 0)                    # camera layout only (cameras and phi come first)
+    if lay.focal_end != pi["cameras"].stop or any(pi[f"cam_{k}"].start != lay.view_off[k] for k in range(V)):
+        raise ValueError("views do not match the parameter layout of result")
+    H = np.asarray(Hd, float) + np.asarray(Hp, float)
+    n = len(H)
+    pts = pi["points"]
+    sub = _SubLayout(pts_off=pts.start, pts_end=pts.stop, n=n, zeta_idx=pi["zeta"].start if "zeta" in pi else -1)
+    fixed = frozen_parameters(result)
+    held = set(fixed.tolist())
+    fixed = fixed if fixed.size else None
+    ridge = float(BUNDLE["cov_ridge_rel"].value)
+    frozen = [bool(st.get("frozen", False)) for st in stats]
+    lnf = [math.log(float(c.f)) for c in cams]
+    z_cam = [float(c.t[2]) for c in cams]                                 # t_z = 1 / rho, mm
+    p_rho = [1.0 / (RHO_MM_PER_PARAM * z) for z in z_cam]                 # the stored rho parameter (1/m)
+
+    def focal_vec(k: int) -> np.ndarray | None:
+        """d ln f_k / d parameters (None for a fixed focal)."""
+        g = np.zeros(n)
+        if lay.kind[k] == FREE:
+            g[lay.a_idx[k]], g[lay.rho_idx[k]] = 1.0, -1.0 / p_rho[k]
+        elif lay.kind[k] == HARD:
+            g[lay.phi_idx[k]] = 1.0
+        else:
+            return None
+        return g
+
+    # the focal prior rows (as bundle._Problem.camera_prior_rows builds them) and their residuals
+    rows = []
+    for idx, k, lfp, sig in lay.focal_prior:
+        g = np.zeros(n)
+        g[idx] = 1.0 / sig
+        if k is not None:                                     # ungrouped FREE view: prior on a - ln rho
+            g[lay.rho_idx[k]] = -1.0 / (p_rho[k] * sig)
+            lf = lnf[k]
+            members = [k]
+        else:
+            members = lay.group_views[idx]
+            live = [m for m in members if not frozen[m]]
+            hard = [m for m in live if lay.kind[m] == HARD]
+            if hard:
+                lf = lnf[hard[0]]                             # f = e^phi exactly
+            elif live:
+                # stationarity of phi: (phi - lfp) / sig^2 + sum_m (phi - ln f_m) / tie_m^2 = 0
+                w = [1.0 / float(lay.tie_sigma[m]) ** 2 for m in live]
+                lf = (lfp / sig ** 2 + sum(wm * lnf[m] for wm, m in zip(w, live))) / (1.0 / sig ** 2 + sum(w))
+            else:
+                lf = lfp
+        rows.append({"g": g, "r": (lf - lfp) / sig, "lfp": lfp, "sig": sig, "members": members,
+                     "live": idx not in held})
+    carrier_of: list = [None] * V
+    for j, row in enumerate(rows):
+        for m in row["members"]:
+            carrier_of[m] = j
+    # the distance prior rows: residual (ln z - ln median) / sigma_log on rho = 1 / z
+    drows = []
+    for k, v in enumerate(views):
+        dp = getattr(v, "distance_prior", None)
+        if dp is None or frozen[k]:
+            continue
+        med, sl = (float(a) for a in dp)
+        g = np.zeros(n)
+        g[lay.rho_idx[k]] = -1.0 / (p_rho[k] * sl)
+        drows.append({"g": g, "r": (math.log(z_cam[k]) - math.log(med)) / sl})
+
+    post = _posterior_fixed(H, sub, ridge, fixed)
+    Sig = post["Sigma"]
+    ok = FLAG_COV_SINGULAR not in post["flags"]
+    Hf = H.copy()
+    b = np.zeros(n)
+    for row in [r for r in rows if r["live"]] + drows:     # an orphaned phi is held, its prior inert
+        Hf -= np.outer(row["g"], row["g"])
+        b += row["g"] * row["r"]
+    Sig_f = None
+    try:
+        post_f = _posterior_fixed(Hf, sub, ridge, fixed)
+        if FLAG_COV_SINGULAR not in post_f["flags"]:
+            Sig_f = post_f["Sigma"]
+    except np.linalg.LinAlgError:
+        Sig_f = None
+    delta = None if Sig_f is None else Sig_f @ b
+    out = []
+    for k in range(V):
+        j = carrier_of[k]
+        d: dict[str, Any] = {"sigma_logf": None, "sigma_logf_data": None, "f_prior_px": None, "prior_log_sigma": None,
+                             "prior_residual": None, "prior_leverage": None, "prior_t": None, "ln_f_data": None,
+                             "carrier": j}
+        gv = focal_vec(k)
+        if j is not None:
+            row = rows[j]
+            d["f_prior_px"], d["prior_log_sigma"] = float(math.exp(row["lfp"])), float(row["sig"])
+        if frozen[k] and lay.kind[k] != HARD:
+            out.append(d)
+            continue
+        if gv is None:
+            d["sigma_logf"] = d["sigma_logf_data"] = 0.0
+            d["ln_f_data"], d["carrier"] = lnf[k], None
+            out.append(d)
+            continue
+        if ok:
+            d["sigma_logf"] = float(math.sqrt(max(gv @ Sig @ gv, 0.0)))
+        sd = float("inf")
+        if Sig_f is not None:
+            var = float(gv @ Sig_f @ gv)
+            # a flat direction shows as a non-positive or non-finite variance
+            if np.isfinite(var) and var > 0.0:
+                sd = float(math.sqrt(var))
+        d["sigma_logf_data"] = sd
+        if np.isfinite(sd):
+            d["ln_f_data"] = float(lnf[k] + gv @ delta)
+        if j is not None and ok:
+            row = rows[j]
+            d["prior_residual"], d["prior_leverage"] = float(row["r"]), float(row["g"] @ Sig @ row["g"])
+            if np.isfinite(sd):
+                d["prior_t"] = float((d["ln_f_data"] - row["lfp"]) / math.hypot(sd, row["sig"]))
+        out.append(d)
     return out
 
 
@@ -699,6 +916,43 @@ def _repose(cam0: Any, X: np.ndarray, uv: np.ndarray, Wh: np.ndarray, iters: int
         if np.linalg.norm(dx) < 1e-10:
             break
     return cam
+
+
+def heldout_prediction(result: Any, reduced: Any, v: int, view: Any, noise_cov: np.ndarray) -> dict:
+    """View ``v`` predicted from the leave-one-view-out consensus (DESIGN 4.13; WBS FU-03 task 5).
+
+    ``reduced``: the solve without view ``v`` (:func:`make_solve_without`); ``view``: an
+    object with ``uv`` (N, 2) or the array (NaN rows unobserved); ``noise_cov`` (N, 2, 2)
+    px^2, the declared noise of the view.  As in :func:`lovo_gamma`, the view's camera is
+    re-posed (rotation and translation; focal kept from ``result``) against the reduced
+    consensus X(-v) on the observations the full solve kept (``result.inlier_mask``), and
+    the consensus covariance is the reduced solve's ``cov_shape`` gauge-projected at X(-v).
+
+    Returns ``{'uv' (N, 2) px: X(-v) projected by the re-posed camera, 'cov' (N, 2, 2)
+    px^2: J_i Sigma_X(-v),ii J_i^T, the consensus part of the predictive covariance,
+    'camera', 'used' (N,) bool}``; rows of points that are not finite in X(-v) are NaN.
+    Raises ValueError when fewer than 4 observations of the view are usable.
+    """
+    uv = _uv_of(view)
+    m = np.isfinite(uv).all(axis=1)
+    inl = getattr(result, "inlier_mask", None)
+    if inl is not None and inl[v] is not None:
+        m &= np.asarray(inl[v], bool)
+    C = np.asarray(noise_cov, float)
+    m &= np.isfinite(C).all(axis=(1, 2))
+    if m.sum() < 4:
+        raise ValueError("heldout_prediction needs >= 4 usable observations of the view")
+    Xr = np.asarray(reduced.X, float)
+    covr = getattr(reduced, "cov_shape", None)
+    if covr is None:
+        covr = reduced.cov
+    P = gauge_projector(Xr)
+    covp = P @ np.asarray(covr, float) @ P
+    idx = np.flatnonzero(m)
+    cam = _repose(result.cameras[v], Xr[idx], uv[idx], _whiteners(C[idx]))
+    u, J = _proj_jac(cam, Xr)
+    blocks = np.stack([covp[3 * i:3 * i + 3, 3 * i:3 * i + 3] for i in range(len(Xr))])
+    return {"uv": u, "cov": np.einsum("nij,njk,nlk->nil", J, blocks, J), "camera": cam, "used": m}
 
 
 def lovo_gamma(solve_without: Callable[[int], Any], result: Any, views: Sequence[Any],
@@ -1374,7 +1628,7 @@ def assess(result: Any, *, region_index: Mapping[str, Any] | None = None, ids: S
            prior_log_sigma: Any = None, views: Sequence[Any] | None = None,
            exif_log_sigma: Any = None, scale_mode: str = "prior", all_selfie: bool = False,
            status_caps: Mapping[str, str] | None = None, targets: Mapping[str, float] | None = None,
-           bias: str = "gain", deflate: bool = False) -> dict:
+           bias: str = "gain", deflate: bool = False, focal_conflict: Sequence[bool] | None = None) -> dict:
     """Every observability output of one solve, at prior weight 1 (DESIGN 4.12, 4.13, H1-H9).
 
     ``region_index`` (or ``ids`` for :func:`default_region_index`); ``visibility`` (V, N)
@@ -1387,7 +1641,13 @@ def assess(result: Any, *, region_index: Mapping[str, Any] | None = None, ids: S
     ``status_caps`` {region: status} lowers a region's status (occluder tags, e.g. beard
     -> jaw 'prior-driven'; never raises one; DESIGN D-31 caps 'ears' at 'prior-driven' by
     default, ``observability.ears_shape_prior_driven``); ``bias`` selects the
-    definition-bias term of sigma_rep (:func:`reported_covariance`; 'gain' by default).
+    definition-bias term of sigma_rep (:func:`reported_covariance`; 'gain' by default);
+    ``focal_conflict`` per view: the solve overruled this view's focal prior
+    (:func:`camera_status` ``conflict``: never 'measured').  With ``views`` that are the
+    ``ViewObs`` of the solve the focal labels use the photos-only sigma of
+    :func:`focal_prior_evidence` (H5, WBS FU-03); ``PhotoLandmarks`` views give only their
+    focal prior sigmas (they do not carry the distance priors of the solve), so the labels
+    then come from the CAM-7 prior-dominated test of :func:`camera_status`, as without views.
 
     **Prior weight 1 (H2).**  When ``result`` was solved with a widened prior (likeness
     mode, :func:`likeness_mode_prior`, or a rigidity slider), pass the standard solve of the
@@ -1422,7 +1682,7 @@ def assess(result: Any, *, region_index: Mapping[str, Any] | None = None, ids: S
     kw = dict(region_index=region_index, ids=ids, visibility=visibility, view_yaw_deg=view_yaw_deg,
               view_pitch_deg=view_pitch_deg, gamma=gamma, prior_log_sigma=prior_log_sigma, views=views,
               exif_log_sigma=exif_log_sigma, scale_mode=scale_mode, all_selfie=all_selfie,
-              status_caps=status_caps, targets=targets, bias=bias, deflate=deflate)
+              status_caps=status_caps, targets=targets, bias=bias, deflate=deflate, focal_conflict=focal_conflict)
     if standard_result is not None:
         if standard_prior_info is not None:
             raise ValueError("pass standard_result or standard_prior_info, not both")
@@ -1447,7 +1707,7 @@ def assess(result: Any, *, region_index: Mapping[str, Any] | None = None, ids: S
 
 def _assess(result: Any, standard_prior_info: np.ndarray | None, *, region_index, ids, visibility, view_yaw_deg,
             view_pitch_deg, gamma, prior_log_sigma, views, exif_log_sigma, scale_mode, all_selfie, status_caps,
-            targets, bias, deflate=False) -> dict:
+            targets, bias, deflate=False, focal_conflict=None) -> dict:
     X = np.asarray(result.X, float)
     N = len(X)
     if region_index is None:
@@ -1495,7 +1755,25 @@ def _assess(result: Any, standard_prior_info: np.ndarray | None, *, region_index
             raise ValueError(f"views has {len(views)} entries for {len(stats)} views")
         prior_log_sigma = focal_prior_log_sigmas(views)
     cams = list(getattr(result, "cameras", []) or [])
-    cs = camera_status(stats, prior_log_sigma, cams if len(cams) == len(stats) else None) if stats else []
+    # H5 (WBS FU-03): 'measured' needs the flat-prior sigma of ln f, i.e. the photos' own information
+    fev = None
+    # focal_prior_evidence reads the bundle's camera-prior layout (estimate_focal, focal tie, distance
+    # prior), which only the ViewObs of the solve carry.  PhotoLandmarks do not carry the distance priors
+    # reconstruct_landmarks received, so they are never converted: the label falls back to the CAM-7 test.
+    layout = views is not None and all(hasattr(v, a) for v in views
+                                       for a in ("estimate_focal", "focal_tie_sigma", "distance_prior"))
+    if layout and stats and len(cams) == len(stats) and getattr(result, "H_data", None) is not None:
+        try:
+            fev = focal_prior_evidence(result, views)
+        except (ValueError, TypeError, AttributeError, np.linalg.LinAlgError):
+            fev = None                                  # camera_status falls back to the CAM-7 test
+    cs = camera_status(stats, prior_log_sigma, cams if len(cams) == len(stats) else None,
+                       None if fev is None else [e["sigma_logf_data"] for e in fev],
+                       focal_conflict) if stats else []
+    if fev is not None:
+        for c, e in zip(cs, fev):
+            c.update(prior_t=e["prior_t"], prior_leverage=e["prior_leverage"], f_prior_px=e["f_prior_px"],
+                     ln_f_data=e["ln_f_data"])
     fstat = [c["focal_status"] for c in cs]
     zs = getattr(result, "zeta_sigma", None)
     scale = {"mode": scale_mode, "sigma_log": None if zs is None else float(zs),

@@ -916,7 +916,13 @@ def test_landmark_stage_qa_small_face_and_near_findings(proj):
     assert [v["photo"] for v in res["views"]] == ["p01", "p02", "p04", "p05"] and len(res["cameras"]) == 4
     assert "Q-SMALL" in res["flags"] and "Q-SMALL" in res["views"][0]["findings"]
     assert {"code": "Q-SMALL", "severity": "block", "action": "exclude_geometry"} in res["findings"]["p03"]
-    assert any(x["action"] == "down_weight" for x in res["findings"]["p02"] if x["code"] == "Q-SMALL")
+    # FU-03: the face size is the pose-independent face *width* (stages.face_width_px), so the golden
+    # faces read 94, 120, 68, 87 and 148 px (landmark boxes up to 166 px): only p05 is at the warn level;
+    # p01, p02 and p04 are below the 120 px reject size and stay in because the golden project forces them
+    assert any(x["action"] == "down_weight" for x in res["findings"]["p05"] if x["code"] == "Q-SMALL")
+    assert {"code": "Q-SMALL", "severity": "block", "action": "exclude_geometry"} in res["findings"]["p02"]
+    # a forced-in face below the reject size is down-weighted like one below the warn size, never less
+    assert lm["qa_sigma_mult"] == [2.0, 2.0, 2.0, 2.0]
     # the post-solve distance gate ran (the golden rig shoots p02 and p05 from < 1 m) and is carried too
     assert any(x["code"] == "Q-NEAR" for x in res["findings"]["p02"] + res["findings"]["p05"])
     assert "Flags: " in run.report_text and "Q-SMALL" in run.report_text
@@ -1071,3 +1077,153 @@ def test_landmark_set_input_flipped_is_unflipped(proj):
     got = S.run_pipeline(prj, "landmarks", landmark_sets=sets, consent=consent).outputs["landmarks"]
     assert np.allclose(got["uv"][1], ref[1], equal_nan=True)
     assert {"code": "L-INPUT-UNFLIPPED", "photo": "p02", "action": "none"} in got["findings"]
+
+
+# ============================================================================ WBS FU-03
+def test_hair_tag_drops_ear_temple_and_hairline_points(proj):
+    """DESIGN 4.1 'hair -> ear and temple weight 0, no silhouette above trichion' (FU-03 task 3): the drop
+    classes are resolved from the registry metadata (region 'ears', base 't', kind 'hair'), on the tagged
+    photo only; the hairline-defined trichion goes with them."""
+    prj, sets, consent = proj["prj"], proj["sets"], proj["consent"]
+    prj.photos[0].tags["occluders"] = ["hair"]
+    run = S.run_pipeline(prj, "landmarks", cache=proj["cache"], landmark_sets=sets, consent=consent)
+    lm = run.outputs["landmarks"]
+    ids = lm["ids"]
+    gone = {i for k, i in enumerate(ids) if not np.isfinite(lm["uv"][0, k, 0])}
+    seen0 = {i for k, i in enumerate(ids) if np.isfinite(np.asarray(sets["p01"].faces[0].uv)[k, 0])}
+    expect = {i for i in ids if ANATOMICAL[i].region == "ears" or ANATOMICAL[i].kind == "hair"}
+    assert expect == {"tr", "t_L", "t_R", "sa_L", "sa_R", "sba_L", "sba_R"}
+    assert expect <= gone and gone - expect == (set(ids) - seen0) - expect   # nothing else was dropped
+    assert np.isfinite(lm["uv"][1][[ids.index(i) for i in ("tr",)], 0]).all()   # untagged photo keeps trichion
+    occ = run.outputs["triage"]["photos"][0]["occluder"]
+    assert S._occluder_drop_classes(occ) == ["ear", "temple", "hairline"]
+    assert S._occluder_drop_classes({"drop_classes": ["pg"], "flags": {}}) == ["pg"]
+    assert S._class_ids(ids, len(ids), "hairline") == [ids.index("tr")]
+
+
+def test_focal_prior_findings_and_robust_exif_record(proj, golden):
+    """FU-03 tasks 1-2 through the pipeline (golden scene: correct EXIF, rear phone at 0.6-1.5 m): the
+    triage carries the ladder fallback, the solve records the EXIF check per photo (tested, kept), the
+    focal labels read 'prior_used' (the photos-only sigma of ln f is ~0.4), every view carries an *info*
+    C-FOCAL-PRIOR finding, and result.json reports the photos-only sigma and the prior source."""
+    run = golden["run"]
+    tri = run.outputs["triage"]["photos"]
+    assert tri[0]["f_source"] == "exif_f35" and tri[0]["f_fallback"]["f_source"] in ("phone", "nothing")
+    assert tri[0]["f_fallback"]["f_log_sigma"] >= 0.25
+    s, o = run.outputs["solve"], run.outputs["observe"]
+    fp = s["focal_priors"]
+    assert [x["photo"] for x in fp] == s["photo_ids"] and {x["f_source"] for x in fp} == {"exif_f35"}
+    assert all(x["test"]["contradicted"] is False and x["test"]["overruled"] is False for x in fp)
+    assert all(x["test"]["sigma_logf_data"] > 0.25 and abs(x["test"]["t"]) < 2.576 for x in fp)
+    assert "C-EXIF-OVERRULED" not in s["flags"] and not any(
+        f["code"] == "C-FOCAL-EXIF" for fl in s["post_findings"].values() for f in fl)
+    assert o["focal_statuses"] == ["prior_used"] * 5 and "C-FOCAL-PRIOR" in o["flags"]
+    assert [f["photo_id"] for f in o["findings"]] == s["photo_ids"]
+    assert {(f["code"], f["severity"], f["action"]) for f in o["findings"]} == {("C-FOCAL-PRIOR", "info", "none")}
+    res = run.result
+    assert "C-FOCAL-PRIOR" in res["flags"]
+    assert {"code": "C-FOCAL-PRIOR", "severity": "info", "action": "none"} in res["findings"]["p01"]
+    assert all(c["focal_status"] == "prior_used" and c["sigma_logf_data"] > 0.25 and c["f_prior_source"] == "exif_f35"
+               for c in res["cameras"])
+    # a guessed prior (no EXIF focal) is a warn-level C-FOCAL-PRIOR
+    cs = {"focal_status": "partial", "sigma_logf": 0.2, "sigma_logf_data": 0.4, "prior_dominated": False}
+    assert S._focal_prior_finding("p01", cs, {"f_source": "phone"})["severity"] == "warn"
+    # FU-03 review: an EXIF focal the photos contradict but that was kept (re-solve within 15 %) is a
+    # warn-level C-FOCAL-PRIOR stating the disagreement, not an info line that calls the EXIF trusted
+    kept = {"f_source": "exif_f35", "test": {"contradicted": True, "overruled": False, "t": -3.1, "rel": -0.12}}
+    f = S._focal_prior_finding("p01", cs, kept)
+    assert f["severity"] == "warn" and f["detail"]["exif_contradicted"] is True
+    assert f["detail"]["exif_t"] == -3.1 and f["detail"]["exif_resolve_rel"] == -0.12
+    ok = S._focal_prior_finding("p01", cs, {"f_source": "exif_f35", "test": {"contradicted": False, "overruled": False,
+                                                                           "t": 1.0, "rel": None}})
+    assert ok["severity"] == "info" and ok["detail"]["exif_contradicted"] is False and ok["detail"]["exif_t"] is None
+    # the retouch test's noise is the declared one: base / weights x sigma_mult^2 (weight <= 0: base kept)
+    Cd = S._declared_cov(np.tile(np.eye(2), (3, 1, 1)), np.array([1.0, 0.25, 0.0]), 2.0)
+    assert np.allclose(Cd[:, 0, 0], [4.0, 16.0, 4.0]) and np.isfinite(Cd).all()
+    assert S.PIPELINE["face_width_outlier_k"].value == 3.0 and S.PIPELINE["face_width_outlier_k"].source
+    assert S.exif_log_sigmas([{"f_source": "phone", "f_log_sigma": 0.25}, {"f_source": "exif_f35",
+                                                                         "f_log_sigma": 0.04}]) == [None, 0.04]
+
+
+def test_robust_exif_prior_decision_logic():
+    """``solve.focal``: the score test and the adoption rule of the robust EXIF prior (FU-03 task 2)."""
+    from face3d.solve import focal as F
+    assert F.FOCAL_DEFAULTS["exif_reject_alpha"].value == 0.01
+    assert F.exif_focal_contradicted(2.6, 0.10) and F.exif_focal_contradicted(-3.0, 0.25, 5)
+    assert not F.exif_focal_contradicted(2.5, 0.10)                 # below z(0.995) = 2.576
+    assert not F.exif_focal_contradicted(5.0, 0.26)                 # the photos do not know the focal
+    assert not F.exif_focal_contradicted(5.0, 0.10, 2)              # too few photos share the prior
+    assert not F.exif_focal_contradicted(None, 0.1) and not F.exif_focal_contradicted(5.0, float("inf"))
+    assert not F.exif_focal_contradicted(float("nan"), 0.1)
+    d = F.focal_exif_disagreement(1300.0, 1000.0, True)
+    assert d["rel"] == pytest.approx(0.3) and d["flagged"]
+    assert not F.focal_exif_disagreement(1100.0, 1000.0, True)["flagged"]      # within 15 % (DESIGN 4.13)
+    assert not F.focal_exif_disagreement(1300.0, 1000.0, False)["flagged"]     # no information to say so
+    from face3d.io.exif import ExifInfo
+    fb = F.focal_prior_without_exif_focal(None, 3000, 4000)
+    assert (fb.source_code, fb.log_sigma) == ("nothing", 0.6)
+    assert fb.f_px == pytest.approx(50.0 * 5000.0 / np.hypot(36.0, 24.0))
+    fb = F.focal_prior_without_exif_focal(None, 3000, 4000, is_phone=True)
+    assert (fb.source_code, fb.log_sigma) == ("phone", 0.25)
+    assert set(F.EXIF_FOCAL_SOURCES) == {"zoom", "aspect", "exif_f35", "focal_plane"}
+
+
+def test_post_ba_retouch_test_is_wired(proj, monkeypatch):
+    """FU-03 task 5: the engine's ``retouch_residual_test`` runs per view after the pass-1 bundle against
+    the leave-one-view-out consensus (with the consensus covariance and the inlier mask); a flagged view
+    gets Q-RETOUCH (down_weight), ``pipeline.retouch_sigma_mult`` in pass 2 and is excluded from texture.
+    On the golden (unretouched) scene nothing is flagged."""
+    prj, sets, consent = proj["prj"], proj["sets"], proj["consent"]
+    clean = S.run_pipeline(prj, "solve", cache=proj["cache"], landmark_sets=sets, consent=consent)
+    rt = clean.outputs["solve"]["retouch"]
+    assert len(rt) == 5 and all(r is not None and r["flagged"] is False for r in rt)
+    assert not any(f["code"] == "Q-RETOUCH" for fl in clean.outputs["solve"]["post_findings"].values() for f in fl)
+    calls = []
+    orig = S._cm.retouch_residual_test
+
+    def fake(view_uv, projected, ids, noise_cov, *, consensus_cov=None, inliers=None, **kw):
+        z, t, _ = orig(view_uv, projected, ids, noise_cov, consensus_cov=consensus_cov, inliers=inliers, **kw)
+        calls.append((np.shape(projected), consensus_cov is not None, inliers is not None, sorted(ids)))
+        covs.append(np.array(noise_cov, float))
+        return z, 9.0, len(calls) == 2                       # flag the second view (p02)
+
+    # FU-03 review: the test's noise is the view's declared noise (base / ViewObs.weights x Q-NEAR mult)
+    covs, declared = [], []
+    orig_dc = S._declared_cov
+
+    def spy(C, weights, sigma_mult=1.0):
+        out = orig_dc(C, weights, sigma_mult)
+        declared.append((np.array(weights, float), float(sigma_mult), out))
+        return out
+
+    monkeypatch.setattr(S, "_declared_cov", spy)
+    monkeypatch.setattr(S._cm, "retouch_residual_test", fake)
+    run = S.run_pipeline(prj, "solve", landmark_sets=sets, consent=consent)      # fresh cache: the fake must run
+    s = run.outputs["solve"]
+    assert len(calls) == 5 and all(c[1] and c[2] for c in calls)                 # LOVO covariance + inliers
+    assert {"en_L", "ex_L", "en_R", "ex_R", "go_L", "go_R"} <= set(calls[0][3])
+    w_lm = np.asarray(run.outputs["landmarks"]["weights"], float)
+    assert len(declared) == 5
+    near = [any(x["code"] == "Q-NEAR" and x["action"] == "down_weight" for x in s["post_findings"][pid])
+            for pid in s["photo_ids"]]
+    for v, (w, mult, out) in enumerate(declared):
+        assert np.array_equal(w, w_lm[v]) and np.array_equal(covs[v], out, equal_nan=True)
+        assert mult == (S.PIPELINE["downweight_sigma_mult"].value if near[v] else 1.0)
+    assert (w_lm != 1.0).any()                 # the golden scene carries QA weights: the check is not vacuous
+    assert [r["flagged"] for r in s["retouch"]] == [False, True, False, False, False]
+    f = [x for x in s["post_findings"]["p02"] if x["code"] == "Q-RETOUCH"]
+    assert len(f) == 1 and f[0]["action"] == "down_weight" and f[0]["detail"]["exclude_texture"] is True
+    base_mult = clean.outputs["solve"]["qa_sigma_mult"]
+    assert s["qa_sigma_mult"][1] == pytest.approx(base_mult[1] * S.PIPELINE["retouch_sigma_mult"].value)
+    assert s["qa_sigma_mult"][0] == base_mult[0]
+    assert not np.allclose(s["X"], clean.outputs["solve"]["X"])                   # pass 2 used the down-weight
+    # the finding reaches the report (per-photo findings) and the texture gate excludes the view (DESIGN 4.1)
+    per, _, _ = S._gather_findings({"solve": s, "landmarks": run.outputs["landmarks"],
+                                    "triage": run.outputs["triage"]})
+    assert {"code": "Q-RETOUCH", "severity": "warn", "action": "down_weight"} in per["p02"]
+    assert not any(x["code"] == "Q-RETOUCH" for x in per["p01"])
+    from face3d.texture.project import excluded_views
+    gate = S.texture_gate_findings(prj, consent, s, run.outputs["triage"], limits=RELAX)
+    assert excluded_views(gate) == [1]
+    gate0 = S.texture_gate_findings(prj, consent, clean.outputs["solve"], clean.outputs["triage"], limits=RELAX)
+    assert excluded_views(gate0) == []

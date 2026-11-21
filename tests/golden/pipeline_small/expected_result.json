@@ -1,48 +1,49 @@
 {
  "provenance": "synthetic",
  "summary": {
-  "chi2_red": 1.4316109971570545,
+  "chi2_red": 1.6592435383060538,
   "f_px": [
-   627.3297837367254,
-   627.3085422341047,
-   626.6904501014584,
-   626.6043878732326,
-   627.595578078363
+   625.1830167647651,
+   625.3675567938341,
+   624.7020489350283,
+   624.6277568539973,
+   625.6839655555318
   ],
   "flags": [
+   "C-FOCAL-PRIOR",
    "Q-NEAR",
    "Q-SMALL"
   ],
   "focal_statuses": [
-   "measured",
-   "measured",
-   "measured",
-   "measured",
-   "measured"
+   "prior_used",
+   "prior_used",
+   "prior_used",
+   "prior_used",
+   "prior_used"
   ],
-  "gamma": 1.0246549591451726,
+  "gamma": 1.0836857856160362,
   "landmark_rms_mm": {
-   "A": 2.695084177548545,
-   "B": 0.7833491069627138,
-   "C": 0.6146288263940309
+   "A": 3.3167677482418174,
+   "B": 1.089676543372283,
+   "C": 0.842751231824299
   },
   "region_sigma_rep_mm": {
-   "cheeks": 2.7478528465424352,
-   "chin": 2.621310170454079,
-   "chin_projection": 3.1783324999529308,
-   "cranium": 7.105538029581542,
-   "ears": 3.6719098245905806,
-   "eyes": 1.4607537420254098,
-   "forehead": 3.890036396142007,
-   "jaw": 3.5037464122052726,
-   "lips": 1.6028123772260365,
-   "nose": 1.83351875589935,
-   "nose_projection": 1.9890064700259527
+   "cheeks": 3.5658658257746083,
+   "chin": 3.1178673287942735,
+   "chin_projection": 3.7442806666115565,
+   "cranium": 8.044485147863632,
+   "ears": 4.149058867177144,
+   "eyes": 1.791756701131701,
+   "forehead": 4.990771669371998,
+   "jaw": 4.57618158327225,
+   "lips": 1.929603060988218,
+   "nose": 2.253810702282038,
+   "nose_projection": 2.5052734440219773
   },
   "region_status": {
    "cheeks": "constrained",
    "chin": "constrained",
-   "chin_projection": "constrained",
+   "chin_projection": "prior-driven",
    "cranium": "constrained",
    "ears": "prior-driven",
    "eyes": "constrained",
@@ -50,17 +51,17 @@
    "jaw": "constrained",
    "lips": "constrained",
    "nose": "constrained",
-   "nose_projection": "constrained"
+   "nose_projection": "prior-driven"
   },
   "rms_in_px": [
-   4.520706187382685,
-   5.041793455331862,
-   2.3546844329740866,
-   11.099781959075054,
-   8.753646746443684
+   4.68477851405282,
+   5.096292080119659,
+   2.430115161007071,
+   11.087296567952428,
+   8.754529266337931
   ],
   "scale_mode": "prior",
-  "scale_sigma_pct": 5.421637011215455,
+  "scale_sigma_pct": 5.619862637600207,
   "stage": "C",
   "tier": "B",
   "tier_name": "proportions only"

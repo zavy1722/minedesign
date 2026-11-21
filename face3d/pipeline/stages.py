@@ -23,9 +23,12 @@ Conventions
   from them are never written to disk by the cache, and the project folder only receives landmark
   files when ``project.landmark_cache.keep`` is true (opt-in, logged).
 * QA (DESIGN 4.1): ``triage`` runs the photo checks that need no landmarks; ``landmarks`` runs the
-  landmark-aware ones (Q-SMALL face size, off-axis Q-WIDE, Q-FACES; Q-BLINK is not evaluated: no scheme lists
-  eyelid contours) and applies the actions (exclude_geometry unless ``include: true``, down_weight as a sigma
-  multiplier ``pipeline.downweight_sigma_mult``, drop_class); ``solve`` runs Q-NEAR on the solved distance.
+  landmark-aware ones (Q-SMALL on the pose-independent face width of :func:`face_width_px`, off-axis Q-WIDE,
+  Q-FACES; Q-BLINK is not evaluated: no scheme lists eyelid contours) and applies the actions
+  (exclude_geometry unless ``include: true``, down_weight as a sigma multiplier
+  ``pipeline.downweight_sigma_mult``, drop_class); ``solve`` runs Q-NEAR on the solved distance, the
+  robust EXIF focal prior (``C-FOCAL-EXIF``) and the post-BA Q-RETOUCH residual test (WBS FU-03); ``observe``
+  raises ``C-FOCAL-PRIOR`` for every view whose focal length is not measured by the photos (H5).
   Every finding reaches ``result.json`` (``findings``, ``views[].findings``, ``excluded_views``, ``flags``).
 * Mirror: the latest mirror decision of a photo (``mirror_flip`` / ``mirror_keep``) wins; a flip is applied only
   for photos whose latest decision is ``mirror_flip``; the mirror
@@ -128,6 +131,18 @@ PIPELINE = register_defaults("pipeline", {
                                "provisional until scan validation, H8)", "", (0.0, 1.0)),
     "texture_sigma_geom_mm": Default(1.0, _NEW, "texture view_weights geometry sigma (DESIGN 4.18)",
                                      "mm", (0.0, 50.0)),
+    "retouch_sigma_mult": Default(2.5, _NEW, "WBS FU-03 task 5: observation sigma multiplier of a view flagged "
+                                  "Q-RETOUCH by the post-BA residual test (DESIGN 4.1 'sigma x2-3, no texture': the "
+                                  "middle of the range; uncalibrated)", "", (1.0, 20.0)),
+    "face_width_outlier_k": Default(3.0, _NEW, "WBS FU-03 task 4 (implementation choice, uncalibrated): the "
+                                    "pose-independent face width of Q-SMALL refits its scaled-orthographic "
+                                    "camera once without the landmarks whose residual exceeds k x the median "
+                                    "residual (k = 3: about 4.4 robust sigma for Rayleigh residuals)", "",
+                                    (1.0, 100.0)),
+    "face_width_min_points": Default(6, _NEW, "WBS FU-03 task 4: fewest observed anatomical landmarks for the "
+                                     "pose-independent face width of Q-SMALL (scaled-orthographic fit of the prior "
+                                     "mean: 8 unknowns need >= 4 points; 6 leaves redundancy); below it the stage "
+                                     "falls back to the landmark-box extent", "", (4, 1000)),
 })
 _P = {k: PIPELINE[k].value for k in PIPELINE}
 
@@ -325,8 +340,10 @@ def stage_triage(inputs: dict, config: dict, seed: int) -> dict:
 
     Per photo: ``findings`` (:class:`face3d.qa.checks.Finding` dicts), ``usable`` (False when a
     finding excludes the geometry and the user did not force ``include: true``), ``f_px`` and
-    ``f_log_sigma`` with ``f_source`` (the ladder rule), ``distance_mm`` / ``distance_sigma_log``,
-    and the ``occluder`` actions.  Set-level findings are in ``set_findings``.
+    ``f_log_sigma`` with ``f_source`` (the ladder rule), ``f_fallback`` (the ladder prior without the EXIF
+    focal data, ``{f_px, f_log_sigma, f_source}``, for a prior that comes from EXIF; None otherwise: the
+    alternative hypothesis of the robust EXIF prior in ``solve``, WBS FU-03), ``distance_mm`` /
+    ``distance_sigma_log``, and the ``occluder`` actions.  Set-level findings are in ``set_findings``.
     """
     root = Path(inputs["_ctx"]["root"])
     photos = inputs["photos"]
@@ -351,6 +368,9 @@ def stage_triage(inputs: dict, config: dict, seed: int) -> dict:
             ex = exif_from_summary({})
         fp = _focal.focal_prior_from_evidence(ex, ctx.width, ctx.height,
                                               group_crop_ratio_mode=modes.get(p["id"]))
+        # hypothesis H1 of the robust EXIF prior (WBS FU-03): the ladder without the EXIF focal data
+        fb = _focal.focal_prior_without_exif_focal(ex, ctx.width, ctx.height) \
+            if fp.source_code in _focal.EXIF_FOCAL_SOURCES else None
         dp = _focal.distance_prior_head_origin(ex, is_front_camera=ex.is_front_camera)
         tags = p["tags"]
         occ = _qa.occluder_actions(tags.get("occluders", []))
@@ -363,6 +383,8 @@ def stage_triage(inputs: dict, config: dict, seed: int) -> dict:
             "include": p["include"],
             "findings": [_plain(asdict(f)) for f in findings],
             "f_px": float(fp.f_px), "f_log_sigma": float(fp.log_sigma), "f_source": str(fp.source_code),
+            "f_fallback": None if fb is None else {"f_px": float(fb.f_px), "f_log_sigma": float(fb.log_sigma),
+                                                   "f_source": str(fb.source_code)},
             "distance_mm": float(dp.median_mm), "distance_sigma_log": float(dp.sigma_log),
             "front_camera": bool(ex.is_front_camera), "focal_group": p["focal_group"],
             "occluder": _plain(occ), "tags": _plain(tags),
@@ -429,7 +451,10 @@ def _approx_ppm(uv: np.ndarray, X_ref: np.ndarray) -> float:
 
 
 def _class_ids(ids: Sequence[str], n_A: int, cls: str) -> list[int]:
-    """Engine indices of a generic occluder class (``qa.checks.occluder_actions`` names)."""
+    """Engine indices of a generic occluder class (``qa.checks.occluder_actions`` names), resolved from the
+    registry metadata of the anatomical landmarks (region, base, kind), never from a list of ids.
+    ``'hairline'`` (WBS FU-03 task 3) is every landmark whose *kind* is ``'hair'`` (defined by the hairline:
+    trichion): :func:`_occluder_drop_classes` adds it for the 'hair' tag."""
     out = []
     for k, lid in enumerate(ids[:n_A]):
         lm = ANATOMICAL[lid]
@@ -441,11 +466,72 @@ def _class_ids(ids: Sequence[str], n_A: int, cls: str) -> list[int]:
             out.append(k)
         elif cls == "temple" and lm.base == "t":
             out.append(k)
+        elif cls == "hairline" and lm.kind == "hair":
+            out.append(k)
         elif cls == "lid_points_under_frame" and lm.base in ("ps", "pi"):
             out.append(k)
         elif cls == lm.base:
             out.append(k)
     return out
+
+
+def _occluder_drop_classes(occ: Mapping[str, Any]) -> list[str]:
+    """Drop classes of a photo's occluder actions as the landmarks stage resolves them (DESIGN 4.1).
+
+    ``qa.checks.occluder_actions`` lists the classes of each tag; the 'hair' tag ('ear and temple weight 0,
+    no silhouette above trichion') also hides the hairline itself, so the hairline-defined landmarks
+    (class ``'hairline'``: registry kind 'hair', i.e. trichion) are dropped with it (WBS FU-03 task 3; the
+    DESIGN 7.4 row expects tr, t, sa, sba gone).  The class is keyed on the tag's own flag
+    ``no_silhouette_above``, so no tag name is repeated here."""
+    classes = list(occ.get("drop_classes", []))
+    if (occ.get("flags") or {}).get("no_silhouette_above") and "hairline" not in classes:
+        classes.append("hairline")
+    return classes
+
+
+def face_width_px(uv: np.ndarray, X_ref: np.ndarray, min_points: int | None = None) -> float | None:
+    """Pose-independent face width in px (Q-SMALL: DESIGN 4.1 / com R1.4 'face < 250 px wide'; WBS FU-03 task 4).
+
+    ``uv`` (n, 2) px with NaN rows where unobserved; ``X_ref`` (n, 3) mm, the prior-mean positions of the same
+    landmarks (head frame, +x to the subject's left).  A scaled-orthographic camera is fitted to the observed
+    points (least squares ``uv - mean ~ (X - mean) M^T``, M 2 x 3; one refit without the points whose residual
+    exceeds ``pipeline.face_width_outlier_k`` (3) x the median, so a gross detector outlier does not set the scale); its scale s (px / mm) is the
+    mean singular value of M, which does not depend on the view's yaw, pitch or roll.  The width is
+    ``s x W_ref`` with W_ref the left-right extent of the prior mean over **all** rows of ``X_ref`` (the
+    landmark-box width of a frontal view at that scale; 155.5 mm for the packaged 44-landmark prior), so a
+    frontal face reads the width of its landmark box and a profile reads the width the same face would have
+    seen from the front, not its (larger) nose-to-occiput extent or its (taller) vertex-to-menton extent.
+
+    Returns None with fewer than ``pipeline.face_width_min_points`` observed points or a degenerate
+    (coplanar / collinear) configuration; the caller then falls back to the landmark-box extent."""
+    uv = np.asarray(uv, float)
+    X = np.asarray(X_ref, float)
+    n_min = int(_P["face_width_min_points"]) if min_points is None else int(min_points)
+    k_out = float(_P["face_width_outlier_k"])
+    ok = np.isfinite(uv).all(axis=1) & np.isfinite(X).all(axis=1)
+    if int(ok.sum()) < n_min:
+        return None
+    w_ref = float(np.ptp(X[np.isfinite(X).all(axis=1), 0]))
+    M = None
+    for _ in range(2):
+        A = X[ok] - X[ok].mean(axis=0)
+        B = uv[ok] - uv[ok].mean(axis=0)
+        if np.linalg.matrix_rank(A, tol=1e-6 * max(float(np.abs(A).max()), 1e-12)) < 3:
+            return None
+        M = np.linalg.lstsq(A, B, rcond=None)[0].T
+        r = np.linalg.norm(B - A @ M.T, axis=1)
+        med = float(np.median(r))
+        keep = r <= k_out * med if med > 0 else np.ones(len(r), bool)
+        if keep.all() or int(keep.sum()) < n_min:
+            break
+        idx = np.flatnonzero(ok)
+        ok = np.zeros(len(ok), bool)
+        ok[idx[keep]] = True
+    sv = np.linalg.svd(M, compute_uv=False)
+    s_px_mm = float(sv.mean())
+    if not (np.isfinite(s_px_mm) and s_px_mm > 0 and w_ref > 0):
+        return None
+    return s_px_mm * w_ref
 
 
 # ============================================================================ stage: landmarks
@@ -595,7 +681,7 @@ def stage_landmarks(inputs: dict, config: dict, seed: int) -> dict:
         for cls_name, f in occ["sigma_mult"].items():
             for k in _class_ids(ids, n_A, cls_name):
                 mult[k] *= float(f)
-        for cls_name in occ["drop_classes"]:
+        for cls_name in _occluder_drop_classes(occ):
             for k in _class_ids(ids, n_A, cls_name):
                 uv[v, k] = np.nan
         # --- expression tag inputs
@@ -618,7 +704,7 @@ def stage_landmarks(inputs: dict, config: dict, seed: int) -> dict:
             pinm[v, k] = True
             cov_in[v, k] = np.nan
         # --- landmark-aware QA (DESIGN 4.1): face size, off-axis, blink, faces; actions applied here
-        lf = _landmark_qa(r, ls["faces"], uv[v], ids, index, iris_px[v])
+        lf = _landmark_qa(r, ls["faces"], uv[v], ids, index, iris_px[v], X_ref[:n_A])
         pf = [f for f in lf if f["action"] != "none" or f["severity"] != "info"] + \
             [f for f in set_find if f.get("photo_id") == pid]
         qa_find[pid] = lf
@@ -634,6 +720,10 @@ def stage_landmarks(inputs: dict, config: dict, seed: int) -> dict:
                             uv[v, k] = np.nan
             if f["action"] == "exclude_geometry" and r.get("include") is not True:
                 excl.add(v)
+            elif f["action"] == "exclude_geometry" and f["code"] == "Q-SMALL":
+                # a face below the reject size that the user forced in is at least down-weighted like a
+                # face below the warn size (WBS FU-03: it must never weigh more than a larger face)
+                vm = max(vm, float(config.get("downweight_sigma_mult", _P["downweight_sigma_mult"])))
         mult[~pinm[v]] *= vm
         qa_mult[v] = vm
         if any(f["code"] == "Q-WIDE" for f in lf):
@@ -697,10 +787,12 @@ _LM_QA_CODES = ("Q-SMALL", "Q-WIDE", "Q-FACES")
 
 
 def _landmark_qa(row: dict, faces: Sequence[dict], uv_v: np.ndarray, ids: Sequence[str],
-                 index: Mapping[str, int], iris_rad: np.ndarray) -> list:
-    """Landmark-aware photo QA (DESIGN 4.1): :func:`face3d.qa.checks.run_photo_checks` with the face size
-    (max extent of the observed points), its centre, the iris diameter (2 x mean ring radius), the number
-    of detected faces.  Q-BLINK needs the six eyelid-contour points of each eye (``eye_pts6``); no scheme in
+                 index: Mapping[str, int], iris_rad: np.ndarray, X_ref_A: np.ndarray | None = None) -> list:
+    """Landmark-aware photo QA (DESIGN 4.1): :func:`face3d.qa.checks.run_photo_checks` with the face size,
+    its centre, the iris diameter (2 x mean ring radius), the number of detected faces.  The face size is
+    the pose-independent face **width** of :func:`face_width_px` (DESIGN / com R1.4 'face < 250 px wide';
+    WBS FU-03 task 4) from the anatomical points and their prior mean ``X_ref_A``; with too few points for
+    that fit (or no ``X_ref_A``) it is the max extent of the observed points, as before FU-03.  Q-BLINK needs the six eyelid-contour points of each eye (``eye_pts6``); no scheme in
     the registry lists them (and none may be invented), so Q-BLINK is not evaluated until one does.  Only
     the findings that need landmarks are returned (Q-SMALL, Q-WIDE off-axis, Q-FACES) and only those the
     triage did not report."""
@@ -710,6 +802,10 @@ def _landmark_qa(row: dict, faces: Sequence[dict], uv_v: np.ndarray, ids: Sequen
         pts = uv_v[fin]
         lo, hi = pts.min(axis=0), pts.max(axis=0)
         face_px, centre = float(np.max(hi - lo)), 0.5 * (lo + hi)
+        if X_ref_A is not None:
+            wpx = face_width_px(uv_v[:len(X_ref_A)], X_ref_A)
+            if wpx is not None:
+                face_px = wpx
     rad = np.asarray(iris_rad, float)
     iris = float(2.0 * np.mean(rad[np.isfinite(rad)])) if np.isfinite(rad).any() else None
     ex = exif_from_summary(row["exif"]) if row.get("exif") else None
@@ -794,7 +890,12 @@ def stage_solve(inputs: dict, config: dict, seed: int) -> dict:
     zeta with the population source of ``settings.scale_population_source``
     (``solve.scale.population_scale_setup``), caliper chords from ``scale_refs``,
     ``RobustSchedule``, view weighting, the soft focal tie 0.02 (``pipeline.focal_tie_sigma``),
-    head-origin distance priors and the gauge anchors.  Nuisances, from the pass-1 estimate:
+    head-origin distance priors and the gauge anchors.  The EXIF focal priors are then checked against the
+    photos (:func:`_robust_exif_prior`, WBS FU-03: a contradicted EXIF focal is replaced by the ladder prior
+    without it, flag ``C-EXIF-OVERRULED`` and finding ``C-FOCAL-EXIF``; output ``focal_priors``).  Nuisances,
+    from the pass-1 estimate: the post-BA Q-RETOUCH residual test per view against the leave-one-view-out
+    consensus (``retouch``; a flagged view gets ``pipeline.retouch_sigma_mult`` in pass 2 and is excluded
+    from texture);
     the mirror test per view against the leave-one-view-out consensus (decision *cards* only,
     D-10); expression inflation per view tag with up to ``pipeline.max_retag_rounds`` re-tag
     rounds and the jaw hinge; the camera-model selection of Q-WIDE views (recorded; a non-pinhole
@@ -867,19 +968,33 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
         scale_kinds.append("iris")
     scale_mode = "measured" if "caliper" in scale_kinds else ("iris" if "iris" in scale_kinds else "prior")
 
-    photos = []
-    for v, r in enumerate(tri):
-        photos.append(PhotoLandmarks(lm["uv"][v], int(r["wh"][0]), int(r["wh"][1]),
-                                     focal_prior=_focal_obj(r["f_px"], r["f_log_sigma"]),
-                                     focal_group=r["focal_group"], weights=lm["weights"][v], kinds=kinds))
     dps = [(r["distance_mm"], r["distance_sigma_log"]) for r in tri]
     bkw = dict(prior=prior, scale=scale_cfg, gauge_anchor_idx=anchors, sigma_def_mm=sdef,
                robust=RobustSchedule(), view_weighting=True)
-    res1 = reconstruct_landmarks(photos, None, max_iter=int(cfg["max_iter"]), distance_priors=dps,
-                                 terms=scale_terms or None, focal_tie_sigma=float(cfg["focal_tie_sigma"]), **bkw)
+
+    def pass1(rows):
+        photos = []
+        for v, r in enumerate(rows):
+            photos.append(PhotoLandmarks(lm["uv"][v], int(r["wh"][0]), int(r["wh"][1]),
+                                         focal_prior=_focal_obj(r["f_px"], r["f_log_sigma"]),
+                                         focal_group=r["focal_group"], weights=lm["weights"][v], kinds=kinds))
+        return reconstruct_landmarks(photos, None, max_iter=int(cfg["max_iter"]), distance_priors=dps,
+                                     terms=scale_terms or None, focal_tie_sigma=float(cfg["focal_tie_sigma"]),
+                                     **bkw)
+
+    res1 = pass1(tri)
+    # ---- robust EXIF focal prior (WBS FU-03 task 2; DESIGN 4.13 'focal versus EXIF > 15 %'): H0 = the
+    # ladder prior from EXIF, H1 = the ladder without the EXIF focal.  Score test on the H0 solve, then the
+    # H1 solve is adopted (and C-FOCAL-EXIF raised) only when its focal differs from EXIF by > 15 %.
+    tri, res1 = _robust_exif_prior(tri, res1, lm, cfg, pass1)
     # ---- Q-NEAR on the solved head distance (DESIGN 4.1): exclude re-solves without the view, the
     # down-weight levels inflate the view's sigma in pass 2
     post_find: dict = {r["id"]: [] for r in tri}
+    for r in tri:
+        if (r.get("f_test") or {}).get("overruled"):
+            post_find[r["id"]].append(_focal_exif_finding(r["id"], r["f_test"]))
+            if "C-EXIF-OVERRULED" not in flags:
+                flags.append("C-EXIF-OVERRULED")
     near_mult = [1.0] * P
     near_excl: list = []
     for v, r in enumerate(tri):
@@ -909,16 +1024,42 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
     solve_wo = None
     if P >= int(_P["lovo_min_views"]):
         solve_wo = _ob.make_solve_without(views1, res1, bundle_kwargs={**bkw, "terms": None})
+    # post-BA Q-RETOUCH (DESIGN 4.1 'eye/jaw residual pattern t > 3 (after BA)', 7.4; WBS FU-03 task 5): the
+    # engine's residual test of each view against the leave-one-view-out consensus of the pass-1 bundle
+    # (the same reduced solves the mirror test uses, so no extra solve), with the consensus covariance in
+    # the predictive noise.  A flagged view is down-weighted in pass 2 and excluded from texture.
+    rt_ids = _retouch_ids(index)
+    retouch: list = [None] * P
+    retouch_mult = [1.0] * P
     for v, r in enumerate(tri):
         cam = res1.cameras[v]
         C = view_noise_cov(views1[v], res1.X, cam.R, cam.t, cam.f)
+        red = None
         try:
-            cons = solve_wo(v).X if solve_wo is not None else res1.X
+            red = solve_wo(v) if solve_wo is not None else None
+            cons = red.X if red is not None else res1.X
             d = _mirror.mirror_test(lm["uv"][v], float(r["wh"][0]), lm["perm"], cons, C, cam,
                                     is_front_camera=r["front_camera"], all_views_front=all_front,
                                     other_views_agree=False)
         except ValueError:
             d = None
+        if red is not None and rt_ids is not None:
+            try:
+                # the declared noise of this view, as pass 2 solves with it: base / weights (occluder
+                # multipliers such as glasses 'eye sigma x2', Q-SMALL / Q-BLUR down-weights, pin sigmas)
+                # times the Q-NEAR multiplier; the base noise alone would inflate the eye / jaw z-scores of
+                # exactly the views already declared noisier (FU-03 review)
+                C_rt = _declared_cov(C, lm["weights"][v], near_mult[v])
+                hp = _ob.heldout_prediction(res1, red, v, lm["uv"][v], C_rt)
+                zs, t_eye, fl = _cm.retouch_residual_test(lm["uv"][v], hp["uv"], rt_ids, C_rt, consensus_cov=hp["cov"],
+                                                          inliers=np.asarray(res1.inlier_mask[v], bool))
+                retouch[v] = {"z": {k: _num(x) for k, x in zs.items()}, "t_eye": _num(t_eye), "flagged": bool(fl)}
+                f = _cm.retouch_finding(zs, t_eye, fl, photo_id=r["id"])
+                if f is not None:
+                    post_find[r["id"]].append(_plain(f))
+                    retouch_mult[v] = float(config.get("retouch_sigma_mult", _P["retouch_sigma_mult"]))
+            except (ValueError, KeyError, np.linalg.LinAlgError):
+                pass
         mirror_dec.append(d)
         m = {"decision": "undetermined", "delta": None, "g": None, "margin": None} if d is None else \
             {"decision": d.decision, "delta": float(d.delta), "g": float(d.g), "margin": float(d.margin)}
@@ -951,7 +1092,7 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
             except (ValueError, np.linalg.LinAlgError):
                 pass
         cam_models.append(model)
-        ms[v] = model["sigma_mult"] * near_mult[v]
+        ms[v] = model["sigma_mult"] * near_mult[v] * retouch_mult[v]
 
     sym = _sym.SymmetryTerm.from_ids(ids, region_status=A1["region_status"])
     try:
@@ -1035,13 +1176,120 @@ def _solve_core(inputs: dict, config: dict, seed: int, lm: dict, tri: list, iris
         "reproj_median_px": float(np.median(rv)) if rv.size else None,
         "reproj_max_px": float(np.max(rv)) if rv.size else None,
         "post_findings": post_find, "near_excluded": post_excl,
-        # QA sigma multiplier per view (Q-SMALL / Q-BLUR from the landmarks stage x Q-NEAR): the observe
+        # QA sigma multiplier per view (Q-SMALL / Q-BLUR from the landmarks stage x Q-NEAR x Q-RETOUCH): the observe
         # stage calibrates chi2_red and gamma against the noise without it (WBS FU-02)
-        "qa_sigma_mult": [float(a) * float(b) for a, b in zip(lm.get("qa_sigma_mult") or [1.0] * P, near_mult)],
+        "qa_sigma_mult": [float(a) * float(b) * float(c) for a, b, c in
+                          zip(lm.get("qa_sigma_mult") or [1.0] * P, near_mult, retouch_mult)],
+        # the focal prior each view was solved with (after the robust EXIF check) and the check itself
+        "focal_priors": [{"photo": r["id"], "f_px": float(r["f_px"]), "f_log_sigma": float(r["f_log_sigma"]),
+                          "f_source": str(r["f_source"]), "test": _plain(r.get("f_test"))} for r in tri],
+        "retouch": retouch,
         "_result": res, "_views": views, "_prior": prior, "_bkw": bkw, "_terms": terms2,
         "_kit": kit, "_jaw_w": jaw_w,
     }
     return out
+
+
+def _robust_exif_prior(tri: list, res1: Any, lm: dict, cfg: Mapping[str, Any], pass1: Callable) -> tuple[list, Any]:
+    """Two-hypothesis check of the EXIF focal priors on the pass-1 solve (WBS FU-03 task 2).
+
+    For every focal-prior carrier (a focal group, or an ungrouped photo) whose prior comes from EXIF
+    (``f_source`` in :data:`face3d.solve.focal.EXIF_FOCAL_SOURCES`, with a ``f_fallback`` from the triage)
+    and has not been tested before: :func:`face3d.solve.observability.focal_prior_evidence` gives the
+    distance t between the prior focal and the photos-only focal and the photos' own sigma of ln f;
+    :func:`face3d.solve.focal.exif_focal_contradicted` decides (nominal false-alarm rate
+    ``focal.exif_reject_alpha`` per carrier, data-observable focal only, at least
+    ``focal.exif_reject_min_views`` views).  When at least one carrier is
+    contradicted, pass 1 is re-solved once with the fallback prior on those photos (``pass1(rows)``), and a
+    carrier keeps the fallback only if its re-solved focal (median over its photos) differs from the EXIF
+    value by more than ``focal.exif_disagree_rel`` (:func:`face3d.solve.focal.focal_exif_disagreement`).
+    If no carrier does, the original solve is returned untouched.
+
+    Returns ``(rows, result)``: copies of the triage rows carrying ``f_test`` = ``{'t', 'sigma_logf_data',
+    'contradicted', 'overruled', 'rel', 'exif_f_px', 'exif_log_sigma', 'exif_source'}`` for every tested
+    photo (an overruled photo's ``f_px`` / ``f_log_sigma`` / ``f_source`` are the fallback's), and the
+    pass-1 result to continue from.  Deterministic; at most one extra pass-1 solve per call."""
+    rows = [dict(r) for r in tri]
+    todo = [v for v, r in enumerate(rows) if r.get("f_fallback") and r["f_source"] in _focal.EXIF_FOCAL_SOURCES
+            and "f_test" not in r]
+    if not todo:
+        return rows, res1
+    views1 = _make_views(res1, lm, rows, None, None, None, cfg)
+    try:
+        ev = _ob.focal_prior_evidence(res1, views1)
+    except (ValueError, np.linalg.LinAlgError):
+        return rows, res1
+    groups: dict = {}
+    for v in todo:
+        if ev[v]["carrier"] is not None:
+            groups.setdefault(ev[v]["carrier"], []).append(v)
+    hit = []
+    for j, vs in sorted(groups.items()):
+        members = [v for v in range(len(rows)) if ev[v]["carrier"] == j]
+        if set(members) != set(vs):
+            continue                      # a carrier mixing EXIF and non-EXIF priors is left alone
+        e = next((ev[v] for v in vs if ev[v]["prior_t"] is not None and ev[v]["sigma_logf_data"] is not None), None)
+        n_live = sum(1 for v in vs if ev[v]["sigma_logf_data"] is not None)      # frozen views carry none
+        bad = e is not None and _focal.exif_focal_contradicted(e["prior_t"], e["sigma_logf_data"], n_live)
+        for v in vs:
+            rows[v]["f_test"] = {"t": None if e is None else float(e["prior_t"]),
+                                 "sigma_logf_data": None if e is None else float(e["sigma_logf_data"]),
+                                 "contradicted": bool(bad), "overruled": False, "rel": None,
+                                 "exif_f_px": float(rows[v]["f_px"]), "exif_log_sigma": float(rows[v]["f_log_sigma"]),
+                                 "exif_source": str(rows[v]["f_source"])}
+        if bad:
+            hit.append(vs)
+    if not hit:
+        return rows, res1
+    alt = [dict(r) for r in rows]
+    for vs in hit:
+        for v in vs:
+            alt[v].update(alt[v]["f_fallback"])
+    poll_cancel()
+    res_alt = pass1(alt)
+    adopted = False
+    for vs in hit:
+        f_alt = float(np.median([res_alt.cameras[v].f for v in vs]))
+        f_exif = float(np.median([rows[v]["f_test"]["exif_f_px"] for v in vs]))
+        d = _focal.focal_exif_disagreement(f_alt, f_exif, True)
+        for v in vs:
+            rows[v]["f_test"]["rel"] = float(d["rel"])
+            rows[v]["f_test"]["overruled"] = bool(d["flagged"])
+        adopted = adopted or bool(d["flagged"])
+    if not adopted:
+        return rows, res1
+    final = [dict(r) for r in rows]
+    partial = False
+    for vs in hit:
+        for v in vs:
+            if rows[v]["f_test"]["overruled"]:
+                final[v].update(final[v]["f_fallback"])
+            else:
+                partial = True
+    # every contradicted carrier was confirmed: the H1 solve is the solve of ``final``; otherwise re-solve
+    # with exactly the adopted priors (rare: several focal groups)
+    return final, (pass1(final) if partial else res_alt)
+
+
+def _focal_exif_finding(pid: str, test: Mapping[str, Any]) -> dict:
+    """``C-FOCAL-EXIF`` (DESIGN 4.13 'focal versus EXIF > 15 %'; WBS FU-03): the photos contradict the EXIF
+    focal of this photo's focal group and the solve used the ladder prior without it.  A card that asks
+    (H6): nothing is hidden, the EXIF value stays in ``detail``."""
+    d = _focal.FOCAL_DEFAULTS["exif_disagree_rel"]
+    return {"code": "C-FOCAL-EXIF", "severity": "warn", "value": test["rel"], "threshold": float(d.value),
+            "action": "ask", "msg_key": "solve.C-FOCAL-EXIF", "fix_key": "solve.C-FOCAL-EXIF.fix",
+            "source": d.source, "badge": d.badge, "photo_id": pid,
+            "detail": {"exif_f_px": test["exif_f_px"], "exif_source": test["exif_source"], "t": test["t"],
+                       "sigma_logf_data": test["sigma_logf_data"], "prior_overruled": True}}
+
+
+def _retouch_ids(index: Mapping[str, int]) -> dict | None:
+    """Landmark indices of :func:`face3d.solve.camera_model.retouch_residual_test` (None when the four eye
+    corners are not all engine points)."""
+    need = ("en_L", "ex_L", "en_R", "ex_R")
+    if any(k not in index for k in need):
+        return None
+    return {k: index[k] for k in need + ("go_L", "go_R", "p_L", "p_R") if k in index}
 
 
 def _iris_terms(lm: dict, tri: list, iris_obs: Any, ids: Sequence[str]):
@@ -1144,6 +1392,13 @@ def stage_observe(inputs: dict, config: dict, seed: int) -> dict:
     ``downweight_sigma_mult``, :func:`_calibration_noise`): the caution a down-weighted view adds is never
     deflated away.  Outputs ``chi2_red`` and ``gamma`` are those calibration values (equal to the solve's
     when no view is down-weighted); ``chi2_red_solve`` is the solve's own, ``inflation`` the factor used.
+
+    **Focal labels (H5; WBS FU-03).**  'measured' is decided on the photos-only sigma of ln f
+    (:func:`face3d.solve.observability.focal_prior_evidence`, through ``assess(views=...)``) together with
+    the CAM-7 test, with the priors the solve actually used (``solve['focal_priors']``); a view whose EXIF
+    focal was overruled is never 'measured' (``focal_conflict``).  Every view whose label is not 'measured'
+    gets a ``C-FOCAL-PRIOR`` finding (``findings``; flag ``C-FOCAL-PRIOR``; severity info for an EXIF /
+    calibrated prior, warn for a guessed one).
     """
     s = inputs["solve"]
     res, views, prior, bkw = s["_result"], s["_views"], s["_prior"], s["_bkw"]
@@ -1168,12 +1423,20 @@ def stage_observe(inputs: dict, config: dict, seed: int) -> dict:
     for r in tri:
         if r["occluder"]["flags"].get("jaw_status"):
             caps["jaw"] = r["occluder"]["flags"]["jaw_status"]
-    exif_sig = [r["f_log_sigma"] if r["f_source"] in ("exif_f35", "zoom", "aspect", "calibrated", "sfm",
-                                                       "focal_plane") else None for r in tri]
+    # the focal prior each view was actually solved with (an EXIF prior the photos overruled is the
+    # ladder fallback by now and no longer 'EXIF-confirmed' for tier S; WBS FU-03)
+    fpri = focal_priors_of(s, tri)
+    exif_sig = exif_log_sigmas(fpri)
     A = _ob.assess(res_cal, region_index=RI, ids=None, gamma=gamma, views=views,
-                   prior_log_sigma=[r["f_log_sigma"] for r in tri], exif_log_sigma=exif_sig,
+                   prior_log_sigma=[r["f_log_sigma"] for r in fpri], exif_log_sigma=exif_sig,
                    scale_mode=s["scale_mode"], all_selfie=all(r["front_camera"] for r in tri),
-                   status_caps=caps or None, deflate=deflate)
+                   status_caps=caps or None, deflate=deflate, focal_conflict=focal_conflicts(fpri))
+    # C-FOCAL-PRIOR (DESIGN 7.4 'EXIF +/-30 % crop or missing: must raise C-FOCAL-PRIOR when unobservable';
+    # H5): one finding per view whose focal label is not 'measured', i.e. whose focal length is the prior's
+    findings = [_focal_prior_finding(pid, c, r) for pid, c, r in zip(s["photo_ids"], A["camera_status"], fpri)
+                if c["focal_status"] != "measured"]
+    if findings:
+        flags.append("C-FOCAL-PRIOR")
     poll_cancel()
     nm = _noise.NoiseModel(list(inputs["landmarks"]["kinds"]))
     ranked, sentence = _nbv.next_best_view(res.cov_shape, res, res.X, noise_model=nm, region_index=RI,
@@ -1202,8 +1465,76 @@ def stage_observe(inputs: dict, config: dict, seed: int) -> dict:
         "region_k": _plain(A["region_k"]), "status_caps": _plain(A.get("status_caps", {})),
         "chi2_red_solve": float(res.chi2_red), "inflation": float(_ob.inflation(res_cal, gamma, deflate)),
         "deflate": deflate, "qa_sigma_mult": qa_mult,
+        "findings": findings, "focal_priors": [dict(r) for r in fpri],
         "_ledger": led, "_assess": A, "_ranked": ranked,
     }
+
+
+#: Focal-prior sources that count as 'EXIF-confirmed' for tier S (DESIGN 4.12; ``observability.tier``).
+_EXIF_CONFIRMING = ("exif_f35", "zoom", "aspect", "calibrated", "sfm", "focal_plane")
+
+
+def focal_priors_of(solve: Mapping[str, Any], tri: Sequence[Mapping[str, Any]]) -> list[dict]:
+    """Per view of ``solve`` the focal prior it was solved with: ``{'photo', 'f_px', 'f_log_sigma',
+    'f_source', 'test'}`` (``solve['focal_priors']``, i.e. after the robust EXIF check of WBS FU-03; the
+    triage rows ``tri`` when the solve output predates it).  ``test`` is the check's record or None."""
+    fp = solve.get("focal_priors")
+    if fp:
+        return [dict(r) for r in fp]
+    return [{"photo": r["id"], "f_px": float(r["f_px"]), "f_log_sigma": float(r["f_log_sigma"]),
+             "f_source": str(r["f_source"]), "test": None} for r in tri]
+
+
+def exif_log_sigmas(focal_priors: Sequence[Mapping[str, Any]]) -> list:
+    """Per view the prior sigma of ln f when the prior comes from EXIF or a calibration, else None (the
+    ``exif_log_sigma`` argument of :func:`face3d.solve.observability.assess`: tier S 'EXIF-confirmed')."""
+    return [r["f_log_sigma"] if r["f_source"] in _EXIF_CONFIRMING else None for r in focal_priors]
+
+
+def focal_conflicts(focal_priors: Sequence[Mapping[str, Any]]) -> list[bool]:
+    """Per view True when the robust EXIF prior overruled its EXIF focal (the ``focal_conflict`` argument of
+    :func:`face3d.solve.observability.assess`: such a focal is never labelled 'measured', WBS FU-03)."""
+    return [bool((r.get("test") or {}).get("overruled")) for r in focal_priors]
+
+
+def _declared_cov(C: np.ndarray, weights: Any, sigma_mult: float = 1.0) -> np.ndarray:
+    """Per-landmark noise a view is declared with: base covariance ``C`` (n, 2, 2) divided by the
+    information weights (``ViewObs.weights``; a weight <= 0 or non-finite leaves the base value: such a
+    point is not observed) times ``sigma_mult`` ** 2.  The same scaling pass 2 of the solve applies."""
+    C = np.array(C, float, copy=True)
+    if weights is not None:
+        w = np.asarray(weights, float)
+        ok = np.isfinite(w) & (w > 0)
+        C[ok] = C[ok] / w[ok][:, None, None]
+    return C * float(sigma_mult) ** 2
+
+
+def _focal_prior_finding(pid: str, cam_status: Mapping[str, Any], prior: Mapping[str, Any]) -> dict:
+    """``C-FOCAL-PRIOR`` (DESIGN 7.4, H5): the focal length of this view is not measured by the photos; its
+    value is the prior's ('prior_used') or only partly constrained ('partial').  Severity 'info' when the
+    prior is EXIF or a calibration that the photos do not contradict (the expected case: a trusted source,
+    stated as such), 'warn' when it is the ladder's guess for a camera without focal data ('phone',
+    'nothing'), where every depth-dependent number leans on a population value, **and 'warn' when the
+    robust EXIF check found the photos contradicting the EXIF focal but kept it** (``prior['test']``:
+    ``contradicted`` True, ``overruled`` False: the re-solve without the EXIF focal stayed within
+    ``focal.exif_disagree_rel`` of it, so no C-FOCAL-EXIF card is raised; the disagreement is then stated
+    here instead of being hidden behind an info line that calls the EXIF trusted; FU-03 review).
+    ``detail['exif_contradicted']`` carries that state with the test's t and the re-solve's relative
+    difference.  Action 'none' (a statement, not a request; the next-best photo already asks for the view
+    that would help)."""
+    d = _ob.OBS["focal_measured_sigma_log"]
+    trusted = prior["f_source"] in _EXIF_CONFIRMING
+    test = prior.get("test") or {}
+    disputed = bool(test.get("contradicted")) and not bool(test.get("overruled"))
+    return {"code": "C-FOCAL-PRIOR", "severity": "info" if trusted and not disputed else "warn",
+            "value": _num(cam_status.get("sigma_logf_data")), "threshold": float(d.value), "action": "none",
+            "msg_key": "solve.C-FOCAL-PRIOR", "fix_key": "solve.C-FOCAL-PRIOR.fix", "source": d.source,
+            "badge": d.badge, "photo_id": pid,
+            "detail": {"focal_status": cam_status["focal_status"], "f_source": prior["f_source"],
+                       "sigma_logf": _num(cam_status.get("sigma_logf")),
+                       "prior_dominated": cam_status.get("prior_dominated"),
+                       "exif_contradicted": disputed, "exif_t": _num(test.get("t")) if disputed else None,
+                       "exif_resolve_rel": _num(test.get("rel")) if disputed else None}}
 
 
 def _num(x: Any) -> float | None:
@@ -1360,7 +1691,7 @@ def texture_gate_findings(project: Project, consent: ConsentRecord | None, solve
     """Texture gates for the views of ``solve`` (DESIGN 4.18, bl T2, eth F7): :func:`texture.project.texture_gates`
     with the project's rights bases, the solve's inlier landmark reprojection (median <= 1.5 px, max <= 3 px) and
     the per-view exclusion flags from the triage (Q-PROCESS editor / portrait mode, Q-RETOUCH, Q-CLIP; Q-DATES
-    clusters).  ``limits`` (``reproj_median_max_px``, ``reproj_max_max_px``) overrides the T2 limits; the run
+    clusters) and from the solve stage's post-BA findings (Q-RETOUCH residual pattern; WBS FU-03).  ``limits`` (``reproj_median_max_px``, ``reproj_max_max_px``) overrides the T2 limits; the run
     config records it (``result.run.config_sha256``) and the result carries it.  Returns plain finding dicts;
     ``view`` indexes ``solve.photo_ids``."""
     lim = dict(limits or {})
@@ -1372,9 +1703,12 @@ def texture_gate_findings(project: Project, consent: ConsentRecord | None, solve
     pids = list(solve["photo_ids"])
     tri = {r["id"]: r for r in triage["photos"]}
     flags = []
+    post = solve.get("post_findings") or {}
     for pid in pids:
-        fl = [_FLAG_OF_CODE[f["code"]] for f in tri[pid]["findings"] if f["code"] in _FLAG_OF_CODE]
-        flags.append(fl)
+        # triage findings and the post-BA ones of the solve stage (Q-RETOUCH residual pattern, WBS FU-03)
+        fl = [_FLAG_OF_CODE[f["code"]] for f in list(tri[pid]["findings"]) + list(post.get(pid, []))
+              if f["code"] in _FLAG_OF_CODE]
+        flags.append(list(dict.fromkeys(fl)))
     clusters = None
     for f in triage.get("set_findings", []):
         if f["code"] == "Q-DATES" and f.get("detail"):
@@ -1516,6 +1850,8 @@ def _gather_findings(inputs: dict) -> tuple[dict, list, list]:
     for pid, fl in s.get("post_findings", {}).items():
         for f in fl:
             add(pid, f)
+    for f in (inputs.get("observe") or {}).get("findings", []):      # C-FOCAL-PRIOR (WBS FU-03)
+        add(f.get("photo_id"), f)
     excluded = []
     for r in tri["photos"]:
         if not r["usable"]:
@@ -1547,6 +1883,8 @@ def stage_report(inputs: dict, config: dict, seed: int) -> dict:
             "t": s["cam_t"][v].tolist(), "f_px": f_px,
             "f35": f_px * float(np.hypot(36.0, 24.0)) / float(np.hypot(W, H)), "z": z, "P": 100.0 / z,
             "sigma_logf": _num(vstats[v].get("sigma_logf")), "focal_status": o["focal_statuses"][v],
+            "sigma_logf_data": _num(st.get("sigma_logf_data")),
+            "f_prior_source": (o.get("focal_priors") or [{}] * P)[v].get("f_source"),
             "model": s["camera_models"][v]["model"],
             "mirror": s["mirror"][v] if v < len(s["mirror"]) else {}})
     views = []

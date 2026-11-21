@@ -200,19 +200,47 @@ def test_focal_status():
     assert 0.08 <= np.median(sig_n) <= 0.13, sig_n
     assert np.median(ferr_n) < 0.12, ferr_n
     assert np.median(rerr_n) < 2.0, rerr_n
-    # rule order of WBS WP-16 / DESIGN 4.12: 'measured' (sigma < 0.10) first, then CAM-7
-    # (sigma > 0.8 sigma_prior -> 'prior_used'), else 'partial'; prior_dominated keeps CAM-7 alone
+    # rule order of WBS WP-16 / DESIGN 4.12 as amended by WBS FU-03 (H5 / H12): 'measured' needs
+    # sigma < 0.10 *earned from the photos*.  Without the photos-only sigma the CAM-7 test stands in
+    # for it: a posterior that merely echoes the prior (sigma > 0.8 sigma_prior) is 'prior_used'
+    # whatever its size (view 0: 0.035 from an EXIF prior of 0.04; before FU-03 this read 'measured',
+    # the WP-23 release blocker).  Then 'prior_used' / 'partial' as before.
     st = [{"sigma_logf": 0.035, "sigma_logz": 0.1}, {"sigma_logf": 0.02, "sigma_logz": 0.1},
           {"sigma_logf": 0.2, "sigma_logz": 0.1}, {"sigma_logf": None, "sigma_logz": None},
           {"sigma_logf": 0.0, "sigma_logz": 0.01}, {"sigma_logf": 0.55, "sigma_logz": 0.1}]
     cs = ob.camera_status(st, [0.04, 0.04, 0.6, 0.6, 0.6, 0.6])
-    assert [c["focal_status"] for c in cs] == ["measured", "measured", "partial", "prior_used", "measured",
+    assert [c["focal_status"] for c in cs] == ["prior_used", "measured", "partial", "prior_used", "measured",
                                                "prior_used"]
     assert [c["prior_dominated"] for c in cs] == [True, False, False, None, False, True]
-    # an unknown prior never reads 'partly measured' (H5 'otherwise from prior'); no prior at
-    # all (inf) leaves a data-determined focal 'partial'
-    assert [c["focal_status"] for c in ob.camera_status(st[:3], None)] == ["measured", "measured", "prior_used"]
+    # an unknown prior is never 'measured' and never 'partly measured' (H5 'otherwise from prior':
+    # nothing shows the sigma was earned); no prior at all (inf) is data-determined
+    assert [c["focal_status"] for c in ob.camera_status(st[:3], None)] == ["prior_used"] * 3
     assert ob.camera_status(st[2:3], float("inf"))[0]["focal_status"] == "partial"
+    assert ob.camera_status(st[1:2], float("inf"))[0]["focal_status"] == "measured"
+    # with the photos-only sigma (focal_prior_evidence) the label follows it: the same posteriors are
+    # 'measured' only where the photos alone reach 0.10; a frozen view stays 'prior_used'
+    cs = ob.camera_status(st, [0.04, 0.04, 0.6, 0.6, 0.6, 0.6], data_sigma_logf=[0.40, 0.022, 0.21, 0.05, 0.0,
+                                                                                 float("inf")])
+    assert [c["focal_status"] for c in cs] == ["prior_used", "measured", "partial", "prior_used", "measured",
+                                               "prior_used"]
+    assert [c["sigma_logf_data"] for c in cs] == [0.40, 0.022, 0.21, None, 0.0, math.inf]
+    # posterior 0.094 from a prior of 0.12 and photos of 0.15: the CAM-7 test alone would pass it
+    # (0.094 < 0.8 x 0.12), the photos-only sigma does not
+    one = [{"sigma_logf": 0.094, "sigma_logz": 0.1}]
+    assert ob.camera_status(one, 0.12)[0]["focal_status"] == "measured"
+    assert ob.camera_status(one, 0.12, data_sigma_logf=0.15)[0]["focal_status"] == "partial"
+    assert ob.camera_status(one, 0.12, data_sigma_logf=[0.05])[0]["focal_status"] == "measured"
+    # ... and the photos-only sigma alone is not enough either: photos of 0.09 under an EXIF prior of
+    # 0.04 could measure the focal, but the solved value is the EXIF's (0.0366 > 0.8 x 0.04)
+    two = [{"sigma_logf": 0.0366, "sigma_logz": 0.1}]
+    assert ob.camera_status(two, 0.04, data_sigma_logf=0.09)[0]["focal_status"] == "prior_used"
+    # a focal whose prior the solve overruled (conflicting evidence) is never 'measured'
+    assert ob.camera_status(one, 0.25, data_sigma_logf=0.05, conflict=[True])[0]["focal_status"] == "partial"
+    assert ob.camera_status(one, 0.25, data_sigma_logf=0.05, conflict=[False])[0]["focal_status"] == "measured"
+    with pytest.raises(ValueError):
+        ob.camera_status(one, 0.25, conflict=[True, False])
+    with pytest.raises(ValueError):
+        ob.camera_status(one, 0.12, data_sigma_logf=[0.1, 0.1])
     # assess reads the focal priors from the views when prior_log_sigma is not given
     _, views, _ = _scene(1, (-3.0, 0.0, 3.0), 2000.0, exif=False)
     res = _solve(views)
@@ -224,6 +252,104 @@ def test_focal_status():
     assert A_v["focal_statuses"] == A_n["focal_statuses"] == ["prior_used"] * 3, A_v["camera_status"]
     led = lg.build_ledger(res, PRIOR, ANATOMICAL, A_n)
     assert "Focal length: from prior in 3 of 3 photos" in lg.report_lines(led)
+
+
+def _wrong_exif(views, factor):
+    """The same views with an EXIF focal prior that is ``factor`` x the true focal (cameras started on it)."""
+    out = []
+    for v in views:
+        c = v.camera.copy()
+        c.f, c.t = c.f * factor, c.t * np.array([1.0, 1.0, factor])
+        out.append(replace(v, f_prior=v.f_prior * factor, camera=c))
+    return out
+
+
+def test_focal_prior_evidence_and_h5_label():
+    """WBS FU-03 (the WP-23 release blocker): the focal label is earned from the photos.
+
+    ``focal_prior_evidence`` removes the focal (and distance) prior rows from the stored information:
+    (a) with all priors it reproduces the bundle's own sigma_logf for hard groups, soft-tied groups and
+    ungrouped views; (b) far views with an EXIF focal that is 30 % wrong: sigma_post = 0.04 (inherited),
+    photos-only sigma > 0.25, label 'prior_used', never 'measured' while ~30 % off; (c) near views with a
+    matched noise model: the photos alone give sigma < 0.05, a wrong EXIF is contradicted at |t| > 4, the
+    linearised photos-only focal is within 7 % of the truth, and a correct EXIF is not contradicted."""
+    yaws = (-60.0, -30.0, 0.0, 30.0, 60.0)
+    # (a) reproduction of sigma_logf, three focal layouts
+    _, views, _ = _scene(100, yaws, 500.0, noise_scale=0.5, declared=0.5)
+    layouts = {"hard group": views,
+               "soft tie + distance prior": [replace(v, focal_tie_sigma=0.02, distance_prior=(600.0, 0.4)) for v in views],
+               "ungrouped + distance prior": [replace(v, focal_group=None, distance_prior=(600.0, 0.4)) for v in views]}
+    for name, vw in layouts.items():
+        res = _solve(vw)
+        ev = ob.focal_prior_evidence(res, vw)
+        for e, st in zip(ev, res.view_stats):
+            assert e["sigma_logf"] == pytest.approx(st["sigma_logf"], rel=1e-6), name
+            assert e["sigma_logf_data"] >= e["sigma_logf"] - 1e-9, name       # removing priors never sharpens
+            assert e["f_prior_px"] == pytest.approx(vw[0].f_prior) and e["prior_log_sigma"] == 0.04
+            assert 0.0 <= e["prior_leverage"] < 1.0 and np.isfinite(e["prior_t"])
+        carriers = [e["carrier"] for e in ev]
+        assert carriers == ([0] * 5 if "ungrouped" not in name else [0, 1, 2, 3, 4]), name
+    # a known (fixed) focal: sigma 0 with and without priors, no carrier
+    fx = [replace(v, estimate_focal=False) for v in views]
+    e0 = ob.focal_prior_evidence(_solve(fx), fx)[0]
+    assert e0["sigma_logf"] == 0.0 and e0["sigma_logf_data"] == 0.0 and e0["carrier"] is None and e0["prior_t"] is None
+    with pytest.raises(ValueError):
+        ob.focal_prior_evidence(_solve(views), views[:4])
+    # (b) far views (2 m): the photos do not constrain the focal; the EXIF prior does
+    for seed in (100,):                 # one seed per condition (FU-03 review: default-suite time)
+        X, views, cams = _scene(seed, yaws, 2000.0)
+        for factor in (1.3, 0.7):
+            vw = _wrong_exif(views, factor)
+            res = _solve(vw)
+            assert abs(res.cameras[0].f / cams[0].f - 1.0) > 0.25                # the wrong EXIF is kept
+            assert all(st["sigma_logf"] < 0.10 for st in res.view_stats)         # ... at sigma_post 0.04
+            ev = ob.focal_prior_evidence(res, vw)
+            assert all(e["sigma_logf_data"] > 0.25 for e in ev)
+            A = ob.assess(res, region_index=RI, views=vw)
+            assert A["focal_statuses"] == ["prior_used"] * 5                     # H5: not 'measured'
+            assert all(c["sigma_logf_data"] > 0.25 and c["prior_dominated"] for c in A["camera_status"])
+            # the CAM-7 fallback (no views given, prior sigma known) agrees; an unknown prior is conservative
+            assert ob.assess(res, region_index=RI, prior_log_sigma=0.04)["focal_statuses"] == ["prior_used"] * 5
+            assert ob.assess(res, region_index=RI)["focal_statuses"] == ["prior_used"] * 5
+    # (c) near views (0.5 m, declared noise = drawn noise): the photos know the focal
+    for seed in (100,):
+        X, views, cams = _scene(seed, yaws, 500.0, noise_scale=0.5, declared=0.5)
+        res = _solve(views)
+        ev = ob.focal_prior_evidence(res, views)
+        assert all(e["sigma_logf_data"] < 0.05 and abs(e["prior_t"]) < 2.0 for e in ev)
+        assert ob.assess(res, region_index=RI, views=views)["focal_statuses"] == ["measured"] * 5
+        for factor in (1.3, 0.7):
+            vw = _wrong_exif(views, factor)
+            res = _solve(vw)
+            e = ob.focal_prior_evidence(res, vw)[0]
+            assert e["sigma_logf_data"] < 0.05 and abs(e["prior_t"]) > 4.0
+            assert np.sign(e["prior_t"]) == np.sign(1.0 - factor)                # photos say shorter / longer
+            assert abs(math.exp(e["ln_f_data"]) / cams[0].f - 1.0) < 0.07
+
+
+def test_heldout_prediction_matches_lovo():
+    """``heldout_prediction`` (WBS FU-03 task 5: the consensus the post-BA Q-RETOUCH test compares a view
+    with) is the leave-one-view-out prediction of ``lovo_gamma``: same re-posed camera, and its consensus
+    covariance is J Sigma_X(-v) J^T (symmetric, positive semi-definite, small against the pixel noise here)."""
+    X, views, cams = _scene(7, (-60.0, -30.0, 0.0, 30.0, 60.0), 800.0)
+    res = _solve(views)
+    wo = ob.make_solve_without(views, res, bundle_kwargs={"prior": PRIOR})
+    v = 2
+    red = wo(v)
+    hp = ob.heldout_prediction(res, red, v, views[v], res.obs_cov_px[v])
+    m = hp["used"]
+    assert m.sum() >= 30 and np.array_equal(m, np.isfinite(views[v].uv[:, 0]) & np.asarray(res.inlier_mask[v], bool))
+    assert hp["uv"].shape == (N, 2) and hp["cov"].shape == (N, 2, 2)
+    e = views[v].uv[m] - hp["uv"][m]
+    full = views[v].uv[m] - res.cameras[v].project(res.X)[m]
+    assert np.sqrt(np.mean(e ** 2)) < 3.0 * np.sqrt(np.mean(full ** 2))        # a prediction, not a fit
+    assert np.allclose(hp["cov"], np.swapaxes(hp["cov"], 1, 2), atol=1e-9)
+    assert np.all(np.linalg.eigvalsh(hp["cov"][m]) > -1e-9)
+    assert abs(hp["camera"].f - res.cameras[v].f) < 1e-9                         # focal kept, pose refitted
+    few = np.full_like(views[v].uv, np.nan)
+    few[:3] = views[v].uv[:3]
+    with pytest.raises(ValueError):
+        ob.heldout_prediction(res, red, v, few, res.obs_cov_px[v])
 
 
 # ------------------------------------------------------------------ evidence and coverage
@@ -850,3 +976,20 @@ def test_ledger_plain_language_and_banner():
     assert np.allclose(sup_f[vr == "scalp"], np.clip(led.region("cranium").k, 0.0, 1.0))
     sup_u = lg.vertex_support(kit, led_u)
     assert np.allclose(sup_u[vr == "scalp"], 0.0)                 # cranium unobserved -> guessed
+
+
+def test_assess_accepts_photolandmarks_views():
+    """FU-03 review regression: ``assess(views=PhotoLandmarks)`` is a documented call.  PhotoLandmarks carry
+    the focal priors but not the bundle's camera-prior layout, so the focal labels fall back to the CAM-7
+    test (no photos-only sigma), and a prior-inherited sigma is never labelled 'measured'."""
+    from face3d.solve.reconstruct import PhotoLandmarks, reconstruct_landmarks
+    _, views, cams = _scene(100, (-60.0, -30.0, 0.0, 30.0, 60.0), 500.0, noise_scale=0.5, declared=0.5)
+    photos = [PhotoLandmarks(v.uv, int(c.width), int(c.height), f_prior_px=v.f_prior, f_prior_log_sigma=0.04,
+                             focal_group="g", kinds=KINDS) for v, c in zip(views, cams)]
+    res = reconstruct_landmarks(photos, None, prior=PRIOR)
+    assert ob.focal_prior_log_sigmas(photos) == [0.04] * 5
+    A = ob.assess(res, region_index=RI, views=photos)
+    B = ob.assess(res, region_index=RI, prior_log_sigma=[0.04] * 5)
+    assert A["focal_statuses"] == B["focal_statuses"]
+    assert "measured" not in A["focal_statuses"]
+    assert all(c.get("sigma_logf_data") is None for c in A["camera_status"])

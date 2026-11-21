@@ -43,10 +43,18 @@ lists are cleaned up.
 Reported uncertainty: the NEES / coverage numbers are computed from the covariance behind the
 ``sigma_rep_mm`` the observe stage reports (:func:`honesty_of` asserts the two agree on every run).
 
+FU-03 (closes the WP-23 release blocker): the focal label is earned from the photos
+(``exif_crop.focal_label`` passes; :data:`OPEN_HONESTY_VIOLATIONS` is empty), the robust EXIF prior and the
+post-BA Q-RETOUCH step are wired and gated for false alarms (``exif_crop.no_false_overrule``,
+``beauty_warp.no_false_alarm`` on the pipeline's own findings), C-FOCAL-PRIOR, the hair point drops and
+Q-SMALL on the pose-independent face width meet their targets.  :func:`task_exif_near` is a diagnostic
+(not a DESIGN 7.4 row) at a range where the photos alone constrain the focal.
+
 Per-push cost: about 105 pipeline runs (21 per seed) plus 15 clean solves for the alarm budget, in a
 process pool; :func:`matrix_tasks` with ``fast=True`` leaves out the stages no gate reads (the fit of the
 expression rows, the observe stage of the clean rear-phone twin), and the glasses / hair rows stop after
-the landmarks stage, where all of their gated actions are decided.
+the landmarks stage, where all of their gated actions are decided (the release run solves them too: they
+join the Q-RETOUCH false-alarm pool, :func:`_occ_kw`).
 """
 from __future__ import annotations
 
@@ -260,7 +268,7 @@ def _pid_view(pid: str) -> int:
 
 def _findings(o: dict) -> list:
     """Every QA finding of a run as ``[photo id | None, code, severity]`` (triage, set-level, landmark
-    stage, post-solve), de-duplicated per photo and code."""
+    stage, post-solve, observe: C-FOCAL-PRIOR), de-duplicated per photo and code."""
     out = []
     for r in o["triage"]["photos"]:
         out += [[r["id"], f["code"], f.get("severity", "warn")] for f in r["findings"]]
@@ -271,6 +279,8 @@ def _findings(o: dict) -> list:
     if "solve" in o:
         for pid, fl in o["solve"].get("post_findings", {}).items():
             out += [[pid, f["code"], f.get("severity", "warn")] for f in fl]
+    if "observe" in o:
+        out += [[f.get("photo_id"), f["code"], f.get("severity", "warn")] for f in o["observe"].get("findings", [])]
     seen, uniq = set(), []
     for f in out:
         if (f[0], f[1]) not in seen:
@@ -333,6 +343,7 @@ def record(run, scene: Scene) -> dict:
         rows = [used[pid] for pid in o["landmarks"]["photo_ids"]]
         rec.update(weights=np.asarray(o["landmarks"]["weights"], float)[:, :len(scene.X)].tolist(),
                    uv_used=np.isfinite(np.asarray(o["landmarks"]["uv"], float)[:, :len(scene.X), 0]).tolist(),
+                   lm_qa_sigma_mult=[float(x) for x in o["landmarks"]["qa_sigma_mult"]],
                    occluder_flags=[r["occluder"]["flags"] for r in rows],
                    drop_classes=[r["occluder"]["drop_classes"] for r in rows])
     if "solve" not in o:
@@ -350,7 +361,10 @@ def record(run, scene: Scene) -> dict:
         focal_rel_err=[abs(float(f) / c.f - 1.0) for f, c in zip(s["cam_f"], cams)],
         z_rel_err=[abs(float(z) / float(c.depth(np.zeros((1, 3)))[0]) - 1.0) for z, c in zip(s["cam_z"], cams)],
         inlier=np.asarray(s["inlier_mask"], bool)[:, :n].tolist(), scale_mode=s["scale_mode"],
-        chi2_red_solve=float(s["chi2_red"]), qa_sigma_mult=[float(x) for x in s["qa_sigma_mult"]])
+        chi2_red_solve=float(s["chi2_red"]), qa_sigma_mult=[float(x) for x in s["qa_sigma_mult"]],
+        # FU-03: the robust EXIF check per used view (None: not tested) and the post-BA retouch test
+        focal_test=[fp["test"] for fp in s["focal_priors"]], focal_source=[fp["f_source"] for fp in s["focal_priors"]],
+        retouch_pipeline=[bool(r and r["flagged"]) for r in s["retouch"]])
     if "observe" in o:
         ob = o["observe"]
         ref = np.asarray(S.FactorPrior.from_package().mean(), float)
@@ -513,12 +527,12 @@ def likeness_of(run) -> dict:
                              jaw_weights=s["_jaw_w"], **{**s["_bkw"], "prior": prior})
     seen = np.asarray(res.inlier_mask).sum(axis=0)
     wide, res_w = _ob.likeness_mode_prior(s["_prior"], res, seen, resolve=resolve, max_iter=2, return_result=True)
-    exif_sig = [r["f_log_sigma"] if r["f_source"] in ("exif_f35", "zoom", "aspect", "calibrated", "sfm",
-                                                       "focal_plane") else None for r in tri]
+    fpri = S.focal_priors_of(s, tri)          # the priors the solve used (after the robust EXIF check)
+    exif_sig = S.exif_log_sigmas(fpri)
     kw = dict(region_index=_ob.default_region_index(s["ids"]), gamma=ob["gamma"], views=s["_views"],
-              prior_log_sigma=[r["f_log_sigma"] for r in tri], exif_log_sigma=exif_sig,
+              prior_log_sigma=[r["f_log_sigma"] for r in fpri], exif_log_sigma=exif_sig,
               scale_mode=s["scale_mode"], all_selfie=all(r["front_camera"] for r in tri),
-              deflate=bool(ob["deflate"]))
+              deflate=bool(ob["deflate"]), focal_conflict=S.focal_conflicts(fpri))
     std = res if float(ob["chi2_red"]) == float(res.chi2_red) else dataclasses.replace(
         res, chi2_red=float(ob["chi2_red"]))
     Aw = _ob.assess(res_w, standard_result=std, **kw)
@@ -610,6 +624,48 @@ def _frontal_rig(seed: int):
                     target=tgt)
 
 
+NEAR_RANGE_MM = (300.0, 350.0)     # FU-03 diagnostic: a range where the photos alone constrain the focal
+
+
+NEAR_OFF_PRIOR_F35 = 35.0          # second diagnostic: a true focal the ladder's phone guess (26 mm) misses
+
+
+def _near_rig(seed: int, f35: float = 26.0):
+    """Five rear-phone views (``f35`` mm-equivalent, yaw -60..60 deg) at 0.30-0.35 m: strong perspective, so
+    the photos alone constrain the focal length (photos-only sigma of ln f about 0.09-0.11 at 26 mm).
+    At the default 26 mm the true focal coincides with the centre of the ladder's 'phone, no focal data'
+    prior (``focal.phone_f35_mm``), i.e. with the fallback the robust EXIF prior re-solves under: the
+    optimistic case.  ``f35`` = :data:`NEAR_OFF_PRIOR_F35` (35 mm: the whole head still fits the
+    1500 x 2000 frame at 0.30 m) puts that fallback 26 % short of the truth."""
+    from face3d.synthetic import orbit_camera
+    rng = streams(seed)[1]
+    tgt = tuple(float(x) for x in face_centre(kit()))
+    yaws = (-60.0, -30.0, 0.0, 30.0, 60.0)
+    cams, pitches, dists = [], [], []
+    for yaw in yaws:
+        d, pitch = float(rng.uniform(*NEAR_RANGE_MM)), float(rng.uniform(*rigs.PITCH_RANGE_DEG))
+        cams.append(orbit_camera(d, yaw, pitch, float(f35), width=W, height=H, target=tgt))
+        pitches.append(pitch), dists.append(d)
+    n = len(yaws)
+    return rigs.Rig(name="near_phone", cameras=cams, f_prior_px=[float(c.f) for c in cams],
+                    f_prior_log_sigma=[rigs.EXIF_PRIOR_LOG_SIGMA] * n, focal_group=["phone"] * n,
+                    is_front_camera=[False] * n, view_yaw_deg=list(yaws), view_pitch_deg=pitches,
+                    distance_mm=dists, target=tgt)
+
+
+def task_exif_near(seed: int, factor: float = 1.0, f35: float = 26.0) -> dict:
+    """FU-03 diagnostic (not a DESIGN 7.4 row): the EXIF focal of every photo of a near-range set
+    (:func:`_near_rig`) multiplied by ``factor`` (1.0: correct EXIF).  The photos carry the information
+    here, so the robust EXIF prior can be exercised: detection of a wrong EXIF, false alarms on a right one.
+    ``f35``: the true focal of the rig (see :func:`_near_rig`: 26 mm is where the fallback prior sits)."""
+    sc = make_scene(seed, detector=dict(BASE_DETECTOR), rig_obj=_near_rig(seed, f35))
+    for v in range(sc.rig.n_views):
+        w, h = sc.wh[v]
+        sc.exif[v]["f35"] = float(focal_35mm_from_px(float(sc.rig.f_prior_px[v]) * float(factor), w, h))
+    sc.truth = {"factor": float(factor), "f35": float(f35)}
+    return record(run_scene(sc, "observe"), sc)
+
+
 def task_selfie(seed: int) -> dict:
     """Three front-camera selfies at 0.35 m (DESIGN 7.4 'Selfies at 0.35 m')."""
     rig_obj, truth = faults.selfie_rig(streams(seed)[1], target=face_centre(kit()), width=W, height=H,
@@ -643,9 +699,10 @@ def task_expression(seed: int, kind: str = "jaw_open", noise_scale: float = 1.0,
 
 
 def task_beauty(seed: int, noise_scale: float = 1.0) -> dict:
-    """Beauty warp (eyes +6 %, jaw -4 %) of one view with 4 clean views.  The pipeline has no post-BA
-    Q-RETOUCH step, so the record also carries the engine's residual test evaluated on the pipeline's
-    solve output (``retouch_engine``), per view."""
+    """Beauty warp (eyes +6 %, jaw -4 %) of one view with 4 clean views.  The pipeline's post-BA Q-RETOUCH
+    step (FU-03: the engine's residual test against the leave-one-view-out consensus of pass 1) is read
+    from the findings and from ``retouch_pipeline``; the record also carries the same engine test evaluated
+    here on the pipeline's final solve (``retouch_engine``, per view: the WP-23 evidence column)."""
     from face3d.solve import camera_model as cm
     from face3d.solve.bundle import view_noise_cov
     sc = make_scene(seed, detector=dict(BASE_DETECTOR, noise_scale=noise_scale))
@@ -721,8 +778,10 @@ def task_wide(seed: int, model: str | None = None) -> dict:
     return record(run_scene(sc, "solve"), sc)
 
 
-def task_occluder(seed: int, tag: str = "beard") -> dict:
-    """An occluder tag on every photo (DESIGN 4.1 one-click tags)."""
+def task_occluder(seed: int, tag: str = "beard", until: str | None = None) -> dict:
+    """An occluder tag on every photo (DESIGN 4.1 one-click tags).  ``until``: the last stage to run
+    (default: 'observe' for the beard, 'landmarks' for glasses / hair; the release run takes glasses and
+    hair to 'solve' for the Q-RETOUCH false-alarm pool, :func:`_occ_kw`)."""
     sc = make_scene(seed, detector=dict(BASE_DETECTOR))
     effect, truth = faults.occluder_fault([tag], names=sc.ids, kinds=sc.kinds)
     for t in sc.tags:
@@ -730,7 +789,7 @@ def task_occluder(seed: int, tag: str = "beard") -> dict:
     sc.truth = {"tag": tag, "drop": effect["drop"].tolist(), "mult": effect["noise_multiplier"].tolist()}
     # glasses / hair: every gated action is an output of the triage and landmarks stages (flags, sigma
     # multipliers, dropped points); only the beard row needs the ledger (jaw status)
-    return record(run_scene(sc, "observe" if tag == "beard" else "landmarks"), sc)
+    return record(run_scene(sc, until or ("observe" if tag == "beard" else "landmarks")), sc)
 
 
 def task_small(seed: int) -> dict:
@@ -772,6 +831,7 @@ def task_bias(seed: int, until: str = "observe") -> dict:
 
 
 TASKS = {"clean": task_clean, "mirror": task_mirror, "orientation": task_orientation, "exif": task_exif,
+         "exif_near": task_exif_near,
          "selfie": task_selfie, "expression": task_expression, "beauty": task_beauty, "wide": task_wide,
          "occluder": task_occluder, "small": task_small, "outliers": task_outliers, "bias": task_bias}
 
@@ -822,6 +882,7 @@ def collect(tasks) -> list:
 
 
 # ============================================================================ the matrix
+NEAR_FACTORS = (1.0, 1.3, 0.7)   # EXIF focal factors of the near-range diagnostic (1.0 = correct EXIF)
 CONFIRM_SEEDS = 5      # 'after the user confirms' re-runs the flipped photo: exact, so 5 seeds suffice
 CLEAN = {"surface": True, "likeness": True}
 
@@ -830,6 +891,13 @@ def _rear_kw(fast: bool) -> dict:
     """The clean rear-phone twin of the EXIF rows: the per-push subset needs its solve only (shape and
     focal ratios); the release run also reports its honesty numbers (docs/RESULTS.md 4.1)."""
     return {"rig": "rear_phone", "until": "solve"} if fast else {"rig": "rear_phone"}
+
+
+def _occ_kw(tag: str, fast: bool) -> dict:
+    """The glasses / hair rows: their gated tag actions are decided by the landmarks stage (per-push
+    subset); the release run also solves them, so that the post-BA Q-RETOUCH test is measured for false
+    alarms on views whose declared noise carries occluder multipliers (FU-03 review)."""
+    return {"tag": tag} if fast else {"tag": tag, "until": "solve"}
 
 
 def _expr_kw(kind: str, fast: bool) -> dict:
@@ -852,14 +920,16 @@ def matrix_tasks(seeds, diagnostics: bool = False, frontal: bool = True, fast: b
               ("expression", s, _expr_kw("jaw_open", fast)), ("expression", s, _expr_kw("smile", fast)),
               ("beauty", s, {}),
               ("wide", s, {}), ("wide", s, {"model": "stereographic"}), ("wide", s, {"model": "rectilinear"}),
-              ("occluder", s, {"tag": "beard"}), ("occluder", s, {"tag": "glasses"}),
-              ("occluder", s, {"tag": "hair"}),
+              ("occluder", s, {"tag": "beard"}), ("occluder", s, _occ_kw("glasses", fast)),
+              ("occluder", s, _occ_kw("hair", fast)),
               ("small", s, {}), ("outliers", s, {}), ("bias", s, {})]
         if i < CONFIRM_SEEDS:
             T += [("mirror", s, {"confirm": True})]
         if frontal:
             T += [("exif", s, {"kind": "exif_missing", "frontal": True})]
         if diagnostics:
+            T += [("exif_near", s, {"factor": f}) for f in NEAR_FACTORS]
+            T += [("exif_near", s, {"factor": f, "f35": NEAR_OFF_PRIOR_F35}) for f in NEAR_FACTORS]
             T += [("mirror", s, {"noise_scale": LOW_NOISE}), ("clean", s, {"until": "solve", "noise_scale": LOW_NOISE}),
                   ("expression", s, {"kind": "jaw_open", "noise_scale": LOW_NOISE}),
                   ("expression", s, {"kind": "smile", "noise_scale": LOW_NOISE}),
@@ -881,9 +951,38 @@ def _has(rec, pid, code) -> bool:
         any(f[0] == pid and f[1] == code for f in rec.get("lm_findings", []))
 
 
+def _overruled(rec) -> bool:
+    """The robust EXIF prior (FU-03) replaced the EXIF focal of at least one photo of the set."""
+    return any(bool(t and t["overruled"]) for t in rec.get("focal_test", []))
+
+
 def _median(x) -> float:
     x = [v for v in x if v is not None]
     return float(np.median(np.asarray(x, float))) if len(x) else float("nan")
+
+
+def _near_summary(nr) -> dict:
+    """The near-range EXIF diagnostic of one (factor, true focal) condition (docs/RESULTS.md 3.2)."""
+    fe = [_median(r["focal_rel_err"]) for r in nr]
+    kept_c = [r for r in nr if any(t and t["contradicted"] for t in r["focal_test"]) and not _overruled(r)]
+    return {
+        "n": len(nr), "overruled": sum(_overruled(r) for r in nr),
+        "contradicted": sum(any(t and t["contradicted"] for t in r["focal_test"]) for r in nr),
+        # contradicted but kept (re-solve within 15 % of EXIF): each must carry a warn C-FOCAL-PRIOR
+        "contradicted_kept": len(kept_c),
+        "contradicted_kept_warned": sum(any(f[1] == "C-FOCAL-PRIOR" and f[2] == "warn" for f in r["findings"])
+                                        for r in kept_c),
+        "fallback_sources": _count([s for r in nr if _overruled(r) for s in r["focal_source"]]),
+        "focal_rel_err_median": _median(fe),
+        "focal_rel_err_median_overruled": _median([e for e, r in zip(fe, nr) if _overruled(r)]),
+        "focal_rel_err_median_kept": _median([e for e, r in zip(fe, nr) if not _overruled(r)]),
+        "abs_t_max": max(abs(r["focal_test"][0]["t"]) for r in nr),
+        "abs_t_median": _median([abs(r["focal_test"][0]["t"]) for r in nr]),
+        "sigma_logf_data_median": _median([r["focal_test"][0]["sigma_logf_data"] for r in nr]),
+        "focal_status_counts": _count([s for r in nr for s in r["focal_statuses"]]),
+        "measured_but_off_by_15pct": sum(1 for r in nr for st_, e in zip(r["focal_statuses"], r["focal_rel_err"])
+                                         if st_ == "measured" and e > 0.15),
+        "config_rms_mm_median": _median([r["config_rms_mm"] for r in nr])}
 
 
 _EVAL: dict = {}
@@ -953,6 +1052,8 @@ def _evaluate(seeds, full: bool, frontal: bool, fast: bool = False) -> dict:
                               "engine_test_fp": int(sum(eo)), "identity_bias_rms_mm_median": _median(
                                   [shape_shift(a["X"], b["X"])["rms"] for a, b in zip(be, clean_low)])}
         out["low_noise"] = low
+        for key, kw in (("exif_near", {}), ("exif_near_off_prior", {"f35": NEAR_OFF_PRIOR_F35})):
+            out[key] = {"%g" % fac: _near_summary(_get(seeds, "exif_near", factor=fac, **kw)) for fac in NEAR_FACTORS}
 
     # ---- orientation
     ori = _get(seeds, "orientation")
@@ -975,7 +1076,27 @@ def _evaluate(seeds, full: bool, frontal: bool, fast: bool = False) -> dict:
                                                                                     r["focal_rel_err"])
                                                       if st_ == "measured" and e > 0.15),
                      "shape_ratio": _median([a["config_rms_mm"] / b["config_rms_mm"] for a, b in zip(ex, rear)]),
-                     "focal_status_counts": _count([s for r in ex for s in r["focal_statuses"]])}
+                     "focal_status_counts": _count([s for r in ex for s in r["focal_statuses"]]),
+                     # FU-03: the robust EXIF prior (sets whose EXIF focal the photos overruled / tested) and
+                     # the photos-only sigma of ln f the test saw
+                     "overruled": sum(_overruled(r) for r in ex),
+                     "contradicted": sum(any(t and t["contradicted"] for t in r["focal_test"]) for r in ex),
+                     "sigma_logf_data_median": _median([t["sigma_logf_data"] for r in ex for t in r["focal_test"][:1]
+                                                        if t]),
+                     "abs_t_max": max([abs(t["t"]) for r in ex for t in r["focal_test"][:1] if t and t["t"] is not None],
+                                      default=float("nan")),
+                     "c_focal_exif": sum(any(f[1] == "C-FOCAL-EXIF" for f in r["findings"]) for r in ex),
+                     "c_focal_prior": sum("C-FOCAL-PRIOR" in r["flags"] for r in ex)}
+    # clean sets with a correct EXIF (studio ring and, when its observe stage ran, nothing more is needed:
+    # the check runs in the solve stage): a false overrule is a false alarm of the robust EXIF prior
+    tested = [r for r in list(clean) + list(rear)]
+    out["exif_clean"] = {"n": len(tested), "overruled": sum(_overruled(r) for r in tested),
+                         "abs_t_max": max([abs(t["t"]) for r in tested for t in r["focal_test"][:1]
+                                           if t and t["t"] is not None], default=float("nan")),
+                         "sigma_logf_data_median": _median([t["sigma_logf_data"] for r in tested
+                                                            for t in r["focal_test"][:1] if t]),
+                         "measured_views": sum(st_ == "measured" for r in clean for st_ in r["focal_statuses"]),
+                         "n_views": sum(len(r["focal_statuses"]) for r in clean)}
     if frontal:
         fr = _get(seeds, "exif", kind="exif_missing", frontal=True)
         st = [s for r in fr for s in r["focal_statuses"]]
@@ -983,7 +1104,8 @@ def _evaluate(seeds, full: bool, frontal: bool, fast: bool = False) -> dict:
                                     "measured": st.count("measured"), "focal_status_counts": _count(st),
                                     "c_focal_prior_finding": sum(any(f[1] == "C-FOCAL-PRIOR" for f in r["findings"])
                                                                  or "C-FOCAL-PRIOR" in r["flags"] for r in fr),
-                                    "n": n, "focal_rel_err_median": _median([_median(r["focal_rel_err"]) for r in fr])}
+                                    "n": n, "focal_rel_err_median": _median([_median(r["focal_rel_err"]) for r in fr]),
+                                    "overruled": sum(_overruled(r) for r in fr)}
 
     # ---- selfies
     sel = _get(seeds, "selfie")
@@ -1018,8 +1140,21 @@ def _evaluate(seeds, full: bool, frontal: bool, fast: bool = False) -> dict:
     eng = [bool(_at_view(r, r["retouch_engine"], r["truth"]["view"])) for r in be]
     eng_other = [f for r in be for v, f in zip(r["views"], r["retouch_engine"]) if v != r["truth"]["view"]]
     sh = [shape_shift(a["X"], b["X"])["rms"] for a, b in zip(be, clean)]
+    pipe_other = [f for r in be for v, f in zip(r["views"], r["retouch_pipeline"]) if v != r["truth"]["view"]]
+    pipe_other += [f for r in clean for f in r["retouch_pipeline"]]
+    # ... and of the other unretouched sets with >= 3 views (the clean rear-phone twins and the selfies)
+    pipe_other += [f for r in list(rear) + list(sel) for f in r["retouch_pipeline"]]
+    # ... and of the unretouched sets whose declared noise is not the base noise (FU-03 review): the
+    # beard-tagged and the 150 px (Q-SMALL, sigma x2) sets on every run, the glasses- (eye sigma x2) and
+    # hair-tagged sets on the release run (they stop after the landmarks stage per push, :func:`_occ_kw`)
+    occ_pool = list(_get(seeds, "occluder", tag="beard")) + list(_get(seeds, "small"))
+    occ_pool += [r for tag in ("glasses", "hair") for r in _get(seeds, "occluder", **_occ_kw(tag, fast))]
+    pipe_tagged = [f for r in occ_pool for f in r.get("retouch_pipeline", [])]
+    pipe_other += pipe_tagged
     out["beauty_warp"] = {
         "n": n, "pipeline_q_retouch": sum(_has(r, "p%02d" % (r["truth"]["view"] + 1), "Q-RETOUCH") for r in be),
+        "pipeline_n_clean_views": len(pipe_other), "pipeline_fp": int(sum(pipe_other)),
+        "pipeline_n_tagged_views": len(pipe_tagged), "pipeline_fp_tagged": int(sum(pipe_tagged)),
         "engine_test_tp": int(sum(eng)), "engine_test_n_clean_views": len(eng_other),
         "engine_test_fp": int(sum(eng_other)), "identity_bias_rms_mm_median": _median(sh),
         "identity_bias_rms_mm_max": float(max(sh))}
@@ -1046,13 +1181,17 @@ def _evaluate(seeds, full: bool, frontal: bool, fast: bool = False) -> dict:
                                             for r in be_),
                     "chin_points_dropped": sum(not np.asarray(r["uv_used"])[:, jaw_ids].any() for r in be_),
                     "clean_jaw_status": _count([r["regions"]["jaw"][0] for r in clean])}
-    gl = _get(seeds, "occluder", tag="glasses")
+    gl = _get(seeds, "occluder", **_occ_kw("glasses", fast))
     eye = [i for i, m in enumerate(gl[0]["truth"]["mult"]) if m > 1.0]
     out["glasses"] = {"n": n, "no_iris_scale": sum(all(f.get("no_iris_scale") for f in r["occluder_flags"])
                                                    for r in gl),
-                      "eye_sigma_x2": sum(bool(np.allclose(np.asarray(r["weights"])[:, eye], 0.25)) for r in gl),
+                      # eye sigma x2 = information weight 1/4 on top of the view's own QA multiplier (a view
+                      # that is also Q-SMALL carries x2 on every point: 1/4 x 1/4 on its eye points)
+                      "eye_sigma_x2": sum(bool(np.allclose(
+                          np.asarray(r["weights"])[:, eye] * np.asarray(r["lm_qa_sigma_mult"])[:, None] ** 2, 0.25))
+                          for r in gl),
                       "n_eye_points": len(eye)}
-    ha = _get(seeds, "occluder", tag="hair")
+    ha = _get(seeds, "occluder", **_occ_kw("hair", fast))
     ear = [i for i, d in enumerate(ha[0]["truth"]["drop"]) if d]
     out["hair"] = {"n": n, "no_silhouette_above_trichion": sum(
         all(f.get("no_silhouette_above") == "trichion" for f in r["occluder_flags"]) for r in ha),
@@ -1147,33 +1286,28 @@ class Gate:
 CALIBRATION_PENDING: dict = {
     "mirror.tpr": "the mirror test never reaches g >= g_min = 4 through the pipeline (median g ~1-2): no "
                   "suggest_flip at all; needs pooled evidence / a recalibrated g_min (WP-15 note)",
-    "exif_crop.focal": "an EXIF focal that is wrong by +/-30 % is trusted at sigma_log 0.04: the solve keeps it "
-                       "(median focal error 0.28) and compensates with distance",
-    "exif_missing.focal": "without EXIF the focal error is 0.14 (median) on a 120 deg rear-phone set: above the "
+    "exif_crop.focal": "an EXIF focal that is wrong by +/-30 % is kept (median focal error 0.28): the robust EXIF "
+                       "prior of FU-03 is wired but never fires on this row, because the photos alone do not "
+                       "constrain the focal at 0.6-1.5 m under the engine's declared noise (photos-only sigma of "
+                       "ln f median 0.29 against the 0.25 the test requires; largest |t| 2.07 against 2.58)",
+    "exif_missing.focal": "without EXIF the focal error is 0.11 (median) on a 120 deg rear-phone set: above the "
                           "5 % target (com R8.4)",
-    "exif_unobservable.c_focal_prior": "the pipeline has no C-FOCAL-PRIOR finding; the H5 label reads 'partial' "
-                                       "(never 'measured') on the frontal-only set",
     "jaw_open.tpr": "no view is tagged: the mobile-class reduced chi2 stays < 4 because the declared lip / chin "
                     "noise is isotropic at the tangential sigma (FU-01) and the robust schedule absorbs the rest",
     "jaw_open.identity": "untagged jaw opening moves the neutral identity by ~1 mm RMS (hard bound 0.3 mm)",
     "smile.tpr": "as jaw_open.tpr (2-4 mm mouth-corner motion is inside the declared noise)",
     "smile.identity": "median 0.17 mm but single seeds reach 0.5 mm (hard bound 0.3 mm on every seed)",
-    "beauty_warp.tpr": "the pipeline has no post-BA Q-RETOUCH step, and the engine's residual test on the "
-                       "pipeline solve flags 0 of 30 warped views (WP-15: ~0.25 at nominal noise on a clean "
-                       "consensus)",
-    "off_axis_stereographic.model": "virtual_stereo is selected for 19 of 30 views (0.63; pinhole 9, k1 2): below "
+    "beauty_warp.tpr": "FU-03 wired the post-BA Q-RETOUCH step (engine residual test against the leave-one-view-out "
+                       "consensus; down-weight and no texture when flagged), but it flags 0 of 30 warped views: the "
+                       "eye / jaw ratio z-scores stay below 3 under the engine's declared noise (needs the narrower "
+                       "noise model of FU-04)",
+    "off_axis_stereographic.model": "virtual_stereo is selected for 22 of 30 views (0.73; pinhole 7, k1 1): below "
                                     "the 0.8 target as a point estimate, although not rejected at the binomial "
                                     "95 % bound; the selected model is recorded but not applied "
                                     "(C-MODEL-NOT-APPLIED)",
-    "hair.points_dropped": "the 'hair' tag's drop classes ('ear', 'temple') are not resolved to landmarks by the "
-                           "landmarks stage: t, sa, sba and tr stay in the solve",
     "hair.scalp_inside_hull": "not evaluable: the landmark pipeline has no hair silhouette (needs ContourObs / "
                               "stage D inputs); reported as not evaluated, never as passed",
-    "small_face.q_small": "149/150: Q-SMALL is decided on max(bbox width, bbox height) of the visible landmarks "
-                          "(pipeline.stages._landmark_qa), so a face 150 px wide but ~246 px tall at 45 deg yaw "
-                          "escapes when detector noise pushes the height past 250 px (seed 2313, view 3); "
-                          "DESIGN / com R1.4 say 'face < 250 px wide'",
-    "small_face.coverage": "sigma_rep stays over-conservative on Q-SMALL sets (1-sigma coverage 0.89 > 0.76) by "
+    "small_face.coverage": "sigma_rep stays over-conservative on Q-SMALL sets (1-sigma coverage above 0.76) by "
                            "design: the x2 down-weight widens the posterior, and chi2_red / gamma are taken "
                            "against the noise before the multiplier (FU-02), so the caution is not deflated away",
 }
@@ -1182,12 +1316,9 @@ CALIBRATION_PENDING: dict = {
 #: listed as such in docs/RESULTS.md and under the DESIGN 7.4 table.  The tests keep the tree green only
 #: while the entry is failing *and* documented; nothing here is relaxed, and the release run fails when an
 #: entry starts to pass (so the list cannot go stale) or when any other honesty gate fails.
-OPEN_HONESTY_VIOLATIONS: dict = {
-    "exif_crop.focal_label": "every view of a set whose EXIF focal is wrong by +/-30 % is labelled focal "
-                             "'measured' while the focal is 0.28 off: sigma_post(ln f) < 0.10 (the H5 rule as "
-                             "written) is inherited from the trusted, wrong prior (sigma_log 0.04), not earned "
-                             "from the photos",
-}
+#: Empty since FU-03: ``exif_crop.focal_label`` (focal 'measured' inherited from a wrong EXIF prior) was
+#: closed by deriving the label from the photos' own information (docs/RESULTS.md 3.1).
+OPEN_HONESTY_VIOLATIONS: dict = {}
 
 
 def _rate(k: int, n: int) -> str:
@@ -1250,8 +1381,10 @@ def gates(m: dict, relax_continuous: bool = False) -> list:
         x, t = m[kind], thr[kind]
         add(f"{kind}.focal", "design", f"focal error < {t['focal_rel_err_max']} when views span >= "
             f"{t['when_yaw_span_deg_min']:g} deg", f"median {x['focal_rel_err_median']:.3f} (span "
-            f"{x['yaw_span_deg_min']:g} deg; {x['n_within_5pct']}/{x['n']} seeds within)",
-            x["focal_rel_err_median"] < t["focal_rel_err_max"])
+            f"{x['yaw_span_deg_min']:g} deg; {x['n_within_5pct']}/{x['n']} seeds within"
+            + (f"; EXIF overruled in {x['overruled']}/{x['n']} sets, photos-only sigma(ln f) median "
+               f"{x['sigma_logf_data_median']:.2f}, largest |t| {x['abs_t_max']:.2f}" if kind == "exif_crop" else "")
+            + ")", x["focal_rel_err_median"] < t["focal_rel_err_max"])
         add(f"{kind}.shape", "design", f"shape <= {deg[kind]['shape_rms_ratio_max']} x clean",
             f"median ratio {x['shape_ratio']:.3f}", x["shape_ratio"] <= deg[kind]["shape_rms_ratio_max"])
         add(f"{kind}.focal_floor", "floor", "focal error not worse than recorded (0.35 crop / 0.20 missing)",
@@ -1263,6 +1396,13 @@ def gates(m: dict, relax_continuous: bool = False) -> list:
     x = m["exif_missing"]
     add("exif_missing.focal_label", "honesty", "H5: no view labelled focal 'measured' while > 15 % off",
         _rate(x["measured_but_off_by_15pct"], x["n_views"]), x["measured_but_off_by_15pct"] == 0)
+    x = m["exif_clean"]
+    from face3d.solve.focal import FOCAL_DEFAULTS as _FD
+    alpha = float(_FD["exif_reject_alpha"].value)
+    add("exif_crop.no_false_overrule", "honesty", f"a correct EXIF focal overruled on <= {alpha:g} of the clean sets "
+        "(focal.exif_reject_alpha: the stated false-alarm rate of the robust EXIF prior)",
+        _rate(x["overruled"], x["n"]) + f" (largest |t| {x['abs_t_max']:.2f}; photos-only sigma(ln f) median "
+        f"{x['sigma_logf_data_median']:.2f})", _le(x["overruled"], x["n"], alpha))
     if "exif_unobservable" in m:
         x = m["exif_unobservable"]
         add("exif_unobservable.c_focal_prior", "design", "C-FOCAL-PRIOR raised when the focal is unobservable",
@@ -1270,6 +1410,9 @@ def gates(m: dict, relax_continuous: bool = False) -> list:
             x["c_focal_prior_finding"] == x["n"])
         add("exif_unobservable.never_measured", "honesty", "H5: an unobservable focal is never labelled 'measured'",
             _rate(x["measured"], x["n_views"]), x["measured"] == 0)
+        add("exif_unobservable.focal_floor", "floor", "focal error on the unobservable set not worse than recorded "
+            "(0.12; WP-23: 0.10) and no prior overruled", f"median {x['focal_rel_err_median']:.3f}; overruled "
+            f"{x['overruled']}/{x['n']}", x["focal_rel_err_median"] <= 0.12 and x["overruled"] == 0)
 
     x, t = m["selfie_near"], thr["selfie_near"]
     add("selfie_near.q_near", "design", "Q-NEAR on every selfie at 0.35 m", _rate(x["q_near"], x["n_photos"]),
@@ -1300,14 +1443,20 @@ def gates(m: dict, relax_continuous: bool = False) -> list:
 
     x, t, d = m["beauty_warp"], thr["beauty_warp"], deg["beauty_warp"]
     add("beauty_warp.tpr", "design", f"Q-RETOUCH TPR >= {t['tpr_min']} with >= {t['min_clean_views']} clean views",
-        f"pipeline {_rate(x['pipeline_q_retouch'], x['n'])}; engine residual test on the pipeline solve "
-        f"{_rate(x['engine_test_tp'], x['n'])}", _ge(x["pipeline_q_retouch"], x["n"], t["tpr_min"]))
+        f"pipeline (post-BA test against the LOVO consensus) {_rate(x['pipeline_q_retouch'], x['n'])}; the same "
+        f"engine test on the final solve {_rate(x['engine_test_tp'], x['n'])}",
+        _ge(x["pipeline_q_retouch"], x["n"], t["tpr_min"]))
     add("beauty_warp.identity", "design", f"identity bias <= {d['identity_bias_mm_max']} mm",
         f"RMS median {x['identity_bias_rms_mm_median']:.2f}, max {x['identity_bias_rms_mm_max']:.2f} mm",
         x["identity_bias_rms_mm_median"] <= d["identity_bias_mm_max"])
-    add("beauty_warp.no_false_alarm", "honesty", "engine residual test flags <= 0.05 of the clean views",
-        _rate(x["engine_test_fp"], x["engine_test_n_clean_views"]),
-        _le(x["engine_test_fp"], x["engine_test_n_clean_views"], 0.05))
+    ok_p = _le(x["pipeline_fp"], x["pipeline_n_clean_views"], 0.05)
+    ok_e = _le(x["engine_test_fp"], x["engine_test_n_clean_views"], 0.05)
+    add("beauty_warp.no_false_alarm", "honesty", "Q-RETOUCH on <= 0.05 of the unwarped views (pipeline: the 4 "
+        "other views of each warped set and every view of the clean studio, clean rear-phone, selfie, beard, 150 px "
+        "and (release run) glasses and hair sets; and the engine test on the final solve)",
+        f"pipeline {_rate(x['pipeline_fp'], x['pipeline_n_clean_views'])} (of which occluder-tagged / 150 px "
+        f"views {_rate(x['pipeline_fp_tagged'], x['pipeline_n_tagged_views'])}); engine test "
+        f"{_rate(x['engine_test_fp'], x['engine_test_n_clean_views'])}", (ok_p[0] and ok_e[0], ok_p[1] and ok_e[1]))
 
     for kind in ("off_axis_stereographic", "off_axis_rectilinear"):
         x, t, d = m[kind], thr[kind], deg[kind]
@@ -1546,15 +1695,86 @@ def test_gate_measures_the_reported_sigma_rep():
     assert np.all(np.diag(Cd) >= np.diag(C) - 1e-12) and np.diag(Cd).sum() > np.diag(C).sum()
 
 
-@pytest.mark.xfail(strict=True, reason="pipeline defect found by the matrix (calibration-pending "
-                   "small_face.q_small): Q-SMALL uses max(bbox width, bbox height), so a 150 px wide face at "
-                   "45 deg yaw with a ~246 px tall landmark box escapes (DESIGN / com R1.4: 'face < 250 px wide')")
 def test_q_small_fires_on_every_150px_face():
-    """Regression for the deterministic Q-SMALL miss (seed 2313, view 3).  Strict xfail: when the landmark
-    stage measures the face width, this passes, the xfail fails, and the pending entry must be removed."""
-    rec = task_small(2313)
+    """Regression for the deterministic Q-SMALL miss of WP-23 (seed 2313, view 3: a face 150 px wide but
+    ~246 px tall at 45 deg yaw escaped while the stage measured max(width, height) of the landmark box).
+    FU-03: the landmarks stage measures the pose-independent face width (``stages.face_width_px``)."""
+    rec = collect([("small", 2313, {})])[0]
     missed = [v for v in range(rec["n_photos"]) if not _has(rec, "p%02d" % (v + 1), "Q-SMALL")]
     assert missed == []
+
+
+def test_face_width_is_pose_independent():
+    """``stages.face_width_px``: the same head at the same distance reads the same width from the front,
+    at 45 deg and in profile (within 6 %: perspective and hidden points), while the landmark-box extents
+    change by far more; a frontal face reads its landmark-box width."""
+    from face3d.synthetic import orbit_camera
+    k = kit()
+    X = np.asarray(S.FactorPrior.from_package().mean(), float)
+    tgt = tuple(float(x) for x in face_centre(k))
+    widths, boxes = [], []
+    for yaw in (0.0, 45.0, 90.0, -90.0):
+        cam = orbit_camera(2000.0, yaw, 5.0, 85.0, width=W, height=H, target=tgt)
+        uv = cam.project(X)
+        widths.append(S.face_width_px(uv, X))
+        boxes.append(np.ptp(uv, axis=0))
+    assert max(widths) / min(widths) < 1.06, widths
+    assert widths[0] == pytest.approx(boxes[0][0], rel=0.05)              # frontal: the landmark-box width
+    assert boxes[2][0] / boxes[0][0] > 1.25 and boxes[0][1] / boxes[0][0] > 1.3   # what the box would say
+    # too few points, or a degenerate (collinear) configuration: no width (the stage falls back to the box)
+    few = np.full_like(uv, np.nan)
+    few[:3] = uv[:3]
+    assert S.face_width_px(few, X) is None
+    line = np.column_stack([np.linspace(-50.0, 50.0, 10), np.zeros(10), np.zeros(10)])
+    assert S.face_width_px(line[:, :2] + 100.0, line) is None
+    # a gross outlier does not set the scale
+    bad = cam.project(X).copy()
+    bad[5] += 400.0
+    assert S.face_width_px(bad, X) == pytest.approx(widths[-1], rel=0.03)
+
+
+def test_focal_label_is_earned_from_the_photos():
+    """The FU-03 release blocker (H5 / H12), on the per-push seeds: with an EXIF focal that is wrong by
+    +/-30 % no view is labelled focal 'measured' (the solved focal is ~28 % off and the photos cannot say
+    otherwise at this range), every such set carries C-FOCAL-PRIOR, and the clean studio sets (correct
+    EXIF) read 'prior_used' with an *info* C-FOCAL-PRIOR, never a warn / block alarm."""
+    crop = collect([("exif", s, {"kind": "exif_crop"}) for s in FAST_SEEDS])
+    for r in crop:
+        assert "measured" not in r["focal_statuses"] and _median(r["focal_rel_err"]) > 0.15
+        assert "C-FOCAL-PRIOR" in r["flags"]
+        assert all(t is not None and not t["overruled"] for t in r["focal_test"])   # tested, EXIF kept
+    clean = collect([("clean", s, CLEAN) for s in FAST_SEEDS])
+    for r in clean:
+        assert set(r["focal_statuses"]) == {"prior_used"} and "C-FOCAL-PRIOR" in r["flags"]
+        sev = {f[2] for f in r["findings"] if f[1] == "C-FOCAL-PRIOR"}
+        assert sev == {"info"}
+        assert not any(f[1] == "C-FOCAL-EXIF" for f in r["findings"]) and not _overruled(r)
+
+
+def test_exif_overruled_when_the_photos_carry_the_information():
+    """The robust EXIF prior (FU-03 task 2) on a near-range set (0.30-0.35 m, 5 views over 120 deg), where
+    the photos alone give sigma(ln f) ~0.1: an EXIF focal that is 30 % too short is contradicted (|t| > 2.58),
+    the ladder prior without it is adopted, C-FOCAL-EXIF (warn, ask) and the flag C-EXIF-OVERRULED are
+    raised and the focal error drops; a correct EXIF on the same photos is kept.  After an overrule the
+    focal is never labelled 'measured' (conflicting evidence: 'partial').  Detection rates over 30 seeds
+    are in docs/RESULTS.md 3.2 (this is one seed)."""
+    seed = FAST_SEEDS[0]
+    good, short = collect([("exif_near", seed, {"factor": 1.0}), ("exif_near", seed, {"factor": 0.7})])
+    assert not _overruled(good) and not any(f[1] == "C-FOCAL-EXIF" for f in good["findings"])
+    assert good["focal_test"][0]["sigma_logf_data"] < 0.25 and abs(good["focal_test"][0]["t"]) < 2.576
+    assert _median(good["focal_rel_err"]) < 0.06
+    t = short["focal_test"][0]
+    assert t["contradicted"] and t["overruled"] and abs(t["t"]) > 2.576 and abs(t["rel"]) > 0.15
+    assert t["exif_source"] == "exif_f35" and set(short["focal_source"]) == {"phone"}
+    assert "C-EXIF-OVERRULED" in short["solve_flags"]
+    cards = [f for f in short["findings"] if f[1] == "C-FOCAL-EXIF"]
+    assert len(cards) == short["n_photos"] and {f[2] for f in cards} == {"warn"}
+    assert _median(short["focal_rel_err"]) < 0.25           # 0.30 with the EXIF prior kept
+    # H5 after the overrule: a focal with contradicting evidence is not claimed as measured
+    assert set(short["focal_statuses"]) == {"partial"}
+    # ... and a focal that is the EXIF's is 'prior_used' even where the photos could measure it
+    assert set(good["focal_statuses"]) <= {"prior_used", "measured"}
+    assert all(st != "measured" or e < 0.15 for st, e in zip(good["focal_statuses"], good["focal_rel_err"]))
 
 
 def test_alarm_budget_20_clean_sets():
