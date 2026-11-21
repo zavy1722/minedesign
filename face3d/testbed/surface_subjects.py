@@ -31,6 +31,13 @@ Conventions
   test bed (:func:`face3d.testbed.subjects.log_scale_of`).
 * Determinism: every random number comes from the caller's
   ``numpy.random.Generator`` in a fixed draw order.
+* Expression fields (:func:`expression_field`): ``jaw_open`` uses the DESIGN 4.9
+  per-landmark hinge weights at every anatomical landmark (:func:`jaw_open_weights`;
+  the label ``model_matched`` is exact for the landmarks) on a smoothed field that stays
+  fold-free over the fault-matrix range; ``smile`` holds the rigid-class landmarks fixed,
+  ``blink`` the pupil level and the canthi, ``brow_raise`` everything at or below the
+  nasion height (DESIGN 4.9 hard gate).  The returned meta records the per-landmark
+  displacements and the minimum area ratio.
 
 Every numeric default is registered with a badge and a source in the
 ``testbed.surface`` namespace (:mod:`face3d.core.config`); all are test-bed
@@ -38,6 +45,7 @@ design values (badge 🆕 unless a source is cited), not anatomical measurements
 """
 from __future__ import annotations
 
+import hashlib
 import math
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Sequence
@@ -55,6 +63,7 @@ __all__ = [
     "EXPRESSION_KINDS", "area_ratios", "face_hemisphere", "symmetric_part", "antisymmetric_part",
     "asymmetry_rms", "region_weight", "SURFACE_DEFAULTS", "FACE_MIN_Z_MM", "SubjectGenerationError",
     "feature_displacements", "jaw_open_weights", "HINGE_LANDMARK_WEIGHTS", "HINGE_SCHEME", "RIGID_BASES",
+    "FEATURE_KEYS",
 ]
 
 _NEW = "\U0001F195"     # introduced by this design, uncalibrated
@@ -309,49 +318,71 @@ class SurfaceSubject:
         return antisymmetric_part(self.V_true, self.kit.mirror_map)
 
 
-def _features(kit: "TemplateKit", V0: np.ndarray, N0: np.ndarray, rng: np.random.Generator
-              ) -> tuple[np.ndarray, dict]:
-    """Symmetric feature displacements outside the factor model (WP-11 spec; DESIGN 7.2).
+#: Feature parameter names in draw order (WP-11 spec features outside the 18-factor model).
+FEATURE_KEYS: tuple[str, ...] = ("dorsal_hump_mm", "chin_cleft_mm", "lip_curve_mm", "cheek_fullness_mm")
 
-    Draw order: hump amplitude, cleft depth, lip-curve coefficient, cheek amplitude
-    (always drawn, so the stream does not depend on which landmarks the kit has).
-    """
+
+def _draw_feature_params(rng: np.random.Generator) -> dict[str, float]:
+    """Draw the four feature parameters: hump amplitude, cleft depth, lip-curve coefficient,
+    cheek amplitude (in this order; always drawn, so the stream depends neither on which
+    landmarks the kit has nor on ``features``)."""
     hump_amp = float(rng.uniform(_D["hump_amp_min_mm"], _D["hump_amp_max_mm"]))
     cleft = float(rng.uniform(0.0, _D["cleft_depth_max_mm"]))
     lip_u = float(rng.uniform(-1.0, 1.0)) * _D["lip_curve_amp_mm"]
     cheek = float(rng.uniform(-_D["cheek_amp_mm"], _D["cheek_amp_mm"]))
-    D = np.zeros_like(V0)
-    used: dict[str, Any] = {}
+    return {"dorsal_hump_mm": hump_amp, "chin_cleft_mm": cleft, "lip_curve_mm": lip_u, "cheek_fullness_mm": cheek}
+
+
+def feature_displacements(kit: "TemplateKit", params: dict, V0: np.ndarray | None = None,
+                          N0: np.ndarray | None = None) -> dict[str, np.ndarray]:
+    """Per-feature (V, 3) displacement fields outside the factor model (WP-11 spec; DESIGN 7.2).
+
+    ``params`` maps :data:`FEATURE_KEYS` to the drawn values (mm; e.g. a subject's
+    ``meta['features']``); ``V0`` / ``N0`` default to the kit's rest vertices / normals.
+    Returns the applicable features only (a feature whose landmarks the kit lacks is
+    absent), in :data:`FEATURE_KEYS` order:
+
+    * ``dorsal_hump_mm`` ``h``: ``h g(X) N0`` with ``g`` a Gaussian (sigma 6 mm) centred on
+      the midline vertex nearest the n-prn chord midpoint (displacement ``h N0`` there);
+    * ``chin_cleft_mm`` ``c``: ``-c g(X) N0``, ``g`` = narrow midline groove through pg
+      (lateral sigma 3 mm, vertical/depth sigma 8 mm; displacement ``-c N0`` at pg);
+    * ``lip_curve_mm`` ``u``: vertical ``u (|x| / 30)^3 w`` with ``w`` the mouth-line
+      proximity weight ``exp(-d^2 / (2 * 8^2))`` to the ch_R-sto-ch_L polyline on
+      front-facing vertices (``w = 1`` at ch);
+    * ``cheek_fullness_mm`` ``k``: ``k w N0`` with ``w`` the cheeks region weight
+      (1 on the region, falloff 8 mm).
+    """
+    V0 = kit.vertices if V0 is None else np.asarray(V0, float)
+    N0 = kit.normals if N0 is None else np.asarray(N0, float)
+    out: dict[str, np.ndarray] = {}
     # Dorsal hump: centred on the midline vertex nearest the n-prn chord midpoint, along normals.
     P = _lm(kit, V0, ["n", "prn"])
-    if P is not None and kit.midline.size:
+    if P is not None and kit.midline.size and "dorsal_hump_mm" in params:
         mid = 0.5 * (P[0] + P[1])
         c = V0[kit.midline[np.argmin(np.linalg.norm(V0[kit.midline] - mid, axis=1))]]
         g = np.exp(-0.5 * np.sum((V0 - c) ** 2, axis=1) / _D["hump_sigma_mm"] ** 2)
-        D += (hump_amp * g)[:, None] * N0
-        used["dorsal_hump_mm"] = hump_amp
+        out["dorsal_hump_mm"] = (float(params["dorsal_hump_mm"]) * g)[:, None] * N0
     # Chin cleft: a narrow midline groove (lateral sigma 3 mm) through pogonion, inward along normals.
     P = _lm(kit, V0, ["pg"])
-    if P is not None:
+    if P is not None and "chin_cleft_mm" in params:
         c = P[0]
         g = np.exp(-0.5 * (V0[:, 0] - c[0]) ** 2 / _D["cleft_sigma_mm"] ** 2
                    - 0.5 * ((V0[:, 1] - c[1]) ** 2 + (V0[:, 2] - c[2]) ** 2) / _D["cleft_vertical_sigma_mm"] ** 2)
-        D -= (cleft * g)[:, None] * N0
-        used["chin_cleft_mm"] = cleft
+        out["chin_cleft_mm"] = -((float(params["chin_cleft_mm"]) * g)[:, None] * N0)
     # Lip-line curvature: vertical shift u * (|x| / 30)^3 near the mouth line ch_R - sto - ch_L
     # (|x|^3 keeps it mirror-symmetric: corners up or down together).
     P = _lm(kit, V0, ["ch_R", "sto", "ch_L"])
-    if P is not None:
+    if P is not None and "lip_curve_mm" in params:
         d = np.minimum(_point_segment_dist(V0, P[0], P[1]), _point_segment_dist(V0, P[1], P[2]))
         w = np.exp(-0.5 * (d / _D["mouth_falloff_mm"]) ** 2) * (N0[:, 2] > 0.0)
-        D[:, 1] += lip_u * (np.abs(V0[:, 0]) / _D["lip_curve_ref_mm"]) ** 3 * w
-        used["lip_curve_mm"] = lip_u
+        D = np.zeros_like(V0)
+        D[:, 1] = float(params["lip_curve_mm"]) * (np.abs(V0[:, 0]) / _D["lip_curve_ref_mm"]) ** 3 * w
+        out["lip_curve_mm"] = D
     # Cheek fullness: +/-2 mm along normals on the cheeks region (smooth falloff outside).
-    if kit.regions.get("cheeks") is not None and len(kit.regions["cheeks"]):
+    if kit.regions.get("cheeks") is not None and len(kit.regions["cheeks"]) and "cheek_fullness_mm" in params:
         w = region_weight(kit, V0, "cheeks", _D["cheek_falloff_mm"])
-        D += (cheek * w)[:, None] * N0
-        used["cheek_fullness_mm"] = cheek
-    return D, used
+        out["cheek_fullness_mm"] = (float(params["cheek_fullness_mm"]) * w)[:, None] * N0
+    return out
 
 
 def _draw_once(kit: "TemplateKit", rng: np.random.Generator, amp_mm: float, asym_mm: float,
@@ -371,10 +402,17 @@ def _draw_once(kit: "TemplateKit", rng: np.random.Generator, amp_mm: float, asym
         C = V0[ci]
         h = (_bumps(V0, C, widths) + _bumps(V0, C * _FLIP, widths)) @ amps
     V = V0 + h[:, None] * N0
-    # 2. features outside the factor model.
+    # 2. features outside the factor model (parameters always drawn: the stream does not depend on
+    #    ``features``, so features=True and features=False subjects of one seed differ by the features only).
+    drawn = _draw_feature_params(rng)
     feat: dict = {}
     if features:
-        Df, feat = _features(kit, V0, N0, rng)
+        parts = feature_displacements(kit, drawn, V0, N0)
+        Df = np.zeros_like(V0)
+        for key in FEATURE_KEYS:
+            if key in parts:
+                Df += parts[key]
+                feat[key] = drawn[key]
         V = V + Df
     V = _symmetrise(kit, V)
     # 3. antisymmetric part with RMS asym_mm over the face hemisphere.
@@ -394,8 +432,8 @@ def _draw_once(kit: "TemplateKit", rng: np.random.Generator, amp_mm: float, asym
     zeta = float(rng.normal(scale=log_scale_sd))
     V = math.exp(zeta) * V * aniso[None, :]
     params = {"bump_centres": ci.tolist(), "bump_widths_mm": widths.tolist(), "bump_amps_mm": amps.tolist(),
-              "features": feat, "asym_target_mm": float(asym_mm), "aniso_scale": aniso.tolist(),
-              "zeta_drawn": zeta}
+              "features": feat, "feature_draws": drawn, "asym_target_mm": float(asym_mm),
+              "aniso_scale": aniso.tolist(), "zeta_drawn": zeta}
     return V, params
 
 
@@ -416,7 +454,9 @@ def out_of_prior_subject(kit: "TemplateKit", rng: np.random.Generator, *, amp_mm
        pg, lateral sigma 3 mm, vertical sigma 8 mm); lip-line curvature (vertical
        ``u (|x|/30)^3`` with ``u ~ U(-1, 1)`` mm near the ch-sto-ch mouth line, falloff
        sigma 8 mm); cheek fullness (``U(-2, 2)`` mm along normals on the cheeks
-       region, falloff 8 mm).  Then exact symmetrisation (midline x = 0).
+       region, falloff 8 mm); see :func:`feature_displacements`.  The four parameters are
+       drawn even with ``features=False`` (then not applied), so the two settings of one
+       seed differ by exactly the features.  Then exact symmetrisation (midline x = 0).
     3. **Antisymmetric part**: a smooth field ``d`` of 8 Gaussian bumps with random
        3D directions, made antisymmetric ``A = (d - F d[m]) / 2`` and scaled so that
        RMS|A| over the face hemisphere equals ``asym_mm``.
@@ -462,18 +502,178 @@ def out_of_prior_subject(kit: "TemplateKit", rng: np.random.Generator, *, amp_mm
 
 
 # =========================================================================== expressions
+def _base(name: str) -> str:
+    return name[:-2] if name.endswith(("_L", "_R")) else name
+
+
+def _vertex_areas(V: np.ndarray, tris: np.ndarray) -> np.ndarray:
+    """Barycentric vertex areas (a third of each incident triangle's area), mm^2."""
+    cr = np.cross(V[tris[:, 1]] - V[tris[:, 0]], V[tris[:, 2]] - V[tris[:, 0]])
+    a = 0.5 * np.linalg.norm(cr, axis=1)
+    A = np.zeros(len(V))
+    np.add.at(A, tris.reshape(-1), np.repeat(a / 3.0, 3))
+    return A
+
+
+def _gauss_smooth(V: np.ndarray, w: np.ndarray, A: np.ndarray, sigma: float, chunk: int = 1024) -> np.ndarray:
+    """Area-weighted Gaussian smoothing ``sum_j K_ij A_j w_j / sum_j K_ij A_j`` (3D distances)."""
+    out = np.empty(len(V))
+    sq = np.sum(V * V, axis=1)
+    for s in range(0, len(V), chunk):
+        p = V[s:s + chunk]
+        d2 = sq[s:s + chunk, None] - 2.0 * p @ V.T + sq[None, :]
+        K = np.exp(-0.5 * np.maximum(d2, 0.0) / sigma ** 2) * A[None, :]
+        den = K.sum(axis=1)
+        num = K @ w
+        out[s:s + chunk] = np.where(den > 0, num / np.where(den > 0, den, 1.0), w[s:s + chunk])
+    return out
+
+
+_JAW_CACHE: dict[str, tuple[np.ndarray, dict]] = {}
+_JAW_CACHE_MAX = 8
+
+
+def jaw_open_weights(kit: "TemplateKit", landmark_weights: dict | None = None, *,
+                     smooth_sigma_mm: float | None = None, pin_rho_mm: float | None = None
+                     ) -> tuple[np.ndarray, dict]:
+    """Per-vertex hinge weights used by ``expression_field(kind='jaw_open')`` -> ``(w (V,), info)``.
+
+    The field is the kit's jaw weights made smooth and pinned to DESIGN 4.9 at the landmarks:
+
+    1. ``w_s`` = area-weighted Gaussian smoothing (sigma ``jaw_smooth_sigma_mm`` = 20 mm, rest
+       shape) of ``kit.jaw_weights``.  The procedural kit's weights step from 0 to 1 across
+       one edge at z = -10 mm (WP-08 rule); unsmoothed, that step folds the mesh under the
+       jaw for any opening above ~5 deg.
+    2. Pins: every vertex carrying barycentric weight of a ``HINGE_SCHEME`` landmark gets
+       that landmark's DESIGN 4.9 weight ``omega`` (``landmark_weights`` by base id, default
+       :data:`HINGE_LANDMARK_WEIGHTS`; bases not listed are 0).  The pins are reached by a
+       smooth Gaussian-RBF correction (width ``jaw_pin_rho_mm`` = 15 mm) solved so that
+       ``w_s + correction`` equals ``omega`` at every pinned vertex, then clipped to [0, 1],
+       mirror-symmetrised and set exactly at the pins.
+    3. Because every embedding corner of landmark i carries ``omega_i``, the hinge moves the
+       landmark by exactly ``omega_i (R(X_i - c) - (X_i - c))``: the DESIGN 4.9 model.
+
+    ``info``: ``{'scheme', 'landmark_weights' {name: omega}, 'pinned_vertices', 'conflicts'
+    [names], 'model_matched', 'smooth_sigma_mm', 'pin_rho_mm'}``.  ``model_matched`` is False
+    when the kit lacks the scheme or two landmarks with different weights share an
+    embedding vertex (then those landmarks cannot both match).  Results are cached by kit
+    content.  The weights are a test-bed design (🆕), not anatomy.
+    """
+    table = dict(HINGE_LANDMARK_WEIGHTS if landmark_weights is None else landmark_weights)
+    for k, v in table.items():
+        if not 0.0 <= float(v) <= 1.0:
+            raise ValueError(f"landmark weight {k!r} = {v} must lie in [0, 1]")
+    sig = float(_D["jaw_smooth_sigma_mm"] if smooth_sigma_mm is None else smooth_sigma_mm)
+    rho = float(_D["jaw_pin_rho_mm"] if pin_rho_mm is None else pin_rho_mm)
+    if sig < 0 or rho <= 0:
+        raise ValueError("smooth_sigma_mm must be >= 0 and pin_rho_mm > 0")
+    emb = kit.landmarks.get(HINGE_SCHEME)
+    h = hashlib.sha256()
+    h.update(str(kit.topology_sha256).encode())
+    h.update(np.ascontiguousarray(kit.vertices, np.float64).tobytes())
+    h.update(np.ascontiguousarray(kit.jaw_weights, np.float64).tobytes())
+    h.update(np.ascontiguousarray(kit.mirror_map, np.int64).tobytes())
+    h.update(repr((sorted((str(k), float(v)) for k, v in table.items()), sig, rho)).encode())
+    if emb is not None:
+        h.update(repr(sorted((str(n), int(e["tri"]), [float(b) for b in e["bary"]])
+                             for n, e in emb.items())).encode())
+    key = h.hexdigest()
+    hit = _JAW_CACHE.get(key)
+    if hit is not None:
+        return hit[0].copy(), _copy_info(hit[1])
+
+    V0 = kit.vertices
+    tris = kit.triangles()
+    w0 = np.asarray(kit.jaw_weights, float)
+    ws = _gauss_smooth(V0, w0, _vertex_areas(V0, tris), sig) if sig > 0 else w0.copy()
+    pins: dict[int, list[tuple[str, float]]] = {}
+    lw: dict[str, float] = {}
+    if emb is not None:
+        for name, e in emb.items():
+            om = float(table.get(_base(str(name)), 0.0))
+            lw[str(name)] = om
+            corners = tris[int(e["tri"])]
+            for k, b in enumerate(np.asarray(e["bary"], float).reshape(3)):
+                if b != 0.0:
+                    pins.setdefault(int(corners[k]), []).append((str(name), om))
+    conflicts = sorted({n for lst in pins.values() if len({o for _, o in lst}) > 1 for n, _ in lst})
+    w = ws.copy()
+    if pins:
+        pv = np.asarray(sorted(pins), np.int64)
+        om = np.asarray([float(np.mean([o for _, o in pins[v]])) for v in pv])
+        P = V0[pv]
+        d2 = np.sum((P[:, None, :] - P[None, :, :]) ** 2, axis=2)
+        Phi = np.exp(-0.5 * d2 / rho ** 2)
+        r = om - ws[pv]
+        try:
+            alpha = np.linalg.solve(Phi, r)
+        except np.linalg.LinAlgError:
+            alpha = np.linalg.lstsq(Phi, r, rcond=None)[0]
+        w = ws + _bumps(V0, P, np.full(len(pv), rho)) @ alpha
+        w = np.clip(w, 0.0, 1.0)
+        w = 0.5 * (w + w[np.asarray(kit.mirror_map)])
+        w[pv] = om
+    else:
+        w = np.clip(0.5 * (w + w[np.asarray(kit.mirror_map)]), 0.0, 1.0)
+    info = {"scheme": HINGE_SCHEME, "landmark_weights": lw, "pinned_vertices": len(pins), "conflicts": conflicts,
+            "model_matched": bool(pins) and not conflicts, "smooth_sigma_mm": sig, "pin_rho_mm": rho,
+            "source": "kit jaw weights smoothed (Gaussian, area-weighted) and pinned to DESIGN 4.9 omega"}
+    if len(_JAW_CACHE) >= _JAW_CACHE_MAX:
+        _JAW_CACHE.pop(next(iter(_JAW_CACHE)))
+    _JAW_CACHE[key] = (w.copy(), _copy_info(info))
+    return w, info
+
+
+def _copy_info(info: dict) -> dict:
+    out = dict(info)
+    out["landmark_weights"] = dict(info["landmark_weights"])
+    out["conflicts"] = list(info["conflicts"])
+    return out
+
+
+_EXPRESSION_DOC: dict[str, dict[str, Any]] = {
+    "smile": {
+        "held_fixed": "rigid-class landmarks (RIGID_BASES; exactly for one-hot embeddings)",
+        "moves": "ch up 0.6a / out 0.4a (sigma 15 mm), cheeks up 0.25a; mobile and semi-mobile points",
+        "residual_rigid_motion": "none at the rigid landmarks; the cheek lift is zero within ~8 mm of them",
+    },
+    "jaw_open": {
+        "held_fixed": "landmarks with DESIGN 4.9 weight 0 (all but me, gn, pg, sl, li, go, sto, ch)",
+        "moves": "X + omega (R_x(a)(X - c) - (X - c)) with DESIGN 4.9 omega at every anatomical landmark",
+        "residual_rigid_motion": "none at the landmarks; non-landmark vertices follow smoothed kit weights",
+    },
+    "brow_raise": {
+        "held_fixed": "every vertex at or below the nasion height (n, en, ex, p, ps, pi, or, ...)",
+        "moves": "forehead region (incl. g, tr) up a; ramp from the nasion height to the lowest forehead vertex",
+        "residual_rigid_motion": "g and tr (forehead region, rigid class) move up by the amount, as specified",
+    },
+    "blink": {
+        "held_fixed": "every vertex at or below its pupil's height (p, pi, or) and the canthi (en, ex)",
+        "moves": "upper lid down a: full at ps and above, linear ramp from p to ps, lid profile 0 at en/ex",
+        "residual_rigid_motion": "none at the landmarks; folds when a > ~0.8 (y_ps - y_p) (see min_area_ratio)",
+    },
+}
+
+
 def expression_meta(kind: str, amount: float) -> dict:
     """Ground-truth labels of an expression field (units, whether the engine's model matches it).
 
-    ``model_matched`` is True only for ``jaw_open``: the DESIGN 4.9 jaw hinge
-    (rotation about +x through mid-tragion + (0, -5, 11.5) mm, per-vertex jaw
-    weights) reproduces it exactly; the other kinds are outside the engine's model
-    and must be handled by covariance inflation (DESIGN D-14).
+    ``model_matched`` is True only for ``jaw_open``: its weights equal the DESIGN 4.9
+    per-landmark hinge weights at every anatomical landmark (:func:`jaw_open_weights`) and the
+    hinge is DESIGN 4.9's (rotation about +x through mid-tragion + (0, -5, 11.5) mm), so the
+    engine's hinge model reproduces the landmark motion exactly (the label is revised to
+    False by :func:`expression_field` if the kit cannot honour it).  The other kinds are
+    outside the engine's model and must be handled by covariance inflation (DESIGN D-14).
+    ``held_fixed`` / ``moves`` / ``residual_rigid_motion`` document which landmarks each field
+    leaves exactly in place (for the DESIGN 4.9 hard gate, WP-15 / WP-23);
+    :func:`expression_field` adds the measured per-landmark displacements.
     """
     if kind not in EXPRESSION_KINDS:
         raise ValueError(f"kind must be one of {EXPRESSION_KINDS}, not {kind!r}")
-    return {"kind": kind, "amount": float(amount), "units": "deg" if kind == "jaw_open" else "mm",
+    meta = {"kind": kind, "amount": float(amount), "units": "deg" if kind == "jaw_open" else "mm",
             "model_matched": kind == "jaw_open"}
+    meta.update(_EXPRESSION_DOC[kind])
+    return meta
 
 
 def _rot_x(deg: float) -> np.ndarray:
@@ -482,9 +682,35 @@ def _rot_x(deg: float) -> np.ndarray:
     return np.array([[1.0, 0.0, 0.0], [0.0, c, -s], [0.0, s, c]])
 
 
+def _guard(V: np.ndarray, P: np.ndarray, r: float) -> np.ndarray:
+    """prod_j (1 - exp(-|X - P_j|^2 / (2 r^2))): 0 at every P_j, ~1 away from them (C-infinity)."""
+    out = np.ones(len(V))
+    for p in np.asarray(P, float).reshape(-1, 3):
+        # explicit differences (not the expanded |a|^2 - 2ab + |b|^2): exactly 0 at a landmark vertex
+        out *= 1.0 - np.exp(-0.5 * np.sum((V - p) ** 2, axis=1) / float(r) ** 2)
+    return out
+
+
+def _lid_profile(x: np.ndarray, x_en: float, x_ps: float, x_ex: float) -> np.ndarray:
+    """Upper-lid profile along x: 0 at the canthi (en, ex) and outside them, 1 at ps, C1 (sin^2 ramps)."""
+    out = np.zeros(len(x))
+    if not (min(x_en, x_ex) < x_ps < max(x_en, x_ex)):
+        s = (x - x_en) / (x_ex - x_en) if x_ex != x_en else np.full(len(x), -1.0)
+        ok = (s >= 0.0) & (s <= 1.0)
+        out[ok] = np.sin(math.pi * s[ok]) ** 2
+        return out
+    s1 = (x - x_en) / (x_ps - x_en)
+    s2 = (x_ex - x) / (x_ex - x_ps)
+    a = (s1 >= 0.0) & (s1 <= 1.0)
+    b = (s2 >= 0.0) & (s2 < 1.0)
+    out[a] = np.sin(0.5 * math.pi * s1[a]) ** 2
+    out[b] = np.sin(0.5 * math.pi * s2[b]) ** 2
+    return out
+
+
 def expression_field(kit: "TemplateKit", V: np.ndarray, kind: str, amount: float, *,
                      scheme: str = "anatomical44", hinge_mm: Sequence[float] | None = None,
-                     return_meta: bool = False):
+                     return_meta: bool = False, jaw_landmark_weights: dict | None = None):
     """Displace ``V`` (kit topology) by a synthetic expression (WP-11 spec; DESIGN 7.4 jaw/smile rows).
 
     kind / amount:
@@ -492,20 +718,32 @@ def expression_field(kit: "TemplateKit", V: np.ndarray, kind: str, amount: float
     * ``'smile'`` (mm): each mouth corner (the ch_L / ch_R landmark vertices on ``V``)
       moves up ``0.6 a`` and outward (+x for ch_L, -x for ch_R) ``0.4 a`` with a
       Gaussian falloff ``exp(-|X - ch|^2 / (2 * 15^2))`` (the two corner fields add);
-      the cheeks region moves up ``0.25 a`` (falloff 15 mm outside it).
-    * ``'jaw_open'`` (degrees): ``X' = X + w (R_x(a) (X - c) - (X - c))`` with ``w`` the
-      kit's jaw weights and ``c`` = mid-tragion of ``V`` (midpoint of t_L, t_R) +
-      (0, -5, 11.5) mm (DESIGN 4.9; for the rest kit, mid-tragion is the origin, i.e.
-      the axis through (0, -5, 11.5)).  A positive angle opens the mouth (chin down
-      and back).  ``hinge_mm`` overrides ``c``.  This kind is ``model_matched``.
-    * ``'brow_raise'`` (mm): the forehead region moves up ``a`` (falloff 10 mm).
-    * ``'blink'`` (mm): upper-lid vertices (eyes region, above the pupil of their
-      side) move down ``a``, ramped in over ``max(2, 1.5 a)`` mm above the pupil and
-      with a 4 mm falloff outside the eyes region (keeps the field fold-free).
+      the cheeks region moves up ``0.25 a`` (falloff 15 mm outside it).  The whole field
+      is multiplied by ``prod_j (1 - exp(-|X - L_j|^2 / (2 * 8^2)))`` over the rigid-class
+      landmarks ``L_j`` (:data:`RIGID_BASES`), so pupils, canthi, orbitale and zygion stay
+      fixed (DESIGN 4.9 hard gate: neutral-region identity).
+    * ``'jaw_open'`` (degrees): ``X' = X + w (R_x(a) (X - c) - (X - c))`` with ``w`` from
+      :func:`jaw_open_weights` (the kit's jaw weights smoothed, and equal to the DESIGN 4.9
+      weight at every anatomical landmark) and ``c`` = mid-tragion of ``V`` (midpoint of
+      t_L, t_R) + (0, -5, 11.5) mm (DESIGN 4.9; for the rest kit, mid-tragion is the origin,
+      i.e. the axis through (0, -5, 11.5)).  A positive angle opens the mouth (chin down and
+      back).  ``hinge_mm`` overrides ``c`` (then ``model_matched`` is False);
+      ``jaw_landmark_weights`` overrides the DESIGN weights by base id.  The anatomical
+      landmarks then move exactly as the DESIGN 4.9 hinge model predicts (``model_matched``).
+    * ``'brow_raise'`` (mm): the forehead region moves up ``a`` (falloff 10 mm), times a
+      vertical ramp from 0 at the nasion height to 1 at the lowest forehead vertex (at least
+      3 mm), so n and everything below it stay fixed.
+    * ``'blink'`` (mm): upper-lid vertices (eyes region, above the pupil of their side) move
+      down ``a`` times a vertical ramp that is 0 at the pupil and 1 at ps (full amplitude at
+      ps for any amount; at least 2 mm tall), times a lid profile along x that is 1 at ps
+      and 0 at and beyond the canthi (en, ex), with a 4 mm falloff outside the eyes region.
+      The field is fold-free while ``a < 0.8 (y_ps - y_p)`` (``meta['fold_free_max_mm']``);
+      a larger blink folds the lid over the eye (a closed eye on a single-sheet mesh).
 
-    Returns the displaced (V, 3) array, or ``(V', meta)`` with
-    ``return_meta=True`` (see :func:`expression_meta`).  ``amount = 0`` returns an
-    unchanged copy.
+    Returns the displaced (V, 3) array, or ``(V', meta)`` with ``return_meta=True``
+    (:func:`expression_meta` plus ``min_area_ratio`` against ``V`` and, when the kit has the
+    ``anatomical44`` scheme, ``landmark_displacement_mm`` {name: |d|} and
+    ``rigid_landmark_max_mm``).  ``amount = 0`` returns an unchanged copy.
     """
     meta = expression_meta(kind, amount)
     V = np.asarray(V, float)
@@ -513,6 +751,7 @@ def expression_field(kit: "TemplateKit", V: np.ndarray, kind: str, amount: float
         raise ValueError(f"V must have the kit's shape {kit.vertices.shape}, got {V.shape}")
     a = float(amount)
     D = np.zeros_like(V)
+    hinge_names = kit.landmark_names(HINGE_SCHEME) if HINGE_SCHEME in kit.landmarks else []
     if kind == "smile":
         P = _lm(kit, V, ["ch_L", "ch_R"], scheme)
         if P is None:
@@ -523,7 +762,12 @@ def expression_field(kit: "TemplateKit", V: np.ndarray, kind: str, amount: float
             D[:, 1] += _D["smile_up"] * a * g
             D[:, 0] += sgn * _D["smile_out"] * a * g
         D[:, 1] += _D["smile_cheek_up"] * a * region_weight(kit, V, "cheeks", _D["smile_cheek_falloff_mm"])
+        rigid = [n for n in hinge_names if _base(n) in RIGID_BASES]
+        G = _guard(V, kit.landmark_positions(HINGE_SCHEME, V, rigid) if rigid else np.zeros((0, 3)),
+                   _D["smile_guard_mm"])
+        D *= G[:, None]
         meta["corners"] = P.tolist()
+        meta["guarded_landmarks"] = rigid
     elif kind == "jaw_open":
         if hinge_mm is not None:
             c = np.asarray(hinge_mm, float).reshape(3)
@@ -531,23 +775,55 @@ def expression_field(kit: "TemplateKit", V: np.ndarray, kind: str, amount: float
             T = _lm(kit, V, ["t_L", "t_R"], scheme)
             mid = np.zeros(3) if T is None else 0.5 * (T[0] + T[1])
             c = mid + np.array([0.0, _D["jaw_hinge_y_mm"], _D["jaw_hinge_z_mm"]])
+        w, info = jaw_open_weights(kit, jaw_landmark_weights)
         R = _rot_x(a)
         Y = V - c
-        D = kit.jaw_weights[:, None] * (Y @ R.T - Y)
+        D = w[:, None] * (Y @ R.T - Y)
         meta["hinge_mm"] = c.tolist()
         meta["axis"] = [1.0, 0.0, 0.0]
+        meta["hinge_default"] = hinge_mm is None
+        meta["model_matched"] = bool(info["model_matched"]) and hinge_mm is None
+        meta["jaw_weights"] = info
     elif kind == "brow_raise":
-        D[:, 1] = a * region_weight(kit, V, "forehead", _D["brow_falloff_mm"])
+        wy = np.ones(len(V))
+        Pn = _lm(kit, V, ["n"], scheme)
+        fh = np.asarray(kit.regions.get("forehead", np.zeros(0, np.int64)), np.int64)
+        if Pn is not None and fh.size:
+            y_n = float(Pn[0, 1])
+            y_top = max(float(V[fh, 1].min()), y_n + _D["brow_ramp_min_mm"])
+            wy = np.clip((V[:, 1] - y_n) / (y_top - y_n), 0.0, 1.0)
+            meta["ramp_y_mm"] = [y_n, y_top]
+        D[:, 1] = a * region_weight(kit, V, "forehead", _D["brow_falloff_mm"]) * wy
     else:  # blink
         P = _lm(kit, V, ["p_L", "p_R"], scheme)
         if P is None:
             raise KeyError(f"kit {kit.id!r} has no p_L/p_R in scheme {scheme!r}")
+        E = _lm(kit, V, ["en_L", "ps_L", "ex_L", "en_R", "ps_R", "ex_R"], scheme)
         w = region_weight(kit, V, "eyes", _D["blink_falloff_mm"])
         near_L = np.linalg.norm(V - P[0], axis=1) <= np.linalg.norm(V - P[1], axis=1)
-        y_p = np.where(near_L, P[0, 1], P[1, 1])
-        ramp = max(_D["blink_ramp_min_mm"], _D["blink_ramp_per_mm"] * abs(a))
-        wy = np.clip((V[:, 1] - y_p) / ramp, 0.0, 1.0)
-        D[:, 1] = -a * w * wy
-        meta["ramp_mm"] = ramp
+        ramps = {}
+        for k, (side, sel) in enumerate((("L", near_L), ("R", ~near_L))):
+            p = P[k]
+            if E is not None:
+                en, ps, ex = E[3 * k], E[3 * k + 1], E[3 * k + 2]
+                h = max(float(ps[1] - p[1]), _D["blink_ramp_min_mm"])
+                wx = _lid_profile(V[:, 0], float(en[0]), float(ps[0]), float(ex[0]))
+            else:
+                h = _D["blink_ramp_min_mm"]
+                wx = np.ones(len(V))
+            wy = np.clip((V[:, 1] - p[1]) / h, 0.0, 1.0)
+            D[sel, 1] = -a * (w * wy * wx)[sel]
+            ramps[side] = h
+        meta["ramp_mm"] = ramps
+        meta["fold_free_max_mm"] = (1.0 - _D["min_area_ratio"]) * min(ramps.values())
     out = V + D
-    return (out, meta) if return_meta else out
+    if return_meta:
+        meta["min_area_ratio"] = float(area_ratios(V, out, kit.triangles()).min()) if a != 0 else 1.0
+        if hinge_names:
+            d = np.linalg.norm(kit.landmark_positions(HINGE_SCHEME, out) - kit.landmark_positions(HINGE_SCHEME, V),
+                               axis=1)
+            meta["landmark_displacement_mm"] = {n: float(x) for n, x in zip(hinge_names, d)}
+            rig = [float(x) for n, x in zip(hinge_names, d) if _base(n) in RIGID_BASES]
+            meta["rigid_landmark_max_mm"] = max(rig) if rig else 0.0
+        return out, meta
+    return out

@@ -54,6 +54,13 @@ FAULT_DEFAULTS = register_defaults("testbed.faults", {
     "beauty_eye_scale": Default(1.06, _NEW, _D74 + ": beauty warp eyes +6 %", "", (0.5, 2.0)),
     "beauty_jaw_scale": Default(0.96, _NEW, _D74 + ": beauty warp jaw -4 %", "", (0.5, 2.0)),
     "off_axis_theta_deg": Default(35.0, _NEW, "DESIGN D-12 (J2 check at 35 deg); " + _WP, "deg", (0.0, 89.0)),
+    "off_axis_face_radius_mm": Default(70.0, _BRAIN, "half a bizygomatic breadth (120-150 mm, research/"
+                                       "reconstruction/README.md import sanity row 🧠): the face extent that "
+                                       "off_axis_wide keeps inside the frame", "mm", (0.0, 500.0)),
+    "q_wide_f35_max_mm": Default(16.0, _BRAIN, "DESIGN 4.1 Q-WIDE trigger f35 <= 16 mm (com R1.7)", "mm",
+                                 (1.0, 1000.0)),
+    "off_axis_f35_min_mm": Default(13.0, _NEW, "phone ultra-wide f35 ~13 mm (DESIGN 4.3 PnP hypothesis list "
+                                   "starts at 13 mm); off-axis rows sample f35 in [13, 16] mm", "mm", (1.0, 1000.0)),
     "small_face_px": Default(150.0, _NEW, _D74 + ": 'Face 150 px'", "px", (1.0, 10000.0)),
     "outlier_frac": Default(0.05, _NEW, _D74 + ": '5 % gross outliers'", "", (0.0, 1.0)),
     "outlier_min_sigma": Default(5.0, _NEW, "DESIGN 7.2 detector simulator: outliers at 5-20 sigma", "",
@@ -180,7 +187,10 @@ def expression_fault(subject: SurfaceSubject, view_index: int, kind: str, amount
 
     Returns ``(Vs, truth)``: ``Vs[k]`` is ``subject.V_true`` (neutral) for every view
     except ``view_index``, which carries :func:`expression_field` ``(kind, amount)``.
-    ``truth['model_matched']`` is True for ``jaw_open`` only.
+    ``truth['model_matched']`` is True for ``jaw_open`` only (its anatomical landmarks move
+    exactly as the DESIGN 4.9 hinge with the per-landmark weights predicts);
+    ``truth['landmark_displacement_mm']``, ``truth['rigid_landmark_max_mm']`` and
+    ``truth['min_area_ratio']`` are copied from the field's meta (what the expression moved).
     """
     n = int(n_views)
     if not 0 <= int(view_index) < n:
@@ -190,7 +200,10 @@ def expression_fault(subject: SurfaceSubject, view_index: int, kind: str, amount
     Vs[int(view_index)] = Vx
     return Vs, _truth("expression", "expressive", view=int(view_index), kind=kind, amount=float(amount),
                       units=meta["units"], model_matched=meta["model_matched"],
-                      neutral_views=[k for k in range(n) if k != int(view_index)])
+                      neutral_views=[k for k in range(n) if k != int(view_index)],
+                      landmark_displacement_mm=meta.get("landmark_displacement_mm"),
+                      rigid_landmark_max_mm=meta.get("rigid_landmark_max_mm"),
+                      min_area_ratio=meta.get("min_area_ratio"), held_fixed=meta.get("held_fixed"))
 
 
 # =========================================================================== beauty warp
@@ -323,18 +336,28 @@ class OffAxisView:
 
 
 def off_axis_wide(camera: Camera, X_centre: Sequence[float], theta_deg: float = _F["off_axis_theta_deg"],
-                  model: str = "stereographic", *, azimuth_deg: float | None = None) -> tuple[OffAxisView, dict]:
+                  model: str = "stereographic", *, azimuth_deg: float | None = None,
+                  face_points: np.ndarray | None = None,
+                  face_radius_mm: float = _F["off_axis_face_radius_mm"]) -> tuple[OffAxisView, dict]:
     """Rotate ``camera`` about its centre so the face centre sits ``theta_deg`` off-axis (Q-WIDE).
 
     The face ray is rotated (minimal rotation) onto the camera-frame direction
     ``(sin t cos a, sin t sin a, cos t)``; ``azimuth_deg`` ``a`` is measured in the image
     from +u toward +v and defaults to the longer image axis (+v for portrait, +u for
-    landscape).  The face centre must stay inside the frame under the chosen model
-    (otherwise ValueError: use a wider lens).  Returns ``(OffAxisView, truth)``;
+    landscape).
+
+    The whole face must stay inside the frame under the chosen model, otherwise
+    ValueError (use a wider lens: DESIGN 4.1 Q-WIDE expects f35 <= 16 mm, and the
+    :data:`FAULT_MATRIX` off-axis rows ``require`` f35 in [13, 16] mm): every finite row of
+    ``face_points`` (N, 3) when given, else the face centre and the four points
+    ``X_centre +/- face_radius_mm`` along the rotated camera's x and y axes (default
+    70 mm, half a bizygomatic breadth).  Returns ``(OffAxisView, truth)``;
     ``truth['expected_model']`` is ``'virtual_stereo'`` for stereographic and
     ``'pinhole'`` for rectilinear (DESIGN 3.2 camera ``model``), ``truth['f_local_px']``
     the local magnification at the face (``f sec^2(theta/2)`` stereographic, ``f``
-    for the rectilinear rotation homography; DESIGN D-12).
+    for the rectilinear rotation homography; DESIGN D-12), ``truth['f35_mm']`` the
+    camera's 35 mm-equivalent focal and ``truth['q_wide_f35']`` whether it meets the
+    Q-WIDE f35 <= 16 mm trigger.
     """
     if model not in ("stereographic", "rectilinear"):
         raise ValueError(f"model must be 'stereographic' or 'rectilinear', not {model!r}")
@@ -354,14 +377,31 @@ def off_axis_wide(camera: Camera, X_centre: Sequence[float], theta_deg: float = 
     view = OffAxisView(camera=cam, model=model, theta_deg=float(theta_deg), azimuth_deg=float(azimuth_deg),
                        X_centre=Xc.copy())
     uv = view.project(Xc[None])[0]
-    if not (0.0 <= uv[0] <= cam.width and 0.0 <= uv[1] <= cam.height):
-        raise ValueError(f"face centre leaves the {cam.width}x{cam.height} frame at {theta_deg} deg "
-                         f"(uv {uv.round(1).tolist()}); use a wider lens")
+    if face_points is not None:
+        Xf = np.asarray(face_points, float).reshape(-1, 3)
+        Xf = Xf[np.isfinite(Xf).all(axis=1)]
+        extent = "face points"
+    else:
+        r = float(face_radius_mm)
+        Xf = Xc[None] + r * np.array([cam.R[0], -cam.R[0], cam.R[1], -cam.R[1]])
+        extent = f"face centre +/- {r:g} mm"
+    Xf = np.vstack([Xc[None], Xf])
+    if np.any(cam.depth(Xf) <= 0):
+        raise ValueError(f"part of the face ({extent}) is behind the rotated camera")
+    uvf = view.project(Xf)
+    inside = (uvf[:, 0] >= 0.0) & (uvf[:, 0] <= cam.width) & (uvf[:, 1] >= 0.0) & (uvf[:, 1] <= cam.height)
+    if not np.all(inside):
+        raise ValueError(f"the face ({extent}) leaves the {cam.width}x{cam.height} frame at {theta_deg} deg "
+                         f"(face centre uv {uv.round(1).tolist()}, {int((~inside).sum())} of {len(uvf)} points "
+                         f"outside; f35 {camera.focal_35mm:.1f} mm); use a wider lens")
     f_local = cam.f / math.cos(th / 2.0) ** 2 if model == "stereographic" else cam.f
+    f35 = float(camera.focal_35mm)
     return view, _truth("off_axis_wide", "Q-WIDE", model=model,
                         expected_model="virtual_stereo" if model == "stereographic" else "pinhole",
                         theta_deg=float(theta_deg), azimuth_deg=float(azimuth_deg), f_local_px=float(f_local),
-                        face_centre_uv=uv.tolist())
+                        face_centre_uv=uv.tolist(), f35_mm=f35,
+                        q_wide_f35=bool(f35 <= _F["q_wide_f35_max_mm"] + 1e-9),
+                        face_extent=extent, face_uv_range=[uvf.min(axis=0).tolist(), uvf.max(axis=0).tolist()])
 
 
 # =========================================================================== occluders
@@ -527,9 +567,10 @@ def definition_bias(X: np.ndarray, rng: np.random.Generator,
 
 # =========================================================================== matrix
 def _row(name, design_row, generator, kwargs, level, must_raise, metric, threshold, degradation_bound,
-         design_must_raise, design_required, design_degradation, sampling=None):
+         design_must_raise, design_required, design_degradation, sampling=None, requires=None):
     return {"name": name, "design_row": design_row, "generator": generator, "generator_name": generator.__name__,
-            "kwargs": dict(kwargs), "sampling": dict(sampling or {}), "level": level, "must_raise": must_raise,
+            "kwargs": dict(kwargs), "sampling": dict(sampling or {}), "requires": dict(requires or {}),
+            "level": level, "must_raise": must_raise,
             "metric": metric, "threshold": dict(threshold), "degradation_bound": degradation_bound, "badge": _NEW,
             "design_must_raise": design_must_raise, "design_required": design_required,
             "design_degradation": design_degradation}
@@ -547,11 +588,23 @@ _ROW_SMALL = "Face 150 px"
 _ROW_OUTL = "5 % gross outliers"
 _ROW_BIAS = "Definition bias 1 mm"
 
+#: Camera requirement of the off-axis rows: a wide lens (DESIGN 4.1 Q-WIDE fires at f35 <= 16 mm;
+#: a 26 mm main camera cannot hold the whole face 35 deg off-axis), and the face inside the frame
+#: (off_axis_wide raises otherwise; pass the subject's landmarks as ``face_points``).
+_WIDE_REQUIRES: dict = {
+    "camera": {"f35_mm": {"uniform": [_F["off_axis_f35_min_mm"], _F["q_wide_f35_max_mm"]]},
+               "f35_max_mm": _F["q_wide_f35_max_mm"], "source": "DESIGN 4.1 Q-WIDE f35 <= 16 mm"},
+    "face_in_frame": True,
+}
+
 #: One entry per fault configuration; together they cover every DESIGN 7.4 row.
 #: Keys: name, design_row (DESIGN 7.4 first column, verbatim), generator (callable in this
 #: module), generator_name, kwargs (fixed keyword arguments of the generator), sampling
 #: (per-seed draws the harness makes and passes as keyword arguments:
-#: ``{param: {'uniform': [lo, hi]}}`` or ``{param: {'choice': [...]}}``), level
+#: ``{param: {'uniform': [lo, hi]}}`` or ``{param: {'choice': [...]}}``), requires (conditions on
+#: the harness-built inputs that are not generator arguments, e.g. ``{'camera': {'f35_mm':
+#: {'uniform': [13, 16]}, 'f35_max_mm': 16}}``: the camera passed to off_axis_wide must use a
+#: lens drawn from that range, DESIGN 4.1 Q-WIDE), level
 #: ('landmark' | 'surface' | 'image' | 'camera'),
 #: must_raise (finding / decision / tag code, or None when the row only has a metric),
 #: metric, threshold, degradation_bound (dict or None), badge (🆕: DESIGN targets are
@@ -593,10 +646,12 @@ FAULT_MATRIX: list[dict] = [
          {"identity_bias_mm_max": 0.5}, "Q-RETOUCH", "TPR ≥ 0.8 with ≥ 3 clean views", "identity bias ≤ 0.5 mm"),
     _row("off_axis_stereographic", _ROW_WIDE, off_axis_wide, {"theta_deg": 35.0, "model": "stereographic"},
          "camera", "Q-WIDE", "camera_model_accuracy", {"correct_model_min": 0.8, "expected_model": "virtual_stereo"},
-         {"shape_extra_mm_max": 1.0}, "Q-WIDE + correct model", "model chosen correctly ≥ 0.8", "shape < 1 mm extra"),
+         {"shape_extra_mm_max": 1.0}, "Q-WIDE + correct model", "model chosen correctly ≥ 0.8", "shape < 1 mm extra",
+         requires=_WIDE_REQUIRES),
     _row("off_axis_rectilinear", _ROW_WIDE, off_axis_wide, {"theta_deg": 35.0, "model": "rectilinear"},
          "camera", "Q-WIDE", "camera_model_accuracy", {"correct_model_min": 0.8, "expected_model": "pinhole"},
-         {"shape_extra_mm_max": 1.0}, "Q-WIDE + correct model", "model chosen correctly ≥ 0.8", "shape < 1 mm extra"),
+         {"shape_extra_mm_max": 1.0}, "Q-WIDE + correct model", "model chosen correctly ≥ 0.8", "shape < 1 mm extra",
+         requires=_WIDE_REQUIRES),
     _row("beard", _ROW_OCCL, occluder_fault, {"tags": ["beard"]}, "landmark", None, "tag_actions",
          {"jaw_status": "prior-driven", "contour_kind": "outer_bound"}, None, "tag actions",
          "beard → jaw prior-driven", "scalp inside hull"),

@@ -180,14 +180,16 @@ def test_expression_fields(kit, subjects):
     assert dL[1] >= 0.6 * a and dR[1] >= 0.6 * a
     assert dL[0] > 0.3 * a and dR[0] < -0.3 * a
     assert np.abs(Vs[lv["op"]] - V[lv["op"]]).max() < 1e-9
-    # jaw_open: exact hinge rotation for weight-1 vertices, fixed for weight-0 ones
+    # jaw_open: exact hinge rotation for weight-1 vertices, fixed for weight-0 ones.  The weights are
+    # the jaw_open field (kit jaw weights smoothed and pinned to DESIGN 4.9 at the landmarks; review
+    # of WP-11), no longer the raw kit weights.
     deg = 10.0
     Vj, meta = SS.expression_field(kit, V, "jaw_open", deg, return_meta=True)
     assert meta["model_matched"] is True and meta["units"] == "deg"
     T = sub.landmarks("anatomical44", ["t_L", "t_R"])
     c = 0.5 * (T[0] + T[1]) + np.array([0.0, -5.0, 11.5])
     assert np.allclose(meta["hinge_mm"], c)
-    w = kit.jaw_weights
+    w, _info = SS.jaw_open_weights(kit)
     th = math.radians(deg)
     Rx = np.array([[1, 0, 0], [0, math.cos(th), -math.sin(th)], [0, math.sin(th), math.cos(th)]])
     full = np.flatnonzero(w == 1.0)
@@ -204,18 +206,162 @@ def test_expression_fields(kit, subjects):
     fh = kit.regions["forehead"]
     assert np.allclose(Vb[fh, 1] - V[fh, 1], 2.0)
     assert abs(Vb[lv["me"], 1] - V[lv["me"], 1]) < 1e-6
-    # blink: eye-region vertices well above the pupil move down by the amount, below it nothing moves
-    Vk = SS.expression_field(kit, V, "blink", 2.0)
+    # blink: the upper lid moves down (the full amount at ps and above it, on the ps column), nothing
+    # at or below the pupil moves, and only vertical motion; fold-free at 2 mm
+    Vk, km = SS.expression_field(kit, V, "blink", 2.0, return_meta=True)
     eyes = kit.regions["eyes"]
     pL = V[lv["p_L"]]
-    upper = eyes[(V[eyes, 1] > pL[1] + 3.5) & (V[eyes, 0] > 0)]
-    lower = eyes[(V[eyes, 1] < pL[1]) & (V[eyes, 0] > 0)]
+    psL = V[lv["ps_L"]]
+    upper = eyes[(V[eyes, 1] >= psL[1]) & (np.abs(V[eyes, 0] - psL[0]) < 1e-9)]
+    lower = eyes[(V[eyes, 1] <= pL[1]) & (V[eyes, 0] > 0)]
     assert upper.size and lower.size
     assert np.allclose(Vk[upper, 1] - V[upper, 1], -2.0)
     assert np.array_equal(Vk[lower], V[lower])
-    assert SS.area_ratios(V, Vk, kit.triangles()).min() > 0.0
+    dk = Vk - V
+    assert np.all(dk[:, [0, 2]] == 0.0) and dk[:, 1].min() >= -2.0 - 1e-12 and dk[:, 1].max() <= 0.0
+    assert SS.area_ratios(V, Vk, kit.triangles()).min() > 0.2
+    assert km["min_area_ratio"] > 0.2 and km["fold_free_max_mm"] > 2.0
     with pytest.raises(ValueError):
         SS.expression_field(kit, V, "wink", 1.0)
+
+
+def test_jaw_open_matches_design_hinge_at_landmarks(kit, subjects):
+    """Regression (review of WP-11): jaw_open is labelled model_matched, so the landmark motion must be
+    the DESIGN 4.9 hinge X + w_i (R_x(a)(X - c) - (X - c)) with the registry per-landmark weights, not
+    the kit's per-vertex weights (which differ at go, ls, ch, li)."""
+    from face3d.model.registry import ANATOMICAL
+
+    names = kit.landmark_names("anatomical44")
+    omega = np.array([ANATOMICAL[n].jaw_weight for n in names])
+    # the hard-coded tables equal the registry (DESIGN 4.9) and the kit weights really differ there
+    assert {b: SS.HINGE_LANDMARK_WEIGHTS.get(b, 0.0) for b in (ANATOMICAL[n].base for n in names)} == {
+        ANATOMICAL[n].base: ANATOMICAL[n].jaw_weight for n in names}
+    assert set(SS.RIGID_BASES) == {ANATOMICAL[n].base for n in names if ANATOMICAL[n].expr_class == "rigid"}
+    lv = kit.landmark_vertices("anatomical44")
+    assert np.abs(kit.jaw_weights[lv] - omega).max() > 0.5            # go: 0.365 in the kit vs 1.0
+    w, info = SS.jaw_open_weights(kit)
+    assert info["model_matched"] and info["conflicts"] == [] and info["pinned_vertices"] == len(names)
+    assert np.array_equal(w[lv], omega) and w.min() >= 0.0 and w.max() <= 1.0
+    assert np.allclose(w, w[kit.mirror_map], atol=1e-12)
+    for sub in subjects[:3]:
+        X = sub.landmarks("anatomical44")
+        for deg in (5.0, 10.0, 15.0):
+            Vj, meta = SS.expression_field(kit, sub.V_true, "jaw_open", deg, return_meta=True)
+            assert meta["model_matched"] is True
+            c = np.asarray(meta["hinge_mm"])
+            th = math.radians(deg)
+            Rx = np.array([[1, 0, 0], [0, math.cos(th), -math.sin(th)], [0, math.sin(th), math.cos(th)]])
+            pred = X + omega[:, None] * ((X - c) @ Rx.T - (X - c))
+            assert np.abs(kit.landmark_positions("anatomical44", Vj) - pred).max() < 1e-9
+            d = meta["landmark_displacement_mm"]
+            assert all(d[n] == 0.0 for n, o in zip(names, omega) if o == 0.0)
+    # a hinge override or a kit without the anatomical scheme cannot claim the model match
+    _, m2 = SS.expression_field(kit, subjects[0].V_true, "jaw_open", 10.0, hinge_mm=[0.0, -8.0, 12.0],
+                                return_meta=True)
+    assert m2["model_matched"] is False
+    k2 = kit.replace(landmarks={k: v for k, v in kit.landmarks.items() if k != "anatomical44"})
+    _, m3 = SS.expression_field(k2, kit.vertices, "jaw_open", 10.0, scheme="legacy_synthetic", return_meta=True)
+    assert m3["model_matched"] is False and m3["jaw_weights"]["pinned_vertices"] == 0
+    with pytest.raises(ValueError):
+        SS.jaw_open_weights(kit, {"go": 1.5})
+
+
+def test_jaw_open_fold_free(kit, subjects):
+    """Regression (review of WP-11): the raw kit weights step 0 -> 1 across edges at z = -10 mm and fold
+    the mesh under the jaw from ~5 deg; the jaw_open field keeps det J > 0.2 over the fault-matrix range."""
+    tris = kit.triangles()
+    w, _ = SS.jaw_open_weights(kit)
+    e = kit.edges()
+    jump_kit = np.abs(np.diff(kit.jaw_weights[e], axis=1))[:, 0]
+    step = jump_kit > 0.5                                   # the kit's 0 -> 1 step edges at z = -10 mm
+    assert step.sum() >= 10 and jump_kit.max() == 1.0
+    assert np.abs(np.diff(w[e[step]], axis=1)).max() < 0.25
+    for sub in subjects[:10]:
+        Vj, meta = SS.expression_field(kit, sub.V_true, "jaw_open", 15.0, return_meta=True)
+        r = SS.area_ratios(sub.V_true, Vj, tris)
+        assert r.min() > 0.2
+        assert meta["min_area_ratio"] == pytest.approx(r.min())
+
+
+def test_expressions_hold_rigid_landmarks(kit, subjects):
+    """Regression (review of WP-11): the smile's cheek lift, the blink ramp and the brow-raise falloff
+    moved rigid-class landmarks (p, or, ex, zy, n) by up to 1.4 mm; the DESIGN 4.9 hard gate needs them still."""
+    names = kit.landmark_names("anatomical44")
+    rigid = [n for n in names if n.rstrip("_LR") in SS.RIGID_BASES or n in SS.RIGID_BASES]
+    for sub in subjects[:3]:
+        V = sub.V_true
+        X = sub.landmarks("anatomical44")
+        ix = {n: i for i, n in enumerate(names)}
+        # smile: every rigid-class landmark exactly fixed; the corners still move up >= 0.6 a
+        Vs, m = SS.expression_field(kit, V, "smile", 3.0, return_meta=True)
+        Xs = kit.landmark_positions("anatomical44", Vs)
+        assert np.abs(Xs[[ix[n] for n in rigid]] - X[[ix[n] for n in rigid]]).max() == 0.0
+        assert m["rigid_landmark_max_mm"] == 0.0 and set(m["guarded_landmarks"]) == set(rigid)
+        assert Xs[ix["ch_L"], 1] - X[ix["ch_L"], 1] >= 1.8 and m["min_area_ratio"] > 0.2
+        # blink 2 mm: p, pi, en, ex, or fixed; ps down by the full amount
+        Vk, m = SS.expression_field(kit, V, "blink", 2.0, return_meta=True)
+        Xk = kit.landmark_positions("anatomical44", Vk)
+        for b in ("p", "pi", "en", "ex", "or"):
+            for side in ("_L", "_R"):
+                assert np.array_equal(Xk[ix[b + side]], X[ix[b + side]]), b + side
+        for side in ("_L", "_R"):
+            assert Xk[ix["ps" + side]] - X[ix["ps" + side]] == pytest.approx([0.0, -2.0, 0.0], abs=1e-12)
+        assert m["rigid_landmark_max_mm"] == 0.0
+        # blink 10 mm: full amplitude at ps (the spec) even though the lid then folds over the eye
+        Vk, m = SS.expression_field(kit, V, "blink", 10.0, return_meta=True)
+        assert kit.landmark_positions("anatomical44", Vk)[ix["ps_L"], 1] - X[ix["ps_L"], 1] == pytest.approx(-10.0)
+        assert m["fold_free_max_mm"] < 10.0 and m["min_area_ratio"] < 0.2
+        # brow raise: n (and the eyes) fixed; g, tr move with the forehead as specified
+        Vb, m = SS.expression_field(kit, V, "brow_raise", 2.0, return_meta=True)
+        Xb = kit.landmark_positions("anatomical44", Vb)
+        for n in ("n", "en_L", "en_R", "ex_L", "ex_R", "p_L", "p_R", "ps_L", "ps_R"):
+            assert np.array_equal(Xb[ix[n]], X[ix[n]]), n
+        assert Xb[ix["g"], 1] - X[ix["g"], 1] == pytest.approx(2.0)
+        assert m["landmark_displacement_mm"]["n"] == 0.0 and m["rigid_landmark_max_mm"] == pytest.approx(2.0)
+    for kind in SS.EXPRESSION_KINDS:
+        em = SS.expression_meta(kind, 1.0)
+        assert em["held_fixed"] and em["residual_rigid_motion"]
+
+
+def test_out_of_prior_features_displacements(kit):
+    """Regression (review of WP-11): the four spec features outside the factor model (dorsal hump, chin
+    cleft, lip curvature, cheek fullness) must actually displace the subject by the drawn amounts."""
+    V0, N0 = kit.vertices, kit.normals
+    lv = dict(zip(kit.landmark_names("anatomical44"), kit.landmark_vertices("anatomical44")))
+    checked = 0
+    for seed in (1, 2, 3, 6):
+        f = SS.out_of_prior_subject(kit, np.random.default_rng(seed), asym_mm=0.0)
+        nf = SS.out_of_prior_subject(kit, np.random.default_rng(seed), asym_mm=0.0, features=False)
+        if f.meta["attempts"] != 1 or nf.meta["attempts"] != 1:
+            continue
+        checked += 1
+        p = f.meta["features"]
+        assert set(p) == set(SS.FEATURE_KEYS) and nf.meta["feature_draws"] == f.meta["feature_draws"] == p
+        assert f.meta["aniso_scale"] == nf.meta["aniso_scale"] and f.meta["zeta_drawn"] == nf.meta["zeta_drawn"]
+        parts = SS.feature_displacements(kit, p)
+        assert list(parts) == list(SS.FEATURE_KEYS)
+        # dorsal hump: the midline vertex nearest the n-prn chord midpoint moves h along its normal
+        mid = 0.5 * (V0[lv["n"]] + V0[lv["prn"]])
+        c = kit.midline[np.argmin(np.linalg.norm(V0[kit.midline] - mid, axis=1))]
+        assert np.allclose(parts["dorsal_hump_mm"][c], p["dorsal_hump_mm"] * N0[c], atol=1e-12)
+        # chin cleft: pg moves inward by the cleft depth
+        assert np.allclose(parts["chin_cleft_mm"][lv["pg"]], -p["chin_cleft_mm"] * N0[lv["pg"]], atol=1e-12)
+        # lip curvature: ch moves vertically by u (|x_ch| / 30)^3
+        for ch in ("ch_L", "ch_R"):
+            v = lv[ch]
+            exp_dy = p["lip_curve_mm"] * (abs(V0[v, 0]) / 30.0) ** 3
+            assert np.allclose(parts["lip_curve_mm"][v], [0.0, exp_dy, 0.0], atol=1e-12)
+        # cheek fullness: the cheeks region moves k along the normals
+        ck = kit.regions["cheeks"]
+        assert np.allclose(parts["cheek_fullness_mm"][ck], p["cheek_fullness_mm"] * N0[ck], atol=1e-12)
+        # the subject differs from its feature-free twin by exactly the (symmetrised, scaled) features
+        Df = sum(parts.values())
+        S = SS.symmetric_part(Df, kit.mirror_map)
+        S[kit.midline, 0] = 0.0
+        scale = math.exp(f.meta["zeta_drawn"]) * np.asarray(f.meta["aniso_scale"])
+        assert np.abs((f.V_true - nf.V_true) - S * scale).max() < 1e-9
+        assert np.abs(f.V_true - nf.V_true).max() > 0.5
+    assert checked >= 3
 
 
 # =========================================================================== render
@@ -393,6 +539,40 @@ def test_off_axis_stereographic_uses_model(kit, subjects):
     assert rt["expected_model"] == "pinhole"
     with pytest.raises(ValueError):          # a 85 mm-eq lens cannot hold the face 35 deg off-axis
         F.off_axis_wide(orbit_camera(600.0, 0.0, 0.0, 85.0, target=Xc), Xc, 35.0)
+    assert truth["f35_mm"] == pytest.approx(13.0) and truth["q_wide_f35"] is True
+
+
+def test_off_axis_wide_keeps_whole_face_in_frame(kit, subjects):
+    """Regression (review of WP-11): at 26 mm the stereographic face centre landed at v = 3895 of 4000 px
+    (most of the face off-image) and was accepted; the off-axis rows did not say which lens to use."""
+    sub = subjects[0]
+    Xc = RD.face_centre(kit, sub.V_true)
+    names = kit.landmark_names("anatomical44")
+    face = sub.landmarks("anatomical44", [n for n in names if n.rstrip("_LR") not in ("v", "op", "eu")])
+    for model in ("stereographic", "rectilinear"):
+        with pytest.raises(ValueError):
+            F.off_axis_wide(orbit_camera(600.0, 0.0, 0.0, 26.0, target=Xc), Xc, 35.0, model)
+        for f35 in (13.0, 16.0):
+            cam = orbit_camera(600.0, 0.0, 0.0, f35, target=Xc)
+            view, t = F.off_axis_wide(cam, Xc, 35.0, model, face_points=face)
+            uv = view.project(face)
+            assert np.all((uv >= 0) & (uv <= [cam.width, cam.height]))
+            assert t["q_wide_f35"] is True and t["face_extent"] == "face points"
+    # points far outside the field of view are refused even when the centre is in frame
+    cam = orbit_camera(600.0, 0.0, 0.0, 16.0, target=Xc)
+    with pytest.raises(ValueError):
+        F.off_axis_wide(cam, Xc, 35.0, "rectilinear", face_points=np.vstack([face, Xc + [0.0, -400.0, 0.0]]))
+    with pytest.raises(ValueError):
+        F.off_axis_wide(cam, Xc, 35.0, "rectilinear", face_radius_mm=400.0)
+    # the matrix rows say which lens the harness must use (DESIGN 4.1 Q-WIDE: f35 <= 16 mm)
+    for e in F.FAULT_MATRIX:
+        if e["generator"] is F.off_axis_wide:
+            cam_req = e["requires"]["camera"]
+            lo, hi = cam_req["f35_mm"]["uniform"]
+            assert cam_req["f35_max_mm"] == 16.0 and 0 < lo < hi <= 16.0 and e["requires"]["face_in_frame"]
+            for f35 in (lo, hi):
+                F.off_axis_wide(orbit_camera(600.0, 0.0, 0.0, f35, target=Xc), Xc, face_points=face,
+                                **e["kwargs"])
 
 
 def test_selfie_small_face_outliers_occluders_bias(kit, subjects):
@@ -468,7 +648,9 @@ def test_fault_matrix_rows_complete():
     names = [e["name"] for e in F.FAULT_MATRIX]
     assert len(set(names)) == len(names)
     for e in F.FAULT_MATRIX:
-        assert set(e) >= {"name", "generator", "must_raise", "metric", "threshold", "degradation_bound"}
+        assert set(e) >= {"name", "generator", "must_raise", "metric", "threshold", "degradation_bound",
+                          "requires"}
+        assert isinstance(e["requires"], dict)
         assert callable(e["generator"]) and getattr(F, e["generator_name"]) is e["generator"]
         params = inspect.signature(e["generator"]).parameters
         assert set(e["kwargs"]) <= set(params) and set(e["sampling"]) <= set(params), e["name"]
