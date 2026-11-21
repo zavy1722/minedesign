@@ -798,6 +798,23 @@
    ],
    "tier": "opus",
    "implementableHere": false
+  },
+  {
+   "id": "FU-01",
+   "title": "Follow-up fixes found during WP-15: scale-consistent symmetry/midline rows; tangent sigma for point kinds without image tangent",
+   "milestone": "M3",
+   "files": [
+    "face3d/solve/bundle.py",
+    "face3d/solve/noise.py",
+    "tests/test_followups.py"
+   ],
+   "dependsOn": [
+    "WP-10",
+    "WP-15"
+   ],
+   "tier": "opus",
+   "implementableHere": true,
+   "spec": "Two defects found by the WP-15 implementer (see its report) in files owned by WP-07/WP-10:\n1. face3d/solve/bundle.py: the legacy Priors.pairs / Priors.midline symmetry and midline residual rows act on X in physical mm, while the shape prior acts on X~ = exp(-zeta) X when the explicit log-scale zeta is enabled (WP-07/DESIGN D-03). With a weak scale (iris only, free zeta) these rows therefore pull the global scale toward smaller heads (measured: head size ~8% low in WP-15's iris-only scene). Fix: when zeta is enabled, evaluate the symmetry and midline rows on X~ (residual (X~_l - M X~_r)/sigma_sym and X~_mid,x/sigma_mid) with the correct analytic Jacobian (d/dX = e^-zeta * (...), d/dzeta = -(...)), unchanged behaviour when zeta is disabled (legacy path must stay bit-identical; existing tests must pass). Add a regression test: iris-only (or no metric cue) scene with symmetry rows on, head-size bias within the no-symmetry-rows bias +- 1%; strict per-block analytic-vs-numeric Jacobian check of the new rows.\n2. face3d/solve/noise.py: point-like landmark kinds (e.g. 'extremal') whose image tangent is unknown use sigma_n only, underestimating noise along the unknown tangent (DESIGN 4.4 gives sigma_t, e.g. 3 mm for extremal). Fix: when no tangent direction is available, use an isotropic covariance with variance max(sigma_n^2, sigma_t^2) for kinds whose sigma_t is finite (curve/contour kinds whose sigma_t is 'free' keep their existing handling); document it. Add a test that the per-observation covariance for an extremal point without tangent has both eigenvalues >= sigma_t(px)^2, and that the WP-07 chi2/NEES tests still pass.\nDo not change other behaviour. Run the 30-seed scorecard fast mode and report any change vs the current state."
   }
  ]
 }
