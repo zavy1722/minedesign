@@ -65,11 +65,17 @@ def mesh_vertices_to_array(me):
     return buf.reshape(n, 3).astype(np.float64)
 
 
+def _require_finite(V, what):
+    if not np.isfinite(np.asarray(V, dtype=np.float64)).all():
+        raise BridgeRefusal("non-finite %s coordinates (NaN/inf); refusing to write" % what)
+
+
 def write_vertices(me, V):
     """Write (n,3) coordinates into `me` (float32 contiguous) and call me.update()."""
     V = np.asarray(V)
     if V.shape != (len(me.vertices), 3):
         raise ValueError("vertex array shape %r != (%d, 3)" % (V.shape, len(me.vertices)))
+    _require_finite(V, "vertex")
     flat = np.ascontiguousarray(V.astype(np.float32).reshape(-1))
     assert flat.dtype == np.float32 and flat.flags["C_CONTIGUOUS"]
     me.vertices.foreach_set("co", flat)
@@ -77,10 +83,14 @@ def write_vertices(me, V):
 
 
 def write_shape_key(obj, name, V, relative_to="Basis", slider_max=1.0, value=0.0, mute=False):
-    """Create shape key `name` holding absolute coordinates `V` (Blender frame, (n,3)).
+    """Create or update shape key `name` holding absolute coordinates `V` (Blender frame, (n,3)).
 
-    Uses shape_key_add(from_mix=False) so the key is not baked from the current
-    mix. A Basis key is created first if the object has none. Returns the key block.
+    A new key uses shape_key_add(from_mix=False) so it is not baked from the
+    current mix. A key that already exists is reused in place (Blender makes
+    key-block names unique, so adding again would create 'name.001' and leave
+    dependent relative keys on the stale block); its relative_key, slider_max,
+    value, mute and coordinates are overwritten. A Basis key is created first
+    if the object has none. Returns the key block.
     """
     me = obj.data
     if me.shape_keys is None or len(me.shape_keys.key_blocks) == 0:
@@ -89,12 +99,19 @@ def write_shape_key(obj, name, V, relative_to="Basis", slider_max=1.0, value=0.0
     ref = blocks.get(relative_to)
     if ref is None:
         raise KeyError("relative key %r not found" % relative_to)
-    kb = obj.shape_key_add(name=name, from_mix=False)
+    V = np.asarray(V)
+    kb = blocks.get(name)
+    if kb is not None and kb is ref:
+        raise ValueError("shape key %r cannot be relative to itself" % name)
+    if kb is not None and V.shape != (len(kb.data), 3):
+        raise ValueError("key array shape %r != (%d, 3)" % (V.shape, len(kb.data)))
+    _require_finite(V, "shape key")
+    if kb is None:
+        kb = obj.shape_key_add(name=name, from_mix=False)
     kb.relative_key = ref
     kb.slider_max = float(slider_max)
     kb.value = float(value)
     kb.mute = bool(mute)
-    V = np.asarray(V)
     if V.shape != (len(kb.data), 3):
         raise ValueError("key array shape %r != (%d, 3)" % (V.shape, len(kb.data)))
     flat = np.ascontiguousarray(V.astype(np.float32).reshape(-1))
@@ -164,6 +181,14 @@ def mode_guard(obj):
     if mode in ("EDIT", "SCULPT"):
         raise BridgeRefusal("object is in %s mode; switch to Object mode first" % mode)
     switched = mode != "OBJECT"
+    if switched and getattr(bpy.context, "view_layer", None) is not None:
+        active = bpy.context.view_layer.objects.active
+    else:
+        active = getattr(bpy.context, "object", None)
+    if switched and active is not obj:
+        # mode_set acts on the active object only; never change another object's mode
+        raise BridgeRefusal("object is in %s mode but is not the active object; "
+                            "make it active or switch to Object mode first" % mode)
     if switched:
         bpy.ops.object.mode_set(mode="OBJECT")
     try:

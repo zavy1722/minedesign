@@ -349,6 +349,216 @@ def test_symmetry_term_update_plane(term_parts):
     assert np.allclose(term.pair_differences(Z), A[term.pairs[:, 0]], atol=1e-9)
 
 
+# ----------------------------------------------------------------------------- zeta (WBS FU-02)
+class _ZState:
+    """Solver-state duck type with the bundle's global log-scale (None = disabled)."""
+
+    def __init__(self, X, zeta=None):
+        self.X = X
+        self.zeta = zeta
+
+
+def _fd(f, x0, h):
+    """Central differences with one Richardson step (O(h^4)); exact for the linear X block."""
+    def central(hh):
+        cols = []
+        for j in range(len(x0)):
+            e = np.zeros(len(x0))
+            e[j] = hh
+            cols.append((f(x0 + e) - f(x0 - e)) / (2 * hh))
+        return np.stack(cols, axis=1)
+    return (4.0 * central(h / 2) - central(h)) / 3.0
+
+
+def _strict_close(Ja, Jn, rtol=1e-8):
+    """Per-block strict comparison: |Ja - Jn| <= rtol (|Jn| + max |Jn| over the row's block)."""
+    Ja, Jn = np.atleast_2d(Ja.T).T, np.atleast_2d(Jn.T).T
+    return bool(np.all(np.abs(Ja - Jn) <= rtol * (np.abs(Jn) + np.abs(Jn).max(axis=1, keepdims=True)) + 1e-12))
+
+
+def test_symmetry_term_zeta_blocks_strict_fd(term_parts):
+    """zeta enabled: rows and plane offset act on X~ = exp(-zeta) X; exact 'X' and 'zeta' blocks.
+
+    zeta = 0.2 (a missing e^-zeta factor is an 18 % error) and a tilted plane with d = 2.5,
+    so that d r / d zeta = -(r - r(0)) differs from -r."""
+    ids, X, _ = term_parts
+    rng = np.random.default_rng(21)
+    status = [("measured", "constrained", "prior-driven", "unobserved")[k % 4] for k in range(15)]
+    term = SymmetryTerm.from_ids(ids, pair_status=status, n=(0.98, 0.15, -0.1), d=2.5)
+    zeta = 0.2
+    s = math.exp(-zeta)
+    Xp = X + rng.normal(scale=2.0, size=X.shape)
+    st = _ZState(Xp, zeta)
+    r = term.residuals(st)
+    J = term.jacobian(st, np.zeros(0))
+    m, N = term.n_residuals(), len(X)
+    assert set(J) == {"X", "zeta"} and J["X"].shape == (m, 3 * N) and J["zeta"].shape == (m,)
+    # values: the legacy rows evaluated on the scale-free points (plane offset in that frame)
+    assert np.allclose(r, term.residuals(s * Xp), rtol=1e-14, atol=1e-14)
+    assert np.allclose(term.pair_differences(st), term.pair_differences(s * Xp), rtol=1e-14, atol=1e-14)
+    assert np.isclose(term.cost(st), 0.5 * float(r @ r), rtol=1e-14)
+    # closed forms: d/dX = e^-zeta J0, d/dzeta = -J0 vec(X~) = -(r - r(0))
+    J0 = term.jacobian(Xp)["X"]
+    r0 = term.residuals(np.zeros_like(Xp))
+    assert np.allclose(J["X"], s * J0, rtol=1e-14, atol=0.0)
+    assert np.allclose(J["zeta"], -(r - r0), rtol=1e-12, atol=1e-12)
+    assert np.abs(J["zeta"] + r).max() > 0.1                      # not -r: the offset d does not scale
+    # strict per-block finite differences
+    Jx_n = _fd(lambda x: term.residuals(_ZState(x.reshape(-1, 3), zeta)), Xp.ravel(), 1e-2)
+    Jz_n = _fd(lambda z: term.residuals(_ZState(Xp, float(z[0]))), np.array([zeta]), 1e-2)[:, 0]
+    assert _strict_close(J["X"], Jx_n)
+    assert _strict_close(J["zeta"], Jz_n)
+    # the comparison is sharp: a dropped e^-zeta, a flipped sign or -r instead of -(r - r(0)) fails
+    assert not _strict_close(J0, Jx_n)
+    assert not _strict_close(J["X"] * (1.0 + 1e-5), Jx_n)
+    assert not _strict_close(-J["zeta"], Jz_n)
+    assert not _strict_close(J["zeta"] / s, Jz_n)
+    assert not _strict_close(-r, Jz_n)
+    # shape, not size: scaling the head and moving zeta with it leaves the rows unchanged
+    for dz in (-0.3, 0.1, 0.5):
+        assert np.allclose(term.residuals(_ZState(math.exp(dz) * Xp, zeta + dz)), r, rtol=1e-12, atol=1e-12)
+    assert not np.allclose(term.residuals(math.exp(0.1) * Xp), term.residuals(Xp), atol=1e-3)   # mm rows do change
+    with pytest.raises(ValueError):
+        term.residuals(_ZState(Xp, float("nan")))
+
+
+def test_symmetry_term_without_zeta_is_legacy_bitwise(term_parts):
+    """zeta disabled (None, absent, or a bare array): the WP-12 rows on X in mm, bit for bit."""
+    ids, X, _ = term_parts
+    rng = np.random.default_rng(22)
+    term = SymmetryTerm.from_ids(ids, n=(0.98, 0.15, -0.1), d=2.5)
+    Xp = X + rng.normal(scale=2.0, size=X.shape)
+
+    class Bare:
+        def __init__(self, X):
+            self.X = X
+
+    # the WP-12 expressions verbatim
+    r_pair = ((Xp[term.pairs[:, 0]] - reflect(Xp[term.pairs[:, 1]], term.n, term.d)) / term.pair_sigma).ravel()
+    r_mid = (Xp[term.midline] @ term.n - term.d) / term.midline_sigma
+    legacy = np.concatenate([r_pair, r_mid])
+    J_ref = term.jacobian(Xp)["X"]
+    for st in (Xp, Bare(Xp), _ZState(Xp, None)):
+        assert np.array_equal(term.residuals(st), legacy)
+        J = term.jacobian(st)
+        assert set(J) == {"X"} and np.array_equal(J["X"], J_ref)
+    # zeta = 0.0 is "enabled": same numbers, plus the zeta block
+    J = term.jacobian(_ZState(Xp, 0.0))
+    assert set(J) == {"X", "zeta"} and np.allclose(J["X"], J_ref, rtol=1e-15, atol=0.0)
+    assert np.allclose(term.residuals(_ZState(Xp, 0.0)), legacy, rtol=1e-15, atol=1e-15)
+
+
+def test_symmetry_term_update_plane_follows_zeta(term_parts):
+    """update_plane on a state with zeta fits the plane of exp(-zeta) X, the points the rows use."""
+    ids, X, _ = term_parts
+    rng = np.random.default_rng(23)
+    Y, n_true, d_true = _tilted_configuration(X, rng, noise_mm=0.0)
+    zeta = 0.15
+    big = math.exp(zeta) * Y                                     # the same shape, 16 % larger, in mm
+    term = SymmetryTerm.from_ids(ids)
+    n, d, rmse = term.update_plane(_ZState(big, zeta))
+    assert np.allclose(n, n_true, atol=1e-9) and abs(d - d_true) < 1e-8 and rmse < 1e-8
+    assert term.cost(_ZState(big, zeta)) < 1e-12
+    assert term.cost(big) > 1e-3                                 # on mm the offset no longer matches
+    n2, d2, _ = SymmetryTerm.from_ids(ids).update_plane(big)     # arrays: mm, as before
+    assert np.allclose(n2, n_true, atol=1e-9) and abs(d2 - math.exp(zeta) * d_true) < 1e-7
+
+
+def _bundle_scene(seed):
+    from face3d.model.landmark_prior import FactorPrior
+    from face3d.solve.bundle import ViewObs
+    from face3d.synthetic import orbit_camera
+    from face3d.testbed import rigs, subjects
+    prior = FactorPrior.from_package()
+    mu, ids = prior.mean(), list(prior.ids)
+    rng = np.random.default_rng(seed)
+    _, X, _ = subjects.smooth_field_subject(rng, names=ids, template=mu)
+    views = []
+    for yaw in (-40.0, 0.0, 40.0):
+        cam = orbit_camera(700.0 * rng.uniform(0.95, 1.05), yaw, rng.uniform(-5.0, 5.0), 26.0, target=(0.0, 0.0, 60.0))
+        uv = cam.project(X) + rng.normal(scale=1.0, size=(len(ids), 2))
+        uv[~rigs.visible_mask(cam, X)] = np.nan
+        # no metric cue: unknown focal (sigma 0.6, DESIGN 4.2 'Nothing' row), no scale reference
+        views.append(ViewObs(uv, cam.copy(), f_prior=cam.f, f_prior_log_sigma=0.6, focal_group="g",
+                             kinds=["generic"] * len(ids)))
+    return prior, mu, ids, views
+
+
+def test_symmetry_term_in_bundle_with_zeta(monkeypatch):
+    """In bundle_adjust with zeta enabled: the term's rows reach the zeta column exactly (strict
+    FD through the solver's closures) and do not pull the global scale.
+
+    Measured (seeds 0-3, no metric cue, zeta prior N(0, 0.045^2)): zeta_hat = 0.0000 without
+    the term and with it; the pre-FU-02 rows on X in mm give -0.0019 .. -0.0025 (heads 0.2 %
+    small; the pull grows as the shape prior weakens, ~8 % in WP-15's iris-only scene with
+    the bundle's own rows, WBS FU-01)."""
+    import face3d.solve.bundle as B
+    from face3d.solve.bundle import ScaleConfig, bundle_adjust
+
+    class OnMm(SymmetryTerm):                                    # the defect: rows on state.X in mm
+        def residuals(self, state, p=None):
+            return super().residuals(np.asarray(state.X), p)
+
+        def jacobian(self, state, p=None):
+            return super().jacobian(np.asarray(state.X), p)
+
+    for seed in range(2):
+        prior, mu, ids, views = _bundle_scene(seed)
+        base = bundle_adjust(views, mu.copy(), None, prior=prior)
+        fixed = bundle_adjust(views, mu.copy(), None, prior=prior, terms=[SymmetryTerm.from_ids(ids)])
+        on_mm = bundle_adjust(views, mu.copy(), None, prior=prior, terms=[OnMm.from_ids(ids)])
+        assert fixed.zeta is not None and "term:symmetry" in fixed.param_index
+        assert abs(fixed.zeta - base.zeta) < 2e-4, (fixed.zeta, base.zeta)
+        assert on_mm.zeta - base.zeta < -1e-3, (on_mm.zeta, base.zeta)
+
+    # strict per-block FD of the term rows through the solver's residual / jacobian / retract
+    prior, mu, ids, views = _bundle_scene(5)
+    term = SymmetryTerm.from_ids(ids, n=(0.98, 0.15, -0.1), d=2.5)
+    captured = {}
+    orig = B.levenberg_marquardt
+
+    def shim(fun, x0, jac=None, retract=None, **kw):
+        captured.setdefault("c", (fun, jac, retract, np.array(x0, float)))
+        return orig(fun, x0, jac=jac, retract=retract, max_iter=0)
+    monkeypatch.setattr(B, "levenberg_marquardt", shim)
+    rng = np.random.default_rng(5)
+    X0 = mu + rng.normal(scale=2.0, size=mu.shape)
+    res = bundle_adjust(views, X0, None, prior=prior, terms=[term], scale=ScaleConfig(init=0.2))
+    fun, jac, retract, x0 = captured["c"]
+    idx = res.param_index
+    z, pts = idx["zeta"].start, idx["points"]
+    assert np.isclose(x0[z], 0.2)
+    Xs = math.exp(-0.2) * x0[pts].reshape(-1, 3)
+    expect = term.residuals(Xs)
+    r = fun(x0)
+    m = term.n_residuals()
+    hits = [o for o in range(len(r) - m + 1) if np.allclose(r[o:o + m], expect, rtol=1e-12, atol=1e-12)]
+    assert len(hits) == 1, hits
+    rows = np.arange(hits[0], hits[0] + m)
+    Ja = jac(x0)[rows]
+
+    def central(hh):
+        Jn = np.zeros((m, len(x0)))
+        for j in range(len(x0)):
+            e = np.zeros(len(x0))
+            e[j] = hh
+            Jn[:, j] = (fun(retract(x0, e))[rows] - fun(retract(x0, -e))[rows]) / (2 * hh)
+        return Jn
+    Jn = (4.0 * central(5e-4) - central(1e-3)) / 3.0
+    blocks = {k: sl for k, sl in idx.items() if k != "cameras" and sl.stop > sl.start}   # term has 0 own params
+    assert {"zeta", "points"} <= set(blocks)
+    for name, sl in blocks.items():
+        assert _strict_close(Ja[:, sl], Jn[:, sl], rtol=1e-7), name
+    other = np.ones(len(x0), bool)
+    other[pts] = False
+    other[z] = False
+    assert not np.any(Ja[:, other]) and np.abs(Ja[:, z]).max() > 0.1
+    # legacy path: zeta disabled -> no 'zeta' block is returned (the bundle would reject one)
+    from face3d.solve.bundle import Priors
+    leg = bundle_adjust(views, mu.copy(), Priors(mean=mu, sigma=8.0), terms=[SymmetryTerm.from_ids(ids)])
+    assert leg.zeta is None and np.all(np.isfinite(leg.X))
+
+
 # ----------------------------------------------------------------------------- S / Asym
 def test_split_symmetric_exact(head):
     V0, m = head.vertices, head.mirror_map

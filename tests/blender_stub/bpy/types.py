@@ -111,8 +111,40 @@ class ID(_PropHost):
         return list(self._custom)
 
 
+class _New(list):
+    """Collection whose new(...) appends a simple record (stub for timeline_markers etc.)."""
+
+    def __init__(self, ctor=None):
+        super().__init__()
+        self._ctor = ctor or (lambda *a, **k: types_ns(*a, **k))
+
+    def new(self, *a, **k):
+        item = self._ctor(*a, **k)
+        self.append(item)
+        return item
+
+
+class _Rec:
+    def __init__(self, *a, **k):
+        if a:
+            self.name = a[0]
+        self.__dict__.update(k)
+
+
+def types_ns(*a, **k):
+    return _Rec(*a, **k)
+
+
+class _Render:
+    resolution_x = 1920
+    resolution_y = 1080
+
+
 class Scene(ID):
-    pass
+    def __init__(self, name=""):
+        super().__init__(name)
+        self.render = _Render()
+        self.timeline_markers = _New()
 
 
 class Camera(ID):
@@ -123,6 +155,8 @@ class Camera(ID):
         self.sensor_fit = "AUTO"
         self.shift_x = 0.0
         self.shift_y = 0.0
+        self.show_background_images = False
+        self.background_images = _New()
 
 
 # ---------------------------------------------------------------- data blocks
@@ -315,6 +349,10 @@ class Object(ID):
         if from_mix and blocks:
             raise NotImplementedError("stub: from_mix=True not modelled")
         co = np.array(me.vertices._arrays["co"], np.float32)
+        base, i = name, 0
+        while blocks.get(name) is not None:     # Blender makes key-block names unique
+            i += 1
+            name = "%s.%03d" % (base, i)
         kb = KeyBlock(name, co, blocks[0] if blocks else None)
         if blocks is not None and not blocks:
             kb.relative_key = kb

@@ -270,19 +270,64 @@ def _points(state: Any) -> np.ndarray:
     return X
 
 
+def _zeta(state: Any) -> float | None:
+    """The global log-scale of a solver state / bundle result, or None (disabled, or a bare array)."""
+    z = getattr(state, "zeta", None)
+    if z is None:
+        return None
+    z = float(z)
+    if not math.isfinite(z):
+        raise ValueError("state.zeta must be finite")
+    return z
+
+
+def _scale_free(state: Any) -> tuple[np.ndarray, float | None, float]:
+    """``(X~, zeta, s)``: the points the term acts on, with ``s = d X~ / d X``.
+
+    zeta disabled (``state.zeta`` is None or absent, or ``state`` is an array): ``X~`` is
+    ``state.X`` itself in mm and ``s = 1`` (legacy path, no arithmetic on X).  zeta enabled:
+    ``X~ = exp(-zeta) X`` (DESIGN D-03: "zeta carries size"), ``s = exp(-zeta)``.
+    """
+    X = _points(state)
+    z = _zeta(state)
+    if z is None:
+        return X, None, 1.0
+    s = math.exp(-z)
+    return s * X, z, s
+
+
 class SymmetryTerm:
     """Bilateral symmetry and midline prior on the landmark points (DESIGN 4.8 Term protocol, 4.11).
 
     Duck-typed to the solver's Term protocol (``face3d.solve.terms``, WP-10; not
     imported here): ``name``, ``is_prior = True``, ``n_params() = 0``,
     ``init_params(state)``, ``residuals(state, p)`` and ``jacobian(state, p) ->
-    {'X': (m, 3N)}``.  ``state`` is any object with an ``X`` (N, 3) attribute (a
-    solver state) or the (N, 3) array itself; ``p`` is ignored (no own parameters).
+    {'X': (m, 3N)}`` (plus ``'zeta': (m,)`` when the state's zeta is enabled).  ``state``
+    is any object with an ``X`` (N, 3) attribute (a solver state, a bundle result) or the
+    (N, 3) array itself; ``p`` is ignored (no own parameters).
 
-    Residuals (dimensionless, whitened), in this order:
+    Residuals (dimensionless, whitened), in this order, on the points ``Y``:
 
-    * pairs, row ``3k + c``: ``(X_l - reflect(X_r; n, d))_c / sigma_pair[k, c]``;
-    * midline, row ``3P + j``: ``(n . X_m - d) / sigma_mid[j]``.
+    * pairs, row ``3k + c``: ``(Y_l - reflect(Y_r; n, d))_c / sigma_pair[k, c]``;
+    * midline, row ``3P + j``: ``(n . Y_m - d) / sigma_mid[j]``.
+
+    Which points (WBS FU-02; DESIGN D-03 "zeta carries size", 4.7):
+
+    * zeta disabled (``state.zeta`` is None or absent, or ``state`` is a bare array):
+      ``Y = X`` in mm, the plane offset ``d`` in mm.  This is the legacy WP-12 behaviour,
+      unchanged.
+    * zeta enabled (``state.zeta`` is a float, as in ``SolverState`` / ``BundleResult``
+      when the bundle's explicit log-scale is on): ``Y = X~ = exp(-zeta) X``, the
+      scale-free points the shape prior also acts on, and ``d`` is an offset in that
+      scale-free frame (mm of the prior-size head).  The term then constrains shape and
+      not size: on X in mm its energy would scale as ``e^(2 zeta)`` at fixed shape and
+      pull a weakly determined scale toward smaller heads (the defect WBS FU-01 fixed
+      for the bundle's built-in ``Priors.pairs`` / ``Priors.midline`` rows).  The
+      Jacobian is exact: ``d r / d X = exp(-zeta) J0`` with ``J0`` the constant legacy
+      block, and ``d r / d zeta = -J0 vec(X~)`` (since ``d X~ / d zeta = -X~``; this is
+      ``-(r - r(0))``, not ``-r``, because the offset ``d`` does not scale).
+      :meth:`update_plane`, :meth:`pair_differences` and :meth:`cost` follow the same
+      rule, so the plane refitted from a state is the plane the residuals use.
 
     The plane ``(n, d)`` is held fixed within a solve (the residuals are then
     linear in X and the Jacobian is constant) and refitted between outer
@@ -402,9 +447,12 @@ class SymmetryTerm:
 
         Weighted reflection Procrustes (:func:`face3d.geometry.procrustes.fit_symmetry_plane`)
         over this term's pairs and midline with :attr:`plane_weights`.  Stores and
-        returns ``(n, d, rmse_mm)``.
+        returns ``(n, d, rmse_mm)``.  ``X`` is an (N, 3) array or a state / bundle result;
+        with zeta enabled on it the plane is fitted to ``exp(-zeta) X``, the points the
+        residuals act on (class docstring), so ``d`` and the rmse are in that scale-free
+        frame.  ``huber_mm`` is applied in the same frame.
         """
-        X = _points(X)
+        X, _, _ = _scale_free(X)
         n, d, rmse = fit_symmetry_plane(X, self.pairs, self.midline, self._weights(len(X)), huber_mm=huber_mm)
         self.set_plane(n, d)
         self.plane_rmse_mm = rmse
@@ -434,22 +482,31 @@ class SymmetryTerm:
             raise ValueError(f"symmetry term indexes point {int(flat.max())} but X has {N} points")
 
     def pair_differences(self, X: Any) -> np.ndarray:
-        """``X_l - reflect(X_r; n, d)`` per pair, (P, 3) mm (= 2x the asymmetric part)."""
-        X = _points(X)
+        """``Y_l - reflect(Y_r; n, d)`` per pair, (P, 3) mm (= 2x the asymmetric part).
+
+        ``Y`` is ``X`` in mm, or ``exp(-zeta) X`` when ``X`` is a state with zeta enabled
+        (class docstring)."""
+        X, _, _ = _scale_free(X)
         self._check_indices(len(X))
         return X[self.pairs[:, 0]] - reflect(X[self.pairs[:, 1]], self.n, self.d)
 
     def residuals(self, state: Any, p: Any = None) -> np.ndarray:
         """Whitened residuals (m,), m = 3P + M (see the class docstring for the order)."""
-        X = _points(state)
+        X, _, _ = _scale_free(state)
         self._check_indices(len(X))
         r_pair = (self.pair_differences(X) / self.pair_sigma).ravel()
         r_mid = (X[self.midline] @ self.n - self.d) / self.midline_sigma
         return np.concatenate([r_pair, r_mid])
 
     def jacobian(self, state: Any, p: Any = None) -> dict[str, np.ndarray]:
-        """``{'X': (m, 3N)}``: d residuals / d vec(X) (column ``3i + c``); constant for a fixed plane."""
-        X = _points(state)
+        """``{'X': (m, 3N)}``: d residuals / d vec(X) (column ``3i + c``); constant for a fixed plane.
+
+        With zeta enabled on ``state`` (class docstring) the ``'X'`` block is
+        ``exp(-zeta)`` times that constant block and a ``'zeta'`` block (m,) is added:
+        ``d r / d zeta = -J0 vec(exp(-zeta) X)``.  Without zeta the dict has the ``'X'``
+        block only (the bundle rejects a ``'zeta'`` block when zeta is disabled).
+        """
+        X, zeta, s = _scale_free(state)
         N = len(X)
         self._check_indices(N)
         P, M = len(self.pairs), len(self.midline)
@@ -467,7 +524,9 @@ class SymmetryTerm:
             rows = 3 * P + np.arange(M)
             for c in range(3):
                 np.add.at(J, (rows, 3 * self.midline + c), self.n[c] / self.midline_sigma)
-        return {"X": J}
+        if zeta is None:
+            return {"X": J}
+        return {"X": J * s, "zeta": -(J @ X.ravel())}
 
     def cost(self, state: Any) -> float:
         """``0.5 |r|^2`` (the term's energy E_sym, DESIGN 4.8)."""

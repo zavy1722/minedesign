@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import ast
 import fnmatch
+import json
 import os
 import sys
 import tomllib
@@ -72,6 +73,8 @@ def validate_manifest(path: Path, store: bool = True) -> dict:
         raise BuildError("manifest licence must contain SPDX:GPL-3.0-or-later")
     if len(str(m["tagline"])) > TAGLINE_MAX:
         raise BuildError("tagline longer than %d characters" % TAGLINE_MAX)
+    if store and m.get("wheels"):
+        raise BuildError("store builds must not declare 'wheels' (no bundled wheels)")
     if store and "network" in (m.get("permissions") or {}):
         raise BuildError("store builds must not request the network permission")
     return m
@@ -146,6 +149,24 @@ def _check_assets(ext_dir: Path) -> None:
             raise BuildError("asset %s has licence %r; only CC0-1.0 is allowed" % (rel, lic))
 
 
+# project-owned engine data without an in-file licence field (provenance: this repo)
+_ENGINE_DATA_ALLOW = frozenset({"core/defaults.toml"})
+
+
+def _check_engine_data(sub: str, data: bytes) -> None:
+    """Vendored engine JSON/TOML data must declare CC0-1.0 (DESIGN 6.1) or be allow-listed."""
+    if sub in _ENGINE_DATA_ALLOW or not sub.endswith((".json", ".toml")):
+        return
+    try:
+        doc = tomllib.loads(data.decode("utf-8")) if sub.endswith(".toml") \
+            else json.loads(data.decode("utf-8"))
+    except Exception as e:
+        raise BuildError("engine data %s unreadable: %s" % (sub, e))
+    lic = doc.get("licence", doc.get("license")) if isinstance(doc, dict) else None
+    if lic != "CC0-1.0":
+        raise BuildError("engine data %s has licence %r; only CC0-1.0 is allowed" % (sub, lic))
+
+
 # ---------------------------------------------------------------- build
 def build(out_zip, engine_src="face3d", ext_src="blender_ext/face3d_likeness", gpl_text=None,
           store=True, add_spdx=True) -> dict:
@@ -208,6 +229,8 @@ def build(out_zip, engine_src="face3d", ext_src="blender_ext/face3d_likeness", g
                     raise BuildError("%s lacks an SPDX header" % rel)
                 data = _with_header(text, MIT_SPDX).encode("utf-8")
                 spdx_added.append(rel)
+        else:
+            _check_engine_data(sub, data)
         add(rel, data)
 
     if gpl_bytes is not None:

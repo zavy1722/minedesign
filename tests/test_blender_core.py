@@ -225,6 +225,19 @@ def test_apply_camera_uses_to_blender_camera(bx):
     M = np.asarray(obj.matrix_world)
     assert np.allclose(M[:3, 3], br.engine_mm_to_blender_m(d["matrix_world"][:3, 3]))
     assert np.allclose(M[:3, :3] @ M[:3, :3].T, np.eye(3))   # unit scale
+    # full orientation: R_x(90) @ R_engine, translation 0.001 * R_x(90) @ t
+    Rx = np.array([[1.0, 0, 0], [0, 0, -1.0], [0, 1.0, 0]])
+    Me = np.asarray(d["matrix_world"], float)
+    assert np.allclose(M[:3, :3], Rx @ Me[:3, :3])
+    assert np.allclose(M[:3, 3], 0.001 * Rx @ Me[:3, 3])
+    # reprojection through lens/shift/matrix_world matches the engine pinhole
+    P = np.array([12.0, -30.0, 5.0])
+    Pw = br.engine_mm_to_blender_m(P)
+    pc = M[:3, :3].T @ (Pw - M[:3, 3])          # Blender camera frame: looks down -z, +y up
+    fpx = d["lens"] / d["sensor_width"] * 3000
+    u = 3000 / 2 - c.shift_x * 3000 + fpx * pc[0] / -pc[2]
+    v = 4000 / 2 + c.shift_y * 3000 - fpx * pc[1] / -pc[2]
+    assert np.allclose([u, v], cam.project(P[None])[0], atol=1e-6)
 
 
 # ------------------------------------------------------------------ jobs
@@ -477,3 +490,171 @@ def test_engine_has_no_bpy_import():
             elif isinstance(n, ast.ImportFrom) and n.level == 0 and n.module:
                 mods = [n.module]
             assert not {m.split(".")[0] for m in mods} & bad, p
+
+
+# ------------------------------------------------------------------ review fixes
+def test_shape_key_rewrite_updates_in_place(bx):
+    bpy, br = bx.bpy, bx.bridge
+    ob, V, _ = _cube_obj(bpy)
+    br.write_shape_key(ob, "ID_fit", V + 1.0)
+    br.write_shape_key(ob, "artist", V + 3.0, relative_to="ID_fit")
+    kb = br.write_shape_key(ob, "ID_fit", V + 2.0, slider_max=1.5)
+    blocks = ob.data.shape_keys.key_blocks
+    assert [k.name for k in blocks] == ["Basis", "ID_fit", "artist"]
+    assert blocks["artist"].relative_key is blocks["ID_fit"] is kb
+    keys = br.read_shape_keys(ob)
+    assert np.array_equal(keys["ID_fit"][0], V + 2.0) and keys["ID_fit"][3] == 1.5
+    assert np.array_equal(keys["artist"][0], V + 3.0) and keys["artist"][1] == "ID_fit"
+    with pytest.raises(ValueError):
+        br.write_shape_key(ob, "ID_fit", V[:3])
+    # the stub now mimics Blender's unique key-block names
+    assert ob.shape_key_add(name="artist", from_mix=False).name == "artist.001"
+
+
+def test_bridge_refuses_non_finite(bx):
+    bpy, br = bx.bpy, bx.bridge
+    ob, V, _ = _cube_obj(bpy)
+    bad = V.copy()
+    bad[2, 1] = np.nan
+    with pytest.raises(br.BridgeRefusal):
+        br.write_vertices(ob.data, bad)
+    with pytest.raises(br.BridgeRefusal):
+        br.write_shape_key(ob, "k", np.where(V > 0, np.inf, V))
+    assert np.array_equal(br.mesh_vertices_to_array(ob.data), V)
+    assert ob.data.shape_keys is None or ob.data.shape_keys.key_blocks.get("k") is None
+
+
+def test_mode_guard_refuses_non_active_object(bx):
+    bpy, br = bx.bpy, bx.bridge
+    ob, _, _ = _cube_obj(bpy)
+    other = bpy.data.objects.new("other", None)
+    bpy.context.object = other
+    ob.mode = "WEIGHT_PAINT"
+    with pytest.raises(br.BridgeRefusal):
+        with br.mode_guard(ob):
+            pytest.fail("body must not run")
+    assert ob.mode == "WEIGHT_PAINT" and other.mode == "OBJECT"
+
+
+def test_probe_platform_avoids_platform_uname(bx, monkeypatch):
+    import platform
+    monkeypatch.setattr(platform, "uname", lambda: pytest.fail("platform.uname called"))
+    info = bx.compat.probe()
+    assert info["platform"].startswith(sys.platform.lower() + "-")
+
+
+def test_jobs_spawn_failure_and_double_start(bx, monkeypatch, tmp_path):
+    bpy, jobs = bx.bpy, bx.jobs
+    _fake_engine(monkeypatch, bx, [])
+
+    def boom(args):
+        raise OSError("cannot spawn")
+
+    monkeypatch.setattr(jobs.subprocess, "Popen", boom)
+    bx.pkg.register()
+    r = jobs.JobRunner(tmp_path)
+    assert r.start("solve", {}, {}, 1) is None
+    assert r.status == "failed" and r.error["code"] == "spawn_failed"
+    assert bpy.context.scene.face3d.job.status == "failed"
+    assert bpy.app.timers.registered == []
+    # a second start while running is refused: no orphan process, one timer
+    monkeypatch.setattr(jobs.subprocess, "Popen", lambda a: FakeProc(10 ** 6))
+    jd = r.start("solve", {}, {}, 1)
+    assert jd and r.status == "running"
+    assert r.start("solve", {}, {}, 2) is None and r.job_dir == jd
+    assert sum(1 for fn, _a, _b in bpy.app.timers.registered if fn == r.poll) == 1
+
+
+def _fake_clock(monkeypatch, jobs, step):
+    t = [0.0]
+
+    def pc():
+        t[0] += step
+        return t[0]
+
+    monkeypatch.setattr(jobs, "time", types.SimpleNamespace(perf_counter=pc))
+
+
+def test_jobs_budget_limits_parsing_and_drain_continues(bx, monkeypatch, tmp_path):
+    jobs = bx.jobs
+    _fake_engine(monkeypatch, bx, [])
+    proc = FakeProc(polls_until_done=10 ** 6)
+    monkeypatch.setattr(jobs.subprocess, "Popen", lambda a: proc)
+    r = jobs.JobRunner(tmp_path)
+    jd = r.start("solve", {}, {}, 1)
+    line = json.dumps({"t": 1.0, "stage": "solve", "frac": 0.5, "msg_key": "k"}) + "\n"
+    Path(jd, "progress.jsonl").write_text(line * 50)
+    _fake_clock(monkeypatch, jobs, 0.015)     # each clock read costs 15 ms
+    recs, off = jobs.read_progress_budgeted(jd, 0, budget_s=0.020)
+    assert 1 <= len(recs) <= 3 and off == len(recs) * len(line)
+    # process finished with unread progress: poll keeps ticking (0.1) before returning None
+    proc.n, proc.code = 0, 0
+    Path(jd, "result.json").write_text("{}")
+    out = []
+    for _ in range(100):
+        v = r.poll()
+        out.append(v)
+        if v is None:
+            break
+    assert out[0] == 0.1 and out[-1] is None and len(out) > 2 and r.status == "ready"
+    assert r._offset == 50 * len(line)
+
+
+def test_jobs_result_after_cancel_wins_only_on_clean_exit(bx, monkeypatch, tmp_path):
+    jobs = bx.jobs
+    _fake_engine(monkeypatch, bx, [])
+    proc = FakeProc(polls_until_done=1, code=0)
+    monkeypatch.setattr(jobs.subprocess, "Popen", lambda a: proc)
+    r = jobs.JobRunner(tmp_path)
+    jd = r.start("solve", {}, {}, 1)
+    r.cancel()
+    Path(jd, "result.json").write_text("{}")
+    while r.poll() is not None:
+        pass
+    assert r.status == "ready"          # finished cleanly before the kill: result stands
+    proc2 = FakeProc(polls_until_done=10 ** 6)
+    monkeypatch.setattr(jobs.subprocess, "Popen", lambda a: proc2)
+    r2 = jobs.JobRunner(tmp_path)
+    jd2 = r2.start("solve", {}, {}, 1)
+    r2.cancel()
+    Path(jd2, "result.json").write_text("{}")
+    r2._cancel_at -= 2.0
+    while r2.poll() is not None:
+        pass
+    assert proc2.killed and r2.status == "cancelled"
+
+
+def test_build_rejects_unlicensed_engine_data_and_wheels(tmp_path):
+    sys.path.insert(0, str(ROOT / "tools"))
+    try:
+        import build_extension as be
+    finally:
+        sys.path.pop(0)
+    be._check_engine_data("data/x.json", b'{"licence": "CC0-1.0"}')
+    be._check_engine_data("core/defaults.toml", b"a = 1\n")
+    for sub, raw in (("data/x.json", b'{"licence": "CC-BY-4.0"}'), ("data/y.json", b"{}"),
+                     ("data/z.toml", b"a = 1\n")):
+        with pytest.raises(be.BuildError):
+            be._check_engine_data(sub, raw)
+    m = tmp_path / "m.toml"
+    src = (EXT / "blender_manifest.toml").read_text()
+    m.write_text("wheels = [\"./wheels/x.whl\"]\n" + src)
+    with pytest.raises(be.BuildError):
+        be.validate_manifest(m, store=True)
+
+
+def test_stub_has_wp22_apis(bx):
+    bpy = bx.bpy
+    app = bpy.app
+    app.translations.register("m", {"en": {}})
+    assert app.translations.pgettext("x") == "x"
+    app.translations.unregister("m")
+    km = bpy.context.window_manager.keyconfigs.addon.keymaps.new("Window")
+    it = km.keymap_items.new("f3d.op", "F", "PRESS")
+    km.keymap_items.remove(it)
+    assert bpy.data.images.load("/x/y.jpg").size == (64, 64)
+    bpy.context.scene.timeline_markers.new("m", frame=1)
+    bpy.data.cameras.new("c").background_images.new()
+    assert bpy.context.scene.render.resolution_x > 0
+    from gpu_extras.batch import batch_for_shader
+    assert batch_for_shader(None, "LINES", {}) is not None

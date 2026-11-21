@@ -17,8 +17,10 @@ Conventions
   vertex order; landmark targets ``X`` are ``(N, 3)`` with rows named by ``ids`` (the
   kit's ``scheme`` names, default ``'anatomical44'``).  A NaN row of ``X`` is a missing
   target and is ignored by every stage.
-* ``sigma_X_mm`` ``(N,)`` is the 1-sigma position uncertainty of each target (e.g. the
-  RMS of the three per-axis posterior sigmas of the bundle).
+* ``sigma_X_mm`` ``(N,)`` is the 1-sigma position uncertainty of each target as a 3-D
+  length, ``sqrt(trace Cov_i)`` of its posterior block
+  (:func:`face3d.fit.uncertainty.landmark_sigma_mm`); ``warp.alpha`` is calibrated for
+  this convention.
 * ``views_agree`` ``(N,)`` int is the number of views whose observation of landmark i is
   an inlier of the bundle (DESIGN 4.15 C / MM-10: offsets above the cap need >= 2 views).
 * Flags are strings: ``W-MIRRORED-SOURCE``, ``W-WRONG-AXES`` (stage A),
@@ -127,7 +129,11 @@ _WARP_STAGES = register_defaults("warp", {
     "c_weight": Default(1e3, _NEW, "WP-19 implementation choice: stage-C landmark weight relative to the "
                         "normalised bilaplacian energy (the legacy refine_weight of fit_template_to_landmarks)",
                         "", (0.0, None)),
-    "c_sigma_ref_mm": Default(1.0, _NEW, "__C_SIGMA_SRC__", "mm", (1e-9, None)),
+    "c_sigma_ref_mm": Default(3.0, _NEW, "WP-19 implementation choice: sigma at which a stage-C landmark weight "
+                              "is 1 in normalised bilaplacian units, w_i = (sigma_ref / sigma_i)^2 for uncertain "
+                              "targets. Test bed (kit n=16, 6+6 subjects, alpha 30): stage-C face RMS out-of-prior / "
+                              "in-space 2.46 / 1.67 mm (1 mm), 2.37 / 1.70 (3 mm), 2.34 / 1.98 (hard targets); "
+                              "3 mm has the lowest pooled error", "mm", (1e-9, None)),
 })
 
 
@@ -325,6 +331,10 @@ def stage_c(V_B: np.ndarray, kit: Any, X: np.ndarray, views_agree: np.ndarray | 
         return V_cur, n_it
 
     hist = [_rms((lm(V_B) - X)[use])]
+    if hist[0] <= 1e-9:                                  # stage B already interpolates the targets
+        if info is not None:
+            info.update(rms_history=hist, n_capped=0, iterations=0)
+        return V_B.copy()
     V_C, n_it = iterate(V_B, X, hist)
     n_capped = 0
     if views_agree is not None:

@@ -38,8 +38,16 @@ ALPHA_GRID: tuple[float, ...] = (0.1, 0.3, 1.0, 3.0, 10.0, 30.0, 100.0)
 
 WARP = register_defaults("warp", {
     "alpha": Default(
-        10.0, _NEW,
-        "PLACEHOLDER",
+        30.0, _NEW,
+        "WP-19 calibration on the test bed (procedural kit n=24, 7-view studio ring, detector-sim defaults, bundle "
+        "with the factor prior; 10 out-of-prior + 10 smooth in-space subjects; sigma_i = sqrt(tr Cov_i) of the "
+        "posterior). Median landmark residual RMS / sigma per grid value 0.1..100: 0.001, 0.004, 0.011, 0.03, "
+        "0.08, 0.15, 0.26 - the WP-19 target band [0.5, 1.0] is NOT reached on the grid (the posteriors are "
+        "already prior-smoothed). Chosen by the remaining evidence: worst stage-B fold-gate min det -0.18 "
+        "(alpha <= 1; folds at the chin), 0.15 (3), 0.37 (10), 0.65 (30), 0.85 (100); stage-B face RMS "
+        "out-of-prior 2.19 / 2.23 / 2.26 / 2.38 mm and in-space 1.83 / 1.77 / 1.69 / 1.62 mm at alpha -> 0 / "
+        "10 / 30 / 100. alpha = 30 is the largest value that costs < 5 % out-of-prior accuracy and clears the "
+        "0.2 fold gate with margin. DESIGN 4.15 B (MM-8) quoted 1e-2 in mm^2 units, uncalibrated.",
         "", (0.0, None)),
 })
 

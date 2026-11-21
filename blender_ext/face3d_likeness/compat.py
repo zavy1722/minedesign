@@ -3,10 +3,19 @@
 
 Never imports optional ML packages; only bpy, numpy and the standard library.
 """
-import platform as _platform
+import os
 import sys
 
 import bpy
+
+
+def _platform_tag():
+    """sys.platform + machine without platform.uname() (which spawns `ver` on Windows)."""
+    if hasattr(os, "uname"):
+        machine = os.uname().machine
+    else:
+        machine = os.environ.get("PROCESSOR_ARCHITECTURE", "")
+    return "%s-%s" % (sys.platform.lower(), machine.lower())
 
 
 def probe():
@@ -27,6 +36,6 @@ def probe():
         "python_tag": "cp%d%d" % (sys.version_info[0], sys.version_info[1]),
         "numpy": np_version,
         "online_access": bool(getattr(app, "online_access", False)),
-        "platform": _platform.system().lower() + "-" + _platform.machine().lower(),
+        "platform": _platform_tag(),
         "background": bool(getattr(app, "background", False)),
     }

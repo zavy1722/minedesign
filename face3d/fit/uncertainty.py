@@ -34,7 +34,7 @@ import numpy as np
 
 from ..core.config import Default, register_defaults
 
-__all__ = ["SIGMA_RES_MM", "CHOL_JITTER", "vertex_cov_stage_b", "vertex_sigma_n", "sigma_res_of",
+__all__ = ["SIGMA_RES_MM", "CHOL_JITTER", "landmark_sigma_mm", "vertex_cov_stage_b", "vertex_sigma_n", "sigma_res_of",
            "finite_difference_check", "landmark_region_sigma_def"]
 
 _BRAIN = "\U0001F9E0"   # expert knowledge, provisional
@@ -88,6 +88,18 @@ def _factor(cov_X: np.ndarray) -> np.ndarray:
         # a posterior that is PSD only up to round-off: clip the negative eigenvalues
         w, U = np.linalg.eigh(S)
         return U * np.sqrt(np.clip(w, 0.0, None))
+
+
+def landmark_sigma_mm(cov_X: np.ndarray) -> np.ndarray:
+    """Per-landmark position sigma (N,) mm, ``sqrt(trace Cov_i)`` of the 3 x 3 diagonal blocks.
+
+    This is the ``sigma_X_mm`` convention of :func:`face3d.fit.template.stage_b` under
+    which ``warp.alpha`` was calibrated (WP-19).
+    """
+    d = np.diag(np.asarray(cov_X, float))
+    if d.size % 3:
+        raise ValueError("cov_X must be (3N, 3N)")
+    return np.sqrt(np.clip(d, 0.0, None).reshape(-1, 3).sum(axis=1))
 
 
 def vertex_cov_stage_b(A_rows: np.ndarray, cov_X: np.ndarray, chunk: int = 2000) -> np.ndarray:

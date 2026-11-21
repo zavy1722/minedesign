@@ -97,7 +97,9 @@ class JobRunner:
 
     # -------------------------------------------------------------- start
     def start(self, stage, inputs, config, seed):
-        """Write the job folder and launch it; returns job_dir."""
+        """Write the job folder and launch it; returns job_dir (None if refused/failed to spawn)."""
+        if self.status == "running":
+            return None     # refuse: a running job must be cancelled first (no orphaned process)
         ej = _engine_jobs()
         job_dir = os.path.join(self.project_dir, "jobs", uuid.uuid4().hex)
         os.makedirs(job_dir, exist_ok=True)
@@ -115,8 +117,17 @@ class JobRunner:
             self._drain()
             self._finish(code)
             return job_dir
-        self.proc = subprocess.Popen([sys.executable, "-I", launcher_path(), job_dir])
-        bpy.app.timers.register(self.poll, first_interval=POLL_INTERVAL_S)
+        try:
+            self.proc = subprocess.Popen([sys.executable, "-I", launcher_path(), job_dir])
+        except OSError:
+            self.proc = None
+            self.status = "failed"
+            self.error = {"code": "spawn_failed", "msg_key": "job_failed", "stage": stage}
+            self.msg_key = "job_failed"
+            self._push_props()
+            return None
+        if not bpy.app.timers.is_registered(self.poll):
+            bpy.app.timers.register(self.poll, first_interval=POLL_INTERVAL_S)
         return job_dir
 
     # -------------------------------------------------------------- polling

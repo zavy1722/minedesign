@@ -3,7 +3,25 @@ version = (4, 5, 0)
 version_string = "4.5.0"
 background = False
 online_access = False
-translations = type("translations", (), {"registered": {}})()
+
+
+class _Translations:
+    def __init__(self):
+        self.registered = {}
+
+    def register(self, name, translations_dict):
+        if name in self.registered:
+            raise ValueError("translations %r already registered" % name)
+        self.registered[name] = translations_dict
+
+    def unregister(self, name):
+        self.registered.pop(name, None)
+
+    def pgettext(self, msg, msgctxt=None):
+        return msg
+
+
+translations = _Translations()
 
 
 class _Timers:
