@@ -29,9 +29,23 @@ half-edge bias). With ``normal_only=True`` the sample O_k matched to vertex v
 
 where n3_v is the area-weighted vertex normal (``Mesh.vertex_normals``), so only
 the across-contour component survives; samples whose normal projects to
-|.| < 1e-9 px (normal along the viewing ray) are skipped. The full sub-vertex rim
-and ContourObs residuals of DESIGN 4.16 replace this in WP-17.
+|.| < 1e-9 px (normal along the viewing ray) are skipped. The full sub-vertex rim,
+ContourObs residuals and the contour Term of DESIGN 4.16 live in :mod:`face3d.fit.contour`
+(WP-17); ``use_subvertex=True`` brings the sub-vertex rim to this legacy loop.
 ``normal_only=False`` reproduces the legacy behaviour exactly.
+
+Sub-vertex targets (``use_subvertex=True``, WP-17; DESIGN D-13 "sub-vertex zero
+crossing", 4.16 "Model rim"). Instead of silhouette *vertices*, each view's model rim is
+the sub-vertex zero crossing of q = n . (x - C) (:func:`face3d.fit.contour.rim_points`),
+sampled along its polyline every ``subvertex_spacing_px`` (:func:`face3d.fit.contour.densify_rim`;
+every sample is a fixed combination of up to four vertices with weights w). Each
+outline sample is matched to the nearest rim sample within ``max_dist_px`` (uniform-grid
+search, :func:`face3d.fit.contour.grid_nearest`), the correction keeps only its
+component along the rim sample's outward image normal n2 (normal-only, as above; the
+full correction when ``normal_only=False``), and the 3D displacement D of the rim sample
+(back-projection of the corrected point at the sample's depth, minus the sample) is
+shared by its support vertices: vertex v receives the target V_v + D with weight
+weight_view * w_v. Defaults are unchanged (``use_subvertex=False``).
 
 Units: vertices and depths in mm (model units), outlines and errors in pixels.
 """
@@ -91,12 +105,52 @@ def _backproject_at_depth(cam: Camera, uv: np.ndarray, depth: np.ndarray) -> np.
     return (xc - cam.t) @ cam.R  # R^T (xc - t)
 
 
+def _subvertex_targets(V: np.ndarray, tris: np.ndarray, normals: np.ndarray, cam: Camera, view: ContourView,
+                       topo: tuple[np.ndarray, np.ndarray], vertex_mask: np.ndarray | None, max_dist_px: float,
+                       normal_only: bool, spacing_px: float, tgt_sum: np.ndarray, tgt_w: np.ndarray) -> float:
+    """Accumulate sub-vertex rim targets of one view (module docstring); returns its mean error (px)."""
+    from .contour import densify_rim, grid_nearest, rim_points   # contour imports this module
+
+    rim = rim_points(V, tris, normals, cam, topo=topo)
+    smp = densify_rim(rim, cam, spacing_px)
+    keep = smp.visible.copy()
+    if vertex_mask is not None:
+        keep &= np.all(np.asarray(vertex_mask, bool)[smp.vid] | (smp.w <= 0), axis=1)
+    sel = np.flatnonzero(keep)
+    O = np.asarray(view.outline_px, float).reshape(-1, 2)
+    if len(sel) == 0 or len(O) == 0:
+        return float(max_dist_px)
+    pairs = grid_nearest(O, smp.uv[sel], max_dist_px)
+    if len(pairs) == 0:
+        return float(max_dist_px)
+    oi, si = pairs[:, 0], sel[pairs[:, 1]]
+    P = smp.uv[si]
+    Ok = O[oi]
+    if normal_only:
+        n2 = smp.normal2d[si]
+        d_n = np.sum(n2 * (Ok - P), axis=1)
+        Ok = P + n2 * d_n[:, None]
+        err = float(np.abs(d_n).mean())
+    else:
+        err = float(np.linalg.norm(Ok - P, axis=1).mean())
+    target = _backproject_at_depth(cam, Ok, smp.depth[si])
+    disp = target - smp.p[si]                                  # (n, 3) rim-sample displacement
+    vid, w = smp.vid[si], smp.w[si] * float(view.weight)
+    for k in range(vid.shape[1]):
+        wk = w[:, k]
+        m = wk > 0
+        np.add.at(tgt_sum, vid[m, k], wk[m, None] * (V[vid[m, k]] + disp[m]))
+        np.add.at(tgt_w, vid[m, k], wk[m])
+    return err
+
+
 def fit_silhouettes(mesh: Mesh, views: list[ContourView], *, fixed_idx: np.ndarray | None = None,
                     fixed_pos: np.ndarray | None = None, iterations: int = 10, max_dist_px: float = 60.0,
                     step: float = 0.7, weight: float = 200.0, fixed_weight: float = 1e3,
                     vertex_mask: np.ndarray | None = None, method: str = "reduced",
                     n_centers: int = 600, smoothness: float = 1e-2,
-                    normal_only: bool = True) -> tuple[np.ndarray, list[float]]:
+                    normal_only: bool = True, use_subvertex: bool = False,
+                    subvertex_spacing_px: float = 2.0) -> tuple[np.ndarray, list[float]]:
     """Deform `mesh` so its silhouettes match the outlines. Returns (vertices, mean px error per iteration).
 
     vertex_mask: optional bool (V,) restricting which vertices may be matched
@@ -106,6 +160,10 @@ def fit_silhouettes(mesh: Mesh, views: list[ContourView], *, fixed_idx: np.ndarr
     normal_only: keep only the across-contour (outward image normal) component of
     each outline correction (DESIGN D-13, WP-06 (a); see the module docstring).
     False reproduces the legacy full-correction behaviour exactly.
+    use_subvertex: match outline samples to the sub-vertex rim polyline instead of the
+    silhouette vertices (WP-17; module docstring); ``subvertex_spacing_px`` is the rim
+    sampling step in pixels. ``vertex_mask`` then keeps the rim samples whose support
+    vertices are all allowed.
 
     The returned history is the mean error in pixels per iteration over the
     samples within ``max_dist_px`` of their nearest projected silhouette vertex:
@@ -127,6 +185,12 @@ def fit_silhouettes(mesh: Mesh, views: list[ContourView], *, fixed_idx: np.ndarr
         normals = None  # vertex normals of the current V, computed lazily (normal_only)
         for view in views:
             cam = view.camera
+            if use_subvertex:
+                if normals is None:
+                    normals = Mesh(V, mesh.faces).vertex_normals()
+                errs.append(_subvertex_targets(V, tris, normals, cam, view, topo, vertex_mask, max_dist_px,
+                                               normal_only, subvertex_spacing_px, tgt_sum, tgt_w))
+                continue
             sil = silhouette_vertices(V, tris, cam, topo)
             if vertex_mask is not None:
                 sil = sil[vertex_mask[sil]]
