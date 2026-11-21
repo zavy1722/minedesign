@@ -43,14 +43,18 @@ Residual rows (all whitened), in this order::
   the noise (DESIGN 4.4), w_iv = user weight x IRLS weight x visibility weight x view weight.
 * focal prior   (phi_G - ln f_prior) / sigma (tightest prior of the group) or, for an
   ungrouped FREE view, (a_v - ln rho_v - ln f_prior) / sigma.
-* focal tie     (a_v - ln rho_v - phi_G) / focal_tie_sigma for FREE views of a group
-  (DESIGN 4.2 / rec CAM-5 sigma_tie 0.02, passed by the pipeline).
+* focal tie     (a_v - ln rho_v - phi_G) / focal_tie_sigma for the live (not frozen) FREE
+  views of a group (DESIGN 4.2 / rec CAM-5 sigma_tie 0.02, passed by the pipeline).
 * distance      (-ln rho_v - ln median) / sigma_log (``ViewObs.distance_prior``; DESIGN 4.2).
 * pose tag      (yaw_v - yaw_tag) / sigma_yaw, (pitch_v - pitch_tag) / sigma_pitch in degrees,
   yaw = atan2(C_x, C_z), pitch = asin(C_y / |C|) of the camera centre C = -R^T t (head frame).
 * jaw prior     (theta_v - mean) / sigma (``JawConfig``; DESIGN 4.9 N(1.5 deg, 1 deg^2)).
-* frozen views  rows (p - p_frozen) / tiny on the camera block of a view the robust
-  schedule rejected (its observations are excluded; the rows keep its block non-singular).
+* frozen views  rows (p - p_frozen) / tiny on the camera block (and jaw angle) of a view the
+  robust schedule rejected or left without observations (its observations are excluded; the
+  rows keep its block non-singular), and on the phi of a focal group with no live view left.
+  A frozen view keeps no row coupling its block to shared parameters (its focal tie is
+  dropped), so it cannot bias phi_G; the covariance is conditional on the frozen parameters
+  (their rows and columns of Sigma are zero) and their stiff rows do not enter the ridge.
 * zeta, shape, symmetry, midline, gauge: unchanged from WP-07 (D-03, 4.6, 4.11).
 
 Jaw hinge (DESIGN 4.9): X_iv = X_i + w_i (R_x(theta_v)(X_i - c) - (X_i - c)), axis +x through
@@ -58,14 +62,17 @@ Jaw hinge (DESIGN 4.9): X_iv = X_i + w_i (R_x(theta_v)(X_i - c) - (X_i - c)), ax
 origin being mid-tragion; bl K8 ↔️), per-landmark weights ``jaw_weights``; theta in
 [bounds] by ``project``; positive theta opens the mouth (chin moves down and back).
 
-Visibility (DESIGN 4.8, rec BA-3 🧠), active when ``landmark_normals`` is given: weight
-clip((cos th - cos 80 deg) / (cos 60 deg - cos 80 deg), 0, 1) with cos th = n_i . (C_v - X_i) /
-|C_v - X_i| multiplies the information; contour-kind points with x on the side opposite to
-the view's yaw are dropped when |yaw| > 25 deg.  Recomputed before every IRLS round.
+Visibility (DESIGN 4.8, rec BA-3 🧠), two independent rules recomputed before every IRLS
+round: with ``landmark_normals``, the weight clip((cos th - cos 80 deg) / (cos 60 deg -
+cos 80 deg), 0, 1), cos th = n_i . (C_v - X_i) / |C_v - X_i|, multiplies the information;
+whenever a view has 'contour' kinds (normals or not), its contour points with x on the side
+opposite to the view's yaw are dropped when |yaw| > 25 deg.
 
 View weights (DESIGN D-07, 4.4; ``view_weighting=True``): w_v = 1 / n_bin with 15 deg yaw
 bins (centred on 0) x pitch bands (< -15, -15..15, > 15 deg); then two passes cap every
-view's share of the shape-block information trace at 0.40.  Yaw and pitch are those of the
+view's share of the shape-block information trace at 0.40 (water-filling: a view capped in the
+first pass stays capped in the second, which caps the views the first pushed over the cap,
+so two dominant views both end at 0.40).  Yaw and pitch are those of the
 current camera centre; the weights are frozen before each LM run, so the shares reported at
 the final solution (``view_stats[v]['weight_share']``) can differ from the cap by O(1e-5).
 
@@ -86,7 +93,12 @@ posterior of the points with every other parameter (cameras, phi, theta, zeta, t
 eliminated by Schur complement; ``cov_shape`` is the same conditional on zeta (template
 gauge).  Neither includes sigma_def nor any chi^2 inflation; ``sigma_rep_mm`` =
 sqrt(diag(cov_shape) max(1, chi2_red) + sigma_def^2) (WP-16 adds gamma).  With a
-non-identity shape model the point covariances are J_S Sigma_qq J_S^T.
+non-identity shape model the point covariances are J_S Sigma_qq J_S^T.  Frozen parameters
+are conditioned on (see 'frozen views').  ``chi2_red`` = chi^2 / ``chi2_dof`` over the final
+inliers with the noise model only (base noise x nu_v^2 / user and visibility weights; the view
+weights w_v, which de-duplicate correlated views, are left out), chi2_dof = m_data - p_eff,
+p_eff = tr(H_data Sigma), plus with view weighting the first-order excess of
+:func:`_view_weight_dof_correction` (a weighted fit does not minimise the unweighted chi^2).
 
 Observation noise resolution is unchanged from WP-07 (``ViewObs.cov_px`` -> ``sigma_px`` ->
 :class:`~face3d.solve.noise.NoiseModel` of ``kinds`` at each point's depth).
@@ -270,7 +282,9 @@ class BundleResult:
     cov_shape: np.ndarray | None = None      # (3N,3N) mm^2, conditional on zeta
     zeta: float | None = None                # global log-scale (None when disabled)
     zeta_sigma: float | None = None
-    chi2_red: float | None = None            # sum r_data^2 / (m_data - p_eff), p_eff = tr(H_data Sigma)
+    # sum r_data^2 / chi2_dof over the final inliers, residuals WITHOUT the view weights
+    # (noise model only), chi2_dof = m_data - p_eff (+ view-weight correction), p_eff = tr(H_data Sigma)
+    chi2_red: float | None = None
     sigma_def_mm: np.ndarray | None = None   # (N,) definition-bias floor (D-06)
     sigma_rep_mm: np.ndarray | None = None   # (N,3) sqrt(diag(cov_shape) max(1, chi2_red) + sigma_def^2)
     # per view: cov of the camera block in the solver parameterisation
@@ -287,12 +301,18 @@ class BundleResult:
     engine_version: str = ENGINE_VERSION
     # ---- WP-10 additions ----
     # per view {nu, rejected_frac, chi2, dof, chi2_threshold, flags, weight_share, view_weight,
-    # sigma_logf, sigma_logz, jaw_deg, jaw_sigma_deg, yaw_deg, pitch_deg, n_inliers, kind}
+    # sigma_logf, sigma_logz, jaw_deg, jaw_sigma_deg, yaw_deg, pitch_deg, n_inliers, kind, frozen}
+    # (+ chi2_test, chi2_test_threshold, dof_test with a robust schedule).  A frozen view (rejected
+    # or empty) has sigma_logz, jaw_sigma_deg and, unless HARD (f = e^phi_G), sigma_logf None:
+    # its block is held, not estimated (its camera_cov entries are zero).
     view_stats: list[dict] | None = None
     # per view (N,) bool: observation used in the final solve (visible, visibility weight > 0,
     # not rejected by the robust schedule, view not rejected)
     inlier_mask: list[np.ndarray] | None = None
     term_params: dict | None = None          # term name -> (k,) solved parameters
+    # denominator of chi2_red: m_data - p_eff (+ the view-weight correction of
+    # _view_weight_dof_correction when view weighting is on; exactly m_data - p_eff otherwise)
+    chi2_dof: float | None = None
 
 
 # =========================================================================== layout
@@ -744,6 +764,16 @@ def schur_step(H: np.ndarray, lam_diag: np.ndarray, g: np.ndarray, elim_cols: np
     return dx
 
 
+@dataclass
+class _SubLayout:
+    """The fields of :class:`_Layout` that :func:`_posterior` reads (a reduced layout)."""
+
+    pts_off: int
+    pts_end: int
+    n: int
+    zeta_idx: int
+
+
 def _schur_inverse(H: np.ndarray, c: np.ndarray, x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Full inverse of SPD ``H`` by eliminating the block ``c`` (cameras) onto ``x`` (points).
 
@@ -769,12 +799,41 @@ def _schur_inverse(H: np.ndarray, c: np.ndarray, x: np.ndarray) -> tuple[np.ndar
     return Sig, Sxx
 
 
+def _posterior_fixed(H: np.ndarray, lay: Any, ridge_rel: float, fixed: np.ndarray | None) -> dict:
+    """:func:`_posterior` conditional on the parameters ``fixed`` (held, not estimated).
+
+    ``fixed``: parameter indices of the blocks of frozen views (and orphaned phi), whose
+    stiff holding rows would otherwise dominate trace(H) and with it the ridge, making every
+    point covariance overconfident.  Their rows and columns are removed from H before the
+    ridge and the inversion (conditioning on them), and their rows and columns of Sigma are
+    zero.  They must lie outside the point block and differ from zeta.  Without fixed
+    parameters this is exactly ``_posterior(H, lay, ridge_rel)``.
+    """
+    n = len(H)
+    fx = np.zeros(0, np.int64) if fixed is None else np.unique(np.asarray(fixed, np.int64).reshape(-1))
+    if fx.size == 0:
+        return _posterior(H, lay, ridge_rel)
+    pts_end = int(getattr(lay, "pts_end", lay.n))
+    zi = int(lay.zeta_idx)
+    if np.any((fx >= lay.pts_off) & (fx < pts_end)) or zi in set(fx.tolist()):
+        raise ValueError("fixed parameters must lie outside the point block and differ from zeta")
+    keep = np.setdiff1d(np.arange(n), fx)
+    shift_pts = int(np.sum(fx < lay.pts_off))
+    sub = _SubLayout(pts_off=int(lay.pts_off) - shift_pts, pts_end=pts_end - shift_pts, n=len(keep),
+                     zeta_idx=zi - int(np.sum(fx < zi)) if zi >= 0 else -1)
+    out = dict(_posterior(H[np.ix_(keep, keep)], sub, ridge_rel))
+    Sig = np.zeros((n, n))
+    Sig[np.ix_(keep, keep)] = out["Sigma"]
+    out["Sigma"] = Sig
+    return out
+
+
 def _posterior(H: np.ndarray, lay: Any, ridge_rel: float) -> dict:
     """Sigma (full), cov (points, unconditional) and cov_shape (points, conditional on zeta).
 
     ``lay`` needs ``pts_off``, ``n`` and ``zeta_idx`` (and optionally ``pts_end``, default
     ``n``): the point (shape-parameter) block is [pts_off, pts_end); every other
-    parameter is eliminated by Schur complement.
+    parameter is eliminated by Schur complement.  (Frozen parameters: :func:`_posterior_fixed`.)
     """
     n = len(H)
     pts_end = int(getattr(lay, "pts_end", lay.n))
@@ -942,6 +1001,8 @@ class _Problem:
         self.view_w = np.ones(self.V)
         self.rejected = [np.zeros(N, bool) for _ in views]
         self.frozen: dict[int, np.ndarray] = {}
+        # phi of a focal group all of whose views are frozen (no live coupling left)
+        self.frozen_phi: dict[int, float] = {}
         self.active = [np.flatnonzero(m) for m in vis]
         self.update_active()
 
@@ -1014,8 +1075,10 @@ class _Problem:
                 self.W[k] = W
 
     def refresh_visibility(self, p: np.ndarray) -> None:
-        """Visibility weights from template normals and the far-side contour rule (DESIGN 4.8)."""
-        if self.normals is None:
+        """Visibility weights (DESIGN 4.8): the normal ramp (only with ``landmark_normals``) and,
+        independently of the normals, the far-side contour rule (needs only the kinds and the yaw)."""
+        has_contour = any(c is not None and c.any() for c in self.contour)
+        if self.normals is None and not has_contour:
             return
         X = self.X(p)
         c0 = math.cos(math.radians(float(BUNDLE["vis_cos_zero_deg"].value)))
@@ -1023,11 +1086,14 @@ class _Problem:
         far = float(BUNDLE["contour_far_yaw_deg"].value)
         for k in range(self.V):
             C = self.centre(p, k)
-            d = C - X
-            dn = np.linalg.norm(d, axis=1)
-            cos = np.einsum("ij,ij->i", self.normals, d) / np.maximum(dn, 1e-12)
-            w = np.clip((cos - c0) / (c1 - c0), 0.0, 1.0)
-            w[self.normal_unknown] = 1.0
+            if self.normals is not None:
+                d = C - X
+                dn = np.linalg.norm(d, axis=1)
+                cos = np.einsum("ij,ij->i", self.normals, d) / np.maximum(dn, 1e-12)
+                w = np.clip((cos - c0) / (c1 - c0), 0.0, 1.0)
+                w[self.normal_unknown] = 1.0
+            else:
+                w = np.ones(self.N)
             yaw = math.degrees(math.atan2(C[0], C[2]))
             if self.contour[k] is not None and abs(yaw) > far:
                 w[self.contour[k] & (X[:, 0] * yaw < 0)] = 0.0
@@ -1147,15 +1213,22 @@ class _Problem:
         for k in live:
             T[k] = self.view_trace(p, k, X, view_weight=False)
         cap = float(BUNDLE["view_share_cap"].value)
+        capped: set[int] = set()
         for _ in range(int(BUNDLE["view_cap_passes"].value)):
             wt = w * T
             tot = float(wt[live].sum()) if live else 0.0
             if tot <= 0:
                 break
-            over = [k for k in live if wt[k] > cap * tot * (1.0 + 1e-12)]
-            rest = float(sum(wt[k] for k in live if k not in over))
-            if not over or rest <= 0 or len(over) * cap >= 1.0:
+            # water-filling: a view capped in an earlier pass stays capped (rescaling the
+            # others raises its share again), new views above the cap join it
+            new = {k for k in live if k not in capped and wt[k] > cap * tot * (1.0 + 1e-12)}
+            if not new:
                 break
+            over = capped | new
+            rest = float(sum(wt[k] for k in live if k not in over))
+            if rest <= 0 or len(over) * cap >= 1.0:
+                break
+            capped = over
             S = rest / (1.0 - len(over) * cap)
             for k in over:
                 w[k] = cap * S / T[k]
@@ -1270,7 +1343,10 @@ class _Problem:
                     jacs.append(row([(idx, 1.0 / sig), (ri, -1.0 / (p[ri] * sig))]))
         for k in range(self.V):
             ts = lay.tie_sigma[k]
-            if ts is None:
+            # A frozen (rejected or empty) view keeps no row that couples its frozen block to
+            # shared parameters: its tie would pull phi_G toward the focal of a block fitted
+            # to the very observations the robust schedule rejected.
+            if ts is None or k in self.frozen:
                 continue
             ai, ri, gi = lay.a_idx[k], lay.rho_idx[k], lay.phi_idx[k]
             res.append(np.array([(p[ai] - _log(p[ri] * RHO_MM_PER_PARAM) - p[gi]) / ts]))
@@ -1320,6 +1396,14 @@ class _Problem:
             if jac:
                 J = np.zeros((len(cols), self.n_ext))
                 J[np.arange(len(cols)), cols] = 1.0 / sig
+                jacs.append(J)
+        if self.frozen_phi:
+            sig = float(BUNDLE["freeze_sigma_rel"].value)          # phi is a log: absolute units
+            gi = sorted(self.frozen_phi)
+            res.append(np.array([(p[i] - self.frozen_phi[i]) / sig for i in gi]))
+            if jac:
+                J = np.zeros((len(gi), self.n_ext))
+                J[np.arange(len(gi)), gi] = 1.0 / sig
                 jacs.append(J)
         return res, jacs
 
@@ -1376,9 +1460,11 @@ class _Problem:
         return res, jacs
 
     # ------------------------------------------------------------------ assembly
-    def data_residuals(self, p: np.ndarray) -> list[np.ndarray]:
+    def data_residuals(self, p: np.ndarray, view_weight: bool = True) -> list[np.ndarray]:
+        """Whitened data rows; ``view_weight=False`` leaves out the view weights w_v (which
+        de-duplicate correlated views and are not part of the noise model) for chi^2."""
         X = self.X(p)
-        out = [self.view_data(p, k, X, False).ravel() for k in range(self.V)]
+        out = [self.view_data(p, k, X, False, view_weight=view_weight).ravel() for k in range(self.V)]
         tr, _ = self.term_rows(p, False, prior=False)
         return out + tr
 
@@ -1464,11 +1550,28 @@ class _Problem:
         new = []
         for k in range(self.V):
             if k not in self.frozen and len(self.active[k]) == 0:
-                self.frozen[k] = p[self._freeze_cols(k)].copy()
+                self.freeze_view(p, k)
                 new.append(k)
         if new:
             self.update_active()
         return new
+
+    def freeze_view(self, p: np.ndarray, k: int) -> None:
+        """Hold view k's camera block (and jaw angle) at its current value (rejected or empty view).
+
+        Its tie row is dropped (:meth:`camera_prior_rows`); a focal group left without any
+        live view gets its phi frozen too, as nothing but its prior would determine it.
+        """
+        if k not in self.frozen:
+            self.frozen[k] = p[self._freeze_cols(k)].copy()
+        for idx, ks in self.lay.group_views.items():
+            if idx not in self.frozen_phi and all(j in self.frozen for j in ks):
+                self.frozen_phi[idx] = float(p[idx])
+
+    def frozen_cols(self) -> np.ndarray:
+        """Sorted parameter indices held fixed: frozen views' blocks (+ jaw) and orphaned phi."""
+        cols = [c for k in self.frozen for c in self._freeze_cols(k)] + list(self.frozen_phi)
+        return np.unique(np.asarray(cols, np.int64))
 
     def _freeze_cols(self, k: int) -> list[int]:
         o, size = self.lay.view_off[k], self.lay.block_size[k]
@@ -1497,6 +1600,38 @@ def _validate_view_extras(views: list[ViewObs]) -> None:
             lo, hi = (float(a) for a in v.jaw.bounds_deg)
             if not (lo <= hi and v.jaw.prior_sigma_deg > 0):
                 raise ValueError(f"ViewObs.jaw of view {k}: need bounds lo <= hi and prior_sigma_deg > 0")
+
+
+def _view_weight_dof_correction(prob: _Problem, Jd: np.ndarray, H_data: np.ndarray, Sig: np.ndarray) -> float:
+    """Degrees-of-freedom correction of chi^2 for view weights (0 when every w_v is 1).
+
+    chi^2 is taken over the residuals WITHOUT the view weights w_v, while the fit (and
+    H_data, Sigma) uses them: a weighted fit does not minimise the unweighted chi^2
+    (Gauss-Markov), so its expectation exceeds m - tr(H_data Sigma).  To first order (weak
+    priors) E chi^2 = m - 2 tr(A) + tr(A A^T) with the oblique hat matrix
+    A = J Sigma J^T W, i.e. tr(A A^T) = tr(Sigma H_w2 Sigma H_u); the correction
+    tr(Sigma H_w2 Sigma H_u) - tr(Sigma H_w Sigma H_w), with H_u = sum_v H_v,
+    H_w = sum_v w_v H_v = H_data and H_w2 = sum_v w_v^2 H_v (H_v the unweighted
+    information of view v), adds that excess and vanishes identically for w = 1, where
+    m - p_eff is the exact expectation under the linear-Gaussian prior model.
+    ``Jd``: the (real-parameter) data Jacobian with the view weights, rows in view order.
+    """
+    vw = prob.view_w
+    if np.all(vw == 1.0):
+        return 0.0
+    Hu = H_data.copy()
+    Hw2 = H_data.copy()
+    row = 0
+    for k in range(prob.V):
+        nr = 2 * len(prob.active[k])
+        if nr and vw[k] > 0 and vw[k] != 1.0:
+            Jk = Jd[row:row + nr]
+            Hk = Jk.T @ Jk                        # w_v H_v
+            Hu += Hk * (1.0 / vw[k] - 1.0)
+            Hw2 += Hk * (vw[k] - 1.0)
+        row += nr
+    SH = Sig @ H_data
+    return float(np.sum((Sig @ Hw2 @ Sig) * Hu) - np.sum(SH * SH.T))
 
 
 def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = None,
@@ -1528,7 +1663,8 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
       Huber IRLS.  ``chi2_red`` is then computed over the inliers of the final solve.
     * ``view_weighting``: 1 / n_bin view weights with the 40 % information cap.
     * ``landmark_normals``: (N, 3) template normals in the head frame; enables the
-      visibility weights and the far-side contour rule.
+      visibility weights.  The far-side contour rule needs only ``ViewObs.kinds`` and runs
+      with or without normals.
     * ``jaw_weights`` (N,) and ``jaw_center_mm`` (3,) for views whose ``ViewObs.jaw`` is
       enabled (hinge axis +x).
     * ``terms``: extra :class:`~face3d.solve.terms.Term` blocks.
@@ -1726,8 +1862,7 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
         live = [k for k in range(len(views)) if k not in prob.frozen]
         if fails and len(set(live) - set(fails)) >= 1:
             for k in fails:
-                if k not in prob.frozen:
-                    prob.frozen[k] = p[prob._freeze_cols(k)].copy()
+                prob.freeze_view(p, k)
                 view_flags[k].append(FLAG_VIEW_REJECT)
         prob.update_active()
         for k in prob.freeze_empty(p):
@@ -1751,17 +1886,21 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
         Jpr = prob._to_real(prob.prior_jacobian_ext(p), p)
         H_data = Jd.T @ Jd
         H_prior = Jpr.T @ Jpr
-        post = _posterior(H_data + H_prior, lay, float(BUNDLE["cov_ridge_rel"].value))
+        # frozen views (rejected / empty) are conditioned on, not inverted with their stiff rows
+        post = _posterior_fixed(H_data + H_prior, lay, float(BUNDLE["cov_ridge_rel"].value), prob.frozen_cols())
         Sig, cov, cov_shape = post["Sigma"], post["cov"], post["cov_shape"]
         if not identity:
             Sj = np.asarray(shape.jacobian(p[lay.pts_off:lay.pts_end]), float)
             cov = Sj @ cov @ Sj.T
             cov_shape = Sj @ cov_shape @ Sj.T
-        rdl = prob.data_residuals(p)
+        # chi^2 over the final inliers with the noise model only (base noise x nu^2 / user and
+        # visibility weights): the view weights w_v = 1 / n_bin are left out, so chi2_red stays
+        # a calibration measure (~1 for a correct noise model) with view weighting on.
+        rdl = prob.data_residuals(p, view_weight=False)
         rd = np.concatenate(rdl) if rdl else np.zeros(0)
         m_data = int(rd.size)
         p_eff = float(np.sum(H_data * Sig))
-        dof = m_data - p_eff
+        dof = m_data - p_eff + _view_weight_dof_correction(prob, Jd, H_data, Sig)
         chi2_red = float(rd @ rd) / dof if dof > 0 else float("nan")
         dvar = np.maximum(np.diag(cov_shape), 0.0).reshape(N, 3)
         infl = max(1.0, chi2_red) if np.isfinite(chi2_red) else 1.0
@@ -1780,6 +1919,7 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
             camera_cov=cam_cov, H_data=H_data, H_prior=H_prior, param_index=lay.param_index(),
             obs_cov_px=[prob.noise[k].cov_full(vis[k], float(prob.nu[k]) ** 2) for k in range(len(views))],
             m_data=m_data, p_eff=p_eff, cov_ridge=post["ridge"], flags=list(post["flags"]) + flags,
+            chi2_dof=float(dof),
         )
     except np.linalg.LinAlgError:
         # Numerical failure only (e.g. pinv's SVD not converging on a non-finite H);
@@ -1794,9 +1934,13 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
         R, tau, rho, s = prob.cam(p, k)
         a_i, r_i, g_i = lay.a_idx[k], lay.rho_idx[k], lay.phi_idx[k]
         s_logf = s_logz = None
+        frozen_k = k in prob.frozen
         if Sig is not None:
-            s_logz = float(math.sqrt(max(Sig[r_i, r_i], 0.0)) / p[r_i])
-            if lay.kind[k] == FREE:
+            # a frozen view's block is held, not estimated: its own sigmas are None (not 0)
+            s_logz = None if frozen_k else float(math.sqrt(max(Sig[r_i, r_i], 0.0)) / p[r_i])
+            if frozen_k and lay.kind[k] != HARD:
+                s_logf = None
+            elif lay.kind[k] == FREE:
                 gv = np.zeros(lay.n)
                 gv[a_i], gv[r_i] = 1.0, -1.0 / p[r_i]
                 s_logf = float(math.sqrt(max(gv @ Sig @ gv, 0.0)))
@@ -1814,7 +1958,8 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
         jaw_deg = jaw_sd = None
         if ji >= 0:
             jaw_deg = float(np.degrees(p[ji]))
-            jaw_sd = float(np.degrees(math.sqrt(max(Sig[ji, ji], 0.0)))) if Sig is not None else None
+            if Sig is not None and not frozen_k:
+                jaw_sd = float(np.degrees(math.sqrt(max(Sig[ji, ji], 0.0))))
         yaw, pitch = prob.angles(p, k)
         m_in = np.zeros(N, bool)
         m_in[prob.active[k]] = True
@@ -1823,7 +1968,7 @@ def bundle_adjust(views: list[ViewObs], X0: np.ndarray, priors: Priors | None = 
                           chi2_threshold=thr_k, flags=list(view_flags[k]), weight_share=float(shares[k]),
                           view_weight=float(prob.view_w[k]), sigma_logf=s_logf, sigma_logz=s_logz,
                           jaw_deg=jaw_deg, jaw_sigma_deg=jaw_sd, yaw_deg=yaw, pitch_deg=pitch,
-                          n_inliers=int(len(prob.active[k])), kind=lay.kind[k]))
+                          n_inliers=int(len(prob.active[k])), kind=lay.kind[k], frozen=frozen_k))
         if chi2_test[k] is not None:
             stats[-1]["chi2_test"], stats[-1]["chi2_test_threshold"], stats[-1]["dof_test"] = chi2_test[k]
 

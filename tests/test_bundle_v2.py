@@ -5,6 +5,7 @@ pose-tag priors, visibility weights, view weights with the 40 % cap, the jaw hin
 robust schedule (robust.py), the Term / ShapeModel protocols (terms.py), the Schur step
 and the reconstruct_landmarks extensions.
 """
+import dataclasses
 import math
 import time
 
@@ -373,6 +374,29 @@ def test_distance_and_pose_priors():
         bundle_adjust([ViewObs(uv, c.copy(), distance_prior=(-1.0, 0.3))], TEMPLATE.copy(), _priors())
 
 
+def test_pose_tag_pulls_toward_tag():
+    """Angle convention of the pose tags (DESIGN 4.2): yaw = atan2(C_x, C_z), pitch = asin(C_y / |C|) of the
+    camera centre in the head frame.  A single view's orientation is set mostly by the symmetry / midline
+    priors (the points can follow the camera), so a tag 4 sigma away pulls it about halfway, in its own
+    direction; a convention with the wrong sign would push the camera the other way."""
+    rng = np.random.default_rng(12)
+    X_true = random_subject(TEMPLATE, NAMES, rng)
+    c = orbit_camera(900.0, 20.0, 5.0, 85.0)        # camera on the subject's left (+x) and above (+y)
+    uv = c.project(X_true) + rng.normal(scale=1.0, size=(N, 2))
+    uv[~rigs.visible_mask(c, X_true)] = np.nan
+    kw = dict(f_prior=c.f, f_prior_log_sigma=0.05, sigma_px=1.0)
+    free = bundle_adjust([ViewObs(uv, c.copy(), **kw)], TEMPLATE.copy(), _priors())
+    y0, p0 = B.camera_angles_deg(free.cameras[0])
+    assert 15.0 < y0 < 25.0 and 2.0 < p0 < 8.0                 # positive yaw / pitch for +x / +y centres
+    for dy, dp in ((8.0, 0.0), (-8.0, 0.0), (0.0, 8.0), (0.0, -8.0)):
+        v = ViewObs(uv, c.copy(), pose_tag=(y0 + dy, p0 + dp, 2.0, 2.0), **kw)
+        res = bundle_adjust([v], TEMPLATE.copy(), _priors())
+        y, p = B.camera_angles_deg(res.cameras[0])
+        assert res.view_stats[0]["yaw_deg"] == pytest.approx(y, abs=1e-9)
+        moved, other = ((y - y0) / dy, p - p0) if dy else ((p - p0) / dp, y - y0)
+        assert 0.25 < moved < 0.75 and abs(other) < 1.0, (dy, dp, y - y0, p - p0)
+
+
 # ------------------------------------------------------------------ robust schedule
 def _rear_phone_views(seed, outlier_frac, noise_mult=None):
     """rear_phone scenario (legacy subject, definition bias on) with the simulator's true per-observation
@@ -427,7 +451,8 @@ def test_robust_rejection_rates():
     assert np.median(rms) <= 1.1 * np.median(rms0), (np.median(rms), np.median(rms0))
 
 
-def test_noisy_view_flagged():
+def _noisy_scene():
+    """Five views; view 2 has 3x the modelled noise (sigma_px 1.5)."""
     rng = np.random.default_rng(17)
     X_true = random_subject(TEMPLATE, NAMES, rng)
     views = []
@@ -437,6 +462,53 @@ def test_noisy_view_flagged():
         uv = c.project(X_true) + rng.normal(scale=1.5 * s, size=(N, 2))
         uv[~rigs.visible_mask(c, X_true)] = np.nan
         views.append(ViewObs(uv, c.copy(), f_prior=c.f, f_prior_log_sigma=0.05, focal_group="g", sigma_px=1.5))
+    return views
+
+
+def test_robust_schedule_weights_and_view_test(monkeypatch):
+    """Inside each robust round the IRLS weights are Huber / Tukey of e / nu_v (DESIGN 4.5 step 4: the
+    per-view scale multiplies the noise), the final round keeps e / nu_v <= 3.035, and the view chi^2 test
+    uses dof_v = 2 n_v - 7 with the 0.99 Wilson-Hilferty bound."""
+    views = _noisy_scene()
+    rounds = []
+    orig = B.levenberg_marquardt
+
+    def shim(fun, x0, **kw):
+        prob = fun.__self__                         # the bound _Problem.residuals of this round
+        snap = []
+        for k in range(prob.V):
+            idx = np.flatnonzero(prob.considered(k))
+            snap.append((prob.base_e(x0, k, idx) / prob.nu[k], float(prob.nu[k]), prob.irls[k][idx].copy()))
+        rounds.append(snap)
+        return orig(fun, x0, **kw)
+    monkeypatch.setattr(B, "levenberg_marquardt", shim)
+    sch = RobustSchedule()
+    res = bundle_adjust(views, TEMPLATE.copy(), _priors(), robust=sch)
+    assert len(rounds) == sch.huber_rounds + sch.tukey_rounds + 1
+    for r, snap in enumerate(rounds):
+        for k, (en, nu, w) in enumerate(snap):
+            if r < sch.huber_rounds:
+                want = R.huber_weights(en, sch.huber_delta)
+            elif r < sch.huber_rounds + sch.tukey_rounds:
+                want = R.tukey_weights(en, sch.tukey_c)
+            else:
+                want = (en <= sch.reject_k).astype(float)
+            assert np.allclose(w, want, rtol=1e-12, atol=1e-15), (r, k)
+        # the noisy view's scale is well above one, so weights on e instead of e / nu would differ
+        assert snap[2][1] > 1.5 and np.any(R.huber_weights(snap[2][0] * snap[2][1], sch.huber_delta)
+                                           != R.huber_weights(snap[2][0], sch.huber_delta)), r
+    for k, st in enumerate(res.view_stats):
+        en = rounds[-1][k][0]
+        inl = en <= sch.reject_k
+        n_in = int(inl.sum())
+        assert n_in == st["n_inliers"] and st["dof_test"] == 2 * n_in - 7, (k, n_in, st["dof_test"])
+        assert st["chi2_test"] == pytest.approx(float(np.sum(en[inl] ** 2)), rel=1e-9)
+        assert st["chi2_test_threshold"] == pytest.approx(R.chi2_quantile_wh(2 * n_in - 7, 0.99), rel=1e-12)
+        assert st["dof"] == 2 * st["n_inliers"] - 7
+
+
+def test_noisy_view_flagged():
+    views = _noisy_scene()
     res = bundle_adjust(views, TEMPLATE.copy(), _priors(), robust=RobustSchedule())
     nu2 = [st["nu"] ** 2 for st in res.view_stats]
     assert nu2[2] > 4.0 and "F-VIEW-NOISY" in res.view_stats[2]["flags"], nu2
@@ -448,22 +520,49 @@ def test_noisy_view_flagged():
     assert np.allclose(res.obs_cov_px[2][m, 0, 0], 1.5 ** 2 * nu2[2])
 
 
-def test_view_rejected_and_outlier_flag():
-    rng = np.random.default_rng(23)
+def _reject_scene(seed=23, solo_view=False):
+    """Five views of one HARD group; view 1 has shuffled correspondences (rejected), view 3 25 % gross
+    outliers.  ``solo_view``: view 1 is instead alone in a soft-tied group without a focal prior."""
+    rng = np.random.default_rng(seed)
     X_true = random_subject(TEMPLATE, NAMES, rng)
     views = []
     for k, yaw in enumerate((-50, -25, 0, 25, 50)):
         c = orbit_camera(600.0, yaw, rng.uniform(-5, 5), 26.0)
         uv = c.project(X_true) + rng.normal(scale=1.5, size=(N, 2))
         vis = rigs.visible_mask(c, X_true)
+        kw = dict(f_prior=c.f, f_prior_log_sigma=0.05, focal_group="g")
         if k == 1:    # wrong correspondences: a shuffled view (nu clipped at 3, chi^2 test fails)
             perm = rng.permutation(np.flatnonzero(vis))
             uv[np.flatnonzero(vis)] = uv[perm] + rng.normal(scale=40.0, size=(len(perm), 2))
+            if solo_view:
+                kw = dict(focal_group="solo", focal_tie_sigma=0.02)
         if k == 3:    # 25 % gross outliers
             bad = rng.choice(np.flatnonzero(vis), size=int(0.25 * vis.sum()), replace=False)
             uv[bad] += rng.normal(scale=60.0, size=(len(bad), 2))
         uv[~vis] = np.nan
-        views.append(ViewObs(uv, c.copy(), f_prior=c.f, f_prior_log_sigma=0.05, focal_group="g", sigma_px=1.5))
+        views.append(ViewObs(uv, c.copy(), sigma_px=1.5, **kw))
+    return X_true, views
+
+
+def _final_problem_without(views, res, drop):
+    """The final plain least-squares problem of the robust solve ``res`` without the views in ``drop``:
+    every kept view restricted to its final inliers (NaN elsewhere), its sigma_px scaled by nu_v, started
+    from ``res``'s cameras.  Solved with ``huber_px=None`` it is the schedule's final solve with the dropped
+    views' observations excluded, so it isolates the final solve from the Huber / Tukey rounds (in which
+    a bad view legitimately takes part and can change the good views' inlier sets)."""
+    out = []
+    for k, v in enumerate(views):
+        if k in drop:
+            continue
+        uv = v.uv.copy()
+        uv[~res.inlier_mask[k]] = np.nan
+        out.append(dataclasses.replace(v, uv=uv, camera=res.cameras[k].copy(),
+                                       sigma_px=v.sigma_px * res.view_stats[k]["nu"]))
+    return out
+
+
+def test_view_rejected_and_outlier_flag():
+    X_true, views = _reject_scene()
     res = bundle_adjust(views, TEMPLATE.copy(), _priors(), robust=RobustSchedule())
     st = res.view_stats
     assert "F-VIEW-REJECT" in st[1]["flags"] and not res.inlier_mask[1].any()
@@ -472,6 +571,68 @@ def test_view_rejected_and_outlier_flag():
     assert {"F-VIEW-REJECT", "F-VIEW-OUTLIERS"} <= set(res.flags)
     assert procrustes_rmse(res.X, X_true) < 0.5 * procrustes_rmse(TEMPLATE, X_true)
     assert np.isfinite(res.cov).all() and "COV-SINGULAR" not in res.flags
+
+
+def _tie_reject_scene(seed):
+    """Four views at 0.5 m in one soft-tied group (tie 0.02, EXIF prior 10 % off with sigma 0.6); view 3 has
+    shuffled correspondences and starts 40 % off in f and distance."""
+    rng = np.random.default_rng(seed)
+    X_true = random_subject(TEMPLATE, NAMES, rng)
+    views, cams = [], []
+    for k, yaw in enumerate((-35, -10, 10, 35)):
+        c = orbit_camera(500.0 * rng.uniform(0.95, 1.05), yaw, rng.uniform(-5, 5), 26.0)
+        uv = c.project(X_true) + rng.normal(scale=1.0, size=(N, 2))
+        vis = rigs.visible_mask(c, X_true)
+        c0 = c.copy()
+        c0.f, c0.t = c.f * 1.1, c.t * 1.1
+        if k == 3:
+            uv[np.flatnonzero(vis)] = uv[rng.permutation(np.flatnonzero(vis))]
+            c0.f, c0.t = c.f * 1.4, c.t * 1.4
+        uv[~vis] = np.nan
+        views.append(ViewObs(uv, c0, f_prior=c.f * 1.1, f_prior_log_sigma=0.6, focal_group="phone",
+                             focal_tie_sigma=0.02, sigma_px=1.0))
+        cams.append(c)
+    return X_true, views, cams
+
+
+def test_rejected_view_is_conditioned_out():
+    """A rejected (frozen) view leaves no trace in the final solve or its posterior (DESIGN 4.5):
+    (a) its stiff holding rows do not set the covariance ridge (the posterior is conditional on the frozen
+    block), (b) its soft focal tie no longer pulls phi_G, (c) a focal group left without a live view has
+    its phi held too.  Reference: the same final least-squares problem without the view."""
+    # (a) HARD group: covariance equals the solve without the view (the ridge was ~0.04 mm^-2 before,
+    #     overconfident by up to 2x against an 8 mm prior)
+    _, views = _reject_scene()
+    pri = _priors()
+    res = bundle_adjust(views, TEMPLATE.copy(), pri, robust=RobustSchedule())
+    assert "F-VIEW-REJECT" in res.view_stats[1]["flags"]
+    ref = bundle_adjust(_final_problem_without(views, res, {1}), res.X.copy(), pri, huber_px=None)
+    assert np.abs(res.X - ref.X).max() < 1e-4
+    assert abs(res.cov_ridge / ref.cov_ridge - 1) < 1e-3, (res.cov_ridge, ref.cov_ridge)
+    assert np.linalg.norm(res.cov - ref.cov) / np.linalg.norm(ref.cov) < 1e-3
+    assert np.abs(res.point_sigma_mm / ref.point_sigma_mm - 1).max() < 1e-3
+    assert res.sigma_rep_mm == pytest.approx(ref.sigma_rep_mm, rel=1e-3)
+    st1 = res.view_stats[1]
+    assert st1["frozen"] and st1["sigma_logz"] is None and st1["sigma_logf"] is not None   # HARD: f = e^phi_G
+    assert not np.any(res.camera_cov[1][:6, :6]) and not any(s["frozen"] for k, s in enumerate(res.view_stats)
+                                                              if k != 1)
+    # (b) soft-tied group: the rejected view's frozen focal no longer drags the group's focal
+    X_true, views, cams = _tie_reject_scene(4)
+    res = bundle_adjust(views, TEMPLATE.copy(), _priors(), robust=RobustSchedule())
+    assert "F-VIEW-REJECT" in res.view_stats[3]["flags"] and res.view_stats[3]["kind"] == "free"
+    ref = bundle_adjust(_final_problem_without(views, res, {3}), res.X.copy(), _priors(), huber_px=None)
+    f, f_ref = np.array([c.f for c in res.cameras[:3]]), np.array([c.f for c in ref.cameras])
+    assert np.abs(f / f_ref - 1).max() < 1e-5, f / f_ref - 1               # was 2-9 % with the tie kept
+    assert np.abs(res.X - ref.X).max() < 1e-4
+    assert np.linalg.norm(res.cov - ref.cov) / np.linalg.norm(ref.cov) < 1e-3
+    assert max(abs(c.f / t.f - 1) for c, t in zip(res.cameras[:3], cams)) < 0.03
+    assert res.view_stats[3]["sigma_logf"] is None and res.view_stats[3]["sigma_logz"] is None
+    # (c) the rejected view was alone in its (soft-tied, prior-less) group: phi_solo is held as well
+    _, views = _reject_scene(solo_view=True)
+    res = bundle_adjust(views, TEMPLATE.copy(), _priors(), robust=RobustSchedule())
+    assert "F-VIEW-REJECT" in res.view_stats[1]["flags"] and "phi_1" in res.param_index
+    assert not np.any(res.camera_cov[1]) and "COV-SINGULAR" not in res.flags
+    assert np.isfinite(res.cov).all()
 
 
 # ------------------------------------------------------------------ visibility and view weights
@@ -486,7 +647,9 @@ def test_visibility_weights_and_contour_rule():
         views.append(ViewObs(uv, c.copy(), f_prior=c.f, f_prior_log_sigma=0.05, focal_group="g", sigma_px=1.0,
                              kinds=kinds))          # every point 'visible' to the detector
     res = bundle_adjust(views, TEMPLATE.copy(), _priors(), landmark_normals=_normals(TEMPLATE))
-    plain = bundle_adjust(views, TEMPLATE.copy(), _priors())
+    # without normals AND without contour kinds nothing is dropped (the far-side contour rule needs only
+    # the kinds and also runs without normals: test_contour_rule_without_normals)
+    plain = bundle_adjust([dataclasses.replace(v, kinds=None) for v in views], TEMPLATE.copy(), _priors())
     assert all(m.all() for m in plain.inlier_mask)
     for k, yaw in enumerate((-60, 0, 60)):
         C = res.cameras[k].center
@@ -500,8 +663,41 @@ def test_visibility_weights_and_contour_rule():
     assert res.m_data < plain.m_data
 
 
-def test_view_weight_cap():
-    rng = np.random.default_rng(3)
+def test_contour_rule_without_normals():
+    """The far-side contour rule (DESIGN 4.8: far-side oval points drop out at |yaw| > 25 deg) needs only the
+    kinds and the yaw, so it applies without landmark_normals, and at moderate yaws where the normal ramp
+    would still keep the points."""
+    rng = np.random.default_rng(8)
+    X_true = random_subject(TEMPLATE, NAMES, rng)
+    kinds = ["contour" if n.startswith(("zygion", "gonion", "tragion")) else "generic" for n in NAMES]
+    contour = np.array([k == "contour" for k in kinds])
+    yaws = (-35.0, 0.0, 20.0, 30.0)
+    views = []
+    for yaw in yaws:
+        c = orbit_camera(600.0, yaw, 0.0, 26.0)
+        uv = c.project(X_true) + rng.normal(scale=1.0, size=(N, 2))
+        views.append(ViewObs(uv, c.copy(), f_prior=c.f, f_prior_log_sigma=0.05, focal_group="g", sigma_px=1.0,
+                             kinds=kinds))          # every point 'visible' to the detector
+    res = bundle_adjust(views, TEMPLATE.copy(), _priors())
+    for k, yaw in enumerate(yaws):
+        far = contour & (res.X[:, 0] * yaw < 0)
+        if abs(yaw) > 25.0:
+            assert far.any() and not res.inlier_mask[k][far].any(), yaw
+            assert res.inlier_mask[k][~far].all(), yaw
+        else:
+            assert res.inlier_mask[k].all(), yaw
+    # with normals that keep every point front-facing (+z: weight 1 up to 60 deg), the rule still drops
+    # exactly the far-side contour points
+    front = np.tile([0.0, 0.0, 1.0], (N, 1))
+    nrm = bundle_adjust(views, TEMPLATE.copy(), _priors(), landmark_normals=front)
+    assert all(np.array_equal(a, b) for a, b in zip(nrm.inlier_mask, res.inlier_mask))
+    no_kinds = [dataclasses.replace(v, kinds=None) for v in views]
+    assert all(m.all() for m in bundle_adjust(no_kinds, TEMPLATE.copy(), _priors()).inlier_mask)
+
+
+def _cap_scene(seed=3):
+    """Six near-identical frontal views (one yaw/pitch bin) plus one profile, sigma_px 1 = true noise."""
+    rng = np.random.default_rng(seed)
     X_true = random_subject(TEMPLATE, NAMES, rng)
     views = []
     for k in range(7):
@@ -510,6 +706,11 @@ def test_view_weight_cap():
         uv = c.project(X_true) + rng.normal(scale=1.0, size=(N, 2))
         uv[~rigs.visible_mask(c, X_true)] = np.nan
         views.append(ViewObs(uv, c.copy(), f_prior=c.f, f_prior_log_sigma=0.05, focal_group="g", sigma_px=1.0))
+    return views
+
+
+def test_view_weight_cap():
+    views = _cap_scene()
     res = bundle_adjust(views, TEMPLATE.copy(), _priors(), view_weighting=True)
     share = np.array([st["weight_share"] for st in res.view_stats])
     w = np.array([st["view_weight"] for st in res.view_stats])
@@ -522,6 +723,54 @@ def test_view_weight_cap():
     assert share[6] > share[0]                                           # and still counts most
     off = bundle_adjust(views, TEMPLATE.copy(), _priors())
     assert np.allclose([st["view_weight"] for st in off.view_stats], 1.0)
+
+
+def _with_bundle_default(monkeypatch, name, value):
+    """Override one ``bundle`` default for the duration of a test."""
+    table = {k: (dataclasses.replace(d, value=value) if k == name else d) for k, d in B.BUNDLE.items()}
+    monkeypatch.setattr(B, "BUNDLE", table)
+
+
+def test_view_weight_cap_second_pass(monkeypatch):
+    # information ~ 1 / sigma^2: uncapped shares ~(0.62, 0.31, 0.04, 0.03).  Capping view 0 lifts view 1
+    # to ~0.49, so a second pass is needed, and view 0 must stay capped while view 1 is (water-filling)
+    rng = np.random.default_rng(5)
+    X_true = random_subject(TEMPLATE, NAMES, rng)
+    views = []
+    for yaw, s in zip((0, 30, -30, 60), (0.5, 0.707, 2.0, 2.0)):
+        c = orbit_camera(600.0, yaw, rng.uniform(-3, 3), 26.0)
+        uv = c.project(X_true) + rng.normal(scale=s, size=(N, 2))
+        uv[~rigs.visible_mask(c, X_true)] = np.nan
+        views.append(ViewObs(uv, c.copy(), f_prior=c.f, f_prior_log_sigma=0.05, focal_group="g", sigma_px=s))
+    res = bundle_adjust(views, TEMPLATE.copy(), _priors(), view_weighting=True)
+    share = np.array([st["weight_share"] for st in res.view_stats])
+    assert share.max() <= 0.40 + 1e-4, share
+    assert abs(share[0] - 0.40) < 1e-3 and abs(share[1] - 0.40) < 1e-3, share       # both capped
+    assert all(st["view_weight"] < 1.0 for st in res.view_stats[:2])
+    assert all(st["view_weight"] == 1.0 for st in res.view_stats[2:])
+    # precondition: a single pass caps view 0 but leaves view 1 above the cap
+    _with_bundle_default(monkeypatch, "view_cap_passes", 1)
+    one = bundle_adjust(views, TEMPLATE.copy(), _priors(), view_weighting=True)
+    s1 = np.array([st["weight_share"] for st in one.view_stats])
+    assert abs(s1[0] - 0.40) < 1e-3 and s1[1] > 0.45, s1
+
+
+def test_chi2_red_excludes_view_weights():
+    """chi2_red measures the noise model: the view weights (de-duplication, not noise) stay out of it."""
+    views = _cap_scene()
+    on = bundle_adjust(views, TEMPLATE.copy(), _priors(), huber_px=None, view_weighting=True)
+    off = bundle_adjust(views, TEMPLATE.copy(), _priors(), huber_px=None)
+    assert any(st["view_weight"] < 0.5 for st in on.view_stats)
+    # sigma_px = 1, nu = 1, no IRLS: chi^2 is the plain sum of squared pixel residuals of the inliers
+    chi2 = sum(float(np.sum(r[m] ** 2)) for r, m in zip(on.per_view_residuals, on.inlier_mask))
+    assert on.chi2_red == pytest.approx(chi2 / on.chi2_dof, rel=1e-6)
+    assert off.chi2_dof == pytest.approx(off.m_data - off.p_eff, rel=1e-12)
+    # the weighted fit does not minimise the unweighted chi^2: its expectation exceeds m - p_eff
+    assert on.m_data - on.p_eff < on.chi2_dof < on.m_data
+    # correct noise model: ~1 with or without view weighting (was ~0.2 with the weights inside chi^2)
+    assert 0.8 < on.chi2_red < 1.25 and abs(on.chi2_red / off.chi2_red - 1) < 0.1, (on.chi2_red, off.chi2_red)
+    rob = bundle_adjust(views, TEMPLATE.copy(), _priors(), robust=RobustSchedule(), view_weighting=True)
+    assert 0.75 < rob.chi2_red < 1.25, rob.chi2_red
 
 
 # ------------------------------------------------------------------ jaw hinge
@@ -555,13 +804,27 @@ def test_jaw_hinge_recovers_opening():
     assert rigid_fit.view_stats[3]["jaw_deg"] is None and "jaw_3" not in rigid_fit.param_index
     rigid = JAW_W == 0
 
-    def moved(res):
-        """Rigid-landmark displacement vs the no-opening solve after similarity alignment on them
-        (gauge-projected, DESIGN 7.3: the legacy prior fixes pose and size only loosely)."""
+    def aligned(res):
+        """(scale, displacement) of the rigid-class landmarks vs the no-opening solve after a similarity
+        alignment on them.  DESIGN 7.3 projects out pose and evaluates scale separately, so the 0.3 mm
+        acceptance gate is a SHAPE gate; the scale change is bounded below against its posterior."""
         s, Rm, t = umeyama(res.X[rigid], closed.X[rigid], with_scale=True)
-        return np.linalg.norm(s * res.X[rigid] @ Rm.T + t - closed.X[rigid], axis=1)
-    assert moved(opened).max() < 0.3, moved(opened).max()
-    assert moved(rigid_fit).max() > 3 * moved(opened).max()
+        return s, np.linalg.norm(s * res.X[rigid] @ Rm.T + t - closed.X[rigid], axis=1)
+    s_open, d_open = aligned(opened)
+    assert d_open.max() < 0.3, d_open.max()
+    assert aligned(rigid_fit)[1].max() > 3 * d_open.max()
+    # Scale: the legacy prior (template mean, 8 mm) and the 5 % focal prior fix size only loosely, so the
+    # posterior sigma of the rigid landmarks' log-size is ~2 %.  The opening moves the size within that
+    # posterior and not systematically (over 20 subject x noise draws: ln s = +0.06 % +- 1.2 %, all
+    # |ln s| < 1.3 sigma); here ln s ~ -1.6 %, i.e. up to ~2.8 mm of raw rigid-landmark motion, which a
+    # rigid-only alignment would therefore show.
+    idx = np.flatnonzero(rigid)
+    D = closed.X[idx] - closed.X[idx].mean(axis=0)
+    g = np.zeros((N, 3))
+    g[idx] = D / np.sum(D * D)                          # d ln(rms size) / dX
+    sig_lnsize = float(np.sqrt(g.ravel() @ closed.cov @ g.ravel()))
+    assert 0.01 < sig_lnsize < 0.04, sig_lnsize
+    assert abs(math.log(s_open)) < 2.0 * sig_lnsize, (math.log(s_open), sig_lnsize)
     assert procrustes_rmse(rigid_fit.X, X_true) > procrustes_rmse(opened.X, X_true)
     assert max(opened.rmse_px) < 4.0 and rigid_fit.rmse_px[3] > opened.rmse_px[3]
     with pytest.raises(ValueError, match="jaw_weights"):
